@@ -1,0 +1,94 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "cmake clean",
+            "type": "shell",
+            "command": "rm -rf build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "cmake generate",
+            "type": "shell",
+            "command": "cmake -G \"Unix Makefiles\" -S . -B ./build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "cd build && make",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "cmake generate"
+            ]
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "./ProjectName",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        {
+            "label": "unit test",
+            "type": "shell",
+            "command": "cd build/tests && ./ProjectName.t --gtest_color=no",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        {
+            "label": "filtered tests",
+            "type": "shell",
+            "command": "cd build/tests && ./ProjectName.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build"
+            ]
+        },
+        {
+            "label": "build docs",
+            "type": "shell",
+            "command": "rm -rf docs/doxygen && doxygen Doxyfile",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ],
+    "inputs": [
+        {
+            "id": "tfilter",
+            "description": "Regex filter for tests to run:",
+            "default": "*",
+            "type": "promptString"
+        },
+    ],
+    "problemMatcher": {
+        "base": "$gcc",
+        "fileLocation": [
+            "absolute"
+        ]
+    }
+}

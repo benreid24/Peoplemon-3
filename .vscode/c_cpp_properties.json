@@ -1,0 +1,34 @@
+{
+    "env": {
+        "inclpath": [
+            "${workspaceFolder}/lib/BLIB/lib/SFML/include",
+            "${workspaceFolder}/lib/BLIB/include",
+            "${workspaceFolder}/include",
+            "${workspaceFolder}/src",
+            "${workspaceFolder}/lib/BLIB/lib/gtest/googletest/include",
+            "${workspaceFolder}/lib/BLIB/lib/gtest/googlemock/include"
+        ],
+        "compiler": "C:/MinGW/mingw64/bin/g++.exe"
+    },
+    "configurations": [
+        {
+            "name": "ProjectName",
+            "intelliSenseMode": "gcc-x64",
+            "includePath": [
+                "${inclpath}"
+            ],
+            "defines": [],
+            "compilerPath": "${compiler}",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true,
+                "databaseFilename": ""
+            }
+        }
+    ],
+    "version": 4
+}
