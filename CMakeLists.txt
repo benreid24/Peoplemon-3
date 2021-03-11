@@ -29,9 +29,10 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Common STATIC)
 
-set(STATIC_PROJECT_LINK_FLAG "")
 if (STATIC_LINK)
-    set(STATIC_PROJECT_LINK_FLAG "-static")
+    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+    set(BUILD_SHARED_LIBRARIES OFF)
+    set(CMAKE_EXE_LINKER_FLAGS "-static")
 endif()
 
 target_link_libraries(Peoplemon PRIVATE
@@ -43,8 +44,6 @@ target_link_libraries(Peoplemon PRIVATE
     sfml-network
     sfml-audio
     sfml-system
-
-    ${STATIC_PROJECT_LINK_FLAG}
 )
 
 target_link_libraries(PeoplemonEditor PRIVATE
@@ -56,8 +55,6 @@ target_link_libraries(PeoplemonEditor PRIVATE
     sfml-network
     sfml-audio
     sfml-system
-
-    ${STATIC_PROJECT_LINK_FLAG}
 )
 
 include_directories(include)
