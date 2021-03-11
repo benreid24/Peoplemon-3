@@ -1,0 +1,1 @@
+openStore("We have the best Casino store items around.","We both know you're too poor for that",5,400,14,1200,33,3000,34,4900,37,5000);

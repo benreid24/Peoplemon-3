@@ -1,0 +1,1 @@
+spawnNPC("NativeEncampment/VincingtonNative.npc",4,4,0,0);

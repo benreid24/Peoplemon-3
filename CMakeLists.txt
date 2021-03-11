@@ -8,7 +8,7 @@ if (POLICY CMP0025)
   cmake_policy(SET CMP0025 NEW)
 endif()
 
-project(ProjectName C CXX)
+project(Peoplemon C CXX)
 
 # BLIB will inherit these settings as well
 option(STATIC_LINK "On to link statically" On)
@@ -25,14 +25,31 @@ add_subdirectory(lib/BLIB)
 include_directories(lib/BLIB/include)
 include_directories(lib/BLIB/lib/SFML/include)
 
-add_executable(ProjectName)
+add_executable(Peoplemon)
+add_executable(PeoplemonEditor)
+add_library(Common STATIC)
+
 set(STATIC_PROJECT_LINK_FLAG "")
 if (STATIC_LINK)
     set(STATIC_PROJECT_LINK_FLAG "-static")
 endif()
 
-target_link_libraries(ProjectName PRIVATE
+target_link_libraries(Peoplemon PRIVATE
     BLIB
+    Common
+
+    sfml-graphics
+    sfml-window
+    sfml-network
+    sfml-audio
+    sfml-system
+
+    ${STATIC_PROJECT_LINK_FLAG}
+)
+
+target_link_libraries(PeoplemonEditor PRIVATE
+    BLIB
+    Common
 
     sfml-graphics
     sfml-window
@@ -52,7 +69,14 @@ if (BUILD_TESTS)
     add_subdirectory(tests)
 endif()
 
-set_target_properties(ProjectName
+set_target_properties(Peoplemon
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    OUTPUT_NAME "Peoplemon${CMAKE_BUILD_TYPE}"
+)
+
+set_target_properties(PeoplemonEditor
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    OUTPUT_NAME "PeoplemonEditor${CMAKE_BUILD_TYPE}"
 )

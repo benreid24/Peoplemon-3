@@ -1,0 +1,22 @@
+if(getSaveEntry("WellThugsBeat")!=1)
+{
+spawnNPC("Churchton/DoorClergyInside.npc",11,25,0,0);
+spawnNPC("Churchton/Churchguy1.npc",7,19,0,0);
+spawnNPC("Churchton/Churchguy6.npc",14,15,0,0);
+spawnNPC("Churchton/Churchguy5.npc",10,19,0,0);
+spawnNPC("Churchton/Churchguy2.npc",12,11,0,0);
+spawnNPC("Churchton/Churchguy3.npc",8,13,0,0);
+spawnNPC("Churchton/Churchguy4.npc",7,15,0,0);
+spawnNPC("Churchton/Churchguy7.npc",8,11,0,0);
+spawnNPC("Churchton/Churchguy8.npc",11,19,0,0);
+spawnNPC("Churchton/DoorClergyInside2.npc",6,25,0,0);
+spawnNPC("Churchton/Pastor1.npc",8,5,2,0);
+}
+elif(trainerDefeated("Pastor2")!=1)
+{
+ spawnNPC("Churchton/Pastor2.npc",8,5,1,0);
+ spawnNPC("Churchton/ThugBoss2.npc",11,5,3,0);
+ spawnNPC("Churchton/ThugPeter2.npc",12,4,3,0);
+ spawnNPC("Churchton/ThugPaul2.npc",12,6,3,0);
+ spawnNPC("Churchton/ThugMary2.npc",12,7,3,0);
+}

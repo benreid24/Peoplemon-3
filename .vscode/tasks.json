@@ -11,42 +11,75 @@
             }
         },
         {
-            "label": "cmake generate",
+            "label": "cmake generate debug",
             "type": "shell",
-            "command": "cmake -G \"Unix Makefiles\" -S . -B ./build",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -G \"Unix Makefiles\" -S . -B ./build-debug",
             "group": {
                 "kind": "build",
                 "isDefault": true
             }
         },
         {
-            "label": "build",
+            "label": "cmake generate release",
             "type": "shell",
-            "command": "cd build && make",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Release -G \"Unix Makefiles\" -S . -B ./build-release",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "build debug",
+            "type": "shell",
+            "command": "cd build-debug && make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "dependsOn": [
-                "cmake generate"
+                "cmake generate debug"
             ]
         },
         {
-            "label": "run",
+            "label": "build release",
             "type": "shell",
-            "command": "./ProjectName",
+            "command": "cd build-release && make",
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
             "dependsOn": [
-                "build"
+                "cmake generate release"
+            ]
+        },
+        {
+            "label": "run debug",
+            "type": "shell",
+            "command": "./PeoplemonDebug",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build debug"
+            ]
+        },
+        {
+            "label": "run release",
+            "type": "shell",
+            "command": "./PeoplemonRelease",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "build release"
             ]
         },
         {
             "label": "unit test",
             "type": "shell",
-            "command": "cd build/tests && ./ProjectName.t --gtest_color=no",
+            "command": "cd build/tests && ./Peoplemon.t --gtest_color=no",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -58,7 +91,7 @@
         {
             "label": "filtered tests",
             "type": "shell",
-            "command": "cd build/tests && ./ProjectName.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
+            "command": "cd build/tests && ./Peoplemon.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -32,7 +32,7 @@ DOXYFILE_ENCODING      = UTF-8
 # title of most generated pages and in a few other places.
 # The default value is: My Project.
 
-PROJECT_NAME           = ProjectName
+PROJECT_NAME           = Peoplemon
 
 # The PROJECT_NUMBER tag can be used to enter a project or revision number. This
 # could be handy for archiving the generated documentation or if some version
@@ -1817,7 +1817,7 @@ EXTRA_PACKAGES         =
 #
 # Note: Only use a user-defined header if you know what you are doing! The
 # following commands have a special meaning inside the header: $title,
-# $datetime, $date, $doxygenversion, $projectname, $projectnumber,
+# $datetime, $date, $doxygenversion, $Peoplemon, $projectnumber,
 # $projectbrief, $projectlogo. Doxygen will replace $title with the empty
 # string, for the replacement values of the other commands the user is referred
 # to HTML_HEADER.

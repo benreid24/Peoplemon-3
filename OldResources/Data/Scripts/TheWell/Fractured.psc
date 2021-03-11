@@ -1,0 +1,12 @@
+print("ifWorks");
+ sleep(3000);
+ moveNPC("LThugL",1);
+ sleep(500);
+ messageBox("..well crap..","The boss is not going to be happy about this.","Without more than half our Thugs, it'd be difficult to get the goods.","We better head back and let the boss know what happened.","I'd call him, but my cell phone is dead.");
+print("Messages");
+ sleep(1500);
+ messageBox("Yes Sir!");
+ sleep(2000);
+ setPlayerLock(0);
+ addSaveEntry("Crap",1);
+ loadMap("TheWell/TheWell",7);

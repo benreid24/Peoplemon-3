@@ -1,0 +1,1 @@
+spawnTrainer("NativeEncampment/Leader.tnr",7,5,2,0);

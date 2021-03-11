@@ -1,0 +1,1 @@
+//remove strong2 npc and tile

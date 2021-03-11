@@ -1,3 +1,3 @@
-target_sources(ProjectName PUBLIC
-    Properties.hpp
-)
+add_subdirectory(Common)
+add_subdirectory(Editor)
+add_subdirectory(Game)

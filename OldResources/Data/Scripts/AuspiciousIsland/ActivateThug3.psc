@@ -1,0 +1,5 @@
+while(1==1) {
+ sleep(400);
+ trainerToLocation("chaseThug3",playerXWorldPos()/32,playerYWorldPos()/32+1,1);
+ sleep(200);
+}
