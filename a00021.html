@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: DemoEngineState Class Reference</title>
+<title>Peoplemon: States</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,412 +62,30 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
-<a href="a00018.html">List of all members</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">DemoEngineState Class Reference</div>  </div>
+<div class="title">States</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for DemoEngineState:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00021.png" usemap="#DemoEngineState_map" alt=""/>
-  <map id="DemoEngineState_map" name="DemoEngineState_map">
-</map>
- </div></div>
+
+<p>Collection of each possible game state.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ab60dc8fea40257083292a38afe666384"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#ab60dc8fea40257083292a38afe666384">name</a> () const override</td></tr>
-<tr class="separator:ab60dc8fea40257083292a38afe666384"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0939f4485b68d5604f73063d72d9e4e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#ae0939f4485b68d5604f73063d72d9e4e">makeActive</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="separator:ae0939f4485b68d5604f73063d72d9e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a171d3d4b24a6076b58cd10ff4a385b88"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#a171d3d4b24a6076b58cd10ff4a385b88">update</a> (bl::engine::Engine &amp;engine, float dt) override</td></tr>
-<tr class="separator:a171d3d4b24a6076b58cd10ff4a385b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60c8a2a801ab9a292b74db36c92d1a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#aa60c8a2a801ab9a292b74db36c92d1a5">render</a> (bl::engine::Engine &amp;engine, float lag) override</td></tr>
-<tr class="separator:aa60c8a2a801ab9a292b74db36c92d1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab60dc8fea40257083292a38afe666384"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#ab60dc8fea40257083292a38afe666384">name</a> () const override</td></tr>
-<tr class="separator:ab60dc8fea40257083292a38afe666384"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0939f4485b68d5604f73063d72d9e4e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#ae0939f4485b68d5604f73063d72d9e4e">makeActive</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="separator:ae0939f4485b68d5604f73063d72d9e4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a171d3d4b24a6076b58cd10ff4a385b88"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#a171d3d4b24a6076b58cd10ff4a385b88">update</a> (bl::engine::Engine &amp;engine, float dt) override</td></tr>
-<tr class="separator:a171d3d4b24a6076b58cd10ff4a385b88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa60c8a2a801ab9a292b74db36c92d1a5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#aa60c8a2a801ab9a292b74db36c92d1a5">render</a> (bl::engine::Engine &amp;engine, float lag) override</td></tr>
-<tr class="separator:aa60c8a2a801ab9a292b74db36c92d1a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a6217bd3de34b18ad0882d37ee9430239"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#a6217bd3de34b18ad0882d37ee9430239">create</a> ()</td></tr>
-<tr class="separator:a6217bd3de34b18ad0882d37ee9430239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6217bd3de34b18ad0882d37ee9430239"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#a6217bd3de34b18ad0882d37ee9430239">create</a> ()</td></tr>
-<tr class="separator:a6217bd3de34b18ad0882d37ee9430239"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa175955a299cd2cdd64abc3bf89b2319"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00021.html#aa175955a299cd2cdd64abc3bf89b2319">DegPerSec</a> = 60.f</td></tr>
-<tr class="separator:aa175955a299cd2cdd64abc3bf89b2319"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00033.html">game::state::MainMenu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the main menu as an engine state.  <a href="a00033.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00007">7</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6217bd3de34b18ad0882d37ee9430239"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6217bd3de34b18ad0882d37ee9430239">&#9670;&nbsp;</a></span>create() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bl::engine::State::Ptr DemoEngineState::create </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00011">11</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6217bd3de34b18ad0882d37ee9430239"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6217bd3de34b18ad0882d37ee9430239">&#9670;&nbsp;</a></span>create() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static bl::engine::State::Ptr DemoEngineState::create </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00057_source.html#l00011">11</a> of file <a class="el" href="a00057_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae0939f4485b68d5604f73063d72d9e4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0939f4485b68d5604f73063d72d9e4e">&#9670;&nbsp;</a></span>makeActive() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::makeActive </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00057_source.html#l00015">15</a> of file <a class="el" href="a00057_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae0939f4485b68d5604f73063d72d9e4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0939f4485b68d5604f73063d72d9e4e">&#9670;&nbsp;</a></span>makeActive() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::makeActive </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00015">15</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab60dc8fea40257083292a38afe666384"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab60dc8fea40257083292a38afe666384">&#9670;&nbsp;</a></span>name() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const char* DemoEngineState::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00013">13</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab60dc8fea40257083292a38afe666384"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab60dc8fea40257083292a38afe666384">&#9670;&nbsp;</a></span>name() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const char* DemoEngineState::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00057_source.html#l00013">13</a> of file <a class="el" href="a00057_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa60c8a2a801ab9a292b74db36c92d1a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa60c8a2a801ab9a292b74db36c92d1a5">&#9670;&nbsp;</a></span>render() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::render </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00025">25</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa60c8a2a801ab9a292b74db36c92d1a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa60c8a2a801ab9a292b74db36c92d1a5">&#9670;&nbsp;</a></span>render() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::render </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00057_source.html#l00025">25</a> of file <a class="el" href="a00057_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a171d3d4b24a6076b58cd10ff4a385b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a171d3d4b24a6076b58cd10ff4a385b88">&#9670;&nbsp;</a></span>update() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00057_source.html#l00021">21</a> of file <a class="el" href="a00057_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a171d3d4b24a6076b58cd10ff4a385b88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a171d3d4b24a6076b58cd10ff4a385b88">&#9670;&nbsp;</a></span>update() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void DemoEngineState::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00021">21</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa175955a299cd2cdd64abc3bf89b2319"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa175955a299cd2cdd64abc3bf89b2319">&#9670;&nbsp;</a></span>DegPerSec</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static constexpr float DemoEngineState::DegPerSec = 60.f</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00054_source.html#l00009">9</a> of file <a class="el" href="a00054_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/Editor/<a class="el" href="a00054_source.html">main.cpp</a></li>
-</ul>
+<p>Collection of each possible game state. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 12 2021 03:13:15 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Mar 12 2021 05:27:34 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

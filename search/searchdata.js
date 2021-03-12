@@ -1,27 +1,33 @@
 var indexSectionsWithContent =
 {
-  0: "cdlmnprsu",
-  1: "dp",
-  2: "cmp",
-  3: "clmnru",
-  4: "dms"
+  0: "acdglmnprsu~",
+  1: "dmp",
+  2: "cg",
+  3: "cmp",
+  4: "acdlmnru~",
+  5: "dms",
+  6: "cs"
 };
 
 var indexSectionNames =
 {
   0: "all",
   1: "classes",
-  2: "files",
-  3: "functions",
-  4: "variables"
+  2: "namespaces",
+  3: "files",
+  4: "functions",
+  5: "variables",
+  6: "groups"
 };
 
 var indexSectionLabels =
 {
   0: "All",
   1: "Classes",
-  2: "Files",
-  3: "Functions",
-  4: "Variables"
+  2: "Namespaces",
+  3: "Files",
+  4: "Functions",
+  5: "Variables",
+  6: "Modules"
 };
 

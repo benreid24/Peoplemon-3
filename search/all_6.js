@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['render',['render',['../a00021.html#aa60c8a2a801ab9a292b74db36c92d1a5',1,'DemoEngineState::render(bl::engine::Engine &amp;engine, float lag) override'],['../a00021.html#aa60c8a2a801ab9a292b74db36c92d1a5',1,'DemoEngineState::render(bl::engine::Engine &amp;engine, float lag) override']]]
+  ['name',['name',['../a00033.html#a996c83b8719897e862ea9051039284f2',1,'game::state::MainMenu::name()'],['../a00037.html#ab60dc8fea40257083292a38afe666384',1,'DemoEngineState::name()']]]
 ];
