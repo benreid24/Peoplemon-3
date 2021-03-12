@@ -37,6 +37,16 @@ if (STATIC_LINK)
     endif()
 endif()
 
+target_link_libraries(Common PRIVATE
+    BLIB
+
+    sfml-graphics
+    sfml-window
+    sfml-network
+    sfml-audio
+    sfml-system
+)
+
 target_link_libraries(Peoplemon PRIVATE
     BLIB
     Common
@@ -46,6 +56,7 @@ target_link_libraries(Peoplemon PRIVATE
     sfml-network
     sfml-audio
     sfml-system
+    sfml-main
 )
 
 target_link_libraries(PeoplemonEditor PRIVATE
@@ -57,6 +68,7 @@ target_link_libraries(PeoplemonEditor PRIVATE
     sfml-network
     sfml-audio
     sfml-system
+    sfml-main
 )
 
 include_directories(include)

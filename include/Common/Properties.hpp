@@ -2,6 +2,7 @@
 #define PROPERTIES_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <SFML/Graphics/Font.hpp>
 #include <string>
 
 /**
@@ -11,8 +12,11 @@
  */
 class Properties : private bl::util::NonCopyable {
 public:
+    static const std::string MenuImagePath;
     static const std::string SpritesheetPath;
     static const std::string MusicPath;
+
+    static const sf::Font& MenuFont();
 
     static bool load();
 
