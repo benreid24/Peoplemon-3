@@ -1,51 +1,12 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Shapes.hpp>
+
 #include <Common/Properties.hpp>
-#include <SFML/Graphics.hpp>
-
-class DemoEngineState : public bl::engine::State {
-public:
-    static constexpr float DegPerSec = 60.f;
-
-    static bl::engine::State::Ptr create() { return Ptr(new DemoEngineState()); }
-
-    virtual const char* name() const override { return "DemoEngineState"; }
-
-    virtual void makeActive(bl::engine::Engine& engine) override {
-        triangle.setPosition(engine.settings().videoMode().width / 2,
-                             engine.settings().videoMode().height / 2);
-        BL_LOG_INFO << "DemoEngineState activated";
-    }
-
-    virtual void update(bl::engine::Engine& engine, float dt) override {
-        triangle.rotate(dt * DegPerSec);
-    }
-
-    virtual void render(bl::engine::Engine& engine, float lag) override {
-        // Account for lag
-        const float og = triangle.getRotation();
-        triangle.rotate(lag * DegPerSec);
-
-        engine.window().clear(sf::Color::Cyan);
-        engine.window().draw(triangle);
-        engine.window().display();
-
-        triangle.setRotation(og);
-    }
-
-private:
-    bl::shapes::Triangle triangle;
-
-    DemoEngineState()
-    : triangle({0, 0}, {120, 0}, {60, 120}) {
-        triangle.setFillColor(sf::Color::Red);
-    }
-};
+#include <Game/States/MainMenu.hpp>
 
 int main() {
     BL_LOG_INFO << "Loading application properties";
-    if (!Properties::load()) {
+    if (!core::Properties::load()) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
@@ -55,12 +16,12 @@ int main() {
         bl::engine::Settings()
             .withVideoMode(sf::VideoMode(800, 600, 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("BLIB Project");
+            .withWindowTitle("Peoplemon");
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 
     BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(DemoEngineState::create())) {
+    if (!engine.run(game::state::MainMenu::create())) {
         BL_LOG_ERROR << "Engine exited with error";
         return 1;
     }

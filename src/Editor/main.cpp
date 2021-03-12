@@ -12,7 +12,7 @@ public:
 
     virtual const char* name() const override { return "DemoEngineState"; }
 
-    virtual void makeActive(bl::engine::Engine& engine) override {
+    virtual void activate(bl::engine::Engine& engine) override {
         triangle.setPosition(engine.settings().videoMode().width / 2,
                              engine.settings().videoMode().height / 2);
         BL_LOG_INFO << "DemoEngineState activated";
@@ -45,7 +45,7 @@ private:
 
 int main() {
     BL_LOG_INFO << "Loading application properties";
-    if (!Properties::load()) {
+    if (!core::Properties::load()) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
