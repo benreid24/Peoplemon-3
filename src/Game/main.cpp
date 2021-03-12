@@ -10,7 +10,7 @@ public:
 
     static bl::engine::State::Ptr create() { return Ptr(new DemoEngineState()); }
 
-    virtual const char* name() const { return "DemoEngineState"; }
+    virtual const char* name() const override { return "DemoEngineState"; }
 
     virtual void makeActive(bl::engine::Engine& engine) {
         triangle.setPosition(engine.settings().videoMode().width / 2,
