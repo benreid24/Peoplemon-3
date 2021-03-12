@@ -6,7 +6,7 @@
 
 int main() {
     BL_LOG_INFO << "Loading application properties";
-    if (!Properties::load()) {
+    if (!core::Properties::load()) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }

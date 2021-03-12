@@ -15,12 +15,13 @@ MainMenu::MainMenu() {
     using bl::menu::Item;
     using bl::menu::TextRenderItem;
 
-    backgroundTxtr = bl::engine::Resources::textures()
-                         .load(bl::file::Util::joinPath(Properties::MenuImagePath, "mainMenu.png"))
-                         .data;
+    backgroundTxtr =
+        bl::engine::Resources::textures()
+            .load(bl::file::Util::joinPath(core::Properties::MenuImagePath, "mainMenu.png"))
+            .data;
     background.setTexture(*backgroundTxtr, true);
 
-    sf::Text sfText("New Game", Properties::MenuFont());
+    sf::Text sfText("New Game", core::Properties::MenuFont());
     sfText.setFillColor(sf::Color::Black);
     sfText.setCharacterSize(32);
     sfText.setStyle(sf::Text::Bold);

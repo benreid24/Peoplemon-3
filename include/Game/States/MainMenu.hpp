@@ -25,18 +25,43 @@ namespace state
  */
 class MainMenu : public bl::engine::State {
 public:
+    /**
+     * @brief Creates a new MainMenu state
+     *
+     */
     static bl::engine::State::Ptr create();
 
+    /// Cleans up all resources
     virtual ~MainMenu() = default;
 
+    /**
+     * @brief Returns "MainMenu";
+     *
+     */
     virtual const char* name() const override;
 
+    /**
+     * @brief Subscribes the menu to the engine event bus
+     *
+     */
     virtual void activate(bl::engine::Engine& engine) override;
 
+    /**
+     * @brief Unsubscribes the menu to the engine event bus
+     *
+     */
     virtual void deactivate(bl::engine::Engine& engine) override;
 
+    /**
+     * @brief Does nothing
+     *
+     */
     virtual void update(bl::engine::Engine&, float dt) override;
 
+    /**
+     * @brief Renders the menu and its background
+     *
+     */
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:

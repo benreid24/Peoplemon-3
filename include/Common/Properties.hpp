@@ -6,8 +6,19 @@
 #include <string>
 
 /**
+ * @defgroup Core
+ * @brief Collection of core classes that do not belong anywhere else
+ *
+ */
+
+/// Core classes and functionality for both the editor and game
+namespace core
+{
+/**
  * @brief Common core application properties here. We may want to load these from a file or they may
  *        simply be constants. Some properties may be loaded into the engine configuration store
+ *
+ * @ingroup Core
  *
  */
 class Properties : private bl::util::NonCopyable {
@@ -23,5 +34,7 @@ public:
 private:
     Properties() = default;
 };
+
+} // namespace core
 
 #endif

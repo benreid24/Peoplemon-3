@@ -1,6 +1,8 @@
 #include <BLIB/Engine/Configuration.hpp>
 #include <Common/Properties.hpp>
 
+namespace core
+{
 const std::string Properties::SpritesheetPath = "Resources/Images/Spritesheets";
 const std::string Properties::MusicPath       = "Resources/Audio/Music";
 const std::string Properties::MenuImagePath   = "Resources/Images/Menus";
@@ -21,3 +23,5 @@ bool Properties::load() {
 }
 
 const sf::Font& Properties::MenuFont() { return menuFont; }
+
+} // namespace core
