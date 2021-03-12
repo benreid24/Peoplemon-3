@@ -1,4 +1,3 @@
-target_sources(ProjectName PRIVATE
-    main.cpp
-    Properties.cpp
-)
+add_subdirectory(Common)
+add_subdirectory(Editor)
+add_subdirectory(Game)

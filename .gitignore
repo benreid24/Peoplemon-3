@@ -1,4 +1,5 @@
 .vscode
-build
+build-debug
+build-release
 *.dll
 *.exe

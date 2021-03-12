@@ -1,0 +1,1 @@
+//remove tall npc and tile

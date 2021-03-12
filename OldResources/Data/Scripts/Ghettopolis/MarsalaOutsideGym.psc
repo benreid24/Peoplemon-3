@@ -1,0 +1,16 @@
+setPlayerLock(1);
+messageBox("I think I cleaned that up nicely.", "I told you I could take care of those chumps didn't I?","Now to take care of this sleeping Jake.. a wet willy oughta do..");
+sleep(2000);
+playMapAnim(421,171);
+sleep(1500);
+editTile(421,171,6,0);
+setCollisions(420,171,2,1,1);
+sleep(1000);
+messageBox("There we go.");
+sleep(500);
+moveNPC("MarsalaVictory",2);
+messageBox("Why don't you go heal your Peoplemon and meet me in my Gym afterwards.","I'll be waiting.");
+npcToLocation("MarsalaVictory",421,170,1);
+removeNPC("MarsalaVictory");
+addSaveEntry("Jake1Removed",1);
+setPlayerLock(0);

@@ -1,0 +1,1 @@
+runScript("AuspiciousIsland/ActivateThug10.psc",1);

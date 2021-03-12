@@ -1,0 +1,10 @@
+messageBox("So does this town really run completely off DomJuice?");
+sleep(500);
+messageBox("Yeah. The stuff is amazing.","Clean, renewable, and so so powerful.","It has tons of other applications too appearantly.", "The locals say drinking it gets you really buff.");
+sleep(500);
+messageBox("This could be just what The Local Thugs need!", "Think of how strong our peoplemon could be!");
+sleep(500);
+messageBox("Yeah, not to mention the applications to our research.","We might finally get that peoplemon splicing project off the ground.");
+sleep(1000);
+messageBox("Wow","We're about to be so OP");
+setPlayerLock(0);

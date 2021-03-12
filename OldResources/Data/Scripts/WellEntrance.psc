@@ -1,0 +1,19 @@
+if (getSaveEntry("DadEnters")==1 && getSaveEntry("BeatIce")!=1) {
+ spawnNPC("TheWell/OWThug1.npc",165,295,2,0);
+ spawnNPC("TheWell/OWThug3.npc",164,296,1,0);
+ spawnNPC("TheWell/OWThug7.npc",164,297,1,0);
+ spawnNPC("TheWell/OWThug2.npc",165,298,1,0);
+ spawnNPC("TheWell/OWThug2.npc",166,295,2,0);
+ spawnNPC("TheWell/OWThug2.npc",167,295,2,0);
+ spawnNPC("TheWell/OWThug8.npc",168,294,2,0);
+ spawnNPC("TheWell/OWThug6.npc",169,296,2,0);
+ spawnNPC("TheWell/OWThug1.npc",169,298,3,0);
+ spawnNPC("TheWell/OWThug5.npc",170,297,3,0);
+ spawnNPC("TheWell/OWThug4.npc",168,296,2,0);
+ spawnNPC("TheWell/OWThug2.npc",167,296,2,0);
+ spawnNPC("TheWell/OWThug1.npc",165,297,1,0);
+ spawnNPC("TheWell/OWThug4.npc",165,297,1,0);
+ spawnNPC("TheWell/OWThug6.npc",166,296,2,0);
+ spawnNPC("TheWell/OWThug3.npc",169,297,3,0);
+ spawnNPC("TheWell/OWThug6.npc",167,298,0,0);
+}

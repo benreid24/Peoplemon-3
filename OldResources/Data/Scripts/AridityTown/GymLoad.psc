@@ -1,0 +1,1 @@
+spawnTrainer("AridityTown/GymLeader.tnr",10,4,2,0);
