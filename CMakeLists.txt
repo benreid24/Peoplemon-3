@@ -30,9 +30,11 @@ add_executable(PeoplemonEditor)
 add_library(Common STATIC)
 
 if (STATIC_LINK)
-    SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-    set(BUILD_SHARED_LIBRARIES OFF)
-    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+    if (WIN32)
+        SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
+        set(BUILD_SHARED_LIBRARIES OFF)
+        set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
+    endif()
 endif()
 
 target_link_libraries(Peoplemon PRIVATE
