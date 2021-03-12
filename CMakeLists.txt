@@ -56,7 +56,6 @@ target_link_libraries(Peoplemon PRIVATE
     sfml-network
     sfml-audio
     sfml-system
-    sfml-main
 )
 
 target_link_libraries(PeoplemonEditor PRIVATE
@@ -68,7 +67,6 @@ target_link_libraries(PeoplemonEditor PRIVATE
     sfml-network
     sfml-audio
     sfml-system
-    sfml-main
 )
 
 include_directories(include)
