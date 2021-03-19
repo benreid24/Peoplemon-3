@@ -2,7 +2,7 @@
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 
-#include <Common/Properties.hpp>
+#include <Core/Properties.hpp>
 #include <Game/States/MainMenu.hpp>
 
 namespace game
@@ -56,6 +56,7 @@ MainMenu::MainMenu() {
 const char* MainMenu::name() const { return "MainMenu"; }
 
 void MainMenu::activate(bl::engine::Engine& engine) {
+    // TODO - music
     menu->setSelectedItem(newGame);
     engine.eventBus().subscribe(keyboardEventGenerator.get());
     engine.eventBus().subscribe(mouseEventGenerator.get());
@@ -72,7 +73,7 @@ void MainMenu::deactivate(bl::engine::Engine& engine) {
 }
 
 void MainMenu::update(bl::engine::Engine&, float dt) {
-    // update menu
+    // event based updates
 }
 
 void MainMenu::render(bl::engine::Engine& engine, float lag) {

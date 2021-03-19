@@ -1,7 +1,7 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
 
-#include <Common/Properties.hpp>
+#include <Core/Properties.hpp>
 #include <Game/States/MainMenu.hpp>
 
 int main() {
@@ -14,7 +14,8 @@ int main() {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
+            .withVideoMode(
+                sf::VideoMode(800, 600, 32)) // TODO - get from Properties or make configurable
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
             .withWindowTitle("Peoplemon");
     bl::engine::Engine engine(engineSettings);

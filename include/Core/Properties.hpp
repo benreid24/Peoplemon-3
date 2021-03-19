@@ -1,5 +1,5 @@
-#ifndef PROPERTIES_HPP
-#define PROPERTIES_HPP
+#ifndef CORE_PROPERTIES_HPP
+#define CORE_PROPERTIES_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
 #include <SFML/Graphics/Font.hpp>

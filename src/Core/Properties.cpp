@@ -1,5 +1,5 @@
 #include <BLIB/Engine/Configuration.hpp>
-#include <Common/Properties.hpp>
+#include <Core/Properties.hpp>
 
 namespace core
 {

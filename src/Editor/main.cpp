@@ -1,7 +1,7 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Media/Shapes.hpp>
-#include <Common/Properties.hpp>
+#include <Core/Properties.hpp>
 #include <SFML/Graphics.hpp>
 
 class DemoEngineState : public bl::engine::State {
