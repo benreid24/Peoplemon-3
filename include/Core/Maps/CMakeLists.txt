@@ -4,4 +4,5 @@ target_sources(Core PUBLIC
     LayerSet.hpp
     Map.hpp
     Tile.hpp
+    Tileset.hpp
 )
