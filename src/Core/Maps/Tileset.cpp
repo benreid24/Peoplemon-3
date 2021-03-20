@@ -5,7 +5,57 @@ namespace core
 {
 namespace map
 {
-// TODO - versioned file for loading legacy tilesets
+namespace loaders
+{
+struct LegacyTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Tileset> {
+    virtual bool read(Tileset& tileset, bl::file::binary::File& input) const override {
+        std::uint16_t n = 0;
+
+        if (!input.read<std::uint16_t>(n)) return false;
+        for (unsigned int i = 0; i < n; ++i) {
+            std::string path;
+            std::uint16_t id;
+            if (!input.read<std::uint16_t>(id)) return false;
+            if (!input.read(path)) return false;
+            tileset.textureFiles.getValue().emplace(id, path);
+        }
+
+        if (!input.read<std::uint16_t>(n)) return false;
+        for (unsigned int i = 0; i < n; ++i) {
+            std::string path;
+            std::uint16_t id;
+            if (!input.read<std::uint16_t>(id)) return false;
+            if (!input.read(path)) return false;
+            tileset.animFiles.getValue().emplace(id, path);
+        }
+
+        return true;
+    }
+
+    virtual bool write(const Tileset&, bl::file::binary::File&) const override {
+        // unimplemented
+        return false;
+    }
+};
+
+struct PrimaryTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Tileset> {
+    virtual bool read(Tileset& tileset, bl::file::binary::File& input) const override {
+        return tileset.deserialize(input);
+    }
+
+    virtual bool write(const Tileset& tileset, bl::file::binary::File& output) const override {
+        return tileset.serialize(output);
+    }
+};
+
+} // namespace loaders
+
+namespace
+{
+using VersionedLoader = bl::file::binary::VersionedFile<Tileset, loaders::LegacyTilesetLoader,
+                                                        loaders::PrimaryTilesetLoader>;
+}
+
 // TODO - figure out if paths need to be prepended
 // TODO - ensure spritesheet found for animations brought in
 
@@ -100,7 +150,8 @@ bool Tileset::load(bl::file::binary::File& input) {
     anims.clear();
     sharedAnimations.clear();
 
-    if (!deserialize(input)) return false;
+    VersionedLoader loader;
+    if (!loader.read(input, *this)) return false;
 
     for (const auto& tpair : textureFiles.getValue()) {
         textures.emplace(tpair.first, bl::engine::Resources::textures().load(tpair.second).data);

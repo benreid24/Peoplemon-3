@@ -15,6 +15,27 @@ namespace core
 {
 namespace map
 {
+/// Collection of classes to handle loading legacy and new formats
+namespace loaders
+{
+/**
+ * @brief Loads the old Peoplemon format tilesets
+ *
+ * @ingroup Maps
+ *
+ */
+class LegacyTilesetLoader;
+
+/**
+ * @brief Loads the new tileset format
+ *
+ * @ingroup Maps
+ *
+ */
+class PrimaryTilesetLoader;
+
+} // namespace loaders
+
 /**
  * @brief Stores the collection of images and animations used by Tiles in a Map
  *
@@ -106,6 +127,8 @@ private:
     void initializeTile(Tile& tile);
 
     friend class Tile;
+    friend class loaders::LegacyTilesetLoader;
+    friend class loaders::PrimaryTilesetLoader;
 };
 
 } // namespace map
