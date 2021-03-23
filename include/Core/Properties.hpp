@@ -23,6 +23,13 @@ namespace core
  */
 class Properties : private bl::util::NonCopyable {
 public:
+    static constexpr int DefaultWindowWidth  = 800;
+    static constexpr int DefaultWindowHeight = 600;
+    static constexpr int DefaultWidthTiles   = 25;
+    static constexpr int DefaultHeightTiles  = 19;
+
+    static constexpr int PixelsPerTile = 32;
+
     static const std::string MenuImagePath;
     static const std::string SpritesheetPath;
     static const std::string MusicPath;

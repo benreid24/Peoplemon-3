@@ -4,6 +4,7 @@ target_sources(Core PRIVATE
     Item.cpp
     LayerSet.cpp
     Light.cpp
+    LightingSystem.cpp
     Map.cpp
     Spawn.cpp
     Tile.cpp
