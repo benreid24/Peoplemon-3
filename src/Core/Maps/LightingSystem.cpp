@@ -16,7 +16,7 @@ LightingSystem::LightingSystem()
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     Iterator it = lights.add(light);
     const Handle h =
-        bl::util::Random::get<Handle>(static_cast<Handle>(0), std::numeric_limits<Handle>::max());
+        bl::util::Random::get<Handle>(static_cast<Handle>(1), std::numeric_limits<Handle>::max());
     handles.emplace(h, it);
     lightTree.add(light.position.getValue(), std::make_pair(h, it));
 
