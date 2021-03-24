@@ -5,7 +5,7 @@
 #include <Core/Maps/Event.hpp>
 #include <Core/Maps/Item.hpp>
 #include <Core/Maps/LayerSet.hpp>
-#include <Core/Maps/Light.hpp>
+#include <Core/Maps/LightingSystem.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Weather.hpp>
@@ -52,7 +52,7 @@ class PrimaryMapLoader;
  * @ingroup Maps
  *
  */
-class Map : private bl::file::binary::SerializableObject {
+class Map : public bl::file::binary::SerializableObject {
 public:
     Map();
 
@@ -70,12 +70,15 @@ private:
     bl::file::binary::SerializableField<9, std::vector<CharacterSpawn>> characterField;
     bl::file::binary::SerializableField<10, std::vector<Item>> itemsField;
     bl::file::binary::SerializableField<11, std::vector<Event>> eventsField;
-    bl::file::binary::SerializableField<12, std::vector<Light>> lightsField;
+    bl::file::binary::SerializableField<12, LightingSystem> lightsField;
 
     Tileset tileset;
     std::vector<LayerSet>& levels;
     std::unordered_map<std::uint16_t, Spawn>& spawns;
-    Weather weather;
+    Weather weather; // TODO - persist?
+    LightingSystem& lightingSystem;
+
+    friend class loaders::LegacyMapLoader;
 };
 
 } // namespace map
