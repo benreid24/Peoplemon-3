@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_MAP_HPP
 #define CORE_MAPS_MAP_HPP
 
+#include <Core/Game/Game.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
 #include <Core/Maps/Item.hpp>
@@ -54,9 +55,55 @@ class PrimaryMapLoader;
  */
 class Map : public bl::file::binary::SerializableObject {
 public:
+    /**
+     * @brief Creates an empty Map
+     *
+     */
     Map();
 
-    void resize(unsigned int width, unsigned int height, bool modTop, bool modRight);
+    /**
+     * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
+     *        on-load script
+     *
+     * @param game The main game object
+     */
+    void enter(game::Game& game);
+
+    /**
+     * @brief Removes spawned entities and runs the on-unload script
+     *
+     * @param game The main game object
+     */
+    void exit(game::Game& game);
+
+    /**
+     * @brief Returns a reference to the weather system in this map
+     *
+     */
+    Weather& weatherSystem();
+
+    /**
+     * @brief Returns a reference to the lighting system in this map
+     *
+     */
+    LightingSystem& lightingSystem();
+
+    /**
+     * @brief Updates internal logic over the elapsed time
+     *
+     * @param dt Elapsed time in seconds since last update
+     */
+    void update(float dt);
+
+    /**
+     * @brief Renders the map to the given target using its built-in View
+     *
+     * @param target The target to render to
+     */
+    void render(sf::RenderTarget& target);
+
+    // TODO - how to intermingle rendered entities?
+    // TODO - entity level transitions
 
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
@@ -75,8 +122,11 @@ private:
     Tileset tileset;
     std::vector<LayerSet>& levels;
     std::unordered_map<std::uint16_t, Spawn>& spawns;
-    Weather weather; // TODO - persist?
-    LightingSystem& lightingSystem;
+    Weather weather;
+    LightingSystem& lighting;
+
+    bool activated;                                  // for weather continuity
+    std::vector<bl::entity::Entity> spawnedEntities; // for cleanup
 
     friend class loaders::LegacyMapLoader;
 };

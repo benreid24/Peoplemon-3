@@ -1,4 +1,5 @@
 target_sources(Core PUBLIC
+    Catch.hpp
     Collision.hpp
     Event.hpp
     Item.hpp

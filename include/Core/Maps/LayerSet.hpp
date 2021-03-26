@@ -1,8 +1,10 @@
 #ifndef CORE_MAPS_LAYERSET_HPP
 #define CORE_MAPS_LAYERSET_HPP
 
+#include <Core/Maps/Catch.hpp>
 #include <Core/Maps/Collision.hpp>
 #include <Core/Maps/Layer.hpp>
+#include <Core/Maps/Tile.hpp>
 
 namespace core
 {
@@ -22,7 +24,7 @@ using CollisionLayer = Layer<Collision>;
  * @ingroup Maps
  *
  */
-using CatchLayer = Layer<std::uint8_t>;
+using CatchLayer = Layer<Catch>;
 
 /**
  * @brief Specialization of Layer for tiles
@@ -30,7 +32,7 @@ using CatchLayer = Layer<std::uint8_t>;
  * @ingroup Maps
  *
  */
-using TileLayer = Layer<std::uint16_t>;
+using TileLayer = Layer<Tile>;
 
 /**
  * @brief Specialization of Layer for height transitions
@@ -69,6 +71,19 @@ public:
      * @return LayerSet& A reference to this set
      */
     LayerSet& operator=(const LayerSet& copy);
+
+    /**
+     * @brief Creates the given number of layers and sets the proper size for each layer,
+     *        initializing each layer tile to empty
+     *
+     * @param width The width of the map, in tiles
+     * @param height The height of the map, in tiles
+     * @param bottomLayerCount The number of layers rendered under entities
+     * @param ysortLayerCount The number of layers rendered with entities
+     * @param topLayercount The number of layers renered over entities
+     */
+    void init(unsigned int width, unsigned int height, unsigned int bottomLayerCount,
+              unsigned int ysortLayerCount, unsigned int topLayercount);
 
     /**
      * @brief Returns a reference to the collision layer for this set

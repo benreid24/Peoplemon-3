@@ -34,6 +34,8 @@ public:
     static const std::string SpritesheetPath;
     static const std::string MusicPath;
 
+    // TODO - make these wrappers around bl::engine::Properties and load from file
+
     static const sf::Font& MenuFont();
 
     static bool load();

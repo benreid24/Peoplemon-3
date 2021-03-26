@@ -3,4 +3,5 @@ target_sources(Core PUBLIC
 )
 
 add_subdirectory(Entities)
+add_subdirectory(Game)
 add_subdirectory(Maps)

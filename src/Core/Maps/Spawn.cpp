@@ -6,14 +6,12 @@ namespace map
 {
 Spawn::Spawn()
 : id(*this)
-, position(*this)
-, direction(*this) {}
+, position(*this) {}
 
-Spawn::Spawn(std::uint16_t _id, const sf::Vector2i& pos, entity::Direction dir)
+Spawn::Spawn(std::uint16_t _id, const entity::Position& pos)
 : Spawn() {
-    id        = _id;
-    position  = pos;
-    direction = dir;
+    id       = _id;
+    position = pos;
 }
 
 Spawn::Spawn(const Spawn& copy)
@@ -22,9 +20,8 @@ Spawn::Spawn(const Spawn& copy)
 }
 
 Spawn& Spawn::operator=(const Spawn& copy) {
-    id        = copy.id;
-    position  = copy.position;
-    direction = copy.direction;
+    id       = copy.id;
+    position = copy.position;
     return *this;
 }
 

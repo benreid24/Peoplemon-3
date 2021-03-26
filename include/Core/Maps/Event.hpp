@@ -37,7 +37,7 @@ struct Event : public bl::file::binary::SerializableObject {
 
     bl::file::binary::SerializableField<1, Trigger> trigger;
     bl::file::binary::SerializableField<2, sf::Vector2i> position;
-    bl::file::binary::SerializableField<3, sf::Vector2i> size;
+    bl::file::binary::SerializableField<3, sf::Vector2i> areaSize;
     bl::file::binary::SerializableField<4, std::string> script;
 
     /**

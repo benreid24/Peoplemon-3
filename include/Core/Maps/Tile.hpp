@@ -40,6 +40,14 @@ public:
     Tile(const Tile& copy);
 
     /**
+     * @brief Builds a tile with the given info
+     *
+     * @param id The id of the tile in the tileset
+     * @param isAnim True if the tile is an animation, false if it is an image
+     */
+    Tile(IdType id, bool isAnim);
+
+    /**
      * @brief Copies the information from the given Tile
      *
      * @param copy The tile to copy
@@ -69,6 +77,14 @@ public:
      * @param anim True if an animation, false if an image
      */
     void set(Tileset& tileset, IdType id, bool anim);
+
+    /**
+     * @brief Sets the information of the tile without updating it's graphics
+     *
+     * @param id The id of the image or animation in the Tileset
+     * @param anim True if an animation, false if an image
+     */
+    void setDataOnly(IdType id, bool anim);
 
     /**
      * @brief Initializes the tile's graphic components and position

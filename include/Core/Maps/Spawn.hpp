@@ -2,7 +2,7 @@
 #define CORE_MAPS_SPAWN_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Entities/Direction.hpp>
+#include <Core/Entities/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 
@@ -18,8 +18,7 @@ namespace map
  */
 struct Spawn : public bl::file::binary::SerializableObject {
     bl::file::binary::SerializableField<1, std::uint16_t> id;
-    bl::file::binary::SerializableField<2, sf::Vector2i> position;
-    bl::file::binary::SerializableField<1, entity::Direction> direction;
+    bl::file::binary::SerializableField<2, entity::Position> position;
 
     /**
      * @brief Creates an empty spawn
@@ -31,10 +30,9 @@ struct Spawn : public bl::file::binary::SerializableObject {
      * @brief Creates a spawn with the given parameters
      *
      * @param id The id of the spawn
-     * @param pos The position to spawn at, in tiles
-     * @param dir The direction to spawn facing
+     * @param position The position to spawn at
      */
-    Spawn(std::uint16_t id, const sf::Vector2i& pos, entity::Direction dir);
+    Spawn(std::uint16_t id, const entity::Position& position);
 
     /**
      * @brief Copy constructs a new Spawn
