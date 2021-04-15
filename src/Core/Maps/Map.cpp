@@ -40,7 +40,26 @@ public:
         result.lightingSystem().adjustForSunlight(ambientLight == 255);
         result.lightingSystem().setAmbientLevel(ambientLight);
 
-        // TODO - peoplemon catch zones
+        std::uint16_t catchZoneCount;
+        if (!input.read(catchZoneCount)) return false;
+        for (unsigned int i = 0; i < catchZoneCount; ++i) {
+            std::int32_t left, top, width, height;
+            if (!input.read(left)) return false;
+            if (!input.read(top)) return false;
+            if (!input.read(width)) return false;
+            if (!input.read(height)) return false;
+
+            CatchZone zone;
+            zone.area = sf::IntRect(left, top, width, height);
+
+            std::uint16_t pplCount;
+            if (!input.read(pplCount)) return false;
+            zone.peoplemon.getValue().reserve(pplCount);
+            for (unsigned int j = 0; j < pplCount; ++j) {
+                zone.peoplemon.getValue().push_back({});
+                if (!input.read(zone.peoplemon.getValue().back())) return false;
+            }
+        }
 
         for (unsigned int x = 0; x < width; ++x) {
             for (unsigned int y = 0; y < height; ++y) {
