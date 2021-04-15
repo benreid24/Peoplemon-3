@@ -193,7 +193,8 @@ Map::Map()
 , lightsField(*this)
 , levels(levelsField.getValue())
 , spawns(spawnField.getValue())
-, lighting(lightsField.getValue()) {}
+, lighting(lightsField.getValue())
+, catchZonesField(*this) {}
 
 } // namespace map
 } // namespace core

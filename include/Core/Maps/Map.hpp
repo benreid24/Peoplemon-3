@@ -2,6 +2,7 @@
 #define CORE_MAPS_MAP_HPP
 
 #include <Core/Game/Game.hpp>
+#include <Core/Maps/CatchZone.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
 #include <Core/Maps/Item.hpp>
@@ -118,6 +119,7 @@ private:
     bl::file::binary::SerializableField<10, std::vector<Item>> itemsField;
     bl::file::binary::SerializableField<11, std::vector<Event>> eventsField;
     bl::file::binary::SerializableField<12, LightingSystem> lightsField;
+    bl::file::binary::SerializableField<13, std::vector<CatchZone>> catchZonesField;
 
     Tileset tileset;
     std::vector<LayerSet>& levels;
