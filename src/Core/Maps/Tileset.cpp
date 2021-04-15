@@ -1,5 +1,6 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <Core/Maps/Tileset.hpp>
+#include <Core/Properties.hpp>
 
 namespace core
 {
@@ -142,7 +143,7 @@ void Tileset::initializeTile(Tile& tile) {
     }
 }
 
-bool Tileset::load(bl::file::binary::File& input) {
+bool Tileset::load(const std::string& file) {
     textureFiles.getValue().clear();
     animFiles.getValue().clear();
     nextTextureId = nextAnimationId = 1;
@@ -150,18 +151,27 @@ bool Tileset::load(bl::file::binary::File& input) {
     anims.clear();
     sharedAnimations.clear();
 
+    bl::file::binary::File input(bl::file::Util::joinPath(Properties::TilesetPath, file),
+                                 bl::file::binary::File::Read);
     VersionedLoader loader;
     if (!loader.read(input, *this)) return false;
 
     for (const auto& tpair : textureFiles.getValue()) {
-        textures.emplace(tpair.first, bl::engine::Resources::textures().load(tpair.second).data);
+        textures.emplace(tpair.first,
+                         bl::engine::Resources::textures()
+                             .load(bl::file::Util::joinPath(Properties::MapTilePath, tpair.second))
+                             .data);
         if (tpair.first >= nextTextureId) nextTextureId = tpair.first + 1;
     }
 
     for (const auto& apair : animFiles.getValue()) {
-        auto it =
-            anims.emplace(apair.first, bl::engine::Resources::animations().load(apair.second).data)
-                .first;
+        auto it = anims
+                      .emplace(apair.first,
+                               bl::engine::Resources::animations()
+                                   .load(bl::file::Util::joinPath(Properties::MapAnimationPath,
+                                                                  apair.second))
+                                   .data)
+                      .first;
         if (it->second->isLooping()) { sharedAnimations.try_emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }
@@ -169,7 +179,11 @@ bool Tileset::load(bl::file::binary::File& input) {
     return true;
 }
 
-bool Tileset::save(bl::file::binary::File& output) const { return serialize(output); }
+bool Tileset::save(const std::string& file) const {
+    bl::file::binary::File output(bl::file::Util::joinPath(Properties::TilesetPath, file),
+                                  bl::file::binary::File::Write);
+    return serialize(output);
+}
 
 } // namespace map
 } // namespace core

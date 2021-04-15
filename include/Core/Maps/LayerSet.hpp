@@ -86,6 +86,13 @@ public:
               unsigned int ysortLayerCount, unsigned int topLayercount);
 
     /**
+     * @brief Initializes all the tiles for rendering. This must be called before rendering is done
+     *
+     * @param tileset The tileset to use
+     */
+    void activate(Tileset& tileset);
+
+    /**
      * @brief Returns a reference to the collision layer for this set
      *
      * @return CollisionLayer& The collisions at this height

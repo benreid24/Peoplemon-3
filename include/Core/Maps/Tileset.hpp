@@ -100,18 +100,18 @@ public:
     /**
      * @brief Loads the tileset from the given file and loads all media
      *
-     * @param input The file to load from
+     * @param file The file to load from
      * @return True if loaded successfully, false on error
      */
-    bool load(bl::file::binary::File& input);
+    bool load(const std::string& file);
 
     /**
      * @brief Saves the tileset to the given file. No media is saved
      *
-     * @param output The file to save to
+     * @param file The file to save to
      * @return True if successfully written, false on error
      */
-    bool save(bl::file::binary::File& output) const;
+    bool save(const std::string& file) const;
 
 private:
     bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>

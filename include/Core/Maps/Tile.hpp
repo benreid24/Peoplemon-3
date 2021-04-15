@@ -45,7 +45,7 @@ public:
      * @param id The id of the tile in the tileset
      * @param isAnim True if the tile is an animation, false if it is an image
      */
-    Tile(IdType id, bool isAnim);
+    Tile(IdType id, bool isAnim = false);
 
     /**
      * @brief Copies the information from the given Tile

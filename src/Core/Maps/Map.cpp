@@ -213,7 +213,51 @@ Map::Map()
 , levels(levelsField.getValue())
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
-, catchZonesField(*this) {}
+, catchZonesField(*this)
+, activated(false) {}
+
+bool Map::enter(game::Game& game, std::uint16_t spawnId) {
+    // TODO - spawn entities
+    // TODO - move player to spawn
+    // TODO - load and push playlist
+    // TODO - run onload script
+
+    if (!activated) {
+        activated = true;
+
+        size = {static_cast<int>(levels.front().bottomLayers().front().width()),
+                static_cast<int>(levels.front().bottomLayers().front().height())};
+
+        // TODO - pull out tilesets into resource manager
+        if (!tileset.load(tilesetField.getValue())) return false;
+        for (LayerSet& set : levels) { set.activate(tileset); }
+
+        // TODO - activate weather
+        lighting.activate(size);
+        for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+    }
+
+    return true;
+}
+
+void Map::exit(game::Game& game) {
+    // TODO - despawn entities/items. handle picked up items
+    // TODO - pop/pause playlist (maybe make param?)
+    // TODO - pause weather
+    // TODO - run on unload script
+}
+
+Weather& Map::weatherSystem() { return weather; }
+
+LightingSystem& Map::lightingSystem() { return lighting; }
+
+void Map::update(float dt) {
+    // TODO - update map components
+}
+
+void Map::render(sf::RenderTarget& target, float residual) {
+    // TODO - render. how to intermingle rendered entities?
+}
 
 } // namespace map
 } // namespace core

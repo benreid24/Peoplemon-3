@@ -67,8 +67,10 @@ public:
      *        on-load script
      *
      * @param game The main game object
+     * @param spawnId The spawn to place the player at
+     * @return True on success, false on error
      */
-    void enter(game::Game& game);
+    bool enter(game::Game& game, std::uint16_t spawnId);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
@@ -100,10 +102,10 @@ public:
      * @brief Renders the map to the given target using its built-in View
      *
      * @param target The target to render to
+     * @param residual Residual time between calls to update, in seconds
      */
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target, float residual);
 
-    // TODO - how to intermingle rendered entities?
     // TODO - entity level transitions
 
 private:
@@ -121,6 +123,7 @@ private:
     bl::file::binary::SerializableField<12, LightingSystem> lightsField;
     bl::file::binary::SerializableField<13, std::vector<CatchZone>> catchZonesField;
 
+    sf::Vector2i size;
     Tileset tileset;
     std::vector<LayerSet>& levels;
     std::unordered_map<std::uint16_t, Spawn>& spawns;

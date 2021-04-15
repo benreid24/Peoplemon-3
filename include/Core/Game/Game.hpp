@@ -17,7 +17,8 @@ namespace core
 namespace game
 {
 /**
- * @brief The core game class. Owns all primary systems and the engine
+ * @brief The core game class. Owns all primary systems and the engine. Used by both the editor and
+ *        the actual game, despite the name
  *
  * @ingroup CoreGame
  *

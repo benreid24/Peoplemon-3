@@ -42,6 +42,15 @@ public:
     Layer& operator=(const Layer& copy);
 
     /**
+     * @brief Clears all stored data (if any) and creates the layer with the given size
+     *
+     * @param width The width of the layer in tiles
+     * @param height The height of the layer in tiles
+     * @param val The default value to fill the layer with
+     */
+    void create(unsigned int width, unsigned int height, const T& val = T());
+
+    /**
      * @brief Returns the width of the layer in tiles
      *
      */
@@ -61,6 +70,15 @@ public:
      * @return const T& The value at the given position
      */
     const T& get(unsigned int x, unsigned int y) const;
+
+    /**
+     * @brief Returns the object in the layer at the given position
+     *
+     * @param x The zero indexed x coordinate in tiles
+     * @param y The zero indexed y coordinate in tiles
+     * @return The value at the given position
+     */
+    T& getRef(unsigned int x, unsigned int y);
 
     /**
      * @brief Sets the object in the layer at the position to the given value
@@ -100,6 +118,14 @@ Layer<T>& Layer<T>::operator=(const Layer& copy) {
 }
 
 template<typename T>
+void Layer<T>::create(unsigned int width, unsigned int height, const T& val) {
+    w = width;
+    h = height;
+    data.getValue().clear();
+    data.getValue().resize(width * height, val);
+}
+
+template<typename T>
 unsigned int Layer<T>::width() const {
     return w.getValue();
 }
@@ -115,6 +141,18 @@ const T& Layer<T>::get(unsigned int x, unsigned int y) const {
     if (i < data.getValue().size()) { return data.getValue()[i]; }
     else {
         static const T null;
+        BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
+                    << w.getValue() << "," << h.getValue() << ")";
+        return null;
+    }
+}
+
+template<typename T>
+T& Layer<T>::getRef(unsigned int x, unsigned int y) {
+    const unsigned int i = y * w.getValue() + x;
+    if (i < data.getValue().size()) { return data.getValue()[i]; }
+    else {
+        static T null;
         BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
                     << w.getValue() << "," << h.getValue() << ")";
         return null;

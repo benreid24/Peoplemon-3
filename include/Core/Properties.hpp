@@ -33,6 +33,9 @@ public:
     static const std::string MenuImagePath;
     static const std::string SpritesheetPath;
     static const std::string MusicPath;
+    static const std::string TilesetPath;
+    static const std::string MapTilePath;
+    static const std::string MapAnimationPath;
 
     // TODO - make these wrappers around bl::engine::Properties and load from file
 
