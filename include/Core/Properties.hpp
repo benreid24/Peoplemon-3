@@ -31,9 +31,13 @@ public:
     static constexpr int PixelsPerTile    = 32;
     static constexpr int ExtraRenderTiles = 10;
 
+    static const std::string WindowIconFile;
+
     static const std::string MenuImagePath;
+
     static const std::string SpritesheetPath;
     static const std::string MusicPath;
+
     static const std::string MapPath;
     static const std::string TilesetPath;
     static const std::string MapTilePath;

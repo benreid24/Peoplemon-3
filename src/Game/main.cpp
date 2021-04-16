@@ -17,7 +17,8 @@ int main() {
             .withVideoMode(
                 sf::VideoMode(800, 600, 32)) // TODO - get from Properties or make configurable
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("Peoplemon");
+            .withWindowTitle("Peoplemon")
+            .withWindowIcon(core::Properties::WindowIconFile);
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 

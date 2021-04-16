@@ -3,6 +3,7 @@
 
 namespace core
 {
+const std::string Properties::WindowIconFile  = "Resources/Images/icon.png";
 const std::string Properties::SpritesheetPath = "Resources/Images/Spritesheets";
 const std::string Properties::MusicPath       = "Resources/Audio/Music";
 const std::string Properties::MenuImagePath   = "Resources/Images/Menus";
@@ -19,6 +20,7 @@ bool Properties::load() {
     bl::engine::Configuration::set("blib.playlist.song_path", MusicPath);
     bl::engine::Configuration::set("blib.animation.spritesheet_path", SpritesheetPath);
 
+    // TODO - put font into resource manager
     if (!menuFont.loadFromFile("Resources/Fonts/Menu.ttf")) return false;
 
     return true;
