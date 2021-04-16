@@ -28,7 +28,8 @@ public:
     static constexpr int DefaultWidthTiles   = 25;
     static constexpr int DefaultHeightTiles  = 19;
 
-    static constexpr int PixelsPerTile = 32;
+    static constexpr int PixelsPerTile    = 32;
+    static constexpr int ExtraRenderTiles = 10;
 
     static const std::string MenuImagePath;
     static const std::string SpritesheetPath;

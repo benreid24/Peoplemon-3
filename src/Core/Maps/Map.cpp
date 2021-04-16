@@ -262,10 +262,48 @@ void Map::update(float dt) {
     // TODO - other components? weather probably
 }
 
+// TODO - special editor rendering for hiding levels and layers
 void Map::render(sf::RenderTarget& target, float residual) {
     const float t = renderTime + residual;
     tileset.update(t);
     // TODO - render. how to intermingle rendered entities?
+
+    static const sf::Vector2i ExtraRender =
+        sf::Vector2i(Properties::ExtraRenderTiles, Properties::ExtraRenderTiles);
+
+    const sf::Vector2f cornerPixels =
+        target.getView().getCenter() - target.getView().getSize() / 2.f;
+    sf::Vector2i corner =
+        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile - ExtraRender;
+    if (corner.x < 0) corner.x = 0;
+    if (corner.y < 0) corner.y = 0;
+
+    sf::Vector2i wsize =
+        static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile +
+        ExtraRender * 2;
+    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
+    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+
+    const auto renderRow = [&target, &t, &corner, &wsize](TileLayer& layer, int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) { layer.get(x, row).render(target, t); }
+    };
+
+    for (unsigned int i = 0; i < levels.size(); ++i) {
+        LayerSet& level = levels[i];
+
+        for (TileLayer& layer : level.bottomLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+        }
+        for (TileLayer& layer : level.ysortLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+                renderRow(layer, y);
+                // TODO - render row of entities here by level and row
+            }
+        }
+        for (TileLayer& layer : level.topLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+        }
+    }
 }
 
 bool Map::load(const std::string& file) {
