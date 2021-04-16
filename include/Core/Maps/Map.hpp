@@ -63,6 +63,24 @@ public:
     Map();
 
     /**
+     * @brief Loads the map from the given file. Will try to determine if the extension or path need
+     *        to be added in order to support how map names used to be entered
+     *
+     * @param file The file to load from
+     * @return True if the map was able to be loaded, false on error
+     */
+    bool load(const std::string& file);
+
+    /**
+     * @brief Saves the map to the given file. The path should be relative to the maps directory and
+     *        include the .map extension
+     *
+     * @param file The file to save to
+     * @return True if saved successfully, false on error
+     */
+    bool save(const std::string& file);
+
+    /**
      * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
      *        on-load script
      *
@@ -132,6 +150,7 @@ private:
 
     bool activated;                                  // for weather continuity
     std::vector<bl::entity::Entity> spawnedEntities; // for cleanup
+    float renderTime;
 
     friend class loaders::LegacyMapLoader;
 };

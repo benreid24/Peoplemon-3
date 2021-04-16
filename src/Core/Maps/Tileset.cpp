@@ -143,6 +143,10 @@ void Tileset::initializeTile(Tile& tile) {
     }
 }
 
+void Tileset::update(float dt) {
+    for (auto& ap : sharedAnimations) { ap.second.update(dt); }
+}
+
 bool Tileset::load(const std::string& file) {
     textureFiles.getValue().clear();
     animFiles.getValue().clear();
@@ -182,7 +186,8 @@ bool Tileset::load(const std::string& file) {
 bool Tileset::save(const std::string& file) const {
     bl::file::binary::File output(bl::file::Util::joinPath(Properties::TilesetPath, file),
                                   bl::file::binary::File::Write);
-    return serialize(output);
+    VersionedLoader loader;
+    return loader.write(output, *this);
 }
 
 } // namespace map

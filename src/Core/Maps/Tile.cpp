@@ -36,20 +36,30 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
-    static const auto blank = [](sf::RenderTarget&) {};
-    if (tid.getValue() == Blank) {
-        renderFunction = blank;
-        return;
-    }
+    static const auto blank    = [](sf::RenderTarget&) {};
+    static const auto noUpdate = [](float) {};
 
-    if (isAnim) { renderFunction = std::bind(&Tile::renderAnimation, this, std::placeholders::_1); }
+    renderFunction = blank;
+    updateFunction = noUpdate;
+
+    if (tid.getValue() == Blank) return;
+
+    if (isAnim) {
+        if (anim == &uniqueAnim) {
+            updateFunction = std::bind(&Tile::update, this, std::placeholders::_1);
+        }
+        renderFunction = std::bind(&Tile::renderAnimation, this, std::placeholders::_1);
+    }
     else {
         anim           = nullptr;
         renderFunction = std::bind(&Tile::renderSprite, this, std::placeholders::_1);
     }
 }
 
-void Tile::render(sf::RenderTarget& target) const { renderFunction(target); }
+void Tile::render(sf::RenderTarget& target, float dt) const {
+    updateFunction(dt);
+    renderFunction(target);
+}
 
 void Tile::renderSprite(sf::RenderTarget& target) const { target.draw(sprite); }
 

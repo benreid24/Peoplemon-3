@@ -113,6 +113,14 @@ public:
      */
     bool save(const std::string& file) const;
 
+    /**
+     * @brief Updates the animations in the tileset. Does not update unique animations, only shared.
+     *        Unique animations are updated by the Tile that renders them
+     *
+     * @param dt Time elapsed since last called to update() in seconds
+     */
+    void update(float dt);
+
 private:
     bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>
         textureFiles;

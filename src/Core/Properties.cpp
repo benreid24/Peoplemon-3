@@ -6,6 +6,7 @@ namespace core
 const std::string Properties::SpritesheetPath = "Resources/Images/Spritesheets";
 const std::string Properties::MusicPath       = "Resources/Audio/Music";
 const std::string Properties::MenuImagePath   = "Resources/Images/Menus";
+const std::string Properties::MapPath         = "Resources/Maps/Maps";
 const std::string Properties::TilesetPath     = "Resources/Maps/Tilesets";
 
 namespace

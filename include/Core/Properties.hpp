@@ -33,6 +33,7 @@ public:
     static const std::string MenuImagePath;
     static const std::string SpritesheetPath;
     static const std::string MusicPath;
+    static const std::string MapPath;
     static const std::string TilesetPath;
     static const std::string MapTilePath;
     static const std::string MapAnimationPath;

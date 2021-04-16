@@ -1,5 +1,6 @@
 #include <Core/Maps/Map.hpp>
 
+#include <Core/Properties.hpp>
 #include <cmath>
 
 namespace core
@@ -196,6 +197,11 @@ public:
 };
 
 } // namespace loaders
+namespace
+{
+using VersionedLoader =
+    bl::file::binary::VersionedFile<Map, loaders::LegacyMapLoader, loaders::PrimaryMapLoader>;
+}
 
 Map::Map()
 : nameField(*this)
@@ -252,11 +258,33 @@ Weather& Map::weatherSystem() { return weather; }
 LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(float dt) {
-    // TODO - update map components
+    renderTime = dt;
+    // TODO - other components? weather probably
 }
 
 void Map::render(sf::RenderTarget& target, float residual) {
+    const float t = renderTime + residual;
+    tileset.update(t);
     // TODO - render. how to intermingle rendered entities?
+}
+
+bool Map::load(const std::string& file) {
+    std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
+    if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath, path);
+    if (!bl::file::Util::exists(path)) {
+        BL_LOG_ERROR << "Failed to find map '" << file << "'. Tried '" << path << "'";
+        return false;
+    }
+    VersionedLoader loader;
+    bl::file::binary::File input(path, bl::file::binary::File::Read);
+    return loader.read(input, *this);
+}
+
+bool Map::save(const std::string& file) {
+    bl::file::binary::File output(bl::file::Util::joinPath(Properties::MapPath, file),
+                                  bl::file::binary::File::Write);
+    VersionedLoader loader;
+    return loader.write(output, *this);
 }
 
 } // namespace map

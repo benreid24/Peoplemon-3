@@ -98,8 +98,9 @@ public:
      * @brief Renders the tile to the given target
      *
      * @param target The target to render to
+     * @param dt The elapsed time since the last call to render, in seconds
      */
-    void render(sf::RenderTarget& target) const;
+    void render(sf::RenderTarget& target, float dt) const;
 
 private:
     bl::file::binary::SerializableField<1, bool> isAnim;
@@ -109,7 +110,9 @@ private:
     bl::gfx::Animation uniqueAnim;
     bl::gfx::Animation* anim;
     std::function<void(sf::RenderTarget&)> renderFunction;
+    std::function<void(float)> updateFunction;
 
+    void update(float dt);
     void renderSprite(sf::RenderTarget& target) const;
     void renderAnimation(sf::RenderTarget& target) const;
 
