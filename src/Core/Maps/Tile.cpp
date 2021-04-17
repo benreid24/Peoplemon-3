@@ -15,6 +15,12 @@ Tile::Tile(const Tile& copy)
     *this = copy;
 }
 
+Tile::Tile(IdType i, bool a)
+: Tile() {
+    tid    = i;
+    isAnim = a;
+}
+
 Tile& Tile::operator=(const Tile& copy) {
     isAnim = copy.isAnim.getValue();
     tid    = copy.tid.getValue();
@@ -55,6 +61,8 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
         renderFunction = std::bind(&Tile::renderSprite, this, std::placeholders::_1);
     }
 }
+
+void Tile::update(float dt) { updateFunction(dt); }
 
 void Tile::render(sf::RenderTarget& target, float dt) const {
     updateFunction(dt);

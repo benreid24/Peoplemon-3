@@ -222,7 +222,7 @@ Map::Map()
 , catchZonesField(*this)
 , activated(false) {}
 
-bool Map::enter(game::Game& game, std::uint16_t spawnId) {
+bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -246,7 +246,7 @@ bool Map::enter(game::Game& game, std::uint16_t spawnId) {
     return true;
 }
 
-void Map::exit(game::Game& game) {
+void Map::exit(game::Systems& game) {
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
@@ -266,7 +266,6 @@ void Map::update(float dt) {
 void Map::render(sf::RenderTarget& target, float residual) {
     const float t = renderTime + residual;
     tileset.update(t);
-    // TODO - render. how to intermingle rendered entities?
 
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());

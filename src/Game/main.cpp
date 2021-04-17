@@ -1,6 +1,7 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
 
+#include <Core/Game/Systems.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/MainMenu.hpp>
 
@@ -22,8 +23,12 @@ int main() {
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 
+    BL_LOG_INFO << "Initializing game systems";
+    core::game::Systems systems(engine);
+    BL_LOG_INFO << "Core game systems initialized";
+
     BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(game::state::MainMenu::create())) {
+    if (!engine.run(game::state::MainMenu::create(systems))) {
         BL_LOG_ERROR << "Engine exited with error";
         return 1;
     }

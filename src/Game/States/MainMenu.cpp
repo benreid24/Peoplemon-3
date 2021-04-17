@@ -1,17 +1,21 @@
+#include <Game/States/MainMenu.hpp>
+
 #include <BLIB/Engine.hpp>
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
-
 #include <Core/Properties.hpp>
-#include <Game/States/MainMenu.hpp>
+#include <Game/States/MapExplorer.hpp>
 
 namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr MainMenu::create() { return Ptr(new MainMenu()); }
+bl::engine::State::Ptr MainMenu::create(core::game::Systems& systems) {
+    return Ptr(new MainMenu(systems));
+}
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu(core::game::Systems& systems)
+: State(systems) {
     using bl::menu::Item;
     using bl::menu::TextRenderItem;
 
@@ -72,8 +76,10 @@ void MainMenu::deactivate(bl::engine::Engine& engine) {
     engine.eventBus().unsubscribe(mouseEventGenerator.get());
 }
 
-void MainMenu::update(bl::engine::Engine&, float dt) {
-    // event based updates
+void MainMenu::update(bl::engine::Engine& engine, float dt) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+        engine.replaceState(MapExplorer::create(systems, "PiperCave.map"));
+    }
 }
 
 void MainMenu::render(bl::engine::Engine& engine, float lag) {

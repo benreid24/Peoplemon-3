@@ -4,6 +4,8 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
+int main();
+
 /**
  * @addtogroup CoreGame
  * @ingroup Core
@@ -17,21 +19,13 @@ namespace core
 namespace game
 {
 /**
- * @brief The core game class. Owns all primary systems and the engine. Used by both the editor and
- *        the actual game, despite the name
+ * @brief Owns all primary systems and the engine
  *
  * @ingroup CoreGame
  *
  */
-class Game : private bl::util::NonCopyable {
+class Systems : private bl::util::NonCopyable {
 public:
-    /**
-     * @brief Creates the core game object and associates it with the engine
-     *
-     * @param engine The main game engine
-     */
-    Game(bl::engine::Engine& engine);
-
     /**
      * @brief Const accessor for the Engine
      *
@@ -48,6 +42,15 @@ public:
 
 private:
     bl::engine::Engine& _engine;
+
+    /**
+     * @brief Creates the core game object and associates it with the engine
+     *
+     * @param engine The main game engine
+     */
+    Systems(bl::engine::Engine& engine);
+
+    friend int ::main();
 };
 
 } // namespace game

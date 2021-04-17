@@ -60,7 +60,6 @@ bool Properties::load() {
     if (!bl::engine::Configuration::load("configuration.cfg")) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
     }
-    bl::engine::Configuration::save("configuration.cfg");
 
     menuFont = bl::engine::Resources::fonts()
                    .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
