@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Common/Properties.hpp File Reference</title>
+<title>Peoplemon: include/Core/Entities/Direction.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,40 +63,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_4e88733bde07f70aee18672f1ff34c79.html">Common</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_0fdaba29586807acfe525142fe5999e8.html">Entities</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">Properties.hpp File Reference</div>  </div>
+<div class="title">Direction.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Util/NonCopyable.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Font.hpp&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00005_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00029.html">core::Properties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Common core application properties here. We may want to load these from a file or they may simply be constants. Some properties may be loaded into the engine configuration store.  <a href="a00029.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00022"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00022.html">core</a></td></tr>
-<tr class="memdesc:a00022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00130"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00130.html">core</a></td></tr>
+<tr class="memdesc:a00130"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00131"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00131.html">core::entity</a></td></tr>
+<tr class="memdesc:a00131"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components and systems related to in game entities. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga03481f42bffcc7dc0fd1c298e5c3fa6a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00127.html#ga03481f42bffcc7dc0fd1c298e5c3fa6a">core::entity::Direction</a> : std::uint8_t { <a class="el" href="a00127.html#gga03481f42bffcc7dc0fd1c298e5c3fa6aa258f49887ef8d14ac268c92b02503aaa">core::entity::Direction::Up</a> = 0, 
+<a class="el" href="a00127.html#gga03481f42bffcc7dc0fd1c298e5c3fa6aa92b09c7c48c520c3c55e497875da437c">core::entity::Direction::Right</a> = 1, 
+<a class="el" href="a00127.html#gga03481f42bffcc7dc0fd1c298e5c3fa6aa08a38277b0309070706f6652eeae9a53">core::entity::Direction::Down</a> = 2, 
+<a class="el" href="a00127.html#gga03481f42bffcc7dc0fd1c298e5c3fa6aa945d5e233cf7d6240f6b783b36a374ff">core::entity::Direction::Left</a> = 3
+ }<tr class="memdesc:ga03481f42bffcc7dc0fd1c298e5c3fa6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing.  <a href="a00127.html#ga03481f42bffcc7dc0fd1c298e5c3fa6a">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga03481f42bffcc7dc0fd1c298e5c3fa6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 12 2021 05:27:34 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 17 2021 17:29:40 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

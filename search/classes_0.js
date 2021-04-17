@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['demoenginestate',['DemoEngineState',['../a00037.html',1,'']]]
+  ['catchzone',['CatchZone',['../a00152.html',1,'core::map']]],
+  ['characterspawn',['CharacterSpawn',['../a00156.html',1,'core::map']]]
 ];
