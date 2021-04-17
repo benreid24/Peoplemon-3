@@ -223,6 +223,7 @@ Map::Map()
 , activated(false) {}
 
 bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
+    BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -230,6 +231,7 @@ bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
 
     if (!activated) {
         activated = true;
+        BL_LOG_INFO << "Activating map " << nameField.getValue();
 
         size = {static_cast<int>(levels.front().bottomLayers().front().width()),
                 static_cast<int>(levels.front().bottomLayers().front().height())};
@@ -237,16 +239,20 @@ bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
         // TODO - pull out tilesets into resource manager
         if (!tileset.load(tilesetField.getValue())) return false;
         for (LayerSet& set : levels) { set.activate(tileset); }
+        tileset.activate();
 
         // TODO - activate weather
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+
+        BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
     return true;
 }
 
 void Map::exit(game::Systems& game) {
+    BL_LOG_INFO << "Exiting map " << nameField.getValue();
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
@@ -306,6 +312,8 @@ void Map::render(sf::RenderTarget& target, float residual) {
 }
 
 bool Map::load(const std::string& file) {
+    BL_LOG_INFO << "Loading map " << file;
+    
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
     if (!bl::file::Util::exists(path)) {

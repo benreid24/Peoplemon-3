@@ -11,14 +11,17 @@ bl::engine::State::Ptr MapExplorer::create(core::game::Systems& systems, const s
 
 MapExplorer::MapExplorer(core::game::Systems& systems, const std::string& name)
 : State(systems)
-, zoomFactor(1.f) {
-    if (!map.load(name)) { BL_LOG_ERROR << "Failed to load map: " << name; }
-}
+, file(name)
+, zoomFactor(1.f) {}
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
-void MapExplorer::activate(bl::engine::Engine&) {
-    if (!map.enter(systems, 0)) BL_LOG_ERROR << "Failed to enter map";
+void MapExplorer::activate(bl::engine::Engine& engine) {
+    if (!map.load(file)) { BL_LOG_ERROR << "Failed to load map: " << file; }
+    if (!map.enter(systems, 0)) {
+        BL_LOG_ERROR << "Failed to enter map";
+        engine.flags().set(bl::engine::Flags::Terminate);
+    }
 }
 
 void MapExplorer::deactivate(bl::engine::Engine&) { map.exit(systems); }

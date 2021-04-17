@@ -78,7 +78,7 @@ void MainMenu::deactivate(bl::engine::Engine& engine) {
 
 void MainMenu::update(bl::engine::Engine& engine, float dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-        engine.replaceState(MapExplorer::create(systems, "PiperCave.map"));
+        engine.replaceState(MapExplorer::create(systems, "WorldMap.map"));
     }
 }
 

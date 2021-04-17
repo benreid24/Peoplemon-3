@@ -1,6 +1,8 @@
 #include <Core/Maps/Tile.hpp>
 #include <Core/Maps/Tileset.hpp>
 
+#include <iostream>
+
 namespace core
 {
 namespace map
