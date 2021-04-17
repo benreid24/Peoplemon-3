@@ -45,9 +45,10 @@ void LayerSet::activate(Tileset& tileset) {
     const auto activateLayer = [&tileset](TileLayer& layer) {
         for (unsigned int x = 0; x < layer.width(); ++x) {
             for (unsigned int y = 0; y < layer.height(); ++y) {
-                layer.getRef(x, y).initialize(tileset,
-                                              {static_cast<float>(x * Properties::PixelsPerTile),
-                                               static_cast<float>(y * Properties::PixelsPerTile)});
+                layer.getRef(x, y).initialize(
+                    tileset,
+                    {static_cast<float>(x * Properties::PixelsPerTile()),
+                     static_cast<float>(y * Properties::PixelsPerTile())});
             }
         }
     };

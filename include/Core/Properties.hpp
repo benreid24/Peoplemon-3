@@ -15,38 +15,40 @@
 namespace core
 {
 /**
- * @brief Common core application properties here. We may want to load these from a file or they may
- *        simply be constants. Some properties may be loaded into the engine configuration store
+ * @brief Wrapper around bl::engine::Configuration. Provides application configuration in variables
+ *        that may be accessed without performing look ups, and hides the string config names
  *
  * @ingroup Core
  *
  */
 class Properties : private bl::util::NonCopyable {
 public:
-    static constexpr int DefaultWindowWidth  = 800;
-    static constexpr int DefaultWindowHeight = 600;
-    static constexpr int DefaultWidthTiles   = 25;
-    static constexpr int DefaultHeightTiles  = 19;
+    static const std::string& WindowIconFile();
+    static int WindowWidth();
+    static int WindowHeight();
 
-    static constexpr int PixelsPerTile    = 32;
-    static constexpr int ExtraRenderTiles = 10;
-
-    static const std::string WindowIconFile;
-
-    static const std::string MenuImagePath;
-
-    static const std::string SpritesheetPath;
-    static const std::string MusicPath;
-
-    static const std::string MapPath;
-    static const std::string TilesetPath;
-    static const std::string MapTilePath;
-    static const std::string MapAnimationPath;
-
-    // TODO - make these wrappers around bl::engine::Properties and load from file
+    static int PixelsPerTile();
+    static int ExtraRenderTiles();
+    static int LightingWidthTiles();
+    static int LightingHeightTiles();
 
     static const sf::Font& MenuFont();
+    static const std::string& MenuImagePath();
 
+    static const std::string& SpritesheetPath();
+    static const std::string& MusicPath();
+
+    static const std::string& MapPath();
+    static const std::string& TilesetPath();
+    static const std::string& MapTilePath();
+    static const std::string& MapAnimationPath();
+
+    /**
+     * @brief Loads from the config file and sets defaults. Must be called before using any
+     *        properties
+     *
+     * @return True if loaded without error, false for failure
+     */
     static bool load();
 
 private:

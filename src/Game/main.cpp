@@ -14,11 +14,11 @@ int main() {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(
-                sf::VideoMode(800, 600, 32)) // TODO - get from Properties or make configurable
+            .withVideoMode(sf::VideoMode(
+                core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
             .withWindowTitle("Peoplemon")
-            .withWindowIcon(core::Properties::WindowIconFile);
+            .withWindowIcon(core::Properties::WindowIconFile());
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 

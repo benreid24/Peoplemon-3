@@ -17,7 +17,7 @@ MainMenu::MainMenu() {
 
     backgroundTxtr =
         bl::engine::Resources::textures()
-            .load(bl::file::Util::joinPath(core::Properties::MenuImagePath, "mainMenu.png"))
+            .load(bl::file::Util::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"))
             .data;
     background.setTexture(*backgroundTxtr, true);
 

@@ -155,16 +155,17 @@ bool Tileset::load(const std::string& file) {
     anims.clear();
     sharedAnimations.clear();
 
-    bl::file::binary::File input(bl::file::Util::joinPath(Properties::TilesetPath, file),
+    bl::file::binary::File input(bl::file::Util::joinPath(Properties::TilesetPath(), file),
                                  bl::file::binary::File::Read);
     VersionedLoader loader;
     if (!loader.read(input, *this)) return false;
 
     for (const auto& tpair : textureFiles.getValue()) {
-        textures.emplace(tpair.first,
-                         bl::engine::Resources::textures()
-                             .load(bl::file::Util::joinPath(Properties::MapTilePath, tpair.second))
-                             .data);
+        textures.emplace(
+            tpair.first,
+            bl::engine::Resources::textures()
+                .load(bl::file::Util::joinPath(Properties::MapTilePath(), tpair.second))
+                .data);
         if (tpair.first >= nextTextureId) nextTextureId = tpair.first + 1;
     }
 
@@ -172,7 +173,7 @@ bool Tileset::load(const std::string& file) {
         auto it = anims
                       .emplace(apair.first,
                                bl::engine::Resources::animations()
-                                   .load(bl::file::Util::joinPath(Properties::MapAnimationPath,
+                                   .load(bl::file::Util::joinPath(Properties::MapAnimationPath(),
                                                                   apair.second))
                                    .data)
                       .first;
@@ -184,7 +185,7 @@ bool Tileset::load(const std::string& file) {
 }
 
 bool Tileset::save(const std::string& file) const {
-    bl::file::binary::File output(bl::file::Util::joinPath(Properties::TilesetPath, file),
+    bl::file::binary::File output(bl::file::Util::joinPath(Properties::TilesetPath(), file),
                                   bl::file::binary::File::Write);
     VersionedLoader loader;
     return loader.write(output, *this);

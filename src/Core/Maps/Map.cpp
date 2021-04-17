@@ -269,17 +269,17 @@ void Map::render(sf::RenderTarget& target, float residual) {
     // TODO - render. how to intermingle rendered entities?
 
     static const sf::Vector2i ExtraRender =
-        sf::Vector2i(Properties::ExtraRenderTiles, Properties::ExtraRenderTiles);
+        sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
     const sf::Vector2f cornerPixels =
         target.getView().getCenter() - target.getView().getSize() / 2.f;
     sf::Vector2i corner =
-        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile - ExtraRender;
+        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile() - ExtraRender;
     if (corner.x < 0) corner.x = 0;
     if (corner.y < 0) corner.y = 0;
 
     sf::Vector2i wsize =
-        static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile +
+        static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile() +
         ExtraRender * 2;
     if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
     if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
@@ -308,7 +308,7 @@ void Map::render(sf::RenderTarget& target, float residual) {
 
 bool Map::load(const std::string& file) {
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
-    if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath, path);
+    if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
     if (!bl::file::Util::exists(path)) {
         BL_LOG_ERROR << "Failed to find map '" << file << "'. Tried '" << path << "'";
         return false;
@@ -319,7 +319,7 @@ bool Map::load(const std::string& file) {
 }
 
 bool Map::save(const std::string& file) {
-    bl::file::binary::File output(bl::file::Util::joinPath(Properties::MapPath, file),
+    bl::file::binary::File output(bl::file::Util::joinPath(Properties::MapPath(), file),
                                   bl::file::binary::File::Write);
     VersionedLoader loader;
     return loader.write(output, *this);

@@ -42,9 +42,10 @@ void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
 }
 
 LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& position) {
-    auto set = lightTree.getInArea(
-        {{position.x - Properties::PixelsPerTile * 2, position.y - Properties::PixelsPerTile * 2},
-         {Properties::PixelsPerTile * 4, Properties::PixelsPerTile * 4}});
+    auto set =
+        lightTree.getInArea({{position.x - Properties::PixelsPerTile() * 2,
+                              position.y - Properties::PixelsPerTile() * 2},
+                             {Properties::PixelsPerTile() * 4, Properties::PixelsPerTile() * 4}});
     Handle closest      = None;
     unsigned long cdist = 0;
     for (auto pair : set) {
@@ -91,13 +92,14 @@ void LightingSystem::activate(const sf::Vector2i& mapSize) {
     lightTree.clear();
 
     lightTree.setIndexedArea(
-        {{0, 0}, {mapSize.x * Properties::PixelsPerTile, mapSize.y * Properties::PixelsPerTile}});
+        {{0, 0},
+         {mapSize.x * Properties::PixelsPerTile(), mapSize.y * Properties::PixelsPerTile()}});
     lightTree.setMaxLoad(5);
 
     for (const auto& light : lightsField.getValue()) { addLight(light, false); }
 
-    renderSurface.create(Properties::DefaultWidthTiles * Properties::PixelsPerTile,
-                         Properties::DefaultHeightTiles * Properties::PixelsPerTile);
+    renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
+                         Properties::LightingHeightTiles() * Properties::PixelsPerTile());
     sprite.setTexture(renderSurface.getTexture(), true);
     sprite.setScale(1.f, -1.f);
 }
