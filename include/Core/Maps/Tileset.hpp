@@ -1,0 +1,145 @@
+#ifndef CORE_MAPS_TILESET_HPP
+#define CORE_MAPS_TILESET_HPP
+
+#include <Core/Maps/Tile.hpp>
+
+#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Media/Graphics.hpp>
+#include <BLIB/Resources.hpp>
+#include <SFML/Graphics.hpp>
+
+#include <string>
+#include <unordered_map>
+
+namespace core
+{
+namespace map
+{
+/// Collection of classes to handle loading legacy and new formats
+namespace loaders
+{
+/**
+ * @brief Loads the old Peoplemon format tilesets
+ *
+ * @ingroup Maps
+ *
+ */
+class LegacyTilesetLoader;
+
+/**
+ * @brief Loads the new tileset format
+ *
+ * @ingroup Maps
+ *
+ */
+class PrimaryTilesetLoader;
+
+} // namespace loaders
+
+/**
+ * @brief Stores the collection of images and animations used by Tiles in a Map
+ *
+ * @ingroup Maps
+ *
+ */
+class Tileset : private bl::file::binary::SerializableObject {
+public:
+    /**
+     * @brief Creates an empty Tileset
+     *
+     */
+    Tileset();
+
+    /**
+     * @brief Copies the tileset
+     *
+     * @param copy The tileset to copy
+     */
+    Tileset(const Tileset& copy);
+
+    /**
+     * @brief Copies the tileset
+     *
+     * @param copy The tileset to copy
+     * @return A reference to this tileset
+     */
+    Tileset& operator=(const Tileset& copy);
+
+    /**
+     * @brief Adds a texture to the tileset and returns its id
+     *
+     * @param uri The path of the texture to add
+     * @return Tile::IdType The id of the new texture
+     */
+    Tile::IdType addTexture(const std::string& uri);
+
+    /**
+     * @brief Removes the given texture from the tileset. Undefined behavior if any tiles reference
+     *        it. Care must be taken to blank those tiles before the next render
+     *
+     * @param id The id of the texture to remove
+     */
+    void removeTexture(Tile::IdType id);
+
+    /**
+     * @brief Adds the given animation to the tileset and returns its id
+     *
+     * @param uri The path to the animation
+     * @return Tile::IdType The id of the new animation
+     */
+    Tile::IdType addAnimation(const std::string& uri);
+
+    /**
+     * @brief Removes the given animation from the tileset. Undefined behavior if any tiles
+     *        reference it. Care must be taken to blank those tiles before the next render
+     *
+     * @param id The id of the animation to remove
+     */
+    void removeAnimation(Tile::IdType id);
+
+    /**
+     * @brief Loads the tileset from the given file and loads all media
+     *
+     * @param file The file to load from
+     * @return True if loaded successfully, false on error
+     */
+    bool load(const std::string& file);
+
+    /**
+     * @brief Saves the tileset to the given file. No media is saved
+     *
+     * @param file The file to save to
+     * @return True if successfully written, false on error
+     */
+    bool save(const std::string& file) const;
+
+    /**
+     * @brief Updates the animations in the tileset. Does not update unique animations, only shared.
+     *        Unique animations are updated by the Tile that renders them
+     *
+     * @param dt Time elapsed since last called to update() in seconds
+     */
+    void update(float dt);
+
+private:
+    bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>
+        textureFiles;
+    bl::file::binary::SerializableField<2, std::unordered_map<Tile::IdType, std::string>> animFiles;
+    Tile::IdType nextTextureId;
+    Tile::IdType nextAnimationId;
+
+    std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref> textures;
+    std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref> anims;
+    std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
+
+    void initializeTile(Tile& tile);
+
+    friend class Tile;
+    friend class loaders::LegacyTilesetLoader;
+    friend class loaders::PrimaryTilesetLoader;
+};
+
+} // namespace map
+} // namespace core
+
+#endif

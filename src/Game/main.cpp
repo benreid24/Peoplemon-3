@@ -1,7 +1,8 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
 
-#include <Common/Properties.hpp>
+#include <Core/Game/Systems.hpp>
+#include <Core/Properties.hpp>
 #include <Game/States/MainMenu.hpp>
 
 int main() {
@@ -14,14 +15,20 @@ int main() {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
+            .withVideoMode(sf::VideoMode(
+                core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("Peoplemon");
+            .withWindowTitle("Peoplemon")
+            .withWindowIcon(core::Properties::WindowIconFile());
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 
+    BL_LOG_INFO << "Initializing game systems";
+    core::game::Systems systems(engine);
+    BL_LOG_INFO << "Core game systems initialized";
+
     BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(game::state::MainMenu::create())) {
+    if (!engine.run(game::state::MainMenu::create(systems))) {
         BL_LOG_ERROR << "Engine exited with error";
         return 1;
     }

@@ -27,7 +27,7 @@ include_directories(lib/BLIB/lib/SFML/include)
 
 add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
-add_library(Common STATIC)
+add_library(Core STATIC)
 
 if (STATIC_LINK)
     if (WIN32)
@@ -37,7 +37,7 @@ if (STATIC_LINK)
     endif()
 endif()
 
-target_link_libraries(Common PRIVATE
+target_link_libraries(Core PRIVATE
     BLIB
 
     sfml-graphics
@@ -49,7 +49,7 @@ target_link_libraries(Common PRIVATE
 
 target_link_libraries(Peoplemon PRIVATE
     BLIB
-    Common
+    Core
 
     sfml-graphics
     sfml-window
@@ -60,7 +60,7 @@ target_link_libraries(Peoplemon PRIVATE
 
 target_link_libraries(PeoplemonEditor PRIVATE
     BLIB
-    Common
+    Core
 
     sfml-graphics
     sfml-window

@@ -1,20 +1,12 @@
 #ifndef GAME_STATES_MAINMENU_HPP
 #define GAME_STATES_MAINMENU_HPP
 
-#include <BLIB/Engine/State.hpp>
+#include <Game/States/State.hpp>
 #include <BLIB/Menu.hpp>
 #include <BLIB/Resources.hpp>
 
-/**
- * @defgroup States
- * @brief Collection of each possible game state
- *
- */
-
-/// Parent namespace for all functionality unique to the game
 namespace game
 {
-/// Parent namespace for all engine states implemented by the game
 namespace state
 {
 /**
@@ -23,13 +15,13 @@ namespace state
  * @ingroup States
  *
  */
-class MainMenu : public bl::engine::State {
+class MainMenu : public State {
 public:
     /**
      * @brief Creates a new MainMenu state
      *
      */
-    static bl::engine::State::Ptr create();
+    static bl::engine::State::Ptr create(core::game::Systems& systems);
 
     /// Cleans up all resources
     virtual ~MainMenu() = default;
@@ -78,7 +70,7 @@ private:
     bl::menu::Item::Ptr settings;
     bl::menu::Item::Ptr quit;
 
-    MainMenu();
+    MainMenu(core::game::Systems& systems);
 };
 
 } // namespace state
