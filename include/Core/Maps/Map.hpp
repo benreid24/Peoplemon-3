@@ -150,7 +150,7 @@ private:
 
     bool activated;                                  // for weather continuity
     std::vector<bl::entity::Entity> spawnedEntities; // for cleanup
-    float renderTime;
+    sf::IntRect renderRange;
 
     friend class loaders::LegacyMapLoader;
 };

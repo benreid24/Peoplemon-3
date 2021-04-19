@@ -85,6 +85,8 @@ public:
                     std::uint8_t isAnim;
                     if (!input.read(isAnim)) return false;
                     if (!input.read(id)) return false;
+                    // const int tx = isAnim ? x : std::max(0u, x - 1);
+                    // const int ty = isAnim ? y : std::max(0u, y - 1);
                     if (i < firstYSortLayer) {
                         result.levels.front().bottomLayers()[i].set(
                             x, y, {id, static_cast<bool>(isAnim)});
@@ -264,15 +266,13 @@ Weather& Map::weatherSystem() { return weather; }
 LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(float dt) {
-    renderTime = dt;
+    tileset.update(dt);
+    for (LayerSet& level : levels) { level.update(renderRange, dt); }
     // TODO - other components? weather probably
 }
 
 // TODO - special editor rendering for hiding levels and layers
 void Map::render(sf::RenderTarget& target, float residual) {
-    const float t = renderTime + residual;
-    tileset.update(t);
-
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -288,16 +288,26 @@ void Map::render(sf::RenderTarget& target, float residual) {
         ExtraRender * 2;
     if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
     if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    renderRange = {corner, wsize};
 
-    const auto renderRow = [&target, &t, &corner, &wsize](TileLayer& layer, int row) {
-        for (int x = corner.x; x < corner.x + wsize.x; ++x) { layer.get(x, row).render(target, t); }
+    const auto renderRow = [&target, residual, &corner, &wsize](TileLayer& layer, int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+            layer.get(x, row).render(target, residual);
+        }
+    };
+
+    const auto renderCol = [&target, residual, &corner, &wsize](TileLayer& layer, int col) {
+        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            layer.get(col, y).render(target, residual);
+        }
     };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         LayerSet& level = levels[i];
 
         for (TileLayer& layer : level.bottomLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
         }
         for (TileLayer& layer : level.ysortLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) {
@@ -306,14 +316,15 @@ void Map::render(sf::RenderTarget& target, float residual) {
             }
         }
         for (TileLayer& layer : level.topLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
         }
     }
 }
 
 bool Map::load(const std::string& file) {
     BL_LOG_INFO << "Loading map " << file;
-    
+
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
     if (!bl::file::Util::exists(path)) {

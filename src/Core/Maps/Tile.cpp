@@ -44,38 +44,40 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
-    static const auto blank    = [](sf::RenderTarget&) {};
-    static const auto noUpdate = [](float) {};
-
-    renderFunction = blank;
-    updateFunction = noUpdate;
+    renderFunction = &Tile::noRender;
+    updateFunction = &Tile::noUpdate;
 
     if (tid.getValue() == Blank) return;
 
     if (isAnim) {
-        if (anim == &uniqueAnim) {
-            updateFunction = std::bind(&Tile::update, this, std::placeholders::_1);
-        }
-        renderFunction = std::bind(&Tile::renderAnimation, this, std::placeholders::_1);
+        anim->setIsCentered(false);
+        if (anim == &uniqueAnim) { updateFunction = &Tile::doUpdate; }
+        renderFunction = &Tile::renderAnimation;
     }
     else {
         anim           = nullptr;
-        renderFunction = std::bind(&Tile::renderSprite, this, std::placeholders::_1);
+        renderFunction = &Tile::renderSprite;
     }
 }
 
-void Tile::update(float dt) { updateFunction(dt); }
-
-void Tile::render(sf::RenderTarget& target, float dt) const {
-    updateFunction(dt);
-    renderFunction(target);
+void Tile::update(float dt) {
+    Tile& me = *this;
+    (me.*(me.updateFunction))(dt);
 }
 
-void Tile::renderSprite(sf::RenderTarget& target) const { target.draw(sprite); }
+void Tile::doUpdate(float dt) { uniqueAnim.update(dt); }
 
-void Tile::renderAnimation(sf::RenderTarget& target) const {
-    anim->setPosition(sprite.getPosition()); // in case of shared anim
-    target.draw(*anim);
+void Tile::render(sf::RenderTarget& target, float lag) const {
+    const Tile& me = *this;
+    (me.*(me.renderFunction))(target, lag);
+}
+
+void Tile::renderSprite(sf::RenderTarget& target, float) const { target.draw(sprite); }
+
+void Tile::renderAnimation(sf::RenderTarget& target, float lag) const {
+    // TODO - fix legacy maps on conversion so anims are not offset
+    anim->setPosition(sprite.getPosition() - sf::Vector2f(32, 32)); // in case of shared anim
+    anim->render(target, lag);
 }
 
 } // namespace map

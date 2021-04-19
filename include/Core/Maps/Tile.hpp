@@ -95,12 +95,19 @@ public:
     void initialize(Tileset& tileset, const sf::Vector2f& position);
 
     /**
+     * @brief Updates the tile's unique animation if there is one
+     * 
+     * @param dt Time elapsed since last call to update()
+     */
+    void update(float dt);
+
+    /**
      * @brief Renders the tile to the given target
      *
      * @param target The target to render to
-     * @param dt The elapsed time since the last call to render, in seconds
+     * @param lag Residual time between calls to update
      */
-    void render(sf::RenderTarget& target, float dt) const;
+    void render(sf::RenderTarget& target, float residual) const;
 
 private:
     bl::file::binary::SerializableField<1, bool> isAnim;
@@ -109,12 +116,15 @@ private:
     sf::Sprite sprite;
     bl::gfx::Animation uniqueAnim;
     bl::gfx::Animation* anim;
-    std::function<void(sf::RenderTarget&)> renderFunction;
-    std::function<void(float)> updateFunction;
+    void (Tile::*updateFunction)(float);
+    void (Tile::*renderFunction)(sf::RenderTarget&, float) const;
 
-    void update(float dt);
-    void renderSprite(sf::RenderTarget& target) const;
-    void renderAnimation(sf::RenderTarget& target) const;
+    void noUpdate(float){};
+    void doUpdate(float dt);
+
+    void noRender(sf::RenderTarget&, float) const {};
+    void renderSprite(sf::RenderTarget& target, float lag) const;
+    void renderAnimation(sf::RenderTarget& target, float lag) const;
 
     friend class Tileset;
 };

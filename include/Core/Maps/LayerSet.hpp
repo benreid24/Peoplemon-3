@@ -127,6 +127,14 @@ public:
      */
     std::vector<TileLayer>& topLayers();
 
+    /**
+     * @brief Updates tiles in the layer set
+     *
+     * @param area The area of the map to update
+     * @param dt Elapsed time in seconds since last call to update()
+     */
+    void update(const sf::IntRect& area, float dt);
+
 private:
     bl::file::binary::SerializableField<1, CollisionLayer> collisions;
     bl::file::binary::SerializableField<2, CatchLayer> catches;

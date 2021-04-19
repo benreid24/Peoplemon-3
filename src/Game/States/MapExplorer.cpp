@@ -27,7 +27,7 @@ void MapExplorer::activate(bl::engine::Engine& engine) {
 void MapExplorer::deactivate(bl::engine::Engine&) { map.exit(systems); }
 
 void MapExplorer::update(bl::engine::Engine& engine, float dt) {
-    static const float PixelsPerSecond = 256 * zoomFactor;
+    static const float PixelsPerSecond = 512 * zoomFactor;
     static const float ZoomPerSecond   = 0.5f;
 
     map.update(dt);

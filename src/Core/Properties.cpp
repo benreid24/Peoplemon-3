@@ -27,7 +27,7 @@ const std::string MenuFont        = "Resources/Fonts/Menu.ttf";
 const std::string MapPath          = "Resources/Maps/Maps";
 const std::string TilesetPath      = "Resources/Maps/Tilesets";
 const std::string MapTilePath      = "Resources/Maps/Tiles/Sprites";
-const std::string MapAnimationPath = "Resources/MapsTiles/Animations";
+const std::string MapAnimationPath = "Resources/Maps/Tiles/Animations";
 
 } // namespace defaults
 

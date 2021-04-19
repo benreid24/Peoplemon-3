@@ -67,5 +67,19 @@ std::vector<TileLayer>& LayerSet::ysortLayers() { return ysort.getValue(); }
 
 std::vector<TileLayer>& LayerSet::topLayers() { return top.getValue(); }
 
+void LayerSet::update(const sf::IntRect& area, float dt) {
+    static const auto updateLayer = [&area, dt](TileLayer& layer) {
+        for (unsigned int x = area.left; x < area.left + area.width; ++x) {
+            for (unsigned int y = area.top; y < area.top + area.height; ++y) {
+                layer.getRef(x, y).update(dt);
+            }
+        }
+    };
+
+    for (TileLayer& layer : bottomLayers()) { updateLayer(layer); }
+    for (TileLayer& layer : ysortLayers()) { updateLayer(layer); }
+    for (TileLayer& layer : topLayers()) { updateLayer(layer); }
+}
+
 } // namespace map
 } // namespace core
