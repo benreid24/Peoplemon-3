@@ -5,11 +5,12 @@ namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr MapExplorer::create(core::game::Systems& systems, const std::string& name) {
+bl::engine::State::Ptr MapExplorer::create(core::systems::Systems& systems,
+                                           const std::string& name) {
     return bl::engine::State::Ptr(new MapExplorer(systems, name));
 }
 
-MapExplorer::MapExplorer(core::game::Systems& systems, const std::string& name)
+MapExplorer::MapExplorer(core::systems::Systems& systems, const std::string& name)
 : State(systems)
 , file(name)
 , zoomFactor(1.f) {}

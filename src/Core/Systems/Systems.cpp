@@ -1,8 +1,8 @@
-#include <Core/Game/Systems.hpp>
+#include <Core/Systems/Systems.hpp>
 
 namespace core
 {
-namespace game
+namespace systems
 {
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine) {}
@@ -11,5 +11,5 @@ const bl::engine::Engine& Systems::engine() const { return _engine; }
 
 bl::engine::Engine& Systems::engine() { return _engine; }
 
-} // namespace game
+} // namespace systems
 } // namespace core

@@ -4,7 +4,7 @@ namespace game
 {
 namespace state
 {
-State::State(core::game::Systems& s)
+State::State(core::systems::Systems& s)
 : systems(s) {}
 
 } // namespace state

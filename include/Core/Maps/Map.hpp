@@ -1,7 +1,6 @@
 #ifndef CORE_MAPS_MAP_HPP
 #define CORE_MAPS_MAP_HPP
 
-#include <Core/Game/Systems.hpp>
 #include <Core/Maps/CatchZone.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
@@ -11,6 +10,7 @@
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Weather.hpp>
+#include <Core/Systems/Systems.hpp>
 
 #include <BLIB/Files/Binary.hpp>
 #include <unordered_map>
@@ -88,14 +88,14 @@ public:
      * @param spawnId The spawn to place the player at
      * @return True on success, false on error
      */
-    bool enter(game::Systems& game, std::uint16_t spawnId);
+    bool enter(systems::Systems& game, std::uint16_t spawnId);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
      * @param game The main game object
      */
-    void exit(game::Systems& game);
+    void exit(systems::Systems& game);
 
     /**
      * @brief Returns a reference to the weather system in this map

@@ -1,9 +1,9 @@
 #ifndef GAME_STATES_MAINMENU_HPP
 #define GAME_STATES_MAINMENU_HPP
 
-#include <Game/States/State.hpp>
 #include <BLIB/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Game/States/State.hpp>
 
 namespace game
 {
@@ -21,7 +21,7 @@ public:
      * @brief Creates a new MainMenu state
      *
      */
-    static bl::engine::State::Ptr create(core::game::Systems& systems);
+    static bl::engine::State::Ptr create(core::systems::Systems& systems);
 
     /// Cleans up all resources
     virtual ~MainMenu() = default;
@@ -70,7 +70,7 @@ private:
     bl::menu::Item::Ptr settings;
     bl::menu::Item::Ptr quit;
 
-    MainMenu(core::game::Systems& systems);
+    MainMenu(core::systems::Systems& systems);
 };
 
 } // namespace state

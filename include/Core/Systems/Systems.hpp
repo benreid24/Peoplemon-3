@@ -7,21 +7,21 @@
 int main();
 
 /**
- * @addtogroup CoreGame
+ * @addtogroup Systems
  * @ingroup Core
- * @brief Collection of core game classes shared between the game and the editor
+ * @brief Collection of core game systems shared between the game and the editor
  *
  */
 
 namespace core
 {
-/// Namespace containing core game classes shared between the game and the editor
-namespace game
+/// Namespace containing core game systems shared between the game and the editor
+namespace systems
 {
 /**
- * @brief Owns all primary systems and the engine
+ * @brief Owns all primary systems and a reference to the engine
  *
- * @ingroup CoreGame
+ * @ingroup Systems
  *
  */
 class Systems : private bl::util::NonCopyable {
@@ -53,7 +53,7 @@ private:
     friend int ::main();
 };
 
-} // namespace game
+} // namespace systems
 } // namespace core
 
 #endif

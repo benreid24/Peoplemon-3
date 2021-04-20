@@ -10,11 +10,11 @@ namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr MainMenu::create(core::game::Systems& systems) {
+bl::engine::State::Ptr MainMenu::create(core::systems::Systems& systems) {
     return Ptr(new MainMenu(systems));
 }
 
-MainMenu::MainMenu(core::game::Systems& systems)
+MainMenu::MainMenu(core::systems::Systems& systems)
 : State(systems) {
     using bl::menu::Item;
     using bl::menu::TextRenderItem;

@@ -224,7 +224,7 @@ Map::Map()
 , catchZonesField(*this)
 , activated(false) {}
 
-bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
+bool Map::enter(systems::Systems& game, std::uint16_t spawnId) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
     // TODO - spawn entities
     // TODO - move player to spawn
@@ -253,7 +253,7 @@ bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
     return true;
 }
 
-void Map::exit(game::Systems& game) {
+void Map::exit(systems::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)

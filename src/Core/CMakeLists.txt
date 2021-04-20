@@ -3,5 +3,5 @@ target_sources(Core PRIVATE
 )
 
 add_subdirectory(Entities)
-add_subdirectory(Game)
 add_subdirectory(Maps)
+add_subdirectory(Systems)
