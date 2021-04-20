@@ -1,6 +1,8 @@
 #ifndef CORE_GAME_GAME_HPP
 #define CORE_GAME_GAME_HPP
 
+#include <Core/Systems/Clock.hpp>
+
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
@@ -16,7 +18,7 @@ int main();
 namespace core
 {
 /// Namespace containing core game systems shared between the game and the editor
-namespace systems
+namespace system
 {
 /**
  * @brief Owns all primary systems and a reference to the engine
@@ -26,6 +28,13 @@ namespace systems
  */
 class Systems : private bl::util::NonCopyable {
 public:
+    /**
+     * @brief Helper function to update all game systems
+     *
+     * @param dt Elapsed time in seconds since last call to update()
+     */
+    void update(float dt);
+
     /**
      * @brief Const accessor for the Engine
      *
@@ -38,10 +47,15 @@ public:
      */
     bl::engine::Engine& engine();
 
-    // TODO - make systems accessible here
+    /**
+     * @brief Const accessor for the in game clock
+     *
+     */
+    const Clock& clock() const;
 
 private:
     bl::engine::Engine& _engine;
+    Clock _clock;
 
     /**
      * @brief Creates the core game object and associates it with the engine
@@ -53,7 +67,7 @@ private:
     friend int ::main();
 };
 
-} // namespace systems
+} // namespace system
 } // namespace core
 
 #endif

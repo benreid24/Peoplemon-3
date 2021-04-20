@@ -1,7 +1,9 @@
+#include <Core/Maps/LightingSystem.hpp>
+
 #include <BLIB/Media/Shapes/GradientCircle.hpp>
 #include <BLIB/Util/Random.hpp>
-#include <Core/Maps/LightingSystem.hpp>
 #include <Core/Properties.hpp>
+#include <cmath>
 #include <limits>
 
 namespace core
@@ -11,7 +13,9 @@ namespace map
 LightingSystem::LightingSystem()
 : lightsField(*this)
 , lightLevelField(*this, 255)
-, sunlightField(*this, true) {}
+, sunlightField(*this, true)
+, lightLevel(255)
+, eventGuard(this) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     Iterator it = lights.add(light);
@@ -78,7 +82,10 @@ void LightingSystem::removeLight(Handle handle, bool p) {
     handles.erase(it);
 }
 
-void LightingSystem::setAmbientLevel(std::uint8_t level) { lightLevelField = level; }
+void LightingSystem::setAmbientLevel(std::uint8_t level) {
+    lightLevelField = level;
+    if (level != 255) lightLevel = 255;
+}
 
 std::uint8_t LightingSystem::getAmbientLevel() const { return lightLevelField.getValue(); }
 
@@ -86,10 +93,14 @@ void LightingSystem::adjustForSunlight(bool a) { sunlightField = a; }
 
 bool LightingSystem::adjustsForSunlight() const { return sunlightField.getValue(); }
 
-void LightingSystem::activate(const sf::Vector2i& mapSize) {
+void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& mapSize) {
+    eventGuard.subscribe(bus);
+
     lights.clear();
     handles.clear();
     lightTree.clear();
+
+    if (lightLevel == 255) lightLevel = lightLevelField.getValue();
 
     lightTree.setIndexedArea(
         {{0, 0},
@@ -106,7 +117,8 @@ void LightingSystem::activate(const sf::Vector2i& mapSize) {
 
 void LightingSystem::clear() {
     lightsField.getValue().clear();
-    lightLevelField = 255;
+    lightLevelField = 0;
+    lightLevel      = 0;
     sunlightField   = true;
     lights.clear();
     handles.clear();
@@ -132,7 +144,6 @@ void LightingSystem::renderSection(sf::RenderTarget& target, const sf::Vector2i&
     auto lightSet =
         lightTree.getInArea({position, static_cast<sf::Vector2i>(renderSurface.getSize())});
 
-    const std::uint8_t lightLevel = lightLevelField.getValue(); // TODO - account for time of day
     renderSurface.clear(sf::Color(0, 0, 0, lightLevel));
 
     bl::shapes::GradientCircle circle(100);
@@ -145,6 +156,17 @@ void LightingSystem::renderSection(sf::RenderTarget& target, const sf::Vector2i&
     }
 
     target.draw(sprite);
+}
+
+void LightingSystem::observe(const event::TimeChange& now) {
+    if (lightLevelField.getValue() != 255) {
+        const float x = now.newTime.hour * 60 + now.newTime.minute;
+        const float n = 0.7;
+        lightLevel    = std::max(0.,
+                              (70 * cos(3.1415926 * x / 720) + 70) *
+                                  ((1 - n) * (720 - x) * (720 - x) / 518400 + n));
+        // TODO - add weather light modifier
+    }
 }
 
 } // namespace map

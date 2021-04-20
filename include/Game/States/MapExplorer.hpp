@@ -10,7 +10,7 @@ namespace state
 {
 class MapExplorer : public State {
 public:
-    static bl::engine::State::Ptr create(core::systems::Systems& systems, const std::string& map);
+    static bl::engine::State::Ptr create(core::system::Systems& systems, const std::string& map);
 
     virtual ~MapExplorer() = default;
 
@@ -29,7 +29,7 @@ private:
     core::map::Map map;
     float zoomFactor;
 
-    MapExplorer(core::systems::Systems& systems, const std::string& map);
+    MapExplorer(core::system::Systems& systems, const std::string& map);
 };
 
 } // namespace state

@@ -68,14 +68,14 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override = 0;
 
 protected:
-    core::systems::Systems& systems;
+    core::system::Systems& systems;
 
     /**
      * @brief Initialize the state
      *
      * @param systems A reference to the core game systems
      */
-    State(core::systems::Systems& systems);
+    State(core::system::Systems& systems);
 };
 
 } // namespace state

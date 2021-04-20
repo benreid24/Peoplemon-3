@@ -24,7 +24,7 @@ int main() {
     BL_LOG_INFO << "Created engine";
 
     BL_LOG_INFO << "Initializing game systems";
-    core::systems::Systems systems(engine);
+    core::system::Systems systems(engine);
     BL_LOG_INFO << "Core game systems initialized";
 
     BL_LOG_INFO << "Running engine main loop";

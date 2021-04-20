@@ -88,14 +88,14 @@ public:
      * @param spawnId The spawn to place the player at
      * @return True on success, false on error
      */
-    bool enter(systems::Systems& game, std::uint16_t spawnId);
+    bool enter(system::Systems& game, std::uint16_t spawnId);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
      * @param game The main game object
      */
-    void exit(systems::Systems& game);
+    void exit(system::Systems& game);
 
     /**
      * @brief Returns a reference to the weather system in this map

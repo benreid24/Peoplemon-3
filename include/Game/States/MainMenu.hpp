@@ -21,7 +21,7 @@ public:
      * @brief Creates a new MainMenu state
      *
      */
-    static bl::engine::State::Ptr create(core::systems::Systems& systems);
+    static bl::engine::State::Ptr create(core::system::Systems& systems);
 
     /// Cleans up all resources
     virtual ~MainMenu() = default;
@@ -70,7 +70,7 @@ private:
     bl::menu::Item::Ptr settings;
     bl::menu::Item::Ptr quit;
 
-    MainMenu(core::systems::Systems& systems);
+    MainMenu(core::system::Systems& systems);
 };
 
 } // namespace state
