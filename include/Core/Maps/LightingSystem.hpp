@@ -2,6 +2,7 @@
 #define CORE_MAPS_LIGHTINGSYSTEM_HPP
 
 #include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/Grid.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Files/Binary.hpp>
@@ -103,6 +104,14 @@ public:
     bool adjustsForSunlight() const;
 
     /**
+     * @brief Prepares the lighting system to take lights from the LegacyMapLoader. Clears all
+     *        lights
+     *
+     * @param mapSize The map size to prepare for
+     */
+    void legacyResize(const sf::Vector2i& mapSize);
+
+    /**
      * @brief This must be called after a map is loaded and before any rendering is attempted.
      *        Loaded data is synced into runtime structures
      *
@@ -139,10 +148,9 @@ private:
 
     bl::event::ClassGuard<event::TimeChange> eventGuard;
 
-    using Iterator = bl::container::DynamicObjectPool<Light>::Iterator;
-    bl::container::DynamicObjectPool<Light> lights;
-    std::unordered_map<Handle, Iterator> handles;
-    bl::container::QuadTree<sf::Vector2i, std::pair<Handle, Iterator>> lightTree;
+    using Storage = bl::container::Grid<std::pair<Handle, Light>>;
+    std::unordered_map<Handle, Storage::Payload::Ptr> handles;
+    Storage lights;
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;

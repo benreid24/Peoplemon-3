@@ -15,14 +15,15 @@ LightingSystem::LightingSystem()
 , lightLevelField(*this, 0)
 , sunlightField(*this, true)
 , lightLevel(255)
-, eventGuard(this) {}
+, eventGuard(this)
+, lights(320, 320, 800, 600) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
-    Iterator it = lights.add(light);
     const Handle h =
         bl::util::Random::get<Handle>(static_cast<Handle>(1), std::numeric_limits<Handle>::max());
-    handles.emplace(h, it);
-    lightTree.add(light.position.getValue(), std::make_pair(h, it));
+    auto ptr = lights.add(
+        light.position.getValue().x, light.position.getValue().y, std::make_pair(h, light));
+    handles.emplace(h, ptr);
 
     if (p) { lightsField.getValue().push_back(light); }
     return h;
@@ -31,34 +32,30 @@ LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
 void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
     auto it = handles.find(handle);
     if (it == handles.end()) return;
+    it->second->move(light.position.getValue().x, light.position.getValue().y);
+    it->second->get().second = light;
 
     if (p) {
         for (auto& l : lightsField.getValue()) {
-            if (l.position.getValue() == it->second->position.getValue()) {
+            if (l.position.getValue() == it->second->get().second.position.getValue()) {
                 l = light;
                 break;
             }
         }
     }
-
-    lightTree.updatePosition(it->second->position.getValue(), light.position.getValue());
-    *it->second = light;
 }
 
 LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& position) {
-    auto set =
-        lightTree.getInArea({{position.x - Properties::PixelsPerTile() * 2,
-                              position.y - Properties::PixelsPerTile() * 2},
-                             {Properties::PixelsPerTile() * 4, Properties::PixelsPerTile() * 4}});
+    auto set            = lights.getCellAndNeighbors(position.x, position.y);
     Handle closest      = None;
     unsigned long cdist = 0;
-    for (auto pair : set) {
-        const long dx            = pair.second->position.getValue().x - position.x;
-        const long dy            = pair.second->position.getValue().y - position.y;
+    for (const auto& light : set) {
+        const long dx            = light.get().second.position.getValue().x - position.x;
+        const long dy            = light.get().second.position.getValue().y - position.y;
         const unsigned long dist = dx * dx + dy * dy;
         if (dist < cdist) {
             cdist   = dist;
-            closest = pair.first;
+            closest = light.get().first;
         }
     }
     return closest;
@@ -70,15 +67,15 @@ void LightingSystem::removeLight(Handle handle, bool p) {
 
     if (p) {
         for (unsigned int i = 0; i < lightsField.getValue().size(); ++i) {
-            if (lightsField.getValue()[i].position.getValue() == it->second->position.getValue()) {
+            if (lightsField.getValue()[i].position.getValue() ==
+                it->second->get().second.position.getValue()) {
                 lightsField.getValue().erase(lightsField.getValue().begin() + i);
                 break;
             }
         }
     }
 
-    lightTree.remove(it->second->position.getValue());
-    lights.erase(it->second);
+    it->second->remove();
     handles.erase(it);
 }
 
@@ -93,20 +90,20 @@ void LightingSystem::adjustForSunlight(bool a) { sunlightField = a; }
 
 bool LightingSystem::adjustsForSunlight() const { return sunlightField.getValue(); }
 
+void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
+    handles.clear();
+    lightsField.getValue().clear();
+    lights.setSize(mapSize.x * Properties::PixelsPerTile(),
+                   mapSize.y * Properties::PixelsPerTile(),
+                   Properties::WindowWidth(),
+                   Properties::WindowHeight());
+}
+
 void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& mapSize) {
     eventGuard.subscribe(bus);
-
-    lights.clear();
-    handles.clear();
-    lightTree.clear();
+    legacyResize(mapSize);
 
     if (lightLevel == 255) lightLevel = lightLevelField.getValue();
-
-    lightTree.setIndexedArea(
-        {{0, 0},
-         {mapSize.x * Properties::PixelsPerTile(), mapSize.y * Properties::PixelsPerTile()}});
-    lightTree.setMaxLoad(5);
-
     for (const auto& light : lightsField.getValue()) { addLight(light, false); }
 
     renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
@@ -122,15 +119,17 @@ void LightingSystem::clear() {
     sunlightField   = true;
     lights.clear();
     handles.clear();
-    lightTree.clear();
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() / 2.f);
     const sf::Vector2f& size = target.getView().getSize();
 
-    auto lightSet = lightTree.getInArea(
-        {sf::Vector2i(corner - target.getView().getSize() * 2.f), sf::Vector2i(size * 4.f)});
+    auto lightSet =
+        lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
+                       corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
+                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
+                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile());
 
     renderSurface.setView(target.getView());
     renderSurface.clear(sf::Color(0, 0, 0, lightLevel));
@@ -139,8 +138,9 @@ void LightingSystem::render(sf::RenderTarget& target) {
     circle.setCenterColor(sf::Color::Transparent);
     circle.setOuterColor(sf::Color(0, 0, 0, lightLevel));
 
-    for (auto& pair : lightSet) {
-        circle.setPosition(static_cast<sf::Vector2f>(pair.second->position.getValue()));
+    for (auto& light : lightSet) {
+        circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
+        circle.setRadius(light.get().second.radius.getValue());
         renderSurface.draw(circle, sf::BlendNone);
     }
 
