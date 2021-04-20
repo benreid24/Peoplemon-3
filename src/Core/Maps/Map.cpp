@@ -320,6 +320,8 @@ void Map::render(sf::RenderTarget& target, float residual) {
             for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
         }
     }
+
+    lightingSystem().render(target);
 }
 
 bool Map::load(const std::string& file) {

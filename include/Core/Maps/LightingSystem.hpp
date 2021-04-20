@@ -147,8 +147,6 @@ private:
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
     std::uint8_t lightLevel;
-
-    void renderSection(sf::RenderTarget& target, const sf::Vector2i& position);
 };
 
 } // namespace map

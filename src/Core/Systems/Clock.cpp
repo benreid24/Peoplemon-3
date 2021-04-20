@@ -1,7 +1,7 @@
 #include <Core/Systems/Clock.hpp>
 
-#include <Core/Systems/Systems.hpp>
 #include <Core/Events/TimeChange.hpp>
+#include <Core/Systems/Systems.hpp>
 #include <cmath>
 
 namespace core

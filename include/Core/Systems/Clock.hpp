@@ -2,6 +2,8 @@
 #define CORE_SYSTEMS_CLOCK_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <iomanip>
+#include <ostream>
 
 namespace core
 {
@@ -81,6 +83,12 @@ public:
          * @return True if right is earlier than this time
          */
         bool operator>(const Time& right) const;
+
+        friend std::ostream& operator<<(std::ostream& stream, const Time& time) {
+            stream << std::setfill('0') << std::setw(2) << time.hour << ":" << std::setfill('0')
+                   << std::setw(2) << time.minute;
+            return stream;
+        }
     };
 
     /**

@@ -12,7 +12,7 @@ namespace map
 {
 LightingSystem::LightingSystem()
 : lightsField(*this)
-, lightLevelField(*this, 255)
+, lightLevelField(*this, 0)
 , sunlightField(*this, true)
 , lightLevel(255)
 , eventGuard(this) {}
@@ -84,7 +84,7 @@ void LightingSystem::removeLight(Handle handle, bool p) {
 
 void LightingSystem::setAmbientLevel(std::uint8_t level) {
     lightLevelField = level;
-    if (level != 255) lightLevel = 255;
+    if (level != 255) lightLevel = level;
 }
 
 std::uint8_t LightingSystem::getAmbientLevel() const { return lightLevelField.getValue(); }
@@ -118,7 +118,7 @@ void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& ma
 void LightingSystem::clear() {
     lightsField.getValue().clear();
     lightLevelField = 0;
-    lightLevel      = 0;
+    lightLevel      = 255;
     sunlightField   = true;
     lights.clear();
     handles.clear();
@@ -126,24 +126,13 @@ void LightingSystem::clear() {
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
-    const int w = std::ceil(target.getView().getSize().x / renderSurface.getSize().x);
-    const int h = std::ceil(target.getView().getSize().y / renderSurface.getSize().y);
-    const sf::Vector2f cornerF = target.getView().getCenter() - target.getView().getSize() / 2.f;
-    const sf::Vector2i corner(std::floor(cornerF.x), std::floor(cornerF.y));
-    const sf::Vector2i size = static_cast<sf::Vector2i>(renderSurface.getSize());
+    const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() / 2.f);
+    const sf::Vector2f& size = target.getView().getSize();
 
-    for (int x = 0; x < w; ++x) {
-        for (int y = 0; y < h; ++y) {
-            renderSection(target, {corner.x + size.x * x, corner.y + size.y * y});
-        }
-    }
-}
+    auto lightSet = lightTree.getInArea(
+        {sf::Vector2i(corner - target.getView().getSize() * 2.f), sf::Vector2i(size * 4.f)});
 
-void LightingSystem::renderSection(sf::RenderTarget& target, const sf::Vector2i& position) {
-    const sf::Vector2f pos(position.x, position.y);
-    auto lightSet =
-        lightTree.getInArea({position, static_cast<sf::Vector2i>(renderSurface.getSize())});
-
+    renderSurface.setView(target.getView());
     renderSurface.clear(sf::Color(0, 0, 0, lightLevel));
 
     bl::shapes::GradientCircle circle(100);
@@ -151,19 +140,22 @@ void LightingSystem::renderSection(sf::RenderTarget& target, const sf::Vector2i&
     circle.setOuterColor(sf::Color(0, 0, 0, lightLevel));
 
     for (auto& pair : lightSet) {
-        circle.setPosition(static_cast<sf::Vector2f>(pair.second->position.getValue() - position));
+        circle.setPosition(static_cast<sf::Vector2f>(pair.second->position.getValue()));
         renderSurface.draw(circle, sf::BlendNone);
     }
 
+    sprite.setPosition(corner.x, target.getView().getCenter().y + size.y / 2.f);
+    sprite.setScale(size.x / static_cast<float>(renderSurface.getSize().x),
+                    -size.y / static_cast<float>(renderSurface.getSize().y));
     target.draw(sprite);
 }
 
 void LightingSystem::observe(const event::TimeChange& now) {
-    if (lightLevelField.getValue() != 255) {
+    if (lightLevelField.getValue() == 255) {
         const float x = now.newTime.hour * 60 + now.newTime.minute;
         const float n = 0.7;
         lightLevel    = std::max(0.,
-                              (70 * cos(3.1415926 * x / 720) + 70) *
+                              (90 * cos(3.1415926 * x / 720) + 90) *
                                   ((1 - n) * (720 - x) * (720 - x) / 518400 + n));
         // TODO - add weather light modifier
     }

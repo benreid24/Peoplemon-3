@@ -31,6 +31,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) {
     static const float PixelsPerSecond = 512 * zoomFactor;
     static const float ZoomPerSecond   = 0.5f;
 
+    systems.update(dt);
     map.update(dt);
 
     sf::View view = engine.window().getView();
