@@ -22,7 +22,7 @@ class Rain : public Base {
 public:
     Rain(bool hard, bool thunder);
 
-    virtual ~Rain() = default;
+    virtual ~Rain();
 
     virtual void start(const sf::FloatRect& area) override;
 

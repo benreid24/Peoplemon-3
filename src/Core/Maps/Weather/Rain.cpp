@@ -29,6 +29,8 @@ Rain::Rain(bool hard, bool canThunder)
     rainSoundHandle = bl::audio::AudioSystem::InvalidHandle;
 }
 
+Rain::~Rain() { stop(); }
+
 void Rain::start(const sf::FloatRect& a) {
     area = a;
     if (rainSoundHandle != bl::audio::AudioSystem::InvalidHandle) {

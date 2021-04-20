@@ -244,7 +244,7 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         for (LayerSet& set : levels) { set.activate(tileset); }
         tileset.activate();
 
-        // TODO - activate weather
+        weather.set(weatherField.getValue());
         lighting.activate(systems.engine().eventBus(), size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
 
@@ -269,7 +269,7 @@ LightingSystem& Map::lightingSystem() { return lighting; }
 void Map::update(float dt) {
     tileset.update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
-    // TODO - other components? weather probably
+    weather.update(dt);
 }
 
 // TODO - special editor rendering for hiding levels and layers
@@ -322,6 +322,7 @@ void Map::render(sf::RenderTarget& target, float residual) {
         }
     }
 
+    weather.render(target, residual);
     lightingSystem().render(target);
 }
 
