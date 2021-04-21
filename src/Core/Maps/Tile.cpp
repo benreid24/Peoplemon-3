@@ -8,8 +8,8 @@ namespace core
 namespace map
 {
 Tile::Tile()
-: isAnim(*this, false)
-, tid(*this, Blank)
+: isAnim(false)
+, tid(Blank)
 , anim(nullptr) {}
 
 Tile::Tile(const Tile& copy)
@@ -24,14 +24,19 @@ Tile::Tile(IdType i, bool a)
 }
 
 Tile& Tile::operator=(const Tile& copy) {
-    isAnim = copy.isAnim.getValue();
-    tid    = copy.tid.getValue();
+    isAnim = copy.isAnim;
+    tid    = copy.tid;
     return *this;
 }
 
 bool Tile::isAnimation() const { return isAnim; }
 
 Tile::IdType Tile::id() const { return tid; }
+
+void Tile::setDataOnly(IdType id, bool anim) {
+    tid    = id;
+    isAnim = anim;
+}
 
 void Tile::set(Tileset& tileset, IdType id, bool anim) {
     tid    = id;
@@ -47,7 +52,7 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     renderFunction = &Tile::noRender;
     updateFunction = &Tile::noUpdate;
 
-    if (tid.getValue() == Blank) return;
+    if (tid == Blank) return;
 
     if (isAnim) {
         anim->setIsCentered(false);

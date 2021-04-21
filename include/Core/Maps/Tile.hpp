@@ -18,7 +18,7 @@ class Tileset;
  * @ingroup Maps
  *
  */
-class Tile : public bl::file::binary::SerializableObject {
+class Tile {
 public:
     // The type of tile ids in Tileset
     using IdType = std::uint16_t;
@@ -96,7 +96,7 @@ public:
 
     /**
      * @brief Updates the tile's unique animation if there is one
-     * 
+     *
      * @param dt Time elapsed since last call to update()
      */
     void update(float dt);
@@ -110,8 +110,8 @@ public:
     void render(sf::RenderTarget& target, float residual) const;
 
 private:
-    bl::file::binary::SerializableField<1, bool> isAnim;
-    bl::file::binary::SerializableField<2, IdType> tid;
+    bool isAnim;
+    IdType tid;
 
     sf::Sprite sprite;
     bl::gfx::Animation uniqueAnim;
@@ -131,5 +131,36 @@ private:
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+template<>
+struct Serializer<core::map::Tile, false> {
+    static bool serialize(File& output, const core::map::Tile& tile) {
+        if (!Serializer<core::map::Tile::IdType>::serialize(output, tile.id())) return false;
+        return Serializer<bool>::serialize(output, tile.isAnimation());
+    }
+
+    static bool deserialize(File& input, core::map::Tile& result) {
+        core::map::Tile::IdType id;
+        bool isAnim;
+        if (!Serializer<core::map::Tile::IdType>::deserialize(input, id)) return false;
+        if (!Serializer<bool>::deserialize(input, isAnim)) return false;
+        result.setDataOnly(id, isAnim);
+        return true;
+    }
+
+    static std::uint32_t size(const core::map::Tile&) {
+        return Serializer<core::map::Tile::IdType>::size(core::map::Tile::Blank) +
+               Serializer<bool>::size(false);
+    }
+};
+} // namespace binary
+} // namespace file
+} // namespace bl
 
 #endif

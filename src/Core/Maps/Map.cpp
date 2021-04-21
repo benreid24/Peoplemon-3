@@ -18,6 +18,8 @@ public:
         if (!input.read(result.loadScriptField.getValue())) return false;
         if (!input.read(result.unloadScriptField.getValue())) return false;
 
+        BL_LOG_INFO << "Legacy map: " << result.nameField.getValue();
+
         std::uint32_t width, height;
         std::uint16_t layerCount, firstTopLayer, firstYSortLayer;
         if (!input.read(width)) return false;
@@ -86,19 +88,21 @@ public:
                     std::uint8_t isAnim;
                     if (!input.read(isAnim)) return false;
                     if (!input.read(id)) return false;
-                    // const int tx = isAnim ? x : std::max(0u, x - 1);
-                    // const int ty = isAnim ? y : std::max(0u, y - 1);
                     if (i < firstYSortLayer) {
-                        result.levels.front().bottomLayers()[i].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front().bottomLayers()[i].getRef(x, y).setDataOnly(
+                            id, static_cast<bool>(isAnim));
                     }
                     else if (i < firstTopLayer) {
-                        result.levels.front().ysortLayers()[i - firstYSortLayer].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front()
+                            .ysortLayers()[i - firstYSortLayer]
+                            .getRef(x, y)
+                            .setDataOnly(id, static_cast<bool>(isAnim));
                     }
                     else {
-                        result.levels.front().topLayers()[i - firstTopLayer].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front()
+                            .topLayers()[i - firstTopLayer]
+                            .getRef(x, y)
+                            .setDataOnly(id, static_cast<bool>(isAnim));
                     }
                 }
             }
