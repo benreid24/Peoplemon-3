@@ -27,6 +27,12 @@ public:
     Thunder(bool enabled);
 
     /**
+     * @brief Stops the thunder sound
+     *
+     */
+    ~Thunder();
+
+    /**
      * @brief Update the thunder
      *
      * @param dt Time elapsed in seconds since last call to update()
