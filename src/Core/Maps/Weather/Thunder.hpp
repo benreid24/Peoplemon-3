@@ -23,8 +23,10 @@ public:
      * @brief Construct a new Thunder object
      *
      * @param enabled True to make thunder, false to do nothing
+     * @param minInterval Minimum time in seconds between lightning
+     * @param maxInterval Maximum time in seconds between lightning
      */
-    Thunder(bool enabled);
+    Thunder(bool enabled, float minInterval, float maxInterval);
 
     /**
      * @brief Stops the thunder sound
@@ -49,6 +51,8 @@ public:
 
 private:
     const bool enabled;
+    const float minInterval;
+    const float maxInterval;
     float timeSinceLastThunder;
     mutable sf::RectangleShape lightning;
     bl::resource::Resource<sf::SoundBuffer>::Ref sound;

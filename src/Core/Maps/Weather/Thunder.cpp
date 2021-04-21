@@ -24,8 +24,10 @@ float computeAlpha(float time) {
 }
 } // namespace
 
-Thunder::Thunder(bool e)
+Thunder::Thunder(bool e, float mini, float maxi)
 : enabled(e)
+, minInterval(mini)
+, maxInterval(maxi)
 , timeSinceLastThunder(0.f) {
     lightning.setFillColor(sf::Color::Transparent);
     if (e) { sound = bl::engine::Resources::sounds().load(Properties::ThunderSoundFile()).data; }
@@ -44,7 +46,7 @@ void Thunder::update(float dt) {
             }
         }
         else {
-            if (bl::util::Random::get<float>(10.f, 40.f) <= timeSinceLastThunder) {
+            if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
                 timeSinceLastThunder = 0.f;
                 soundHandle          = bl::audio::AudioSystem::playSound(sound);
                 lightning.setFillColor(sf::Color(255, 255, 255, computeAlpha(0.f)));

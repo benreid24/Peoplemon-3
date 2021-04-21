@@ -13,15 +13,16 @@ namespace weather
 namespace
 {
 constexpr float SplashTime = -0.15f;
+constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
 } // namespace
 
 // TODO - get stuff from properties
 Rain::Rain(bool hard, bool canThunder)
-: rain(std::bind(&Rain::createDrop, this, std::placeholders::_1), hard ? 850 : 400, 200.f)
-, fallVelocity(hard ? sf::Vector3f(-0.030303f, 0.030303f, -0.757575f) :
-                      sf::Vector3f(0.f, 0.f, -500.f))
-, thunder(canThunder) {
+: rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
+       hard ? Properties::HardRainParticleCount() : Properties::LightRainParticleCount(), 200.f)
+, fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
+, thunder(canThunder, hard ? 6.f : 15.f, hard ? 17.f : 40.f) {
     dropTxtr = bl::engine::Resources::textures().load(Properties::RainDropFile()).data;
     drop.setTexture(*dropTxtr, true);
     drop.setRotation(hard ? 45.f : 15.f);
@@ -87,6 +88,10 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
         else {
             sf::Sprite& spr = drop.z >= SplashTime ? this->splash1 : this->splash2;
             spr.setPosition(drop.x, drop.y);
+            static constexpr float TransLen = std::abs(DeadTime - TransTime);
+            const float s                   = std::min((drop.z - TransTime) / TransLen, 0.f);
+            const float minusA              = 255.f * s;
+            spr.setColor(sf::Color(255, 255, 255, 255 + minusA));
             target.draw(spr);
         }
     };
@@ -98,10 +103,10 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
 }
 
 void Rain::createDrop(sf::Vector3f* drop) {
-    drop = new (drop)
-        sf::Vector3f(bl::util::Random::get<float>(area.left - 0.f, area.left + area.width + 0),
-                     bl::util::Random::get<float>(area.top - 0.f, area.top + area.height + 0.f),
-                     bl::util::Random::get<float>(50.f, 90.f));
+    drop = new (drop) sf::Vector3f(
+        bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f),
+        bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f),
+        bl::util::Random::get<float>(120.f, 180.f));
 }
 
 } // namespace weather
