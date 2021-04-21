@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
+#include <Core/Properties.hpp>
 
 namespace core
 {
@@ -21,22 +22,21 @@ Rain::Rain(bool hard, bool canThunder)
 , fallVelocity(hard ? sf::Vector3f(-0.030303f, 0.030303f, -0.757575f) :
                       sf::Vector3f(0.f, 0.f, -500.f))
 , thunder(canThunder) {
-    dropTxtr = bl::engine::Resources::textures().load("Resources/Images/Weather/raindrop.png").data;
+    dropTxtr = bl::engine::Resources::textures().load(Properties::RainDropFile()).data;
     drop.setTexture(*dropTxtr, true);
     drop.setRotation(hard ? 45.f : 15.f);
     drop.setOrigin(dropTxtr->getSize().x / 2, dropTxtr->getSize().y);
-    splash1Txtr =
-        bl::engine::Resources::textures().load("Resources/Images/Weather/rainSplash1.png").data;
+    splash1Txtr = bl::engine::Resources::textures().load(Properties::RainSplash1File()).data;
     splash1.setTexture(*splash1Txtr, true);
     splash1.setRotation(hard ? 45.f : 15.f);
     splash1.setOrigin(splash1Txtr->getSize().x / 2, splash1Txtr->getSize().y);
-    splash2Txtr =
-        bl::engine::Resources::textures().load("Resources/Images/Weather/rainSplash2.png").data;
+    splash2Txtr = bl::engine::Resources::textures().load(Properties::RainSplash2File()).data;
     splash2.setTexture(*splash2Txtr, true);
     splash2.setOrigin(splash2Txtr->getSize().x / 2, splash2Txtr->getSize().y);
 
-    rainSound =
-        bl::engine::Resources::sounds().load("Resources/Audio/Sounds/Weather/lightRain.wav").data;
+    rainSound = bl::engine::Resources::sounds()
+                    .load(hard ? Properties::HardRainSoundFile() : Properties::LightRainSoundFile())
+                    .data;
     rainSoundHandle = bl::audio::AudioSystem::InvalidHandle;
 
     rain.setReplaceDestroyed(true);

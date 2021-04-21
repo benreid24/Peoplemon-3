@@ -29,6 +29,14 @@ const std::string TilesetPath      = "Resources/Maps/Tilesets";
 const std::string MapTilePath      = "Resources/Maps/Tiles/Sprites";
 const std::string MapAnimationPath = "Resources/Maps/Tiles/Animations";
 
+const std::string ThunderSoundFile   = "Resources/Audio/Sounds/Weather/thunder.wav";
+const std::string LightRainSoundFile = "Resources/Audio/Sounds/Weather/lightRain.wav";
+const std::string HardRainSoundFile  = "Resources/Audio/Sounds/Weather/hardRain.wav";
+
+const std::string RainDropFile    = "Resources/Images/Weather/raindrop.png";
+const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
+const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -56,6 +64,14 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.map.tileset_path", defaults::TilesetPath);
     bl::engine::Configuration::set("core.map.tile_path", defaults::MapTilePath);
     bl::engine::Configuration::set("core.map.anim_path", defaults::MapAnimationPath);
+
+    bl::engine::Configuration::set("core.map.weather.thunder", defaults::ThunderSoundFile);
+    bl::engine::Configuration::set("core.map.weather.lightrain", defaults::LightRainSoundFile);
+    bl::engine::Configuration::set("core.map.weather.hardrain", defaults::HardRainSoundFile);
+
+    bl::engine::Configuration::set("core.map.weather.raindrop", defaults::RainDropFile);
+    bl::engine::Configuration::set("core.map.weather.rainsplash1", defaults::RainSplash1File);
+    bl::engine::Configuration::set("core.map.weather.rainsplash2", defaults::RainSplash2File);
 
     if (!bl::engine::Configuration::load("configuration.cfg")) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -154,5 +170,41 @@ const std::string& Properties::MapAnimationPath() {
 }
 
 const sf::Font& Properties::MenuFont() { return *menuFont; }
+
+const std::string& Properties::ThunderSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.thunder", defaults::ThunderSoundFile);
+    return val;
+}
+
+const std::string& Properties::LightRainSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.lightrain", defaults::LightRainSoundFile);
+    return val;
+}
+
+const std::string& Properties::HardRainSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.hardrain", defaults::HardRainSoundFile);
+    return val;
+}
+
+const std::string& Properties::RainDropFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.raindrop", defaults::RainDropFile);
+    return val;
+}
+
+const std::string& Properties::RainSplash1File() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.rainsplash1", defaults::RainSplash1File);
+    return val;
+}
+
+const std::string& Properties::RainSplash2File() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.map.weather.rainsplash2", defaults::RainSplash2File);
+    return val;
+}
 
 } // namespace core

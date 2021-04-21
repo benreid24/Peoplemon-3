@@ -43,6 +43,14 @@ public:
     static const std::string& MapTilePath();
     static const std::string& MapAnimationPath();
 
+    static const std::string& ThunderSoundFile();
+    static const std::string& LightRainSoundFile();
+    static const std::string& HardRainSoundFile();
+
+    static const std::string& RainDropFile();
+    static const std::string& RainSplash1File();
+    static const std::string& RainSplash2File();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

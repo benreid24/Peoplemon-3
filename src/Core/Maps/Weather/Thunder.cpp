@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Util/Random.hpp>
+#include <Core/Properties.hpp>
 #include <cmath>
 
 namespace core
@@ -27,10 +28,7 @@ Thunder::Thunder(bool e)
 : enabled(e)
 , timeSinceLastThunder(0.f) {
     lightning.setFillColor(sf::Color::Transparent);
-    if (e) {
-        sound =
-            bl::engine::Resources::sounds().load("Resources/Audio/Sounds/Weather/thunder.wav").data;
-    }
+    if (e) { sound = bl::engine::Resources::sounds().load(Properties::ThunderSoundFile()).data; }
 }
 
 Thunder::~Thunder() { bl::audio::AudioSystem::stopSound(soundHandle, 0.5f); }
