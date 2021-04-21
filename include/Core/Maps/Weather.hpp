@@ -40,6 +40,8 @@ public:
 
     ~Weather();
 
+    void activate(const sf::FloatRect& area);
+
     void set(Type type);
 
     void update(float dt);
@@ -53,6 +55,7 @@ private:
     std::unique_ptr<weather::Base> weather;
     State state;
     float stateTime;
+    mutable sf::FloatRect area;
 
     void makeWeather();
 };

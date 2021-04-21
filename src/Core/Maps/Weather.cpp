@@ -22,17 +22,40 @@ bool isRandom(Weather::Type t) {
         return false;
     }
 }
+
+const std::string Types[] = {"None",
+                             "AllRandom",
+                             "LightRain",
+                             "LightRainThunder",
+                             "HardRain",
+                             "HardRainThunder",
+                             "LightSnow",
+                             "LightSnowThunder",
+                             "HardSnow",
+                             "HardSnowThunder",
+                             "ThinFog",
+                             "ThickFog",
+                             "Sunny",
+                             "Sandstorm",
+                             "WaterRandom",
+                             "SnowRandom",
+                             "DesertRandom"};
+
 } // namespace
 
 Weather::Weather()
 : type(None)
 , state(Continuous)
-, stateTime(-1.f) {}
+, stateTime(-1.f)
+, area(0, 0, 800, 600) {}
 
 Weather::~Weather() { weather.reset(); }
 
+void Weather::activate(const sf::FloatRect& a) { area = a; }
+
 void Weather::set(Type t) {
     if (t != type) {
+        BL_LOG_INFO << "Set weather to " << Types[t];
         type  = t;
         state = Stopping;
         if (weather) weather->stop();
@@ -46,6 +69,7 @@ void Weather::update(float dt) {
     case WaitingWeather:
         stateTime -= dt;
         if (stateTime <= 0.f) {
+            BL_LOG_INFO << "Stopping current weather";
             stateTime = -1.f;
             weather->stop();
             state = Stopping;
@@ -55,6 +79,7 @@ void Weather::update(float dt) {
     case WaitingStopped:
         stateTime -= dt;
         if (stateTime <= 0.f) {
+            BL_LOG_INFO << "Starting new weather";
             stateTime = bl::util::Random::get<float>(300.f, 600.f);
             state     = WaitingWeather;
             makeWeather();
@@ -63,6 +88,7 @@ void Weather::update(float dt) {
 
     case Stopping:
         if (!weather || weather->stopped()) {
+            BL_LOG_INFO << "Weather stopped";
             weather.reset();
             switch (type) {
             case AllRandom:
@@ -89,23 +115,30 @@ void Weather::update(float dt) {
 }
 
 void Weather::render(sf::RenderTarget& target, float lag) const {
+    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+            target.getView().getSize()};
     if (weather) weather->render(target, lag);
 }
 
 void Weather::makeWeather() {
     const auto makeRain = [this](bool hard, bool thunder) {
+        BL_LOG_INFO << "Created rain";
         this->weather.reset(new weather::Rain(hard, thunder));
     };
     const auto makeSnow = [this](bool hard, bool thunder) {
+        BL_LOG_INFO << "Created snow";
         // TODO - snow
     };
     const auto makeFog = [this](bool thick) {
+        BL_LOG_INFO << "Created fog";
         // TODO - fog
     };
     const auto makeSunny = [this]() {
+        BL_LOG_INFO << "Created sunny";
         // TODO - sunny
     };
     const auto makeSandstorm = [this]() {
+        BL_LOG_INFO << "Created sandstorm";
         // TODO - sandstorm
     };
 
@@ -178,6 +211,8 @@ void Weather::makeWeather() {
         BL_LOG_WARN << "Unknown weather type: " << type;
         break;
     }
+
+    if (weather) weather->start(area);
 }
 
 } // namespace map

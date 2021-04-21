@@ -9,24 +9,37 @@ namespace map
 {
 namespace weather
 {
+namespace
+{
+constexpr float SplashTime = -0.15f;
+constexpr float DeadTime   = -0.4f;
+} // namespace
+
 // TODO - get stuff from properties
 Rain::Rain(bool hard, bool canThunder)
-: rain(std::bind(&Rain::createDrop, this, std::placeholders::_1), hard ? 1200 : 750, 200.f)
+: rain(std::bind(&Rain::createDrop, this, std::placeholders::_1), hard ? 850 : 400, 200.f)
 , fallVelocity(hard ? sf::Vector3f(-0.030303f, 0.030303f, -0.757575f) :
-                      sf::Vector3f(0.f, 0.f, -0.515151f))
+                      sf::Vector3f(0.f, 0.f, -500.f))
 , thunder(canThunder) {
-    dropTxtr = bl::engine::Resources::textures().load("Resources/Images/Weather/rainDrop.png").data;
+    dropTxtr = bl::engine::Resources::textures().load("Resources/Images/Weather/raindrop.png").data;
     drop.setTexture(*dropTxtr, true);
+    drop.setRotation(hard ? 45.f : 15.f);
+    drop.setOrigin(dropTxtr->getSize().x / 2, dropTxtr->getSize().y);
     splash1Txtr =
         bl::engine::Resources::textures().load("Resources/Images/Weather/rainSplash1.png").data;
     splash1.setTexture(*splash1Txtr, true);
+    splash1.setRotation(hard ? 45.f : 15.f);
+    splash1.setOrigin(splash1Txtr->getSize().x / 2, splash1Txtr->getSize().y);
     splash2Txtr =
         bl::engine::Resources::textures().load("Resources/Images/Weather/rainSplash2.png").data;
     splash2.setTexture(*splash2Txtr, true);
+    splash2.setOrigin(splash2Txtr->getSize().x / 2, splash2Txtr->getSize().y);
 
     rainSound =
         bl::engine::Resources::sounds().load("Resources/Audio/Sounds/Weather/lightRain.wav").data;
     rainSoundHandle = bl::audio::AudioSystem::InvalidHandle;
+
+    rain.setReplaceDestroyed(true);
 }
 
 Rain::~Rain() { stop(); }
@@ -47,13 +60,16 @@ void Rain::stop() {
 bool Rain::stopped() const { return rain.particleCount() == 0; }
 
 void Rain::update(float dt) {
-    const auto updateDrop = [this, dt](sf::Vector3f& drop) {
-        if (drop.z > 0.f) { drop += this->fallVelocity * dt; }
+    const auto updateDrop = [this, dt](sf::Vector3f& drop) -> bool {
+        if (drop.z >= 0.f) {
+            drop += this->fallVelocity * dt;
+            if (drop.z < 0.f) drop.z = -0.001f;
+        }
         else {
             drop.z -= dt;
         }
 
-        return drop.z > -1.5f;
+        return drop.z >= DeadTime;
     };
 
     rain.update(updateDrop, dt);
@@ -62,14 +78,14 @@ void Rain::update(float dt) {
 
 void Rain::render(sf::RenderTarget& target, float lag) const {
     const auto renderDrop = [this, &target, lag](const sf::Vector3f& drop) {
-        if (drop.z > 0.f) {
+        if (drop.z >= 0.f) {
             const sf::Vector3f pos = drop + this->fallVelocity * lag;
-            const sf::Vector2f tpos(pos.x - pos.z / 4.f, pos.y - pos.z / 2.f);
+            const sf::Vector2f tpos(pos.x + pos.z / 4.f, pos.y - pos.z / 2.f);
             this->drop.setPosition(tpos);
             target.draw(this->drop);
         }
         else {
-            sf::Sprite& spr = drop.z >= -0.75f ? this->splash1 : this->splash2;
+            sf::Sprite& spr = drop.z >= SplashTime ? this->splash1 : this->splash2;
             spr.setPosition(drop.x, drop.y);
             target.draw(spr);
         }
@@ -83,8 +99,8 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
 
 void Rain::createDrop(sf::Vector3f* drop) {
     drop = new (drop)
-        sf::Vector3f(bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300),
-                     bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f),
+        sf::Vector3f(bl::util::Random::get<float>(area.left - 0.f, area.left + area.width + 0),
+                     bl::util::Random::get<float>(area.top - 0.f, area.top + area.height + 0.f),
                      bl::util::Random::get<float>(50.f, 90.f));
 }
 

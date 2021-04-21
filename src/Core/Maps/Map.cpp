@@ -244,6 +244,7 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         for (LayerSet& set : levels) { set.activate(tileset); }
         tileset.activate();
 
+        weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
         weather.set(weatherField.getValue());
         lighting.activate(systems.engine().eventBus(), size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
