@@ -17,7 +17,6 @@ constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
 } // namespace
 
-// TODO - get stuff from properties
 Rain::Rain(bool hard, bool canThunder)
 : rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
        hard ? Properties::HardRainParticleCount() : Properties::LightRainParticleCount(), 200.f)
