@@ -22,7 +22,7 @@ Snow::Snow(bool hard, bool thunder)
 : fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)
 , snow(std::bind(&Snow::createFlake, this, std::placeholders::_1),
        hard ? Properties::HardSnowParticleCount() : Properties::LightSnowParticleCount(), 1000.f)
-, thunder(thunder, hard ? 10.f : 15.f, hard ? 20.f : 40.f) {
+, thunder(thunder, hard) {
     snowTxtr = bl::engine::Resources::textures().load(Properties::SnowFlakeFile()).data;
     snowFlake.setTexture(*snowTxtr, true);
     snowFlake.setOrigin(snowTxtr->getSize().x / 2, snowTxtr->getSize().y / 2);

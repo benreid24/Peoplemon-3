@@ -52,6 +52,11 @@ public:
     static const std::string& RainSplash2File();
     static const std::string& SnowFlakeFile();
 
+    static float FrequentThunderMinInterval();
+    static float FrequentThunderMaxInterval();
+    static float InfrequentThunderMinInterval();
+    static float InfrequentThunderMaxInterval();
+
     static unsigned int LightRainParticleCount();
     static unsigned int HardRainParticleCount();
     static unsigned int LightSnowParticleCount();

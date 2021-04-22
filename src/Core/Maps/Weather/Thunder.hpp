@@ -23,10 +23,9 @@ public:
      * @brief Construct a new Thunder object
      *
      * @param enabled True to make thunder, false to do nothing
-     * @param minInterval Minimum time in seconds between lightning
-     * @param maxInterval Maximum time in seconds between lightning
+     * @param frequent True for frequent thunder, false for less frequent
      */
-    Thunder(bool enabled, float minInterval, float maxInterval);
+    Thunder(bool enabled, bool frequent);
 
     /**
      * @brief Stops the thunder sound

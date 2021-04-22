@@ -22,7 +22,7 @@ Rain::Rain(bool hard, bool canThunder)
 : rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
        hard ? Properties::HardRainParticleCount() : Properties::LightRainParticleCount(), 200.f)
 , fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
-, thunder(canThunder, hard ? 6.f : 15.f, hard ? 17.f : 40.f) {
+, thunder(canThunder, hard) {
     dropTxtr = bl::engine::Resources::textures().load(Properties::RainDropFile()).data;
     drop.setTexture(*dropTxtr, true);
     drop.setRotation(hard ? 45.f : 15.f);

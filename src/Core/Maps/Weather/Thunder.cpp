@@ -24,10 +24,12 @@ float computeAlpha(float time) {
 }
 } // namespace
 
-Thunder::Thunder(bool e, float mini, float maxi)
+Thunder::Thunder(bool e, bool f)
 : enabled(e)
-, minInterval(mini)
-, maxInterval(maxi)
+, minInterval(f ? Properties::FrequentThunderMinInterval() :
+                  Properties::InfrequentThunderMinInterval())
+, maxInterval(f ? Properties::FrequentThunderMaxInterval() :
+                  Properties::InfrequentThunderMaxInterval())
 , timeSinceLastThunder(0.f) {
     lightning.setFillColor(sf::Color::Transparent);
     if (e) { sound = bl::engine::Resources::sounds().load(Properties::ThunderSoundFile()).data; }

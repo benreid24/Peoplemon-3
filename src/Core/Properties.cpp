@@ -40,6 +40,11 @@ const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
 const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
 const std::string SnowFlakeFile   = "Resources/Images/Weather/snowflake.png";
 
+constexpr float FrequentThunderMinInt   = 8.f;
+constexpr float FrequentThunderMaxInt   = 15.f;
+constexpr float InfrequentThunderMinInt = 15.f;
+constexpr float InfrequentThunderMaxInt = 40.f;
+
 constexpr unsigned int LightRainDropCount  = 700;
 constexpr unsigned int HardRainDropCount   = 1300;
 constexpr unsigned int LightSnowFlakeCount = 1500;
@@ -81,6 +86,15 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.rainsplash1", defaults::RainSplash1File);
     bl::engine::Configuration::set("core.weather.rainsplash2", defaults::RainSplash2File);
     bl::engine::Configuration::set("core.weather.snowflake", defaults::SnowFlakeFile);
+
+    bl::engine::Configuration::set("core.weather.thunder.freq.min",
+                                   defaults::FrequentThunderMinInt);
+    bl::engine::Configuration::set("core.weather.thunder.freq.max",
+                                   defaults::FrequentThunderMaxInt);
+    bl::engine::Configuration::set("core.weather.thunder.infreq.min",
+                                   defaults::InfrequentThunderMinInt);
+    bl::engine::Configuration::set("core.weather.thunder.infreq.max",
+                                   defaults::InfrequentThunderMaxInt);
 
     bl::engine::Configuration::set("core.weather.lightrain_particles",
                                    defaults::LightRainDropCount);
@@ -249,6 +263,26 @@ unsigned int Properties::LightSnowParticleCount() {
 unsigned int Properties::HardSnowParticleCount() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.hardsnow_particles",
                                                                  defaults::HardSnowFlakeCount);
+}
+
+float Properties::FrequentThunderMinInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.freq.min",
+                                                          defaults::FrequentThunderMinInt);
+}
+
+float Properties::FrequentThunderMaxInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.freq.max",
+                                                          defaults::FrequentThunderMaxInt);
+}
+
+float Properties::InfrequentThunderMinInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.infreq.min",
+                                                          defaults::InfrequentThunderMinInt);
+}
+
+float Properties::InfrequentThunderMaxInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.infreq.max",
+                                                          defaults::InfrequentThunderMaxInt);
 }
 
 } // namespace core
