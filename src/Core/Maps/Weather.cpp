@@ -4,6 +4,7 @@
 
 #include "Weather/Base.hpp"
 #include "Weather/Rain.hpp"
+#include "Weather/Snow.hpp"
 
 namespace core
 {
@@ -127,7 +128,7 @@ void Weather::makeWeather() {
     };
     const auto makeSnow = [this](bool hard, bool thunder) {
         BL_LOG_INFO << "Created snow";
-        // TODO - snow
+        this->weather.reset(new weather::Snow(hard, thunder));
     };
     const auto makeFog = [this](bool thick) {
         BL_LOG_INFO << "Created fog";

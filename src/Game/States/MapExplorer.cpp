@@ -23,6 +23,7 @@ void MapExplorer::activate(bl::engine::Engine& engine) {
         BL_LOG_ERROR << "Failed to enter map";
         engine.flags().set(bl::engine::Flags::Terminate);
     }
+    map.weatherSystem().set(core::map::Weather::HardSnow);
 }
 
 void MapExplorer::deactivate(bl::engine::Engine&) { map.exit(systems); }

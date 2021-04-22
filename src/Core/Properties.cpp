@@ -8,16 +8,18 @@ namespace core
 {
 namespace
 {
+const std::string ConfigFile = "configuration.cfg";
+
 namespace defaults
 {
 const std::string WindowIconFile = "Resources/Images/icon.png";
-const int WindowWidth            = 800;
-const int WindowHeight           = 600;
+constexpr int WindowWidth        = 800;
+constexpr int WindowHeight       = 600;
 
-const int PixelsPerTile    = 32;
-const int ExtraRenderTiles = 10;
-const int LightingWidth    = 25;
-const int LightingHeight   = 19;
+constexpr int PixelsPerTile    = 32;
+constexpr int ExtraRenderTiles = 10;
+constexpr int LightingWidth    = 25;
+constexpr int LightingHeight   = 19;
 
 const std::string MenuImagePath   = "Resources/Images/Menus";
 const std::string SpritesheetPath = "Resources/Images/Spritesheets";
@@ -36,9 +38,12 @@ const std::string HardRainSoundFile  = "Resources/Audio/Sounds/Weather/hardRain.
 const std::string RainDropFile    = "Resources/Images/Weather/raindrop.png";
 const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
 const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
+const std::string SnowFlakeFile   = "Resources/Images/Weather/snowflake.png";
 
-const unsigned int LightRainDropCount = 700;
-const unsigned int HardRainDropCount  = 1300;
+constexpr unsigned int LightRainDropCount  = 700;
+constexpr unsigned int HardRainDropCount   = 1300;
+constexpr unsigned int LightSnowFlakeCount = 1500;
+constexpr unsigned int HardSnowFlakeCount  = 4000;
 
 } // namespace defaults
 
@@ -75,15 +80,20 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.raindrop", defaults::RainDropFile);
     bl::engine::Configuration::set("core.weather.rainsplash1", defaults::RainSplash1File);
     bl::engine::Configuration::set("core.weather.rainsplash2", defaults::RainSplash2File);
+    bl::engine::Configuration::set("core.weather.snowflake", defaults::SnowFlakeFile);
 
     bl::engine::Configuration::set("core.weather.lightrain_particles",
                                    defaults::LightRainDropCount);
     bl::engine::Configuration::set("core.weather.hardrain_particles", defaults::HardRainDropCount);
+    bl::engine::Configuration::set("core.weather.lightsnow_particles",
+                                   defaults::LightSnowFlakeCount);
+    bl::engine::Configuration::set("core.weather.hardsnow_particles", defaults::HardSnowFlakeCount);
 
-    if (!bl::engine::Configuration::load("configuration.cfg")) {
+    if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
     }
     bl::engine::Configuration::log();
+    bl::engine::Configuration::save(ConfigFile); // ensure defaults saved if changed
 
     menuFont = bl::engine::Resources::fonts()
                    .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
@@ -215,6 +225,12 @@ const std::string& Properties::RainSplash2File() {
     return val;
 }
 
+const std::string& Properties::SnowFlakeFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.snowflake", defaults::SnowFlakeFile);
+    return val;
+}
+
 unsigned int Properties::LightRainParticleCount() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.lightrain_particles",
                                                                  defaults::LightRainDropCount);
@@ -223,6 +239,16 @@ unsigned int Properties::LightRainParticleCount() {
 unsigned int Properties::HardRainParticleCount() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.hardrain_particles",
                                                                  defaults::HardRainDropCount);
+}
+
+unsigned int Properties::LightSnowParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.lightsnow_particles",
+                                                                 defaults::LightSnowFlakeCount);
+}
+
+unsigned int Properties::HardSnowParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.hardsnow_particles",
+                                                                 defaults::HardSnowFlakeCount);
 }
 
 } // namespace core

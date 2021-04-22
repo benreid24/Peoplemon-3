@@ -50,9 +50,12 @@ public:
     static const std::string& RainDropFile();
     static const std::string& RainSplash1File();
     static const std::string& RainSplash2File();
+    static const std::string& SnowFlakeFile();
 
     static unsigned int LightRainParticleCount();
     static unsigned int HardRainParticleCount();
+    static unsigned int LightSnowParticleCount();
+    static unsigned int HardSnowParticleCount();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
