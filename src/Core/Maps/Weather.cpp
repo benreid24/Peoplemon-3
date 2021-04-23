@@ -5,6 +5,7 @@
 #include "Weather/Base.hpp"
 #include "Weather/Rain.hpp"
 #include "Weather/Snow.hpp"
+#include "Weather/Sunny.hpp"
 
 namespace core
 {
@@ -136,7 +137,7 @@ void Weather::makeWeather() {
     };
     const auto makeSunny = [this]() {
         BL_LOG_INFO << "Created sunny";
-        // TODO - sunny
+        this->weather.reset(new weather::Sunny());
     };
     const auto makeSandstorm = [this]() {
         BL_LOG_INFO << "Created sandstorm";
