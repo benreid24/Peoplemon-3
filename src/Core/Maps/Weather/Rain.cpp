@@ -91,9 +91,9 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
         else {
             sf::Sprite& spr = drop.z >= SplashTime ? this->splash1 : this->splash2;
             spr.setPosition(drop.x, drop.y);
-            static constexpr float TransLen = std::abs(DeadTime - TransTime);
-            const float s                   = std::min((drop.z - TransTime) / TransLen, 0.f);
-            const float minusA              = 255.f * s;
+            static const float TransLen = std::abs(DeadTime - TransTime);
+            const float s               = std::min((drop.z - TransTime) / TransLen, 0.f);
+            const float minusA          = 255.f * s;
             spr.setColor(sf::Color(255, 255, 255, 255 + minusA));
             target.draw(spr);
         }
