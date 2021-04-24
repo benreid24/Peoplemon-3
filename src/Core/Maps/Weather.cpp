@@ -5,6 +5,7 @@
 #include "Weather/Base.hpp"
 #include "Weather/Fog.hpp"
 #include "Weather/Rain.hpp"
+#include "Weather/Sandstorm.hpp"
 #include "Weather/Snow.hpp"
 #include "Weather/Sunny.hpp"
 
@@ -142,7 +143,7 @@ void Weather::makeWeather() {
     };
     const auto makeSandstorm = [this]() {
         BL_LOG_INFO << "Created sandstorm";
-        // TODO - sandstorm
+        this->weather.reset(new weather::Sandstorm());
     };
 
     using Maker          = std::function<void()>;

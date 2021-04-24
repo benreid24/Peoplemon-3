@@ -4,6 +4,8 @@ target_sources(Core PRIVATE
     Fog.cpp
     Rain.hpp
     Rain.cpp
+    Sandstorm.hpp
+    Sandstorm.cpp
     Snow.hpp
     Snow.cpp
     Sunny.hpp

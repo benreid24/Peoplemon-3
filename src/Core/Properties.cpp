@@ -40,6 +40,8 @@ const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
 const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
 const std::string SnowFlakeFile   = "Resources/Images/Weather/snowflake.png";
 const std::string FogFile         = "Resources/Images/Weather/fog.png";
+const std::string SandPatchFile   = "Resources/Images/Weather/sandMain.png";
+const std::string SandSwirlFile   = "Resources/Images/Weather/sandSwirl.png";
 
 constexpr float FrequentThunderMinInt   = 8.f;
 constexpr float FrequentThunderMaxInt   = 15.f;
@@ -91,6 +93,8 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.rainsplash2", defaults::RainSplash2File);
     bl::engine::Configuration::set("core.weather.snowflake", defaults::SnowFlakeFile);
     bl::engine::Configuration::set("core.weather.fog", defaults::FogFile);
+    bl::engine::Configuration::set("core.weather.sandpatch", defaults::SandPatchFile);
+    bl::engine::Configuration::set("core.weather.sandswirl", defaults::SandSwirlFile);
 
     bl::engine::Configuration::set("core.weather.thunder.freq.min",
                                    defaults::FrequentThunderMinInt);
@@ -256,6 +260,18 @@ const std::string& Properties::SnowFlakeFile() {
 const std::string& Properties::FogFile() {
     static const std::string val =
         bl::engine::Configuration::getOrDefault<std::string>("core.weather.fog", defaults::FogFile);
+    return val;
+}
+
+const std::string& Properties::SandPatchFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.sandpatch", defaults::SandPatchFile);
+    return val;
+}
+
+const std::string& Properties::SandSwirlFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.sandswirl", defaults::SandSwirlFile);
     return val;
 }
 
