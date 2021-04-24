@@ -21,7 +21,7 @@ constexpr float HorizontalVel   = 64.f;
 Snow::Snow(bool hard, bool thunder)
 : fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)
 , snow(std::bind(&Snow::createFlake, this, std::placeholders::_1),
-       hard ? Properties::HardSnowParticleCount() : Properties::LightSnowParticleCount(), 1000.f)
+       hard ? Properties::HardSnowParticleCount() : Properties::LightSnowParticleCount(), 450.f)
 , thunder(thunder, hard) {
     snowTxtr = bl::engine::Resources::textures().load(Properties::SnowFlakeFile()).data;
     snowFlake.setTexture(*snowTxtr, true);

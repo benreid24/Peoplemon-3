@@ -51,6 +51,7 @@ public:
     static const std::string& RainSplash1File();
     static const std::string& RainSplash2File();
     static const std::string& SnowFlakeFile();
+    static const std::string& FogFile();
 
     static float FrequentThunderMinInterval();
     static float FrequentThunderMaxInterval();
@@ -61,6 +62,9 @@ public:
     static unsigned int HardRainParticleCount();
     static unsigned int LightSnowParticleCount();
     static unsigned int HardSnowParticleCount();
+
+    static unsigned int ThinFogAlpha();
+    static unsigned int ThickFogAlpha();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

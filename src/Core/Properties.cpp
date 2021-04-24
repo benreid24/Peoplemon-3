@@ -39,6 +39,7 @@ const std::string RainDropFile    = "Resources/Images/Weather/raindrop.png";
 const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
 const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
 const std::string SnowFlakeFile   = "Resources/Images/Weather/snowflake.png";
+const std::string FogFile         = "Resources/Images/Weather/fog.png";
 
 constexpr float FrequentThunderMinInt   = 8.f;
 constexpr float FrequentThunderMaxInt   = 15.f;
@@ -49,6 +50,9 @@ constexpr unsigned int LightRainDropCount  = 700;
 constexpr unsigned int HardRainDropCount   = 1300;
 constexpr unsigned int LightSnowFlakeCount = 1500;
 constexpr unsigned int HardSnowFlakeCount  = 4000;
+
+constexpr unsigned int ThickFogAlpha = 135;
+constexpr unsigned int ThinFogAlpha  = 90;
 
 } // namespace defaults
 
@@ -86,6 +90,7 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.rainsplash1", defaults::RainSplash1File);
     bl::engine::Configuration::set("core.weather.rainsplash2", defaults::RainSplash2File);
     bl::engine::Configuration::set("core.weather.snowflake", defaults::SnowFlakeFile);
+    bl::engine::Configuration::set("core.weather.fog", defaults::FogFile);
 
     bl::engine::Configuration::set("core.weather.thunder.freq.min",
                                    defaults::FrequentThunderMinInt);
@@ -102,6 +107,9 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.lightsnow_particles",
                                    defaults::LightSnowFlakeCount);
     bl::engine::Configuration::set("core.weather.hardsnow_particles", defaults::HardSnowFlakeCount);
+
+    bl::engine::Configuration::set("core.weather.fog.thick_alpha", defaults::ThickFogAlpha);
+    bl::engine::Configuration::set("core.weather.fog.thin_alpha", defaults::ThinFogAlpha);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -245,6 +253,12 @@ const std::string& Properties::SnowFlakeFile() {
     return val;
 }
 
+const std::string& Properties::FogFile() {
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.weather.fog", defaults::FogFile);
+    return val;
+}
+
 unsigned int Properties::LightRainParticleCount() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.lightrain_particles",
                                                                  defaults::LightRainDropCount);
@@ -283,6 +297,16 @@ float Properties::InfrequentThunderMinInterval() {
 float Properties::InfrequentThunderMaxInterval() {
     return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.infreq.max",
                                                           defaults::InfrequentThunderMaxInt);
+}
+
+unsigned int Properties::ThickFogAlpha() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thick_alpha",
+                                                                 defaults::ThickFogAlpha);
+}
+
+unsigned int Properties::ThinFogAlpha() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thin_alpha",
+                                                                 defaults::ThinFogAlpha);
 }
 
 } // namespace core

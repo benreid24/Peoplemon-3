@@ -1,5 +1,7 @@
 target_sources(Core PRIVATE
     Base.hpp
+    Fog.hpp
+    Fog.cpp
     Rain.hpp
     Rain.cpp
     Snow.hpp

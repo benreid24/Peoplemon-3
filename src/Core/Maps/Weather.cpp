@@ -3,6 +3,7 @@
 #include <BLIB/Util/Random.hpp>
 
 #include "Weather/Base.hpp"
+#include "Weather/Fog.hpp"
 #include "Weather/Rain.hpp"
 #include "Weather/Snow.hpp"
 #include "Weather/Sunny.hpp"
@@ -133,7 +134,7 @@ void Weather::makeWeather() {
     };
     const auto makeFog = [this](bool thick) {
         BL_LOG_INFO << "Created fog";
-        // TODO - fog
+        this->weather.reset(new weather::Fog(thick));
     };
     const auto makeSunny = [this]() {
         BL_LOG_INFO << "Created sunny";
