@@ -1,6 +1,7 @@
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <Core/Events/Weather.hpp>
 
 #include "Weather/Base.hpp"
 #include "Weather/Fog.hpp"
@@ -66,7 +67,7 @@ void Weather::set(Type t) {
     }
 }
 
-void Weather::update(float dt) {
+void Weather::update(system::Systems& systems, float dt) {
     if (weather) weather->update(dt);
 
     switch (state) {
@@ -86,14 +87,18 @@ void Weather::update(float dt) {
             BL_LOG_INFO << "Starting new weather";
             stateTime = bl::util::Random::get<float>(300.f, 600.f);
             state     = WaitingWeather;
-            makeWeather();
+            makeWeather(systems);
         }
         break;
 
     case Stopping:
         if (!weather || weather->stopped()) {
-            BL_LOG_INFO << "Weather stopped";
-            weather.reset();
+            if (weather) {
+                BL_LOG_INFO << "Weather stopped";
+                systems.engine().eventBus().dispatch<event::WeatherStopped>({weather->type()});
+                weather.reset();
+            }
+
             switch (type) {
             case AllRandom:
             case WaterRandom:
@@ -107,7 +112,7 @@ void Weather::update(float dt) {
                 break;
             default:
                 state = Continuous;
-                makeWeather();
+                makeWeather(systems);
                 break;
             }
         }
@@ -124,7 +129,7 @@ void Weather::render(sf::RenderTarget& target, float lag) const {
     if (weather) weather->render(target, lag);
 }
 
-void Weather::makeWeather() {
+void Weather::makeWeather(system::Systems& systems) {
     const auto makeRain = [this](bool hard, bool thunder) {
         BL_LOG_INFO << "Created rain";
         this->weather.reset(new weather::Rain(hard, thunder));
@@ -216,7 +221,10 @@ void Weather::makeWeather() {
         break;
     }
 
-    if (weather) weather->start(area);
+    if (weather) {
+        weather->start(area);
+        systems.engine().eventBus().dispatch<event::WeatherStarted>({weather->type()});
+    }
 }
 
 } // namespace map

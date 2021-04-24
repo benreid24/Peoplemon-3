@@ -32,6 +32,12 @@ public:
     virtual ~Sandstorm() = default;
 
     /**
+     * @brief Returns Sandstorm
+     *
+     */
+    virtual Weather::Type type() const override;
+
+    /**
      * @brief Starts the sandstorm
      *
      * @param area The area to cover with sandstorm

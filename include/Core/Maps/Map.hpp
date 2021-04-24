@@ -84,18 +84,18 @@ public:
      * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
      *        on-load script
      *
-     * @param game The main game object
+     * @param systems The primary game systems
      * @param spawnId The spawn to place the player at
      * @return True on success, false on error
      */
-    bool enter(system::Systems& game, std::uint16_t spawnId);
+    bool enter(system::Systems& systems, std::uint16_t spawnId);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
-     * @param game The main game object
+     * @param systems The primary game systems
      */
-    void exit(system::Systems& game);
+    void exit(system::Systems& systems);
 
     /**
      * @brief Returns a reference to the weather system in this map
@@ -112,9 +112,10 @@ public:
     /**
      * @brief Updates internal logic over the elapsed time
      *
+     * * @param systems The primary game systems
      * @param dt Elapsed time in seconds since last update
      */
-    void update(float dt);
+    void update(system::Systems& systems, float dt);
 
     /**
      * @brief Renders the map to the given target using its built-in View

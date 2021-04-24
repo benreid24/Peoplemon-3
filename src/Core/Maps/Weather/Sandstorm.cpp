@@ -39,6 +39,8 @@ Sandstorm::Sandstorm()
     swirl.setOrigin(swirlTxtr->getSize().x / 2, swirlTxtr->getSize().y / 2);
 }
 
+Weather::Type Sandstorm::type() const { return Weather::SandStorm; }
+
 void Sandstorm::stop() { targetAlpha = 0; }
 
 bool Sandstorm::stopped() const { return static_cast<int>(alpha) == 0; }

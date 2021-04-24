@@ -24,6 +24,8 @@ Sunny::Sunny()
 : t(0.f)
 , stopping(false) {}
 
+Weather::Type Sunny::type() const { return Weather::Sunny; }
+
 void Sunny::start(const sf::FloatRect&) {
     t        = 0.f;
     stopping = false;

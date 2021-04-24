@@ -33,7 +33,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) {
     static const float ZoomPerSecond   = 0.5f;
 
     systems.update(dt);
-    map.update(dt);
+    map.update(systems, dt);
 
     sf::View view = engine.window().getView();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { view.move(0, -PixelsPerSecond * dt); }

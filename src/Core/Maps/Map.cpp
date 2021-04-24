@@ -271,10 +271,10 @@ Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
 
-void Map::update(float dt) {
+void Map::update(system::Systems& systems, float dt) {
     tileset.update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
-    weather.update(dt);
+    weather.update(systems, dt);
 }
 
 // TODO - special editor rendering for hiding levels and layers

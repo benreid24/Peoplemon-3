@@ -18,7 +18,9 @@ constexpr float DeadTime   = -0.4f;
 } // namespace
 
 Rain::Rain(bool hard, bool canThunder)
-: rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
+: _type(hard ? (canThunder ? Weather::HardRainThunder : Weather::HardRain) :
+               (canThunder ? Weather::LightRainThunder : Weather::LightRain))
+, rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
        hard ? Properties::HardRainParticleCount() : Properties::LightRainParticleCount(), 200.f)
 , fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
 , thunder(canThunder, hard) {
@@ -43,6 +45,8 @@ Rain::Rain(bool hard, bool canThunder)
 }
 
 Rain::~Rain() { stop(); }
+
+Weather::Type Rain::type() const { return _type; }
 
 void Rain::start(const sf::FloatRect& a) {
     area = a;

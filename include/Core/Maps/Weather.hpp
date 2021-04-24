@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_HPP
 #define CORE_MAPS_WEATHER_HPP
 
+#include <Core/Systems/Systems.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 #include <memory>
@@ -109,9 +110,10 @@ public:
     /**
      * @brief Updates the current weather
      *
+     * @param systems The primary game systems
      * @param dt Time elapsed since last call to update() in seconds
      */
-    void update(float dt);
+    void update(system::Systems& systems, float dt);
 
     /**
      * @brief Renders the current weather
@@ -130,7 +132,7 @@ private:
     float stateTime;
     mutable sf::FloatRect area;
 
-    void makeWeather();
+    void makeWeather(system::Systems& systems);
 };
 
 } // namespace map

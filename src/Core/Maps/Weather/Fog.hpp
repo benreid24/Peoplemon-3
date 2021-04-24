@@ -34,6 +34,12 @@ public:
     virtual ~Fog() = default;
 
     /**
+     * @brief Returns ThinFog or ThickFog
+     * 
+     */
+    virtual Weather::Type type() const override;
+
+    /**
      * @brief Starts the fog
      *
      * @param area The area to surround with fog

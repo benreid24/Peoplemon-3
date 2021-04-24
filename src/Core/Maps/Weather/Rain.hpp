@@ -41,6 +41,12 @@ public:
     virtual ~Rain();
 
     /**
+     * @brief One of LightRain, LightRainThunder, HardRain, or HardRainThunder
+     *
+     */
+    virtual Weather::Type type() const override;
+
+    /**
      * @brief Start the rain
      *
      * @param area The initial area to spawn drops in
@@ -76,6 +82,7 @@ public:
     virtual void render(sf::RenderTarget& target, float residual) const override;
 
 private:
+    const Weather::Type _type;
     bl::particle::System<sf::Vector3f> rain;
     const sf::Vector3f fallVelocity;
     mutable sf::FloatRect area;

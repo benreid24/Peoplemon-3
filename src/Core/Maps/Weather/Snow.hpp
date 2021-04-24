@@ -37,6 +37,12 @@ public:
     virtual ~Snow() = default;
 
     /**
+     * @brief One of LightSnow, LightSnowThunder, HardSnow, HardSnowThunder
+     *
+     */
+    virtual Weather::Type type() const override;
+
+    /**
      * @brief Start the snow
      *
      * @param area Initial area to spawn flakes in
@@ -78,6 +84,7 @@ private:
         Flake(float x, float y, float z, float fallSpeed);
     };
 
+    const Weather::Type _type;
     const float fallSpeed;
     bl::resource::Resource<sf::Texture>::Ref snowTxtr;
     mutable sf::Sprite snowFlake;

@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_BASE_HPP
 #define CORE_MAPS_WEATHER_BASE_HPP
 
+#include <Core/Maps/Weather.hpp>
 #include <SFML/Graphics.hpp>
 
 /**
@@ -29,6 +30,13 @@ struct Base {
      *
      */
     virtual ~Base() = default;
+
+    /**
+     * @brief Returns the type of weather this is
+     *
+     * @return Weather::Type The type of weather this is
+     */
+    virtual Weather::Type type() const = 0;
 
     /**
      * @brief Update the weather

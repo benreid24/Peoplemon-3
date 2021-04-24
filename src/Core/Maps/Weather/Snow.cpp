@@ -19,7 +19,9 @@ constexpr float HorizontalVel   = 64.f;
 } // namespace
 
 Snow::Snow(bool hard, bool thunder)
-: fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)
+: _type(hard ? (thunder ? Weather::HardSnowThunder : Weather::HardSnow) :
+               (thunder ? Weather::LightSnowThunder : Weather::LightSnow))
+, fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)
 , snow(std::bind(&Snow::createFlake, this, std::placeholders::_1),
        hard ? Properties::HardSnowParticleCount() : Properties::LightSnowParticleCount(), 450.f)
 , thunder(thunder, hard) {
@@ -28,6 +30,8 @@ Snow::Snow(bool hard, bool thunder)
     snowFlake.setOrigin(snowTxtr->getSize().x / 2, snowTxtr->getSize().y / 2);
     snow.setReplaceDestroyed(true);
 }
+
+Weather::Type Snow::type() const { return _type; }
 
 void Snow::start(const sf::FloatRect& a) { area = a; }
 
