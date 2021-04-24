@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['save',['save',['../a00184.html#a407fdd7f538bc392009cf390a37aa05a',1,'core::map::Map::save()'],['../a00196.html#a08c83cb06eb79099138bc7a31c32a3db',1,'core::map::Tileset::save()']]],
-  ['set',['set',['../a00168.html#a1833ca76d0d20bb33f390f65f7fb06be',1,'core::map::Layer::set()'],['../a00192.html#acb061c31a69653572a840036f0029066',1,'core::map::Tile::set()']]],
-  ['setambientlevel',['setAmbientLevel',['../a00180.html#ab181b37eca474b3366636e0702c6a73b',1,'core::map::LightingSystem']]],
-  ['setdataonly',['setDataOnly',['../a00192.html#a563dcbe31e11a234d36c6564b70fab80',1,'core::map::Tile']]],
-  ['spawn',['Spawn',['../a00188.html#acb2f4fa960582da256489885e3b236ef',1,'core::map::Spawn::Spawn()'],['../a00188.html#aee8832735714035b498be36646c7f528',1,'core::map::Spawn::Spawn(std::uint16_t id, const entity::Position &amp;position)'],['../a00188.html#a3e5220fc4b6214e96b500e2d73e139b5',1,'core::map::Spawn::Spawn(const Spawn &amp;copy)']]],
-  ['spritesheetpath',['SpritesheetPath',['../a00204.html#a90219aab29d60d356b154e51d8352ac2',1,'core::Properties']]],
-  ['state',['State',['../a00216.html#af3919ae556b5ef55357cecafadd980c3',1,'game::state::State']]]
+  ['rain',['Rain',['../a00337.html#a6eb323fb81944530506583b7ffda4392',1,'core::map::weather::Rain']]],
+  ['raindropfile',['RainDropFile',['../a00281.html#ac28b30915d6b089d74932ab02b496b51',1,'core::Properties']]],
+  ['rainsplash1file',['RainSplash1File',['../a00281.html#a959e1c76cad72258eee907f565c52941',1,'core::Properties']]],
+  ['rainsplash2file',['RainSplash2File',['../a00281.html#a1c8824bd1b549631969a89eede05f13a',1,'core::Properties']]],
+  ['read',['read',['../a00309.html#a276476efeb760df8e8d0b5dac3d92c3d',1,'core::map::loaders::LegacyMapLoader::read()'],['../a00313.html#af7185a74f176080495d2ffc6654a069b',1,'core::map::loaders::PrimaryMapLoader::read()'],['../a00317.html#ac26cc455a4bd0becb4f8b6e9b7cc921f',1,'core::map::loaders::LegacyTilesetLoader::read()'],['../a00321.html#ae11e76a53333f792681ff263c87375ef',1,'core::map::loaders::PrimaryTilesetLoader::read()']]],
+  ['removeanimation',['removeAnimation',['../a00273.html#ac37678ae95be1cd29e86f823bbc8fbab',1,'core::map::Tileset']]],
+  ['removelight',['removeLight',['../a00253.html#a605b027cec958f495b91029d39aae436',1,'core::map::LightingSystem']]],
+  ['removetexture',['removeTexture',['../a00273.html#a4d5b354f88c2b1a68384bec0378532eb',1,'core::map::Tileset']]],
+  ['render',['render',['../a00253.html#a6c6385b63b528e330e9858b82f39d039',1,'core::map::LightingSystem::render()'],['../a00257.html#acc60eeac7e908149a2cd34783766ca2d',1,'core::map::Map::render()'],['../a00265.html#ae753b3875a3498b40f77da5514d91b82',1,'core::map::Tile::render()'],['../a00277.html#a2bf48b9a7241517d44a01f5191f06603',1,'core::map::Weather::render()'],['../a00297.html#a8bce4d09fecbd999495cf277a5fda306',1,'game::state::MainMenu::render()'],['../a00301.html#a9af79a9cd6f8058c008ef552dc67f079',1,'game::state::MapExplorer::render()'],['../a00305.html#a489c514e24d0a29a5e8bac1fc3cd7ba3',1,'game::state::State::render()'],['../a00325.html#aa445e96cd7c6ee8de64b0cd0019b76bb',1,'core::map::weather::Base::render()'],['../a00329.html#a1d72a91571d896322955f21468a26f36',1,'core::map::weather::Fog::render()'],['../a00337.html#a30423a0be3c46f3cb426b1f51d910b82',1,'core::map::weather::Rain::render()'],['../a00341.html#a7f7ec1d4afeb6b57be5d97423b259a90',1,'core::map::weather::Sandstorm::render()'],['../a00349.html#a5fc8125136e4e8d1e571ca37f60e3839',1,'core::map::weather::Snow::render()'],['../a00357.html#a0b7767253309a2ec4fbf3bd3fede3073',1,'core::map::weather::Sunny::render()'],['../a00361.html#a3b19fe055424d5f24c297e9d94239749',1,'core::map::weather::Thunder::render()'],['../a00365.html#aa60c8a2a801ab9a292b74db36c92d1a5',1,'DemoEngineState::render()']]]
 ];

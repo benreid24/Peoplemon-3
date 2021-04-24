@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: States</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,38 +62,33 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00130.html">core</a></li><li class="navelem"><a class="el" href="a00133.html">map</a></li><li class="navelem"><a class="el" href="a00180.html">LightingSystem</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::LightingSystem Member List</div>  </div>
+<div class="title">States</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00180.html">core::map::LightingSystem</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#a95c863e4e666ebdad55d48576f3ec1fe">activate</a>(const sf::Vector2i &amp;mapSize)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#ac5970d28007f5d8ac6eacd10e9c1339a">addLight</a>(const Light &amp;light, bool updateSave=false)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#a47f7d35fe57772bffd8134b1ba093d82">adjustForSunlight</a>(bool adjust)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#aeb8c68996269a5fecac1bc95ffe14c5a">adjustsForSunlight</a>() const</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#af06434143fb3ccb9c966ca1394e179d7">clear</a>()</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#a2f05f698414059b4caabdb834d710737">getAmbientLevel</a>() const</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#a6d47ce1a95ed476def9d802665910f2f">getClosestLight</a>(const sf::Vector2i &amp;position)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> typedef</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#a28251123bbe9c32883aa8c8a1a79ee54">LightingSystem</a>()</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#aa0d8fadc62f2a2485130268a032d229e">None</a></td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#a605b027cec958f495b91029d39aae436">removeLight</a>(Handle light, bool updateSave=false)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#a6c6385b63b528e330e9858b82f39d039">render</a>(sf::RenderTarget &amp;target)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00180.html#ab181b37eca474b3366636e0702c6a73b">setAmbientLevel</a>(std::uint8_t lightLevel)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00180.html#a22a68d5afbb4a40d25f2c1cc983ac3a0">updateLight</a>(Handle handle, const Light &amp;value, bool updateSave=false)</td><td class="entry"><a class="el" href="a00180.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Collection of each possible game state.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00297.html">game::state::MainMenu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the main menu as an engine state.  <a href="a00297.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00305.html">game::state::State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent to all game states. Provides some commonly required data like core game systems.  <a href="a00305.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of each possible game state. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:29:40 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 22:19:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

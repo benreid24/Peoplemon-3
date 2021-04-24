@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event::TimeChange Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,30 +63,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00135.html">game</a></li><li class="navelem"><a class="el" href="a00136.html">state</a></li><li class="navelem"><a class="el" href="a00216.html">State</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00183.html">core</a></li><li class="navelem"><a class="el" href="a00185.html">event</a></li><li class="navelem"><a class="el" href="a00213.html">TimeChange</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a00210.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::State Member List</div>  </div>
+<div class="title">core::event::TimeChange Struct Reference<div class="ingroups"><a class="el" href="a00176.html">Core</a> &raquo; <a class="el" href="a00179.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00216.html">game::state::State</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00216.html#a2245c2f3ab8cbd78e345b4b940ffa442">activate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00216.html#a63ff495c10ee7d986be1750173d24c6b">deactivate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00216.html#ae62840bb33e67ff1b1ea7b6c9431d249">name</a>() const override=0</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00216.html#a489c514e24d0a29a5e8bac1fc3cd7ba3">render</a>(bl::engine::Engine &amp;engine, float lag) override=0</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00216.html#af3919ae556b5ef55357cecafadd980c3">State</a>(core::game::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00216.html#a9fcbf63f0446e34d58e740e24ca5c7c3">systems</a></td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00216.html#af7fd85a21d6ff60886858d2676957991">update</a>(bl::engine::Engine &amp;engine, float dt) override=0</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00216.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a00216.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Basic event for when the game time changes.  
+ <a href="a00213.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00011_source.html">TimeChange.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a46bc83a1996cf1f6052b44865550075e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00213.html#a46bc83a1996cf1f6052b44865550075e">TimeChange</a> (const <a class="el" href="a00289.html">system::Clock::Time</a> &amp;time)</td></tr>
+<tr class="memdesc:a46bc83a1996cf1f6052b44865550075e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new time change event.  <a href="#a46bc83a1996cf1f6052b44865550075e">More...</a><br /></td></tr>
+<tr class="separator:a46bc83a1996cf1f6052b44865550075e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00289.html">system::Clock::Time</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00213.html#a09b0cf6d04a4c701d36df8feba7ad6f6">newTime</a></td></tr>
+<tr class="memdesc:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the new time.  <a href="#a09b0cf6d04a4c701d36df8feba7ad6f6">More...</a><br /></td></tr>
+<tr class="separator:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Basic event for when the game time changes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00024">24</a> of file <a class="el" href="a00011_source.html">TimeChange.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a46bc83a1996cf1f6052b44865550075e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bc83a1996cf1f6052b44865550075e">&#9670;&nbsp;</a></span>TimeChange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::event::TimeChange::TimeChange </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00289.html">system::Clock::Time</a> &amp;&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new time change event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">time</td><td>The new time </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00030">30</a> of file <a class="el" href="a00011_source.html">TimeChange.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a09b0cf6d04a4c701d36df8feba7ad6f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b0cf6d04a4c701d36df8feba7ad6f6">&#9670;&nbsp;</a></span>newTime</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00289.html">system::Clock::Time</a>&amp; core::event::TimeChange::newTime</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A reference to the new time. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00034">34</a> of file <a class="el" href="a00011_source.html">TimeChange.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a00011_source.html">TimeChange.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:29:40 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 22:19:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

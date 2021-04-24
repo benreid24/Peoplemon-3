@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: Systems</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,34 +62,36 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00130.html">core</a></li><li class="navelem"><a class="el" href="a00133.html">map</a></li><li class="navelem"><a class="el" href="a00184.html">Map</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Map Member List</div>  </div>
+<div class="title">Systems<div class="ingroups"><a class="el" href="a00176.html">Core</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00184.html">core::map::Map</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00184.html#ab9456ea263b442b4046919525a99c11a">enter</a>(game::Systems &amp;game, std::uint16_t spawnId)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00184.html#a31d3a193cb3ebe170172c9ccf4457b15">exit</a>(game::Systems &amp;game)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00184.html#a60e86e22243ee4db667f5925ddc1133b">lightingSystem</a>()</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00184.html#a4094150c3345d44d091ea24c8bb810ae">load</a>(const std::string &amp;file)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00184.html#a7c80f581370155f01148731497a89423">loaders::LegacyMapLoader</a> class</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00184.html#a54e929330e60ddbf84378829e31a182f">Map</a>()</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00184.html#acc60eeac7e908149a2cd34783766ca2d">render</a>(sf::RenderTarget &amp;target, float residual)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00184.html#a407fdd7f538bc392009cf390a37aa05a">save</a>(const std::string &amp;file)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00184.html#af4ac658c2c3be4fd3b8cea0df64153e7">update</a>(float dt)</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00184.html#ad15ddd5ceb1065b4c3b325d92b095c6e">weatherSystem</a>()</td><td class="entry"><a class="el" href="a00184.html">core::map::Map</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Collection of core game systems shared between the game and the editor.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00289.html">core::system::Clock::Time</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple struct repsenting a point in time.  <a href="a00289.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00285.html">core::system::Clock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple time keeping systems. Tracks in game time and date based on real elapsed play time.  <a href="a00285.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00293.html">core::system::Systems</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns all primary systems and a reference to the engine.  <a href="a00293.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of core game systems shared between the game and the editor. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Apr 17 2021 17:29:40 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Apr 24 2021 22:19:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
