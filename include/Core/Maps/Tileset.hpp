@@ -114,6 +114,12 @@ public:
     bool save(const std::string& file) const;
 
     /**
+     * @brief Starts playing all shared animations
+     *
+     */
+    void activate();
+
+    /**
      * @brief Updates the animations in the tileset. Does not update unique animations, only shared.
      *        Unique animations are updated by the Tile that renders them
      *

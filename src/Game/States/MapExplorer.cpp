@@ -5,29 +5,35 @@ namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr MapExplorer::create(core::game::Systems& systems, const std::string& name) {
+bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems,
+                                           const std::string& name) {
     return bl::engine::State::Ptr(new MapExplorer(systems, name));
 }
 
-MapExplorer::MapExplorer(core::game::Systems& systems, const std::string& name)
+MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name)
 : State(systems)
-, zoomFactor(1.f) {
-    if (!map.load(name)) { BL_LOG_ERROR << "Failed to load map: " << name; }
-}
+, file(name)
+, zoomFactor(1.f) {}
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
-void MapExplorer::activate(bl::engine::Engine&) {
-    if (!map.enter(systems, 0)) BL_LOG_ERROR << "Failed to enter map";
+void MapExplorer::activate(bl::engine::Engine& engine) {
+    if (!map.load(file)) { BL_LOG_ERROR << "Failed to load map: " << file; }
+    if (!map.enter(systems, 0)) {
+        BL_LOG_ERROR << "Failed to enter map";
+        engine.flags().set(bl::engine::Flags::Terminate);
+    }
+    map.weatherSystem().set(core::map::Weather::SandStorm);
 }
 
 void MapExplorer::deactivate(bl::engine::Engine&) { map.exit(systems); }
 
 void MapExplorer::update(bl::engine::Engine& engine, float dt) {
-    static const float PixelsPerSecond = 256 * zoomFactor;
+    static const float PixelsPerSecond = 512 * zoomFactor;
     static const float ZoomPerSecond   = 0.5f;
 
-    map.update(dt);
+    systems.update(dt);
+    map.update(systems, dt);
 
     sf::View view = engine.window().getView();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { view.move(0, -PixelsPerSecond * dt); }

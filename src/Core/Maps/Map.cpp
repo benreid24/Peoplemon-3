@@ -18,6 +18,8 @@ public:
         if (!input.read(result.loadScriptField.getValue())) return false;
         if (!input.read(result.unloadScriptField.getValue())) return false;
 
+        BL_LOG_INFO << "Legacy map: " << result.nameField.getValue();
+
         std::uint32_t width, height;
         std::uint16_t layerCount, firstTopLayer, firstYSortLayer;
         if (!input.read(width)) return false;
@@ -40,6 +42,7 @@ public:
         if (!input.read(ambientLight)) return false;
         result.lightingSystem().adjustForSunlight(ambientLight == 255);
         result.lightingSystem().setAmbientLevel(ambientLight);
+        result.lightingSystem().legacyResize({static_cast<int>(width), static_cast<int>(height)});
 
         std::uint16_t catchZoneCount;
         if (!input.read(catchZoneCount)) return false;
@@ -86,16 +89,20 @@ public:
                     if (!input.read(isAnim)) return false;
                     if (!input.read(id)) return false;
                     if (i < firstYSortLayer) {
-                        result.levels.front().bottomLayers()[i].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front().bottomLayers()[i].getRef(x, y).setDataOnly(
+                            id, static_cast<bool>(isAnim));
                     }
                     else if (i < firstTopLayer) {
-                        result.levels.front().ysortLayers()[i - firstYSortLayer].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front()
+                            .ysortLayers()[i - firstYSortLayer]
+                            .getRef(x, y)
+                            .setDataOnly(id, static_cast<bool>(isAnim));
                     }
                     else {
-                        result.levels.front().topLayers()[i - firstTopLayer].set(
-                            x, y, {id, static_cast<bool>(isAnim)});
+                        result.levels.front()
+                            .topLayers()[i - firstTopLayer]
+                            .getRef(x, y)
+                            .setDataOnly(id, static_cast<bool>(isAnim));
                     }
                 }
             }
@@ -222,7 +229,8 @@ Map::Map()
 , catchZonesField(*this)
 , activated(false) {}
 
-bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
+bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
+    BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -230,6 +238,7 @@ bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
 
     if (!activated) {
         activated = true;
+        BL_LOG_INFO << "Activating map " << nameField.getValue();
 
         size = {static_cast<int>(levels.front().bottomLayers().front().width()),
                 static_cast<int>(levels.front().bottomLayers().front().height())};
@@ -237,16 +246,21 @@ bool Map::enter(game::Systems& game, std::uint16_t spawnId) {
         // TODO - pull out tilesets into resource manager
         if (!tileset.load(tilesetField.getValue())) return false;
         for (LayerSet& set : levels) { set.activate(tileset); }
+        tileset.activate();
 
-        // TODO - activate weather
-        lighting.activate(size);
+        weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
+        weather.set(weatherField.getValue());
+        lighting.activate(systems.engine().eventBus(), size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+
+        BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
     return true;
 }
 
-void Map::exit(game::Systems& game) {
+void Map::exit(system::Systems& game) {
+    BL_LOG_INFO << "Exiting map " << nameField.getValue();
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
@@ -257,16 +271,14 @@ Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
 
-void Map::update(float dt) {
-    renderTime = dt;
-    // TODO - other components? weather probably
+void Map::update(system::Systems& systems, float dt) {
+    tileset.update(dt);
+    for (LayerSet& level : levels) { level.update(renderRange, dt); }
+    weather.update(systems, dt);
 }
 
 // TODO - special editor rendering for hiding levels and layers
 void Map::render(sf::RenderTarget& target, float residual) {
-    const float t = renderTime + residual;
-    tileset.update(t);
-
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -282,16 +294,26 @@ void Map::render(sf::RenderTarget& target, float residual) {
         ExtraRender * 2;
     if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
     if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    renderRange = {corner, wsize};
 
-    const auto renderRow = [&target, &t, &corner, &wsize](TileLayer& layer, int row) {
-        for (int x = corner.x; x < corner.x + wsize.x; ++x) { layer.get(x, row).render(target, t); }
+    const auto renderRow = [&target, residual, &corner, &wsize](TileLayer& layer, int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+            layer.get(x, row).render(target, residual);
+        }
+    };
+
+    const auto renderCol = [&target, residual, &corner, &wsize](TileLayer& layer, int col) {
+        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            layer.get(col, y).render(target, residual);
+        }
     };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         LayerSet& level = levels[i];
 
         for (TileLayer& layer : level.bottomLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
         }
         for (TileLayer& layer : level.ysortLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) {
@@ -300,12 +322,18 @@ void Map::render(sf::RenderTarget& target, float residual) {
             }
         }
         for (TileLayer& layer : level.topLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
         }
     }
+
+    weather.render(target, residual);
+    lightingSystem().render(target);
 }
 
 bool Map::load(const std::string& file) {
+    BL_LOG_INFO << "Loading map " << file;
+
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
     if (!bl::file::Util::exists(path)) {

@@ -10,7 +10,7 @@ namespace state
 {
 class MapExplorer : public State {
 public:
-    static bl::engine::State::Ptr create(core::game::Systems& systems, const std::string& map);
+    static bl::engine::State::Ptr create(core::system::Systems& systems, const std::string& map);
 
     virtual ~MapExplorer() = default;
 
@@ -25,10 +25,11 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
+    const std::string file;
     core::map::Map map;
     float zoomFactor;
 
-    MapExplorer(core::game::Systems& systems, const std::string& map);
+    MapExplorer(core::system::Systems& systems, const std::string& map);
 };
 
 } // namespace state

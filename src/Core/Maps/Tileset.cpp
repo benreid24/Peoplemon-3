@@ -143,6 +143,10 @@ void Tileset::initializeTile(Tile& tile) {
     }
 }
 
+void Tileset::activate() {
+    for (auto& ap : sharedAnimations) { ap.second.play(); }
+}
+
 void Tileset::update(float dt) {
     for (auto& ap : sharedAnimations) { ap.second.update(dt); }
 }
@@ -177,7 +181,7 @@ bool Tileset::load(const std::string& file) {
                                                                   apair.second))
                                    .data)
                       .first;
-        if (it->second->isLooping()) { sharedAnimations.try_emplace(apair.first, *it->second); }
+        if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }
 

@@ -43,6 +43,31 @@ public:
     static const std::string& MapTilePath();
     static const std::string& MapAnimationPath();
 
+    static const std::string& ThunderSoundFile();
+    static const std::string& LightRainSoundFile();
+    static const std::string& HardRainSoundFile();
+
+    static const std::string& RainDropFile();
+    static const std::string& RainSplash1File();
+    static const std::string& RainSplash2File();
+    static const std::string& SnowFlakeFile();
+    static const std::string& FogFile();
+    static const std::string& SandPatchFile();
+    static const std::string& SandSwirlFile();
+
+    static float FrequentThunderMinInterval();
+    static float FrequentThunderMaxInterval();
+    static float InfrequentThunderMinInterval();
+    static float InfrequentThunderMaxInterval();
+
+    static unsigned int LightRainParticleCount();
+    static unsigned int HardRainParticleCount();
+    static unsigned int LightSnowParticleCount();
+    static unsigned int HardSnowParticleCount();
+
+    static unsigned int ThinFogAlpha();
+    static unsigned int ThickFogAlpha();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

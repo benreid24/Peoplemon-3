@@ -8,16 +8,18 @@ namespace core
 {
 namespace
 {
+const std::string ConfigFile = "configuration.cfg";
+
 namespace defaults
 {
 const std::string WindowIconFile = "Resources/Images/icon.png";
-const int WindowWidth            = 800;
-const int WindowHeight           = 600;
+constexpr int WindowWidth        = 800;
+constexpr int WindowHeight       = 600;
 
-const int PixelsPerTile    = 32;
-const int ExtraRenderTiles = 10;
-const int LightingWidth    = 25;
-const int LightingHeight   = 19;
+constexpr int PixelsPerTile    = 32;
+constexpr int ExtraRenderTiles = 10;
+constexpr int LightingWidth    = 25;
+constexpr int LightingHeight   = 19;
 
 const std::string MenuImagePath   = "Resources/Images/Menus";
 const std::string SpritesheetPath = "Resources/Images/Spritesheets";
@@ -27,7 +29,32 @@ const std::string MenuFont        = "Resources/Fonts/Menu.ttf";
 const std::string MapPath          = "Resources/Maps/Maps";
 const std::string TilesetPath      = "Resources/Maps/Tilesets";
 const std::string MapTilePath      = "Resources/Maps/Tiles/Sprites";
-const std::string MapAnimationPath = "Resources/MapsTiles/Animations";
+const std::string MapAnimationPath = "Resources/Maps/Tiles/Animations";
+
+const std::string ThunderSoundFile   = "Resources/Audio/Sounds/Weather/thunder.wav";
+const std::string LightRainSoundFile = "Resources/Audio/Sounds/Weather/lightRain.wav";
+const std::string HardRainSoundFile  = "Resources/Audio/Sounds/Weather/hardRain.wav";
+
+const std::string RainDropFile    = "Resources/Images/Weather/raindrop.png";
+const std::string RainSplash1File = "Resources/Images/Weather/rainSplash1.png";
+const std::string RainSplash2File = "Resources/Images/Weather/rainSplash2.png";
+const std::string SnowFlakeFile   = "Resources/Images/Weather/snowflake.png";
+const std::string FogFile         = "Resources/Images/Weather/fog.png";
+const std::string SandPatchFile   = "Resources/Images/Weather/sandMain.png";
+const std::string SandSwirlFile   = "Resources/Images/Weather/sandSwirl.png";
+
+constexpr float FrequentThunderMinInt   = 8.f;
+constexpr float FrequentThunderMaxInt   = 15.f;
+constexpr float InfrequentThunderMinInt = 15.f;
+constexpr float InfrequentThunderMaxInt = 40.f;
+
+constexpr unsigned int LightRainDropCount  = 700;
+constexpr unsigned int HardRainDropCount   = 1300;
+constexpr unsigned int LightSnowFlakeCount = 1500;
+constexpr unsigned int HardSnowFlakeCount  = 4000;
+
+constexpr unsigned int ThickFogAlpha = 135;
+constexpr unsigned int ThinFogAlpha  = 90;
 
 } // namespace defaults
 
@@ -57,9 +84,42 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.map.tile_path", defaults::MapTilePath);
     bl::engine::Configuration::set("core.map.anim_path", defaults::MapAnimationPath);
 
-    if (!bl::engine::Configuration::load("configuration.cfg")) {
+    bl::engine::Configuration::set("core.weather.thunder", defaults::ThunderSoundFile);
+    bl::engine::Configuration::set("core.weather.lightrain", defaults::LightRainSoundFile);
+    bl::engine::Configuration::set("core.weather.hardrain", defaults::HardRainSoundFile);
+
+    bl::engine::Configuration::set("core.weather.raindrop", defaults::RainDropFile);
+    bl::engine::Configuration::set("core.weather.rainsplash1", defaults::RainSplash1File);
+    bl::engine::Configuration::set("core.weather.rainsplash2", defaults::RainSplash2File);
+    bl::engine::Configuration::set("core.weather.snowflake", defaults::SnowFlakeFile);
+    bl::engine::Configuration::set("core.weather.fog", defaults::FogFile);
+    bl::engine::Configuration::set("core.weather.sandpatch", defaults::SandPatchFile);
+    bl::engine::Configuration::set("core.weather.sandswirl", defaults::SandSwirlFile);
+
+    bl::engine::Configuration::set("core.weather.thunder.freq.min",
+                                   defaults::FrequentThunderMinInt);
+    bl::engine::Configuration::set("core.weather.thunder.freq.max",
+                                   defaults::FrequentThunderMaxInt);
+    bl::engine::Configuration::set("core.weather.thunder.infreq.min",
+                                   defaults::InfrequentThunderMinInt);
+    bl::engine::Configuration::set("core.weather.thunder.infreq.max",
+                                   defaults::InfrequentThunderMaxInt);
+
+    bl::engine::Configuration::set("core.weather.lightrain_particles",
+                                   defaults::LightRainDropCount);
+    bl::engine::Configuration::set("core.weather.hardrain_particles", defaults::HardRainDropCount);
+    bl::engine::Configuration::set("core.weather.lightsnow_particles",
+                                   defaults::LightSnowFlakeCount);
+    bl::engine::Configuration::set("core.weather.hardsnow_particles", defaults::HardSnowFlakeCount);
+
+    bl::engine::Configuration::set("core.weather.fog.thick_alpha", defaults::ThickFogAlpha);
+    bl::engine::Configuration::set("core.weather.fog.thin_alpha", defaults::ThinFogAlpha);
+
+    if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
     }
+    bl::engine::Configuration::log();
+    bl::engine::Configuration::save(ConfigFile); // ensure defaults saved if changed
 
     menuFont = bl::engine::Resources::fonts()
                    .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
@@ -154,5 +214,115 @@ const std::string& Properties::MapAnimationPath() {
 }
 
 const sf::Font& Properties::MenuFont() { return *menuFont; }
+
+const std::string& Properties::ThunderSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.thunder", defaults::ThunderSoundFile);
+    return val;
+}
+
+const std::string& Properties::LightRainSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.lightrain", defaults::LightRainSoundFile);
+    return val;
+}
+
+const std::string& Properties::HardRainSoundFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.hardrain", defaults::HardRainSoundFile);
+    return val;
+}
+
+const std::string& Properties::RainDropFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.raindrop", defaults::RainDropFile);
+    return val;
+}
+
+const std::string& Properties::RainSplash1File() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.rainsplash1", defaults::RainSplash1File);
+    return val;
+}
+
+const std::string& Properties::RainSplash2File() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.rainsplash2", defaults::RainSplash2File);
+    return val;
+}
+
+const std::string& Properties::SnowFlakeFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.snowflake", defaults::SnowFlakeFile);
+    return val;
+}
+
+const std::string& Properties::FogFile() {
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.weather.fog", defaults::FogFile);
+    return val;
+}
+
+const std::string& Properties::SandPatchFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.sandpatch", defaults::SandPatchFile);
+    return val;
+}
+
+const std::string& Properties::SandSwirlFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.weather.sandswirl", defaults::SandSwirlFile);
+    return val;
+}
+
+unsigned int Properties::LightRainParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.lightrain_particles",
+                                                                 defaults::LightRainDropCount);
+}
+
+unsigned int Properties::HardRainParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.hardrain_particles",
+                                                                 defaults::HardRainDropCount);
+}
+
+unsigned int Properties::LightSnowParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.lightsnow_particles",
+                                                                 defaults::LightSnowFlakeCount);
+}
+
+unsigned int Properties::HardSnowParticleCount() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.hardsnow_particles",
+                                                                 defaults::HardSnowFlakeCount);
+}
+
+float Properties::FrequentThunderMinInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.freq.min",
+                                                          defaults::FrequentThunderMinInt);
+}
+
+float Properties::FrequentThunderMaxInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.freq.max",
+                                                          defaults::FrequentThunderMaxInt);
+}
+
+float Properties::InfrequentThunderMinInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.infreq.min",
+                                                          defaults::InfrequentThunderMinInt);
+}
+
+float Properties::InfrequentThunderMaxInterval() {
+    return bl::engine::Configuration::getOrDefault<float>("core.weather.thunder.infreq.max",
+                                                          defaults::InfrequentThunderMaxInt);
+}
+
+unsigned int Properties::ThickFogAlpha() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thick_alpha",
+                                                                 defaults::ThickFogAlpha);
+}
+
+unsigned int Properties::ThinFogAlpha() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thin_alpha",
+                                                                 defaults::ThinFogAlpha);
+}
 
 } // namespace core

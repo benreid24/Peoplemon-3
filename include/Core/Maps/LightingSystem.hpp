@@ -2,8 +2,11 @@
 #define CORE_MAPS_LIGHTINGSYSTEM_HPP
 
 #include <BLIB/Containers/DynamicObjectPool.hpp>
+#include <BLIB/Containers/Grid.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Files/Binary.hpp>
+#include <Core/Events/TimeChange.hpp>
 #include <Core/Maps/Light.hpp>
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
@@ -20,7 +23,9 @@ namespace map
  * @ingroup Maps
  *
  */
-class LightingSystem : public bl::file::binary::SerializableObject {
+class LightingSystem
+: public bl::file::binary::SerializableObject
+, public bl::event::Listener<event::TimeChange> {
 public:
     /// Handle representing a light in the map
     using Handle = std::uint16_t;
@@ -98,15 +103,22 @@ public:
      */
     bool adjustsForSunlight() const;
 
-    // TODO - adjust ambient based on time of day
+    /**
+     * @brief Prepares the lighting system to take lights from the LegacyMapLoader. Clears all
+     *        lights
+     *
+     * @param mapSize The map size to prepare for
+     */
+    void legacyResize(const sf::Vector2i& mapSize);
 
     /**
      * @brief This must be called after a map is loaded and before any rendering is attempted.
      *        Loaded data is synced into runtime structures
      *
+     * @param eventBus The engine event bus
      * @param mapSize The size of the map in tiles. Used for quadtree partitioning
      */
-    void activate(const sf::Vector2i& mapSize);
+    void activate(bl::event::Dispatcher& eventBus, const sf::Vector2i& mapSize);
 
     /**
      * @brief Clears all lights from the map, including the persisted light data
@@ -122,20 +134,27 @@ public:
      */
     void render(sf::RenderTarget& target);
 
+    /**
+     * @brief Updates the light level based on the new current time
+     *
+     * @param timeChange The new current time
+     */
+    virtual void observe(const event::TimeChange& timeChange) override;
+
 private:
     bl::file::binary::SerializableField<1, std::vector<Light>> lightsField;
     bl::file::binary::SerializableField<2, std::uint8_t> lightLevelField;
     bl::file::binary::SerializableField<3, bool> sunlightField;
 
-    using Iterator = bl::container::DynamicObjectPool<Light>::Iterator;
-    bl::container::DynamicObjectPool<Light> lights;
-    std::unordered_map<Handle, Iterator> handles;
-    bl::container::QuadTree<sf::Vector2i, std::pair<Handle, Iterator>> lightTree;
+    bl::event::ClassGuard<event::TimeChange> eventGuard;
+
+    using Storage = bl::container::Grid<std::pair<Handle, Light>>;
+    std::unordered_map<Handle, Storage::Payload::Ptr> handles;
+    Storage lights;
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
-
-    void renderSection(sf::RenderTarget& target, const sf::Vector2i& position);
+    std::uint8_t lightLevel;
 };
 
 } // namespace map

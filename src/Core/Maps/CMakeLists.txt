@@ -10,4 +10,7 @@ target_sources(Core PRIVATE
     Spawn.cpp
     Tile.cpp
     Tileset.cpp
+    Weather.cpp
 )
+
+add_subdirectory(Weather)

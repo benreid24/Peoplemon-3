@@ -1,7 +1,6 @@
 #ifndef CORE_MAPS_MAP_HPP
 #define CORE_MAPS_MAP_HPP
 
-#include <Core/Game/Systems.hpp>
 #include <Core/Maps/CatchZone.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
@@ -11,6 +10,7 @@
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Weather.hpp>
+#include <Core/Systems/Systems.hpp>
 
 #include <BLIB/Files/Binary.hpp>
 #include <unordered_map>
@@ -84,18 +84,18 @@ public:
      * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
      *        on-load script
      *
-     * @param game The main game object
+     * @param systems The primary game systems
      * @param spawnId The spawn to place the player at
      * @return True on success, false on error
      */
-    bool enter(game::Systems& game, std::uint16_t spawnId);
+    bool enter(system::Systems& systems, std::uint16_t spawnId);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
-     * @param game The main game object
+     * @param systems The primary game systems
      */
-    void exit(game::Systems& game);
+    void exit(system::Systems& systems);
 
     /**
      * @brief Returns a reference to the weather system in this map
@@ -112,9 +112,10 @@ public:
     /**
      * @brief Updates internal logic over the elapsed time
      *
+     * * @param systems The primary game systems
      * @param dt Elapsed time in seconds since last update
      */
-    void update(float dt);
+    void update(system::Systems& systems, float dt);
 
     /**
      * @brief Renders the map to the given target using its built-in View
@@ -150,7 +151,7 @@ private:
 
     bool activated;                                  // for weather continuity
     std::vector<bl::entity::Entity> spawnedEntities; // for cleanup
-    float renderTime;
+    sf::IntRect renderRange;
 
     friend class loaders::LegacyMapLoader;
 };

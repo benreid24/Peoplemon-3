@@ -2,7 +2,7 @@
 #define GAME_STATES_STATE_HPP
 
 #include <BLIB/Engine/State.hpp>
-#include <Core/Game/Systems.hpp>
+#include <Core/Systems/Systems.hpp>
 
 /**
  * @defgroup States
@@ -68,14 +68,14 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override = 0;
 
 protected:
-    core::game::Systems& systems;
+    core::system::Systems& systems;
 
     /**
      * @brief Initialize the state
      *
      * @param systems A reference to the core game systems
      */
-    State(core::game::Systems& systems);
+    State(core::system::Systems& systems);
 };
 
 } // namespace state

@@ -10,11 +10,11 @@ namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr MainMenu::create(core::game::Systems& systems) {
+bl::engine::State::Ptr MainMenu::create(core::system::Systems& systems) {
     return Ptr(new MainMenu(systems));
 }
 
-MainMenu::MainMenu(core::game::Systems& systems)
+MainMenu::MainMenu(core::system::Systems& systems)
 : State(systems) {
     using bl::menu::Item;
     using bl::menu::TextRenderItem;
@@ -78,7 +78,7 @@ void MainMenu::deactivate(bl::engine::Engine& engine) {
 
 void MainMenu::update(bl::engine::Engine& engine, float dt) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-        engine.replaceState(MapExplorer::create(systems, "PiperCave.map"));
+        engine.replaceState(MapExplorer::create(systems, "WorldMap.map"));
     }
 }
 

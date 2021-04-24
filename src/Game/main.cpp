@@ -1,8 +1,8 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
 
-#include <Core/Game/Systems.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Systems/Systems.hpp>
 #include <Game/States/MainMenu.hpp>
 
 int main() {
@@ -24,7 +24,7 @@ int main() {
     BL_LOG_INFO << "Created engine";
 
     BL_LOG_INFO << "Initializing game systems";
-    core::game::Systems systems(engine);
+    core::system::Systems systems(engine);
     BL_LOG_INFO << "Core game systems initialized";
 
     BL_LOG_INFO << "Running engine main loop";
