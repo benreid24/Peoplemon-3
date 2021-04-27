@@ -2,7 +2,7 @@
 #define CORE_MAPS_SPAWN_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Entities/Position.hpp>
+#include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 

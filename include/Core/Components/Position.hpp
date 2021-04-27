@@ -2,7 +2,7 @@
 #define CORE_ENTITIES_POSITION_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Entities/Direction.hpp>
+#include <Core/Components/Direction.hpp>
 
 namespace core
 {

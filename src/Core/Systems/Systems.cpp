@@ -7,7 +7,8 @@ namespace system
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
 , _clock(*this)
-, _world(*this) {}
+, _world(*this)
+, _cameras(*this) {}
 
 void Systems::update(float dt) {
     _clock.update(dt);
@@ -23,6 +24,10 @@ const Clock& Systems::clock() const { return _clock; }
 World& Systems::world() { return _world; }
 
 const World& Systems::world() const { return _world; }
+
+Cameras& Systems::cameras() { return _cameras; }
+
+const Cameras& Systems::cameras() const { return _cameras; }
 
 } // namespace system
 } // namespace core

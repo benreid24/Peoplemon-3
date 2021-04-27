@@ -2,7 +2,7 @@
 #define CORE_MAPS_CHARACTERSPAWN_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Entities/Direction.hpp>
+#include <Core/Components/Direction.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core

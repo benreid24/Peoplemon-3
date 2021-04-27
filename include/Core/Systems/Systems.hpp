@@ -1,6 +1,7 @@
 #ifndef CORE_GAME_GAME_HPP
 #define CORE_GAME_GAME_HPP
 
+#include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/World.hpp>
 
@@ -56,18 +57,31 @@ public:
 
     /**
      * @brief Modifiable accessor for the world system
-     * 
+     *
      */
     World& world();
 
     /**
      * @brief Const accessor for the world system
-     * 
+     *
      */
     const World& world() const;
 
+    /**
+     * @brief Returns a modifiable accessor for the camera system
+     *
+     */
+    Cameras& cameras();
+
+    /**
+     * @brief Returns an immutable accessor for the camera system
+     *
+     */
+    const Cameras& cameras() const;
+
 private:
     bl::engine::Engine& _engine;
+    Cameras _cameras;
     Clock _clock;
     World _world;
 

@@ -1,4 +1,4 @@
-#include <Core/Entities/Position.hpp>
+#include <Core/Components/Position.hpp>
 
 namespace core
 {

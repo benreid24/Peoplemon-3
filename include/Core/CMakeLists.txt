@@ -3,6 +3,6 @@ target_sources(Core PUBLIC
     Resources.hpp
 )
 
-add_subdirectory(Entities)
+add_subdirectory(Components)
 add_subdirectory(Maps)
 add_subdirectory(Systems)
