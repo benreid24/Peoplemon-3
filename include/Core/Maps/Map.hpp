@@ -10,8 +10,8 @@
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Weather.hpp>
-#include <Core/Systems/Systems.hpp>
 
+#include <BLIB/Entities.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
 #include <unordered_map>
@@ -26,6 +26,11 @@
 
 namespace core
 {
+namespace system
+{
+class Systems;
+}
+
 /// Collection of classes responsible for loading, editing, rendering, and updating maps
 namespace map
 {

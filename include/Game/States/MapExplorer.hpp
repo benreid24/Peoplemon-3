@@ -26,7 +26,6 @@ public:
 
 private:
     const std::string file;
-    core::map::Map map;
     float zoomFactor;
 
     MapExplorer(core::system::Systems& systems, const std::string& map);

@@ -18,21 +18,19 @@ MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
 void MapExplorer::activate(bl::engine::Engine& engine) {
-    if (!map.load(file)) { BL_LOG_ERROR << "Failed to load map: " << file; }
-    if (!map.enter(systems, 0)) {
-        BL_LOG_ERROR << "Failed to enter map";
+    if (!systems.world().switchMaps(file, 0)) {
+        BL_LOG_ERROR << "Failed to switch to map: " << file;
         engine.flags().set(bl::engine::Flags::Terminate);
     }
 }
 
-void MapExplorer::deactivate(bl::engine::Engine&) { map.exit(systems); }
+void MapExplorer::deactivate(bl::engine::Engine&) {}
 
 void MapExplorer::update(bl::engine::Engine& engine, float dt) {
     static const float PixelsPerSecond = 512 * zoomFactor;
     static const float ZoomPerSecond   = 0.5f;
 
     systems.update(dt);
-    map.update(systems, dt);
 
     sf::View view = engine.window().getView();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { view.move(0, -PixelsPerSecond * dt); }
@@ -47,7 +45,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) {
 
 void MapExplorer::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
-    map.render(engine.window(), lag);
+    systems.world().render(engine.window(), lag);
     engine.window().display();
 }
 

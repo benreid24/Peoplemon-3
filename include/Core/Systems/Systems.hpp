@@ -2,6 +2,7 @@
 #define CORE_GAME_GAME_HPP
 
 #include <Core/Systems/Clock.hpp>
+#include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
@@ -53,9 +54,22 @@ public:
      */
     const Clock& clock() const;
 
+    /**
+     * @brief Modifiable accessor for the world system
+     * 
+     */
+    World& world();
+
+    /**
+     * @brief Const accessor for the world system
+     * 
+     */
+    const World& world() const;
+
 private:
     bl::engine::Engine& _engine;
     Clock _clock;
+    World _world;
 
     /**
      * @brief Creates the core game object and associates it with the engine

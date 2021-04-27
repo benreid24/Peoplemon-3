@@ -2,6 +2,7 @@
 
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Core/Systems/Systems.hpp>
 #include <cmath>
 
 namespace core
