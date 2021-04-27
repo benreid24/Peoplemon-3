@@ -56,6 +56,19 @@ protected:
     sf::View view;
 
     /**
+     * @brief Construct a new Camera object
+     *
+     */
+    Camera() = default;
+
+    /**
+     * @brief Creates the camera with the initial view
+     *
+     * @param view The initial view to use
+     */
+    Camera(const sf::View& view);
+
+    /**
      * @brief Contrains the contained view to the renderable region of the world
      *
      * @param systems The primary systems object

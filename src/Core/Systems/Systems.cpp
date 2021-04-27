@@ -11,8 +11,12 @@ Systems::Systems(bl::engine::Engine& engine)
 , _cameras(*this) {}
 
 void Systems::update(float dt) {
+    _cameras.update(dt);
     _clock.update(dt);
     _world.update(dt);
+
+    // TODO - make rendering system?
+    _engine.window().setView(_cameras.getView());
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }

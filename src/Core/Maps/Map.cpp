@@ -272,6 +272,13 @@ void Map::exit(system::Systems& game) {
     // TODO - run on unload script
 }
 
+const sf::Vector2i& Map::sizeTiles() const { return size; }
+
+sf::Vector2f Map::sizePixels() const {
+    return {static_cast<float>(Properties::PixelsPerTile() * size.x),
+            static_cast<float>(Properties::PixelsPerTile() * size.y)};
+}
+
 Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }

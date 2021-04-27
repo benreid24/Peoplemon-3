@@ -32,6 +32,10 @@ bool World::switchMaps(const std::string& file, int spawn) {
     return true;
 }
 
+map::Map& World::activeMap() { return *currentMap; }
+
+const map::Map& World::activeMap() const { return *currentMap; }
+
 void World::update(float dt) { currentMap->update(owner, dt); }
 
 void World::render(sf::RenderTarget& target, float lag) {

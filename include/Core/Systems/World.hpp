@@ -34,6 +34,18 @@ public:
     bool switchMaps(const std::string& newMap, int spawnId);
 
     /**
+     * @brief Returns a reference to the active map
+     *
+     */
+    map::Map& activeMap();
+
+    /**
+     * @brief Returns a const reference to the active map
+     *
+     */
+    const map::Map& activeMap() const;
+
+    /**
      * @brief Updates the current map
      *
      * @param dt Time elapsed in seconds since last call to update

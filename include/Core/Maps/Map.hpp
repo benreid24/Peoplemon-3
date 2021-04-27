@@ -116,6 +116,18 @@ public:
     LightingSystem& lightingSystem();
 
     /**
+     * @brief Returns the size of the map in tiles
+     *
+     */
+    const sf::Vector2i& sizeTiles() const;
+
+    /**
+     * @brief Returns the size of the map in pixels
+     *
+     */
+    sf::Vector2f sizePixels() const;
+
+    /**
      * @brief Updates internal logic over the elapsed time
      *
      * * @param systems The primary game systems
