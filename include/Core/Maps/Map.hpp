@@ -13,6 +13,7 @@
 #include <Core/Systems/Systems.hpp>
 
 #include <BLIB/Files/Binary.hpp>
+#include <BLIB/Resources.hpp>
 #include <unordered_map>
 #include <vector>
 
@@ -143,7 +144,7 @@ private:
     bl::file::binary::SerializableField<13, std::vector<CatchZone>> catchZonesField;
 
     sf::Vector2i size;
-    Tileset tileset;
+    bl::resource::Resource<Tileset>::Ref tileset;
     std::vector<LayerSet>& levels;
     std::unordered_map<std::uint16_t, Spawn>& spawns;
     Weather weather;

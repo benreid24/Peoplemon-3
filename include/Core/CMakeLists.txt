@@ -1,5 +1,6 @@
 target_sources(Core PUBLIC
     Properties.hpp
+    Resources.hpp
 )
 
 add_subdirectory(Entities)

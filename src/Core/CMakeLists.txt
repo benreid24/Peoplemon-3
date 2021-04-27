@@ -1,5 +1,6 @@
 target_sources(Core PRIVATE
     Properties.cpp
+    Resources.cpp
 )
 
 add_subdirectory(Entities)

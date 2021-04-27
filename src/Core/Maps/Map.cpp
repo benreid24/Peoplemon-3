@@ -1,6 +1,7 @@
 #include <Core/Maps/Map.hpp>
 
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <cmath>
 
 namespace core
@@ -243,10 +244,10 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         size = {static_cast<int>(levels.front().bottomLayers().front().width()),
                 static_cast<int>(levels.front().bottomLayers().front().height())};
 
-        // TODO - pull out tilesets into resource manager
-        if (!tileset.load(tilesetField.getValue())) return false;
-        for (LayerSet& set : levels) { set.activate(tileset); }
-        tileset.activate();
+        tileset = Resources::tilesets().load(tilesetField).data;
+        if (!tileset) return false;
+        for (LayerSet& set : levels) { set.activate(*tileset); }
+        tileset->activate();
 
         weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
         weather.set(weatherField.getValue());
@@ -272,7 +273,7 @@ Weather& Map::weatherSystem() { return weather; }
 LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(system::Systems& systems, float dt) {
-    tileset.update(dt);
+    tileset->update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
     weather.update(systems, dt);
 }
