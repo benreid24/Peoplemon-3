@@ -1,5 +1,6 @@
 #include <Core/Maps/Map.hpp>
 
+#include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -258,11 +259,13 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
+    systems.engine().eventBus().dispatch<event::MapEntered>({nameField});
     return true;
 }
 
 void Map::exit(system::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
+    game.engine().eventBus().dispatch<event::MapExited>({nameField});
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
