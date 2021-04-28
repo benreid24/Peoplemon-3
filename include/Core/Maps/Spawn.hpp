@@ -18,7 +18,7 @@ namespace map
  */
 struct Spawn : public bl::file::binary::SerializableObject {
     bl::file::binary::SerializableField<1, std::uint16_t> id;
-    bl::file::binary::SerializableField<2, entity::Position> position;
+    bl::file::binary::SerializableField<2, component::Position> position;
 
     /**
      * @brief Creates an empty spawn
@@ -32,7 +32,7 @@ struct Spawn : public bl::file::binary::SerializableObject {
      * @param id The id of the spawn
      * @param position The position to spawn at
      */
-    Spawn(std::uint16_t id, const entity::Position& position);
+    Spawn(std::uint16_t id, const component::Position& position);
 
     /**
      * @brief Copy constructs a new Spawn

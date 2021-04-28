@@ -4,26 +4,26 @@
 #include <cstdint>
 
 /**
- * @addtogroup Entities
+ * @addtogroup Components
  * @ingroup Core
- * @brief Collection of components and systems related to in game entities
+ * @brief Collection of components for in game entities
  *
  */
 
 namespace core
 {
-/// Collection of components and systems related to in game entities
-namespace entity
+/// Collection of components for in game entities
+namespace component
 {
 /**
  * @brief Which direction an entity is facing
  *
- * @ingroup Entities
+ * @ingroup Components
  *
  */
 enum struct Direction : std::uint8_t { Up = 0, Right = 1, Down = 2, Left = 3 };
 
-} // namespace entity
+} // namespace component
 } // namespace core
 
 #endif

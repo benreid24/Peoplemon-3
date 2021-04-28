@@ -115,16 +115,16 @@ public:
         if (!input.read(spawnCount)) return false;
         for (unsigned int i = 0; i < spawnCount; ++i) {
             std::uint16_t id;
-            std::uint32_t x, y; // pixels and off by 32 lol
+            std::uint32_t x, y; // in pixels and off by 32 lol
             std::uint8_t dir;
             if (!input.read(id)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
-            entity::Position pos;
-            pos.direction  = static_cast<entity::Direction>(dir);
-            pos.position.x = std::floor(x / 32);
-            pos.position.y = std::floor(y / 32); // TODO - add/subtract 1?
+            component::Position pos;
+            pos.direction = static_cast<component::Direction>(dir);
+            pos.setTiles({static_cast<int>(std::floor(x / 32)),
+                          static_cast<int>(std::floor(y / 32))}); // TODO - add/subtract 1?
             result.spawnField.getValue().try_emplace(id, id, pos);
         }
 
@@ -139,7 +139,7 @@ public:
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
             result.characterField.getValue().emplace_back(
-                sf::Vector2i(x, y), static_cast<entity::Direction>(dir), file);
+                sf::Vector2i(x, y), static_cast<component::Direction>(dir), file);
         }
 
         std::uint16_t itemCount;

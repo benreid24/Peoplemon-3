@@ -17,7 +17,7 @@ namespace map
  */
 struct CharacterSpawn : public bl::file::binary::SerializableObject {
     bl::file::binary::SerializableField<1, sf::Vector2i> position;
-    bl::file::binary::SerializableField<2, entity::Direction> direction;
+    bl::file::binary::SerializableField<2, component::Direction> direction;
     bl::file::binary::SerializableField<3, std::string> file;
 
     /**
@@ -33,7 +33,7 @@ struct CharacterSpawn : public bl::file::binary::SerializableObject {
      * @param dir The direction the character should face
      * @param file The file to load the character from
      */
-    CharacterSpawn(const sf::Vector2i& pos, entity::Direction dir, const std::string& file);
+    CharacterSpawn(const sf::Vector2i& pos, component::Direction dir, const std::string& file);
 
     /**
      * @brief Copy constructs from the given copy spawn

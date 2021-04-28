@@ -1,30 +1,28 @@
 #include <Core/Components/Position.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace core
 {
-namespace entity
+namespace component
 {
 Position::Position()
-: dir(*this, Direction::Up)
-, pos(*this, {0, 0})
-, lev(*this, 0)
-, direction(dir.getValue())
-, position(pos.getValue())
-, interpolatedPosition(0, 0)
-, level(lev.getValue()) {}
+: direction(Direction::Up)
+, position(0, 0)
+, level(0)
+, interpolatedPosition(0.f, 0.f) {}
 
-Position::Position(const Position& copy)
-: Position() {
-    *this = copy;
+void Position::setTiles(const sf::Vector2i& tiles) {
+    position               = tiles;
+    interpolatedPosition.x = static_cast<float>(tiles.x * Properties::PixelsPerTile());
+    interpolatedPosition.y = static_cast<float>(tiles.y * Properties::PixelsPerTile());
 }
 
-Position& Position::operator=(const Position& copy) {
-    direction            = copy.direction;
-    position             = copy.position;
-    interpolatedPosition = copy.interpolatedPosition;
-    level                = copy.level;
-    return *this;
-}
+void Position::setPixels(const sf::Vector2f& interp) { interpolatedPosition = interp; }
 
-} // namespace entity
+const sf::Vector2i& Position::positionTiles() const { return position; }
+
+const sf::Vector2f& Position::positionPixels() const { return interpolatedPosition; }
+
+} // namespace component
 } // namespace core

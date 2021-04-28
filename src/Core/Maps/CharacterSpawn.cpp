@@ -9,7 +9,8 @@ CharacterSpawn::CharacterSpawn()
 , direction(*this)
 , file(*this) {}
 
-CharacterSpawn::CharacterSpawn(const sf::Vector2i& pos, entity::Direction dir, const std::string& f)
+CharacterSpawn::CharacterSpawn(const sf::Vector2i& pos, component::Direction dir,
+                               const std::string& f)
 : CharacterSpawn() {
     position  = pos;
     direction = dir;

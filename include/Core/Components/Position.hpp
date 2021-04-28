@@ -6,7 +6,7 @@
 
 namespace core
 {
-namespace entity
+namespace component
 {
 /**
  * @brief Basic structure representing the position of an entity
@@ -14,7 +14,7 @@ namespace entity
  * @ingroup Entity
  *
  */
-class Position : public bl::file::binary::SerializableObject {
+class Position {
 public:
     /**
      * @brief Creates an empty position
@@ -23,39 +23,81 @@ public:
     Position();
 
     /**
-     * @brief Copy constructs the position from another
+     * @brief Set the position in tiles. This also sets the interpolated position to be the top
+     *        right corner of the given tile position
      *
-     * @param copy The position to copy from
+     * @param posTiles The position, in tiles, to set
      */
-    Position(const Position& copy);
+    void setTiles(const sf::Vector2i& posTiles);
 
     /**
-     * @brief Copies the position from another
+     * @brief Set the interpolated position in pixels. This is used for rendering and moving between
+     *        tiles. Note that the tiles position is never changed by this method, so setTiles()
+     *        must be called when interpolation is complete
      *
-     * @param copy The position to copy from
-     * @return Position& A reference to this position
+     * @param interpolated The interpolated position, in pixels
      */
-    Position& operator=(const Position& copy);
+    void setPixels(const sf::Vector2f& interpolated);
+
+    /**
+     * @brief Returns the current position in tiles
+     *
+     */
+    const sf::Vector2i& positionTiles() const;
+
+    /**
+     * @brief Returns the current position in pixels
+     *
+     */
+    const sf::Vector2f& positionPixels() const;
 
     /// The direction the entity is facing
-    Direction& direction;
-
-    /// The position of the entity, in tiles
-    sf::Vector2i& position;
-
-    /// The current position of the entity if moving between tiles
-    sf::Vector2f interpolatedPosition;
+    Direction direction;
 
     /// The level the entity is on in its map
-    std::uint8_t& level;
+    std::uint8_t level;
 
 private:
-    bl::file::binary::SerializableField<1, Direction> dir;
-    bl::file::binary::SerializableField<2, sf::Vector2i> pos;
-    bl::file::binary::SerializableField<3, std::uint8_t> lev;
+    sf::Vector2i position;
+    sf::Vector2f interpolatedPosition;
 };
 
-} // namespace entity
+} // namespace component
 } // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+template<>
+struct Serializer<core::component::Position, false> {
+    static bool serialize(File& output, const core::component::Position& position) {
+        if (!Serializer<sf::Vector2i>::serialize(output, position.positionTiles())) return false;
+        if (!Serializer<core::component::Direction>::serialize(output, position.direction))
+            return false;
+        return Serializer<std::uint8_t>::serialize(output, position.level);
+    }
+
+    static bool deserialize(File& input, core::component::Position& result) {
+        sf::Vector2i pos;
+        if (!Serializer<sf::Vector2i>::deserialize(input, pos)) return false;
+        result.setTiles(pos);
+        if (!Serializer<core::component::Direction>::deserialize(input, result.direction))
+            return false;
+        return Serializer<std::uint8_t>::deserialize(input, result.level);
+    }
+
+    static std::uint32_t size(const core::component::Position& pos) {
+        return Serializer<sf::Vector2i>::size(pos.positionTiles()) +
+               Serializer<core::component::Direction>::size(pos.direction) +
+               Serializer<std::uint8_t>::size(pos.level);
+    }
+};
+
+} // namespace binary
+} // namespace file
+} // namespace bl
 
 #endif
