@@ -361,21 +361,115 @@ bool Map::save(const std::string& file) {
     return loader.write(output, *this);
 }
 
+bool Map::contains(const component::Position& pos) const {
+    return pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
+           pos.positionTiles().x < size.x && pos.positionTiles().y < size.y &&
+           pos.level < levels.size();
+}
+
 component::Position Map::adjacentTile(const component::Position& pos,
                                       component::Direction dir) const {
     component::Position npos = pos.move(dir);
     if (npos.positionTiles() == pos.positionTiles()) return npos;
 
-    // TODO - evaluate level transitions
+    // Handle up transitions (move out of tile)
+    if (contains(pos)) {
+        switch (transitionField.getValue()(pos.positionTiles().x, pos.positionTiles().y)) {
+        case LevelTransition::HorizontalRightDown:
+            if (dir == component::Direction::Left) npos.level += 1;
+            break;
+        case LevelTransition::HorizontalRightUp:
+            if (dir == component::Direction::Right) npos.level += 1;
+            break;
+        case LevelTransition::VerticalTopDown:
+            if (dir == component::Direction::Down) npos.level += 1;
+            break;
+        case LevelTransition::VerticalTopUp:
+            if (dir == component::Direction::Up) npos.level += 1;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (contains(npos)) {
+        switch (transitionField.getValue()(npos.positionTiles().x, npos.positionTiles().y)) {
+        case LevelTransition::HorizontalRightDown:
+            if (dir == component::Direction::Right) npos.level -= 1;
+            break;
+        case LevelTransition::HorizontalRightUp:
+            if (dir == component::Direction::Left) npos.level -= 1;
+            break;
+        case LevelTransition::VerticalTopDown:
+            if (dir == component::Direction::Up) npos.level -= 1;
+            break;
+        case LevelTransition::VerticalTopUp:
+            if (dir == component::Direction::Down) npos.level -= 1;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (npos.level >= levels.size()) {
+        BL_LOG_WARN << "Bad level transition at (" << npos.positionTiles().x << ", "
+                    << npos.positionTiles().y << ") to out of range level " << npos.level
+                    << ". Number of levels: " << levels.size();
+        npos.level = levels.size() - 1;
+    }
+
     return npos;
 }
 
 bool Map::movePossible(const component::Position& pos, component::Direction dir) const {
     component::Position npos = pos.move(dir);
     if (npos.positionTiles() == pos.positionTiles()) return true;
+    if (!contains(npos)) return false;
 
-    // TODO - look at collisions and direction
-    return false;
+    switch (levels.at(npos.level)
+                .collisionLayer()
+                .get(npos.positionTiles().x, npos.positionTiles().y)) {
+    case Collision::Blocked:
+        return false;
+    case Collision::Open:
+        return true;
+    case Collision::TopOpen:
+        return dir == component::Direction::Down;
+    case Collision::RightOpen:
+        return dir == component::Direction::Left;
+    case Collision::BottomOpen:
+        return dir == component::Direction::Up;
+    case Collision::LeftOpen:
+        return dir == component::Direction::Right;
+    case Collision::TopRightOpen:
+        return dir == component::Direction::Down || dir == component::Direction::Left;
+    case Collision::BottomRightOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Left;
+    case Collision::BottomLeftOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Right;
+    case Collision::TopLeftOpen:
+        return dir == component::Direction::Down || dir == component::Direction::Right;
+    case Collision::TopBottomOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Down;
+    case Collision::LeftRightOpen:
+        return dir == component::Direction::Right || dir == component::Direction::Left;
+    case Collision::TopClosed:
+        return dir != component::Direction::Down;
+    case Collision::RightClosed:
+        return dir != component::Direction::Left;
+    case Collision::BottomClosed:
+        return dir != component::Direction::Up;
+    case Collision::LeftClosed:
+        return dir != component::Direction::Right;
+    case Collision::SurfRequired:
+        return false; // TODO - enforce surf. play anim?
+    case Collision::WaterfallRequired:
+        return false; // TODO - enforce waterfall. play anim?
+    default:
+        BL_LOG_WARN << "Bad collision at (" << npos.positionTiles().x << ", "
+                    << npos.positionTiles().y << ")";
+        return false;
+    }
 }
 
 } // namespace map

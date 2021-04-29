@@ -145,6 +145,14 @@ public:
     void render(sf::RenderTarget& target, float residual);
 
     /**
+     * @brief Returns whether or not the map contains the given position
+     *
+     * @param position The position to check for
+     * @return True if the position is within the map, false if not
+     */
+    bool contains(const component::Position& position) const;
+
+    /**
      * @brief Returns the adjacent position to the given position when moving in the given
      *        direction. Does not take into account collisions
      *
