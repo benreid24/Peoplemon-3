@@ -112,6 +112,8 @@ void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& ma
     sprite.setScale(1.f, -1.f);
 }
 
+void LightingSystem::deactivate() { eventGuard.unsubscribe(); }
+
 void LightingSystem::clear() {
     lightsField.getValue().clear();
     lightLevelField = 0;

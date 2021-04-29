@@ -8,14 +8,20 @@ Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
 , _clock(*this)
 , _world(*this)
-, _cameras(*this) {}
+, _cameras(*this)
+, _position(*this)
+, _movement(*this) {
+    _engine.eventBus().subscribe(&_position);
+    _position.init();
+}
 
 void Systems::update(float dt) {
+    _position.update();
     _cameras.update(dt);
     _clock.update(dt);
     _world.update(dt);
 
-    // TODO - make rendering system?
+    // TODO - make rendering system. can handle fades for maps too
     _engine.window().setView(_cameras.getView());
 }
 

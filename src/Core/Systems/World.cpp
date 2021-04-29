@@ -10,6 +10,8 @@ namespace system
 World::World(Systems& o)
 : owner(o) {}
 
+World::~World() { currentMap->exit(owner); }
+
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
         // TODO - ensure that previous map is loaded on game save load or lazy load

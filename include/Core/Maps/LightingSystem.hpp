@@ -121,6 +121,12 @@ public:
     void activate(bl::event::Dispatcher& eventBus, const sf::Vector2i& mapSize);
 
     /**
+     * @brief Unsubscribes the lighting system from the event dispatcher
+     *
+     */
+    void deactivate();
+
+    /**
      * @brief Clears all lights from the map, including the persisted light data
      *
      */

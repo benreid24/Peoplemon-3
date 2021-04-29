@@ -6,6 +6,7 @@
 #include <Core/Maps/Event.hpp>
 #include <Core/Maps/Item.hpp>
 #include <Core/Maps/LayerSet.hpp>
+#include <Core/Maps/LevelTransition.hpp>
 #include <Core/Maps/LightingSystem.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
@@ -143,7 +144,26 @@ public:
      */
     void render(sf::RenderTarget& target, float residual);
 
-    // TODO - entity level transitions
+    /**
+     * @brief Returns the adjacent position to the given position when moving in the given
+     *        direction. Does not take into account collisions
+     *
+     * @param pos The position that is being moved from
+     * @param dir The direction that the movement is going
+     * @return component::Position The adjacent tile with level transition if any
+     */
+    component::Position adjacentTile(const component::Position& pos,
+                                     component::Direction dir) const;
+
+    /**
+     * @brief Returns whether or not a particular movement is possible. Does not take into account
+     *        entities blocking the way
+     *
+     * @param position The position being moved from
+     * @param dir The direction to move in
+     * @return True if the move is allowed, false if it is not
+     */
+    bool movePossible(const component::Position& position, component::Direction dir) const;
 
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
@@ -159,6 +179,8 @@ private:
     bl::file::binary::SerializableField<11, std::vector<Event>> eventsField;
     bl::file::binary::SerializableField<12, LightingSystem> lightsField;
     bl::file::binary::SerializableField<13, std::vector<CatchZone>> catchZonesField;
+    bl::file::binary::SerializableField<14, bl::container::Vector2D<LevelTransition>>
+        transitionField;
 
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;

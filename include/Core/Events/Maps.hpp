@@ -1,10 +1,13 @@
 #ifndef CORE_EVENTS_MAPS_HPP
 #define CORE_EVENTS_MAPS_HPP
 
-#include <string>
-
 namespace core
 {
+namespace map
+{
+class Map;
+}
+
 namespace event
 {
 /**
@@ -17,13 +20,13 @@ struct MapEntered {
     /**
      * @brief Construct a new Map Entered object
      *
-     * @param map The name of the map that was entered
+     * @param map The map that was entered
      */
-    MapEntered(const std::string& map)
-    : mapName(map) {}
+    MapEntered(const map::Map& map)
+    : map(map) {}
 
-    /// The name of the map that was entered
-    const std::string mapName;
+    /// A reference to the map that was just entered
+    const map::Map& map;
 };
 
 /**
@@ -34,15 +37,15 @@ struct MapEntered {
  */
 struct MapExited {
     /**
-     * @brief Construct a new Map Exited object
+     * @brief Construct a new MapExited event
      *
      * @param map The map that was exited
      */
-    MapExited(const std::string& map)
-    : mapName(map) {}
+    MapExited(const map::Map& map)
+    : map(map) {}
 
-    /// The map that was exited
-    const std::string mapName;
+    /// A reference to the map that was just exited
+    const map::Map& map;
 };
 
 } // namespace event

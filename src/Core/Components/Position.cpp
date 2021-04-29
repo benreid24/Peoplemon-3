@@ -1,5 +1,6 @@
 #include <Core/Components/Position.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -23,6 +24,34 @@ void Position::setPixels(const sf::Vector2f& interp) { interpolatedPosition = in
 const sf::Vector2i& Position::positionTiles() const { return position; }
 
 const sf::Vector2f& Position::positionPixels() const { return interpolatedPosition; }
+
+Position Position::move(Direction dir) const {
+    Position n = *this;
+    if (dir == direction) {
+        switch (dir) {
+        case Direction::Up:
+            --n.position.y;
+            break;
+        case Direction::Right:
+            ++n.position.x;
+            break;
+        case Direction::Down:
+            ++n.position.y;
+            break;
+        case Direction::Left:
+            --n.position.x;
+            break;
+        default:
+            BL_LOG_WARN << "Unknown direction: " << dir;
+            break;
+        }
+        n.setTiles(n.position); // clears interpolation
+    }
+    else {
+        n.direction = dir;
+    }
+    return n;
+}
 
 } // namespace component
 } // namespace core

@@ -25,6 +25,12 @@ public:
     World(Systems& systems);
 
     /**
+     * @brief Custom cleanup code to prevent dangling pointers in event subscribers
+     *
+     */
+    ~World();
+
+    /**
      * @brief Switches the current map to the map in the given file
      *
      * @param newMap Filename of new map, or "LastMap" for previous map

@@ -36,6 +36,7 @@ public:
                                    firstYSortLayer,
                                    firstTopLayer - firstYSortLayer,
                                    layerCount - firstTopLayer);
+        result.transitionField.getValue().setSize(width, height, LevelTransition::None);
 
         std::uint8_t weatherType;
         if (!input.read(weatherType)) return false;
@@ -230,10 +231,12 @@ Map::Map()
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
 , catchZonesField(*this)
+, transitionField(*this)
 , activated(false) {}
 
 bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
+    systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -259,13 +262,13 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
-    systems.engine().eventBus().dispatch<event::MapEntered>({nameField});
     return true;
 }
 
 void Map::exit(system::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
-    game.engine().eventBus().dispatch<event::MapExited>({nameField});
+    game.engine().eventBus().dispatch<event::MapExited>({*this});
+    lighting.deactivate();
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
@@ -314,18 +317,11 @@ void Map::render(sf::RenderTarget& target, float residual) {
         }
     };
 
-    const auto renderCol = [&target, residual, &corner, &wsize](TileLayer& layer, int col) {
-        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
-            layer.get(col, y).render(target, residual);
-        }
-    };
-
     for (unsigned int i = 0; i < levels.size(); ++i) {
         LayerSet& level = levels[i];
 
         for (TileLayer& layer : level.bottomLayers()) {
-            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
-            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
         for (TileLayer& layer : level.ysortLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) {
@@ -334,8 +330,7 @@ void Map::render(sf::RenderTarget& target, float residual) {
             }
         }
         for (TileLayer& layer : level.topLayers()) {
-            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
-            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
     }
 
@@ -362,6 +357,23 @@ bool Map::save(const std::string& file) {
                                   bl::file::binary::File::Write);
     VersionedLoader loader;
     return loader.write(output, *this);
+}
+
+component::Position Map::adjacentTile(const component::Position& pos,
+                                      component::Direction dir) const {
+    component::Position npos = pos.move(dir);
+    if (npos.positionTiles() == pos.positionTiles()) return npos;
+
+    // TODO - evaluate level transitions
+    return npos;
+}
+
+bool Map::movePossible(const component::Position& pos, component::Direction dir) const {
+    component::Position npos = pos.move(dir);
+    if (npos.positionTiles() == pos.positionTiles()) return true;
+
+    // TODO - look at collisions and direction
+    return false;
 }
 
 } // namespace map

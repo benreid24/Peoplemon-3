@@ -3,6 +3,8 @@
 
 #include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
+#include <Core/Systems/Movement.hpp>
+#include <Core/Systems/Position.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
@@ -79,11 +81,37 @@ public:
      */
     const Cameras& cameras() const;
 
+    /**
+     * @brief Returns a reference to the position system
+     *
+     */
+    Position& position();
+
+    /**
+     * @brief Returns a const reference to the position system
+     *
+     */
+    const Position& position() const;
+
+    /**
+     * @brief Returns a reference to the movement system
+     *
+     */
+    Movement& movement();
+
+    /**
+     * @brief Returns a const reference to the movement system
+     *
+     */
+    const Movement& movement() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
     Clock _clock;
     World _world;
+    Position _position;
+    Movement _movement;
 
     /**
      * @brief Creates the core game object and associates it with the engine

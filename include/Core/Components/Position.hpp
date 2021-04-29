@@ -1,6 +1,7 @@
 #ifndef CORE_ENTITIES_POSITION_HPP
 #define CORE_ENTITIES_POSITION_HPP
 
+#include <BLIB/Entities/Component.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <Core/Components/Direction.hpp>
 
@@ -16,6 +17,9 @@ namespace component
  */
 class Position {
 public:
+    /// Required to be used in the BLIB ECS
+    static constexpr bl::entity::Component::IdType ComponentId = 1;
+
     /**
      * @brief Creates an empty position
      *
@@ -50,6 +54,16 @@ public:
      *
      */
     const sf::Vector2f& positionPixels() const;
+
+    /**
+     * @brief Returns the position adjacent to this one when moving in the given direction.
+     *        Does not handle level transition or interpolation. If the direction moved is not the
+     *        same as the current direction then no movement occurs and the direction is changed
+     *
+     * @param dir The direction to move in
+     * @return Position The new position after moving or rotating
+     */
+    Position move(Direction dir) const;
 
     /// The direction the entity is facing
     Direction direction;
