@@ -99,8 +99,7 @@ void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
                    Properties::WindowHeight());
 }
 
-void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& mapSize) {
-    eventGuard.subscribe(bus);
+void LightingSystem::activate(const sf::Vector2i& mapSize) {
     legacyResize(mapSize);
 
     if (lightLevel == 255) lightLevel = lightLevelField.getValue();
@@ -112,7 +111,9 @@ void LightingSystem::activate(bl::event::Dispatcher& bus, const sf::Vector2i& ma
     sprite.setScale(1.f, -1.f);
 }
 
-void LightingSystem::deactivate() { eventGuard.unsubscribe(); }
+void LightingSystem::subscribe(bl::event::Dispatcher& bus) { eventGuard.subscribe(bus); }
+
+void LightingSystem::unsubscribe() { eventGuard.unsubscribe(); }
 
 void LightingSystem::clear() {
     lightsField.getValue().clear();

@@ -118,13 +118,19 @@ public:
      * @param eventBus The engine event bus
      * @param mapSize The size of the map in tiles. Used for quadtree partitioning
      */
-    void activate(bl::event::Dispatcher& eventBus, const sf::Vector2i& mapSize);
+    void activate(const sf::Vector2i& mapSize);
+
+    /**
+     * @brief Subscribes the lighting system to time events for ambient light level
+     *
+     */
+    void subscribe(bl::event::Dispatcher& eventBus);
 
     /**
      * @brief Unsubscribes the lighting system from the event dispatcher
      *
      */
-    void deactivate();
+    void unsubscribe();
 
     /**
      * @brief Clears all lights from the map, including the persisted light data

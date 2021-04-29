@@ -255,11 +255,13 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
 
         weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
         weather.set(weatherField.getValue());
-        lighting.activate(systems.engine().eventBus(), size);
+        lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
 
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
+
+    lighting.subscribe(systems.engine().eventBus());
 
     systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;
@@ -268,7 +270,7 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
 void Map::exit(system::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
     game.engine().eventBus().dispatch<event::MapExited>({*this});
-    lighting.deactivate();
+    lighting.unsubscribe();
     // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
