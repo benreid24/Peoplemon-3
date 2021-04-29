@@ -236,7 +236,6 @@ Map::Map()
 
 bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
-    systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -262,6 +261,7 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
+    systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;
 }
 

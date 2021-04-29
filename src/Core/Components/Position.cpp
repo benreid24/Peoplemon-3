@@ -42,7 +42,7 @@ Position Position::move(Direction dir) const {
             --n.position.x;
             break;
         default:
-            BL_LOG_WARN << "Unknown direction: " << dir;
+            BL_LOG_WARN << "Unknown direction: " << static_cast<int>(dir);
             break;
         }
     }
