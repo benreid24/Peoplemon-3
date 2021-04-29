@@ -65,6 +65,13 @@ public:
      */
     Position move(Direction dir) const;
 
+    /**
+     * @brief Returns whether or not this position is currently being interpolated
+     * 
+     * @return True if there is active unfinished interpolation, false if still
+     */
+    bool moving() const;
+
     /// The direction the entity is facing
     Direction direction;
 

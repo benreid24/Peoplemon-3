@@ -12,9 +12,6 @@ struct Movable {
     /// Required to be used in the BLIB ECS
     static constexpr bl::entity::Component::IdType ComponentId = 2;
 
-    /// The position the entity is moving to
-    sf::Vector2i movingTo;
-
     /// The speed to interpolate at
     float movementSpeed;
 

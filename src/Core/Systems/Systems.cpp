@@ -13,6 +13,7 @@ Systems::Systems(bl::engine::Engine& engine)
 , _movement(*this) {
     _engine.eventBus().subscribe(&_position);
     _position.init();
+    _movement.init();
 }
 
 void Systems::update(float dt) {
@@ -38,6 +39,14 @@ const World& Systems::world() const { return _world; }
 Cameras& Systems::cameras() { return _cameras; }
 
 const Cameras& Systems::cameras() const { return _cameras; }
+
+Position& Systems::position() { return _position; }
+
+const Position& Systems::position() const { return _position; }
+
+Movement& Systems::movement() { return _movement; }
+
+const Movement& Systems::movement() const { return _movement; }
 
 } // namespace system
 } // namespace core

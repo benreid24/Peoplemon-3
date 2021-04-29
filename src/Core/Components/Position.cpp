@@ -52,5 +52,10 @@ Position Position::move(Direction dir) const {
     return n;
 }
 
+bool Position::moving() const {
+    return static_cast<sf::Vector2i>(interpolatedPosition) / Properties::PixelsPerTile() ==
+           position;
+}
+
 } // namespace component
 } // namespace core
