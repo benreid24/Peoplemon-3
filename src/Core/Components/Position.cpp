@@ -45,7 +45,6 @@ Position Position::move(Direction dir) const {
             BL_LOG_WARN << "Unknown direction: " << dir;
             break;
         }
-        n.setTiles(n.position); // clears interpolation
     }
     else {
         n.direction = dir;
