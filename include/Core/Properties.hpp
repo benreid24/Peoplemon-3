@@ -68,6 +68,15 @@ public:
     static unsigned int ThinFogAlpha();
     static unsigned int ThickFogAlpha();
 
+    static int LightRainLightModifier();
+    static int HardRainLightModifier();
+    static int LightSnowLightModifier();
+    static int HardSnowLightModifier();
+    static int ThinFogLightModifier();
+    static int ThickFogLightModifier();
+    static int SunnyLightModifier();
+    static int SandstormLightModifier();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

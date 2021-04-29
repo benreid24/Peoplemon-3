@@ -56,6 +56,15 @@ constexpr unsigned int HardSnowFlakeCount  = 4000;
 constexpr unsigned int ThickFogAlpha = 135;
 constexpr unsigned int ThinFogAlpha  = 90;
 
+constexpr int LightRainLightModifier = 22;
+constexpr int HardRainLightModifier  = 35;
+constexpr int LightSnowLightModifier = 15;
+constexpr int HardSnowLightModifier  = 30;
+constexpr int ThinFogLightModifier   = 20;
+constexpr int ThickFogLightModifier  = 50;
+constexpr int SunnyLightModifier     = 20;
+constexpr int SandstormLightModifier = 30;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -114,6 +123,18 @@ bool Properties::load() {
 
     bl::engine::Configuration::set("core.weather.fog.thick_alpha", defaults::ThickFogAlpha);
     bl::engine::Configuration::set("core.weather.fog.thin_alpha", defaults::ThinFogAlpha);
+
+    bl::engine::Configuration::set("core.weather.lightrain.light",
+                                   defaults::LightRainLightModifier);
+    bl::engine::Configuration::set("core.weather.hardrain.light", defaults::HardRainLightModifier);
+    bl::engine::Configuration::set("core.weather.lightsnow.light",
+                                   defaults::LightSnowLightModifier);
+    bl::engine::Configuration::set("core.weather.hardsnow.light", defaults::HardSnowLightModifier);
+    bl::engine::Configuration::set("core.weather.thinfog.light", defaults::ThinFogLightModifier);
+    bl::engine::Configuration::set("core.weather.thickfog.light", defaults::ThickFogLightModifier);
+    bl::engine::Configuration::set("core.weather.sunny.light", defaults::SunnyLightModifier);
+    bl::engine::Configuration::set("core.weather.sandstorm.light",
+                                   defaults::SandstormLightModifier);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -323,6 +344,46 @@ unsigned int Properties::ThickFogAlpha() {
 unsigned int Properties::ThinFogAlpha() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thin_alpha",
                                                                  defaults::ThinFogAlpha);
+}
+
+int Properties::LightRainLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.lightrain.light",
+                                                        defaults::LightRainLightModifier);
+}
+
+int Properties::HardRainLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.hardrain.light",
+                                                        defaults::HardRainLightModifier);
+}
+
+int Properties::LightSnowLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.lightsnow.light",
+                                                        defaults::LightSnowLightModifier);
+}
+
+int Properties::HardSnowLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.hardsnow.light",
+                                                        defaults::HardSnowLightModifier);
+}
+
+int Properties::ThinFogLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.thinfog.light",
+                                                        defaults::ThinFogLightModifier);
+}
+
+int Properties::ThickFogLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.thickfog.light",
+                                                        defaults::ThickFogLightModifier);
+}
+
+int Properties::SunnyLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.sunny.light",
+                                                        defaults::SunnyLightModifier);
+}
+
+int Properties::SandstormLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.sandstorm.light",
+                                                        defaults::SandstormLightModifier);
 }
 
 } // namespace core

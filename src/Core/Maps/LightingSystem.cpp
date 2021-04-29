@@ -15,6 +15,7 @@ LightingSystem::LightingSystem()
 , lightLevelField(*this, 0)
 , sunlightField(*this, true)
 , lightLevel(255)
+, weatherModifier(0)
 , eventGuard(this)
 , lights(320, 320, 800, 600) {}
 
@@ -128,6 +129,8 @@ void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() / 2.f);
     const sf::Vector2f& size = target.getView().getSize();
 
+    const std::uint8_t ambient =
+        std::min(std::max(0, static_cast<int>(lightLevel) + weatherModifier), 255);
     auto lightSet =
         lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
                        corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
@@ -135,11 +138,11 @@ void LightingSystem::render(sf::RenderTarget& target) {
                        size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile());
 
     renderSurface.setView(target.getView());
-    renderSurface.clear(sf::Color(0, 0, 0, lightLevel));
+    renderSurface.clear(sf::Color(0, 0, 0, ambient));
 
     bl::shapes::GradientCircle circle(100);
     circle.setCenterColor(sf::Color::Transparent);
-    circle.setOuterColor(sf::Color(0, 0, 0, lightLevel));
+    circle.setOuterColor(sf::Color(0, 0, 0, ambient));
 
     for (auto& light : lightSet) {
         circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
@@ -160,9 +163,53 @@ void LightingSystem::observe(const event::TimeChange& now) {
         lightLevel    = std::max(0.,
                               (90 * cos(3.1415926 * x / 720) + 90) *
                                   ((1 - n) * (720 - x) * (720 - x) / 518400 + n));
-        // TODO - add weather light modifier
     }
 }
+
+void LightingSystem::observe(const event::WeatherStarted& event) {
+    switch (event.type) {
+    case Weather::LightRain:
+    case Weather::LightRainThunder:
+        weatherModifier = Properties::LightRainLightModifier();
+        break;
+
+    case Weather::HardRain:
+    case Weather::HardRainThunder:
+        weatherModifier = Properties::HardRainLightModifier();
+        break;
+
+    case Weather::LightSnow:
+    case Weather::LightSnowThunder:
+        weatherModifier = Properties::LightSnowLightModifier();
+        break;
+
+    case Weather::HardSnow:
+    case Weather::HardSnowThunder:
+        weatherModifier = Properties::HardSnowLightModifier();
+        break;
+
+    case Weather::ThinFog:
+        weatherModifier = Properties::ThinFogLightModifier();
+        break;
+
+    case Weather::ThickFog:
+        weatherModifier = Properties::ThickFogLightModifier();
+        break;
+
+    case Weather::SandStorm:
+        weatherModifier = Properties::SandstormLightModifier();
+        break;
+
+    case Weather::Sunny:
+        weatherModifier = Properties::SunnyLightModifier();
+        break;
+
+    default:
+        break;
+    }
+}
+
+void LightingSystem::observe(const event::WeatherStopped&) { weatherModifier = 0; }
 
 } // namespace map
 } // namespace core
