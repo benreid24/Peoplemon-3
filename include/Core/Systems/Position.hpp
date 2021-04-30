@@ -56,6 +56,14 @@ public:
     void update();
 
     /**
+     * @brief Returns the entity at the given position or InvalidEntity if not found
+     *
+     * @param pos The position to check
+     * @return bl::entity::Entity The entity at the given position or bl::entity::InvalidEntity
+     */
+    bl::entity::Entity getEntity(const component::Position& pos) const;
+
+    /**
      * @brief Returns whether or not a tile is currently occupied
      *
      * @param position The tile position to check
@@ -101,7 +109,6 @@ private:
     virtual void observe(const event::MapSwitch& event) override;
 
     bl::entity::Entity& get(const component::Position& pos);
-    const bl::entity::Entity& get(const component::Position& pos) const;
 };
 
 } // namespace system

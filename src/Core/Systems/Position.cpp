@@ -112,9 +112,7 @@ bl::entity::Entity& Position::get(const component::Position& p) {
     return null;
 }
 
-const bl::entity::Entity& Position::get(const component::Position& p) const {
-    static const bl::entity::Entity null = bl::entity::InvalidEntity;
-
+bl::entity::Entity Position::getEntity(const component::Position& p) const {
     if (p.level < entityMap.size()) {
         if (p.positionTiles().x >= 0 && p.positionTiles().x < entityMap[p.level].getWidth()) {
             if (p.positionTiles().y >= 0 && p.positionTiles().y < entityMap[p.level].getHeight()) {
@@ -125,7 +123,7 @@ const bl::entity::Entity& Position::get(const component::Position& p) const {
 
     BL_LOG_WARN << "Out of bounds entity check at (" << p.level << ", " << p.positionTiles().x
                 << ", " << p.positionTiles().y << ")";
-    return null;
+    return bl::entity::InvalidEntity;
 }
 
 } // namespace system
