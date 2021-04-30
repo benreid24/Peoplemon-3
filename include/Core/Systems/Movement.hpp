@@ -27,9 +27,19 @@ public:
 
     /**
      * @brief Performs one time initialization of the movement system
-     * 
+     *
      */
     void init();
+
+    /**
+     * @brief Adds a Movable component to the given entity if it does not already exist
+     *
+     * @param entity The entity to make movable
+     * @param moveSpeed The speed to move at
+     * @param fastMoveSpeed The speed to move at when moving fast
+     * @return True if a component was added, false otherwise
+     */
+    bool makeMovable(bl::entity::Entity entity, float moveSpeed, float fastMoveSpeed);
 
     /**
      * @brief Moves an entity in the given direction using either its fast or slow speed.

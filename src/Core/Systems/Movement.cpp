@@ -16,6 +16,15 @@ void Movement::init() {
                    .getEntitiesWithComponents<component::Position, component::Movable>();
 }
 
+bool Movement::makeMovable(bl::entity::Entity e, float sp, float fsp) {
+    if (owner.engine().entities().hasComponent<component::Movable>(e)) return false;
+    bl::entity::Registry::ComponentHandle<component::Position> h =
+        owner.engine().entities().getComponentHandle<component::Position>(e);
+    if (!h.hasValue()) return false;
+    owner.engine().entities().addComponent<component::Movable>(e, {h, sp, fsp});
+    return true;
+}
+
 bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool fast) {
     auto it = entities->results().find(e);
     if (it != entities->results().end()) {
@@ -23,14 +32,14 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
         if (!pos.moving()) {
             component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
-                pos = npos;
+                pos = npos; // TODO - send event on rotate?
                 return true;
             }
             if (!owner.position().spaceFree(npos)) return false;
             if (!owner.world().activeMap().movePossible(pos, dir)) return false;
 
             std::swap(pos, npos);
-            it->second.get<component::Movable>()->movingFast = fast;
+            it->second.get<component::Movable>()->move(dir, fast);
             owner.engine().eventBus().dispatch<event::EntityMoved>({e, npos, pos});
             return true;
         }
@@ -41,33 +50,7 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
 void Movement::update(float dt) {
     for (const bl::entity::Entity e : owner.position().updateRangeEntities()) {
         auto it = entities->results().find(e);
-        if (it != entities->results().end()) {
-            component::Position& pos = *(it->second.get<component::Position>());
-            if (pos.moving()) {
-                const component::Movable& move = *(it->second.get<component::Movable>());
-                const float speed = move.movingFast ? move.fastMovementSpeed : move.movementSpeed;
-                const float displacement = dt * speed;
-
-                const float xTile = pos.positionTiles().x * Properties::PixelsPerTile();
-                const float yTile = pos.positionTiles().y * Properties::PixelsPerTile();
-                if (pos.positionPixels().x > xTile) {
-                    pos.setPixels(pos.positionPixels() + sf::Vector2f(displacement, 0.f));
-                    if (pos.positionPixels().x >= xTile) { pos.setTiles(pos.positionTiles()); }
-                }
-                else if (pos.positionPixels().x > xTile) {
-                    pos.setPixels(pos.positionPixels() - sf::Vector2f(displacement, 0.f));
-                    if (pos.positionPixels().x <= xTile) { pos.setTiles(pos.positionTiles()); }
-                }
-                if (pos.positionPixels().y < yTile) {
-                    pos.setPixels(pos.positionPixels() + sf::Vector2f(0.f, displacement));
-                    if (pos.positionPixels().x >= yTile) { pos.setTiles(pos.positionTiles()); }
-                }
-                else if (pos.positionPixels().y > yTile) {
-                    pos.setPixels(pos.positionPixels() - sf::Vector2f(0.f, -displacement));
-                    if (pos.positionPixels().x <= yTile) { pos.setTiles(pos.positionTiles()); }
-                }
-            }
-        }
+        if (it != entities->results().end()) { it->second.get<component::Movable>()->update(dt); }
     }
 }
 
