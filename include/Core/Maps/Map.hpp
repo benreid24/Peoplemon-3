@@ -129,6 +129,12 @@ public:
     sf::Vector2f sizePixels() const;
 
     /**
+     * @brief Returns the number of levels in the map
+     *
+     */
+    std::uint8_t levelCount() const;
+
+    /**
      * @brief Updates internal logic over the elapsed time
      *
      * * @param systems The primary game systems

@@ -23,8 +23,8 @@ void Position::init() {
 
 void Position::update() {
     const sf::View area = owner.cameras().getView();
-    const sf::Vector2f topCorner(area.getCenter() - area.getSize() * 2.5f);
-    const sf::Vector2f size(area.getSize() * 5.f);
+    const sf::Vector2f topCorner(area.getCenter() - area.getSize() * 2.f);
+    const sf::Vector2f size(area.getSize() * 4.f);
     inRange = spatialEntities.getArea(topCorner.x, topCorner.y, size.x, size.y);
 }
 
@@ -35,7 +35,7 @@ const bl::container::Grid<bl::entity::Entity>::Range& Position::updateRangeEntit
 bool Position::spaceFree(const component::Position& position) const {
     bl::container::Grid<bl::entity::Entity>& grid =
         const_cast<bl::container::Grid<bl::entity::Entity>&>(spatialEntities);
-    auto area = grid.getCell(position.positionPixels().x, position.positionPixels().y);
+    auto area = grid.getCellAndNeighbors(position.positionPixels().x, position.positionPixels().y);
     for (const auto& ptr : area) {
         auto it = entities->results().find(ptr.get());
         if (it != entities->end()) {

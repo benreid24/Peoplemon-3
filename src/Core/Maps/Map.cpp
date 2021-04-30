@@ -284,6 +284,8 @@ sf::Vector2f Map::sizePixels() const {
             static_cast<float>(Properties::PixelsPerTile() * size.y)};
 }
 
+std::uint8_t Map::levelCount() const { return levels.size(); }
+
 Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
