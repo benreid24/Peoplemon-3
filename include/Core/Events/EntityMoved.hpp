@@ -20,7 +20,7 @@ struct EntityMoved {
     const bl::entity::Entity entity;
 
     /// The previous position of the entity
-    const sf::Vector2i previousPosition;
+    const component::Position previousPosition;
 
     /// The current position of the entity
     const component::Position& position;
@@ -32,7 +32,7 @@ struct EntityMoved {
      * @param oldPos The old position
      * @param pos The current position
      */
-    EntityMoved(bl::entity::Entity entity, const sf::Vector2i& oldPos,
+    EntityMoved(bl::entity::Entity entity, const component::Position& oldPos,
                 const component::Position& pos)
     : entity(entity)
     , previousPosition(oldPos)

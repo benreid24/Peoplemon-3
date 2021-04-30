@@ -236,6 +236,10 @@ Map::Map()
 
 bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
+    size = {static_cast<int>(levels.front().bottomLayers().front().width()),
+            static_cast<int>(levels.front().bottomLayers().front().height())};
+    systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
+
     // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
@@ -244,9 +248,6 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     if (!activated) {
         activated = true;
         BL_LOG_INFO << "Activating map " << nameField.getValue();
-
-        size = {static_cast<int>(levels.front().bottomLayers().front().width()),
-                static_cast<int>(levels.front().bottomLayers().front().height())};
 
         tileset = Resources::tilesets().load(tilesetField).data;
         if (!tileset) return false;

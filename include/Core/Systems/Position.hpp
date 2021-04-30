@@ -27,7 +27,7 @@ class Position
 : public bl::event::Listener<bl::entity::event::EntityDestroyed, event::EntityMoved,
                              bl::entity::event::ComponentAdded<component::Position>,
                              bl::entity::event::ComponentRemoved<component::Position>,
-                             event::MapEntered> {
+                             event::MapSwitch> {
 public:
     /**
      * @brief Construct the Position system
@@ -43,8 +43,7 @@ public:
     virtual ~Position() = default;
 
     /**
-     * @brief Loads all entities into internal data structures. Called on startup and when maps
-     *        change to ensure that all entities are accounted for
+     * @brief Creates the view on the entity registry
      *
      */
     void init();
@@ -81,15 +80,13 @@ public:
      *
      * @return const bl::container::Grid<bl::entity::Entity>::Range& Entities that should be updated
      */
-    const bl::container::Grid<bl::entity::Entity>::Range& updateRangeEntities() const;
+    const std::vector<bl::entity::Entity>& updateRangeEntities() const;
 
 private:
     Systems& owner;
     bl::entity::Registry::View<component::Position>::Ptr entities;
-    bl::container::Grid<bl::entity::Entity> spatialEntities;
-    bl::container::Grid<bl::entity::Entity>::Range inRange;
-    std::unordered_map<bl::entity::Entity, bl::container::Grid<bl::entity::Entity>::Payload::Ptr>
-        entityMap;
+    std::vector<bl::container::Vector2D<bl::entity::Entity>> entityMap;
+    std::vector<bl::entity::Entity> toUpdate;
 
     virtual void observe(const event::EntityMoved& event) override;
 
@@ -101,7 +98,10 @@ private:
     virtual void observe(
         const bl::entity::event::ComponentRemoved<component::Position>& event) override;
 
-    virtual void observe(const event::MapEntered& event) override;
+    virtual void observe(const event::MapSwitch& event) override;
+
+    bl::entity::Entity& get(const component::Position& pos);
+    const bl::entity::Entity& get(const component::Position& pos) const;
 };
 
 } // namespace system

@@ -11,6 +11,26 @@ class Map;
 namespace event
 {
 /**
+ * @brief Fired right before a map is entered. Use this event for initializing data structures that
+ *        depend on map size that need to be initialized before entities are spawned
+ *
+ * @ingroup Events
+ *
+ */
+struct MapSwitch {
+    /**
+     * @brief Construct a new MapSwitch event
+     *
+     * @param map The map that is going to be entered
+     */
+    MapSwitch(const map::Map& map)
+    : map(map) {}
+
+    /// The map that is going to be entered
+    const map::Map& map;
+};
+
+/**
  * @brief Fired when a map is entered
  *
  * @ingroup Events

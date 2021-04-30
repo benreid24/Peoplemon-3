@@ -21,7 +21,7 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
     if (it != entities->results().end()) {
         component::Position& pos = *(it->second.get<component::Position>());
         if (!pos.moving()) {
-            const component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
+            component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
                 pos = npos;
                 return true;
@@ -29,8 +29,9 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
             if (!owner.position().spaceFree(npos)) return false;
             if (!owner.world().activeMap().movePossible(pos, dir)) return false;
 
-            pos                                              = npos;
+            std::swap(pos, npos);
             it->second.get<component::Movable>()->movingFast = fast;
+            owner.engine().eventBus().dispatch<event::EntityMoved>({e, npos, pos});
             return true;
         }
     }
@@ -38,8 +39,8 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
 }
 
 void Movement::update(float dt) {
-    for (auto& payload : owner.position().updateRangeEntities()) {
-        auto it = entities->results().find(payload.get());
+    for (const bl::entity::Entity e : owner.position().updateRangeEntities()) {
+        auto it = entities->results().find(e);
         if (it != entities->results().end()) {
             component::Position& pos = *(it->second.get<component::Position>());
             if (pos.moving()) {
