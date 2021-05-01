@@ -13,6 +13,13 @@ Position::Position()
 , level(0)
 , interpolatedPosition(0.f, 0.f) {}
 
+Position::Position(std::uint8_t level, const sf::Vector2i& tiles, Direction dir)
+: level(level)
+, position(tiles)
+, interpolatedPosition(static_cast<float>(tiles.x * Properties::PixelsPerTile()),
+                       static_cast<float>(tiles.y * Properties::PixelsPerTile()))
+, direction(dir) {}
+
 void Position::setTiles(const sf::Vector2i& tiles) {
     position               = tiles;
     interpolatedPosition.x = static_cast<float>(tiles.x * Properties::PixelsPerTile());

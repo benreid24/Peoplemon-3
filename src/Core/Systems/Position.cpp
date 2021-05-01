@@ -3,6 +3,7 @@
 #include <Core/Components/Collision.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <cmath>
 
 namespace core
 {
@@ -27,8 +28,10 @@ void Position::update() {
         static_cast<unsigned int>(std::max(cornerf.x / Properties::PixelsPerTile(), 0.f)),
         static_cast<unsigned int>(std::max(cornerf.y / Properties::PixelsPerTile(), 0.f)));
     const sf::Vector2u size(
-        static_cast<unsigned int>(std::ceil(sizef.x / Properties::PixelsPerTile())),
-        static_cast<unsigned int>(std::ceil(sizef.y / Properties::PixelsPerTile())));
+        std::min(static_cast<unsigned int>(std::ceil(sizef.x / Properties::PixelsPerTile())),
+                 entityMap.front().getWidth() - corner.x - 1),
+        std::min(static_cast<unsigned int>(std::ceil(sizef.y / Properties::PixelsPerTile())),
+                 entityMap.front().getHeight() - corner.y - 1));
 
     toUpdate.clear();
     toUpdate.reserve(entityMap.size() * size.x * size.y / 4);

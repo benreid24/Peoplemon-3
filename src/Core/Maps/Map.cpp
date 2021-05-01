@@ -298,7 +298,7 @@ void Map::update(system::Systems& systems, float dt) {
 }
 
 // TODO - special editor rendering for hiding levels and layers
-void Map::render(sf::RenderTarget& target, float residual) {
+void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb) {
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -331,7 +331,7 @@ void Map::render(sf::RenderTarget& target, float residual) {
         for (TileLayer& layer : level.ysortLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) {
                 renderRow(layer, y);
-                // TODO - render row of entities here by level and row
+                entityCb(i, y, corner.x, corner.x + wsize.x);
             }
         }
         for (TileLayer& layer : level.topLayers()) {

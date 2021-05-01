@@ -16,6 +16,8 @@ Movable::Movable(const bl::entity::Registry::ComponentHandle<component::Position
 
 bool Movable::moving() const { return isMoving; }
 
+bool Movable::goingFast() const { return movingFast; }
+
 void Movable::move(Direction dir, bool fast) {
     moveDir    = dir;
     isMoving   = true;

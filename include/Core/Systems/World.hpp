@@ -58,14 +58,6 @@ public:
      */
     void update(float dt);
 
-    /**
-     * @brief Renders the current map and entities to the given target
-     *
-     * @param target Target to render to
-     * @param lag Time elapsed not yet accounted for in update
-     */
-    void render(sf::RenderTarget& target, float lag);
-
 private:
     Systems& owner;
     bl::resource::Resource<map::Map>::Ref currentMap;

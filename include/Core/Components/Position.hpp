@@ -27,6 +27,15 @@ public:
     Position();
 
     /**
+     * @brief Construct a new Position component
+     * 
+     * @param level The level in the map
+     * @param tiles The position in tiles
+     * @param direction The direction it is facing
+     */
+    Position(std::uint8_t level, const sf::Vector2i& tiles, Direction direction);
+
+    /**
      * @brief Set the position in tiles. This also sets the interpolated position to be the top
      *        right corner of the given tile position
      *

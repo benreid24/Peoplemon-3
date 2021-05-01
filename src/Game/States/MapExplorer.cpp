@@ -72,7 +72,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) { systems.update(
 
 void MapExplorer::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
-    systems.world().render(engine.window(), lag);
+    systems.render().render(engine.window(), lag);
     engine.window().display();
 }
 

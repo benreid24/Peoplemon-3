@@ -10,10 +10,12 @@ Systems::Systems(bl::engine::Engine& engine)
 , _world(*this)
 , _cameras(*this)
 , _position(*this)
-, _movement(*this) {
+, _movement(*this)
+, _render(*this) {
     _engine.eventBus().subscribe(&_position);
     _position.init();
     _movement.init();
+    _render.init();
 }
 
 void Systems::update(float dt) {
@@ -21,9 +23,7 @@ void Systems::update(float dt) {
     _cameras.update(dt);
     _clock.update(dt);
     _world.update(dt);
-
-    // TODO - make rendering system. can handle fades for maps too
-    _engine.window().setView(_cameras.getView());
+    _render.update(dt);
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }
@@ -47,6 +47,10 @@ const Position& Systems::position() const { return _position; }
 Movement& Systems::movement() { return _movement; }
 
 const Movement& Systems::movement() const { return _movement; }
+
+Render& Systems::render() { return _render; }
+
+const Render& Systems::render() const { return _render; }
 
 } // namespace system
 } // namespace core

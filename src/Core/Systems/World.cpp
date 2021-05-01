@@ -10,7 +10,9 @@ namespace system
 World::World(Systems& o)
 : owner(o) {}
 
-World::~World() { currentMap->exit(owner); }
+World::~World() {
+    if (currentMap) currentMap->exit(owner);
+}
 
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
@@ -39,11 +41,6 @@ map::Map& World::activeMap() { return *currentMap; }
 const map::Map& World::activeMap() const { return *currentMap; }
 
 void World::update(float dt) { currentMap->update(owner, dt); }
-
-void World::render(sf::RenderTarget& target, float lag) {
-    currentMap->render(target, lag);
-    // TODO - render entities in y sort layer
-}
 
 } // namespace system
 } // namespace core

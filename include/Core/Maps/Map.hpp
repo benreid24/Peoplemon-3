@@ -15,6 +15,7 @@
 #include <BLIB/Entities.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
+#include <functional>
 #include <unordered_map>
 #include <vector>
 
@@ -63,6 +64,18 @@ class PrimaryMapLoader;
  */
 class Map : public bl::file::binary::SerializableObject {
 public:
+    /**
+     * @brief Function signature for the callback to render rows of entities
+     *
+     * @param level Which level to render entities from
+     * @param row Which row to render entities from
+     * @param minX Starting x coordinate to render entities at
+     * @param maxX Ending x coordinate to render entities at, exclusive
+     *
+     */
+    using EntityRenderCallback = std::function<void(std::uint8_t level, unsigned int row,
+                                                    unsigned int minX, unsigned int maxX)>;
+
     /**
      * @brief Creates an empty Map
      *
@@ -147,8 +160,9 @@ public:
      *
      * @param target The target to render to
      * @param residual Residual time between calls to update, in seconds
+     * @param entityCb Function to call to render entities at the correct times
      */
-    void render(sf::RenderTarget& target, float residual);
+    void render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb);
 
     /**
      * @brief Returns whether or not the map contains the given position

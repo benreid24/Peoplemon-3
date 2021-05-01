@@ -3,6 +3,7 @@ target_sources(Core PUBLIC
     Clock.hpp
     Movement.hpp
     Systems.hpp
+    Render.hpp
     World.hpp
 )
 

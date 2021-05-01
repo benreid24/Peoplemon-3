@@ -3,6 +3,7 @@ target_sources(Core PRIVATE
     Clock.cpp
     Movement.cpp
     Position.cpp
+    Render.cpp
     Systems.cpp
     World.cpp
 )

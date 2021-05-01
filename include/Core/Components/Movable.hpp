@@ -38,6 +38,12 @@ public:
     bool moving() const;
 
     /**
+     * @brief Returns whether or not the entity is going fast
+     *
+     */
+    bool goingFast() const;
+
+    /**
      * @brief Starts the entity moving in the given direction. Only updates the interpolated
      *        position, not the tile position
      *

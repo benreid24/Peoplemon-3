@@ -5,6 +5,7 @@
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Position.hpp>
+#include <Core/Systems/Render.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
@@ -105,6 +106,18 @@ public:
      */
     const Movement& movement() const;
 
+    /**
+     * @brief Returns a reference to the rendering system
+     *
+     */
+    Render& render();
+
+    /**
+     * @brief Returns a const reference to the rendering system
+     *
+     */
+    const Render& render() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -112,6 +125,7 @@ private:
     World _world;
     Position _position;
     Movement _movement;
+    Render _render;
 
     /**
      * @brief Creates the core game object and associates it with the engine
