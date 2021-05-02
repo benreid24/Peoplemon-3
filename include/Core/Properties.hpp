@@ -83,6 +83,10 @@ public:
     static const std::string& TrainerPath();
     static const std::string& ConversationPath();
 
+    static const std::string& CharacterAnimationPath();
+    static float CharacterMoveSpeed();
+    static float FastCharacterMoveSpeed();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

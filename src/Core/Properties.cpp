@@ -71,6 +71,10 @@ const std::string TrainerFileExtension = "tnr";
 const std::string TrainerPath          = "Resources/Characters/Trainers";
 const std::string ConversationPath     = "Resources/Characters/Conversations";
 
+const std::string CharacterAnimationPath = "Resources/Characters/Animations";
+constexpr float CharacterMoveSpeed       = 81.f;
+constexpr float FastCharacterMoveSpeed   = 205.f;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -147,6 +151,10 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.trainer.extension", defaults::TrainerFileExtension);
     bl::engine::Configuration::set("core.trainer.path", defaults::TrainerPath);
     bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
+
+    bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
+    bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
+    bl::engine::Configuration::set("core.character.fastspeed", defaults::FastCharacterMoveSpeed);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -426,6 +434,22 @@ const std::string& Properties::ConversationPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.conversation.path", defaults::NpcFileExtension);
     return val;
+}
+
+const std::string& Properties::CharacterAnimationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.character.animpath", defaults::CharacterAnimationPath);
+    return val;
+}
+
+float Properties::CharacterMoveSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("core.character.speed",
+                                                          defaults::CharacterMoveSpeed);
+}
+
+float Properties::FastCharacterMoveSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("core.character.fastspeed",
+                                                          defaults::FastCharacterMoveSpeed);
 }
 
 } // namespace core

@@ -120,7 +120,7 @@ void Renderable::MoveAnims::update(
 void Renderable::MoveAnims::render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) {
     const sf::Vector2f offset =
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
-    anim.setPosition(pos + offset);
+    anim.setPosition(pos - offset);
     anim.render(target, lag);
 }
 
@@ -145,7 +145,7 @@ void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
                                        const sf::Vector2f& pos) {
     const sf::Vector2f offset =
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
-    anim.setPosition(pos + offset);
+    anim.setPosition(pos - offset);
     anim.render(target, lag);
 }
 

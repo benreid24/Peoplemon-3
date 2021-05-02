@@ -139,8 +139,11 @@ public:
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
+            x /= 32; // old Ben :(
+            y /= 32;
             result.characterField.getValue().emplace_back(
-                sf::Vector2i(x, y), static_cast<component::Direction>(dir), file);
+                component::Position(0, sf::Vector2i(x, y), static_cast<component::Direction>(dir)),
+                file);
         }
 
         std::uint16_t itemCount;

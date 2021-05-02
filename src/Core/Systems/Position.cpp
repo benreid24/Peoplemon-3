@@ -109,8 +109,8 @@ bl::entity::Entity& Position::get(const component::Position& p) {
         }
     }
 
-    BL_LOG_WARN << "Out of bounds entity check at (" << p.level << ", " << p.positionTiles().x
-                << ", " << p.positionTiles().y << ")";
+    BL_LOG_WARN << "Out of bounds entity check at (" << static_cast<int>(p.level) << ", "
+                << p.positionTiles().x << ", " << p.positionTiles().y << ")";
     null = bl::entity::InvalidEntity;
     return null;
 }
@@ -124,8 +124,8 @@ bl::entity::Entity Position::getEntity(const component::Position& p) const {
         }
     }
 
-    BL_LOG_WARN << "Out of bounds entity check at (" << p.level << ", " << p.positionTiles().x
-                << ", " << p.positionTiles().y << ")";
+    BL_LOG_WARN << "Out of bounds entity check at (" << static_cast<int>(p.level) << ", "
+                << p.positionTiles().x << ", " << p.positionTiles().y << ")";
     return bl::entity::InvalidEntity;
 }
 

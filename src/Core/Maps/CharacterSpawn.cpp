@@ -6,15 +6,12 @@ namespace map
 {
 CharacterSpawn::CharacterSpawn()
 : position(*this)
-, direction(*this)
 , file(*this) {}
 
-CharacterSpawn::CharacterSpawn(const sf::Vector2i& pos, component::Direction dir,
-                               const std::string& f)
+CharacterSpawn::CharacterSpawn(const component::Position& pos, const std::string& f)
 : CharacterSpawn() {
-    position  = pos;
-    direction = dir;
-    file      = f;
+    position = pos;
+    file     = f;
 }
 
 CharacterSpawn::CharacterSpawn(const CharacterSpawn& copy)
@@ -23,9 +20,8 @@ CharacterSpawn::CharacterSpawn(const CharacterSpawn& copy)
 }
 
 CharacterSpawn& CharacterSpawn::operator=(const CharacterSpawn& copy) {
-    position  = copy.position;
-    direction = copy.direction;
-    file      = copy.file;
+    position = copy.position;
+    file     = copy.file;
     return *this;
 }
 
