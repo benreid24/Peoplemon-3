@@ -65,6 +65,12 @@ constexpr int ThickFogLightModifier  = 50;
 constexpr int SunnyLightModifier     = 20;
 constexpr int SandstormLightModifier = 30;
 
+const std::string NpcFileExtension     = "npc";
+const std::string NpcPath              = "Resources/Characters/NPCs";
+const std::string TrainerFileExtension = "tnr";
+const std::string TrainerPath          = "Resources/Characters/Trainers";
+const std::string ConversationPath     = "Resources/Characters/Conversations";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -135,6 +141,12 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.weather.sunny.light", defaults::SunnyLightModifier);
     bl::engine::Configuration::set("core.weather.sandstorm.light",
                                    defaults::SandstormLightModifier);
+
+    bl::engine::Configuration::set("core.npc.extension", defaults::NpcFileExtension);
+    bl::engine::Configuration::set("core.npc.path", defaults::NpcPath);
+    bl::engine::Configuration::set("core.trainer.extension", defaults::TrainerFileExtension);
+    bl::engine::Configuration::set("core.trainer.path", defaults::TrainerPath);
+    bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -384,6 +396,36 @@ int Properties::SunnyLightModifier() {
 int Properties::SandstormLightModifier() {
     return bl::engine::Configuration::getOrDefault<int>("core.weather.sandstorm.light",
                                                         defaults::SandstormLightModifier);
+}
+
+const std::string& Properties::NpcFileExtension() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.npc.extension", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::NpcPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.npc.path", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::TrainerFileExtension() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.extension", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::TrainerPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.path", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::ConversationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.conversation.path", defaults::NpcFileExtension);
+    return val;
 }
 
 } // namespace core

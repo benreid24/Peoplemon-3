@@ -217,8 +217,7 @@ private:
     Weather weather;
     LightingSystem& lighting;
 
-    bool activated;                                  // for weather continuity
-    std::vector<bl::entity::Entity> spawnedEntities; // for cleanup
+    bool activated; // for weather continuity
     sf::IntRect renderRange;
 
     friend class loaders::LegacyMapLoader;

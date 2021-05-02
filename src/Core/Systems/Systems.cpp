@@ -8,6 +8,7 @@ Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
 , _clock(*this)
 , _world(*this)
+, _entity(*this)
 , _cameras(*this)
 , _position(*this)
 , _movement(*this)
@@ -51,6 +52,10 @@ const Movement& Systems::movement() const { return _movement; }
 Render& Systems::render() { return _render; }
 
 const Render& Systems::render() const { return _render; }
+
+Entity& Systems::entity() { return _entity; }
+
+const Entity& Systems::entity() const { return _entity; }
 
 } // namespace system
 } // namespace core

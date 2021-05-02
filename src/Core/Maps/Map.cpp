@@ -148,6 +148,7 @@ public:
         for (unsigned int i = 0; i < itemCount; ++i) {
             std::uint32_t x, y;
             Item item;
+            item.level = 0;
             if (!input.read(item.id.getValue())) return false;
             if (!input.read(item.mapId.getValue())) return false;
             if (!input.read(x)) return false;
@@ -240,7 +241,6 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
             static_cast<int>(levels.front().bottomLayers().front().height())};
     systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
-    // TODO - spawn entities
     // TODO - move player to spawn
     // TODO - load and push playlist
     // TODO - run onload script
@@ -254,7 +254,10 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         for (LayerSet& set : levels) { set.activate(*tileset); }
         tileset->activate();
 
-        weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
+        const sf::FloatRect weatherArea(systems.cameras().getView().getCenter() -
+                                            systems.cameras().getView().getSize() / 2.f,
+                                        systems.cameras().getView().getSize());
+        weather.activate(weatherArea);
         weather.set(weatherField.getValue());
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
@@ -263,6 +266,14 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     }
 
     lighting.subscribe(systems.engine().eventBus());
+
+    for (const CharacterSpawn& spawn : characterField.getValue()) {
+        if (!systems.entity().spawnCharacter(spawn)) {
+            BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
+        }
+    }
+
+    for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
 
     systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;

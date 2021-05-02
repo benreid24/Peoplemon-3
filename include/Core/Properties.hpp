@@ -77,6 +77,12 @@ public:
     static int SunnyLightModifier();
     static int SandstormLightModifier();
 
+    static const std::string& NpcFileExtension();
+    static const std::string& NpcPath();
+    static const std::string& TrainerFileExtension();
+    static const std::string& TrainerPath();
+    static const std::string& ConversationPath();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

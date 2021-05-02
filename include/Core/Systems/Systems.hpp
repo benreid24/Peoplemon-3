@@ -3,6 +3,7 @@
 
 #include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
+#include <Core/Systems/Entity.hpp>
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Position.hpp>
 #include <Core/Systems/Render.hpp>
@@ -118,10 +119,23 @@ public:
      */
     const Render& render() const;
 
+    /**
+     * @brief Returns the entity system
+     *
+     */
+    Entity& entity();
+
+    /**
+     * @brief Returns a const reference to the entity system
+     *
+     */
+    const Entity& entity() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
     Clock _clock;
+    Entity _entity;
     World _world;
     Position _position;
     Movement _movement;

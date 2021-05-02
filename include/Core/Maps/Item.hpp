@@ -17,6 +17,7 @@ struct Item : public bl::file::binary::SerializableObject {
     bl::file::binary::SerializableField<1, std::uint16_t> id;
     bl::file::binary::SerializableField<2, std::uint16_t> mapId;
     bl::file::binary::SerializableField<3, sf::Vector2i> position;
+    bl::file::binary::SerializableField<4, std::uint8_t> level;
 
     /**
      * @brief Makes an empty item
@@ -30,8 +31,9 @@ struct Item : public bl::file::binary::SerializableObject {
      * @param id The id of the item that gets added to the bag
      * @param mapId A map unique id to avoid spawning picked up items
      * @param pos The position of the item, in tiles
+     * @param level The level the item is on
      */
-    Item(std::uint16_t id, std::uint16_t mapId, const sf::Vector2i& pos);
+    Item(std::uint16_t id, std::uint16_t mapId, const sf::Vector2i& pos, std::uint8_t level);
 
     /**
      * @brief Copy constructs the item from the given item

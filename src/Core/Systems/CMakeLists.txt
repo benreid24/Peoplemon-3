@@ -1,6 +1,7 @@
 target_sources(Core PRIVATE
     Cameras.cpp
     Clock.cpp
+    Entity.cpp
     Movement.cpp
     Position.cpp
     Render.cpp
