@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Resources.hpp>
 
 namespace core
@@ -74,6 +75,9 @@ const std::string ConversationPath     = "Resources/Characters/Conversations";
 const std::string CharacterAnimationPath = "Resources/Characters/Animations";
 constexpr float CharacterMoveSpeed       = 81.f;
 constexpr float FastCharacterMoveSpeed   = 205.f;
+
+const std::string BoyPlayerAnims  = bl::file::Util::joinPath(CharacterAnimationPath, "BoyPlayer");
+const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationPath, "GirlPlayer");
 
 } // namespace defaults
 
@@ -155,6 +159,9 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
     bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
     bl::engine::Configuration::set("core.character.fastspeed", defaults::FastCharacterMoveSpeed);
+
+    bl::engine::Configuration::set("core.player.boy_anims", defaults::BoyPlayerAnims);
+    bl::engine::Configuration::set("core.player.girl_anims", defaults::GirlPlayerAnims);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -450,6 +457,18 @@ float Properties::CharacterMoveSpeed() {
 float Properties::FastCharacterMoveSpeed() {
     return bl::engine::Configuration::getOrDefault<float>("core.character.fastspeed",
                                                           defaults::FastCharacterMoveSpeed);
+}
+
+const std::string& Properties::PlayerAnimations(player::Gender g) {
+    switch (g) {
+    case player::Gender::Boy:
+        return bl::engine::Configuration::get<std::string>("core.player.boy_anims");
+    case player::Gender::Girl:
+        return bl::engine::Configuration::get<std::string>("core.player.girl_anims");
+    default:
+        BL_LOG_ERROR << "Unknown player gender: " << static_cast<int>(g);
+        return defaults::BoyPlayerAnims;
+    }
 }
 
 } // namespace core

@@ -3,6 +3,7 @@ target_sources(Core PRIVATE
     Clock.cpp
     Entity.cpp
     Movement.cpp
+    Player.cpp
     Position.cpp
     Render.cpp
     Systems.cpp

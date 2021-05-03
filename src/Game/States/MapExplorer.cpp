@@ -59,7 +59,7 @@ MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
 void MapExplorer::activate(bl::engine::Engine& engine) {
-    if (!systems.world().switchMaps(file, 0)) {
+    if (!systems.world().switchMaps(file, 5)) {
         BL_LOG_ERROR << "Failed to switch to map: " << file;
         engine.flags().set(bl::engine::Flags::Terminate);
     }

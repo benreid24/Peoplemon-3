@@ -244,7 +244,6 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
             static_cast<int>(levels.front().bottomLayers().front().height())};
     systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
-    // TODO - move player to spawn
     // TODO - load and push playlist
     // TODO - run onload script
 
@@ -268,15 +267,31 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
+    // Ensure lighting is updated for time
     lighting.subscribe(systems.engine().eventBus());
 
+    // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField.getValue()) {
         if (!systems.entity().spawnCharacter(spawn)) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
         }
     }
 
+    // Spawn items
     for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
+
+    // Spawn player
+    auto spawnIt = spawns.find(spawnId);
+    if (spawnIt != spawns.end()) {
+        if (!systems.player().spawnPlayer(spawnIt->second.position)) {
+            BL_LOG_ERROR << "Failed to spawn player";
+            return false;
+        }
+    }
+    else {
+        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
+        return false;
+    }
 
     systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;

@@ -5,6 +5,7 @@
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Entity.hpp>
 #include <Core/Systems/Movement.hpp>
+#include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
 #include <Core/Systems/Render.hpp>
 #include <Core/Systems/World.hpp>
@@ -131,11 +132,24 @@ public:
      */
     const Entity& entity() const;
 
+    /**
+     * @brief Returns the player system
+     *
+     */
+    Player& player();
+
+    /**
+     * @brief Returns the player system
+     *
+     */
+    const Player& player() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
     Clock _clock;
     Entity _entity;
+    Player _player;
     World _world;
     Position _position;
     Movement _movement;

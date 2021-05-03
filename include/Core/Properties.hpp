@@ -2,6 +2,7 @@
 #define CORE_PROPERTIES_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <Core/Player/Gender.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <string>
 
@@ -86,6 +87,8 @@ public:
     static const std::string& CharacterAnimationPath();
     static float CharacterMoveSpeed();
     static float FastCharacterMoveSpeed();
+
+    static const std::string& PlayerAnimations(player::Gender gender);
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

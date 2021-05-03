@@ -3,6 +3,8 @@ target_sources(Core PUBLIC
     Clock.hpp
     Entity.hpp
     Movement.hpp
+    Player.hpp
+    Position.hpp
     Systems.hpp
     Render.hpp
     World.hpp
