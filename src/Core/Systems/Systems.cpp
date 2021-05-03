@@ -25,6 +25,8 @@ void Systems::update(float dt) {
     _clock.update(dt);
     _world.update(dt);
     _render.update(dt);
+
+    _engine.entities().doDestroy();
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }

@@ -27,6 +27,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
         if (currentMap) {
             currentMap->exit(owner);
             previousMap = currentMap;
+            owner.engine().entities().clear();
             // TODO - capture player position
         }
         currentMap = Resources::maps().load(file).data;
