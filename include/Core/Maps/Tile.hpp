@@ -116,15 +116,6 @@ private:
     sf::Sprite sprite;
     bl::gfx::Animation uniqueAnim;
     bl::gfx::Animation* anim;
-    void (Tile::*updateFunction)(float);
-    void (Tile::*renderFunction)(sf::RenderTarget&, float) const;
-
-    void noUpdate(float){};
-    void doUpdate(float dt);
-
-    void noRender(sf::RenderTarget&, float) const {};
-    void renderSprite(sf::RenderTarget& target, float lag) const;
-    void renderAnimation(sf::RenderTarget& target, float lag) const;
 
     friend class Tileset;
 };
