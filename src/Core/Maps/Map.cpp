@@ -254,8 +254,8 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
 
         tileset = Resources::tilesets().load(tilesetField).data;
         if (!tileset) return false;
-        for (LayerSet& set : levels) { set.activate(*tileset); }
         tileset->activate();
+        for (LayerSet& level : levels) { level.activate(*tileset); }
 
         const sf::FloatRect weatherArea(systems.cameras().getView().getCenter() -
                                             systems.cameras().getView().getSize() / 2.f,
@@ -286,7 +286,6 @@ void Map::exit(system::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
     game.engine().eventBus().dispatch<event::MapExited>({*this});
     lighting.unsubscribe();
-    // TODO - despawn entities/items. handle picked up items
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
     // TODO - run on unload script
@@ -330,25 +329,31 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
     if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
     renderRange = {corner, wsize};
 
-    const auto renderRow = [&target, residual, &corner, &wsize](TileLayer& layer, int row) {
+    const auto renderRow = [&target, residual, &corner, &wsize](const TileLayer& layer, int row) {
         for (int x = corner.x; x < corner.x + wsize.x; ++x) {
             layer.get(x, row).render(target, residual);
+        }
+    };
+
+    const auto renderSorted = [&target, residual, &corner, &wsize](const SortedLayer& layer,
+                                                                   int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+            Tile* t = layer(x, row);
+            if (t) t->render(target, residual);
         }
     };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         LayerSet& level = levels[i];
 
-        for (TileLayer& layer : level.bottomLayers()) {
+        for (const TileLayer& layer : level.bottomLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
-        for (TileLayer& layer : level.ysortLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) {
-                renderRow(layer, y);
-                entityCb(i, y, corner.x, corner.x + wsize.x);
-            }
+        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
+            entityCb(i, y, corner.x, corner.x + wsize.x);
         }
-        for (TileLayer& layer : level.topLayers()) {
+        for (const TileLayer& layer : level.topLayers()) {
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
     }

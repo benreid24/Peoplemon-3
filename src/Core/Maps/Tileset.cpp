@@ -147,6 +147,20 @@ void Tileset::activate() {
     for (auto& ap : sharedAnimations) { ap.second.play(); }
 }
 
+unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
+    if (isAnim) {
+        auto anim = anims.find(id);
+        if (anim != anims.end()) {
+            if (anim->second->frameCount() > 0) return anim->second->getFrameSize(0).y;
+        }
+    }
+    else {
+        auto txtr = textures.find(id);
+        if (txtr != textures.end()) { return txtr->second->getSize().y; }
+    }
+    return 0;
+}
+
 void Tileset::update(float dt) {
     for (auto& ap : sharedAnimations) { ap.second.update(dt); }
 }
