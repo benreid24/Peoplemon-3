@@ -2,6 +2,7 @@
 
 #include <BLIB/Files/Util.hpp>
 #include <Core/Components/Collision.hpp>
+#include <Core/Components/Controllable.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
 #include <Core/Properties.hpp>
@@ -89,6 +90,11 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                 moveHandle,
                 bl::file::Util::joinPath(Properties::CharacterAnimationPath(), animation)))) {
         BL_LOG_ERROR << "Failed to add renderable component to character: " << entity;
+        return false;
+    }
+
+    if (!owner.engine().entities().addComponent<component::Controllable>(entity, {owner, entity})) {
+        BL_LOG_ERROR << "Failed to add Controllable component to character: " << entity;
         return false;
     }
 
