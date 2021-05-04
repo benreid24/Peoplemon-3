@@ -14,7 +14,7 @@ Input::Input() {
     controls[Controls::Left]     = sf::Keyboard::A;
     controls[Controls::Run]      = sf::Keyboard::LShift;
     controls[Controls::Interact] = sf::Keyboard::Space;
-    controls[Controls::Pause]    = sf::Keyboard::Return;
+    controls[Controls::Pause]    = sf::Keyboard::Enter;
     controls[Controls::Back]     = sf::Keyboard::LControl;
 }
 
@@ -83,13 +83,39 @@ void Input::dispatch(component::Control c) {
 
 void Input::observe(const sf::Event& event) {
     using namespace input;
-    if (controls[Controls::Up].active(event)) {
-        moving = true;
-        moveDir = component::Direction::Up;
+
+    const auto checkMove = [this, &event](Controls::Type c) {
+        if (this->controls[c].matches(event)) {
+            const component::Direction d = static_cast<component::Direction>(c);
+            if (this->controls[c].activated(event)) {
+                this->moving  = true;
+                this->moveDir = d;
+            }
+            else if (this->controls[c].deactivated(event) && this->moveDir == d) {
+                this->moving = false;
+            }
+        }
+    };
+
+    checkMove(Controls::Up);
+    checkMove(Controls::Right);
+    checkMove(Controls::Down);
+    checkMove(Controls::Up);
+
+    if (controls[Controls::Run].matches(event)) {
+        if (controls[Controls::Run].activated(event)) { running = true; }
+        else if (controls[Controls::Run].deactivated(event)) {
+            running = false;
+        }
     }
-    else if (controls[Controls::Right].active(event)) {
-        moving = true;
-        moveDir = component::Direction::Right;
+    else if (controls[Controls::Interact].activated(event)) {
+        dispatch(component::Control::Interact);
+    }
+    else if (controls[Controls::Pause].activated(event)) {
+        dispatch(component::Control::Pause);
+    }
+    else if (controls[Controls::Back].activated(event)) {
+        dispatch(component::Control::Back);
     }
 }
 

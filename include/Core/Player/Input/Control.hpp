@@ -29,6 +29,14 @@ struct Control {
     static Control fromString(const std::string& str);
 
     /**
+     * @brief Creates a control from the gien event
+     *
+     * @param event The event to create the control from
+     * @return Control The produced control. May be Invalid
+     */
+    static Control fromEvent(const sf::Event& event);
+
+    /**
      * @brief Creates an empty invalid control
      *
      */
@@ -55,12 +63,28 @@ struct Control {
     const std::string& toString() const;
 
     /**
+     * @brief Returns whether or not the given event effects this control
+     *
+     * @param event The event to check
+     * @return True if the event is for this control, false if not
+     */
+    bool matches(const sf::Event& event) const;
+
+    /**
      * @brief Returns whether or not the given event activates this control
      *
      * @param event The event to process
      * @return True if this control was activated, false if not
      */
-    bool active(const sf::Event& event) const;
+    bool activated(const sf::Event& event) const;
+
+    /**
+     * @brief Returns whether or not the given event deactivates this control
+     *
+     * @param event The event to process
+     * @return True if the control is deactivated by the event
+     */
+    bool deactivated(const sf::Event& event) const;
 
     union {
         /// The key of the control if a key
