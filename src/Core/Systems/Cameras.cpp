@@ -10,6 +10,8 @@ namespace system
 Cameras::Cameras(Systems& owner)
 : owner(owner) {}
 
+camera::Camera::Ptr Cameras::activeCamera() { return cameras.empty() ? nullptr : cameras.top(); }
+
 void Cameras::pushCamera(camera::Camera::Ptr cam) { cameras.push(cam); }
 
 void Cameras::replaceCamera(camera::Camera::Ptr cam) {
@@ -21,6 +23,11 @@ void Cameras::replaceCamera(camera::Camera::Ptr cam) {
 
 void Cameras::popCamera() {
     if (cameras.size() > 1) cameras.pop();
+}
+
+void Cameras::clearAndReplace(camera::Camera::Ptr cam) {
+    while (!cameras.empty()) cameras.pop();
+    cameras.push(cam);
 }
 
 const sf::View& Cameras::getView() const {

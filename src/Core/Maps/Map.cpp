@@ -3,6 +3,7 @@
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Core/Systems/Cameras/Follow.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
 
@@ -287,6 +288,8 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
             BL_LOG_ERROR << "Failed to spawn player";
             return false;
         }
+        systems.cameras().clearAndReplace(
+            system::camera::Follow::create(systems, systems.player().player()));
     }
     else {
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;

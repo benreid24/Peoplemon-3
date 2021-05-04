@@ -5,6 +5,8 @@
 #include <Core/Systems/Systems.hpp>
 #include <Game/States/MainMenu.hpp>
 
+#include <iostream>
+
 int main() {
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load()) {

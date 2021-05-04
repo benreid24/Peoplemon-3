@@ -35,6 +35,12 @@ public:
     Cameras(Systems& owner);
 
     /**
+     * @brief Returns the currently active camera
+     *
+     */
+    camera::Camera::Ptr activeCamera();
+
+    /**
      * @brief Adds a new camera to immediately use, saving the previous active camera
      *
      * @param camera The new camera to use
@@ -54,6 +60,13 @@ public:
      *
      */
     void popCamera();
+
+    /**
+     * @brief Clears the current camera stack and pushes the given camera to it
+     *
+     * @param camera The camera to replace all current cameras with
+     */
+    void clearAndReplace(camera::Camera::Ptr camera);
 
     /**
      * @brief Returns the view to use for rendering

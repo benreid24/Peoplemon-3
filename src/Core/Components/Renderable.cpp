@@ -38,6 +38,8 @@ Renderable Renderable::fromMoveAnims(
         bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "down.anim")).data;
     mv.data[3] =
         bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "left.anim")).data;
+
+    mv.anim.setData(*mv.data[0]);
     mv.anim.setIsCentered(false);
 
     return rc;
@@ -79,6 +81,7 @@ Renderable Renderable::fromFastMoveAnims(
                     .load(bl::file::Util::joinPath(runPath, "left.anim"))
                     .data;
 
+    mv.anim.setData(*mv.walk[0]);
     mv.anim.setIsCentered(false);
 
     return rc;

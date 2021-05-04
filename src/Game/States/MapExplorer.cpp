@@ -54,7 +54,7 @@ bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems,
 MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name)
 : State(systems)
 , file(name)
-, zoomFactor(1.f) {}
+, mapExplorer(ExplorerCamera::create()) {}
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
@@ -63,10 +63,10 @@ void MapExplorer::activate(bl::engine::Engine& engine) {
         BL_LOG_ERROR << "Failed to switch to map: " << file;
         engine.flags().set(bl::engine::Flags::Terminate);
     }
-    systems.cameras().pushCamera(ExplorerCamera::create());
+    systems.engine().eventBus().subscribe(this);
 }
 
-void MapExplorer::deactivate(bl::engine::Engine&) {}
+void MapExplorer::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
 
 void MapExplorer::update(bl::engine::Engine& engine, float dt) { systems.update(dt); }
 
@@ -74,6 +74,19 @@ void MapExplorer::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
     systems.render().render(engine.window(), lag);
     engine.window().display();
+}
+
+void MapExplorer::observe(const sf::Event& event) {
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::P &&
+            systems.cameras().activeCamera().get() == mapExplorer.get()) {
+            systems.cameras().popCamera();
+        }
+        else if (event.key.code == sf::Keyboard::O &&
+                 systems.cameras().activeCamera().get() != mapExplorer.get()) {
+            systems.cameras().pushCamera(mapExplorer);
+        }
+    }
 }
 
 } // namespace state
