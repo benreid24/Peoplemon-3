@@ -14,6 +14,7 @@ namespace component
  *
  */
 enum struct Control : std::uint8_t {
+    None        = 0,
     MoveUp      = 1,
     MoveRight   = 2,
     MoveDown    = 3,
