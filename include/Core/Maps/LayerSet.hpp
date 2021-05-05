@@ -35,6 +35,14 @@ using CatchLayer = Layer<Catch>;
 using TileLayer = Layer<Tile>;
 
 /**
+ * @brief Special type of tile layer for y-sorted tiles. Used for rendering only
+ *
+ * @ingroup Maps
+ *
+ */
+using SortedLayer = bl::container::Vector2D<Tile*>;
+
+/**
  * @brief Specialization of Layer for height transitions
  *
  * @ingroup Maps
@@ -121,6 +129,12 @@ public:
     std::vector<TileLayer>& ysortLayers();
 
     /**
+     * @brief Returns an immutable reference to the y-sorted layers
+     *
+     */
+    const std::vector<SortedLayer>& renderSortedLayers() const;
+
+    /**
      * @brief Returns a reference to the top tiles in this set
      *
      * @return std::vector<TileLayer>& The
@@ -141,6 +155,8 @@ private:
     bl::file::binary::SerializableField<3, std::vector<TileLayer>> bottom;
     bl::file::binary::SerializableField<4, std::vector<TileLayer>> ysort;
     bl::file::binary::SerializableField<5, std::vector<TileLayer>> top;
+
+    std::vector<SortedLayer> ysortedLayers;
 };
 
 } // namespace map

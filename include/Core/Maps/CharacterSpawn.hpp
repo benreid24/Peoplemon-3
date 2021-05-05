@@ -2,7 +2,7 @@
 #define CORE_MAPS_CHARACTERSPAWN_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Entities/Direction.hpp>
+#include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core
@@ -16,9 +16,8 @@ namespace map
  *
  */
 struct CharacterSpawn : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, sf::Vector2i> position;
-    bl::file::binary::SerializableField<2, entity::Direction> direction;
-    bl::file::binary::SerializableField<3, std::string> file;
+    bl::file::binary::SerializableField<1, component::Position> position;
+    bl::file::binary::SerializableField<2, std::string> file;
 
     /**
      * @brief Creates an empty spawn
@@ -30,10 +29,9 @@ struct CharacterSpawn : public bl::file::binary::SerializableObject {
      * @brief Creates a spawn from the given parameters
      *
      * @param pos The position to spawn the character at
-     * @param dir The direction the character should face
      * @param file The file to load the character from
      */
-    CharacterSpawn(const sf::Vector2i& pos, entity::Direction dir, const std::string& file);
+    CharacterSpawn(const component::Position& pos, const std::string& file);
 
     /**
      * @brief Copy constructs from the given copy spawn

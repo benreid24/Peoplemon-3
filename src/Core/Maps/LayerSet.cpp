@@ -1,4 +1,6 @@
 #include <Core/Maps/LayerSet.hpp>
+
+#include <Core/Maps/Tileset.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -52,8 +54,29 @@ void LayerSet::activate(Tileset& tileset) {
             }
         }
     };
+
+    const auto sortLayer = [&tileset](SortedLayer& sorted, TileLayer& layer) {
+        for (unsigned int x = 0; x < layer.width(); ++x) {
+            for (unsigned int y = 0; y < layer.height(); ++y) {
+                if (layer.get(x, y).id() != Tile::Blank) {
+                    const unsigned int pixelHeight =
+                        tileset.tileHeight(layer.get(x, y).id(), layer.get(x, y).isAnimation());
+                    const unsigned int tileHeight = pixelHeight / Properties::PixelsPerTile();
+                    const unsigned int offset     = tileHeight / 2 + 1;
+                    const unsigned int ny         = std::min(y + offset, layer.height() - 1);
+                    sorted(x, ny)                 = &layer.getRef(x, y);
+                }
+            }
+        }
+    };
+
+    ysortedLayers.reserve(ysort.getValue().size());
     for (TileLayer& layer : bottomLayers()) { activateLayer(layer); }
-    for (TileLayer& layer : ysortLayers()) { activateLayer(layer); }
+    for (TileLayer& layer : ysortLayers()) {
+        activateLayer(layer);
+        ysortedLayers.emplace_back(layer.width(), layer.height(), nullptr);
+        sortLayer(ysortedLayers.back(), layer);
+    }
     for (TileLayer& layer : topLayers()) { activateLayer(layer); }
 }
 
@@ -66,6 +89,8 @@ std::vector<TileLayer>& LayerSet::bottomLayers() { return bottom.getValue(); }
 std::vector<TileLayer>& LayerSet::ysortLayers() { return ysort.getValue(); }
 
 std::vector<TileLayer>& LayerSet::topLayers() { return top.getValue(); }
+
+const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
 void LayerSet::update(const sf::IntRect& area, float dt) {
     static const auto updateLayer = [&area, dt](TileLayer& layer) {

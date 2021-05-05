@@ -49,40 +49,29 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
-    renderFunction = &Tile::noRender;
-    updateFunction = &Tile::noUpdate;
-
     if (tid == Blank) return;
 
-    if (isAnim) {
-        anim->setIsCentered(false);
-        if (anim == &uniqueAnim) { updateFunction = &Tile::doUpdate; }
-        renderFunction = &Tile::renderAnimation;
-    }
+    if (isAnim) { anim->setIsCentered(false); }
     else {
-        anim           = nullptr;
-        renderFunction = &Tile::renderSprite;
+        anim = nullptr;
     }
 }
 
 void Tile::update(float dt) {
-    Tile& me = *this;
-    (me.*(me.updateFunction))(dt);
+    if (anim == &uniqueAnim) uniqueAnim.update(dt);
 }
-
-void Tile::doUpdate(float dt) { uniqueAnim.update(dt); }
 
 void Tile::render(sf::RenderTarget& target, float lag) const {
-    const Tile& me = *this;
-    (me.*(me.renderFunction))(target, lag);
-}
-
-void Tile::renderSprite(sf::RenderTarget& target, float) const { target.draw(sprite); }
-
-void Tile::renderAnimation(sf::RenderTarget& target, float lag) const {
-    // TODO - fix legacy maps on conversion so anims are not offset
-    anim->setPosition(sprite.getPosition() - sf::Vector2f(32, 32)); // in case of shared anim
-    anim->render(target, lag);
+    if (tid != Blank) {
+        if (isAnim) {
+            anim->setPosition(sprite.getPosition() -
+                              sf::Vector2f(32, 32)); // in case of shared anim
+            anim->render(target, lag);
+        }
+        else {
+            target.draw(sprite);
+        }
+    }
 }
 
 } // namespace map

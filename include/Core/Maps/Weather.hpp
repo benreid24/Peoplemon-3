@@ -1,13 +1,17 @@
 #ifndef CORE_MAPS_WEATHER_HPP
 #define CORE_MAPS_WEATHER_HPP
 
-#include <Core/Systems/Systems.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 #include <memory>
 
 namespace core
 {
+namespace system
+{
+class Systems;
+}
+
 namespace map
 {
 namespace weather

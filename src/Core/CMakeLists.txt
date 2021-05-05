@@ -1,7 +1,10 @@
 target_sources(Core PRIVATE
     Properties.cpp
+    Resources.cpp
 )
 
-add_subdirectory(Entities)
+add_subdirectory(Components)
+add_subdirectory(Files)
 add_subdirectory(Maps)
+add_subdirectory(Player)
 add_subdirectory(Systems)

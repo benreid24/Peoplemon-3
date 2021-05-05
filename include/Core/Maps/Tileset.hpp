@@ -98,6 +98,15 @@ public:
     void removeAnimation(Tile::IdType id);
 
     /**
+     * @brief Returns the height of the requested tile, in pixels
+     * 
+     * @param id The id of the tile
+     * @param isAnim True for animation, false for sprite
+     * @return unsigned int The height of the tile in pixels, or 0 if not found
+     */
+    unsigned int tileHeight(Tile::IdType id, bool isAnim) const;
+
+    /**
      * @brief Loads the tileset from the given file and loads all media
      *
      * @param file The file to load from

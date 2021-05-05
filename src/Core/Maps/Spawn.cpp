@@ -8,7 +8,7 @@ Spawn::Spawn()
 : id(*this)
 , position(*this) {}
 
-Spawn::Spawn(std::uint16_t _id, const entity::Position& pos)
+Spawn::Spawn(std::uint16_t _id, const component::Position& pos)
 : Spawn() {
     id       = _id;
     position = pos;

@@ -2,6 +2,7 @@
 #define CORE_PROPERTIES_HPP
 
 #include <BLIB/Util/NonCopyable.hpp>
+#include <Core/Player/Gender.hpp>
 #include <SFML/Graphics/Font.hpp>
 #include <string>
 
@@ -67,6 +68,27 @@ public:
 
     static unsigned int ThinFogAlpha();
     static unsigned int ThickFogAlpha();
+
+    static int LightRainLightModifier();
+    static int HardRainLightModifier();
+    static int LightSnowLightModifier();
+    static int HardSnowLightModifier();
+    static int ThinFogLightModifier();
+    static int ThickFogLightModifier();
+    static int SunnyLightModifier();
+    static int SandstormLightModifier();
+
+    static const std::string& NpcFileExtension();
+    static const std::string& NpcPath();
+    static const std::string& TrainerFileExtension();
+    static const std::string& TrainerPath();
+    static const std::string& ConversationPath();
+
+    static const std::string& CharacterAnimationPath();
+    static float CharacterMoveSpeed();
+    static float FastCharacterMoveSpeed();
+
+    static const std::string& PlayerAnimations(player::Gender gender);
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

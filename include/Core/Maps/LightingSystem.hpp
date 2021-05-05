@@ -7,6 +7,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <Core/Events/TimeChange.hpp>
+#include <Core/Events/Weather.hpp>
 #include <Core/Maps/Light.hpp>
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
@@ -25,7 +26,7 @@ namespace map
  */
 class LightingSystem
 : public bl::file::binary::SerializableObject
-, public bl::event::Listener<event::TimeChange> {
+, public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped> {
 public:
     /// Handle representing a light in the map
     using Handle = std::uint16_t;
@@ -38,6 +39,11 @@ public:
      *
      */
     LightingSystem();
+
+    /**
+     * @brief Destroys the lighting system
+     */
+    virtual ~LightingSystem() = default;
 
     /**
      * @brief Adds a light to the map and optionally to the persistent map file
@@ -118,7 +124,19 @@ public:
      * @param eventBus The engine event bus
      * @param mapSize The size of the map in tiles. Used for quadtree partitioning
      */
-    void activate(bl::event::Dispatcher& eventBus, const sf::Vector2i& mapSize);
+    void activate(const sf::Vector2i& mapSize);
+
+    /**
+     * @brief Subscribes the lighting system to time events for ambient light level
+     *
+     */
+    void subscribe(bl::event::Dispatcher& eventBus);
+
+    /**
+     * @brief Unsubscribes the lighting system from the event dispatcher
+     *
+     */
+    void unsubscribe();
 
     /**
      * @brief Clears all lights from the map, including the persisted light data
@@ -141,12 +159,27 @@ public:
      */
     virtual void observe(const event::TimeChange& timeChange) override;
 
+    /**
+     * @brief Adjusts the ambient lighting based on the current weather
+     *
+     * @param event The new weather that has started
+     */
+    virtual void observe(const event::WeatherStarted& event) override;
+
+    /**
+     * @brief Resets the ambient lighting when weather stops
+     *
+     * @param event The weather that just stopped
+     */
+    virtual void observe(const event::WeatherStopped& event) override;
+
 private:
     bl::file::binary::SerializableField<1, std::vector<Light>> lightsField;
     bl::file::binary::SerializableField<2, std::uint8_t> lightLevelField;
     bl::file::binary::SerializableField<3, bool> sunlightField;
 
-    bl::event::ClassGuard<event::TimeChange> eventGuard;
+    bl::event::ClassGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
+        eventGuard;
 
     using Storage = bl::container::Grid<std::pair<Handle, Light>>;
     std::unordered_map<Handle, Storage::Payload::Ptr> handles;
@@ -155,6 +188,7 @@ private:
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
     std::uint8_t lightLevel;
+    int weatherModifier;
 };
 
 } // namespace map

@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
+#include <BLIB/Files/Util.hpp>
 #include <BLIB/Resources.hpp>
 
 namespace core
@@ -55,6 +56,28 @@ constexpr unsigned int HardSnowFlakeCount  = 4000;
 
 constexpr unsigned int ThickFogAlpha = 135;
 constexpr unsigned int ThinFogAlpha  = 90;
+
+constexpr int LightRainLightModifier = 22;
+constexpr int HardRainLightModifier  = 35;
+constexpr int LightSnowLightModifier = 15;
+constexpr int HardSnowLightModifier  = 30;
+constexpr int ThinFogLightModifier   = 20;
+constexpr int ThickFogLightModifier  = 50;
+constexpr int SunnyLightModifier     = 20;
+constexpr int SandstormLightModifier = 30;
+
+const std::string NpcFileExtension     = "npc";
+const std::string NpcPath              = "Resources/Characters/NPCs";
+const std::string TrainerFileExtension = "tnr";
+const std::string TrainerPath          = "Resources/Characters/Trainers";
+const std::string ConversationPath     = "Resources/Characters/Conversations";
+
+const std::string CharacterAnimationPath = "Resources/Characters/Animations";
+constexpr float CharacterMoveSpeed       = 81.f;
+constexpr float FastCharacterMoveSpeed   = 205.f;
+
+const std::string BoyPlayerAnims  = bl::file::Util::joinPath(CharacterAnimationPath, "BoyPlayer");
+const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationPath, "GirlPlayer");
 
 } // namespace defaults
 
@@ -114,6 +137,31 @@ bool Properties::load() {
 
     bl::engine::Configuration::set("core.weather.fog.thick_alpha", defaults::ThickFogAlpha);
     bl::engine::Configuration::set("core.weather.fog.thin_alpha", defaults::ThinFogAlpha);
+
+    bl::engine::Configuration::set("core.weather.lightrain.light",
+                                   defaults::LightRainLightModifier);
+    bl::engine::Configuration::set("core.weather.hardrain.light", defaults::HardRainLightModifier);
+    bl::engine::Configuration::set("core.weather.lightsnow.light",
+                                   defaults::LightSnowLightModifier);
+    bl::engine::Configuration::set("core.weather.hardsnow.light", defaults::HardSnowLightModifier);
+    bl::engine::Configuration::set("core.weather.thinfog.light", defaults::ThinFogLightModifier);
+    bl::engine::Configuration::set("core.weather.thickfog.light", defaults::ThickFogLightModifier);
+    bl::engine::Configuration::set("core.weather.sunny.light", defaults::SunnyLightModifier);
+    bl::engine::Configuration::set("core.weather.sandstorm.light",
+                                   defaults::SandstormLightModifier);
+
+    bl::engine::Configuration::set("core.npc.extension", defaults::NpcFileExtension);
+    bl::engine::Configuration::set("core.npc.path", defaults::NpcPath);
+    bl::engine::Configuration::set("core.trainer.extension", defaults::TrainerFileExtension);
+    bl::engine::Configuration::set("core.trainer.path", defaults::TrainerPath);
+    bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
+
+    bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
+    bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
+    bl::engine::Configuration::set("core.character.fastspeed", defaults::FastCharacterMoveSpeed);
+
+    bl::engine::Configuration::set("core.player.boy_anims", defaults::BoyPlayerAnims);
+    bl::engine::Configuration::set("core.player.girl_anims", defaults::GirlPlayerAnims);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -323,6 +371,104 @@ unsigned int Properties::ThickFogAlpha() {
 unsigned int Properties::ThinFogAlpha() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.weather.fog.thin_alpha",
                                                                  defaults::ThinFogAlpha);
+}
+
+int Properties::LightRainLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.lightrain.light",
+                                                        defaults::LightRainLightModifier);
+}
+
+int Properties::HardRainLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.hardrain.light",
+                                                        defaults::HardRainLightModifier);
+}
+
+int Properties::LightSnowLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.lightsnow.light",
+                                                        defaults::LightSnowLightModifier);
+}
+
+int Properties::HardSnowLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.hardsnow.light",
+                                                        defaults::HardSnowLightModifier);
+}
+
+int Properties::ThinFogLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.thinfog.light",
+                                                        defaults::ThinFogLightModifier);
+}
+
+int Properties::ThickFogLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.thickfog.light",
+                                                        defaults::ThickFogLightModifier);
+}
+
+int Properties::SunnyLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.sunny.light",
+                                                        defaults::SunnyLightModifier);
+}
+
+int Properties::SandstormLightModifier() {
+    return bl::engine::Configuration::getOrDefault<int>("core.weather.sandstorm.light",
+                                                        defaults::SandstormLightModifier);
+}
+
+const std::string& Properties::NpcFileExtension() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.npc.extension", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::NpcPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.npc.path", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::TrainerFileExtension() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.extension", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::TrainerPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.path", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::ConversationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.conversation.path", defaults::NpcFileExtension);
+    return val;
+}
+
+const std::string& Properties::CharacterAnimationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.character.animpath", defaults::CharacterAnimationPath);
+    return val;
+}
+
+float Properties::CharacterMoveSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("core.character.speed",
+                                                          defaults::CharacterMoveSpeed);
+}
+
+float Properties::FastCharacterMoveSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("core.character.fastspeed",
+                                                          defaults::FastCharacterMoveSpeed);
+}
+
+const std::string& Properties::PlayerAnimations(player::Gender g) {
+    switch (g) {
+    case player::Gender::Boy:
+        return bl::engine::Configuration::get<std::string>("core.player.boy_anims");
+    case player::Gender::Girl:
+        return bl::engine::Configuration::get<std::string>("core.player.girl_anims");
+    default:
+        BL_LOG_ERROR << "Unknown player gender: " << static_cast<int>(g);
+        return defaults::BoyPlayerAnims;
+    }
 }
 
 } // namespace core

@@ -8,7 +8,9 @@ namespace game
 {
 namespace state
 {
-class MapExplorer : public State {
+class MapExplorer
+: public State
+, public bl::event::Listener<sf::Event> {
 public:
     static bl::engine::State::Ptr create(core::system::Systems& systems, const std::string& map);
 
@@ -26,10 +28,12 @@ public:
 
 private:
     const std::string file;
-    core::map::Map map;
-    float zoomFactor;
+    core::system::camera::Camera::Ptr mapExplorer;
+    sf::Clock debounce;
 
     MapExplorer(core::system::Systems& systems, const std::string& map);
+
+    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace state

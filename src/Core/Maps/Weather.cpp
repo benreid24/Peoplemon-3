@@ -2,6 +2,7 @@
 
 #include <BLIB/Util/Random.hpp>
 #include <Core/Events/Weather.hpp>
+#include <Core/Systems/Systems.hpp>
 
 #include "Weather/Base.hpp"
 #include "Weather/Fog.hpp"

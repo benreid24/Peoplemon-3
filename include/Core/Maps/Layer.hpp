@@ -140,7 +140,7 @@ const T& Layer<T>::get(unsigned int x, unsigned int y) const {
     const unsigned int i = y * w.getValue() + x;
     if (i < data.getValue().size()) { return data.getValue()[i]; }
     else {
-        static const T null;
+        static const T null{};
         BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
                     << w.getValue() << "," << h.getValue() << ")";
         return null;
@@ -152,7 +152,7 @@ T& Layer<T>::getRef(unsigned int x, unsigned int y) {
     const unsigned int i = y * w.getValue() + x;
     if (i < data.getValue().size()) { return data.getValue()[i]; }
     else {
-        static T null;
+        static T null{};
         BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
                     << w.getValue() << "," << h.getValue() << ")";
         return null;

@@ -5,6 +5,8 @@
 #include <Core/Systems/Systems.hpp>
 #include <Game/States/MainMenu.hpp>
 
+#include <iostream>
+
 int main() {
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load()) {
@@ -19,7 +21,8 @@ int main() {
                 core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
             .withWindowTitle("Peoplemon")
-            .withWindowIcon(core::Properties::WindowIconFile());
+            .withWindowIcon(core::Properties::WindowIconFile())
+            .fromConfig();
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 

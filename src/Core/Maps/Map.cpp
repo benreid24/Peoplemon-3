@@ -1,6 +1,10 @@
 #include <Core/Maps/Map.hpp>
 
+#include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
+#include <Core/Systems/Cameras/Follow.hpp>
+#include <Core/Systems/Systems.hpp>
 #include <cmath>
 
 namespace core
@@ -33,6 +37,7 @@ public:
                                    firstYSortLayer,
                                    firstTopLayer - firstYSortLayer,
                                    layerCount - firstTopLayer);
+        result.transitionField.getValue().setSize(width, height, LevelTransition::None);
 
         std::uint8_t weatherType;
         if (!input.read(weatherType)) return false;
@@ -112,16 +117,16 @@ public:
         if (!input.read(spawnCount)) return false;
         for (unsigned int i = 0; i < spawnCount; ++i) {
             std::uint16_t id;
-            std::uint32_t x, y; // pixels and off by 32 lol
+            std::uint32_t x, y; // in pixels and off by 32 lol
             std::uint8_t dir;
             if (!input.read(id)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
-            entity::Position pos;
-            pos.direction  = static_cast<entity::Direction>(dir);
-            pos.position.x = std::floor(x / 32);
-            pos.position.y = std::floor(y / 32); // TODO - add/subtract 1?
+            component::Position pos;
+            pos.direction = static_cast<component::Direction>(dir);
+            pos.setTiles({static_cast<int>(std::floor(x / 32)),
+                          static_cast<int>(std::floor(y / 32))}); // TODO - add/subtract 1?
             result.spawnField.getValue().try_emplace(id, id, pos);
         }
 
@@ -135,8 +140,11 @@ public:
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
+            x /= 32; // old Ben :(
+            y /= 32;
             result.characterField.getValue().emplace_back(
-                sf::Vector2i(x, y), static_cast<entity::Direction>(dir), file);
+                component::Position(0, sf::Vector2i(x, y), static_cast<component::Direction>(dir)),
+                file);
         }
 
         std::uint16_t itemCount;
@@ -144,6 +152,7 @@ public:
         for (unsigned int i = 0; i < itemCount; ++i) {
             std::uint32_t x, y;
             Item item;
+            item.level = 0;
             if (!input.read(item.id.getValue())) return false;
             if (!input.read(item.mapId.getValue())) return false;
             if (!input.read(x)) return false;
@@ -227,12 +236,15 @@ Map::Map()
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
 , catchZonesField(*this)
+, transitionField(*this)
 , activated(false) {}
 
 bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
-    // TODO - spawn entities
-    // TODO - move player to spawn
+    size = {static_cast<int>(levels.front().bottomLayers().front().width()),
+            static_cast<int>(levels.front().bottomLayers().front().height())};
+    systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
+
     // TODO - load and push playlist
     // TODO - run onload script
 
@@ -240,45 +252,84 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         activated = true;
         BL_LOG_INFO << "Activating map " << nameField.getValue();
 
-        size = {static_cast<int>(levels.front().bottomLayers().front().width()),
-                static_cast<int>(levels.front().bottomLayers().front().height())};
+        tileset = Resources::tilesets().load(tilesetField).data;
+        if (!tileset) return false;
+        tileset->activate();
+        for (LayerSet& level : levels) { level.activate(*tileset); }
 
-        // TODO - pull out tilesets into resource manager
-        if (!tileset.load(tilesetField.getValue())) return false;
-        for (LayerSet& set : levels) { set.activate(tileset); }
-        tileset.activate();
-
-        weather.activate({0, 0, 800, 600}); // TODO - use camera/spawn
+        const sf::FloatRect weatherArea(systems.cameras().getView().getCenter() -
+                                            systems.cameras().getView().getSize() / 2.f,
+                                        systems.cameras().getView().getSize());
+        weather.activate(weatherArea);
         weather.set(weatherField.getValue());
-        lighting.activate(systems.engine().eventBus(), size);
+        lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
 
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
+    // Ensure lighting is updated for time
+    lighting.subscribe(systems.engine().eventBus());
+
+    // Spawn npcs and trainers
+    for (const CharacterSpawn& spawn : characterField.getValue()) {
+        if (!systems.entity().spawnCharacter(spawn)) {
+            BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
+        }
+    }
+
+    // Spawn items
+    for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
+
+    // Spawn player
+    auto spawnIt = spawns.find(spawnId);
+    if (spawnIt != spawns.end()) {
+        if (!systems.player().spawnPlayer(spawnIt->second.position)) {
+            BL_LOG_ERROR << "Failed to spawn player";
+            return false;
+        }
+        systems.cameras().clearAndReplace(
+            system::camera::Follow::create(systems, systems.player().player()));
+    }
+    else {
+        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
+        return false;
+    }
+
+    systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;
 }
 
 void Map::exit(system::Systems& game) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
-    // TODO - despawn entities/items. handle picked up items
+    game.engine().eventBus().dispatch<event::MapExited>({*this});
+    lighting.unsubscribe();
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
     // TODO - run on unload script
 }
+
+const sf::Vector2i& Map::sizeTiles() const { return size; }
+
+sf::Vector2f Map::sizePixels() const {
+    return {static_cast<float>(Properties::PixelsPerTile() * size.x),
+            static_cast<float>(Properties::PixelsPerTile() * size.y)};
+}
+
+std::uint8_t Map::levelCount() const { return levels.size(); }
 
 Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(system::Systems& systems, float dt) {
-    tileset.update(dt);
+    tileset->update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
     weather.update(systems, dt);
 }
 
 // TODO - special editor rendering for hiding levels and layers
-void Map::render(sf::RenderTarget& target, float residual) {
+void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb) {
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -296,34 +347,32 @@ void Map::render(sf::RenderTarget& target, float residual) {
     if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
     renderRange = {corner, wsize};
 
-    const auto renderRow = [&target, residual, &corner, &wsize](TileLayer& layer, int row) {
+    const auto renderRow = [&target, residual, &corner, &wsize](const TileLayer& layer, int row) {
         for (int x = corner.x; x < corner.x + wsize.x; ++x) {
             layer.get(x, row).render(target, residual);
         }
     };
 
-    const auto renderCol = [&target, residual, &corner, &wsize](TileLayer& layer, int col) {
-        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
-            layer.get(col, y).render(target, residual);
+    const auto renderSorted = [&target, residual, &corner, &wsize](const SortedLayer& layer,
+                                                                   int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+            Tile* t = layer(x, row);
+            if (t) t->render(target, residual);
         }
     };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         LayerSet& level = levels[i];
 
-        for (TileLayer& layer : level.bottomLayers()) {
-            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
-            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
+        for (const TileLayer& layer : level.bottomLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
-        for (TileLayer& layer : level.ysortLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) {
-                renderRow(layer, y);
-                // TODO - render row of entities here by level and row
-            }
+        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
+            entityCb(i, y, corner.x, corner.x + wsize.x);
         }
-        for (TileLayer& layer : level.topLayers()) {
-            // for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
-            for (int x = corner.x; x < corner.x + wsize.x; ++x) { renderCol(layer, x); }
+        for (const TileLayer& layer : level.topLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
     }
 
@@ -350,6 +399,117 @@ bool Map::save(const std::string& file) {
                                   bl::file::binary::File::Write);
     VersionedLoader loader;
     return loader.write(output, *this);
+}
+
+bool Map::contains(const component::Position& pos) const {
+    return pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
+           pos.positionTiles().x < size.x && pos.positionTiles().y < size.y &&
+           pos.level < levels.size();
+}
+
+component::Position Map::adjacentTile(const component::Position& pos,
+                                      component::Direction dir) const {
+    component::Position npos = pos.move(dir);
+    if (npos.positionTiles() == pos.positionTiles()) return npos;
+
+    // Handle up transitions (move out of tile)
+    if (contains(pos)) {
+        switch (transitionField.getValue()(pos.positionTiles().x, pos.positionTiles().y)) {
+        case LevelTransition::HorizontalRightDown:
+            if (dir == component::Direction::Left) npos.level += 1;
+            break;
+        case LevelTransition::HorizontalRightUp:
+            if (dir == component::Direction::Right) npos.level += 1;
+            break;
+        case LevelTransition::VerticalTopDown:
+            if (dir == component::Direction::Down) npos.level += 1;
+            break;
+        case LevelTransition::VerticalTopUp:
+            if (dir == component::Direction::Up) npos.level += 1;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (contains(npos)) {
+        switch (transitionField.getValue()(npos.positionTiles().x, npos.positionTiles().y)) {
+        case LevelTransition::HorizontalRightDown:
+            if (dir == component::Direction::Right) npos.level -= 1;
+            break;
+        case LevelTransition::HorizontalRightUp:
+            if (dir == component::Direction::Left) npos.level -= 1;
+            break;
+        case LevelTransition::VerticalTopDown:
+            if (dir == component::Direction::Up) npos.level -= 1;
+            break;
+        case LevelTransition::VerticalTopUp:
+            if (dir == component::Direction::Down) npos.level -= 1;
+            break;
+        default:
+            break;
+        }
+    }
+
+    if (npos.level >= levels.size()) {
+        BL_LOG_WARN << "Bad level transition at (" << npos.positionTiles().x << ", "
+                    << npos.positionTiles().y << ") to out of range level " << npos.level
+                    << ". Number of levels: " << levels.size();
+        npos.level = levels.size() - 1;
+    }
+
+    return npos;
+}
+
+bool Map::movePossible(const component::Position& pos, component::Direction dir) const {
+    component::Position npos = pos.move(dir);
+    if (npos.positionTiles() == pos.positionTiles()) return true;
+    if (!contains(npos)) return false;
+
+    switch (levels.at(npos.level)
+                .collisionLayer()
+                .get(npos.positionTiles().x, npos.positionTiles().y)) {
+    case Collision::Blocked:
+        return false;
+    case Collision::Open:
+        return true;
+    case Collision::TopOpen:
+        return dir == component::Direction::Down;
+    case Collision::RightOpen:
+        return dir == component::Direction::Left;
+    case Collision::BottomOpen:
+        return dir == component::Direction::Up;
+    case Collision::LeftOpen:
+        return dir == component::Direction::Right;
+    case Collision::TopRightOpen:
+        return dir == component::Direction::Down || dir == component::Direction::Left;
+    case Collision::BottomRightOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Left;
+    case Collision::BottomLeftOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Right;
+    case Collision::TopLeftOpen:
+        return dir == component::Direction::Down || dir == component::Direction::Right;
+    case Collision::TopBottomOpen:
+        return dir == component::Direction::Up || dir == component::Direction::Down;
+    case Collision::LeftRightOpen:
+        return dir == component::Direction::Right || dir == component::Direction::Left;
+    case Collision::TopClosed:
+        return dir != component::Direction::Down;
+    case Collision::RightClosed:
+        return dir != component::Direction::Left;
+    case Collision::BottomClosed:
+        return dir != component::Direction::Up;
+    case Collision::LeftClosed:
+        return dir != component::Direction::Right;
+    case Collision::SurfRequired:
+        return false; // TODO - enforce surf. play anim?
+    case Collision::WaterfallRequired:
+        return false; // TODO - enforce waterfall. play anim?
+    default:
+        BL_LOG_WARN << "Bad collision at (" << npos.positionTiles().x << ", "
+                    << npos.positionTiles().y << ")";
+        return false;
+    }
 }
 
 } // namespace map
