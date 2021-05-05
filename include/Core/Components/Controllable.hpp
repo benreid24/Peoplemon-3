@@ -41,9 +41,26 @@ public:
      */
     bool processControl(Command command);
 
+    /**
+     * @brief Locks the controllable and prevents any commands from being processed. Optionally
+     *        remembers the previous lock state to reset back to
+     *
+     * @param lock True to lock, false to unlock
+     * @param preserve True to remember previous lock state, false to discard
+     */
+    void setLocked(bool lock, bool preserve = true);
+
+    /**
+     * @brief Resets the lock state back to the last preserved state
+     *
+     */
+    void resetLock();
+
 private:
     bl::entity::Entity owner;
     system::Systems& systems;
+    bool locked;
+    bool wasLocked;
 };
 
 } // namespace component

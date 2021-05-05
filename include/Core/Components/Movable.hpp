@@ -45,7 +45,8 @@ public:
 
     /**
      * @brief Starts the entity moving in the given direction. Only updates the interpolated
-     *        position, not the tile position
+     *        position, not the tile position. This does not check collisions. Use the Movement
+     *        system to ensure the move is valid
      *
      * @param dir The direction to move in
      * @param fast True to move fast, false to move slow

@@ -1,6 +1,7 @@
 target_sources(Core PRIVATE
     Cameras.cpp
     Clock.cpp
+    Controllable.cpp
     Entity.cpp
     Movement.cpp
     Player.cpp

@@ -7,6 +7,7 @@ namespace system
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
 , _clock(*this)
+, _controllable(*this)
 , _world(*this)
 , _entity(*this)
 , _player(*this)
@@ -18,6 +19,7 @@ Systems::Systems(bl::engine::Engine& engine)
     _position.init();
     _movement.init();
     _render.init();
+    _controllable.init();
 }
 
 void Systems::update(float dt) {
@@ -63,6 +65,8 @@ const Entity& Systems::entity() const { return _entity; }
 Player& Systems::player() { return _player; }
 
 const Player& Systems::player() const { return _player; }
+
+Controllable& Systems::controllable() { return _controllable; }
 
 } // namespace system
 } // namespace core

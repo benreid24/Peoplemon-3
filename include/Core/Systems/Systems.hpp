@@ -3,6 +3,7 @@
 
 #include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
+#include <Core/Systems/Controllable.hpp>
 #include <Core/Systems/Entity.hpp>
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Player.hpp>
@@ -144,10 +145,17 @@ public:
      */
     const Player& player() const;
 
+    /**
+     * @brief Returns the controllable entity system
+     *
+     */
+    Controllable& controllable();
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
     Clock _clock;
+    Controllable _controllable;
     Entity _entity;
     Player _player;
     World _world;

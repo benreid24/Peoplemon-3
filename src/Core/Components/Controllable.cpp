@@ -9,9 +9,13 @@ namespace component
 {
 Controllable::Controllable(system::Systems& systems, bl::entity::Entity owner)
 : owner(owner)
-, systems(systems) {}
+, systems(systems)
+, locked(false)
+, wasLocked(false) {}
 
 bool Controllable::processControl(Command ctrl) {
+    if (locked) return false;
+
     switch (ctrl) {
     case Command::MoveUp:
         return systems.movement().moveEntity(owner, Direction::Up, false);
@@ -48,6 +52,13 @@ bool Controllable::processControl(Command ctrl) {
         return false;
     }
 }
+
+void Controllable::setLocked(bool l, bool p) {
+    if (p) wasLocked = locked;
+    locked = l;
+}
+
+void Controllable::resetLock() { locked = wasLocked; }
 
 } // namespace component
 } // namespace core
