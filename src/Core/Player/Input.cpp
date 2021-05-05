@@ -31,19 +31,19 @@ void Input::update() {
         if (running) {
             switch (moveDir) {
             case component::Direction::Up:
-                dispatch(component::Control::SprintUp);
+                dispatch(component::Command::SprintUp);
                 break;
 
             case component::Direction::Right:
-                dispatch(component::Control::SprintRight);
+                dispatch(component::Command::SprintRight);
                 break;
 
             case component::Direction::Down:
-                dispatch(component::Control::SprintDown);
+                dispatch(component::Command::SprintDown);
                 break;
 
             case component::Direction::Left:
-                dispatch(component::Control::SprintLeft);
+                dispatch(component::Command::SprintLeft);
                 break;
 
             default:
@@ -54,19 +54,19 @@ void Input::update() {
         else {
             switch (moveDir) {
             case component::Direction::Up:
-                dispatch(component::Control::MoveUp);
+                dispatch(component::Command::MoveUp);
                 break;
 
             case component::Direction::Right:
-                dispatch(component::Control::MoveRight);
+                dispatch(component::Command::MoveRight);
                 break;
 
             case component::Direction::Down:
-                dispatch(component::Control::MoveDown);
+                dispatch(component::Command::MoveDown);
                 break;
 
             case component::Direction::Left:
-                dispatch(component::Control::MoveLeft);
+                dispatch(component::Command::MoveLeft);
                 break;
 
             default:
@@ -77,7 +77,7 @@ void Input::update() {
     }
 }
 
-void Input::dispatch(component::Control c) {
+void Input::dispatch(component::Command c) {
     if (!listeners.empty()) listeners.back()->process(c);
 }
 
@@ -109,13 +109,13 @@ void Input::observe(const sf::Event& event) {
         }
     }
     else if (controls[Controls::Interact].activated(event)) {
-        dispatch(component::Control::Interact);
+        dispatch(component::Command::Interact);
     }
     else if (controls[Controls::Pause].activated(event)) {
-        dispatch(component::Control::Pause);
+        dispatch(component::Command::Pause);
     }
     else if (controls[Controls::Back].activated(event)) {
-        dispatch(component::Control::Back);
+        dispatch(component::Command::Back);
     }
 }
 

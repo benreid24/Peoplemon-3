@@ -2,7 +2,7 @@
 #define CORE_PLAYER_INPUT_CONTROL_HPP
 
 #include <BLIB/Files/Binary.hpp>
-#include <Core/Components/Control.hpp>
+#include <Core/Components/Command.hpp>
 #include <SFML/Window.hpp>
 #include <string>
 

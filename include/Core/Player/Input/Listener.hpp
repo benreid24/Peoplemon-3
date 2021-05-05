@@ -1,7 +1,7 @@
 #ifndef CORE_PLAYER_INPUT_LISTENER_HPP
 #define CORE_PLAYER_INPUT_LISTENER_HPP
 
-#include <Core/Components/Control.hpp>
+#include <Core/Components/Command.hpp>
 
 namespace core
 {
@@ -36,7 +36,7 @@ public:
      *
      * @param control The active player control
      */
-    virtual void process(component::Control control) = 0;
+    virtual void process(component::Command control) = 0;
 
 private:
     Input* owner;

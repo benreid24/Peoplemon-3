@@ -11,35 +11,35 @@ Controllable::Controllable(system::Systems& systems, bl::entity::Entity owner)
 : owner(owner)
 , systems(systems) {}
 
-bool Controllable::processControl(Control ctrl) {
+bool Controllable::processControl(Command ctrl) {
     switch (ctrl) {
-    case Control::MoveUp:
+    case Command::MoveUp:
         return systems.movement().moveEntity(owner, Direction::Up, false);
-    case Control::MoveRight:
+    case Command::MoveRight:
         return systems.movement().moveEntity(owner, Direction::Right, false);
-    case Control::MoveDown:
+    case Command::MoveDown:
         return systems.movement().moveEntity(owner, Direction::Down, false);
-    case Control::MoveLeft:
+    case Command::MoveLeft:
         return systems.movement().moveEntity(owner, Direction::Left, false);
 
-    case Control::SprintUp:
+    case Command::SprintUp:
         return systems.movement().moveEntity(owner, Direction::Up, true);
-    case Control::SprintRight:
+    case Command::SprintRight:
         return systems.movement().moveEntity(owner, Direction::Right, true);
-    case Control::SprintDown:
+    case Command::SprintDown:
         return systems.movement().moveEntity(owner, Direction::Down, true);
-    case Control::SprintLeft:
+    case Command::SprintLeft:
         return systems.movement().moveEntity(owner, Direction::Left, true);
 
-    case Control::Pause:
+    case Command::Pause:
         // TODO - pause menu
         return false;
 
-    case Control::Back:
+    case Command::Back:
         // TODO - back menu?
         return false;
 
-    case Control::Interact:
+    case Command::Interact:
         // TODO - interaction system
         return false;
 

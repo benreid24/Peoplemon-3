@@ -1,5 +1,5 @@
-#ifndef CORE_COMPONENTS_CONTROL_HPP
-#define CORE_COMPONENTS_CONTROL_HPP
+#ifndef CORE_COMPONENTS_COMMAND_HPP
+#define CORE_COMPONENTS_COMMAND_HPP
 
 #include <cstdint>
 
@@ -13,7 +13,7 @@ namespace component
  * @ingroup Components
  *
  */
-enum struct Control : std::uint8_t {
+enum struct Command : std::uint8_t {
     None        = 0,
     MoveUp      = 1,
     MoveRight   = 2,

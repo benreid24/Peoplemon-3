@@ -1,6 +1,6 @@
 target_sources(Core PUBLIC
     Collision.hpp
-    Control.hpp
+    Command.hpp
     Controllable.hpp
     Direction.hpp
     Movable.hpp

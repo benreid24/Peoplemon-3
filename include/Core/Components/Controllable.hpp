@@ -2,7 +2,7 @@
 #define CORE_COMPONENTS_CONTROLLABLE_HPP
 
 #include <BLIB/Entities.hpp>
-#include <Core/Components/Control.hpp>
+#include <Core/Components/Command.hpp>
 #include <Core/Components/Movable.hpp>
 
 namespace core
@@ -34,12 +34,12 @@ public:
     Controllable(system::Systems& systems, bl::entity::Entity owner);
 
     /**
-     * @brief Processes the given control and manipulates the entity accordingly
+     * @brief Processes the given command and manipulates the entity accordingly
      *
-     * @param control The control to apply
+     * @param command The command to apply
      * @return True if the control had effect, false if no effect
      */
-    bool processControl(Control control);
+    bool processControl(Command command);
 
 private:
     bl::entity::Entity owner;

@@ -54,7 +54,7 @@ private:
     component::Direction moveDir;
 
     virtual void observe(const sf::Event& event) override;
-    void dispatch(component::Control control);
+    void dispatch(component::Command control);
 };
 
 } // namespace player
