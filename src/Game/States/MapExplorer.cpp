@@ -81,10 +81,12 @@ void MapExplorer::observe(const sf::Event& event) {
         if (event.key.code == sf::Keyboard::P &&
             systems.cameras().activeCamera().get() == mapExplorer.get()) {
             systems.cameras().popCamera();
+            systems.player().makePlayerControlled(systems.player().player());
         }
         else if (event.key.code == sf::Keyboard::O &&
                  systems.cameras().activeCamera().get() != mapExplorer.get()) {
             systems.cameras().pushCamera(mapExplorer);
+            systems.player().removePlayerControlled(systems.player().player());
         }
     }
 }

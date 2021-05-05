@@ -26,6 +26,18 @@ public:
     Listener();
 
     /**
+     * @brief Copy construct a new Listener
+     *
+     */
+    Listener(const Listener& copy);
+
+    /**
+     * @brief Move construct a new Listener
+     *
+     */
+    Listener(Listener&& copy);
+
+    /**
      * @brief Destroy the Listener and unsubscribes from the input if still subscribed
      *
      */
@@ -41,7 +53,7 @@ public:
 private:
     Input* owner;
 
-    friend class Input;
+    friend class ::core::player::Input;
 };
 
 } // namespace input

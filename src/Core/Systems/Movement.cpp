@@ -29,7 +29,7 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
     auto it = entities->results().find(e);
     if (it != entities->results().end()) {
         component::Position& pos = *(it->second.get<component::Position>());
-        if (!pos.moving()) {
+        if (!it->second.get<component::Movable>()->moving()) {
             component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
                 pos = npos; // TODO - send event on rotate?

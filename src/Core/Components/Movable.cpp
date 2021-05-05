@@ -35,8 +35,8 @@ void Movable::update(float dt) {
         switch (moveDir) {
         case Direction::Up:
             position.get().setPixels(position.get().positionPixels() -
-                                     sf::Vector2f(0.f, -displacement));
-            if (position.get().positionPixels().x <= yTile) {
+                                     sf::Vector2f(0.f, displacement));
+            if (position.get().positionPixels().y <= yTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
             }
@@ -54,7 +54,7 @@ void Movable::update(float dt) {
         case Direction::Down:
             position.get().setPixels(position.get().positionPixels() +
                                      sf::Vector2f(0.f, displacement));
-            if (position.get().positionPixels().x >= yTile) {
+            if (position.get().positionPixels().y >= yTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
             }

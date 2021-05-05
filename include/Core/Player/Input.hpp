@@ -40,6 +40,14 @@ public:
     void removeListener(input::Listener& listener);
 
     /**
+     * @brief Replaces the old listener with the new, keeping it at the same position in the queue
+     *
+     * @param oldListener The listener to replace
+     * @param newListener The listener to take its place
+     */
+    void replaceListener(const input::Listener& oldListener, input::Listener& newListener);
+
+    /**
      * @brief Fires events for controls that are held
      *
      */

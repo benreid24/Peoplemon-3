@@ -136,8 +136,9 @@ void Renderable::FastMoveAnims::update(
     anim.setData(*walk[static_cast<unsigned int>(pos.get().direction)]);
     anim.update(dt);
     if (movable.get().moving()) {
-        if (movable.get().goingFast())
+        if (movable.get().goingFast()) {
             anim.setData(*run[static_cast<unsigned int>(pos.get().direction)]);
+        }
         anim.play(false);
     }
     else

@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <Core/Components/Collision.hpp>
+#include <Core/Components/PlayerControlled.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -46,6 +47,14 @@ bool Player::spawnPlayer(const component::Position& pos) {
         return false;
     }
 
+    if (!owner.engine().entities().addComponent<component::Controllable>(playerId,
+                                                                         {owner, playerId})) {
+        BL_LOG_ERROR << "Failed to add controllable component to player";
+        return false;
+    }
+
+    if (!makePlayerControlled(playerId)) { return false; }
+
     if (!owner.engine().entities().addComponent<component::Renderable>(
             playerId,
             component::Renderable::fromFastMoveAnims(
@@ -58,6 +67,38 @@ bool Player::spawnPlayer(const component::Position& pos) {
 }
 
 bl::entity::Entity Player::player() const { return playerId; }
+
+bool Player::makePlayerControlled(bl::entity::Entity entity) {
+    auto controllable =
+        owner.engine().entities().getComponentHandle<component::Controllable>(entity);
+    if (!controllable.hasValue()) {
+        BL_LOG_ERROR << "Failed to get controllable component handle for " << entity;
+        return false;
+    }
+
+    if (!owner.engine().entities().addComponent<component::PlayerControlled>(
+            entity, {controllable, input})) {
+        BL_LOG_ERROR << "Failed to add player controlled component to " << entity;
+        return false;
+    }
+
+    component::PlayerControlled* p =
+        owner.engine().entities().getComponent<component::PlayerControlled>(entity);
+    if (p) { p->start(); }
+    else {
+        BL_LOG_ERROR << "Failed to start player controlled component for entity: " << entity;
+    }
+
+    return true;
+}
+
+void Player::removePlayerControlled(bl::entity::Entity e) {
+    owner.engine().entities().removeComponent<component::PlayerControlled>(e);
+}
+
+void Player::init() { owner.engine().eventBus().subscribe(&input); }
+
+void Player::update() { input.update(); }
 
 } // namespace system
 } // namespace core

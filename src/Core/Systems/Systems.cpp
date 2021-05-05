@@ -20,12 +20,17 @@ Systems::Systems(bl::engine::Engine& engine)
     _movement.init();
     _render.init();
     _controllable.init();
+    _player.init();
 }
 
 void Systems::update(float dt) {
+    _clock.update(dt);
+
+    _player.update();
+    _movement.update(dt);
     _position.update();
     _cameras.update(dt);
-    _clock.update(dt);
+
     _world.update(dt);
     _render.update(dt);
 

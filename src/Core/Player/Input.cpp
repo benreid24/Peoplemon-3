@@ -6,7 +6,10 @@ namespace core
 {
 namespace player
 {
-Input::Input() {
+Input::Input()
+: moving(false)
+, running(false)
+, moveDir(component::Direction::Up) {
     using namespace input;
     controls[Controls::Up]       = sf::Keyboard::W;
     controls[Controls::Right]    = sf::Keyboard::D;
@@ -18,7 +21,17 @@ Input::Input() {
     controls[Controls::Back]     = sf::Keyboard::LControl;
 }
 
-void Input::addListener(input::Listener& l) { listeners.push_back(&l); }
+void Input::addListener(input::Listener& l) {
+    listeners.push_back(&l);
+    l.owner = this;
+}
+
+void Input::replaceListener(const input::Listener& o, input::Listener& n) {
+    for (int i = listeners.size() - 1; i >= 0; --i) {
+        if (listeners[i] == &o) { listeners[i] = &n; }
+    }
+    n.owner = this;
+}
 
 void Input::removeListener(input::Listener& l) {
     for (int i = listeners.size() - 1; i >= 0; --i) {
@@ -100,7 +113,7 @@ void Input::observe(const sf::Event& event) {
     checkMove(Controls::Up);
     checkMove(Controls::Right);
     checkMove(Controls::Down);
-    checkMove(Controls::Up);
+    checkMove(Controls::Left);
 
     if (controls[Controls::Run].matches(event)) {
         if (controls[Controls::Run].activated(event)) { running = true; }
