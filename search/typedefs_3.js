@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tilelayer',['TileLayer',['../a00180.html#ga20b619b84a2c30417adb8107ad0b51a6',1,'core::map']]]
+  ['idtype',['IdType',['../a00477.html#a62dbb7a9b1a1c3795a03bf22adacefcc',1,'core::map::Tile']]]
 ];

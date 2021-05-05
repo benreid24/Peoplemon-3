@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['peoplemon',['peoplemon',['../a00225.html#a3e465928cda68c56d485ecfd47052120',1,'core::map::CatchZone']]],
-  ['pixelspertile',['PixelsPerTile',['../a00281.html#a3dbd0e08a9910f9755d0e5218ba45f5a',1,'core::Properties']]],
-  ['position',['Position',['../a00209.html',1,'core::entity::Position'],['../a00209.html#ac0db7333de85cab383b5ec6fcbd2a712',1,'core::entity::Position::Position()'],['../a00209.html#ad0eff4f4f2854b561bb254fbbb700dcd',1,'core::entity::Position::Position(const Position &amp;copy)'],['../a00209.html#a4347f45f9137115215cc8ff1c90f8bb4',1,'core::entity::Position::position()'],['../a00229.html#ad476efa81687dffe7eebedd5fd6b765c',1,'core::map::CharacterSpawn::position()'],['../a00233.html#a36be7b94567b53d742b015f5252cb4d6',1,'core::map::Event::position()'],['../a00237.html#a2c197e30dc935f9a7f3cd0e9bf469f39',1,'core::map::Item::position()'],['../a00249.html#a26313ed5ca13ca5cfec6e3bd7fc82a66',1,'core::map::Light::position()'],['../a00261.html#add9ffa6c2ebc93fe34b2e18e927e5c9e',1,'core::map::Spawn::position()']]],
-  ['position_2ecpp',['Position.cpp',['../a00077.html',1,'']]],
-  ['position_2ehpp',['Position.hpp',['../a00008.html',1,'']]],
-  ['primarymaploader',['PrimaryMapLoader',['../a00313.html',1,'core::map::loaders']]],
-  ['primarytilesetloader',['PrimaryTilesetLoader',['../a00321.html',1,'core::map::loaders']]],
-  ['properties',['Properties',['../a00281.html',1,'core']]],
-  ['properties_2ecpp',['Properties.cpp',['../a00155.html',1,'']]],
-  ['properties_2ehpp',['Properties.hpp',['../a00059.html',1,'']]]
+  ['name',['name',['../a00429.html#a443b9f43cb7d9ef1bb3ad0f668906f7c',1,'core::file::NPC::name()'],['../a00429.html#aa493fd37213ed2f0893aca497f23b74e',1,'core::file::NPC::name() const'],['../a00433.html#a5d6e63e1c1f5a11de2d762baac25fa82',1,'core::file::Trainer::name()'],['../a00433.html#aa34446d975f6f30228e0ff5b7f550d48',1,'core::file::Trainer::name() const'],['../a00577.html#a996c83b8719897e862ea9051039284f2',1,'game::state::MainMenu::name()'],['../a00581.html#ac370eb1c45b531c4c15565f44d420873',1,'game::state::MapExplorer::name()'],['../a00585.html#ae62840bb33e67ff1b1ea7b6c9431d249',1,'game::state::State::name()'],['../a00669.html#ab60dc8fea40257083292a38afe666384',1,'DemoEngineState::name()']]],
+  ['newtime',['newTime',['../a00417.html#a09b0cf6d04a4c701d36df8feba7ad6f6',1,'core::event::TimeChange']]],
+  ['noencounter',['NoEncounter',['../a00316.html#ggafeb785fad3d712d6d6c516000e98d9f5a0fc6a92d4a8d659152b9fe4f4b3703a8',1,'core::map']]],
+  ['none',['None',['../a00465.html#aa0d8fadc62f2a2485130268a032d229e',1,'core::map::LightingSystem::None()'],['../a00489.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6',1,'core::map::Weather::None()'],['../a00313.html#gga6701adf1fdd04d85dd6482e453417813a6adf97f83acf6453d4a6a4b1070f3754',1,'core::component::None()'],['../a00316.html#ggacd6894855472f8b22d022ece25eda9b4a6adf97f83acf6453d4a6a4b1070f3754',1,'core::map::None()']]],
+  ['now',['now',['../a00537.html#a778cc44bba610c75b6401a6b2465bd7e',1,'core::system::Clock']]],
+  ['npc',['NPC',['../a00429.html',1,'core::file::NPC'],['../a00429.html#a1890e148fd84bf9134b4994332d9be65',1,'core::file::NPC::NPC()']]],
+  ['npc_2ecpp',['NPC.cpp',['../a00170.html',1,'']]],
+  ['npc_2ehpp',['NPC.hpp',['../a00044.html',1,'']]],
+  ['npcfileextension',['NpcFileExtension',['../a00517.html#a22bdf2f89374ca3657a1bd7f5bf74750',1,'core::Properties']]],
+  ['npcpath',['NpcPath',['../a00517.html#a6a7b19a807ebcdcc2a3e806a1b5f2ac7',1,'core::Properties']]]
 ];

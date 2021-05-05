@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['handle',['Handle',['../a00253.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
-  ['heighttransitionlayer',['HeightTransitionLayer',['../a00180.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
+  ['entityrendercallback',['EntityRenderCallback',['../a00469.html#acc0e9dfed87249efd330bb6bac1bb844',1,'core::map::Map']]]
 ];
