@@ -30,7 +30,7 @@ public:
 private:
     const std::string file;
     core::system::camera::Camera::Ptr mapExplorer;
-    sf::Clock debounce;
+    bool activated;
 
     MapExplorer(core::system::Systems& systems, const std::string& map);
 

@@ -55,14 +55,18 @@ bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems,
 MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name)
 : State(systems)
 , file(name)
-, mapExplorer(ExplorerCamera::create()) {}
+, mapExplorer(ExplorerCamera::create())
+, activated(false) {}
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
 void MapExplorer::activate(bl::engine::Engine& engine) {
-    if (!systems.world().switchMaps(file, 5)) {
-        BL_LOG_ERROR << "Failed to switch to map: " << file;
-        engine.flags().set(bl::engine::Flags::Terminate);
+    if (!activated) {
+        activated = true;
+        if (!systems.world().switchMaps(file, 5)) {
+            BL_LOG_ERROR << "Failed to switch to map: " << file;
+            engine.flags().set(bl::engine::Flags::Terminate);
+        }
     }
     systems.engine().eventBus().subscribe(this);
 }
