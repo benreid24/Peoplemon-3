@@ -79,7 +79,7 @@ bool Player::makePlayerControlled(bl::entity::Entity entity) {
     }
 
     if (!owner.engine().entities().addComponent<component::PlayerControlled>(
-            entity, {controllable, input})) {
+            entity, {owner, controllable})) {
         BL_LOG_ERROR << "Failed to add player controlled component to " << entity;
         return false;
     }

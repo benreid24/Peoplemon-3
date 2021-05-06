@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_MAP_EXPLORER_HPP
 #define GAME_STATES_MAP_EXPLORER_HPP
 
+#include <Core/Events/StateChange.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
 
@@ -10,7 +11,7 @@ namespace state
 {
 class MapExplorer
 : public State
-, public bl::event::Listener<sf::Event> {
+, public bl::event::Listener<sf::Event, core::event::StateChange> {
 public:
     static bl::engine::State::Ptr create(core::system::Systems& systems, const std::string& map);
 
@@ -34,6 +35,8 @@ private:
     MapExplorer(core::system::Systems& systems, const std::string& map);
 
     virtual void observe(const sf::Event& event) override;
+
+    virtual void observe(const core::event::StateChange& event) override;
 };
 
 } // namespace state

@@ -43,7 +43,10 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
     sfText.setString("Quit");
     quit = Item::create(TextRenderItem::create(sfText));
-    quit->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Quit selected"; });
+    quit->getSignal(Item::Activated).willCall([this]() {
+        BL_LOG_INFO << "Quit selected";
+        this->systems.engine().flags().set(bl::engine::Flags::PopState);
+    });
 
     newGame->attach(loadGame, Item::Bottom);
     loadGame->attach(settings, Item::Bottom);
@@ -61,11 +64,6 @@ void MainMenu::activate(bl::engine::Engine& engine) {
     // TODO - music
     menu->setSelectedItem(newGame);
     systems.player().inputSystem().addListener(inputDriver);
-    quit->getSignal(bl::menu::Item::Activated).clear();
-    quit->getSignal(bl::menu::Item::Activated).willCall([&engine]() {
-        BL_LOG_INFO << "Quit selected";
-        engine.flags().set(bl::engine::Flags::PopState);
-    });
 }
 
 void MainMenu::deactivate(bl::engine::Engine& engine) {

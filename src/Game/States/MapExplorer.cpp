@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/PauseMenu.hpp>
 
 namespace game
 {
@@ -88,6 +89,17 @@ void MapExplorer::observe(const sf::Event& event) {
             systems.cameras().pushCamera(mapExplorer);
             systems.player().removePlayerControlled(systems.player().player());
         }
+    }
+}
+
+void MapExplorer::observe(const core::event::StateChange& event) {
+    switch (event.type) {
+    case core::event::StateChange::GamePaused:
+        systems.engine().pushState(PauseMenu::create(systems));
+        break;
+
+    default:
+        break;
     }
 }
 

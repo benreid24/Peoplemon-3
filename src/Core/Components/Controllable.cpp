@@ -35,12 +35,8 @@ bool Controllable::processControl(Command ctrl) {
     case Command::SprintLeft:
         return systems.movement().moveEntity(owner, Direction::Left, true);
 
-    case Command::Pause:
-        // TODO - pause menu
-        return false;
-
+    case Command::Pause: // handled in PlayerControlled
     case Command::Back:
-        // TODO - back menu?
         return false;
 
     case Command::Interact:

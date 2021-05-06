@@ -8,6 +8,11 @@
 
 namespace core
 {
+namespace system
+{
+class Systems;
+}
+
 namespace component
 {
 /**
@@ -25,12 +30,12 @@ public:
      * @brief Construct a new Player Controlled component and immediately start taking player input.
      *        Whatever was previously receiving player input is cut off
      *
+     * @param systems The primary systems object
      * @param controllable The controllable component to interface with
-     * @param input The player input object to listen to
      */
     PlayerControlled(
-        const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable,
-        player::Input& input);
+        system::Systems& systems,
+        const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable);
 
     /**
      * @brief Activate this listener and receive player input. Does not have effect if already
@@ -41,7 +46,7 @@ public:
 
     /**
      * @brief Stops listening to player input
-     * 
+     *
      */
     void stop();
 
@@ -53,7 +58,7 @@ public:
     virtual void process(Command input) override;
 
 private:
-    player::Input& input;
+    system::Systems& systems;
     bl::entity::Registry::ComponentHandle<component::Controllable> controllable;
     bool started;
 };
