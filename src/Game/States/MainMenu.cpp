@@ -56,6 +56,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
     selector->getArrow().setFillColor(sf::Color::Black);
     menu = std::make_shared<bl::menu::Menu>(newGame, selector);
     inputDriver.drive(*menu);
+    renderer.setUniformSize({0.f, 45.f});
 }
 
 const char* MainMenu::name() const { return "MainMenu"; }

@@ -9,7 +9,7 @@ namespace state
 namespace
 {
 constexpr float Width  = 200.f;
-constexpr float Height = 400.f;
+constexpr float Height = 365.f;
 } // namespace
 
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
@@ -73,6 +73,7 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menu.emplace(resume, selector);
     inputDriver.drive(menu.get());
     renderer.setVerticalPadding(8.f);
+    renderer.setUniformSize({0.f, 42.f});
 
     menuBackground.setSize({Width, Height});
     menuBackground.setFillColor(sf::Color::White);
@@ -101,6 +102,8 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
 void PauseMenu::update(bl::engine::Engine&, float dt) {
     systems.player().update();
     systems.world().update(dt);
+    if (inputDriver.backPressed()) { systems.engine().popState(); }
+    if (inputDriver.pausePressed()) { systems.engine().popState(); }
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {

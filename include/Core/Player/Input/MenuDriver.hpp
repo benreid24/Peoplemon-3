@@ -44,6 +44,12 @@ public:
     bool backPressed();
 
     /**
+     * @brief Returns true if Pause was pressed. Not processed by Menu
+     *
+     */
+    bool pausePressed();
+
+    /**
      * @brief Forwards the corresponding menu event to the menu being driven, if set
      *
      * @param command The command to handle
@@ -61,6 +67,7 @@ public:
 private:
     bl::menu::Menu* menu;
     bool back;
+    bool pause;
     float debounce;
     float lastInput;
 };

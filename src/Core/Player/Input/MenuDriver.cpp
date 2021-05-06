@@ -15,6 +15,7 @@ MenuDriver::MenuDriver()
 : Listener()
 , menu(nullptr)
 , back(false)
+, pause(false)
 , debounce(0.3f)
 , lastInput(0.f) {}
 
@@ -24,6 +25,12 @@ bool MenuDriver::backPressed() {
     const bool b = back;
     back         = false;
     return b;
+}
+
+bool MenuDriver::pausePressed() {
+    const bool p = pause;
+    pause        = false;
+    return p;
 }
 
 void MenuDriver::process(component::Command cmd) {
@@ -55,6 +62,10 @@ void MenuDriver::process(component::Command cmd) {
 
     case component::Command::Back:
         back = true;
+        break;
+
+    case component::Command::Pause:
+        pause = true;
         break;
 
     default:
