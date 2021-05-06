@@ -93,7 +93,6 @@ bool LightingSystem::adjustsForSunlight() const { return sunlightField.getValue(
 
 void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
     handles.clear();
-    lightsField.getValue().clear();
     lights.setSize(mapSize.x * Properties::PixelsPerTile(),
                    mapSize.y * Properties::PixelsPerTile(),
                    Properties::WindowWidth(),
@@ -133,9 +132,9 @@ void LightingSystem::render(sf::RenderTarget& target) {
         std::min(std::max(0, static_cast<int>(lightLevel) + weatherModifier), 255);
     auto lightSet =
         lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
-                       corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
-                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
-                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile());
+                       corner.y - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
+                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2,
+                       size.y + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2);
 
     renderSurface.setView(target.getView());
     renderSurface.clear(sf::Color(0, 0, 0, ambient));
@@ -150,7 +149,7 @@ void LightingSystem::render(sf::RenderTarget& target) {
         renderSurface.draw(circle, sf::BlendNone);
     }
 
-    sprite.setPosition(corner.x, target.getView().getCenter().y + size.y / 2.f);
+    sprite.setPosition(corner.x, corner.y + size.y);
     sprite.setScale(size.x / static_cast<float>(renderSurface.getSize().x),
                     -size.y / static_cast<float>(renderSurface.getSize().y));
     target.draw(sprite);
