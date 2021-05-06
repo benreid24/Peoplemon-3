@@ -68,6 +68,8 @@ bool Player::spawnPlayer(const component::Position& pos) {
 
 bl::entity::Entity Player::player() const { return playerId; }
 
+player::Input& Player::inputSystem() { return input; }
+
 bool Player::makePlayerControlled(bl::entity::Entity entity) {
     auto controllable =
         owner.engine().entities().getComponentHandle<component::Controllable>(entity);

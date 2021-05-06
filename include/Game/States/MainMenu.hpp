@@ -3,6 +3,7 @@
 
 #include <BLIB/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Player/Input/MenuDriver.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -61,8 +62,7 @@ private:
     sf::Sprite background;
 
     std::shared_ptr<bl::menu::Menu> menu;
-    std::shared_ptr<bl::menu::KeyboardEventGenerator> keyboardEventGenerator;
-    std::shared_ptr<bl::menu::MouseEventGenerator> mouseEventGenerator;
+    core::player::input::MenuDriver inputDriver;
     bl::menu::BasicRenderer renderer;
     bl::menu::ArrowSelector::Ptr selector;
     bl::menu::Item::Ptr newGame;

@@ -52,9 +52,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
     selector = bl::menu::ArrowSelector::create(14.f);
     selector->getArrow().setFillColor(sf::Color::Black);
     menu = std::make_shared<bl::menu::Menu>(newGame, selector);
-
-    keyboardEventGenerator = std::make_shared<bl::menu::KeyboardEventGenerator>(*menu);
-    mouseEventGenerator    = std::make_shared<bl::menu::MouseEventGenerator>(*menu);
+    inputDriver.drive(*menu);
 }
 
 const char* MainMenu::name() const { return "MainMenu"; }
@@ -62,8 +60,7 @@ const char* MainMenu::name() const { return "MainMenu"; }
 void MainMenu::activate(bl::engine::Engine& engine) {
     // TODO - music
     menu->setSelectedItem(newGame);
-    engine.eventBus().subscribe(keyboardEventGenerator.get());
-    engine.eventBus().subscribe(mouseEventGenerator.get());
+    systems.player().inputSystem().addListener(inputDriver);
     quit->getSignal(bl::menu::Item::Activated).clear();
     quit->getSignal(bl::menu::Item::Activated).willCall([&engine]() {
         BL_LOG_INFO << "Quit selected";
@@ -72,11 +69,11 @@ void MainMenu::activate(bl::engine::Engine& engine) {
 }
 
 void MainMenu::deactivate(bl::engine::Engine& engine) {
-    engine.eventBus().unsubscribe(keyboardEventGenerator.get());
-    engine.eventBus().unsubscribe(mouseEventGenerator.get());
+    systems.player().inputSystem().removeListener(inputDriver);
 }
 
 void MainMenu::update(bl::engine::Engine& engine, float dt) {
+    systems.player().update();
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
         engine.replaceState(MapExplorer::create(systems, "WorldMap.map"));
     }

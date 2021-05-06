@@ -6,10 +6,17 @@ namespace player
 {
 namespace input
 {
+namespace
+{
+sf::Clock timer;
+}
+
 MenuDriver::MenuDriver()
 : Listener()
 , menu(nullptr)
-, back(false) {}
+, back(false)
+, debounce(0.3f)
+, lastInput(0.f) {}
 
 void MenuDriver::drive(bl::menu::Menu& m) { menu = &m; }
 
@@ -21,6 +28,9 @@ bool MenuDriver::backPressed() {
 
 void MenuDriver::process(component::Command cmd) {
     if (!menu) return;
+
+    if (timer.getElapsedTime().asSeconds() - lastInput < debounce) return;
+    lastInput = timer.getElapsedTime().asSeconds();
 
     switch (cmd) {
     case component::Command::MoveDown:
@@ -51,6 +61,8 @@ void MenuDriver::process(component::Command cmd) {
         break;
     }
 }
+
+void MenuDriver::setInputDelay(float d) { debounce = d; }
 
 } // namespace input
 } // namespace player

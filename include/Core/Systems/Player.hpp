@@ -59,6 +59,12 @@ public:
     bl::entity::Entity player() const;
 
     /**
+     * @brief Returns a reference to the player input system
+     *
+     */
+    player::Input& inputSystem();
+
+    /**
      * @brief Subscribes the input system to the event bus
      *
      */

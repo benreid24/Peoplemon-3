@@ -50,9 +50,19 @@ public:
      */
     virtual void process(component::Command command) override;
 
+    /**
+     * @brief Sets the minimum time, in seconds, between input events being processed. This limits
+     *        the speed of cursor movement to something reasonable. Default is 0.3s
+     *
+     * @param delay Time between input events in seconds
+     */
+    void setInputDelay(float delay);
+
 private:
     bl::menu::Menu* menu;
     bool back;
+    float debounce;
+    float lastInput;
 };
 
 } // namespace input
