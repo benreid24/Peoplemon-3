@@ -3,6 +3,7 @@
 
 #include <BLIB/Entities.hpp>
 #include <Core/Components/StandingBehavior.hpp>
+#include <Core/Files/Behavior.hpp>
 
 namespace core
 {
@@ -37,6 +38,15 @@ public:
      * @param dt Time elapsed in seconds
      */
     void update(float dt);
+
+    /**
+     * @brief Helper function for adding the given behavior to the given entity
+     *
+     * @param entity The entity to add the behavior to
+     * @param behavior The behavior to add
+     * @return True if the behavior was able to be added, false otherwise
+     */
+    bool addBehavior(bl::entity::Entity entity, file::Behavior behavior);
 
     /**
      * @brief Makes the given entity stand in place. Replaces any existing behavior on the entity

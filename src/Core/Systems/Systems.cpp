@@ -76,5 +76,7 @@ const Player& Systems::player() const { return _player; }
 
 Controllable& Systems::controllable() { return _controllable; }
 
+AI& Systems::ai() { return _ai; }
+
 } // namespace system
 } // namespace core

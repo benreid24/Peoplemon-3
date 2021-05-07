@@ -1,5 +1,6 @@
 #include <Core/Systems/AI.hpp>
 
+#include <BLIB/Logging.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -24,6 +25,38 @@ void AI::update(float dt) {
     };
 
     for (bl::entity::Entity e : owner.position().updateRangeEntities()) { updateEntity(e); }
+}
+
+bool AI::addBehavior(bl::entity::Entity e, file::Behavior behvaior) {
+    // TODO - make behavior into struct with data
+    switch (behvaior) {
+    case file::Behavior::StandStill:
+        return makeStanding(e, component::Direction::Up);
+    default:
+        return false;
+    }
+}
+
+bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
+    auto posHandle = owner.engine().entities().getComponentHandle<component::Position>(e);
+    if (!posHandle.hasValue()) {
+        BL_LOG_ERROR << "Failed to get position for entity: " << e;
+        return false;
+    }
+
+    auto controlHandle = owner.engine().entities().getComponentHandle<component::Controllable>(e);
+    if (!controlHandle.hasValue()) {
+        BL_LOG_ERROR << "Failed to get controllable for entity: " << e;
+        return false;
+    }
+
+    if (!owner.engine().entities().addComponent<component::StandingBehavior>(
+            e, {dir, posHandle, controlHandle})) {
+        BL_LOG_ERROR << "Failed to add standing behavior to entity: " << e;
+        return false;
+    }
+
+    return true;
 }
 
 } // namespace system

@@ -31,6 +31,9 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                     << spawn.position.getValue().positionTiles().x << ", "
                     << spawn.position.getValue().positionTiles().y << ")";
 
+        // TODO - return on error when behavior modified
+        owner.ai().addBehavior(entity, data.behavior());
+
         // TODO - components like conversation
         animation = data.animation();
     }
@@ -44,6 +47,9 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                     << static_cast<int>(spawn.position.getValue().level) << ", "
                     << spawn.position.getValue().positionTiles().x << ", "
                     << spawn.position.getValue().positionTiles().y << ")";
+
+        // TODO - return on error when behavior modified
+        owner.ai().addBehavior(entity, data.behavior());
 
         // TODO - components like peoplemon, conversation, items
         animation = data.animation();
