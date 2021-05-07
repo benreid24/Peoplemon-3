@@ -4,4 +4,5 @@ target_sources(Core PRIVATE
     PlayerControlled.cpp
     Position.cpp
     Renderable.cpp
+    StandingBehavior.cpp
 )

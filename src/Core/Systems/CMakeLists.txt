@@ -1,4 +1,5 @@
 target_sources(Core PRIVATE
+    AI.cpp
     Cameras.cpp
     Clock.cpp
     Controllable.cpp
