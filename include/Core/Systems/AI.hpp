@@ -46,7 +46,7 @@ public:
      * @param behavior The behavior to add
      * @return True if the behavior was able to be added, false otherwise
      */
-    bool addBehavior(bl::entity::Entity entity, file::Behavior behavior);
+    bool addBehavior(bl::entity::Entity entity, const file::Behavior& behavior);
 
     /**
      * @brief Makes the given entity stand in place. Replaces any existing behavior on the entity
@@ -61,11 +61,19 @@ public:
      * @brief Makes the given entity spin in place. Replaces any existing behavior
      *
      * @param entity The entity to spin
+     * @param dir The direction to spin in
      * @return True if the behavior was able to be added, false otherwise
      */
-    bool makeSpinning(bl::entity::Entity entity);
+    bool makeSpinning(bl::entity::Entity entity, file::Behavior::Spinning::Direction dir);
 
-    // TODO - path controller
+    /**
+     * @brief Make the entity follow a fixed path. Replacces existing behavior
+     *
+     * @param entity The entity to go on the path
+     * @param path The path to follow
+     * @return True if the behavior was added, false otherwise
+     */
+    bool makeFollowPath(bl::entity::Entity entity, const file::Behavior::Path& path);
 
     /**
      * @brief Makes the given entity wander around within the given radius. Replaces any existing

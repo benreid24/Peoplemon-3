@@ -13,8 +13,8 @@ Controllable::Controllable(system::Systems& systems, bl::entity::Entity owner)
 , locked(false)
 , wasLocked(false) {}
 
-bool Controllable::processControl(Command ctrl) {
-    if (locked) return false;
+bool Controllable::processControl(Command ctrl, bool ignoreLock) {
+    if (locked && !ignoreLock) return false;
 
     switch (ctrl) {
     case Command::MoveUp:

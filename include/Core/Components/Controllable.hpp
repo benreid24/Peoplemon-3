@@ -37,9 +37,10 @@ public:
      * @brief Processes the given command and manipulates the entity accordingly
      *
      * @param command The command to apply
+     * @param overrideLock True to process the control even if locked
      * @return True if the control had effect, false if no effect
      */
-    bool processControl(Command command);
+    bool processControl(Command command, bool overrideLock = false);
 
     /**
      * @brief Locks the controllable and prevents any commands from being processed. Optionally

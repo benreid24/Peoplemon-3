@@ -27,11 +27,16 @@ void AI::update(float dt) {
     for (bl::entity::Entity e : owner.position().updateRangeEntities()) { updateEntity(e); }
 }
 
-bool AI::addBehavior(bl::entity::Entity e, file::Behavior behvaior) {
-    // TODO - make behavior into struct with data
-    switch (behvaior) {
+bool AI::addBehavior(bl::entity::Entity e, const file::Behavior& behavior) {
+    switch (behavior.type()) {
     case file::Behavior::StandStill:
-        return makeStanding(e, component::Direction::Up);
+        return makeStanding(e, behavior.standing().facedir);
+    case file::Behavior::SpinInPlace:
+        return makeSpinning(e, behavior.spinning().spinDir);
+    case file::Behavior::FollowingPath:
+        return makeFollowPath(e, behavior.path());
+    case file::Behavior::Wandering:
+        return makeWander(e, behavior.wander().radius);
     default:
         return false;
     }
@@ -57,6 +62,21 @@ bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
     }
 
     return true;
+}
+
+bool AI::makeSpinning(bl::entity::Entity e, file::Behavior::Spinning::Direction dir) {
+    // TODO
+    return false;
+}
+
+bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) {
+    // TODO
+    return false;
+}
+
+bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {
+    // TODO
+    return false;
 }
 
 } // namespace system

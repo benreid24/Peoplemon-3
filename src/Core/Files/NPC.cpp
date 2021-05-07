@@ -15,10 +15,7 @@ struct LegacyLoader : public bl::file::binary::VersionedPayloadLoader<NPC> {
         if (!input.read(npc.name())) return false;
         if (!input.read(npc.animation())) return false;
         if (!input.read(npc.conversation())) return false;
-        std::uint8_t behavior;
-        if (!input.read<std::uint8_t>(behavior)) return false;
-        npc.behavior() = static_cast<Behavior>(behavior);
-        return true;
+        return npc.behavior().legacyLoad(input);
     }
 
     virtual bool write(const NPC&, bl::file::binary::File&) const override {
