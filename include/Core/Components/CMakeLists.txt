@@ -7,5 +7,6 @@ target_sources(Core PUBLIC
     PlayerControlled.hpp
     Position.hpp
     Renderable.hpp
+    SpinBehavior.hpp
     StandingBehavior.hpp
 )

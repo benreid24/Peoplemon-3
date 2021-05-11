@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_AI_HPP
 
 #include <BLIB/Entities.hpp>
+#include <Core/Components/SpinBehavior.hpp>
 #include <Core/Components/StandingBehavior.hpp>
 #include <Core/Files/Behavior.hpp>
 
@@ -101,6 +102,7 @@ public:
 private:
     Systems& owner;
     bl::entity::Registry::View<component::StandingBehavior>::Ptr standing;
+    bl::entity::Registry::View<component::SpinBehavior>::Ptr spinning;
     // others
 };
 

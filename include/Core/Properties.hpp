@@ -88,6 +88,8 @@ public:
     static float CharacterMoveSpeed();
     static float FastCharacterMoveSpeed();
 
+    static float CharacterSpinPeriod();
+
     static const std::string& PlayerAnimations(player::Gender gender);
 
     /**

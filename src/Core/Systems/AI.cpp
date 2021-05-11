@@ -12,16 +12,20 @@ AI::AI(Systems& o)
 
 void AI::init() {
     standing = owner.engine().entities().getEntitiesWithComponents<component::StandingBehavior>();
+    spinning = owner.engine().entities().getEntitiesWithComponents<component::SpinBehavior>();
 }
 
 void AI::update(float dt) {
-    const auto updateEntity = [this](bl::entity::Entity entity) {
+    const auto updateEntity = [this, dt](bl::entity::Entity entity) {
         auto stand = standing->results().find(entity);
         if (stand != standing->results().end()) {
             stand->second.get<component::StandingBehavior>()->update();
         }
 
-        // others
+        auto spin = spinning->results().find(entity);
+        if (spin != spinning->results().end()) {
+            spin->second.get<component::SpinBehavior>()->update(dt);
+        }
     };
 
     for (bl::entity::Entity e : owner.position().updateRangeEntities()) { updateEntity(e); }
@@ -65,8 +69,20 @@ bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
 }
 
 bool AI::makeSpinning(bl::entity::Entity e, file::Behavior::Spinning::Direction dir) {
-    // TODO
-    return false;
+    auto controllable = owner.engine().entities().getComponentHandle<component::Controllable>(e);
+    if (!controllable.hasValue()) {
+        BL_LOG_ERROR << "Entity " << e << " is not controllable";
+        return false;
+    }
+
+    auto position = owner.engine().entities().getComponentHandle<component::Position>(e);
+    if (!position.hasValue()) {
+        BL_LOG_ERROR << "Entity " << e << " has no position";
+        return false;
+    }
+
+    return owner.engine().entities().addComponent<component::SpinBehavior>(
+        e, {position, controllable, dir});
 }
 
 bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) {
