@@ -13,6 +13,11 @@ AI::AI(Systems& o)
 void AI::init() {
     standing = owner.engine().entities().getEntitiesWithComponents<component::StandingBehavior>();
     spinning = owner.engine().entities().getEntitiesWithComponents<component::SpinBehavior>();
+    paths    = owner.engine()
+                .entities()
+                .getEntitiesWithComponents<component::FixedPathBehavior,
+                                           component::Position,
+                                           component::Controllable>();
 }
 
 void AI::update(float dt) {
@@ -25,6 +30,13 @@ void AI::update(float dt) {
         auto spin = spinning->results().find(entity);
         if (spin != spinning->results().end()) {
             spin->second.get<component::SpinBehavior>()->update(dt);
+        }
+
+        auto path = paths->results().find(entity);
+        if (path != paths->results().end()) {
+            path->second.get<component::FixedPathBehavior>()->update(
+                *path->second.get<component::Position>(),
+                *path->second.get<component::Controllable>());
         }
     };
 
@@ -86,8 +98,7 @@ bool AI::makeSpinning(bl::entity::Entity e, file::Behavior::Spinning::Direction 
 }
 
 bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) {
-    // TODO
-    return false;
+    return owner.engine().entities().addComponent<component::FixedPathBehavior>(e, {path});
 }
 
 bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {

@@ -70,5 +70,9 @@ Behavior::Path::Path()
 Behavior::Wander::Wander(unsigned int r)
 : radius(r) {}
 
+Behavior::Path::Pace::Pace(component::Direction dir, unsigned int s)
+: direction(dir)
+, steps(s) {}
+
 } // namespace file
 } // namespace core

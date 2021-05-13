@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_AI_HPP
 
 #include <BLIB/Entities.hpp>
+#include <Core/Components/FixedPathBehavior.hpp>
 #include <Core/Components/SpinBehavior.hpp>
 #include <Core/Components/StandingBehavior.hpp>
 #include <Core/Files/Behavior.hpp>
@@ -103,6 +104,8 @@ private:
     Systems& owner;
     bl::entity::Registry::View<component::StandingBehavior>::Ptr standing;
     bl::entity::Registry::View<component::SpinBehavior>::Ptr spinning;
+    bl::entity::Registry::View<component::FixedPathBehavior, component::Position,
+                               component::Controllable>::Ptr paths;
     // others
 };
 

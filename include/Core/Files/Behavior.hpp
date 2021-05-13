@@ -69,6 +69,14 @@ public:
 
             /// The number of steps to take. No need to account for direction change
             unsigned int steps;
+
+            /**
+             * @brief Construct a new Pace
+             *
+             * @param dir The direction to walk in
+             * @param steps The number of steps to take
+             */
+            Pace(component::Direction dir, unsigned int steps);
         };
 
         /// The sections of the path
