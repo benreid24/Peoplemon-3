@@ -53,12 +53,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
         return false;
     }
 
-    // if (!makePlayerControlled(playerId)) { return false; }
-    file::Behavior::Path path;
-    path.reverse = true;
-    path.paces.emplace_back(component::Direction::Right, 3);
-    path.paces.emplace_back(component::Direction::Down, 2);
-    if (!owner.ai().makeFollowPath(playerId, path)) { BL_LOG_ERROR << "Not following path"; }
+    if (!makePlayerControlled(playerId)) { return false; }
 
     if (!owner.engine().entities().addComponent<component::Renderable>(
             playerId,

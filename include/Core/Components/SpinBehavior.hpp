@@ -23,25 +23,21 @@ public:
     /**
      * @brief Construct a new Spin Behavior component
      *
-     * @param position A handle to the position component
-     * @param controllable A handle to the controllable component
      * @param dir The direction to spin in
      */
-    SpinBehavior(const bl::entity::Registry::ComponentHandle<Position>& position,
-                 const bl::entity::Registry::ComponentHandle<Controllable>& controllable,
-                 file::Behavior::Spinning::Direction dir);
+    SpinBehavior(file::Behavior::Spinning::Direction dir);
 
     /**
      * @brief Updates the behavior
      *
+     * @param position The position component of the entity
+     * @param controller The controllable component of the entity
      * @param dt Time elapsed in seconds
      */
-    void update(float dt);
+    void update(Position& position, Controllable& controller, float dt);
 
 private:
-const file::Behavior::Spinning::Direction dir;
-    bl::entity::Registry::ComponentHandle<Position> position;
-    bl::entity::Registry::ComponentHandle<Controllable> controllable;
+    const file::Behavior::Spinning::Direction dir;
     float standTime;
 };
 

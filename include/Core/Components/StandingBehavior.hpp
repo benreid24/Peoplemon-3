@@ -23,23 +23,20 @@ public:
      * @brief Construct a new Standing Behavior component
      *
      * @param faceDir The direction to face
-     * @param position The position component
-     * @param controllable The controllable component
      */
-    StandingBehavior(Direction faceDir,
-                     const bl::entity::Registry::ComponentHandle<Position>& position,
-                     const bl::entity::Registry::ComponentHandle<Controllable>& controllable);
+    StandingBehavior(Direction faceDir);
 
     /**
      * @brief Ensures the managed entity is facing the required position
+     * 
+     * @param position The entities position component
+     * @param controller The entities controllable component
      *
      */
-    void update();
+    void update(Position& position, Controllable& controller);
 
 private:
     const Direction dir;
-    bl::entity::Registry::ComponentHandle<Position> position;
-    bl::entity::Registry::ComponentHandle<Controllable> controllable;
 };
 
 } // namespace component

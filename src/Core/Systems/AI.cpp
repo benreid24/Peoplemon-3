@@ -11,9 +11,17 @@ AI::AI(Systems& o)
 : owner(o) {}
 
 void AI::init() {
-    standing = owner.engine().entities().getEntitiesWithComponents<component::StandingBehavior>();
-    spinning = owner.engine().entities().getEntitiesWithComponents<component::SpinBehavior>();
-    paths    = owner.engine()
+    standing = owner.engine()
+                   .entities()
+                   .getEntitiesWithComponents<component::StandingBehavior,
+                                              component::Position,
+                                              component::Controllable>();
+    spinning = owner.engine()
+                   .entities()
+                   .getEntitiesWithComponents<component::SpinBehavior,
+                                              component::Position,
+                                              component::Controllable>();
+    paths = owner.engine()
                 .entities()
                 .getEntitiesWithComponents<component::FixedPathBehavior,
                                            component::Position,
@@ -24,12 +32,17 @@ void AI::update(float dt) {
     const auto updateEntity = [this, dt](bl::entity::Entity entity) {
         auto stand = standing->results().find(entity);
         if (stand != standing->results().end()) {
-            stand->second.get<component::StandingBehavior>()->update();
+            stand->second.get<component::StandingBehavior>()->update(
+                *stand->second.get<component::Position>(),
+                *stand->second.get<component::Controllable>());
         }
 
         auto spin = spinning->results().find(entity);
         if (spin != spinning->results().end()) {
-            spin->second.get<component::SpinBehavior>()->update(dt);
+            spin->second.get<component::SpinBehavior>()->update(
+                *spin->second.get<component::Position>(),
+                *spin->second.get<component::Controllable>(),
+                dt);
         }
 
         auto path = paths->results().find(entity);
@@ -59,20 +72,7 @@ bool AI::addBehavior(bl::entity::Entity e, const file::Behavior& behavior) {
 }
 
 bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
-    auto posHandle = owner.engine().entities().getComponentHandle<component::Position>(e);
-    if (!posHandle.hasValue()) {
-        BL_LOG_ERROR << "Failed to get position for entity: " << e;
-        return false;
-    }
-
-    auto controlHandle = owner.engine().entities().getComponentHandle<component::Controllable>(e);
-    if (!controlHandle.hasValue()) {
-        BL_LOG_ERROR << "Failed to get controllable for entity: " << e;
-        return false;
-    }
-
-    if (!owner.engine().entities().addComponent<component::StandingBehavior>(
-            e, {dir, posHandle, controlHandle})) {
+    if (!owner.engine().entities().addComponent<component::StandingBehavior>(e, {dir})) {
         BL_LOG_ERROR << "Failed to add standing behavior to entity: " << e;
         return false;
     }
@@ -81,24 +81,19 @@ bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
 }
 
 bool AI::makeSpinning(bl::entity::Entity e, file::Behavior::Spinning::Direction dir) {
-    auto controllable = owner.engine().entities().getComponentHandle<component::Controllable>(e);
-    if (!controllable.hasValue()) {
-        BL_LOG_ERROR << "Entity " << e << " is not controllable";
+    if (!owner.engine().entities().addComponent<component::SpinBehavior>(e, {dir})) {
+        BL_LOG_ERROR << "Failed to add spinning behavior to entity: " << e;
         return false;
     }
-
-    auto position = owner.engine().entities().getComponentHandle<component::Position>(e);
-    if (!position.hasValue()) {
-        BL_LOG_ERROR << "Entity " << e << " has no position";
-        return false;
-    }
-
-    return owner.engine().entities().addComponent<component::SpinBehavior>(
-        e, {position, controllable, dir});
+    return true;
 }
 
 bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) {
-    return owner.engine().entities().addComponent<component::FixedPathBehavior>(e, {path});
+    if (!owner.engine().entities().addComponent<component::FixedPathBehavior>(e, {path})) {
+        BL_LOG_ERROR << "Failed to add fixed path behavior to entity: " << e;
+        return false;
+    }
+    return true;
 }
 
 bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {

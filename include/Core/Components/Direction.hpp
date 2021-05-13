@@ -33,6 +33,26 @@ enum struct Direction : std::uint8_t { Up = 0, Right = 1, Down = 2, Left = 3 };
  */
 Direction oppositeDirection(Direction dir);
 
+/**
+ * @brief Returns the next clockwise direction from the given current direction
+ *
+ * @param dir The direction to move clockwise from
+ * @return Direction The next clockwise direction
+ *
+ * @ingroup Components
+ */
+Direction nextClockwiseDirection(Direction dir);
+
+/**
+ * @brief Returns the next counterclockwise direction from the given current direction
+ *
+ * @param dir The direction to move counterclockwise from
+ * @return Direction The next counterclockwise direction
+ *
+ * @ingroup Components
+ */
+Direction nextCounterClockwiseDirection(Direction dir);
+
 } // namespace component
 } // namespace core
 

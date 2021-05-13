@@ -102,8 +102,10 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Registry::View<component::StandingBehavior>::Ptr standing;
-    bl::entity::Registry::View<component::SpinBehavior>::Ptr spinning;
+    bl::entity::Registry::View<component::StandingBehavior, component::Position,
+                               component::Controllable>::Ptr standing;
+    bl::entity::Registry::View<component::SpinBehavior, component::Position,
+                               component::Controllable>::Ptr spinning;
     bl::entity::Registry::View<component::FixedPathBehavior, component::Position,
                                component::Controllable>::Ptr paths;
     // others
