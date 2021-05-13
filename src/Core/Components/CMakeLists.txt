@@ -9,4 +9,5 @@ target_sources(Core PRIVATE
     Renderable.cpp
     SpinBehavior.cpp
     StandingBehavior.cpp
+    WanderBehavior.cpp
 )

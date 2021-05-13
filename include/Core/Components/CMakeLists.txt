@@ -10,4 +10,5 @@ target_sources(Core PUBLIC
     Renderable.hpp
     SpinBehavior.hpp
     StandingBehavior.hpp
+    WanderBehavior.hpp
 )
