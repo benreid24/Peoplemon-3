@@ -5,6 +5,7 @@
 #include <Core/Components/FixedPathBehavior.hpp>
 #include <Core/Components/SpinBehavior.hpp>
 #include <Core/Components/StandingBehavior.hpp>
+#include <Core/Components/WanderBehavior.hpp>
 #include <Core/Files/Behavior.hpp>
 
 namespace core
@@ -108,7 +109,8 @@ private:
                                component::Controllable>::Ptr spinning;
     bl::entity::Registry::View<component::FixedPathBehavior, component::Position,
                                component::Controllable>::Ptr paths;
-    // others
+    bl::entity::Registry::View<component::WanderBehavior, component::Position,
+                               component::Controllable>::Ptr wandering;
 };
 
 } // namespace system

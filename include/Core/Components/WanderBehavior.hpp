@@ -13,14 +13,15 @@ class WanderBehavior {
 public:
     static constexpr bl::entity::Component::IdType ComponentId = 10;
 
-    WanderBehavior(unsigned int radius);
+    WanderBehavior(unsigned int radius, const sf::Vector2i& origin);
 
     void update(Position& position, Controllable& controller, float dt);
 
 private:
     struct WalkData {
         Direction dir;
-        unsigned int steps;
+        unsigned short int total;
+        unsigned short int steps;
 
         WalkData();
     };
@@ -33,8 +34,15 @@ private:
         Data();
     } data;
 
-    enum State : std::uint8_t { Walking = 0, Spinning = 1, Standing = 2, NUM_STATES = 2 };
+    enum State : std::uint8_t {
+        Walking    = 0,
+        Spinning   = 1,
+        Standing   = 2,
+        NUM_STATES = 2,
+        Paused     = 3 // intentionally outside of possible states
+    };
 
+    const sf::Vector2i origin;
     const unsigned int radius;
     State state;
     float stateTime;

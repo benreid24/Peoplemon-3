@@ -26,6 +26,11 @@ void AI::init() {
                 .getEntitiesWithComponents<component::FixedPathBehavior,
                                            component::Position,
                                            component::Controllable>();
+    wandering = owner.engine()
+                    .entities()
+                    .getEntitiesWithComponents<component::WanderBehavior,
+                                               component::Position,
+                                               component::Controllable>();
 }
 
 void AI::update(float dt) {
@@ -50,6 +55,14 @@ void AI::update(float dt) {
             path->second.get<component::FixedPathBehavior>()->update(
                 *path->second.get<component::Position>(),
                 *path->second.get<component::Controllable>());
+        }
+
+        auto wander = wandering->results().find(entity);
+        if (wander != wandering->results().end()) {
+            wander->second.get<component::WanderBehavior>()->update(
+                *wander->second.get<component::Position>(),
+                *wander->second.get<component::Controllable>(),
+                dt);
         }
     };
 
@@ -97,8 +110,19 @@ bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) 
 }
 
 bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {
-    // TODO
-    return false;
+    const component::Position* pos = owner.engine().entities().getComponent<component::Position>(e);
+    if (!pos) {
+        BL_LOG_ERROR << "Cannot add wander behavior to entity (" << e
+                     << ") without position component";
+        return false;
+    }
+
+    if (!owner.engine().entities().addComponent<component::WanderBehavior>(
+            e, {radius, pos->positionTiles()})) {
+        BL_LOG_ERROR << "Failed to add wander behavior to entity: " << e;
+        return false;
+    }
+    return true;
 }
 
 } // namespace system
