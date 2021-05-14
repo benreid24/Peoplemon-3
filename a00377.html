@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::file Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00330.html">core</a></li><li class="navelem"><a class="el" href="a00331.html">component</a></li><li class="navelem"><a class="el" href="a00380.html">PlayerControlled</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00369.html">core</a></li><li class="navelem"><a class="el" href="a00377.html">file</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::PlayerControlled Member List</div>  </div>
+<div class="title">core::file Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00380.html">core::component::PlayerControlled</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00380.html#a0c4d7ca951bf765b459a0466cabf18a1">ComponentId</a></td><td class="entry"><a class="el" href="a00380.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00520.html#aeffd124ef155fca87d6670f47b001718">Listener</a>()</td><td class="entry"><a class="el" href="a00520.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00520.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a00520.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00520.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a>(Listener &amp;&amp;copy)</td><td class="entry"><a class="el" href="a00520.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00380.html#a46b365ec25a817dd7c38dec3bec18c1f">PlayerControlled</a>(system::Systems &amp;systems, const bl::entity::Registry::ComponentHandle&lt; component::Controllable &gt; &amp;controllable)</td><td class="entry"><a class="el" href="a00380.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00380.html#a1ebed2e98971e58292857d8c1ba9943c">process</a>(Command input) override</td><td class="entry"><a class="el" href="a00380.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00380.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>()</td><td class="entry"><a class="el" href="a00380.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00380.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>()</td><td class="entry"><a class="el" href="a00380.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00520.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a>()</td><td class="entry"><a class="el" href="a00520.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Collection of data classes that provide saving and loading of different game file formats.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00507.html">Behavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of behaviors for NPCs and trainers.  <a href="a00507.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00531.html">NPC</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File data for NPCs.  <a href="a00531.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00535.html">Trainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static data for trainers in the world.  <a href="a00535.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of data classes that provide saving and loading of different game file formats. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 6 2021 19:56:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri May 14 2021 16:28:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

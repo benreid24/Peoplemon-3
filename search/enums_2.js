@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['direction',['Direction',['../a00322.html#ga0192bf5ba1eccc191c8ef1187ce66d69',1,'core::component']]]
+  ['gender',['Gender',['../a00365.html#ga11b9fe689813091d7db2b7cf30c51200',1,'core::player']]]
 ];
