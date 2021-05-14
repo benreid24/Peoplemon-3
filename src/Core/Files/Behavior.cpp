@@ -11,8 +11,65 @@ Behavior::Behavior()
 , data(Standing(component::Direction::Down)) {}
 
 bool Behavior::legacyLoad(bl::file::binary::File& input) {
-    // TODO
-    return false;
+    std::uint8_t behaviorType;
+    if (!input.read(behaviorType)) return false;
+    switch (behaviorType) {
+    case 0:
+        setType(StandStill);
+        break;
+    case 1:
+        setType(SpinInPlace);
+        break;
+    case 2:
+        setType(FollowingPath);
+        break;
+    case 3:
+        setType(Wandering);
+        break;
+    default:
+        BL_LOG_ERROR << "Unrecognized behavior: " << behaviorType;
+        return false;
+    }
+
+    switch (_type) {
+    case StandStill:
+        return true;
+
+    case SpinInPlace: {
+        std::uint8_t spinDir;
+        if (!input.read<std::uint8_t>(spinDir)) return false;
+        spinning().spinDir = static_cast<Spinning::Direction>(spinDir);
+    }
+        return true;
+
+    case FollowingPath: {
+        std::uint8_t paceCount;
+        std::uint8_t backwards;
+        if (!input.read<std::uint8_t>(paceCount)) return false;
+        if (!input.read<std::uint8_t>(backwards)) return false;
+        path().reverse = backwards == 1;
+
+        path().paces.reserve(paceCount);
+        for (std::uint8_t i = 0; i < paceCount; ++i) {
+            std::uint8_t dir;
+            std::uint8_t steps;
+            if (!input.read<std::uint8_t>(dir)) return false;
+            if (!input.read<std::uint8_t>(steps)) return false;
+            path().paces.emplace_back(static_cast<component::Direction>(dir), steps);
+        }
+    }
+        return true;
+
+    case Wandering: {
+        std::uint8_t radius;
+        if (!input.read<std::uint8_t>(radius)) return false;
+        wander().radius = radius;
+    }
+        return true;
+
+    default:
+        return false;
+    }
 }
 
 Behavior::Type Behavior::type() const { return _type; }
