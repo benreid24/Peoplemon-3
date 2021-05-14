@@ -51,10 +51,14 @@ bool NPC::save(const std::string& file) const {
     return serialize(output);
 }
 
-bool NPC::load(const std::string& file) {
+bool NPC::load(const std::string& file, component::Direction spawnDir) {
     VersionedLoader loader;
     bl::file::binary::File input(file, bl::file::binary::File::Read);
-    return loader.read(input, *this);
+    if (loader.read(input, *this)) {
+        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+        return true;
+    }
+    return false;
 }
 
 std::string& NPC::name() { return nameField.getValue(); }

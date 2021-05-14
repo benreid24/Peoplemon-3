@@ -22,7 +22,8 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
     if (bl::file::Util::getExtension(spawn.file) == Properties::NpcFileExtension()) {
         file::NPC data;
-        if (!data.load(bl::file::Util::joinPath(Properties::NpcPath(), spawn.file))) {
+        if (!data.load(bl::file::Util::joinPath(Properties::NpcPath(), spawn.file),
+                       spawn.position.getValue().direction)) {
             BL_LOG_ERROR << "Failed to load NPC: " << spawn.file.getValue();
             return false;
         }
@@ -31,15 +32,18 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                     << spawn.position.getValue().positionTiles().x << ", "
                     << spawn.position.getValue().positionTiles().y << ")";
 
-        // TODO - return on error when behavior modified
-        owner.ai().addBehavior(entity, data.behavior());
+        if (!owner.ai().addBehavior(entity, data.behavior())) {
+            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
+            return false;
+        }
 
         // TODO - components like conversation
         animation = data.animation();
     }
     else if (bl::file::Util::getExtension(spawn.file) == Properties::TrainerFileExtension()) {
         file::Trainer data;
-        if (!data.load(bl::file::Util::joinPath(Properties::TrainerPath(), spawn.file))) {
+        if (!data.load(bl::file::Util::joinPath(Properties::TrainerPath(), spawn.file),
+                       spawn.position.getValue().direction)) {
             BL_LOG_ERROR << "Failed to load trainer: " << spawn.file.getValue();
             return false;
         }
@@ -48,8 +52,10 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                     << spawn.position.getValue().positionTiles().x << ", "
                     << spawn.position.getValue().positionTiles().y << ")";
 
-        // TODO - return on error when behavior modified
-        owner.ai().addBehavior(entity, data.behavior());
+        if (!owner.ai().addBehavior(entity, data.behavior())) {
+            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
+            return false;
+        }
 
         // TODO - components like peoplemon, conversation, items
         animation = data.animation();

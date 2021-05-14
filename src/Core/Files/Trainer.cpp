@@ -76,10 +76,14 @@ bool Trainer::save(const std::string& file) const {
     return serialize(output);
 }
 
-bool Trainer::load(const std::string& file) {
+bool Trainer::load(const std::string& file, component::Direction spawnDir) {
     bl::file::binary::File input(file, bl::file::binary::File::Read);
     VersionedLoader loader;
-    return loader.read(input, *this);
+    if (loader.read(input, *this)) {
+        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+        return true;
+    }
+    return false;
 }
 
 std::string& Trainer::name() { return nameField.getValue(); }
