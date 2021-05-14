@@ -15,10 +15,7 @@ struct LegacyLoader : public bl::file::binary::VersionedPayloadLoader<NPC> {
         if (!input.read(npc.name())) return false;
         if (!input.read(npc.animation())) return false;
         if (!input.read(npc.conversation())) return false;
-        std::uint8_t behavior;
-        if (!input.read<std::uint8_t>(behavior)) return false;
-        npc.behavior() = static_cast<Behavior>(behavior);
-        return true;
+        return npc.behavior().legacyLoad(input);
     }
 
     virtual bool write(const NPC&, bl::file::binary::File&) const override {
@@ -54,10 +51,14 @@ bool NPC::save(const std::string& file) const {
     return serialize(output);
 }
 
-bool NPC::load(const std::string& file) {
+bool NPC::load(const std::string& file, component::Direction spawnDir) {
     VersionedLoader loader;
     bl::file::binary::File input(file, bl::file::binary::File::Read);
-    return loader.read(input, *this);
+    if (loader.read(input, *this)) {
+        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+        return true;
+    }
+    return false;
 }
 
 std::string& NPC::name() { return nameField.getValue(); }

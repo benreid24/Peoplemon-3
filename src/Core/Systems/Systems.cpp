@@ -14,18 +14,21 @@ Systems::Systems(bl::engine::Engine& engine)
 , _cameras(*this)
 , _position(*this)
 , _movement(*this)
-, _render(*this) {
+, _render(*this)
+, _ai(*this) {
     _engine.eventBus().subscribe(&_position);
     _position.init();
     _movement.init();
     _render.init();
     _controllable.init();
     _player.init();
+    _ai.init();
 }
 
 void Systems::update(float dt) {
     _clock.update(dt);
 
+    _ai.update(dt);
     _player.update();
     _movement.update(dt);
     _position.update();
@@ -72,6 +75,8 @@ Player& Systems::player() { return _player; }
 const Player& Systems::player() const { return _player; }
 
 Controllable& Systems::controllable() { return _controllable; }
+
+AI& Systems::ai() { return _ai; }
 
 } // namespace system
 } // namespace core

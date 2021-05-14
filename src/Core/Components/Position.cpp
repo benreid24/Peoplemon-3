@@ -60,10 +60,10 @@ Position Position::move(Direction dir) const {
 }
 
 bool Position::moving() const {
-    return static_cast<int>(interpolatedPosition.x + 0.001f) / Properties::PixelsPerTile() ==
-               position.x &&
-           static_cast<int>(interpolatedPosition.y + 0.001f) / Properties::PixelsPerTile() ==
-               position.y;
+    return static_cast<int>(interpolatedPosition.x + 0.5f) !=
+               Properties::PixelsPerTile() * position.x ||
+           static_cast<int>(interpolatedPosition.y + 0.5f) !=
+               Properties::PixelsPerTile() * position.y;
 }
 
 } // namespace component

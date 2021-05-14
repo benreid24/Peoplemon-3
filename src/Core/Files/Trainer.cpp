@@ -39,11 +39,7 @@ struct LegacyLoader : public bl::file::binary::VersionedPayloadLoader<Trainer> {
         std::uint8_t aiType; // TODO - store trainer ai
         if (!input.read<std::uint8_t>(aiType)) return false;
 
-        std::uint8_t behavior;
-        if (!input.read<std::uint8_t>(behavior)) return false;
-        trainer.behavior() = static_cast<Behavior>(behavior);
-
-        return true;
+        return trainer.behavior().legacyLoad(input);
     }
 
     virtual bool write(const Trainer&, bl::file::binary::File&) const override {
@@ -80,10 +76,14 @@ bool Trainer::save(const std::string& file) const {
     return serialize(output);
 }
 
-bool Trainer::load(const std::string& file) {
+bool Trainer::load(const std::string& file, component::Direction spawnDir) {
     bl::file::binary::File input(file, bl::file::binary::File::Read);
     VersionedLoader loader;
-    return loader.read(input, *this);
+    if (loader.read(input, *this)) {
+        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+        return true;
+    }
+    return false;
 }
 
 std::string& Trainer::name() { return nameField.getValue(); }

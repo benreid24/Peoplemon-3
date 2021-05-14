@@ -1,4 +1,5 @@
 target_sources(Core PUBLIC
+    AI.hpp
     Cameras.hpp
     Clock.hpp
     Controllable.hpp

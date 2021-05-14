@@ -1,6 +1,7 @@
 #ifndef CORE_GAME_GAME_HPP
 #define CORE_GAME_GAME_HPP
 
+#include <Core/Systems/AI.hpp>
 #include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Controllable.hpp>
@@ -151,10 +152,17 @@ public:
      */
     Controllable& controllable();
 
+    /**
+     * @brief Returns the AI system
+     *
+     */
+    AI& ai();
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
     Clock _clock;
+    AI _ai;
     Controllable _controllable;
     Entity _entity;
     Player _player;

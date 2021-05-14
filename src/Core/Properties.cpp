@@ -79,6 +79,8 @@ constexpr float FastCharacterMoveSpeed   = 205.f;
 const std::string BoyPlayerAnims  = bl::file::Util::joinPath(CharacterAnimationPath, "BoyPlayer");
 const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationPath, "GirlPlayer");
 
+const float CharacterSpinPeriod = 1.75f;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -162,6 +164,8 @@ bool Properties::load() {
 
     bl::engine::Configuration::set("core.player.boy_anims", defaults::BoyPlayerAnims);
     bl::engine::Configuration::set("core.player.girl_anims", defaults::GirlPlayerAnims);
+
+    bl::engine::Configuration::set("core.character.spin_period", defaults::CharacterSpinPeriod);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -469,6 +473,11 @@ const std::string& Properties::PlayerAnimations(player::Gender g) {
         BL_LOG_ERROR << "Unknown player gender: " << static_cast<int>(g);
         return defaults::BoyPlayerAnims;
     }
+}
+
+float Properties::CharacterSpinPeriod() {
+    return bl::engine::Configuration::getOrDefault<float>("core.character.spin_period",
+                                                          defaults::CharacterSpinPeriod);
 }
 
 } // namespace core

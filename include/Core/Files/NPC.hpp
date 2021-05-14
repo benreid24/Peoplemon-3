@@ -44,9 +44,10 @@ public:
      * @brief Loads the NPC data from the given file
      *
      * @param file The file to load from
+     * @param spawnDir The direction to put into the standing behavior on load
      * @return True on success, false on error
      */
-    bool load(const std::string& file);
+    bool load(const std::string& file, component::Direction spawnDir = component::Direction::Up);
 
     /**
      * @brief The name of the NPC
