@@ -20,51 +20,6 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     std::string animation;
     BL_LOG_DEBUG << "Created character entity " << entity;
 
-    if (bl::file::Util::getExtension(spawn.file) == Properties::NpcFileExtension()) {
-        file::NPC data;
-        if (!data.load(bl::file::Util::joinPath(Properties::NpcPath(), spawn.file),
-                       spawn.position.getValue().direction)) {
-            BL_LOG_ERROR << "Failed to load NPC: " << spawn.file.getValue();
-            return false;
-        }
-        BL_LOG_INFO << "Spawning NPC " << data.name() << " at ("
-                    << static_cast<int>(spawn.position.getValue().level) << ", "
-                    << spawn.position.getValue().positionTiles().x << ", "
-                    << spawn.position.getValue().positionTiles().y << ")";
-
-        if (!owner.ai().addBehavior(entity, data.behavior())) {
-            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
-            return false;
-        }
-
-        // TODO - components like conversation
-        animation = data.animation();
-    }
-    else if (bl::file::Util::getExtension(spawn.file) == Properties::TrainerFileExtension()) {
-        file::Trainer data;
-        if (!data.load(bl::file::Util::joinPath(Properties::TrainerPath(), spawn.file),
-                       spawn.position.getValue().direction)) {
-            BL_LOG_ERROR << "Failed to load trainer: " << spawn.file.getValue();
-            return false;
-        }
-        BL_LOG_INFO << "Spawning trainer " << data.name() << " at ("
-                    << static_cast<int>(spawn.position.getValue().level) << ", "
-                    << spawn.position.getValue().positionTiles().x << ", "
-                    << spawn.position.getValue().positionTiles().y << ")";
-
-        if (!owner.ai().addBehavior(entity, data.behavior())) {
-            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
-            return false;
-        }
-
-        // TODO - components like peoplemon, conversation, items
-        animation = data.animation();
-    }
-    else {
-        BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();
-        return false;
-    }
-
     // Common components
 
     if (!owner.engine().entities().addComponent<component::Position>(entity, spawn.position)) {
@@ -95,6 +50,61 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
         return false;
     }
 
+    if (!owner.engine().entities().addComponent<component::Controllable>(entity, {owner, entity})) {
+        BL_LOG_ERROR << "Failed to add Controllable component to character: " << entity;
+        return false;
+    }
+
+    /// NPC
+    if (bl::file::Util::getExtension(spawn.file) == Properties::NpcFileExtension()) {
+        file::NPC data;
+        if (!data.load(bl::file::Util::joinPath(Properties::NpcPath(), spawn.file),
+                       spawn.position.getValue().direction)) {
+            BL_LOG_ERROR << "Failed to load NPC: " << spawn.file.getValue();
+            return false;
+        }
+        BL_LOG_INFO << "Spawning NPC " << data.name() << " at ("
+                    << static_cast<int>(spawn.position.getValue().level) << ", "
+                    << spawn.position.getValue().positionTiles().x << ", "
+                    << spawn.position.getValue().positionTiles().y << ")";
+
+        if (!owner.ai().addBehavior(entity, data.behavior())) {
+            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
+            return false;
+        }
+
+        // TODO - components like conversation
+        animation = data.animation();
+    }
+
+    // Trainer
+    else if (bl::file::Util::getExtension(spawn.file) == Properties::TrainerFileExtension()) {
+        file::Trainer data;
+        if (!data.load(bl::file::Util::joinPath(Properties::TrainerPath(), spawn.file),
+                       spawn.position.getValue().direction)) {
+            BL_LOG_ERROR << "Failed to load trainer: " << spawn.file.getValue();
+            return false;
+        }
+        BL_LOG_INFO << "Spawning trainer " << data.name() << " at ("
+                    << static_cast<int>(spawn.position.getValue().level) << ", "
+                    << spawn.position.getValue().positionTiles().x << ", "
+                    << spawn.position.getValue().positionTiles().y << ")";
+
+        if (!owner.ai().addBehavior(entity, data.behavior())) {
+            BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
+            return false;
+        }
+
+        // TODO - components like peoplemon, conversation, items
+        animation = data.animation();
+    }
+    else {
+        BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();
+        return false;
+    }
+
+    /// More common components
+
     if (!owner.engine().entities().addComponent<component::Renderable>(
             entity,
             component::Renderable::fromMoveAnims(
@@ -102,11 +112,6 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
                 moveHandle,
                 bl::file::Util::joinPath(Properties::CharacterAnimationPath(), animation)))) {
         BL_LOG_ERROR << "Failed to add renderable component to character: " << entity;
-        return false;
-    }
-
-    if (!owner.engine().entities().addComponent<component::Controllable>(entity, {owner, entity})) {
-        BL_LOG_ERROR << "Failed to add Controllable component to character: " << entity;
         return false;
     }
 
