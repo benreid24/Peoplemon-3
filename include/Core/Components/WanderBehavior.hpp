@@ -9,12 +9,32 @@ namespace core
 {
 namespace component
 {
+/**
+ * @brief Add this component to an entity to make it wander around
+ *
+ * @ingroup Components
+ *
+ */
 class WanderBehavior {
 public:
+    /// Required for BLIB ECS
     static constexpr bl::entity::Component::IdType ComponentId = 10;
 
+    /**
+     * @brief Construct a new Wander Behavior component
+     *
+     * @param radius The radius to stay within, in tiles
+     * @param origin The starting position, in tiles
+     */
     WanderBehavior(unsigned int radius, const sf::Vector2i& origin);
 
+    /**
+     * @brief Updates the entity and wanders around
+     *
+     * @param position The position of the entity
+     * @param controller The controllable of the entity
+     * @param dt Time elapsed, in seconds
+     */
     void update(Position& position, Controllable& controller, float dt);
 
 private:
