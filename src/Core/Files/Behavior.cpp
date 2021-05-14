@@ -94,7 +94,7 @@ void Behavior::setType(Type t) {
         break;
 
     default:
-        BL_LOG_ERROR << "Unknown behavior type: " << type;
+        BL_LOG_ERROR << "Unknown behavior type: " << t;
         break;
     }
 }
