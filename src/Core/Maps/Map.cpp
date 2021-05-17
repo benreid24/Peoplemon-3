@@ -140,10 +140,9 @@ public:
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
-            x /= 32; // old Ben :(
-            y /= 32;
             result.characterField.getValue().emplace_back(
-                component::Position(0, sf::Vector2i(x, y), static_cast<component::Direction>(dir)),
+                component::Position(
+                    0, sf::Vector2i(x / 32, y / 32), static_cast<component::Direction>(dir)),
                 file);
         }
 
@@ -157,7 +156,7 @@ public:
             if (!input.read(item.mapId.getValue())) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
-            item.position.getValue() = sf::Vector2i(x, y);
+            item.position.getValue() = sf::Vector2i(x / 32, y / 32); // TODO - add/sub 1?
             if (item.id.getValue() > 500) {
                 item.id      = item.id.getValue() - 500;
                 item.visible = false;

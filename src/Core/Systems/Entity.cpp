@@ -3,8 +3,10 @@
 #include <BLIB/Files/Util.hpp>
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/Controllable.hpp>
+#include <Core/Components/Item.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -118,8 +120,49 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     return true;
 }
 
-void Entity::spawnItem(const map::Item& item) {
-    // TODO
+bool Entity::spawnItem(const map::Item& item) {
+    const item::Id id = item::Item::cast(item.id);
+    BL_LOG_INFO << "Spawning item " << item.id.getValue() << " (" << item::Item::getName(id)
+                << ") at (" << item.position.getValue().x << " , " << item.position.getValue().y
+                << ")";
+    if (id == item::Id::Unknown) {
+        BL_LOG_ERROR << "Unknown item id: " << item.id.getValue();
+        return false;
+    }
+
+    const bl::entity::Entity entity = owner.engine().entities().createEntity();
+
+    if (!owner.engine().entities().addComponent<component::Position>(
+            entity, {item.level, item.position, component::Direction::Up})) {
+        BL_LOG_ERROR << "Failed to add position to item entity: " << entity;
+        return false;
+    }
+
+    if (!owner.engine().entities().addComponent<component::Item>(entity, {id})) {
+        BL_LOG_ERROR << "Failed to add item component to item entity: " << entity;
+        return false;
+    }
+
+    if (item.visible) {
+        if (!owner.engine().entities().addComponent<component::Collision>(entity, {})) {
+            BL_LOG_ERROR << "Failed to add collision to item entity: " << entity;
+            return false;
+        }
+
+        auto pos = owner.engine().entities().getComponentHandle<component::Position>(entity);
+        if (!pos.hasValue()) {
+            BL_LOG_ERROR << "Failed to get position handle for item entity: " << entity;
+            return false;
+        }
+
+        if (!owner.engine().entities().addComponent<component::Renderable>(
+                entity, component::Renderable::fromSprite(pos, Properties::ItemSprite()))) {
+            BL_LOG_ERROR << "Failed to add renderable component to item entity: " << entity;
+            return false;
+        }
+    }
+
+    return true;
 }
 
 } // namespace system

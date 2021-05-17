@@ -93,6 +93,7 @@ public:
     static const std::string& PlayerAnimations(player::Gender gender);
 
     static const std::string& ItemMetadataFile();
+    static const std::string& ItemSprite();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
