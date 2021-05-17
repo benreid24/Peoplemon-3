@@ -42,6 +42,30 @@ struct Item {
     static Type getType(Id item);
 
     /**
+     * @brief Returns the name of the given item
+     *
+     * @param item The item to get the name for
+     * @return const std::string& The name of the item
+     */
+    static const std::string& getName(item::Id item);
+
+    /**
+     * @brief Returns the description of the given item
+     *
+     * @param item The item to get the description for
+     * @return const std::string& The description of the item
+     */
+    static const std::string& getDescription(item::Id item);
+
+    /**
+     * @brief Returns the value of the given item
+     *
+     * @param item The item to get the value for
+     * @return int The value of the item
+     */
+    static int getValue(item::Id item);
+
+    /**
      * @brief Uses the given item on the given peoplemon
      *
      * @param item The item to use

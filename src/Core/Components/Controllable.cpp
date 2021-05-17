@@ -40,7 +40,7 @@ bool Controllable::processControl(Command ctrl, bool ignoreLock) {
         return false;
 
     case Command::Interact:
-        // TODO - interaction system
+        systems.interaction().interact(owner);
         return false;
 
     default:

@@ -15,7 +15,8 @@ Systems::Systems(bl::engine::Engine& engine)
 , _position(*this)
 , _movement(*this)
 , _render(*this)
-, _ai(*this) {
+, _ai(*this)
+, _interaction(*this) {
     _engine.eventBus().subscribe(&_position);
     _position.init();
     _movement.init();
@@ -77,6 +78,8 @@ const Player& Systems::player() const { return _player; }
 Controllable& Systems::controllable() { return _controllable; }
 
 AI& Systems::ai() { return _ai; }
+
+Interaction& Systems::interaction() { return _interaction; }
 
 } // namespace system
 } // namespace core

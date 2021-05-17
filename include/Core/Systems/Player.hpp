@@ -4,6 +4,7 @@
 #include <BLIB/Entities.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
+#include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
 #include <Core/Player/Input.hpp>
 
@@ -65,6 +66,18 @@ public:
     player::Input& inputSystem();
 
     /**
+     * @brief Returns the player's bag
+     *
+     */
+    player::Bag& bag();
+
+    /**
+     * @brief Returns the player's bag
+     *
+     */
+    const player::Bag& bag() const;
+
+    /**
      * @brief Subscribes the input system to the event bus
      *
      */
@@ -84,7 +97,8 @@ private:
 
     player::Input input;
     player::Gender gender;
-    // TODO - other stuff like inventory, peoplemon, etc
+    player::Bag inventory;
+    // TODO - other stuff like peoplemon, etc
 };
 
 } // namespace system
