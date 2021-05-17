@@ -158,6 +158,13 @@ public:
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             item.position.getValue() = sf::Vector2i(x, y);
+            if (item.id.getValue() > 500) {
+                item.id      = item.id.getValue() - 500;
+                item.visible = false;
+            }
+            else {
+                item.visible = true;
+            }
             result.itemsField.getValue().push_back(item);
         }
 

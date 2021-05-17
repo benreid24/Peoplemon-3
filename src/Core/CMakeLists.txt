@@ -5,6 +5,7 @@ target_sources(Core PRIVATE
 
 add_subdirectory(Components)
 add_subdirectory(Files)
+add_subdirectory(Items)
 add_subdirectory(Maps)
 add_subdirectory(Player)
 add_subdirectory(Systems)
