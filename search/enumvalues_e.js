@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['random',['Random',['../a00515.html#a848d9fe437bc10ef7fea6a9bb9d8655aa4358ce42007c221c7a9e84ad67098099',1,'core::file::Behavior::Spinning']]],
-  ['randomencounter',['RandomEncounter',['../a00364.html#ggafeb785fad3d712d6d6c516000e98d9f5ab4a4a120a180932db83d71e9de455531',1,'core::map']]],
-  ['right',['Right',['../a00365.html#ggac236ea2f3a5e94b61aa7359e9947b1bdab30bf3a50dee13afeeac290f11249974',1,'core::player::input::Controls::Right()'],['../a00361.html#gga0192bf5ba1eccc191c8ef1187ce66d69a92b09c7c48c520c3c55e497875da437c',1,'core::component::Right()']]],
-  ['rightclosed',['RightClosed',['../a00364.html#ggaa99d95911252405b5f77e93a2d5ecb0ca67b9428b9e63f2e541587c3a26c9be11',1,'core::map']]],
-  ['rightopen',['RightOpen',['../a00364.html#ggaa99d95911252405b5f77e93a2d5ecb0caba4301cbcce14ffe0af48db26b24b836',1,'core::map']]],
-  ['run',['Run',['../a00365.html#ggac236ea2f3a5e94b61aa7359e9947b1bdafd25224cbb1ca7b2b9e05b6f605b5377',1,'core::player::input::Controls']]]
+  ['pause',['Pause',['../a00393.html#ggac236ea2f3a5e94b61aa7359e9947b1bda60a09603b48ad6fdb737aee24c6db18a',1,'core::player::input::Controls::Pause()'],['../a00388.html#gga6701adf1fdd04d85dd6482e453417813a105b296a83f9c105355403f3332af50f',1,'core::component::Pause()']]],
+  ['peopleball',['Peopleball',['../a00391.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4',1,'core::item']]],
+  ['playermodifier',['PlayerModifier',['../a00391.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab',1,'core::item']]]
 ];

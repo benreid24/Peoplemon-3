@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/LayerSet.hpp File Reference</title>
+<title>Peoplemon: include/Core/Maps/CatchZone.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,57 +69,38 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">LayerSet.hpp File Reference</div>  </div>
+<div class="title">CatchZone.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00065_source.html">Core/Maps/Catch.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00885_source.html">Core/Maps/Collision.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00080_source.html">Core/Maps/Layer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00101_source.html">Core/Maps/Tile.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Files/Binary.hpp&gt;</code><br />
+<code>#include &lt;SFML/Graphics/Rect.hpp&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00083_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00559.html">core::map::LayerSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates a set of layers for a given map height. Maps have one <a class="el" href="a00559.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a> per height level, as well as a TransitionLayer.  <a href="a00559.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00585.html">core::map::CatchZone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a zone containing information about wild peoplemon that can appear in a <a class="el" href="a00617.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a00585.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00369"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00369.html">core</a></td></tr>
-<tr class="memdesc:a00369"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00397"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00397.html">core</a></td></tr>
+<tr class="memdesc:a00397"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00376"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00376.html">core::map</a></td></tr>
-<tr class="memdesc:a00376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="memitem:a00404"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00404.html">core::map</a></td></tr>
+<tr class="memdesc:a00404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga66eea922eb1a848502083dd129b60e7f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00364.html#ga66eea922eb1a848502083dd129b60e7f">core::map::CollisionLayer</a> = Layer&lt; Collision &gt;</td></tr>
-<tr class="memdesc:ga66eea922eb1a848502083dd129b60e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a00555.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for collisions.  <a href="a00364.html#ga66eea922eb1a848502083dd129b60e7f">More...</a><br /></td></tr>
-<tr class="separator:ga66eea922eb1a848502083dd129b60e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga4a075115f26522d583c4790378b17bac"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00364.html#ga4a075115f26522d583c4790378b17bac">core::map::CatchLayer</a> = Layer&lt; Catch &gt;</td></tr>
-<tr class="memdesc:ga4a075115f26522d583c4790378b17bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a00555.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for catch tiles.  <a href="a00364.html#ga4a075115f26522d583c4790378b17bac">More...</a><br /></td></tr>
-<tr class="separator:ga4a075115f26522d583c4790378b17bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00364.html#ga20b619b84a2c30417adb8107ad0b51a6">core::map::TileLayer</a> = Layer&lt; Tile &gt;</td></tr>
-<tr class="memdesc:ga20b619b84a2c30417adb8107ad0b51a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a00555.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for tiles.  <a href="a00364.html#ga20b619b84a2c30417adb8107ad0b51a6">More...</a><br /></td></tr>
-<tr class="separator:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00364.html#ga6f70b9c1f8b3325b63baf210dd69e816">core::map::SortedLayer</a> = bl::container::Vector2D&lt; Tile * &gt;</td></tr>
-<tr class="memdesc:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special type of tile layer for y-sorted tiles. Used for rendering only.  <a href="a00364.html#ga6f70b9c1f8b3325b63baf210dd69e816">More...</a><br /></td></tr>
-<tr class="separator:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab98902d96935b8002b77c6739f0b18c5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00364.html#gab98902d96935b8002b77c6739f0b18c5">core::map::HeightTransitionLayer</a> = Layer&lt; std::uint8_t &gt;</td></tr>
-<tr class="memdesc:gab98902d96935b8002b77c6739f0b18c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a00555.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for height transitions.  <a href="a00364.html#gab98902d96935b8002b77c6739f0b18c5">More...</a><br /></td></tr>
-<tr class="separator:gab98902d96935b8002b77c6739f0b18c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 14 2021 16:28:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 18 2021 03:42:21 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

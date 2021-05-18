@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['catchlayer',['CatchLayer',['../a00364.html#ga4a075115f26522d583c4790378b17bac',1,'core::map']]],
-  ['collisionlayer',['CollisionLayer',['../a00364.html#ga66eea922eb1a848502083dd129b60e7f',1,'core::map']]]
+  ['catchlayer',['CatchLayer',['../a00392.html#ga4a075115f26522d583c4790378b17bac',1,'core::map']]],
+  ['collisionlayer',['CollisionLayer',['../a00392.html#ga66eea922eb1a848502083dd129b60e7f',1,'core::map']]]
 ];
