@@ -84,6 +84,8 @@ const float CharacterSpinPeriod = 1.75f;
 const std::string ItemMetadataFile = "Resources/Config/items.json";
 const std::string ItemSprite       = "Resources/Images/item.png";
 
+const float GhostWriterSpeed = 1.8f;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -172,6 +174,8 @@ bool Properties::load() {
 
     bl::engine::Configuration::set("core.items.config", defaults::ItemMetadataFile);
     bl::engine::Configuration::set("core.items.sprite", defaults::ItemSprite);
+
+    bl::engine::Configuration::set("core.menu.text_speed", defaults::GhostWriterSpeed);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -496,6 +500,11 @@ const std::string& Properties::ItemSprite() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.items.sprite", defaults::ItemSprite);
     return val;
+}
+
+float Properties::GhostWriterSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("core.menu.text_speed",
+                                                          defaults::GhostWriterSpeed);
 }
 
 } // namespace core
