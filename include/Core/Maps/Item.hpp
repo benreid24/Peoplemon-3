@@ -18,6 +18,7 @@ struct Item : public bl::file::binary::SerializableObject {
     bl::file::binary::SerializableField<2, std::uint16_t> mapId;
     bl::file::binary::SerializableField<3, sf::Vector2i> position;
     bl::file::binary::SerializableField<4, std::uint8_t> level;
+    bl::file::binary::SerializableField<5, bool> visible;
 
     /**
      * @brief Makes an empty item
@@ -32,8 +33,10 @@ struct Item : public bl::file::binary::SerializableObject {
      * @param mapId A map unique id to avoid spawning picked up items
      * @param pos The position of the item, in tiles
      * @param level The level the item is on
+     * @param visible True to render the item, false to hide
      */
-    Item(std::uint16_t id, std::uint16_t mapId, const sf::Vector2i& pos, std::uint8_t level);
+    Item(std::uint16_t id, std::uint16_t mapId, const sf::Vector2i& pos, std::uint8_t level,
+         bool visible);
 
     /**
      * @brief Copy constructs the item from the given item

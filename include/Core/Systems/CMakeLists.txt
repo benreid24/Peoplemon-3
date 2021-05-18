@@ -4,6 +4,7 @@ target_sources(Core PUBLIC
     Clock.hpp
     Controllable.hpp
     Entity.hpp
+    Interaction.hpp
     Movement.hpp
     Player.hpp
     Position.hpp

@@ -4,6 +4,7 @@ target_sources(Core PRIVATE
     Direction.cpp
     Movable.cpp
     FixedPathBehavior.cpp
+    Item.cpp
     PlayerControlled.cpp
     Position.cpp
     Renderable.cpp

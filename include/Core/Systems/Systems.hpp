@@ -6,6 +6,7 @@
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Controllable.hpp>
 #include <Core/Systems/Entity.hpp>
+#include <Core/Systems/Interaction.hpp>
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
@@ -158,6 +159,12 @@ public:
      */
     AI& ai();
 
+    /**
+     * @brief Returns the interaction system
+     *
+     */
+    Interaction& interaction();
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -170,6 +177,7 @@ private:
     Position _position;
     Movement _movement;
     Render _render;
+    Interaction _interaction;
 
     /**
      * @brief Creates the core game object and associates it with the engine

@@ -70,6 +70,10 @@ bl::entity::Entity Player::player() const { return playerId; }
 
 player::Input& Player::inputSystem() { return input; }
 
+player::Bag& Player::bag() { return inventory; }
+
+const player::Bag& Player::bag() const { return inventory; }
+
 bool Player::makePlayerControlled(bl::entity::Entity entity) {
     auto controllable =
         owner.engine().entities().getComponentHandle<component::Controllable>(entity);

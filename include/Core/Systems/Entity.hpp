@@ -38,8 +38,9 @@ public:
      * @brief Spawns an item into the world
      *
      * @param item The item information to spawn
+     * @return True if the item was spawned, false on error
      */
-    void spawnItem(const map::Item& item);
+    bool spawnItem(const map::Item& item);
 
     // TODO - methods for player
 

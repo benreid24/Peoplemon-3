@@ -4,6 +4,7 @@ target_sources(Core PUBLIC
     Controllable.hpp
     Direction.hpp
     FixedPathBehavior.hpp
+    Item.hpp
     Movable.hpp
     PlayerControlled.hpp
     Position.hpp

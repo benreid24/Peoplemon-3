@@ -81,6 +81,9 @@ const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationP
 
 const float CharacterSpinPeriod = 1.75f;
 
+const std::string ItemMetadataFile = "Resources/Config/items.json";
+const std::string ItemSprite       = "Resources/Images/item.png";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -166,6 +169,9 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.player.girl_anims", defaults::GirlPlayerAnims);
 
     bl::engine::Configuration::set("core.character.spin_period", defaults::CharacterSpinPeriod);
+
+    bl::engine::Configuration::set("core.items.config", defaults::ItemMetadataFile);
+    bl::engine::Configuration::set("core.items.sprite", defaults::ItemSprite);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -478,6 +484,18 @@ const std::string& Properties::PlayerAnimations(player::Gender g) {
 float Properties::CharacterSpinPeriod() {
     return bl::engine::Configuration::getOrDefault<float>("core.character.spin_period",
                                                           defaults::CharacterSpinPeriod);
+}
+
+const std::string& Properties::ItemMetadataFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.items.config", defaults::ItemMetadataFile);
+    return val;
+}
+
+const std::string& Properties::ItemSprite() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.items.sprite", defaults::ItemSprite);
+    return val;
 }
 
 } // namespace core
