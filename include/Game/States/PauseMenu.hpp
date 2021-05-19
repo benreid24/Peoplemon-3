@@ -33,7 +33,6 @@ private:
     bl::menu::BasicRenderer renderer;
     bl::menu::ArrowSelector::Ptr selector;
     core::player::input::MenuDriver inputDriver;
-    sf::View menuView;
 
     bl::menu::Item::Ptr resume;
     bl::menu::Item::Ptr ppldex;
