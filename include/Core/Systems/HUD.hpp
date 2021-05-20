@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
+#include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Menu/GhostWriter.hpp>
@@ -19,19 +20,61 @@ namespace system
 {
 class Systems;
 
+/**
+ * @brief The primary HUD system for the player. Manages displaying messages and asking questions. A
+ *        callback is issued when messages are complete or when choices are made
+ *
+ * @ingroup Systems
+ *
+ */
 class HUD {
 public:
-    using Callback = std::function<void(const std::string&)>;
+    /**
+     * @brief Signature for HUD callbacks. Used for both messages completing and choices made
+     *
+     * @param value The message that completed or the choice that was chosen
+     *
+     */
+    using Callback = std::function<void(const std::string& value)>;
 
+    /**
+     * @brief Construct a new HUD system
+     *
+     * @param owner The primary systems object
+     */
     HUD(Systems& owner);
 
+    /**
+     * @brief Updates any displayed elements
+     *
+     * @param dt Time elapsed, in seconds
+     */
     void update(float dt);
 
-    void render(sf::RenderTarget& target);
+    /**
+     * @brief Renders the HUD if any elements are visible
+     *
+     * @param target The target to render to
+     * @param lag Time elapsed not accounted for in update
+     */
+    void render(sf::RenderTarget& target, float lag);
 
+    /**
+     * @brief Displays a message in the HUD textbox. Messages are queued in order that they arrive
+     *
+     * @param message The message to display
+     * @param cb Callback to issue when the message is completed and the player hits continue
+     */
     void displayMessage(
         const std::string& message, Callback cb = [](const std::string&) {});
 
+    /**
+     * @brief Asks the player a question through the HUD
+     *
+     * @param prompt The question to ask
+     * @param choices The available choices the player can make
+     * @param cb The callback to issue with the choice that was chosen when the player chooses
+     */
     void promptUser(const std::string& prompt, const std::vector<std::string>& choices,
                     Callback cb);
 
@@ -75,6 +118,7 @@ private:
     sf::Sprite textbox;
     sf::Text displayText;
     bl::shapes::Triangle promptTriangle;
+    bl::gfx::Flashing flashingTriangle;
 
     void ensureActive();
     void startPrinting();

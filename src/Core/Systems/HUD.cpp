@@ -21,7 +21,8 @@ HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
-, promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true) {
+, promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
+, flashingTriangle(promptTriangle, 0.75f, 0.65f) {
     textboxTxtr = bl::engine::Resources::textures().load(Properties::TextboxFile()).data;
     textbox.setTexture(*textboxTxtr, true);
     displayText.setFont(Properties::MenuFont());
@@ -46,7 +47,7 @@ void HUD::update(float dt) {
         break;
 
     case WaitingContinue:
-        // do nothing
+        flashingTriangle.update(dt);
         break;
 
     case WaitingPrompt:
@@ -58,7 +59,7 @@ void HUD::update(float dt) {
     }
 }
 
-void HUD::render(sf::RenderTarget& target) {
+void HUD::render(sf::RenderTarget& target, float lag) {
     if (state == Hidden) return;
 
     const sf::View oldView = target.getView();
@@ -66,9 +67,7 @@ void HUD::render(sf::RenderTarget& target) {
         static_cast<sf::Vector2f>(textboxTxtr->getSize()), oldView, 0.7f, menu::ViewUtil::Bottom));
     target.draw(textbox);
     target.draw(displayText);
-    if (state == WaitingContinue) {
-        target.draw(promptTriangle); // TODO - flash
-    }
+    if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
     else if (state == WaitingPrompt) {
         // TODO - draw menu prompt if visible
     }
