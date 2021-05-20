@@ -4,7 +4,7 @@
 #include <Game/States/State.hpp>
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Menu.hpp>
+#include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 
 namespace game
