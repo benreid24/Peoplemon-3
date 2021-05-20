@@ -16,7 +16,8 @@ Systems::Systems(bl::engine::Engine& engine)
 , _movement(*this)
 , _render(*this)
 , _ai(*this)
-, _interaction(*this) {
+, _interaction(*this)
+, _hud(*this) {
     _engine.eventBus().subscribe(&_position);
     _position.init();
     _movement.init();
@@ -34,6 +35,7 @@ void Systems::update(float dt) {
     _movement.update(dt);
     _position.update();
     _cameras.update(dt);
+    _hud.update(dt);
 
     _world.update(dt);
     _render.update(dt);
@@ -80,6 +82,8 @@ Controllable& Systems::controllable() { return _controllable; }
 AI& Systems::ai() { return _ai; }
 
 Interaction& Systems::interaction() { return _interaction; }
+
+HUD& Systems::hud() { return _hud; }
 
 } // namespace system
 } // namespace core

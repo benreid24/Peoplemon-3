@@ -27,12 +27,13 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         const component::Item* ic =
             owner.engine().entities().getComponent<component::Item>(interacted);
         if (ic) {
-            BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << "("
-                        << item::Item::getName(ic->id()) << ")";
+            const std::string name = item::Item::getName(ic->id());
+            BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
+                        << name << ")";
             owner.player().bag().addItem(ic->id(), 1);
             owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
             owner.engine().entities().destroyEntity(interacted);
-            // TODO - print message to hud
+            owner.hud().displayMessage("Picked up a " + name);
             return true;
         }
     }

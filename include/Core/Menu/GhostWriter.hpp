@@ -60,8 +60,9 @@ public:
      * @brief Updates the writer and unhides more characters based on time elapsed
      *
      * @param dt Time elapsed, in seconds
+     * @return True if any new characters were revealed, false if unchanged
      */
-    void update(float dt);
+    bool update(float dt);
 
     /**
      * @brief Immediately shows all characters

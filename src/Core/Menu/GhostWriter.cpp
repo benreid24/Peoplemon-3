@@ -26,20 +26,24 @@ const std::string& GhostWriter::getContent() const { return content; }
 
 std::string_view GhostWriter::getVisible() const { return {content.c_str(), showing}; }
 
-void GhostWriter::update(float dt) {
-    if (finished()) return;
+bool GhostWriter::update(float dt) {
+    if (finished()) return false;
 
     residual += dt;
-    const unsigned int a = std::floor(residual / Properties::GhostWriterSpeed());
-    residual -= static_cast<float>(a) * Properties::GhostWriterSpeed();
+    const unsigned int a = std::floor(residual * Properties::GhostWriterSpeed());
+    residual -= static_cast<float>(a) / Properties::GhostWriterSpeed();
 
     for (unsigned int i = 0; i < a; ++i) {
         do { ++showing; } while (showing < content.size() && std::isspace(content[showing]));
         if (finished()) break;
     }
+
+    return a > 0;
 }
 
 bool GhostWriter::finished() const { return showing >= content.size(); }
+
+void GhostWriter::showAll() { showing = content.size(); }
 
 } // namespace menu
 } // namespace core

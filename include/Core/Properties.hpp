@@ -95,6 +95,8 @@ public:
     static const std::string& ItemSprite();
 
     static float GhostWriterSpeed();
+    static const std::string& TextboxFile();
+    static unsigned int HudFontSize();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

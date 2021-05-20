@@ -6,6 +6,7 @@
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Controllable.hpp>
 #include <Core/Systems/Entity.hpp>
+#include <Core/Systems/HUD.hpp>
 #include <Core/Systems/Interaction.hpp>
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Player.hpp>
@@ -165,6 +166,12 @@ public:
      */
     Interaction& interaction();
 
+    /**
+     * @brief Returns the HUD
+     *
+     */
+    HUD& hud();
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -178,6 +185,7 @@ private:
     Movement _movement;
     Render _render;
     Interaction _interaction;
+    HUD _hud;
 
     /**
      * @brief Creates the core game object and associates it with the engine
