@@ -1,6 +1,6 @@
 #include <Game/States/PauseMenu.hpp>
 
-#include <Core/Menu/ViewUtil.hpp>
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -107,7 +107,7 @@ void PauseMenu::render(bl::engine::Engine&, float lag) {
     systems.render().render(systems.engine().window(), lag);
 
     const sf::View oldView = systems.engine().window().getView();
-    systems.engine().window().setView(core::menu::ViewUtil::computeViewPreserveAR(
+    systems.engine().window().setView(bl::interface::ViewUtil::computeViewPreserveAR(
         {menuBackground.getGlobalBounds().width, menuBackground.getGlobalBounds().height},
         oldView,
         {0.72f, 0.22f},

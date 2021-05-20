@@ -1,8 +1,6 @@
 #include <Core/Systems/HUD.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
-#include <Core/Menu/ViewUtil.hpp>
-#include <Core/Menu/WordWrap.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -63,8 +61,11 @@ void HUD::render(sf::RenderTarget& target, float lag) {
     if (state == Hidden) return;
 
     const sf::View oldView = target.getView();
-    target.setView(menu::ViewUtil::computeViewAnchoredPreserveAR(
-        static_cast<sf::Vector2f>(textboxTxtr->getSize()), oldView, 0.7f, menu::ViewUtil::Bottom));
+    target.setView(bl::interface::ViewUtil::computeViewAnchoredPreserveAR(
+        static_cast<sf::Vector2f>(textboxTxtr->getSize()),
+        oldView,
+        0.7f,
+        bl::interface::ViewUtil::Bottom));
     target.draw(textbox);
     target.draw(displayText);
     if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
@@ -77,7 +78,7 @@ void HUD::render(sf::RenderTarget& target, float lag) {
 void HUD::displayMessage(const std::string& msg, Callback cb) {
     sf::Text text = displayText;
     text.setString(msg);
-    menu::wordWrap(text, textboxTxtr->getSize().x);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
     queuedOutput.emplace(text.getString().toAnsiString(), cb);
     ensureActive();
 }
@@ -86,7 +87,7 @@ void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& 
                      Callback cb) {
     sf::Text text = displayText;
     text.setString(prompt);
-    menu::wordWrap(text, textboxTxtr->getSize().x);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
     queuedOutput.emplace(text.getString().toAnsiString(), choices, cb);
     ensureActive();
 }

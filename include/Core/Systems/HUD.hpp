@@ -1,11 +1,10 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
+#include <BLIB/Interfaces/Utilities.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Menu/GhostWriter.hpp>
-#include <Core/Menu/WordWrap.hpp>
 #include <Core/Player/Input/Listener.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
@@ -112,7 +111,7 @@ private:
     State state;
     HudListener inputListener;
     std::queue<Item> queuedOutput;
-    menu::GhostWriter currentMessage;
+    bl::interface::GhostWriter currentMessage;
 
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
     sf::Sprite textbox;
