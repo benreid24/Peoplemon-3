@@ -43,6 +43,7 @@ void Render::render(sf::RenderTarget& target, float lag) {
 
     target.clear();
     owner.world().activeMap().render(target, lag, entityRender);
+    owner.hud().render(target, lag);
 }
 
 } // namespace system

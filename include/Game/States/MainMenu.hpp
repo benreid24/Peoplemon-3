@@ -1,7 +1,7 @@
 #ifndef GAME_STATES_MAINMENU_HPP
 #define GAME_STATES_MAINMENU_HPP
 
-#include <BLIB/Menu.hpp>
+#include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <Game/States/State.hpp>

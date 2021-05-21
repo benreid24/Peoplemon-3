@@ -87,13 +87,16 @@ public:
     static const std::string& CharacterAnimationPath();
     static float CharacterMoveSpeed();
     static float FastCharacterMoveSpeed();
-
     static float CharacterSpinPeriod();
 
     static const std::string& PlayerAnimations(player::Gender gender);
 
     static const std::string& ItemMetadataFile();
     static const std::string& ItemSprite();
+
+    static float GhostWriterSpeed();
+    static const std::string& TextboxFile();
+    static unsigned int HudFontSize();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

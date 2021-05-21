@@ -1,7 +1,7 @@
 #ifndef CORE_PLAYER_INPUT_MENUDRIVER_HPP
 #define CORE_PLAYER_INPUT_MENUDRIVER_HPP
 
-#include <BLIB/Menu.hpp>
+#include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Player/Input/Listener.hpp>
 
 namespace core

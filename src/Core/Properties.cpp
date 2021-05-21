@@ -84,6 +84,10 @@ const float CharacterSpinPeriod = 1.75f;
 const std::string ItemMetadataFile = "Resources/Config/items.json";
 const std::string ItemSprite       = "Resources/Images/item.png";
 
+const float GhostWriterSpeed   = 16.f;
+const std::string TextboxFile  = "Resources/Images/Menus/HUD/messageBox.png";
+const unsigned int HudFontSize = 20;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -172,6 +176,10 @@ bool Properties::load() {
 
     bl::engine::Configuration::set("core.items.config", defaults::ItemMetadataFile);
     bl::engine::Configuration::set("core.items.sprite", defaults::ItemSprite);
+
+    bl::engine::Configuration::set("blib.interface.ghost_speed", defaults::GhostWriterSpeed);
+    bl::engine::Configuration::set("core.hud.textbox_file", defaults::TextboxFile);
+    bl::engine::Configuration::set("core.hud.font_size", defaults::HudFontSize);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -496,6 +504,22 @@ const std::string& Properties::ItemSprite() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.items.sprite", defaults::ItemSprite);
     return val;
+}
+
+float Properties::GhostWriterSpeed() {
+    return bl::engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed",
+                                                          defaults::GhostWriterSpeed);
+}
+
+const std::string& Properties::TextboxFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.hud.textbox_file", defaults::TextboxFile);
+    return val;
+}
+
+unsigned int Properties::HudFontSize() {
+    return bl::engine::Configuration::getOrDefault<unsigned int>("core.hud.font_size",
+                                                                 defaults::HudFontSize);
 }
 
 } // namespace core

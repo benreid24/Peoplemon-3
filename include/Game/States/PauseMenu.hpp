@@ -4,7 +4,7 @@
 #include <Game/States/State.hpp>
 
 #include <BLIB/Containers/ObjectWrapper.hpp>
-#include <BLIB/Menu.hpp>
+#include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 
 namespace game
@@ -33,7 +33,6 @@ private:
     bl::menu::BasicRenderer renderer;
     bl::menu::ArrowSelector::Ptr selector;
     core::player::input::MenuDriver inputDriver;
-    sf::View menuView;
 
     bl::menu::Item::Ptr resume;
     bl::menu::Item::Ptr ppldex;

@@ -1,5 +1,6 @@
 #include <Game/States/PauseMenu.hpp>
 
+#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -80,12 +81,8 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menuBackground.setOutlineColor(sf::Color::Black);
     menuBackground.setOutlineThickness(3.f);
     menuBackground.setOrigin(0.f, 0.f);
-    menuBackground.setPosition(0.f, 0.f);
-
-    menuView.setCenter(menuBackground.getSize() / 2.f);
-    menuView.setSize(menuBackground.getSize() +
-                     sf::Vector2f(menuBackground.getOutlineThickness() * 2.f,
-                                  menuBackground.getOutlineThickness() * 2.f));
+    menuBackground.setPosition(menuBackground.getOutlineThickness(),
+                               menuBackground.getOutlineThickness());
 }
 
 const char* PauseMenu::name() const { return "PauseMenu"; }
@@ -110,18 +107,14 @@ void PauseMenu::render(bl::engine::Engine&, float lag) {
     systems.render().render(systems.engine().window(), lag);
 
     const sf::View oldView = systems.engine().window().getView();
-    const float w = menuView.getSize().x / systems.engine().window().getDefaultView().getSize().x *
-                    oldView.getViewport().width;
-    const float h = menuView.getSize().y / systems.engine().window().getDefaultView().getSize().y *
-                    oldView.getViewport().height;
-    menuView.setViewport({oldView.getViewport().left + oldView.getViewport().width - w * 1.15f,
-                          oldView.getViewport().top + oldView.getViewport().height / 2.f - h / 2.f,
-                          w,
-                          h});
-    systems.engine().window().setView(menuView);
+    systems.engine().window().setView(bl::interface::ViewUtil::computeViewPreserveAR(
+        {menuBackground.getGlobalBounds().width, menuBackground.getGlobalBounds().height},
+        oldView,
+        {0.72f, 0.22f},
+        0.25f));
 
     systems.engine().window().draw(menuBackground);
-    menu.get().render(renderer, systems.engine().window(), {24.f, 0.f});
+    menu.get().render(renderer, systems.engine().window(), {28.f, 4.f});
     systems.engine().window().display();
 
     systems.engine().window().setView(oldView);
