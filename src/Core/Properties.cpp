@@ -86,7 +86,7 @@ const std::string ItemSprite       = "Resources/Images/item.png";
 
 const float GhostWriterSpeed   = 16.f;
 const std::string TextboxFile  = "Resources/Images/Menus/HUD/messageBox.png";
-const unsigned int HudFontSize = 24;
+const unsigned int HudFontSize = 20;
 
 } // namespace defaults
 
@@ -177,7 +177,7 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.items.config", defaults::ItemMetadataFile);
     bl::engine::Configuration::set("core.items.sprite", defaults::ItemSprite);
 
-    bl::engine::Configuration::set("core.menu.text_speed", defaults::GhostWriterSpeed);
+    bl::engine::Configuration::set("blib.interface.ghost_speed", defaults::GhostWriterSpeed);
     bl::engine::Configuration::set("core.hud.textbox_file", defaults::TextboxFile);
     bl::engine::Configuration::set("core.hud.font_size", defaults::HudFontSize);
 
@@ -507,7 +507,7 @@ const std::string& Properties::ItemSprite() {
 }
 
 float Properties::GhostWriterSpeed() {
-    return bl::engine::Configuration::getOrDefault<float>("core.menu.text_speed",
+    return bl::engine::Configuration::getOrDefault<float>("blib.interface.ghost_speed",
                                                           defaults::GhostWriterSpeed);
 }
 

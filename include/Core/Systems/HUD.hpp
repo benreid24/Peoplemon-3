@@ -1,11 +1,14 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
+#include <BLIB/Containers/ObjectWrapper.hpp>
+#include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/Listener.hpp>
+#include <Core/Player/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <optional>
@@ -109,19 +112,31 @@ private:
 
     Systems& owner;
     State state;
+
     HudListener inputListener;
     std::queue<Item> queuedOutput;
     bl::interface::GhostWriter currentMessage;
 
+    sf::Vector2f viewSize;
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
     sf::Sprite textbox;
     sf::Text displayText;
     bl::shapes::Triangle promptTriangle;
     bl::gfx::Flashing flashingTriangle;
 
+    sf::RectangleShape choiceBackground;
+    bl::container::ObjectWrapper<bl::menu::Menu> choiceMenu;
+    bl::menu::BasicRenderer choiceRenderer;
+    bl::menu::ArrowSelector::Ptr choiceArrow;
+    core::player::input::MenuDriver choiceDriver;
+    std::vector<bl::menu::Item::Ptr> choiceItems;
+    sf::Vector2f choicePosition;
+
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();
+    void choiceMade(unsigned int i);
+    void next();
 };
 
 } // namespace system

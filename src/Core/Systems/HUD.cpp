@@ -10,9 +10,21 @@ namespace system
 {
 namespace
 {
+constexpr float ChoiceHeight  = 25.f;
+constexpr float ChoicePadding = 8.f;
+
 bool isNextCommand(component::Command cmd) {
     return cmd == component::Command::Back || cmd == component::Command::Interact;
 }
+
+sf::Text choiceText() {
+    sf::Text text;
+    text.setFont(Properties::MenuFont());
+    text.setCharacterSize(Properties::HudFontSize());
+    text.setFillColor(sf::Color::Black);
+    return text;
+}
+
 } // namespace
 
 HUD::HUD(Systems& owner)
@@ -22,17 +34,28 @@ HUD::HUD(Systems& owner)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
 , flashingTriangle(promptTriangle, 0.75f, 0.65f) {
     textboxTxtr = bl::engine::Resources::textures().load(Properties::TextboxFile()).data;
+    const sf::Vector2f boxSize = static_cast<sf::Vector2f>(textboxTxtr->getSize());
     textbox.setTexture(*textboxTxtr, true);
+    textbox.setPosition(boxSize.x * 0.5f, boxSize.y);
+    viewSize = boxSize * 2.f;
+
     displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
     displayText.setFillColor(sf::Color::Black);
-    displayText.setPosition(static_cast<float>(textboxTxtr->getSize().x) * 0.03f,
-                            static_cast<float>(textboxTxtr->getSize().y) * 0.03f);
+    displayText.setPosition(textbox.getPosition() + sf::Vector2f(10.f, 8.f));
     promptTriangle.setFillColor(sf::Color(255, 77, 0));
     promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
     promptTriangle.setOutlineThickness(1.5f);
-    promptTriangle.setPosition(static_cast<float>(textboxTxtr->getSize().x) * 0.96f,
-                               static_cast<float>(textboxTxtr->getSize().y) * 0.92f);
+    promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));
+
+    choiceArrow = bl::menu::ArrowSelector::create(10.f);
+    choiceArrow->getArrow().setFillColor(sf::Color::Black);
+    choiceRenderer.setVerticalPadding(ChoicePadding);
+    choiceRenderer.setUniformSize({0.f, ChoiceHeight});
+    choiceBackground.setFillColor(sf::Color::White);
+    choiceBackground.setOutlineColor(sf::Color::Black);
+    choiceBackground.setOutlineThickness(1.5f);
+    choicePosition.x = viewSize.x * 0.5f + boxSize.x * 0.5f + 3.f;
 }
 
 void HUD::update(float dt) {
@@ -49,7 +72,7 @@ void HUD::update(float dt) {
         break;
 
     case WaitingPrompt:
-        // TODO - add menu and update it
+        // noop
         break;
 
     default:
@@ -62,15 +85,13 @@ void HUD::render(sf::RenderTarget& target, float lag) {
 
     const sf::View oldView = target.getView();
     target.setView(bl::interface::ViewUtil::computeViewAnchoredPreserveAR(
-        static_cast<sf::Vector2f>(textboxTxtr->getSize()),
-        oldView,
-        0.7f,
-        bl::interface::ViewUtil::Bottom));
+        viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
     target.draw(textbox);
     target.draw(displayText);
     if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
     else if (state == WaitingPrompt) {
-        // TODO - draw menu prompt if visible
+        target.draw(choiceBackground);
+        choiceMenu.get().render(choiceRenderer, target, choicePosition);
     }
     target.setView(oldView);
 }
@@ -93,20 +114,66 @@ void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& 
 }
 
 void HUD::ensureActive() {
-    if (state == Hidden && !queuedOutput.empty()) {
-        state = Printing;
-        startPrinting();
-    }
+    if (state == Hidden && !queuedOutput.empty()) { startPrinting(); }
 }
 
 void HUD::startPrinting() {
+    state = Printing;
     currentMessage.setContent(queuedOutput.front().getMessage());
     displayText.setString("");
     owner.player().inputSystem().addListener(inputListener);
 }
 
 void HUD::printDoneStateTransition() {
-    state = queuedOutput.front().getType() == Item::Message ? WaitingContinue : WaitingPrompt;
+    if (queuedOutput.front().getType() == Item::Message) { state = WaitingContinue; }
+    else {
+        state = WaitingPrompt;
+
+        const std::vector<std::string>& choices = queuedOutput.front().getChoices();
+        sf::Text text                           = choiceText();
+
+        text.setString(choices.empty() ? "INVALID" : choices.front());
+        choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
+        sf::Vector2f size(
+            text.getGlobalBounds().width,
+            std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight));
+        for (unsigned int i = 1; i < choices.size(); ++i) {
+            text.setString(choices[i]);
+            choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
+            choiceItems[i - 1]->attach(choiceItems.back(), bl::menu::Item::Bottom);
+
+            size.x = std::max(size.x, text.getGlobalBounds().width);
+            size.y +=
+                std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight) +
+                ChoicePadding;
+        }
+        for (unsigned int i = 0; i < choices.size(); ++i) {
+            const auto cb = [this, i]() { choiceMade(i); };
+            choiceItems[i]->getSignal(bl::menu::Item::Activated).willCall(cb);
+        }
+        choiceMenu.emplace(choiceItems.front(), choiceArrow);
+        choiceDriver.drive(choiceMenu.get());
+        choiceBackground.setSize(size + sf::Vector2f(26.f, 14.f));
+        choicePosition.y = viewSize.y - size.y - 18.f;
+        choiceBackground.setPosition(choicePosition);
+        choicePosition += sf::Vector2f(18.f, 2.f);
+    }
+}
+
+void HUD::choiceMade(unsigned int i) {
+    queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);
+    choiceMenu.destroy();
+    choiceItems.clear();
+    next();
+}
+
+void HUD::next() {
+    queuedOutput.pop();
+    if (!queuedOutput.empty()) { startPrinting(); }
+    else {
+        state = HUD::Hidden;
+        owner.player().inputSystem().removeListener(inputListener);
+    }
 }
 
 HUD::HudListener::HudListener(HUD& o)
@@ -124,17 +191,13 @@ void HUD::HudListener::process(component::Command cmd) {
 
     case WaitingContinue:
         if (isNextCommand(cmd)) {
-            owner.queuedOutput.pop();
-            if (!owner.queuedOutput.empty()) { owner.startPrinting(); }
-            else {
-                owner.state = HUD::Hidden;
-                owner.owner.player().inputSystem().removeListener(owner.inputListener);
-            }
+            owner.queuedOutput.front().getCallback()(owner.queuedOutput.front().getMessage());
+            owner.next();
         }
         break;
 
     case WaitingPrompt:
-        // TODO - update menu. Can pass command into unsubscribed menu driver input listener
+        owner.choiceDriver.process(cmd);
         break;
 
     default:
