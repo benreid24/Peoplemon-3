@@ -161,6 +161,8 @@ public:
             std::uint32_t nextNode;
             std::uint32_t condNodes[2];
         } jumps;
+
+        friend class bl::file::binary::Serializer<core::file::Conversation::Node, false>;
     };
 
     /**
@@ -233,8 +235,8 @@ namespace binary
 {
 template<>
 struct Serializer<core::file::Conversation::Node, false> {
-    static bool serialize(File& input, const core::file::Conversation::Node& node);
-    static bool deserialize(File& output, const core::file::Conversation::Node& node);
+    static bool serialize(File& output, const core::file::Conversation::Node& node);
+    static bool deserialize(File& input, core::file::Conversation::Node& node);
     static std::uint32_t size(const core::file::Conversation::Node& node);
 };
 

@@ -369,3 +369,77 @@ std::uint32_t& Conversation::Node::nextOnReject() { return jumps.condNodes[1]; }
 
 } // namespace file
 } // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+using Node = core::file::Conversation::Node;
+bool Serializer<Node, false>::serialize(File& output, const Node& node) {
+    if (!Serializer<Node::Type>::serialize(output, node.getType())) return false;
+    if (!output.write(node.prompt)) return false;
+    if (!output.write<std::uint32_t>(node.jumps.condNodes[0])) return false;
+    if (!output.write<std::uint32_t>(node.jumps.condNodes[1])) return false;
+
+    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+        return Serializer<core::item::Id>::serialize(output,
+                                                     *std::get_if<core::item::Id>(&node.data));
+    }
+    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+        return output.write<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
+    }
+    else if (node.getType() == Node::Prompt) {
+        return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::serialize(
+            output, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+    }
+
+    return true;
+}
+
+bool Serializer<Node, false>::deserialize(File& input, Node& node) {
+    Node::Type type;
+    if (!Serializer<Node::Type>::deserialize(input, type)) return false;
+    node.setType(type);
+
+    if (!input.read(node.prompt)) return false;
+    if (!input.read<std::uint32_t>(node.jumps.condNodes[0])) return false;
+    if (!input.read<std::uint32_t>(node.jumps.condNodes[1])) return false;
+
+    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+        return Serializer<core::item::Id>::deserialize(input,
+                                                       *std::get_if<core::item::Id>(&node.data));
+    }
+    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+        return input.read<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
+    }
+    else if (node.getType() == Node::Prompt) {
+        return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::deserialize(
+            input, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+    }
+
+    return true;
+}
+
+std::uint32_t Serializer<Node, false>::size(const Node& node) {
+    std::uint32_t s = Serializer<Node::Type>::size(node.getType()) +
+                      Serializer<std::string>::size(node.prompt) + sizeof(std::uint32_t) * 2;
+
+    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+        s += Serializer<core::item::Id>::size(core::item::Id::Unknown);
+    }
+    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+        s += sizeof(std::uint32_t);
+    }
+    else if (node.getType() == Node::Prompt) {
+        s += Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::size(
+            *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+    }
+
+    return s;
+}
+
+} // namespace binary
+} // namespace file
+} // namespace bl
