@@ -264,6 +264,11 @@ using VersionedLoader =
 Conversation::Conversation()
 : cnodes(*this) {}
 
+Conversation::Conversation(const Conversation& copy)
+: Conversation() {
+    cnodes.getValue() = copy.cnodes.getValue();
+}
+
 bool Conversation::load(const std::string& file) {
     bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                  bl::file::binary::File::Read);

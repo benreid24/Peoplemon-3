@@ -226,6 +226,13 @@ public:
     Conversation();
 
     /**
+     * @brief Copy constructs the conversation
+     *
+     * @param copy The conversation to copy from
+     */
+    Conversation(const Conversation& copy);
+
+    /**
      * @brief Loads the conversation from the given file
      *
      * @param file The file to load from. This should be relative to the conversation path

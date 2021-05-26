@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_INTERACTION_HPP
 
 #include <BLIB/Entities.hpp>
+#include <Core/AI/Conversation.hpp>
 
 namespace core
 {
@@ -35,6 +36,17 @@ public:
 
 private:
     Systems& owner;
+    bool interactionActive;
+    ai::Conversation currentConversation;
+    // TODO - data for battle transition if talking to fightable trainer?
+
+    void processConversationNode();
+
+    void continuePressed();
+    void failMessageFinished();
+    void choiceMade(const std::string& choice);
+    void giveItemDecided(const std::string& choice);
+    void giveMoneyDecided(const std::string& choice);
 };
 
 } // namespace system

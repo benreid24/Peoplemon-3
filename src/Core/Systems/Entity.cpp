@@ -4,6 +4,7 @@
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Components/Item.hpp>
+#include <Core/Components/NPC.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
@@ -22,6 +23,8 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     bl::entity::Entity entity = owner.engine().entities().createEntity();
     std::string animation;
     BL_LOG_DEBUG << "Created character entity " << entity;
+
+    bl::entity::Cleaner cleaner(owner.engine().entities(), entity);
 
     // Common components
 
@@ -76,12 +79,19 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return false;
         }
 
-        // TODO - components like conversation
         animation = data.animation();
 
         file::Conversation conversation;
-        if (!conversation.load(data.conversation()))
+        if (!conversation.load(data.conversation())) {
             BL_LOG_ERROR << "Failed to load conversation: " << data.conversation();
+            return false;
+        }
+
+        if (!owner.engine().entities().addComponent<component::NPC>(
+                entity, component::NPC(data.name(), conversation))) {
+            BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
+            return false;
+        }
     }
 
     // Trainer
@@ -128,6 +138,7 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
         return false;
     }
 
+    cleaner.disarm();
     return true;
 }
 
