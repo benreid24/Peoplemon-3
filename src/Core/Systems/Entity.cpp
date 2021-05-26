@@ -4,6 +4,7 @@
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Components/Item.hpp>
+#include <Core/Files/Conversation.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
 #include <Core/Items/Item.hpp>
@@ -77,6 +78,10 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         // TODO - components like conversation
         animation = data.animation();
+
+        file::Conversation conversation;
+        if (!conversation.load(data.conversation()))
+            BL_LOG_ERROR << "Failed to load conversation: " << data.conversation();
     }
 
     // Trainer
@@ -99,6 +104,12 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         // TODO - components like peoplemon, conversation, items
         animation = data.animation();
+
+        file::Conversation conversation;
+        if (!conversation.load(data.prebattleConversation()))
+            BL_LOG_ERROR << "Failed to load conversation: " << data.prebattleConversation();
+        if (!conversation.load(data.postBattleConversation()))
+            BL_LOG_ERROR << "Failed to load conversation: " << data.postBattleConversation();
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();

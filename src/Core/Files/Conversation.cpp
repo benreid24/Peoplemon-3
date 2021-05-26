@@ -47,6 +47,13 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
         }
     }
 }
+
+std::string tolower(const std::string& s) {
+    std::string lower(s);
+    for (char& c : lower) { c = std::tolower(c); }
+    return lower;
+}
+
 } // namespace
 
 namespace loader
@@ -185,7 +192,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
             auto it = labelPoints.find(pair.first);
             if (it != labelPoints.end()) { *pair.second = it->second; }
             else {
-                if (pair.first != "end") {
+                if (tolower(pair.first) != "end") {
                     BL_LOG_WARN << "Invalid jump '" << pair.first << "' in conversation '"
                                 << input.filename() << "', jumping to end";
                 }
@@ -366,6 +373,42 @@ std::uint32_t& Conversation::Node::next() { return jumps.nextNode; }
 std::uint32_t& Conversation::Node::nextOnPass() { return jumps.condNodes[0]; }
 
 std::uint32_t& Conversation::Node::nextOnReject() { return jumps.condNodes[1]; }
+
+const std::string& Conversation::Node::message() const { return prompt; }
+
+const std::string& Conversation::Node::script() const { return prompt; }
+
+const std::string& Conversation::Node::saveFlag() const { return prompt; }
+
+const std::vector<std::pair<std::string, std::uint32_t>>& Conversation::Node::choices() const {
+    static std::vector<std::pair<std::string, std::uint32_t>> null;
+    const auto* d = std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&data);
+    if (d) { return *d; }
+    BL_LOG_ERROR << "Bad Node access (choices). Type=" << type;
+    return null;
+}
+
+unsigned int Conversation::Node::money() const {
+    static unsigned int null;
+    const unsigned int* m = std::get_if<unsigned int>(&data);
+    if (m) return *m;
+    BL_LOG_ERROR << "Bad node access (money). Type=" << static_cast<int>(type);
+    return null;
+}
+
+item::Id Conversation::Node::item() const {
+    static item::Id null = item::Id::Unknown;
+    const item::Id* i    = std::get_if<item::Id>(&data);
+    if (i) return *i;
+    BL_LOG_ERROR << "Bad node access (item). Type=" << static_cast<int>(type);
+    return null;
+}
+
+std::uint32_t Conversation::Node::next() const { return jumps.nextNode; }
+
+std::uint32_t Conversation::Node::nextOnPass() const { return jumps.condNodes[0]; }
+
+std::uint32_t Conversation::Node::nextOnReject() const { return jumps.condNodes[1]; }
 
 } // namespace file
 } // namespace core

@@ -152,6 +152,60 @@ public:
          */
         std::uint32_t& nextOnReject();
 
+        /**
+         * @brief Returns the message or prompt for this node
+         *
+         */
+        const std::string& message() const;
+
+        /**
+         * @brief Returns the script file of this node
+         *
+         */
+        const std::string& script() const;
+
+        /**
+         * @brief Returns the save flag of this node
+         *
+         */
+        const std::string& saveFlag() const;
+
+        /**
+         * @brief Returns the choices if this is a prompt node. Undefined behavior if not
+         *
+         */
+        const std::vector<std::pair<std::string, std::uint32_t>>& choices() const;
+
+        /**
+         * @brief Returns the money requested or given, undefined behavior if not a money node
+         *
+         */
+        unsigned int money() const;
+
+        /**
+         * @brief Returns the item to give or take. Undefined behavior if not an item node
+         *
+         */
+        item::Id item() const;
+
+        /**
+         * @brief Returns the index of the next node in the case of a Talk, Give, and Script nodes
+         *
+         */
+        std::uint32_t next() const;
+
+        /**
+         * @brief Returns the next node if a check passes (ie take item or money)
+         *
+         */
+        std::uint32_t nextOnPass() const;
+
+        /**
+         * @brief Returns the next node if a check is rejected (ie not taking money or item)
+         *
+         */
+        std::uint32_t nextOnReject() const;
+
     private:
         Type type;
         std::string prompt; // or script

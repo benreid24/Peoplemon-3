@@ -6,6 +6,7 @@ target_sources(Core PUBLIC
     FixedPathBehavior.hpp
     Item.hpp
     Movable.hpp
+    NPC.hpp
     PlayerControlled.hpp
     Position.hpp
     Renderable.hpp

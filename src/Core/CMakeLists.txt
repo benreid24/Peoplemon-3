@@ -3,6 +3,7 @@ target_sources(Core PRIVATE
     Resources.cpp
 )
 
+add_subdirectory(AI)
 add_subdirectory(Components)
 add_subdirectory(Files)
 add_subdirectory(Items)

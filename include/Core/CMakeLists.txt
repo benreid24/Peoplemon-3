@@ -3,6 +3,7 @@ target_sources(Core PUBLIC
     Resources.hpp
 )
 
+add_subdirectory(AI)
 add_subdirectory(Components)
 add_subdirectory(Files)
 add_subdirectory(Items)
