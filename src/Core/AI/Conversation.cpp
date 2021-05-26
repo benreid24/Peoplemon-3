@@ -15,6 +15,7 @@ file::Conversation::Node errorNode() {
     return node;
 }
 } // namespace
+
 Conversation::Conversation(system::Systems& s)
 : systems(s)
 , nodes(nullptr)
@@ -75,14 +76,15 @@ void Conversation::followNodes() {
         case E::CheckSaveFlag:
         case E::RunScript:
         case E::SetSaveFlag:
-            return true;
+            return false;
 
         default:
-            return false;
+            return true;
         }
     };
 
-    while (!isBlocking(current)) {
+    while (!finished() && !isBlocking(current)) {
+        BL_LOG_INFO << "Not blocking: " << current;
         switch (nodes->at(current).getType()) {
         case E::CheckInteracted:
             // TODO - get interacted status from gamesave

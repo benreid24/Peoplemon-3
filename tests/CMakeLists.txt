@@ -1,9 +1,8 @@
-add_executable(Peoplemon.t
-    UnitTest.t.cpp  # You may wish to remove this in favor of directories
-)
+add_executable(Peoplemon.t)
 
 target_link_libraries(Peoplemon.t PRIVATE
     BLIB
+    Core
 
     sfml-graphics
     sfml-window
@@ -17,7 +16,11 @@ target_link_libraries(Peoplemon.t PRIVATE
 )
 
 target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/tests)
 target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/BLIB/lib/gtest/googletest/include)
 target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/BLIB/lib/gtest/googlemock/include)
+
+add_subdirectory(AI)
+add_subdirectory(Files)
 
 add_test(NAME UnitTests COMMAND Peoplemon.T)

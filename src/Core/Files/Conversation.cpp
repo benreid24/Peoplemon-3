@@ -10,39 +10,66 @@ namespace file
 namespace
 {
 void shiftUpJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
-    for (Conversation::Node& node : nodes) {
-        if (node.nextOnPass() >= i) node.nextOnPass() += 1;
-        if (node.nextOnReject() >= i) node.nextOnReject() += 1;
+    const auto updateJump = [i](std::uint32_t& jump, unsigned int j) {
+        if (jump > i)
+            jump += i;
+        else if (jump == i && j != i - 1)
+            jump += 1;
+    };
+
+    for (unsigned int j = 0; j < nodes.size(); ++j) {
+        Conversation::Node& node = nodes[j];
+        updateJump(node.nextOnPass(), j);
+        updateJump(node.nextOnReject(), j);
 
         if (node.getType() == Conversation::Node::Prompt) {
-            for (auto& pair : node.choices()) {
-                if (pair.second >= i) pair.second += 1;
-            }
+            for (auto& pair : node.choices()) { updateJump(pair.second, j); }
         }
     }
 }
 
 void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
-    for (Conversation::Node& node : nodes) {
-        // Invalidate or shift down
-        if (node.nextOnReject() == i)
-            node.nextOnReject() = nodes.size();
-        else if (node.nextOnReject() > i)
-            node.nextOnReject() -= 1;
+    const auto updateJump = [&nodes, i](std::uint32_t& jump) {
+        const auto isSimpleNext = [&nodes](unsigned int i) {
+            if (i >= nodes.size()) return false;
+            switch (nodes[i].getType()) {
+            case Conversation::Node::Talk:
+            case Conversation::Node::GiveMoney:
+            case Conversation::Node::GiveItem:
+            case Conversation::Node::RunScript:
+            case Conversation::Node::SetSaveFlag:
+                return true;
 
-        if (node.nextOnPass() == i)
-            node.nextOnPass() = nodes.size();
-        else if (node.nextOnPass() > i)
-            node.nextOnPass() -= 1;
+            default:
+                return false;
+            }
+        };
+
+        if (jump == i) {
+            if (isSimpleNext(jump)) {
+                const std::uint32_t j = nodes[jump].next();
+                jump                  = j > i ? j - 1 : j;
+            }
+            else {
+                jump = nodes.size();
+            }
+        }
+        else if (jump > i)
+            --jump;
+    };
+
+    for (unsigned int j = 0; j < nodes.size(); ++j) {
+        Conversation::Node& node = nodes[j];
+
+        // Invalidate or shift down
+        updateJump(node.nextOnPass());
+        updateJump(node.nextOnReject());
 
         // Choices
         if (node.getType() == Conversation::Node::Prompt) {
             for (auto& pair : node.choices()) {
                 // Invalidate or shift down
-                if (pair.second == i)
-                    pair.second = nodes.size();
-                else if (pair.second > i)
-                    pair.second -= 1;
+                updateJump(pair.second);
             }
         }
     }
@@ -286,8 +313,8 @@ const std::vector<Conversation::Node>& Conversation::nodes() const { return cnod
 
 void Conversation::deleteNode(unsigned int i) {
     if (i < cnodes.getValue().size()) {
-        cnodes.getValue().erase(cnodes.getValue().begin() + i);
         shiftDownJumps(cnodes.getValue(), i);
+        cnodes.getValue().erase(cnodes.getValue().begin() + i);
     }
     else {
         BL_LOG_WARN << "Tried to delete out of range node: " << i;
@@ -302,7 +329,25 @@ void Conversation::insertNode(unsigned int i, const Node& node) {
         cnodes.getValue()[i].nextOnReject() = cnodes.getValue().size();
     }
     else {
-        BL_LOG_WARN << "Out of range node insert: " << i;
+        appendNode(node);
+    }
+}
+
+void Conversation::appendNode(const Node& node) {
+    cnodes.getValue().push_back(node);
+    if (cnodes.getValue().size() > 1) {
+        switch (cnodes.getValue()[cnodes.getValue().size() - 2].getType()) {
+        case Node::Talk:
+        case Node::RunScript:
+        case Node::SetSaveFlag:
+        case Node::GiveItem:
+        case Node::GiveMoney:
+            cnodes.getValue()[cnodes.getValue().size() - 2].next() = cnodes.getValue().size() - 1;
+            break;
+
+        default:
+            break;
+        }
     }
 }
 

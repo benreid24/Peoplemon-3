@@ -19,6 +19,11 @@
 
 int main();
 
+namespace tests
+{
+class SystemsHelper;
+}
+
 /**
  * @addtogroup Systems
  * @ingroup Core
@@ -195,6 +200,7 @@ private:
     Systems(bl::engine::Engine& engine);
 
     friend int ::main();
+    friend class ::tests::SystemsHelper;
 };
 
 } // namespace system

@@ -271,6 +271,13 @@ public:
     void insertNode(unsigned int i, const Node& node);
 
     /**
+     * @brief Appends the given node to the list of nodes
+     *
+     * @param node The node to append
+     */
+    void appendNode(const Node& node);
+
+    /**
      * @brief Updates the value of the node at the given index
      *
      * @param i The index to update

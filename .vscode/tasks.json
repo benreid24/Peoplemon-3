@@ -5,37 +5,25 @@
             "label": "cmake clean",
             "type": "shell",
             "command": "rm -rf build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "cmake generate debug",
             "type": "shell",
             "command": "cmake -DCMAKE_BUILD_TYPE=Debug -G \"Unix Makefiles\" -S . -B ./build-debug",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "cmake generate release",
             "type": "shell",
             "command": "cmake -DCMAKE_BUILD_TYPE=Release -G \"Unix Makefiles\" -S . -B ./build-release",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "build debug",
             "type": "shell",
             "command": "cd build-debug && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "dependsOn": [
                 "cmake generate debug"
             ]
@@ -44,10 +32,7 @@
             "label": "build release",
             "type": "shell",
             "command": "cd build-release && make",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "dependsOn": [
                 "cmake generate release"
             ]
@@ -56,10 +41,7 @@
             "label": "run debug",
             "type": "shell",
             "command": "./PeoplemonDebug",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "dependsOn": [
                 "build debug"
             ]
@@ -68,10 +50,7 @@
             "label": "run release",
             "type": "shell",
             "command": "./PeoplemonRelease",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "dependsOn": [
                 "build release"
             ]
@@ -79,35 +58,26 @@
         {
             "label": "unit test",
             "type": "shell",
-            "command": "cd build/tests && ./Peoplemon.t --gtest_color=no",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "command": "cd build-debug/tests && ./Peoplemon.t --gtest_color=no",
+            "group": "build",
             "dependsOn": [
-                "build"
+                "build debug"
             ]
         },
         {
             "label": "filtered tests",
             "type": "shell",
-            "command": "cd build/tests && ./Peoplemon.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "command": "cd build-debug/tests && ./Peoplemon.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
+            "group": "build",
             "dependsOn": [
-                "build"
+                "build debug"
             ]
         },
         {
             "label": "build docs",
             "type": "shell",
             "command": "rm -rf docs/doxygen && doxygen Doxyfile",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         }
     ],
     "inputs": [
