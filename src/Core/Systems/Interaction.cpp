@@ -2,6 +2,7 @@
 
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
+#include <Core/Components/Trainer.hpp>
 #include <Core/Events/Item.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -22,13 +23,14 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 
     const bl::entity::Entity interacted = owner.position().search(*pos, pos->direction, 1);
     if (interacted == bl::entity::InvalidEntity) return false;
+    BL_LOG_INFO << "Entity " << interactor << " interacted with entity: " << interacted;
 
     if (interactor != owner.player().player() && interacted != owner.player().player()) {
         BL_LOG_WARN << "Nonplayer entity " << interactor << " interacted with " << interacted;
         return false;
     }
     const bl::entity::Entity nonplayer =
-        interactor == owner.player().player() ? interactor : interacted;
+        interactor != owner.player().player() ? interactor : interacted;
 
     const component::NPC* npc = owner.engine().entities().getComponent<component::NPC>(nonplayer);
     if (npc) {
@@ -36,8 +38,16 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         interactionActive = true;
         processConversationNode();
     }
-
-    // TODO - trainer interaction
+    else {
+        const component::Trainer* trainer =
+            owner.engine().entities().getComponent<component::Trainer>(nonplayer);
+        if (trainer) {
+            // TODO - handle battle
+            currentConversation.setConversation(trainer->beforeBattleConversation());
+            interactionActive = true;
+            processConversationNode();
+        }
+    }
 
     // Check for item if player
     if (interactor == owner.player().player()) {

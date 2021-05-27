@@ -119,9 +119,9 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                 Conversation::Node& n = nodes.back();
 
                 std::uint16_t choiceCount;
-                if (!input.read(node.message())) return false;
+                if (!input.read(n.message())) return false;
                 if (!input.read(choiceCount)) return false;
-                n.choices().resize(choiceCount);
+                n.choices().resize(choiceCount, std::make_pair("", nodeCount));
                 for (std::uint16_t j = 0; j < choiceCount; ++j) {
                     std::string choice, jump;
                     if (!input.read(n.choices()[j].first)) return false;

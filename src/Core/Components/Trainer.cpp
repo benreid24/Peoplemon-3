@@ -22,5 +22,14 @@ Trainer::Trainer(const file::Trainer& data)
 #endif
     }
 }
+
+const std::string& Trainer::name() const { return _name; }
+
+const file::Conversation& Trainer::beforeBattleConversation() const { return beforeBattle; }
+
+const file::Conversation& Trainer::afterBattleConversation() const { return afterBattle; }
+
+const std::string& Trainer::loseBattleDialog() const { return loseDialog; }
+
 } // namespace component
 } // namespace core
