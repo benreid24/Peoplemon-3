@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::map::Layer&lt; T &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,396 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00418.html">map</a></li><li class="navelem"><a class="el" href="a00652.html">LayerSet</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00418.html">map</a></li><li class="navelem"><a class="el" href="a00649.html">Layer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a00646.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::LayerSet Member List</div>  </div>
+<div class="title">core::map::Layer&lt; T &gt; Class Template Reference<div class="ingroups"><a class="el" href="a00398.html">Core</a> &raquo; <a class="el" href="a00405.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00652.html">core::map::LayerSet</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#a1593b8a98dcd472e3c427a13306704dc">activate</a>(Tileset &amp;tileset)</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#a137a4f0975b7772829d48858366daa1d">bottomLayers</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#a11fd05aa30dce62dcedf9af70a3a9dc3">catchLayer</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#aad3584dd2249cf0a3e356b2ace33e64e">collisionLayer</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#a020db7d524731baf7ec546c647667b34">init</a>(unsigned int width, unsigned int height, unsigned int bottomLayerCount, unsigned int ysortLayerCount, unsigned int topLayercount)</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#a9d0e44f96d891e21fa96c452fb5dae71">LayerSet</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#ae4b6ad85f402da0389410f15de9ff22d">LayerSet</a>(const LayerSet &amp;copy)</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#a04216c8dcfded560e0ac260f70a6e083">operator=</a>(const LayerSet &amp;copy)</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#af246bb884a72ffc8190f55916a207c56">renderSortedLayers</a>() const</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#a9bbc8285278880bb4bed954e67c26d52">topLayers</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00652.html#a3b67467546b52ec0ea7a9b9dcd2a7046">update</a>(const sf::IntRect &amp;area, float dt)</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00652.html#adcfc8139cbc2571dbda7f89b5e6b4b35">ysortLayers</a>()</td><td class="entry"><a class="el" href="a00652.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Generic map layer class. Can be used for any type of layer.  
+ <a href="a00649.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00095_source.html">Layer.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::Layer&lt; T &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00649.png" usemap="#core::map::Layer_3C_20T_20_3E_map" alt=""/>
+  <map id="core::map::Layer_3C_20T_20_3E_map" name="core::map::Layer_3C_20T_20_3E_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad12bfd4e982d632cde7c2002b0fa315e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#ad12bfd4e982d632cde7c2002b0fa315e">Layer</a> ()</td></tr>
+<tr class="memdesc:ad12bfd4e982d632cde7c2002b0fa315e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an empty layer.  <a href="#ad12bfd4e982d632cde7c2002b0fa315e">More...</a><br /></td></tr>
+<tr class="separator:ad12bfd4e982d632cde7c2002b0fa315e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abacf46365bd73be836733be1dbe2d1fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#abacf46365bd73be836733be1dbe2d1fd">Layer</a> (const <a class="el" href="a00649.html">Layer</a> &amp;copy)</td></tr>
+<tr class="memdesc:abacf46365bd73be836733be1dbe2d1fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructs the layer.  <a href="#abacf46365bd73be836733be1dbe2d1fd">More...</a><br /></td></tr>
+<tr class="separator:abacf46365bd73be836733be1dbe2d1fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab68cc1d2ed062dfc2f964dfb2a65fea0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00649.html">Layer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#ab68cc1d2ed062dfc2f964dfb2a65fea0">operator=</a> (const <a class="el" href="a00649.html">Layer</a> &amp;copy)</td></tr>
+<tr class="memdesc:ab68cc1d2ed062dfc2f964dfb2a65fea0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the given layer.  <a href="#ab68cc1d2ed062dfc2f964dfb2a65fea0">More...</a><br /></td></tr>
+<tr class="separator:ab68cc1d2ed062dfc2f964dfb2a65fea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1661b368529c237d40d5693fa791b253"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#a1661b368529c237d40d5693fa791b253">create</a> (unsigned int <a class="el" href="a00649.html#a47005a3926e8b5865c66b0bb364b9f49">width</a>, unsigned int <a class="el" href="a00649.html#a4cb6fa2c128fdca7a065794f9122ff84">height</a>, const T &amp;val=T())</td></tr>
+<tr class="memdesc:a1661b368529c237d40d5693fa791b253"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears all stored data (if any) and creates the layer with the given size.  <a href="#a1661b368529c237d40d5693fa791b253">More...</a><br /></td></tr>
+<tr class="separator:a1661b368529c237d40d5693fa791b253"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47005a3926e8b5865c66b0bb364b9f49"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#a47005a3926e8b5865c66b0bb364b9f49">width</a> () const</td></tr>
+<tr class="memdesc:a47005a3926e8b5865c66b0bb364b9f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the width of the layer in tiles.  <a href="#a47005a3926e8b5865c66b0bb364b9f49">More...</a><br /></td></tr>
+<tr class="separator:a47005a3926e8b5865c66b0bb364b9f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cb6fa2c128fdca7a065794f9122ff84"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#a4cb6fa2c128fdca7a065794f9122ff84">height</a> () const</td></tr>
+<tr class="memdesc:a4cb6fa2c128fdca7a065794f9122ff84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the layer in tiles.  <a href="#a4cb6fa2c128fdca7a065794f9122ff84">More...</a><br /></td></tr>
+<tr class="separator:a4cb6fa2c128fdca7a065794f9122ff84"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad530001b8233635fe00998242e1aa951"><td class="memItemLeft" align="right" valign="top">const T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#ad530001b8233635fe00998242e1aa951">get</a> (unsigned int x, unsigned int y) const</td></tr>
+<tr class="memdesc:ad530001b8233635fe00998242e1aa951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the object in the layer at the given position.  <a href="#ad530001b8233635fe00998242e1aa951">More...</a><br /></td></tr>
+<tr class="separator:ad530001b8233635fe00998242e1aa951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac26fc2153dbbd5177ddf086751b3943c"><td class="memItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#ac26fc2153dbbd5177ddf086751b3943c">getRef</a> (unsigned int x, unsigned int y)</td></tr>
+<tr class="memdesc:ac26fc2153dbbd5177ddf086751b3943c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the object in the layer at the given position.  <a href="#ac26fc2153dbbd5177ddf086751b3943c">More...</a><br /></td></tr>
+<tr class="separator:ac26fc2153dbbd5177ddf086751b3943c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1833ca76d0d20bb33f390f65f7fb06be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00649.html#a1833ca76d0d20bb33f390f65f7fb06be">set</a> (unsigned int x, unsigned int y, const T &amp;value)</td></tr>
+<tr class="memdesc:a1833ca76d0d20bb33f390f65f7fb06be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the object in the layer at the position to the given value.  <a href="#a1833ca76d0d20bb33f390f65f7fb06be">More...</a><br /></td></tr>
+<tr class="separator:a1833ca76d0d20bb33f390f65f7fb06be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br />
+class core::map::Layer&lt; T &gt;</h3>
+
+<p>Generic map layer class. Can be used for any type of layer. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">T</td><td>The underlying type representing an object in the layer </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00021">21</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad12bfd4e982d632cde7c2002b0fa315e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad12bfd4e982d632cde7c2002b0fa315e">&#9670;&nbsp;</a></span>Layer() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::<a class="el" href="a00649.html">Layer</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct an empty layer. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00101">101</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="abacf46365bd73be836733be1dbe2d1fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abacf46365bd73be836733be1dbe2d1fd">&#9670;&nbsp;</a></span>Layer() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::<a class="el" href="a00649.html">Layer</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00649.html">Layer</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructs the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The layer to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00107">107</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1661b368529c237d40d5693fa791b253"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1661b368529c237d40d5693fa791b253">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>val</em> = <code>T()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Clears all stored data (if any) and creates the layer with the given size. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">width</td><td>The width of the layer in tiles </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the layer in tiles </td></tr>
+    <tr><td class="paramname">val</td><td>The default value to fill the layer with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00121">121</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad530001b8233635fe00998242e1aa951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad530001b8233635fe00998242e1aa951">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">const T &amp; <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::get </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the object in the layer at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The zero indexed x coordinate in tiles </td></tr>
+    <tr><td class="paramname">y</td><td>The zero indexed y coordinate in tiles </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const T&amp; The value at the given position </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00139">139</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac26fc2153dbbd5177ddf086751b3943c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac26fc2153dbbd5177ddf086751b3943c">&#9670;&nbsp;</a></span>getRef()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">T &amp; <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::getRef </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the object in the layer at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The zero indexed x coordinate in tiles </td></tr>
+    <tr><td class="paramname">y</td><td>The zero indexed y coordinate in tiles </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The value at the given position </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00151">151</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4cb6fa2c128fdca7a065794f9122ff84"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cb6fa2c128fdca7a065794f9122ff84">&#9670;&nbsp;</a></span>height()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::height </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the height of the layer in tiles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00134">134</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab68cc1d2ed062dfc2f964dfb2a65fea0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab68cc1d2ed062dfc2f964dfb2a65fea0">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00649.html">Layer</a>&lt; T &gt; &amp; <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00649.html">Layer</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies the given layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The layer to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00649.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a>&amp; A reference to this layer </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00113">113</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1833ca76d0d20bb33f390f65f7fb06be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1833ca76d0d20bb33f390f65f7fb06be">&#9670;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::set </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>value</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the object in the layer at the position to the given value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>The zero indexed x coordinate in tiles </td></tr>
+    <tr><td class="paramname">y</td><td>The zero indexed y coordinate in tiles </td></tr>
+    <tr><td class="paramname">value</td><td>The value to set to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00163">163</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a47005a3926e8b5865c66b0bb364b9f49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47005a3926e8b5865c66b0bb364b9f49">&#9670;&nbsp;</a></span>width()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int <a class="el" href="a00649.html">core::map::Layer</a>&lt; T &gt;::width </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the width of the layer in tiles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00095_source.html#l00129">129</a> of file <a class="el" href="a00095_source.html">Layer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/Core/Maps/<a class="el" href="a00095_source.html">Layer.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 21:18:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

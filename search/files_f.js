@@ -7,7 +7,7 @@ var searchData=
   ['tileset_2ecpp',['Tileset.cpp',['../a00278.html',1,'']]],
   ['tileset_2ehpp',['Tileset.hpp',['../a00119.html',1,'']]],
   ['timechange_2ehpp',['TimeChange.hpp',['../a00062.html',1,'']]],
-  ['trainer_2ecpp',['Trainer.cpp',['../a01106.html',1,'(Global Namespace)'],['../a01109.html',1,'(Global Namespace)']]],
-  ['trainer_2ehpp',['Trainer.hpp',['../a01061.html',1,'(Global Namespace)'],['../a01064.html',1,'(Global Namespace)']]],
+  ['trainer_2ecpp',['Trainer.cpp',['../a01107.html',1,'(Global Namespace)'],['../a01110.html',1,'(Global Namespace)']]],
+  ['trainer_2ehpp',['Trainer.hpp',['../a01062.html',1,'(Global Namespace)'],['../a01065.html',1,'(Global Namespace)']]],
   ['type_2ehpp',['Type.hpp',['../a00077.html',1,'']]]
 ];
