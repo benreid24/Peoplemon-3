@@ -53,7 +53,7 @@ public:
 
     /**
      * @brief Returns the size factor of the camera. Size is treated as a factor of the window
-     * height stored in Properties
+     *        height stored in Properties
      *
      */
     float getSize() const;
