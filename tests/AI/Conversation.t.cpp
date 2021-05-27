@@ -5,6 +5,8 @@
 
 using namespace core;
 
+#ifndef ON_CI
+
 namespace tests
 {
 TEST(Conversation, Empty) {
@@ -146,3 +148,5 @@ TEST(Conversation, Choices) {
 }
 
 } // namespace tests
+
+#endif
