@@ -40,8 +40,7 @@ bool Controllable::processControl(Command ctrl, bool ignoreLock) {
         return false;
 
     case Command::Interact:
-        systems.interaction().interact(owner);
-        return false;
+        return systems.interaction().interact(owner);
 
     default:
         BL_LOG_WARN << "Unknown control: " << static_cast<int>(ctrl);

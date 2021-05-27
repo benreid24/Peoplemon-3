@@ -5,6 +5,7 @@
             "${workspaceFolder}/lib/BLIB/include",
             "${workspaceFolder}/include",
             "${workspaceFolder}/src",
+            "${workspaceFolder}/tests",
             "${workspaceFolder}/lib/BLIB/lib/gtest/googletest/include",
             "${workspaceFolder}/lib/BLIB/lib/gtest/googlemock/include"
         ],
@@ -17,7 +18,9 @@
             "includePath": [
                 "${inclpath}"
             ],
-            "defines": [],
+            "defines": [
+                "PEOPLEMON_DEBUG"
+            ],
             "compilerPath": "${compiler}",
             "cStandard": "c11",
             "cppStandard": "c++17",

@@ -14,7 +14,7 @@ SpinBehavior::SpinBehavior(file::Behavior::Spinning::Direction dir)
 void SpinBehavior::update(Position& position, Controllable& controller, float dt) {
     standTime += dt;
     if (standTime >= Properties::CharacterSpinPeriod()) {
-        standTime = 0.f;
+        standTime -= Properties::CharacterSpinPeriod();
         switch (dir) {
         case file::Behavior::Spinning::Clockwise: {
             controller.processControl(moveCommand(nextClockwiseDirection(position.direction)));

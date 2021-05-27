@@ -4,6 +4,9 @@
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Components/Item.hpp>
+#include <Core/Components/NPC.hpp>
+#include <Core/Components/Trainer.hpp>
+#include <Core/Files/Conversation.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
 #include <Core/Items/Item.hpp>
@@ -21,6 +24,8 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     bl::entity::Entity entity = owner.engine().entities().createEntity();
     std::string animation;
     BL_LOG_DEBUG << "Created character entity " << entity;
+
+    bl::entity::Cleaner cleaner(owner.engine().entities(), entity);
 
     // Common components
 
@@ -75,8 +80,12 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return false;
         }
 
-        // TODO - components like conversation
         animation = data.animation();
+
+        if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
+            BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
+            return false;
+        }
     }
 
     // Trainer
@@ -97,8 +106,13 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return false;
         }
 
-        // TODO - components like peoplemon, conversation, items
         animation = data.animation();
+
+        if (!owner.engine().entities().addComponent<component::Trainer>(entity,
+                                                                        component::Trainer(data))) {
+            BL_LOG_ERROR << "Failed to add trainer component to entity: " << entity;
+            return false;
+        }
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();
@@ -117,6 +131,7 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
         return false;
     }
 
+    cleaner.disarm();
     return true;
 }
 

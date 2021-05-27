@@ -14,9 +14,14 @@ project(Peoplemon C CXX)
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
+OPTION(ON_CI "True when on CI, false when local" On)
 
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Debug)
+endif()
+
+if (ON_CI)
+    add_compile_definitions(ON_CI)
 endif()
 
 set(CMAKE_INSTALL_PREFIX .)
@@ -28,6 +33,12 @@ include_directories(lib/BLIB/lib/SFML/include)
 add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
+
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(Core PUBLIC PEOPLEMON_DEBUG)
+    target_compile_definitions(PeoplemonEditor PUBLIC PEOPLEMON_DEBUG)
+    target_compile_definitions(Peoplemon PUBLIC PEOPLEMON_DEBUG)
+endif()
 
 if (STATIC_LINK)
     if (WIN32)
