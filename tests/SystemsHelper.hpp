@@ -8,7 +8,7 @@ namespace tests
 class SystemsHelper {
 public:
     SystemsHelper()
-    : engine({})
+    : engine(bl::engine::Settings().withCreateWindow(false))
     , sys(engine) {}
 
     core::system::Systems& systems() { return sys; }
