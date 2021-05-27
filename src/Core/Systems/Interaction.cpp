@@ -83,7 +83,7 @@ void Interaction::processConversationNode() {
     const file::Conversation::Node& node = currentConversation.currentNode();
     switch (node.getType()) {
     case E::Talk:
-        owner.hud().displayMessage(node.message(), std::bind(Interaction::continuePressed, this));
+        owner.hud().displayMessage(node.message(), std::bind(&Interaction::continuePressed, this));
         break;
 
     case E::Prompt: {
@@ -92,34 +92,34 @@ void Interaction::processConversationNode() {
         for (const auto& pair : node.choices()) choices.push_back(pair.first);
         owner.hud().promptUser(node.message(),
                                choices,
-                               std::bind(Interaction::choiceMade, this, std::placeholders::_1));
+                               std::bind(&Interaction::choiceMade, this, std::placeholders::_1));
     } break;
 
     case E::GiveItem:
         owner.player().bag().addItem(node.item());
         // TODO - add prefix to item metadata for a/the use
         owner.hud().displayMessage("Got a " + item::Item::getName(node.item()),
-                                   std::bind(Interaction::continuePressed, this));
+                                   std::bind(&Interaction::continuePressed, this));
         break;
 
     case E::TakeItem:
         owner.hud().promptUser(
             "Hand over a " + item::Item::getName(node.item()),
             {"Yes", "No"},
-            std::bind(Interaction::giveItemDecided, this, std::placeholders::_1));
+            std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
         break;
 
     case E::GiveMoney:
         // TODO - track and add player money
         owner.hud().displayMessage("Received " + std::to_string(node.money()) + " monies",
-                                   std::bind(Interaction::continuePressed, this));
+                                   std::bind(&Interaction::continuePressed, this));
         break;
 
     case E::TakeMoney:
         owner.hud().promptUser(
             "Fork over " + std::to_string(node.money()) + " monies?",
             {"Yes", "No"},
-            std::bind(Interaction::giveMoneyDecided, this, std::placeholders::_1));
+            std::bind(&Interaction::giveMoneyDecided, this, std::placeholders::_1));
         break;
 
     default:
@@ -155,7 +155,7 @@ void Interaction::giveItemDecided(const std::string& c) {
             owner.hud().displayMessage(
                 "You don't have a single " +
                     item::Item::getName(currentConversation.currentNode().item()) + "!",
-                std::bind(Interaction::failMessageFinished, this));
+                std::bind(&Interaction::failMessageFinished, this));
         }
     }
     else {
@@ -172,7 +172,7 @@ void Interaction::giveMoneyDecided(const std::string& c) {
         }
         else {
             owner.hud().displayMessage("You don't have enough monei, get a job!",
-                                       std::bind(Interaction::failMessageFinished, this));
+                                       std::bind(&Interaction::failMessageFinished, this));
         }
     }
     else {
