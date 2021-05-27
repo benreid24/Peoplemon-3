@@ -8,6 +8,15 @@
 #include <iostream>
 
 int main() {
+    // TODO - make log roller
+#ifdef PEOPLEMON_DEBUG
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
+    bl::logging::Config::addFileOutput("verbose.log", bl::logging::Config::Trace);
+#else
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Warn);
+    bl::logging::Config::addFileOutput("error.log", bl::logging::Config::Warn);
+#endif
+
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load()) {
         BL_LOG_ERROR << "Failed to load application properties";

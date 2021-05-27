@@ -233,6 +233,14 @@ public:
     Conversation(const Conversation& copy);
 
     /**
+     * @brief Copies the conversation
+     *
+     * @param copy The conversation to copy
+     * @return Conversation& A reference to this conversation
+     */
+    Conversation& operator=(const Conversation& copy);
+
+    /**
      * @brief Loads the conversation from the given file
      *
      * @param file The file to load from. This should be relative to the conversation path
@@ -284,6 +292,14 @@ public:
      * @param node The new node value
      */
     void setNode(unsigned int i, const Node& node);
+
+    /**
+     * @brief Helper function to create a conversation that reports an error if in debug mode
+     *
+     * @param filename The file that failed to load
+     * @return Conversation The conversation that reports the error
+     */
+    static Conversation makeLoadError(const std::string& filename);
 
 private:
     bl::file::binary::SerializableField<1, std::vector<Node>> cnodes;

@@ -296,6 +296,11 @@ Conversation::Conversation(const Conversation& copy)
     cnodes.getValue() = copy.cnodes.getValue();
 }
 
+Conversation& Conversation::operator=(const Conversation& copy) {
+    cnodes.getValue() = copy.cnodes.getValue();
+    return *this;
+}
+
 bool Conversation::load(const std::string& file) {
     bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                  bl::file::binary::File::Read);
@@ -459,6 +464,18 @@ std::uint32_t Conversation::Node::next() const { return jumps.nextNode; }
 std::uint32_t Conversation::Node::nextOnPass() const { return jumps.condNodes[0]; }
 
 std::uint32_t Conversation::Node::nextOnReject() const { return jumps.condNodes[1]; }
+
+Conversation Conversation::makeLoadError(const std::string& f) {
+    Conversation conv;
+#ifdef PEOPLEMON_DEBUG
+    Node node;
+    node.setType(Node::Talk);
+    node.message() = "WARNING: Failed to load conversation: " + f;
+    node.next()    = 1;
+    conv.appendNode(node);
+#endif
+    return conv;
+}
 
 } // namespace file
 } // namespace core

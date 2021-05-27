@@ -29,6 +29,12 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
 
+if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+    target_compile_definitions(Core PUBLIC PEOPLEMON_DEBUG)
+    target_compile_definitions(PeoplemonEditor PUBLIC PEOPLEMON_DEBUG)
+    target_compile_definitions(Peoplemon PUBLIC PEOPLEMON_DEBUG)
+endif()
+
 if (STATIC_LINK)
     if (WIN32)
         SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")

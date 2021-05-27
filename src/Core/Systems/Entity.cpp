@@ -5,6 +5,7 @@
 #include <Core/Components/Controllable.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
+#include <Core/Components/Trainer.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Core/Files/NPC.hpp>
 #include <Core/Files/Trainer.hpp>
@@ -81,14 +82,7 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation();
 
-        file::Conversation conversation;
-        if (!conversation.load(data.conversation())) {
-            BL_LOG_ERROR << "Failed to load conversation: " << data.conversation();
-            return false;
-        }
-
-        if (!owner.engine().entities().addComponent<component::NPC>(
-                entity, component::NPC(data.name(), conversation))) {
+        if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
             BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
             return false;
         }
@@ -112,14 +106,13 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return false;
         }
 
-        // TODO - components like peoplemon, conversation, items
         animation = data.animation();
 
-        file::Conversation conversation;
-        if (!conversation.load(data.prebattleConversation()))
-            BL_LOG_ERROR << "Failed to load conversation: " << data.prebattleConversation();
-        if (!conversation.load(data.postBattleConversation()))
-            BL_LOG_ERROR << "Failed to load conversation: " << data.postBattleConversation();
+        if (!owner.engine().entities().addComponent<component::Trainer>(entity,
+                                                                        component::Trainer(data))) {
+            BL_LOG_ERROR << "Failed to add trainer component to entity: " << entity;
+            return false;
+        }
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();

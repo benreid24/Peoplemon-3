@@ -11,5 +11,6 @@ target_sources(Core PRIVATE
     Renderable.cpp
     SpinBehavior.cpp
     StandingBehavior.cpp
+    Trainer.cpp
     WanderBehavior.cpp
 )

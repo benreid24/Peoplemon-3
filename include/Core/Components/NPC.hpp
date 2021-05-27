@@ -3,6 +3,7 @@
 
 #include <BLIB/Entities.hpp>
 #include <Core/Files/Conversation.hpp>
+#include <Core/Files/NPC.hpp>
 
 namespace core
 {
@@ -22,10 +23,9 @@ public:
     /**
      * @brief Construct a new NPC component
      *
-     * @param name The name of the NPC
-     * @param conversation The conversation of the NPC
+     * @param data The NPC file data
      */
-    NPC(const std::string& name, const file::Conversation& conversation);
+    NPC(const file::NPC& data);
 
     /**
      * @brief The name of the NPC
@@ -41,7 +41,7 @@ public:
 
 private:
     const std::string _name;
-    const file::Conversation _conversation;
+    file::Conversation _conversation;
 };
 
 } // namespace component

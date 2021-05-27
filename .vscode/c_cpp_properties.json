@@ -18,7 +18,9 @@
             "includePath": [
                 "${inclpath}"
             ],
-            "defines": [],
+            "defines": [
+                "PEOPLEMON_DEBUG"
+            ],
             "compilerPath": "${compiler}",
             "cStandard": "c11",
             "cppStandard": "c++17",

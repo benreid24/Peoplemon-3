@@ -7,6 +7,16 @@ using namespace core;
 
 namespace tests
 {
+TEST(Conversation, Empty) {
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Error);
+
+    file::Conversation conversation;
+    SystemsHelper systems;
+    ai::Conversation runner(systems.systems());
+    runner.setConversation(conversation);
+    EXPECT_TRUE(runner.finished());
+}
+
 TEST(Conversation, Linear) {
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Error);
 
