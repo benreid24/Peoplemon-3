@@ -21,16 +21,18 @@ void Position::init() {
 }
 
 void Position::update() {
-    const sf::View area = owner.cameras().getView();
-    const sf::Vector2f cornerf(area.getCenter() - area.getSize() * 2.f);
-    const sf::Vector2f sizef(area.getSize() * 4.f);
+    sf::FloatRect area = owner.cameras().getArea();
+    area.left -= area.width * 1.5f;
+    area.top -= area.height * 1.5f;
+    area.width *= 3.f;
+    area.height *= 3.f;
     const sf::Vector2u corner(
-        static_cast<unsigned int>(std::max(cornerf.x / Properties::PixelsPerTile(), 0.f)),
-        static_cast<unsigned int>(std::max(cornerf.y / Properties::PixelsPerTile(), 0.f)));
+        static_cast<unsigned int>(std::max(area.left / Properties::PixelsPerTile(), 0.f)),
+        static_cast<unsigned int>(std::max(area.top / Properties::PixelsPerTile(), 0.f)));
     const sf::Vector2u size(
-        std::min(static_cast<unsigned int>(std::ceil(sizef.x / Properties::PixelsPerTile())),
+        std::min(static_cast<unsigned int>(std::ceil(area.width / Properties::PixelsPerTile())),
                  entityMap.front().getWidth() - corner.x - 1),
-        std::min(static_cast<unsigned int>(std::ceil(sizef.y / Properties::PixelsPerTile())),
+        std::min(static_cast<unsigned int>(std::ceil(area.height / Properties::PixelsPerTile())),
                  entityMap.front().getHeight() - corner.y - 1));
 
     toUpdate.clear();

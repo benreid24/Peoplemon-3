@@ -71,8 +71,16 @@ public:
     /**
      * @brief Returns the view to use for rendering
      *
+     * @param viewport The viewport to constrain the view within. Useful for letterboxing
+     *
      */
-    const sf::View& getView() const;
+    const sf::View& getView(const sf::FloatRect& viewport) const;
+
+    /**
+     * @brief Returns the area to be rendered by the active camera
+     *
+     */
+    sf::FloatRect getArea() const;
 
     /**
      * @brief Updates the current active camera. Pops invalidated cameras as necessary

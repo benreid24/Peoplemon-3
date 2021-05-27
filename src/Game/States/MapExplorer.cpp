@@ -19,31 +19,24 @@ public:
     virtual bool valid() const { return true; }
 
     virtual void update(core::system::Systems& systems, float dt) {
-        const float PixelsPerSecond      = 0.5f * view.getSize().x;
+        const float PixelsPerSecond =
+            0.5f * size * static_cast<float>(core::Properties::WindowWidth());
         static const float ZoomPerSecond = 0.5f;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { view.move(0, -PixelsPerSecond * dt); }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { view.move(PixelsPerSecond * dt, 0); }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { view.move(0, PixelsPerSecond * dt); }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { view.move(-PixelsPerSecond * dt, 0); }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-            const sf::Vector2f sizeChange = view.getSize() * ZoomPerSecond * dt;
-            view.setSize(view.getSize() - sizeChange);
+            size -= ZoomPerSecond * dt;
+            if (size < 0.1f) size = 0.1f;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) {
-            const sf::Vector2f sizeChange = view.getSize() * ZoomPerSecond * dt;
-            view.setSize(view.getSize() + sizeChange);
-        }
-
-        constrainView(systems);
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { size += ZoomPerSecond * dt; }
     }
 
 private:
     ExplorerCamera()
-    : Camera(sf::View({0.f,
-                       0.f,
-                       static_cast<float>(core::Properties::WindowWidth()),
-                       static_cast<float>(core::Properties::WindowHeight())})) {}
+    : Camera() {}
 };
 } // namespace
 

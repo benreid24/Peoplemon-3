@@ -56,7 +56,7 @@ public:
 
 private:
     const bl::entity::Entity owner;
-    bl::entity::Registry::ComponentHandle<component::Position> position;
+    bl::entity::Registry::ComponentHandle<component::Position> ownerPos;
     bool alive;
 
     Follow(Systems& systems, bl::entity::Entity toFollow);
