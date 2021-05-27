@@ -63,29 +63,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00403.html">core</a></li><li class="navelem"><a class="el" href="a00410.html">map</a></li><li class="navelem"><a class="el" href="a00414.html">weather</a></li><li class="navelem"><a class="el" href="a00808.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00429.html">game</a></li><li class="navelem"><a class="el" href="a00430.html">state</a></li><li class="navelem"><a class="el" href="a00808.html">PauseMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::Base Member List</div>  </div>
+<div class="title">game::state::PauseMenu Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00808.html">core::map::weather::Base</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00808.html">game::state::PauseMenu</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00808.html#aa445e96cd7c6ee8de64b0cd0019b76bb">render</a>(sf::RenderTarget &amp;target, float residual) const =0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00808.html#a82498ce54c06b0c75eeb85b7008f90d2">start</a>(const sf::FloatRect &amp;initialView)=0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00808.html#adea1271d369903e717e122178f312034">stop</a>()=0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00808.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() const =0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00808.html#af408f0694287fd7c7c2060de024b20d7">type</a>() const =0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00808.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00808.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a00808.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00808.html#aa73bb135e241e4a8c6d902ffe07143d0">activate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00808.html#ae7bf5c21466113543605afd251075112">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00808.html#a87e83a1eaa0229d77ec1b19e9baf6887">deactivate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00808.html#ad306171de1cd78c01dd80e894515ac00">name</a>() const override</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00808.html#a3406e519f646a493220da627e6d87475">render</a>(bl::engine::Engine &amp;, float lag) override</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00812.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00812.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00812.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a00812.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00808.html#ac4204ac3d392b1ee39b7f0732c28c89e">update</a>(bl::engine::Engine &amp;, float dt) override</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00808.html#abcba21f5b156a4eef3a7513a4180644c">~PauseMenu</a>()=default</td><td class="entry"><a class="el" href="a00808.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00812.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a00812.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['sortedlayer',['SortedLayer',['../a00398.html#ga6f70b9c1f8b3325b63baf210dd69e816',1,'core::map']]]
+  ['ptr',['Ptr',['../a00732.html#aa01fbd0679d46f65be2168fe269d9c81',1,'core::system::camera::Camera']]]
 ];

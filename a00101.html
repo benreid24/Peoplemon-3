@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/Light.hpp File Reference</title>
+<title>Peoplemon: include/Core/Maps/LevelTransition.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,36 +68,44 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">Light.hpp File Reference</div>  </div>
+<div class="title">LevelTransition.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Files/Binary.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00101_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00616.html">core::map::Light</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a renderable light in a <a class="el" href="a00624.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a00616.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00403"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00403.html">core</a></td></tr>
-<tr class="memdesc:a00403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00410"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00410.html">core</a></td></tr>
+<tr class="memdesc:a00410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00410"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00410.html">core::map</a></td></tr>
-<tr class="memdesc:a00410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="memitem:a00418"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00418.html">core::map</a></td></tr>
+<tr class="memdesc:a00418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gacd6894855472f8b22d022ece25eda9b4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00405.html#gacd6894855472f8b22d022ece25eda9b4">core::map::LevelTransition</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a00405.html#ggacd6894855472f8b22d022ece25eda9b4a6adf97f83acf6453d4a6a4b1070f3754">core::map::LevelTransition::None</a> = 0, 
+<a class="el" href="a00405.html#ggacd6894855472f8b22d022ece25eda9b4a269088cddc0f9a0a535f28ff5ce989c7">core::map::LevelTransition::HorizontalRightUp</a> = 1, 
+<a class="el" href="a00405.html#ggacd6894855472f8b22d022ece25eda9b4aca5bf14504066a1aea13ab1930acdb3d">core::map::LevelTransition::HorizontalRightDown</a> = 2, 
+<a class="el" href="a00405.html#ggacd6894855472f8b22d022ece25eda9b4a8c98237b17c0b1c662043c4f1e57a68f">core::map::LevelTransition::VerticalTopUp</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a00405.html#ggacd6894855472f8b22d022ece25eda9b4a4b41ef67d644cdca6a4d43cec16103f1">core::map::LevelTransition::VerticalTopDown</a> = 4
+<br />
+ }<tr class="memdesc:gacd6894855472f8b22d022ece25eda9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a level transition in a map. Level transitions are applied when an entity moves either onto or out of a tile containing a transition. When the transition is for going up the change occurs when the tile is left. When it is going down it is applied when the tile is entered.  <a href="a00405.html#gacd6894855472f8b22d022ece25eda9b4">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gacd6894855472f8b22d022ece25eda9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

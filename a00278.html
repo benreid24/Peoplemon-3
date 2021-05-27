@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Fog.cpp File Reference</title>
+<title>Peoplemon: src/Core/Maps/Tileset.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,39 +63,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li><li class="navelem"><a class="el" href="dir_46b6520a8a72c00b5d6dbf22a96f9cde.html">Weather</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Fog.cpp File Reference</div>  </div>
+<div class="title">Tileset.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00281_source.html">Fog.hpp</a>&quot;</code><br />
-<code>#include &lt;BLIB/Util/Random.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00140_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Engine/Resources.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00119_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00143_source.html">Core/Properties.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00278_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00848.html">core::map::loaders::LegacyTilesetLoader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00852.html">core::map::loaders::PrimaryTilesetLoader</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00403"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00403.html">core</a></td></tr>
-<tr class="memdesc:a00403"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00410"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00410.html">core</a></td></tr>
+<tr class="memdesc:a00410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00410"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00410.html">core::map</a></td></tr>
-<tr class="memdesc:a00410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="memitem:a00418"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00418.html">core::map</a></td></tr>
+<tr class="memdesc:a00418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00414"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00414.html">core::map::weather</a></td></tr>
-<tr class="memdesc:a00414"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of different weather types. <br /></td></tr>
+<tr class="memitem:a00422"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00422.html">core::map::loaders</a></td></tr>
+<tr class="memdesc:a00422"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

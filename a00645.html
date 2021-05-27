@@ -63,30 +63,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00403.html">core</a></li><li class="navelem"><a class="el" href="a00415.html">player</a></li><li class="navelem"><a class="el" href="a00648.html">Bag</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00418.html">map</a></li><li class="navelem"><a class="el" href="a00648.html">Layer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::player::Bag Member List</div>  </div>
+<div class="title">core::map::Layer&lt; T &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00648.html">core::player::Bag</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a520d6a73f44ab8d8bd68bbc05db70957">addItem</a>(item::Id item, unsigned int qty=1)</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00648.html#ae9cd603aecc1d6480c4abdd2c3e99b0b">clear</a>()</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a02137e1f1f3317b91c511b4f345f3117">getAll</a>(std::vector&lt; Item &gt; &amp;result) const</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00648.html#a02246ed25034e0168588f6db4a56f048">getByCategory</a>(item::Category category, std::vector&lt; Item &gt; &amp;result) const</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a97f34b53e1dfbe17592677bc8ad47919">getByType</a>(item::Type type, std::vector&lt; Item &gt; &amp;result) const</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00648.html#aff6f092cae2b946019f16268f434f3d2">hasItem</a>(item::Id item) const</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a9f4c04917debacd6289fa77545edaf92">itemCount</a>(item::Id item) const</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00648.html#a0889148b02fd6dc5b65b1ccb02a28052">removeItem</a>(item::Id item, unsigned int qty=1)</td><td class="entry"><a class="el" href="a00648.html">core::player::Bag</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a1661b368529c237d40d5693fa791b253">create</a>(unsigned int width, unsigned int height, const T &amp;val=T())</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00648.html#ad530001b8233635fe00998242e1aa951">get</a>(unsigned int x, unsigned int y) const</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00648.html#ac26fc2153dbbd5177ddf086751b3943c">getRef</a>(unsigned int x, unsigned int y)</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00648.html#a4cb6fa2c128fdca7a065794f9122ff84">height</a>() const</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00648.html#ad12bfd4e982d632cde7c2002b0fa315e">Layer</a>()</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00648.html#abacf46365bd73be836733be1dbe2d1fd">Layer</a>(const Layer &amp;copy)</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00648.html#ab68cc1d2ed062dfc2f964dfb2a65fea0">operator=</a>(const Layer &amp;copy)</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00648.html#a1833ca76d0d20bb33f390f65f7fb06be">set</a>(unsigned int x, unsigned int y, const T &amp;value)</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00648.html#a47005a3926e8b5865c66b0bb364b9f49">width</a>() const</td><td class="entry"><a class="el" href="a00648.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['legacymaploader',['LegacyMapLoader',['../a00624.html#a7c80f581370155f01148731497a89423',1,'core::map::Map']]],
-  ['legacytilesetloader',['LegacyTilesetLoader',['../a00640.html#a46a5e488e04da057f1cba5fa4ba0e83e',1,'core::map::Tileset']]],
-  ['primarytilesetloader',['PrimaryTilesetLoader',['../a00640.html#a6c6088a948ad33f476223e3faa9c9ff2',1,'core::map::Tileset']]]
+  ['serializer_3c_20core_3a_3afile_3a_3aconversation_3a_3anode_2c_20false_20_3e',['Serializer&lt; core::file::Conversation::Node, false &gt;',['../a00604.html#a6701c28ea2a4cd3643dc722656f73197',1,'core::file::Conversation::Node']]]
 ];

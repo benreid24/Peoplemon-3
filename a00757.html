@@ -63,32 +63,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00419.html">game</a></li><li class="navelem"><a class="el" href="a00420.html">state</a></li><li class="navelem"><a class="el" href="a00760.html">MainMenu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00411.html">system</a></li><li class="navelem"><a class="el" href="a00760.html">HUD</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">game::state::MainMenu Member List</div>  </div>
+<div class="title">core::system::HUD Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00760.html">game::state::MainMenu</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00760.html">core::system::HUD</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00760.html#aa7d2ec09d9167621ba8b66775fed3b52">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00760.html#aa79ea0b56096960c75d8aafa52840223">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00760.html#a0f3cf2b9e6902538562392f987f076f1">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00760.html#a996c83b8719897e862ea9051039284f2">name</a>() const override</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00760.html#a8bce4d09fecbd999495cf277a5fda306">render</a>(bl::engine::Engine &amp;engine, float lag) override</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00772.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00772.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00772.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a00772.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00760.html#a785e3dc903834fceb1701ae4bfeea02d">update</a>(bl::engine::Engine &amp;, float dt) override</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00760.html#a930ab5d50035054568fa30e074994c1b">~MainMenu</a>()=default</td><td class="entry"><a class="el" href="a00760.html">game::state::MainMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00772.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a00772.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00760.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a> typedef</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00760.html#a4d1d6c90f36a4b23611a790d7b8c8c41">displayMessage</a>(const std::string &amp;message, Callback cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00760.html#aa1052b3650984bc4bb29975e87ffcea9">HUD</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00760.html#a1ee7195346b6a0496c5b2b3cfbc95c2f">promptUser</a>(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, Callback cb)</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00760.html#a2d056532e298b8f50839ef15cfa1abe4">render</a>(sf::RenderTarget &amp;target, float lag)</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00760.html#a4f1d21a8201eacf4ae9325fa8db4330e">update</a>(float dt)</td><td class="entry"><a class="el" href="a00760.html">core::system::HUD</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

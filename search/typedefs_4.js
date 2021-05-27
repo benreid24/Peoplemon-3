@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ptr',['Ptr',['../a00692.html#aa01fbd0679d46f65be2168fe269d9c81',1,'core::system::camera::Camera']]]
+  ['node',['Node',['../a00416.html#a26d06df1530693a7810a2f222a13197c',1,'bl::file::binary']]]
 ];

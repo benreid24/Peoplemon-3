@@ -61,26 +61,31 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00418.html">map</a></li><li class="navelem"><a class="el" href="a00423.html">weather</a></li><li class="navelem"><a class="el" href="a00856.html">Base</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DemoEngineState Member List</div>  </div>
+<div class="title">core::map::weather::Base Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00856.html">DemoEngineState</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00856.html">core::map::weather::Base</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00856.html#a267c7840e40adc29167f771620cf3fc8">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00856.html#a6217bd3de34b18ad0882d37ee9430239">create</a>()</td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00856.html#a250dfad12b7d150f57a3740f5d3dbf62">DegPerSec</a></td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00856.html#ab60dc8fea40257083292a38afe666384">name</a>() const override</td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00856.html#aa60c8a2a801ab9a292b74db36c92d1a5">render</a>(bl::engine::Engine &amp;engine, float lag) override</td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00856.html#a171d3d4b24a6076b58cd10ff4a385b88">update</a>(bl::engine::Engine &amp;engine, float dt) override</td><td class="entry"><a class="el" href="a00856.html">DemoEngineState</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00856.html#aa445e96cd7c6ee8de64b0cd0019b76bb">render</a>(sf::RenderTarget &amp;target, float residual) const =0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00856.html#a82498ce54c06b0c75eeb85b7008f90d2">start</a>(const sf::FloatRect &amp;initialView)=0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00856.html#adea1271d369903e717e122178f312034">stop</a>()=0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00856.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() const =0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00856.html#af408f0694287fd7c7c2060de024b20d7">type</a>() const =0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00856.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00856.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a00856.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

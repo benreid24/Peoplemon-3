@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['allrandom',['AllRandom',['../a00644.html#a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c',1,'core::map::Weather']]]
+  ['_5flegacy_5fjump',['_LEGACY_Jump',['../a00604.html#af2fcaf16b4ce64411e9382567991f78ea5e97ef018846ef493dfcb13b5216bf8c',1,'core::file::Conversation::Node']]],
+  ['_5flegacy_5flabel',['_LEGACY_Label',['../a00604.html#af2fcaf16b4ce64411e9382567991f78ea16b8ef2517e92207daa60591508e4f5c',1,'core::file::Conversation::Node']]]
 ];

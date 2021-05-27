@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::Behavior::Path::Pace Struct Reference</title>
+<title>Peoplemon: core::event::WeatherStarted Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00403.html">core</a></li><li class="navelem"><a class="el" href="a00411.html">file</a></li><li class="navelem"><a class="el" href="a00552.html">Behavior</a></li><li class="navelem"><a class="el" href="a00564.html">Path</a></li><li class="navelem"><a class="el" href="a00568.html">Pace</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00410.html">core</a></li><li class="navelem"><a class="el" href="a00417.html">event</a></li><li class="navelem"><a class="el" href="a00568.html">WeatherStarted</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,120 +72,95 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00565.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::Behavior::Path::Pace Struct Reference</div>  </div>
+<div class="title">core::event::WeatherStarted Struct Reference<div class="ingroups"><a class="el" href="a00398.html">Core</a> &raquo; <a class="el" href="a00402.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a straight section of path.  
+<p>Fired when weather starts.  
  <a href="a00568.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00059_source.html">Behavior.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01067_source.html">Weather.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a68ff7f644bc8d16975bb4cd6d3ca9e6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00568.html#a68ff7f644bc8d16975bb4cd6d3ca9e6f">Pace</a> (<a class="el" href="a00394.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> dir, unsigned int <a class="el" href="a00568.html#a156da6ec38ead31e71fb5b15302aaeca">steps</a>)</td></tr>
-<tr class="memdesc:a68ff7f644bc8d16975bb4cd6d3ca9e6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00568.html" title="Represents a straight section of path. ">Pace</a>.  <a href="#a68ff7f644bc8d16975bb4cd6d3ca9e6f">More...</a><br /></td></tr>
-<tr class="separator:a68ff7f644bc8d16975bb4cd6d3ca9e6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8bf60185b23a06981a1fe3d0f8ac442"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00568.html#ac8bf60185b23a06981a1fe3d0f8ac442">WeatherStarted</a> (<a class="el" href="a00684.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> <a class="el" href="a00568.html#a946f22738e6b3cddbe3b16f1176b218a">type</a>)</td></tr>
+<tr class="memdesc:ac8bf60185b23a06981a1fe3d0f8ac442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a weather started event.  <a href="#ac8bf60185b23a06981a1fe3d0f8ac442">More...</a><br /></td></tr>
+<tr class="separator:ac8bf60185b23a06981a1fe3d0f8ac442"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6199bd64c632c44d522681ca8ea8da23"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00394.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00568.html#a6199bd64c632c44d522681ca8ea8da23">direction</a></td></tr>
-<tr class="memdesc:a6199bd64c632c44d522681ca8ea8da23"><td class="mdescLeft">&#160;</td><td class="mdescRight">The direction to walk in.  <a href="#a6199bd64c632c44d522681ca8ea8da23">More...</a><br /></td></tr>
-<tr class="separator:a6199bd64c632c44d522681ca8ea8da23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a156da6ec38ead31e71fb5b15302aaeca"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00568.html#a156da6ec38ead31e71fb5b15302aaeca">steps</a></td></tr>
-<tr class="memdesc:a156da6ec38ead31e71fb5b15302aaeca"><td class="mdescLeft">&#160;</td><td class="mdescRight">The number of steps to take. No need to account for direction change.  <a href="#a156da6ec38ead31e71fb5b15302aaeca">More...</a><br /></td></tr>
-<tr class="separator:a156da6ec38ead31e71fb5b15302aaeca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946f22738e6b3cddbe3b16f1176b218a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00684.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00568.html#a946f22738e6b3cddbe3b16f1176b218a">type</a></td></tr>
+<tr class="memdesc:a946f22738e6b3cddbe3b16f1176b218a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather that started.  <a href="#a946f22738e6b3cddbe3b16f1176b218a">More...</a><br /></td></tr>
+<tr class="separator:a946f22738e6b3cddbe3b16f1176b218a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a straight section of path. </p>
+<div class="textblock"><p>Fired when weather starts. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00066">66</a> of file <a class="el" href="a00059_source.html">Behavior.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00016">16</a> of file <a class="el" href="a01067_source.html">Weather.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a68ff7f644bc8d16975bb4cd6d3ca9e6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68ff7f644bc8d16975bb4cd6d3ca9e6f">&#9670;&nbsp;</a></span>Pace()</h2>
+<a id="ac8bf60185b23a06981a1fe3d0f8ac442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8bf60185b23a06981a1fe3d0f8ac442">&#9670;&nbsp;</a></span>WeatherStarted()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::file::Behavior::Path::Pace::Pace </td>
+          <td class="memname">core::event::WeatherStarted::WeatherStarted </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00394.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00684.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>steps</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00568.html" title="Represents a straight section of path. ">Pace</a>. </p>
+<p>Creates a weather started event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dir</td><td>The direction to walk in </td></tr>
-    <tr><td class="paramname">steps</td><td>The number of steps to take </td></tr>
+    <tr><td class="paramname">type</td><td>The type of weather that started </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00233_source.html#l00130">130</a> of file <a class="el" href="a00233_source.html">Behavior.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00022">22</a> of file <a class="el" href="a01067_source.html">Weather.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6199bd64c632c44d522681ca8ea8da23"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6199bd64c632c44d522681ca8ea8da23">&#9670;&nbsp;</a></span>direction</h2>
+<a id="a946f22738e6b3cddbe3b16f1176b218a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a946f22738e6b3cddbe3b16f1176b218a">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00394.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> core::file::Behavior::Path::Pace::direction</td>
+          <td class="memname">const <a class="el" href="a00684.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> core::event::WeatherStarted::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The direction to walk in. </p>
+<p>The type of weather that started. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00068">68</a> of file <a class="el" href="a00059_source.html">Behavior.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a156da6ec38ead31e71fb5b15302aaeca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a156da6ec38ead31e71fb5b15302aaeca">&#9670;&nbsp;</a></span>steps</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int core::file::Behavior::Path::Pace::steps</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The number of steps to take. No need to account for direction change. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00071">71</a> of file <a class="el" href="a00059_source.html">Behavior.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00026">26</a> of file <a class="el" href="a01067_source.html">Weather.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Files/<a class="el" href="a00059_source.html">Behavior.hpp</a></li>
-<li>src/Core/Files/<a class="el" href="a00233_source.html">Behavior.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a01067_source.html">Weather.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 21 2021 05:17:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 27 2021 16:33:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
