@@ -46,34 +46,35 @@ public:
     virtual void update(Systems& systems, float dt) = 0;
 
     /**
-     * @brief Returns the view to be used for rendering
+     * @brief Returns the position of the center of the camera
      *
      */
-    const sf::View& getView() const;
+    const sf::Vector2f& getPosition() const;
+
+    /**
+     * @brief Returns the size factor of the camera. Size is treated as a factor of the window
+     *        height stored in Properties
+     *
+     */
+    float getSize() const;
 
 protected:
-    /// The view the camera should use and update in value
-    sf::View view;
+    sf::Vector2f position;
+    float size;
 
     /**
-     * @brief Construct a new Camera object
+     * @brief Construct a new Camera object with sane defaults
      *
      */
-    Camera() = default;
+    Camera();
 
     /**
-     * @brief Creates the camera with the initial view
+     * @brief Creates the camera with the initial position and size
      *
-     * @param view The initial view to use
+     * @param view The initial position to use
+     * @param size The size to start at
      */
-    Camera(const sf::View& view);
-
-    /**
-     * @brief Contrains the contained view to the renderable region of the world
-     *
-     * @param systems The primary systems object
-     */
-    void constrainView(Systems& systems);
+    Camera(const sf::Vector2f& position, float size);
 };
 
 } // namespace camera

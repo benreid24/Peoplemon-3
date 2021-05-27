@@ -24,7 +24,8 @@ void Render::update(float dt) {
 }
 
 void Render::render(sf::RenderTarget& target, float lag) {
-    target.setView(owner.cameras().getView());
+    const sf::View oldView = target.getView();
+    target.setView(owner.cameras().getView(oldView.getViewport()));
 
     const auto entityRender = [this, &target, lag](std::uint8_t level,
                                                    unsigned int row,
@@ -44,6 +45,8 @@ void Render::render(sf::RenderTarget& target, float lag) {
     target.clear();
     owner.world().activeMap().render(target, lag, entityRender);
     owner.hud().render(target, lag);
+
+    target.setView(oldView);
 }
 
 } // namespace system

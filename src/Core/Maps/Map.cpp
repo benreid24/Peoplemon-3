@@ -254,6 +254,26 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     // TODO - load and push playlist
     // TODO - run onload script
 
+    // Spawn player
+    auto spawnIt = spawns.find(spawnId);
+    if (spawnIt != spawns.end()) {
+        if (!systems.player().spawnPlayer(spawnIt->second.position)) {
+            BL_LOG_ERROR << "Failed to spawn player";
+            return false;
+        }
+        systems.cameras().clearAndReplace(
+            system::camera::Follow::create(systems, systems.player().player()));
+
+        // Activate camera and weather
+        systems.cameras().update(0.f);
+        weather.activate(systems.cameras().getArea());
+    }
+    else {
+        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
+        return false;
+    }
+
+    // One time activation if not yet activated
     if (!activated) {
         activated = true;
         BL_LOG_INFO << "Activating map " << nameField.getValue();
@@ -263,10 +283,6 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         tileset->activate();
         for (LayerSet& level : levels) { level.activate(*tileset); }
 
-        const sf::FloatRect weatherArea(systems.cameras().getView().getCenter() -
-                                            systems.cameras().getView().getSize() / 2.f,
-                                        systems.cameras().getView().getSize());
-        weather.activate(weatherArea);
         weather.set(weatherField.getValue());
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
@@ -286,21 +302,6 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
 
     // Spawn items
     for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
-
-    // Spawn player
-    auto spawnIt = spawns.find(spawnId);
-    if (spawnIt != spawns.end()) {
-        if (!systems.player().spawnPlayer(spawnIt->second.position)) {
-            BL_LOG_ERROR << "Failed to spawn player";
-            return false;
-        }
-        systems.cameras().clearAndReplace(
-            system::camera::Follow::create(systems, systems.player().player()));
-    }
-    else {
-        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
-        return false;
-    }
 
     systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;
