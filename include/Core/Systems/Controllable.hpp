@@ -32,6 +32,24 @@ public:
     void init();
 
     /**
+     * @brief Set the give entity to be locked or unlocked
+     *
+     * @param entity The entity to change the state of
+     * @param locked True to lock, false to unlock
+     * @param preserve True to preserve previous lock state, false to forget
+     * @return True if lock applied, false if not found
+     */
+    bool setEntityLocked(bl::entity::Entity entity, bool locked, bool preserve = true);
+
+    /**
+     * @brief Resets the given entity's lock state to the last remembered value
+     *
+     * @param entity The entity to reset
+     * @return True on reset, false if not found
+     */
+    bool resetEntityLock(bl::entity::Entity entity);
+
+    /**
      * @brief Sets the lock state for all controllable entities
      *
      * @param locked True to lock, false to unlock

@@ -13,7 +13,7 @@ namespace system
 {
 Interaction::Interaction(Systems& owner)
 : owner(owner)
-, interactionActive(false)
+, interactingEntity(bl::entity::InvalidEntity)
 , currentConversation(owner) {}
 
 bool Interaction::interact(bl::entity::Entity interactor) {
@@ -34,17 +34,21 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 
     const component::NPC* npc = owner.engine().entities().getComponent<component::NPC>(nonplayer);
     if (npc) {
+        owner.controllable().setEntityLocked(nonplayer, true);
+        faceEntity(nonplayer, owner.player().player());
         currentConversation.setConversation(npc->conversation());
-        interactionActive = true;
+        interactingEntity = nonplayer;
         processConversationNode();
     }
     else {
         const component::Trainer* trainer =
             owner.engine().entities().getComponent<component::Trainer>(nonplayer);
         if (trainer) {
+            owner.controllable().setEntityLocked(nonplayer, true);
+            faceEntity(nonplayer, owner.player().player());
             // TODO - handle battle
             currentConversation.setConversation(trainer->beforeBattleConversation());
-            interactionActive = true;
+            interactingEntity = nonplayer;
             processConversationNode();
         }
     }
@@ -69,7 +73,11 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 }
 
 void Interaction::processConversationNode() {
-    if (!interactionActive || currentConversation.finished()) return;
+    if (interactingEntity == bl::entity::InvalidEntity) return;
+    if (currentConversation.finished()) {
+        owner.controllable().resetEntityLock(interactingEntity);
+        return;
+    }
 
     using E                              = file::Conversation::Node::Type;
     const file::Conversation::Node& node = currentConversation.currentNode();
@@ -116,7 +124,8 @@ void Interaction::processConversationNode() {
 
     default:
         BL_LOG_ERROR << "Invalid conversation node type " << node.getType() << ", terminating";
-        interactionActive = false;
+        owner.controllable().resetEntityLock(interactingEntity);
+        interactingEntity = bl::entity::InvalidEntity;
         break;
     }
 }
@@ -169,6 +178,16 @@ void Interaction::giveMoneyDecided(const std::string& c) {
     else {
         currentConversation.notifyCheckFailed();
         processConversationNode();
+    }
+}
+
+void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
+    component::Position* mpos = owner.engine().entities().getComponent<component::Position>(rot);
+    const component::Position* fpos =
+        owner.engine().entities().getComponent<component::Position>(face);
+    if (mpos && fpos) {
+        const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
+        if (mpos->direction != dir) mpos->direction = dir;
     }
 }
 

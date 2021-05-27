@@ -28,7 +28,7 @@ public:
 
     /**
      * @brief Construct a new Position component
-     * 
+     *
      * @param level The level in the map
      * @param tiles The position in tiles
      * @param direction The direction it is facing
@@ -76,10 +76,20 @@ public:
 
     /**
      * @brief Returns whether or not this position is currently being interpolated
-     * 
+     *
      * @return True if there is active unfinished interpolation, false if still
      */
     bool moving() const;
+
+    /**
+     * @brief Returns the direction that an entity at 'from' position should face to face the 'to'
+     *        position
+     *
+     * @param from The position of the entity being rotated
+     * @param to The position to face
+     * @return Direction The direction to face
+     */
+    static Direction facePosition(const Position& from, const Position& to);
 
     /// The direction the entity is facing
     Direction direction;

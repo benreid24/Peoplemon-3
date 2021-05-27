@@ -36,11 +36,12 @@ public:
 
 private:
     Systems& owner;
-    bool interactionActive;
+    bl::entity::Entity interactingEntity;
     ai::Conversation currentConversation;
     // TODO - data for battle transition if talking to fightable trainer?
 
     void processConversationNode();
+    void faceEntity(bl::entity::Entity toRotate, bl::entity::Entity toFace);
 
     void continuePressed();
     void failMessageFinished();

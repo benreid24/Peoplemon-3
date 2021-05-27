@@ -66,5 +66,12 @@ bool Position::moving() const {
                Properties::PixelsPerTile() * position.y;
 }
 
+Direction Position::facePosition(const Position& from, const Position& to) {
+    if (from.position.x > to.position.x) return Direction::Left;
+    if (from.position.y > to.position.y) return Direction::Up;
+    if (from.position.x < to.position.x) return Direction::Right;
+    return Direction::Down;
+}
+
 } // namespace component
 } // namespace core
