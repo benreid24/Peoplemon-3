@@ -2,6 +2,8 @@
 
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Util/Waiter.hpp>
+#include <Core/Components/NPC.hpp>
+#include <Core/Components/Trainer.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -33,9 +35,8 @@ Value promptPlayer(system::Systems& systems, ArgList args);
 Value rollCredits(system::Systems& systems, ArgList args);
 
 Value getNpc(system::Systems& systems, ArgList args);
-Value spawnNpc(system::Systems& systems, ArgList args);
 Value getTrainer(system::Systems& systems, ArgList args);
-Value spawnTrainer(system::Systems& systems, ArgList args);
+Value spawnCharacter(system::Systems& systems, ArgList args);
 
 Value moveEntity(system::Systems& systems, ArgList args);
 Value rotateEntity(system::Systems& systems, ArgList args);
@@ -81,9 +82,8 @@ void Functions::addDefaults(SymbolTable& table, system::Systems& systems) {
     table.set("rollCredits", bind(systems, &rollCredits));
 
     table.set("getNpc", bind(systems, &getNpc));
-    table.set("spawnNpc", bind(systems, &spawnNpc));
     table.set("getTrainer", bind(systems, &getTrainer));
-    table.set("spawnTrainer", bind(systems, &spawnTrainer));
+    table.set("spawnCharacter", bind(systems, &spawnCharacter));
 
     table.set("moveEntity", bind(systems, &moveEntity));
     table.set("rotateEntity", bind(systems, &rotateEntity));
@@ -102,22 +102,25 @@ void Functions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
 namespace
 {
-Value makePosition(system::Systems& systems, bl::entity::Entity e) {
+Value makePosition(const component::Position& pos) {
     Value value;
+    Value coord;
+    coord.setProperty("x", {static_cast<float>(pos.positionTiles().x)});
+    coord.setProperty("y", {static_cast<float>(pos.positionTiles().y)});
+    value.setProperty("tiles", coord);
+    coord.setProperty("x", {pos.positionPixels().x});
+    coord.setProperty("y", {pos.positionPixels().y});
+    value.setProperty("pixels", coord);
+    value.setProperty("level", {static_cast<float>(pos.level)});
+    value.setProperty("direction", {component::directionToString(pos.direction)});
+    return value;
+}
+
+Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
-    if (pos) {
-        Value coord;
-        coord.setProperty("x", {static_cast<float>(pos->positionTiles().x)});
-        coord.setProperty("y", {static_cast<float>(pos->positionTiles().y)});
-        value.setProperty("tiles", coord);
-        coord.setProperty("x", {pos->positionPixels().x});
-        coord.setProperty("y", {pos->positionPixels().y});
-        value.setProperty("pixels", coord);
-        value.setProperty("level", {static_cast<float>(pos->level)});
-        value.setProperty("direction", {component::directionToString(pos->direction)});
-    }
-    return value;
+    if (pos) { return makePosition(*pos); }
+    return {};
 }
 
 Value getPlayer(system::Systems& systems, ArgList) {
@@ -322,22 +325,63 @@ Value rollCredits(system::Systems& systems, ArgList args) {
 }
 
 Value getNpc(system::Systems& systems, ArgList args) {
-    // TODO
+    Function::validateArgs<Value::TString>("getNpc", args);
+
+    const std::string name = args[0].getAsString();
+    const auto npcMap      = systems.engine()
+                            .entities()
+                            .getEntitiesWithComponents<component::NPC, component::Position>()
+                            ->results();
+    for (const auto& pair : npcMap) {
+        if (pair.second.get<component::NPC>()->name() == name) {
+            Value npc(static_cast<float>(pair.first));
+            npc.setProperty("name", {name});
+            npc.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
+            npc.setProperty("defeated", makeBool(false));
+            npc.setProperty("position", makePosition(*pair.second.get<component::Position>()));
+            return npc;
+        }
+    }
+
     return makeBool(false);
 }
 
-Value spawnNpc(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+Value spawnCharacter(system::Systems& systems, ArgList args) {
+    Function::validateArgs<Value::TString,
+                           Value::TNumeric,
+                           Value::TNumeric,
+                           Value::TNumeric,
+                           Value::TString>("spawnCharacter", args);
+
+    const map::CharacterSpawn spawn(
+        component::Position(
+            static_cast<std::uint8_t>(args[1].getAsNum()),
+            {static_cast<int>(args[2].getAsNum()), static_cast<int>(args[3].getAsNum())},
+            component::directionFromString(args[4].getAsString())),
+        args[0].getAsString());
+    return makeBool(systems.entity().spawnCharacter(spawn));
 }
 
 Value getTrainer(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
-}
+    Function::validateArgs<Value::TString>("getTrainer", args);
 
-Value spawnTrainer(system::Systems& systems, ArgList args) {
-    // TODO
+    const std::string name = args[0].getAsString();
+    const auto trainerMap =
+        systems.engine()
+            .entities()
+            .getEntitiesWithComponents<component::Trainer, component::Position>()
+            ->results();
+    for (const auto& pair : trainerMap) {
+        if (pair.second.get<component::Trainer>()->name() == name) {
+            Value trainer(static_cast<float>(pair.first));
+            trainer.setProperty("name", {name});
+            trainer.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
+            trainer.setProperty("defeated", makeBool(false)); // TODO - track who defeated
+            trainer.setProperty("position", makePosition(*pair.second.get<component::Position>()));
+            return trainer;
+        }
+    }
+
     return makeBool(false);
 }
 

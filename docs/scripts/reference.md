@@ -45,8 +45,7 @@ The following functions are available in each type of Peoplemon script, in addit
 |--------------|-----------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------------------|
 | getNpc       | `name`: String                                                                    | [Character](types.md#character) | Returns the NPC by name. If not found returns `false`                                                |
 | getTrainer   | `name`: String                                                                    | [Character](types.md#character) | Returns the Trainer by name. If not found returns `false`                                            |
-| spawnNpc     | `file`: String, `level`: Numeric, `x`: Numeric, `y`: Numeric, `direction`: String | Bool      | Spawns the NPC from the file at the position. Returns true if file valid and NPC was spawned         |
-| spawnTrainer | `file`: String, `level`: Numeric, `x`: Numeric, `y`: Numeric, `direction`: String | Bool      | Spawns the Trainer from the file at the position. Returns true if file valid and Trainer was spawned |
+| spawnCharacter | `file`: String, `level`: Numeric, `x`: Numeric, `y`: Numeric, `direction`: String | Bool      | Spawns the NPC/Trainer from the file at the position. Returns true if file valid and Character was spawned |
 
 ### Entity Manipulation
 
