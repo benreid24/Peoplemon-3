@@ -21,7 +21,7 @@ jobs:
     - name: make
       run: |
         cd build && make
-        cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./tests
+        cp ../lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./tests
 
     - name: test
       run: build/tests/Peoplemon.t
