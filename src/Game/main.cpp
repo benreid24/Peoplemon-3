@@ -1,5 +1,6 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/Waiter.hpp>
 
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -44,6 +45,9 @@ int main() {
         BL_LOG_ERROR << "Engine exited with error";
         return 1;
     }
+
+    BL_LOG_INFO << "Unblocking waiting threads";
+    bl::util::Waiter::unblockAll();
 
     BL_LOG_INFO << "Exiting normally";
     return 0;

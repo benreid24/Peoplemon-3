@@ -1,5 +1,5 @@
-#ifndef CORE_SCRIPTS_FUNCTIONS_HPP
-#define CORE_SCRIPTS_FUNCTIONS_HPP
+#ifndef CORE_SCRIPTS_BASEFUNCTIONS_HPP
+#define CORE_SCRIPTS_BASEFUNCTIONS_HPP
 
 #include <BLIB/Scripts/SymbolTable.hpp>
 
@@ -21,13 +21,12 @@ class Systems;
 namespace script
 {
 /**
- * @brief Collection of static helpers to add builtin functions of various types to script symbol
- *        tables
+ * @brief Adds the built-in default functions to all Peoplemon scripts
  *
  * @ingroup Scripts
  *
  */
-struct Functions {
+struct BaseFunctions {
     /**
      * @brief Adds the universal built-in functions to the given symbol table
      *

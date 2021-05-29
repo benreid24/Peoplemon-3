@@ -1,9 +1,10 @@
-#include <Core/Scripts/Functions.hpp>
+#include <Core/Scripts/BaseFunctions.hpp>
 
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Util/Waiter.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
+#include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -44,6 +45,7 @@ Value removeEntity(system::Systems& systems, ArgList args);
 Value entityToPosition(system::Systems& systems, ArgList args);
 Value entityInteract(system::Systems& systems, ArgList args);
 Value setEntityLock(system::Systems& systems, ArgList args);
+Value resetEntityLock(system::Systems& systems, ArgList args);
 
 Value getClock(system::Systems& systems, ArgList args);
 Value waitUntilTime(system::Systems& systems, ArgList args);
@@ -52,12 +54,6 @@ Value runAtClockTime(system::Systems& systems, ArgList args);
 Value addSaveEntry(system::Systems& systems, ArgList args);
 Value getSaveEntry(system::Systems& systems, ArgList args);
 
-Value makeBool(bool b) {
-    Value v;
-    v.makeBool(b);
-    return v;
-}
-
 Value bind(system::Systems& systems, Builtin func) {
     return {
         Function([&systems, func](SymbolTable&, ArgList args) { return (*func)(systems, args); })};
@@ -65,7 +61,7 @@ Value bind(system::Systems& systems, Builtin func) {
 
 } // namespace
 
-void Functions::addDefaults(SymbolTable& table, system::Systems& systems) {
+void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     table.set("getPlayer", bind(systems, &getPlayer));
 
     table.set("giveItem", bind(systems, &giveItem));
@@ -91,6 +87,7 @@ void Functions::addDefaults(SymbolTable& table, system::Systems& systems) {
     table.set("entityToPosition", bind(systems, &entityToPosition));
     table.set("entityInteract", bind(systems, &entityInteract));
     table.set("setEntityLock", bind(systems, &setEntityLock));
+    table.set("resetEntityLock", bind(systems, &resetEntityLock));
 
     table.set("getClock", bind(systems, &getClock));
     table.set("waitUntilTime", bind(systems, &waitUntilTime));
@@ -102,6 +99,12 @@ void Functions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
 namespace
 {
+Value makeBool(bool b) {
+    Value v;
+    v.makeBool(b);
+    return v;
+}
+
 Value makePosition(const component::Position& pos) {
     Value value;
     Value coord;
@@ -386,17 +389,56 @@ Value getTrainer(system::Systems& systems, ArgList args) {
 }
 
 Value moveEntity(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("moveEntity", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    const component::Direction dir  = component::directionFromString(args[1].getAsString());
+    const bool block                = args[2].getAsBool();
+    const bool result               = systems.movement().moveEntity(entity, dir, false);
+
+    if (block && result) {
+        const component::Movable* move =
+            systems.engine().entities().getComponent<component::Movable>(entity);
+        if (move) {
+            float t = 0.f;
+            const float mtime =
+                Properties::PixelsPerTile() / Properties::CharacterMoveSpeed() * 1.5f;
+            while (move->moving()) {
+                sf::sleep(sf::milliseconds(10));
+                t += 0.01f;
+                if (t >= mtime) {
+                    BL_LOG_WARN << "Blocking on moveEntity for entity " << entity
+                                << " taking too long (" << t << "s), continuing";
+                    break;
+                }
+            }
+        }
+    }
+
+    return makeBool(result);
 }
 
 Value rotateEntity(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("rotateEntity", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    const component::Direction dir  = component::directionFromString(args[1].getAsString());
+    component::Position* pos =
+        systems.engine().entities().getComponent<component::Position>(entity);
+    if (pos && pos->direction != dir) pos->direction = dir;
+
+    return {};
 }
 
 Value removeEntity(system::Systems& systems, ArgList args) {
-    // TODO
+    Function::validateArgs<Value::TNumeric>("removeEntity", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    if (entity != systems.player().player()) {
+        const bool result = systems.engine().entities().entityExists(entity);
+        systems.engine().entities().destroyEntity(entity);
+        return makeBool(result);
+    }
     return makeBool(false);
 }
 
@@ -406,23 +448,85 @@ Value entityToPosition(system::Systems& systems, ArgList args) {
 }
 
 Value entityInteract(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TNumeric>("entityInteract", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    return makeBool(systems.interaction().interact(entity));
 }
 
 Value setEntityLock(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TNumeric, Value::TBool>("setEntityLock", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    const bool lock                 = args[1].getAsBool();
+    systems.controllable().setEntityLocked(entity, lock, true);
+    return {};
+}
+
+Value resetEntityLock(system::Systems& systems, ArgList args) {
+    Function::validateArgs<Value::TNumeric>("resetEntityLock", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
+    systems.controllable().resetEntityLock(entity);
+    return {};
 }
 
 Value getClock(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    const system::Clock::Time now = systems.clock().now();
+    Value clock(static_cast<float>(now.hour * 60 + now.minute));
+    clock.setProperty("minute", {static_cast<float>(now.minute)});
+    clock.setProperty("hour", {static_cast<float>(now.hour)});
+    clock.setProperty("day", {static_cast<float>(now.day)});
+    return clock;
+}
+
+class ClockTrigger : public bl::event::Listener<event::TimeChange> {
+public:
+    using Callback = std::function<void()>;
+    ClockTrigger(Callback cb, const system::Clock::Time& time)
+    : cb(cb)
+    , time(time) {}
+
+    virtual void observe(const event::TimeChange& event) override {
+        if (event.newTime.hour == time.hour && event.newTime.minute == time.minute) cb();
+    }
+
+private:
+    const system::Clock::Time time;
+    const Callback cb;
+};
+
+system::Clock::Time makeTime(const Value& v) {
+    system::Clock::Time t(12, 0, 0);
+    auto c = v.getProperty("hour");
+    if (c && c->getType() == Value::TNumeric) { // TODO - move deref into Value to allow references
+                                                // natively everywhere?
+        t.hour = static_cast<unsigned int>(c->getAsNum());
+    }
+    c = v.getProperty("minute");
+    if (c && c->getType() == Value::TNumeric) {
+        t.minute = static_cast<unsigned int>(c->getAsNum());
+    }
+    return t;
 }
 
 Value waitUntilTime(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TNumeric, Value::TBool>("waitUntilTime", args);
+
+    const system::Clock::Time now  = systems.clock().now();
+    const system::Clock::Time then = makeTime(args[0]);
+    const unsigned int nts         = now.hour * 60 + now.minute;
+    const unsigned int ets         = then.hour * 60 + then.minute;
+    if (nts < ets || (nts != ets && args[1].getAsBool())) {
+        bl::util::Waiter waiter;
+        const auto unlock = [&waiter]() { waiter.unblock(); };
+        ClockTrigger trigger(unlock, then);
+        bl::event::ClassGuard<event::TimeChange> guard(&trigger);
+        guard.subscribe(systems.engine().eventBus());
+        waiter.wait();
+    }
+
+    return {};
 }
 
 Value runAtClockTime(system::Systems& systems, ArgList args) {

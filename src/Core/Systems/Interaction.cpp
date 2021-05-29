@@ -36,6 +36,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
     if (npc) {
         owner.controllable().setEntityLocked(nonplayer, true);
         faceEntity(nonplayer, owner.player().player());
+        faceEntity(owner.player().player(), nonplayer);
         currentConversation.setConversation(npc->conversation());
         interactingEntity = nonplayer;
         processConversationNode();
@@ -46,6 +47,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         if (trainer) {
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
+            faceEntity(owner.player().player(), nonplayer);
             // TODO - handle battle
             currentConversation.setConversation(trainer->beforeBattleConversation());
             interactingEntity = nonplayer;
@@ -187,7 +189,7 @@ void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
         owner.engine().entities().getComponent<component::Position>(face);
     if (mpos && fpos) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
-        if (mpos->direction != dir) mpos->direction = dir;
+        mpos->direction                = dir;
     }
 }
 

@@ -5,12 +5,14 @@ required to query game information by bundling it together. The custom types are
 
 ## `Time`
 
-Time of day in game
+Time of day in game. The type is Numeric and represents the total minutes elapsed in the day (hour * 60 + minute).
+This allows for times to easily be compared
 
-| Name    | Type    | Description                          |
-|---------|---------|--------------------------------------|
-| minutes | Numeric | Minute of the hour, in range [0, 59] |
-| hours   | Numeric | Hour of the day, in range [0, 23]    |
+| Name    | Type    | Description                                                            |
+|---------|---------|------------------------------------------------------------------------|
+| minutes | Numeric | Minute of the hour, in range [0, 59]                                   |
+| hours   | Numeric | Hour of the day, in range [0, 23]                                      |
+| day     | Numeric | Number of days elapsed in game. Ignored for all time related functions |
 
 ## `Coordinate`
 

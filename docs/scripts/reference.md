@@ -59,14 +59,15 @@ Includes NPC's, trainers, and the player.
 | entityToPosition | `entity`: Numeric, `level`: Numeric, `x`: Numeric, `y`: Numeric, `block`: Bool | Bool   | Locks and pathfinds the entity to the given position (tiles). Optionally blocks until the entity is in place         |
 | entityInteract   | `entity`: Numeric                                                              | Bool   | Makes the entity perform an interaction. Returns true if an interaction occurred                                     |
 | setEntityLock    | `entity`: Numeric, `locked`: Bool                                              | N/A    | Locks or unlocks the given entity. Locking prevents AI or the player from giving input                               |
+| resetEntityLock  | `entity`: Numeric,                                                             | N/A    | Resets the given entity's lock state to what it was prior to `setEntityLock` being called                            |
 
 ### Game Time
 
 | Name           | Parameters                     | Return | Description                                                                                                                                                                                                                  |
 |----------------|--------------------------------|--------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | getClock       | N/A                            | [Time](types.md#time)   | Returns the current game time                                                                                                                                                                                                |
-| waitUntilTime  | `time`: Time, `exact`: Bool    | N/A    | Blocks until it is the given time of day. If exact is false this will return if it is already after the requested time. If exact is true then it will block until the time wraps around and becomes the exact requested time |
-| runAtClockTime | `time`: Time, `script`: String | N/A    | Runs the given script (can be file or code) at the given time of day exactly. Returns immediately                                                                                                                            |
+| waitUntilTime  | `time`: [Time](types.md#time), `exact`: Bool    | N/A    | Blocks until it is the given time of day. If exact is false this will return if it is already after the requested time. If exact is true then it will block until the time wraps around and becomes the exact requested time |
+| runAtClockTime | `time`: [Time](types.md#time), `script`: String | N/A    | Runs the given script (can be file or code) at the given time of day exactly. Returns immediately                                                                                                                            |
 ### Game Saves
 
 | Name            | Parameters                  | Return | Description                                                                            |
