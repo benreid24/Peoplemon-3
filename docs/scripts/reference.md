@@ -41,10 +41,11 @@ The following functions are available in each type of Peoplemon script, in addit
 
 ### NPC's and Trainers
 
-| Name         | Parameters                                                                        | Return    | Description                                                                                          |
-|--------------|-----------------------------------------------------------------------------------|-----------|------------------------------------------------------------------------------------------------------|
-| getNpc       | `name`: String                                                                    | [Character](types.md#character) | Returns the NPC by name. If not found returns `false`                                                |
-| getTrainer   | `name`: String                                                                    | [Character](types.md#character) | Returns the Trainer by name. If not found returns `false`                                            |
+| Name         | Parameters                                                                        | Return    | Description                                                                                                  |
+|--------------|-----------------------------------------------------------------------------------|-----------|--------------------------------------------------------------------------------------------------------------|
+| getNpc       | `name`: String                                                                    | [Character](types.md#character) | Returns the NPC by name. If not found returns `false`                                  |
+| getTrainer   | `name`: String                                                                    | [Character](types.md#character) | Returns the Trainer by name. If not found returns `false`                              |
+| loadCharacter| `id`: Numeric                                                                     | [Character](types.md#character) | Loads the NPC or trainer info from the given id. Returns `false` if id is not valid    |
 | spawnCharacter | `file`: String, `level`: Numeric, `x`: Numeric, `y`: Numeric, `direction`: String | Bool      | Spawns the NPC/Trainer from the file at the position. Returns true if file valid and Character was spawned |
 
 ### Entity Manipulation
