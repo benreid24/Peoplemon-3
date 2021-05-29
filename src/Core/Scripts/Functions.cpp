@@ -191,17 +191,86 @@ Value giveItem(system::Systems& systems, ArgList args) {
 }
 
 Value giveMoney(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    validateArgs<Value::TNumeric, Value::TBool, Value::TBool>("giveMoney", args);
+
+    const int money = static_cast<unsigned int>(args[0].getAsNum());
+    if (money > 0) {
+        // TODO - track and give player money
+        if (args[1].getAsBool()) {
+            bl::util::Waiter waiter;
+            system::HUD::Callback unlock = [](const std::string&) {};
+            if (args[2].getAsBool()) unlock = [&waiter](const std::string&) { waiter.unblock(); };
+
+            const std::string msg = "Received " + std::to_string(money) + " monies";
+            systems.hud().displayMessage(msg, unlock);
+            if (args[2].getAsBool()) waiter.wait();
+        }
+    }
+    else {
+        BL_LOG_WARN << "qty must be a positive integer";
+    }
+    return {};
 }
 
 Value takeItem(system::Systems& systems, ArgList args) {
-    // TODO
+    validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("takeItem", args);
+
+    const unsigned int rawId = static_cast<unsigned int>(args[0].getAsNum());
+    const item::Id item      = item::Item::cast(rawId);
+    if (item != item::Id::Unknown) {
+        const int qty = static_cast<int>(args[1].getAsNum());
+        if (qty > 0) {
+            if (args[2].getAsBool()) {
+                bl::util::Waiter waiter;
+                std::string choice;
+                system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+                    choice = c;
+                    waiter.unblock();
+                };
+
+                const std::string msg =
+                    qty > 1 ?
+                        ("Give " + std::to_string(qty) + " " + item::Item::getName(item) + "s?") :
+                        ("Give the " + item::Item::getName(item) + "?");
+                systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
+                waiter.wait();
+                if (choice == "No") return makeBool(false);
+            }
+            return makeBool(systems.player().bag().removeItem(item, qty));
+        }
+        else {
+            BL_LOG_WARN << "qty must be a positive integer";
+        }
+    }
+    else {
+        BL_LOG_WARN << "Unknown item id: " << rawId;
+    }
     return makeBool(false);
 }
 
 Value takeMoney(system::Systems& systems, ArgList args) {
-    // TODO
+    validateArgs<Value::TNumeric, Value::TBool>("takeMoney", args);
+
+    const int qty = static_cast<int>(args[0].getAsNum());
+    if (qty > 0) {
+        if (args[1].getAsBool()) {
+            bl::util::Waiter waiter;
+            std::string choice;
+            system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+                choice = c;
+                waiter.unblock();
+            };
+
+            const std::string msg = "Give " + std::to_string(qty) + " monies?";
+            systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
+            waiter.wait();
+            if (choice == "No") return makeBool(false);
+        }
+        return makeBool(false); // TODO - track and take player money
+    }
+    else {
+        BL_LOG_WARN << "qty must be a positive integer";
+    }
     return makeBool(false);
 }
 
