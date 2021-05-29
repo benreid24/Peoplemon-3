@@ -1,6 +1,7 @@
 #ifndef CORE_AI_CONVERSATION_HPP
 #define CORE_AI_CONVERSATION_HPP
 
+#include <BLIB/Entities/Entity.hpp>
 #include <Core/Files/Conversation.hpp>
 
 /**
@@ -39,8 +40,9 @@ public:
      *        during the lifetime of the wrapper. Sets current node to first waiting node
      *
      * @param conversation The conversation to wrap
+     * @param entity The entity being conversed with
      */
-    void setConversation(const file::Conversation& conversation);
+    void setConversation(const file::Conversation& conversation, bl::entity::Entity entity);
 
     /**
      * @brief Returns the current node
@@ -81,6 +83,7 @@ public:
 
 private:
     system::Systems& systems;
+    bl::entity::Entity entity;
     const std::vector<file::Conversation::Node>* nodes;
     unsigned int current;
 

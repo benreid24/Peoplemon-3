@@ -37,7 +37,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         owner.controllable().setEntityLocked(nonplayer, true);
         faceEntity(nonplayer, owner.player().player());
         faceEntity(owner.player().player(), nonplayer);
-        currentConversation.setConversation(npc->conversation());
+        currentConversation.setConversation(npc->conversation(), nonplayer);
         interactingEntity = nonplayer;
         processConversationNode();
     }
@@ -49,7 +49,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
             // TODO - handle battle
-            currentConversation.setConversation(trainer->beforeBattleConversation());
+            currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
             interactingEntity = nonplayer;
             processConversationNode();
         }

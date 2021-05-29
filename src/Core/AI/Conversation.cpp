@@ -22,9 +22,10 @@ Conversation::Conversation(system::Systems& s)
 , nodes(nullptr)
 , current(0) {}
 
-void Conversation::setConversation(const file::Conversation& conv) {
+void Conversation::setConversation(const file::Conversation& conv, bl::entity::Entity e) {
     nodes   = &conv.nodes();
     current = 0;
+    entity  = e;
     followNodes();
 }
 
@@ -103,9 +104,8 @@ void Conversation::followNodes() {
             break;
 
         case E::RunScript: {
-            bl::script::Script script(
-                nodes->at(current).script(),
-                script::ConversationContext(systems, bl::entity::InvalidEntity));
+            bl::script::Script script(nodes->at(current).script(),
+                                      script::ConversationContext(systems, entity));
             if (nodes->at(current).runConcurrently()) {
                 script.runBackground(&systems.engine().scriptManager());
             }
