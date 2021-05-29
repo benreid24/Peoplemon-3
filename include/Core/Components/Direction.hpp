@@ -2,6 +2,7 @@
 #define CORE_ENTITIES_DIRECTION_HPP
 
 #include <cstdint>
+#include <string>
 
 /**
  * @addtogroup Components
@@ -52,6 +53,26 @@ Direction nextClockwiseDirection(Direction dir);
  * @ingroup Components
  */
 Direction nextCounterClockwiseDirection(Direction dir);
+
+/**
+ * @brief Converts the given string into a direction
+ *
+ * @param dir "up", "right", "down", "left"
+ * @return Direction The cooresponding direction
+ *
+ * @ingroup Components
+ */
+Direction directionFromString(const std::string& dir);
+
+/**
+ * @brief Converts the given direction to a string
+ *
+ * @param dir The direction to convert
+ * @return std::string The string representation of the direction
+ *
+ * @ingroup Components
+ */
+std::string directionToString(Direction dir);
 
 } // namespace component
 } // namespace core
