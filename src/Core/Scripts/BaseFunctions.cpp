@@ -15,48 +15,51 @@ using bl::script::Error;
 using bl::script::Function;
 using bl::script::SymbolTable;
 using bl::script::Value;
-using ArgList = const std::vector<Value>&;
 
 namespace
 {
-typedef Value (*Builtin)(system::Systems& systems, ArgList args);
+typedef Value (*Builtin)(system::Systems& systems, SymbolTable& table,
+                         const std::vector<Value>& args);
 
-Value getPlayer(system::Systems& systems, ArgList);
-Value giveItem(system::Systems& systems, ArgList args);
-Value giveMoney(system::Systems& systems, ArgList args);
-Value takeItem(system::Systems& systems, ArgList args);
-Value takeMoney(system::Systems& systems, ArgList args);
-Value givePeoplemon(system::Systems& systems, ArgList args);
-Value takePeoplemon(system::Systems& systems, ArgList args);
-Value whiteout(system::Systems& systems, ArgList args);
-Value restorePeoplemon(system::Systems& systems, ArgList args);
+Value getPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value givePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value takePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value whiteout(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value restorePeoplemon(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args);
 
-Value displayMessage(system::Systems& systems, ArgList args);
-Value promptPlayer(system::Systems& systems, ArgList args);
-Value rollCredits(system::Systems& systems, ArgList args);
+Value displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
-Value getNpc(system::Systems& systems, ArgList args);
-Value getTrainer(system::Systems& systems, ArgList args);
-Value spawnCharacter(system::Systems& systems, ArgList args);
+Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
-Value moveEntity(system::Systems& systems, ArgList args);
-Value rotateEntity(system::Systems& systems, ArgList args);
-Value removeEntity(system::Systems& systems, ArgList args);
-Value entityToPosition(system::Systems& systems, ArgList args);
-Value entityInteract(system::Systems& systems, ArgList args);
-Value setEntityLock(system::Systems& systems, ArgList args);
-Value resetEntityLock(system::Systems& systems, ArgList args);
+Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value entityToPosition(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args);
+Value entityInteract(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value resetEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
-Value getClock(system::Systems& systems, ArgList args);
-Value waitUntilTime(system::Systems& systems, ArgList args);
-Value runAtClockTime(system::Systems& systems, ArgList args);
+Value getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
-Value addSaveEntry(system::Systems& systems, ArgList args);
-Value getSaveEntry(system::Systems& systems, ArgList args);
+Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
 Value bind(system::Systems& systems, Builtin func) {
-    return {
-        Function([&systems, func](SymbolTable&, ArgList args) { return (*func)(systems, args); })};
+    return {Function([&systems, func](SymbolTable& table, const std::vector<Value>& args) {
+        return (*func)(systems, table, args);
+    })};
 }
 
 } // namespace
@@ -126,7 +129,7 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     return {};
 }
 
-Value getPlayer(system::Systems& systems, ArgList) {
+Value getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     Value player(static_cast<float>(systems.player().player()));
     player.setProperty("name", {"player name"}); // TODO - store player name
     player.setProperty("gender", {"?"});         // TODO - store player gender
@@ -148,7 +151,7 @@ Value getPlayer(system::Systems& systems, ArgList) {
     return player;
 }
 
-Value giveItem(system::Systems& systems, ArgList args) {
+Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool, Value::TBool>("giveItem",
                                                                                          args);
 
@@ -181,7 +184,7 @@ Value giveItem(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value giveMoney(system::Systems& systems, ArgList args) {
+Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool, Value::TBool>("giveMoney", args);
 
     const int money = static_cast<unsigned int>(args[0].getAsNum());
@@ -203,7 +206,7 @@ Value giveMoney(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value takeItem(system::Systems& systems, ArgList args) {
+Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("takeItem", args);
 
     const unsigned int rawId = static_cast<unsigned int>(args[0].getAsNum());
@@ -239,7 +242,7 @@ Value takeItem(system::Systems& systems, ArgList args) {
     return makeBool(false);
 }
 
-Value takeMoney(system::Systems& systems, ArgList args) {
+Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool>("takeMoney", args);
 
     const int qty = static_cast<int>(args[0].getAsNum());
@@ -265,27 +268,28 @@ Value takeMoney(system::Systems& systems, ArgList args) {
     return makeBool(false);
 }
 
-Value givePeoplemon(system::Systems& systems, ArgList args) {
-    // TODO
+Value givePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    // TODO - track and give peoplemon
     return makeBool(false);
 }
 
-Value takePeoplemon(system::Systems& systems, ArgList args) {
-    // TODO
+Value takePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    // TODO - track and take peoplemon
     return makeBool(false);
 }
 
-Value whiteout(system::Systems& systems, ArgList args) {
-    // TODO
+Value whiteout(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    // TODO - implement whiting out
     return makeBool(false);
 }
 
-Value restorePeoplemon(system::Systems& systems, ArgList args) {
-    // TODO
+Value restorePeoplemon(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args) {
+    // TODO - track and heal peoplemon
     return makeBool(false);
 }
 
-Value displayMessage(system::Systems& systems, ArgList args) {
+Value displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString, Value::TBool>("displayMessage", args);
 
     bl::util::Waiter waiter;
@@ -297,7 +301,7 @@ Value displayMessage(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value promptPlayer(system::Systems& systems, ArgList args) {
+Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString, Value::TArray>("promptPlayer", args);
 
     const auto rawChoices = args[1].getAsArray();
@@ -322,12 +326,12 @@ Value promptPlayer(system::Systems& systems, ArgList args) {
     return {choice};
 }
 
-Value rollCredits(system::Systems& systems, ArgList args) {
-    // TODO
+Value rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    // TODO - implement credits
     return makeBool(false);
 }
 
-Value getNpc(system::Systems& systems, ArgList args) {
+Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("getNpc", args);
 
     const std::string name = args[0].getAsString();
@@ -349,7 +353,7 @@ Value getNpc(system::Systems& systems, ArgList args) {
     return makeBool(false);
 }
 
-Value spawnCharacter(system::Systems& systems, ArgList args) {
+Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString,
                            Value::TNumeric,
                            Value::TNumeric,
@@ -365,7 +369,7 @@ Value spawnCharacter(system::Systems& systems, ArgList args) {
     return makeBool(systems.entity().spawnCharacter(spawn));
 }
 
-Value getTrainer(system::Systems& systems, ArgList args) {
+Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("getTrainer", args);
 
     const std::string name = args[0].getAsString();
@@ -388,7 +392,7 @@ Value getTrainer(system::Systems& systems, ArgList args) {
     return makeBool(false);
 }
 
-Value moveEntity(system::Systems& systems, ArgList args) {
+Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("moveEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
@@ -418,7 +422,7 @@ Value moveEntity(system::Systems& systems, ArgList args) {
     return makeBool(result);
 }
 
-Value rotateEntity(system::Systems& systems, ArgList args) {
+Value rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("rotateEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
@@ -430,7 +434,7 @@ Value rotateEntity(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value removeEntity(system::Systems& systems, ArgList args) {
+Value removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("removeEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
@@ -442,19 +446,20 @@ Value removeEntity(system::Systems& systems, ArgList args) {
     return makeBool(false);
 }
 
-Value entityToPosition(system::Systems& systems, ArgList args) {
-    // TODO
+Value entityToPosition(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args) {
+    // TODO - implement path finder
     return makeBool(false);
 }
 
-Value entityInteract(system::Systems& systems, ArgList args) {
+Value entityInteract(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("entityInteract", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
     return makeBool(systems.interaction().interact(entity));
 }
 
-Value setEntityLock(system::Systems& systems, ArgList args) {
+Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool>("setEntityLock", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
@@ -463,7 +468,8 @@ Value setEntityLock(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value resetEntityLock(system::Systems& systems, ArgList args) {
+Value resetEntityLock(system::Systems& systems, SymbolTable& table,
+                      const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("resetEntityLock", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].getAsNum());
@@ -471,7 +477,7 @@ Value resetEntityLock(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value getClock(system::Systems& systems, ArgList args) {
+Value getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     const system::Clock::Time now = systems.clock().now();
     Value clock(static_cast<float>(now.hour * 60 + now.minute));
     clock.setProperty("minute", {static_cast<float>(now.minute)});
@@ -510,7 +516,7 @@ system::Clock::Time makeTime(const Value& v) {
     return t;
 }
 
-Value waitUntilTime(system::Systems& systems, ArgList args) {
+Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool>("waitUntilTime", args);
 
     const system::Clock::Time now  = systems.clock().now();
@@ -529,17 +535,17 @@ Value waitUntilTime(system::Systems& systems, ArgList args) {
     return {};
 }
 
-Value runAtClockTime(system::Systems& systems, ArgList args) {
+Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     // TODO
     return makeBool(false);
 }
 
-Value addSaveEntry(system::Systems& systems, ArgList args) {
+Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     // TODO
     return makeBool(false);
 }
 
-Value getSaveEntry(system::Systems& systems, ArgList args) {
+Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     // TODO
     return makeBool(false);
 }
