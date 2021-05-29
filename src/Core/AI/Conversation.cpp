@@ -1,5 +1,6 @@
 #include <Core/AI/Conversation.hpp>
 
+#include <Core/Scripts/ConversationContext.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -101,10 +102,18 @@ void Conversation::followNodes() {
             current = nodes->at(current).nextOnReject();
             break;
 
-        case E::RunScript:
-            // TODO - scripting and all that crap
+        case E::RunScript: {
+            bl::script::Script script(
+                nodes->at(current).script(),
+                script::ConversationContext(systems, bl::entity::InvalidEntity));
+            if (nodes->at(current).runConcurrently()) {
+                script.runBackground(&systems.engine().scriptManager());
+            }
+            else {
+                script.run(&systems.engine().scriptManager());
+            }
             current = nodes->at(current).next();
-            break;
+        } break;
 
         default:
             BL_LOG_ERROR << "Unhandled nonblocking node type " << nodes->at(current).getType()

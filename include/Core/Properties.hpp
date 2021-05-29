@@ -98,6 +98,8 @@ public:
     static const std::string& TextboxFile();
     static unsigned int HudFontSize();
 
+    static const std::string& ScriptPath();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties
