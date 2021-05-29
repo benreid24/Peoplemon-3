@@ -49,6 +49,7 @@ Value entityInteract(system::Systems& systems, SymbolTable& table, const std::ve
 Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value resetEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
+Value makeTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
@@ -92,6 +93,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     table.set("setEntityLock", bind(systems, &setEntityLock));
     table.set("resetEntityLock", bind(systems, &resetEntityLock));
 
+    table.set("maketime", bind(systems, &makeTime));
     table.set("getClock", bind(systems, &getClock));
     table.set("waitUntilTime", bind(systems, &waitUntilTime));
     table.set("runAtClockTime", bind(systems, &runAtClockTime));
@@ -502,7 +504,7 @@ private:
     const Callback cb;
 };
 
-system::Clock::Time makeTime(const Value& v) {
+system::Clock::Time parseTime(const Value& v) {
     system::Clock::Time t(12, 0, 0);
     auto c = v.getProperty("hour");
     if (c && c->getType() == Value::TNumeric) { // TODO - move deref into Value to allow references
@@ -516,11 +518,26 @@ system::Clock::Time makeTime(const Value& v) {
     return t;
 }
 
+Value makeTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric, Value::TNumeric>("makeTime", args);
+    if (args[0].getAsNum() < 0.f || args[0].getAsNum() > 23.f)
+        throw Error("hour must be in range [0, 23]");
+    if (args[1].getAsNum() < 0.f || args[1].getAsNum() > 59.f)
+        throw Error("minute must be in range [0, 59]");
+
+    const unsigned int hour   = static_cast<unsigned int>(args[0].getAsNum());
+    const unsigned int minute = static_cast<unsigned int>(args[1].getAsNum());
+    Value time(static_cast<float>(hour * 60 + minute));
+    time.setProperty("hour", {static_cast<float>(hour)});
+    time.setProperty("minute", {static_cast<float>(minute)});
+    return time;
+}
+
 Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool>("waitUntilTime", args);
 
     const system::Clock::Time now  = systems.clock().now();
-    const system::Clock::Time then = makeTime(args[0]);
+    const system::Clock::Time then = parseTime(args[0]);
     const unsigned int nts         = now.hour * 60 + now.minute;
     const unsigned int ets         = then.hour * 60 + then.minute;
     if (nts < ets || (nts != ets && args[1].getAsBool())) {
@@ -536,17 +553,30 @@ Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vec
 }
 
 Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TString, Value::TNumeric>("runAtClockTime", args);
+
+    const std::string source       = args[0].getAsString();
+    const system::Clock::Time time = parseTime(args[1]);
+
+    // trick to avoid having to create a thread here. hacky but cleaner
+    const std::string program = "waitUntilTime(makeTime(" + std::to_string(time.hour) + ", " +
+                                std::to_string(time.minute) + "), true);\nrun(\"" + source +
+                                "\", false);";
+
+    bl::script::Script script(program, table);
+    if (!script.valid()) throw Error("Syntax error in script passed to runAtClockTime()");
+    script.runBackground(table.manager());
+
+    return {};
 }
 
 Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    // TODO
+    // TODO - add game save functionality
     return makeBool(false);
 }
 
 Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    // TODO
+    // TODO - add game save functionality
     return makeBool(false);
 }
 
