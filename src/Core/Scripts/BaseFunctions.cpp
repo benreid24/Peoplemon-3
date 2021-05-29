@@ -173,7 +173,7 @@ Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<V
                                                    item::Item::getName(item) + "s") :
                                                   ("Received a " + item::Item::getName(item));
                 systems.hud().displayMessage(msg, unlock);
-                if (args[3].deref().getAsBool()) waiter.wait();
+                if (args[3].deref().getAsBool()) table.waitOn(waiter);
             }
         }
         else {
@@ -200,7 +200,7 @@ Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<
 
             const std::string msg = "Received " + std::to_string(money) + " monies";
             systems.hud().displayMessage(msg, unlock);
-            if (args[2].deref().getAsBool()) waiter.wait();
+            if (args[2].deref().getAsBool()) table.waitOn(waiter);
         }
     }
     else {
@@ -230,7 +230,7 @@ Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<V
                         ("Give " + std::to_string(qty) + " " + item::Item::getName(item) + "s?") :
                         ("Give the " + item::Item::getName(item) + "?");
                 systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
-                waiter.wait();
+                table.waitOn(waiter);
                 if (choice == "No") return makeBool(false);
             }
             return makeBool(systems.player().bag().removeItem(item, qty));
@@ -260,7 +260,7 @@ Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<
 
             const std::string msg = "Give " + std::to_string(qty) + " monies?";
             systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
-            waiter.wait();
+            table.waitOn(waiter);
             if (choice == "No") return makeBool(false);
         }
         return makeBool(false); // TODO - track and take player money
@@ -300,7 +300,7 @@ Value displayMessage(system::Systems& systems, SymbolTable& table, const std::ve
     if (args[1].deref().getAsBool()) unlock = [&waiter](const std::string&) { waiter.unblock(); };
 
     systems.hud().displayMessage(args[0].deref().getAsString(), unlock);
-    if (args[1].deref().getAsBool()) waiter.wait();
+    if (args[1].deref().getAsBool()) table.waitOn(waiter);
     return {};
 }
 
@@ -324,7 +324,7 @@ Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vect
         waiter.unblock();
     };
     systems.hud().promptUser(args[0].deref().getAsString(), choices, cb);
-    waiter.wait();
+    table.waitOn(waiter);
 
     return {choice};
 }
@@ -547,7 +547,7 @@ Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vec
         ClockTrigger trigger(unlock, then);
         bl::event::ClassGuard<event::TimeChange> guard(&trigger);
         guard.subscribe(systems.engine().eventBus());
-        waiter.wait();
+        table.waitOn(waiter);
     }
 
     return {};
