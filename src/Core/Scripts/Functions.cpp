@@ -9,10 +9,10 @@ namespace core
 namespace script
 {
 using bl::script::Error;
+using bl::script::Function;
 using bl::script::SymbolTable;
 using bl::script::Value;
-using Function = bl::script::Function::CustomCB;
-using ArgList  = const std::vector<Value>&;
+using ArgList = const std::vector<Value>&;
 
 namespace
 {
@@ -120,22 +120,6 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     return value;
 }
 
-template<Value::Type... Types>
-void validateArgs(const std::string& func, ArgList args) {
-    const Value::Type types[] = {Types...};
-    const unsigned int nargs  = sizeof...(Types);
-
-    if (args.size() != nargs)
-        throw Error(func + "() takes " + std::to_string(nargs) + " arguments");
-    for (unsigned int i = 0; i < nargs; ++i) {
-        if (args[i].getType() != types[i]) {
-            throw Error(func + "() argument " + std::to_string(i) + " must be a " +
-                        Value::typeToString(types[i]) + " but " +
-                        Value::typeToString(args[i].getType()) + " was passed");
-        }
-    }
-}
-
 Value getPlayer(system::Systems& systems, ArgList) {
     Value player(static_cast<float>(systems.player().player()));
     player.setProperty("name", {"player name"}); // TODO - store player name
@@ -159,7 +143,8 @@ Value getPlayer(system::Systems& systems, ArgList) {
 }
 
 Value giveItem(system::Systems& systems, ArgList args) {
-    validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool, Value::TBool>("giveItem", args);
+    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool, Value::TBool>("giveItem",
+                                                                                         args);
 
     const unsigned int rawId = static_cast<unsigned int>(args[0].getAsNum());
     const item::Id item      = item::Item::cast(rawId);
@@ -191,7 +176,7 @@ Value giveItem(system::Systems& systems, ArgList args) {
 }
 
 Value giveMoney(system::Systems& systems, ArgList args) {
-    validateArgs<Value::TNumeric, Value::TBool, Value::TBool>("giveMoney", args);
+    Function::validateArgs<Value::TNumeric, Value::TBool, Value::TBool>("giveMoney", args);
 
     const int money = static_cast<unsigned int>(args[0].getAsNum());
     if (money > 0) {
@@ -213,7 +198,7 @@ Value giveMoney(system::Systems& systems, ArgList args) {
 }
 
 Value takeItem(system::Systems& systems, ArgList args) {
-    validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("takeItem", args);
+    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("takeItem", args);
 
     const unsigned int rawId = static_cast<unsigned int>(args[0].getAsNum());
     const item::Id item      = item::Item::cast(rawId);
@@ -249,7 +234,7 @@ Value takeItem(system::Systems& systems, ArgList args) {
 }
 
 Value takeMoney(system::Systems& systems, ArgList args) {
-    validateArgs<Value::TNumeric, Value::TBool>("takeMoney", args);
+    Function::validateArgs<Value::TNumeric, Value::TBool>("takeMoney", args);
 
     const int qty = static_cast<int>(args[0].getAsNum());
     if (qty > 0) {
@@ -295,13 +280,40 @@ Value restorePeoplemon(system::Systems& systems, ArgList args) {
 }
 
 Value displayMessage(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TString, Value::TBool>("displayMessage", args);
+
+    bl::util::Waiter waiter;
+    system::HUD::Callback unlock = [](const std::string&) {};
+    if (args[1].getAsBool()) unlock = [&waiter](const std::string&) { waiter.unblock(); };
+
+    systems.hud().displayMessage(args[0].getAsString(), unlock);
+    if (args[1].getAsBool()) waiter.wait();
+    return {};
 }
 
 Value promptPlayer(system::Systems& systems, ArgList args) {
-    // TODO
-    return makeBool(false);
+    Function::validateArgs<Value::TString, Value::TArray>("promptPlayer", args);
+
+    const auto rawChoices = args[1].getAsArray();
+    std::vector<std::string> choices;
+    choices.reserve(rawChoices.size());
+    for (const Value::Ptr& val : rawChoices) {
+        if (val->getType() != Value::TString) {
+            throw Error("All choices in promptPlayer() must be String type");
+        }
+        choices.emplace_back(val->getAsString());
+    }
+
+    bl::util::Waiter waiter;
+    std::string choice;
+    const auto cb = [&waiter, &choice](const std::string& c) {
+        choice = c;
+        waiter.unblock();
+    };
+    systems.hud().promptUser(args[0].getAsString(), choices, cb);
+    waiter.wait();
+
+    return {choice};
 }
 
 Value rollCredits(system::Systems& systems, ArgList args) {
