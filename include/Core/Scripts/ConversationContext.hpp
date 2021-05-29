@@ -23,18 +23,29 @@ namespace script
 class ConversationContext : public bl::script::Context {
 public:
     /**
+     * @brief Special callback type for reporting conversation state
+     *
+     * @param entity The entity to check status for
+     * @return bool True if conversation completed, false if ongoing
+     *
+     */
+    using StatusCb = std::function<bool(bl::entity::Entity)>;
+
+    /**
      * @brief Construct a new ConversationContext
      *
      * @param systems The primary systems object
      * @param entity The entity being conversed with
+     * @param cb Callback that can be used to query the conversation state
      */
-    ConversationContext(system::Systems& systems, bl::entity::Entity entity);
+    ConversationContext(system::Systems& systems, bl::entity::Entity entity, const StatusCb& cb);
 
 protected:
     virtual void addCustomSymbols(bl::script::SymbolTable& table) const override;
 
 private:
     system::Systems& systems;
+    const StatusCb cb;
     const bl::entity::Entity owner;
 };
 

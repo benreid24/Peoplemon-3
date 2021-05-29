@@ -104,8 +104,13 @@ void Conversation::followNodes() {
             break;
 
         case E::RunScript: {
+            const auto cb = [this](bl::entity::Entity e) {
+                if (e != entity) return true;
+                return finished();
+            };
+
             bl::script::Script script(nodes->at(current).script(),
-                                      script::ConversationContext(systems, entity));
+                                      script::ConversationContext(systems, entity, cb));
             if (nodes->at(current).runConcurrently()) {
                 script.runBackground(&systems.engine().scriptManager());
             }
