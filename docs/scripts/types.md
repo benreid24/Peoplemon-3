@@ -7,7 +7,10 @@ required to query game information by bundling it together. The custom types are
 
 Time of day in game
 
-table here
+| Name    | Type    | Description                          |
+|---------|---------|--------------------------------------|
+| minutes | Numeric | Minute of the hour, in range [0, 59] |
+| hours   | Numeric | Hour of the day, in range [0, 23]    |
 
 ## `Coordinate`
 
