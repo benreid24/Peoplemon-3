@@ -140,6 +140,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
 
             case 'z':
                 node.setType(Conversation::Node::RunScript);
+                node.runConcurrently() = false;
                 if (!input.read(node.script())) return false;
                 node.next() = i + 1;
                 nodes.push_back(node);
@@ -386,6 +387,10 @@ void Conversation::Node::setType(Type t) {
         data.emplace<std::vector<std::pair<std::string, std::uint32_t>>>();
         break;
 
+    case RunScript:
+        data.emplace<bool>(false);
+        break;
+
     default:
         break;
     }
@@ -399,11 +404,26 @@ std::string& Conversation::Node::script() { return prompt; }
 
 std::string& Conversation::Node::saveFlag() { return prompt; }
 
+bool& Conversation::Node::runConcurrently() {
+    static bool null = false;
+    bool* r          = std::get_if<bool>(&data);
+    if (r) return *r;
+    BL_LOG_ERROR << "Bad Node access (concurrent). Type=" << static_cast<int>(type);
+    return null;
+}
+
+bool Conversation::Node::runConcurrently() const {
+    const bool* r = std::get_if<bool>(&data);
+    if (r) return *r;
+    BL_LOG_ERROR << "Bad Node access (concurrent). Type=" << static_cast<int>(type);
+    return false;
+}
+
 std::vector<std::pair<std::string, std::uint32_t>>& Conversation::Node::choices() {
     static std::vector<std::pair<std::string, std::uint32_t>> null;
     auto* d = std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&data);
     if (d) { return *d; }
-    BL_LOG_ERROR << "Bad Node access (choices). Type=" << type;
+    BL_LOG_ERROR << "Bad Node access (choices). Type=" << static_cast<int>(type);
     return null;
 }
 
@@ -504,6 +524,9 @@ bool Serializer<Node, false>::serialize(File& output, const Node& node) {
         return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::serialize(
             output, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
     }
+    else if (node.getType() == Node::RunScript) {
+        return output.write<std::uint8_t>(node.runConcurrently());
+    }
 
     return true;
 }
@@ -527,6 +550,11 @@ bool Serializer<Node, false>::deserialize(File& input, Node& node) {
     else if (node.getType() == Node::Prompt) {
         return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::deserialize(
             input, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+    }
+    else if (node.getType() == Node::RunScript) {
+        std::uint8_t rc = 0;
+        if (!input.read<std::uint8_t>(rc)) return false;
+        node.runConcurrently() = rc;
     }
 
     return true;
