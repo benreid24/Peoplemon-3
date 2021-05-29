@@ -27,8 +27,8 @@ The position of an entity in the world
 
 | Name      | Type       | Description                                     |
 |-----------|------------|-------------------------------------------------|
-| tiles     | Coordinate | Position in tiles                               |
-| pixels    | Coordinate | The position in pixels                          |
+| tiles     | [Coordinate](#coordinate) | Position in tiles                               |
+| pixels    | [Coordinate](#coordinate) | The position in pixels                          |
 | level     | Numeric    | The level the entity is on                      |
 | direction | String     | One of `"up"`, `"right"`, `"down"`, or `"left"` |
 
@@ -51,9 +51,9 @@ object is `Numeric` and represents the player's in-game entity id. It has the fo
 |----------|------------------|-----------------------------------------|
 | name     | String           | The player's name                       |
 | gender   | String           | Either `"boy"` or `"girl"`              |
-| bag      | Array of BagItem | The items the player has                |
+| bag      | Array of [BagItem](#bagitem) | The items the player has                |
 | money    | Numeric          | How much money the player has           |
-| position | Position         | The position of the player in the world |
+| position | [Position](#position) | The position of the player in the world |
 
 ## `Character`
 
@@ -65,4 +65,4 @@ The following properties are also available.
 | name     | String   | The character's name                               |
 | talkedTo | Bool     | True if the player has talked to them              |
 | defeated | Bool     | True if defeated in battle. Always false for NPC's |
-| position | Position | The position of the player in the world            |
+| position | [Position](#position) | The position of the player in the world            |
