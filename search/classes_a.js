@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['node',['Node',['../a00605.html',1,'core::file::Conversation']]],
-  ['npc',['NPC',['../a00617.html',1,'core::file::NPC'],['../a00481.html',1,'core::component::NPC']]]
+  ['node',['Node',['../a00614.html',1,'core::file::Conversation']]],
+  ['npc',['NPC',['../a00626.html',1,'core::file::NPC'],['../a00490.html',1,'core::component::NPC']]]
 ];

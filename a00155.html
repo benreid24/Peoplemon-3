@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/Cameras/Follow.hpp File Reference</title>
+<title>Peoplemon: include/Core/Systems/Cameras/Camera.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -27,7 +27,7 @@
    <div id="projectname">Peoplemon
    &#160;<span id="projectnumber">0.1.0</span>
    </div>
-   <div id="projectbrief">Your project description here</div>
+   <div id="projectbrief">Peoplemon 3 game source documentation</div>
   </td>
  </tr>
  </tbody>
@@ -71,39 +71,37 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Follow.hpp File Reference</div>  </div>
+<div class="title">Camera.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00152_source.html">Core/Systems/Cameras/Camera.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Events.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01056_source.html">Core/Components/Position.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;SFML/Graphics/View.hpp&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 </div>
 <p><a href="a00155_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00737.html">core::system::camera::Follow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00733.html" title="Base class for all cameras. ">Camera</a> that follows a given entity.  <a href="a00737.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00746.html">core::system::camera::Camera</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for all cameras.  <a href="a00746.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00410"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00410.html">core</a></td></tr>
-<tr class="memdesc:a00410"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00417"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00417.html">core</a></td></tr>
+<tr class="memdesc:a00417"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00411"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00411.html">core::system</a></td></tr>
-<tr class="memdesc:a00411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a00418"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00418.html">core::system</a></td></tr>
+<tr class="memdesc:a00418"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00427"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00427.html">core::system::camera</a></td></tr>
-<tr class="memdesc:a00427"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of cameras for controlling what is rendered. <br /></td></tr>
+<tr class="memitem:a00435"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00435.html">core::system::camera</a></td></tr>
+<tr class="memdesc:a00435"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of cameras for controlling what is rendered. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu May 27 2021 21:18:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat May 29 2021 20:09:51 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
