@@ -104,15 +104,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     table.set("getSaveEntry", bind(systems, &getSaveEntry));
 }
 
-namespace
-{
-Value makeBool(bool b) {
-    Value v;
-    v.makeBool(b);
-    return v;
-}
-
-Value makePosition(const component::Position& pos) {
+Value BaseFunctions::makePosition(const component::Position& pos) {
     Value value;
     Value coord;
     coord.setProperty("x", {static_cast<float>(pos.positionTiles().x)});
@@ -126,10 +118,18 @@ Value makePosition(const component::Position& pos) {
     return value;
 }
 
+namespace
+{
+Value makeBool(bool b) {
+    Value v;
+    v.makeBool(b);
+    return v;
+}
+
 Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
-    if (pos) { return makePosition(*pos); }
+    if (pos) { return BaseFunctions::makePosition(*pos); }
     return {};
 }
 
@@ -350,7 +350,8 @@ Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Val
             npc.setProperty("name", {name});
             npc.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
             npc.setProperty("defeated", makeBool(false));
-            npc.setProperty("position", makePosition(*pair.second.get<component::Position>()));
+            npc.setProperty("position",
+                            BaseFunctions::makePosition(*pair.second.get<component::Position>()));
             return npc;
         }
     }
@@ -367,7 +368,7 @@ Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vec
             systems.engine().entities().getComponent<component::Position>(entity);
         if (pos) {
             Value character(static_cast<float>(entity));
-            character.setProperty("position", makePosition(*pos));
+            character.setProperty("position", BaseFunctions::makePosition(*pos));
 
             const component::NPC* npc =
                 systems.engine().entities().getComponent<component::NPC>(entity);
@@ -423,7 +424,8 @@ Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector
             trainer.setProperty("name", {name});
             trainer.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
             trainer.setProperty("defeated", makeBool(false)); // TODO - track who defeated
-            trainer.setProperty("position", makePosition(*pair.second.get<component::Position>()));
+            trainer.setProperty(
+                "position", BaseFunctions::makePosition(*pair.second.get<component::Position>()));
             return trainer;
         }
     }
