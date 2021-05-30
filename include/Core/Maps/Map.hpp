@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_MAP_HPP
 #define CORE_MAPS_MAP_HPP
 
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Maps/CatchZone.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
@@ -13,6 +14,7 @@
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Entities.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts.hpp>
@@ -63,7 +65,9 @@ class PrimaryMapLoader;
  * @ingroup Maps
  *
  */
-class Map : public bl::file::binary::SerializableObject {
+class Map
+: public bl::file::binary::SerializableObject
+, public bl::event::Listener<event::EntityMoved> {
 public:
     /**
      * @brief Function signature for the callback to render rows of entities
@@ -82,6 +86,12 @@ public:
      *
      */
     Map();
+
+    /**
+     * @brief Destroy the Map
+     *
+     */
+    virtual ~Map() = default;
 
     /**
      * @brief Loads the map from the given file. Will try to determine if the extension or path need
@@ -202,6 +212,13 @@ public:
      */
     bool movePossible(const component::Position& position, component::Direction dir) const;
 
+    /**
+     * @brief Event listener for moving entities. Used to trigger map events
+     *
+     * @param moveEvent The move event
+     */
+    virtual void observe(const event::EntityMoved& moveEvent) override;
+
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
     bl::file::binary::SerializableField<2, std::string> loadScriptField;
@@ -219,6 +236,7 @@ private:
     bl::file::binary::SerializableField<14, bl::container::Vector2D<LevelTransition>>
         transitionField;
 
+    system::Systems* systems;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
     std::vector<LayerSet>& levels;
@@ -227,6 +245,7 @@ private:
     LightingSystem& lighting;
     std::unique_ptr<bl::script::Script> onEnterScript;
     std::unique_ptr<bl::script::Script> onExitScript;
+    bl::container::Grid<const Event*> eventRegions;
 
     bool activated; // for weather continuity
     sf::IntRect renderRange;
