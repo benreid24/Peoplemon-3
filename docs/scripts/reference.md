@@ -31,6 +31,7 @@ The following functions are available in each type of Peoplemon script, in addit
 | takePeoplemon    | `id`: Numeric, `minLevel`: Numeric                                | Bool   | Tries to take the Peoplemon from the player. Always prompts and blocks on input. Specify `minLevel` as 0 to accept any level                                                                             |
 | whiteout         | N/A                                                               | N/A    | Forces the player to respawn at the last PC Center they visited                                                                                                                                          |
 | restorePeoplemon | N/A                                                               | N/A    | Restores the player's Peoplemon to full health and status                                                                                                                                                |
+
 ### Interface
 
 | Name           | Parameters                                   | Return | Description                                                                         |
