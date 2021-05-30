@@ -38,6 +38,7 @@ Value rollCredits(system::Systems& systems, SymbolTable& table, const std::vecto
 
 Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
 Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
@@ -83,6 +84,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
     table.set("getNpc", bind(systems, &getNpc));
     table.set("getTrainer", bind(systems, &getTrainer));
+    table.set("loadCharacter", bind(systems, &loadCharacter));
     table.set("spawnCharacter", bind(systems, &spawnCharacter));
 
     table.set("moveEntity", bind(systems, &moveEntity));
@@ -350,6 +352,40 @@ Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Val
             npc.setProperty("defeated", makeBool(false));
             npc.setProperty("position", makePosition(*pair.second.get<component::Position>()));
             return npc;
+        }
+    }
+
+    return makeBool(false);
+}
+
+Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric>("loadCharacter", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
+    if (systems.engine().entities().entityExists(entity)) {
+        const component::Position* pos =
+            systems.engine().entities().getComponent<component::Position>(entity);
+        if (pos) {
+            Value character(static_cast<float>(entity));
+            character.setProperty("position", makePosition(*pos));
+
+            const component::NPC* npc =
+                systems.engine().entities().getComponent<component::NPC>(entity);
+            if (npc) {
+                character.setProperty("name", {npc->name()});
+                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
+                character.setProperty("defeated", makeBool(false));
+                return character;
+            }
+
+            const component::Trainer* trainer =
+                systems.engine().entities().getComponent<component::Trainer>(entity);
+            if (trainer) {
+                character.setProperty("name", {trainer->name()});
+                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
+                character.setProperty("defeated", makeBool(false));
+                return character;
+            }
         }
     }
 

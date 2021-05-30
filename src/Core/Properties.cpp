@@ -88,6 +88,8 @@ const float GhostWriterSpeed   = 16.f;
 const std::string TextboxFile  = "Resources/Images/Menus/HUD/messageBox.png";
 const unsigned int HudFontSize = 20;
 
+const std::string ScriptPath = "Resources/Scripts";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -180,6 +182,8 @@ bool Properties::load() {
     bl::engine::Configuration::set("blib.interface.ghost_speed", defaults::GhostWriterSpeed);
     bl::engine::Configuration::set("core.hud.textbox_file", defaults::TextboxFile);
     bl::engine::Configuration::set("core.hud.font_size", defaults::HudFontSize);
+
+    bl::engine::Configuration::set("blib.script.path", defaults::ScriptPath);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -520,6 +524,12 @@ const std::string& Properties::TextboxFile() {
 unsigned int Properties::HudFontSize() {
     return bl::engine::Configuration::getOrDefault<unsigned int>("core.hud.font_size",
                                                                  defaults::HudFontSize);
+}
+
+const std::string& Properties::ScriptPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "blib.script.path", defaults::ScriptPath);
+    return val;
 }
 
 } // namespace core

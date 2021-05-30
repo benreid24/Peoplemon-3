@@ -171,6 +171,18 @@ public:
         const std::string& saveFlag() const;
 
         /**
+         * @brief Returns whether or not the launched script should be executed concurrently
+         *
+         */
+        bool& runConcurrently();
+
+        /**
+         * @brief Returns whether or not the launched script should be executed concurrently
+         *
+         */
+        bool runConcurrently() const;
+
+        /**
          * @brief Returns the choices if this is a prompt node. Undefined behavior if not
          *
          */
@@ -209,7 +221,8 @@ public:
     private:
         Type type;
         std::string prompt; // or script
-        std::variant<std::vector<std::pair<std::string, std::uint32_t>>, item::Id, unsigned int>
+        std::variant<std::vector<std::pair<std::string, std::uint32_t>>, item::Id, unsigned int,
+                     bool>
             data;
         union {
             std::uint32_t nextNode;
