@@ -15,6 +15,7 @@
 #include <BLIB/Entities.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Scripts.hpp>
 #include <functional>
 #include <unordered_map>
 #include <vector>
@@ -106,16 +107,24 @@ public:
      *
      * @param systems The primary game systems
      * @param spawnId The spawn to place the player at
+     * @param prevMap The name of the map coming from
      * @return True on success, false on error
      */
-    bool enter(system::Systems& systems, std::uint16_t spawnId);
+    bool enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
      * @param systems The primary game systems
+     * @param newMap The name of the map going to
      */
-    void exit(system::Systems& systems);
+    void exit(system::Systems& systems, const std::string& newMap);
+
+    /**
+     * @brief Returns the name of the map
+     *
+     */
+    const std::string& name() const;
 
     /**
      * @brief Returns a reference to the weather system in this map
@@ -216,6 +225,8 @@ private:
     std::unordered_map<std::uint16_t, Spawn>& spawns;
     Weather weather;
     LightingSystem& lighting;
+    std::unique_ptr<bl::script::Script> onEnterScript;
+    std::unique_ptr<bl::script::Script> onExitScript;
 
     bool activated; // for weather continuity
     sf::IntRect renderRange;

@@ -3,6 +3,8 @@
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Core/Scripts/MapChangeContext.hpp>
+#include <Core/Scripts/MapEventContext.hpp>
 #include <Core/Systems/Cameras/Follow.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
@@ -245,14 +247,14 @@ Map::Map()
 , transitionField(*this)
 , activated(false) {}
 
-bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
+bool Map::enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
+
     size = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
     systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
     // TODO - load and push playlist
-    // TODO - run onload script
 
     // Spawn player
     auto spawnIt = spawns.find(spawnId);
@@ -287,6 +289,9 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
 
+        onEnterScript.reset(new bl::script::Script(loadScriptField));
+        onExitScript.reset(new bl::script::Script(unloadScriptField));
+
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
@@ -303,18 +308,30 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
     // Spawn items
     for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
 
+    // Run on load script
+    onEnterScript->resetContext(script::MapChangeContext(systems, prevMap, nameField, spawnId));
+    onEnterScript->run(&systems.engine().scriptManager());
+
     systems.engine().eventBus().dispatch<event::MapEntered>({*this});
     return true;
 }
 
-void Map::exit(system::Systems& game) {
+void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
     game.engine().eventBus().dispatch<event::MapExited>({*this});
+
+    // shut down light system
     lighting.unsubscribe();
+
+    // run exit script
+    onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
+    onExitScript->run(&game.engine().scriptManager());
+
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
-    // TODO - run on unload script
 }
+
+const std::string& Map::name() const { return nameField.getValue(); }
 
 const sf::Vector2i& Map::sizeTiles() const { return size; }
 

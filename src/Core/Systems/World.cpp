@@ -11,28 +11,31 @@ World::World(Systems& o)
 : owner(o) {}
 
 World::~World() {
-    if (currentMap) currentMap->exit(owner);
+    if (currentMap) currentMap->exit(owner, "GameClosing");
 }
 
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
-        // TODO - ensure that previous map is loaded on game save load or lazy load
-        if (!previousMap) return false;
-        currentMap->exit(owner);
-        if (!previousMap->enter(owner, -1)) return false;
+        if (!previousMap) return false; // TODO - lazy load previous map from gamesave info
+
+        currentMap->exit(owner, previousMap->name());
+        owner.engine().entities().clear();
+        if (!previousMap->enter(owner, 0, currentMap->name())) return false;
         std::swap(currentMap, previousMap);
         // TODO - reset player position
     }
     else {
+        previousMap = Resources::maps().load(file).data;
+        if (!previousMap) return false;
+
         if (currentMap) {
-            currentMap->exit(owner);
-            previousMap = currentMap;
-            owner.engine().entities().clear();
+            currentMap->exit(owner, previousMap->name());
             // TODO - capture player position
+            owner.engine().entities().clear();
         }
-        currentMap = Resources::maps().load(file).data;
-        if (!currentMap) return false;
-        if (!currentMap->enter(owner, spawn)) return false;
+        std::swap(currentMap, previousMap);
+        if (!currentMap->enter(owner, spawn, previousMap ? previousMap->name() : "NoPrevious"))
+            return false;
     }
     return true;
 }
