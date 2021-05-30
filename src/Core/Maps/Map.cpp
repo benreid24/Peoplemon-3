@@ -3,6 +3,7 @@
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Scripts/MapChangeContext.hpp>
 #include <Core/Scripts/MapEventContext.hpp>
 #include <Core/Systems/Cameras/Follow.hpp>
@@ -289,6 +290,8 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId, const std::stri
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
 
+        script::LegacyWarn::warn(loadScriptField);
+        script::LegacyWarn::warn(unloadScriptField);
         onEnterScript.reset(new bl::script::Script(loadScriptField));
         onExitScript.reset(new bl::script::Script(unloadScriptField));
 
