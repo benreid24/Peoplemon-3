@@ -4,7 +4,7 @@
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <Core/Properties.hpp>
-#include <Game/States/MapExplorer.hpp>
+#include <Game/States/MainGame.hpp>
 
 namespace game
 {
@@ -31,7 +31,17 @@ MainMenu::MainMenu(core::system::Systems& systems)
     sfText.setStyle(sf::Text::Bold);
 
     newGame = Item::create(TextRenderItem::create(sfText));
-    newGame->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "New Game selected"; });
+    newGame->getSignal(Item::Activated).willCall([&systems]() {
+        BL_LOG_INFO << "New Game selected";
+        // TODO - make new game state and implement new game feature
+        if (!systems.world().switchMaps("WorldMap.map", 5)) {
+            BL_LOG_ERROR << "Failed to load world map";
+            systems.engine().flags().set(bl::engine::Flags::Terminate);
+        }
+        else {
+            systems.engine().replaceState(MainGame::create(systems));
+        }
+    });
 
     sfText.setString("Load Game");
     loadGame = Item::create(TextRenderItem::create(sfText));
@@ -71,12 +81,7 @@ void MainMenu::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(inputDriver);
 }
 
-void MainMenu::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-        engine.replaceState(MapExplorer::create(systems, "WorldMap.map"));
-    }
-}
+void MainMenu::update(bl::engine::Engine& engine, float dt) { systems.player().update(); }
 
 void MainMenu::render(bl::engine::Engine& engine, float lag) {
     sf::RenderWindow& w = engine.window();

@@ -40,31 +40,27 @@ private:
 };
 } // namespace
 
-bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems,
-                                           const std::string& name) {
-    return bl::engine::State::Ptr(new MapExplorer(systems, name));
+bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems) {
+    return bl::engine::State::Ptr(new MapExplorer(systems));
 }
 
-MapExplorer::MapExplorer(core::system::Systems& systems, const std::string& name)
+MapExplorer::MapExplorer(core::system::Systems& systems)
 : State(systems)
-, file(name)
-, mapExplorer(ExplorerCamera::create())
-, activated(false) {}
+, mapExplorer(ExplorerCamera::create()) {}
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
 void MapExplorer::activate(bl::engine::Engine& engine) {
-    if (!activated) {
-        activated = true;
-        if (!systems.world().switchMaps(file, 5)) {
-            BL_LOG_ERROR << "Failed to switch to map: " << file;
-            engine.flags().set(bl::engine::Flags::Terminate);
-        }
-    }
     systems.engine().eventBus().subscribe(this);
+    systems.player().removePlayerControlled(systems.player().player());
+    systems.cameras().pushCamera(mapExplorer);
 }
 
-void MapExplorer::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
+void MapExplorer::deactivate(bl::engine::Engine&) {
+    systems.engine().eventBus().unsubscribe(this);
+    systems.player().makePlayerControlled(systems.player().player());
+    systems.cameras().popCamera();
+}
 
 void MapExplorer::update(bl::engine::Engine& engine, float dt) { systems.update(dt); }
 
@@ -76,27 +72,7 @@ void MapExplorer::render(bl::engine::Engine& engine, float lag) {
 
 void MapExplorer::observe(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == sf::Keyboard::P &&
-            systems.cameras().activeCamera().get() == mapExplorer.get()) {
-            systems.cameras().popCamera();
-            systems.player().makePlayerControlled(systems.player().player());
-        }
-        else if (event.key.code == sf::Keyboard::O &&
-                 systems.cameras().activeCamera().get() != mapExplorer.get()) {
-            systems.cameras().pushCamera(mapExplorer);
-            systems.player().removePlayerControlled(systems.player().player());
-        }
-    }
-}
-
-void MapExplorer::observe(const core::event::StateChange& event) {
-    switch (event.type) {
-    case core::event::StateChange::GamePaused:
-        systems.engine().pushState(PauseMenu::create(systems));
-        break;
-
-    default:
-        break;
+        if (event.key.code == sf::Keyboard::P) { systems.engine().popState(); }
     }
 }
 
