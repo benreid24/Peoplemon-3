@@ -202,7 +202,7 @@ public:
             y /= 32;
 
             // separate embedded legacy scripts out into files to make conversion easier
-            if (bl::file::Util::getExtension(script) != "pcs") {
+            if (bl::file::Util::getExtension(script) != "psc") {
                 bl::script::Script test(script);
                 if (!test.valid() && !script.empty()) {
                     const std::string filename =
@@ -456,14 +456,6 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
 
     weather.render(target, residual);
     lightingSystem().render(target);
-
-    sf::RectangleShape area;
-    area.setFillColor(sf::Color(255, 0, 0, 90));
-    for (const Event& e : eventsField.getValue()) {
-        area.setPosition(static_cast<sf::Vector2f>(e.position.getValue()) * 32.f);
-        area.setSize(static_cast<sf::Vector2f>(e.areaSize.getValue()) * 32.f);
-        target.draw(area);
-    }
 }
 
 bool Map::load(const std::string& file) {
