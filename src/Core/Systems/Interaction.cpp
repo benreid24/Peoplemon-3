@@ -22,56 +22,61 @@ bool Interaction::interact(bl::entity::Entity interactor) {
     if (!pos) return false;
 
     const bl::entity::Entity interacted = owner.position().search(*pos, pos->direction, 1);
-    if (interacted == bl::entity::InvalidEntity) return false;
-    BL_LOG_INFO << "Entity " << interactor << " interacted with entity: " << interacted;
+    if (interacted != bl::entity::InvalidEntity) {
+        BL_LOG_INFO << "Entity " << interactor << " interacted with entity: " << interacted;
 
-    if (interactor != owner.player().player() && interacted != owner.player().player()) {
-        BL_LOG_WARN << "Nonplayer entity " << interactor << " interacted with " << interacted;
-        return false;
-    }
-    const bl::entity::Entity nonplayer =
-        interactor != owner.player().player() ? interactor : interacted;
+        if (interactor != owner.player().player() && interacted != owner.player().player()) {
+            BL_LOG_WARN << "Nonplayer entity " << interactor << " interacted with " << interacted;
+            return false;
+        }
+        const bl::entity::Entity nonplayer =
+            interactor != owner.player().player() ? interactor : interacted;
 
-    const component::NPC* npc = owner.engine().entities().getComponent<component::NPC>(nonplayer);
-    if (npc) {
-        owner.controllable().setEntityLocked(nonplayer, true);
-        faceEntity(nonplayer, owner.player().player());
-        faceEntity(owner.player().player(), nonplayer);
-        currentConversation.setConversation(npc->conversation(), nonplayer);
-        interactingEntity = nonplayer;
-        processConversationNode();
-    }
-    else {
-        const component::Trainer* trainer =
-            owner.engine().entities().getComponent<component::Trainer>(nonplayer);
-        if (trainer) {
+        const component::NPC* npc =
+            owner.engine().entities().getComponent<component::NPC>(nonplayer);
+        if (npc) {
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
-            // TODO - handle battle
-            currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
+            currentConversation.setConversation(npc->conversation(), nonplayer);
             interactingEntity = nonplayer;
             processConversationNode();
-        }
-    }
-
-    // Check for item if player
-    if (interactor == owner.player().player()) {
-        const component::Item* ic =
-            owner.engine().entities().getComponent<component::Item>(interacted);
-        if (ic) {
-            const std::string name = item::Item::getName(ic->id());
-            BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
-                        << name << ")";
-            owner.player().bag().addItem(ic->id(), 1);
-            owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
-            owner.engine().entities().destroyEntity(interacted);
-            owner.hud().displayMessage("Picked up a " + name);
             return true;
         }
+        else {
+            const component::Trainer* trainer =
+                owner.engine().entities().getComponent<component::Trainer>(nonplayer);
+            if (trainer) {
+                owner.controllable().setEntityLocked(nonplayer, true);
+                faceEntity(nonplayer, owner.player().player());
+                faceEntity(owner.player().player(), nonplayer);
+                // TODO - handle battle
+                currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
+                interactingEntity = nonplayer;
+                processConversationNode();
+                return true;
+            }
+        }
+
+        // Check for item if player
+        if (interactor == owner.player().player()) {
+            const component::Item* ic =
+                owner.engine().entities().getComponent<component::Item>(interacted);
+            if (ic) {
+                const std::string name = item::Item::getName(ic->id());
+                BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
+                            << name << ")";
+                owner.player().bag().addItem(ic->id(), 1);
+                owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
+                owner.engine().entities().destroyEntity(interacted);
+                owner.hud().displayMessage("Picked up a " + name);
+                return true;
+            }
+        }
     }
 
-    return false;
+    // if nothing else see if map has interactable events
+    return owner.world().activeMap().interact(interactor, pos->move(pos->direction));
 }
 
 void Interaction::processConversationNode() {

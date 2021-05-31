@@ -189,16 +189,42 @@ public:
             std::uint32_t x, y;
             std::uint16_t w, h;
             std::string script;
+            if (!input.read(script)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(w)) return false;
             if (!input.read(h)) return false;
             if (!input.read(unused)) return false;
             if (!input.read(trigger)) return false;
-            result.eventsField.getValue().emplace_back(script,
-                                                       sf::Vector2i(x, y),
-                                                       sf::Vector2i(w, h),
-                                                       static_cast<Event::Trigger>(trigger));
+
+            // in pixels for some reason
+            x /= 32;
+            y /= 32;
+
+            // separate embedded legacy scripts out into files to make conversion easier
+            if (bl::file::Util::getExtension(script) != "pcs") {
+                bl::script::Script test(script);
+                if (!test.valid() && !script.empty()) {
+                    const std::string filename =
+                        "legacy_event_" + std::to_string(x) + "_" + std::to_string(y) + ".psc";
+                    const std::string path =
+                        bl::file::Util::joinPath(Properties::ScriptPath(), result.name());
+                    if (!bl::file::Util::createDirectory(path))
+                        BL_LOG_ERROR << "Failed to mkdir: " << path;
+                    const std::string fullfile = bl::file::Util::joinPath(path, filename);
+                    std::ofstream output(fullfile.c_str());
+                    output << script;
+                    script = bl::file::Util::joinPath(result.name(), filename);
+                    BL_LOG_WARN << "Legacy script requires conversion: " << fullfile;
+                }
+            }
+
+            if (!script.empty()) {
+                result.eventsField.getValue().emplace_back(script,
+                                                           sf::Vector2i(x, y),
+                                                           sf::Vector2i(w, h),
+                                                           static_cast<Event::Trigger>(trigger));
+            }
         }
 
         return true;
@@ -226,6 +252,7 @@ namespace
 {
 using VersionedLoader =
     bl::file::binary::VersionedFile<Map, loaders::LegacyMapLoader, loaders::PrimaryMapLoader>;
+
 }
 
 Map::Map()
@@ -302,15 +329,15 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         onExitScript.reset(new bl::script::Script(unloadScriptField));
 
         // Build event zones data structure
-        eventRegions.setSize(
-            static_cast<float>(size.x),
-            static_cast<float>(size.y),
-            static_cast<float>(Properties::WindowWidth() / Properties::PixelsPerTile()),
-            static_cast<float>(Properties::WindowHeight() / Properties::PixelsPerTile()));
+        eventRegions.setSize(static_cast<float>(size.x * Properties::PixelsPerTile()),
+                             static_cast<float>(size.y * Properties::PixelsPerTile()),
+                             static_cast<float>(Properties::WindowWidth()),
+                             static_cast<float>(Properties::WindowHeight()));
         for (const Event& event : eventsField.getValue()) {
-            eventRegions.add(static_cast<float>(event.position.getValue().x),
-                             static_cast<float>(event.position.getValue().y),
-                             &event);
+            eventRegions.add(
+                static_cast<float>(event.position.getValue().x * Properties::PixelsPerTile()),
+                static_cast<float>(event.position.getValue().y * Properties::PixelsPerTile()),
+                &event);
         }
 
         BL_LOG_INFO << nameField.getValue() << " activated";
@@ -429,6 +456,14 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
 
     weather.render(target, residual);
     lightingSystem().render(target);
+
+    sf::RectangleShape area;
+    area.setFillColor(sf::Color(255, 0, 0, 90));
+    for (const Event& e : eventsField.getValue()) {
+        area.setPosition(static_cast<sf::Vector2f>(e.position.getValue()) * 32.f);
+        area.setSize(static_cast<sf::Vector2f>(e.areaSize.getValue()) * 32.f);
+        target.draw(area);
+    }
 }
 
 bool Map::load(const std::string& file) {
@@ -566,15 +601,17 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 void Map::observe(const event::EntityMoved& movedEvent) {
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
+        BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.getValue().x
+                    << ", " << event.position.getValue().y << ")";
         bl::script::Script s(
             event.script,
             script::MapEventContext(*systems, movedEvent.entity, event, movedEvent.position));
         s.run(&systems->engine().scriptManager());
     };
 
-    const float fx = static_cast<float>(movedEvent.position.positionTiles().x);
-    const float fy = static_cast<float>(movedEvent.position.positionTiles().y);
-    for (const auto& it : eventRegions.getCellAndNeighbors(fx, fy)) {
+    const auto range = eventRegions.getCellAndNeighbors(movedEvent.position.positionPixels().x,
+                                                        movedEvent.position.positionPixels().y);
+    for (const auto& it : range) {
         const Event& e = *it.get();
         const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
         const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
@@ -601,6 +638,31 @@ void Map::observe(const event::EntityMoved& movedEvent) {
             break;
         }
     }
+}
+
+bool Map::interact(bl::entity::Entity interactor, const component::Position& pos) {
+    const auto trigger = [this, interactor, &pos](const Event& event) {
+        script::LegacyWarn::warn(event.script);
+        BL_LOG_INFO << interactor << " triggered event at (" << pos.positionTiles().x << ", "
+                    << pos.positionTiles().y << ")";
+        bl::script::Script s(event.script,
+                             script::MapEventContext(*systems, interactor, event, pos));
+        s.run(&systems->engine().scriptManager());
+    };
+
+    const auto range =
+        eventRegions.getCellAndNeighbors(pos.positionPixels().x, pos.positionPixels().y);
+    for (const auto& it : range) {
+        const Event& e = *it.get();
+        const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
+        if (area.contains(pos.positionTiles()) &&
+            e.trigger.getValue() == Event::Trigger::OnInteract) {
+            trigger(e);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 } // namespace map

@@ -219,6 +219,14 @@ public:
      */
     virtual void observe(const event::EntityMoved& moveEvent) override;
 
+    /**
+     * @brief Lets entities interact with the map itself. This is called by the Interaction system
+     *
+     * @param interactor The entity doing the interact
+     * @param interactPos The position being interacted with
+     */
+    bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
+
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
     bl::file::binary::SerializableField<2, std::string> loadScriptField;
