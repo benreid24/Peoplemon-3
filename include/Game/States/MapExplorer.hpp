@@ -28,6 +28,9 @@ public:
 
 private:
     core::system::camera::Camera::Ptr mapExplorer;
+    sf::RectangleShape hintBox;
+    sf::Text hintText;
+    float hintTime;
 
     MapExplorer(core::system::Systems& systems);
 
