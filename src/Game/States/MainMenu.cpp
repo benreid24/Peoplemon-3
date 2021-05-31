@@ -4,7 +4,7 @@
 #include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
 #include <Core/Properties.hpp>
-#include <Game/States/MainGame.hpp>
+#include <Game/States/NewGame.hpp>
 
 namespace game
 {
@@ -33,14 +33,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
     newGame = Item::create(TextRenderItem::create(sfText));
     newGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "New Game selected";
-        // TODO - make new game state and implement new game feature
-        if (!systems.world().switchMaps("WorldMap.map", 5)) {
-            BL_LOG_ERROR << "Failed to load world map";
-            systems.engine().flags().set(bl::engine::Flags::Terminate);
-        }
-        else {
-            systems.engine().replaceState(MainGame::create(systems));
-        }
+        systems.engine().replaceState(NewGame::create(systems));
     });
 
     sfText.setString("Load Game");

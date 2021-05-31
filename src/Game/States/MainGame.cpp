@@ -16,15 +16,11 @@ MainGame::MainGame(core::system::Systems& systems)
 
 const char* MainGame::name() const { return "MainGame"; }
 
-void MainGame::activate(bl::engine::Engine&) {
-    systems.engine().eventBus().subscribe(this);
-    BL_LOG_INFO << "main game activated";
-}
+void MainGame::activate(bl::engine::Engine&) { systems.engine().eventBus().subscribe(this); }
 
 void MainGame::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
 
 void MainGame::update(bl::engine::Engine&, float dt) {
-    BL_LOG_INFO << "update called";
     systems.update(dt);
 
     // TODO - fade in/outs on map transitions
