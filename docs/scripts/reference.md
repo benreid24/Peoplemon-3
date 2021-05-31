@@ -81,15 +81,15 @@ Includes NPC's, trainers, and the player.
 | removeSaveEntry | `key`: String               | N/A    | Deletes the given key from the persistent data                                         |
 
 
-## Common Map Functions
+## Maps
 
 | Name            | Parameters                                                   | Return  | Description                                                                                                                                |
 |-----------------|--------------------------------------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | loadMap         | `file`: String, `spawn`: Numeric                             | N/A     | Switches to the new map and spawn. `"LastMap"` may be passed to return the player to the previous map and position                         |
-| setAmbientLight | `lightLevel`: Numeric                                        | N/A     | Overrides the ambient light level. 0 is full light, 255 is full dark. Pass -1 to allow time of day to determine light level                |
+| setAmbientLight | `lightLevel`: Numeric, `sunlightAdjust`: Bool                | N/A     | Overrides the ambient light level. 0 is full light, 255 is full dark. This is the brightest light level if sunlight adjusting, gets darker at night. Light level is constant if no sunlight |
 | createLight     | `x`: Numeric, `y`: Numeric, `radius`: Numeric                | Numeric | Creates a light at the given position and radius. All parameters are in pixels. Returns the unique id of the new light                     |
-| updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | Bool    | Updates the light with the given `id` to the new position and radius. Returns true if the light was modified, false if `id` does not exist |
-| removeLight     | `id`: Numeric                                                | Bool    | Deletes the light with the given `id`. Returns true if the light was deleted, false if `id` was not found                                  |
+| updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | N/A     | Updates the light with the given `id` to the new position and radius.                                                                      |
+| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`                                                                                                      |
 
 ## Weather
 

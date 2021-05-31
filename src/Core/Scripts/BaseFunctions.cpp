@@ -58,6 +58,25 @@ Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::ve
 Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
 
+Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value setAmbientLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value createLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value updateLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+
+Value clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeSunny(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeSandstorm(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeRandomRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+Value makeRandomDesert(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args);
+Value makeRandomWeather(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args);
+
 Value bind(system::Systems& systems, Builtin func) {
     return {Function([&systems, func](SymbolTable& table, const std::vector<Value>& args) {
         return (*func)(systems, table, args);
@@ -67,41 +86,62 @@ Value bind(system::Systems& systems, Builtin func) {
 } // namespace
 
 void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
-    table.set("getPlayer", bind(systems, &getPlayer));
+#define BUILTIN(function) table.set("function", bind(systems, &function))
 
-    table.set("giveItem", bind(systems, &giveItem));
-    table.set("giveMoney", bind(systems, &giveMoney));
-    table.set("takeItem", bind(systems, &takeItem));
-    table.set("takeMoney", bind(systems, &takeMoney));
-    table.set("givePeoplemon", bind(systems, &givePeoplemon));
-    table.set("takePeoplemon", bind(systems, &takePeoplemon));
-    table.set("whiteout", bind(systems, &whiteout));
-    table.set("restorePeoplemon", bind(systems, &restorePeoplemon));
+    BUILTIN(getPlayer);
 
-    table.set("displayMessage", bind(systems, &displayMessage));
-    table.set("promptPlayer", bind(systems, &promptPlayer));
-    table.set("rollCredits", bind(systems, &rollCredits));
+    BUILTIN(giveItem);
+    BUILTIN(giveMoney);
+    BUILTIN(takeItem);
+    BUILTIN(takeMoney);
+    BUILTIN(givePeoplemon);
+    BUILTIN(takePeoplemon);
+    BUILTIN(whiteout);
+    BUILTIN(restorePeoplemon);
 
-    table.set("getNpc", bind(systems, &getNpc));
-    table.set("getTrainer", bind(systems, &getTrainer));
-    table.set("loadCharacter", bind(systems, &loadCharacter));
-    table.set("spawnCharacter", bind(systems, &spawnCharacter));
+    BUILTIN(displayMessage);
+    BUILTIN(promptPlayer);
+    BUILTIN(rollCredits);
 
-    table.set("moveEntity", bind(systems, &moveEntity));
-    table.set("rotateEntity", bind(systems, &rotateEntity));
-    table.set("removeEntity", bind(systems, &removeEntity));
-    table.set("entityToPosition", bind(systems, &entityToPosition));
-    table.set("entityInteract", bind(systems, &entityInteract));
-    table.set("setEntityLock", bind(systems, &setEntityLock));
-    table.set("resetEntityLock", bind(systems, &resetEntityLock));
+    BUILTIN(getNpc);
+    BUILTIN(getTrainer);
+    BUILTIN(loadCharacter);
+    BUILTIN(spawnCharacter);
 
-    table.set("maketime", bind(systems, &makeTime));
-    table.set("getClock", bind(systems, &getClock));
-    table.set("waitUntilTime", bind(systems, &waitUntilTime));
-    table.set("runAtClockTime", bind(systems, &runAtClockTime));
+    BUILTIN(moveEntity);
+    BUILTIN(rotateEntity);
+    BUILTIN(removeEntity);
+    BUILTIN(entityToPosition);
+    BUILTIN(entityInteract);
+    BUILTIN(setEntityLock);
+    BUILTIN(resetEntityLock);
 
-    table.set("addSaveEntry", bind(systems, &addSaveEntry));
-    table.set("getSaveEntry", bind(systems, &getSaveEntry));
+    BUILTIN(makeTime);
+    BUILTIN(getClock);
+    BUILTIN(waitUntilTime);
+    BUILTIN(runAtClockTime);
+
+    BUILTIN(addSaveEntry);
+    BUILTIN(getSaveEntry);
+
+    BUILTIN(loadMap);
+    BUILTIN(setAmbientLight);
+    BUILTIN(createLight);
+    BUILTIN(updateLight);
+    BUILTIN(removeLight);
+
+    BUILTIN(clearWeather);
+    BUILTIN(makeRain);
+    BUILTIN(makeSnow);
+    BUILTIN(makeSunny);
+    BUILTIN(makeSandstorm);
+    BUILTIN(makeFog);
+    BUILTIN(makeRandomRain);
+    BUILTIN(makeRandomSnow);
+    BUILTIN(makeRandomDesert);
+    BUILTIN(makeRandomWeather);
+
+#undef BUILTIN
 }
 
 Value BaseFunctions::makePosition(const component::Position& pos) {
@@ -617,6 +657,170 @@ Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vect
 Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
     // TODO - add game save functionality
     return makeBool(false);
+}
+
+Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    // TODO - main game state, fade in/out, and map change events
+    return {};
+}
+
+Value setAmbientLight(system::Systems& systems, SymbolTable& table,
+                      const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric, Value::TBool>("setAmbientLight", args);
+    if (args[0].getAsNum() < 0.f) { throw Error("Light level must be positive"); }
+    if (args[0].getAsNum() > 255.f) { throw Error("Light level must be under 255"); }
+
+    const std::uint8_t level = static_cast<std::uint8_t>(args[0].getAsNum());
+    const bool sunlight      = args[1].getAsBool();
+    systems.world().activeMap().lightingSystem().setAmbientLevel(level);
+    systems.world().activeMap().lightingSystem().adjustForSunlight(sunlight);
+
+    return {};
+}
+
+Value createLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric>("createLight", args);
+
+    const float x = args[0].getAsNum();
+    const float y = args[1].getAsNum();
+    const float r = args[2].getAsNum();
+
+    if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
+        throw Error("Light x coordinate is out of range: " + std::to_string(x));
+    }
+    if (y < 0.f || y >= systems.world().activeMap().sizePixels().y) {
+        throw Error("Light y coordinate is out of range: " + std::to_string(y));
+    }
+    if (r < 0.f) { throw Error("Light radius must be positive"); }
+
+    const map::Light light(static_cast<std::uint16_t>(r),
+                           {static_cast<int>(x), static_cast<int>(y)});
+    const map::LightingSystem::Handle handle =
+        systems.world().activeMap().lightingSystem().addLight(light);
+
+    return {static_cast<float>(handle)};
+}
+
+Value updateLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric, Value::TNumeric>(
+        "updateLight", args);
+
+    const map::LightingSystem::Handle handle =
+        static_cast<map::LightingSystem::Handle>(args[0].getAsNum());
+    const float x = args[1].getAsNum();
+    const float y = args[2].getAsNum();
+    const float r = args[3].getAsNum();
+
+    if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
+        throw Error("Light x coordinate is out of range: " + std::to_string(x));
+    }
+    if (y < 0.f || y >= systems.world().activeMap().sizePixels().y) {
+        throw Error("Light y coordinate is out of range: " + std::to_string(y));
+    }
+    if (r < 0.f) { throw Error("Light radius must be positive"); }
+
+    const map::Light light(static_cast<std::uint16_t>(r),
+                           {static_cast<int>(x), static_cast<int>(y)});
+    systems.world().activeMap().lightingSystem().updateLight(handle, light);
+
+    return {};
+}
+Value removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TNumeric>("removeLight", args);
+    const map::LightingSystem::Handle handle =
+        static_cast<map::LightingSystem::Handle>(args[0].getAsNum());
+    systems.world().activeMap().lightingSystem().removeLight(handle);
+    return {};
+}
+
+Value clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::None);
+    return {};
+}
+Value makeRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TBool, Value::TBool>("makeRain", args);
+
+    map::Weather::Type t;
+    if (args[0].getAsBool()) {
+        if (args[1].getAsBool())
+            t = map::Weather::LightRainThunder;
+        else
+            t = map::Weather::LightRain;
+    }
+    else {
+        if (args[1].getAsBool())
+            t = map::Weather::HardRainThunder;
+        else
+            t = map::Weather::HardRain;
+    }
+
+    systems.world().activeMap().weatherSystem().set(t);
+
+    return {};
+}
+
+Value makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TBool, Value::TBool>("makeSnow", args);
+
+    map::Weather::Type t;
+    if (args[0].getAsBool()) {
+        if (args[1].getAsBool())
+            t = map::Weather::LightSnowThunder;
+        else
+            t = map::Weather::LightSnow;
+    }
+    else {
+        if (args[1].getAsBool())
+            t = map::Weather::HardSnowThunder;
+        else
+            t = map::Weather::HardSnow;
+    }
+
+    systems.world().activeMap().weatherSystem().set(t);
+
+    return {};
+}
+
+Value makeSunny(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::Sunny);
+    return {};
+}
+
+Value makeSandstorm(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::SandStorm);
+    return {};
+}
+
+Value makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TBool>("makeFog", args);
+
+    const map::Weather::Type t =
+        args[0].getAsBool() ? map::Weather::ThickFog : map::Weather::ThinFog;
+    systems.world().activeMap().weatherSystem().set(t);
+
+    return {};
+}
+
+Value makeRandomRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::WaterRandom);
+    return {};
+}
+
+Value makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::SnowRandom);
+    return {};
+}
+
+Value makeRandomDesert(system::Systems& systems, SymbolTable& table,
+                       const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::DesertRandom);
+    return {};
+}
+
+Value makeRandomWeather(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args) {
+    systems.world().activeMap().weatherSystem().set(map::Weather::AllRandom);
+    return {};
 }
 
 } // namespace
