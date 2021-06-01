@@ -93,7 +93,7 @@ std::vector<TileLayer>& LayerSet::topLayers() { return top.getValue(); }
 const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
 void LayerSet::update(const sf::IntRect& area, float dt) {
-    static const auto updateLayer = [&area, dt](TileLayer& layer) {
+    static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
         for (unsigned int x = area.left; x < area.left + area.width; ++x) {
             for (unsigned int y = area.top; y < area.top + area.height; ++y) {
                 layer.getRef(x, y).update(dt);
@@ -101,9 +101,9 @@ void LayerSet::update(const sf::IntRect& area, float dt) {
         }
     };
 
-    for (TileLayer& layer : bottomLayers()) { updateLayer(layer); }
-    for (TileLayer& layer : ysortLayers()) { updateLayer(layer); }
-    for (TileLayer& layer : topLayers()) { updateLayer(layer); }
+    for (TileLayer& layer : bottomLayers()) { updateLayer(layer, area, dt); }
+    for (TileLayer& layer : ysortLayers()) { updateLayer(layer, area, dt); }
+    for (TileLayer& layer : topLayers()) { updateLayer(layer, area, dt); }
 }
 
 } // namespace map

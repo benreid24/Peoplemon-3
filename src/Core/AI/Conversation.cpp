@@ -1,6 +1,7 @@
 #include <Core/AI/Conversation.hpp>
 
 #include <Core/Scripts/ConversationContext.hpp>
+#include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -109,6 +110,7 @@ void Conversation::followNodes() {
                 return finished();
             };
 
+            script::LegacyWarn::warn(nodes->at(current).script());
             bl::script::Script script(nodes->at(current).script(),
                                       script::ConversationContext(systems, entity, cb));
             if (nodes->at(current).runConcurrently()) {

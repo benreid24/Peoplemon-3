@@ -12,7 +12,7 @@ namespace component
 /**
  * @brief Basic structure representing the position of an entity
  *
- * @ingroup Entity
+ * @ingroup Components
  *
  */
 class Position {

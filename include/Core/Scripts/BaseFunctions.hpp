@@ -2,6 +2,7 @@
 #define CORE_SCRIPTS_BASEFUNCTIONS_HPP
 
 #include <BLIB/Scripts/SymbolTable.hpp>
+#include <Core/Components/Position.hpp>
 
 /**
  * @addtogroup Scripts
@@ -34,6 +35,15 @@ struct BaseFunctions {
      * @param systems The primary systems objects
      */
     static void addDefaults(bl::script::SymbolTable& table, system::Systems& systems);
+
+    /**
+     * @brief Helper function for other script functions to make script position values from the
+     *        position component
+     *
+     * @param pos The position to convert
+     * @return Value A value containing the properties of the position
+     */
+    static bl::script::Value makePosition(const component::Position& pos);
 };
 
 } // namespace script

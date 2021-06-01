@@ -90,6 +90,8 @@ const unsigned int HudFontSize = 20;
 
 const std::string ScriptPath = "Resources/Scripts";
 
+constexpr float ScreenFadePeriod = 2.f;
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -184,6 +186,8 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.hud.font_size", defaults::HudFontSize);
 
     bl::engine::Configuration::set("blib.script.path", defaults::ScriptPath);
+
+    bl::engine::Configuration::set("game.main.fadeout", defaults::ScreenFadePeriod);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -530,6 +534,12 @@ const std::string& Properties::ScriptPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "blib.script.path", defaults::ScriptPath);
     return val;
+}
+
+float Properties::ScreenFadePeriod() {
+    static const float v = bl::engine::Configuration::getOrDefault<float>(
+        "game.main.fadeout", defaults::ScreenFadePeriod);
+    return v;
 }
 
 } // namespace core

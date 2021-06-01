@@ -31,6 +31,7 @@ The following functions are available in each type of Peoplemon script, in addit
 | takePeoplemon    | `id`: Numeric, `minLevel`: Numeric                                | Bool   | Tries to take the Peoplemon from the player. Always prompts and blocks on input. Specify `minLevel` as 0 to accept any level                                                                             |
 | whiteout         | N/A                                                               | N/A    | Forces the player to respawn at the last PC Center they visited                                                                                                                                          |
 | restorePeoplemon | N/A                                                               | N/A    | Restores the player's Peoplemon to full health and status                                                                                                                                                |
+
 ### Interface
 
 | Name           | Parameters                                   | Return | Description                                                                         |
@@ -78,6 +79,32 @@ Includes NPC's, trainers, and the player.
 | addSaveEntry    | `key`: String, `value`: Any | N/A    | Saves the given value under the given key. Saved values are persisted in the game save |
 | getSaveEntry    | `key`: String               | Any    | Retrieves the saved value with the given key. Returns `false` if not found             |
 | removeSaveEntry | `key`: String               | N/A    | Deletes the given key from the persistent data                                         |
+
+
+## Maps
+
+| Name            | Parameters                                                   | Return  | Description                                                                                                                                |
+|-----------------|--------------------------------------------------------------|---------|--------------------------------------------------------------------------------------------------------------------------------------------|
+| loadMap         | `file`: String, `spawn`: Numeric                             | N/A     | Switches to the new map and spawn. `"LastMap"` may be passed to return the player to the previous map and position                         |
+| setAmbientLight | `low`: Numeric, `high`: Numeric, `sunlightAdjust`: Bool   | N/A     | Overrides the ambient light level. 0 is full dark, 255 is full light. Sunlight causes the ambient to move between the low and high based on time. If no sunlight the high level is used as a constant light level |
+| createLight     | `x`: Numeric, `y`: Numeric, `radius`: Numeric                | Numeric | Creates a light at the given position and radius. All parameters are in pixels. Returns the unique id of the new light                     |
+| updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | N/A     | Updates the light with the given `id` to the new position and radius.                                                                      |
+| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`                                                                                                      |
+
+## Weather
+
+| Name              | Parameters                       | Return | Description                                                |
+|-------------------|----------------------------------|--------|------------------------------------------------------------|
+| clearWeather      | N/A                              | N/A    | Clears the current weather                                 |
+| makeRain          | `isLight`: Bool, `thunder`: Bool | N/A    | Creates light or hard rain with optional thunder           |
+| makeSnow          | `isLight`: Bool, `thunder`: Bool | N/A    | Creates light or hard snow with optional thunder           |
+| makeSunny         | N/A                              | N/A    | Creates bright sunny weather                               |
+| makeSandstorm     | N/A                              | N/A    | Creates a raging sandstorm                                 |
+| makeFog           | `thick`: Bool                    | N/A    | Creates thin or thick fog                                  |
+| makeRandomRain    | N/A                              | N/A    | The game will cycle through different varieties of rain    |
+| makeRandomSnow    | N/A                              | N/A    | The game will cycle through different varieties of snow    |
+| makeRandomDesert  | N/A                              | N/A    | The game will cycle between sandstorm and sunny            |
+| makeRandomWeather | N/A                              | N/A    | The game will cycle between all different kinds of weather |
 
 ## Basic Example
 

@@ -5,8 +5,15 @@
 #include <Core/Systems/Systems.hpp>
 
 /**
- * @defgroup States
+ * @defgroup Game
+ * @brief All of the functionality of the game itself
+ *
+ */
+
+/**
+ * @addtogroup States
  * @brief Collection of each possible game state
+ * @ingroup Game
  *
  */
 

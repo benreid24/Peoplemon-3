@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_MAP_HPP
 #define CORE_MAPS_MAP_HPP
 
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Maps/CatchZone.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
@@ -13,8 +14,10 @@
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Entities.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Scripts.hpp>
 #include <functional>
 #include <unordered_map>
 #include <vector>
@@ -62,7 +65,9 @@ class PrimaryMapLoader;
  * @ingroup Maps
  *
  */
-class Map : public bl::file::binary::SerializableObject {
+class Map
+: public bl::file::binary::SerializableObject
+, public bl::event::Listener<event::EntityMoved> {
 public:
     /**
      * @brief Function signature for the callback to render rows of entities
@@ -81,6 +86,12 @@ public:
      *
      */
     Map();
+
+    /**
+     * @brief Destroy the Map
+     *
+     */
+    virtual ~Map() = default;
 
     /**
      * @brief Loads the map from the given file. Will try to determine if the extension or path need
@@ -106,16 +117,24 @@ public:
      *
      * @param systems The primary game systems
      * @param spawnId The spawn to place the player at
+     * @param prevMap The name of the map coming from
      * @return True on success, false on error
      */
-    bool enter(system::Systems& systems, std::uint16_t spawnId);
+    bool enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
      *
      * @param systems The primary game systems
+     * @param newMap The name of the map going to
      */
-    void exit(system::Systems& systems);
+    void exit(system::Systems& systems, const std::string& newMap);
+
+    /**
+     * @brief Returns the name of the map
+     *
+     */
+    const std::string& name() const;
 
     /**
      * @brief Returns a reference to the weather system in this map
@@ -193,6 +212,21 @@ public:
      */
     bool movePossible(const component::Position& position, component::Direction dir) const;
 
+    /**
+     * @brief Event listener for moving entities. Used to trigger map events
+     *
+     * @param moveEvent The move event
+     */
+    virtual void observe(const event::EntityMoved& moveEvent) override;
+
+    /**
+     * @brief Lets entities interact with the map itself. This is called by the Interaction system
+     *
+     * @param interactor The entity doing the interact
+     * @param interactPos The position being interacted with
+     */
+    bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
+
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
     bl::file::binary::SerializableField<2, std::string> loadScriptField;
@@ -210,12 +244,16 @@ private:
     bl::file::binary::SerializableField<14, bl::container::Vector2D<LevelTransition>>
         transitionField;
 
+    system::Systems* systems;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
     std::vector<LayerSet>& levels;
     std::unordered_map<std::uint16_t, Spawn>& spawns;
     Weather weather;
     LightingSystem& lighting;
+    std::unique_ptr<bl::script::Script> onEnterScript;
+    std::unique_ptr<bl::script::Script> onExitScript;
+    bl::container::Grid<const Event*> eventRegions;
 
     bool activated; // for weather continuity
     sf::IntRect renderRange;

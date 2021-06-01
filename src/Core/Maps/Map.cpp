@@ -3,6 +3,9 @@
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Core/Scripts/LegacyWarn.hpp>
+#include <Core/Scripts/MapChangeContext.hpp>
+#include <Core/Scripts/MapEventContext.hpp>
 #include <Core/Systems/Cameras/Follow.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
@@ -45,8 +48,9 @@ public:
 
         std::uint16_t ambientLight;
         if (!input.read(ambientLight)) return false;
-        result.lightingSystem().adjustForSunlight(ambientLight == 255);
-        result.lightingSystem().setAmbientLevel(ambientLight);
+        const bool sunlight = ambientLight == 255;
+        result.lightingSystem().adjustForSunlight(sunlight);
+        result.lightingSystem().setAmbientLevel(75, sunlight ? 255 : ambientLight);
         result.lightingSystem().legacyResize({static_cast<int>(width), static_cast<int>(height)});
 
         std::uint16_t catchZoneCount;
@@ -186,16 +190,42 @@ public:
             std::uint32_t x, y;
             std::uint16_t w, h;
             std::string script;
+            if (!input.read(script)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(w)) return false;
             if (!input.read(h)) return false;
             if (!input.read(unused)) return false;
             if (!input.read(trigger)) return false;
-            result.eventsField.getValue().emplace_back(script,
-                                                       sf::Vector2i(x, y),
-                                                       sf::Vector2i(w, h),
-                                                       static_cast<Event::Trigger>(trigger));
+
+            // in pixels for some reason
+            x /= 32;
+            y /= 32;
+
+            // separate embedded legacy scripts out into files to make conversion easier
+            if (bl::file::Util::getExtension(script) != "psc") {
+                bl::script::Script test(script);
+                if (!test.valid() && !script.empty()) {
+                    const std::string filename =
+                        "legacy_event_" + std::to_string(x) + "_" + std::to_string(y) + ".psc";
+                    const std::string path =
+                        bl::file::Util::joinPath(Properties::ScriptPath(), result.name());
+                    if (!bl::file::Util::createDirectory(path))
+                        BL_LOG_ERROR << "Failed to mkdir: " << path;
+                    const std::string fullfile = bl::file::Util::joinPath(path, filename);
+                    std::ofstream output(fullfile.c_str());
+                    output << script;
+                    script = bl::file::Util::joinPath(result.name(), filename);
+                    BL_LOG_WARN << "Legacy script requires conversion: " << fullfile;
+                }
+            }
+
+            if (!script.empty()) {
+                result.eventsField.getValue().emplace_back(script,
+                                                           sf::Vector2i(x, y),
+                                                           sf::Vector2i(w, h),
+                                                           static_cast<Event::Trigger>(trigger));
+            }
         }
 
         return true;
@@ -223,6 +253,7 @@ namespace
 {
 using VersionedLoader =
     bl::file::binary::VersionedFile<Map, loaders::LegacyMapLoader, loaders::PrimaryMapLoader>;
+
 }
 
 Map::Map()
@@ -243,30 +274,33 @@ Map::Map()
 , lighting(lightsField.getValue())
 , catchZonesField(*this)
 , transitionField(*this)
-, activated(false) {}
+, activated(false)
+, eventRegions(100.f, 100.f, 100.f, 100.f)
+, systems(nullptr) {}
 
-bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
+bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
-    size = {static_cast<int>(levels.front().bottomLayers().front().width()),
+
+    systems = &game;
+    size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
-    systems.engine().eventBus().dispatch<event::MapSwitch>({*this});
+    game.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
     // TODO - load and push playlist
-    // TODO - run onload script
 
     // Spawn player
     auto spawnIt = spawns.find(spawnId);
     if (spawnIt != spawns.end()) {
-        if (!systems.player().spawnPlayer(spawnIt->second.position)) {
+        if (!game.player().spawnPlayer(spawnIt->second.position)) {
             BL_LOG_ERROR << "Failed to spawn player";
             return false;
         }
-        systems.cameras().clearAndReplace(
-            system::camera::Follow::create(systems, systems.player().player()));
+        game.cameras().clearAndReplace(
+            system::camera::Follow::create(game, game.player().player()));
 
         // Activate camera and weather
-        systems.cameras().update(0.f);
-        weather.activate(systems.cameras().getArea());
+        game.cameras().update(0.f);
+        weather.activate(game.cameras().getArea());
     }
     else {
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
@@ -278,43 +312,85 @@ bool Map::enter(system::Systems& systems, std::uint16_t spawnId) {
         activated = true;
         BL_LOG_INFO << "Activating map " << nameField.getValue();
 
+        // Load tileset and init tiles
         tileset = Resources::tilesets().load(tilesetField).data;
         if (!tileset) return false;
         tileset->activate();
         for (LayerSet& level : levels) { level.activate(*tileset); }
 
+        // Initialize weather, lighting, and wild peoplemon
         weather.set(weatherField.getValue());
         lighting.activate(size);
         for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+
+        // Load and parse scripts
+        script::LegacyWarn::warn(loadScriptField);
+        script::LegacyWarn::warn(unloadScriptField);
+        onEnterScript.reset(new bl::script::Script(loadScriptField));
+        onExitScript.reset(new bl::script::Script(unloadScriptField));
+
+        // Build event zones data structure
+        eventRegions.setSize(static_cast<float>(size.x * Properties::PixelsPerTile()),
+                             static_cast<float>(size.y * Properties::PixelsPerTile()),
+                             static_cast<float>(Properties::WindowWidth()),
+                             static_cast<float>(Properties::WindowHeight()));
+        for (const Event& event : eventsField.getValue()) {
+            eventRegions.add(
+                static_cast<float>(event.position.getValue().x * Properties::PixelsPerTile()),
+                static_cast<float>(event.position.getValue().y * Properties::PixelsPerTile()),
+                &event);
+        }
 
         BL_LOG_INFO << nameField.getValue() << " activated";
     }
 
     // Ensure lighting is updated for time
-    lighting.subscribe(systems.engine().eventBus());
+    lighting.subscribe(game.engine().eventBus());
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField.getValue()) {
-        if (!systems.entity().spawnCharacter(spawn)) {
+        if (!game.entity().spawnCharacter(spawn)) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
         }
     }
 
     // Spawn items
-    for (const Item& item : itemsField.getValue()) { systems.entity().spawnItem(item); }
+    for (const Item& item : itemsField.getValue()) { game.entity().spawnItem(item); }
 
-    systems.engine().eventBus().dispatch<event::MapEntered>({*this});
+    // Run on load script
+    onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));
+    onEnterScript->run(&game.engine().scriptManager());
+
+    // subscribe to get entity position updates
+    game.engine().eventBus().subscribe(this);
+
+    game.engine().eventBus().dispatch<event::MapEntered>({*this});
+    BL_LOG_INFO << "Entered map: " << nameField.getValue();
+
     return true;
 }
 
-void Map::exit(system::Systems& game) {
+void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField.getValue();
     game.engine().eventBus().dispatch<event::MapExited>({*this});
+
+    // unsubscribe from entity events
+    game.engine().eventBus().unsubscribe(this);
+
+    // shut down light system
     lighting.unsubscribe();
+
+    // run exit script
+    onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
+    onExitScript->run(&game.engine().scriptManager());
+
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
-    // TODO - run on unload script
+
+    BL_LOG_INFO << "Exited map: " << nameField.getValue();
 }
+
+const std::string& Map::name() const { return nameField.getValue(); }
 
 const sf::Vector2i& Map::sizeTiles() const { return size; }
 
@@ -517,6 +593,73 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
                     << npos.positionTiles().y << ")";
         return false;
     }
+}
+
+void Map::observe(const event::EntityMoved& movedEvent) {
+    const auto trigger = [this, &movedEvent](const Event& event) {
+        script::LegacyWarn::warn(event.script);
+        BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.getValue().x
+                    << ", " << event.position.getValue().y << ")";
+        bl::script::Script s(
+            event.script,
+            script::MapEventContext(*systems, movedEvent.entity, event, movedEvent.position));
+        s.run(&systems->engine().scriptManager());
+    };
+
+    const auto range = eventRegions.getCellAndNeighbors(movedEvent.position.positionPixels().x,
+                                                        movedEvent.position.positionPixels().y);
+    for (const auto& it : range) {
+        const Event& e = *it.get();
+        const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
+        const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
+        const bool isIn  = area.contains(movedEvent.position.positionTiles());
+
+        switch (e.trigger.getValue()) {
+        case Event::Trigger::OnEnter:
+            if (!wasIn && isIn) trigger(e);
+            break;
+
+        case Event::Trigger::OnExit:
+            if (wasIn && !isIn) trigger(e);
+            break;
+
+        case Event::Trigger::onEnterOrExit:
+            if (wasIn != isIn) trigger(e);
+            break;
+
+        case Event::Trigger::WhileIn:
+            if (isIn) trigger(e);
+            break;
+
+        default:
+            break;
+        }
+    }
+}
+
+bool Map::interact(bl::entity::Entity interactor, const component::Position& pos) {
+    const auto trigger = [this, interactor, &pos](const Event& event) {
+        script::LegacyWarn::warn(event.script);
+        BL_LOG_INFO << interactor << " triggered event at (" << pos.positionTiles().x << ", "
+                    << pos.positionTiles().y << ")";
+        bl::script::Script s(event.script,
+                             script::MapEventContext(*systems, interactor, event, pos));
+        s.run(&systems->engine().scriptManager());
+    };
+
+    const auto range =
+        eventRegions.getCellAndNeighbors(pos.positionPixels().x, pos.positionPixels().y);
+    for (const auto& it : range) {
+        const Event& e = *it.get();
+        const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
+        if (area.contains(pos.positionTiles()) &&
+            e.trigger.getValue() == Event::Trigger::OnInteract) {
+            trigger(e);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 } // namespace map
