@@ -10,7 +10,8 @@ var indexSectionsWithContent =
   7: "cdgilt",
   8: "_abcdefghiklmnoprstuvw",
   9: ":blost",
-  10: "acefimpsw"
+  10: "b",
+  11: "acefgimpsw"
 };
 
 var indexSectionNames =
@@ -25,7 +26,8 @@ var indexSectionNames =
   7: "enums",
   8: "enumvalues",
   9: "related",
-  10: "groups"
+  10: "defines",
+  11: "groups"
 };
 
 var indexSectionLabels =
@@ -40,6 +42,7 @@ var indexSectionLabels =
   7: "Enumerations",
   8: "Enumerator",
   9: "Friends",
-  10: "Modules"
+  10: "Macros",
+  11: "Modules"
 };
 

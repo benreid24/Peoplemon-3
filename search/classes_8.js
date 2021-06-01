@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['layer',['Layer',['../a00665.html',1,'core::map']]],
-  ['layerset',['LayerSet',['../a00669.html',1,'core::map']]],
-  ['legacyconversationloader',['LegacyConversationLoader',['../a00841.html',1,'core::file::loader']]],
-  ['legacymaploader',['LegacyMapLoader',['../a00865.html',1,'core::map::loaders']]],
-  ['legacytilesetloader',['LegacyTilesetLoader',['../a00873.html',1,'core::map::loaders']]],
-  ['light',['Light',['../a00673.html',1,'core::map']]],
-  ['lightingsystem',['LightingSystem',['../a00677.html',1,'core::map']]],
-  ['listener',['Listener',['../a00725.html',1,'core::player::input']]]
+  ['layer',['Layer',['../a00699.html',1,'core::map']]],
+  ['layerset',['LayerSet',['../a00703.html',1,'core::map']]],
+  ['legacyconversationloader',['LegacyConversationLoader',['../a00895.html',1,'core::file::loader']]],
+  ['legacymaploader',['LegacyMapLoader',['../a00919.html',1,'core::map::loaders']]],
+  ['legacytilesetloader',['LegacyTilesetLoader',['../a00927.html',1,'core::map::loaders']]],
+  ['legacywarn',['LegacyWarn',['../a00787.html',1,'core::script']]],
+  ['light',['Light',['../a00707.html',1,'core::map']]],
+  ['lightingsystem',['LightingSystem',['../a00711.html',1,'core::map']]],
+  ['listener',['Listener',['../a00759.html',1,'core::player::input']]]
 ];
