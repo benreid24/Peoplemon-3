@@ -365,6 +365,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     game.engine().eventBus().subscribe(this);
 
     game.engine().eventBus().dispatch<event::MapEntered>({*this});
+    BL_LOG_INFO << "Entered map: " << nameField.getValue();
+
     return true;
 }
 
@@ -384,6 +386,8 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
 
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
+
+    BL_LOG_INFO << "Exited map: " << nameField.getValue();
 }
 
 const std::string& Map::name() const { return nameField.getValue(); }

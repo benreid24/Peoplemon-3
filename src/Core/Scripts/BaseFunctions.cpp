@@ -4,6 +4,7 @@
 #include <BLIB/Util/Waiter.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
+#include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -86,7 +87,7 @@ Value bind(system::Systems& systems, Builtin func) {
 } // namespace
 
 void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
-#define BUILTIN(function) table.set("function", bind(systems, &function))
+#define BUILTIN(function) table.set(#function, bind(systems, &function))
 
     BUILTIN(getPlayer);
 
@@ -660,7 +661,9 @@ Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vect
 }
 
 Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    // TODO - main game state, fade in/out, and map change events
+    Function::validateArgs<Value::TString, Value::TNumeric>("loadMap", args);
+    systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
+        {args[0].getAsString(), static_cast<int>(args[1].getAsNum())});
     return {};
 }
 
