@@ -57,7 +57,6 @@ void MainGame::update(bl::engine::Engine&, float dt) {
             systems.controllable().setAllLocks(false, false);
         }
         else {
-            BL_LOG_INFO << "fading in";
             const float a = (1.f - fadeTime / core::Properties::ScreenFadePeriod()) * 255.f;
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }

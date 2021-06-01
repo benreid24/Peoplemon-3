@@ -12,10 +12,13 @@ namespace map
 {
 LightingSystem::LightingSystem()
 : lightsField(*this)
-, lightLevelField(*this, 0)
+, lowLevelField(*this, 175)
+, highLevelField(*this, 255)
 , sunlightField(*this, true)
-, lightLevel(255)
+, minLevel(lowLevelField.getValue())
+, maxLevel(highLevelField.getValue())
 , weatherModifier(0)
+, sunlightFactor(1.f)
 , eventGuard(this)
 , lights(320, 320, 800, 600) {}
 
@@ -80,12 +83,15 @@ void LightingSystem::removeLight(Handle handle, bool p) {
     handles.erase(it);
 }
 
-void LightingSystem::setAmbientLevel(std::uint8_t level) {
-    lightLevelField = level;
-    if (level != 255) lightLevel = level;
+void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel) {
+    minLevel = std::min(lowLightLevel, highLightLevel);
+    maxLevel - std::max(highLightLevel, highLightLevel);
+    levelRange = maxLevel - minLevel;
 }
 
-std::uint8_t LightingSystem::getAmbientLevel() const { return lightLevelField.getValue(); }
+std::uint8_t LightingSystem::getMinLightLevel() const { return lowLevelField.getValue(); }
+
+std::uint8_t LightingSystem::getMaxLightLevel() const { return highLevelField.getValue(); }
 
 void LightingSystem::adjustForSunlight(bool a) { sunlightField = a; }
 
@@ -102,7 +108,6 @@ void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
 void LightingSystem::activate(const sf::Vector2i& mapSize) {
     legacyResize(mapSize);
 
-    if (lightLevel == 255) lightLevel = lightLevelField.getValue();
     for (const auto& light : lightsField.getValue()) { addLight(light, false); }
 
     renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
@@ -117,9 +122,9 @@ void LightingSystem::unsubscribe() { eventGuard.unsubscribe(); }
 
 void LightingSystem::clear() {
     lightsField.getValue().clear();
-    lightLevelField = 0;
-    lightLevel      = 255;
-    sunlightField   = true;
+    highLevelField = 255;
+    lowLevelField  = 75;
+    sunlightField  = true;
     lights.clear();
     handles.clear();
 }
@@ -128,8 +133,9 @@ void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() / 2.f);
     const sf::Vector2f& size = target.getView().getSize();
 
+    const float preambient = 255.f - (static_cast<float>(minLevel) + levelRange * sunlightFactor);
     const std::uint8_t ambient =
-        std::min(std::max(0, static_cast<int>(lightLevel) + weatherModifier), 255);
+        std::min(std::max(0, static_cast<int>(preambient) + weatherModifier), 255);
     auto lightSet =
         lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
                        corner.y - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
@@ -156,12 +162,14 @@ void LightingSystem::render(sf::RenderTarget& target) {
 }
 
 void LightingSystem::observe(const event::TimeChange& now) {
-    if (lightLevelField.getValue() == 255) {
-        const float x = now.newTime.hour * 60 + now.newTime.minute;
-        const float n = 0.7;
-        lightLevel    = std::max(0.,
-                              (90 * cos(3.1415926 * x / 720) + 90) *
-                                  ((1 - n) * (720 - x) * (720 - x) / 518400 + n));
+    if (sunlightField.getValue()) {
+        const float x  = now.newTime.hour * 60 + now.newTime.minute;
+        const float n  = 0.7;
+        sunlightFactor = 1.f - (0.5 * std::cos(3.1415926 * x / 720) + 0.5) *
+                                   ((1 - n) * (720 - x) * (720 - x) / 518400 + n);
+    }
+    else {
+        sunlightFactor = 1.f;
     }
 }
 

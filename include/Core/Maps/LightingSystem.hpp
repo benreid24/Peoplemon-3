@@ -80,23 +80,30 @@ public:
     void removeLight(Handle light, bool updateSave = false);
 
     /**
-     * @brief Set the ambient light level of the map. Areas not illuminated will be lit to a max of
-     *        this light level. If the map is in sunlight this is the highest brightness during
-     *        daytime. Night will get darker from this level. Default is 255
+     * @brief The ambient light band. 0 is full darkness and 255 is full brightness
      *
-     * @param lightLevel The ambient light level. 0 is full darkness, 255 is full brightness
+     * @param lowLightLevel The min light level. This is reached at midnight
+     * @param highLightLevel The max light level. This is reached at noon
      */
-    void setAmbientLevel(std::uint8_t lightLevel);
+    void setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel);
 
     /**
-     * @brief Returns the ambient light level of this map
+     * @brief Returns the minimum ambient light level of this map
      *
-     * @return std::uint8_t The ambient light level
+     * @return std::uint8_t The minmum ambient light level
      */
-    std::uint8_t getAmbientLevel() const;
+    std::uint8_t getMinLightLevel() const;
 
     /**
-     * @brief Set whether or not the light level is adjusted based on time of day
+     * @brief Returns the maximum ambient light level of this map
+     *
+     * @return std::uint8_t The maximum ambient light level
+     */
+    std::uint8_t getMaxLightLevel() const;
+
+    /**
+     * @brief Set whether or not the light level is adjusted based on time of day. If not adjusting
+     *        for sunlight the higher light level is used for a constant ambient
      *
      * @param adjust True to adjust based on time of day, false to always use ambient level
      */
@@ -175,8 +182,9 @@ public:
 
 private:
     bl::file::binary::SerializableField<1, std::vector<Light>> lightsField;
-    bl::file::binary::SerializableField<2, std::uint8_t> lightLevelField;
-    bl::file::binary::SerializableField<3, bool> sunlightField;
+    bl::file::binary::SerializableField<2, std::uint8_t> lowLevelField;
+    bl::file::binary::SerializableField<3, std::uint8_t> highLevelField;
+    bl::file::binary::SerializableField<4, bool> sunlightField;
 
     bl::event::ClassGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
         eventGuard;
@@ -187,7 +195,10 @@ private:
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
-    std::uint8_t lightLevel;
+    std::uint8_t& minLevel;
+    std::uint8_t& maxLevel;
+    float levelRange;
+    float sunlightFactor;
     int weatherModifier;
 };
 

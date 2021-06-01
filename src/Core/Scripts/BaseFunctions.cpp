@@ -666,13 +666,14 @@ Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Va
 
 Value setAmbientLight(system::Systems& systems, SymbolTable& table,
                       const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TBool>("setAmbientLight", args);
+    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("setAmbientLight", args);
     if (args[0].getAsNum() < 0.f) { throw Error("Light level must be positive"); }
     if (args[0].getAsNum() > 255.f) { throw Error("Light level must be under 255"); }
 
-    const std::uint8_t level = static_cast<std::uint8_t>(args[0].getAsNum());
-    const bool sunlight      = args[1].getAsBool();
-    systems.world().activeMap().lightingSystem().setAmbientLevel(level);
+    const std::uint8_t low  = static_cast<std::uint8_t>(args[0].getAsNum());
+    const std::uint8_t high = static_cast<std::uint8_t>(args[1].getAsNum());
+    const bool sunlight     = args[2].getAsBool();
+    systems.world().activeMap().lightingSystem().setAmbientLevel(low, high);
     systems.world().activeMap().lightingSystem().adjustForSunlight(sunlight);
 
     return {};
