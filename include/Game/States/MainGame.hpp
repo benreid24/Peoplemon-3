@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_MAINGAME_HPP
 #define GAME_STATES_MAINGAME_HPP
 
+#include <Core/Events/Maps.hpp>
 #include <Core/Events/StateChange.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
@@ -17,7 +18,7 @@ namespace state
  */
 class MainGame
 : public State
-, public bl::event::Listener<sf::Event, core::event::StateChange> {
+, public bl::event::Listener<sf::Event, core::event::StateChange, core::event::SwitchMapTriggered> {
 public:
     /**
      * @brief Creates the main game state. The game state must be initialized before invoking the
@@ -71,11 +72,22 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
+    enum GameState { SwitchMapFadeout, MapFadein, Running };
+
+    GameState state;
+    float fadeTime;
+
+    sf::RectangleShape cover;
+    std::string replacementMap;
+    int spawnId;
+
     MainGame(core::system::Systems& systems);
 
     virtual void observe(const sf::Event& event) override;
 
     virtual void observe(const core::event::StateChange& event) override;
+
+    virtual void observe(const core::event::SwitchMapTriggered& event) override;
 };
 
 } // namespace state

@@ -100,6 +100,8 @@ public:
 
     static const std::string& ScriptPath();
 
+    static float ScreenFadePeriod();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

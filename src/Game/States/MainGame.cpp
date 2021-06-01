@@ -1,5 +1,6 @@
 #include <Game/States/MainGame.hpp>
 
+#include <Core/Properties.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
 
@@ -12,23 +13,77 @@ MainGame::Ptr MainGame::create(core::system::Systems& systems) {
 }
 
 MainGame::MainGame(core::system::Systems& systems)
-: State(systems) {}
+: State(systems)
+, state(MapFadein)
+, fadeTime(0.f)
+, spawnId(0) {
+    cover.setFillColor(sf::Color::Black);
+}
 
 const char* MainGame::name() const { return "MainGame"; }
 
-void MainGame::activate(bl::engine::Engine&) { systems.engine().eventBus().subscribe(this); }
+void MainGame::activate(bl::engine::Engine&) {
+    systems.engine().eventBus().subscribe(this);
+    systems.controllable().setAllLocks(true, false);
+}
 
 void MainGame::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
 
 void MainGame::update(bl::engine::Engine&, float dt) {
-    systems.update(dt);
+    switch (state) {
+    case SwitchMapFadeout:
+        fadeTime += dt;
+        if (fadeTime >= core::Properties::ScreenFadePeriod()) {
+            BL_LOG_INFO << "Switching to map: " << replacementMap << " spawn " << spawnId;
+            if (!systems.world().switchMaps(replacementMap, spawnId)) {
+                BL_LOG_ERROR << "Failed to switch maps";
+                systems.engine().flags().set(bl::engine::Flags::Terminate);
+                return;
+            }
+            fadeTime = 0.f;
+            state    = MapFadein;
+        }
+        else {
+            const float a = fadeTime / core::Properties::ScreenFadePeriod() * 255.f;
+            cover.setFillColor(sf::Color(0, 0, 0, a));
+        }
+        break;
 
-    // TODO - fade in/outs on map transitions
+    case MapFadein:
+        fadeTime += dt;
+        if (fadeTime >= core::Properties::ScreenFadePeriod()) {
+            state    = Running;
+            fadeTime = 0.f;
+            systems.controllable().setAllLocks(false, false);
+        }
+        else {
+            BL_LOG_INFO << "fading in";
+            const float a = (1.f - fadeTime / core::Properties::ScreenFadePeriod()) * 255.f;
+            cover.setFillColor(sf::Color(0, 0, 0, a));
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    systems.update(dt);
 }
 
 void MainGame::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
     systems.render().render(engine.window(), lag);
+
+    switch (state) {
+    case MapFadein:
+    case SwitchMapFadeout:
+        cover.setSize(engine.window().getView().getSize());
+        engine.window().draw(cover);
+        break;
+    default:
+        break;
+    }
+
     engine.window().display();
 }
 
@@ -51,6 +106,13 @@ void MainGame::observe(const sf::Event& event) {
         }
 #endif
     }
+}
+
+void MainGame::observe(const core::event::SwitchMapTriggered& event) {
+    replacementMap = event.newMap;
+    spawnId        = event.spawn;
+    state          = SwitchMapFadeout;
+    systems.controllable().setAllLocks(true, false);
 }
 
 } // namespace state
