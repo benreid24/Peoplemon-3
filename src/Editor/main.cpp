@@ -1,49 +1,17 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
-#include <BLIB/Media/Shapes.hpp>
+#include <BLIB/Util/Waiter.hpp>
+
 #include <Core/Properties.hpp>
-#include <SFML/Graphics.hpp>
+#include <Core/Systems/Systems.hpp>
+#include <Editor/States/MainEditor.hpp>
 
-class DemoEngineState : public bl::engine::State {
-public:
-    static constexpr float DegPerSec = 60.f;
-
-    static bl::engine::State::Ptr create() { return Ptr(new DemoEngineState()); }
-
-    virtual const char* name() const override { return "DemoEngineState"; }
-
-    virtual void activate(bl::engine::Engine& engine) override {
-        triangle.setPosition(engine.settings().videoMode().width / 2,
-                             engine.settings().videoMode().height / 2);
-        BL_LOG_INFO << "DemoEngineState activated";
-    }
-
-    virtual void update(bl::engine::Engine& engine, float dt) override {
-        triangle.rotate(dt * DegPerSec);
-    }
-
-    virtual void render(bl::engine::Engine& engine, float lag) override {
-        // Account for lag
-        const float og = triangle.getRotation();
-        triangle.rotate(lag * DegPerSec);
-
-        engine.window().clear(sf::Color::Cyan);
-        engine.window().draw(triangle);
-        engine.window().display();
-
-        triangle.setRotation(og);
-    }
-
-private:
-    bl::shapes::Triangle triangle;
-
-    DemoEngineState()
-    : triangle({0, 0}, {120, 0}, {60, 120}) {
-        triangle.setFillColor(sf::Color::Red);
-    }
-};
+#include <iostream>
 
 int main() {
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
+    bl::logging::Config::addFileOutput("editor.log", bl::logging::Config::Debug);
+
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load()) {
         BL_LOG_ERROR << "Failed to load application properties";
@@ -53,17 +21,28 @@ int main() {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(800, 600, 32))
-            .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("BLIB Project");
+            .withVideoMode(sf::VideoMode(
+                core::Properties::WindowWidth() + 300, core::Properties::WindowHeight() + 120, 32))
+            .withWindowStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+            .withWindowTitle("Peoplemon Editor")
+            .withWindowIcon(core::Properties::WindowIconFile())
+            .fromConfig();
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
 
+    BL_LOG_INFO << "Initializing game systems";
+    core::system::Systems systems(engine);
+    BL_LOG_INFO << "Core game systems initialized";
+
     BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(DemoEngineState::create())) {
+    if (!engine.run(editor::state::MainEditor::create(systems))) {
         BL_LOG_ERROR << "Engine exited with error";
+        bl::util::Waiter::unblockAll();
         return 1;
     }
+
+    BL_LOG_INFO << "Unblocking waiting threads";
+    bl::util::Waiter::unblockAll();
 
     BL_LOG_INFO << "Exiting normally";
     return 0;

@@ -43,6 +43,7 @@ int main() {
     BL_LOG_INFO << "Running engine main loop";
     if (!engine.run(game::state::MainMenu::create(systems))) {
         BL_LOG_ERROR << "Engine exited with error";
+        bl::util::Waiter::unblockAll();
         return 1;
     }
 
