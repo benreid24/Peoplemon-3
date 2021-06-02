@@ -9,7 +9,15 @@ namespace state
 MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new MainEditor(s)); }
 
 MainEditor::MainEditor(core::system::Systems& s)
-: systems(s) {
+: systems(s)
+, mapPage(s)
+, testingPage(s)
+, peoplemonPage(s)
+, movesPage(s)
+, itemsPage(s)
+, creditsPage(s)
+, todoPage(s)
+, currentPage(&mapPage) {
     gui = bl::gui::GUI::create(
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
         {0, 0, core::Properties::WindowWidth() + 300, core::Properties::WindowHeight() + 150},
@@ -20,17 +28,13 @@ MainEditor::MainEditor(core::system::Systems& s)
 
     notebook = bl::gui::Notebook::create("editor", "main_nav");
 
-    notebook->addPage("maps", "Maps", bl::gui::Label::create("Map editor here"));
-    notebook->addPage("test",
-                      "Game Testing",
-                      bl::gui::Label::create("Save editor and launch game with save feature"));
-    notebook->addPage(
-        "peoplemon", "Peoplemon DB", bl::gui::Label::create("Edit peoplemon database here"));
-    notebook->addPage("moves", "Move DB", bl::gui::Label::create("Edit move metadata here"));
-    notebook->addPage("items", "Item DB", bl::gui::Label::create("Edit item metadata here"));
-    notebook->addPage("credits", "Credits", bl::gui::Label::create("Edit credits here"));
-    notebook->addPage(
-        "todo", "TODO", bl::gui::Label::create("Things marked as TODO will show up here"));
+    notebook->addPage("maps", "Maps", mapPage.getContent());
+    notebook->addPage("test", "Game Testing", testingPage.getContent());
+    notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent());
+    notebook->addPage("moves", "Move DB", movesPage.getContent());
+    notebook->addPage("items", "Item DB", itemsPage.getContent());
+    notebook->addPage("credits", "Credits", creditsPage.getContent());
+    notebook->addPage("todo", "TODO", todoPage.getContent());
 
     gui->pack(notebook, true, true);
 }

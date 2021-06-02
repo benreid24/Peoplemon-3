@@ -45,26 +45,21 @@ public:
     virtual ~Page() = default;
 
     /**
-     * @brief Returns the title of the page. Used in the tab
-     *
-     */
-    virtual const char* title() const = 0;
-
-    /**
-     * @brief Returns the content of the page itself
-     *
-     */
-    virtual bl::gui::Box::Ptr content() = 0;
-
-    /**
      * @brief Any custom page update logic outside of event callbacks goes here
      *
      * @param dt Time elapsed in seconds
      */
     virtual void update(float dt) = 0;
 
+    /**
+     * @brief Returns the content to put in the editor
+     *
+     */
+    bl::gui::Box::Ptr getContent();
+
 protected:
     core::system::Systems& systems;
+    bl::gui::Box::Ptr content;
 };
 
 } // namespace page

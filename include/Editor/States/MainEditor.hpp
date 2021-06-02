@@ -6,6 +6,14 @@
 #include <Core/Systems/Systems.hpp>
 #include <Editor/Pages/Page.hpp>
 
+#include <Editor/Pages/Credits.hpp>
+#include <Editor/Pages/Items.hpp>
+#include <Editor/Pages/Map.hpp>
+#include <Editor/Pages/Moves.hpp>
+#include <Editor/Pages/Peoplemon.hpp>
+#include <Editor/Pages/Testing.hpp>
+#include <Editor/Pages/Todo.hpp>
+
 /**
  * @addtogroup States
  * @ingroup Editor
@@ -75,7 +83,15 @@ public:
 
 private:
     core::system::Systems& systems;
-    std::vector<page::Page*> pages;
+
+    page::Map mapPage;
+    page::Testing testingPage;
+    page::Peoplemon peoplemonPage;
+    page::Moves movesPage;
+    page::Items itemsPage;
+    page::Credits creditsPage;
+    page::Todo todoPage;
+    page::Page* currentPage;
 
     bl::gui::GUI::Ptr gui;
     bl::gui::Renderer::Ptr renderer;
