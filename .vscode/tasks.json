@@ -56,6 +56,24 @@
             ]
         },
         {
+            "label": "editor run debug",
+            "type": "shell",
+            "command": "./PeoplemonEditorDebug",
+            "group": "build",
+            "dependsOn": [
+                "build debug"
+            ]
+        },
+        {
+            "label": "editor run release",
+            "type": "shell",
+            "command": "./PeoplemonEditorRelease",
+            "group": "build",
+            "dependsOn": [
+                "build release"
+            ]
+        },
+        {
             "label": "unit test",
             "type": "shell",
             "command": "cd build-debug/tests && ./Peoplemon.t --gtest_color=no",
