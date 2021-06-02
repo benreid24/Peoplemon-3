@@ -47,7 +47,7 @@ public:
      * @brief Destroy the Main Editor state
      *
      */
-    virtual ~MainEditor();
+    virtual ~MainEditor() = default;
 
     /**
      * @brief Returns "MainEditor"
