@@ -24,7 +24,9 @@ namespace state
  * @ingroup States
  *
  */
-class MainEditor : public bl::engine::State {
+class MainEditor
+: public bl::engine::State
+, private bl::event::Listener<sf::Event> {
 public:
     /**
      * @brief Construct a new Main Editor state
@@ -73,10 +75,15 @@ public:
 
 private:
     core::system::Systems& systems;
-    bl::gui::GUI::Ptr gui;
     std::vector<page::Page*> pages;
 
+    bl::gui::GUI::Ptr gui;
+    bl::gui::Renderer::Ptr renderer;
+    bl::gui::Notebook::Ptr notebook;
+
     MainEditor(core::system::Systems& systems);
+
+    virtual void observe(const sf::Event& event) override;
 };
 
 } // namespace state
