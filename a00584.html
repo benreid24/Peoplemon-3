@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::component::PlayerControlled Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,26 +63,217 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00451.html">core</a></li><li class="navelem"><a class="el" href="a00458.html">event</a></li><li class="navelem"><a class="el" href="a00587.html">EntityMoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00501.html">core</a></li><li class="navelem"><a class="el" href="a00504.html">component</a></li><li class="navelem"><a class="el" href="a00584.html">PlayerControlled</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a00581.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::EntityMoved Member List</div>  </div>
+<div class="title">core::component::PlayerControlled Class Reference<div class="ingroups"><a class="el" href="a00485.html">Core</a> &raquo; <a class="el" href="a00489.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00587.html">core::event::EntityMoved</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00587.html#aadb1d60a34628c9dae21efcae2f32708">entity</a></td><td class="entry"><a class="el" href="a00587.html">core::event::EntityMoved</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00587.html#addd7a79c2cbcc1b79fc44aee98bce12a">EntityMoved</a>(bl::entity::Entity entity, const component::Position &amp;oldPos, const component::Position &amp;pos)</td><td class="entry"><a class="el" href="a00587.html">core::event::EntityMoved</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00587.html#a73dbf3b51c566408e358eba1c8d932d0">position</a></td><td class="entry"><a class="el" href="a00587.html">core::event::EntityMoved</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00587.html#ad303aafbe3ab706307731fe162fec0d6">previousPosition</a></td><td class="entry"><a class="el" href="a00587.html">core::event::EntityMoved</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Add this component to an entity to make it controlled by player input.  
+ <a href="a00584.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00032_source.html">PlayerControlled.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::component::PlayerControlled:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00584.png" usemap="#core::component::PlayerControlled_map" alt=""/>
+  <map id="core::component::PlayerControlled_map" name="core::component::PlayerControlled_map">
+<area href="a00812.html" title="Base class for any code that needs to handle player input. " alt="core::player::input::Listener" shape="rect" coords="0,0,206,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a46b365ec25a817dd7c38dec3bec18c1f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00584.html#a46b365ec25a817dd7c38dec3bec18c1f">PlayerControlled</a> (<a class="el" href="a00916.html">system::Systems</a> &amp;systems, const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00564.html">component::Controllable</a> &gt; &amp;controllable)</td></tr>
+<tr class="memdesc:a46b365ec25a817dd7c38dec3bec18c1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Player Controlled component and immediately start taking player input. Whatever was previously receiving player input is cut off.  <a href="#a46b365ec25a817dd7c38dec3bec18c1f">More...</a><br /></td></tr>
+<tr class="separator:a46b365ec25a817dd7c38dec3bec18c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4662aa3e001cd654705c5f6143bd0ae0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00584.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a> ()</td></tr>
+<tr class="memdesc:a4662aa3e001cd654705c5f6143bd0ae0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activate this listener and receive player input. Does not have effect if already activated but another input listener has taken precedence.  <a href="#a4662aa3e001cd654705c5f6143bd0ae0">More...</a><br /></td></tr>
+<tr class="separator:a4662aa3e001cd654705c5f6143bd0ae0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcfc7ef92c1e0887403dbebbcb634a75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00584.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a> ()</td></tr>
+<tr class="memdesc:adcfc7ef92c1e0887403dbebbcb634a75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stops listening to player input.  <a href="#adcfc7ef92c1e0887403dbebbcb634a75">More...</a><br /></td></tr>
+<tr class="separator:adcfc7ef92c1e0887403dbebbcb634a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ebed2e98971e58292857d8c1ba9943c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00584.html#a1ebed2e98971e58292857d8c1ba9943c">process</a> (<a class="el" href="a00489.html#ga6701adf1fdd04d85dd6482e453417813">Command</a> input) override</td></tr>
+<tr class="memdesc:a1ebed2e98971e58292857d8c1ba9943c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Forwards the player input to the underlying entity.  <a href="#a1ebed2e98971e58292857d8c1ba9943c">More...</a><br /></td></tr>
+<tr class="separator:a1ebed2e98971e58292857d8c1ba9943c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a0c4d7ca951bf765b459a0466cabf18a1"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00584.html#a0c4d7ca951bf765b459a0466cabf18a1">ComponentId</a> = 6</td></tr>
+<tr class="memdesc:a0c4d7ca951bf765b459a0466cabf18a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#a0c4d7ca951bf765b459a0466cabf18a1">More...</a><br /></td></tr>
+<tr class="separator:a0c4d7ca951bf765b459a0466cabf18a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Add this component to an entity to make it controlled by player input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00032_source.html#l00024">24</a> of file <a class="el" href="a00032_source.html">PlayerControlled.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a46b365ec25a817dd7c38dec3bec18c1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46b365ec25a817dd7c38dec3bec18c1f">&#9670;&nbsp;</a></span>PlayerControlled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::component::PlayerControlled::PlayerControlled </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00916.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00564.html">component::Controllable</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>controllable</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Player Controlled component and immediately start taking player input. Whatever was previously receiving player input is cut off. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">controllable</td><td>The controllable component to interface with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00010">10</a> of file <a class="el" href="a00269_source.html">PlayerControlled.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1ebed2e98971e58292857d8c1ba9943c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ebed2e98971e58292857d8c1ba9943c">&#9670;&nbsp;</a></span>process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::PlayerControlled::process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00489.html#ga6701adf1fdd04d85dd6482e453417813">Command</a>&#160;</td>
+          <td class="paramname"><em>input</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Forwards the player input to the underlying entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The input to forward </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a00812.html#aac6a335ce53e00aa2f19da5b20caa296">core::player::input::Listener</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00029">29</a> of file <a class="el" href="a00269_source.html">PlayerControlled.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4662aa3e001cd654705c5f6143bd0ae0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4662aa3e001cd654705c5f6143bd0ae0">&#9670;&nbsp;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::PlayerControlled::start </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Activate this listener and receive player input. Does not have effect if already activated but another input listener has taken precedence. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00017">17</a> of file <a class="el" href="a00269_source.html">PlayerControlled.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adcfc7ef92c1e0887403dbebbcb634a75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfc7ef92c1e0887403dbebbcb634a75">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::PlayerControlled::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stops listening to player input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00269_source.html#l00024">24</a> of file <a class="el" href="a00269_source.html">PlayerControlled.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0c4d7ca951bf765b459a0466cabf18a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c4d7ca951bf765b459a0466cabf18a1">&#9670;&nbsp;</a></span>ComponentId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::PlayerControlled::ComponentId = 6</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Required for BLIB ECS. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00032_source.html#l00027">27</a> of file <a class="el" href="a00032_source.html">PlayerControlled.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00032_source.html">PlayerControlled.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00269_source.html">PlayerControlled.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 02:50:43 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 2 2021 04:07:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

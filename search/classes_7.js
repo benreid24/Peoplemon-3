@@ -1,7 +1,12 @@
 var searchData=
 [
-  ['input',['Input',['../a00767.html',1,'core::player']]],
-  ['interaction',['Interaction',['../a00843.html',1,'core::system']]],
-  ['item',['Item',['../a00519.html',1,'core::component::Item'],['../a00675.html',1,'core::item::Item'],['../a00695.html',1,'core::map::Item'],['../a00743.html',1,'core::player::Bag::Item']]],
-  ['itempickedup',['ItemPickedUp',['../a00591.html',1,'core::event']]]
+  ['layer',['Layer',['../a00752.html',1,'core::map']]],
+  ['layerset',['LayerSet',['../a00756.html',1,'core::map']]],
+  ['legacyconversationloader',['LegacyConversationLoader',['../a00984.html',1,'core::file::loader']]],
+  ['legacymaploader',['LegacyMapLoader',['../a01008.html',1,'core::map::loaders']]],
+  ['legacytilesetloader',['LegacyTilesetLoader',['../a01016.html',1,'core::map::loaders']]],
+  ['legacywarn',['LegacyWarn',['../a00840.html',1,'core::script']]],
+  ['light',['Light',['../a00760.html',1,'core::map']]],
+  ['lightingsystem',['LightingSystem',['../a00764.html',1,'core::map']]],
+  ['listener',['Listener',['../a00812.html',1,'core::player::input']]]
 ];

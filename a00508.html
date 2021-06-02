@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,27 +63,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00451.html">core</a></li><li class="navelem"><a class="el" href="a00454.html">component</a></li><li class="navelem"><a class="el" href="a00511.html">Controllable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00501.html">core</a></li><li class="navelem"><a class="el" href="a00508.html">event</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Controllable Member List</div>  </div>
+<div class="title">core::event Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00511.html">core::component::Controllable</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00511.html#a6d0d756a20c91b5f38723a0c990f8c25">ComponentId</a></td><td class="entry"><a class="el" href="a00511.html">core::component::Controllable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00511.html#a84032df1e4453b3772eaf8ae156083eb">Controllable</a>(system::Systems &amp;systems, bl::entity::Entity owner)</td><td class="entry"><a class="el" href="a00511.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00511.html#a55880414805a8e7e94a04e86b9935da8">processControl</a>(Command command, bool overrideLock=false)</td><td class="entry"><a class="el" href="a00511.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00511.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a>()</td><td class="entry"><a class="el" href="a00511.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00511.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a>(bool lock, bool preserve=true)</td><td class="entry"><a class="el" href="a00511.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Namespace containing all the event types that propagate through the event bus.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00640.html">EntityMoved</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired after an entity completed moving from one position to another.  <a href="a00640.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00644.html">ItemPickedUp</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when an item is picked up.  <a href="a00644.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00652.html">MapEntered</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a map is entered.  <a href="a00652.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00656.html">MapExited</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when a map is exited.  <a href="a00656.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00648.html">MapSwitch</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired right before a map is entered. Use this event for initializing data structures that depend on map size that need to be initialized before entities are spawned.  <a href="a00648.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00664.html">StateChange</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the game should switch states. This event type is primarily for decoupling input code in Core from state code in Game.  <a href="a00664.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00660.html">SwitchMapTriggered</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when the map should be switched to something else.  <a href="a00660.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00668.html">TimeChange</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic event for when the game time changes.  <a href="a00668.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00672.html">WeatherStarted</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when weather starts.  <a href="a00672.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00676.html">WeatherStopped</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when weather stops.  <a href="a00676.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Namespace containing all the event types that propagate through the event bus. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jun 1 2021 02:50:43 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jun 2 2021 04:07:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

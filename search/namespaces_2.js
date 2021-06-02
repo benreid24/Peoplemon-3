@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['game',['game',['../a00471.html',1,'']]],
-  ['state',['state',['../a00472.html',1,'game']]]
+  ['editor',['editor',['../a00521.html',1,'']]],
+  ['page',['page',['../a00522.html',1,'editor']]],
+  ['state',['state',['../a00523.html',1,'editor']]]
 ];
