@@ -7,7 +7,9 @@ namespace page
 using namespace bl::gui;
 
 Map::Map(core::system::Systems& s)
-: Page(s) {
+: Page(s)
+, levelPage(Layers::Level)
+, layerPage(Layers::Layer) {
     content     = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
@@ -25,6 +27,9 @@ Map::Map(core::system::Systems& s)
     levelSelect  = ComboBox::create("maps");
     levelSelect->addOption("Layer 0");
     levelSelect->addOption("Layer 1");
+    levelSelect->addOption("Layer 2 (ysort)");
+    levelSelect->addOption("Layer 3");
+    levelSelect->addOption("Layer 4 (top)");
     levelSelect->setSelectedOption(0);
     tileSetBut = RadioButton::create("Set");
     tileSetBut->setValue(true);
@@ -98,9 +103,18 @@ Map::Map(core::system::Systems& s)
     controlBook = Notebook::create("maps");
     controlBook->addPage("map", "Map", infoBox);
     controlBook->addPage("tiles", "Edit", tileBox);
-    controlBook->addPage("layers", "Layers", Label::create("Layer controls here"));
-    controlBook->addPage("levels", "Levels", Label::create("Level controls here"));
-    // TODO - layer/level should lazy pack to allow them to grow when active (into tileset area)
+    controlBook->addPage(
+        "layers",
+        "Layers",
+        layerPage.getContent(),
+        [this]() { layerPage.pack(); },
+        [this]() { layerPage.unpack(); });
+    controlBook->addPage(
+        "levels",
+        "Levels",
+        levelPage.getContent(),
+        [this]() { levelPage.pack(); },
+        [this]() { levelPage.unpack(); });
     controlBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
     controlBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
     controlBook->addPage("items", "Items", Label::create("Item controls here"));

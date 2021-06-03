@@ -1,4 +1,4 @@
 target_sources(PeoplemonEditor PRIVATE
-    Tileset.hpp
+    Layers.cpp
     Tileset.cpp
 )

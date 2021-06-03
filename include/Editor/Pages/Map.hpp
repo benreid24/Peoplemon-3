@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_MAP_HPP
 
 #include <Editor/Pages/Page.hpp>
+#include <Editor/Pages/Subpages/Layers.hpp>
 
 namespace editor
 {
@@ -65,6 +66,9 @@ private:
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr pickPlaylistBut;
+
+    Layers levelPage;
+    Layers layerPage;
 };
 
 } // namespace page

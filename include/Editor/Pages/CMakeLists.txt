@@ -9,3 +9,5 @@ target_sources(PeoplemonEditor PUBLIC
     Testing.hpp
     Todo.hpp
 )
+
+add_subdirectory(Subpages)
