@@ -8,3 +8,5 @@ target_sources(PeoplemonEditor PRIVATE
     Testing.cpp
     Todo.cpp
 )
+
+add_subdirectory(Subpages)

@@ -6,6 +6,8 @@ namespace page
 {
 Items::Items(core::system::Systems& s)
 : Page(s) {
+    content =
+        bl::gui::Box::create(bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical), "pages");
     content->pack(bl::gui::Label::create("Item DB editor will go here"));
 }
 
