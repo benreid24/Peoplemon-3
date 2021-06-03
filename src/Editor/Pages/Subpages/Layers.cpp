@@ -19,10 +19,11 @@ Layers::Layers(Mode m)
     activeSelect->addOption(prefix + " 2");
     activeSelect->addOption(prefix + " 3");
     activeSelect->addOption(prefix + " 4");
+    activeSelect->setSelectedOption(0);
     activeSelect->setHorizontalAlignment(RenderSettings::Left);
     row->pack(Label::create("Currently editing:"), true, true);
     row->pack(activeSelect, false, true);
-    content->pack(row);
+    content->pack(row, true, false);
 
     if (mode == Layer) {
         row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
@@ -32,6 +33,7 @@ Layers::Layers(Mode m)
         firstYSortSelect->addOption(prefix + " 2");
         firstYSortSelect->addOption(prefix + " 3");
         firstYSortSelect->addOption(prefix + " 4");
+        firstYSortSelect->setSelectedOption(0);
         firstYSortSelect->setHorizontalAlignment(RenderSettings::Left);
         row->pack(Label::create("First y-sort layer:"));
         row->pack(firstYSortSelect);
@@ -44,6 +46,7 @@ Layers::Layers(Mode m)
         firstTopSelect->addOption(prefix + " 2");
         firstTopSelect->addOption(prefix + " 3");
         firstTopSelect->addOption(prefix + " 4");
+        firstTopSelect->setSelectedOption(0);
         firstTopSelect->setHorizontalAlignment(RenderSettings::Left);
         row->pack(Label::create("First top layer:"));
         row->pack(firstTopSelect);
