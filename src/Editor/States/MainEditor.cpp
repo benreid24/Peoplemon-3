@@ -15,6 +15,7 @@ MainEditor::MainEditor(core::system::Systems& s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
+, playlistsPage(s)
 , creditsPage(s)
 , todoPage(s)
 , currentPage(&mapPage) {
@@ -38,6 +39,9 @@ MainEditor::MainEditor(core::system::Systems& s)
         "moves", "Move DB", movesPage.getContent(), [this]() { currentPage = &movesPage; });
     notebook->addPage(
         "items", "Item DB", itemsPage.getContent(), [this]() { currentPage = &itemsPage; });
+    notebook->addPage("playlists", "Playlists", playlistsPage.getContent(), [this]() {
+        currentPage = &playlistsPage;
+    });
     notebook->addPage(
         "credits", "Credits", creditsPage.getContent(), [this]() { currentPage = &creditsPage; });
     notebook->addPage("todo", "TODO", todoPage.getContent(), [this]() { currentPage = &todoPage; });

@@ -61,6 +61,7 @@ private:
     bl::gui::Box::Ptr infoBox;
     bl::gui::Label::Ptr nameLabel;
     bl::gui::TextEntry::Ptr nameEntry;
+    bl::gui::Button::Ptr resizeBut;
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr pickPlaylistBut;

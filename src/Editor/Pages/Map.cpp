@@ -53,7 +53,7 @@ Map::Map(core::system::Systems& s)
     tileBox->pack(box, true, false);
 
     infoBox      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
+    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameLabel = Label::create("Name:");
@@ -61,6 +61,17 @@ Map::Map(core::system::Systems& s)
     box->pack(nameLabel, false, true);
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
+
+    resizeBut = Button::create("Resize Map");
+    row->pack(resizeBut);
+    infoBox->pack(row, true, false);
+
+    row             = Box::create(LinePacker::create(LinePacker::Horizontal));
+    playlistLabel   = Label::create("playerlistFile.bplst");
+    pickPlaylistBut = Button::create("Pick Playlist");
+    playlistLabel->setHorizontalAlignment(RenderSettings::Left);
+    row->pack(pickPlaylistBut);
+    row->pack(playlistLabel, true, false);
 
     weatherEntry = ComboBox::create();
     weatherEntry->addOption("None");
@@ -84,17 +95,12 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    row             = Box::create(LinePacker::create(LinePacker::Horizontal));
-    playlistLabel   = Label::create("playerlistFile.bplst");
-    pickPlaylistBut = Button::create("Pick Playlist");
-    row->pack(pickPlaylistBut);
-    row->pack(playlistLabel);
-    infoBox->pack(row);
-
     controlBook = Notebook::create("maps");
     controlBook->addPage("map", "Map", infoBox);
     controlBook->addPage("tiles", "Edit", tileBox);
     controlBook->addPage("layers", "Layers", Label::create("Layer controls here"));
+    controlBook->addPage("levels", "Levels", Label::create("Level controls here"));
+    // TODO - layer/level should lazy pack to allow them to grow when active (into tileset area)
     controlBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
     controlBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
     controlBook->addPage("items", "Items", Label::create("Item controls here"));
