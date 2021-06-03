@@ -69,12 +69,13 @@ public:
     void clearAndReplace(camera::Camera::Ptr camera);
 
     /**
-     * @brief Returns the view to use for rendering
+     * @brief Modifies the given view to have the proper size and position. Zoom is applied as a
+     *        factor to the existing view size. No change is made to the viewport
      *
-     * @param viewport The viewport to constrain the view within. Useful for letterboxing
+     * @param view The view to position and size
      *
      */
-    const sf::View& getView(const sf::FloatRect& viewport) const;
+    void configureView(sf::View& view) const;
 
     /**
      * @brief Returns the area to be rendered by the active camera
