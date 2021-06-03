@@ -39,6 +39,7 @@ public:
 private:
     bl::gui::Box::Ptr controlPane;
     bl::gui::Notebook::Ptr controlBook;
+    bl::gui::Notebook::Ptr objectBook;
 
     // TODO - map render area element
 
@@ -47,6 +48,7 @@ private:
     bl::gui::Button::Ptr loadMapBut;
     bl::gui::Button::Ptr saveMapBut;
 
+    bl::gui::Notebook::Ptr editBook;
     bl::gui::Box::Ptr tileBox;
     bl::gui::ComboBox::Ptr layerSelect;
     bl::gui::ComboBox::Ptr levelSelect;

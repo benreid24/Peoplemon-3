@@ -77,7 +77,10 @@ Map::Map(core::system::Systems& s)
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
     row->pack(playlistLabel, true, false);
+    infoBox->pack(row, true, false);
 
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
+    row->pack(Label::create("Weather:"));
     weatherEntry = ComboBox::create();
     weatherEntry->addOption("None");
     weatherEntry->addOption("AllRandom");
@@ -100,26 +103,43 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    controlBook = Notebook::create("maps");
-    controlBook->addPage("map", "Map", infoBox);
-    controlBook->addPage("tiles", "Edit", tileBox);
-    controlBook->addPage(
+    editBook = Notebook::create("maps");
+    editBook->addPage("tiles", "Tiles", tileBox);
+    editBook->addPage(
         "layers",
         "Layers",
         layerPage.getContent(),
         [this]() { layerPage.pack(); },
         [this]() { layerPage.unpack(); });
-    controlBook->addPage(
+    editBook->addPage(
         "levels",
         "Levels",
         levelPage.getContent(),
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
-    controlBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
-    controlBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
-    controlBook->addPage("items", "Items", Label::create("Item controls here"));
+
+    objectBook = Notebook::create("maps");
+    objectBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
+    objectBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
+    objectBook->addPage("items", "Items", Label::create("Item controls here"));
+    objectBook->addPage("lights", "Lights", Label::create("Light controls here"));
+
+    const auto editClosed = [this]() {
+        layerPage.unpack();
+        levelPage.unpack();
+    };
+    const auto editOpened = [this]() {
+        if (editBook->getActivePageName() == "layers")
+            layerPage.pack();
+        else if (editBook->getActivePageName() == "levels")
+            levelPage.pack();
+    };
+
+    controlBook = Notebook::create("maps");
+    controlBook->addPage("map", "Map", infoBox);
+    controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
+    controlBook->addPage("obj", "Objects", objectBook);
     controlBook->addPage("events", "Scripts", Label::create("Event controls here"));
-    controlBook->addPage("lights", "Lights", Label::create("Light controls here"));
     controlBook->addPage("ppl", "Peoplemon", Label::create("Peoplemon controls here"));
 
     controlPane->pack(mapCtrlBox, true, false);
