@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_SUBPAGES_TILESET_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
 
 namespace editor
@@ -30,23 +31,13 @@ public:
 
 private:
     bl::gui::Notebook::Ptr content;
-    bl::gui::Box::Ptr tilePage;
-    bl::gui::Box::Ptr animPage;
-
-    bl::gui::Box::Ptr tileButBox;
-    bl::gui::Button::Ptr addTileBut;
-    bl::gui::Button::Ptr importSpritesheetBut;
-    bl::gui::Button::Ptr delTileBut;
     bl::gui::Box::Ptr tilesBox;
-
-    bl::gui::Box::Ptr animButBox;
-    bl::gui::Button::Ptr addAnimBut;
-    bl::gui::Button::Ptr delAnimBut;
     bl::gui::Box::Ptr animsBox;
 
     // TODO - radio button image buttons for tiles/anims
 
     Collisions collisions;
+    Catchables catchables;
 };
 
 } // namespace page

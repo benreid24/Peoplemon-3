@@ -9,11 +9,11 @@ using namespace bl::gui;
 Tileset::Tileset() {
     content = Notebook::create("tileset");
 
-    tilePage             = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    tileButBox           = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    addTileBut           = Button::create("Add Tile");
-    importSpritesheetBut = Button::create("Add Tilesheet");
-    delTileBut           = Button::create("Delete Tile");
+    bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    bl::gui::Box::Ptr tileButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::Button::Ptr addTileBut = Button::create("Add Tile");
+    bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
+    bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
     tileButBox->pack(addTileBut, false, true);
     tileButBox->pack(importSpritesheetBut, false, true);
     tileButBox->pack(delTileBut, false, true);
@@ -23,10 +23,10 @@ Tileset::Tileset() {
     tilesBox->pack(Label::create("Tiles will appear in a grid here"), true, true);
     tilePage->pack(tilesBox, true, true);
 
-    animPage   = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    animButBox = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    addAnimBut = Button::create("Add Animation");
-    delAnimBut = Button::create("Delete Animation");
+    bl::gui::Box::Ptr animPage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::Button::Ptr addAnimBut = Button::create("Add Animation");
+    bl::gui::Button::Ptr delAnimBut = Button::create("Delete Animation");
     animButBox->pack(addAnimBut);
     animButBox->pack(delAnimBut);
     animPage->pack(animButBox);
@@ -38,7 +38,7 @@ Tileset::Tileset() {
     content->addPage("tile", "Tiles", tilePage);
     content->addPage("anim", "Animations", animPage);
     content->addPage("col", "Collisions", collisions.getContent());
-    content->addPage("catch", "Catch Tiles", Label::create("Catch tiles here"));
+    content->addPage("catch", "Catch Tiles", catchables.getContent());
 }
 
 Element::Ptr Tileset::getContent() { return content; }
