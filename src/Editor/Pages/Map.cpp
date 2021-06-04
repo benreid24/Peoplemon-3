@@ -189,6 +189,38 @@ Map::Map(core::system::Systems& s)
     objectBook->addPage("items", "Items", itemBox);
     objectBook->addPage("lights", "Lights", lightBox);
 
+    Box::Ptr eventBox = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
+    box               = Box::create(LinePacker::create(LinePacker::Vertical, 6));
+    row               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row->pack(Label::create("Enter:"));
+    label = Label::create("onEnter.bs");
+    label->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
+    row->pack(label, true, false);
+    box->pack(row, true, false);
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row->pack(Label::create("Exit:"));
+    label = Label::create("onExit.bs");
+    label->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
+    row->pack(label, true, false);
+    box->pack(row, true, false);
+    row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Button::Ptr pickButton = Button::create("Set OnEnter");
+    row->pack(pickButton);
+    pickButton = Button::create("Set OnExit");
+    row->pack(pickButton);
+    box->pack(row, true, false);
+    eventBox->pack(box, true, true);
+    box                          = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    RadioButton::Ptr createEvent = RadioButton::create("Create Event");
+    createEvent->setValue(true);
+    label = Label::create("Delete Event");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    box->pack(createEvent);
+    box->pack(RadioButton::create("Edit Event", createEvent->getRadioGroup()));
+    box->pack(RadioButton::create(label, createEvent->getRadioGroup()));
+    eventBox->pack(Separator::create(Separator::Vertical));
+    eventBox->pack(box, false, true);
+
     const auto editClosed = [this]() {
         layerPage.unpack();
         levelPage.unpack();
@@ -204,7 +236,7 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("map", "Map", infoBox);
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
-    controlBook->addPage("events", "Scripts", Label::create("Event controls here"));
+    controlBook->addPage("events", "Scripts", eventBox);
     controlBook->addPage("ppl", "Peoplemon", Label::create("Peoplemon controls here"));
 
     controlPane->pack(mapCtrlBox, true, false);
