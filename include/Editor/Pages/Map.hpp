@@ -47,6 +47,7 @@ private:
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
 
+    bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
     bl::gui::ComboBox::Ptr itemSpawnEntry;
     std::vector<core::item::Id> itemIdLookup;

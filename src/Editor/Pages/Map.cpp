@@ -115,6 +115,39 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
 
+    Box::Ptr spawnBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    RadioButton::Ptr spawnCreate = RadioButton::create("Spawn");
+    spawnCreate->setValue(true);
+    spawnDirEntry = ComboBox::create();
+    spawnDirEntry->addOption("Up");
+    spawnDirEntry->addOption("Right");
+    spawnDirEntry->addOption("Down");
+    spawnDirEntry->addOption("Left");
+    spawnDirEntry->setSelectedOption(0);
+    RadioButton::Ptr spawnRotate = RadioButton::create("Edit", spawnCreate->getRadioGroup());
+    Label::Ptr label             = Label::create("Delete");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    RadioButton::Ptr spawnDelete = RadioButton::create(label, spawnCreate->getRadioGroup());
+    box->pack(spawnCreate);
+    box->pack(spawnDirEntry);
+    spawnBox->pack(box);
+    box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    box->pack(spawnRotate);
+    box->pack(spawnDelete);
+    spawnBox->pack(box);
+
+    Box::Ptr npcBox           = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
+    RadioButton::Ptr npcSpawn = RadioButton::create("Spawn");
+    RadioButton::Ptr npcEdit  = RadioButton::create("Edit", npcSpawn->getRadioGroup());
+    label                     = Label::create("Delete");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    RadioButton::Ptr npcDelete = RadioButton::create(label, npcSpawn->getRadioGroup());
+    npcSpawn->setValue(true);
+    npcBox->pack(npcSpawn);
+    npcBox->pack(npcEdit);
+    npcBox->pack(npcDelete);
+
     Box::Ptr itemBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     itemSpawnEntry   = ComboBox::create();
@@ -123,9 +156,10 @@ Map::Map(core::system::Systems& s)
         itemSpawnEntry->addOption(core::item::Item::getName(item));
         itemIdLookup.push_back(item);
     }
+    itemSpawnEntry->setSelectedOption(0);
     RadioButton::Ptr itemSpawn = RadioButton::create("Spawn");
     itemSpawn->setValue(true);
-    Label::Ptr label = Label::create("Delete");
+    label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
     RadioButton::Ptr itemDelete = RadioButton::create(label, itemSpawn->getRadioGroup());
     box->pack(itemSpawn);
@@ -135,7 +169,7 @@ Map::Map(core::system::Systems& s)
 
     Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-    RadioButton::Ptr lightCreate = RadioButton::create("Create");
+    RadioButton::Ptr lightCreate = RadioButton::create("Create/Modify");
     lightCreate->setValue(true);
     lightRadiusEntry = TextEntry::create();
     lightRadiusEntry->setRequisition({80, 0});
@@ -150,8 +184,8 @@ Map::Map(core::system::Systems& s)
     lightBox->pack(lightDelete);
 
     bl::gui::Notebook::Ptr objectBook = Notebook::create("maps");
-    objectBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
-    objectBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
+    objectBook->addPage("spawns", "Spawns", spawnBox);
+    objectBook->addPage("ai", "NPC's", npcBox);
     objectBook->addPage("items", "Items", itemBox);
     objectBook->addPage("lights", "Lights", lightBox);
 
