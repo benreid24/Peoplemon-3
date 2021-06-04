@@ -21,40 +21,35 @@ Map::Map(core::system::Systems& s)
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
-    tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    tileBox      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
-    Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal));
-    levelSelect  = ComboBox::create("maps");
-    levelSelect->addOption("Layer 0");
-    levelSelect->addOption("Layer 1");
-    levelSelect->addOption("Layer 2 (ysort)");
-    levelSelect->addOption("Layer 3");
-    levelSelect->addOption("Layer 4 (top)");
+    levelSelect = ComboBox::create("maps");
+    levelSelect->addOption("Level 0");
+    levelSelect->addOption("Level 1");
     levelSelect->setSelectedOption(0);
+    box->pack(levelSelect, true, true);
+
+    layerSelect = ComboBox::create("maps");
+    layerSelect->addOption("Layer 0");
+    layerSelect->addOption("Layer 1");
+    layerSelect->addOption("Layer 2 (ysort)");
+    layerSelect->addOption("Layer 3");
+    layerSelect->addOption("Layer 4 (top)");
+    layerSelect->setSelectedOption(0);
+    box->pack(layerSelect, true, true);
+    tileBox->pack(box, true, false);
+
+    box        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     tileSetBut = RadioButton::create("Set");
     tileSetBut->setValue(true);
     tileClearBut    = RadioButton::create("Clear", tileSetBut->getRadioGroup());
     tileSelectBut   = RadioButton::create("Select", tileSetBut->getRadioGroup());
     tileDeselectBut = Button::create("Deselect");
-    box->pack(levelSelect, false, true);
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
     box->pack(tileDeselectBut, true, true);
-    tileBox->pack(box, true, false);
-
-    box            = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    tileLevelUpBut = Button::create("Selection Level Up");
-    tileLayerUpBut = Button::create("Selection Layer Up");
-    box->pack(tileLevelUpBut, true, true);
-    box->pack(tileLayerUpBut, true, true);
-    tileBox->pack(box, true, false);
-
-    box              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    tileLevelDownBut = Button::create("Selection Level Down");
-    tileLayerDownBut = Button::create("Selection Layer Down");
-    box->pack(tileLevelDownBut, true, true);
-    box->pack(tileLayerDownBut, true, true);
     tileBox->pack(box, true, false);
 
     infoBox      = Box::create(LinePacker::create(LinePacker::Vertical, 4));

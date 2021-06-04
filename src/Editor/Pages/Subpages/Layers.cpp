@@ -12,21 +12,9 @@ Layers::Layers(Mode m)
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
-    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-    activeSelect = ComboBox::create();
-    activeSelect->addOption(prefix + " 0");
-    activeSelect->addOption(prefix + " 1");
-    activeSelect->addOption(prefix + " 2");
-    activeSelect->addOption(prefix + " 3");
-    activeSelect->addOption(prefix + " 4");
-    activeSelect->setSelectedOption(0);
-    activeSelect->setHorizontalAlignment(RenderSettings::Left);
-    row->pack(Label::create("Currently editing:"), true, true);
-    row->pack(activeSelect, false, true);
-    content->pack(row, true, false);
-
     if (mode == Layer) {
-        row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
+        Box::Ptr row =
+            Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
         firstYSortSelect = ComboBox::create();
         firstYSortSelect->addOption(prefix + " 0");
         firstYSortSelect->addOption(prefix + " 1");
@@ -79,10 +67,10 @@ Layers::Item::Item(const std::string& prefix, unsigned int i) {
     visibleToggle->setValue(true);
     row->pack(visibleToggle, false, true);
 
-    upBut = Button::create("Move Up");
+    upBut = Button::create("Up");
     row->pack(upBut, false, true);
 
-    downBut = Button::create("Move Down");
+    downBut = Button::create("Down");
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");

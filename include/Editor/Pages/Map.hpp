@@ -57,10 +57,6 @@ private:
     bl::gui::RadioButton::Ptr tileClearBut;
     bl::gui::RadioButton::Ptr tileSelectBut;
     bl::gui::Button::Ptr tileDeselectBut;
-    bl::gui::Button::Ptr tileLayerUpBut;
-    bl::gui::Button::Ptr tileLayerDownBut;
-    bl::gui::Button::Ptr tileLevelUpBut;
-    bl::gui::Button::Ptr tileLevelDownBut;
 
     bl::gui::Box::Ptr infoBox;
     bl::gui::Label::Ptr nameLabel;
