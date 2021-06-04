@@ -221,6 +221,16 @@ Map::Map(core::system::Systems& s)
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
+    Box::Ptr peoplemonBox       = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone");
+    RadioButton::Ptr editZone = RadioButton::create("Edit Catch Zone", createZone->getRadioGroup());
+    label                     = Label::create("Delete Catch Zone");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    RadioButton::Ptr deleteZone = RadioButton::create(label, createZone->getRadioGroup());
+    peoplemonBox->pack(createZone);
+    peoplemonBox->pack(editZone);
+    peoplemonBox->pack(deleteZone);
+
     const auto editClosed = [this]() {
         layerPage.unpack();
         levelPage.unpack();
@@ -237,7 +247,7 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
     controlBook->addPage("events", "Scripts", eventBox);
-    controlBook->addPage("ppl", "Peoplemon", Label::create("Peoplemon controls here"));
+    controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
