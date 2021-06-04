@@ -1,17 +1,17 @@
-#include <Editor/Pages/Moves.hpp>
+#include <Editor/Pages/Playlists.hpp>
 
 namespace editor
 {
 namespace page
 {
-Moves::Moves(core::system::Systems& s)
+Playlists::Playlists(core::system::Systems& s)
 : Page(s) {
     content =
         bl::gui::Box::create(bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical), "pages");
-    content->pack(bl::gui::Label::create("Move DB editor will go here"));
+    content->pack(bl::gui::Label::create("Playlists tool will go here"));
 }
 
-void Moves::update(float dt) {
+void Playlists::update(float dt) {
     // TODO
 }
 

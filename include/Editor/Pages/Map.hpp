@@ -2,6 +2,8 @@
 #define EDITOR_PAGES_MAP_HPP
 
 #include <Editor/Pages/Page.hpp>
+#include <Editor/Pages/Subpages/Layers.hpp>
+#include <Editor/Pages/Subpages/Tileset.hpp>
 
 namespace editor
 {
@@ -36,7 +38,26 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO
+    // TODO - map render area element
+
+    bl::gui::ComboBox::Ptr layerSelect;
+    bl::gui::ComboBox::Ptr levelSelect;
+
+    bl::gui::TextEntry::Ptr nameEntry;
+    bl::gui::ComboBox::Ptr weatherEntry;
+    bl::gui::Label::Ptr playlistLabel;
+
+    bl::gui::ComboBox::Ptr spawnDirEntry;
+    bl::gui::TextEntry::Ptr lightRadiusEntry;
+    bl::gui::ComboBox::Ptr itemSpawnEntry;
+    std::vector<core::item::Id> itemIdLookup;
+
+    bl::gui::Label::Ptr onEnterLabel;
+    bl::gui::Label::Ptr onExitLabel;
+
+    Tileset tileset;
+    Layers levelPage;
+    Layers layerPage;
 };
 
 } // namespace page

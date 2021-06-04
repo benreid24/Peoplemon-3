@@ -15,6 +15,7 @@ MainEditor::MainEditor(core::system::Systems& s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
+, playlistsPage(s)
 , creditsPage(s)
 , todoPage(s)
 , currentPage(&mapPage) {
@@ -28,19 +29,24 @@ MainEditor::MainEditor(core::system::Systems& s)
 
     notebook = bl::gui::Notebook::create("editor", "main_nav");
 
-    notebook->addPage("maps", "Maps", mapPage.getContent());
-    notebook->addPage("test", "Game Testing", testingPage.getContent());
-    notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent());
-    notebook->addPage("moves", "Move DB", movesPage.getContent());
-    notebook->addPage("items", "Item DB", itemsPage.getContent());
-    notebook->addPage("credits", "Credits", creditsPage.getContent());
-    notebook->addPage("todo", "TODO", todoPage.getContent());
+    notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
+    notebook->addPage(
+        "test", "Game Testing", testingPage.getContent(), [this]() { currentPage = &testingPage; });
+    notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent(), [this]() {
+        currentPage = &peoplemonPage;
+    });
+    notebook->addPage(
+        "moves", "Move DB", movesPage.getContent(), [this]() { currentPage = &movesPage; });
+    notebook->addPage(
+        "items", "Item DB", itemsPage.getContent(), [this]() { currentPage = &itemsPage; });
+    notebook->addPage("playlists", "Playlists", playlistsPage.getContent(), [this]() {
+        currentPage = &playlistsPage;
+    });
+    notebook->addPage(
+        "credits", "Credits", creditsPage.getContent(), [this]() { currentPage = &creditsPage; });
+    notebook->addPage("todo", "TODO", todoPage.getContent(), [this]() { currentPage = &todoPage; });
 
     gui->pack(notebook, true, true);
-}
-
-MainEditor::~MainEditor() {
-    // TODO - free pages
 }
 
 const char* MainEditor::name() const { return "MainEditor"; }
@@ -55,7 +61,10 @@ void MainEditor::deactivate(bl::engine::Engine&) {
     systems.engine().eventBus().unsubscribe(this);
 }
 
-void MainEditor::update(bl::engine::Engine&, float dt) { gui->update(dt); }
+void MainEditor::update(bl::engine::Engine&, float dt) {
+    gui->update(dt);
+    currentPage->update(dt);
+}
 
 void MainEditor::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();

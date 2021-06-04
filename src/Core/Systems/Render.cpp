@@ -25,7 +25,10 @@ void Render::update(float dt) {
 
 void Render::render(sf::RenderTarget& target, float lag) {
     const sf::View oldView = target.getView();
-    target.setView(owner.cameras().getView(oldView.getViewport()));
+
+    sf::View view = oldView;
+    owner.cameras().configureView(view);
+    target.setView(view);
 
     const auto entityRender = [this, &target, lag](std::uint8_t level,
                                                    unsigned int row,

@@ -11,6 +11,7 @@
 #include <Editor/Pages/Map.hpp>
 #include <Editor/Pages/Moves.hpp>
 #include <Editor/Pages/Peoplemon.hpp>
+#include <Editor/Pages/Playlists.hpp>
 #include <Editor/Pages/Testing.hpp>
 #include <Editor/Pages/Todo.hpp>
 
@@ -47,7 +48,7 @@ public:
      * @brief Destroy the Main Editor state
      *
      */
-    virtual ~MainEditor();
+    virtual ~MainEditor() = default;
 
     /**
      * @brief Returns "MainEditor"
@@ -89,6 +90,7 @@ private:
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;
     page::Items itemsPage;
+    page::Playlists playlistsPage;
     page::Credits creditsPage;
     page::Todo todoPage;
     page::Page* currentPage;

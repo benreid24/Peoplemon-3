@@ -53,17 +53,12 @@ void Cameras::clearAndReplace(camera::Camera::Ptr cam) {
     cameras.push(cam);
 }
 
-const sf::View& Cameras::getView(const sf::FloatRect& viewport) const {
-    static const sf::Vector2f baseSize(static_cast<float>(Properties::WindowWidth()),
-                                       static_cast<float>(Properties::WindowHeight()));
-    static sf::View view({0.f, 0.f, baseSize.x, baseSize.y});
-    view.setViewport(viewport);
+void Cameras::configureView(sf::View& view) const {
     if (!cameras.empty()) {
         view.setCenter(cameras.top()->getPosition());
-        view.setSize(baseSize * cameras.top()->getSize());
+        view.setSize(view.getSize() * cameras.top()->getSize());
         constrainView(owner, view);
     }
-    return view;
 }
 
 sf::FloatRect Cameras::getArea() const {
