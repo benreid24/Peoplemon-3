@@ -14,6 +14,7 @@ Tileset::Tileset() {
     bl::gui::Button::Ptr addTileBut = Button::create("Add Tile");
     bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
     bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
+    delTileBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
     tileButBox->pack(addTileBut, false, true);
     tileButBox->pack(importSpritesheetBut, false, true);
     tileButBox->pack(delTileBut, false, true);
@@ -27,6 +28,7 @@ Tileset::Tileset() {
     bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addAnimBut = Button::create("Add Animation");
     bl::gui::Button::Ptr delAnimBut = Button::create("Delete Animation");
+    delAnimBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
     animButBox->pack(addAnimBut);
     animButBox->pack(delAnimBut);
     animPage->pack(animButBox);

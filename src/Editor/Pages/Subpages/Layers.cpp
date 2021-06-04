@@ -47,7 +47,7 @@ Layers::Layers(Mode m)
         rows.emplace_back(prefix, i);
         itemArea->pack(rows.back().row, true, false);
     }
-    itemArea->setMaxSize({400, 1000});
+    itemArea->setMaxSize({400, 150});
     content->pack(itemArea, true, false);
 }
 
@@ -61,6 +61,7 @@ Layers::Item::Item(const std::string& prefix, unsigned int i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
     name = Label::create(prefix + " " + std::to_string(i));
+    name->setColor(sf::Color(0, 180, 200), sf::Color::Transparent);
     row->pack(name, true, false);
 
     visibleToggle = CheckButton::create("Visible");
