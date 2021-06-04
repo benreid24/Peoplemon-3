@@ -3,6 +3,7 @@
 
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
+#include <Editor/Pages/Subpages/Tileset.hpp>
 
 namespace editor
 {
@@ -68,6 +69,8 @@ private:
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr pickPlaylistBut;
+
+    Tileset tileset;
 
     Layers levelPage;
     Layers layerPage;

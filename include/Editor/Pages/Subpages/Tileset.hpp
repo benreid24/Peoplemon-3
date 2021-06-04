@@ -22,17 +22,13 @@ public:
     Tileset();
 
     /**
-     * @brief Loads the given tileset and initializes the GUI for it
+     * @brief Returns the gui element to pack
      *
-     * @param file The tilset to load
-     * @return True on success, false on error
      */
-    bool loadTileset(const std::string& file); // TODO - take actual tileset?
-
-    // TODO - events/accessors for current state or deleted tiles
+    bl::gui::Element::Ptr getContent();
 
 private:
-    bl::gui::Notebook content;
+    bl::gui::Notebook::Ptr content;
     bl::gui::Box::Ptr tilePage;
     bl::gui::Box::Ptr animPage;
 
@@ -40,10 +36,12 @@ private:
     bl::gui::Button::Ptr addTileBut;
     bl::gui::Button::Ptr importSpritesheetBut;
     bl::gui::Button::Ptr delTileBut;
+    bl::gui::Box::Ptr tilesBox;
 
     bl::gui::Box::Ptr animButBox;
     bl::gui::Button::Ptr addAnimBut;
     bl::gui::Button::Ptr delAnimBut;
+    bl::gui::Box::Ptr animsBox;
 
     // TODO - radio button image buttons for tiles/anims
 };

@@ -35,7 +35,7 @@ Map::Map(core::system::Systems& s)
     tileSetBut->setValue(true);
     tileClearBut    = RadioButton::create("Clear", tileSetBut->getRadioGroup());
     tileSelectBut   = RadioButton::create("Select", tileSetBut->getRadioGroup());
-    tileDeselectBut = Button::create("Clear Selection");
+    tileDeselectBut = Button::create("Deselect");
     box->pack(levelSelect, false, true);
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
@@ -144,7 +144,7 @@ Map::Map(core::system::Systems& s)
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
-    controlPane->pack(Label::create("Tileset here"), true, true);
+    controlPane->pack(tileset.getContent(), true, true);
 
     content->pack(controlPane, false, true);
     content->pack(Label::create("Map canvas here"), true, true);
