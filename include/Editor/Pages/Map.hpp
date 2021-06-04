@@ -66,8 +66,9 @@ private:
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr pickPlaylistBut;
 
-    Tileset tileset;
+    bl::gui::TextEntry::Ptr lightRadiusEntry;
 
+    Tileset tileset;
     Layers levelPage;
     Layers layerPage;
 };

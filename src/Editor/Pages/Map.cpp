@@ -113,11 +113,27 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
 
+    Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
+    RadioButton::Ptr lightCreate = RadioButton::create("Create");
+    lightCreate->setValue(true);
+    lightRadiusEntry = TextEntry::create();
+    lightRadiusEntry->setRequisition({80, 0});
+    lightRadiusEntry->setInput("100");
+    box->pack(lightCreate, false, false);
+    box->pack(Label::create("Radius (pixels):"), false, false);
+    box->pack(lightRadiusEntry, true, false);
+    lightBox->pack(box, true, false);
+    Label::Ptr label = Label::create("Delete");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
+    lightBox->pack(lightDelete);
+
     objectBook = Notebook::create("maps");
     objectBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
     objectBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
     objectBook->addPage("items", "Items", Label::create("Item controls here"));
-    objectBook->addPage("lights", "Lights", Label::create("Light controls here"));
+    objectBook->addPage("lights", "Lights", lightBox);
 
     const auto editClosed = [this]() {
         layerPage.unpack();
