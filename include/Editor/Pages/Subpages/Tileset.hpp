@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_SUBPAGES_TILESET_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Editor/Pages/Subpages/Collisions.hpp>
 
 namespace editor
 {
@@ -44,6 +45,8 @@ private:
     bl::gui::Box::Ptr animsBox;
 
     // TODO - radio button image buttons for tiles/anims
+
+    Collisions collisions;
 };
 
 } // namespace page

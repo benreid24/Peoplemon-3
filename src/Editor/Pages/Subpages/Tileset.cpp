@@ -37,7 +37,7 @@ Tileset::Tileset() {
 
     content->addPage("tile", "Tiles", tilePage);
     content->addPage("anim", "Animations", animPage);
-    content->addPage("col", "Collisions", Label::create("Collisions here"));
+    content->addPage("col", "Collisions", collisions.getContent());
     content->addPage("catch", "Catch Tiles", Label::create("Catch tiles here"));
 }
 
