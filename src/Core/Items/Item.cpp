@@ -11,6 +11,7 @@ namespace item
 {
 namespace
 {
+std::vector<Id> ids;
 std::unordered_map<Id, std::string> names;
 std::unordered_map<Id, std::string> descriptions;
 std::unordered_map<Id, int> values;
@@ -76,6 +77,11 @@ int Item::getValue(Id item) {
     return it == values.end() ? 0 : it->second;
 }
 
+const std::vector<Id>& Item::validIds() {
+    checkLoad();
+    return ids;
+}
+
 UseResult Item::useOnPeoplemon(Id item) { return {false, "Unimplemented useOnPeoplemon"}; }
 
 UseResult Item::evolvePeoplemon(Id item) { return {false, "Unimplemented evolvePeoplemon"}; }
@@ -99,6 +105,7 @@ void checkLoad() {
                 BL_LOG_ERROR << "Unknown item id: " << rawId;
                 continue;
             }
+            ids.emplace_back(id);
 
             const bl::file::json::RGroup ng = data.getGroup(idStr);
             if (!ng.has_value()) {

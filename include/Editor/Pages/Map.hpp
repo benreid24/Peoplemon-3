@@ -48,6 +48,8 @@ private:
     bl::gui::Label::Ptr playlistLabel;
 
     bl::gui::TextEntry::Ptr lightRadiusEntry;
+    bl::gui::ComboBox::Ptr itemSpawnEntry;
+    std::vector<core::item::Id> itemIdLookup;
 
     Tileset tileset;
     Layers levelPage;

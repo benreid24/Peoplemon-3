@@ -115,6 +115,24 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
 
+    Box::Ptr itemBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    itemSpawnEntry   = ComboBox::create();
+    itemIdLookup.reserve(core::item::Item::validIds().size());
+    for (const core::item::Id item : core::item::Item::validIds()) {
+        itemSpawnEntry->addOption(core::item::Item::getName(item));
+        itemIdLookup.push_back(item);
+    }
+    RadioButton::Ptr itemSpawn = RadioButton::create("Spawn");
+    itemSpawn->setValue(true);
+    Label::Ptr label = Label::create("Delete");
+    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
+    RadioButton::Ptr itemDelete = RadioButton::create(label, itemSpawn->getRadioGroup());
+    box->pack(itemSpawn);
+    box->pack(itemSpawnEntry, true, false);
+    itemBox->pack(box, true, false);
+    itemBox->pack(itemDelete);
+
     Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     RadioButton::Ptr lightCreate = RadioButton::create("Create");
@@ -126,7 +144,7 @@ Map::Map(core::system::Systems& s)
     box->pack(Label::create("Radius (pixels):"), false, false);
     box->pack(lightRadiusEntry, true, false);
     lightBox->pack(box, true, false);
-    Label::Ptr label = Label::create("Delete");
+    label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
     RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
@@ -134,7 +152,7 @@ Map::Map(core::system::Systems& s)
     bl::gui::Notebook::Ptr objectBook = Notebook::create("maps");
     objectBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
     objectBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
-    objectBook->addPage("items", "Items", Label::create("Item controls here"));
+    objectBook->addPage("items", "Items", itemBox);
     objectBook->addPage("lights", "Lights", lightBox);
 
     const auto editClosed = [this]() {

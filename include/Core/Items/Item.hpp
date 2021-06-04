@@ -5,6 +5,7 @@
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
 #include <Core/Items/UseResult.hpp>
+#include <vector>
 
 namespace core
 {
@@ -64,6 +65,12 @@ struct Item {
      * @return int The value of the item
      */
     static int getValue(item::Id item);
+
+    /**
+     * @brief Returns the list of valid item ids
+     *
+     */
+    static const std::vector<Id>& validIds();
 
     /**
      * @brief Uses the given item on the given peoplemon
