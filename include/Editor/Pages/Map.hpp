@@ -52,6 +52,9 @@ private:
     bl::gui::ComboBox::Ptr itemSpawnEntry;
     std::vector<core::item::Id> itemIdLookup;
 
+    bl::gui::Label::Ptr onEnterLabel;
+    bl::gui::Label::Ptr onExitLabel;
+
     Tileset tileset;
     Layers levelPage;
     Layers layerPage;
