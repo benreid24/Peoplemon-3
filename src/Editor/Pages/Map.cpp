@@ -10,18 +10,19 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , levelPage(Layers::Level)
 , layerPage(Layers::Layer) {
-    content     = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
-    controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
+    content = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
+    bl::gui::Box::Ptr controlPane =
+        Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
-    mapCtrlBox = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    newMapBut  = Button::create("New Map");
-    loadMapBut = Button::create("Load Map");
-    saveMapBut = Button::create("Save Map");
+    bl::gui::Box::Ptr mapCtrlBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::Button::Ptr newMapBut  = Button::create("New Map");
+    bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
+    bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
-    tileBox      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    bl::gui::Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
     levelSelect = ComboBox::create("maps");
@@ -40,35 +41,36 @@ Map::Map(core::system::Systems& s)
     box->pack(layerSelect, true, true);
     tileBox->pack(box, true, false);
 
-    box        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    tileSetBut = RadioButton::create("Set");
+    box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set");
     tileSetBut->setValue(true);
-    tileClearBut    = RadioButton::create("Clear", tileSetBut->getRadioGroup());
-    tileSelectBut   = RadioButton::create("Select", tileSetBut->getRadioGroup());
-    tileDeselectBut = Button::create("Deselect");
+    bl::gui::RadioButton::Ptr tileClearBut =
+        RadioButton::create("Clear", tileSetBut->getRadioGroup());
+    bl::gui::RadioButton::Ptr tileSelectBut =
+        RadioButton::create("Select", tileSetBut->getRadioGroup());
+    bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
     box->pack(tileDeselectBut, true, true);
     tileBox->pack(box, true, false);
 
-    infoBox      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
-    nameLabel = Label::create("Name:");
     nameEntry = TextEntry::create(1);
-    box->pack(nameLabel, false, true);
+    box->pack(Label::create("Name:"), false, true);
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
 
-    resizeBut = Button::create("Resize Map");
+    bl::gui::Button::Ptr resizeBut = Button::create("Resize Map");
     row->pack(resizeBut);
     infoBox->pack(row, true, false);
 
-    row             = Box::create(LinePacker::create(LinePacker::Horizontal));
-    playlistLabel   = Label::create("playerlistFile.bplst");
-    pickPlaylistBut = Button::create("Pick Playlist");
+    row                                  = Box::create(LinePacker::create(LinePacker::Horizontal));
+    playlistLabel                        = Label::create("playerlistFile.bplst");
+    bl::gui::Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
     row->pack(playlistLabel, true, false);
@@ -98,7 +100,7 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    editBook = Notebook::create("maps");
+    bl::gui::Notebook::Ptr editBook = Notebook::create("maps");
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
         "layers",
@@ -129,7 +131,7 @@ Map::Map(core::system::Systems& s)
     RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
 
-    objectBook = Notebook::create("maps");
+    bl::gui::Notebook::Ptr objectBook = Notebook::create("maps");
     objectBook->addPage("spawns", "Spawns", Label::create("Player spawn controls here"));
     objectBook->addPage("ai", "NPC's", Label::create("NPC controls here"));
     objectBook->addPage("items", "Items", Label::create("Item controls here"));
@@ -139,14 +141,14 @@ Map::Map(core::system::Systems& s)
         layerPage.unpack();
         levelPage.unpack();
     };
-    const auto editOpened = [this]() {
+    const auto editOpened = [this, editBook]() {
         if (editBook->getActivePageName() == "layers")
             layerPage.pack();
         else if (editBook->getActivePageName() == "levels")
             levelPage.pack();
     };
 
-    controlBook = Notebook::create("maps");
+    bl::gui::Notebook::Ptr controlBook = Notebook::create("maps");
     controlBook->addPage("map", "Map", infoBox);
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
