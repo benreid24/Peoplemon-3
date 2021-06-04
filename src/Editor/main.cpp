@@ -25,7 +25,7 @@ int main() {
                 core::Properties::WindowWidth() + 300, core::Properties::WindowHeight() + 120, 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withWindowTitle("Peoplemon Editor")
-            .withWindowIcon(core::Properties::WindowIconFile())
+            .withWindowIcon("EditorResources/icon.png")
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
