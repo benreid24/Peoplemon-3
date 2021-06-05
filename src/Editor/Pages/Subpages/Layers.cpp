@@ -47,7 +47,7 @@ Layers::Layers(Mode m)
         rows.emplace_back(prefix, i);
         itemArea->pack(rows.back().row, true, false);
     }
-    itemArea->setMaxSize({400, 150});
+    itemArea->setMaxSize({300, 175});
     content->pack(itemArea, true, false);
 }
 
