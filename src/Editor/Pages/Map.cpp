@@ -97,6 +97,7 @@ Map::Map(core::system::Systems& s)
     weatherEntry->addOption("SnowRandom");
     weatherEntry->addOption("DesertRandom");
     weatherEntry->setSelectedOption(0);
+    weatherEntry->setMaxHeight(300);
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
