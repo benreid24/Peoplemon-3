@@ -1,5 +1,7 @@
 #include <Editor/Pages/Subpages/Tileset.hpp>
 
+#include <BLIB/Engine.hpp>
+
 namespace editor
 {
 namespace page
@@ -20,9 +22,19 @@ Tileset::Tileset() {
     tileButBox->pack(delTileBut, false, true);
     tilePage->pack(tileButBox, true, false);
 
-    tilesBox = Box::create(LinePacker::create(LinePacker::Vertical)); // TODO - grid packer
-    tilesBox->pack(Label::create("Tiles will appear in a grid here"), true, true);
-    tilePage->pack(tilesBox, true, true);
+    tilesBox               = Box::create(GridPacker::createDynamicGrid(GridPacker::Rows, 300, 10));
+    ScrollArea::Ptr scroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical));
+    auto txtr = bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data;
+    RadioButton::Group* group = nullptr;
+    for (unsigned int i = 0; i < 57; ++i) {
+        Image::Ptr img = Image::create(txtr);
+        img->scaleToSize({56, 56});
+        RadioButton::Ptr button = RadioButton::create(img, group); // TODO - special button
+        group                   = button->getRadioGroup();
+        tilesBox->pack(button);
+    }
+    scroll->pack(tilesBox, true, true);
+    tilePage->pack(scroll, true, true);
 
     bl::gui::Box::Ptr animPage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));

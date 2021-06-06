@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_SUBPAGES_TILESET_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Maps/Tileset.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
 
@@ -17,6 +18,8 @@ namespace page
  */
 class Tileset {
 public:
+    enum Active { Tiles, Animations, CollisionTiles, CatchTiles };
+
     /**
      * @brief Creates the GUI elements
      *
@@ -28,6 +31,30 @@ public:
      *
      */
     bl::gui::Element::Ptr getContent();
+
+    /**
+     * @brief Returns what is currently selected as the active edit type
+     *
+     */
+    Active getActiveTool() const;
+
+    /**
+     * @brief Returns the id of the active tile
+     *
+     */
+    core::map::Tile::IdType getActiveTile() const;
+
+    /**
+     * @brief Returns the id of the active animation
+     *
+     */
+    core::map::Tile::IdType getActiveAnim() const;
+
+    /**
+     * @brief Returns the active collision type
+     *
+     */
+    core::map::Collision getActiveCollision() const;
 
 private:
     bl::gui::Notebook::Ptr content;
