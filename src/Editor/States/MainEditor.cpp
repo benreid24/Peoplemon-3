@@ -27,6 +27,15 @@ MainEditor::MainEditor(core::system::Systems& s)
     renderer = bl::gui::DefaultRenderer::create();
     gui->setRenderer(renderer);
 
+    mapPage.registerGui(gui);
+    testingPage.registerGui(gui);
+    peoplemonPage.registerGui(gui);
+    movesPage.registerGui(gui);
+    itemsPage.registerGui(gui);
+    playlistsPage.registerGui(gui);
+    creditsPage.registerGui(gui);
+    todoPage.registerGui(gui);
+
     notebook = bl::gui::Notebook::create("editor", "main_nav");
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });

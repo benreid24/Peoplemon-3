@@ -58,6 +58,10 @@ private:
     Tileset tileset;
     Layers levelPage;
     Layers layerPage;
+
+    bl::gui::FilePicker mapPicker;
+    void doLoadMap(const std::string& file);
+    void mapLoadCancel();
 };
 
 } // namespace page

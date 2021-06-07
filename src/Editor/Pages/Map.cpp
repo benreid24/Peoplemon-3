@@ -1,5 +1,7 @@
 #include <Editor/Pages/Map.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace editor
 {
 namespace page
@@ -9,7 +11,10 @@ using namespace bl::gui;
 Map::Map(core::system::Systems& s)
 : Page(s)
 , levelPage(Layers::Level)
-, layerPage(Layers::Layer) {
+, layerPage(Layers::Layer)
+, mapPicker(core::Properties::MapPath(), {"map", "p3m"},
+            std::bind(&Map::doLoadMap, this, std::placeholders::_1),
+            std::bind(&Map::mapLoadCancel, this)) {
     content = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     bl::gui::Box::Ptr controlPane =
         Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
@@ -17,6 +22,9 @@ Map::Map(core::system::Systems& s)
     bl::gui::Box::Ptr mapCtrlBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr newMapBut  = Button::create("New Map");
     bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
+    loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapPicker.open(FilePicker::PickExisting, "Load map", parent);
+    });
     bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
@@ -261,6 +269,14 @@ Map::Map(core::system::Systems& s)
 void Map::update(float dt) {
     // TODO
 }
+
+void Map::doLoadMap(const std::string& file) {
+    BL_LOG_INFO << "Load map: " << file;
+    mapPicker.close();
+    // TODO
+}
+
+void Map::mapLoadCancel() { mapPicker.close(); }
 
 } // namespace page
 } // namespace editor
