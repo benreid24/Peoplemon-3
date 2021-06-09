@@ -227,7 +227,7 @@ public:
      */
     bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
 
-private:
+protected:
     bl::file::binary::SerializableField<1, std::string> nameField;
     bl::file::binary::SerializableField<2, std::string> loadScriptField;
     bl::file::binary::SerializableField<3, std::string> unloadScriptField;
