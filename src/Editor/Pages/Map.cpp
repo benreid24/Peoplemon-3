@@ -19,8 +19,11 @@ Map::Map(core::system::Systems& s)
     bl::gui::Box::Ptr controlPane =
         Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
-    bl::gui::Box::Ptr mapCtrlBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::Button::Ptr newMapBut  = Button::create("New Map");
+    bl::gui::Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    bl::gui::Button::Ptr newMapBut = Button::create("New Map");
+    newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapPicker.open(FilePicker::CreateNew, "Load map", parent);
+    });
     bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
         mapPicker.open(FilePicker::PickExisting, "Load map", parent);
