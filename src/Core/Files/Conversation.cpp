@@ -504,6 +504,8 @@ Conversation Conversation::makeLoadError(const std::string& f) {
     node.message() = "WARNING: Failed to load conversation: " + f;
     node.next()    = 1;
     conv.appendNode(node);
+#else
+    (void)f;
 #endif
     return conv;
 }

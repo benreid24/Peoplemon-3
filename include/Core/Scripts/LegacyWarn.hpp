@@ -29,6 +29,8 @@ inline void LegacyWarn::warn(const std::string& script) {
         BL_LOG_WARN << "Tried to load legacy script: "
                     << bl::file::Util::joinPath(Properties::ScriptPath(), script);
     }
+#else
+    (void)script;
 #endif
 }
 
