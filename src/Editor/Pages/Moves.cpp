@@ -11,7 +11,7 @@ Moves::Moves(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Move DB editor will go here"));
 }
 
-void Moves::update(float dt) {
+void Moves::update(float) {
     // TODO
 }
 

@@ -86,14 +86,6 @@ struct Control {
      */
     bool deactivated(const sf::Event& event) const;
 
-    union {
-        /// The key of the control if a key
-        sf::Keyboard::Key key;
-
-        /// The button of the control if a button
-        sf::Mouse::Button button;
-    };
-
     /**
      * @brief The type of control (keyboard or mouse)
      *
@@ -108,6 +100,14 @@ struct Control {
         /// The control is on the mouse
         Mouse = 2
     } type;
+
+    union {
+        /// The key of the control if a key
+        sf::Keyboard::Key key;
+
+        /// The button of the control if a button
+        sf::Mouse::Button button;
+    };
 };
 } // namespace input
 } // namespace player

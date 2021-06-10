@@ -104,8 +104,10 @@ bl::entity::Entity& Position::get(const component::Position& p) {
     static bl::entity::Entity null = bl::entity::InvalidEntity;
 
     if (p.level < entityMap.size()) {
-        if (p.positionTiles().x >= 0 && p.positionTiles().x < entityMap[p.level].getWidth()) {
-            if (p.positionTiles().y >= 0 && p.positionTiles().y < entityMap[p.level].getHeight()) {
+        if (p.positionTiles().x >= 0 &&
+            p.positionTiles().x < static_cast<int>(entityMap[p.level].getWidth())) {
+            if (p.positionTiles().y >= 0 &&
+                p.positionTiles().y < static_cast<int>(entityMap[p.level].getHeight())) {
                 return entityMap[p.level](p.positionTiles().x, p.positionTiles().y);
             }
         }
@@ -119,8 +121,10 @@ bl::entity::Entity& Position::get(const component::Position& p) {
 
 bl::entity::Entity Position::getEntity(const component::Position& p) const {
     if (p.level < entityMap.size()) {
-        if (p.positionTiles().x >= 0 && p.positionTiles().x < entityMap[p.level].getWidth()) {
-            if (p.positionTiles().y >= 0 && p.positionTiles().y < entityMap[p.level].getHeight()) {
+        if (p.positionTiles().x >= 0 &&
+            p.positionTiles().x < static_cast<int>(entityMap[p.level].getWidth())) {
+            if (p.positionTiles().y >= 0 &&
+                p.positionTiles().y < static_cast<int>(entityMap[p.level].getHeight())) {
                 return entityMap.at(p.level)(p.positionTiles().x, p.positionTiles().y);
             }
         }

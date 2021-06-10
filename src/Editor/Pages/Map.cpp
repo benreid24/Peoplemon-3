@@ -274,7 +274,7 @@ Map::Map(core::system::Systems& s)
     mapArea.editMap().editorLoad("WorldMap.map");
 }
 
-void Map::update(float dt) {
+void Map::update(float) {
     // TODO
 }
 
@@ -290,7 +290,7 @@ void Map::doLoadMap(const std::string& file) {
     }
 }
 
-void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
+void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
     BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
 }
 

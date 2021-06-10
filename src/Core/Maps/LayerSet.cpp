@@ -94,10 +94,10 @@ const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ys
 
 void LayerSet::update(const sf::IntRect& area, float dt) {
     static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
-        for (unsigned int x = area.left; x < area.left + area.width; ++x) {
-            for (unsigned int y = area.top; y < area.top + area.height; ++y) {
-                layer.getRef(x, y).update(dt);
-            }
+        const unsigned int xb = area.left + area.left;
+        const unsigned int yb = area.top + area.height;
+        for (unsigned int x = area.left; x < xb; ++x) {
+            for (unsigned int y = area.top; y < yb; ++y) { layer.getRef(x, y).update(dt); }
         }
     };
 

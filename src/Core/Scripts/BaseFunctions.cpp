@@ -314,23 +314,22 @@ Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<
     return makeBool(false);
 }
 
-Value givePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value givePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - track and give peoplemon
     return makeBool(false);
 }
 
-Value takePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value takePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - track and take peoplemon
     return makeBool(false);
 }
 
-Value whiteout(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value whiteout(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement whiting out
     return makeBool(false);
 }
 
-Value restorePeoplemon(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args) {
+Value restorePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - track and heal peoplemon
     return makeBool(false);
 }
@@ -372,12 +371,12 @@ Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vect
     return {choice};
 }
 
-Value rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement credits
     return makeBool(false);
 }
 
-Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("getNpc", args);
 
     const std::string name = args[0].deref().getAsString();
@@ -400,7 +399,7 @@ Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Val
     return makeBool(false);
 }
 
-Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("loadCharacter", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -434,7 +433,7 @@ Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vec
     return makeBool(false);
 }
 
-Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString,
                            Value::TNumeric,
                            Value::TNumeric,
@@ -450,7 +449,7 @@ Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::ve
     return makeBool(systems.entity().spawnCharacter(spawn));
 }
 
-Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString>("getTrainer", args);
 
     const std::string name = args[0].deref().getAsString();
@@ -474,7 +473,7 @@ Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector
     return makeBool(false);
 }
 
-Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("moveEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -504,7 +503,7 @@ Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector
     return makeBool(result);
 }
 
-Value rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("rotateEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -516,7 +515,7 @@ Value rotateEntity(system::Systems& systems, SymbolTable& table, const std::vect
     return {};
 }
 
-Value removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("removeEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -528,20 +527,19 @@ Value removeEntity(system::Systems& systems, SymbolTable& table, const std::vect
     return makeBool(false);
 }
 
-Value entityToPosition(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args) {
+Value entityToPosition(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement path finder
     return makeBool(false);
 }
 
-Value entityInteract(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("entityInteract", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
     return makeBool(systems.interaction().interact(entity));
 }
 
-Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TBool>("setEntityLock", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -550,8 +548,7 @@ Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vec
     return {};
 }
 
-Value resetEntityLock(system::Systems& systems, SymbolTable& table,
-                      const std::vector<Value>& args) {
+Value resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("resetEntityLock", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
@@ -559,7 +556,7 @@ Value resetEntityLock(system::Systems& systems, SymbolTable& table,
     return {};
 }
 
-Value getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     const system::Clock::Time now = systems.clock().now();
     Value clock(static_cast<float>(now.hour * 60 + now.minute));
     clock.setProperty("minute", {static_cast<float>(now.minute)});
@@ -572,8 +569,8 @@ class ClockTrigger : public bl::event::Listener<event::TimeChange> {
 public:
     using Callback = std::function<void()>;
     ClockTrigger(Callback cb, const system::Clock::Time& time)
-    : cb(cb)
-    , time(time) {}
+    : time(time)
+    , cb(cb) {}
 
     virtual void observe(const event::TimeChange& event) override {
         if (event.newTime.hour == time.hour && event.newTime.minute == time.minute) cb();
@@ -598,7 +595,7 @@ system::Clock::Time parseTime(const Value& v) {
     return t;
 }
 
-Value makeTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeTime(system::Systems&, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric>("makeTime", args);
     if (args[0].deref().getAsNum() < 0.f || args[0].deref().getAsNum() > 23.f)
         throw Error("hour must be in range [0, 23]");
@@ -632,7 +629,7 @@ Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vec
     return {};
 }
 
-Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString, Value::TNumeric>("runAtClockTime", args);
 
     const std::string source       = args[0].deref().getAsString();
@@ -650,25 +647,24 @@ Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::ve
     return {};
 }
 
-Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value addSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - add game save functionality
     return makeBool(false);
 }
 
-Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value getSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - add game save functionality
     return makeBool(false);
 }
 
-Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TString, Value::TNumeric>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
         {args[0].getAsString(), static_cast<int>(args[1].getAsNum())});
     return {};
 }
 
-Value setAmbientLight(system::Systems& systems, SymbolTable& table,
-                      const std::vector<Value>& args) {
+Value setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("setAmbientLight", args);
     if (args[0].getAsNum() < 0.f) { throw Error("Light level must be positive"); }
     if (args[0].getAsNum() > 255.f) { throw Error("Light level must be under 255"); }
@@ -682,7 +678,7 @@ Value setAmbientLight(system::Systems& systems, SymbolTable& table,
     return {};
 }
 
-Value createLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value createLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric>("createLight", args);
 
     const float x = args[0].getAsNum();
@@ -705,7 +701,7 @@ Value createLight(system::Systems& systems, SymbolTable& table, const std::vecto
     return {static_cast<float>(handle)};
 }
 
-Value updateLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric, Value::TNumeric>(
         "updateLight", args);
 
@@ -729,7 +725,7 @@ Value updateLight(system::Systems& systems, SymbolTable& table, const std::vecto
 
     return {};
 }
-Value removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("removeLight", args);
     const map::LightingSystem::Handle handle =
         static_cast<map::LightingSystem::Handle>(args[0].getAsNum());
@@ -737,11 +733,11 @@ Value removeLight(system::Systems& systems, SymbolTable& table, const std::vecto
     return {};
 }
 
-Value clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value clearWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::None);
     return {};
 }
-Value makeRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeRain(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TBool, Value::TBool>("makeRain", args);
 
     map::Weather::Type t;
@@ -763,7 +759,7 @@ Value makeRain(system::Systems& systems, SymbolTable& table, const std::vector<V
     return {};
 }
 
-Value makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TBool, Value::TBool>("makeSnow", args);
 
     map::Weather::Type t;
@@ -785,17 +781,17 @@ Value makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<V
     return {};
 }
 
-Value makeSunny(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeSunny(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::Sunny);
     return {};
 }
 
-Value makeSandstorm(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeSandstorm(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::SandStorm);
     return {};
 }
 
-Value makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeFog(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TBool>("makeFog", args);
 
     const map::Weather::Type t =
@@ -805,24 +801,22 @@ Value makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Va
     return {};
 }
 
-Value makeRandomRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeRandomRain(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::WaterRandom);
     return {};
 }
 
-Value makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
+Value makeRandomSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::SnowRandom);
     return {};
 }
 
-Value makeRandomDesert(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args) {
+Value makeRandomDesert(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::DesertRandom);
     return {};
 }
 
-Value makeRandomWeather(system::Systems& systems, SymbolTable& table,
-                        const std::vector<Value>& args) {
+Value makeRandomWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::AllRandom);
     return {};
 }

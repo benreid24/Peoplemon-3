@@ -15,12 +15,12 @@ LightingSystem::LightingSystem()
 , lowLevelField(*this, 175)
 , highLevelField(*this, 255)
 , sunlightField(*this, true)
+, eventGuard(this)
+, lights(320, 320, 800, 600)
 , minLevel(lowLevelField.getValue())
 , maxLevel(highLevelField.getValue())
-, weatherModifier(0)
 , sunlightFactor(1.f)
-, eventGuard(this)
-, lights(320, 320, 800, 600) {}
+, weatherModifier(0) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     const Handle h =
@@ -84,8 +84,8 @@ void LightingSystem::removeLight(Handle handle, bool p) {
 }
 
 void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel) {
-    minLevel = std::min(lowLightLevel, highLightLevel);
-    maxLevel - std::max(highLightLevel, highLightLevel);
+    minLevel   = std::min(lowLightLevel, highLightLevel);
+    maxLevel   = std::max(highLightLevel, highLightLevel);
     levelRange = maxLevel - minLevel;
 }
 

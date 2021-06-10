@@ -82,13 +82,13 @@ const std::vector<Id>& Item::validIds() {
     return ids;
 }
 
-UseResult Item::useOnPeoplemon(Id item) { return {false, "Unimplemented useOnPeoplemon"}; }
+UseResult Item::useOnPeoplemon(Id) { return {false, "Unimplemented useOnPeoplemon"}; }
 
-UseResult Item::evolvePeoplemon(Id item) { return {false, "Unimplemented evolvePeoplemon"}; }
+UseResult Item::evolvePeoplemon(Id) { return {false, "Unimplemented evolvePeoplemon"}; }
 
-UseResult Item::useOnPlayer(Id item) { return {false, "Unimplemented useOnPlayer"}; }
+UseResult Item::useOnPlayer(Id) { return {false, "Unimplemented useOnPlayer"}; }
 
-UseResult Item::useKeyItem(Id item) { return {false, "Unimplemented useKeyItem"}; }
+UseResult Item::useKeyItem(Id) { return {false, "Unimplemented useKeyItem"}; }
 
 namespace
 {

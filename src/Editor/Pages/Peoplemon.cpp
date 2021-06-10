@@ -11,7 +11,7 @@ Peoplemon::Peoplemon(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Peoplemon DB editor will go here"));
 }
 
-void Peoplemon::update(float dt) {
+void Peoplemon::update(float) {
     // TODO
 }
 

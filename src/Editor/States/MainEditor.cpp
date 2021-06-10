@@ -75,7 +75,7 @@ void MainEditor::update(bl::engine::Engine&, float dt) {
     currentPage->update(dt);
 }
 
-void MainEditor::render(bl::engine::Engine& engine, float lag) {
+void MainEditor::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
     engine.window().draw(*gui);
     engine.window().display();

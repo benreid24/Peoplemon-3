@@ -231,7 +231,7 @@ public:
         return true;
     }
 
-    virtual bool write(const Map& map, bl::file::binary::File& output) const override {
+    virtual bool write(const Map&, bl::file::binary::File&) const override {
         // unimplemented
         return false;
     }
@@ -269,14 +269,14 @@ Map::Map()
 , itemsField(*this)
 , eventsField(*this)
 , lightsField(*this)
+, catchZonesField(*this)
+, transitionField(*this)
+, systems(nullptr)
 , levels(levelsField.getValue())
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
-, catchZonesField(*this)
-, transitionField(*this)
-, activated(false)
 , eventRegions(100.f, 100.f, 100.f, 100.f)
-, systems(nullptr) {}
+, activated(false) {}
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;

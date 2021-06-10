@@ -16,8 +16,8 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
 , clickCb(cb)
-, changedSinceSave(false)
-, camera(EditCamera::Ptr(new EditCamera())) {
+, camera(EditCamera::Ptr(new EditCamera()))
+, changedSinceSave(false) {
     systems = &s;
     getSignal(bl::gui::Action::LeftClicked)
         .willAlwaysCall([this](const bl::gui::Action& a, Element*) {
@@ -83,7 +83,7 @@ EditMap::EditCamera::EditCamera()
 
 bool EditMap::EditCamera::valid() const { return true; }
 
-void EditMap::EditCamera::update(core::system::Systems& s, float dt) {
+void EditMap::EditCamera::update(core::system::Systems&, float) {
     // TODO - move and stuff
 }
 
@@ -94,8 +94,7 @@ void EditMap::EditCamera::reset(const sf::Vector2i& t) {
 
 sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
 
-void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                       const bl::gui::Renderer& renderer) const {
+void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
     const sf::View oldView = target.getView();
     sf::View view          = bl::gui::Container::computeView(oldView, getAcquisition());
     systems->cameras().configureView(*this, view);
@@ -104,7 +103,7 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates states,
     target.setView(oldView);
 }
 
-bool EditMap::handleScroll(const bl::gui::RawEvent& scroll) {
+bool EditMap::handleScroll(const bl::gui::RawEvent&) {
     // TODO
     return true;
 }

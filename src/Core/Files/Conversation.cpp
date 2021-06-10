@@ -95,6 +95,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
         std::vector<std::pair<std::string, std::uint32_t*>> namedJumps;
 
         // Load legacy data
+        BL_LOG_INFO << "Reading legacy nodes";
         std::uint16_t nodeCount = 0;
         if (!input.read(nodeCount)) return false;
         nodes.reserve(nodeCount);
@@ -103,6 +104,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
 
             std::uint8_t type;
             if (!input.read(type)) return false;
+            BL_LOG_INFO << type;
 
             switch (type) {
             case 't':
@@ -121,12 +123,16 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                 std::uint16_t choiceCount;
                 if (!input.read(n.message())) return false;
                 if (!input.read(choiceCount)) return false;
+                BL_LOG_INFO << "Read option data";
                 n.choices().resize(choiceCount, std::make_pair("", nodeCount));
+                BL_LOG_INFO << "created empty options";
                 for (std::uint16_t j = 0; j < choiceCount; ++j) {
                     std::string choice, jump;
                     if (!input.read(n.choices()[j].first)) return false;
                     if (!input.read(jump)) return false;
+                    BL_LOG_INFO << "read option";
                     namedJumps.push_back(std::make_pair(jump, &n.choices()[i].second));
+                    BL_LOG_INFO << "Added named jump record";
                 }
 
             } break;
@@ -216,6 +222,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
         }
 
         // Resolve named jumps
+        BL_LOG_INFO << "Looking up named jumps";
         for (auto& pair : namedJumps) {
             auto it = labelPoints.find(pair.first);
             if (it != labelPoints.end()) { *pair.second = it->second; }
@@ -229,6 +236,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
         }
 
         // Remove legacy jump nodes
+        BL_LOG_INFO << "Connecting legacy jumps";
         const auto connectJump = [&nodes](unsigned int orig, unsigned int next) {
             for (Conversation::Node& node : nodes) {
                 if (node.nextOnPass() == orig)
@@ -259,6 +267,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                 --i;
             }
         }
+        BL_LOG_INFO << "Legacy conversaion complete";
 
         return true;
     }
@@ -306,7 +315,9 @@ bool Conversation::load(const std::string& file) {
     bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                  bl::file::binary::File::Read);
     VersionedLoader loader;
-    return loader.read(input, *this);
+    const bool r = loader.read(input, *this);
+    BL_LOG_INFO << "Conversation loaded";
+    return r;
 }
 
 bool Conversation::save(const std::string& file) const {

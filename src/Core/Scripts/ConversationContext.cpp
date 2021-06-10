@@ -22,9 +22,8 @@ Value conversationOver(SymbolTable& table, bl::entity::Entity entity,
 Value waitConversationOver(SymbolTable& table, bl::entity::Entity entity,
                            const ConversationContext::StatusCb& cb);
 
-Value bind(SymbolTable& table, bl::entity::Entity entity, const ConversationContext::StatusCb& cb,
-           Builtin func) {
-    return {Function([entity, cb, func](SymbolTable& table, const std::vector<Value>& args) {
+Value bind(bl::entity::Entity entity, const ConversationContext::StatusCb& cb, Builtin func) {
+    return {Function([entity, cb, func](SymbolTable& table, const std::vector<Value>&) {
         return (*func)(table, entity, cb);
     })};
 }
@@ -39,19 +38,18 @@ ConversationContext::ConversationContext(system::Systems& sys, bl::entity::Entit
 
 void ConversationContext::addCustomSymbols(SymbolTable& table) const {
     BaseFunctions::addDefaults(table, systems);
-    table.set("talkingEntity", bind(table, owner, cb, &talkingEntity));
-    table.set("conversationOver", bind(table, owner, cb, &conversationOver));
-    table.set("waitConversationOver", bind(table, owner, cb, &waitConversationOver));
+    table.set("talkingEntity", bind(owner, cb, &talkingEntity));
+    table.set("conversationOver", bind(owner, cb, &conversationOver));
+    table.set("waitConversationOver", bind(owner, cb, &waitConversationOver));
 }
 
 namespace
 {
-Value talkingEntity(SymbolTable& table, bl::entity::Entity entity,
-                    const ConversationContext::StatusCb& cb) {
+Value talkingEntity(SymbolTable&, bl::entity::Entity entity, const ConversationContext::StatusCb&) {
     return {static_cast<float>(entity)};
 }
 
-Value conversationOver(SymbolTable& table, bl::entity::Entity entity,
+Value conversationOver(SymbolTable&, bl::entity::Entity entity,
                        const ConversationContext::StatusCb& cb) {
     Value v;
     v.makeBool(cb(entity));

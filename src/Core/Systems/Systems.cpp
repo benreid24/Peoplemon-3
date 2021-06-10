@@ -6,16 +6,16 @@ namespace system
 {
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
+, _cameras(*this)
 , _clock(*this)
+, _ai(*this)
 , _controllable(*this)
-, _world(*this)
 , _entity(*this)
 , _player(*this)
-, _cameras(*this)
+, _world(*this)
 , _position(*this)
 , _movement(*this)
 , _render(*this)
-, _ai(*this)
 , _interaction(*this)
 , _hud(*this) {
     _engine.eventBus().subscribe(&_position);

@@ -11,7 +11,7 @@ Items::Items(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Item DB editor will go here"));
 }
 
-void Items::update(float dt) {
+void Items::update(float) {
     // TODO
 }
 

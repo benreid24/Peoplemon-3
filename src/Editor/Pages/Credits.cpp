@@ -11,7 +11,7 @@ Credits::Credits(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Credits editor will go here"));
 }
 
-void Credits::update(float dt) {
+void Credits::update(float) {
     // TODO
 }
 

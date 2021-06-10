@@ -45,15 +45,13 @@ void MapChangeContext::addCustomSymbols(SymbolTable& table) const {
 
 namespace
 {
-Value mapName(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn) {
-    return {newMap};
-}
+Value mapName(const std::string&, const std::string& newMap, std::uint16_t) { return {newMap}; }
 
-Value previousMap(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn) {
+Value previousMap(const std::string& prevMap, const std::string&, std::uint16_t) {
     return {prevMap};
 }
 
-Value spawnId(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn) {
+Value spawnId(const std::string&, const std::string&, std::uint16_t spawn) {
     return {static_cast<float>(spawn)};
 }
 

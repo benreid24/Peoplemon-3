@@ -11,7 +11,7 @@ Testing::Testing(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Testing tool will go here"));
 }
 
-void Testing::update(float dt) {
+void Testing::update(float) {
     // TODO
 }
 

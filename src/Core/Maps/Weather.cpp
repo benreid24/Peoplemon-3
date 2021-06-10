@@ -17,18 +17,6 @@ namespace map
 {
 namespace
 {
-bool isRandom(Weather::Type t) {
-    switch (t) {
-    case Weather::AllRandom:
-    case Weather::WaterRandom:
-    case Weather::SnowRandom:
-    case Weather::DesertRandom:
-        return true;
-    default:
-        return false;
-    }
-}
-
 const std::string Types[] = {"None",
                              "AllRandom",
                              "LightRain",

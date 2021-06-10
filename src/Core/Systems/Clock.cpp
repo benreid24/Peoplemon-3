@@ -26,9 +26,9 @@ void Clock::update(float dt) {
 }
 
 Clock::Time::Time(unsigned int h, unsigned int m, unsigned int d)
-: hour(h)
-, minute(m)
-, day(d) {}
+: day(d)
+, hour(h)
+, minute(m) {}
 
 void Clock::Time::addMinutes(unsigned int m) {
     const unsigned int nm = minute + m;

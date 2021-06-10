@@ -100,8 +100,7 @@ void Renderable::render(sf::RenderTarget& target, float lag) const {
     data->render(target, lag, pos);
 }
 
-void Renderable::StaticSprite::render(sf::RenderTarget& target, float lag,
-                                      const sf::Vector2f& pos) {
+void Renderable::StaticSprite::render(sf::RenderTarget& target, float, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     target.draw(sprite);
 }
