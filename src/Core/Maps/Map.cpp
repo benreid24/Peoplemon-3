@@ -412,7 +412,8 @@ void Map::update(system::Systems& systems, float dt) {
 }
 
 // TODO - special editor rendering for hiding levels and layers
-void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb) {
+void Map::render(sf::RenderTarget& target, float residual,
+                 const EntityRenderCallback& entityCb) const {
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -460,7 +461,7 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
     }
 
     weather.render(target, residual);
-    lightingSystem().render(target);
+    const_cast<Map*>(this)->lighting.render(target);
 }
 
 bool Map::load(const std::string& file) {

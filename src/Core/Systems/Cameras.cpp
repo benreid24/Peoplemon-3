@@ -9,8 +9,8 @@ namespace system
 {
 namespace
 {
-void constrainView(Systems& owner, sf::View& view) {
-    const sf::Vector2f worldSize = owner.world().activeMap().sizePixels();
+void constrainView(const map::Map& map, sf::View& view) {
+    const sf::Vector2f worldSize = map.sizePixels();
 
     if (view.getSize().x > worldSize.x) { view.setCenter(worldSize.x / 2.f, view.getCenter().y); }
     else if (view.getCenter().x - view.getSize().x / 2.f < 0.f) {
@@ -53,11 +53,11 @@ void Cameras::clearAndReplace(camera::Camera::Ptr cam) {
     cameras.push(cam);
 }
 
-void Cameras::configureView(sf::View& view) const {
+void Cameras::configureView(const map::Map& map, sf::View& view) const {
     if (!cameras.empty()) {
         view.setCenter(cameras.top()->getPosition());
         view.setSize(view.getSize() * cameras.top()->getSize());
-        constrainView(owner, view);
+        constrainView(map, view);
     }
 }
 

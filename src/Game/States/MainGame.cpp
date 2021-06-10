@@ -71,7 +71,7 @@ void MainGame::update(bl::engine::Engine&, float dt) {
 
 void MainGame::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
-    systems.render().render(engine.window(), lag);
+    systems.render().render(engine.window(), systems.world().activeMap(), lag);
 
     switch (state) {
     case MapFadein:

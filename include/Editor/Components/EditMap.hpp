@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
+#include <Core/Systems/Cameras/Camera.hpp>
 
 namespace editor
 {
@@ -17,7 +18,7 @@ public:
 
     using ClickCb = std::function<void(const sf::Vector2f& pixels, const sf::Vector2i& tiles)>;
 
-    Ptr create(const ClickCb& cb);
+    static Ptr create(const ClickCb& cb, core::system::Systems& systems);
 
     virtual ~EditMap() = default;
 
@@ -131,14 +132,25 @@ private:
         virtual bool undo(component::EditMap& map, core::system::Systems& systems)  = 0;
         virtual const char* description() const                                     = 0;
     };
-    //std::vector<Action::Ptr> history;
+    std::vector<Action::Ptr> history;
     unsigned int historyHead;
     void addAction(const Action::Ptr& action);
 
+    struct EditCamera : public core::system::camera::Camera {
+        using Ptr = std::shared_ptr<EditCamera>;
+        EditCamera();
+        virtual ~EditCamera() = default;
+        virtual bool valid() const override;
+        virtual void update(core::system::Systems& s, float dt) override;
+        void reset(const sf::Vector2i& size);
+        bool enabled;
+    };
+
     const ClickCb clickCb;
+    EditCamera::Ptr camera;
     bool changedSinceSave;
 
-    EditMap(const ClickCb& cb);
+    EditMap(const ClickCb& cb, core::system::Systems& systems);
 
     virtual sf::Vector2i minimumRequisition() const override;
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,

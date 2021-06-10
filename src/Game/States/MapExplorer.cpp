@@ -102,7 +102,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) {
 
 void MapExplorer::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
-    systems.render().render(engine.window(), lag);
+    systems.render().render(engine.window(), systems.world().activeMap(), lag);
     engine.window().draw(hintBox);
     engine.window().draw(hintText);
     engine.window().display();

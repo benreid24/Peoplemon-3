@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_CAMERAS_HPP
 #define CORE_SYSTEMS_CAMERAS_HPP
 
+#include <Core/Maps/Map.hpp>
 #include <Core/Systems/Cameras/Camera.hpp>
 #include <stack>
 
@@ -72,10 +73,11 @@ public:
      * @brief Modifies the given view to have the proper size and position. Zoom is applied as a
      *        factor to the existing view size. No change is made to the viewport
      *
+     * @param map the map being viewed
      * @param view The view to position and size
      *
      */
-    void configureView(sf::View& view) const;
+    void configureView(const map::Map& map, sf::View& view) const;
 
     /**
      * @brief Returns the area to be rendered by the active camera

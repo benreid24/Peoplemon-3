@@ -181,7 +181,8 @@ public:
      * @param residual Residual time between calls to update, in seconds
      * @param entityCb Function to call to render entities at the correct times
      */
-    void render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb);
+    void render(sf::RenderTarget& target, float residual,
+                const EntityRenderCallback& entityCb) const;
 
     /**
      * @brief Returns whether or not the map contains the given position
@@ -256,7 +257,7 @@ protected:
     bl::container::Grid<const Event*> eventRegions;
 
     bool activated; // for weather continuity
-    sf::IntRect renderRange;
+    mutable sf::IntRect renderRange;
 
     friend class loaders::LegacyMapLoader;
 };

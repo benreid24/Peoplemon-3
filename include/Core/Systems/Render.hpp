@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_RENDER_HPP
 
 #include <Core/Components/Renderable.hpp>
+#include <Core/Maps/Map.hpp>
 
 #include <BLIB/Entities.hpp>
 #include <SFML/Graphics.hpp>
@@ -45,9 +46,10 @@ public:
      * @brief Renders the world and all the entities
      *
      * @param target The target to render to
+     * @param map The map to render
      * @param lag Residual time not accounted for in update yet
      */
-    void render(sf::RenderTarget& target, float lag);
+    void render(sf::RenderTarget& target, const map::Map& map, float lag);
 
 private:
     Systems& owner;

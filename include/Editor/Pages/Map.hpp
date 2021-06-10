@@ -3,8 +3,8 @@
 
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
+#include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
-#include <Editor/Components/EditMap.hpp>
 
 namespace editor
 {
@@ -39,8 +39,6 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO - map render area element
-
     bl::gui::ComboBox::Ptr layerSelect;
     bl::gui::ComboBox::Ptr levelSelect;
 
@@ -56,7 +54,7 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
-    component::EditMap::Ptr map;
+    MapArea mapArea;
     Tileset tileset;
     Layers levelPage;
     Layers layerPage;
@@ -64,6 +62,8 @@ private:
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;
     void doLoadMap(const std::string& file);
+
+    void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
 };
 
 } // namespace page

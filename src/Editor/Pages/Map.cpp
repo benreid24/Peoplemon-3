@@ -10,6 +10,7 @@ using namespace bl::gui;
 
 Map::Map(core::system::Systems& s)
 : Page(s)
+, mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); }, s)
 , levelPage(Layers::Level)
 , layerPage(Layers::Layer)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},
@@ -268,7 +269,9 @@ Map::Map(core::system::Systems& s)
     controlPane->pack(tileset.getContent(), true, true);
 
     content->pack(controlPane, false, true);
-    content->pack(Label::create("Map canvas here"), true, true);
+    content->pack(mapArea.getContent(), true, true);
+
+    mapArea.editMap().editorLoad("WorldMap.map");
 }
 
 void Map::update(float dt) {
@@ -285,6 +288,10 @@ void Map::doLoadMap(const std::string& file) {
     else {
         // TODO - load map
     }
+}
+
+void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
+    BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
 }
 
 } // namespace page
