@@ -156,6 +156,7 @@ private:
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const bl::gui::Renderer& renderer) const override;
     virtual bool handleScroll(const bl::gui::Action& scroll) override;
+    virtual void update(float dt) override;
 
     class SetNameAction;
     class SetPlaylistAction;

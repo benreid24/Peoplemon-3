@@ -12,13 +12,26 @@ EditMap::Ptr EditMap::create(const ClickCb& clickCb, core::system::Systems& syst
     return Ptr(new EditMap(clickCb, systems));
 }
 
-EditMap::EditMap(const ClickCb& clickCb, core::system::Systems& s)
+EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
-, clickCb(clickCb)
+, clickCb(cb)
 , changedSinceSave(false)
 , camera(EditCamera::Ptr(new EditCamera())) {
     systems = &s;
+    getSignal(bl::gui::Action::LeftClicked)
+        .willAlwaysCall([this](const bl::gui::Action& a, Element*) {
+            static const float PixelRatio =
+                1.f / static_cast<float>(core::Properties::PixelsPerTile());
+
+            sf::Vector2f localPos =
+                a.position - sf::Vector2f(getAcquisition().left, getAcquisition().top);
+            localPos *= systems->cameras().activeCamera()->getSize();
+            const sf::Vector2f pixels = localPos + systems->cameras().activeCamera()->getPosition();
+            const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
+                                     std::floor(pixels.y * PixelRatio));
+            clickCb(pixels, tiles);
+        });
     // TODO - init stuff
 }
 
@@ -63,6 +76,8 @@ bool EditMap::editorLoad(const std::string& file) {
     return true;
 }
 
+void EditMap::update(float dt) { Map::update(*systems, dt); }
+
 EditMap::EditCamera::EditCamera()
 : enabled(true) {}
 
@@ -82,7 +97,9 @@ sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
 void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates states,
                        const bl::gui::Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    target.setView(bl::gui::Container::computeView(oldView, getAcquisition()));
+    sf::View view          = bl::gui::Container::computeView(oldView, getAcquisition());
+    systems->cameras().configureView(*this, view);
+    target.setView(view);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
