@@ -104,7 +104,7 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates states,
     target.setView(oldView);
 }
 
-bool EditMap::handleScroll(const bl::gui::Action& scroll) {
+bool EditMap::handleScroll(const bl::gui::RawEvent& scroll) {
     // TODO
     return true;
 }
