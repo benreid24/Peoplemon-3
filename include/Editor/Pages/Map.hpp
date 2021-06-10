@@ -4,6 +4,7 @@
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
+#include <Editor/Components/EditMap.hpp>
 
 namespace editor
 {
@@ -55,13 +56,14 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
+    component::EditMap::Ptr map;
     Tileset tileset;
     Layers levelPage;
     Layers layerPage;
 
     bl::gui::FilePicker mapPicker;
+    bool makingNewMap;
     void doLoadMap(const std::string& file);
-    void mapLoadCancel();
 };
 
 } // namespace page

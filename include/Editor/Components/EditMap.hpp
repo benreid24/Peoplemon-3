@@ -19,6 +19,8 @@ public:
 
     Ptr create(const ClickCb& cb);
 
+    virtual ~EditMap() = default;
+
     bool unsavedChanges() const;
 
     void newMap(const std::string& filename, const std::string& name, const std::string& tileset,
@@ -28,11 +30,11 @@ public:
 
     bool editorSave();
 
-    const std::string& undoDescription() const;
+    const char* undoDescription() const;
 
     void undo();
 
-    const std::string& redoDescription() const;
+    const char* redoDescription() const;
 
     void redo();
 
@@ -80,9 +82,7 @@ public:
 
     void setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch id);
 
-    void addSpawn(const core::map::Spawn& spawn);
-
-    void editSpawn(const core::map::Spawn& spawn);
+    void setSpawn(const core::map::Spawn& spawn);
 
     void removeSpawn(const sf::Vector2i& position);
 
@@ -123,11 +123,64 @@ public:
     void removeCatchZone(const sf::Vector2i& position);
 
 private:
-    // TODO data and history
+    struct Action {
+        using Ptr = std::shared_ptr<Action>;
 
-    EditMap();
+        virtual ~Action()                                                           = default;
+        virtual bool apply(component::EditMap& map, core::system::Systems& systems) = 0;
+        virtual bool undo(component::EditMap& map, core::system::Systems& systems)  = 0;
+        virtual const char* description() const                                     = 0;
+    };
+    //std::vector<Action::Ptr> history;
+    unsigned int historyHead;
+    void addAction(const Action::Ptr& action);
 
-    // TODO doRender, handleScroll, etc
+    const ClickCb clickCb;
+    bool changedSinceSave;
+
+    EditMap(const ClickCb& cb);
+
+    virtual sf::Vector2i minimumRequisition() const override;
+    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
+                          const bl::gui::Renderer& renderer) const override;
+    virtual bool handleScroll(const bl::gui::Action& scroll) override;
+
+    class SetNameAction;
+    class SetPlaylistAction;
+    class SetWeatherAction;
+    class SetYSortLayerAction;
+    class SetTopLayerAction;
+    class SetEnterScriptAction;
+    class SetExitScriptAction;
+    class SetAmbientLightAction;
+    class AppendLevelAction;
+    class ShiftLevelAction;
+    class RemoveLevelAction;
+    class AppendLayerAction;
+    class ShiftLayerAction;
+    class RemoveLayerAction;
+    class SetTileAction;
+    class SetTileAreaAction;
+    class SetCollisionAction;
+    class SetCollisionAreaAction;
+    class SetCatchAction;
+    class SetCatchAreaAction;
+    class SetSpawnAction;
+    class RemoveSpawnAction;
+    class AddNpcSpawnAction;
+    class EditNpcSpawnAction;
+    class RemoveNpcSpawnAction;
+    class AddItemAction;
+    class EditItemAction;
+    class RemoveItemAction;
+    class SetLightAction;
+    class RemoveLightAction;
+    class AddEventAction;
+    class EditEventAction;
+    class RemoveEventAction;
+    class AddCatchZoneAction;
+    class EditCatchZoneAction;
+    class RemoveCatchZoneAction;
 };
 
 } // namespace component
