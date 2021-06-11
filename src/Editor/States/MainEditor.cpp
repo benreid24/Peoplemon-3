@@ -73,6 +73,10 @@ void MainEditor::deactivate(bl::engine::Engine&) {
 void MainEditor::update(bl::engine::Engine&, float dt) {
     gui->update(dt);
     currentPage->update(dt);
+
+    systems.clock().update(dt);
+    systems.cameras().update(dt);
+    systems.engine().entities().doDestroy();
 }
 
 void MainEditor::render(bl::engine::Engine& engine, float) {

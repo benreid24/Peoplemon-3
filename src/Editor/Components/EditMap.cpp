@@ -17,20 +17,24 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 , Map()
 , clickCb(cb)
 , camera(EditCamera::Ptr(new EditCamera()))
-, changedSinceSave(false) {
+, changedSinceSave(false)
+, controlsEnabled(false) {
     systems = &s;
     getSignal(bl::gui::Action::LeftClicked)
         .willAlwaysCall([this](const bl::gui::Action& a, Element*) {
-            static const float PixelRatio =
-                1.f / static_cast<float>(core::Properties::PixelsPerTile());
+            if (controlsEnabled) {
+                static const float PixelRatio =
+                    1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
-            sf::Vector2f localPos =
-                a.position - sf::Vector2f(getAcquisition().left, getAcquisition().top);
-            localPos *= systems->cameras().activeCamera()->getSize();
-            const sf::Vector2f pixels = localPos + systems->cameras().activeCamera()->getPosition();
-            const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
-                                     std::floor(pixels.y * PixelRatio));
-            clickCb(pixels, tiles);
+                sf::Vector2f localPos =
+                    a.position - sf::Vector2f(getAcquisition().left, getAcquisition().top);
+                localPos *= systems->cameras().activeCamera()->getSize();
+                const sf::Vector2f pixels =
+                    localPos + systems->cameras().activeCamera()->getPosition();
+                const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
+                                         std::floor(pixels.y * PixelRatio));
+                clickCb(pixels, tiles);
+            }
         });
     // TODO - init stuff
 }
@@ -78,13 +82,32 @@ bool EditMap::editorLoad(const std::string& file) {
 
 void EditMap::update(float dt) { Map::update(*systems, dt); }
 
+void EditMap::setControlsEnabled(bool e) {
+    controlsEnabled = e;
+    camera->enabled = e;
+}
+
 EditMap::EditCamera::EditCamera()
 : enabled(true) {}
 
 bool EditMap::EditCamera::valid() const { return true; }
 
-void EditMap::EditCamera::update(core::system::Systems&, float) {
-    // TODO - move and stuff
+void EditMap::EditCamera::update(core::system::Systems&, float dt) {
+    if (enabled) {
+        const float PixelsPerSecond =
+            0.5f * size * static_cast<float>(core::Properties::WindowWidth());
+        static const float ZoomPerSecond = 0.5f;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { position.y -= PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { position.x += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { position.y += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { position.x -= PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+            size -= ZoomPerSecond * dt;
+            if (size < 0.1f) size = 0.1f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { size += ZoomPerSecond * dt; }
+    }
 }
 
 void EditMap::EditCamera::reset(const sf::Vector2i& t) {

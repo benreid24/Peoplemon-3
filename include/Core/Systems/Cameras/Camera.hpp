@@ -58,6 +58,15 @@ public:
      */
     float getSize() const;
 
+    /**
+     * @brief Sets the center and size of the given view based on the camera's position and size.
+     *        Constrains the position of the view as best as possible to stay within the render area
+     *
+     * @param view The view to update
+     * @param renderArea The size of the area being rendered
+     */
+    void configureView(sf::View& view, const sf::Vector2f& renderArea);
+
 protected:
     sf::Vector2f position;
     float size;

@@ -64,6 +64,12 @@ public:
     bl::engine::Engine& engine();
 
     /**
+     * @brief Accessor for the in game clock
+     *
+     */
+    Clock& clock();
+
+    /**
      * @brief Const accessor for the in game clock
      *
      */

@@ -47,6 +47,8 @@ const bl::engine::Engine& Systems::engine() const { return _engine; }
 
 bl::engine::Engine& Systems::engine() { return _engine; }
 
+Clock& Systems::clock() { return _clock; }
+
 const Clock& Systems::clock() const { return _clock; }
 
 World& Systems::world() { return _world; }

@@ -39,6 +39,8 @@ public:
 
     void redo();
 
+    void setControlsEnabled(bool enabled);
+
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
     void setName(const std::string& name);
@@ -149,6 +151,7 @@ private:
     const ClickCb clickCb;
     EditCamera::Ptr camera;
     bool changedSinceSave;
+    bool controlsEnabled;
 
     EditMap(const ClickCb& cb, core::system::Systems& systems);
 

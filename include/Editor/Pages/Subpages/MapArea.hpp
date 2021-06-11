@@ -16,11 +16,12 @@ public:
     bl::gui::Element::Ptr getContent();
 
 private:
+    bl::gui::Box::Ptr content;
     component::EditMap::Ptr map;
     // TODO - controls? enable control, reset zoom, etc
 };
 
-}
-}
+} // namespace page
+} // namespace editor
 
 #endif
