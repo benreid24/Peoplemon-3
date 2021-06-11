@@ -108,11 +108,11 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation();
 
-        if (!owner.engine().entities().addComponent<component::Trainer>(entity,
+        /*if (!owner.engine().entities().addComponent<component::Trainer>(entity,
                                                                         component::Trainer(data))) {
             BL_LOG_ERROR << "Failed to add trainer component to entity: " << entity;
             return false;
-        }
+        }*/
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();
