@@ -50,7 +50,7 @@ public:
         if (!input.read(ambientLight)) return false;
         const bool sunlight = ambientLight == 255;
         result.lightingSystem().adjustForSunlight(sunlight);
-        result.lightingSystem().setAmbientLevel(75, sunlight ? 255 : ambientLight);
+        result.lightingSystem().setAmbientLevel(75, sunlight ? 255 : 255 - ambientLight);
         result.lightingSystem().legacyResize({static_cast<int>(width), static_cast<int>(height)});
 
         std::uint16_t catchZoneCount;
