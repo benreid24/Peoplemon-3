@@ -23,13 +23,17 @@ Map::Map(core::system::Systems& s)
     bl::gui::Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr newMapBut = Button::create("New Map");
     newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
-        makingNewMap = true;
-        mapPicker.open(FilePicker::CreateNew, "New map", parent);
+        if (checkUnsaved()) {
+            makingNewMap = true;
+            mapPicker.open(FilePicker::CreateNew, "New map", parent);
+        }
     });
     bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
-        makingNewMap = false;
-        mapPicker.open(FilePicker::PickExisting, "Load map", parent);
+        if (checkUnsaved()) {
+            makingNewMap = false;
+            mapPicker.open(FilePicker::PickExisting, "Load map", parent);
+        }
     });
     bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
     mapCtrlBox->pack(newMapBut);
@@ -286,12 +290,31 @@ void Map::doLoadMap(const std::string& file) {
         // TODO - new map
     }
     else {
-        // TODO - load map
+        if (!mapArea.editMap().editorLoad(file)) {
+            bl::dialog::tinyfd_messageBox("Error Loading Map",
+                                          std::string("Failed to load map: " + file).c_str(),
+                                          "ok",
+                                          "error",
+                                          1);
+        }
     }
 }
 
 void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
     BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
+}
+
+bool Map::checkUnsaved() {
+    if (mapArea.editMap().unsavedChanges()) {
+        return bl::dialog::tinyfd_messageBox(
+                   "Unsaved Changes",
+                   std::string(mapArea.editMap().name() + " has unsaved changes, discard them?")
+                       .c_str(),
+                   "yesno",
+                   "warning",
+                   0) == 1;
+    }
+    return true;
 }
 
 } // namespace page

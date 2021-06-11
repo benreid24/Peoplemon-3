@@ -259,6 +259,8 @@ protected:
     bool activated; // for weather continuity
     mutable sf::IntRect renderRange;
 
+    void clear();
+
     friend class loaders::LegacyMapLoader;
 };
 

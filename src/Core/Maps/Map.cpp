@@ -466,6 +466,7 @@ void Map::render(sf::RenderTarget& target, float residual,
 
 bool Map::load(const std::string& file) {
     BL_LOG_INFO << "Loading map " << file;
+    renderRange = sf::IntRect(0, 0, 1, 1);
 
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
@@ -661,6 +662,18 @@ bool Map::interact(bl::entity::Entity interactor, const component::Position& pos
     }
 
     return false;
+}
+
+void Map::clear() {
+    levelsField.getValue().clear();
+    spawnField.getValue().clear();
+    characterField.getValue().clear();
+    itemsField.getValue().clear();
+    eventsField.getValue().clear();
+    lightingSystem().clear();
+    catchZonesField.getValue().clear();
+    transitionField.getValue().clear();
+    eventRegions.clear();
 }
 
 } // namespace map

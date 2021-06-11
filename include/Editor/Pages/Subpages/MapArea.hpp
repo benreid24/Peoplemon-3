@@ -18,7 +18,6 @@ public:
 private:
     bl::gui::Box::Ptr content;
     component::EditMap::Ptr map;
-    // TODO - controls? enable control, reset zoom, etc
 };
 
 } // namespace page

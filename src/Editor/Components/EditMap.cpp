@@ -40,8 +40,18 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 }
 
 bool EditMap::editorLoad(const std::string& file) {
+    if (!doLoad(file)) {
+        doLoad(savefile);
+        return false;
+    }
+    savefile = file;
+    return true;
+}
+
+bool EditMap::doLoad(const std::string& file) {
     changedSinceSave = false;
 
+    clear();
     systems->engine().entities().clear();
     if (!Map::load(file)) return false;
 
@@ -66,7 +76,10 @@ bool EditMap::editorLoad(const std::string& file) {
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);
 
-    lighting.subscribe(systems->engine().eventBus());
+    if (!activated) {
+        activated = true;
+        lighting.subscribe(systems->engine().eventBus());
+    }
 
     for (const core::map::CharacterSpawn& spawn : characterField.getValue()) {
         if (!systems->entity().spawnCharacter(spawn)) {
@@ -79,6 +92,8 @@ bool EditMap::editorLoad(const std::string& file) {
     systems->engine().eventBus().dispatch<core::event::MapEntered>({*this});
     return true;
 }
+
+bool EditMap::unsavedChanges() const { return changedSinceSave; }
 
 void EditMap::update(float dt) { Map::update(*systems, dt); }
 

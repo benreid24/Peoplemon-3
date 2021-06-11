@@ -152,8 +152,10 @@ private:
     EditCamera::Ptr camera;
     bool changedSinceSave;
     bool controlsEnabled;
+    std::string savefile;
 
     EditMap(const ClickCb& cb, core::system::Systems& systems);
+    bool doLoad(const std::string& file);
 
     virtual sf::Vector2i minimumRequisition() const override;
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
