@@ -258,6 +258,7 @@ protected:
 
     bool activated; // for weather continuity
     mutable sf::IntRect renderRange;
+    mutable sf::RectangleShape cover;
 
     void clear();
 

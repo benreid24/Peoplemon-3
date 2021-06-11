@@ -276,7 +276,9 @@ Map::Map()
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
 , eventRegions(100.f, 100.f, 100.f, 100.f)
-, activated(false) {}
+, activated(false) {
+    cover.setFillColor(sf::Color::Black);
+}
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
@@ -414,6 +416,12 @@ void Map::update(system::Systems& systems, float dt) {
 // TODO - special editor rendering for hiding levels and layers
 void Map::render(sf::RenderTarget& target, float residual,
                  const EntityRenderCallback& entityCb) const {
+    const sf::View& view = target.getView();
+    cover.setPosition(view.getCenter());
+    cover.setSize(view.getSize());
+    cover.setOrigin(view.getSize() * 0.5f);
+    target.draw(cover, {sf::BlendNone});
+
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 

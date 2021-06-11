@@ -305,6 +305,7 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
 }
 
 bool Map::checkUnsaved() {
+    BL_LOG_INFO << "checking unsaved";
     if (mapArea.editMap().unsavedChanges()) {
         return bl::dialog::tinyfd_messageBox(
                    "Unsaved Changes",
@@ -314,6 +315,7 @@ bool Map::checkUnsaved() {
                    "warning",
                    0) == 1;
     }
+    BL_LOG_INFO << "no dirty";
     return true;
 }
 

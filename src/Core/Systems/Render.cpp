@@ -45,7 +45,6 @@ void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
         }
     };
 
-    // TODO - what color to clear to? leave to caller? parameter?
     map.render(target, lag, entityRender);
     owner.hud().render(target, lag);
 
