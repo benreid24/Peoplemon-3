@@ -413,7 +413,6 @@ void Map::update(system::Systems& systems, float dt) {
     weather.update(systems, dt);
 }
 
-// TODO - special editor rendering for hiding levels and layers
 void Map::render(sf::RenderTarget& target, float residual,
                  const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();

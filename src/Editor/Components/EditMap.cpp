@@ -29,8 +29,8 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
                 sf::Vector2f localPos =
                     a.position - sf::Vector2f(getAcquisition().left, getAcquisition().top);
                 localPos *= systems->cameras().activeCamera()->getSize();
-                const sf::Vector2f pixels =
-                    localPos + systems->cameras().activeCamera()->getPosition();
+                // TODO - need to convert to tiles BEFORE shifting but after scaling
+                const sf::Vector2f pixels = localPos + viewCorner;
                 const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                          std::floor(pixels.y * PixelRatio));
                 clickCb(pixels, tiles);
@@ -109,9 +109,10 @@ bool EditMap::EditCamera::valid() const { return true; }
 
 void EditMap::EditCamera::update(core::system::Systems&, float dt) {
     if (enabled) {
-        const float PixelsPerSecond =
-            0.5f * size * static_cast<float>(core::Properties::WindowWidth());
+        float PixelsPerSecond = 0.5f * size * static_cast<float>(core::Properties::WindowWidth());
         static const float ZoomPerSecond = 0.5f;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) PixelsPerSecond *= 5.f;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { position.y -= PixelsPerSecond * dt; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { position.x += PixelsPerSecond * dt; }
@@ -136,6 +137,7 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui
     const sf::View oldView = target.getView();
     sf::View view          = bl::gui::Container::computeView(oldView, getAcquisition());
     systems->cameras().configureView(*this, view);
+    viewCorner = view.getCenter() - view.getSize() * 0.5f;
     target.setView(view);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
