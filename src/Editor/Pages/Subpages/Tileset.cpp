@@ -96,7 +96,21 @@ void Tileset::updateGui() {
     }
 
     // animations
-    // TODO
+    group = nullptr;
+    for (const auto& pair : tileset->getAnims()) {
+        Animation::Ptr anim = Animation::create(pair.second);
+        anim->scaleToSize({56, 56});
+        component::HighlightRadioButton::Ptr button =
+            component::HighlightRadioButton::create(anim, group);
+        button->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, pair](const Action&, Element*) { activeAnim = pair.first; });
+        if (!group) {
+            activeTile = pair.first;
+            button->setValue(true);
+        }
+        group = button->getRadioGroup();
+        animsBox->pack(button);
+    }
 }
 
 } // namespace page
