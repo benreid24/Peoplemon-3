@@ -27,6 +27,14 @@ public:
     Tileset();
 
     /**
+     * @brief Loads the given tileset and updates the GUI elements
+     *
+     * @param tileset The path to the tileset to load
+     * @return True on success, false on error
+     */
+    bool loadTileset(const std::string& tileset);
+
+    /**
      * @brief Returns the gui element to pack
      *
      */
@@ -57,6 +65,8 @@ public:
     core::map::Collision getActiveCollision() const;
 
 private:
+    bl::resource::Resource<core::map::Tileset>::Ref tileset;
+
     bl::gui::Notebook::Ptr content;
     bl::gui::Box::Ptr tilesBox;
     bl::gui::Box::Ptr animsBox;
@@ -65,6 +75,10 @@ private:
     Catchables catchables;
 
     Active tool;
+    core::map::Tile::IdType activeTile;
+    core::map::Tile::IdType activeAnim;
+
+    void updateGui();
 };
 
 } // namespace page

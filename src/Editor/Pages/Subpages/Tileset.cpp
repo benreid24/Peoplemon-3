@@ -1,6 +1,7 @@
 #include <Editor/Pages/Subpages/Tileset.hpp>
 
 #include <BLIB/Engine.hpp>
+#include <Core/Resources.hpp>
 
 namespace editor
 {
@@ -9,7 +10,9 @@ namespace page
 using namespace bl::gui;
 
 Tileset::Tileset()
-: tool(Active::Tiles) {
+: tool(Active::Tiles)
+, activeTile(core::map::Tile::Blank)
+, activeAnim(core::map::Tile::Blank) {
     content = Notebook::create("tileset");
 
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -25,15 +28,6 @@ Tileset::Tileset()
 
     tilesBox               = Box::create(GridPacker::createDynamicGrid(GridPacker::Rows, 300, 10));
     ScrollArea::Ptr scroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical));
-    auto txtr = bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data;
-    RadioButton::Group* group = nullptr;
-    for (unsigned int i = 0; i < 57; ++i) {
-        Image::Ptr img = Image::create(txtr);
-        img->scaleToSize({56, 56});
-        RadioButton::Ptr button = RadioButton::create(img, group); // TODO - special button
-        group                   = button->getRadioGroup();
-        tilesBox->pack(button);
-    }
     scroll->pack(tilesBox, true, true);
     tilePage->pack(scroll, true, true);
 
@@ -46,8 +40,9 @@ Tileset::Tileset()
     animButBox->pack(delAnimBut);
     animPage->pack(animButBox);
 
-    animsBox = Box::create(LinePacker::create(LinePacker::Vertical)); // TODO - grid packer
-    animsBox->pack(Label::create("Animations will go here in a grid"), true, true);
+    animsBox = Box::create(GridPacker::createDynamicGrid(GridPacker::Rows, 300, 10));
+    scroll   = ScrollArea::create(LinePacker::create(LinePacker::Vertical));
+    scroll->pack(animsBox, true, true);
     animPage->pack(animsBox, true, true);
 
     content->addPage("tile", "Tiles", tilePage, [this]() { tool = Active::Tiles; });
@@ -56,20 +51,50 @@ Tileset::Tileset()
         "col", "Collisions", collisions.getContent(), [this]() { tool = Active::CollisionTiles; });
     content->addPage(
         "catch", "Catch Tiles", catchables.getContent(), [this]() { tool = Active::CatchTiles; });
+
+    loadTileset("Worldtileset.tlst");
 }
 
 Element::Ptr Tileset::getContent() { return content; }
 
 Tileset::Active Tileset::getActiveTool() const { return tool; }
 
-core::map::Tile::IdType Tileset::getActiveTile() const {
-    // TODO - track
-    return core::map::Tile::Blank;
+core::map::Tile::IdType Tileset::getActiveTile() const { return activeTile; }
+
+core::map::Tile::IdType Tileset::getActiveAnim() const { return activeAnim; }
+
+bool Tileset::loadTileset(const std::string& file) {
+    auto newTileset = core::Resources::tilesets().load(file).data;
+    if (!newTileset) return false;
+    if (newTileset.get() != tileset.get()) {
+        tileset = newTileset;
+        updateGui();
+    }
+    return true;
 }
 
-core::map::Tile::IdType Tileset::getActiveAnim() const {
-    // TODO - track
-    return core::map::Tile::Blank;
+void Tileset::updateGui() {
+    tilesBox->clearChildren(true);
+    animsBox->clearChildren(true);
+
+    // tiles
+    RadioButton::Group* group = nullptr;
+    for (const auto& pair : tileset->getTiles()) {
+        Image::Ptr img = Image::create(pair.second);
+        img->scaleToSize({56, 56});
+        RadioButton::Ptr button = RadioButton::create(img, group); // TODO - special button
+        button->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, pair](const Action&, Element*) { activeTile = pair.first; });
+        if (!group) {
+            activeTile = pair.first;
+            button->setValue(true);
+        }
+        group = button->getRadioGroup();
+        tilesBox->pack(button);
+    }
+
+    // animations
+    // TODO
 }
 
 } // namespace page

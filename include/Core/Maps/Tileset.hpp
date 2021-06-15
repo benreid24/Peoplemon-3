@@ -44,6 +44,10 @@ class PrimaryTilesetLoader;
  */
 class Tileset : private bl::file::binary::SerializableObject {
 public:
+    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref>;
+    using AnimStore =
+        std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref>;
+
     /**
      * @brief Creates an empty Tileset
      *
@@ -136,6 +140,18 @@ public:
      */
     void update(float dt);
 
+    /**
+     * @brief Returns all contained tiles
+     *
+     */
+    const TileStore& getTiles() const;
+
+    /**
+     * @brief Returns all contained animations
+     *
+     */
+    const AnimStore& getAnims() const;
+
 private:
     bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>
         textureFiles;
@@ -143,8 +159,8 @@ private:
     Tile::IdType nextTextureId;
     Tile::IdType nextAnimationId;
 
-    std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref> textures;
-    std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref> anims;
+    TileStore textures;
+    AnimStore anims;
     std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
 
     void initializeTile(Tile& tile);

@@ -209,5 +209,9 @@ bool Tileset::save(const std::string& file) const {
     return loader.write(output, *this);
 }
 
+const Tileset::TileStore& Tileset::getTiles() const { return textures; }
+
+const Tileset::AnimStore& Tileset::getAnims() const { return anims; }
+
 } // namespace map
 } // namespace core
