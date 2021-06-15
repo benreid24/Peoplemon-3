@@ -61,10 +61,10 @@ private:
     bl::gui::Box::Ptr tilesBox;
     bl::gui::Box::Ptr animsBox;
 
-    // TODO - radio button image buttons for tiles/anims
-
     Collisions collisions;
     Catchables catchables;
+
+    Active tool;
 };
 
 } // namespace page

@@ -1,5 +1,6 @@
 #include <Editor/Components/EditMap.hpp>
 
+#include "MapActions.hpp"
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -15,6 +16,7 @@ EditMap::Ptr EditMap::create(const ClickCb& clickCb, core::system::Systems& syst
 EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
+, historyHead(0)
 , clickCb(cb)
 , camera(EditCamera::Ptr(new EditCamera()))
 , changedSinceSave(false)
@@ -30,7 +32,8 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
                 const float ax = windowSize.x * renderView.getViewport().left;
                 const float ay = windowSize.y * renderView.getViewport().top;
 
-                sf::Vector2f localPos = a.position + sf::Vector2f(ax, ay);
+                const sf::Vector2f offset(getAcquisition().left, getAcquisition().top);
+                sf::Vector2f localPos = a.position + sf::Vector2f(ax, ay) - offset;
                 const sf::Vector2f pixels =
                     s.engine().window().mapPixelToCoords(sf::Vector2i(localPos), renderView);
                 const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
@@ -147,6 +150,44 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui
 bool EditMap::handleScroll(const bl::gui::RawEvent&) {
     // TODO
     return true;
+}
+
+void EditMap::undo() {
+    if (!history.empty() && historyHead > 0) {
+        history[historyHead - 1]->undo(*this);
+        --historyHead;
+    }
+}
+
+const char* EditMap::undoDescription() const {
+    if (!history.empty()) return history[historyHead - 1]->description();
+    return "";
+}
+
+void EditMap::redo() {
+    if (historyHead != history.size()) {
+        history[historyHead]->apply(*this);
+        ++historyHead;
+    }
+}
+
+const char* EditMap::redoDescription() const {
+    if (historyHead != history.size()) return history[historyHead]->description();
+    return "";
+}
+
+void EditMap::addAction(const Action::Ptr& a) {
+    if (historyHead < history.size()) {
+        history.erase(history.begin() + historyHead, history.end());
+    }
+
+    history.emplace_back(a);
+    history.back()->apply(*this);
+}
+
+void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,
+                      core::map::Tile::IdType id, bool isAnim) {
+    addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));
 }
 
 } // namespace component

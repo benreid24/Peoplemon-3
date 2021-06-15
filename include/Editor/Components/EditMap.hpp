@@ -129,10 +129,10 @@ private:
     struct Action {
         using Ptr = std::shared_ptr<Action>;
 
-        virtual ~Action()                                                           = default;
-        virtual bool apply(component::EditMap& map, core::system::Systems& systems) = 0;
-        virtual bool undo(component::EditMap& map, core::system::Systems& systems)  = 0;
-        virtual const char* description() const                                     = 0;
+        virtual ~Action()                           = default;
+        virtual bool apply(component::EditMap& map) = 0;
+        virtual bool undo(component::EditMap& map)  = 0;
+        virtual const char* description() const     = 0;
     };
     std::vector<Action::Ptr> history;
     unsigned int historyHead;

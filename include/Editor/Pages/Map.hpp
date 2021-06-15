@@ -59,6 +59,19 @@ private:
     Layers levelPage;
     Layers layerPage;
 
+    enum struct Tool {
+        Metadata,
+        MapEdit,
+        Spawns,
+        NPCs,
+        Items,
+        Lights,
+        Scripts,
+        Peoplemon
+    } activeTool;
+
+    enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
+
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;
     void doLoadMap(const std::string& file);

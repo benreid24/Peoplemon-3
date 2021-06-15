@@ -90,6 +90,10 @@ std::vector<TileLayer>& LayerSet::ysortLayers() { return ysort.getValue(); }
 
 std::vector<TileLayer>& LayerSet::topLayers() { return top.getValue(); }
 
+unsigned int LayerSet::layerCount() const {
+    return bottom.getValue().size() + ysort.getValue().size() + top.getValue().size();
+}
+
 const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
 void LayerSet::update(const sf::IntRect& area, float dt) {

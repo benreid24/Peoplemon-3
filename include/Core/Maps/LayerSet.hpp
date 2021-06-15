@@ -142,6 +142,12 @@ public:
     std::vector<TileLayer>& topLayers();
 
     /**
+     * @brief Returns the total number of layers contained
+     *
+     */
+    unsigned int layerCount() const;
+
+    /**
      * @brief Updates tiles in the layer set
      *
      * @param area The area of the map to update

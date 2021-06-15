@@ -99,7 +99,7 @@ public:
 
     /**
      * @brief Returns the height of the requested tile, in pixels
-     * 
+     *
      * @param id The id of the tile
      * @param isAnim True for animation, false for sprite
      * @return unsigned int The height of the tile in pixels, or 0 if not found

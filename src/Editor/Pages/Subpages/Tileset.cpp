@@ -8,7 +8,8 @@ namespace page
 {
 using namespace bl::gui;
 
-Tileset::Tileset() {
+Tileset::Tileset()
+: tool(Active::Tiles) {
     content = Notebook::create("tileset");
 
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -49,13 +50,27 @@ Tileset::Tileset() {
     animsBox->pack(Label::create("Animations will go here in a grid"), true, true);
     animPage->pack(animsBox, true, true);
 
-    content->addPage("tile", "Tiles", tilePage);
-    content->addPage("anim", "Animations", animPage);
-    content->addPage("col", "Collisions", collisions.getContent());
-    content->addPage("catch", "Catch Tiles", catchables.getContent());
+    content->addPage("tile", "Tiles", tilePage, [this]() { tool = Active::Tiles; });
+    content->addPage("anim", "Animations", animPage, [this]() { tool = Active::Animations; });
+    content->addPage(
+        "col", "Collisions", collisions.getContent(), [this]() { tool = Active::CollisionTiles; });
+    content->addPage(
+        "catch", "Catch Tiles", catchables.getContent(), [this]() { tool = Active::CatchTiles; });
 }
 
 Element::Ptr Tileset::getContent() { return content; }
+
+Tileset::Active Tileset::getActiveTool() const { return tool; }
+
+core::map::Tile::IdType Tileset::getActiveTile() const {
+    // TODO - track
+    return core::map::Tile::Blank;
+}
+
+core::map::Tile::IdType Tileset::getActiveAnim() const {
+    // TODO - track
+    return core::map::Tile::Blank;
+}
 
 } // namespace page
 } // namespace editor

@@ -44,6 +44,7 @@ else()
     target_compile_options(Core PUBLIC -Wall -Wextra -pedantic -Werror)
     target_compile_options(Peoplemon PUBLIC -Wall -Wextra -pedantic -Werror)
     target_compile_options(PeoplemonEditor PUBLIC -Wall -Wextra -pedantic -Werror)
+    target_compile_options(PeoplemonEditor PUBLIC -Wno-switch)
 endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")

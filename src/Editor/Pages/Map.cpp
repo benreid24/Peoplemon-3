@@ -13,6 +13,8 @@ Map::Map(core::system::Systems& s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); }, s)
 , levelPage(Layers::Level)
 , layerPage(Layers::Layer)
+, activeTool(Tool::Metadata)
+, activeSubtool(Subtool::Set)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},
             std::bind(&Map::doLoadMap, this, std::placeholders::_1),
             [this]() { mapPicker.close(); }) {
@@ -60,12 +62,12 @@ Map::Map(core::system::Systems& s)
     tileBox->pack(box, true, false);
 
     box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set");
+    bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
     tileSetBut->setValue(true);
     bl::gui::RadioButton::Ptr tileClearBut =
-        RadioButton::create("Clear", tileSetBut->getRadioGroup());
+        RadioButton::create("Clear", tileSetBut->getRadioGroup(), "clear");
     bl::gui::RadioButton::Ptr tileSelectBut =
-        RadioButton::create("Select", tileSetBut->getRadioGroup());
+        RadioButton::create("Select", tileSetBut->getRadioGroup(), "select");
     bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
@@ -254,15 +256,31 @@ Map::Map(core::system::Systems& s)
         layerPage.unpack();
         levelPage.unpack();
     };
-    const auto editOpened = [this, editBook]() {
-        if (editBook->getActivePageName() == "layers")
+
+    RadioButton::Group* tilesetButGroup = tileSetBut->getRadioGroup();
+    const auto editOpened               = [this, editBook, tilesetButGroup]() {
+        activeTool    = Tool::MapEdit;
+        activeSubtool = Subtool::None;
+
+        if (editBook->getActivePageName() == "tiles") {
+            if (tilesetButGroup->getActiveButton()->group() == "set") {
+                activeSubtool = Subtool::Set;
+            }
+            else if (tilesetButGroup->getActiveButton()->group() == "clear") {
+                activeSubtool = Subtool::Clear;
+            }
+            else if (tilesetButGroup->getActiveButton()->group() == "select") {
+                activeSubtool = Subtool::Select;
+            }
+        }
+        else if (editBook->getActivePageName() == "layers")
             layerPage.pack();
         else if (editBook->getActivePageName() == "levels")
             levelPage.pack();
     };
 
     bl::gui::Notebook::Ptr controlBook = Notebook::create("maps");
-    controlBook->addPage("map", "Map", infoBox);
+    controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
     controlBook->addPage("events", "Scripts", eventBox);
@@ -302,6 +320,63 @@ void Map::doLoadMap(const std::string& file) {
 
 void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
     BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
+
+    switch (activeTool) {
+    case Tool::MapEdit:
+        switch (activeSubtool) {
+        case Subtool::Set:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                          layerSelect->getSelectedOption(),
+                                          tiles,
+                                          tileset.getActiveTile(),
+                                          false);
+                break;
+            case Tileset::Animations:
+                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                          layerSelect->getSelectedOption(),
+                                          tiles,
+                                          tileset.getActiveTile(),
+                                          true);
+                break;
+            case Tileset::CollisionTiles:
+                // TODO
+                break;
+            case Tileset::CatchTiles:
+                // TODO
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Clear:
+            switch (tileset.getActiveTool()) {
+                // TODO
+            }
+            break;
+
+        case Subtool::Select:
+            switch (tileset.getActiveTool()) {
+                // TODO
+            }
+            break;
+
+        default:
+            break;
+        }
+
+    case Tool::Items:
+    case Tool::Lights:
+    case Tool::NPCs:
+    case Tool::Peoplemon:
+    case Tool::Scripts:
+    case Tool::Spawns:
+    case Tool::Metadata:
+    default:
+        break;
+    }
 }
 
 bool Map::checkUnsaved() {
