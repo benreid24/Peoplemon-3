@@ -21,16 +21,19 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 , controlsEnabled(false) {
     systems = &s;
     getSignal(bl::gui::Action::LeftClicked)
-        .willAlwaysCall([this](const bl::gui::Action& a, Element*) {
+        .willAlwaysCall([this, &s](const bl::gui::Action& a, Element*) {
             if (controlsEnabled) {
                 static const float PixelRatio =
                     1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
+                // 0, 25???
+                BL_LOG_INFO << getAcquisition().left << ", " << getAcquisition().top;
                 sf::Vector2f localPos =
-                    a.position - sf::Vector2f(getAcquisition().left, getAcquisition().top);
-                localPos *= systems->cameras().activeCamera()->getSize();
-                // TODO - need to convert to tiles BEFORE shifting but after scaling
-                const sf::Vector2f pixels = localPos + viewCorner;
+                    a.position + sf::Vector2f(-getAcquisition().left, getAcquisition().top);
+                // localPos /= systems->cameras().activeCamera()->getSize();
+
+                const sf::Vector2f pixels =
+                    s.engine().window().mapPixelToCoords(sf::Vector2i(localPos), renderView);
                 const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                          std::floor(pixels.y * PixelRatio));
                 clickCb(pixels, tiles);
@@ -135,10 +138,9 @@ sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
 
 void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
     const sf::View oldView = target.getView();
-    sf::View view          = bl::gui::Container::computeView(oldView, getAcquisition());
-    systems->cameras().configureView(*this, view);
-    viewCorner = view.getCenter() - view.getSize() * 0.5f;
-    target.setView(view);
+    renderView             = bl::gui::Container::computeView(oldView, getAcquisition());
+    systems->cameras().configureView(*this, renderView);
+    target.setView(renderView);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }

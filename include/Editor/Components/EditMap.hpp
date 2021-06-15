@@ -153,7 +153,7 @@ private:
     bool changedSinceSave;
     bool controlsEnabled;
     std::string savefile;
-    mutable sf::Vector2f viewCorner;
+    mutable sf::View renderView;
 
     EditMap(const ClickCb& cb, core::system::Systems& systems);
     bool doLoad(const std::string& file);

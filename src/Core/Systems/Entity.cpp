@@ -82,10 +82,10 @@ bool Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation();
 
-        if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
+        /*if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
             BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
             return false;
-        }
+        }*/
     }
 
     // Trainer
