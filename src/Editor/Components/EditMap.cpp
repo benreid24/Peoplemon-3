@@ -26,12 +26,11 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
                 static const float PixelRatio =
                     1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
-                // 0, 25???
-                BL_LOG_INFO << getAcquisition().left << ", " << getAcquisition().top;
-                sf::Vector2f localPos =
-                    a.position + sf::Vector2f(-getAcquisition().left, getAcquisition().top);
-                // localPos /= systems->cameras().activeCamera()->getSize();
+                const sf::Vector2f windowSize(s.engine().window().getSize());
+                const float ax = windowSize.x * renderView.getViewport().left;
+                const float ay = windowSize.y * renderView.getViewport().top;
 
+                sf::Vector2f localPos = a.position + sf::Vector2f(ax, ay);
                 const sf::Vector2f pixels =
                     s.engine().window().mapPixelToCoords(sf::Vector2i(localPos), renderView);
                 const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
