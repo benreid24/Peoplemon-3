@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine.hpp>
 #include <Core/Resources.hpp>
+#include <Editor/Components/HighlightRadioButton.hpp>
 
 namespace editor
 {
@@ -82,7 +83,8 @@ void Tileset::updateGui() {
     for (const auto& pair : tileset->getTiles()) {
         Image::Ptr img = Image::create(pair.second);
         img->scaleToSize({56, 56});
-        RadioButton::Ptr button = RadioButton::create(img, group); // TODO - special button
+        component::HighlightRadioButton::Ptr button =
+            component::HighlightRadioButton::create(img, group);
         button->getSignal(Action::LeftClicked)
             .willAlwaysCall([this, pair](const Action&, Element*) { activeTile = pair.first; });
         if (!group) {
