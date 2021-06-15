@@ -108,7 +108,7 @@ void EditMap::setControlsEnabled(bool e) {
 }
 
 EditMap::EditCamera::EditCamera()
-: enabled(true) {}
+: enabled(false) {}
 
 bool EditMap::EditCamera::valid() const { return true; }
 
@@ -119,21 +119,35 @@ void EditMap::EditCamera::update(core::system::Systems&, float dt) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) PixelsPerSecond *= 5.f;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) { position.y -= PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) { position.x += PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) { position.y += PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) { position.x -= PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-            size -= ZoomPerSecond * dt;
-            if (size < 0.1f) size = 0.1f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+            position.y -= PixelsPerSecond * dt;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { size += ZoomPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+            position.x += PixelsPerSecond * dt;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+            position.y += PixelsPerSecond * dt;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
+            sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+            position.x -= PixelsPerSecond * dt;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) { zoom(-ZoomPerSecond * dt); }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom(ZoomPerSecond * dt); }
     }
 }
 
 void EditMap::EditCamera::reset(const sf::Vector2i& t) {
     position = sf::Vector2f(t) * static_cast<float>(core::Properties::PixelsPerTile()) * 0.5f;
     size     = 1.f;
+}
+
+void EditMap::EditCamera::zoom(float z) {
+    size += z;
+    if (size < 0.1f) size = 0.1f;
 }
 
 sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
@@ -147,8 +161,8 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui
     target.setView(oldView);
 }
 
-bool EditMap::handleScroll(const bl::gui::RawEvent&) {
-    // TODO
+bool EditMap::handleScroll(const bl::gui::RawEvent& event) {
+    if (controlsEnabled) camera->zoom(-event.event.mouseWheelScroll.delta * 0.1f);
     return true;
 }
 

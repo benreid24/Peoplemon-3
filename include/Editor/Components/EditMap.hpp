@@ -145,6 +145,7 @@ private:
         virtual bool valid() const override;
         virtual void update(core::system::Systems& s, float dt) override;
         void reset(const sf::Vector2i& size);
+        void zoom(float z);
         bool enabled;
     };
 
