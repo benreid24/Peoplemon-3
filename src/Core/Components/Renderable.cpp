@@ -41,6 +41,7 @@ Renderable Renderable::fromMoveAnims(
 
     mv.anim.setData(*mv.data[0]);
     mv.anim.setIsCentered(false);
+    rc.update(0.f);
 
     return rc;
 }
@@ -83,6 +84,7 @@ Renderable Renderable::fromFastMoveAnims(
 
     mv.anim.setData(*mv.walk[0]);
     mv.anim.setIsCentered(false);
+    rc.update(0.f);
 
     return rc;
 }
