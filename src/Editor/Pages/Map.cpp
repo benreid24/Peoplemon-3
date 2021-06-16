@@ -58,10 +58,19 @@ Map::Map(core::system::Systems& s)
     box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
     tileSetBut->setValue(true);
+    tileSetBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Set;
+    });
     bl::gui::RadioButton::Ptr tileClearBut =
         RadioButton::create("Clear", tileSetBut->getRadioGroup(), "clear");
+    tileClearBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Clear;
+    });
     bl::gui::RadioButton::Ptr tileSelectBut =
         RadioButton::create("Select", tileSetBut->getRadioGroup(), "select");
+    tileSelectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Select;
+    });
     bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
@@ -334,7 +343,7 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
                 mapArea.editMap().setTile(levelSelect->getSelectedOption(),
                                           layerSelect->getSelectedOption(),
                                           tiles,
-                                          tileset.getActiveTile(),
+                                          tileset.getActiveAnim(),
                                           true);
                 break;
             case Tileset::CollisionTiles:
