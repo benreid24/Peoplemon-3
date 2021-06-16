@@ -23,19 +23,13 @@ EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
 , controlsEnabled(false) {
     systems = &s;
     getSignal(bl::gui::Action::LeftClicked)
-        .willAlwaysCall([this, &s](const bl::gui::Action& a, Element*) {
+        .willAlwaysCall([this, &s](const bl::gui::Action&, Element*) {
             if (controlsEnabled) {
                 static const float PixelRatio =
                     1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
-                const sf::Vector2f windowSize(s.engine().window().getSize());
-                const float ax = windowSize.x * renderView.getViewport().left;
-                const float ay = windowSize.y * renderView.getViewport().top;
-
-                const sf::Vector2f offset(getAcquisition().left, getAcquisition().top);
-                sf::Vector2f localPos = a.position + sf::Vector2f(ax, ay) - offset;
-                const sf::Vector2f pixels =
-                    s.engine().window().mapPixelToCoords(sf::Vector2i(localPos), renderView);
+                const sf::Vector2i mouse  = sf::Mouse::getPosition(s.engine().window());
+                const sf::Vector2f pixels = s.engine().window().mapPixelToCoords(mouse, renderView);
                 const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                          std::floor(pixels.y * PixelRatio));
                 clickCb(pixels, tiles);
@@ -115,7 +109,7 @@ bool EditMap::EditCamera::valid() const { return true; }
 void EditMap::EditCamera::update(core::system::Systems&, float dt) {
     if (enabled) {
         float PixelsPerSecond = 0.5f * size * static_cast<float>(core::Properties::WindowWidth());
-        static const float ZoomPerSecond = 0.5f;
+        static const float ZoomPerSecond = 1.f;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) PixelsPerSecond *= 5.f;
 
@@ -155,8 +149,9 @@ sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
 void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
     const sf::View oldView = target.getView();
     renderView             = bl::gui::Container::computeView(oldView, getAcquisition());
+    const sf::View view    = renderView;
     systems->cameras().configureView(*this, renderView);
-    target.setView(renderView);
+    target.setView(view);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
