@@ -155,6 +155,16 @@ public:
      */
     void update(const sf::IntRect& area, float dt);
 
+    /**
+     * @brief Returns a pointer to the pointer to sorted tile
+     *
+     * @param tileset The tileset to use for determining size
+     * @param layer Which sorted layer the tile is in
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     */
+    Tile** getSortedTile(Tileset& tileset, unsigned int layer, unsigned int x, unsigned int y);
+
 private:
     bl::file::binary::SerializableField<1, CollisionLayer> collisions;
     bl::file::binary::SerializableField<2, CatchLayer> catches;

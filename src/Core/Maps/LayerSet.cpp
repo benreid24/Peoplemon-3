@@ -55,16 +55,11 @@ void LayerSet::activate(Tileset& tileset) {
         }
     };
 
-    const auto sortLayer = [&tileset](SortedLayer& sorted, TileLayer& layer) {
+    const auto sortLayer = [this, &tileset](TileLayer& layer, unsigned int l) {
         for (unsigned int x = 0; x < layer.width(); ++x) {
             for (unsigned int y = 0; y < layer.height(); ++y) {
                 if (layer.get(x, y).id() != Tile::Blank) {
-                    const unsigned int pixelHeight =
-                        tileset.tileHeight(layer.get(x, y).id(), layer.get(x, y).isAnimation());
-                    const unsigned int tileHeight = pixelHeight / Properties::PixelsPerTile();
-                    const unsigned int offset     = tileHeight / 2 + 1;
-                    const unsigned int ny         = std::min(y + offset, layer.height() - 1);
-                    sorted(x, ny)                 = &layer.getRef(x, y);
+                    *getSortedTile(tileset, l, x, y) = &layer.getRef(x, y);
                 }
             }
         }
@@ -72,10 +67,11 @@ void LayerSet::activate(Tileset& tileset) {
 
     ysortedLayers.reserve(ysort.getValue().size());
     for (TileLayer& layer : bottomLayers()) { activateLayer(layer); }
-    for (TileLayer& layer : ysortLayers()) {
+    for (unsigned int i = 0; i < ysortLayers().size(); ++i) {
+        TileLayer& layer = ysortLayers()[i];
         activateLayer(layer);
         ysortedLayers.emplace_back(layer.width(), layer.height(), nullptr);
-        sortLayer(ysortedLayers.back(), layer);
+        sortLayer(layer, i);
     }
     for (TileLayer& layer : topLayers()) { activateLayer(layer); }
 }
@@ -108,6 +104,17 @@ void LayerSet::update(const sf::IntRect& area, float dt) {
     for (TileLayer& layer : bottomLayers()) { updateLayer(layer, area, dt); }
     for (TileLayer& layer : ysortLayers()) { updateLayer(layer, area, dt); }
     for (TileLayer& layer : topLayers()) { updateLayer(layer, area, dt); }
+}
+
+Tile** LayerSet::getSortedTile(Tileset& tileset, unsigned int l, unsigned int x, unsigned int y) {
+    TileLayer& layer    = ysortLayers()[l];
+    SortedLayer& sorted = ysortedLayers[l];
+    const unsigned int pixelHeight =
+        tileset.tileHeight(layer.get(x, y).id(), layer.get(x, y).isAnimation());
+    const unsigned int tileHeight = pixelHeight / Properties::PixelsPerTile();
+    const unsigned int offset     = tileHeight / 2 + 1;
+    const unsigned int ny         = std::min(y + offset, layer.height() - 1);
+    return &sorted(x, ny);
 }
 
 } // namespace map
