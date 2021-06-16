@@ -105,7 +105,7 @@ void Tileset::updateGui() {
         button->getSignal(Action::LeftClicked)
             .willAlwaysCall([this, pair](const Action&, Element*) { activeAnim = pair.first; });
         if (!group) {
-            activeTile = pair.first;
+            activeAnim = pair.first;
             button->setValue(true);
         }
         group = button->getRadioGroup();

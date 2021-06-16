@@ -408,6 +408,7 @@ bool Map::checkUnsaved() {
 }
 
 void Map::syncGui() {
+    tileset.loadTileset(mapArea.editMap().tilesetField);
     levelSelect->clearOptions();
     for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
         levelSelect->addOption("Level " + std::to_string(i));
