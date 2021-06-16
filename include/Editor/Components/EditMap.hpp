@@ -8,6 +8,11 @@
 
 namespace editor
 {
+namespace page
+{
+class Map;
+}
+
 namespace component
 {
 class EditMap
@@ -164,6 +169,8 @@ private:
                           const bl::gui::Renderer& renderer) const override;
     virtual bool handleScroll(const bl::gui::RawEvent& scroll) override;
     virtual void update(float dt) override;
+
+    friend class page::Map;
 
     class SetNameAction;
     class SetPlaylistAction;

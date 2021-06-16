@@ -76,8 +76,10 @@ private:
     bool makingNewMap;
     void doLoadMap(const std::string& file);
     bool checkUnsaved();
+    void syncGui();
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
+    void onLevelChange(unsigned int level);
 };
 
 } // namespace page

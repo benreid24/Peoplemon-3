@@ -46,18 +46,12 @@ Map::Map(core::system::Systems& s)
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
     levelSelect = ComboBox::create("maps");
-    levelSelect->addOption("Level 0");
-    levelSelect->addOption("Level 1");
-    levelSelect->setSelectedOption(0);
+    levelSelect->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element* e) {
+        onLevelChange(dynamic_cast<ComboBox*>(e)->getSelectedOption());
+    });
     box->pack(levelSelect, true, true);
 
     layerSelect = ComboBox::create("maps");
-    layerSelect->addOption("Layer 0");
-    layerSelect->addOption("Layer 1");
-    layerSelect->addOption("Layer 2 (ysort)");
-    layerSelect->addOption("Layer 3");
-    layerSelect->addOption("Layer 4 (top)");
-    layerSelect->setSelectedOption(0);
     box->pack(layerSelect, true, true);
     tileBox->pack(box, true, false);
 
@@ -294,6 +288,7 @@ Map::Map(core::system::Systems& s)
     content->pack(mapArea.getContent(), true, true);
 
     mapArea.editMap().editorLoad("WorldMap.map");
+    syncGui();
 }
 
 void Map::update(float) {
@@ -316,6 +311,8 @@ void Map::doLoadMap(const std::string& file) {
                                           1);
         }
     }
+
+    syncGui();
 }
 
 void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
@@ -353,15 +350,33 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
 
         case Subtool::Clear:
             switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                          layerSelect->getSelectedOption(),
+                                          tiles,
+                                          core::map::Tile::Blank,
+                                          false);
+                break;
+            case Tileset::Animations:
+                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                          layerSelect->getSelectedOption(),
+                                          tiles,
+                                          core::map::Tile::Blank,
+                                          false);
+                break;
+            case Tileset::CollisionTiles:
                 // TODO
+                break;
+            case Tileset::CatchTiles:
+                // TODO
+                break;
+            default:
+                break;
             }
             break;
 
         case Subtool::Select:
-            switch (tileset.getActiveTool()) {
-                // TODO
-            }
-            break;
+            // TODO
 
         default:
             break;
@@ -390,6 +405,40 @@ bool Map::checkUnsaved() {
                    0) == 1;
     }
     return true;
+}
+
+void Map::syncGui() {
+    levelSelect->clearOptions();
+    for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
+        levelSelect->addOption("Level " + std::to_string(i));
+    }
+    levelSelect->setSelectedOption(0);
+    onLevelChange(0);
+}
+
+void Map::onLevelChange(unsigned int l) {
+    if (l >= mapArea.editMap().levels.size()) {
+        BL_LOG_ERROR << "Out of range level: " << l;
+        return;
+    }
+
+    auto& level           = mapArea.editMap().levels[l];
+    const unsigned int bc = level.bottomLayers().size();
+    const unsigned int yc = level.ysortLayers().size();
+    const unsigned int tc = level.topLayers().size();
+
+    layerSelect->clearOptions();
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < bc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i));
+    }
+    for (unsigned int j = 0; j < yc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i) + " (ysort)");
+    }
+    for (unsigned int j = 0; j < tc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i));
+    }
+    layerSelect->setSelectedOption(0);
 }
 
 } // namespace page

@@ -9,11 +9,11 @@ namespace
 const core::map::Tile& getTile(std::vector<core::map::LayerSet>& levels, unsigned int level,
                                unsigned int layer, const sf::Vector2i& pos) {
     core::map::LayerSet& l = levels[level];
-    if (layer > l.bottomLayers().size() + l.ysortLayers().size()) {
+    if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
         const unsigned int i = layer - l.ysortLayers().size() - l.bottomLayers().size();
         return l.topLayers()[i].get(pos.x, pos.y);
     }
-    else if (layer > l.bottomLayers().size()) {
+    else if (layer >= l.bottomLayers().size()) {
         const unsigned int i = layer - l.bottomLayers().size();
         return l.topLayers()[i].get(pos.x, pos.y);
     }
@@ -27,11 +27,11 @@ void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset&
                    core::map::Tile::IdType value, bool isAnim) {
     core::map::LayerSet& l = levels[level];
     core::map::Tile* tile;
-    if (layer > l.bottomLayers().size() + l.ysortLayers().size()) {
+    if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
         const unsigned int i = layer - l.ysortLayers().size() - l.bottomLayers().size();
         tile                 = &l.topLayers()[i].getRef(pos.x, pos.y);
     }
-    else if (layer > l.bottomLayers().size()) {
+    else if (layer >= l.bottomLayers().size()) {
         const unsigned int i = layer - l.bottomLayers().size();
         tile                 = &l.ysortLayers()[i].getRef(pos.x, pos.y);
     }
