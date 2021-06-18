@@ -3,6 +3,7 @@
 
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
+#include <Editor/Pages/Subpages/Levels.hpp>
 #include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
 
@@ -56,7 +57,7 @@ private:
 
     MapArea mapArea;
     Tileset tileset;
-    Layers levelPage;
+    Levels levelPage;
     Layers layerPage;
 
     enum struct Tool {

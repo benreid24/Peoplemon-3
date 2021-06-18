@@ -12,8 +12,6 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, levelPage(Layers::Level)
-, layerPage(Layers::Layer)
 , activeTool(Tool::Metadata)
 , activeSubtool(Subtool::Set)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},

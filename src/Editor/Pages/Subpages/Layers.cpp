@@ -6,45 +6,40 @@ namespace page
 {
 using namespace bl::gui;
 
-Layers::Layers(Mode m)
-: mode(m)
-, prefix(m == Layer ? "Layer" : "Level") {
+Layers::Layers() {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
-    if (mode == Layer) {
-        Box::Ptr row =
-            Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-        firstYSortSelect = ComboBox::create();
-        firstYSortSelect->addOption(prefix + " 0");
-        firstYSortSelect->addOption(prefix + " 1");
-        firstYSortSelect->addOption(prefix + " 2");
-        firstYSortSelect->addOption(prefix + " 3");
-        firstYSortSelect->addOption(prefix + " 4");
-        firstYSortSelect->setSelectedOption(0);
-        firstYSortSelect->setHorizontalAlignment(RenderSettings::Left);
-        row->pack(Label::create("First y-sort layer:"));
-        row->pack(firstYSortSelect);
-        content->pack(row, true, false);
+    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
+    firstYSortSelect = ComboBox::create();
+    firstYSortSelect->addOption("Layer 0");
+    firstYSortSelect->addOption("Layer 1");
+    firstYSortSelect->addOption("Layer 2");
+    firstYSortSelect->addOption("Layer 3");
+    firstYSortSelect->addOption("Layer 4");
+    firstYSortSelect->setSelectedOption(0);
+    firstYSortSelect->setHorizontalAlignment(RenderSettings::Left);
+    row->pack(Label::create("First y-sort layer:"));
+    row->pack(firstYSortSelect);
+    content->pack(row, true, false);
 
-        row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-        firstTopSelect = ComboBox::create();
-        firstTopSelect->addOption(prefix + " 0");
-        firstTopSelect->addOption(prefix + " 1");
-        firstTopSelect->addOption(prefix + " 2");
-        firstTopSelect->addOption(prefix + " 3");
-        firstTopSelect->addOption(prefix + " 4");
-        firstTopSelect->setSelectedOption(0);
-        firstTopSelect->setHorizontalAlignment(RenderSettings::Left);
-        row->pack(Label::create("First top layer:"));
-        row->pack(firstTopSelect);
-        content->pack(row, true, false);
-    }
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
+    firstTopSelect = ComboBox::create();
+    firstTopSelect->addOption("Layer 0");
+    firstTopSelect->addOption("Layer 1");
+    firstTopSelect->addOption("Layer 2");
+    firstTopSelect->addOption("Layer 3");
+    firstTopSelect->addOption("Layer 4");
+    firstTopSelect->setSelectedOption(0);
+    firstTopSelect->setHorizontalAlignment(RenderSettings::Left);
+    row->pack(Label::create("First top layer:"));
+    row->pack(firstTopSelect);
+    content->pack(row, true, false);
 
     itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
     rows.reserve(5);
     for (unsigned int i = 0; i < 5; ++i) {
-        rows.emplace_back(prefix, i);
+        rows.emplace_back(i);
         itemArea->pack(rows.back().row, true, false);
     }
     itemArea->setMaxSize({300, 175});
@@ -57,10 +52,10 @@ void Layers::pack() { contentWrapper->pack(content, true, true); }
 
 void Layers::unpack() { content->remove(); }
 
-Layers::Item::Item(const std::string& prefix, unsigned int i) {
+Layers::Item::Item(unsigned int i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
-    name = Label::create(prefix + " " + std::to_string(i));
+    name = Label::create("Layer " + std::to_string(i));
     name->setColor(sf::Color(0, 180, 200), sf::Color::Transparent);
     row->pack(name, true, false);
 

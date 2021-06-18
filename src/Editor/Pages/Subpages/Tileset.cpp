@@ -44,7 +44,7 @@ Tileset::Tileset()
     animsBox = Box::create(GridPacker::createDynamicGrid(GridPacker::Rows, 300, 10));
     scroll   = ScrollArea::create(LinePacker::create(LinePacker::Vertical));
     scroll->pack(animsBox, true, true);
-    animPage->pack(animsBox, true, true);
+    animPage->pack(scroll, true, true);
 
     content->addPage("tile", "Tiles", tilePage, [this]() { tool = Active::Tiles; });
     content->addPage("anim", "Animations", animPage, [this]() { tool = Active::Animations; });

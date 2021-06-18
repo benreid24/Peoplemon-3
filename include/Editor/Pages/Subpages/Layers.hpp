@@ -8,25 +8,35 @@ namespace editor
 namespace page
 {
 /**
- * @brief Works for both layers and levels. Provides controls to add, move, remove, and toggle
- *        visibility for layers or levels
+ * @brief Provides controls to add, move, remove, and toggle visibility for layers
  *
  * @ingroup Pages
  *
  */
 class Layers {
 public:
-    enum Mode {
-        Layer,
-        Level
-    };
+    /**
+     * @brief Construct a new Layers subpage
+     *
+     */
+    Layers();
 
-    Layers(Mode mode);
-
+    /**
+     * @brief Returns the GUI content to pack
+     *
+     */
     bl::gui::Box::Ptr getContent();
 
+    /**
+     * @brief Packs the GUI content
+     *
+     */
     void pack();
 
+    /**
+     * @brief Hides the GUI content. Good for saving space when not active
+     *
+     */
     void unpack();
 
 private:
@@ -38,11 +48,8 @@ private:
         bl::gui::Button::Ptr downBut;
         bl::gui::Button::Ptr delBut;
 
-        Item(const std::string& prefix, unsigned int i);
+        Item(unsigned int i);
     };
-
-    const Mode mode;
-    const std::string prefix;
 
     bl::gui::Box::Ptr contentWrapper;
     bl::gui::Box::Ptr content;
