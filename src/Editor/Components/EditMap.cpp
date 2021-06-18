@@ -9,15 +9,17 @@ namespace editor
 {
 namespace component
 {
-EditMap::Ptr EditMap::create(const ClickCb& clickCb, core::system::Systems& systems) {
-    return Ptr(new EditMap(clickCb, systems));
+EditMap::Ptr EditMap::create(const ClickCb& clickCb, const ActionCb& actionCb,
+                             core::system::Systems& systems) {
+    return Ptr(new EditMap(clickCb, actionCb, systems));
 }
 
-EditMap::EditMap(const ClickCb& cb, core::system::Systems& s)
+EditMap::EditMap(const ClickCb& cb, const ActionCb& actionCb, core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
 , historyHead(0)
 , clickCb(cb)
+, actionCb(actionCb)
 , camera(EditCamera::Ptr(new EditCamera()))
 , changedSinceSave(false)
 , controlsEnabled(false) {
@@ -165,24 +167,26 @@ void EditMap::undo() {
     if (!history.empty() && historyHead > 0) {
         history[historyHead - 1]->undo(*this);
         --historyHead;
+        actionCb();
     }
 }
 
 const char* EditMap::undoDescription() const {
-    if (!history.empty()) return history[historyHead - 1]->description();
-    return "";
+    if (!history.empty() && historyHead > 0) return history[historyHead - 1]->description();
+    return nullptr;
 }
 
 void EditMap::redo() {
     if (historyHead != history.size()) {
         history[historyHead]->apply(*this);
         ++historyHead;
+        actionCb();
     }
 }
 
 const char* EditMap::redoDescription() const {
     if (historyHead != history.size()) return history[historyHead]->description();
-    return "";
+    return nullptr;
 }
 
 void EditMap::addAction(const Action::Ptr& a) {
@@ -192,6 +196,8 @@ void EditMap::addAction(const Action::Ptr& a) {
 
     history.emplace_back(a);
     history.back()->apply(*this);
+    historyHead = history.size();
+    actionCb();
 }
 
 void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,

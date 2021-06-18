@@ -17,7 +17,14 @@ public:
 
 private:
     bl::gui::Box::Ptr content;
+    bl::gui::Label::Ptr positionLabel;
+    bl::gui::Button::Ptr undoBut;
+    bl::gui::Label::Ptr undoText;
+    bl::gui::Button::Ptr redoBut;
+    bl::gui::Label::Ptr redoText;
     component::EditMap::Ptr map;
+
+    void refreshButtons();
 };
 
 } // namespace page
