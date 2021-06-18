@@ -56,6 +56,8 @@ void Weather::set(Type t) {
     }
 }
 
+Weather::Type Weather::getType() const { return type; }
+
 void Weather::update(system::Systems& systems, float dt) {
     if (weather) weather->update(dt);
 

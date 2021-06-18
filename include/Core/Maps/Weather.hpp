@@ -112,6 +112,12 @@ public:
     void set(Type type);
 
     /**
+     * @brief Returns the current type of weather
+     *
+     */
+    Type getType() const;
+
+    /**
      * @brief Updates the current weather
      *
      * @param systems The primary game systems

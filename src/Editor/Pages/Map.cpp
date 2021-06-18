@@ -136,6 +136,13 @@ Map::Map(core::system::Systems& s)
     weatherEntry->addOption("DesertRandom");
     weatherEntry->setSelectedOption(0);
     weatherEntry->setMaxHeight(300);
+    weatherEntry->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+        const core::map::Weather::Type type =
+            static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
+        if (mapArea.editMap().weatherSystem().getType() != type) {
+            mapArea.editMap().setWeather(type);
+        }
+    });
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 

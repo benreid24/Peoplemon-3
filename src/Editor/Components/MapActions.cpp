@@ -127,5 +127,29 @@ bool EditMap::SetPlaylistAction::undo(EditMap& map) {
 
 const char* EditMap::SetPlaylistAction::description() const { return "set playlist"; }
 
+EditMap::Action::Ptr EditMap::SetWeatherAction::create(core::map::Weather::Type type,
+                                                       const EditMap& map) {
+    return Ptr(new SetWeatherAction(type, map.weatherField.getValue()));
+}
+
+EditMap::SetWeatherAction::SetWeatherAction(core::map::Weather::Type type,
+                                            core::map::Weather::Type orig)
+: type(type)
+, orig(orig) {}
+
+bool EditMap::SetWeatherAction::apply(EditMap& map) {
+    map.weatherField = type;
+    map.weatherSystem().set(type);
+    return true;
+}
+
+bool EditMap::SetWeatherAction::undo(EditMap& map) {
+    map.weatherField = orig;
+    map.weatherSystem().set(orig);
+    return true;
+}
+
+const char* EditMap::SetWeatherAction::description() const { return "set weather"; }
+
 } // namespace component
 } // namespace editor

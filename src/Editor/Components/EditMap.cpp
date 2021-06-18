@@ -229,6 +229,10 @@ void EditMap::setPlaylist(const std::string& playlist) {
     addAction(SetPlaylistAction::create(playlist, *this));
 }
 
+void EditMap::setWeather(core::map::Weather::Type type) {
+    addAction(SetWeatherAction::create(type, *this));
+}
+
 void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                       core::map::Tile::IdType id, bool isAnim) {
     addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));

@@ -48,6 +48,22 @@ private:
     SetPlaylistAction(const std::string& orig, const std::string& playlist);
 };
 
+class EditMap::SetWeatherAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(core::map::Weather::Type type, const EditMap& map);
+
+    virtual ~SetWeatherAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::Weather::Type type;
+    const core::map::Weather::Type orig;
+
+    SetWeatherAction(core::map::Weather::Type type, core::map::Weather::Type orig);
+};
+
 } // namespace component
 } // namespace editor
 
