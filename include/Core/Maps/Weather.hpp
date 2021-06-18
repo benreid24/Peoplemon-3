@@ -108,8 +108,9 @@ public:
      * @brief Sets the current weather type
      *
      * @param type The type of weather to transition to
+     * @param immediate True to skip the stop phase of the current weather
      */
-    void set(Type type);
+    void set(Type type, bool immediate = false);
 
     /**
      * @brief Returns the current type of weather

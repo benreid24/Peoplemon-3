@@ -139,13 +139,13 @@ EditMap::SetWeatherAction::SetWeatherAction(core::map::Weather::Type type,
 
 bool EditMap::SetWeatherAction::apply(EditMap& map) {
     map.weatherField = type;
-    map.weatherSystem().set(type);
+    map.weatherSystem().set(type, false);
     return true;
 }
 
 bool EditMap::SetWeatherAction::undo(EditMap& map) {
     map.weatherField = orig;
-    map.weatherSystem().set(orig);
+    map.weatherSystem().set(orig, false);
     return true;
 }
 

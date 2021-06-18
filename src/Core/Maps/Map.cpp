@@ -685,6 +685,8 @@ void Map::clear() {
     catchZonesField.getValue().clear();
     transitionField.getValue().clear();
     eventRegions.clear();
+    weatherField = Weather::None;
+    weather.set(Weather::None, true);
 }
 
 } // namespace map
