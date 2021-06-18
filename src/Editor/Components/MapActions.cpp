@@ -85,7 +85,6 @@ bool EditMap::SetTileAction::apply(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, updated, isAnim);
-                return true;
             }
         }
     }
@@ -99,14 +98,34 @@ bool EditMap::SetTileAction::undo(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, prev, wasAnim);
-                return true;
             }
         }
     }
     return false;
 }
 
-const char* EditMap::SetTileAction::description() const { return "tet tile"; }
+const char* EditMap::SetTileAction::description() const { return "set tile"; }
+
+EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
+                                                        const EditMap& map) {
+    return Ptr(new SetPlaylistAction(map.playlistField.getValue(), playlist));
+}
+
+EditMap::SetPlaylistAction::SetPlaylistAction(const std::string& orig, const std::string& playlist)
+: orig(orig)
+, playlist(playlist) {}
+
+bool EditMap::SetPlaylistAction::apply(EditMap& map) {
+    map.playlistField = playlist;
+    return true;
+}
+
+bool EditMap::SetPlaylistAction::undo(EditMap& map) {
+    map.playlistField = orig;
+    return true;
+}
+
+const char* EditMap::SetPlaylistAction::description() const { return "set playlist"; }
 
 } // namespace component
 } // namespace editor

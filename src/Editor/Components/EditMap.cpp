@@ -10,18 +10,20 @@ namespace editor
 namespace component
 {
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
-                             const ActionCb& actionCb, core::system::Systems& systems) {
-    return Ptr(new EditMap(clickCb, moveCb, actionCb, systems));
+                             const ActionCb& actionCb, const ActionCb& syncCb,
+                             core::system::Systems& systems) {
+    return Ptr(new EditMap(clickCb, moveCb, actionCb, syncCb, systems));
 }
 
 EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& actionCb,
-                 core::system::Systems& s)
+                 const ActionCb& syncCb, core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
 , historyHead(0)
 , clickCb(cb)
 , moveCb(mcb)
 , actionCb(actionCb)
+, syncCb(syncCb)
 , camera(EditCamera::Ptr(new EditCamera()))
 , changedSinceSave(false)
 , controlsEnabled(false) {
@@ -55,7 +57,18 @@ bool EditMap::editorLoad(const std::string& file) {
         return false;
     }
     savefile = file;
+    history.clear();
+    historyHead = 0;
+    actionCb();
     return true;
+}
+
+bool EditMap::editorSave() {
+    if (save(savefile)) {
+        changedSinceSave = false;
+        return true;
+    }
+    return false;
 }
 
 bool EditMap::doLoad(const std::string& file) {
@@ -174,9 +187,10 @@ bool EditMap::handleScroll(const bl::gui::RawEvent& event) {
 
 void EditMap::undo() {
     if (!history.empty() && historyHead > 0) {
-        history[historyHead - 1]->undo(*this);
+        if (history[historyHead - 1]->undo(*this)) { syncCb(); }
         --historyHead;
         actionCb();
+        changedSinceSave = true;
     }
 }
 
@@ -187,9 +201,10 @@ const char* EditMap::undoDescription() const {
 
 void EditMap::redo() {
     if (historyHead != history.size()) {
-        history[historyHead]->apply(*this);
+        if (history[historyHead]->apply(*this)) { syncCb(); }
         ++historyHead;
         actionCb();
+        changedSinceSave = true;
     }
 }
 
@@ -207,6 +222,11 @@ void EditMap::addAction(const Action::Ptr& a) {
     history.back()->apply(*this);
     historyHead = history.size();
     actionCb();
+    changedSinceSave = true;
+}
+
+void EditMap::setPlaylist(const std::string& playlist) {
+    addAction(SetPlaylistAction::create(playlist, *this));
 }
 
 void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,

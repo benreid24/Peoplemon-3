@@ -38,6 +38,7 @@ public:
 
     static const std::string& SpritesheetPath();
     static const std::string& MusicPath();
+    static const std::string& PlaylistPath();
 
     static const std::string& MapPath();
     static const std::string& TilesetPath();

@@ -75,11 +75,15 @@ private:
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;
     void doLoadMap(const std::string& file);
-    bool checkUnsaved();
-    void syncGui();
+
+    bl::gui::FilePicker playlistPicker;
+    void onChoosePlaylist(const std::string& file);
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
     void onLevelChange(unsigned int level);
+
+    bool checkUnsaved();
+    void syncGui();
 };
 
 } // namespace page

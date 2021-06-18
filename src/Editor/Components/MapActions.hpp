@@ -32,6 +32,22 @@ private:
                   bool isAnim);
 };
 
+class EditMap::SetPlaylistAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(const std::string& playlist, const EditMap& editMap);
+
+    virtual ~SetPlaylistAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::string orig;
+    const std::string playlist;
+
+    SetPlaylistAction(const std::string& orig, const std::string& playlist);
+};
+
 } // namespace component
 } // namespace editor
 

@@ -6,10 +6,11 @@ namespace page
 {
 using namespace bl::gui;
 
-MapArea::MapArea(const component::EditMap::PositionCb& cb, core::system::Systems& s)
+MapArea::MapArea(const component::EditMap::PositionCb& cb,
+                 const component::EditMap::ActionCb& syncCb, core::system::Systems& s)
 : map(component::EditMap::create(
       cb, std::bind(&MapArea::onMouseOver, this, std::placeholders::_1, std::placeholders::_2),
-      std::bind(&MapArea::refreshButtons, this), s)) {
+      std::bind(&MapArea::refreshButtons, this), syncCb, s)) {
     content = Box::create(LinePacker::create(LinePacker::Vertical, 0));
 
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 0));

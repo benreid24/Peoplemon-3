@@ -10,14 +10,18 @@ using namespace bl::gui;
 
 Map::Map(core::system::Systems& s)
 : Page(s)
-, mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); }, s)
+, mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
+          std::bind(&Map::syncGui, this), s)
 , levelPage(Layers::Level)
 , layerPage(Layers::Layer)
 , activeTool(Tool::Metadata)
 , activeSubtool(Subtool::Set)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},
             std::bind(&Map::doLoadMap, this, std::placeholders::_1),
-            [this]() { mapPicker.close(); }) {
+            [this]() { mapPicker.close(); })
+, playlistPicker(core::Properties::PlaylistPath(), {"plst"},
+                 std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
+                 [this]() { playlistPicker.close(); }) {
     content = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     bl::gui::Box::Ptr controlPane =
         Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
@@ -38,6 +42,16 @@ Map::Map(core::system::Systems& s)
         }
     });
     bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
+    saveMapBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        if (!mapArea.editMap().editorSave()) {
+            bl::dialog::tinyfd_messageBox(
+                "Error Saving Map",
+                std::string("Failed to save map: " + mapArea.editMap().name()).c_str(),
+                "ok",
+                "error",
+                1);
+        }
+    });
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
@@ -94,6 +108,9 @@ Map::Map(core::system::Systems& s)
     row                                  = Box::create(LinePacker::create(LinePacker::Horizontal));
     playlistLabel                        = Label::create("playerlistFile.bplst");
     bl::gui::Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
+    pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
+    });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
     row->pack(playlistLabel, true, false);
@@ -403,6 +420,12 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
     }
 }
 
+void Map::onChoosePlaylist(const std::string& file) {
+    mapArea.editMap().setPlaylist(file);
+    playlistLabel->setText(file);
+    playlistPicker.close();
+}
+
 bool Map::checkUnsaved() {
     if (mapArea.editMap().unsavedChanges()) {
         return bl::dialog::tinyfd_messageBox(
@@ -424,6 +447,10 @@ void Map::syncGui() {
     }
     levelSelect->setSelectedOption(0);
     onLevelChange(0);
+
+    nameEntry->setInput(mapArea.editMap().name());
+    playlistLabel->setText(mapArea.editMap().playlistField);
+    weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField.getValue()));
 }
 
 void Map::onLevelChange(unsigned int l) {

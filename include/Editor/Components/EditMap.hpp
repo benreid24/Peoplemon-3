@@ -25,7 +25,7 @@ public:
     using ActionCb   = std::function<void()>;
 
     static Ptr create(const PositionCb& clickCb, const PositionCb& moveCb, const ActionCb& actionCb,
-                      core::system::Systems& systems);
+                      const ActionCb& syncCb, core::system::Systems& systems);
 
     virtual ~EditMap() = default;
 
@@ -159,6 +159,7 @@ private:
     const PositionCb clickCb;
     const PositionCb moveCb;
     const ActionCb actionCb;
+    const ActionCb syncCb;
     EditCamera::Ptr camera;
     bool changedSinceSave;
     bool controlsEnabled;
@@ -166,7 +167,7 @@ private:
     mutable sf::View renderView;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
-            core::system::Systems& systems);
+            const ActionCb& syncCb, core::system::Systems& systems);
     bool doLoad(const std::string& file);
 
     virtual sf::Vector2i minimumRequisition() const override;

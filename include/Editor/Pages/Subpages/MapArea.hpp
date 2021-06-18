@@ -9,7 +9,8 @@ namespace page
 {
 class MapArea {
 public:
-    MapArea(const component::EditMap::PositionCb& clickCb, core::system::Systems& systems);
+    MapArea(const component::EditMap::PositionCb& clickCb,
+            const component::EditMap::ActionCb& syncCb, core::system::Systems& systems);
 
     component::EditMap& editMap();
 
