@@ -37,6 +37,11 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
         const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                  std::floor(pixels.y * PixelRatio));
         cb(pixels, tiles);
+
+        for (unsigned int level = 0; level < levels.size(); ++level) {
+            triggerAnimation(
+                core::component::Position(level, tiles, core::component::Direction::Up));
+        }
     };
 
     getSignal(bl::gui::Action::LeftClicked)

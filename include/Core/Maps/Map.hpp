@@ -261,6 +261,7 @@ protected:
     mutable sf::RectangleShape cover;
 
     void clear();
+    void triggerAnimation(const component::Position& position);
 
     friend class loaders::LegacyMapLoader;
 };

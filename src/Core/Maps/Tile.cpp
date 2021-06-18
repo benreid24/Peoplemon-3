@@ -57,6 +57,10 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     }
 }
 
+void Tile::step() {
+    if (isAnim && !anim->playing()) { anim->play(); }
+}
+
 void Tile::update(float dt) {
     if (anim == &uniqueAnim) uniqueAnim.update(dt);
 }

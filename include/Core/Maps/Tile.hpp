@@ -95,6 +95,12 @@ public:
     void initialize(Tileset& tileset, const sf::Vector2f& position);
 
     /**
+     * @brief Triggers the animation when the tile is stepped on
+     *
+     */
+    void step();
+
+    /**
      * @brief Updates the tile's unique animation if there is one
      *
      * @param dt Time elapsed since last call to update()

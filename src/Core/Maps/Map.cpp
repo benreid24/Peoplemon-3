@@ -609,6 +609,8 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 }
 
 void Map::observe(const event::EntityMoved& movedEvent) {
+    triggerAnimation(movedEvent.position);
+
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.getValue().x
@@ -646,6 +648,24 @@ void Map::observe(const event::EntityMoved& movedEvent) {
 
         default:
             break;
+        }
+    }
+}
+
+void Map::triggerAnimation(const component::Position& pos) {
+    if (pos.level < levels.size()) {
+        LayerSet& level = levels[pos.level];
+        if (pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
+            pos.positionTiles().x < sizeTiles().x && pos.positionTiles().y < sizeTiles().y) {
+            for (auto& layer : level.bottomLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
+            for (auto& layer : level.ysortLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
+            for (auto& layer : level.topLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
         }
     }
 }
