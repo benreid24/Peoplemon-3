@@ -64,8 +64,7 @@ void Tile::update(float dt) {
 void Tile::render(sf::RenderTarget& target, float lag) const {
     if (tid != Blank) {
         if (isAnim) {
-            anim->setPosition(sprite.getPosition() -
-                              sf::Vector2f(32, 32)); // in case of shared anim
+            anim->setPosition(sprite.getPosition()); // in case of shared anim
             anim->render(target, lag);
         }
         else {

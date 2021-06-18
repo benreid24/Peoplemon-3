@@ -97,21 +97,25 @@ public:
                     std::uint8_t isAnim;
                     if (!input.read(isAnim)) return false;
                     if (!input.read(id)) return false;
+
+                    const unsigned int actualX = isAnim ? x - 1 : x;
+                    const unsigned int actualY = isAnim ? y - 1 : y;
+                    Tile* tile                 = nullptr;
+
                     if (i < firstYSortLayer) {
-                        result.levels.front().bottomLayers()[i].getRef(x, y).setDataOnly(
-                            id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().bottomLayers()[i].getRef(actualX, actualY);
                     }
                     else if (i < firstTopLayer) {
-                        result.levels.front()
-                            .ysortLayers()[i - firstYSortLayer]
-                            .getRef(x, y)
-                            .setDataOnly(id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().ysortLayers()[i - firstYSortLayer].getRef(
+                            actualX, actualY);
                     }
                     else {
-                        result.levels.front()
-                            .topLayers()[i - firstTopLayer]
-                            .getRef(x, y)
-                            .setDataOnly(id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().topLayers()[i - firstTopLayer].getRef(
+                            actualX, actualY);
+                    }
+
+                    if (tile->id() == Tile::Blank) {
+                        tile->setDataOnly(static_cast<Tile::IdType>(id), static_cast<bool>(isAnim));
                     }
                 }
             }
