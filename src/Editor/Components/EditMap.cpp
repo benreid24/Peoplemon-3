@@ -9,34 +9,43 @@ namespace editor
 {
 namespace component
 {
-EditMap::Ptr EditMap::create(const ClickCb& clickCb, const ActionCb& actionCb,
-                             core::system::Systems& systems) {
-    return Ptr(new EditMap(clickCb, actionCb, systems));
+EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
+                             const ActionCb& actionCb, core::system::Systems& systems) {
+    return Ptr(new EditMap(clickCb, moveCb, actionCb, systems));
 }
 
-EditMap::EditMap(const ClickCb& cb, const ActionCb& actionCb, core::system::Systems& s)
+EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& actionCb,
+                 core::system::Systems& s)
 : bl::gui::Element("maps", "editmap")
 , Map()
 , historyHead(0)
 , clickCb(cb)
+, moveCb(mcb)
 , actionCb(actionCb)
 , camera(EditCamera::Ptr(new EditCamera()))
 , changedSinceSave(false)
 , controlsEnabled(false) {
     systems = &s;
-    getSignal(bl::gui::Action::LeftClicked)
-        .willAlwaysCall([this, &s](const bl::gui::Action&, Element*) {
-            if (controlsEnabled) {
-                static const float PixelRatio =
-                    1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
-                const sf::Vector2i mouse  = sf::Mouse::getPosition(s.engine().window());
-                const sf::Vector2f pixels = s.engine().window().mapPixelToCoords(mouse, renderView);
-                const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
-                                         std::floor(pixels.y * PixelRatio));
-                clickCb(pixels, tiles);
-            }
+    static const auto callCb = [this, &s](const PositionCb& cb) {
+        static const float PixelRatio = 1.f / static_cast<float>(core::Properties::PixelsPerTile());
+
+        const sf::Vector2i mouse  = sf::Mouse::getPosition(s.engine().window());
+        const sf::Vector2f pixels = s.engine().window().mapPixelToCoords(mouse, renderView);
+        const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
+                                 std::floor(pixels.y * PixelRatio));
+        cb(pixels, tiles);
+    };
+
+    getSignal(bl::gui::Action::LeftClicked)
+        .willAlwaysCall([this](const bl::gui::Action&, Element*) {
+            if (controlsEnabled) { callCb(clickCb); }
         });
+
+    getSignal(bl::gui::Action::MouseMoved).willAlwaysCall([this](const bl::gui::Action&, Element*) {
+        callCb(moveCb);
+    });
+
     // TODO - init stuff
 }
 

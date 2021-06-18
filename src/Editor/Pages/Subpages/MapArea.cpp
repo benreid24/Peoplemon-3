@@ -6,8 +6,10 @@ namespace page
 {
 using namespace bl::gui;
 
-MapArea::MapArea(const component::EditMap::ClickCb& cb, core::system::Systems& s)
-: map(component::EditMap::create(cb, std::bind(&MapArea::refreshButtons, this), s)) {
+MapArea::MapArea(const component::EditMap::PositionCb& cb, core::system::Systems& s)
+: map(component::EditMap::create(
+      cb, std::bind(&MapArea::onMouseOver, this, std::placeholders::_1, std::placeholders::_2),
+      std::bind(&MapArea::refreshButtons, this), s)) {
     content = Box::create(LinePacker::create(LinePacker::Vertical, 0));
 
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
@@ -34,7 +36,9 @@ MapArea::MapArea(const component::EditMap::ClickCb& cb, core::system::Systems& s
     enableBut->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action& a, Element*) {
         map->setControlsEnabled(a.data.bvalue);
     });
+    positionLabel = Label::create("Tile: ()");
     rightSide->pack(enableBut, false, true);
+    rightSide->pack(positionLabel, false, true);
 
     controlRow->pack(leftSide, true, false);
     controlRow->pack(rightSide, true, false);
@@ -66,6 +70,11 @@ void MapArea::refreshButtons() {
         redoText->setText("Redo");
         redoBut->setActive(false);
     }
+}
+
+void MapArea::onMouseOver(const sf::Vector2f&, const sf::Vector2i& tiles) {
+    positionLabel->setText("Tile: (" + std::to_string(tiles.x) + ", " + std::to_string(tiles.y) +
+                           ")");
 }
 
 } // namespace page

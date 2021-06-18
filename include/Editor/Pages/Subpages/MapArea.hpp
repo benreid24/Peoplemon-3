@@ -9,7 +9,7 @@ namespace page
 {
 class MapArea {
 public:
-    MapArea(const component::EditMap::ClickCb& clickCb, core::system::Systems& systems);
+    MapArea(const component::EditMap::PositionCb& clickCb, core::system::Systems& systems);
 
     component::EditMap& editMap();
 
@@ -25,6 +25,7 @@ private:
     component::EditMap::Ptr map;
 
     void refreshButtons();
+    void onMouseOver(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
 };
 
 } // namespace page

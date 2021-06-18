@@ -21,10 +21,10 @@ class EditMap
 public:
     typedef std::shared_ptr<EditMap> Ptr;
 
-    using ClickCb  = std::function<void(const sf::Vector2f& pixels, const sf::Vector2i& tiles)>;
-    using ActionCb = std::function<void()>;
+    using PositionCb = std::function<void(const sf::Vector2f& pixels, const sf::Vector2i& tiles)>;
+    using ActionCb   = std::function<void()>;
 
-    static Ptr create(const ClickCb& clickCb, const ActionCb& actionCb,
+    static Ptr create(const PositionCb& clickCb, const PositionCb& moveCb, const ActionCb& actionCb,
                       core::system::Systems& systems);
 
     virtual ~EditMap() = default;
@@ -156,7 +156,8 @@ private:
         bool enabled;
     };
 
-    const ClickCb clickCb;
+    const PositionCb clickCb;
+    const PositionCb moveCb;
     const ActionCb actionCb;
     EditCamera::Ptr camera;
     bool changedSinceSave;
@@ -164,7 +165,8 @@ private:
     std::string savefile;
     mutable sf::View renderView;
 
-    EditMap(const ClickCb& cb, const ActionCb& actionCb, core::system::Systems& systems);
+    EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
+            core::system::Systems& systems);
     bool doLoad(const std::string& file);
 
     virtual sf::Vector2i minimumRequisition() const override;
