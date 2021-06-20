@@ -175,6 +175,8 @@ private:
                           const bl::gui::Renderer& renderer) const override;
     virtual bool handleScroll(const bl::gui::RawEvent& scroll) override;
     virtual void update(float dt) override;
+    virtual void render(sf::RenderTarget& target, float residual,
+                        const core::map::Map::EntityRenderCallback& entityCb) const override;
 
     friend class page::Map;
 

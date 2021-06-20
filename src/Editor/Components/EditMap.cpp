@@ -178,9 +178,7 @@ sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
 void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
     const sf::View oldView = target.getView();
     renderView             = bl::gui::Container::computeView(oldView, getAcquisition());
-    const sf::View view    = renderView;
-    systems->cameras().configureView(*this, renderView);
-    target.setView(view);
+    target.setView(renderView);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
@@ -241,6 +239,68 @@ void EditMap::setWeather(core::map::Weather::Type type) {
 void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                       core::map::Tile::IdType id, bool isAnim) {
     addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));
+}
+
+void EditMap::render(sf::RenderTarget& target, float residual,
+                     const EntityRenderCallback& entityCb) const {
+    const sf::View& view = target.getView();
+    renderView           = view;
+    cover.setPosition(view.getCenter());
+    cover.setSize(view.getSize());
+    cover.setOrigin(view.getSize() * 0.5f);
+    target.draw(cover, {sf::BlendNone});
+
+    static const sf::Vector2i ExtraRender =
+        sf::Vector2i(core::Properties::ExtraRenderTiles(), core::Properties::ExtraRenderTiles());
+
+    const sf::Vector2f cornerPixels =
+        target.getView().getCenter() - target.getView().getSize() / 2.f;
+    sf::Vector2i corner =
+        static_cast<sf::Vector2i>(cornerPixels) / core::Properties::PixelsPerTile() - ExtraRender;
+    if (corner.x < 0) corner.x = 0;
+    if (corner.y < 0) corner.y = 0;
+
+    sf::Vector2i wsize =
+        static_cast<sf::Vector2i>(target.getView().getSize()) / core::Properties::PixelsPerTile() +
+        ExtraRender * 2;
+    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
+    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    renderRange = {corner, wsize};
+
+    const auto renderRow = [&target, residual, &corner, &wsize](const core::map::TileLayer& layer,
+                                                                int row) {
+        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+            layer.get(x, row).render(target, residual);
+        }
+    };
+
+    const auto renderSorted =
+        [&target, residual, &corner, &wsize](const core::map::SortedLayer& layer, int row) {
+            for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+                core::map::Tile* t = layer(x, row);
+                if (t) t->render(target, residual);
+            }
+        };
+
+    for (unsigned int i = 0; i < levels.size(); ++i) {
+        core::map::LayerSet& level = levels[i];
+
+        for (const core::map::TileLayer& layer : level.bottomLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+        }
+        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
+                renderSorted(layer, y);
+            }
+            entityCb(i, y, corner.x, corner.x + wsize.x);
+        }
+        for (const core::map::TileLayer& layer : level.topLayers()) {
+            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+        }
+    }
+
+    weather.render(target, residual);
+    const_cast<EditMap*>(this)->lighting.render(target);
 }
 
 } // namespace component

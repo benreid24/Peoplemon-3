@@ -181,8 +181,8 @@ public:
      * @param residual Residual time between calls to update, in seconds
      * @param entityCb Function to call to render entities at the correct times
      */
-    void render(sf::RenderTarget& target, float residual,
-                const EntityRenderCallback& entityCb) const;
+    virtual void render(sf::RenderTarget& target, float residual,
+                        const EntityRenderCallback& entityCb) const;
 
     /**
      * @brief Returns whether or not the map contains the given position
