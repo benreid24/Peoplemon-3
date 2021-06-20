@@ -23,12 +23,6 @@ Tile::Tile(IdType i, bool a)
     isAnim = a;
 }
 
-Tile& Tile::operator=(const Tile& copy) {
-    isAnim = copy.isAnim;
-    tid    = copy.tid;
-    return *this;
-}
-
 bool Tile::isAnimation() const { return isAnim; }
 
 Tile::IdType Tile::id() const { return tid; }
