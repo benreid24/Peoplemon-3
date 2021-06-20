@@ -48,6 +48,10 @@ public:
 
     void setControlsEnabled(bool enabled);
 
+    void setVisibleLevels(const std::vector<bool>& filter);
+
+    void setVisibleLayers(const std::vector<std::vector<bool>>& filter);
+
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
     void setName(const std::string& name);
@@ -55,10 +59,6 @@ public:
     void setPlaylist(const std::string& playlist);
 
     void setWeather(core::map::Weather::Type weather);
-
-    void setYSortLayer(unsigned int layer);
-
-    void setTopLayer(unsigned int layer);
 
     void setOnEnterScript(const std::string& script);
 
@@ -72,11 +72,15 @@ public:
 
     void removeLevel(unsigned int level);
 
-    void appendLayer();
+    void appendBottomLayer(unsigned int level);
 
-    void shiftLayer(unsigned int layer, bool up);
+    void appendYsortLayer(unsigned int level);
 
-    void removeLayer(unsigned int layer);
+    void appendTopLayer(unsigned int level);
+
+    void shiftLayer(unsigned int level, unsigned int layer, bool up);
+
+    void removeLayer(unsigned int level, unsigned int layer);
 
     void setTile(unsigned int level, unsigned int layer, const sf::Vector2i& position,
                  core::map::Tile::IdType id, bool isAnim);
@@ -164,6 +168,8 @@ private:
     bool changedSinceSave;
     bool controlsEnabled;
     std::string savefile;
+    std::vector<bool> levelFilter;
+    std::vector<std::vector<bool>> layerFilter;
     mutable sf::View renderView;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,

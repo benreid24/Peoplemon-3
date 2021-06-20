@@ -92,6 +92,12 @@ unsigned int LayerSet::layerCount() const {
 
 const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
+const std::vector<TileLayer>& LayerSet::bottomLayers() const { return bottom.getValue(); }
+
+const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort.getValue(); }
+
+const std::vector<TileLayer>& LayerSet::topLayers() const { return top.getValue(); }
+
 void LayerSet::update(const sf::IntRect& area, float dt) {
     static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
         const unsigned int xb = area.left + area.left;
