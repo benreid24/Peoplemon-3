@@ -24,11 +24,9 @@ public:
     /**
      * @brief Syncs the GUI elements with the map layers that exist
      *
-     * @param bottomCount The number of bottom layers
-     * @param ysortCount The number of y-sort layers
-     * @param topCount The number of top layers
+     * @param levels The levels in the map
      */
-    void sync(unsigned int bottomCount, unsigned int ysortCount, unsigned int topCount);
+    void sync(const std::vector<core::map::LayerSet>& levels);
 
     /**
      * @brief Returns the GUI content to pack
@@ -61,12 +59,12 @@ private:
     };
 
     bl::gui::Box::Ptr contentWrapper;
-    bl::gui::Box::Ptr content;
+    bl::gui::Notebook::Ptr content;
     bl::gui::ComboBox::Ptr activeSelect;
     bl::gui::Box::Ptr bottomBox;
     bl::gui::Box::Ptr ysortBox;
     bl::gui::Box::Ptr topBox;
-    
+
     std::vector<Item> rows;
     std::vector<bool> visible;
 };

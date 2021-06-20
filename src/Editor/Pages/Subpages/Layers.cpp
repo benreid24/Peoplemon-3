@@ -10,7 +10,7 @@ using namespace bl::gui;
 
 Layers::Layers() {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    content        = Notebook::create();
 
     ScrollArea::Ptr itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
     bottomBox                = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -30,8 +30,11 @@ Layers::Layers() {
     ysortBox->pack(rows[3].row, true, false);
     topBox->pack(rows[4].row, true, false);
 
+    Box::Ptr page = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     itemArea->setMaxSize({300, 175});
-    content->pack(itemArea, true, false);
+    page->pack(itemArea, true, false);
+
+    content->addPage("0", "Level 0", page);
 }
 
 Box::Ptr Layers::getContent() { return contentWrapper; }
