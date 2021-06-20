@@ -118,6 +118,15 @@ bool EditMap::doLoad(const std::string& file) {
     for (const core::map::Item& item : itemsField.getValue()) { systems->entity().spawnItem(item); }
 
     systems->engine().eventBus().dispatch<core::event::MapEntered>({*this});
+
+    levelFilter.clear();
+    levelFilter.resize(levels.size(), true);
+    layerFilter.clear();
+    layerFilter.resize(levels.size());
+    for (unsigned int i = 0; i < levels.size(); ++i) {
+        layerFilter[i].resize(levels[i].layerCount(), true);
+    }
+
     return true;
 }
 
@@ -128,6 +137,12 @@ void EditMap::update(float dt) { Map::update(*systems, dt); }
 void EditMap::setControlsEnabled(bool e) {
     controlsEnabled = e;
     camera->enabled = e;
+}
+
+void EditMap::setVisibleLevels(const std::vector<bool>& filter) { levelFilter = filter; }
+
+void EditMap::setVisibleLayers(const std::vector<std::vector<bool>>& filter) {
+    layerFilter = filter;
 }
 
 EditMap::EditCamera::EditCamera()
@@ -241,6 +256,22 @@ void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i
     addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));
 }
 
+void EditMap::appendBottomLayer(unsigned int) {
+    // TODO
+}
+
+void EditMap::appendYsortLayer(unsigned int) {
+    // TODO
+}
+
+void EditMap::appendTopLayer(unsigned int) {
+    // TODO
+}
+
+void EditMap::removeLayer(unsigned int, unsigned int) {
+    // TODO
+}
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();
@@ -283,18 +314,30 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
+        if (!levelFilter[i]) continue;
         core::map::LayerSet& level = levels[i];
 
+        unsigned int li = 0;
         for (const core::map::TileLayer& layer : level.bottomLayers()) {
+            if (!layerFilter[i][li]) continue;
+            ++li;
+
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
         for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+            li = level.bottomLayers().size();
             for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
+                if (!layerFilter[i][li]) continue;
+                ++li;
                 renderSorted(layer, y);
             }
             entityCb(i, y, corner.x, corner.x + wsize.x);
         }
+        li = level.bottomLayers().size() + level.ysortLayers().size();
         for (const core::map::TileLayer& layer : level.topLayers()) {
+            if (!layerFilter[i][li]) continue;
+            ++li;
+
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
     }

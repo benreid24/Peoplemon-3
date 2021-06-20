@@ -142,6 +142,27 @@ public:
     std::vector<TileLayer>& topLayers();
 
     /**
+     * @brief Returns a reference to the bottom tiles in this set
+     *
+     * @return std::vector<TileLayer>& The tiles rendered underneath all entities
+     */
+    const std::vector<TileLayer>& bottomLayers() const;
+
+    /**
+     * @brief Returns a reference to the sorted tiles in this set
+     *
+     * @return std::vector<TileLayer>& The tiles rendered inline with entities based on y coordinate
+     */
+    const std::vector<TileLayer>& ysortLayers() const;
+
+    /**
+     * @brief Returns a reference to the top tiles in this set
+     *
+     * @return std::vector<TileLayer>& The
+     */
+    const std::vector<TileLayer>& topLayers() const;
+
+    /**
      * @brief Returns the total number of layers contained
      *
      */
