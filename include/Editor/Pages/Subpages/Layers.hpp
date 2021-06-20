@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_SUBPAGES_LAYERS_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Maps/Map.hpp>
 
 namespace editor
 {

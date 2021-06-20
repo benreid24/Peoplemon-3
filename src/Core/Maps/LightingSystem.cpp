@@ -216,6 +216,7 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
         break;
 
     default:
+        weatherModifier = 0;
         break;
     }
 }
