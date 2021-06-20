@@ -33,9 +33,10 @@ bool Tile::isAnimation() const { return isAnim; }
 
 Tile::IdType Tile::id() const { return tid; }
 
-void Tile::setDataOnly(IdType id, bool anim) {
+void Tile::setDataOnly(IdType id, bool a) {
     tid    = id;
-    isAnim = anim;
+    isAnim = a;
+    if (!isAnim) anim = nullptr;
 }
 
 void Tile::set(Tileset& tileset, IdType id, bool anim) {
@@ -49,16 +50,14 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
-    if (tid == Blank) return;
-
-    if (isAnim) { anim->setIsCentered(false); }
+    if (tid != Blank && isAnim) { anim->setIsCentered(false); }
     else {
         anim = nullptr;
     }
 }
 
 void Tile::step() {
-    if (isAnim && !anim->playing()) { anim->play(); }
+    if (anim && !anim->playing()) { anim->play(); }
 }
 
 void Tile::update(float dt) {

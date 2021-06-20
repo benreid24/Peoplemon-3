@@ -1,5 +1,7 @@
 #include <Editor/Pages/Subpages/Layers.hpp>
 
+#include <BLIB/Util/Random.hpp>
+
 namespace editor
 {
 namespace page
@@ -10,38 +12,24 @@ Layers::Layers() {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
-    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-    firstYSortSelect = ComboBox::create();
-    firstYSortSelect->addOption("Layer 0");
-    firstYSortSelect->addOption("Layer 1");
-    firstYSortSelect->addOption("Layer 2");
-    firstYSortSelect->addOption("Layer 3");
-    firstYSortSelect->addOption("Layer 4");
-    firstYSortSelect->setSelectedOption(0);
-    firstYSortSelect->setHorizontalAlignment(RenderSettings::Left);
-    row->pack(Label::create("First y-sort layer:"));
-    row->pack(firstYSortSelect);
-    content->pack(row, true, false);
+    ScrollArea::Ptr itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
+    bottomBox                = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    bottomBox->pack(Label::create("Bottom Layers"), true, false);
+    ysortBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    ysortBox->pack(Label::create("Y-Sort Layers"), true, false);
+    topBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    topBox->pack(Label::create("Top Layers"), true, false);
+    itemArea->pack(bottomBox, true, false);
+    itemArea->pack(ysortBox, true, false);
+    itemArea->pack(topBox, true, false);
 
-    row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-    firstTopSelect = ComboBox::create();
-    firstTopSelect->addOption("Layer 0");
-    firstTopSelect->addOption("Layer 1");
-    firstTopSelect->addOption("Layer 2");
-    firstTopSelect->addOption("Layer 3");
-    firstTopSelect->addOption("Layer 4");
-    firstTopSelect->setSelectedOption(0);
-    firstTopSelect->setHorizontalAlignment(RenderSettings::Left);
-    row->pack(Label::create("First top layer:"));
-    row->pack(firstTopSelect);
-    content->pack(row, true, false);
+    for (unsigned int i = 0; i < 5; ++i) { rows.emplace_back(i); }
+    bottomBox->pack(rows[0].row, true, false);
+    bottomBox->pack(rows[1].row, true, false);
+    ysortBox->pack(rows[2].row, true, false);
+    ysortBox->pack(rows[3].row, true, false);
+    topBox->pack(rows[4].row, true, false);
 
-    itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
-    rows.reserve(5);
-    for (unsigned int i = 0; i < 5; ++i) {
-        rows.emplace_back(i);
-        itemArea->pack(rows.back().row, true, false);
-    }
     itemArea->setMaxSize({300, 175});
     content->pack(itemArea, true, false);
 }
@@ -56,7 +44,10 @@ Layers::Item::Item(unsigned int i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
     name = Label::create("Layer " + std::to_string(i));
-    name->setColor(sf::Color(0, 180, 200), sf::Color::Transparent);
+    name->setColor(sf::Color(bl::util::Random::get<std::uint8_t>(0, 255),
+                             bl::util::Random::get<std::uint8_t>(0, 255),
+                             bl::util::Random::get<std::uint8_t>(0, 255)),
+                   sf::Color::Transparent);
     row->pack(name, true, false);
 
     visibleToggle = CheckButton::create("Visible");
