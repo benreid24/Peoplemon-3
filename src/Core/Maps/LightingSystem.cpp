@@ -85,7 +85,7 @@ void LightingSystem::removeLight(Handle handle, bool p) {
 
 void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel) {
     minLevel   = std::min(lowLightLevel, highLightLevel);
-    maxLevel   = std::max(highLightLevel, highLightLevel);
+    maxLevel   = std::max(lowLightLevel, highLightLevel);
     levelRange = maxLevel - minLevel;
 }
 
@@ -124,6 +124,7 @@ void LightingSystem::clear() {
     lightsField.getValue().clear();
     highLevelField = 255;
     lowLevelField  = 75;
+    levelRange     = maxLevel - minLevel;
     sunlightField  = true;
     lights.clear();
     handles.clear();
