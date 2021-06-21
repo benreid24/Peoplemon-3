@@ -139,10 +139,10 @@ void EditMap::setControlsEnabled(bool e) {
     camera->enabled = e;
 }
 
-void EditMap::setVisibleLevels(const std::vector<bool>& filter) { levelFilter = filter; }
+void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] = v; }
 
-void EditMap::setVisibleLayers(const std::vector<std::vector<bool>>& filter) {
-    layerFilter = filter;
+void EditMap::setLayerVisible(unsigned int level, unsigned int layer, bool v) {
+    layerFilter[level][layer] = v;
 }
 
 EditMap::EditCamera::EditCamera()

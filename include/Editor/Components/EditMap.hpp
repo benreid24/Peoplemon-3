@@ -48,9 +48,9 @@ public:
 
     void setControlsEnabled(bool enabled);
 
-    void setVisibleLevels(const std::vector<bool>& filter);
+    void setLevelVisible(unsigned int level, bool visible);
 
-    void setVisibleLayers(const std::vector<std::vector<bool>>& filter);
+    void setLayerVisible(unsigned int level, unsigned int layer, bool visible);
 
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 

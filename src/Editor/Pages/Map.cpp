@@ -12,14 +12,15 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, layerPage(
-      [this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
-      [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
-      [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },
-      [this](unsigned int level, unsigned int layer) {
-          mapArea.editMap().removeLayer(level, layer);
-      },
-      [this](const std::vector<std::vector<bool>>& f) { mapArea.editMap().setVisibleLayers(f); })
+, layerPage([this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
+            [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
+            [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },
+            [this](unsigned int level, unsigned int layer) {
+                mapArea.editMap().removeLayer(level, layer);
+            },
+            [this](unsigned int level, unsigned int layer, bool visible) {
+                mapArea.editMap().setLayerVisible(level, layer, visible);
+            })
 , activeTool(Tool::Metadata)
 , activeSubtool(Subtool::Set)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},

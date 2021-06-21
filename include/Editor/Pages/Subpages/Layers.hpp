@@ -16,9 +16,10 @@ namespace page
  */
 class Layers {
 public:
-    using AppendCb       = std::function<void(unsigned int level)>;
-    using DeleteCb       = std::function<void(unsigned int, unsigned int)>;
-    using RenderFilterCb = std::function<void(const std::vector<std::vector<bool>>&)>;
+    using AppendCb = std::function<void(unsigned int level)>;
+    using DeleteCb = std::function<void(unsigned int, unsigned int)>;
+    using RenderFilterCb =
+        std::function<void(unsigned int level, unsigned int layer, bool visible)>;
 
     /**
      * @brief Construct a new Layers subpage
@@ -88,8 +89,6 @@ private:
     };
 
     struct LevelTab {
-        using VisibleCb = std::function<void(unsigned int level, unsigned int layer, bool visible)>;
-
         std::vector<LayerRow> items;
         unsigned int index;
 
@@ -98,7 +97,7 @@ private:
         bl::gui::Box::Ptr ysortBox;
         bl::gui::Box::Ptr topBox;
 
-        LevelTab(unsigned int i, const core::map::LayerSet& level, const VisibleCb& visibleCb);
+        LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& visibleCb);
         void setIndex(unsigned int i);
     };
 
@@ -112,7 +111,6 @@ private:
     bl::gui::Notebook::Ptr content;
 
     std::vector<LevelTab> pages;
-    std::vector<std::vector<bool>> visible;
 };
 
 } // namespace page

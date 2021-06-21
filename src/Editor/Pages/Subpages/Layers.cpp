@@ -22,24 +22,13 @@ Layers::Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const Ap
 void Layers::sync(const std::vector<core::map::LayerSet>& levels) {
     for (unsigned int i = 0; i < content->pageCount(); ++i) { content->removePageByIndex(i); }
 
-    const auto vcb = [this](unsigned int level, unsigned int layer, bool v) {
-        visible[level][layer] = v;
-        filterCb(visible);
-    };
-
     pages.clear();
     pages.reserve(levels.size());
     for (unsigned int i = 0; i < levels.size(); ++i) {
         const auto& level = levels[i];
-        pages.emplace_back(i, level, vcb);
+        pages.emplace_back(i, level, filterCb);
         const std::string title = "Level " + std::to_string(pages.back().index);
         content->addPage(title, title, pages.back().page);
-    }
-
-    visible.clear();
-    visible.resize(levels.size());
-    for (unsigned int i = 0; i < levels.size(); ++i) {
-        visible[i].resize(levels[i].layerCount(), true);
     }
 }
 
@@ -49,7 +38,7 @@ void Layers::pack() { contentWrapper->pack(content, true, true); }
 
 void Layers::unpack() { content->remove(); }
 
-Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level, const VisibleCb& vcb)
+Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& vcb)
 : index(i) {
     page = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
     page->setMaxSize({300, 175});
