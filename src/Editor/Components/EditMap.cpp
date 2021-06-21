@@ -319,24 +319,21 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 
         unsigned int li = 0;
         for (const core::map::TileLayer& layer : level.bottomLayers()) {
-            if (!layerFilter[i][li]) continue;
-            ++li;
+            if (!layerFilter[i][li++]) continue;
 
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
         for (int y = corner.y; y < corner.y + wsize.y; ++y) {
             li = level.bottomLayers().size();
             for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
-                if (!layerFilter[i][li]) continue;
-                ++li;
+                if (!layerFilter[i][li++]) continue;
                 renderSorted(layer, y);
             }
             entityCb(i, y, corner.x, corner.x + wsize.x);
         }
         li = level.bottomLayers().size() + level.ysortLayers().size();
         for (const core::map::TileLayer& layer : level.topLayers()) {
-            if (!layerFilter[i][li]) continue;
-            ++li;
+            if (!layerFilter[i][li++]) continue;
 
             for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
         }
