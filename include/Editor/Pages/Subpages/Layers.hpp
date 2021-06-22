@@ -75,6 +75,7 @@ public:
 private:
     struct LayerRow {
         using VisibleCb = std::function<void(unsigned int layer, bool visible)>;
+        using DeleteCb  = std::function<void(unsigned int layer)>;
 
         bl::gui::Box::Ptr row;
         bl::gui::Label::Ptr name;
@@ -84,8 +85,7 @@ private:
         bl::gui::Button::Ptr delBut;
         unsigned int index;
 
-        LayerRow(unsigned int i, const VisibleCb& visibleCb);
-        void setIndex(unsigned int i);
+        LayerRow(unsigned int i, const VisibleCb& visibleCb, const DeleteCb& delCb);
     };
 
     struct LevelTab {
@@ -98,8 +98,8 @@ private:
         bl::gui::Box::Ptr topBox;
 
         LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& visibleCb,
-                 const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb);
-        void setIndex(unsigned int i);
+                 const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb,
+                 const DeleteCb& delCb);
     };
 
     const AppendCb bottomAdd;

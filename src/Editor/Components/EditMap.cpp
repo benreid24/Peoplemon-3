@@ -268,8 +268,8 @@ void EditMap::appendTopLayer(unsigned int level) {
     addAction(AppendLayerAction::create(level, AppendLayerAction::Top));
 }
 
-void EditMap::removeLayer(unsigned int, unsigned int) {
-    // TODO
+void EditMap::removeLayer(unsigned int level, unsigned int layer) {
+    addAction(RemoveLayerAction::create(level, layer, *this));
 }
 
 void EditMap::render(sf::RenderTarget& target, float residual,

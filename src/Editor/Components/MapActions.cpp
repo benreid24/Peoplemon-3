@@ -204,5 +204,64 @@ bool EditMap::AppendLayerAction::undo(EditMap& map) {
 
 const char* EditMap::AppendLayerAction::description() const { return "add layer"; }
 
+EditMap::Action::Ptr EditMap::RemoveLayerAction::create(unsigned int level, unsigned int layer,
+                                                        const EditMap& map) {
+    const core::map::TileLayer* ly = nullptr;
+    const core::map::LayerSet& lv  = map.levels[level];
+    if (layer < lv.bottomLayers().size()) { ly = &lv.bottomLayers()[layer]; }
+    else {
+        layer -= lv.bottomLayers().size();
+        if (layer < lv.ysortLayers().size()) { ly = &lv.ysortLayers()[layer]; }
+        else {
+            ly = &lv.topLayers()[layer - lv.ysortLayers().size()];
+        }
+    }
+    return Ptr(new RemoveLayerAction(level, layer, *ly));
+}
+
+EditMap::RemoveLayerAction::RemoveLayerAction(unsigned int level, unsigned int layer,
+                                              const core::map::TileLayer& rm)
+: level(level)
+, layer(layer)
+, removedLayer(rm) {}
+
+bool EditMap::RemoveLayerAction::apply(EditMap& map) {
+    unsigned int ay                        = layer;
+    core::map::LayerSet& lv                = map.levels[level];
+    std::vector<core::map::TileLayer>* set = nullptr;
+    if (ay < lv.bottomLayers().size()) { set = &lv.bottomLayers(); }
+    else {
+        ay -= lv.bottomLayers().size();
+        if (ay < lv.ysortLayers().size()) { set = &lv.ysortLayers(); }
+        else {
+            ay -= lv.ysortLayers().size();
+            set = &lv.topLayers();
+        }
+    }
+    set->erase(set->begin() + ay);
+    map.layerFilter[level].erase(map.layerFilter[level].begin() + layer);
+    return true;
+}
+
+bool EditMap::RemoveLayerAction::undo(EditMap& map) {
+    unsigned int ay                        = layer;
+    core::map::LayerSet& lv                = map.levels[level];
+    std::vector<core::map::TileLayer>* set = nullptr;
+    if (ay <= lv.bottomLayers().size()) { set = &lv.bottomLayers(); }
+    else {
+        ay -= lv.bottomLayers().size();
+        if (ay <= lv.ysortLayers().size()) { set = &lv.ysortLayers(); }
+        else {
+            ay -= lv.ysortLayers().size();
+            set = &lv.topLayers();
+        }
+    }
+    set->insert(set->begin() + ay, removedLayer);
+    map.layerFilter[level].insert(map.layerFilter[level].begin() + layer, true);
+    return true;
+}
+
+const char* EditMap::RemoveLayerAction::description() const { return "delete layer"; }
+
 } // namespace component
 } // namespace editor

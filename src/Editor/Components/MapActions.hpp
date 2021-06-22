@@ -82,6 +82,24 @@ private:
     AppendLayerAction(unsigned int level, Location location);
 };
 
+class EditMap::RemoveLayerAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, unsigned int layer, const EditMap& map);
+
+    virtual ~RemoveLayerAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const unsigned int layer;
+    const core::map::TileLayer removedLayer;
+
+    RemoveLayerAction(unsigned int level, unsigned int layer,
+                      const core::map::TileLayer& removedLayer);
+};
+
 } // namespace component
 } // namespace editor
 

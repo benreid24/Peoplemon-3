@@ -26,7 +26,7 @@ void Layers::sync(const std::vector<core::map::LayerSet>& levels) {
     pages.reserve(levels.size());
     for (unsigned int i = 0; i < levels.size(); ++i) {
         const auto& level = levels[i];
-        pages.emplace_back(i, level, filterCb, bottomAdd, ysortAdd, topAdd);
+        pages.emplace_back(i, level, filterCb, bottomAdd, ysortAdd, topAdd, delCb);
         const std::string title = "Level " + std::to_string(pages.back().index);
         content->addPage(title, title, pages.back().page);
     }
@@ -40,13 +40,15 @@ void Layers::unpack() { content->remove(); }
 
 Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
                            const RenderFilterCb& vcb, const AppendCb& bottomAddCb,
-                           const AppendCb& ysortAddCb, const AppendCb& topAddCb)
+                           const AppendCb& ysortAddCb, const AppendCb& topAddCb,
+                           const DeleteCb& delCb)
 : index(i) {
     page = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
     page->setMaxSize({300, 175});
 
-    const auto visibleCb = [this, vcb](unsigned int layer, bool v) { vcb(index, layer, v); };
     Box::Ptr box         = Box::create(LinePacker::create(LinePacker::Vertical, 8));
+    const auto visibleCb = [this, vcb](unsigned int layer, bool v) { vcb(index, layer, v); };
+    const auto deleteCb  = [this, delCb](unsigned int layer) { delCb(index, layer); };
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
     Button::Ptr addBut = Button::create("Add");
@@ -82,26 +84,26 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     items.reserve(level.layerCount());
     for (unsigned int i = 0; i < level.bottomLayers().size(); ++i) {
-        items.emplace_back(i, visibleCb);
+        items.emplace_back(i, visibleCb, deleteCb);
         bottomBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size();
          i < level.bottomLayers().size() + level.ysortLayers().size();
          ++i) {
-        items.emplace_back(i, visibleCb);
+        items.emplace_back(i, visibleCb, deleteCb);
         ysortBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size() + level.ysortLayers().size();
          i < level.layerCount();
          ++i) {
-        items.emplace_back(i, visibleCb);
+        items.emplace_back(i, visibleCb, deleteCb);
         topBox->pack(items.back().row, true, false);
     }
 
     page->pack(box, true, true);
 }
 
-Layers::LayerRow::LayerRow(unsigned int i, const VisibleCb& visibleCb)
+Layers::LayerRow::LayerRow(unsigned int i, const VisibleCb& visibleCb, const DeleteCb& delCb)
 : index(i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
@@ -128,12 +130,10 @@ Layers::LayerRow::LayerRow(unsigned int i, const VisibleCb& visibleCb)
 
     delBut = Button::create("Delete");
     delBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
+    delBut->getSignal(Action::LeftClicked).willAlwaysCall([this, delCb](const Action&, Element*) {
+        delCb(index);
+    });
     row->pack(delBut, false, true);
-}
-
-void Layers::LayerRow::setIndex(unsigned int i) {
-    index = i;
-    name->setText("Layer " + std::to_string(i));
 }
 
 } // namespace page
