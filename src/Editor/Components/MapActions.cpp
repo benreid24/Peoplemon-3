@@ -151,5 +151,58 @@ bool EditMap::SetWeatherAction::undo(EditMap& map) {
 
 const char* EditMap::SetWeatherAction::description() const { return "set weather"; }
 
+EditMap::Action::Ptr EditMap::AppendLayerAction::create(unsigned int level, Location l) {
+    return Ptr(new AppendLayerAction(level, l));
+}
+
+EditMap::AppendLayerAction::AppendLayerAction(unsigned int lv, Location l)
+: level(lv)
+, location(l) {}
+
+bool EditMap::AppendLayerAction::apply(EditMap& map) {
+    core::map::LayerSet& lv               = map.levels[level];
+    std::vector<core::map::TileLayer>* ls = nullptr;
+    switch (location) {
+    case Bottom:
+        ls = &lv.bottomLayers();
+        break;
+    case YSort:
+        ls = &lv.ysortLayers();
+        break;
+    default:
+        ls = &lv.topLayers();
+        break;
+    }
+    const unsigned int i = ls->size();
+
+    ls->emplace_back();
+    ls->back().create(map.sizeTiles().x, map.sizeTiles().y, core::map::Tile::Blank);
+    lv.activate(*map.tileset);
+    map.layerFilter[level].insert(map.layerFilter[level].begin() + i, true);
+    return true;
+}
+
+bool EditMap::AppendLayerAction::undo(EditMap& map) {
+    core::map::LayerSet& lv               = map.levels[level];
+    std::vector<core::map::TileLayer>* ls = nullptr;
+    switch (location) {
+    case Bottom:
+        ls = &lv.bottomLayers();
+        break;
+    case YSort:
+        ls = &lv.ysortLayers();
+        break;
+    default:
+        ls = &lv.topLayers();
+        break;
+    }
+
+    ls->pop_back();
+    map.layerFilter[level].pop_back();
+    return true;
+}
+
+const char* EditMap::AppendLayerAction::description() const { return "add layer"; }
+
 } // namespace component
 } // namespace editor

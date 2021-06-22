@@ -237,7 +237,7 @@ void EditMap::addAction(const Action::Ptr& a) {
     }
 
     history.emplace_back(a);
-    history.back()->apply(*this);
+    if (history.back()->apply(*this)) { syncCb(); }
     historyHead = history.size();
     actionCb();
     changedSinceSave = true;
@@ -256,16 +256,16 @@ void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i
     addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));
 }
 
-void EditMap::appendBottomLayer(unsigned int) {
-    // TODO
+void EditMap::appendBottomLayer(unsigned int level) {
+    addAction(AppendLayerAction::create(level, AppendLayerAction::Bottom));
 }
 
-void EditMap::appendYsortLayer(unsigned int) {
-    // TODO
+void EditMap::appendYsortLayer(unsigned int level) {
+    addAction(AppendLayerAction::create(level, AppendLayerAction::YSort));
 }
 
-void EditMap::appendTopLayer(unsigned int) {
-    // TODO
+void EditMap::appendTopLayer(unsigned int level) {
+    addAction(AppendLayerAction::create(level, AppendLayerAction::Top));
 }
 
 void EditMap::removeLayer(unsigned int, unsigned int) {

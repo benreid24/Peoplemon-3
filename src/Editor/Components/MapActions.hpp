@@ -64,6 +64,24 @@ private:
     SetWeatherAction(core::map::Weather::Type type, core::map::Weather::Type orig);
 };
 
+class EditMap::AppendLayerAction : public EditMap::Action {
+public:
+    enum Location { Bottom, YSort, Top };
+
+    static EditMap::Action::Ptr create(unsigned int level, Location location);
+
+    virtual ~AppendLayerAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const Location location;
+
+    AppendLayerAction(unsigned int level, Location location);
+};
+
 } // namespace component
 } // namespace editor
 
