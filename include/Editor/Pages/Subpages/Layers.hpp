@@ -17,7 +17,7 @@ namespace page
 class Layers {
 public:
     using AppendCb = std::function<void(unsigned int level)>;
-    using DeleteCb = std::function<void(unsigned int, unsigned int)>;
+    using DeleteCb = std::function<void(unsigned int level, unsigned int layer)>;
     using RenderFilterCb =
         std::function<void(unsigned int level, unsigned int layer, bool visible)>;
 
@@ -97,7 +97,8 @@ private:
         bl::gui::Box::Ptr ysortBox;
         bl::gui::Box::Ptr topBox;
 
-        LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& visibleCb);
+        LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& visibleCb,
+                 const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb);
         void setIndex(unsigned int i);
     };
 

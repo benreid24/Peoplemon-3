@@ -26,7 +26,7 @@ void Layers::sync(const std::vector<core::map::LayerSet>& levels) {
     pages.reserve(levels.size());
     for (unsigned int i = 0; i < levels.size(); ++i) {
         const auto& level = levels[i];
-        pages.emplace_back(i, level, filterCb);
+        pages.emplace_back(i, level, filterCb, bottomAdd, ysortAdd, topAdd);
         const std::string title = "Level " + std::to_string(pages.back().index);
         content->addPage(title, title, pages.back().page);
     }
@@ -38,19 +38,42 @@ void Layers::pack() { contentWrapper->pack(content, true, true); }
 
 void Layers::unpack() { content->remove(); }
 
-Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& vcb)
+Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
+                           const RenderFilterCb& vcb, const AppendCb& bottomAddCb,
+                           const AppendCb& ysortAddCb, const AppendCb& topAddCb)
 : index(i) {
     page = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
     page->setMaxSize({300, 175});
 
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Vertical, 8));
 
+    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    Button::Ptr addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall([this, bottomAddCb](const Action&, Element*) { bottomAddCb(index); });
     bottomBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    bottomBox->pack(Label::create("Bottom Layers"), true, false);
+    row->pack(Label::create("Bottom Layers"), true, false);
+    row->pack(addBut, false, false);
+    bottomBox->pack(row, true, false);
+
+    row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall([this, ysortAddCb](const Action&, Element*) { ysortAddCb(index); });
     ysortBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    ysortBox->pack(Label::create("Y-Sort Layers"), true, false);
+    row->pack(Label::create("Y-Sort Layers"), true, true);
+    row->pack(addBut, false, false);
+    ysortBox->pack(row, true, false);
+
+    row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall([this, topAddCb](const Action&, Element*) { topAddCb(index); });
     topBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    topBox->pack(Label::create("Top Layers"), true, false);
+    row->pack(Label::create("Top Layers"), true, true);
+    row->pack(addBut, false, false);
+    topBox->pack(row, true, false);
+
     box->pack(bottomBox, true, false);
     box->pack(ysortBox, true, false);
     box->pack(topBox, true, false);
