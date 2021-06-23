@@ -85,7 +85,8 @@ private:
         bl::gui::Button::Ptr delBut;
         unsigned int index;
 
-        LayerRow(unsigned int i, const VisibleCb& visibleCb, const DeleteCb& delCb);
+        LayerRow(unsigned int i, unsigned int mi, const VisibleCb& visibleCb,
+                 const DeleteCb& delCb);
     };
 
     struct LevelTab {

@@ -84,26 +84,27 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     items.reserve(level.layerCount());
     for (unsigned int i = 0; i < level.bottomLayers().size(); ++i) {
-        items.emplace_back(i, visibleCb, deleteCb);
+        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
         bottomBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size();
          i < level.bottomLayers().size() + level.ysortLayers().size();
          ++i) {
-        items.emplace_back(i, visibleCb, deleteCb);
+        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
         ysortBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size() + level.ysortLayers().size();
          i < level.layerCount();
          ++i) {
-        items.emplace_back(i, visibleCb, deleteCb);
+        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
         topBox->pack(items.back().row, true, false);
     }
 
     page->pack(box, true, true);
 }
 
-Layers::LayerRow::LayerRow(unsigned int i, const VisibleCb& visibleCb, const DeleteCb& delCb)
+Layers::LayerRow::LayerRow(unsigned int i, unsigned int mi, const VisibleCb& visibleCb,
+                           const DeleteCb& delCb)
 : index(i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
@@ -123,9 +124,11 @@ Layers::LayerRow::LayerRow(unsigned int i, const VisibleCb& visibleCb, const Del
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");
+    if (i == 0) upBut->setActive(false);
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
+    if (i == mi - 1) downBut->setActive(false);
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");
