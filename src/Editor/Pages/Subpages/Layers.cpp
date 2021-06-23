@@ -56,7 +56,7 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
         .willAlwaysCall(
             [this, bottomAddCb, visibleCb](const Action&, Element*) { bottomAddCb(index); });
     bottomBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    row->pack(Label::create("Bottom Layers"), true, false);
+    row->pack(Label::create("Bottom Layers"), true, true);
     row->pack(addBut, false, false);
     bottomBox->pack(row, true, false);
 

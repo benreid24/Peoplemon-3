@@ -135,6 +135,12 @@ public:
     const std::vector<SortedLayer>& renderSortedLayers() const;
 
     /**
+     * @brief Returns a mutable reference to the y-sorted layers. Use with caution
+     *
+     */
+    std::vector<SortedLayer>& renderSortedLayers();
+
+    /**
      * @brief Returns a reference to the top tiles in this set
      *
      * @return std::vector<TileLayer>& The

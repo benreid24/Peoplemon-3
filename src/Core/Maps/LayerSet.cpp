@@ -92,6 +92,8 @@ unsigned int LayerSet::layerCount() const {
 
 const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
+std::vector<SortedLayer>& LayerSet::renderSortedLayers() { return ysortedLayers; }
+
 const std::vector<TileLayer>& LayerSet::bottomLayers() const { return bottom.getValue(); }
 
 const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort.getValue(); }

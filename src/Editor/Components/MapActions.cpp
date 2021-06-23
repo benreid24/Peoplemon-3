@@ -208,12 +208,14 @@ EditMap::Action::Ptr EditMap::RemoveLayerAction::create(unsigned int level, unsi
                                                         const EditMap& map) {
     const core::map::TileLayer* ly = nullptr;
     const core::map::LayerSet& lv  = map.levels[level];
-    if (layer < lv.bottomLayers().size()) { ly = &lv.bottomLayers()[layer]; }
+    unsigned int ay                = layer;
+    if (ay < lv.bottomLayers().size()) { ly = &lv.bottomLayers()[ay]; }
     else {
-        layer -= lv.bottomLayers().size();
-        if (layer < lv.ysortLayers().size()) { ly = &lv.ysortLayers()[layer]; }
+        ay -= lv.bottomLayers().size();
+        if (ay < lv.ysortLayers().size()) { ly = &lv.ysortLayers()[ay]; }
         else {
-            ly = &lv.topLayers()[layer - lv.ysortLayers().size()];
+            ay -= lv.ysortLayers().size();
+            ly = &lv.topLayers()[ay];
         }
     }
     return Ptr(new RemoveLayerAction(level, layer, *ly));
@@ -240,6 +242,8 @@ bool EditMap::RemoveLayerAction::apply(EditMap& map) {
     }
     set->erase(set->begin() + ay);
     map.layerFilter[level].erase(map.layerFilter[level].begin() + layer);
+    lv.renderSortedLayers().clear();
+    lv.activate(*map.tileset);
     return true;
 }
 
@@ -258,6 +262,8 @@ bool EditMap::RemoveLayerAction::undo(EditMap& map) {
     }
     set->insert(set->begin() + ay, removedLayer);
     map.layerFilter[level].insert(map.layerFilter[level].begin() + layer, true);
+    lv.renderSortedLayers().clear();
+    map.levels[level].activate(*map.tileset);
     return true;
 }
 
