@@ -70,8 +70,10 @@ private:
         Scripts,
         Peoplemon
     } activeTool;
-
     enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
+
+    sf::IntRect selection;
+    enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;
 
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;

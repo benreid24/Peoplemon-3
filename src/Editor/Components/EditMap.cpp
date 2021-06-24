@@ -52,8 +52,6 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
     getSignal(bl::gui::Action::MouseMoved).willAlwaysCall([this](const bl::gui::Action&, Element*) {
         callCb(moveCb);
     });
-
-    // TODO - init stuff
 }
 
 bool EditMap::editorLoad(const std::string& file) {
@@ -144,6 +142,8 @@ void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] =
 void EditMap::setLayerVisible(unsigned int level, unsigned int layer, bool v) {
     layerFilter[level][layer] = v;
 }
+
+void EditMap::showSelection(const sf::IntRect& s) { selection = s; }
 
 EditMap::EditCamera::EditCamera()
 : enabled(false) {}
@@ -345,6 +345,22 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 
     weather.render(target, residual);
     const_cast<EditMap*>(this)->lighting.render(target);
+
+    selectRect.setPosition(static_cast<float>(selection.left * core::Properties::PixelsPerTile()),
+                           static_cast<float>(selection.top * core::Properties::PixelsPerTile()));
+    if (selection.width > 0) {
+        selectRect.setFillColor(sf::Color(180, 160, 20, 165));
+        selectRect.setSize(
+            {static_cast<float>(selection.width * core::Properties::PixelsPerTile()),
+             static_cast<float>(selection.height * core::Properties::PixelsPerTile())});
+        target.draw(selectRect);
+    }
+    else if (selection.width < 0) {
+        selectRect.setFillColor(sf::Color(20, 70, 220, 165));
+        selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
+                            static_cast<float>(core::Properties::PixelsPerTile())});
+        target.draw(selectRect);
+    }
 }
 
 } // namespace component

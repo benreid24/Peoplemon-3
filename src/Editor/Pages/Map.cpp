@@ -26,6 +26,7 @@ Map::Map(core::system::Systems& s)
             })
 , activeTool(Tool::Metadata)
 , activeSubtool(Subtool::Set)
+, selectionState(NoSelection)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},
             std::bind(&Map::doLoadMap, this, std::placeholders::_1),
             [this]() { mapPicker.close(); })
@@ -96,9 +97,18 @@ Map::Map(core::system::Systems& s)
         activeSubtool = Subtool::Select;
     });
     bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
+    tileDeselectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        selectionState = NoSelection;
+    });
+    Button::Ptr selectAllBut = Button::create("All");
+    selectAllBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        selectionState = SelectionMade;
+        selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
+    });
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
+    box->pack(selectAllBut, true, true);
     box->pack(tileDeselectBut, true, true);
     tileBox->pack(box, true, false);
 
@@ -335,7 +345,13 @@ Map::Map(core::system::Systems& s)
 }
 
 void Map::update(float) {
-    // TODO
+    if (selectionState == SelectionMade) { mapArea.editMap().showSelection(selection); }
+    else if (selectionState == Selecting) {
+        mapArea.editMap().showSelection({selection.left, selection.top, -1, -1});
+    }
+    else {
+        mapArea.editMap().showSelection({0, 0, 0, 0});
+    }
 }
 
 void Map::doLoadMap(const std::string& file) {
@@ -419,7 +435,28 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             break;
 
         case Subtool::Select:
-            // TODO
+            switch (selectionState) {
+            case SelectionMade:
+            case NoSelection:
+                selectionState = Selecting;
+                selection.left = tiles.x;
+                selection.top  = tiles.y;
+                break;
+            case Selecting:
+                selectionState = SelectionMade;
+                {
+                    const int minX = std::min(selection.left, tiles.x);
+                    const int minY = std::min(selection.top, tiles.y);
+                    const int maxX = std::max(selection.left, tiles.x);
+                    const int maxY = std::max(selection.top, tiles.y);
+                    selection      = {minX, minY, maxX - minX + 1, maxY - minY + 1};
+                }
+                break;
+            default:
+                selectionState = NoSelection;
+                break;
+            }
+            break;
 
         default:
             break;

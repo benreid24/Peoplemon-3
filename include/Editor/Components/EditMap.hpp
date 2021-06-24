@@ -52,6 +52,8 @@ public:
 
     void setLayerVisible(unsigned int level, unsigned int layer, bool visible);
 
+    void showSelection(const sf::IntRect& selection);
+
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
     void setName(const std::string& name);
@@ -170,7 +172,9 @@ private:
     std::string savefile;
     std::vector<bool> levelFilter;
     std::vector<std::vector<bool>> layerFilter;
+    sf::IntRect selection;
     mutable sf::View renderView;
+    mutable sf::RectangleShape selectRect;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
