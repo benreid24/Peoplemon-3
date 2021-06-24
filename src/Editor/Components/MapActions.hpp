@@ -32,6 +32,32 @@ private:
                   bool isAnim);
 };
 
+class EditMap::SetTileAreaAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, unsigned int layer,
+                                       const sf::IntRect& area, bool isAnim,
+                                       core::map::Tile::IdType value, const EditMap& map);
+
+    virtual ~SetTileAreaAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const unsigned int layer;
+    const sf::IntRect area;
+    const bl::container::Vector2D<core::map::Tile::IdType> prev;
+    const bl::container::Vector2D<std::uint8_t> wasAnim;
+    const core::map::Tile::IdType updated;
+    const bool isAnim;
+
+    SetTileAreaAction(unsigned int level, unsigned int layer, const sf::IntRect& area,
+                      const bl::container::Vector2D<core::map::Tile::IdType>& prev,
+                      const bl::container::Vector2D<std::uint8_t>& wasAnim,
+                      core::map::Tile::IdType value, bool isAnim);
+};
+
 class EditMap::SetPlaylistAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(const std::string& playlist, const EditMap& editMap);

@@ -256,6 +256,11 @@ void EditMap::setTile(unsigned int level, unsigned int layer, const sf::Vector2i
     addAction(SetTileAction::create(level, layer, pos, isAnim, id, *this));
 }
 
+void EditMap::setTileArea(unsigned int level, unsigned int layer, const sf::IntRect& area,
+                          core::map::Tile::IdType value, bool isAnim) {
+    addAction(SetTileAreaAction::create(level, layer, area, isAnim, value, *this));
+}
+
 void EditMap::appendBottomLayer(unsigned int level) {
     addAction(AppendLayerAction::create(level, AppendLayerAction::Bottom));
 }

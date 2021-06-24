@@ -383,18 +383,36 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         case Subtool::Set:
             switch (tileset.getActiveTool()) {
             case Tileset::Tiles:
-                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
-                                          layerSelect->getSelectedOption(),
-                                          tiles,
-                                          tileset.getActiveTile(),
-                                          false);
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  tileset.getActiveTile(),
+                                                  false);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              tileset.getActiveTile(),
+                                              false);
+                }
                 break;
             case Tileset::Animations:
-                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
-                                          layerSelect->getSelectedOption(),
-                                          tiles,
-                                          tileset.getActiveAnim(),
-                                          true);
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  tileset.getActiveAnim(),
+                                                  true);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              tileset.getActiveAnim(),
+                                              true);
+                }
                 break;
             case Tileset::CollisionTiles:
                 // TODO

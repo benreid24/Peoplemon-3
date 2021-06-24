@@ -180,6 +180,51 @@ bool EditMap::SetTileAction::undo(EditMap& map) {
 
 const char* EditMap::SetTileAction::description() const { return "set tile"; }
 
+EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsigned int layer,
+                                                        const sf::IntRect& area, bool isAnim,
+                                                        core::map::Tile::IdType value,
+                                                        const EditMap& map) {
+    bl::container::Vector2D<core::map::Tile::IdType> prev;
+    bl::container::Vector2D<std::uint8_t> wasAnim;
+    prev.setSize(area.width, area.height, core::map::Tile::Blank);
+    wasAnim.setSize(area.width, area.height, 0);
+
+    for (int x = area.left; x < area.left + area.height; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            const auto& tile = getTile(map.levels, level, layer, {x, y});
+            prev(x, y)       = tile.id();
+            wasAnim(x, y)    = tile.isAnimation() ? 1 : 0;
+        }
+    }
+
+    return Ptr(new SetTileAreaAction(level, layer, area, prev, wasAnim, value, isAnim));
+}
+
+EditMap::SetTileAreaAction::SetTileAreaAction(
+    unsigned int level, unsigned int layer, const sf::IntRect& area,
+    const bl::container::Vector2D<core::map::Tile::IdType>& prev,
+    const bl::container::Vector2D<std::uint8_t>& wasAnim, core::map::Tile::IdType value,
+    bool isAnim)
+: level(level)
+, layer(layer)
+, area(area)
+, prev(prev)
+, wasAnim(wasAnim)
+, updated(value)
+, isAnim(isAnim) {}
+
+bool EditMap::SetTileAreaAction::apply(EditMap&) {
+    // TODO
+    return false;
+}
+
+bool EditMap::SetTileAreaAction::undo(EditMap&) {
+    // TODO
+    return false;
+}
+
+const char* EditMap::SetTileAreaAction::description() const { return "set tile area"; }
+
 EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
                                                         const EditMap& map) {
     return Ptr(new SetPlaylistAction(map.playlistField.getValue(), playlist));
