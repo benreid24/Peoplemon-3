@@ -100,6 +100,23 @@ private:
                       const core::map::TileLayer& removedLayer);
 };
 
+class EditMap::ShiftLayerAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, unsigned int layer, bool up);
+
+    virtual ~ShiftLayerAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const unsigned int layer;
+    const bool up;
+
+    ShiftLayerAction(unsigned int level, unsigned int layer, bool up);
+};
+
 } // namespace component
 } // namespace editor
 

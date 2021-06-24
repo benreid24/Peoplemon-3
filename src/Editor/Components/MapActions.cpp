@@ -45,6 +45,80 @@ void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset&
     }
 }
 
+void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
+                  std::vector<bool>& filter) {
+    if (layer < level.bottomLayers().size()) {
+        std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer - 1]);
+        std::swap(filter[layer], filter[layer - 1]);
+    }
+    else {
+        layer -= level.bottomLayers().size();
+        if (layer == 0) {
+            core::map::TileLayer temp(std::move(level.ysortLayers()[layer]));
+            level.ysortLayers().erase(level.ysortLayers().begin() + layer);
+            level.bottomLayers().emplace_back(std::move(temp));
+            level.renderSortedLayers().clear();
+            level.activate(tileset);
+        }
+        else if (layer < level.ysortLayers().size()) {
+            std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer - 1]);
+            std::swap(filter[layer], filter[layer - 1]);
+            level.renderSortedLayers().clear();
+            level.activate(tileset);
+        }
+        else {
+            layer -= level.ysortLayers().size();
+            if (layer == 0) {
+                core::map::TileLayer temp(std::move(level.topLayers()[layer]));
+                level.topLayers().erase(level.topLayers().begin() + layer);
+                level.ysortLayers().emplace_back(std::move(temp));
+                level.renderSortedLayers().clear();
+                level.activate(tileset);
+            }
+            else {
+                std::swap(level.topLayers()[layer], level.topLayers()[layer - 1]);
+                std::swap(filter[layer], filter[layer - 1]);
+            }
+        }
+    }
+}
+
+void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
+                    std::vector<bool>& filter) {
+    if (layer < level.bottomLayers().size() - 1) {
+        std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer + 1]);
+        std::swap(filter[layer], filter[layer + 1]);
+    }
+    else if (layer == level.bottomLayers().size() - 1) {
+        core::map::TileLayer temp(std::move(level.bottomLayers()[layer]));
+        level.bottomLayers().erase(level.bottomLayers().begin() + layer);
+        level.ysortLayers().emplace(level.ysortLayers().begin(), std::move(temp));
+        level.renderSortedLayers().clear();
+        level.activate(tileset);
+    }
+    else {
+        layer -= level.bottomLayers().size();
+        if (layer < level.ysortLayers().size() - 1) {
+            std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer + 1]);
+            std::swap(filter[layer], filter[layer + 1]);
+            level.renderSortedLayers().clear();
+            level.activate(tileset);
+        }
+        else if (layer == level.ysortLayers().size() - 1) {
+            core::map::TileLayer temp(std::move(level.ysortLayers()[layer]));
+            level.ysortLayers().erase(level.ysortLayers().begin() + layer);
+            level.topLayers().emplace(level.topLayers().begin(), std::move(temp));
+            level.renderSortedLayers().clear();
+            level.activate(tileset);
+        }
+        else {
+            layer -= level.ysortLayers().size();
+            std::swap(level.topLayers()[layer], level.topLayers()[layer + 1]);
+            std::swap(filter[layer], filter[layer + 1]);
+        }
+    }
+}
+
 } // namespace
 
 EditMap::Action::Ptr EditMap::SetTileAction::create(unsigned int level, unsigned int layer,
@@ -268,6 +342,48 @@ bool EditMap::RemoveLayerAction::undo(EditMap& map) {
 }
 
 const char* EditMap::RemoveLayerAction::description() const { return "delete layer"; }
+
+EditMap::Action::Ptr EditMap::ShiftLayerAction::create(unsigned int level, unsigned int layer,
+                                                       bool up) {
+    return Ptr(new ShiftLayerAction(level, layer, up));
+}
+
+EditMap::ShiftLayerAction::ShiftLayerAction(unsigned int level, unsigned int layer, bool up)
+: level(level)
+, layer(layer)
+, up(up) {}
+
+bool EditMap::ShiftLayerAction::apply(EditMap& map) {
+    if (up) { shiftLayerUp(map.levels[level], layer, *map.tileset, map.layerFilter[level]); }
+    else {
+        shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
+    }
+    return true;
+}
+
+bool EditMap::ShiftLayerAction::undo(EditMap& map) {
+    if (up) {
+        unsigned int ay = layer - 1;
+        if (layer == map.levels[level].bottomLayers().size() - 1 ||
+            layer == map.levels[level].bottomLayers().size() +
+                         map.levels[level].ysortLayers().size() - 1) {
+            ay = layer;
+        }
+        shiftLayerDown(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
+    }
+    else {
+        unsigned int ay = layer + 1;
+        if (layer == map.levels[level].bottomLayers().size() ||
+            layer ==
+                map.levels[level].bottomLayers().size() + map.levels[level].ysortLayers().size()) {
+            ay = layer;
+        }
+        shiftLayerUp(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
+    }
+    return true;
+}
+
+const char* EditMap::ShiftLayerAction::description() const { return "shift layer"; }
 
 } // namespace component
 } // namespace editor

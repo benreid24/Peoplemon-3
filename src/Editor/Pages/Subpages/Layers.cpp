@@ -9,24 +9,27 @@ namespace page
 using namespace bl::gui;
 
 Layers::Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb,
-               const DeleteCb& delCb, const RenderFilterCb& filterCb)
+               const DeleteCb& delCb, const ShiftCb& shiftCb, const RenderFilterCb& filterCb)
 : bottomAdd(bottomAddCb)
 , ysortAdd(ysortAddCb)
 , topAdd(topAddCb)
 , delCb(delCb)
+, shiftCb(shiftCb)
 , filterCb(filterCb) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Notebook::create();
 }
 
-void Layers::sync(const std::vector<core::map::LayerSet>& levels) {
+void Layers::sync(const std::vector<core::map::LayerSet>& levels,
+                  const std::vector<std::vector<bool>>& filter) {
     for (unsigned int i = 0; i < content->pageCount(); ++i) { content->removePageByIndex(i); }
 
     pages.clear();
     pages.reserve(levels.size());
     for (unsigned int i = 0; i < levels.size(); ++i) {
         const auto& level = levels[i];
-        pages.emplace_back(i, level, filterCb, bottomAdd, ysortAdd, topAdd, delCb);
+        pages.emplace_back(
+            i, level, filter[i], filterCb, bottomAdd, ysortAdd, topAdd, delCb, shiftCb);
         const std::string title = "Level " + std::to_string(pages.back().index);
         content->addPage(title, title, pages.back().page);
     }
@@ -39,9 +42,9 @@ void Layers::pack() { contentWrapper->pack(content, true, true); }
 void Layers::unpack() { content->remove(); }
 
 Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
-                           const RenderFilterCb& vcb, const AppendCb& bottomAddCb,
-                           const AppendCb& ysortAddCb, const AppendCb& topAddCb,
-                           const DeleteCb& delCb)
+                           const std::vector<bool>& filter, const RenderFilterCb& vcb,
+                           const AppendCb& bottomAddCb, const AppendCb& ysortAddCb,
+                           const AppendCb& topAddCb, const DeleteCb& delCb, const ShiftCb& shiftCb)
 : index(i) {
     page = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
     page->setMaxSize({300, 175});
@@ -49,6 +52,9 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
     Box::Ptr box         = Box::create(LinePacker::create(LinePacker::Vertical, 8));
     const auto visibleCb = [this, vcb](unsigned int layer, bool v) { vcb(index, layer, v); };
     const auto deleteCb  = [this, delCb](unsigned int layer) { delCb(index, layer); };
+    const auto onShift   = [this, shiftCb](unsigned int layer, bool up) {
+        shiftCb(index, layer, up);
+    };
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
     Button::Ptr addBut = Button::create("Add");
@@ -84,27 +90,29 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     items.reserve(level.layerCount());
     for (unsigned int i = 0; i < level.bottomLayers().size(); ++i) {
-        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
+        items.emplace_back(i, i != 0, true, filter[i], visibleCb, deleteCb, onShift);
         bottomBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size();
          i < level.bottomLayers().size() + level.ysortLayers().size();
          ++i) {
-        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
+        items.emplace_back(i, true, true, filter[i], visibleCb, deleteCb, onShift);
         ysortBox->pack(items.back().row, true, false);
     }
     for (unsigned int i = level.bottomLayers().size() + level.ysortLayers().size();
          i < level.layerCount();
          ++i) {
-        items.emplace_back(i, level.layerCount(), visibleCb, deleteCb);
+        items.emplace_back(
+            i, true, i != level.layerCount() - 1, filter[i], visibleCb, deleteCb, onShift);
         topBox->pack(items.back().row, true, false);
     }
 
     page->pack(box, true, true);
 }
 
-Layers::LayerRow::LayerRow(unsigned int i, unsigned int mi, const VisibleCb& visibleCb,
-                           const DeleteCb& delCb)
+Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visible,
+                           const VisibleCb& visibleCb, const DeleteCb& delCb,
+                           const ShiftCb& shiftCb)
 : index(i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
@@ -116,7 +124,7 @@ Layers::LayerRow::LayerRow(unsigned int i, unsigned int mi, const VisibleCb& vis
     row->pack(name, true, false);
 
     visibleToggle = CheckButton::create("Visible");
-    visibleToggle->setValue(true);
+    visibleToggle->setValue(visible);
     visibleToggle->getSignal(Action::ValueChanged)
         .willAlwaysCall([this, visibleCb](const Action&, Element*) {
             visibleCb(index, visibleToggle->getValue());
@@ -124,11 +132,19 @@ Layers::LayerRow::LayerRow(unsigned int i, unsigned int mi, const VisibleCb& vis
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");
-    if (i == 0) upBut->setActive(false);
+    upBut->setActive(canUp);
+    if (canUp) {
+        upBut->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, true); });
+    }
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
-    if (i == mi - 1) downBut->setActive(false);
+    downBut->setActive(canDown);
+    if (canDown) {
+        downBut->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, false); });
+    }
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");

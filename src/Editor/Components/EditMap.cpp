@@ -272,6 +272,10 @@ void EditMap::removeLayer(unsigned int level, unsigned int layer) {
     addAction(RemoveLayerAction::create(level, layer, *this));
 }
 
+void EditMap::shiftLayer(unsigned int level, unsigned int layer, bool up) {
+    addAction(ShiftLayerAction::create(level, layer, up));
+}
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();

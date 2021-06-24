@@ -18,6 +18,9 @@ Map::Map(core::system::Systems& s)
             [this](unsigned int level, unsigned int layer) {
                 mapArea.editMap().removeLayer(level, layer);
             },
+            [this](unsigned int level, unsigned int layer, bool up) {
+                mapArea.editMap().shiftLayer(level, layer, up);
+            },
             [this](unsigned int level, unsigned int layer, bool visible) {
                 mapArea.editMap().setLayerVisible(level, layer, visible);
             })
@@ -461,7 +464,7 @@ void Map::syncGui() {
     }
     levelSelect->setSelectedOption(0);
     onLevelChange(0);
-    layerPage.sync(mapArea.editMap().levels);
+    layerPage.sync(mapArea.editMap().levels, mapArea.editMap().layerFilter);
 
     nameEntry->setInput(mapArea.editMap().name());
     playlistLabel->setText(mapArea.editMap().playlistField);

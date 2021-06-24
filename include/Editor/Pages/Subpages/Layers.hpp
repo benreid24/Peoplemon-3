@@ -18,6 +18,7 @@ class Layers {
 public:
     using AppendCb = std::function<void(unsigned int level)>;
     using DeleteCb = std::function<void(unsigned int level, unsigned int layer)>;
+    using ShiftCb  = std::function<void(unsigned int level, unsigned int layer, bool up)>;
     using RenderFilterCb =
         std::function<void(unsigned int level, unsigned int layer, bool visible)>;
 
@@ -28,17 +29,20 @@ public:
      * @param ysortAddCb Called when a new ysort layer should be created
      * @param topAddCb Called when a new top layer should be created
      * @param delCb Called when a layer should be deleted
+     * @param shiftCb Called when a layer should be shifted
      * @param filterCb Called when layer visibility changes
      */
     Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb,
-           const DeleteCb& delCb, const RenderFilterCb& filterCb);
+           const DeleteCb& delCb, const ShiftCb& shiftCb, const RenderFilterCb& filterCb);
 
     /**
      * @brief Syncs the GUI elements with the map layers that exist
      *
      * @param levels The levels in the map
+     * @param filter The current render filter
      */
-    void sync(const std::vector<core::map::LayerSet>& levels);
+    void sync(const std::vector<core::map::LayerSet>& levels,
+              const std::vector<std::vector<bool>>& filter);
 
     /**
      * @brief Removes the level at the given index
@@ -76,6 +80,7 @@ private:
     struct LayerRow {
         using VisibleCb = std::function<void(unsigned int layer, bool visible)>;
         using DeleteCb  = std::function<void(unsigned int layer)>;
+        using ShiftCb   = std::function<void(unsigned int layer, bool up)>;
 
         bl::gui::Box::Ptr row;
         bl::gui::Label::Ptr name;
@@ -85,8 +90,8 @@ private:
         bl::gui::Button::Ptr delBut;
         unsigned int index;
 
-        LayerRow(unsigned int i, unsigned int mi, const VisibleCb& visibleCb,
-                 const DeleteCb& delCb);
+        LayerRow(unsigned int i, bool canUp, bool canDown, bool visible, const VisibleCb& visibleCb,
+                 const DeleteCb& delCb, const ShiftCb& shiftCb);
     };
 
     struct LevelTab {
@@ -98,15 +103,17 @@ private:
         bl::gui::Box::Ptr ysortBox;
         bl::gui::Box::Ptr topBox;
 
-        LevelTab(unsigned int i, const core::map::LayerSet& level, const RenderFilterCb& visibleCb,
-                 const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb,
-                 const DeleteCb& delCb);
+        LevelTab(unsigned int i, const core::map::LayerSet& level, const std::vector<bool>& filter,
+                 const RenderFilterCb& visibleCb, const AppendCb& bottomAddCb,
+                 const AppendCb& ysortAddCb, const AppendCb& topAddCb, const DeleteCb& delCb,
+                 const ShiftCb& shiftCb);
     };
 
     const AppendCb bottomAdd;
     const AppendCb ysortAdd;
     const AppendCb topAdd;
     const DeleteCb delCb;
+    const ShiftCb shiftCb;
     const RenderFilterCb filterCb;
 
     bl::gui::Box::Ptr contentWrapper;
