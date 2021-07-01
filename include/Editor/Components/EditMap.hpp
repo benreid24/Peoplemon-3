@@ -24,6 +24,14 @@ public:
     using PositionCb = std::function<void(const sf::Vector2f& pixels, const sf::Vector2i& tiles)>;
     using ActionCb   = std::function<void()>;
 
+    enum struct RenderOverlay {
+        None,
+        Collisions,
+        CatchTiles,
+        Events,
+        PeoplemonZones
+    };
+
     static Ptr create(const PositionCb& clickCb, const PositionCb& moveCb, const ActionCb& actionCb,
                       const ActionCb& syncCb, core::system::Systems& systems);
 
@@ -51,6 +59,8 @@ public:
     void setLevelVisible(unsigned int level, bool visible);
 
     void setLayerVisible(unsigned int level, unsigned int layer, bool visible);
+
+    void setRenderOverlay(RenderOverlay overlay, unsigned int level);
 
     void showSelection(const sf::IntRect& selection);
 
@@ -175,6 +185,9 @@ private:
     sf::IntRect selection;
     mutable sf::View renderView;
     mutable sf::RectangleShape selectRect;
+    mutable sf::Sprite overlaySprite;
+    RenderOverlay renderOverlay;
+    unsigned int overlayLevel;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);

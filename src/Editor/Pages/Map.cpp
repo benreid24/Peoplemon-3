@@ -352,6 +352,23 @@ void Map::update(float) {
     else {
         mapArea.editMap().showSelection({0, 0, 0, 0});
     }
+
+    switch (tileset.getActiveTool()) {
+    case Tileset::CollisionTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Collisions,
+                                           levelSelect->getSelectedOption());
+        break;
+
+    case Tileset::CatchTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::CatchTiles,
+                                           levelSelect->getSelectedOption());
+        break;
+
+    default:
+        // TODO - check for events or catch zones or whatever else
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        break;
+    }
 }
 
 void Map::doLoadMap(const std::string& file) {

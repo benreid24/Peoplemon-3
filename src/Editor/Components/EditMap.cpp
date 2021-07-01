@@ -1,6 +1,7 @@
 #include <Editor/Components/EditMap.hpp>
 
 #include "MapActions.hpp"
+#include <BLIB/Engine/Resources.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -9,6 +10,29 @@ namespace editor
 {
 namespace component
 {
+namespace
+{
+const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
+    bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/top.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/right.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/bottom.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/left.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/topRight.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomRight.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomLeft.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/topLeft.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/topBottom.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/leftRight.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/noTop.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/noRight.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/noBottom.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data};
+}
+
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
                              core::system::Systems& systems) {
@@ -26,7 +50,9 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , syncCb(syncCb)
 , camera(EditCamera::Ptr(new EditCamera()))
 , changedSinceSave(false)
-, controlsEnabled(false) {
+, controlsEnabled(false)
+, renderOverlay(RenderOverlay::None)
+, overlayLevel(0) {
     systems = &s;
 
     static const auto callCb = [this, &s](const PositionCb& cb) {
@@ -141,6 +167,11 @@ void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] =
 
 void EditMap::setLayerVisible(unsigned int level, unsigned int layer, bool v) {
     layerFilter[level][layer] = v;
+}
+
+void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
+    renderOverlay = ro;
+    overlayLevel  = l;
 }
 
 void EditMap::showSelection(const sf::IntRect& s) { selection = s; }
@@ -365,6 +396,37 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
                             static_cast<float>(core::Properties::PixelsPerTile())});
         target.draw(selectRect);
+    }
+
+    switch (renderOverlay) {
+    case RenderOverlay::Collisions:
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                overlaySprite.setTexture(*colGfx[static_cast<unsigned int>(
+                                             levels[overlayLevel].collisionLayer().get(x, y))],
+                                         true);
+                overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
+                                          y * core::Properties::PixelsPerTile());
+                target.draw(overlaySprite);
+            }
+        }
+        break;
+
+    case RenderOverlay::CatchTiles:
+        // TODO
+        break;
+
+    case RenderOverlay::Events:
+        // TODO
+        break;
+
+    case RenderOverlay::PeoplemonZones:
+        // TODO
+        break;
+
+    case RenderOverlay::None:
+    default:
+        break;
     }
 }
 
