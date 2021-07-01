@@ -452,21 +452,31 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         case Subtool::Clear:
             switch (tileset.getActiveTool()) {
             case Tileset::Tiles:
-                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
-                                          layerSelect->getSelectedOption(),
-                                          tiles,
-                                          core::map::Tile::Blank,
-                                          false);
-                break;
             case Tileset::Animations:
-                mapArea.editMap().setTile(levelSelect->getSelectedOption(),
-                                          layerSelect->getSelectedOption(),
-                                          tiles,
-                                          core::map::Tile::Blank,
-                                          false);
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  core::map::Tile::Blank,
+                                                  false);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              core::map::Tile::Blank,
+                                              false);
+                }
                 break;
             case Tileset::CollisionTiles:
-                // TODO
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCollisionArea(
+                        levelSelect->getSelectedOption(), selection, core::map::Collision::Open);
+                }
+                else {
+                    mapArea.editMap().setCollision(
+                        levelSelect->getSelectedOption(), tiles, core::map::Collision::Open);
+                }
                 break;
             case Tileset::CatchTiles:
                 // TODO
