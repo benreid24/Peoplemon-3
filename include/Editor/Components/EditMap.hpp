@@ -15,61 +15,168 @@ class Map;
 
 namespace component
 {
+/**
+ * @brief Wrapper over the core::Map class that is directly usable in a bl::gui::GUI
+ *
+ * @ingroup Components
+ *
+ */
 class EditMap
 : public bl::gui::Element
 , public core::map::Map {
 public:
+    /// Pointer to an EditMap
     typedef std::shared_ptr<EditMap> Ptr;
 
+    /// Called when the map is clicked
     using PositionCb = std::function<void(const sf::Vector2f& pixels, const sf::Vector2i& tiles)>;
-    using ActionCb   = std::function<void()>;
 
+    /// Called on various event types
+    using ActionCb = std::function<void()>;
+
+    /**
+     * @brief Optional render overlays depending on editor state
+     *
+     */
     enum struct RenderOverlay {
+        /// No extra overlay
         None,
+
+        /// Renders collisions for the current level
         Collisions,
+
+        /// Renders catch tiles for the current level
         CatchTiles,
+
+        /// Renders events in the map
         Events,
+
+        /// Renders catch zones
         PeoplemonZones
     };
 
+    /**
+     * @brief Creates a new EditMap
+     *
+     * @param clickCb Called when the map is clicked
+     * @param moveCb Called when the mouse is moved over a tile
+     * @param actionCb Called when editor actions are performed
+     * @param syncCb Called when map data has changed and the GUI should update
+     * @param systems The primary systems object
+     * @return Ptr The new EditMap
+     */
     static Ptr create(const PositionCb& clickCb, const PositionCb& moveCb, const ActionCb& actionCb,
                       const ActionCb& syncCb, core::system::Systems& systems);
 
+    /**
+     * @brief Destroy the Edit Map object
+     *
+     */
     virtual ~EditMap() = default;
 
+    /**
+     * @brief Returns whether or not the map has been updated since last being saved
+     *
+     */
     bool unsavedChanges() const;
 
     void newMap(const std::string& filename, const std::string& name, const std::string& tileset,
                 unsigned int width, unsigned int height);
 
+    /**
+     * @brief Loads the map contents from the given file
+     *
+     * @param filename The map file to load from
+     * @return True if loaded without error, false on error
+     */
     bool editorLoad(const std::string& filename);
 
+    /**
+     * @brief Saves the map to the file it was loaded from or created with
+     *
+     * @return True on success, false on error
+     */
     bool editorSave();
 
+    /**
+     * @brief Returns the description of what action will be undone if undo is called
+     *
+     */
     const char* undoDescription() const;
 
+    /**
+     * @brief Undoes the previous action in the edit history
+     *
+     */
     void undo();
 
+    /**
+     * @brief Returns the description of what action will be redone if redo is called
+     *
+     */
     const char* redoDescription() const;
 
+    /**
+     * @brief Reapplies the next action in the edit history
+     *
+     */
     void redo();
 
+    /**
+     * @brief Enables or disables the map camera and click controls
+     *
+     */
     void setControlsEnabled(bool enabled);
 
+    /**
+     * @brief Shows or hides the given level
+     *
+     * @param level The level to show or hide
+     * @param visible True to render, false to hide
+     */
     void setLevelVisible(unsigned int level, bool visible);
 
+    /**
+     * @brief Shows or hides the given layer
+     *
+     * @param level The level the layer is on
+     * @param layer The index of the layer to show or hide
+     * @param visible True to render, false to hide
+     */
     void setLayerVisible(unsigned int level, unsigned int layer, bool visible);
 
+    /**
+     * @brief Sets which overlay gets rendered on top of the map
+     *
+     * @param overlay The overlay to render
+     * @param level Which level to source the overlay from
+     */
     void setRenderOverlay(RenderOverlay overlay, unsigned int level);
 
+    /**
+     * @brief Sets the tile selection to render. Set width or height to 0 to hide. Set width or
+     *        height to negative values to show a single tile in blue (partial selection)
+     *
+     * @param selection The selection to render, in tiles
+     */
     void showSelection(const sf::IntRect& selection);
 
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
     void setName(const std::string& name);
 
+    /**
+     * @brief Sets the playlist of the map
+     *
+     * @param playlist Path to the playlist to set
+     */
     void setPlaylist(const std::string& playlist);
 
+    /**
+     * @brief Set the weather in the map
+     *
+     * @param weather The weather to do
+     */
     void setWeather(core::map::Weather::Type weather);
 
     void setOnEnterScript(const std::string& script);
@@ -84,28 +191,103 @@ public:
 
     void removeLevel(unsigned int level);
 
+    /**
+     * @brief Creates a new (empty) bottom layer
+     *
+     * @param level The level to create the layer on
+     */
     void appendBottomLayer(unsigned int level);
 
+    /**
+     * @brief Creates a new (empty) y-sort layer
+     *
+     * @param level The level to create the layer on
+     */
     void appendYsortLayer(unsigned int level);
 
+    /**
+     * @brief Creates a new (empty) top layer
+     *
+     * @param level The level to create the layer on
+     */
     void appendTopLayer(unsigned int level);
 
+    /**
+     * @brief Shifts a layer up or down in the render order. This will also move layers between
+     *        bottom, y-sort, and top buckets
+     *
+     * @param level The level the layer is on
+     * @param layer The layer to shift
+     * @param up True to move up (render earlier), false to move down (render later)
+     */
     void shiftLayer(unsigned int level, unsigned int layer, bool up);
 
+    /**
+     * @brief Deletes the given layer
+     * 
+     * @param level The level the layer is on
+     * @param layer Index of the layer to remove
+     */
     void removeLayer(unsigned int level, unsigned int layer);
 
+    /**
+     * @brief Sets a single tile
+     * 
+     * @param level The level to modify
+     * @param layer The layer to modify
+     * @param position The position of the tile to modify
+     * @param id The new tile id
+     * @param isAnim True for animation, false for texture
+     */
     void setTile(unsigned int level, unsigned int layer, const sf::Vector2i& position,
                  core::map::Tile::IdType id, bool isAnim);
 
+    /**
+     * @brief Sets a range of tiles to a given value. Tries to avoid overcrowding for large tiles
+     * 
+     * @param level The level to modify
+     * @param layer The layer to modify
+     * @param area Region of tiles to set
+     * @param id New tile id
+     * @param isAnim True for animation, false for texture
+     */
     void setTileArea(unsigned int level, unsigned int layer, const sf::IntRect& area,
                      core::map::Tile::IdType id, bool isAnim);
 
+    /**
+     * @brief Sets a single collision tile
+     * 
+     * @param level The level to modify
+     * @param position The position of the collision to set
+     * @param id The new collision value
+     */
     void setCollision(unsigned int level, const sf::Vector2i& position, core::map::Collision id);
 
+    /**
+     * @brief Sets a range of collision tiles to a single value
+     * 
+     * @param level The level to modify
+     * @param area The region to set
+     * @param id The value to set all tiles to
+     */
     void setCollisionArea(unsigned int level, const sf::IntRect& area, core::map::Collision id);
 
+    /**
+     * @brief Sets a single catch tile
+     * 
+     * @param level The level to modify
+     * @param position The position of the catch to set
+     * @param id The new catch value
+     */
     void setCatch(unsigned int level, const sf::Vector2i& position, core::map::Catch id);
 
+    /**
+     * @brief Sets a range of catch tiles to a single value
+     * 
+     * @param level The level to modify
+     * @param area The region to set
+     * @param id The value to set all tiles to
+     */
     void setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch id);
 
     void setSpawn(const core::map::Spawn& spawn);
