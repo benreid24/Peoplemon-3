@@ -31,7 +31,12 @@ const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
     bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data};
-}
+
+const bl::resource::Resource<sf::Texture>::Ref catchGfx[] = {
+    bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data};
+
+} // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
@@ -301,6 +306,14 @@ void EditMap::setCollisionArea(unsigned int level, const sf::IntRect& area,
     addAction(SetCollisionAreaAction::create(level, area, val, *this));
 }
 
+void EditMap::setCatch(unsigned int level, const sf::Vector2i& pos, core::map::Catch value) {
+    addAction(SetCatchAction::create(level, pos, value, *this));
+}
+
+void EditMap::setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch value) {
+    addAction(SetCatchAreaAction::create(level, area, value, *this));
+}
+
 void EditMap::appendBottomLayer(unsigned int level) {
     addAction(AppendLayerAction::create(level, AppendLayerAction::Bottom));
 }
@@ -406,7 +419,16 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         break;
 
     case RenderOverlay::CatchTiles:
-        // TODO
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                overlaySprite.setTexture(*catchGfx[static_cast<unsigned int>(
+                                             levels[overlayLevel].catchLayer().get(x, y))],
+                                         true);
+                overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
+                                          y * core::Properties::PixelsPerTile());
+                target.draw(overlaySprite);
+            }
+        }
         break;
 
     case RenderOverlay::Events:

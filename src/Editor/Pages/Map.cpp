@@ -442,7 +442,14 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
                 }
                 break;
             case Tileset::CatchTiles:
-                // TODO
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCatchArea(
+                        levelSelect->getSelectedOption(), selection, tileset.getActiveCatch());
+                }
+                else {
+                    mapArea.editMap().setCatch(
+                        levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
+                }
                 break;
             default:
                 break;
@@ -479,7 +486,14 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
                 }
                 break;
             case Tileset::CatchTiles:
-                // TODO
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCatchArea(
+                        levelSelect->getSelectedOption(), selection, core::map::Catch::NoEncounter);
+                }
+                else {
+                    mapArea.editMap().setCatch(
+                        levelSelect->getSelectedOption(), tiles, core::map::Catch::NoEncounter);
+                }
                 break;
             default:
                 break;

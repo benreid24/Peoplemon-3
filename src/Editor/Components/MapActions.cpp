@@ -326,6 +326,73 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
 
 const char* EditMap::SetCollisionAreaAction::description() const { return "set col area"; }
 
+EditMap::Action::Ptr EditMap::SetCatchAction::create(unsigned int level, const sf::Vector2i& pos,
+                                                     core::map::Catch value, const EditMap& map) {
+    return Ptr(
+        new SetCatchAction(level, pos, value, map.levels[level].catchLayer().get(pos.x, pos.y)));
+}
+
+EditMap::SetCatchAction::SetCatchAction(unsigned int level, const sf::Vector2i& pos,
+                                        core::map::Catch value, core::map::Catch ogVal)
+: level(level)
+, pos(pos)
+, value(value)
+, ogVal(ogVal) {}
+
+bool EditMap::SetCatchAction::apply(EditMap& map) {
+    map.levels[level].catchLayer().set(pos.x, pos.y, value);
+    return false;
+}
+
+bool EditMap::SetCatchAction::undo(EditMap& map) {
+    map.levels[level].catchLayer().set(pos.x, pos.y, ogVal);
+    return false;
+}
+
+const char* EditMap::SetCatchAction::description() const { return "set catch tile"; }
+
+EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
+                                                         const sf::IntRect& area,
+                                                         core::map::Catch value,
+                                                         const EditMap& map) {
+    bl::container::Vector2D<core::map::Catch> ogcols;
+    ogcols.setSize(area.width, area.height, core::map::Catch::NoEncounter);
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            ogcols(x - area.left, y - area.top) = map.levels[level].catchLayer().get(x, y);
+        }
+    }
+    return Ptr(new SetCatchAreaAction(level, area, value, std::move(ogcols)));
+}
+
+EditMap::SetCatchAreaAction::SetCatchAreaAction(unsigned int level, const sf::IntRect& area,
+                                                core::map::Catch value,
+                                                bl::container::Vector2D<core::map::Catch>&& ogcols)
+: level(level)
+, area(area)
+, value(value)
+, ogVals(ogcols) {}
+
+bool EditMap::SetCatchAreaAction::apply(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.levels[level].catchLayer().set(x, y, value);
+        }
+    }
+    return false;
+}
+
+bool EditMap::SetCatchAreaAction::undo(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.levels[level].catchLayer().set(x, y, ogVals(x - area.left, y - area.top));
+        }
+    }
+    return false;
+}
+
+const char* EditMap::SetCatchAreaAction::description() const { return "set catch area"; }
+
 EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
                                                         const EditMap& map) {
     return Ptr(new SetPlaylistAction(map.playlistField.getValue(), playlist));

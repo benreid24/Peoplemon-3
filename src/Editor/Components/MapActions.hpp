@@ -100,6 +100,46 @@ private:
                            bl::container::Vector2D<core::map::Collision>&& ogcols);
 };
 
+class EditMap::SetCatchAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, const sf::Vector2i& pos,
+                                       core::map::Catch value, const EditMap& map);
+
+    virtual ~SetCatchAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const sf::Vector2i pos;
+    const core::map::Catch value;
+    const core::map::Catch ogVal;
+
+    SetCatchAction(unsigned int level, const sf::Vector2i& pos, core::map::Catch value,
+                   core::map::Catch ogVal);
+};
+
+class EditMap::SetCatchAreaAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, const sf::IntRect& area,
+                                       core::map::Catch value, const EditMap& map);
+
+    virtual ~SetCatchAreaAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const sf::IntRect area;
+    const core::map::Catch value;
+    const bl::container::Vector2D<core::map::Catch> ogVals;
+
+    SetCatchAreaAction(unsigned int level, const sf::IntRect& area, core::map::Catch value,
+                       bl::container::Vector2D<core::map::Catch>&& ogcols);
+};
+
 class EditMap::SetPlaylistAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(const std::string& playlist, const EditMap& editMap);
