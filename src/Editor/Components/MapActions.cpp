@@ -225,6 +225,76 @@ bool EditMap::SetTileAreaAction::undo(EditMap&) {
 
 const char* EditMap::SetTileAreaAction::description() const { return "set tile area"; }
 
+EditMap::Action::Ptr EditMap::SetCollisionAction::create(unsigned int level,
+                                                         const sf::Vector2i& pos,
+                                                         core::map::Collision value,
+                                                         const EditMap& map) {
+    return Ptr(new SetCollisionAction(
+        level, pos, value, map.levels[level].collisionLayer().get(pos.x, pos.y)));
+}
+
+EditMap::SetCollisionAction::SetCollisionAction(unsigned int level, const sf::Vector2i& pos,
+                                                core::map::Collision value,
+                                                core::map::Collision ogVal)
+: level(level)
+, pos(pos)
+, value(value)
+, ogVal(ogVal) {}
+
+bool EditMap::SetCollisionAction::apply(EditMap& map) {
+    map.levels[level].collisionLayer().set(pos.x, pos.y, value);
+    return false;
+}
+
+bool EditMap::SetCollisionAction::undo(EditMap& map) {
+    map.levels[level].collisionLayer().set(pos.x, pos.y, ogVal);
+    return false;
+}
+
+const char* EditMap::SetCollisionAction::description() const { return "set collision"; }
+
+EditMap::Action::Ptr EditMap::SetCollisionAreaAction::create(unsigned int level,
+                                                             const sf::IntRect& area,
+                                                             core::map::Collision value,
+                                                             const EditMap& map) {
+    bl::container::Vector2D<core::map::Collision> ogcols;
+    ogcols.setSize(area.width, area.height, core::map::Collision::Open);
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            ogcols(x - area.left, y - area.top) = map.levels[level].collisionLayer().get(x, y);
+        }
+    }
+    return Ptr(new SetCollisionAreaAction(level, area, value, std::move(ogcols)));
+}
+
+EditMap::SetCollisionAreaAction::SetCollisionAreaAction(
+    unsigned int level, const sf::IntRect& area, core::map::Collision value,
+    bl::container::Vector2D<core::map::Collision>&& ogcols)
+: level(level)
+, area(area)
+, value(value)
+, ogVals(ogcols) {}
+
+bool EditMap::SetCollisionAreaAction::apply(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.levels[level].collisionLayer().set(x, y, value);
+        }
+    }
+    return false;
+}
+
+bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.levels[level].collisionLayer().set(x, y, ogVals(x - area.left, y - area.top));
+        }
+    }
+    return false;
+}
+
+const char* EditMap::SetCollisionAreaAction::description() const { return "set col area"; }
+
 EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
                                                         const EditMap& map) {
     return Ptr(new SetPlaylistAction(map.playlistField.getValue(), playlist));

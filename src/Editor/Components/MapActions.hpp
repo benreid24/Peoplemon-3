@@ -58,6 +58,46 @@ private:
                       core::map::Tile::IdType value, bool isAnim);
 };
 
+class EditMap::SetCollisionAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, const sf::Vector2i& pos,
+                                       core::map::Collision value, const EditMap& map);
+
+    virtual ~SetCollisionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const sf::Vector2i pos;
+    const core::map::Collision value;
+    const core::map::Collision ogVal;
+
+    SetCollisionAction(unsigned int level, const sf::Vector2i& pos, core::map::Collision value,
+                       core::map::Collision ogVal);
+};
+
+class EditMap::SetCollisionAreaAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, const sf::IntRect& area,
+                                       core::map::Collision value, const EditMap& map);
+
+    virtual ~SetCollisionAreaAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const sf::IntRect area;
+    const core::map::Collision value;
+    const bl::container::Vector2D<core::map::Collision> ogVals;
+
+    SetCollisionAreaAction(unsigned int level, const sf::IntRect& area, core::map::Collision value,
+                           bl::container::Vector2D<core::map::Collision>&& ogcols);
+};
+
 class EditMap::SetPlaylistAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(const std::string& playlist, const EditMap& editMap);

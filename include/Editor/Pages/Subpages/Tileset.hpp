@@ -64,6 +64,12 @@ public:
      */
     core::map::Collision getActiveCollision() const;
 
+    /**
+     * @brief Returns the active catch type
+     *
+     */
+    core::map::Catch getActiveCatch() const;
+
 private:
     bl::resource::Resource<core::map::Tileset>::Ref tileset;
 

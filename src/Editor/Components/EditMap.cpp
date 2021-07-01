@@ -292,6 +292,15 @@ void EditMap::setTileArea(unsigned int level, unsigned int layer, const sf::IntR
     addAction(SetTileAreaAction::create(level, layer, area, isAnim, value, *this));
 }
 
+void EditMap::setCollision(unsigned int level, const sf::Vector2i& pos, core::map::Collision val) {
+    addAction(SetCollisionAction::create(level, pos, val, *this));
+}
+
+void EditMap::setCollisionArea(unsigned int level, const sf::IntRect& area,
+                               core::map::Collision val) {
+    addAction(SetCollisionAreaAction::create(level, area, val, *this));
+}
+
 void EditMap::appendBottomLayer(unsigned int level) {
     addAction(AppendLayerAction::create(level, AppendLayerAction::Bottom));
 }
@@ -382,22 +391,6 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     weather.render(target, residual);
     const_cast<EditMap*>(this)->lighting.render(target);
 
-    selectRect.setPosition(static_cast<float>(selection.left * core::Properties::PixelsPerTile()),
-                           static_cast<float>(selection.top * core::Properties::PixelsPerTile()));
-    if (selection.width > 0) {
-        selectRect.setFillColor(sf::Color(180, 160, 20, 165));
-        selectRect.setSize(
-            {static_cast<float>(selection.width * core::Properties::PixelsPerTile()),
-             static_cast<float>(selection.height * core::Properties::PixelsPerTile())});
-        target.draw(selectRect);
-    }
-    else if (selection.width < 0) {
-        selectRect.setFillColor(sf::Color(20, 70, 220, 165));
-        selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
-                            static_cast<float>(core::Properties::PixelsPerTile())});
-        target.draw(selectRect);
-    }
-
     switch (renderOverlay) {
     case RenderOverlay::Collisions:
         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
@@ -427,6 +420,22 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     case RenderOverlay::None:
     default:
         break;
+    }
+
+    selectRect.setPosition(static_cast<float>(selection.left * core::Properties::PixelsPerTile()),
+                           static_cast<float>(selection.top * core::Properties::PixelsPerTile()));
+    if (selection.width > 0) {
+        selectRect.setFillColor(sf::Color(180, 160, 20, 165));
+        selectRect.setSize(
+            {static_cast<float>(selection.width * core::Properties::PixelsPerTile()),
+             static_cast<float>(selection.height * core::Properties::PixelsPerTile())});
+        target.draw(selectRect);
+    }
+    else if (selection.width < 0) {
+        selectRect.setFillColor(sf::Color(20, 70, 220, 165));
+        selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
+                            static_cast<float>(core::Properties::PixelsPerTile())});
+        target.draw(selectRect);
     }
 }
 

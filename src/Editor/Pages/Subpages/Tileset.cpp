@@ -64,6 +64,10 @@ core::map::Tile::IdType Tileset::getActiveTile() const { return activeTile; }
 
 core::map::Tile::IdType Tileset::getActiveAnim() const { return activeAnim; }
 
+core::map::Collision Tileset::getActiveCollision() const { return collisions.selected(); }
+
+core::map::Catch Tileset::getActiveCatch() const { return catchables.selected(); }
+
 bool Tileset::loadTileset(const std::string& file) {
     auto newTileset = core::Resources::tilesets().load(file).data;
     if (!newTileset) return false;

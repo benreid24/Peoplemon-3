@@ -432,7 +432,14 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
                 }
                 break;
             case Tileset::CollisionTiles:
-                // TODO
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCollisionArea(
+                        levelSelect->getSelectedOption(), selection, tileset.getActiveCollision());
+                }
+                else {
+                    mapArea.editMap().setCollision(
+                        levelSelect->getSelectedOption(), tiles, tileset.getActiveCollision());
+                }
                 break;
             case Tileset::CatchTiles:
                 // TODO
