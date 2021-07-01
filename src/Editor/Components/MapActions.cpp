@@ -1,5 +1,7 @@
 #include "MapActions.hpp"
 
+#include <Core/Properties.hpp>
+
 namespace editor
 {
 namespace component
@@ -184,42 +186,71 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
                                                         const sf::IntRect& area, bool isAnim,
                                                         core::map::Tile::IdType value,
                                                         const EditMap& map) {
+    const sf::Vector2f size =
+        isAnim ? sf::Vector2f(map.tileset->getAnims().find(value)->second->getMaxSize()) :
+                 sf::Vector2f(map.tileset->getTiles().find(value)->second->getSize());
+    const float ts = static_cast<float>(core::Properties::PixelsPerTile());
+
     bl::container::Vector2D<core::map::Tile::IdType> prev;
     bl::container::Vector2D<std::uint8_t> wasAnim;
     prev.setSize(area.width, area.height, core::map::Tile::Blank);
     wasAnim.setSize(area.width, area.height, 0);
 
-    for (int x = area.left; x < area.left + area.height; ++x) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
-            const auto& tile = getTile(map.levels, level, layer, {x, y});
-            prev(x, y)       = tile.id();
-            wasAnim(x, y)    = tile.isAnimation() ? 1 : 0;
+            const auto& tile                        = getTile(map.levels, level, layer, {x, y});
+            prev(x - area.left, y - area.height)    = tile.id();
+            wasAnim(x - area.left, y - area.height) = tile.isAnimation() ? 1 : 0;
         }
     }
 
-    return Ptr(new SetTileAreaAction(level, layer, area, prev, wasAnim, value, isAnim));
+    return Ptr(new SetTileAreaAction(level,
+                                     layer,
+                                     area,
+                                     std::move(prev),
+                                     std::move(wasAnim),
+                                     value,
+                                     isAnim,
+                                     std::max(1.f, std::floor(size.x / ts) - 1.f),
+                                     std::max(1.f, std::floor(size.y / ts) - 1.f)));
 }
 
 EditMap::SetTileAreaAction::SetTileAreaAction(
     unsigned int level, unsigned int layer, const sf::IntRect& area,
-    const bl::container::Vector2D<core::map::Tile::IdType>& prev,
-    const bl::container::Vector2D<std::uint8_t>& wasAnim, core::map::Tile::IdType value,
-    bool isAnim)
+    bl::container::Vector2D<core::map::Tile::IdType>&& prev,
+    bl::container::Vector2D<std::uint8_t>&& wasAnim, core::map::Tile::IdType value, bool isAnim,
+    int w, int h)
 : level(level)
 , layer(layer)
 , area(area)
 , prev(prev)
 , wasAnim(wasAnim)
 , updated(value)
-, isAnim(isAnim) {}
+, isAnim(isAnim)
+, w(w)
+, h(h) {}
 
-bool EditMap::SetTileAreaAction::apply(EditMap&) {
-    // TODO
+bool EditMap::SetTileAreaAction::apply(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; x += w) {
+        for (int y = area.top; y < area.top + area.height; y += h) {
+            setSingleTile(map.levels, *map.tileset, level, layer, {x, y}, updated, isAnim);
+        }
+    }
     return false;
 }
 
-bool EditMap::SetTileAreaAction::undo(EditMap&) {
-    // TODO
+bool EditMap::SetTileAreaAction::undo(EditMap& map) {
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            setSingleTile(map.levels,
+                          *map.tileset,
+                          level,
+                          layer,
+                          {x, y},
+                          prev(x - area.left, y - area.top),
+                          wasAnim(x - area.left, y - area.top) == 1);
+        }
+    }
     return false;
 }
 

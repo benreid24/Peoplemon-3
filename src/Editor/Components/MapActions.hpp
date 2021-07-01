@@ -51,11 +51,13 @@ private:
     const bl::container::Vector2D<std::uint8_t> wasAnim;
     const core::map::Tile::IdType updated;
     const bool isAnim;
+    const int w;
+    const int h;
 
     SetTileAreaAction(unsigned int level, unsigned int layer, const sf::IntRect& area,
-                      const bl::container::Vector2D<core::map::Tile::IdType>& prev,
-                      const bl::container::Vector2D<std::uint8_t>& wasAnim,
-                      core::map::Tile::IdType value, bool isAnim);
+                      bl::container::Vector2D<core::map::Tile::IdType>&& prev,
+                      bl::container::Vector2D<std::uint8_t>&& wasAnim,
+                      core::map::Tile::IdType value, bool isAnim, int w, int h);
 };
 
 class EditMap::SetCollisionAction : public EditMap::Action {
