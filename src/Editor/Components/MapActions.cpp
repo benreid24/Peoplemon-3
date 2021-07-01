@@ -198,9 +198,9 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
 
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
-            const auto& tile                        = getTile(map.levels, level, layer, {x, y});
-            prev(x - area.left, y - area.height)    = tile.id();
-            wasAnim(x - area.left, y - area.height) = tile.isAnimation() ? 1 : 0;
+            const auto& tile                     = getTile(map.levels, level, layer, {x, y});
+            prev(x - area.left, y - area.top)    = tile.id();
+            wasAnim(x - area.left, y - area.top) = tile.isAnimation() ? 1 : 0;
         }
     }
 
