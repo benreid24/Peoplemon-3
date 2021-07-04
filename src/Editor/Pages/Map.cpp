@@ -394,11 +394,7 @@ void Map::doLoadMap(const std::string& file) {
 
 void Map::makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
                      unsigned int w, unsigned int h) {
-    (void)file;
-    (void)name;
-    (void)tileset;
-    (void)w;
-    (void)h;
+    mapArea.editMap().newMap(file, name, tileset, w, h);
 }
 
 void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {

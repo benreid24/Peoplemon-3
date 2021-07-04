@@ -91,9 +91,6 @@ bool EditMap::editorLoad(const std::string& file) {
         return false;
     }
     savefile = file;
-    history.clear();
-    historyHead = 0;
-    actionCb();
     return true;
 }
 
@@ -105,12 +102,31 @@ bool EditMap::editorSave() {
     return false;
 }
 
-bool EditMap::doLoad(const std::string& file) {
-    changedSinceSave = false;
-
+void EditMap::newMap(const std::string& filename, const std::string& name,
+                     const std::string& tileset, unsigned int width, unsigned int height) {
     clear();
-    systems->engine().entities().clear();
+    savefile     = filename;
+    nameField    = name;
+    tilesetField = tileset;
+    levels.resize(1);
+    levels.front().init(width, height, 2, 2, 1);
+    transitionField.getValue().setSize(width, height, core::map::LevelTransition::None);
+    editorActivate();
+    syncCb();
+}
+
+bool EditMap::doLoad(const std::string& file) {
+    clear();
     if (!Map::load(file)) return false;
+    return editorActivate();
+}
+
+bool EditMap::editorActivate() {
+    changedSinceSave = false;
+    history.clear();
+    historyHead = 0;
+
+    systems->engine().entities().clear();
 
     size = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
@@ -156,6 +172,7 @@ bool EditMap::doLoad(const std::string& file) {
         layerFilter[i].resize(levels[i].layerCount(), true);
     }
 
+    actionCb();
     return true;
 }
 

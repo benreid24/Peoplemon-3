@@ -438,8 +438,8 @@ void Map::render(sf::RenderTarget& target, float residual,
     sf::Vector2i wsize =
         static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile() +
         ExtraRender * 2;
-    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
-    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x;
+    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y;
     renderRange = {corner, wsize};
 
     const auto renderRow = [&target, residual, &corner, &wsize](const TileLayer& layer, int row) {
@@ -707,6 +707,7 @@ void Map::clear() {
     eventRegions.clear();
     weatherField = Weather::None;
     weather.set(Weather::None, true);
+    renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
 } // namespace map

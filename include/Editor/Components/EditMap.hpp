@@ -374,6 +374,7 @@ private:
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
     bool doLoad(const std::string& file);
+    bool editorActivate();
 
     virtual sf::Vector2i minimumRequisition() const override;
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
