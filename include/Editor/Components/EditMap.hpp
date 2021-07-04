@@ -80,6 +80,15 @@ public:
      */
     bool unsavedChanges() const;
 
+    /**
+     * @brief Clears the current map and creates a new map with the given parameters
+     *
+     * @param filename The file to save the map into
+     * @param name The name of the map
+     * @param tileset The tileset to use
+     * @param width The width of the map in tiles
+     * @param height The height of the map in tiles
+     */
     void newMap(const std::string& filename, const std::string& name, const std::string& tileset,
                 unsigned int width, unsigned int height);
 
@@ -224,7 +233,7 @@ public:
 
     /**
      * @brief Deletes the given layer
-     * 
+     *
      * @param level The level the layer is on
      * @param layer Index of the layer to remove
      */
@@ -232,7 +241,7 @@ public:
 
     /**
      * @brief Sets a single tile
-     * 
+     *
      * @param level The level to modify
      * @param layer The layer to modify
      * @param position The position of the tile to modify
@@ -244,7 +253,7 @@ public:
 
     /**
      * @brief Sets a range of tiles to a given value. Tries to avoid overcrowding for large tiles
-     * 
+     *
      * @param level The level to modify
      * @param layer The layer to modify
      * @param area Region of tiles to set
@@ -256,7 +265,7 @@ public:
 
     /**
      * @brief Sets a single collision tile
-     * 
+     *
      * @param level The level to modify
      * @param position The position of the collision to set
      * @param id The new collision value
@@ -265,7 +274,7 @@ public:
 
     /**
      * @brief Sets a range of collision tiles to a single value
-     * 
+     *
      * @param level The level to modify
      * @param area The region to set
      * @param id The value to set all tiles to
@@ -274,7 +283,7 @@ public:
 
     /**
      * @brief Sets a single catch tile
-     * 
+     *
      * @param level The level to modify
      * @param position The position of the catch to set
      * @param id The new catch value
@@ -283,7 +292,7 @@ public:
 
     /**
      * @brief Sets a range of catch tiles to a single value
-     * 
+     *
      * @param level The level to modify
      * @param area The region to set
      * @param id The value to set all tiles to
@@ -341,6 +350,7 @@ private:
     };
     std::vector<Action::Ptr> history;
     unsigned int historyHead;
+    unsigned int saveHead;
     void addAction(const Action::Ptr& action);
 
     struct EditCamera : public core::system::camera::Camera {
@@ -359,7 +369,6 @@ private:
     const ActionCb actionCb;
     const ActionCb syncCb;
     EditCamera::Ptr camera;
-    bool changedSinceSave;
     bool controlsEnabled;
     std::string savefile;
     std::vector<bool> levelFilter;

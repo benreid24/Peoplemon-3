@@ -49,12 +49,12 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 : bl::gui::Element("maps", "editmap")
 , Map()
 , historyHead(0)
+, saveHead(0)
 , clickCb(cb)
 , moveCb(mcb)
 , actionCb(actionCb)
 , syncCb(syncCb)
 , camera(EditCamera::Ptr(new EditCamera()))
-, changedSinceSave(false)
 , controlsEnabled(false)
 , renderOverlay(RenderOverlay::None)
 , overlayLevel(0) {
@@ -96,7 +96,7 @@ bool EditMap::editorLoad(const std::string& file) {
 
 bool EditMap::editorSave() {
     if (save(savefile)) {
-        changedSinceSave = false;
+        saveHead = historyHead;
         return true;
     }
     return false;
@@ -122,9 +122,9 @@ bool EditMap::doLoad(const std::string& file) {
 }
 
 bool EditMap::editorActivate() {
-    changedSinceSave = false;
     history.clear();
     historyHead = 0;
+    saveHead    = 0;
 
     systems->engine().entities().clear();
 
@@ -176,7 +176,7 @@ bool EditMap::editorActivate() {
     return true;
 }
 
-bool EditMap::unsavedChanges() const { return changedSinceSave; }
+bool EditMap::unsavedChanges() const { return saveHead != historyHead; }
 
 void EditMap::update(float dt) { Map::update(*systems, dt); }
 
@@ -261,7 +261,6 @@ void EditMap::undo() {
         if (history[historyHead - 1]->undo(*this)) { syncCb(); }
         --historyHead;
         actionCb();
-        changedSinceSave = true;
     }
 }
 
@@ -275,7 +274,6 @@ void EditMap::redo() {
         if (history[historyHead]->apply(*this)) { syncCb(); }
         ++historyHead;
         actionCb();
-        changedSinceSave = true;
     }
 }
 
@@ -293,7 +291,6 @@ void EditMap::addAction(const Action::Ptr& a) {
     if (history.back()->apply(*this)) { syncCb(); }
     historyHead = history.size();
     actionCb();
-    changedSinceSave = true;
 }
 
 void EditMap::setPlaylist(const std::string& playlist) {

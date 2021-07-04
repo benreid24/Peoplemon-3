@@ -53,7 +53,7 @@ Map::Map(core::system::Systems& s)
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
         }
     });
-    Button::Ptr saveMapBut = Button::create("Save Map");
+    saveMapBut = Button::create("Save Map");
     saveMapBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         if (!mapArea.editMap().editorSave()) {
             bl::dialog::tinyfd_messageBox(
@@ -369,6 +369,13 @@ void Map::update(float) {
         // TODO - check for events or catch zones or whatever else
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
         break;
+    }
+
+    if (mapArea.editMap().unsavedChanges()) {
+        saveMapBut->setColor(sf::Color(200, 185, 20), sf::Color::Red);
+    }
+    else {
+        saveMapBut->setColor(sf::Color::Green, sf::Color::Black);
     }
 }
 

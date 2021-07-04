@@ -47,6 +47,7 @@ private:
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
+    bl::gui::Button::Ptr saveMapBut;
 
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
