@@ -370,8 +370,8 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     sf::Vector2i wsize =
         static_cast<sf::Vector2i>(target.getView().getSize()) / core::Properties::PixelsPerTile() +
         ExtraRender * 2;
-    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
-    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
+    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
     renderRange = {corner, wsize};
 
     const auto renderRow = [&target, residual, &corner, &wsize](const core::map::TileLayer& layer,

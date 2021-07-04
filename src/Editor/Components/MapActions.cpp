@@ -186,9 +186,15 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
                                                         const sf::IntRect& area, bool isAnim,
                                                         core::map::Tile::IdType value,
                                                         const EditMap& map) {
-    const sf::Vector2f size =
-        isAnim ? sf::Vector2f(map.tileset->getAnims().find(value)->second->getMaxSize()) :
-                 sf::Vector2f(map.tileset->getTiles().find(value)->second->getSize());
+    sf::Vector2f size(core::Properties::PixelsPerTile(), core::Properties::PixelsPerTile());
+    if (value != core::map::Tile::Blank) {
+        if (isAnim) {
+            size = sf::Vector2f(map.tileset->getAnims().find(value)->second->getMaxSize());
+        }
+        else {
+            size = sf::Vector2f(map.tileset->getTiles().find(value)->second->getSize());
+        }
+    }
     const float ts = static_cast<float>(core::Properties::PixelsPerTile());
 
     bl::container::Vector2D<core::map::Tile::IdType> prev;
