@@ -1,6 +1,7 @@
 #ifndef EDITOR_PAGES_MAP_HPP
 #define EDITOR_PAGES_MAP_HPP
 
+#include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
@@ -78,6 +79,10 @@ private:
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;
     void doLoadMap(const std::string& file);
+
+    component::NewMapDialog newMapWindow;
+    void makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
+                    unsigned int w, unsigned int h);
 
     bl::gui::FilePicker playlistPicker;
     void onChoosePlaylist(const std::string& file);

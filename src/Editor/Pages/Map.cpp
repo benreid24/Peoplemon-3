@@ -30,29 +30,30 @@ Map::Map(core::system::Systems& s)
 , mapPicker(core::Properties::MapPath(), {"map", "p3m"},
             std::bind(&Map::doLoadMap, this, std::placeholders::_1),
             [this]() { mapPicker.close(); })
+, newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
+                         std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
 , playlistPicker(core::Properties::PlaylistPath(), {"plst"},
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
                  [this]() { playlistPicker.close(); }) {
-    content = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
-    bl::gui::Box::Ptr controlPane =
-        Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
+    content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
+    Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
-    bl::gui::Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::Button::Ptr newMapBut = Button::create("New Map");
+    Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Button::Ptr newMapBut = Button::create("New Map");
     newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
         if (checkUnsaved()) {
             makingNewMap = true;
             mapPicker.open(FilePicker::CreateNew, "New map", parent);
         }
     });
-    bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
+    Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
         if (checkUnsaved()) {
             makingNewMap = false;
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
         }
     });
-    bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
+    Button::Ptr saveMapBut = Button::create("Save Map");
     saveMapBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         if (!mapArea.editMap().editorSave()) {
             bl::dialog::tinyfd_messageBox(
@@ -67,7 +68,7 @@ Map::Map(core::system::Systems& s)
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
-    bl::gui::Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
     levelSelect = ComboBox::create("maps");
@@ -80,23 +81,23 @@ Map::Map(core::system::Systems& s)
     box->pack(layerSelect, true, true);
     tileBox->pack(box, true, false);
 
-    box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
+    box                         = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
     tileSetBut->setValue(true);
     tileSetBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         activeSubtool = Subtool::Set;
     });
-    bl::gui::RadioButton::Ptr tileClearBut =
+    RadioButton::Ptr tileClearBut =
         RadioButton::create("Clear", tileSetBut->getRadioGroup(), "clear");
     tileClearBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         activeSubtool = Subtool::Clear;
     });
-    bl::gui::RadioButton::Ptr tileSelectBut =
+    RadioButton::Ptr tileSelectBut =
         RadioButton::create("Select", tileSetBut->getRadioGroup(), "select");
     tileSelectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         activeSubtool = Subtool::Select;
     });
-    bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
+    Button::Ptr tileDeselectBut = Button::create("Deselect");
     tileDeselectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         selectionState = NoSelection;
     });
@@ -112,8 +113,8 @@ Map::Map(core::system::Systems& s)
     box->pack(tileDeselectBut, true, true);
     tileBox->pack(box, true, false);
 
-    bl::gui::Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
@@ -121,13 +122,13 @@ Map::Map(core::system::Systems& s)
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
 
-    bl::gui::Button::Ptr resizeBut = Button::create("Resize Map");
+    Button::Ptr resizeBut = Button::create("Resize Map");
     row->pack(resizeBut);
     infoBox->pack(row, true, false);
 
-    row                                  = Box::create(LinePacker::create(LinePacker::Horizontal));
-    playlistLabel                        = Label::create("playerlistFile.bplst");
-    bl::gui::Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
+    row                         = Box::create(LinePacker::create(LinePacker::Horizontal));
+    playlistLabel               = Label::create("playerlistFile.bplst");
+    Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
     });
@@ -168,7 +169,7 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    bl::gui::Notebook::Ptr editBook = Notebook::create("maps");
+    Notebook::Ptr editBook = Notebook::create("maps");
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
         "layers",
@@ -251,7 +252,7 @@ Map::Map(core::system::Systems& s)
     RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
 
-    bl::gui::Notebook::Ptr objectBook = Notebook::create("maps");
+    Notebook::Ptr objectBook = Notebook::create("maps");
     objectBook->addPage("spawns", "Spawns", spawnBox);
     objectBook->addPage("ai", "NPC's", npcBox);
     objectBook->addPage("items", "Items", itemBox);
@@ -326,7 +327,7 @@ Map::Map(core::system::Systems& s)
             levelPage.pack();
     };
 
-    bl::gui::Notebook::Ptr controlBook = Notebook::create("maps");
+    Notebook::Ptr controlBook = Notebook::create("maps");
     controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
@@ -372,11 +373,11 @@ void Map::update(float) {
 }
 
 void Map::doLoadMap(const std::string& file) {
-    BL_LOG_INFO << "New/Load map: " << file;
     mapPicker.close();
 
     if (makingNewMap) {
-        // TODO - new map
+        const std::string f = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
+        newMapWindow.show(parent, f);
     }
     else {
         if (!mapArea.editMap().editorLoad(file)) {
@@ -389,6 +390,15 @@ void Map::doLoadMap(const std::string& file) {
     }
 
     syncGui();
+}
+
+void Map::makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
+                     unsigned int w, unsigned int h) {
+    (void)file;
+    (void)name;
+    (void)tileset;
+    (void)w;
+    (void)h;
 }
 
 void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {

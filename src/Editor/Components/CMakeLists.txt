@@ -3,4 +3,5 @@ target_sources(PeoplemonEditor PRIVATE
     HighlightRadioButton.cpp
     MapActions.hpp
     MapActions.cpp
+    NewMapDialog.cpp
 )
