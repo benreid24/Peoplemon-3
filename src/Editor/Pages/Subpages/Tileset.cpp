@@ -1,6 +1,8 @@
 #include <Editor/Pages/Subpages/Tileset.hpp>
 
 #include <BLIB/Engine.hpp>
+#include <BLIB/Util/Random.hpp>
+#include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
 
@@ -8,6 +10,22 @@ namespace editor
 {
 namespace page
 {
+namespace
+{
+std::string makeCopyName(const std::string& dest, const std::string& file) {
+    const std::string& base  = bl::file::Util::getFilename(file);
+    const std::string result = bl::file::Util::joinPath(dest, base);
+    if (bl::file::Util::exists(result)) {
+        std::stringstream ss;
+        ss << bl::file::Util::getBaseName(base) << "_" << std::hex
+           << bl::util::Random::get<int>(1000, 10000000) << "."
+           << bl::file::Util::getExtension(base);
+        return ss.str();
+    }
+    return base;
+}
+} // namespace
+
 using namespace bl::gui;
 
 Tileset::Tileset()
@@ -19,6 +37,31 @@ Tileset::Tileset()
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr tileButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addTileBut = Button::create("Add Tile");
+    addTileBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        const char* filters[] = {"*.png", "*.jpg", "*.bmp", "*.gif"};
+        const char* file =
+            bl::dialog::tinyfd_openFileDialog("Add tile(s)", nullptr, 4, filters, "Image files", 1);
+        if (file) {
+            std::stringstream ss(file);
+            std::string tile;
+            while (std::getline(ss, tile, '|')) {
+                sf::Image img;
+                std::string filename = makeCopyName(core::Properties::MapTilePath(), tile);
+                filename             = bl::file::Util::getBaseName(filename) + ".png";
+                if (!img.loadFromFile(tile)) {
+                    BL_LOG_ERROR << "Failed to load tile: " << tile;
+                    continue;
+                }
+                if (!img.saveToFile(
+                        bl::file::Util::joinPath(core::Properties::MapTilePath(), filename))) {
+                    BL_LOG_ERROR << "Failed to copy tile: " << tile << " -> " << filename;
+                    continue;
+                }
+                tileset->addTexture(filename);
+            }
+            updateGui();
+        }
+    });
     bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
     bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
     delTileBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
@@ -85,14 +128,14 @@ void Tileset::updateGui() {
     // tiles
     RadioButton::Group* group = nullptr;
     for (const auto& pair : tileset->getTiles()) {
-        Image::Ptr img = Image::create(pair.second);
+        Image::Ptr img = Image::create(pair->second);
         img->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(img, group);
         button->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, pair](const Action&, Element*) { activeTile = pair.first; });
+            .willAlwaysCall([this, pair](const Action&, Element*) { activeTile = pair->first; });
         if (!group) {
-            activeTile = pair.first;
+            activeTile = pair->first;
             button->setValue(true);
         }
         group = button->getRadioGroup();
@@ -102,14 +145,14 @@ void Tileset::updateGui() {
     // animations
     group = nullptr;
     for (const auto& pair : tileset->getAnims()) {
-        Animation::Ptr anim = Animation::create(pair.second);
+        Animation::Ptr anim = Animation::create(pair->second);
         anim->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);
         button->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, pair](const Action&, Element*) { activeAnim = pair.first; });
+            .willAlwaysCall([this, pair](const Action&, Element*) { activeAnim = pair->first; });
         if (!group) {
-            activeAnim = pair.first;
+            activeAnim = pair->first;
             button->setValue(true);
         }
         group = button->getRadioGroup();

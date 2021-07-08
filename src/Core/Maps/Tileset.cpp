@@ -84,7 +84,10 @@ Tileset& Tileset::operator=(const Tileset& copy) {
 
 Tile::IdType Tileset::addTexture(const std::string& uri) {
     textureFiles.getValue().emplace(nextTextureId, uri);
-    textures.emplace(nextTextureId, bl::engine::Resources::textures().load(uri).data);
+    textures.emplace(nextTextureId,
+                     bl::engine::Resources::textures()
+                         .load(bl::file::Util::joinPath(Properties::MapTilePath(), uri))
+                         .data);
     return nextTextureId++;
 }
 
@@ -209,9 +212,35 @@ bool Tileset::save(const std::string& file) const {
     return loader.write(output, *this);
 }
 
-const Tileset::TileStore& Tileset::getTiles() const { return textures; }
+bl::resource::Resource<sf::Texture>::Ref Tileset::getTile(Tile::IdType id) {
+    auto it = textures.find(id);
+    return it != textures.end() ? it->second : nullptr;
+}
 
-const Tileset::AnimStore& Tileset::getAnims() const { return anims; }
+std::vector<Tileset::TileStore::const_iterator> Tileset::getTiles() const {
+    std::vector<TileStore::const_iterator> result;
+    result.reserve(textures.size());
+    for (Tile::IdType id = 0; id < nextTextureId; ++id) {
+        auto it = textures.find(id);
+        if (it != textures.end()) { result.emplace_back(it); }
+    }
+    return result;
+}
+
+bl::resource::Resource<bl::gfx::AnimationData>::Ref Tileset::getAnim(Tile::IdType id) {
+    auto it = anims.find(id);
+    return it != anims.end() ? it->second : nullptr;
+}
+
+std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {
+    std::vector<AnimStore::const_iterator> result;
+    result.reserve(anims.size());
+    for (Tile::IdType id = 0; id < nextAnimationId; ++id) {
+        auto it = anims.find(id);
+        if (it != anims.end()) { result.emplace_back(it); }
+    }
+    return result;
+}
 
 } // namespace map
 } // namespace core

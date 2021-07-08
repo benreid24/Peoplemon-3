@@ -141,16 +141,32 @@ public:
     void update(float dt);
 
     /**
+     * @brief Returns a tile from the set. Returns nullptr if not found
+     *
+     * @param id The id of the tile to get
+     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the tile
+     */
+    bl::resource::Resource<sf::Texture>::Ref getTile(Tile::IdType id);
+
+    /**
      * @brief Returns all contained tiles
      *
      */
-    const TileStore& getTiles() const;
+    std::vector<TileStore::const_iterator> getTiles() const;
+
+    /**
+     * @brief Returns an animation from the set. Returns nullptr if not found
+     *
+     * @param id The id of the animation to get
+     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the animation
+     */
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref getAnim(Tile::IdType id);
 
     /**
      * @brief Returns all contained animations
      *
      */
-    const AnimStore& getAnims() const;
+    std::vector<AnimStore::const_iterator> getAnims() const;
 
 private:
     bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>

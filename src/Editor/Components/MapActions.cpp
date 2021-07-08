@@ -189,10 +189,12 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
     sf::Vector2f size(core::Properties::PixelsPerTile(), core::Properties::PixelsPerTile());
     if (value != core::map::Tile::Blank) {
         if (isAnim) {
-            size = sf::Vector2f(map.tileset->getAnims().find(value)->second->getMaxSize());
+            auto anim = map.tileset->getAnim(value);
+            if (anim) { size = sf::Vector2f(anim->getMaxSize()); }
         }
         else {
-            size = sf::Vector2f(map.tileset->getTiles().find(value)->second->getSize());
+            auto tile = map.tileset->getTile(value);
+            if (tile) { size = sf::Vector2f(tile->getSize()); }
         }
     }
     const float ts = static_cast<float>(core::Properties::PixelsPerTile());
