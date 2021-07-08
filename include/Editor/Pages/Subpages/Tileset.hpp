@@ -70,6 +70,18 @@ public:
      */
     core::map::Catch getActiveCatch() const;
 
+    /**
+     * @brief Returns whether or not the tileset is in a dirty state
+     *
+     */
+    bool unsavedChanges() const;
+
+    /**
+     * @brief Marks the tileset clean
+     *
+     */
+    void markSaved();
+
 private:
     bl::resource::Resource<core::map::Tileset>::Ref tileset;
 
@@ -83,6 +95,7 @@ private:
     Active tool;
     core::map::Tile::IdType activeTile;
     core::map::Tile::IdType activeAnim;
+    bool dirty;
 
     void updateGui();
 };

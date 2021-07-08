@@ -63,6 +63,9 @@ Map::Map(core::system::Systems& s)
                 "error",
                 1);
         }
+        else {
+            tileset.markSaved();
+        }
     });
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
@@ -371,7 +374,7 @@ void Map::update(float) {
         break;
     }
 
-    if (mapArea.editMap().unsavedChanges()) {
+    if (mapArea.editMap().unsavedChanges() || tileset.unsavedChanges()) {
         saveMapBut->setColor(sf::Color(200, 185, 20), sf::Color::Red);
     }
     else {

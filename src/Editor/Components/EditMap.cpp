@@ -97,7 +97,7 @@ bool EditMap::editorLoad(const std::string& file) {
 bool EditMap::editorSave() {
     if (save(savefile)) {
         saveHead = historyHead;
-        return true;
+        return tileset->save(tilesetField.getValue());
     }
     return false;
 }

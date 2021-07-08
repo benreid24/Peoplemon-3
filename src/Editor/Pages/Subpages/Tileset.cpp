@@ -31,7 +31,8 @@ using namespace bl::gui;
 Tileset::Tileset()
 : tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
-, activeAnim(core::map::Tile::Blank) {
+, activeAnim(core::map::Tile::Blank)
+, dirty(false) {
     content = Notebook::create("tileset");
 
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -59,6 +60,7 @@ Tileset::Tileset()
                 }
                 tileset->addTexture(filename);
             }
+            dirty = true;
             updateGui();
         }
     });
@@ -159,6 +161,10 @@ void Tileset::updateGui() {
         animsBox->pack(button);
     }
 }
+
+bool Tileset::unsavedChanges() const { return dirty; }
+
+void Tileset::markSaved() { dirty = false; }
 
 } // namespace page
 } // namespace editor
