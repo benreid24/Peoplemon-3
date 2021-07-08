@@ -45,20 +45,6 @@ public:
               const std::vector<std::vector<bool>>& filter);
 
     /**
-     * @brief Removes the level at the given index
-     *
-     * @param level The index of the removed level
-     */
-    void popLevel(unsigned int level);
-
-    /**
-     * @brief Adds a level at the given index
-     *
-     * @param level The index to insert the new level
-     */
-    void addLevel(unsigned int level);
-
-    /**
      * @brief Returns the GUI content to pack
      *
      */

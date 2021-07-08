@@ -6,16 +6,12 @@ namespace page
 {
 using namespace bl::gui;
 
-Levels::Levels() {
+Levels::Levels(const RenderFilterCb& filterCb)
+: filterCb(filterCb) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
     itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
-    rows.reserve(5);
-    for (unsigned int i = 0; i < 5; ++i) {
-        rows.emplace_back(i);
-        itemArea->pack(rows.back().row, true, false);
-    }
     itemArea->setMaxSize({300, 175});
     content->pack(itemArea, true, false);
 }
@@ -26,7 +22,16 @@ void Levels::pack() { contentWrapper->pack(content, true, true); }
 
 void Levels::unpack() { content->remove(); }
 
-Levels::Item::Item(unsigned int i) {
+void Levels::sync(const std::vector<bool>& filter) {
+    itemArea->clearChildren(true);
+    rows.reserve(filter.size());
+    for (unsigned int i = 0; i < filter.size(); ++i) {
+        rows.emplace_back(i, filter[i], filterCb);
+        itemArea->pack(rows.back().row, true, false);
+    }
+}
+
+Levels::Item::Item(unsigned int i, bool v, const RenderFilterCb& filterCb) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
     name = Label::create("Level " + std::to_string(i));
@@ -34,7 +39,11 @@ Levels::Item::Item(unsigned int i) {
     row->pack(name, true, false);
 
     visibleToggle = CheckButton::create("Visible");
-    visibleToggle->setValue(true);
+    visibleToggle->setValue(v);
+    visibleToggle->getSignal(Action::ValueChanged)
+        .willAlwaysCall([this, i, filterCb](const Action&, Element*) {
+            filterCb(i, visibleToggle->getValue());
+        });
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");

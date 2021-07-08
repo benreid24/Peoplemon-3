@@ -15,6 +15,7 @@ Map::Map(core::system::Systems& s)
 , tileset([this](core::map::Tile::IdType id, bool isAnim) {
     mapArea.editMap().removeAllTiles(id, isAnim);
 })
+, levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); })
 , layerPage([this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },
@@ -586,6 +587,7 @@ void Map::syncGui() {
     }
     levelSelect->setSelectedOption(0);
     onLevelChange(0);
+    levelPage.sync(mapArea.editMap().levelFilter);
     layerPage.sync(mapArea.editMap().levels, mapArea.editMap().layerFilter);
 
     nameEntry->setInput(mapArea.editMap().name());
