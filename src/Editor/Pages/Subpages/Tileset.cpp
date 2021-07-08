@@ -95,6 +95,20 @@ Tileset::Tileset(const DeleteCb& dcb)
     bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addAnimBut = Button::create("Add Animation");
     bl::gui::Button::Ptr delAnimBut = Button::create("Delete Animation");
+    delAnimBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        if (1 ==
+            bl::dialog::tinyfd_messageBox("Remove animation?",
+                                          "Are you sure you want to delete this animation?\nThis "
+                                          "action cannot be undone and clears edit history",
+                                          "yesno",
+                                          "warning",
+                                          0)) {
+            deleteCb(activeAnim, true);
+            tileset->removeAnimation(activeAnim);
+            dirty = true;
+            updateGui();
+        }
+    });
     delAnimBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
     animButBox->pack(addAnimBut);
     animButBox->pack(delAnimBut);
