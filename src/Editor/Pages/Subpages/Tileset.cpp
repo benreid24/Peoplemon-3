@@ -94,6 +94,35 @@ Tileset::Tileset(const DeleteCb& dcb)
     bl::gui::Box::Ptr animPage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addAnimBut = Button::create("Add Animation");
+    addAnimBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        const char* filters[] = {"*.anim"};
+        const char* file      = bl::dialog::tinyfd_openFileDialog(
+            "Add animation", nullptr, 1, filters, "Animation files", 0);
+        if (file) {
+            const std::string animFile = makeCopyName(core::Properties::MapAnimationPath(), file);
+            bl::gfx::AnimationData anim;
+            if (!anim.load(file)) {
+                bl::dialog::tinyfd_messageBox(
+                    "Bad Animation", "Failed to load animation", "ok", "error", 0);
+                return;
+            }
+
+            bl::file::Util::copyFile(
+                file, bl::file::Util::joinPath(core::Properties::MapAnimationPath(), animFile));
+            const std::string sp =
+                bl::file::Util::joinPath(bl::file::Util::getPath(file), anim.spritesheetFile());
+            if (bl::file::Util::exists(sp)) {
+                bl::file::Util::copyFile(
+                    sp,
+                    bl::file::Util::joinPath(core::Properties::SpritesheetPath(),
+                                             anim.spritesheetFile()));
+            }
+
+            tileset->addAnimation(animFile);
+            dirty = true;
+            updateGui();
+        }
+    });
     bl::gui::Button::Ptr delAnimBut = Button::create("Delete Animation");
     delAnimBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         if (1 ==

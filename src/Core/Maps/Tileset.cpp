@@ -98,8 +98,12 @@ void Tileset::removeTexture(Tile::IdType id) {
 
 Tile::IdType Tileset::addAnimation(const std::string& uri) {
     animFiles.getValue().emplace(nextAnimationId, uri);
-    auto it =
-        anims.emplace(nextAnimationId, bl::engine::Resources::animations().load(uri).data).first;
+    auto it = anims
+                  .emplace(nextAnimationId,
+                           bl::engine::Resources::animations()
+                               .load(bl::file::Util::joinPath(Properties::MapAnimationPath(), uri))
+                               .data)
+                  .first;
     if (it->second->isLooping()) {
         auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
         jit->second.play();
