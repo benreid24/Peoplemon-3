@@ -170,6 +170,15 @@ public:
      */
     void showSelection(const sf::IntRect& selection);
 
+    /**
+     * @brief Removes all tiles that reference the given id in the tileset. This should be called
+     *        before removing a tile from the tileset
+     *
+     * @param id The id of the tile in the tileset
+     * @param isAnim True for an animation, false for a regular tile
+     */
+    void removeAllTiles(core::map::Tile::IdType id, bool isAnim);
+
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
     void setName(const std::string& name);

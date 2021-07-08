@@ -28,8 +28,9 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset()
-: tool(Active::Tiles)
+Tileset::Tileset(const DeleteCb& dcb)
+: deleteCb(dcb)
+, tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
 , dirty(false) {
@@ -66,6 +67,19 @@ Tileset::Tileset()
     });
     bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
     bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
+    delTileBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        if (1 == bl::dialog::tinyfd_messageBox("Remove tile?",
+                                               "Are you sure you want to delete this tile?\nThis "
+                                               "action cannot be undone and clears edit history",
+                                               "yesno",
+                                               "warning",
+                                               0)) {
+            deleteCb(activeTile, false);
+            tileset->removeTexture(activeTile);
+            dirty = true;
+            updateGui();
+        }
+    });
     delTileBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
     tileButBox->pack(addTileBut, false, true);
     tileButBox->pack(importSpritesheetBut, false, true);

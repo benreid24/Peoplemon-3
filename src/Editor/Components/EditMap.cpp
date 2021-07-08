@@ -198,6 +198,34 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
 
 void EditMap::showSelection(const sf::IntRect& s) { selection = s; }
 
+void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
+    const auto cleanLayer = [this, id, anim](core::map::TileLayer& layer) -> bool {
+        bool mod = false;
+        for (unsigned int x = 0; x < layer.width(); ++x) {
+            for (unsigned int y = 0; y < layer.height(); ++y) {
+                auto& tile = layer.getRef(x, y);
+                if (tile.id() == id && tile.isAnimation() == anim) {
+                    mod = true;
+                    tile.set(*tileset, core::map::Tile::Blank, false);
+                }
+            }
+        }
+        return mod;
+    };
+
+    for (auto& level : levels) {
+        bool needClean = false;
+
+        for (auto& layer : level.bottomLayers()) { cleanLayer(layer); }
+        for (auto& layer : level.ysortLayers()) {
+            if (cleanLayer(layer)) { needClean = true; }
+        }
+        for (auto& layer : level.topLayers()) { cleanLayer(layer); }
+
+        if (needClean) { level.activate(*tileset); }
+    }
+}
+
 EditMap::EditCamera::EditCamera()
 : enabled(false) {}
 

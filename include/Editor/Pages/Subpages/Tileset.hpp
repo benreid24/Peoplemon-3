@@ -19,12 +19,15 @@ namespace page
 class Tileset {
 public:
     enum Active { Tiles, Animations, CollisionTiles, CatchTiles };
+    using DeleteCb = std::function<void(core::map::Tile::IdType, bool)>;
 
     /**
      * @brief Creates the GUI elements
+     * 
+     * @param deleteCb Called when a tile or animation is removed
      *
      */
-    Tileset();
+    Tileset(const DeleteCb& deleteCb);
 
     /**
      * @brief Loads the given tileset and updates the GUI elements
@@ -83,6 +86,7 @@ public:
     void markSaved();
 
 private:
+    const DeleteCb deleteCb;
     bl::resource::Resource<core::map::Tileset>::Ref tileset;
 
     bl::gui::Notebook::Ptr content;
