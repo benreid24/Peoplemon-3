@@ -41,9 +41,9 @@ if (MSVC)
     target_compile_options(PeoplemonEditor PUBLIC /W4 /WX)
 else()
     # lots of warnings and all warnings as errors
-    target_compile_options(Core PUBLIC -Wall -Wextra -pedantic -Werror)
-    target_compile_options(Peoplemon PUBLIC -Wall -Wextra -pedantic -Werror)
-    target_compile_options(PeoplemonEditor PUBLIC -Wall -Wextra -pedantic -Werror)
+    target_compile_options(Core PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(Peoplemon PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(PeoplemonEditor PUBLIC -Wall -Wextra -pedantic)
     target_compile_options(PeoplemonEditor PUBLIC -Wno-switch)
 endif()
 
