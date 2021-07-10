@@ -14,6 +14,13 @@ LayerSet::LayerSet()
 , ysort(*this)
 , top(*this) {}
 
+LayerSet::LayerSet(LayerSet&& m)
+: collisions(*this, m.collisions.getMovable())
+, catches(*this, m.catches.getMovable())
+, bottom(*this, m.bottom.getMovable())
+, ysort(*this, m.ysort.getMovable())
+, top(*this, m.top.getMovable()) {}
+
 LayerSet::LayerSet(const LayerSet& copy)
 : LayerSet() {
     *this = copy;
@@ -65,6 +72,7 @@ void LayerSet::activate(Tileset& tileset) {
         }
     };
 
+    ysortedLayers.clear();
     ysortedLayers.reserve(ysort.getValue().size());
     for (TileLayer& layer : bottomLayers()) { activateLayer(layer); }
     for (unsigned int i = 0; i < ysortLayers().size(); ++i) {

@@ -66,6 +66,13 @@ public:
     LayerSet();
 
     /**
+     * @brief Move constructs the layer set from the given layer set
+     *
+     * @param move The layer set to move from
+     */
+    LayerSet(LayerSet&& move);
+
+    /**
      * @brief Copy constructs from the given layer set
      *
      * @param copy The set to copy

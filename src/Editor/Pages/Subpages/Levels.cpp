@@ -43,8 +43,6 @@ Levels::Item::Item(unsigned int i, unsigned int mi, bool v, const RenderFilterCb
                    const ShiftCb& shiftCb) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
-    BL_LOG_INFO << "Level " << i;
-
     name = Label::create("Level " + std::to_string(i));
     name->setColor(sf::Color(0, 180, 200), sf::Color::Transparent);
     row->pack(name, true, false);
@@ -53,7 +51,6 @@ Levels::Item::Item(unsigned int i, unsigned int mi, bool v, const RenderFilterCb
     visibleToggle->setValue(v);
     visibleToggle->getSignal(Action::ValueChanged)
         .willAlwaysCall([this, i, &filterCb](const Action&, Element*) {
-            BL_LOG_INFO << i << " -> " << visibleToggle->getValue();
             filterCb(i, visibleToggle->getValue());
         });
     row->pack(visibleToggle, false, true);

@@ -124,16 +124,16 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
 
 void shiftLevelDown(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                     unsigned int i) {
-    std::swap(levels[i], levels[i - 1]);
+    std::swap(levels[i], levels[i + 1]);
     levels[i].activate(ts);
-    levels[i - 1].activate(ts);
+    levels[i + 1].activate(ts);
 }
 
 void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                   unsigned int i) {
-    std::swap(levels[i], levels[i + 1]);
+    std::swap(levels[i], levels[i - 1]);
     levels[i].activate(ts);
-    levels[i + 1].activate(ts);
+    levels[i - 1].activate(ts);
 }
 
 } // namespace
@@ -643,12 +643,12 @@ bool EditMap::ShiftLevelAction::apply(EditMap& map) {
 
 bool EditMap::ShiftLevelAction::undo(EditMap& map) {
     if (!up) {
-        shiftLevelUp(map.levels, *map.tileset, level);
-        std::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        shiftLevelUp(map.levels, *map.tileset, level + 1);
+        std::swap(map.levelFilter[level], map.levelFilter[level + 1]);
     }
     else {
-        shiftLevelDown(map.levels, *map.tileset, level);
-        std::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        shiftLevelDown(map.levels, *map.tileset, level - 1);
+        std::swap(map.levelFilter[level], map.levelFilter[level - 1]);
     }
     return true;
 }
