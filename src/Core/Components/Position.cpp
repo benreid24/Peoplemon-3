@@ -9,16 +9,16 @@ namespace component
 {
 Position::Position()
 : direction(Direction::Up)
-, position(0, 0)
 , level(0)
+, position(0, 0)
 , interpolatedPosition(0.f, 0.f) {}
 
 Position::Position(std::uint8_t level, const sf::Vector2i& tiles, Direction dir)
-: level(level)
+: direction(dir)
+, level(level)
 , position(tiles)
 , interpolatedPosition(static_cast<float>(tiles.x * Properties::PixelsPerTile()),
-                       static_cast<float>(tiles.y * Properties::PixelsPerTile()))
-, direction(dir) {}
+                       static_cast<float>(tiles.y * Properties::PixelsPerTile())) {}
 
 void Position::setTiles(const sf::Vector2i& tiles) {
     position               = tiles;

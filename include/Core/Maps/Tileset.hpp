@@ -44,6 +44,10 @@ class PrimaryTilesetLoader;
  */
 class Tileset : private bl::file::binary::SerializableObject {
 public:
+    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref>;
+    using AnimStore =
+        std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref>;
+
     /**
      * @brief Creates an empty Tileset
      *
@@ -99,7 +103,7 @@ public:
 
     /**
      * @brief Returns the height of the requested tile, in pixels
-     * 
+     *
      * @param id The id of the tile
      * @param isAnim True for animation, false for sprite
      * @return unsigned int The height of the tile in pixels, or 0 if not found
@@ -136,6 +140,34 @@ public:
      */
     void update(float dt);
 
+    /**
+     * @brief Returns a tile from the set. Returns nullptr if not found
+     *
+     * @param id The id of the tile to get
+     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the tile
+     */
+    bl::resource::Resource<sf::Texture>::Ref getTile(Tile::IdType id);
+
+    /**
+     * @brief Returns all contained tiles
+     *
+     */
+    std::vector<TileStore::const_iterator> getTiles() const;
+
+    /**
+     * @brief Returns an animation from the set. Returns nullptr if not found
+     *
+     * @param id The id of the animation to get
+     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the animation
+     */
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref getAnim(Tile::IdType id);
+
+    /**
+     * @brief Returns all contained animations
+     *
+     */
+    std::vector<AnimStore::const_iterator> getAnims() const;
+
 private:
     bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>
         textureFiles;
@@ -143,8 +175,8 @@ private:
     Tile::IdType nextTextureId;
     Tile::IdType nextAnimationId;
 
-    std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref> textures;
-    std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref> anims;
+    TileStore textures;
+    AnimStore anims;
     std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
 
     void initializeTile(Tile& tile);

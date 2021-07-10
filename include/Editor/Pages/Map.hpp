@@ -1,8 +1,11 @@
 #ifndef EDITOR_PAGES_MAP_HPP
 #define EDITOR_PAGES_MAP_HPP
 
+#include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
+#include <Editor/Pages/Subpages/Levels.hpp>
+#include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
 
 namespace editor
@@ -38,14 +41,13 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO - map render area element
-
     bl::gui::ComboBox::Ptr layerSelect;
     bl::gui::ComboBox::Ptr levelSelect;
 
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
+    bl::gui::Button::Ptr saveMapBut;
 
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
@@ -55,9 +57,42 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
+    MapArea mapArea;
     Tileset tileset;
-    Layers levelPage;
+    Levels levelPage;
     Layers layerPage;
+
+    enum struct Tool {
+        Metadata,
+        MapEdit,
+        Spawns,
+        NPCs,
+        Items,
+        Lights,
+        Scripts,
+        Peoplemon
+    } activeTool;
+    enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
+
+    sf::IntRect selection;
+    enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;
+
+    bl::gui::FilePicker mapPicker;
+    bool makingNewMap;
+    void doLoadMap(const std::string& file);
+
+    component::NewMapDialog newMapWindow;
+    void makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
+                    unsigned int w, unsigned int h);
+
+    bl::gui::FilePicker playlistPicker;
+    void onChoosePlaylist(const std::string& file);
+
+    void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
+    void onLevelChange(unsigned int level);
+
+    bool checkUnsaved();
+    void syncGui();
 };
 
 } // namespace page

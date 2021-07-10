@@ -15,12 +15,12 @@ LightingSystem::LightingSystem()
 , lowLevelField(*this, 175)
 , highLevelField(*this, 255)
 , sunlightField(*this, true)
+, eventGuard(this)
+, lights(320, 320, 800, 600)
 , minLevel(lowLevelField.getValue())
 , maxLevel(highLevelField.getValue())
-, weatherModifier(0)
 , sunlightFactor(1.f)
-, eventGuard(this)
-, lights(320, 320, 800, 600) {}
+, weatherModifier(0) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     const Handle h =
@@ -84,8 +84,8 @@ void LightingSystem::removeLight(Handle handle, bool p) {
 }
 
 void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel) {
-    minLevel = std::min(lowLightLevel, highLightLevel);
-    maxLevel - std::max(highLightLevel, highLightLevel);
+    minLevel   = std::min(lowLightLevel, highLightLevel);
+    maxLevel   = std::max(lowLightLevel, highLightLevel);
     levelRange = maxLevel - minLevel;
 }
 
@@ -124,13 +124,14 @@ void LightingSystem::clear() {
     lightsField.getValue().clear();
     highLevelField = 255;
     lowLevelField  = 75;
+    levelRange     = maxLevel - minLevel;
     sunlightField  = true;
     lights.clear();
     handles.clear();
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
-    const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() / 2.f);
+    const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() * 0.5f);
     const sf::Vector2f& size = target.getView().getSize();
 
     const float preambient = 255.f - (static_cast<float>(minLevel) + levelRange * sunlightFactor);
@@ -142,17 +143,21 @@ void LightingSystem::render(sf::RenderTarget& target) {
                        size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2,
                        size.y + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2);
 
-    renderSurface.setView(target.getView());
+    sf::View view = target.getView();
+    view.setViewport({0.f, 0.f, 1.f, 1.f});
+    renderSurface.setView(view);
     renderSurface.clear(sf::Color(0, 0, 0, ambient));
 
     bl::shapes::GradientCircle circle(100);
     circle.setCenterColor(sf::Color::Transparent);
     circle.setOuterColor(sf::Color(0, 0, 0, ambient));
 
-    for (auto& light : lightSet) {
-        circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
-        circle.setRadius(light.get().second.radius.getValue());
-        renderSurface.draw(circle, sf::BlendNone);
+    if (ambient > 80) {
+        for (auto& light : lightSet) {
+            circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
+            circle.setRadius(light.get().second.radius.getValue());
+            renderSurface.draw(circle, sf::BlendNone);
+        }
     }
 
     sprite.setPosition(corner.x, corner.y + size.y);
@@ -212,6 +217,7 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
         break;
 
     default:
+        weatherModifier = 0;
         break;
     }
 }

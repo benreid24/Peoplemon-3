@@ -68,12 +68,12 @@ void Rain::update(float dt) {
         if (drop.z >= 0.f) {
             drop += this->fallVelocity * dt;
             if (drop.z < 0.f) drop.z = -0.001f;
+            return true;
         }
         else {
             drop.z -= dt;
+            return drop.z >= DeadTime;
         }
-
-        return drop.z >= DeadTime;
     };
 
     rain.update(updateDrop, dt);
@@ -84,7 +84,7 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
     const auto renderDrop = [this, &target, lag](const sf::Vector3f& drop) {
         if (drop.z >= 0.f) {
             const sf::Vector3f pos = drop + this->fallVelocity * lag;
-            const sf::Vector2f tpos(pos.x + pos.z / 4.f, pos.y - pos.z / 2.f);
+            const sf::Vector2f tpos(pos.x + pos.z * 0.25f, pos.y - pos.z * 0.5f);
             this->drop.setPosition(tpos);
             target.draw(this->drop);
         }
@@ -99,7 +99,7 @@ void Rain::render(sf::RenderTarget& target, float lag) const {
         }
     };
 
-    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+    area = {target.getView().getCenter() - target.getView().getSize() * 0.5f,
             target.getView().getSize()};
     rain.render(renderDrop);
     thunder.render(target, lag);

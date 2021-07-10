@@ -37,7 +37,7 @@ void NewGame::update(bl::engine::Engine&, float dt) {
     if (aliveTime >= 2.f) { systems.engine().replaceState(MainGame::create(systems)); }
 }
 
-void NewGame::render(bl::engine::Engine&, float lag) {
+void NewGame::render(bl::engine::Engine&, float) {
     systems.engine().window().clear();
     systems.engine().window().draw(tempText);
     systems.engine().window().display();

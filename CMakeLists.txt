@@ -34,6 +34,19 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
 
+if (MSVC)
+    # warning level 4 and all warnings as errors
+    target_compile_options(Core PUBLIC /W4 /WX)
+    target_compile_options(Peoplemon PUBLIC /W4 /WX)
+    target_compile_options(PeoplemonEditor PUBLIC /W4 /WX)
+else()
+    # lots of warnings and all warnings as errors
+    target_compile_options(Core PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(Peoplemon PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(PeoplemonEditor PUBLIC -Wall -Wextra -pedantic)
+    target_compile_options(PeoplemonEditor PUBLIC -Wno-switch)
+endif()
+
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Core PUBLIC PEOPLEMON_DEBUG)
     target_compile_definitions(PeoplemonEditor PUBLIC PEOPLEMON_DEBUG)

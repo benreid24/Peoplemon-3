@@ -104,7 +104,7 @@ void PauseMenu::update(bl::engine::Engine&, float dt) {
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {
-    systems.render().render(systems.engine().window(), lag);
+    systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
 
     const sf::View oldView = systems.engine().window().getView();
     systems.engine().window().setView(bl::interface::ViewUtil::computeViewPreserveAR(

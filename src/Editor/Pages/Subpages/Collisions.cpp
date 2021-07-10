@@ -1,6 +1,7 @@
 #include <Editor/Pages/Subpages/Collisions.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Editor/Components/HighlightRadioButton.hpp>
 #include <type_traits>
 
 namespace editor
@@ -47,7 +48,8 @@ Collisions::Collisions() {
         auto txtr      = bl::engine::Resources::textures().load(pair.first).data;
         Image::Ptr img = Image::create(txtr);
         img->scaleToSize({64, 64});
-        RadioButton::Ptr but = RadioButton::create(img, group);
+        component::HighlightRadioButton::Ptr but =
+            component::HighlightRadioButton::create(img, group);
         if (group == nullptr) but->setValue(true);
         but->getSignal(Action::LeftClicked).willAlwaysCall([this, &pair](const Action&, Element*) {
             active = pair.second;

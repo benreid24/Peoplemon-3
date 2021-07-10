@@ -48,14 +48,6 @@ public:
     Tile(IdType id, bool isAnim = false);
 
     /**
-     * @brief Copies the information from the given Tile
-     *
-     * @param copy The tile to copy
-     * @return Tile& A reference to this tile
-     */
-    Tile& operator=(const Tile& copy);
-
-    /**
      * @brief Returns whether this tile is an animation or not
      *
      * @return True if an animation, false if a still image
@@ -93,6 +85,12 @@ public:
      * @param position The position to render at globally
      */
     void initialize(Tileset& tileset, const sf::Vector2f& position);
+
+    /**
+     * @brief Triggers the animation when the tile is stepped on
+     *
+     */
+    void step();
 
     /**
      * @brief Updates the tile's unique animation if there is one

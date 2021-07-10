@@ -7,28 +7,6 @@ namespace core
 {
 namespace system
 {
-namespace
-{
-void constrainView(Systems& owner, sf::View& view) {
-    const sf::Vector2f worldSize = owner.world().activeMap().sizePixels();
-
-    if (view.getSize().x > worldSize.x) { view.setCenter(worldSize.x / 2.f, view.getCenter().y); }
-    else if (view.getCenter().x - view.getSize().x / 2.f < 0.f) {
-        view.setCenter(view.getSize().x / 2.f, view.getCenter().y);
-    }
-    else if (view.getCenter().x + view.getSize().x / 2.f >= worldSize.x) {
-        view.setCenter(worldSize.x - view.getSize().x / 2.f, view.getCenter().y);
-    }
-
-    if (view.getSize().y > worldSize.y) { view.setCenter(view.getCenter().x, worldSize.y / 2.f); }
-    else if (view.getCenter().y - view.getSize().y / 2.f < 0.f) {
-        view.setCenter(view.getCenter().x, view.getSize().y / 2.f);
-    }
-    else if (view.getCenter().y + view.getSize().y / 2.f >= worldSize.y) {
-        view.setCenter(view.getCenter().x, worldSize.y - view.getSize().y / 2.f);
-    }
-}
-} // namespace
 
 Cameras::Cameras(Systems& owner)
 : owner(owner) {}
@@ -53,11 +31,9 @@ void Cameras::clearAndReplace(camera::Camera::Ptr cam) {
     cameras.push(cam);
 }
 
-void Cameras::configureView(sf::View& view) const {
+void Cameras::configureView(const map::Map& map, sf::View& view) const {
     if (!cameras.empty()) {
-        view.setCenter(cameras.top()->getPosition());
-        view.setSize(view.getSize() * cameras.top()->getSize());
-        constrainView(owner, view);
+        cameras.top()->configureView(view, map.sizePixels());
     }
 }
 

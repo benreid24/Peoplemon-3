@@ -181,7 +181,8 @@ public:
      * @param residual Residual time between calls to update, in seconds
      * @param entityCb Function to call to render entities at the correct times
      */
-    void render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb);
+    virtual void render(sf::RenderTarget& target, float residual,
+                        const EntityRenderCallback& entityCb) const;
 
     /**
      * @brief Returns whether or not the map contains the given position
@@ -227,7 +228,7 @@ public:
      */
     bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
 
-private:
+protected:
     bl::file::binary::SerializableField<1, std::string> nameField;
     bl::file::binary::SerializableField<2, std::string> loadScriptField;
     bl::file::binary::SerializableField<3, std::string> unloadScriptField;
@@ -256,7 +257,11 @@ private:
     bl::container::Grid<const Event*> eventRegions;
 
     bool activated; // for weather continuity
-    sf::IntRect renderRange;
+    mutable sf::IntRect renderRange;
+    mutable sf::RectangleShape cover;
+
+    void clear();
+    void triggerAnimation(const component::Position& position);
 
     friend class loaders::LegacyMapLoader;
 };

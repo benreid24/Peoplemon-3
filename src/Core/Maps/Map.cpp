@@ -50,7 +50,7 @@ public:
         if (!input.read(ambientLight)) return false;
         const bool sunlight = ambientLight == 255;
         result.lightingSystem().adjustForSunlight(sunlight);
-        result.lightingSystem().setAmbientLevel(75, sunlight ? 255 : ambientLight);
+        result.lightingSystem().setAmbientLevel(75, sunlight ? 255 : 255 - ambientLight);
         result.lightingSystem().legacyResize({static_cast<int>(width), static_cast<int>(height)});
 
         std::uint16_t catchZoneCount;
@@ -97,21 +97,25 @@ public:
                     std::uint8_t isAnim;
                     if (!input.read(isAnim)) return false;
                     if (!input.read(id)) return false;
+
+                    const unsigned int actualX = isAnim ? x - 1 : x;
+                    const unsigned int actualY = isAnim ? y - 1 : y;
+                    Tile* tile                 = nullptr;
+
                     if (i < firstYSortLayer) {
-                        result.levels.front().bottomLayers()[i].getRef(x, y).setDataOnly(
-                            id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().bottomLayers()[i].getRef(actualX, actualY);
                     }
                     else if (i < firstTopLayer) {
-                        result.levels.front()
-                            .ysortLayers()[i - firstYSortLayer]
-                            .getRef(x, y)
-                            .setDataOnly(id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().ysortLayers()[i - firstYSortLayer].getRef(
+                            actualX, actualY);
                     }
                     else {
-                        result.levels.front()
-                            .topLayers()[i - firstTopLayer]
-                            .getRef(x, y)
-                            .setDataOnly(id, static_cast<bool>(isAnim));
+                        tile = &result.levels.front().topLayers()[i - firstTopLayer].getRef(
+                            actualX, actualY);
+                    }
+
+                    if (tile->id() == Tile::Blank) {
+                        tile->setDataOnly(static_cast<Tile::IdType>(id), static_cast<bool>(isAnim));
                     }
                 }
             }
@@ -231,7 +235,7 @@ public:
         return true;
     }
 
-    virtual bool write(const Map& map, bl::file::binary::File& output) const override {
+    virtual bool write(const Map&, bl::file::binary::File&) const override {
         // unimplemented
         return false;
     }
@@ -269,14 +273,16 @@ Map::Map()
 , itemsField(*this)
 , eventsField(*this)
 , lightsField(*this)
+, catchZonesField(*this)
+, transitionField(*this)
+, systems(nullptr)
 , levels(levelsField.getValue())
 , spawns(spawnField.getValue())
 , lighting(lightsField.getValue())
-, catchZonesField(*this)
-, transitionField(*this)
-, activated(false)
 , eventRegions(100.f, 100.f, 100.f, 100.f)
-, systems(nullptr) {}
+, activated(false) {
+    cover.setFillColor(sf::Color::Black);
+}
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
     BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
@@ -411,8 +417,14 @@ void Map::update(system::Systems& systems, float dt) {
     weather.update(systems, dt);
 }
 
-// TODO - special editor rendering for hiding levels and layers
-void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCallback& entityCb) {
+void Map::render(sf::RenderTarget& target, float residual,
+                 const EntityRenderCallback& entityCb) const {
+    const sf::View& view = target.getView();
+    cover.setPosition(view.getCenter());
+    cover.setSize(view.getSize());
+    cover.setOrigin(view.getSize() * 0.5f);
+    target.draw(cover, {sf::BlendNone});
+
     static const sf::Vector2i ExtraRender =
         sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
 
@@ -426,8 +438,8 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
     sf::Vector2i wsize =
         static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile() +
         ExtraRender * 2;
-    if (corner.x + wsize.x >= size.x) wsize.x = size.x - corner.x - 1;
-    if (corner.y + wsize.y >= size.y) wsize.y = size.y - corner.y - 1;
+    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
+    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
     renderRange = {corner, wsize};
 
     const auto renderRow = [&target, residual, &corner, &wsize](const TileLayer& layer, int row) {
@@ -460,11 +472,12 @@ void Map::render(sf::RenderTarget& target, float residual, const EntityRenderCal
     }
 
     weather.render(target, residual);
-    lightingSystem().render(target);
+    const_cast<Map*>(this)->lighting.render(target);
 }
 
 bool Map::load(const std::string& file) {
     BL_LOG_INFO << "Loading map " << file;
+    renderRange = sf::IntRect(0, 0, 1, 1);
 
     std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
@@ -596,6 +609,8 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 }
 
 void Map::observe(const event::EntityMoved& movedEvent) {
+    triggerAnimation(movedEvent.position);
+
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.getValue().x
@@ -637,6 +652,24 @@ void Map::observe(const event::EntityMoved& movedEvent) {
     }
 }
 
+void Map::triggerAnimation(const component::Position& pos) {
+    if (pos.level < levels.size()) {
+        LayerSet& level = levels[pos.level];
+        if (pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
+            pos.positionTiles().x < sizeTiles().x && pos.positionTiles().y < sizeTiles().y) {
+            for (auto& layer : level.bottomLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
+            for (auto& layer : level.ysortLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
+            for (auto& layer : level.topLayers()) {
+                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            }
+        }
+    }
+}
+
 bool Map::interact(bl::entity::Entity interactor, const component::Position& pos) {
     const auto trigger = [this, interactor, &pos](const Event& event) {
         script::LegacyWarn::warn(event.script);
@@ -660,6 +693,21 @@ bool Map::interact(bl::entity::Entity interactor, const component::Position& pos
     }
 
     return false;
+}
+
+void Map::clear() {
+    levelsField.getValue().clear();
+    spawnField.getValue().clear();
+    characterField.getValue().clear();
+    itemsField.getValue().clear();
+    eventsField.getValue().clear();
+    lightingSystem().clear();
+    catchZonesField.getValue().clear();
+    transitionField.getValue().clear();
+    eventRegions.clear();
+    weatherField = Weather::None;
+    weather.set(Weather::None, true);
+    renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
 } // namespace map

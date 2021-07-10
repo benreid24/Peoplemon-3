@@ -64,19 +64,19 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
 const char* MainMenu::name() const { return "MainMenu"; }
 
-void MainMenu::activate(bl::engine::Engine& engine) {
+void MainMenu::activate(bl::engine::Engine&) {
     // TODO - music
     menu->setSelectedItem(newGame);
     systems.player().inputSystem().addListener(inputDriver);
 }
 
-void MainMenu::deactivate(bl::engine::Engine& engine) {
+void MainMenu::deactivate(bl::engine::Engine&) {
     systems.player().inputSystem().removeListener(inputDriver);
 }
 
-void MainMenu::update(bl::engine::Engine& engine, float dt) { systems.player().update(); }
+void MainMenu::update(bl::engine::Engine&, float) { systems.player().update(); }
 
-void MainMenu::render(bl::engine::Engine& engine, float lag) {
+void MainMenu::render(bl::engine::Engine& engine, float) {
     sf::RenderWindow& w = engine.window();
     w.clear();
     w.draw(background);

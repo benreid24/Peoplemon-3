@@ -306,7 +306,8 @@ bool Conversation::load(const std::string& file) {
     bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                  bl::file::binary::File::Read);
     VersionedLoader loader;
-    return loader.read(input, *this);
+    const bool r = loader.read(input, *this);
+    return r;
 }
 
 bool Conversation::save(const std::string& file) const {
@@ -493,6 +494,8 @@ Conversation Conversation::makeLoadError(const std::string& f) {
     node.message() = "WARNING: Failed to load conversation: " + f;
     node.next()    = 1;
     conv.appendNode(node);
+#else
+    (void)f;
 #endif
     return conv;
 }

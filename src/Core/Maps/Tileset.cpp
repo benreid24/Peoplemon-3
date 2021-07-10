@@ -84,7 +84,10 @@ Tileset& Tileset::operator=(const Tileset& copy) {
 
 Tile::IdType Tileset::addTexture(const std::string& uri) {
     textureFiles.getValue().emplace(nextTextureId, uri);
-    textures.emplace(nextTextureId, bl::engine::Resources::textures().load(uri).data);
+    textures.emplace(nextTextureId,
+                     bl::engine::Resources::textures()
+                         .load(bl::file::Util::joinPath(Properties::MapTilePath(), uri))
+                         .data);
     return nextTextureId++;
 }
 
@@ -95,8 +98,12 @@ void Tileset::removeTexture(Tile::IdType id) {
 
 Tile::IdType Tileset::addAnimation(const std::string& uri) {
     animFiles.getValue().emplace(nextAnimationId, uri);
-    auto it =
-        anims.emplace(nextAnimationId, bl::engine::Resources::animations().load(uri).data).first;
+    auto it = anims
+                  .emplace(nextAnimationId,
+                           bl::engine::Resources::animations()
+                               .load(bl::file::Util::joinPath(Properties::MapAnimationPath(), uri))
+                               .data)
+                  .first;
     if (it->second->isLooping()) {
         auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
         jit->second.play();
@@ -207,6 +214,36 @@ bool Tileset::save(const std::string& file) const {
                                   bl::file::binary::File::Write);
     VersionedLoader loader;
     return loader.write(output, *this);
+}
+
+bl::resource::Resource<sf::Texture>::Ref Tileset::getTile(Tile::IdType id) {
+    auto it = textures.find(id);
+    return it != textures.end() ? it->second : nullptr;
+}
+
+std::vector<Tileset::TileStore::const_iterator> Tileset::getTiles() const {
+    std::vector<TileStore::const_iterator> result;
+    result.reserve(textures.size());
+    for (Tile::IdType id = 0; id < nextTextureId; ++id) {
+        auto it = textures.find(id);
+        if (it != textures.end()) { result.emplace_back(it); }
+    }
+    return result;
+}
+
+bl::resource::Resource<bl::gfx::AnimationData>::Ref Tileset::getAnim(Tile::IdType id) {
+    auto it = anims.find(id);
+    return it != anims.end() ? it->second : nullptr;
+}
+
+std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {
+    std::vector<AnimStore::const_iterator> result;
+    result.reserve(anims.size());
+    for (Tile::IdType id = 0; id < nextAnimationId; ++id) {
+        auto it = anims.find(id);
+        if (it != anims.end()) { result.emplace_back(it); }
+    }
+    return result;
 }
 
 } // namespace map

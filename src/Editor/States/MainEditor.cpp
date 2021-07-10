@@ -27,6 +27,15 @@ MainEditor::MainEditor(core::system::Systems& s)
     renderer = bl::gui::DefaultRenderer::create();
     gui->setRenderer(renderer);
 
+    mapPage.registerGui(gui);
+    testingPage.registerGui(gui);
+    peoplemonPage.registerGui(gui);
+    movesPage.registerGui(gui);
+    itemsPage.registerGui(gui);
+    playlistsPage.registerGui(gui);
+    creditsPage.registerGui(gui);
+    todoPage.registerGui(gui);
+
     notebook = bl::gui::Notebook::create("editor", "main_nav");
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
@@ -64,9 +73,13 @@ void MainEditor::deactivate(bl::engine::Engine&) {
 void MainEditor::update(bl::engine::Engine&, float dt) {
     gui->update(dt);
     currentPage->update(dt);
+
+    systems.clock().update(dt);
+    systems.cameras().update(dt);
+    systems.engine().entities().doDestroy();
 }
 
-void MainEditor::render(bl::engine::Engine& engine, float lag) {
+void MainEditor::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
     engine.window().draw(*gui);
     engine.window().display();

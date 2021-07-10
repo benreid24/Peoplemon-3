@@ -11,7 +11,7 @@ Playlists::Playlists(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Playlists tool will go here"));
 }
 
-void Playlists::update(float dt) {
+void Playlists::update(float) {
     // TODO
 }
 

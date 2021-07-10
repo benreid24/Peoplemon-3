@@ -1,54 +1,38 @@
 #include <Editor/Pages/Subpages/Layers.hpp>
 
+#include <BLIB/Util/Random.hpp>
+
 namespace editor
 {
 namespace page
 {
 using namespace bl::gui;
 
-Layers::Layers(Mode m)
-: mode(m)
-, prefix(m == Layer ? "Layer" : "Level") {
+Layers::Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const AppendCb& topAddCb,
+               const DeleteCb& delCb, const ShiftCb& shiftCb, const RenderFilterCb& filterCb)
+: bottomAdd(bottomAddCb)
+, ysortAdd(ysortAddCb)
+, topAdd(topAddCb)
+, delCb(delCb)
+, shiftCb(shiftCb)
+, filterCb(filterCb) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    content        = Notebook::create();
+}
 
-    if (mode == Layer) {
-        Box::Ptr row =
-            Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-        firstYSortSelect = ComboBox::create();
-        firstYSortSelect->addOption(prefix + " 0");
-        firstYSortSelect->addOption(prefix + " 1");
-        firstYSortSelect->addOption(prefix + " 2");
-        firstYSortSelect->addOption(prefix + " 3");
-        firstYSortSelect->addOption(prefix + " 4");
-        firstYSortSelect->setSelectedOption(0);
-        firstYSortSelect->setHorizontalAlignment(RenderSettings::Left);
-        row->pack(Label::create("First y-sort layer:"));
-        row->pack(firstYSortSelect);
-        content->pack(row, true, false);
+void Layers::sync(const std::vector<core::map::LayerSet>& levels,
+                  const std::vector<std::vector<bool>>& filter) {
+    for (unsigned int i = 0; i < content->pageCount(); ++i) { content->removePageByIndex(i); }
 
-        row = Box::create(LinePacker::create(LinePacker::Horizontal, 2, LinePacker::Uniform));
-        firstTopSelect = ComboBox::create();
-        firstTopSelect->addOption(prefix + " 0");
-        firstTopSelect->addOption(prefix + " 1");
-        firstTopSelect->addOption(prefix + " 2");
-        firstTopSelect->addOption(prefix + " 3");
-        firstTopSelect->addOption(prefix + " 4");
-        firstTopSelect->setSelectedOption(0);
-        firstTopSelect->setHorizontalAlignment(RenderSettings::Left);
-        row->pack(Label::create("First top layer:"));
-        row->pack(firstTopSelect);
-        content->pack(row, true, false);
+    pages.clear();
+    pages.reserve(levels.size());
+    for (unsigned int i = 0; i < levels.size(); ++i) {
+        const auto& level = levels[i];
+        pages.emplace_back(
+            i, level, filter[i], filterCb, bottomAdd, ysortAdd, topAdd, delCb, shiftCb);
+        const std::string title = "Level " + std::to_string(pages.back().index);
+        content->addPage(title, title, pages.back().page);
     }
-
-    itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
-    rows.reserve(5);
-    for (unsigned int i = 0; i < 5; ++i) {
-        rows.emplace_back(prefix, i);
-        itemArea->pack(rows.back().row, true, false);
-    }
-    itemArea->setMaxSize({400, 1000});
-    content->pack(itemArea, true, false);
 }
 
 Box::Ptr Layers::getContent() { return contentWrapper; }
@@ -57,24 +41,117 @@ void Layers::pack() { contentWrapper->pack(content, true, true); }
 
 void Layers::unpack() { content->remove(); }
 
-Layers::Item::Item(const std::string& prefix, unsigned int i) {
+Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
+                           const std::vector<bool>& filter, const RenderFilterCb& vcb,
+                           const AppendCb& bottomAddCb, const AppendCb& ysortAddCb,
+                           const AppendCb& topAddCb, const DeleteCb& delCb, const ShiftCb& shiftCb)
+: index(i) {
+    page = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8));
+    page->setMaxSize({300, 175});
+
+    Box::Ptr box         = Box::create(LinePacker::create(LinePacker::Vertical, 8));
+    const auto visibleCb = [this, vcb](unsigned int layer, bool v) { vcb(index, layer, v); };
+    const auto deleteCb  = [this, delCb](unsigned int layer) { delCb(index, layer); };
+    const auto onShift   = [this, shiftCb](unsigned int layer, bool up) {
+        shiftCb(index, layer, up);
+    };
+
+    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    Button::Ptr addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall(
+            [this, bottomAddCb, visibleCb](const Action&, Element*) { bottomAddCb(index); });
+    bottomBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    row->pack(Label::create("Bottom Layers"), true, true);
+    row->pack(addBut, false, false);
+    bottomBox->pack(row, true, false);
+
+    row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall([this, ysortAddCb](const Action&, Element*) { ysortAddCb(index); });
+    ysortBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    row->pack(Label::create("Y-Sort Layers"), true, true);
+    row->pack(addBut, false, false);
+    ysortBox->pack(row, true, false);
+
+    row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
+    addBut = Button::create("Add");
+    addBut->getSignal(Action::LeftClicked)
+        .willAlwaysCall([this, topAddCb](const Action&, Element*) { topAddCb(index); });
+    topBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    row->pack(Label::create("Top Layers"), true, true);
+    row->pack(addBut, false, false);
+    topBox->pack(row, true, false);
+
+    box->pack(bottomBox, true, false);
+    box->pack(ysortBox, true, false);
+    box->pack(topBox, true, false);
+
+    items.reserve(level.layerCount());
+    for (unsigned int i = 0; i < level.bottomLayers().size(); ++i) {
+        items.emplace_back(i, i != 0, true, filter[i], visibleCb, deleteCb, onShift);
+        bottomBox->pack(items.back().row, true, false);
+    }
+    for (unsigned int i = level.bottomLayers().size();
+         i < level.bottomLayers().size() + level.ysortLayers().size();
+         ++i) {
+        items.emplace_back(i, true, true, filter[i], visibleCb, deleteCb, onShift);
+        ysortBox->pack(items.back().row, true, false);
+    }
+    for (unsigned int i = level.bottomLayers().size() + level.ysortLayers().size();
+         i < level.layerCount();
+         ++i) {
+        items.emplace_back(
+            i, true, i != level.layerCount() - 1, filter[i], visibleCb, deleteCb, onShift);
+        topBox->pack(items.back().row, true, false);
+    }
+
+    page->pack(box, true, true);
+}
+
+Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visible,
+                           const VisibleCb& visibleCb, const DeleteCb& delCb,
+                           const ShiftCb& shiftCb)
+: index(i) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal));
 
-    name = Label::create(prefix + " " + std::to_string(i));
+    name = Label::create("Layer " + std::to_string(i));
+    name->setColor(sf::Color(bl::util::Random::get<std::uint8_t>(80, 255),
+                             bl::util::Random::get<std::uint8_t>(80, 255),
+                             bl::util::Random::get<std::uint8_t>(80, 255)),
+                   sf::Color::Transparent);
     row->pack(name, true, false);
 
     visibleToggle = CheckButton::create("Visible");
-    visibleToggle->setValue(true);
+    visibleToggle->setValue(visible);
+    visibleToggle->getSignal(Action::ValueChanged)
+        .willAlwaysCall([this, visibleCb](const Action&, Element*) {
+            visibleCb(index, visibleToggle->getValue());
+        });
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");
+    upBut->setActive(canUp);
+    if (canUp) {
+        upBut->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, true); });
+    }
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
+    downBut->setActive(canDown);
+    if (canDown) {
+        downBut->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, false); });
+    }
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");
     delBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
+    delBut->getSignal(Action::LeftClicked).willAlwaysCall([this, delCb](const Action&, Element*) {
+        delCb(index);
+    });
     row->pack(delBut, false, true);
 }
 

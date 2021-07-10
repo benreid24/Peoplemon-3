@@ -66,6 +66,13 @@ public:
     LayerSet();
 
     /**
+     * @brief Move constructs the layer set from the given layer set
+     *
+     * @param move The layer set to move from
+     */
+    LayerSet(LayerSet&& move);
+
+    /**
      * @brief Copy constructs from the given layer set
      *
      * @param copy The set to copy
@@ -135,11 +142,44 @@ public:
     const std::vector<SortedLayer>& renderSortedLayers() const;
 
     /**
+     * @brief Returns a mutable reference to the y-sorted layers. Use with caution
+     *
+     */
+    std::vector<SortedLayer>& renderSortedLayers();
+
+    /**
      * @brief Returns a reference to the top tiles in this set
      *
      * @return std::vector<TileLayer>& The
      */
     std::vector<TileLayer>& topLayers();
+
+    /**
+     * @brief Returns a reference to the bottom tiles in this set
+     *
+     * @return std::vector<TileLayer>& The tiles rendered underneath all entities
+     */
+    const std::vector<TileLayer>& bottomLayers() const;
+
+    /**
+     * @brief Returns a reference to the sorted tiles in this set
+     *
+     * @return std::vector<TileLayer>& The tiles rendered inline with entities based on y coordinate
+     */
+    const std::vector<TileLayer>& ysortLayers() const;
+
+    /**
+     * @brief Returns a reference to the top tiles in this set
+     *
+     * @return std::vector<TileLayer>& The
+     */
+    const std::vector<TileLayer>& topLayers() const;
+
+    /**
+     * @brief Returns the total number of layers contained
+     *
+     */
+    unsigned int layerCount() const;
 
     /**
      * @brief Updates tiles in the layer set
@@ -148,6 +188,16 @@ public:
      * @param dt Elapsed time in seconds since last call to update()
      */
     void update(const sf::IntRect& area, float dt);
+
+    /**
+     * @brief Returns a pointer to the pointer to sorted tile
+     *
+     * @param tileset The tileset to use for determining size
+     * @param layer Which sorted layer the tile is in
+     * @param x The x position of the tile
+     * @param y The y position of the tile
+     */
+    Tile** getSortedTile(Tileset& tileset, unsigned int layer, unsigned int x, unsigned int y);
 
 private:
     bl::file::binary::SerializableField<1, CollisionLayer> collisions;

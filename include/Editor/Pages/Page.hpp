@@ -57,9 +57,17 @@ public:
      */
     bl::gui::Box::Ptr getContent();
 
+    /**
+     * @brief Registers the parent GUI
+     *
+     * @param parent The parent GUI object
+     */
+    void registerGui(bl::gui::GUI::Ptr parent);
+
 protected:
     core::system::Systems& systems;
     bl::gui::Box::Ptr content;
+    bl::gui::GUI::Ptr parent;
 };
 
 } // namespace page

@@ -34,12 +34,27 @@ public:
     Layer(const Layer& copy);
 
     /**
+     * @brief Move constructs the layer
+     *
+     * @param copy The layer to move from
+     */
+    Layer(Layer&& mlayer);
+
+    /**
      * @brief Copies the given layer
      *
      * @param copy The layer to copy
      * @return Layer& A reference to this layer
      */
     Layer& operator=(const Layer& copy);
+
+    /**
+     * @brief Move assigns the layer
+     *
+     * @param mlayer The layer to move from
+     * @return Layer& A reference to this layer
+     */
+    Layer& operator=(Layer&& mlayer);
 
     /**
      * @brief Clears all stored data (if any) and creates the layer with the given size
@@ -110,10 +125,24 @@ Layer<T>::Layer(const Layer& copy)
 }
 
 template<typename T>
+Layer<T>::Layer(Layer&& m)
+: Layer() {
+    *this = std::forward<Layer<T>>(m);
+}
+
+template<typename T>
 Layer<T>& Layer<T>::operator=(const Layer& copy) {
     w    = copy.w.getValue();
     h    = copy.h.getValue();
     data = copy.data.getValue();
+    return *this;
+}
+
+template<typename T>
+Layer<T>& Layer<T>::operator=(Layer&& copy) {
+    w               = copy.w.getValue();
+    h               = copy.h.getValue();
+    data.getValue() = copy.data.getMovable();
     return *this;
 }
 

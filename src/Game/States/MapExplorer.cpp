@@ -18,7 +18,7 @@ public:
 
     virtual bool valid() const { return true; }
 
-    virtual void update(core::system::Systems& systems, float dt) {
+    virtual void update(core::system::Systems&, float dt) {
         const float PixelsPerSecond =
             0.5f * size * static_cast<float>(core::Properties::WindowWidth());
         static const float ZoomPerSecond = 0.5f;
@@ -70,7 +70,7 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
-void MapExplorer::activate(bl::engine::Engine& engine) {
+void MapExplorer::activate(bl::engine::Engine&) {
     systems.engine().eventBus().subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
     systems.cameras().pushCamera(mapExplorer);
@@ -82,7 +82,7 @@ void MapExplorer::deactivate(bl::engine::Engine&) {
     systems.cameras().popCamera();
 }
 
-void MapExplorer::update(bl::engine::Engine& engine, float dt) {
+void MapExplorer::update(bl::engine::Engine&, float dt) {
     systems.update(dt);
 
     hintTime += dt;
@@ -102,7 +102,7 @@ void MapExplorer::update(bl::engine::Engine& engine, float dt) {
 
 void MapExplorer::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
-    systems.render().render(engine.window(), lag);
+    systems.render().render(engine.window(), systems.world().activeMap(), lag);
     engine.window().draw(hintBox);
     engine.window().draw(hintText);
     engine.window().display();

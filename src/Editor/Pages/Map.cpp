@@ -1,5 +1,7 @@
 #include <Editor/Pages/Map.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace editor
 {
 namespace page
@@ -8,55 +10,120 @@ using namespace bl::gui;
 
 Map::Map(core::system::Systems& s)
 : Page(s)
-, levelPage(Layers::Level)
-, layerPage(Layers::Layer) {
-    content = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
-    bl::gui::Box::Ptr controlPane =
-        Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
+, mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
+          std::bind(&Map::syncGui, this), s)
+, tileset([this](core::map::Tile::IdType id, bool isAnim) {
+    mapArea.editMap().removeAllTiles(id, isAnim);
+})
+, levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
+            [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
+            [this]() { mapArea.editMap().appendLevel(); })
+, layerPage([this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
+            [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
+            [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },
+            [this](unsigned int level, unsigned int layer) {
+                mapArea.editMap().removeLayer(level, layer);
+            },
+            [this](unsigned int level, unsigned int layer, bool up) {
+                mapArea.editMap().shiftLayer(level, layer, up);
+            },
+            [this](unsigned int level, unsigned int layer, bool visible) {
+                mapArea.editMap().setLayerVisible(level, layer, visible);
+            })
+, activeTool(Tool::Metadata)
+, activeSubtool(Subtool::Set)
+, selectionState(NoSelection)
+, mapPicker(core::Properties::MapPath(), {"map", "p3m"},
+            std::bind(&Map::doLoadMap, this, std::placeholders::_1),
+            [this]() { mapPicker.close(); })
+, newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
+                         std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
+, playlistPicker(core::Properties::PlaylistPath(), {"plst"},
+                 std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
+                 [this]() { playlistPicker.close(); }) {
+    content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
+    Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
-    bl::gui::Box::Ptr mapCtrlBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::Button::Ptr newMapBut  = Button::create("New Map");
-    bl::gui::Button::Ptr loadMapBut = Button::create("Load Map");
-    bl::gui::Button::Ptr saveMapBut = Button::create("Save Map");
+    Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Button::Ptr newMapBut = Button::create("New Map");
+    newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        if (checkUnsaved()) {
+            makingNewMap = true;
+            mapPicker.open(FilePicker::CreateNew, "New map", parent);
+        }
+    });
+    Button::Ptr loadMapBut = Button::create("Load Map");
+    loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        if (checkUnsaved()) {
+            makingNewMap = false;
+            mapPicker.open(FilePicker::PickExisting, "Load map", parent);
+        }
+    });
+    saveMapBut = Button::create("Save Map");
+    saveMapBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        if (!mapArea.editMap().editorSave()) {
+            bl::dialog::tinyfd_messageBox(
+                "Error Saving Map",
+                std::string("Failed to save map: " + mapArea.editMap().name()).c_str(),
+                "ok",
+                "error",
+                1);
+        }
+        else {
+            tileset.markSaved();
+        }
+    });
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
-    bl::gui::Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
     levelSelect = ComboBox::create("maps");
-    levelSelect->addOption("Level 0");
-    levelSelect->addOption("Level 1");
-    levelSelect->setSelectedOption(0);
+    levelSelect->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element* e) {
+        onLevelChange(dynamic_cast<ComboBox*>(e)->getSelectedOption());
+    });
     box->pack(levelSelect, true, true);
 
     layerSelect = ComboBox::create("maps");
-    layerSelect->addOption("Layer 0");
-    layerSelect->addOption("Layer 1");
-    layerSelect->addOption("Layer 2 (ysort)");
-    layerSelect->addOption("Layer 3");
-    layerSelect->addOption("Layer 4 (top)");
-    layerSelect->setSelectedOption(0);
     box->pack(layerSelect, true, true);
     tileBox->pack(box, true, false);
 
-    box = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    bl::gui::RadioButton::Ptr tileSetBut = RadioButton::create("Set");
+    box                         = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
     tileSetBut->setValue(true);
-    bl::gui::RadioButton::Ptr tileClearBut =
-        RadioButton::create("Clear", tileSetBut->getRadioGroup());
-    bl::gui::RadioButton::Ptr tileSelectBut =
-        RadioButton::create("Select", tileSetBut->getRadioGroup());
-    bl::gui::Button::Ptr tileDeselectBut = Button::create("Deselect");
+    tileSetBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Set;
+    });
+    RadioButton::Ptr tileClearBut =
+        RadioButton::create("Clear", tileSetBut->getRadioGroup(), "clear");
+    tileClearBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Clear;
+    });
+    RadioButton::Ptr tileSelectBut =
+        RadioButton::create("Select", tileSetBut->getRadioGroup(), "select");
+    tileSelectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        activeSubtool = Subtool::Select;
+    });
+    Button::Ptr tileDeselectBut = Button::create("Deselect");
+    tileDeselectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        selectionState = NoSelection;
+    });
+    Button::Ptr selectAllBut = Button::create("All");
+    selectAllBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        selectionState = SelectionMade;
+        selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
+    });
     box->pack(tileSetBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
+    box->pack(selectAllBut, true, true);
     box->pack(tileDeselectBut, true, true);
     tileBox->pack(box, true, false);
 
-    bl::gui::Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
@@ -64,13 +131,16 @@ Map::Map(core::system::Systems& s)
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
 
-    bl::gui::Button::Ptr resizeBut = Button::create("Resize Map");
+    Button::Ptr resizeBut = Button::create("Resize Map");
     row->pack(resizeBut);
     infoBox->pack(row, true, false);
 
-    row                                  = Box::create(LinePacker::create(LinePacker::Horizontal));
-    playlistLabel                        = Label::create("playerlistFile.bplst");
-    bl::gui::Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
+    row                         = Box::create(LinePacker::create(LinePacker::Horizontal));
+    playlistLabel               = Label::create("playerlistFile.bplst");
+    Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
+    pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
+    });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
     row->pack(playlistLabel, true, false);
@@ -97,10 +167,18 @@ Map::Map(core::system::Systems& s)
     weatherEntry->addOption("SnowRandom");
     weatherEntry->addOption("DesertRandom");
     weatherEntry->setSelectedOption(0);
+    weatherEntry->setMaxHeight(300);
+    weatherEntry->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+        const core::map::Weather::Type type =
+            static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
+        if (mapArea.editMap().weatherSystem().getType() != type) {
+            mapArea.editMap().setWeather(type);
+        }
+    });
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    bl::gui::Notebook::Ptr editBook = Notebook::create("maps");
+    Notebook::Ptr editBook = Notebook::create("maps");
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
         "layers",
@@ -183,7 +261,7 @@ Map::Map(core::system::Systems& s)
     RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
 
-    bl::gui::Notebook::Ptr objectBook = Notebook::create("maps");
+    Notebook::Ptr objectBook = Notebook::create("maps");
     objectBook->addPage("spawns", "Spawns", spawnBox);
     objectBook->addPage("ai", "NPC's", npcBox);
     objectBook->addPage("items", "Items", itemBox);
@@ -235,15 +313,31 @@ Map::Map(core::system::Systems& s)
         layerPage.unpack();
         levelPage.unpack();
     };
-    const auto editOpened = [this, editBook]() {
-        if (editBook->getActivePageName() == "layers")
+
+    RadioButton::Group* tilesetButGroup = tileSetBut->getRadioGroup();
+    const auto editOpened               = [this, editBook, tilesetButGroup]() {
+        activeTool    = Tool::MapEdit;
+        activeSubtool = Subtool::None;
+
+        if (editBook->getActivePageName() == "tiles") {
+            if (tilesetButGroup->getActiveButton()->group() == "set") {
+                activeSubtool = Subtool::Set;
+            }
+            else if (tilesetButGroup->getActiveButton()->group() == "clear") {
+                activeSubtool = Subtool::Clear;
+            }
+            else if (tilesetButGroup->getActiveButton()->group() == "select") {
+                activeSubtool = Subtool::Select;
+            }
+        }
+        else if (editBook->getActivePageName() == "layers")
             layerPage.pack();
         else if (editBook->getActivePageName() == "levels")
             levelPage.pack();
     };
 
-    bl::gui::Notebook::Ptr controlBook = Notebook::create("maps");
-    controlBook->addPage("map", "Map", infoBox);
+    Notebook::Ptr controlBook = Notebook::create("maps");
+    controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
     controlBook->addPage("events", "Scripts", eventBox);
@@ -254,11 +348,278 @@ Map::Map(core::system::Systems& s)
     controlPane->pack(tileset.getContent(), true, true);
 
     content->pack(controlPane, false, true);
-    content->pack(Label::create("Map canvas here"), true, true);
+    content->pack(mapArea.getContent(), true, true);
+
+    mapArea.editMap().editorLoad("WorldMap.map");
+    syncGui();
 }
 
-void Map::update(float dt) {
-    // TODO
+void Map::update(float) {
+    if (selectionState == SelectionMade) { mapArea.editMap().showSelection(selection); }
+    else if (selectionState == Selecting) {
+        mapArea.editMap().showSelection({selection.left, selection.top, -1, -1});
+    }
+    else {
+        mapArea.editMap().showSelection({0, 0, 0, 0});
+    }
+
+    switch (tileset.getActiveTool()) {
+    case Tileset::CollisionTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Collisions,
+                                           levelSelect->getSelectedOption());
+        break;
+
+    case Tileset::CatchTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::CatchTiles,
+                                           levelSelect->getSelectedOption());
+        break;
+
+    default:
+        // TODO - check for events or catch zones or whatever else
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        break;
+    }
+
+    if (mapArea.editMap().unsavedChanges() || tileset.unsavedChanges()) {
+        saveMapBut->setColor(sf::Color(200, 185, 20), sf::Color::Red);
+    }
+    else {
+        saveMapBut->setColor(sf::Color::Green, sf::Color::Black);
+    }
+}
+
+void Map::doLoadMap(const std::string& file) {
+    mapPicker.close();
+
+    if (makingNewMap) {
+        const std::string f = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
+        newMapWindow.show(parent, f);
+    }
+    else {
+        if (!mapArea.editMap().editorLoad(file)) {
+            bl::dialog::tinyfd_messageBox("Error Loading Map",
+                                          std::string("Failed to load map: " + file).c_str(),
+                                          "ok",
+                                          "error",
+                                          1);
+        }
+    }
+
+    syncGui();
+}
+
+void Map::makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
+                     unsigned int w, unsigned int h) {
+    mapArea.editMap().newMap(file, name, tileset, w, h);
+}
+
+void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
+    BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
+
+    switch (activeTool) {
+    case Tool::MapEdit:
+        switch (activeSubtool) {
+        case Subtool::Set:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  tileset.getActiveTile(),
+                                                  false);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              tileset.getActiveTile(),
+                                              false);
+                }
+                break;
+            case Tileset::Animations:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  tileset.getActiveAnim(),
+                                                  true);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              tileset.getActiveAnim(),
+                                              true);
+                }
+                break;
+            case Tileset::CollisionTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCollisionArea(
+                        levelSelect->getSelectedOption(), selection, tileset.getActiveCollision());
+                }
+                else {
+                    mapArea.editMap().setCollision(
+                        levelSelect->getSelectedOption(), tiles, tileset.getActiveCollision());
+                }
+                break;
+            case Tileset::CatchTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCatchArea(
+                        levelSelect->getSelectedOption(), selection, tileset.getActiveCatch());
+                }
+                else {
+                    mapArea.editMap().setCatch(
+                        levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Clear:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+            case Tileset::Animations:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTileArea(levelSelect->getSelectedOption(),
+                                                  layerSelect->getSelectedOption(),
+                                                  selection,
+                                                  core::map::Tile::Blank,
+                                                  false);
+                }
+                else {
+                    mapArea.editMap().setTile(levelSelect->getSelectedOption(),
+                                              layerSelect->getSelectedOption(),
+                                              tiles,
+                                              core::map::Tile::Blank,
+                                              false);
+                }
+                break;
+            case Tileset::CollisionTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCollisionArea(
+                        levelSelect->getSelectedOption(), selection, core::map::Collision::Open);
+                }
+                else {
+                    mapArea.editMap().setCollision(
+                        levelSelect->getSelectedOption(), tiles, core::map::Collision::Open);
+                }
+                break;
+            case Tileset::CatchTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setCatchArea(
+                        levelSelect->getSelectedOption(), selection, core::map::Catch::NoEncounter);
+                }
+                else {
+                    mapArea.editMap().setCatch(
+                        levelSelect->getSelectedOption(), tiles, core::map::Catch::NoEncounter);
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Select:
+            switch (selectionState) {
+            case SelectionMade:
+            case NoSelection:
+                selectionState = Selecting;
+                selection.left = tiles.x;
+                selection.top  = tiles.y;
+                break;
+            case Selecting:
+                selectionState = SelectionMade;
+                {
+                    const int minX = std::min(selection.left, tiles.x);
+                    const int minY = std::min(selection.top, tiles.y);
+                    const int maxX = std::max(selection.left, tiles.x);
+                    const int maxY = std::max(selection.top, tiles.y);
+                    selection      = {minX, minY, maxX - minX + 1, maxY - minY + 1};
+                }
+                break;
+            default:
+                selectionState = NoSelection;
+                break;
+            }
+            break;
+
+        default:
+            break;
+        }
+
+    case Tool::Items:
+    case Tool::Lights:
+    case Tool::NPCs:
+    case Tool::Peoplemon:
+    case Tool::Scripts:
+    case Tool::Spawns:
+    case Tool::Metadata:
+    default:
+        break;
+    }
+}
+
+void Map::onChoosePlaylist(const std::string& file) {
+    mapArea.editMap().setPlaylist(file);
+    playlistLabel->setText(file);
+    playlistPicker.close();
+}
+
+bool Map::checkUnsaved() {
+    if (mapArea.editMap().unsavedChanges()) {
+        return bl::dialog::tinyfd_messageBox(
+                   "Unsaved Changes",
+                   std::string(mapArea.editMap().name() + " has unsaved changes, discard them?")
+                       .c_str(),
+                   "yesno",
+                   "warning",
+                   0) == 1;
+    }
+    return true;
+}
+
+void Map::syncGui() {
+    tileset.loadTileset(mapArea.editMap().tilesetField);
+    levelSelect->clearOptions();
+    for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
+        levelSelect->addOption("Level " + std::to_string(i));
+    }
+    levelSelect->setSelectedOption(0);
+    onLevelChange(0);
+    levelPage.sync(mapArea.editMap().levelFilter);
+    layerPage.sync(mapArea.editMap().levels, mapArea.editMap().layerFilter);
+
+    nameEntry->setInput(mapArea.editMap().name());
+    playlistLabel->setText(mapArea.editMap().playlistField);
+    weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField.getValue()));
+}
+
+void Map::onLevelChange(unsigned int l) {
+    if (l >= mapArea.editMap().levels.size()) {
+        BL_LOG_ERROR << "Out of range level: " << l;
+        return;
+    }
+
+    auto& level           = mapArea.editMap().levels[l];
+    const unsigned int bc = level.bottomLayers().size();
+    const unsigned int yc = level.ysortLayers().size();
+    const unsigned int tc = level.topLayers().size();
+
+    layerSelect->clearOptions();
+    unsigned int i = 0;
+    for (unsigned int j = 0; j < bc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i));
+    }
+    for (unsigned int j = 0; j < yc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i) + " (ysort)");
+    }
+    for (unsigned int j = 0; j < tc; ++j, ++i) {
+        layerSelect->addOption("Layer " + std::to_string(i));
+    }
+    layerSelect->setSelectedOption(0);
 }
 
 } // namespace page

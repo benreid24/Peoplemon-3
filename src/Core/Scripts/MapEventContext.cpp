@@ -56,18 +56,15 @@ void MapEventContext::addCustomSymbols(SymbolTable& table) const {
 
 namespace
 {
-Value triggeringEntity(bl::entity::Entity entity, const component::Position& pos,
-                       const map::Event& event) {
+Value triggeringEntity(bl::entity::Entity entity, const component::Position&, const map::Event&) {
     return {static_cast<float>(entity)};
 }
 
-Value triggerPosition(bl::entity::Entity entity, const component::Position& pos,
-                      const map::Event& event) {
+Value triggerPosition(bl::entity::Entity, const component::Position& pos, const map::Event&) {
     return BaseFunctions::makePosition(pos);
 }
 
-Value eventType(bl::entity::Entity entity, const component::Position& pos,
-                const map::Event& event) {
+Value eventType(bl::entity::Entity, const component::Position&, const map::Event& event) {
     switch (event.trigger.getValue()) {
     case map::Event::Trigger::OnEnter:
         return {"OnEnter"};
@@ -84,16 +81,14 @@ Value eventType(bl::entity::Entity entity, const component::Position& pos,
     }
 }
 
-Value eventPosition(bl::entity::Entity entity, const component::Position& pos,
-                    const map::Event& event) {
+Value eventPosition(bl::entity::Entity, const component::Position&, const map::Event& event) {
     Value coord;
     coord.setProperty("x", {static_cast<float>(event.position.getValue().x)});
     coord.setProperty("y", {static_cast<float>(event.position.getValue().y)});
     return coord;
 }
 
-Value eventSize(bl::entity::Entity entity, const component::Position& pos,
-                const map::Event& event) {
+Value eventSize(bl::entity::Entity, const component::Position&, const map::Event& event) {
     Value size;
     size.setProperty("x", {static_cast<float>(event.areaSize.getValue().x)});
     size.setProperty("y", {static_cast<float>(event.areaSize.getValue().y)});

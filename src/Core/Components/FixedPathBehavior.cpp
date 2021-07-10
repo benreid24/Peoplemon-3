@@ -6,9 +6,9 @@ namespace component
 {
 FixedPathBehavior::FixedPathBehavior(const file::Behavior::Path& path)
 : path(path)
+, backwards(false)
 , currentPace(0)
-, currentStep(0)
-, backwards(false) {}
+, currentStep(0) {}
 
 void FixedPathBehavior::update(Position& position, Controllable& controller) {
     if (path.paces.empty()) return;

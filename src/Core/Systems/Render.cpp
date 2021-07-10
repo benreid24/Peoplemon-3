@@ -23,11 +23,11 @@ void Render::update(float dt) {
     }
 }
 
-void Render::render(sf::RenderTarget& target, float lag) {
+void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
     const sf::View oldView = target.getView();
 
     sf::View view = oldView;
-    owner.cameras().configureView(view);
+    owner.cameras().configureView(map, view);
     target.setView(view);
 
     const auto entityRender = [this, &target, lag](std::uint8_t level,
@@ -45,8 +45,7 @@ void Render::render(sf::RenderTarget& target, float lag) {
         }
     };
 
-    target.clear();
-    owner.world().activeMap().render(target, lag, entityRender);
+    map.render(target, lag, entityRender);
     owner.hud().render(target, lag);
 
     target.setView(oldView);

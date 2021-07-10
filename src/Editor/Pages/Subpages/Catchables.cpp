@@ -1,6 +1,7 @@
 #include <Editor/Pages/Subpages/Catchables.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Editor/Components/HighlightRadioButton.hpp>
 
 namespace editor
 {
@@ -14,7 +15,7 @@ Catchables::Catchables() {
     auto txtr = bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data;
     Image::Ptr img = Image::create(txtr);
     img->scaleToSize({128, 128});
-    RadioButton::Ptr noCatch = RadioButton::create(img);
+    component::HighlightRadioButton::Ptr noCatch = component::HighlightRadioButton::create(img);
     noCatch->setValue(true);
     noCatch->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         active = core::map::Catch::NoEncounter;
@@ -23,7 +24,8 @@ Catchables::Catchables() {
     txtr = bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data;
     img  = Image::create(txtr);
     img->scaleToSize({128, 128});
-    RadioButton::Ptr catchPossible = RadioButton::create(img, noCatch->getRadioGroup());
+    component::HighlightRadioButton::Ptr catchPossible =
+        component::HighlightRadioButton::create(img, noCatch->getRadioGroup());
     catchPossible->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         active = core::map::Catch::RandomEncounter;
     });

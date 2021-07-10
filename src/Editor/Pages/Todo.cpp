@@ -11,7 +11,7 @@ Todo::Todo(core::system::Systems& s)
     content->pack(bl::gui::Label::create("Work items marked for later will show up here"));
 }
 
-void Todo::update(float dt) {
+void Todo::update(float) {
     // TODO
 }
 

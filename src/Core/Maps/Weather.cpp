@@ -17,18 +17,6 @@ namespace map
 {
 namespace
 {
-bool isRandom(Weather::Type t) {
-    switch (t) {
-    case Weather::AllRandom:
-    case Weather::WaterRandom:
-    case Weather::SnowRandom:
-    case Weather::DesertRandom:
-        return true;
-    default:
-        return false;
-    }
-}
-
 const std::string Types[] = {"None",
                              "AllRandom",
                              "LightRain",
@@ -59,14 +47,19 @@ Weather::~Weather() { weather.reset(); }
 
 void Weather::activate(const sf::FloatRect& a) { area = a; }
 
-void Weather::set(Type t) {
+void Weather::set(Type t, bool im) {
     if (t != type) {
         BL_LOG_INFO << "Set weather to " << Types[t];
         type  = t;
         state = Stopping;
-        if (weather) weather->stop();
+        if (weather) {
+            weather->stop();
+            if (im) weather.release();
+        }
     }
 }
+
+Weather::Type Weather::getType() const { return type; }
 
 void Weather::update(system::Systems& systems, float dt) {
     if (weather) weather->update(dt);
@@ -97,7 +90,7 @@ void Weather::update(system::Systems& systems, float dt) {
             if (weather) {
                 BL_LOG_INFO << "Weather stopped";
                 systems.engine().eventBus().dispatch<event::WeatherStopped>({weather->type()});
-                weather.reset();
+                weather.release();
             }
 
             switch (type) {
@@ -125,7 +118,7 @@ void Weather::update(system::Systems& systems, float dt) {
 }
 
 void Weather::render(sf::RenderTarget& target, float lag) const {
-    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+    area = {target.getView().getCenter() - target.getView().getSize() * 0.5f,
             target.getView().getSize()};
     if (weather) weather->render(target, lag);
 }

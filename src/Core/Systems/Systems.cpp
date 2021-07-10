@@ -6,16 +6,16 @@ namespace system
 {
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
+, _cameras(*this)
 , _clock(*this)
+, _ai(*this)
 , _controllable(*this)
-, _world(*this)
 , _entity(*this)
 , _player(*this)
-, _cameras(*this)
+, _world(*this)
 , _position(*this)
 , _movement(*this)
 , _render(*this)
-, _ai(*this)
 , _interaction(*this)
 , _hud(*this) {
     _engine.eventBus().subscribe(&_position);
@@ -46,6 +46,8 @@ void Systems::update(float dt) {
 const bl::engine::Engine& Systems::engine() const { return _engine; }
 
 bl::engine::Engine& Systems::engine() { return _engine; }
+
+Clock& Systems::clock() { return _clock; }
 
 const Clock& Systems::clock() const { return _clock; }
 
