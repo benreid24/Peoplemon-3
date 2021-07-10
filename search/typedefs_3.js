@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['idtype',['IdType',['../a00802.html#a62dbb7a9b1a1c3795a03bf22adacefcc',1,'core::map::Tile']]]
+  ['entityrendercallback',['EntityRenderCallback',['../a00834.html#acc0e9dfed87249efd330bb6bac1bb844',1,'core::map::Map']]]
 ];

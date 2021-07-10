@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['systems',['Systems',['../a00894.html#ab13c4c4a512b597239a9f15e4edefffb',1,'core::system::Clock']]]
+  ['map',['Map',['../a00990.html#a23b9901771c7cc7328e4dc1391417900',1,'editor::component::EditMap']]]
 ];

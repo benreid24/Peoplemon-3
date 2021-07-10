@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component::Renderable Class Reference</title>
+<title>Peoplemon: core::ai::Conversation Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,84 +63,234 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00528.html">component</a></li><li class="navelem"><a class="el" href="a00622.html">Renderable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00563.html">ai</a></li><li class="navelem"><a class="el" href="a00622.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00619.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Renderable Class Reference<div class="ingroups"><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00513.html">Components</a></div></div>  </div>
+<div class="title">core::ai::Conversation Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Adding this component to an entity will allow it to be rendered.  
+<p>Wrapper around <a href="file::Conversation">file::Conversation</a> that tracks current node,.  
  <a href="a00622.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00038_source.html">Renderable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01423_source.html">Conversation.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae5ee62852d8ec0ee85abaee830750d1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#ae5ee62852d8ec0ee85abaee830750d1d">update</a> (float dt)</td></tr>
-<tr class="memdesc:ae5ee62852d8ec0ee85abaee830750d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates contained animations.  <a href="#ae5ee62852d8ec0ee85abaee830750d1d">More...</a><br /></td></tr>
-<tr class="separator:ae5ee62852d8ec0ee85abaee830750d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3691814b322367e67aa8d3b6547bfdf4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a3691814b322367e67aa8d3b6547bfdf4">render</a> (sf::RenderTarget &amp;target, float lag) const</td></tr>
-<tr class="memdesc:a3691814b322367e67aa8d3b6547bfdf4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the entity to the given target.  <a href="#a3691814b322367e67aa8d3b6547bfdf4">More...</a><br /></td></tr>
-<tr class="separator:a3691814b322367e67aa8d3b6547bfdf4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a0cee571f9b7a800317e91eacf9f2847d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00622.html">Renderable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a0cee571f9b7a800317e91eacf9f2847d">fromSprite</a> (const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;pos, const std::string &amp;path)</td></tr>
-<tr class="memdesc:a0cee571f9b7a800317e91eacf9f2847d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a renderable component for a static sprite.  <a href="#a0cee571f9b7a800317e91eacf9f2847d">More...</a><br /></td></tr>
-<tr class="separator:a0cee571f9b7a800317e91eacf9f2847d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af852c36b8ce6f2794472eae9b59d5c21"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00622.html">Renderable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#af852c36b8ce6f2794472eae9b59d5c21">fromMoveAnims</a> (const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00602.html">component::Movable</a> &gt; &amp;movable, const std::string &amp;path)</td></tr>
-<tr class="memdesc:af852c36b8ce6f2794472eae9b59d5c21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a renderable component for movement animations.  <a href="#af852c36b8ce6f2794472eae9b59d5c21">More...</a><br /></td></tr>
-<tr class="separator:af852c36b8ce6f2794472eae9b59d5c21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a300fb0790c27a9a4a2d6bea0783c301a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00622.html">Renderable</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a300fb0790c27a9a4a2d6bea0783c301a">fromFastMoveAnims</a> (const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00602.html">component::Movable</a> &gt; &amp;move, const std::string &amp;path)</td></tr>
-<tr class="memdesc:a300fb0790c27a9a4a2d6bea0783c301a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a renderable component for movement animations with running.  <a href="#a300fb0790c27a9a4a2d6bea0783c301a">More...</a><br /></td></tr>
-<tr class="separator:a300fb0790c27a9a4a2d6bea0783c301a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:afbc35a80a860222628b2239ab693dade"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#afbc35a80a860222628b2239ab693dade">ComponentId</a> = 4</td></tr>
-<tr class="memdesc:afbc35a80a860222628b2239ab693dade"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required to be used in the BLIB ECS.  <a href="#afbc35a80a860222628b2239ab693dade">More...</a><br /></td></tr>
-<tr class="separator:afbc35a80a860222628b2239ab693dade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8c8967fa26d26d905b466dffa27cf6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation</a> (<a class="el" href="a00982.html">system::Systems</a> &amp;systems)</td></tr>
+<tr class="memdesc:adc8c8967fa26d26d905b466dffa27cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty conversation wrapper.  <a href="#adc8c8967fa26d26d905b466dffa27cf6">More...</a><br /></td></tr>
+<tr class="separator:adc8c8967fa26d26d905b466dffa27cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c0ee2ff83e31183c43ee44b6775362f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a4c0ee2ff83e31183c43ee44b6775362f">setConversation</a> (const <a class="el" href="a00770.html">file::Conversation</a> &amp;conversation, bl::entity::Entity entity)</td></tr>
+<tr class="memdesc:a4c0ee2ff83e31183c43ee44b6775362f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the wrapper to point to the given underlying. The underlying must remain in scope during the lifetime of the wrapper. Sets current node to first waiting node.  <a href="#a4c0ee2ff83e31183c43ee44b6775362f">More...</a><br /></td></tr>
+<tr class="separator:a4c0ee2ff83e31183c43ee44b6775362f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca98664465772bfc586aac07028cf04a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00774.html">file::Conversation::Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#aca98664465772bfc586aac07028cf04a">currentNode</a> () const</td></tr>
+<tr class="memdesc:aca98664465772bfc586aac07028cf04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current node.  <a href="#aca98664465772bfc586aac07028cf04a">More...</a><br /></td></tr>
+<tr class="separator:aca98664465772bfc586aac07028cf04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e225fd3305f10349d174ece5d32c43a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a5e225fd3305f10349d174ece5d32c43a">finished</a> () const</td></tr>
+<tr class="memdesc:a5e225fd3305f10349d174ece5d32c43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the conversation is finished.  <a href="#a5e225fd3305f10349d174ece5d32c43a">More...</a><br /></td></tr>
+<tr class="separator:a5e225fd3305f10349d174ece5d32c43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a30139629398b7ac280c1d623febcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a58a30139629398b7ac280c1d623febcf">notifyNext</a> ()</td></tr>
+<tr class="memdesc:a58a30139629398b7ac280c1d623febcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continues to the next node on player input.  <a href="#a58a30139629398b7ac280c1d623febcf">More...</a><br /></td></tr>
+<tr class="separator:a58a30139629398b7ac280c1d623febcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a8e0a2f9daee0c2320b63c86512e2dc49">notifyCheckPassed</a> ()</td></tr>
+<tr class="memdesc:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for a check pass (ie take item/money success etc)  <a href="#a8e0a2f9daee0c2320b63c86512e2dc49">More...</a><br /></td></tr>
+<tr class="separator:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69aa2e5032d179d992770a787183e61d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a69aa2e5032d179d992770a787183e61d">notifyCheckFailed</a> ()</td></tr>
+<tr class="memdesc:a69aa2e5032d179d992770a787183e61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for a check pass (ie take item/money fail etc)  <a href="#a69aa2e5032d179d992770a787183e61d">More...</a><br /></td></tr>
+<tr class="separator:a69aa2e5032d179d992770a787183e61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dbb8b01be97b67152554105faa29a97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00622.html#a9dbb8b01be97b67152554105faa29a97">notifyChoiceMade</a> (const std::string &amp;choice)</td></tr>
+<tr class="memdesc:a9dbb8b01be97b67152554105faa29a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for the given choice if the current node is a Prompt.  <a href="#a9dbb8b01be97b67152554105faa29a97">More...</a><br /></td></tr>
+<tr class="separator:a9dbb8b01be97b67152554105faa29a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adding this component to an entity will allow it to be rendered. </p>
+<div class="textblock"><p>Wrapper around <a href="file::Conversation">file::Conversation</a> that tracks current node,. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00038_source.html#l00020">20</a> of file <a class="el" href="a00038_source.html">Renderable.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a300fb0790c27a9a4a2d6bea0783c301a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a300fb0790c27a9a4a2d6bea0783c301a">&#9670;&nbsp;</a></span>fromFastMoveAnims()</h2>
+<p class="definition">Definition at line <a class="el" href="a01423_source.html#l00028">28</a> of file <a class="el" href="a01423_source.html">Conversation.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="adc8c8967fa26d26d905b466dffa27cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8c8967fa26d26d905b466dffa27cf6">&#9670;&nbsp;</a></span>Conversation()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00622.html">Renderable</a> core::component::Renderable::fromFastMoveAnims </td>
+          <td class="memname">core::ai::Conversation::Conversation </td>
           <td>(</td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00982.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00602.html">component::Movable</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>move</em>, </td>
         </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty conversation wrapper. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00021">21</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aca98664465772bfc586aac07028cf04a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca98664465772bfc586aac07028cf04a">&#9670;&nbsp;</a></span>currentNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
         <tr>
-          <td class="paramkey"></td>
+          <td class="memname">const <a class="el" href="a00774.html">file::Conversation::Node</a> &amp; core::ai::Conversation::currentNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current node. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00035">35</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e225fd3305f10349d174ece5d32c43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e225fd3305f10349d174ece5d32c43a">&#9670;&nbsp;</a></span>finished()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::ai::Conversation::finished </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the conversation is finished. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00033">33</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a69aa2e5032d179d992770a787183e61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69aa2e5032d179d992770a787183e61d">&#9670;&nbsp;</a></span>notifyCheckFailed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyCheckFailed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jumps to the node for a check pass (ie take item/money fail etc) </p>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00055">55</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8e0a2f9daee0c2320b63c86512e2dc49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e0a2f9daee0c2320b63c86512e2dc49">&#9670;&nbsp;</a></span>notifyCheckPassed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyCheckPassed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jumps to the node for a check pass (ie take item/money success etc) </p>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00048">48</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9dbb8b01be97b67152554105faa29a97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dbb8b01be97b67152554105faa29a97">&#9670;&nbsp;</a></span>notifyChoiceMade()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyChoiceMade </td>
+          <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
+          <td class="paramname"><em>choice</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jumps to the node for the given choice if the current node is a Prompt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choice</td><td>The choice that was made </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00062">62</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58a30139629398b7ac280c1d623febcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a30139629398b7ac280c1d623febcf">&#9670;&nbsp;</a></span>notifyNext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyNext </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continues to the next node on player input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00041">41</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c0ee2ff83e31183c43ee44b6775362f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c0ee2ff83e31183c43ee44b6775362f">&#9670;&nbsp;</a></span>setConversation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::setConversation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00770.html">file::Conversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>conversation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::entity::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -148,234 +298,30 @@ Static Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates a renderable component for movement animations with running. </p>
+<p>Sets the wrapper to point to the given underlying. The underlying must remain in scope during the lifetime of the wrapper. Sets current node to first waiting node. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>The position component of the owner </td></tr>
-    <tr><td class="paramname">movable</td><td>The movable component of the owner </td></tr>
-    <tr><td class="paramname">path</td><td>The path to the movement animations </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00622.html" title="Adding this component to an entity will allow it to be rendered. ">Renderable</a> A usable component </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00048">48</a> of file <a class="el" href="a00287_source.html">Renderable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af852c36b8ce6f2794472eae9b59d5c21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af852c36b8ce6f2794472eae9b59d5c21">&#9670;&nbsp;</a></span>fromMoveAnims()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00622.html">Renderable</a> core::component::Renderable::fromMoveAnims </td>
-          <td>(</td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00602.html">component::Movable</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>movable</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a renderable component for movement animations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position component of the owner </td></tr>
-    <tr><td class="paramname">movable</td><td>The movable component of the owner </td></tr>
-    <tr><td class="paramname">path</td><td>The path to the movement animations </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00622.html" title="Adding this component to an entity will allow it to be rendered. ">Renderable</a> A usable component </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00025">25</a> of file <a class="el" href="a00287_source.html">Renderable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0cee571f9b7a800317e91eacf9f2847d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0cee571f9b7a800317e91eacf9f2847d">&#9670;&nbsp;</a></span>fromSprite()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00622.html">Renderable</a> core::component::Renderable::fromSprite </td>
-          <td>(</td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a00614.html">component::Position</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a renderable component for a static sprite. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position component of the owner </td></tr>
-    <tr><td class="paramname">path</td><td>The path to the sprite </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00622.html" title="Adding this component to an entity will allow it to be rendered. ">Renderable</a> A usable component </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00011">11</a> of file <a class="el" href="a00287_source.html">Renderable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3691814b322367e67aa8d3b6547bfdf4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3691814b322367e67aa8d3b6547bfdf4">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::component::Renderable::render </td>
-          <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Renders the entity to the given target. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
-    <tr><td class="paramname">lag</td><td>Time elapsed in seconds not accounted for in update </td></tr>
+    <tr><td class="paramname">conversation</td><td>The conversation to wrap </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity being conversed with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00095">95</a> of file <a class="el" href="a00287_source.html">Renderable.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae5ee62852d8ec0ee85abaee830750d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ee62852d8ec0ee85abaee830750d1d">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::component::Renderable::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates contained animations. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00093">93</a> of file <a class="el" href="a00287_source.html">Renderable.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="afbc35a80a860222628b2239ab693dade"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbc35a80a860222628b2239ab693dade">&#9670;&nbsp;</a></span>ComponentId</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bl::entity::Component::IdType core::component::Renderable::ComponentId = 4</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Required to be used in the BLIB ECS. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00038_source.html#l00023">23</a> of file <a class="el" href="a00038_source.html">Renderable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01489_source.html#l00026">26</a> of file <a class="el" href="a01489_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Components/<a class="el" href="a00038_source.html">Renderable.hpp</a></li>
-<li>src/Core/Components/<a class="el" href="a00287_source.html">Renderable.cpp</a></li>
+<li>include/Core/AI/<a class="el" href="a01423_source.html">Conversation.hpp</a></li>
+<li>src/Core/AI/<a class="el" href="a01489_source.html">Conversation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['mode',['Mode',['../a00986.html#a810bfd1ce032200c6938a9c7404a4315',1,'editor::page::Layers']]]
+  ['leveltransition',['LevelTransition',['../a00553.html#gacd6894855472f8b22d022ece25eda9b4',1,'core::map']]],
+  ['location',['Location',['../a01234.html#a3cdad53a606a87389f9d14dea568bfc3',1,'editor::component::EditMap::AppendLayerAction']]]
 ];

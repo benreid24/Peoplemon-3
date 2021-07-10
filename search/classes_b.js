@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['rain',['Rain',['../a01086.html',1,'core::map::weather']]],
-  ['render',['Render',['../a00938.html',1,'core::system']]],
-  ['renderable',['Renderable',['../a00622.html',1,'core::component']]],
-  ['resources',['Resources',['../a00854.html',1,'core']]]
+  ['rain',['Rain',['../a01162.html',1,'core::map::weather']]],
+  ['removelayeraction',['RemoveLayerAction',['../a01238.html',1,'editor::component::EditMap']]],
+  ['render',['Render',['../a00978.html',1,'core::system']]],
+  ['renderable',['Renderable',['../a00662.html',1,'core::component']]],
+  ['resources',['Resources',['../a00894.html',1,'core']]]
 ];

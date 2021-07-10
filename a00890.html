@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::system::Cameras Class Reference</title>
+<title>Peoplemon: core::Properties Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,299 +63,1853 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00526.html">system</a></li><li class="navelem"><a class="el" href="a00890.html">Cameras</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00890.html">Properties</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a00887.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::system::Cameras Class Reference<div class="ingroups"><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00521.html">Systems</a><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00521.html">Systems</a> &raquo;  &#124; <a class="el" href="a00520.html">Cameras</a></div></div>  </div>
+<div class="title">core::Properties Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Primary camera system. Manages the currently active camera and the stack of previously active cameras.  
+<p>Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be accessed without performing look ups, and hides the string config names.  
  <a href="a00890.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00173_source.html">Cameras.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00143_source.html">Properties.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::Properties:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00890.png" usemap="#core::Properties_map" alt=""/>
+  <map id="core::Properties_map" name="core::Properties_map">
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d46e1e5e68e46b944c10afb37e07787"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a8d46e1e5e68e46b944c10afb37e07787">Cameras</a> (<a class="el" href="a00942.html">Systems</a> &amp;owner)</td></tr>
-<tr class="memdesc:a8d46e1e5e68e46b944c10afb37e07787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00890.html" title="Primary camera system. Manages the currently active camera and the stack of previously active cameras...">Cameras</a> system.  <a href="#a8d46e1e5e68e46b944c10afb37e07787">More...</a><br /></td></tr>
-<tr class="separator:a8d46e1e5e68e46b944c10afb37e07787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a116f5db7d8e070c6db1fa3e49fc906f4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a116f5db7d8e070c6db1fa3e49fc906f4">activeCamera</a> ()</td></tr>
-<tr class="memdesc:a116f5db7d8e070c6db1fa3e49fc906f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently active camera.  <a href="#a116f5db7d8e070c6db1fa3e49fc906f4">More...</a><br /></td></tr>
-<tr class="separator:a116f5db7d8e070c6db1fa3e49fc906f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a7ee6761428d0499076642f9ada0e12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a0a7ee6761428d0499076642f9ada0e12">pushCamera</a> (<a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a> camera)</td></tr>
-<tr class="memdesc:a0a7ee6761428d0499076642f9ada0e12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new camera to immediately use, saving the previous active camera.  <a href="#a0a7ee6761428d0499076642f9ada0e12">More...</a><br /></td></tr>
-<tr class="separator:a0a7ee6761428d0499076642f9ada0e12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8044d79071772269298bb73078c23fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ad8044d79071772269298bb73078c23fa">replaceCamera</a> (<a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a> camera)</td></tr>
-<tr class="memdesc:ad8044d79071772269298bb73078c23fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the current active camera with a new one. The previous camera is not able to be returned to.  <a href="#ad8044d79071772269298bb73078c23fa">More...</a><br /></td></tr>
-<tr class="separator:ad8044d79071772269298bb73078c23fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65d64ce29ffa7bd7bee2d2eea433d4fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a65d64ce29ffa7bd7bee2d2eea433d4fa">popCamera</a> ()</td></tr>
-<tr class="memdesc:a65d64ce29ffa7bd7bee2d2eea433d4fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the current active camera and resets to the previous one.  <a href="#a65d64ce29ffa7bd7bee2d2eea433d4fa">More...</a><br /></td></tr>
-<tr class="separator:a65d64ce29ffa7bd7bee2d2eea433d4fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7a4e1f78dd4868bf74bc20da7d81a3e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a7a4e1f78dd4868bf74bc20da7d81a3e6">clearAndReplace</a> (<a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a> camera)</td></tr>
-<tr class="memdesc:a7a4e1f78dd4868bf74bc20da7d81a3e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clears the current camera stack and pushes the given camera to it.  <a href="#a7a4e1f78dd4868bf74bc20da7d81a3e6">More...</a><br /></td></tr>
-<tr class="separator:a7a4e1f78dd4868bf74bc20da7d81a3e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4fa10d44c2428fa97a5fafdd9d1e02c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a4fa10d44c2428fa97a5fafdd9d1e02c1">configureView</a> (sf::View &amp;view) const</td></tr>
-<tr class="memdesc:a4fa10d44c2428fa97a5fafdd9d1e02c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modifies the given view to have the proper size and position. Zoom is applied as a factor to the existing view size. No change is made to the viewport.  <a href="#a4fa10d44c2428fa97a5fafdd9d1e02c1">More...</a><br /></td></tr>
-<tr class="separator:a4fa10d44c2428fa97a5fafdd9d1e02c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00e5347dcc472f6d327b81f10d07ff7e"><td class="memItemLeft" align="right" valign="top">sf::FloatRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a00e5347dcc472f6d327b81f10d07ff7e">getArea</a> () const</td></tr>
-<tr class="memdesc:a00e5347dcc472f6d327b81f10d07ff7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the area to be rendered by the active camera.  <a href="#a00e5347dcc472f6d327b81f10d07ff7e">More...</a><br /></td></tr>
-<tr class="separator:a00e5347dcc472f6d327b81f10d07ff7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f046df43a869c2ba03e76ed29efea0d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a9f046df43a869c2ba03e76ed29efea0d">update</a> (float dt)</td></tr>
-<tr class="memdesc:a9f046df43a869c2ba03e76ed29efea0d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current active camera. Pops invalidated cameras as necessary.  <a href="#a9f046df43a869c2ba03e76ed29efea0d">More...</a><br /></td></tr>
-<tr class="separator:a9f046df43a869c2ba03e76ed29efea0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af001bc54116ba420148554211e7130d3"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#af001bc54116ba420148554211e7130d3">WindowIconFile</a> ()</td></tr>
+<tr class="separator:af001bc54116ba420148554211e7130d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c0e01b7aac945e979717ba95c79ddf8"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a1c0e01b7aac945e979717ba95c79ddf8">WindowWidth</a> ()</td></tr>
+<tr class="separator:a1c0e01b7aac945e979717ba95c79ddf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf3c4e564ae07fc9ed130083580fcb6f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aaf3c4e564ae07fc9ed130083580fcb6f">WindowHeight</a> ()</td></tr>
+<tr class="separator:aaf3c4e564ae07fc9ed130083580fcb6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3dbd0e08a9910f9755d0e5218ba45f5a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a3dbd0e08a9910f9755d0e5218ba45f5a">PixelsPerTile</a> ()</td></tr>
+<tr class="separator:a3dbd0e08a9910f9755d0e5218ba45f5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba1d3f20a3d915d4f1a0f48cb77ae750"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aba1d3f20a3d915d4f1a0f48cb77ae750">ExtraRenderTiles</a> ()</td></tr>
+<tr class="separator:aba1d3f20a3d915d4f1a0f48cb77ae750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8a6d4d3663205859c360011eb15d26b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aa8a6d4d3663205859c360011eb15d26b">LightingWidthTiles</a> ()</td></tr>
+<tr class="separator:aa8a6d4d3663205859c360011eb15d26b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabc8757301c3ad51e9ca1b5657096fd8"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aabc8757301c3ad51e9ca1b5657096fd8">LightingHeightTiles</a> ()</td></tr>
+<tr class="separator:aabc8757301c3ad51e9ca1b5657096fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba72f325311b8bd4dad5c4346f16b62e"><td class="memItemLeft" align="right" valign="top">static const sf::Font &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aba72f325311b8bd4dad5c4346f16b62e">MenuFont</a> ()</td></tr>
+<tr class="separator:aba72f325311b8bd4dad5c4346f16b62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83a1435c52995339e6a350c3120a9beb"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a83a1435c52995339e6a350c3120a9beb">MenuImagePath</a> ()</td></tr>
+<tr class="separator:a83a1435c52995339e6a350c3120a9beb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90219aab29d60d356b154e51d8352ac2"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a90219aab29d60d356b154e51d8352ac2">SpritesheetPath</a> ()</td></tr>
+<tr class="separator:a90219aab29d60d356b154e51d8352ac2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60e16de26eb72d7e54b9f01f0b5dfa26"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a60e16de26eb72d7e54b9f01f0b5dfa26">MusicPath</a> ()</td></tr>
+<tr class="separator:a60e16de26eb72d7e54b9f01f0b5dfa26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf940d01e6a52a6702fa32d500e7091e"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#acf940d01e6a52a6702fa32d500e7091e">PlaylistPath</a> ()</td></tr>
+<tr class="separator:acf940d01e6a52a6702fa32d500e7091e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bcec7da9411ef5ed51b74a614a3480e"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a3bcec7da9411ef5ed51b74a614a3480e">MapPath</a> ()</td></tr>
+<tr class="separator:a3bcec7da9411ef5ed51b74a614a3480e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70646a0b456f8fd5632f723388d350dc"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a70646a0b456f8fd5632f723388d350dc">TilesetPath</a> ()</td></tr>
+<tr class="separator:a70646a0b456f8fd5632f723388d350dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a640aa9b479a16a4b3c2090a0af7e2f34"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a640aa9b479a16a4b3c2090a0af7e2f34">MapTilePath</a> ()</td></tr>
+<tr class="separator:a640aa9b479a16a4b3c2090a0af7e2f34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2457d98ee7dcac40d403bddf1f76568e"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a2457d98ee7dcac40d403bddf1f76568e">MapAnimationPath</a> ()</td></tr>
+<tr class="separator:a2457d98ee7dcac40d403bddf1f76568e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62a824adfdb6b53f2d122173a9808c41"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a62a824adfdb6b53f2d122173a9808c41">ThunderSoundFile</a> ()</td></tr>
+<tr class="separator:a62a824adfdb6b53f2d122173a9808c41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30cfcc4c42f494c9f57d6c0462d02c58"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a30cfcc4c42f494c9f57d6c0462d02c58">LightRainSoundFile</a> ()</td></tr>
+<tr class="separator:a30cfcc4c42f494c9f57d6c0462d02c58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39b108c4fe22286cdb4a751b46cbccf1"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a39b108c4fe22286cdb4a751b46cbccf1">HardRainSoundFile</a> ()</td></tr>
+<tr class="separator:a39b108c4fe22286cdb4a751b46cbccf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac28b30915d6b089d74932ab02b496b51"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ac28b30915d6b089d74932ab02b496b51">RainDropFile</a> ()</td></tr>
+<tr class="separator:ac28b30915d6b089d74932ab02b496b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a959e1c76cad72258eee907f565c52941"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a959e1c76cad72258eee907f565c52941">RainSplash1File</a> ()</td></tr>
+<tr class="separator:a959e1c76cad72258eee907f565c52941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c8824bd1b549631969a89eede05f13a"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a1c8824bd1b549631969a89eede05f13a">RainSplash2File</a> ()</td></tr>
+<tr class="separator:a1c8824bd1b549631969a89eede05f13a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada66185adb31a4dd76c192d84ed7898d"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ada66185adb31a4dd76c192d84ed7898d">SnowFlakeFile</a> ()</td></tr>
+<tr class="separator:ada66185adb31a4dd76c192d84ed7898d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81a625764e044a6cd81b2173650c80d9"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a81a625764e044a6cd81b2173650c80d9">FogFile</a> ()</td></tr>
+<tr class="separator:a81a625764e044a6cd81b2173650c80d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a3dacf355c1e960492ee560ee19fa9f"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a6a3dacf355c1e960492ee560ee19fa9f">SandPatchFile</a> ()</td></tr>
+<tr class="separator:a6a3dacf355c1e960492ee560ee19fa9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c5a341e88fccdf66e13375f2aa94b12"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a1c5a341e88fccdf66e13375f2aa94b12">SandSwirlFile</a> ()</td></tr>
+<tr class="separator:a1c5a341e88fccdf66e13375f2aa94b12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee3a1563dd459c8f9fc69d048569d16"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a6ee3a1563dd459c8f9fc69d048569d16">FrequentThunderMinInterval</a> ()</td></tr>
+<tr class="separator:a6ee3a1563dd459c8f9fc69d048569d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7d62c161bbdac1f7d05060e28f16653d"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a7d62c161bbdac1f7d05060e28f16653d">FrequentThunderMaxInterval</a> ()</td></tr>
+<tr class="separator:a7d62c161bbdac1f7d05060e28f16653d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c12ded8ed2d14caf9d7db37eee547bb"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a9c12ded8ed2d14caf9d7db37eee547bb">InfrequentThunderMinInterval</a> ()</td></tr>
+<tr class="separator:a9c12ded8ed2d14caf9d7db37eee547bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a371a060d4d6d72b7a28b5638aad6b7e4"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a371a060d4d6d72b7a28b5638aad6b7e4">InfrequentThunderMaxInterval</a> ()</td></tr>
+<tr class="separator:a371a060d4d6d72b7a28b5638aad6b7e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0bf4bc7d45d100db761ea60c58d7a3f"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ad0bf4bc7d45d100db761ea60c58d7a3f">LightRainParticleCount</a> ()</td></tr>
+<tr class="separator:ad0bf4bc7d45d100db761ea60c58d7a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4419d718c693b2596d1e578466e7bbd2"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a4419d718c693b2596d1e578466e7bbd2">HardRainParticleCount</a> ()</td></tr>
+<tr class="separator:a4419d718c693b2596d1e578466e7bbd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68fc6a6381adb1f64d00a978bd421068"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a68fc6a6381adb1f64d00a978bd421068">LightSnowParticleCount</a> ()</td></tr>
+<tr class="separator:a68fc6a6381adb1f64d00a978bd421068"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee0fb5ebdfeefdd04557705a35c0bdd5"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aee0fb5ebdfeefdd04557705a35c0bdd5">HardSnowParticleCount</a> ()</td></tr>
+<tr class="separator:aee0fb5ebdfeefdd04557705a35c0bdd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681282c1aaf95326b4b0058fa0af8cb0"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a681282c1aaf95326b4b0058fa0af8cb0">ThinFogAlpha</a> ()</td></tr>
+<tr class="separator:a681282c1aaf95326b4b0058fa0af8cb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6ef630f692337b55c5ef75ae8dc0420"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ad6ef630f692337b55c5ef75ae8dc0420">ThickFogAlpha</a> ()</td></tr>
+<tr class="separator:ad6ef630f692337b55c5ef75ae8dc0420"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a057beb3d41f81c69ba363f24bf425468"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a057beb3d41f81c69ba363f24bf425468">LightRainLightModifier</a> ()</td></tr>
+<tr class="separator:a057beb3d41f81c69ba363f24bf425468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d2501f8357a36ff4e9ae1f2ad120e6c"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a2d2501f8357a36ff4e9ae1f2ad120e6c">HardRainLightModifier</a> ()</td></tr>
+<tr class="separator:a2d2501f8357a36ff4e9ae1f2ad120e6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af33df9c888e5a1a1fbeeb474810a5121"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#af33df9c888e5a1a1fbeeb474810a5121">LightSnowLightModifier</a> ()</td></tr>
+<tr class="separator:af33df9c888e5a1a1fbeeb474810a5121"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ed3738d51f5e9ecb5cdd259cc22f7d5"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a2ed3738d51f5e9ecb5cdd259cc22f7d5">HardSnowLightModifier</a> ()</td></tr>
+<tr class="separator:a2ed3738d51f5e9ecb5cdd259cc22f7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae07c59da8a53974dc0688be40fdab556"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ae07c59da8a53974dc0688be40fdab556">ThinFogLightModifier</a> ()</td></tr>
+<tr class="separator:ae07c59da8a53974dc0688be40fdab556"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3852ff331eec38b555c7d57ea9af87f4"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a3852ff331eec38b555c7d57ea9af87f4">ThickFogLightModifier</a> ()</td></tr>
+<tr class="separator:a3852ff331eec38b555c7d57ea9af87f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a198a5e560d57a4500ede1dca4c0d4758"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a198a5e560d57a4500ede1dca4c0d4758">SunnyLightModifier</a> ()</td></tr>
+<tr class="separator:a198a5e560d57a4500ede1dca4c0d4758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f1c47aab95c4628567bb153b16bdc1"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a33f1c47aab95c4628567bb153b16bdc1">SandstormLightModifier</a> ()</td></tr>
+<tr class="separator:a33f1c47aab95c4628567bb153b16bdc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22bdf2f89374ca3657a1bd7f5bf74750"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a22bdf2f89374ca3657a1bd7f5bf74750">NpcFileExtension</a> ()</td></tr>
+<tr class="separator:a22bdf2f89374ca3657a1bd7f5bf74750"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a7b19a807ebcdcc2a3e806a1b5f2ac7"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a6a7b19a807ebcdcc2a3e806a1b5f2ac7">NpcPath</a> ()</td></tr>
+<tr class="separator:a6a7b19a807ebcdcc2a3e806a1b5f2ac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad3450dd41873996d02e57326a9e7e68"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aad3450dd41873996d02e57326a9e7e68">TrainerFileExtension</a> ()</td></tr>
+<tr class="separator:aad3450dd41873996d02e57326a9e7e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27bee2022820a2a3b1abd6ec05e60013"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a27bee2022820a2a3b1abd6ec05e60013">TrainerPath</a> ()</td></tr>
+<tr class="separator:a27bee2022820a2a3b1abd6ec05e60013"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35bb869c9e6407a33bc87dcfd3055ec2"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a35bb869c9e6407a33bc87dcfd3055ec2">ConversationPath</a> ()</td></tr>
+<tr class="separator:a35bb869c9e6407a33bc87dcfd3055ec2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a7cbf88fd1253a6598bd885d4fdc95"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a98a7cbf88fd1253a6598bd885d4fdc95">CharacterAnimationPath</a> ()</td></tr>
+<tr class="separator:a98a7cbf88fd1253a6598bd885d4fdc95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a4030f7e573fecf0e22b70881fb11d9"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a6a4030f7e573fecf0e22b70881fb11d9">CharacterMoveSpeed</a> ()</td></tr>
+<tr class="separator:a6a4030f7e573fecf0e22b70881fb11d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabaee65f9679c116e60e23e0a5022f77"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aabaee65f9679c116e60e23e0a5022f77">FastCharacterMoveSpeed</a> ()</td></tr>
+<tr class="separator:aabaee65f9679c116e60e23e0a5022f77"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46f36fbf5ef338a3e20ff2c95d140fdf"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a46f36fbf5ef338a3e20ff2c95d140fdf">CharacterSpinPeriod</a> ()</td></tr>
+<tr class="separator:a46f36fbf5ef338a3e20ff2c95d140fdf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a671ac0fb434f362b7f43e973d9f94d38"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a671ac0fb434f362b7f43e973d9f94d38">PlayerAnimations</a> (<a class="el" href="a00554.html#ga11b9fe689813091d7db2b7cf30c51200">player::Gender</a> gender)</td></tr>
+<tr class="separator:a671ac0fb434f362b7f43e973d9f94d38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6821dea573a8b49a4fe9ad6f6eec49e"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ad6821dea573a8b49a4fe9ad6f6eec49e">ItemMetadataFile</a> ()</td></tr>
+<tr class="separator:ad6821dea573a8b49a4fe9ad6f6eec49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c84609fb7e1e6bde383162bc050f7f5"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a1c84609fb7e1e6bde383162bc050f7f5">ItemSprite</a> ()</td></tr>
+<tr class="separator:a1c84609fb7e1e6bde383162bc050f7f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4dc00a8048a44bf83c77040acbae615"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ac4dc00a8048a44bf83c77040acbae615">GhostWriterSpeed</a> ()</td></tr>
+<tr class="separator:ac4dc00a8048a44bf83c77040acbae615"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d215c4a5f2fc0505b60df193f92f820"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a9d215c4a5f2fc0505b60df193f92f820">TextboxFile</a> ()</td></tr>
+<tr class="separator:a9d215c4a5f2fc0505b60df193f92f820"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea2a700dea6c81d54048dcf1c4d48a04"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#aea2a700dea6c81d54048dcf1c4d48a04">HudFontSize</a> ()</td></tr>
+<tr class="separator:aea2a700dea6c81d54048dcf1c4d48a04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a361c16fab62566974ba596d1006be776"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a361c16fab62566974ba596d1006be776">ScriptPath</a> ()</td></tr>
+<tr class="separator:a361c16fab62566974ba596d1006be776"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae38dfc9a7a064ab6d9972446702a3cce"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#ae38dfc9a7a064ab6d9972446702a3cce">ScreenFadePeriod</a> ()</td></tr>
+<tr class="separator:ae38dfc9a7a064ab6d9972446702a3cce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a848e1632cbf2b7fd0e793cf903a38b76"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00890.html#a848e1632cbf2b7fd0e793cf903a38b76">load</a> ()</td></tr>
+<tr class="memdesc:a848e1632cbf2b7fd0e793cf903a38b76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads from the config file and sets defaults. Must be called before using any properties.  <a href="#a848e1632cbf2b7fd0e793cf903a38b76">More...</a><br /></td></tr>
+<tr class="separator:a848e1632cbf2b7fd0e793cf903a38b76"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Primary camera system. Manages the currently active camera and the stack of previously active cameras. </p>
+<div class="textblock"><p>Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be accessed without performing look ups, and hides the string config names. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00028">28</a> of file <a class="el" href="a00173_source.html">Cameras.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8d46e1e5e68e46b944c10afb37e07787"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d46e1e5e68e46b944c10afb37e07787">&#9670;&nbsp;</a></span>Cameras()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::system::Cameras::Cameras </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00942.html">Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="a00890.html" title="Primary camera system. Manages the currently active camera and the stack of previously active cameras...">Cameras</a> system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">owner</td><td>The primary <a class="el" href="a00942.html" title="Owns all primary systems and a reference to the engine. ">Systems</a> object </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00033">33</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a116f5db7d8e070c6db1fa3e49fc906f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a116f5db7d8e070c6db1fa3e49fc906f4">&#9670;&nbsp;</a></span>activeCamera()</h2>
+<p class="definition">Definition at line <a class="el" href="a00143_source.html#l00025">25</a> of file <a class="el" href="a00143_source.html">Properties.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a98a7cbf88fd1253a6598bd885d4fdc95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a7cbf88fd1253a6598bd885d4fdc95">&#9670;&nbsp;</a></span>CharacterAnimationPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a> core::system::Cameras::activeCamera </td>
+          <td class="memname">const std::string &amp; core::Properties::CharacterAnimationPath </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns the currently active camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00036">36</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00480">480</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7a4e1f78dd4868bf74bc20da7d81a3e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a4e1f78dd4868bf74bc20da7d81a3e6">&#9670;&nbsp;</a></span>clearAndReplace()</h2>
+<a id="a6a4030f7e573fecf0e22b70881fb11d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a4030f7e573fecf0e22b70881fb11d9">&#9670;&nbsp;</a></span>CharacterMoveSpeed()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::system::Cameras::clearAndReplace </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a>&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Clears the current camera stack and pushes the given camera to it. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>The camera to replace all current cameras with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00051">51</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4fa10d44c2428fa97a5fafdd9d1e02c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fa10d44c2428fa97a5fafdd9d1e02c1">&#9670;&nbsp;</a></span>configureView()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::system::Cameras::configureView </td>
-          <td>(</td>
-          <td class="paramtype">sf::View &amp;&#160;</td>
-          <td class="paramname"><em>view</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Modifies the given view to have the proper size and position. Zoom is applied as a factor to the existing view size. No change is made to the viewport. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">view</td><td>The view to position and size </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00056">56</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a00e5347dcc472f6d327b81f10d07ff7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00e5347dcc472f6d327b81f10d07ff7e">&#9670;&nbsp;</a></span>getArea()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::FloatRect core::system::Cameras::getArea </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the area to be rendered by the active camera. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00064">64</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a65d64ce29ffa7bd7bee2d2eea433d4fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65d64ce29ffa7bd7bee2d2eea433d4fa">&#9670;&nbsp;</a></span>popCamera()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::system::Cameras::popCamera </td>
+          <td class="memname">float core::Properties::CharacterMoveSpeed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Removes the current active camera and resets to the previous one. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00047">47</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00486">486</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0a7ee6761428d0499076642f9ada0e12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a7ee6761428d0499076642f9ada0e12">&#9670;&nbsp;</a></span>pushCamera()</h2>
+<a id="a46f36fbf5ef338a3e20ff2c95d140fdf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46f36fbf5ef338a3e20ff2c95d140fdf">&#9670;&nbsp;</a></span>CharacterSpinPeriod()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::system::Cameras::pushCamera </td>
+          <td class="memname">float core::Properties::CharacterSpinPeriod </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a>&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds a new camera to immediately use, saving the previous active camera. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>The new camera to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00038">38</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00508">508</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad8044d79071772269298bb73078c23fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad8044d79071772269298bb73078c23fa">&#9670;&nbsp;</a></span>replaceCamera()</h2>
+<a id="a35bb869c9e6407a33bc87dcfd3055ec2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35bb869c9e6407a33bc87dcfd3055ec2">&#9670;&nbsp;</a></span>ConversationPath()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::system::Cameras::replaceCamera </td>
+          <td class="memname">const std::string &amp; core::Properties::ConversationPath </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00882.html#aa01fbd0679d46f65be2168fe269d9c81">camera::Camera::Ptr</a>&#160;</td>
-          <td class="paramname"><em>camera</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Replaces the current active camera with a new one. The previous camera is not able to be returned to. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">camera</td><td>The new camera to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00040">40</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00474">474</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9f046df43a869c2ba03e76ed29efea0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f046df43a869c2ba03e76ed29efea0d">&#9670;&nbsp;</a></span>update()</h2>
+<a id="aba1d3f20a3d915d4f1a0f48cb77ae750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba1d3f20a3d915d4f1a0f48cb77ae750">&#9670;&nbsp;</a></span>ExtraRenderTiles()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::system::Cameras::update </td>
+          <td class="memname">int core::Properties::ExtraRenderTiles </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Updates the current active camera. Pops invalidated cameras as necessary. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds since last call to update </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00232">232</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00422_source.html#l00080">80</a> of file <a class="el" href="a00422_source.html">Cameras.cpp</a>.</p>
+</div>
+</div>
+<a id="aabaee65f9679c116e60e23e0a5022f77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabaee65f9679c116e60e23e0a5022f77">&#9670;&nbsp;</a></span>FastCharacterMoveSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::FastCharacterMoveSpeed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00491">491</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a81a625764e044a6cd81b2173650c80d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81a625764e044a6cd81b2173650c80d9">&#9670;&nbsp;</a></span>FogFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::FogFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00342">342</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d62c161bbdac1f7d05060e28f16653d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d62c161bbdac1f7d05060e28f16653d">&#9670;&nbsp;</a></span>FrequentThunderMaxInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::FrequentThunderMaxInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00385">385</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6ee3a1563dd459c8f9fc69d048569d16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee3a1563dd459c8f9fc69d048569d16">&#9670;&nbsp;</a></span>FrequentThunderMinInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::FrequentThunderMinInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00380">380</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4dc00a8048a44bf83c77040acbae615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4dc00a8048a44bf83c77040acbae615">&#9670;&nbsp;</a></span>GhostWriterSpeed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::GhostWriterSpeed </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00525">525</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2d2501f8357a36ff4e9ae1f2ad120e6c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d2501f8357a36ff4e9ae1f2ad120e6c">&#9670;&nbsp;</a></span>HardRainLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::HardRainLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00415">415</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4419d718c693b2596d1e578466e7bbd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4419d718c693b2596d1e578466e7bbd2">&#9670;&nbsp;</a></span>HardRainParticleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::HardRainParticleCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00365">365</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a39b108c4fe22286cdb4a751b46cbccf1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39b108c4fe22286cdb4a751b46cbccf1">&#9670;&nbsp;</a></span>HardRainSoundFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::HardRainSoundFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00312">312</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2ed3738d51f5e9ecb5cdd259cc22f7d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ed3738d51f5e9ecb5cdd259cc22f7d5">&#9670;&nbsp;</a></span>HardSnowLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::HardSnowLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00425">425</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aee0fb5ebdfeefdd04557705a35c0bdd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee0fb5ebdfeefdd04557705a35c0bdd5">&#9670;&nbsp;</a></span>HardSnowParticleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::HardSnowParticleCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00375">375</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aea2a700dea6c81d54048dcf1c4d48a04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea2a700dea6c81d54048dcf1c4d48a04">&#9670;&nbsp;</a></span>HudFontSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::HudFontSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00536">536</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a371a060d4d6d72b7a28b5638aad6b7e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a371a060d4d6d72b7a28b5638aad6b7e4">&#9670;&nbsp;</a></span>InfrequentThunderMaxInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::InfrequentThunderMaxInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00395">395</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9c12ded8ed2d14caf9d7db37eee547bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c12ded8ed2d14caf9d7db37eee547bb">&#9670;&nbsp;</a></span>InfrequentThunderMinInterval()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::InfrequentThunderMinInterval </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00390">390</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6821dea573a8b49a4fe9ad6f6eec49e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6821dea573a8b49a4fe9ad6f6eec49e">&#9670;&nbsp;</a></span>ItemMetadataFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::ItemMetadataFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00513">513</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c84609fb7e1e6bde383162bc050f7f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c84609fb7e1e6bde383162bc050f7f5">&#9670;&nbsp;</a></span>ItemSprite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::ItemSprite </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00519">519</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aabc8757301c3ad51e9ca1b5657096fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc8757301c3ad51e9ca1b5657096fd8">&#9670;&nbsp;</a></span>LightingHeightTiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::LightingHeightTiles </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00244">244</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa8a6d4d3663205859c360011eb15d26b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8a6d4d3663205859c360011eb15d26b">&#9670;&nbsp;</a></span>LightingWidthTiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::LightingWidthTiles </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00238">238</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a057beb3d41f81c69ba363f24bf425468"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a057beb3d41f81c69ba363f24bf425468">&#9670;&nbsp;</a></span>LightRainLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::LightRainLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00410">410</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad0bf4bc7d45d100db761ea60c58d7a3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0bf4bc7d45d100db761ea60c58d7a3f">&#9670;&nbsp;</a></span>LightRainParticleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::LightRainParticleCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00360">360</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a30cfcc4c42f494c9f57d6c0462d02c58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30cfcc4c42f494c9f57d6c0462d02c58">&#9670;&nbsp;</a></span>LightRainSoundFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::LightRainSoundFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00306">306</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af33df9c888e5a1a1fbeeb474810a5121"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af33df9c888e5a1a1fbeeb474810a5121">&#9670;&nbsp;</a></span>LightSnowLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::LightSnowLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00420">420</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a68fc6a6381adb1f64d00a978bd421068"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a68fc6a6381adb1f64d00a978bd421068">&#9670;&nbsp;</a></span>LightSnowParticleCount()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::LightSnowParticleCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00370">370</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a848e1632cbf2b7fd0e793cf903a38b76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a848e1632cbf2b7fd0e793cf903a38b76">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::Properties::load </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads from the config file and sets defaults. Must be called before using any properties. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if loaded without error, false for failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00101">101</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2457d98ee7dcac40d403bddf1f76568e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2457d98ee7dcac40d403bddf1f76568e">&#9670;&nbsp;</a></span>MapAnimationPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::MapAnimationPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00292">292</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3bcec7da9411ef5ed51b74a614a3480e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bcec7da9411ef5ed51b74a614a3480e">&#9670;&nbsp;</a></span>MapPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::MapPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00274">274</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a640aa9b479a16a4b3c2090a0af7e2f34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a640aa9b479a16a4b3c2090a0af7e2f34">&#9670;&nbsp;</a></span>MapTilePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::MapTilePath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00286">286</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aba72f325311b8bd4dad5c4346f16b62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba72f325311b8bd4dad5c4346f16b62e">&#9670;&nbsp;</a></span>MenuFont()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Font &amp; core::Properties::MenuFont </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00298">298</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a83a1435c52995339e6a350c3120a9beb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a1435c52995339e6a350c3120a9beb">&#9670;&nbsp;</a></span>MenuImagePath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::MenuImagePath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00250">250</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a60e16de26eb72d7e54b9f01f0b5dfa26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60e16de26eb72d7e54b9f01f0b5dfa26">&#9670;&nbsp;</a></span>MusicPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::MusicPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00262">262</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a22bdf2f89374ca3657a1bd7f5bf74750"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22bdf2f89374ca3657a1bd7f5bf74750">&#9670;&nbsp;</a></span>NpcFileExtension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::NpcFileExtension </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00450">450</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a7b19a807ebcdcc2a3e806a1b5f2ac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a7b19a807ebcdcc2a3e806a1b5f2ac7">&#9670;&nbsp;</a></span>NpcPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::NpcPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00456">456</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3dbd0e08a9910f9755d0e5218ba45f5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dbd0e08a9910f9755d0e5218ba45f5a">&#9670;&nbsp;</a></span>PixelsPerTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::PixelsPerTile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00226">226</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a671ac0fb434f362b7f43e973d9f94d38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a671ac0fb434f362b7f43e973d9f94d38">&#9670;&nbsp;</a></span>PlayerAnimations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::PlayerAnimations </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00554.html#ga11b9fe689813091d7db2b7cf30c51200">player::Gender</a>&#160;</td>
+          <td class="paramname"><em>gender</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00496">496</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acf940d01e6a52a6702fa32d500e7091e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf940d01e6a52a6702fa32d500e7091e">&#9670;&nbsp;</a></span>PlaylistPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::PlaylistPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00268">268</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac28b30915d6b089d74932ab02b496b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac28b30915d6b089d74932ab02b496b51">&#9670;&nbsp;</a></span>RainDropFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::RainDropFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00318">318</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a959e1c76cad72258eee907f565c52941"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a959e1c76cad72258eee907f565c52941">&#9670;&nbsp;</a></span>RainSplash1File()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::RainSplash1File </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00324">324</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c8824bd1b549631969a89eede05f13a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8824bd1b549631969a89eede05f13a">&#9670;&nbsp;</a></span>RainSplash2File()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::RainSplash2File </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00330">330</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6a3dacf355c1e960492ee560ee19fa9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a3dacf355c1e960492ee560ee19fa9f">&#9670;&nbsp;</a></span>SandPatchFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::SandPatchFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00348">348</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a33f1c47aab95c4628567bb153b16bdc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f1c47aab95c4628567bb153b16bdc1">&#9670;&nbsp;</a></span>SandstormLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::SandstormLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00445">445</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c5a341e88fccdf66e13375f2aa94b12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c5a341e88fccdf66e13375f2aa94b12">&#9670;&nbsp;</a></span>SandSwirlFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::SandSwirlFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00354">354</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae38dfc9a7a064ab6d9972446702a3cce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae38dfc9a7a064ab6d9972446702a3cce">&#9670;&nbsp;</a></span>ScreenFadePeriod()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::Properties::ScreenFadePeriod </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00547">547</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a361c16fab62566974ba596d1006be776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a361c16fab62566974ba596d1006be776">&#9670;&nbsp;</a></span>ScriptPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::ScriptPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00541">541</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ada66185adb31a4dd76c192d84ed7898d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada66185adb31a4dd76c192d84ed7898d">&#9670;&nbsp;</a></span>SnowFlakeFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::SnowFlakeFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00336">336</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a90219aab29d60d356b154e51d8352ac2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90219aab29d60d356b154e51d8352ac2">&#9670;&nbsp;</a></span>SpritesheetPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::SpritesheetPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00256">256</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a198a5e560d57a4500ede1dca4c0d4758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a198a5e560d57a4500ede1dca4c0d4758">&#9670;&nbsp;</a></span>SunnyLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::SunnyLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00440">440</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d215c4a5f2fc0505b60df193f92f820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d215c4a5f2fc0505b60df193f92f820">&#9670;&nbsp;</a></span>TextboxFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::TextboxFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00530">530</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad6ef630f692337b55c5ef75ae8dc0420"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6ef630f692337b55c5ef75ae8dc0420">&#9670;&nbsp;</a></span>ThickFogAlpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::ThickFogAlpha </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00400">400</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3852ff331eec38b555c7d57ea9af87f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3852ff331eec38b555c7d57ea9af87f4">&#9670;&nbsp;</a></span>ThickFogLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::ThickFogLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00435">435</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a681282c1aaf95326b4b0058fa0af8cb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a681282c1aaf95326b4b0058fa0af8cb0">&#9670;&nbsp;</a></span>ThinFogAlpha()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::Properties::ThinFogAlpha </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00405">405</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae07c59da8a53974dc0688be40fdab556"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae07c59da8a53974dc0688be40fdab556">&#9670;&nbsp;</a></span>ThinFogLightModifier()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::ThinFogLightModifier </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00430">430</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a62a824adfdb6b53f2d122173a9808c41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62a824adfdb6b53f2d122173a9808c41">&#9670;&nbsp;</a></span>ThunderSoundFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::ThunderSoundFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00300">300</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a70646a0b456f8fd5632f723388d350dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70646a0b456f8fd5632f723388d350dc">&#9670;&nbsp;</a></span>TilesetPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::TilesetPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00280">280</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aad3450dd41873996d02e57326a9e7e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad3450dd41873996d02e57326a9e7e68">&#9670;&nbsp;</a></span>TrainerFileExtension()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::TrainerFileExtension </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00462">462</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27bee2022820a2a3b1abd6ec05e60013"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27bee2022820a2a3b1abd6ec05e60013">&#9670;&nbsp;</a></span>TrainerPath()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::TrainerPath </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00468">468</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf3c4e564ae07fc9ed130083580fcb6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf3c4e564ae07fc9ed130083580fcb6f">&#9670;&nbsp;</a></span>WindowHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::WindowHeight </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00220">220</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af001bc54116ba420148554211e7130d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af001bc54116ba420148554211e7130d3">&#9670;&nbsp;</a></span>WindowIconFile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::Properties::WindowIconFile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00208">208</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1c0e01b7aac945e979717ba95c79ddf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c0e01b7aac945e979717ba95c79ddf8">&#9670;&nbsp;</a></span>WindowWidth()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::Properties::WindowWidth </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00214">214</a> of file <a class="el" href="a00410_source.html">Properties.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Systems/<a class="el" href="a00173_source.html">Cameras.hpp</a></li>
-<li>src/Core/Systems/<a class="el" href="a00422_source.html">Cameras.cpp</a></li>
+<li>include/Core/<a class="el" href="a00143_source.html">Properties.hpp</a></li>
+<li>src/Core/<a class="el" href="a00410_source.html">Properties.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

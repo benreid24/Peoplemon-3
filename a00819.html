@@ -63,26 +63,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00539.html">player</a></li><li class="navelem"><a class="el" href="a00818.html">Bag</a></li><li class="navelem"><a class="el" href="a00822.html">Item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00569.html">map</a></li><li class="navelem"><a class="el" href="a00822.html">LayerSet</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::player::Bag::Item Member List</div>  </div>
+<div class="title">core::map::LayerSet Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00822.html">core::player::Bag::Item</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00822.html">core::map::LayerSet</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a02dc0d4f209e4e53154c4d12589f522e">id</a></td><td class="entry"><a class="el" href="a00822.html">core::player::Bag::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00822.html#a6941c9fe7c6f63aa73078ad5c721009b">Item</a>()</td><td class="entry"><a class="el" href="a00822.html">core::player::Bag::Item</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a59e7879d0b95d7e242903ff5490dec41">Item</a>(item::Id id, unsigned int qty)</td><td class="entry"><a class="el" href="a00822.html">core::player::Bag::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00822.html#a9b67a21c7bcd99000da9bee1bc08589d">qty</a></td><td class="entry"><a class="el" href="a00822.html">core::player::Bag::Item</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a1593b8a98dcd472e3c427a13306704dc">activate</a>(Tileset &amp;tileset)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a137a4f0975b7772829d48858366daa1d">bottomLayers</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#afbd32f5227f35134da122ce0efe8d9e3">bottomLayers</a>() const</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a11fd05aa30dce62dcedf9af70a3a9dc3">catchLayer</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#aad3584dd2249cf0a3e356b2ace33e64e">collisionLayer</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a1b7674d2902d2c4d095967e722ee2223">getSortedTile</a>(Tileset &amp;tileset, unsigned int layer, unsigned int x, unsigned int y)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a020db7d524731baf7ec546c647667b34">init</a>(unsigned int width, unsigned int height, unsigned int bottomLayerCount, unsigned int ysortLayerCount, unsigned int topLayercount)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#afbd66f6cc0ff02ba963cde390e2d6481">layerCount</a>() const</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a9d0e44f96d891e21fa96c452fb5dae71">LayerSet</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a4c40addec545a46e44a3fc267248a373">LayerSet</a>(LayerSet &amp;&amp;move)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#ae4b6ad85f402da0389410f15de9ff22d">LayerSet</a>(const LayerSet &amp;copy)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a04216c8dcfded560e0ac260f70a6e083">operator=</a>(const LayerSet &amp;copy)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#af246bb884a72ffc8190f55916a207c56">renderSortedLayers</a>() const</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#a7429a5312b21c42fbe63a28ad17a7ca3">renderSortedLayers</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a9bbc8285278880bb4bed954e67c26d52">topLayers</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#ac7f0852c5c9e7b3d181a2f1460d393f0">topLayers</a>() const</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a3b67467546b52ec0ea7a9b9dcd2a7046">update</a>(const sf::IntRect &amp;area, float dt)</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00822.html#adcfc8139cbc2571dbda7f89b5e6b4b35">ysortLayers</a>()</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00822.html#a1175cfcdf248187a7fc1912400ff2134">ysortLayers</a>() const</td><td class="entry"><a class="el" href="a00822.html">core::map::LayerSet</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

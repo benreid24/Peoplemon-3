@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::page::Page Class Reference</title>
+<title>Peoplemon: core::system::Movement Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,133 +63,83 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00545.html">editor</a></li><li class="navelem"><a class="el" href="a00546.html">page</a></li><li class="navelem"><a class="el" href="a00966.html">Page</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00562.html">system</a></li><li class="navelem"><a class="el" href="a00966.html">Movement</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a00963.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::Page Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00510.html">Editor</a> &raquo; <a class="el" href="a00522.html">Pages</a></div></div>  </div>
+<div class="title">core::system::Movement Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00557.html">Systems</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Base class for all editor pages.  
+<p>Primary System for managing entity movement and interpolation.  
  <a href="a00966.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00212_source.html">Page.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::Page:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00966.png" usemap="#editor::page::Page_map" alt=""/>
-  <map id="editor::page::Page_map" name="editor::page::Page_map">
-<area href="a00950.html" title="Page for editing the credits. " alt="editor::page::Credits" shape="rect" coords="156,56,302,80"/>
-<area href="a00954.html" title="Page for editing item names, descriptions, and values. " alt="editor::page::Items" shape="rect" coords="156,112,302,136"/>
-<area href="a00958.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything. " alt="editor::page::Map" shape="rect" coords="156,168,302,192"/>
-<area href="a00962.html" title="Page for editing move metadata. " alt="editor::page::Moves" shape="rect" coords="156,224,302,248"/>
-<area href="a00970.html" title="Page for editing Peoplemon metadata. " alt="editor::page::Peoplemon" shape="rect" coords="156,280,302,304"/>
-<area href="a00974.html" title="Page for editing item names, descriptions, and values. " alt="editor::page::Playlists" shape="rect" coords="156,336,302,360"/>
-<area href="a00998.html" title="Page for creating and modifying game saves and launching the game to test work done. " alt="editor::page::Testing" shape="rect" coords="156,392,302,416"/>
-<area href="a01002.html" title="Helper page to track tasks marked as &quot;TODO&quot;. Things such as entities, position on a map..." alt="editor::page::Todo" shape="rect" coords="156,448,302,472"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00188_source.html">Movement.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab1013e75f94006e1317f3c47311b98a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#ab1013e75f94006e1317f3c47311b98a1">Page</a> (<a class="el" href="a00942.html">core::system::Systems</a> &amp;<a class="el" href="a00966.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
-<tr class="memdesc:ab1013e75f94006e1317f3c47311b98a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00966.html" title="Base class for all editor pages. ">Page</a>.  <a href="#ab1013e75f94006e1317f3c47311b98a1">More...</a><br /></td></tr>
-<tr class="separator:ab1013e75f94006e1317f3c47311b98a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09f899d9a9e9e1d763c1f3076925190e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a09f899d9a9e9e1d763c1f3076925190e">~Page</a> ()=default</td></tr>
-<tr class="memdesc:a09f899d9a9e9e1d763c1f3076925190e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a00966.html" title="Base class for all editor pages. ">Page</a>.  <a href="#a09f899d9a9e9e1d763c1f3076925190e">More...</a><br /></td></tr>
-<tr class="separator:a09f899d9a9e9e1d763c1f3076925190e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b795b1243ceabcf90c0cb492ae7f903"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a2b795b1243ceabcf90c0cb492ae7f903">update</a> (float dt)=0</td></tr>
-<tr class="memdesc:a2b795b1243ceabcf90c0cb492ae7f903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any custom page update logic outside of event callbacks goes here.  <a href="#a2b795b1243ceabcf90c0cb492ae7f903">More...</a><br /></td></tr>
-<tr class="separator:a2b795b1243ceabcf90c0cb492ae7f903"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
-<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
-<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00942.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
-<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
-<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ae016021bc61805011e124fd768dca8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a7ae016021bc61805011e124fd768dca8">Movement</a> (<a class="el" href="a00982.html">Systems</a> &amp;owner)</td></tr>
+<tr class="memdesc:a7ae016021bc61805011e124fd768dca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create the movement system.  <a href="#a7ae016021bc61805011e124fd768dca8">More...</a><br /></td></tr>
+<tr class="separator:a7ae016021bc61805011e124fd768dca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a459cd2885e63d5b4cf2affe7001dbee1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a459cd2885e63d5b4cf2affe7001dbee1">init</a> ()</td></tr>
+<tr class="memdesc:a459cd2885e63d5b4cf2affe7001dbee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs one time initialization of the movement system.  <a href="#a459cd2885e63d5b4cf2affe7001dbee1">More...</a><br /></td></tr>
+<tr class="separator:a459cd2885e63d5b4cf2affe7001dbee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9da524ade2c7af69b2defd6a8cf5b9ef"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a9da524ade2c7af69b2defd6a8cf5b9ef">makeMovable</a> (bl::entity::Entity entity, float moveSpeed, float fastMoveSpeed)</td></tr>
+<tr class="memdesc:a9da524ade2c7af69b2defd6a8cf5b9ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a Movable component to the given entity if it does not already exist.  <a href="#a9da524ade2c7af69b2defd6a8cf5b9ef">More...</a><br /></td></tr>
+<tr class="separator:a9da524ade2c7af69b2defd6a8cf5b9ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a813c5ec1e0dc3b7ea732f3ca72c7983c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a813c5ec1e0dc3b7ea732f3ca72c7983c">moveEntity</a> (bl::entity::Entity entity, <a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a> direction, bool fast)</td></tr>
+<tr class="memdesc:a813c5ec1e0dc3b7ea732f3ca72c7983c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves an entity in the given direction using either its fast or slow speed.  <a href="#a813c5ec1e0dc3b7ea732f3ca72c7983c">More...</a><br /></td></tr>
+<tr class="separator:a813c5ec1e0dc3b7ea732f3ca72c7983c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a494613312cb3ba482023e1dbdfb97fdb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00966.html#a494613312cb3ba482023e1dbdfb97fdb">update</a> (float dt)</td></tr>
+<tr class="memdesc:a494613312cb3ba482023e1dbdfb97fdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates all moving entities.  <a href="#a494613312cb3ba482023e1dbdfb97fdb">More...</a><br /></td></tr>
+<tr class="separator:a494613312cb3ba482023e1dbdfb97fdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Base class for all editor pages. </p>
+<div class="textblock"><p>Primary System for managing entity movement and interpolation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00032">32</a> of file <a class="el" href="a00212_source.html">Page.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00188_source.html#l00019">19</a> of file <a class="el" href="a00188_source.html">Movement.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab1013e75f94006e1317f3c47311b98a1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1013e75f94006e1317f3c47311b98a1">&#9670;&nbsp;</a></span>Page()</h2>
+<a id="a7ae016021bc61805011e124fd768dca8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ae016021bc61805011e124fd768dca8">&#9670;&nbsp;</a></span>Movement()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::page::Page::Page </td>
+          <td class="memname">core::system::Movement::Movement </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00942.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00982.html">Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00966.html" title="Base class for all editor pages. ">Page</a>. </p>
+<p>Create the movement system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">owner</td><td>The primary systems object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00007">7</a> of file <a class="el" href="a00464_source.html">Page.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a09f899d9a9e9e1d763c1f3076925190e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09f899d9a9e9e1d763c1f3076925190e">&#9670;&nbsp;</a></span>~Page()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual editor::page::Page::~Page </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a00966.html" title="Base class for all editor pages. ">Page</a>. </p>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00010">10</a> of file <a class="el" href="a00452_source.html">Movement.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ca56d8d39860251755e5800924e57ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
+<a id="a459cd2885e63d5b4cf2affe7001dbee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a459cd2885e63d5b4cf2affe7001dbee1">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
+          <td class="memname">void core::system::Movement::init </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -197,106 +147,143 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the content to put in the editor. </p>
+<p>Performs one time initialization of the movement system. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00010">10</a> of file <a class="el" href="a00464_source.html">Page.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00013">13</a> of file <a class="el" href="a00452_source.html">Movement.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2b795b1243ceabcf90c0cb492ae7f903"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b795b1243ceabcf90c0cb492ae7f903">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a9da524ade2c7af69b2defd6a8cf5b9ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9da524ade2c7af69b2defd6a8cf5b9ef">&#9670;&nbsp;</a></span>makeMovable()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void editor::page::Page::update </td>
+          <td class="memname">bool core::system::Movement::makeMovable </td>
+          <td>(</td>
+          <td class="paramtype">bl::entity::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>moveSpeed</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>fastMoveSpeed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a Movable component to the given entity if it does not already exist. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to make movable </td></tr>
+    <tr><td class="paramname">moveSpeed</td><td>The speed to move at </td></tr>
+    <tr><td class="paramname">fastMoveSpeed</td><td>The speed to move at when moving fast </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if a component was added, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00019">19</a> of file <a class="el" href="a00452_source.html">Movement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a813c5ec1e0dc3b7ea732f3ca72c7983c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a813c5ec1e0dc3b7ea732f3ca72c7983c">&#9670;&nbsp;</a></span>moveEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::system::Movement::moveEntity </td>
+          <td>(</td>
+          <td class="paramtype">bl::entity::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a>&#160;</td>
+          <td class="paramname"><em>direction</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fast</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Moves an entity in the given direction using either its fast or slow speed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity to move </td></tr>
+    <tr><td class="paramname">direction</td><td>The direction to move in </td></tr>
+    <tr><td class="paramname">fast</td><td>True to move at the fast speed, false for slow </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the movement is possible, false if no movement will occur </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00028">28</a> of file <a class="el" href="a00452_source.html">Movement.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a494613312cb3ba482023e1dbdfb97fdb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a494613312cb3ba482023e1dbdfb97fdb">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::Movement::update </td>
           <td>(</td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Any custom page update logic outside of event callbacks goes here. </p>
+<p>Updates all moving entities. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds since the last call to update </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a01002.html#ac9a921789aebcad1f56fdc287334db71">editor::page::Todo</a>, <a class="el" href="a00958.html#ab376c3860063dd5d6c35cbd9ce9576f3">editor::page::Map</a>, <a class="el" href="a00950.html#a1572097f9a6f71dd033f6d3d480c9abf">editor::page::Credits</a>, <a class="el" href="a00954.html#a4f336277208311195237fa76c827468f">editor::page::Items</a>, <a class="el" href="a00962.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">editor::page::Moves</a>, <a class="el" href="a00970.html#ae4175110bbef09cfbbb0c6e2352c43aa">editor::page::Peoplemon</a>, <a class="el" href="a00974.html#afc7bd2dd8287dfcce15a833635792597">editor::page::Playlists</a>, and <a class="el" href="a00998.html#a25544fc96c687cc2a951df0a374566d1">editor::page::Testing</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00062">62</a> of file <a class="el" href="a00212_source.html">Page.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00942.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00212_source.html#l00061">61</a> of file <a class="el" href="a00212_source.html">Page.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00050">50</a> of file <a class="el" href="a00452_source.html">Movement.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Pages/<a class="el" href="a00212_source.html">Page.hpp</a></li>
-<li>src/Editor/Pages/<a class="el" href="a00464_source.html">Page.cpp</a></li>
+<li>include/Core/Systems/<a class="el" href="a00188_source.html">Movement.hpp</a></li>
+<li>src/Core/Systems/<a class="el" href="a00452_source.html">Movement.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

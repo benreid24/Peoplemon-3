@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gender',['Gender',['../a00518.html#ga11b9fe689813091d7db2b7cf30c51200',1,'core::player']]]
+  ['direction',['Direction',['../a00754.html#a848d9fe437bc10ef7fea6a9bb9d8655a',1,'core::file::Behavior::Spinning::Direction()'],['../a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69',1,'core::component::Direction()']]]
 ];

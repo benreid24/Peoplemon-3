@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::MapExplorer Class Reference</title>
+<title>Peoplemon: editor::page::Map Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,75 +63,97 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00548.html">game</a></li><li class="navelem"><a class="el" href="a00549.html">state</a></li><li class="navelem"><a class="el" href="a01018.html">MapExplorer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00581.html">editor</a></li><li class="navelem"><a class="el" href="a00582.html">page</a></li><li class="navelem"><a class="el" href="a01018.html">Map</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01015.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::MapExplorer Class Reference<div class="ingroups"><a class="el" href="a00510.html">Editor</a> &#124; <a class="el" href="a00511.html">Game</a> &raquo; <a class="el" href="a00523.html">States</a></div></div>  </div>
+<div class="title">editor::page::Map Class Reference<div class="ingroups"><a class="el" href="a00546.html">Editor</a> &raquo; <a class="el" href="a00558.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Debug only state that allows free roaming the map with a special camera.  
+<p><a class="el" href="a01026.html" title="Base class for all editor pages. ">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything.  
  <a href="a01018.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00245_source.html">MapExplorer.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01480_source.html">Map.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::MapExplorer:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::Map:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01018.png" usemap="#game::state::MapExplorer_map" alt=""/>
-  <map id="game::state::MapExplorer_map" name="game::state::MapExplorer_map">
-<area href="a01030.html" title="Parent to all game states. Provides some commonly required data like core game systems. " alt="game::state::State" shape="rect" coords="0,56,182,80"/>
+  <img src="a01018.png" usemap="#editor::page::Map_map" alt=""/>
+  <map id="editor::page::Map_map" name="editor::page::Map_map">
+<area href="a01026.html" title="Base class for all editor pages. " alt="editor::page::Page" shape="rect" coords="0,0,113,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:abc5e247ae2301cd134ff1289ab9aade0"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#abc5e247ae2301cd134ff1289ab9aade0">~MapExplorer</a> ()=default</td></tr>
-<tr class="memdesc:abc5e247ae2301cd134ff1289ab9aade0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Map Explorer state.  <a href="#abc5e247ae2301cd134ff1289ab9aade0">More...</a><br /></td></tr>
-<tr class="separator:abc5e247ae2301cd134ff1289ab9aade0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac370eb1c45b531c4c15565f44d420873"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#ac370eb1c45b531c4c15565f44d420873">name</a> () const override</td></tr>
-<tr class="memdesc:ac370eb1c45b531c4c15565f44d420873"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "MapExplorer".  <a href="#ac370eb1c45b531c4c15565f44d420873">More...</a><br /></td></tr>
-<tr class="separator:ac370eb1c45b531c4c15565f44d420873"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae53c68ffd2d70541f76dc9e671380762"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#ae53c68ffd2d70541f76dc9e671380762">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:ae53c68ffd2d70541f76dc9e671380762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the state and camera. Discnnects the player from their entity.  <a href="#ae53c68ffd2d70541f76dc9e671380762">More...</a><br /></td></tr>
-<tr class="separator:ae53c68ffd2d70541f76dc9e671380762"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adca74eead404a4a1fd3582bb7e1960ec"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#adca74eead404a4a1fd3582bb7e1960ec">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:adca74eead404a4a1fd3582bb7e1960ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reconnects the player to their entity and pops the camera.  <a href="#adca74eead404a4a1fd3582bb7e1960ec">More...</a><br /></td></tr>
-<tr class="separator:adca74eead404a4a1fd3582bb7e1960ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae1e06679f80fb12d3ccbe5641e24702"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#aae1e06679f80fb12d3ccbe5641e24702">update</a> (bl::engine::Engine &amp;engine, float dt) override</td></tr>
-<tr class="memdesc:aae1e06679f80fb12d3ccbe5641e24702"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the game world logic and the hint fadeout.  <a href="#aae1e06679f80fb12d3ccbe5641e24702">More...</a><br /></td></tr>
-<tr class="separator:aae1e06679f80fb12d3ccbe5641e24702"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9af79a9cd6f8058c008ef552dc67f079"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#a9af79a9cd6f8058c008ef552dc67f079">render</a> (bl::engine::Engine &amp;engine, float lag) override</td></tr>
-<tr class="memdesc:a9af79a9cd6f8058c008ef552dc67f079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the game and hint box.  <a href="#a9af79a9cd6f8058c008ef552dc67f079">More...</a><br /></td></tr>
-<tr class="separator:a9af79a9cd6f8058c008ef552dc67f079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7fc59fde21e63a8d3e996b44c7e74f81"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#a7fc59fde21e63a8d3e996b44c7e74f81">create</a> (<a class="el" href="a00942.html">core::system::Systems</a> &amp;<a class="el" href="a01030.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
-<tr class="memdesc:a7fc59fde21e63a8d3e996b44c7e74f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a01018.html" title="Debug only state that allows free roaming the map with a special camera. ">MapExplorer</a> state.  <a href="#a7fc59fde21e63a8d3e996b44c7e74f81">More...</a><br /></td></tr>
-<tr class="separator:a7fc59fde21e63a8d3e996b44c7e74f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171e29a91b9df7cbf18375a1a3b7e445"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#a171e29a91b9df7cbf18375a1a3b7e445">Map</a> (<a class="el" href="a00982.html">core::system::Systems</a> &amp;<a class="el" href="a01026.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
+<tr class="memdesc:a171e29a91b9df7cbf18375a1a3b7e445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01018.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything. ">Map</a> page.  <a href="#a171e29a91b9df7cbf18375a1a3b7e445">More...</a><br /></td></tr>
+<tr class="separator:a171e29a91b9df7cbf18375a1a3b7e445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8194c31a67f17a82caf335c1a4248951"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#a8194c31a67f17a82caf335c1a4248951">~Map</a> ()=default</td></tr>
+<tr class="memdesc:a8194c31a67f17a82caf335c1a4248951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01026.html" title="Base class for all editor pages. ">Page</a>.  <a href="#a8194c31a67f17a82caf335c1a4248951">More...</a><br /></td></tr>
+<tr class="separator:a8194c31a67f17a82caf335c1a4248951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01018.html#ab376c3860063dd5d6c35cbd9ce9576f3">update</a> (float dt) override</td></tr>
+<tr class="memdesc:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the game world and systems.  <a href="#ab376c3860063dd5d6c35cbd9ce9576f3">More...</a><br /></td></tr>
+<tr class="separator:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01026.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
+<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
+<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a1a58360cd7eed40f30059052d29f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01026.html#a96a1a58360cd7eed40f30059052d29f1">registerGui</a> (bl::gui::GUI::Ptr <a class="el" href="a01026.html#a8873055176987a0040083f574ca63df7">parent</a>)</td></tr>
+<tr class="memdesc:a96a1a58360cd7eed40f30059052d29f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the parent GUI.  <a href="#a96a1a58360cd7eed40f30059052d29f1">More...</a><br /></td></tr>
+<tr class="separator:a96a1a58360cd7eed40f30059052d29f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00942.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01030.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
-<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00982.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01026.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
+<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01026.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
+<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8873055176987a0040083f574ca63df7"><td class="memItemLeft" align="right" valign="top">bl::gui::GUI::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01026.html#a8873055176987a0040083f574ca63df7">parent</a></td></tr>
+<tr class="separator:a8873055176987a0040083f574ca63df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Debug only state that allows free roaming the map with a special camera. </p>
+<div class="textblock"><p><a class="el" href="a01026.html" title="Base class for all editor pages. ">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00017">17</a> of file <a class="el" href="a00245_source.html">MapExplorer.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01480_source.html#l00021">21</a> of file <a class="el" href="a01480_source.html">Map.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="abc5e247ae2301cd134ff1289ab9aade0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc5e247ae2301cd134ff1289ab9aade0">&#9670;&nbsp;</a></span>~MapExplorer()</h2>
+<a id="a171e29a91b9df7cbf18375a1a3b7e445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171e29a91b9df7cbf18375a1a3b7e445">&#9670;&nbsp;</a></span>Map()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::page::Map::Map </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00982.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01018.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything. ">Map</a> page. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01531_source.html#l00011">11</a> of file <a class="el" href="a01531_source.html">Map.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8194c31a67f17a82caf335c1a4248951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8194c31a67f17a82caf335c1a4248951">&#9670;&nbsp;</a></span>~Map()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,7 +162,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::MapExplorer::~MapExplorer </td>
+          <td class="memname">virtual editor::page::Map::~Map </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -153,13 +175,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Map Explorer state. </p>
+<p>Destroy the <a class="el" href="a01026.html" title="Base class for all editor pages. ">Page</a>. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae53c68ffd2d70541f76dc9e671380762"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae53c68ffd2d70541f76dc9e671380762">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a6ca56d8d39860251755e5800924e57ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,142 +190,27 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MapExplorer::activate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Activates the state and camera. Discnnects the player from their entity. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a01030.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00073">73</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7fc59fde21e63a8d3e996b44c7e74f81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fc59fde21e63a8d3e996b44c7e74f81">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::engine::State::Ptr game::state::MapExplorer::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00942.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a new <a class="el" href="a01018.html" title="Debug only state that allows free roaming the map with a special camera. ">MapExplorer</a> state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The new state </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00044">44</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adca74eead404a4a1fd3582bb7e1960ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adca74eead404a4a1fd3582bb7e1960ec">&#9670;&nbsp;</a></span>deactivate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::MapExplorer::deactivate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Reconnects the player to their entity and pops the camera. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a01030.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00079">79</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac370eb1c45b531c4c15565f44d420873"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac370eb1c45b531c4c15565f44d420873">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char * game::state::MapExplorer::name </td>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns "MapExplorer". </p>
+<p>Returns the content to put in the editor. </p>
 
-<p>Implements <a class="el" href="a01030.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00071">71</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00010">10</a> of file <a class="el" href="a00494_source.html">Page.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9af79a9cd6f8058c008ef552dc67f079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9af79a9cd6f8058c008ef552dc67f079">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a96a1a58360cd7eed40f30059052d29f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a1a58360cd7eed40f30059052d29f1">&#9670;&nbsp;</a></span>registerGui()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,47 +219,34 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MapExplorer::render </td>
+          <td class="memname">void editor::page::Page::registerGui </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">bl::gui::GUI::Ptr&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Renders the game and hint box. </p>
+<p>Registers the parent GUI. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-    <tr><td class="paramname">lag</td><td>Time elapsed not accounted for in update </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a01030.html#a489c514e24d0a29a5e8bac1fc3cd7ba3">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00103">103</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00012">12</a> of file <a class="el" href="a00494_source.html">Page.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aae1e06679f80fb12d3ccbe5641e24702"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aae1e06679f80fb12d3ccbe5641e24702">&#9670;&nbsp;</a></span>update()</h2>
+<a id="ab376c3860063dd5d6c35cbd9ce9576f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab376c3860063dd5d6c35cbd9ce9576f3">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -361,21 +255,11 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MapExplorer::update </td>
+          <td class="memname">void editor::page::Map::update </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -385,24 +269,23 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Updates the game world logic and the hint fadeout. </p>
+<p>Updates the game world and systems. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
     <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a01030.html#af7fd85a21d6ff60886858d2676957991">game::state::State</a>.</p>
+<p>Implements <a class="el" href="a01026.html#a2b795b1243ceabcf90c0cb492ae7f903">editor::page::Page</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00497_source.html#l00085">85</a> of file <a class="el" href="a00497_source.html">MapExplorer.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01531_source.html#l00357">357</a> of file <a class="el" href="a01531_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -411,7 +294,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00942.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
         </tr>
       </table>
   </td>
@@ -421,19 +304,67 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00254_source.html#l00078">78</a> of file <a class="el" href="a00254_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00221_source.html#l00069">69</a> of file <a class="el" href="a00221_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8873055176987a0040083f574ca63df7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8873055176987a0040083f574ca63df7">&#9670;&nbsp;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::GUI::Ptr editor::page::Page::parent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00221_source.html#l00070">70</a> of file <a class="el" href="a00221_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00982.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00221_source.html#l00068">68</a> of file <a class="el" href="a00221_source.html">Page.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a00245_source.html">MapExplorer.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a00497_source.html">MapExplorer.cpp</a></li>
+<li>include/Editor/Pages/<a class="el" href="a01480_source.html">Map.hpp</a></li>
+<li>src/Editor/Pages/<a class="el" href="a01531_source.html">Map.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

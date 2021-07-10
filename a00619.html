@@ -63,28 +63,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00528.html">component</a></li><li class="navelem"><a class="el" href="a00622.html">Renderable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00563.html">ai</a></li><li class="navelem"><a class="el" href="a00622.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::component::Renderable Member List</div>  </div>
+<div class="title">core::ai::Conversation Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00622.html">core::component::Renderable</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00622.html">core::ai::Conversation</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00622.html#afbc35a80a860222628b2239ab693dade">ComponentId</a></td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00622.html#a300fb0790c27a9a4a2d6bea0783c301a">fromFastMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;move, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00622.html#af852c36b8ce6f2794472eae9b59d5c21">fromMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;movable, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00622.html#a0cee571f9b7a800317e91eacf9f2847d">fromSprite</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00622.html#a3691814b322367e67aa8d3b6547bfdf4">render</a>(sf::RenderTarget &amp;target, float lag) const</td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00622.html#ae5ee62852d8ec0ee85abaee830750d1d">update</a>(float dt)</td><td class="entry"><a class="el" href="a00622.html">core::component::Renderable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00622.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation</a>(system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00622.html#aca98664465772bfc586aac07028cf04a">currentNode</a>() const</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00622.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>() const</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00622.html#a69aa2e5032d179d992770a787183e61d">notifyCheckFailed</a>()</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00622.html#a8e0a2f9daee0c2320b63c86512e2dc49">notifyCheckPassed</a>()</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00622.html#a9dbb8b01be97b67152554105faa29a97">notifyChoiceMade</a>(const std::string &amp;choice)</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00622.html#a58a30139629398b7ac280c1d623febcf">notifyNext</a>()</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00622.html#a4c0ee2ff83e31183c43ee44b6775362f">setConversation</a>(const file::Conversation &amp;conversation, bl::entity::Entity entity)</td><td class="entry"><a class="el" href="a00622.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['handle',['Handle',['../a00790.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
-  ['heighttransitionlayer',['HeightTransitionLayer',['../a00517.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
+  ['deletecb',['DeleteCb',['../a01046.html#a301b76d43ec1fe2af5c19b71c9846b3c',1,'editor::page::Layers::DeleteCb()'],['../a01070.html#ac6a0e90609ab2788232413c564cb4685',1,'editor::page::Tileset::DeleteCb()']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::MapExited Struct Reference</title>
+<title>Peoplemon: core::component::SpinBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,43 +63,122 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00532.html">event</a></li><li class="navelem"><a class="el" href="a00682.html">MapExited</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00564.html">component</a></li><li class="navelem"><a class="el" href="a00682.html">SpinBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00679.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::MapExited Struct Reference<div class="ingroups"><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00514.html">Events</a></div></div>  </div>
+<div class="title">core::component::SpinBehavior Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00549.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a map is exited.  
+<p>Add this to an entity to make it spin in place.  
  <a href="a00682.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00056_source.html">Maps.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00041_source.html">SpinBehavior.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae4feeec150e1479e33ed080dd12c61df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00682.html#ae4feeec150e1479e33ed080dd12c61df">MapExited</a> (const <a class="el" href="a00794.html">map::Map</a> &amp;<a class="el" href="a00682.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a>)</td></tr>
-<tr class="memdesc:ae4feeec150e1479e33ed080dd12c61df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00682.html" title="Fired when a map is exited. ">MapExited</a> event.  <a href="#ae4feeec150e1479e33ed080dd12c61df">More...</a><br /></td></tr>
-<tr class="separator:ae4feeec150e1479e33ed080dd12c61df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3278a050aad68a38f0340159e9af40df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00682.html#a3278a050aad68a38f0340159e9af40df">SpinBehavior</a> (<a class="el" href="a00754.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a> dir)</td></tr>
+<tr class="memdesc:a3278a050aad68a38f0340159e9af40df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Spin Behavior component.  <a href="#a3278a050aad68a38f0340159e9af40df">More...</a><br /></td></tr>
+<tr class="separator:a3278a050aad68a38f0340159e9af40df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00682.html#a425ec658a50bbae8bbf4ceb3b21d37da">update</a> (<a class="el" href="a00654.html">Position</a> &amp;position, <a class="el" href="a00630.html">Controllable</a> &amp;controller, float dt)</td></tr>
+<tr class="memdesc:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the behavior.  <a href="#a425ec658a50bbae8bbf4ceb3b21d37da">More...</a><br /></td></tr>
+<tr class="separator:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00794.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00682.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a></td></tr>
-<tr class="memdesc:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the map that was just exited.  <a href="#a61fb2a7377d2165b3c714ec0ff88c72d">More...</a><br /></td></tr>
-<tr class="separator:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ae102083bd03ddfd3599ea1b8563663cc"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00682.html#ae102083bd03ddfd3599ea1b8563663cc">ComponentId</a> = 8</td></tr>
+<tr class="memdesc:ae102083bd03ddfd3599ea1b8563663cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#ae102083bd03ddfd3599ea1b8563663cc">More...</a><br /></td></tr>
+<tr class="separator:ae102083bd03ddfd3599ea1b8563663cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a map is exited. </p>
+<div class="textblock"><p>Add this to an entity to make it spin in place. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00060">60</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00041_source.html#l00018">18</a> of file <a class="el" href="a00041_source.html">SpinBehavior.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae4feeec150e1479e33ed080dd12c61df"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4feeec150e1479e33ed080dd12c61df">&#9670;&nbsp;</a></span>MapExited()</h2>
+<a id="a3278a050aad68a38f0340159e9af40df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3278a050aad68a38f0340159e9af40df">&#9670;&nbsp;</a></span>SpinBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::component::SpinBehavior::SpinBehavior </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00754.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Spin Behavior component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>The direction to spin in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00305_source.html#l00010">10</a> of file <a class="el" href="a00305_source.html">SpinBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a425ec658a50bbae8bbf4ceb3b21d37da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a425ec658a50bbae8bbf4ceb3b21d37da">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::SpinBehavior::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00654.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00630.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the behavior. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position component of the entity </td></tr>
+    <tr><td class="paramname">controller</td><td>The controllable component of the entity </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00305_source.html#l00014">14</a> of file <a class="el" href="a00305_source.html">SpinBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae102083bd03ddfd3599ea1b8563663cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae102083bd03ddfd3599ea1b8563663cc">&#9670;&nbsp;</a></span>ComponentId</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -108,59 +187,31 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::MapExited::MapExited </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00794.html">map::Map</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::SpinBehavior::ComponentId = 8</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00682.html" title="Fired when a map is exited. ">MapExited</a> event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">map</td><td>The map that was exited </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Required for BLIB ECS. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00066">66</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00041_source.html#l00021">21</a> of file <a class="el" href="a00041_source.html">SpinBehavior.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a61fb2a7377d2165b3c714ec0ff88c72d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61fb2a7377d2165b3c714ec0ff88c72d">&#9670;&nbsp;</a></span>map</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a00794.html">map::Map</a>&amp; core::event::MapExited::map</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>A reference to the map that was just exited. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00070">70</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00056_source.html">Maps.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00041_source.html">SpinBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00305_source.html">SpinBehavior.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

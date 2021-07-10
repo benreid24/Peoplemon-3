@@ -63,31 +63,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00526.html">system</a></li><li class="navelem"><a class="el" href="a00878.html">AI</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00575.html">player</a></li><li class="navelem"><a class="el" href="a00576.html">input</a></li><li class="navelem"><a class="el" href="a00878.html">Listener</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::AI Member List</div>  </div>
+<div class="title">core::player::input::Listener Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00878.html">core::system::AI</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00878.html">core::player::input::Listener</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#af85db40e9f2dac434c672b2ae0a5f936">addBehavior</a>(bl::entity::Entity entity, const file::Behavior &amp;behavior)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#a6cfa6e6029611935d58e614c7fd841ec">AI</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a19e770a6184e5d668bc2a4c6bd452a7b">init</a>()</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#ab02c2f427a9768b02b3ec3c5e038c749">makeFollowPath</a>(bl::entity::Entity entity, const file::Behavior::Path &amp;path)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a836e0d8a0097c7c6229e317ade1be1bd">makeSpinning</a>(bl::entity::Entity entity, file::Behavior::Spinning::Direction dir)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#aac40eb78e7bbc905a98dcef05f2233e2">makeStanding</a>(bl::entity::Entity entity, component::Direction dir)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a2079c166f087b4186874ebcdefa1bec0">makeWander</a>(bl::entity::Entity entity, unsigned int radius)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#a698c00e827b46b8e9c2185da680cf554">moveToPosition</a>(bl::entity::Entity entity, const component::Position &amp;pos, component::Direction finalDir)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a7362ed59930d44f45522b63595a02427">update</a>(float dt)</td><td class="entry"><a class="el" href="a00878.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#aa2bbdcb41488da37bb883ebeedc82f3b">::core::player::Input</a> class</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#aeffd124ef155fca87d6670f47b001718">Listener</a>()</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a>(Listener &amp;&amp;copy)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#aac6a335ce53e00aa2f19da5b20caa296">process</a>(component::Command control)=0</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a>()</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

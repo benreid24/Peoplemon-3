@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::script::ConversationContext Class Reference</title>
+<title>Peoplemon: core::player::Bag::Item Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,106 +63,85 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00542.html">script</a></li><li class="navelem"><a class="el" href="a00862.html">ConversationContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00575.html">player</a></li><li class="navelem"><a class="el" href="a00858.html">Bag</a></li><li class="navelem"><a class="el" href="a00862.html">Item</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00859.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::script::ConversationContext Class Reference<div class="ingroups"><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00519.html">Scripts</a></div></div>  </div>
+<div class="title">core::player::Bag::Item Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins.  
+<p>Simple struct representing a set of items in the bag.  
  <a href="a00862.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00152_source.html">ConversationContext.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::script::ConversationContext:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a00862.png" usemap="#core::script::ConversationContext_map" alt=""/>
-  <map id="core::script::ConversationContext_map" name="core::script::ConversationContext_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00122_source.html">Bag.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a6fb9f156a9650c9c7536fef50a92d982"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> = std::function&lt; bool(bl::entity::Entity)&gt;</td></tr>
-<tr class="memdesc:a6fb9f156a9650c9c7536fef50a92d982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special callback type for reporting conversation state.  <a href="#a6fb9f156a9650c9c7536fef50a92d982">More...</a><br /></td></tr>
-<tr class="separator:a6fb9f156a9650c9c7536fef50a92d982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a5872edc2095ce1eda9d1d6b61d81ec19">ConversationContext</a> (<a class="el" href="a00942.html">system::Systems</a> &amp;systems, bl::entity::Entity entity, const <a class="el" href="a00862.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> &amp;cb)</td></tr>
-<tr class="memdesc:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00862.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>.  <a href="#a5872edc2095ce1eda9d1d6b61d81ec19">More...</a><br /></td></tr>
-<tr class="separator:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6941c9fe7c6f63aa73078ad5c721009b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a6941c9fe7c6f63aa73078ad5c721009b">Item</a> ()</td></tr>
+<tr class="memdesc:a6941c9fe7c6f63aa73078ad5c721009b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct an empty item.  <a href="#a6941c9fe7c6f63aa73078ad5c721009b">More...</a><br /></td></tr>
+<tr class="separator:a6941c9fe7c6f63aa73078ad5c721009b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59e7879d0b95d7e242903ff5490dec41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a59e7879d0b95d7e242903ff5490dec41">Item</a> (<a class="el" href="a00552.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="el" href="a00862.html#a02dc0d4f209e4e53154c4d12589f522e">id</a>, unsigned int <a class="el" href="a00862.html#a9b67a21c7bcd99000da9bee1bc08589d">qty</a>)</td></tr>
+<tr class="memdesc:a59e7879d0b95d7e242903ff5490dec41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00862.html" title="Simple struct representing a set of items in the bag. ">Item</a> object.  <a href="#a59e7879d0b95d7e242903ff5490dec41">More...</a><br /></td></tr>
+<tr class="separator:a59e7879d0b95d7e242903ff5490dec41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:aba09b02aa08c120e30e5fb011bd90801"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#aba09b02aa08c120e30e5fb011bd90801">addCustomSymbols</a> (bl::script::SymbolTable &amp;table) const override</td></tr>
-<tr class="separator:aba09b02aa08c120e30e5fb011bd90801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a02dc0d4f209e4e53154c4d12589f522e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00552.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a02dc0d4f209e4e53154c4d12589f522e">id</a></td></tr>
+<tr class="memdesc:a02dc0d4f209e4e53154c4d12589f522e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The item in the bag.  <a href="#a02dc0d4f209e4e53154c4d12589f522e">More...</a><br /></td></tr>
+<tr class="separator:a02dc0d4f209e4e53154c4d12589f522e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b67a21c7bcd99000da9bee1bc08589d"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00862.html#a9b67a21c7bcd99000da9bee1bc08589d">qty</a></td></tr>
+<tr class="memdesc:a9b67a21c7bcd99000da9bee1bc08589d"><td class="mdescLeft">&#160;</td><td class="mdescRight">How many of the item are in the bag.  <a href="#a9b67a21c7bcd99000da9bee1bc08589d">More...</a><br /></td></tr>
+<tr class="separator:a9b67a21c7bcd99000da9bee1bc08589d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins. </p>
+<div class="textblock"><p>Simple struct representing a set of items in the bag. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00023">23</a> of file <a class="el" href="a00152_source.html">ConversationContext.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6fb9f156a9650c9c7536fef50a92d982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fb9f156a9650c9c7536fef50a92d982">&#9670;&nbsp;</a></span>StatusCb</h2>
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00021">21</a> of file <a class="el" href="a00122_source.html">Bag.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6941c9fe7c6f63aa73078ad5c721009b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6941c9fe7c6f63aa73078ad5c721009b">&#9670;&nbsp;</a></span>Item() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00862.html#a6fb9f156a9650c9c7536fef50a92d982">core::script::ConversationContext::StatusCb</a> =  std::function&lt;bool(bl::entity::Entity)&gt;</td>
+          <td class="memname">core::player::Bag::Item::Item </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Special callback type for reporting conversation state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to check status for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if conversation completed, false if ongoing </dd></dl>
+<p>Construct an empty item. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00032">32</a> of file <a class="el" href="a00152_source.html">ConversationContext.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00007">7</a> of file <a class="el" href="a00395_source.html">Bag.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5872edc2095ce1eda9d1d6b61d81ec19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5872edc2095ce1eda9d1d6b61d81ec19">&#9670;&nbsp;</a></span>ConversationContext()</h2>
+<a id="a59e7879d0b95d7e242903ff5490dec41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59e7879d0b95d7e242903ff5490dec41">&#9670;&nbsp;</a></span>Item() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::script::ConversationContext::ConversationContext </td>
+          <td class="memname">core::player::Bag::Item::Item </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00942.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
+          <td class="paramtype"><a class="el" href="a00552.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bl::entity::Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00862.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>qty</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -172,58 +151,65 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00862.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>. </p>
+<p>Construct a new <a class="el" href="a00862.html" title="Simple struct representing a set of items in the bag. ">Item</a> object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
-    <tr><td class="paramname">entity</td><td>The entity being conversed with </td></tr>
-    <tr><td class="paramname">cb</td><td>Callback that can be used to query the conversation state </td></tr>
+    <tr><td class="paramname">id</td><td>The item id </td></tr>
+    <tr><td class="paramname">qty</td><td>The number of that item </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00404_source.html#l00034">34</a> of file <a class="el" href="a00404_source.html">ConversationContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00011">11</a> of file <a class="el" href="a00395_source.html">Bag.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aba09b02aa08c120e30e5fb011bd90801"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba09b02aa08c120e30e5fb011bd90801">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a02dc0d4f209e4e53154c4d12589f522e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02dc0d4f209e4e53154c4d12589f522e">&#9670;&nbsp;</a></span>id</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::script::ConversationContext::addCustomSymbols </td>
-          <td>(</td>
-          <td class="paramtype">bl::script::SymbolTable &amp;&#160;</td>
-          <td class="paramname"><em>table</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname"><a class="el" href="a00552.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> core::player::Bag::Item::id</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00404_source.html#l00040">40</a> of file <a class="el" href="a00404_source.html">ConversationContext.cpp</a>.</p>
+<p>The item in the bag. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00023">23</a> of file <a class="el" href="a00122_source.html">Bag.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Scripts/<a class="el" href="a00152_source.html">ConversationContext.hpp</a></li>
-<li>src/Core/Scripts/<a class="el" href="a00404_source.html">ConversationContext.cpp</a></li>
+<a id="a9b67a21c7bcd99000da9bee1bc08589d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b67a21c7bcd99000da9bee1bc08589d">&#9670;&nbsp;</a></span>qty</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::player::Bag::Item::qty</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>How many of the item are in the bag. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00026">26</a> of file <a class="el" href="a00122_source.html">Bag.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Player/<a class="el" href="a00122_source.html">Bag.hpp</a></li>
+<li>src/Core/Player/<a class="el" href="a00395_source.html">Bag.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

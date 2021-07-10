@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::Event Struct Reference</title>
+<title>Peoplemon: core::file::Conversation Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,127 +63,101 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00525.html">core</a></li><li class="navelem"><a class="el" href="a00533.html">map</a></li><li class="navelem"><a class="el" href="a00770.html">Event</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00570.html">file</a></li><li class="navelem"><a class="el" href="a00770.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a00767.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Event Struct Reference<div class="ingroups"><a class="el" href="a00509.html">Core</a> &raquo; <a class="el" href="a00517.html">Maps</a></div></div>  </div>
+<div class="title">core::file::Conversation Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an event in a <a class="el" href="a00794.html" title="The primary map class that represents a usable map in the game. ">Map</a>. A script that is run on a trigger within a given region.  
+<p>Stores a conversation that an <a class="el" href="a00786.html" title="File data for NPCs. ">NPC</a> or trainer can have with the player.  
  <a href="a00770.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00092_source.html">Event.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01426_source.html">Conversation.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::Event:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::file::Conversation:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a00770.png" usemap="#core::map::Event_map" alt=""/>
-  <map id="core::map::Event_map" name="core::map::Event_map">
+  <img src="a00770.png" usemap="#core::file::Conversation_map" alt=""/>
+  <map id="core::file::Conversation_map" name="core::file::Conversation_map">
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a14f3d414a99e46aa6f6ade27229d374d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374dad26d8f96861fe247a1885391d562bef0">Trigger::OnEnter</a> = 1, 
-<a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374da401b0572a5e3b960959886516846a144">Trigger::OnExit</a> = 2, 
-<a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374da6d20b2de77fae1c49fb08f93d689945a">Trigger::onEnterOrExit</a> = 3, 
-<a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374dac3ca701c1d3855d22fd7bcc423a4890d">Trigger::WhileIn</a> = 4, 
-<br />
-&#160;&#160;<a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374da0c29c81c4fda0de9aced5e23885da7ec">Trigger::OnInteract</a> = 5
-<br />
- }<tr class="memdesc:a14f3d414a99e46aa6f6ade27229d374d"><td class="mdescLeft">&#160;</td><td class="mdescRight">What action triggers the event.  <a href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a14f3d414a99e46aa6f6ade27229d374d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00774.html">Node</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Building block of conversations. A conversation is a tree of nodes and each node is an action that happens in the conversation.  <a href="a00774.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a326f9ba9256628d2db4b3429c1ea0ee0">Event</a> ()</td></tr>
-<tr class="memdesc:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty event.  <a href="#a326f9ba9256628d2db4b3429c1ea0ee0">More...</a><br /></td></tr>
-<tr class="separator:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac85c5b74c5b1fca7397733c8c040040a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#ac85c5b74c5b1fca7397733c8c040040a">Event</a> (const std::string &amp;<a class="el" href="a00770.html#ab08450ca7454b4794f0a75004571b652">script</a>, const sf::Vector2i &amp;pos, const sf::Vector2i &amp;size, <a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> <a class="el" href="a00770.html#ab37ed9e27a6832eafd2e6e4e579aefb6">trigger</a>)</td></tr>
-<tr class="memdesc:ac85c5b74c5b1fca7397733c8c040040a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an event from the given parameters.  <a href="#ac85c5b74c5b1fca7397733c8c040040a">More...</a><br /></td></tr>
-<tr class="separator:ac85c5b74c5b1fca7397733c8c040040a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0feca377e0b6e30896d14cc72f096a9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a0feca377e0b6e30896d14cc72f096a9e">Event</a> (const <a class="el" href="a00770.html">Event</a> &amp;copy)</td></tr>
-<tr class="memdesc:a0feca377e0b6e30896d14cc72f096a9e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructs the event.  <a href="#a0feca377e0b6e30896d14cc72f096a9e">More...</a><br /></td></tr>
-<tr class="separator:a0feca377e0b6e30896d14cc72f096a9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42b16117056536baf57a4da3d79a7d3d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00770.html">Event</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a42b16117056536baf57a4da3d79a7d3d">operator=</a> (const <a class="el" href="a00770.html">Event</a> &amp;copy)</td></tr>
-<tr class="memdesc:a42b16117056536baf57a4da3d79a7d3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the given event.  <a href="#a42b16117056536baf57a4da3d79a7d3d">More...</a><br /></td></tr>
-<tr class="separator:a42b16117056536baf57a4da3d79a7d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc9ad4a834b51d00881f68648ae05e07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#acc9ad4a834b51d00881f68648ae05e07">Conversation</a> ()</td></tr>
+<tr class="memdesc:acc9ad4a834b51d00881f68648ae05e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty conversation.  <a href="#acc9ad4a834b51d00881f68648ae05e07">More...</a><br /></td></tr>
+<tr class="separator:acc9ad4a834b51d00881f68648ae05e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bb0d367b394147b220bd90d10a734f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a5bb0d367b394147b220bd90d10a734f3">Conversation</a> (const <a class="el" href="a00770.html">Conversation</a> &amp;copy)</td></tr>
+<tr class="memdesc:a5bb0d367b394147b220bd90d10a734f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructs the conversation.  <a href="#a5bb0d367b394147b220bd90d10a734f3">More...</a><br /></td></tr>
+<tr class="separator:a5bb0d367b394147b220bd90d10a734f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dc4369afd260dec2059a64683b7b2cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00770.html">Conversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a0dc4369afd260dec2059a64683b7b2cd">operator=</a> (const <a class="el" href="a00770.html">Conversation</a> &amp;copy)</td></tr>
+<tr class="memdesc:a0dc4369afd260dec2059a64683b7b2cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the conversation.  <a href="#a0dc4369afd260dec2059a64683b7b2cd">More...</a><br /></td></tr>
+<tr class="separator:a0dc4369afd260dec2059a64683b7b2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58289112f105ce81d15f3bb8ff205ba6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a58289112f105ce81d15f3bb8ff205ba6">load</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a58289112f105ce81d15f3bb8ff205ba6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the conversation from the given file.  <a href="#a58289112f105ce81d15f3bb8ff205ba6">More...</a><br /></td></tr>
+<tr class="separator:a58289112f105ce81d15f3bb8ff205ba6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8bdca4cee63f78ace5d8912450060fd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#ad8bdca4cee63f78ace5d8912450060fd">save</a> (const std::string &amp;file) const</td></tr>
+<tr class="memdesc:ad8bdca4cee63f78ace5d8912450060fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the conversation to the given file.  <a href="#ad8bdca4cee63f78ace5d8912450060fd">More...</a><br /></td></tr>
+<tr class="separator:ad8bdca4cee63f78ace5d8912450060fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a966ec1403830724de5d2ce2dfc6631bc"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00774.html">Node</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a966ec1403830724de5d2ce2dfc6631bc">nodes</a> () const</td></tr>
+<tr class="memdesc:a966ec1403830724de5d2ce2dfc6631bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the list of nodes in the conversation.  <a href="#a966ec1403830724de5d2ce2dfc6631bc">More...</a><br /></td></tr>
+<tr class="separator:a966ec1403830724de5d2ce2dfc6631bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f845b272eb21ec8283529181234de6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a66f845b272eb21ec8283529181234de6">deleteNode</a> (unsigned int i)</td></tr>
+<tr class="memdesc:a66f845b272eb21ec8283529181234de6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the node at the given index. Jump indexes for other nodes are updated if affected. Jumps to node i are invalidated and will terminate the conversation.  <a href="#a66f845b272eb21ec8283529181234de6">More...</a><br /></td></tr>
+<tr class="separator:a66f845b272eb21ec8283529181234de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96ef5e40a9bb87b5fc760b94f39b8f47"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a96ef5e40a9bb87b5fc760b94f39b8f47">insertNode</a> (unsigned int i, const <a class="el" href="a00774.html">Node</a> &amp;node)</td></tr>
+<tr class="memdesc:a96ef5e40a9bb87b5fc760b94f39b8f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a new node at the given index. Jumps to other indexes are updated.  <a href="#a96ef5e40a9bb87b5fc760b94f39b8f47">More...</a><br /></td></tr>
+<tr class="separator:a96ef5e40a9bb87b5fc760b94f39b8f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addec79f31516d231332b99eeb0c44d57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#addec79f31516d231332b99eeb0c44d57">appendNode</a> (const <a class="el" href="a00774.html">Node</a> &amp;node)</td></tr>
+<tr class="memdesc:addec79f31516d231332b99eeb0c44d57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends the given node to the list of nodes.  <a href="#addec79f31516d231332b99eeb0c44d57">More...</a><br /></td></tr>
+<tr class="separator:addec79f31516d231332b99eeb0c44d57"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78b0703b2677db7f6dd1538d5bb55cd0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a78b0703b2677db7f6dd1538d5bb55cd0">setNode</a> (unsigned int i, const <a class="el" href="a00774.html">Node</a> &amp;node)</td></tr>
+<tr class="memdesc:a78b0703b2677db7f6dd1538d5bb55cd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the value of the node at the given index.  <a href="#a78b0703b2677db7f6dd1538d5bb55cd0">More...</a><br /></td></tr>
+<tr class="separator:a78b0703b2677db7f6dd1538d5bb55cd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ab37ed9e27a6832eafd2e6e4e579aefb6"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 1, <a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#ab37ed9e27a6832eafd2e6e4e579aefb6">trigger</a></td></tr>
-<tr class="separator:ab37ed9e27a6832eafd2e6e4e579aefb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36be7b94567b53d742b015f5252cb4d6"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 2, sf::Vector2i &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a36be7b94567b53d742b015f5252cb4d6">position</a></td></tr>
-<tr class="separator:a36be7b94567b53d742b015f5252cb4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab34d48b7915539502de0af3cb4ce6af"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 3, sf::Vector2i &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#aab34d48b7915539502de0af3cb4ce6af">areaSize</a></td></tr>
-<tr class="separator:aab34d48b7915539502de0af3cb4ce6af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab08450ca7454b4794f0a75004571b652"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 4, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#ab08450ca7454b4794f0a75004571b652">script</a></td></tr>
-<tr class="separator:ab08450ca7454b4794f0a75004571b652"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:adcb20abe541cd3e9058d390e7cf6462a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html">Conversation</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#adcb20abe541cd3e9058d390e7cf6462a">makeLoadError</a> (const std::string &amp;filename)</td></tr>
+<tr class="memdesc:adcb20abe541cd3e9058d390e7cf6462a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to create a conversation that reports an error if in debug mode.  <a href="#adcb20abe541cd3e9058d390e7cf6462a">More...</a><br /></td></tr>
+<tr class="separator:adcb20abe541cd3e9058d390e7cf6462a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a184e87582d39859c87e5a72f1b1a69ca"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#a184e87582d39859c87e5a72f1b1a69ca">loader::LegacyConversationLoader</a></td></tr>
+<tr class="separator:a184e87582d39859c87e5a72f1b1a69ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad21138b88436c907887e0b450a6889aa"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00770.html#ad21138b88436c907887e0b450a6889aa">loader::ConversationLoader</a></td></tr>
+<tr class="separator:ad21138b88436c907887e0b450a6889aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an event in a <a class="el" href="a00794.html" title="The primary map class that represents a usable map in the game. ">Map</a>. A script that is run on a trigger within a given region. </p>
+<div class="textblock"><p>Stores a conversation that an <a class="el" href="a00786.html" title="File data for NPCs. ">NPC</a> or trainer can have with the player. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00019">19</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a14f3d414a99e46aa6f6ade27229d374d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14f3d414a99e46aa6f6ade27229d374d">&#9670;&nbsp;</a></span>Trigger</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">core::map::Event::Trigger</a> : std::uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>What action triggers the event. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374dad26d8f96861fe247a1885391d562bef0"></a>OnEnter&#160;</td><td class="fielddoc"><p>The event triggers when the player steps into the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da401b0572a5e3b960959886516846a144"></a>OnExit&#160;</td><td class="fielddoc"><p>The event triggers when the player steps out of the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da6d20b2de77fae1c49fb08f93d689945a"></a>onEnterOrExit&#160;</td><td class="fielddoc"><p>The event triggers when the player either enters or exits the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374dac3ca701c1d3855d22fd7bcc423a4890d"></a>WhileIn&#160;</td><td class="fielddoc"><p>The event triggers repeatedly while the player is in the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da0c29c81c4fda0de9aced5e23885da7ec"></a>OnInteract&#160;</td><td class="fielddoc"><p>The event triggers when the player interacts with the zone. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00021">21</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a326f9ba9256628d2db4b3429c1ea0ee0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a326f9ba9256628d2db4b3429c1ea0ee0">&#9670;&nbsp;</a></span>Event() <span class="overload">[1/3]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a01426_source.html#l00027">27</a> of file <a class="el" href="a01426_source.html">Conversation.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="acc9ad4a834b51d00881f68648ae05e07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc9ad4a834b51d00881f68648ae05e07">&#9670;&nbsp;</a></span>Conversation() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::Event::Event </td>
+          <td class="memname">core::file::Conversation::Conversation </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -191,41 +165,114 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty event. </p>
+<p>Creates an empty conversation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00007">7</a> of file <a class="el" href="a00314_source.html">Event.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00292">292</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ac85c5b74c5b1fca7397733c8c040040a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac85c5b74c5b1fca7397733c8c040040a">&#9670;&nbsp;</a></span>Event() <span class="overload">[2/3]</span></h2>
+<a id="a5bb0d367b394147b220bd90d10a734f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bb0d367b394147b220bd90d10a734f3">&#9670;&nbsp;</a></span>Conversation() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::Event::Event </td>
+          <td class="memname">core::file::Conversation::Conversation </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>script</em>, </td>
+          <td class="paramtype">const <a class="el" href="a00770.html">Conversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructs the conversation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The conversation to copy from </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00295">295</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="addec79f31516d231332b99eeb0c44d57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addec79f31516d231332b99eeb0c44d57">&#9670;&nbsp;</a></span>appendNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::file::Conversation::appendNode </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00774.html">Node</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Appends the given node to the list of nodes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">node</td><td>The node to append </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00343">343</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a66f845b272eb21ec8283529181234de6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f845b272eb21ec8283529181234de6">&#9670;&nbsp;</a></span>deleteNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::file::Conversation::deleteNode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the node at the given index. Jump indexes for other nodes are updated if affected. Jumps to node i are invalidated and will terminate the conversation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to erase the node at </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00321">321</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a96ef5e40a9bb87b5fc760b94f39b8f47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96ef5e40a9bb87b5fc760b94f39b8f47">&#9670;&nbsp;</a></span>insertNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::file::Conversation::insertNode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a>&#160;</td>
-          <td class="paramname"><em>trigger</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a00774.html">Node</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -235,153 +282,261 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an event from the given parameters. </p>
+<p>Inserts a new node at the given index. Jumps to other indexes are updated. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">script</td><td>The script to run when triggered </td></tr>
-    <tr><td class="paramname">pos</td><td>The position of the event trigger zone, in tiles </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the event trigger zone, in tiles </td></tr>
-    <tr><td class="paramname">trigger</td><td>The trigger that starts the event </td></tr>
+    <tr><td class="paramname">i</td><td>The index to insert at </td></tr>
+    <tr><td class="paramname">node</td><td>The node to insert </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00013">13</a> of file <a class="el" href="a00314_source.html">Event.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00331">331</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0feca377e0b6e30896d14cc72f096a9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0feca377e0b6e30896d14cc72f096a9e">&#9670;&nbsp;</a></span>Event() <span class="overload">[3/3]</span></h2>
+<a id="a58289112f105ce81d15f3bb8ff205ba6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58289112f105ce81d15f3bb8ff205ba6">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::Event::Event </td>
+          <td class="memname">bool core::file::Conversation::load </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00770.html">Event</a> &amp;&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the conversation from the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>The file to load from. This should be relative to the conversation path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if loaded, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00305">305</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adcb20abe541cd3e9058d390e7cf6462a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcb20abe541cd3e9058d390e7cf6462a">&#9670;&nbsp;</a></span>makeLoadError()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00770.html">Conversation</a> core::file::Conversation::makeLoadError </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>filename</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper function to create a conversation that reports an error if in debug mode. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>The file that failed to load </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00770.html" title="Stores a conversation that an NPC or trainer can have with the player. ">Conversation</a> The conversation that reports the error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00489">489</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a966ec1403830724de5d2ce2dfc6631bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a966ec1403830724de5d2ce2dfc6631bc">&#9670;&nbsp;</a></span>nodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a00774.html">Conversation::Node</a> &gt; &amp; core::file::Conversation::nodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the list of nodes in the conversation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00319">319</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0dc4369afd260dec2059a64683b7b2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dc4369afd260dec2059a64683b7b2cd">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00770.html">Conversation</a> &amp; core::file::Conversation::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00770.html">Conversation</a> &amp;&#160;</td>
           <td class="paramname"><em>copy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copy constructs the event. </p>
+<p>Copies the conversation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">copy</td><td>The event to copy from </td></tr>
+    <tr><td class="paramname">copy</td><td>The conversation to copy </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00770.html" title="Stores a conversation that an NPC or trainer can have with the player. ">Conversation</a>&amp; A reference to this conversation </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00021">21</a> of file <a class="el" href="a00314_source.html">Event.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00300">300</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a42b16117056536baf57a4da3d79a7d3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42b16117056536baf57a4da3d79a7d3d">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ad8bdca4cee63f78ace5d8912450060fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8bdca4cee63f78ace5d8912450060fd">&#9670;&nbsp;</a></span>save()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00770.html">Event</a> &amp; core::map::Event::operator= </td>
+          <td class="memname">bool core::file::Conversation::save </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00770.html">Event</a> &amp;&#160;</td>
-          <td class="paramname"><em>copy</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Copies from the given event. </p>
+<p>Saves the conversation to the given file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">copy</td><td>The event to copy </td></tr>
+    <tr><td class="paramname">file</td><td>The file to save to, relative to the conversation path </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00770.html" title="Represents an event in a Map. A script that is run on a trigger within a given region. ">Event</a>&amp; A reference to this event </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True if saved, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00314_source.html#l00026">26</a> of file <a class="el" href="a00314_source.html">Event.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00313">313</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aab34d48b7915539502de0af3cb4ce6af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab34d48b7915539502de0af3cb4ce6af">&#9670;&nbsp;</a></span>areaSize</h2>
+<a id="a78b0703b2677db7f6dd1538d5bb55cd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78b0703b2677db7f6dd1538d5bb55cd0">&#9670;&nbsp;</a></span>setNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;3, sf::Vector2i&gt; core::map::Event::areaSize</td>
+          <td class="memname">void core::file::Conversation::setNode </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a00774.html">Node</a> &amp;&#160;</td>
+          <td class="paramname"><em>node</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00040">40</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
+<p>Updates the value of the node at the given index. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index to update </td></tr>
+    <tr><td class="paramname">node</td><td>The new node value </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01492_source.html#l00361">361</a> of file <a class="el" href="a01492_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a36be7b94567b53d742b015f5252cb4d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36be7b94567b53d742b015f5252cb4d6">&#9670;&nbsp;</a></span>position</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ad21138b88436c907887e0b450a6889aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad21138b88436c907887e0b450a6889aa">&#9670;&nbsp;</a></span>loader::ConversationLoader</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;2, sf::Vector2i&gt; core::map::Event::position</td>
+          <td class="memname">friend class <a class="el" href="a01114.html">loader::ConversationLoader</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00039">39</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01426_source.html#l00321">321</a> of file <a class="el" href="a01426_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab08450ca7454b4794f0a75004571b652"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab08450ca7454b4794f0a75004571b652">&#9670;&nbsp;</a></span>script</h2>
+<a id="a184e87582d39859c87e5a72f1b1a69ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a184e87582d39859c87e5a72f1b1a69ca">&#9670;&nbsp;</a></span>loader::LegacyConversationLoader</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;4, std::string&gt; core::map::Event::script</td>
+          <td class="memname">friend class <a class="el" href="a01110.html">loader::LegacyConversationLoader</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00041">41</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01426_source.html#l00320">320</a> of file <a class="el" href="a01426_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab37ed9e27a6832eafd2e6e4e579aefb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab37ed9e27a6832eafd2e6e4e579aefb6">&#9670;&nbsp;</a></span>trigger</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;1, <a class="el" href="a00770.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a>&gt; core::map::Event::trigger</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00038">38</a> of file <a class="el" href="a00092_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Maps/<a class="el" href="a00092_source.html">Event.hpp</a></li>
-<li>src/Core/Maps/<a class="el" href="a00314_source.html">Event.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Files/<a class="el" href="a01426_source.html">Conversation.hpp</a></li>
+<li>src/Core/Files/<a class="el" href="a01492_source.html">Conversation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jun 4 2021 16:04:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jul 10 2021 04:35:27 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

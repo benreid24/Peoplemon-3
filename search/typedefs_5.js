@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ptr',['Ptr',['../a00882.html#aa01fbd0679d46f65be2168fe269d9c81',1,'core::system::camera::Camera']]]
+  ['idtype',['IdType',['../a00842.html#a62dbb7a9b1a1c3795a03bf22adacefcc',1,'core::map::Tile']]]
 ];
