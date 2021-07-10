@@ -15,7 +15,8 @@ Map::Map(core::system::Systems& s)
 , tileset([this](core::map::Tile::IdType id, bool isAnim) {
     mapArea.editMap().removeAllTiles(id, isAnim);
 })
-, levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); })
+, levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
+            [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); })
 , layerPage([this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },

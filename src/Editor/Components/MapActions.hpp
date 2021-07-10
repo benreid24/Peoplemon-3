@@ -225,6 +225,22 @@ private:
     ShiftLayerAction(unsigned int level, unsigned int layer, bool up);
 };
 
+class EditMap::ShiftLevelAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(unsigned int level, bool up);
+
+    virtual ~ShiftLevelAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const bool up;
+
+    ShiftLevelAction(unsigned int level, bool up);
+};
+
 } // namespace component
 } // namespace editor
 

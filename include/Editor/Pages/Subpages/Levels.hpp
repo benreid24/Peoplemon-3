@@ -16,14 +16,16 @@ namespace page
 class Levels {
 public:
     using RenderFilterCb = std::function<void(unsigned int level, bool visible)>;
+    using ShiftCb        = std::function<void(unsigned int level, bool up)>;
 
     /**
      * @brief Construct a new Levels subpage
      *
      * @param filterCb Shows or hides a level
+     * @param shiftCb Called when a layer is moved up or down
      *
      */
-    Levels(const RenderFilterCb& filterCb);
+    Levels(const RenderFilterCb& filterCb, const ShiftCb& onShift);
 
     /**
      * @brief Syncs the number of levels and their visible status
@@ -59,10 +61,12 @@ private:
         bl::gui::Button::Ptr downBut;
         bl::gui::Button::Ptr delBut;
 
-        Item(unsigned int i, bool visible, const RenderFilterCb& filterCb);
+        Item(unsigned int i, unsigned int mi, bool visible, const RenderFilterCb& filterCb,
+             const ShiftCb& shiftCb);
     };
 
     const RenderFilterCb filterCb;
+    const ShiftCb shiftCb;
 
     bl::gui::Box::Ptr contentWrapper;
     bl::gui::Box::Ptr content;

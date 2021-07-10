@@ -376,6 +376,10 @@ void EditMap::shiftLayer(unsigned int level, unsigned int layer, bool up) {
     addAction(ShiftLayerAction::create(level, layer, up));
 }
 
+void EditMap::shiftLevel(unsigned int level, bool up) {
+    addAction(ShiftLevelAction::create(level, up));
+}
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();
