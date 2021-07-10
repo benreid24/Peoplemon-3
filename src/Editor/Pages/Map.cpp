@@ -16,7 +16,8 @@ Map::Map(core::system::Systems& s)
     mapArea.editMap().removeAllTiles(id, isAnim);
 })
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
-            [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); })
+            [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
+            [this]() { mapArea.editMap().appendLevel(); })
 , layerPage([this](unsigned int l) { mapArea.editMap().appendBottomLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendYsortLayer(l); },
             [this](unsigned int l) { mapArea.editMap().appendTopLayer(l); },

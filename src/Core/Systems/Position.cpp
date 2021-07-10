@@ -135,5 +135,12 @@ bl::entity::Entity Position::getEntity(const component::Position& p) const {
     return bl::entity::InvalidEntity;
 }
 
+void Position::editorPushLevel() {
+    entityMap.emplace_back(
+        entityMap.front().getWidth(), entityMap.front().getHeight(), bl::entity::InvalidEntity);
+}
+
+void Position::editorPopLevel() { entityMap.pop_back(); }
+
 } // namespace system
 } // namespace core

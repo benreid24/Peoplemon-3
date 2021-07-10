@@ -1,6 +1,7 @@
 #include "MapActions.hpp"
 
 #include <Core/Properties.hpp>
+#include <Core/Systems/Systems.hpp>
 
 namespace editor
 {
@@ -653,6 +654,28 @@ bool EditMap::ShiftLevelAction::undo(EditMap& map) {
 }
 
 const char* EditMap::ShiftLevelAction::description() const { return "shift level"; }
+
+EditMap::Action::Ptr EditMap::AppendLevelAction::create() { return Ptr(new AppendLevelAction()); }
+
+bool EditMap::AppendLevelAction::apply(EditMap& map) {
+    map.levelFilter.push_back(true);
+    map.layerFilter.emplace_back(5, true);
+    map.levels.emplace_back();
+    map.levels.back().init(map.sizeTiles().x, map.sizeTiles().y, 2, 1, 1);
+    map.systems->position().editorPushLevel();
+    for (auto& level : map.levels) { level.activate(*map.tileset); }
+    return true;
+}
+
+bool EditMap::AppendLevelAction::undo(EditMap& map) {
+    map.levels.pop_back();
+    map.levelFilter.pop_back();
+    map.layerFilter.pop_back();
+    map.systems->position().editorPopLevel();
+    return true;
+}
+
+const char* EditMap::AppendLevelAction::description() const { return "add level"; }
 
 } // namespace component
 } // namespace editor

@@ -17,15 +17,17 @@ class Levels {
 public:
     using RenderFilterCb = std::function<void(unsigned int level, bool visible)>;
     using ShiftCb        = std::function<void(unsigned int level, bool up)>;
+    using AddCb          = std::function<void()>;
 
     /**
      * @brief Construct a new Levels subpage
      *
      * @param filterCb Shows or hides a level
      * @param shiftCb Called when a layer is moved up or down
+     * @param addCb Called when a level is created
      *
      */
-    Levels(const RenderFilterCb& filterCb, const ShiftCb& onShift);
+    Levels(const RenderFilterCb& filterCb, const ShiftCb& onShift, const AddCb& addCb);
 
     /**
      * @brief Syncs the number of levels and their visible status

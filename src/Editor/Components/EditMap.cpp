@@ -380,6 +380,8 @@ void EditMap::shiftLevel(unsigned int level, bool up) {
     addAction(ShiftLevelAction::create(level, up));
 }
 
+void EditMap::appendLevel() { addAction(AppendLevelAction::create()); }
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();

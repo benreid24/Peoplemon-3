@@ -6,11 +6,17 @@ namespace page
 {
 using namespace bl::gui;
 
-Levels::Levels(const RenderFilterCb& filterCb, const ShiftCb& os)
+Levels::Levels(const RenderFilterCb& filterCb, const ShiftCb& os, const AddCb& addCb)
 : filterCb(filterCb)
 , shiftCb(os) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    content        = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    content        = Box::create(LinePacker::create(LinePacker::Vertical, 12));
+
+    Button::Ptr addBut = Button::create("Add Level");
+    addBut->getSignal(Action::LeftClicked).willAlwaysCall([this, addCb](const Action&, Element*) {
+        addCb();
+    });
+    content->pack(addBut);
 
     itemArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4));
     itemArea->setMaxSize({300, 175});

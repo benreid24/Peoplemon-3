@@ -241,6 +241,19 @@ private:
     ShiftLevelAction(unsigned int level, bool up);
 };
 
+class EditMap::AppendLevelAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create();
+
+    virtual ~AppendLevelAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    AppendLevelAction() = default;
+};
+
 } // namespace component
 } // namespace editor
 

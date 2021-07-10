@@ -90,6 +90,18 @@ public:
      */
     const std::vector<bl::entity::Entity>& updateRangeEntities() const;
 
+    /**
+     * @brief Called by the editor when a level is added
+     *
+     */
+    void editorPushLevel();
+
+    /**
+     * @brief Called by the editor when a level is removed
+     *
+     */
+    void editorPopLevel();
+
 private:
     Systems& owner;
     bl::entity::Registry::View<component::Position>::Ptr entities;
