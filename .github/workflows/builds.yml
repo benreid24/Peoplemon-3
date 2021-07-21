@@ -23,15 +23,15 @@ jobs:
 
       - name: Package Project
         run: |
-          mkdir release
-          mv Resources release
-          mv PeoplemonRelease.exe release/Peoplemon.exe
-          cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./release
-          Compress-Archive -Path release -DestinationPath Windows.zip
+          mkdir Peoplemon
+          mv Resources Peoplemon
+          mv PeoplemonRelease.exe Peoplemon/Peoplemon.exe
+          cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./Peoplemon
+          Compress-Archive -Path Peoplemon -DestinationPath Windows.zip
           
-          mv EditorResources release
-          mv PeoplemonEditorRelease.exe release/PeoplemonEditor.exe
-          Compress-Archive -Path release -DestinationPath WindowsEditor.zip
+          mv EditorResources Peoplemon
+          mv PeoplemonEditorRelease.exe Peoplemon/PeoplemonEditor.exe
+          Compress-Archive -Path Peoplemon -DestinationPath WindowsEditor.zip
 
       - name: Upload Game Package
         id: upload-release-game 
@@ -53,4 +53,110 @@ jobs:
           upload_url: ${{ github.event.client_payload.release_url }}
           asset_path: ./WindowsEditor.zip
           asset_name: WindowsEditor.zip
+          asset_content_type: application/zip
+
+  linux_build:
+    name: Linux Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Configure Build
+        run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+
+      - name: Build Peoplemon
+        run: cd build && make
+
+      - name: Package Project
+        run: |
+          mkdir Peoplemon
+          mv Resources Peoplemon
+          mv PeoplemonRelease Peoplemon/Peoplemon
+          zip -r Linux.zip Peoplemon
+          
+          mv EditorResources Peoplemon
+          mv PeoplemonEditorRelease Peoplemon/PeoplemonEditor
+          zip -r LinuxEditor.zip Peoplemon
+
+      - name: Upload Game Package
+        id: upload-release-game 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.client_payload.release_url }}
+          asset_path: ./Linux.zip
+          asset_name: Linux.zip
+          asset_content_type: application/zip
+
+      - name: Upload Editor Package
+        id: upload-release-editor
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.client_payload.release_url }}
+          asset_path: ./LinuxEditor.zip
+          asset_name: LinuxEditor.zip
+          asset_content_type: application/zip
+
+  macos_build:
+    name: MacOS Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          submodules: 'recursive'
+
+      - name: Configure Build
+        run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+
+      - name: Build Peoplemon
+        run: cd build && make
+
+      - name: Package Project
+        run: |
+          mkdir Peoplemon.app
+          mkdir Peoplemon.app/Contents
+          mkdir Peoplemon.app/Contents/Resources
+          mkdir Peoplemon.app/Contents/MacOS
+
+          cp data/Info.plist Peoplemon.app/Contents
+          cp data/peoplemon.icns Peoplemon.app/Contents/Resources
+
+          mv Resources Peoplemon.app/Contents/MacOS
+          mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
+          zip -vr MacOS.zip Peoplemon.app
+          
+          mv -r Peoplemon.app PeoplemonEditor.app
+          mv EditorResources PeoplemonEditor.app/Contents/MacOS
+          mv PeoplemonEditorRelease PeoplemonEditor.app/Contents/MacOS/Peoplemon
+          zip -vr MacOSEditor.zip PeoplemonEditor.app
+
+      - name: Upload Game Package
+        id: upload-release-game 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.client_payload.release_url }}
+          asset_path: ./MacOS.zip
+          asset_name: MacOS.zip
+          asset_content_type: application/zip
+
+      - name: Upload Editor Package
+        id: upload-release-editor
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.client_payload.release_url }}
+          asset_path: ./MacOSEditor.zip
+          asset_name: MacOSEditor.zip
           asset_content_type: application/zip
