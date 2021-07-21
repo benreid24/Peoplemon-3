@@ -34,7 +34,7 @@ jobs:
           Compress-Archive -Path release -DestinationPath WindowsEditor.zip
 
       - name: Upload Game Package
-        id: upload-release-asset 
+        id: upload-release-game 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -45,7 +45,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Upload Editor Package
-        id: upload-release-asset 
+        id: upload-release-editor
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
