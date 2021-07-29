@@ -65,7 +65,10 @@ EventEditor::EventEditor(const OnEdit& oe)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
     editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        if (valid()) { onEdit(orig, makeEvent()); }
+        if (valid()) {
+            onEdit(orig, makeEvent());
+            window->remove();
+        }
     });
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");

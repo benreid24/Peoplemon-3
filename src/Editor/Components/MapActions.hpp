@@ -283,6 +283,8 @@ public:
 private:
     const core::map::Event event;
     const unsigned int i;
+
+    AddEventAction(const core::map::Event& e, unsigned int i);
 };
 
 class EditMap::EditEventAction : public EditMap::Action {
@@ -299,6 +301,8 @@ private:
     const core::map::Event orig;
     const core::map::Event val;
     const unsigned int i;
+
+    EditEventAction(const core::map::Event& orig, const core::map::Event& val, unsigned int i);
 };
 
 class EditMap::RemoveEventAction : public EditMap::Action {
@@ -313,6 +317,8 @@ public:
 private:
     const core::map::Event event;
     const unsigned int i;
+
+    RemoveEventAction(const core::map::Event& orig, unsigned int i);
 };
 
 } // namespace component

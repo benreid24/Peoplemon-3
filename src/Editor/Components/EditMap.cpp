@@ -535,7 +535,7 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 }
 
 void EditMap::createEvent(const core::map::Event& event) {
-    // TODO
+    addAction(AddEventAction::create(event, eventsField.getValue().size()));
 }
 
 const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
@@ -547,11 +547,15 @@ const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
 }
 
 void EditMap::editEvent(const core::map::Event* orig, const core::map::Event& val) {
-    // TODO
+    unsigned int i = 0;
+    while (&eventsField.getValue()[i] != orig) { ++i; }
+    addAction(EditEventAction::create(*orig, val, i));
 }
 
 void EditMap::removeEvent(const core::map::Event* e) {
-    // TODO
+    unsigned int i = 0;
+    while (&eventsField.getValue()[i] != e) { ++i; }
+    addAction(RemoveEventAction::create(*e, i));
 }
 
 } // namespace component
