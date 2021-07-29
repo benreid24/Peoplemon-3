@@ -1,5 +1,6 @@
 #include <Editor/Components/ScriptSelector.hpp>
 
+#include <BLIB/Scripts.hpp>
 #include <Core/Properties.hpp>
 
 namespace editor
@@ -15,6 +16,9 @@ ScriptSelector::ScriptSelector(const OnSelect& os)
          std::bind(&ScriptSelector::onPick, this, std::placeholders::_1),
          [this]() { picker.close(); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Select Script");
+    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
+        window->remove();
+    });
 
     Button::Ptr pickBut = Button::create("Pick File");
     pickBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
@@ -24,7 +28,7 @@ ScriptSelector::ScriptSelector(const OnSelect& os)
 
     scriptInput = TextEntry::create();
     scriptInput->setRequisition({250, 1});
-    scriptInput->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+    scriptInput->getSignal(Action::TextEntered).willAlwaysCall([this](const Action&, Element*) {
         checkSyntax();
     });
     window->pack(scriptInput, true, false);
@@ -60,7 +64,15 @@ void ScriptSelector::onPick(const std::string& s) {
 }
 
 void ScriptSelector::checkSyntax() {
-    // TODO
+    bl::script::Script script(scriptInput->getInput());
+    if (script.valid()) {
+        errorLabel->setText("No error");
+        errorLabel->setColor(sf::Color::Green, sf::Color::Transparent);
+    }
+    else {
+        errorLabel->setText(script.errorMessage());
+        errorLabel->setColor(sf::Color::Red, sf::Color::Transparent);
+    }
 }
 
 } // namespace component

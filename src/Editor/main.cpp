@@ -26,6 +26,7 @@ int main() {
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withWindowTitle("Peoplemon Editor")
             .withWindowIcon("EditorResources/icon.png")
+            .withAllowVariableTimestep(false)
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";
