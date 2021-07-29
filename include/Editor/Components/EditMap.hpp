@@ -225,10 +225,25 @@ public:
 
     void setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sunlight);
 
+    /**
+     * @brief Creates a new level
+     *
+     */
     void appendLevel();
 
+    /**
+     * @brief Shifts the given level up or down
+     *
+     * @param level The level to move
+     * @param up True for up, false for down
+     */
     void shiftLevel(unsigned int level, bool up);
 
+    /**
+     * @brief Removes the given level
+     *
+     * @param level The level to remove
+     */
     void removeLevel(unsigned int level);
 
     /**
