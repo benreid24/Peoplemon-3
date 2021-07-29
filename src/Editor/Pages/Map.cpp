@@ -50,6 +50,7 @@ Map::Map(core::system::Systems& s)
     Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newMapBut = Button::create("New Map");
     newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = true;
             mapPicker.open(FilePicker::CreateNew, "New map", parent);
@@ -57,6 +58,7 @@ Map::Map(core::system::Systems& s)
     });
     Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = false;
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
@@ -142,6 +144,7 @@ Map::Map(core::system::Systems& s)
     playlistLabel               = Label::create("playerlistFile.bplst");
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
@@ -287,12 +290,14 @@ Map::Map(core::system::Systems& s)
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
     pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         choosingOnloadScript = true;
         scriptSelector.open(parent, mapArea.editMap().getOnEnterScript());
     });
     row->pack(pickButton);
     pickButton = Button::create("Set OnExit");
     pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         choosingOnloadScript = false;
         scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
     });
@@ -570,8 +575,12 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         break;
 
     case Tool::Events:
-        if (createEventRadio->getValue()) { eventEditor.open(parent, nullptr, tiles); }
+        if (createEventRadio->getValue()) {
+            mapArea.disableControls();
+            eventEditor.open(parent, nullptr, tiles);
+        }
         else if (editEventRadio->getValue()) {
+            mapArea.disableControls();
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
             if (e) { eventEditor.open(parent, e, tiles); }
         }
@@ -680,6 +689,7 @@ void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val)
     else {
         mapArea.editMap().createEvent(val);
     }
+    mapArea.enableControls();
 }
 
 } // namespace page

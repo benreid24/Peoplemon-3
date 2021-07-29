@@ -33,7 +33,7 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
 
     Box::Ptr rightSide = Box::create(
         LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Compact, LinePacker::RightAlign));
-    CheckButton::Ptr enableBut = CheckButton::create("Enable Map Controls");
+    enableBut = CheckButton::create("Enable Map Controls");
     enableBut->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action& a, Element*) {
         map->setControlsEnabled(a.data.bvalue);
     });
@@ -76,6 +76,16 @@ void MapArea::refreshButtons() {
 void MapArea::onMouseOver(const sf::Vector2f&, const sf::Vector2i& tiles) {
     positionLabel->setText("Tile: (" + std::to_string(tiles.x) + ", " + std::to_string(tiles.y) +
                            ")");
+}
+
+void MapArea::disableControls() {
+    editMap().setControlsEnabled(false);
+    enableBut->setValue(false);
+}
+
+void MapArea::enableControls() {
+    editMap().setControlsEnabled(true);
+    enableBut->setValue(true);
 }
 
 } // namespace page
