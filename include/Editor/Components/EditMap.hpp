@@ -369,13 +369,35 @@ public:
 
     void removeLight(const sf::Vector2i& positionPixels);
 
+    /**
+     * @brief Creates a new map event
+     *
+     * @param event The event to create
+     */
     void createEvent(const core::map::Event& event);
 
+    /**
+     * @brief Returns a pointer to an event that overlaps the given position
+     *
+     * @param position The position to search
+     * @return const core::map::Event* Pointer to event or nullptr if none overlap
+     */
     const core::map::Event* getEvent(const sf::Vector2i& position);
 
+    /**
+     * @brief Alters the value of the given event
+     *
+     * @param orig Pointer to the event to update
+     * @param event New value to set
+     */
     void editEvent(const core::map::Event* orig, const core::map::Event& event);
 
-    void removeEvent(const sf::Vector2i& position);
+    /**
+     * @brief Deletes the given event
+     *
+     * @param event Pointer to the event to delete
+     */
+    void removeEvent(const core::map::Event* event);
 
     void addCatchZone(const core::map::CatchZone& zone);
 

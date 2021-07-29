@@ -42,7 +42,8 @@ Map::Map(core::system::Systems& s)
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
                  [this]() { playlistPicker.close(); })
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
-, choosingOnloadScript(false) {
+, choosingOnloadScript(false)
+, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2)) {
     content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
@@ -298,14 +299,16 @@ Map::Map(core::system::Systems& s)
     row->pack(pickButton);
     box->pack(row, true, false);
     eventBox->pack(box, true, true);
-    box                          = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createEvent = RadioButton::create("Create Event");
-    createEvent->setValue(true);
+    box              = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    createEventRadio = RadioButton::create("Create Event");
+    createEventRadio->setValue(true);
     label = Label::create("Delete Event");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    box->pack(createEvent);
-    box->pack(RadioButton::create("Edit Event", createEvent->getRadioGroup()));
-    box->pack(RadioButton::create(label, createEvent->getRadioGroup()));
+    box->pack(createEventRadio);
+    editEventRadio = RadioButton::create("Edit Event", createEventRadio->getRadioGroup());
+    box->pack(editEventRadio);
+    deleteEventRadio = RadioButton::create(label, createEventRadio->getRadioGroup());
+    box->pack(deleteEventRadio);
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
@@ -564,9 +567,30 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         default:
             break;
         }
+        break;
 
     case Tool::Events:
-        // TODO - handle event create/edit
+        if (createEventRadio->getValue()) { eventEditor.open(parent, nullptr, tiles); }
+        else if (editEventRadio->getValue()) {
+            const core::map::Event* e = mapArea.editMap().getEvent(tiles);
+            if (e) { eventEditor.open(parent, e, tiles); }
+        }
+        else if (deleteEventRadio->getValue()) {
+            const core::map::Event* e = mapArea.editMap().getEvent(tiles);
+            if (e) {
+                std::stringstream ss;
+                ss << e->script.getValue() << '\n';
+                ss << "Delete event?";
+                std::string s = ss.str();
+                for (char& c : s) {
+                    if (c == '"' || c == '\'') { c = '`'; }
+                }
+                if (1 == bl::dialog::tinyfd_messageBox(
+                             "Delete Event?", s.c_str(), "yesno", "warning", 0)) {
+                    mapArea.editMap().removeEvent(e);
+                }
+            }
+        }
         break;
 
     case Tool::Items:
@@ -648,6 +672,13 @@ void Map::onChooseScript(const std::string& s) {
     if (choosingOnloadScript) { mapArea.editMap().setOnEnterScript(s); }
     else {
         mapArea.editMap().setOnExitScript(s);
+    }
+}
+
+void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val) {
+    if (orig) { mapArea.editMap().editEvent(orig, val); }
+    else {
+        mapArea.editMap().createEvent(val);
     }
 }
 

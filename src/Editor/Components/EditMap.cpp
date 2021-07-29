@@ -534,5 +534,25 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     }
 }
 
+void EditMap::createEvent(const core::map::Event& event) {
+    // TODO
+}
+
+const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
+    for (const core::map::Event& event : eventsField.getValue()) {
+        const sf::IntRect area(event.position, event.areaSize);
+        if (area.contains(tiles)) return &event;
+    }
+    return nullptr;
+}
+
+void EditMap::editEvent(const core::map::Event* orig, const core::map::Event& val) {
+    // TODO
+}
+
+void EditMap::removeEvent(const core::map::Event* e) {
+    // TODO
+}
+
 } // namespace component
 } // namespace editor

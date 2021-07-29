@@ -60,6 +60,7 @@ void ScriptSelector::open(const GUI::Ptr& p, const std::string& s) {
 
 void ScriptSelector::onPick(const std::string& s) {
     scriptInput->setInput(s);
+    picker.close();
     checkSyntax();
 }
 
