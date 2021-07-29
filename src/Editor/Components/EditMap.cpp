@@ -491,9 +491,22 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         }
         break;
 
-    case RenderOverlay::Events:
-        // TODO
-        break;
+    case RenderOverlay::Events: {
+        static sf::Clock timer;
+        sf::RectangleShape area;
+        const std::uint8_t a =
+            static_cast<int>(timer.getElapsedTime().asSeconds()) % 2 == 0 ? 165 : 100;
+        area.setFillColor(sf::Color(0, 0, 0, a));
+        for (const auto& event : eventsField.getValue()) {
+            const auto& pos  = event.position.getValue();
+            const auto& size = event.areaSize.getValue();
+            area.setPosition(static_cast<float>(pos.x) * core::Properties::PixelsPerTile(),
+                             static_cast<float>(pos.y) * core::Properties::PixelsPerTile());
+            area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
+                          static_cast<float>(size.y) * core::Properties::PixelsPerTile()});
+            target.draw(area);
+        }
+    } break;
 
     case RenderOverlay::PeoplemonZones:
         // TODO
