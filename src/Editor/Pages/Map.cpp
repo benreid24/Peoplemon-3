@@ -40,7 +40,9 @@ Map::Map(core::system::Systems& s)
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
 , playlistPicker(core::Properties::PlaylistPath(), {"plst"},
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
-                 [this]() { playlistPicker.close(); }) {
+                 [this]() { playlistPicker.close(); })
+, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
+, choosingOnloadScript(false) {
     content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
@@ -283,8 +285,16 @@ Map::Map(core::system::Systems& s)
     box->pack(row, true, false);
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
+    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        choosingOnloadScript = true;
+        scriptSelector.open(parent, mapArea.editMap().getOnEnterScript());
+    });
     row->pack(pickButton);
     pickButton = Button::create("Set OnExit");
+    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        choosingOnloadScript = false;
+        scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
+    });
     row->pack(pickButton);
     box->pack(row, true, false);
     eventBox->pack(box, true, true);
@@ -340,7 +350,7 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
-    controlBook->addPage("events", "Scripts", eventBox);
+    controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
     controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
 
     controlPane->pack(mapCtrlBox, true, false);
@@ -376,7 +386,12 @@ void Map::update(float) {
 
     default:
         // TODO - check for events or catch zones or whatever else
-        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        if (activeTool == Tool::Events) {
+            mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Events, 0);
+        }
+        else {
+            mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        }
         break;
     }
 
@@ -550,6 +565,10 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             break;
         }
 
+    case Tool::Events:
+        // TODO - handle event create/edit
+        break;
+
     case Tool::Items:
     case Tool::Lights:
     case Tool::NPCs:
@@ -595,6 +614,9 @@ void Map::syncGui() {
     nameEntry->setInput(mapArea.editMap().name());
     playlistLabel->setText(mapArea.editMap().playlistField);
     weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField.getValue()));
+
+    onEnterLabel->setText(mapArea.editMap().getOnEnterScript());
+    onExitLabel->setText(mapArea.editMap().getOnExitScript());
 }
 
 void Map::onLevelChange(unsigned int l) {
@@ -620,6 +642,13 @@ void Map::onLevelChange(unsigned int l) {
         layerSelect->addOption("Layer " + std::to_string(i));
     }
     layerSelect->setSelectedOption(0);
+}
+
+void Map::onChooseScript(const std::string& s) {
+    if (choosingOnloadScript) { mapArea.editMap().setOnEnterScript(s); }
+    else {
+        mapArea.editMap().setOnExitScript(s);
+    }
 }
 
 } // namespace page

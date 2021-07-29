@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_MAP_HPP
 
 #include <Editor/Components/NewMapDialog.hpp>
+#include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
@@ -65,6 +66,7 @@ private:
     enum struct Tool {
         Metadata,
         MapEdit,
+        Events,
         Spawns,
         NPCs,
         Items,
@@ -87,6 +89,10 @@ private:
 
     bl::gui::FilePicker playlistPicker;
     void onChoosePlaylist(const std::string& file);
+
+    component::ScriptSelector scriptSelector;
+    bool choosingOnloadScript;
+    void onChooseScript(const std::string& script);
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
     void onLevelChange(unsigned int level);

@@ -254,6 +254,23 @@ private:
     AppendLevelAction() = default;
 };
 
+class EditMap::SetScriptAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(bool load, const std::string& s, const std::string& p);
+
+    virtual ~SetScriptAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const bool load;
+    const std::string s;
+    const std::string p;
+
+    SetScriptAction(bool load, const std::string& s, const std::string& p);
+};
+
 } // namespace component
 } // namespace editor
 

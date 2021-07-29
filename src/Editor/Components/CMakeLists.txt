@@ -4,4 +4,5 @@ target_sources(PeoplemonEditor PRIVATE
     MapActions.hpp
     MapActions.cpp
     NewMapDialog.cpp
+    ScriptSelector.cpp
 )

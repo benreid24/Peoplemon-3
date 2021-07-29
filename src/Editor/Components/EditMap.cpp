@@ -382,6 +382,18 @@ void EditMap::shiftLevel(unsigned int level, bool up) {
 
 void EditMap::appendLevel() { addAction(AppendLevelAction::create()); }
 
+void EditMap::setOnEnterScript(const std::string& s) {
+    addAction(SetScriptAction::create(true, s, loadScriptField.getValue()));
+}
+
+const std::string& EditMap::getOnEnterScript() const { return loadScriptField.getValue(); }
+
+void EditMap::setOnExitScript(const std::string& s) {
+    addAction(SetScriptAction::create(false, s, unloadScriptField.getValue()));
+}
+
+const std::string& EditMap::getOnExitScript() const { return unloadScriptField.getValue(); }
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();

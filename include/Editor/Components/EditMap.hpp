@@ -197,9 +197,31 @@ public:
      */
     void setWeather(core::map::Weather::Type weather);
 
+    /**
+     * @brief Set the OnEnter script
+     *
+     * @param script The script to run when the map is entered
+     */
     void setOnEnterScript(const std::string& script);
 
+    /**
+     * @brief Get the OnEnter script
+     *
+     */
+    const std::string& getOnEnterScript() const;
+
+    /**
+     * @brief Set the OnExit script
+     *
+     * @param script The script to run when the map is left
+     */
     void setOnExitScript(const std::string& script);
+
+    /**
+     * @brief Get the OnExit script
+     *
+     */
+    const std::string& getOnExitScript() const;
 
     void setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sunlight);
 
@@ -409,8 +431,7 @@ private:
     class SetWeatherAction;
     class SetYSortLayerAction;
     class SetTopLayerAction;
-    class SetEnterScriptAction;
-    class SetExitScriptAction;
+    class SetScriptAction;
     class SetAmbientLightAction;
     class AppendLevelAction;
     class ShiftLevelAction;

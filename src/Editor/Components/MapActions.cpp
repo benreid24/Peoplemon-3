@@ -677,5 +677,36 @@ bool EditMap::AppendLevelAction::undo(EditMap& map) {
 
 const char* EditMap::AppendLevelAction::description() const { return "add level"; }
 
+EditMap::Action::Ptr EditMap::SetScriptAction::create(bool l, const std::string& s,
+                                                      const std::string& p) {
+    return Ptr(new SetScriptAction(l, s, p));
+}
+
+EditMap::SetScriptAction::SetScriptAction(bool l, const std::string& s, const std::string& p)
+: load(l)
+, s(s)
+, p(p) {}
+
+bool EditMap::SetScriptAction::apply(EditMap& map) {
+    if (load) { map.loadScriptField = s; }
+    else {
+        map.unloadScriptField = s;
+    }
+    return true;
+}
+
+bool EditMap::SetScriptAction::undo(EditMap& map) {
+    if (load) { map.loadScriptField = p; }
+    else {
+        map.unloadScriptField = p;
+    }
+    return true;
+}
+
+const char* EditMap::SetScriptAction::description() const {
+    if (load) { return "set load script"; }
+    return "set unload script";
+}
+
 } // namespace component
 } // namespace editor
