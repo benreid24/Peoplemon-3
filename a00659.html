@@ -63,28 +63,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00564.html">component</a></li><li class="navelem"><a class="el" href="a00662.html">Renderable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00576.html">component</a></li><li class="navelem"><a class="el" href="a00662.html">PlayerControlled</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::component::Renderable Member List</div>  </div>
+<div class="title">core::component::PlayerControlled Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00662.html">core::component::Renderable</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00662.html">core::component::PlayerControlled</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00662.html#afbc35a80a860222628b2239ab693dade">ComponentId</a></td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00662.html#a300fb0790c27a9a4a2d6bea0783c301a">fromFastMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;move, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00662.html#af852c36b8ce6f2794472eae9b59d5c21">fromMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;movable, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00662.html#a0cee571f9b7a800317e91eacf9f2847d">fromSprite</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const std::string &amp;path)</td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00662.html#a3691814b322367e67aa8d3b6547bfdf4">render</a>(sf::RenderTarget &amp;target, float lag) const</td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00662.html#ae5ee62852d8ec0ee85abaee830750d1d">update</a>(float dt)</td><td class="entry"><a class="el" href="a00662.html">core::component::Renderable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00662.html#a0c4d7ca951bf765b459a0466cabf18a1">ComponentId</a></td><td class="entry"><a class="el" href="a00662.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00890.html#aeffd124ef155fca87d6670f47b001718">Listener</a>()</td><td class="entry"><a class="el" href="a00890.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00890.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a00890.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00890.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a>(Listener &amp;&amp;copy)</td><td class="entry"><a class="el" href="a00890.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00662.html#a46b365ec25a817dd7c38dec3bec18c1f">PlayerControlled</a>(system::Systems &amp;systems, const bl::entity::Registry::ComponentHandle&lt; component::Controllable &gt; &amp;controllable)</td><td class="entry"><a class="el" href="a00662.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00662.html#a1ebed2e98971e58292857d8c1ba9943c">process</a>(Command input) override</td><td class="entry"><a class="el" href="a00662.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00662.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>()</td><td class="entry"><a class="el" href="a00662.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00662.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>()</td><td class="entry"><a class="el" href="a00662.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00890.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a>()</td><td class="entry"><a class="el" href="a00890.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::Map Class Reference</title>
+<title>Peoplemon: core::map::LayerSet Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,374 +63,321 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00569.html">map</a></li><li class="navelem"><a class="el" href="a00834.html">Map</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00581.html">map</a></li><li class="navelem"><a class="el" href="a00834.html">LayerSet</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="a00831.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Map Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00553.html">Maps</a></div></div>  </div>
+<div class="title">core::map::LayerSet Class Reference<div class="ingroups"><a class="el" href="a00557.html">Core</a> &raquo; <a class="el" href="a00565.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The primary map class that represents a usable map in the game.  
+<p>Encapsulates a set of layers for a given map height. Maps have one <a class="el" href="a00834.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a> per height level, as well as a TransitionLayer.  
  <a href="a00834.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01477_source.html">Map.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00098_source.html">LayerSet.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::Map:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::LayerSet:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a00834.png" usemap="#core::map::Map_map" alt=""/>
-  <map id="core::map::Map_map" name="core::map::Map_map">
-<area href="a00990.html" title="Wrapper over the core::Map class that is directly usable in a bl::gui::GUI. " alt="editor::component::EditMap" shape="rect" coords="125,112,366,136"/>
+  <img src="a00834.png" usemap="#core::map::LayerSet_map" alt=""/>
+  <map id="core::map::LayerSet_map" name="core::map::LayerSet_map">
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:acc0e9dfed87249efd330bb6bac1bb844"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#acc0e9dfed87249efd330bb6bac1bb844">EntityRenderCallback</a> = std::function&lt; void(std::uint8_t level, unsigned int row, unsigned int minX, unsigned int maxX)&gt;</td></tr>
-<tr class="memdesc:acc0e9dfed87249efd330bb6bac1bb844"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function signature for the callback to render rows of entities.  <a href="#acc0e9dfed87249efd330bb6bac1bb844">More...</a><br /></td></tr>
-<tr class="separator:acc0e9dfed87249efd330bb6bac1bb844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a54e929330e60ddbf84378829e31a182f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a54e929330e60ddbf84378829e31a182f">Map</a> ()</td></tr>
-<tr class="memdesc:a54e929330e60ddbf84378829e31a182f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="a00834.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="#a54e929330e60ddbf84378829e31a182f">More...</a><br /></td></tr>
-<tr class="separator:a54e929330e60ddbf84378829e31a182f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9f2d740b0c98b070b4820e5dd63d53"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a2f9f2d740b0c98b070b4820e5dd63d53">~Map</a> ()=default</td></tr>
-<tr class="memdesc:a2f9f2d740b0c98b070b4820e5dd63d53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a00834.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="#a2f9f2d740b0c98b070b4820e5dd63d53">More...</a><br /></td></tr>
-<tr class="separator:a2f9f2d740b0c98b070b4820e5dd63d53"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4094150c3345d44d091ea24c8bb810ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a4094150c3345d44d091ea24c8bb810ae">load</a> (const std::string &amp;file)</td></tr>
-<tr class="memdesc:a4094150c3345d44d091ea24c8bb810ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the map from the given file. Will try to determine if the extension or path need to be added in order to support how map names used to be entered.  <a href="#a4094150c3345d44d091ea24c8bb810ae">More...</a><br /></td></tr>
-<tr class="separator:a4094150c3345d44d091ea24c8bb810ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a407fdd7f538bc392009cf390a37aa05a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a407fdd7f538bc392009cf390a37aa05a">save</a> (const std::string &amp;file)</td></tr>
-<tr class="memdesc:a407fdd7f538bc392009cf390a37aa05a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the map to the given file. The path should be relative to the maps directory and include the .map extension.  <a href="#a407fdd7f538bc392009cf390a37aa05a">More...</a><br /></td></tr>
-<tr class="separator:a407fdd7f538bc392009cf390a37aa05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3e2fb0f6724e1888a44e3c3b19c2100"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aa3e2fb0f6724e1888a44e3c3b19c2100">enter</a> (<a class="el" href="a00982.html">system::Systems</a> &amp;<a class="el" href="a00834.html#af6b1bb3f4c3827e1a1e6bba30e9abbaf">systems</a>, std::uint16_t spawnId, const std::string &amp;prevMap)</td></tr>
-<tr class="memdesc:aa3e2fb0f6724e1888a44e3c3b19c2100"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes runtime data structures and spawns entities into the game. Also runs the on-load script.  <a href="#aa3e2fb0f6724e1888a44e3c3b19c2100">More...</a><br /></td></tr>
-<tr class="separator:aa3e2fb0f6724e1888a44e3c3b19c2100"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f29db7be27249b09782f456e3848b57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a8f29db7be27249b09782f456e3848b57">exit</a> (<a class="el" href="a00982.html">system::Systems</a> &amp;<a class="el" href="a00834.html#af6b1bb3f4c3827e1a1e6bba30e9abbaf">systems</a>, const std::string &amp;newMap)</td></tr>
-<tr class="memdesc:a8f29db7be27249b09782f456e3848b57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes spawned entities and runs the on-unload script.  <a href="#a8f29db7be27249b09782f456e3848b57">More...</a><br /></td></tr>
-<tr class="separator:a8f29db7be27249b09782f456e3848b57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8f5d395c8461b985b62172935226749"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af8f5d395c8461b985b62172935226749">name</a> () const</td></tr>
-<tr class="memdesc:af8f5d395c8461b985b62172935226749"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the map.  <a href="#af8f5d395c8461b985b62172935226749">More...</a><br /></td></tr>
-<tr class="separator:af8f5d395c8461b985b62172935226749"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad15ddd5ceb1065b4c3b325d92b095c6e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00854.html">Weather</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ad15ddd5ceb1065b4c3b325d92b095c6e">weatherSystem</a> ()</td></tr>
-<tr class="memdesc:ad15ddd5ceb1065b4c3b325d92b095c6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the weather system in this map.  <a href="#ad15ddd5ceb1065b4c3b325d92b095c6e">More...</a><br /></td></tr>
-<tr class="separator:ad15ddd5ceb1065b4c3b325d92b095c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60e86e22243ee4db667f5925ddc1133b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00830.html">LightingSystem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a60e86e22243ee4db667f5925ddc1133b">lightingSystem</a> ()</td></tr>
-<tr class="memdesc:a60e86e22243ee4db667f5925ddc1133b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the lighting system in this map.  <a href="#a60e86e22243ee4db667f5925ddc1133b">More...</a><br /></td></tr>
-<tr class="separator:a60e86e22243ee4db667f5925ddc1133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9df15ba047b6d7d206240074fd33ae36"><td class="memItemLeft" align="right" valign="top">const sf::Vector2i &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a9df15ba047b6d7d206240074fd33ae36">sizeTiles</a> () const</td></tr>
-<tr class="memdesc:a9df15ba047b6d7d206240074fd33ae36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the map in tiles.  <a href="#a9df15ba047b6d7d206240074fd33ae36">More...</a><br /></td></tr>
-<tr class="separator:a9df15ba047b6d7d206240074fd33ae36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9e4a26b354554a05370597e19fb0799"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af9e4a26b354554a05370597e19fb0799">sizePixels</a> () const</td></tr>
-<tr class="memdesc:af9e4a26b354554a05370597e19fb0799"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the map in pixels.  <a href="#af9e4a26b354554a05370597e19fb0799">More...</a><br /></td></tr>
-<tr class="separator:af9e4a26b354554a05370597e19fb0799"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a833e582ddd65ac935efec33e3d0559af"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a833e582ddd65ac935efec33e3d0559af">levelCount</a> () const</td></tr>
-<tr class="memdesc:a833e582ddd65ac935efec33e3d0559af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of levels in the map.  <a href="#a833e582ddd65ac935efec33e3d0559af">More...</a><br /></td></tr>
-<tr class="separator:a833e582ddd65ac935efec33e3d0559af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a840df67936d59acd8c48a81e613bb3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a6a840df67936d59acd8c48a81e613bb3">update</a> (<a class="el" href="a00982.html">system::Systems</a> &amp;<a class="el" href="a00834.html#af6b1bb3f4c3827e1a1e6bba30e9abbaf">systems</a>, float dt)</td></tr>
-<tr class="memdesc:a6a840df67936d59acd8c48a81e613bb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates internal logic over the elapsed time.  <a href="#a6a840df67936d59acd8c48a81e613bb3">More...</a><br /></td></tr>
-<tr class="separator:a6a840df67936d59acd8c48a81e613bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3461aea991fb6d712e8741f399f1a019"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a3461aea991fb6d712e8741f399f1a019">render</a> (sf::RenderTarget &amp;target, float residual, const <a class="el" href="a00834.html#acc0e9dfed87249efd330bb6bac1bb844">EntityRenderCallback</a> &amp;entityCb) const</td></tr>
-<tr class="memdesc:a3461aea991fb6d712e8741f399f1a019"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the map to the given target using its built-in View.  <a href="#a3461aea991fb6d712e8741f399f1a019">More...</a><br /></td></tr>
-<tr class="separator:a3461aea991fb6d712e8741f399f1a019"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b0ee3fa55190772b2a5457fe0908911"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a5b0ee3fa55190772b2a5457fe0908911">contains</a> (const <a class="el" href="a00654.html">component::Position</a> &amp;position) const</td></tr>
-<tr class="memdesc:a5b0ee3fa55190772b2a5457fe0908911"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the map contains the given position.  <a href="#a5b0ee3fa55190772b2a5457fe0908911">More...</a><br /></td></tr>
-<tr class="separator:a5b0ee3fa55190772b2a5457fe0908911"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa94e9e5e3d40c7571c86accb2dc20d58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00654.html">component::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aa94e9e5e3d40c7571c86accb2dc20d58">adjacentTile</a> (const <a class="el" href="a00654.html">component::Position</a> &amp;pos, <a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> dir) const</td></tr>
-<tr class="memdesc:aa94e9e5e3d40c7571c86accb2dc20d58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the adjacent position to the given position when moving in the given direction. Does not take into account collisions.  <a href="#aa94e9e5e3d40c7571c86accb2dc20d58">More...</a><br /></td></tr>
-<tr class="separator:aa94e9e5e3d40c7571c86accb2dc20d58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2ff9b41bcd36a1c549b976d82e5411"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ade2ff9b41bcd36a1c549b976d82e5411">movePossible</a> (const <a class="el" href="a00654.html">component::Position</a> &amp;position, <a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> dir) const</td></tr>
-<tr class="memdesc:ade2ff9b41bcd36a1c549b976d82e5411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a particular movement is possible. Does not take into account entities blocking the way.  <a href="#ade2ff9b41bcd36a1c549b976d82e5411">More...</a><br /></td></tr>
-<tr class="separator:ade2ff9b41bcd36a1c549b976d82e5411"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04325969a762da291e93b7fd3da05c51"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a04325969a762da291e93b7fd3da05c51">observe</a> (const <a class="el" href="a00706.html">event::EntityMoved</a> &amp;moveEvent) override</td></tr>
-<tr class="memdesc:a04325969a762da291e93b7fd3da05c51"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a00810.html" title="Represents an event in a Map. A script that is run on a trigger within a given region. ">Event</a> listener for moving entities. Used to trigger map events.  <a href="#a04325969a762da291e93b7fd3da05c51">More...</a><br /></td></tr>
-<tr class="separator:a04325969a762da291e93b7fd3da05c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec99911fc9d5bc0970e56c436ddd7d69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aec99911fc9d5bc0970e56c436ddd7d69">interact</a> (bl::entity::Entity interactor, const <a class="el" href="a00654.html">component::Position</a> &amp;interactPos)</td></tr>
-<tr class="memdesc:aec99911fc9d5bc0970e56c436ddd7d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lets entities interact with the map itself. This is called by the Interaction system.  <a href="#aec99911fc9d5bc0970e56c436ddd7d69">More...</a><br /></td></tr>
-<tr class="separator:aec99911fc9d5bc0970e56c436ddd7d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ab14aa28e11766d37a924331b42c80a22"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ab14aa28e11766d37a924331b42c80a22">clear</a> ()</td></tr>
-<tr class="separator:ab14aa28e11766d37a924331b42c80a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac4613a5c40778e3a1e369806b4e414"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a2ac4613a5c40778e3a1e369806b4e414">triggerAnimation</a> (const <a class="el" href="a00654.html">component::Position</a> &amp;position)</td></tr>
-<tr class="separator:a2ac4613a5c40778e3a1e369806b4e414"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a49b66b62049670895781179190b32a36"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 1, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a49b66b62049670895781179190b32a36">nameField</a></td></tr>
-<tr class="separator:a49b66b62049670895781179190b32a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdde3e087ece55ef8098e4fb56e5b70d"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 2, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#acdde3e087ece55ef8098e4fb56e5b70d">loadScriptField</a></td></tr>
-<tr class="separator:acdde3e087ece55ef8098e4fb56e5b70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af112ccfdbc37e39fe43de3d04e97face"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 3, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af112ccfdbc37e39fe43de3d04e97face">unloadScriptField</a></td></tr>
-<tr class="separator:af112ccfdbc37e39fe43de3d04e97face"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a757a5276834006e8c38b34635745b507"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 4, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a757a5276834006e8c38b34635745b507">playlistField</a></td></tr>
-<tr class="separator:a757a5276834006e8c38b34635745b507"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82cbac005e2c7b2c0bd7129bb3377341"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 5, <a class="el" href="a00854.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a82cbac005e2c7b2c0bd7129bb3377341">weatherField</a></td></tr>
-<tr class="separator:a82cbac005e2c7b2c0bd7129bb3377341"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e64d61a4a926033e0eca4fb867966c4"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 6, std::vector&lt; <a class="el" href="a00822.html">LayerSet</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a5e64d61a4a926033e0eca4fb867966c4">levelsField</a></td></tr>
-<tr class="separator:a5e64d61a4a926033e0eca4fb867966c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a79fb8ba2e4fd37c67acf3e36de52a61d"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 7, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a79fb8ba2e4fd37c67acf3e36de52a61d">tilesetField</a></td></tr>
-<tr class="separator:a79fb8ba2e4fd37c67acf3e36de52a61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaceb01b8360c354ed6141703e632e863"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 8, std::unordered_map&lt; std::uint16_t, <a class="el" href="a00838.html">Spawn</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aaceb01b8360c354ed6141703e632e863">spawnField</a></td></tr>
-<tr class="separator:aaceb01b8360c354ed6141703e632e863"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a835cf2e4fa27b2ad9266a1f830b01f1c"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 9, std::vector&lt; <a class="el" href="a00806.html">CharacterSpawn</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a835cf2e4fa27b2ad9266a1f830b01f1c">characterField</a></td></tr>
-<tr class="separator:a835cf2e4fa27b2ad9266a1f830b01f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9de7e7a21573f487afd36653d082d34"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 10, std::vector&lt; <a class="el" href="a00814.html">Item</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ac9de7e7a21573f487afd36653d082d34">itemsField</a></td></tr>
-<tr class="separator:ac9de7e7a21573f487afd36653d082d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99bbbbb8680600470224c895d348e5c4"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 11, std::vector&lt; <a class="el" href="a00810.html">Event</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a99bbbbb8680600470224c895d348e5c4">eventsField</a></td></tr>
-<tr class="separator:a99bbbbb8680600470224c895d348e5c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36ad21c0461e2345ef9ff1c3a02098dc"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 12, <a class="el" href="a00830.html">LightingSystem</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a36ad21c0461e2345ef9ff1c3a02098dc">lightsField</a></td></tr>
-<tr class="separator:a36ad21c0461e2345ef9ff1c3a02098dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af14f7bb1a45100d65fa0a1b9cb7b7a99"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 13, std::vector&lt; <a class="el" href="a00802.html">CatchZone</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af14f7bb1a45100d65fa0a1b9cb7b7a99">catchZonesField</a></td></tr>
-<tr class="separator:af14f7bb1a45100d65fa0a1b9cb7b7a99"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82db11a41091be57000c9cc14b1beb3"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 14, bl::container::Vector2D&lt; <a class="el" href="a00553.html#gacd6894855472f8b22d022ece25eda9b4">LevelTransition</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aa82db11a41091be57000c9cc14b1beb3">transitionField</a></td></tr>
-<tr class="separator:aa82db11a41091be57000c9cc14b1beb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6b1bb3f4c3827e1a1e6bba30e9abbaf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00982.html">system::Systems</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af6b1bb3f4c3827e1a1e6bba30e9abbaf">systems</a></td></tr>
-<tr class="separator:af6b1bb3f4c3827e1a1e6bba30e9abbaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67fc3881397fbf275aa87f6e7e7afda5"><td class="memItemLeft" align="right" valign="top">sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a67fc3881397fbf275aa87f6e7e7afda5">size</a></td></tr>
-<tr class="separator:a67fc3881397fbf275aa87f6e7e7afda5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac90f1b6379cde5d99141d59f1c5a4fe2"><td class="memItemLeft" align="right" valign="top">bl::resource::Resource&lt; <a class="el" href="a00850.html">Tileset</a> &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ac90f1b6379cde5d99141d59f1c5a4fe2">tileset</a></td></tr>
-<tr class="separator:ac90f1b6379cde5d99141d59f1c5a4fe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af16585980e2bc12ba56628abda649bc9"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00822.html">LayerSet</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af16585980e2bc12ba56628abda649bc9">levels</a></td></tr>
-<tr class="separator:af16585980e2bc12ba56628abda649bc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ffe64af395d8973af09eb294db30b01"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::uint16_t, <a class="el" href="a00838.html">Spawn</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a7ffe64af395d8973af09eb294db30b01">spawns</a></td></tr>
-<tr class="separator:a7ffe64af395d8973af09eb294db30b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f8e9e4439c27e830242b631649ef0f3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00854.html">Weather</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a4f8e9e4439c27e830242b631649ef0f3">weather</a></td></tr>
-<tr class="separator:a4f8e9e4439c27e830242b631649ef0f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af853e8387a4be929c7f9b4e338904fe3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00830.html">LightingSystem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af853e8387a4be929c7f9b4e338904fe3">lighting</a></td></tr>
-<tr class="separator:af853e8387a4be929c7f9b4e338904fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78cc69777581c6dca1ebcd9b52c7c6e2"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; bl::script::Script &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a78cc69777581c6dca1ebcd9b52c7c6e2">onEnterScript</a></td></tr>
-<tr class="separator:a78cc69777581c6dca1ebcd9b52c7c6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a9fd44626fd4f63907fb76840cef8cc"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; bl::script::Script &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a8a9fd44626fd4f63907fb76840cef8cc">onExitScript</a></td></tr>
-<tr class="separator:a8a9fd44626fd4f63907fb76840cef8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d72efdacc1ae41f5a3d0799ff81df15"><td class="memItemLeft" align="right" valign="top">bl::container::Grid&lt; const <a class="el" href="a00810.html">Event</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a9d72efdacc1ae41f5a3d0799ff81df15">eventRegions</a></td></tr>
-<tr class="separator:a9d72efdacc1ae41f5a3d0799ff81df15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add95424621aedccbc147298f78beaabf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#add95424621aedccbc147298f78beaabf">activated</a></td></tr>
-<tr class="separator:add95424621aedccbc147298f78beaabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9cbf1cd91928b4d3c055bdee88a0b56d"><td class="memItemLeft" align="right" valign="top">sf::IntRect&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a9cbf1cd91928b4d3c055bdee88a0b56d">renderRange</a></td></tr>
-<tr class="separator:a9cbf1cd91928b4d3c055bdee88a0b56d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4b947135fc8c4c213b1b21b60574f8"><td class="memItemLeft" align="right" valign="top">sf::RectangleShape&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a6f4b947135fc8c4c213b1b21b60574f8">cover</a></td></tr>
-<tr class="separator:a6f4b947135fc8c4c213b1b21b60574f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a7c80f581370155f01148731497a89423"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a7c80f581370155f01148731497a89423">loaders::LegacyMapLoader</a></td></tr>
-<tr class="separator:a7c80f581370155f01148731497a89423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d0e44f96d891e21fa96c452fb5dae71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a9d0e44f96d891e21fa96c452fb5dae71">LayerSet</a> ()</td></tr>
+<tr class="memdesc:a9d0e44f96d891e21fa96c452fb5dae71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builds a new empty layer set.  <a href="#a9d0e44f96d891e21fa96c452fb5dae71">More...</a><br /></td></tr>
+<tr class="separator:a9d0e44f96d891e21fa96c452fb5dae71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c40addec545a46e44a3fc267248a373"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a4c40addec545a46e44a3fc267248a373">LayerSet</a> (<a class="el" href="a00834.html">LayerSet</a> &amp;&amp;move)</td></tr>
+<tr class="memdesc:a4c40addec545a46e44a3fc267248a373"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructs the layer set from the given layer set.  <a href="#a4c40addec545a46e44a3fc267248a373">More...</a><br /></td></tr>
+<tr class="separator:a4c40addec545a46e44a3fc267248a373"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4b6ad85f402da0389410f15de9ff22d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ae4b6ad85f402da0389410f15de9ff22d">LayerSet</a> (const <a class="el" href="a00834.html">LayerSet</a> &amp;copy)</td></tr>
+<tr class="memdesc:ae4b6ad85f402da0389410f15de9ff22d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructs from the given layer set.  <a href="#ae4b6ad85f402da0389410f15de9ff22d">More...</a><br /></td></tr>
+<tr class="separator:ae4b6ad85f402da0389410f15de9ff22d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04216c8dcfded560e0ac260f70a6e083"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00834.html">LayerSet</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a04216c8dcfded560e0ac260f70a6e083">operator=</a> (const <a class="el" href="a00834.html">LayerSet</a> &amp;copy)</td></tr>
+<tr class="memdesc:a04216c8dcfded560e0ac260f70a6e083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies the internals from the given layer set.  <a href="#a04216c8dcfded560e0ac260f70a6e083">More...</a><br /></td></tr>
+<tr class="separator:a04216c8dcfded560e0ac260f70a6e083"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a020db7d524731baf7ec546c647667b34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a020db7d524731baf7ec546c647667b34">init</a> (unsigned int width, unsigned int height, unsigned int bottomLayerCount, unsigned int ysortLayerCount, unsigned int topLayercount)</td></tr>
+<tr class="memdesc:a020db7d524731baf7ec546c647667b34"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the given number of layers and sets the proper size for each layer, initializing each layer tile to empty.  <a href="#a020db7d524731baf7ec546c647667b34">More...</a><br /></td></tr>
+<tr class="separator:a020db7d524731baf7ec546c647667b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1593b8a98dcd472e3c427a13306704dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a1593b8a98dcd472e3c427a13306704dc">activate</a> (<a class="el" href="a00862.html">Tileset</a> &amp;tileset)</td></tr>
+<tr class="memdesc:a1593b8a98dcd472e3c427a13306704dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all the tiles for rendering. This must be called before rendering is done.  <a href="#a1593b8a98dcd472e3c427a13306704dc">More...</a><br /></td></tr>
+<tr class="separator:a1593b8a98dcd472e3c427a13306704dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad3584dd2249cf0a3e356b2ace33e64e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00565.html#ga66eea922eb1a848502083dd129b60e7f">CollisionLayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#aad3584dd2249cf0a3e356b2ace33e64e">collisionLayer</a> ()</td></tr>
+<tr class="memdesc:aad3584dd2249cf0a3e356b2ace33e64e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the collision layer for this set.  <a href="#aad3584dd2249cf0a3e356b2ace33e64e">More...</a><br /></td></tr>
+<tr class="separator:aad3584dd2249cf0a3e356b2ace33e64e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a11fd05aa30dce62dcedf9af70a3a9dc3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00565.html#ga4a075115f26522d583c4790378b17bac">CatchLayer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a11fd05aa30dce62dcedf9af70a3a9dc3">catchLayer</a> ()</td></tr>
+<tr class="memdesc:a11fd05aa30dce62dcedf9af70a3a9dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the catchable layer for this set.  <a href="#a11fd05aa30dce62dcedf9af70a3a9dc3">More...</a><br /></td></tr>
+<tr class="separator:a11fd05aa30dce62dcedf9af70a3a9dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a137a4f0975b7772829d48858366daa1d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a137a4f0975b7772829d48858366daa1d">bottomLayers</a> ()</td></tr>
+<tr class="memdesc:a137a4f0975b7772829d48858366daa1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the bottom tiles in this set.  <a href="#a137a4f0975b7772829d48858366daa1d">More...</a><br /></td></tr>
+<tr class="separator:a137a4f0975b7772829d48858366daa1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcfc8139cbc2571dbda7f89b5e6b4b35"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#adcfc8139cbc2571dbda7f89b5e6b4b35">ysortLayers</a> ()</td></tr>
+<tr class="memdesc:adcfc8139cbc2571dbda7f89b5e6b4b35"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the sorted tiles in this set.  <a href="#adcfc8139cbc2571dbda7f89b5e6b4b35">More...</a><br /></td></tr>
+<tr class="separator:adcfc8139cbc2571dbda7f89b5e6b4b35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af246bb884a72ffc8190f55916a207c56"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00565.html#ga6f70b9c1f8b3325b63baf210dd69e816">SortedLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#af246bb884a72ffc8190f55916a207c56">renderSortedLayers</a> () const</td></tr>
+<tr class="memdesc:af246bb884a72ffc8190f55916a207c56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an immutable reference to the y-sorted layers.  <a href="#af246bb884a72ffc8190f55916a207c56">More...</a><br /></td></tr>
+<tr class="separator:af246bb884a72ffc8190f55916a207c56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7429a5312b21c42fbe63a28ad17a7ca3"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00565.html#ga6f70b9c1f8b3325b63baf210dd69e816">SortedLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a7429a5312b21c42fbe63a28ad17a7ca3">renderSortedLayers</a> ()</td></tr>
+<tr class="memdesc:a7429a5312b21c42fbe63a28ad17a7ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a mutable reference to the y-sorted layers. Use with caution.  <a href="#a7429a5312b21c42fbe63a28ad17a7ca3">More...</a><br /></td></tr>
+<tr class="separator:a7429a5312b21c42fbe63a28ad17a7ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9bbc8285278880bb4bed954e67c26d52"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a9bbc8285278880bb4bed954e67c26d52">topLayers</a> ()</td></tr>
+<tr class="memdesc:a9bbc8285278880bb4bed954e67c26d52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the top tiles in this set.  <a href="#a9bbc8285278880bb4bed954e67c26d52">More...</a><br /></td></tr>
+<tr class="separator:a9bbc8285278880bb4bed954e67c26d52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd32f5227f35134da122ce0efe8d9e3"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#afbd32f5227f35134da122ce0efe8d9e3">bottomLayers</a> () const</td></tr>
+<tr class="memdesc:afbd32f5227f35134da122ce0efe8d9e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the bottom tiles in this set.  <a href="#afbd32f5227f35134da122ce0efe8d9e3">More...</a><br /></td></tr>
+<tr class="separator:afbd32f5227f35134da122ce0efe8d9e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1175cfcdf248187a7fc1912400ff2134"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a1175cfcdf248187a7fc1912400ff2134">ysortLayers</a> () const</td></tr>
+<tr class="memdesc:a1175cfcdf248187a7fc1912400ff2134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the sorted tiles in this set.  <a href="#a1175cfcdf248187a7fc1912400ff2134">More...</a><br /></td></tr>
+<tr class="separator:a1175cfcdf248187a7fc1912400ff2134"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7f0852c5c9e7b3d181a2f1460d393f0"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#ac7f0852c5c9e7b3d181a2f1460d393f0">topLayers</a> () const</td></tr>
+<tr class="memdesc:ac7f0852c5c9e7b3d181a2f1460d393f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the top tiles in this set.  <a href="#ac7f0852c5c9e7b3d181a2f1460d393f0">More...</a><br /></td></tr>
+<tr class="separator:ac7f0852c5c9e7b3d181a2f1460d393f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbd66f6cc0ff02ba963cde390e2d6481"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#afbd66f6cc0ff02ba963cde390e2d6481">layerCount</a> () const</td></tr>
+<tr class="memdesc:afbd66f6cc0ff02ba963cde390e2d6481"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the total number of layers contained.  <a href="#afbd66f6cc0ff02ba963cde390e2d6481">More...</a><br /></td></tr>
+<tr class="separator:afbd66f6cc0ff02ba963cde390e2d6481"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b67467546b52ec0ea7a9b9dcd2a7046"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a3b67467546b52ec0ea7a9b9dcd2a7046">update</a> (const sf::IntRect &amp;area, float dt)</td></tr>
+<tr class="memdesc:a3b67467546b52ec0ea7a9b9dcd2a7046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates tiles in the layer set.  <a href="#a3b67467546b52ec0ea7a9b9dcd2a7046">More...</a><br /></td></tr>
+<tr class="separator:a3b67467546b52ec0ea7a9b9dcd2a7046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1b7674d2902d2c4d095967e722ee2223"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00854.html">Tile</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00834.html#a1b7674d2902d2c4d095967e722ee2223">getSortedTile</a> (<a class="el" href="a00862.html">Tileset</a> &amp;tileset, unsigned int layer, unsigned int x, unsigned int y)</td></tr>
+<tr class="memdesc:a1b7674d2902d2c4d095967e722ee2223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a pointer to the pointer to sorted tile.  <a href="#a1b7674d2902d2c4d095967e722ee2223">More...</a><br /></td></tr>
+<tr class="separator:a1b7674d2902d2c4d095967e722ee2223"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The primary map class that represents a usable map in the game. </p>
+<div class="textblock"><p>Encapsulates a set of layers for a given map height. Maps have one <a class="el" href="a00834.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a> per height level, as well as a TransitionLayer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00068">68</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="acc0e9dfed87249efd330bb6bac1bb844"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc0e9dfed87249efd330bb6bac1bb844">&#9670;&nbsp;</a></span>EntityRenderCallback</h2>
+<p class="definition">Definition at line <a class="el" href="a00098_source.html#l00060">60</a> of file <a class="el" href="a00098_source.html">LayerSet.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9d0e44f96d891e21fa96c452fb5dae71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d0e44f96d891e21fa96c452fb5dae71">&#9670;&nbsp;</a></span>LayerSet() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00834.html#acc0e9dfed87249efd330bb6bac1bb844">core::map::Map::EntityRenderCallback</a> =  std::function&lt;void(std::uint8_t level, unsigned int row, unsigned int minX, unsigned int maxX)&gt;</td>
+          <td class="memname">core::map::LayerSet::LayerSet </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Function signature for the callback to render rows of entities. </p>
+<p>Builds a new empty layer set. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00010">10</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c40addec545a46e44a3fc267248a373"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c40addec545a46e44a3fc267248a373">&#9670;&nbsp;</a></span>LayerSet() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::map::LayerSet::LayerSet </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00834.html">LayerSet</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>move</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move constructs the layer set from the given layer set. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">level</td><td>Which level to render entities from </td></tr>
-    <tr><td class="paramname">row</td><td>Which row to render entities from </td></tr>
-    <tr><td class="paramname">minX</td><td>Starting x coordinate to render entities at </td></tr>
-    <tr><td class="paramname">maxX</td><td>Ending x coordinate to render entities at, exclusive </td></tr>
+    <tr><td class="paramname">move</td><td>The layer set to move from </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00082">82</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00017">17</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a54e929330e60ddbf84378829e31a182f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54e929330e60ddbf84378829e31a182f">&#9670;&nbsp;</a></span>Map()</h2>
+<a id="ae4b6ad85f402da0389410f15de9ff22d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4b6ad85f402da0389410f15de9ff22d">&#9670;&nbsp;</a></span>LayerSet() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::Map::Map </td>
+          <td class="memname">core::map::LayerSet::LayerSet </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00834.html">LayerSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty <a class="el" href="a00834.html" title="The primary map class that represents a usable map in the game. ">Map</a>. </p>
+<p>Copy constructs from the given layer set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The set to copy </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00263">263</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2f9f2d740b0c98b070b4820e5dd63d53"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f9f2d740b0c98b070b4820e5dd63d53">&#9670;&nbsp;</a></span>~Map()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual core::map::Map::~Map </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a00834.html" title="The primary map class that represents a usable map in the game. ">Map</a>. </p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00024">24</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa94e9e5e3d40c7571c86accb2dc20d58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa94e9e5e3d40c7571c86accb2dc20d58">&#9670;&nbsp;</a></span>adjacentTile()</h2>
+<a id="a1593b8a98dcd472e3c427a13306704dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1593b8a98dcd472e3c427a13306704dc">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00654.html">component::Position</a> core::map::Map::adjacentTile </td>
+          <td class="memname">void core::map::LayerSet::activate </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00654.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00862.html">Tileset</a> &amp;&#160;</td>
+          <td class="paramname"><em>tileset</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the adjacent position to the given position when moving in the given direction. Does not take into account collisions. </p>
+<p>Initializes all the tiles for rendering. This must be called before rendering is done. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pos</td><td>The position that is being moved from </td></tr>
-    <tr><td class="paramname">dir</td><td>The direction that the movement is going </td></tr>
+    <tr><td class="paramname">tileset</td><td>The tileset to use </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00654.html" title="Basic structure representing the position of an entity. ">component::Position</a> The adjacent tile with level transition if any </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00506">506</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00053">53</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab14aa28e11766d37a924331b42c80a22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab14aa28e11766d37a924331b42c80a22">&#9670;&nbsp;</a></span>clear()</h2>
+<a id="a137a4f0975b7772829d48858366daa1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a137a4f0975b7772829d48858366daa1d">&#9670;&nbsp;</a></span>bottomLayers() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::map::Map::clear </td>
+          <td class="memname">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::bottomLayers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00698">698</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p>Returns a reference to the bottom tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The tiles rendered underneath all entities </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00091">91</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5b0ee3fa55190772b2a5457fe0908911"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b0ee3fa55190772b2a5457fe0908911">&#9670;&nbsp;</a></span>contains()</h2>
+<a id="afbd32f5227f35134da122ce0efe8d9e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd32f5227f35134da122ce0efe8d9e3">&#9670;&nbsp;</a></span>bottomLayers() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::map::Map::contains </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::bottomLayers </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00654.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the map contains the given position. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position to check for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the position is within the map, false if not </dd></dl>
+<p>Returns a reference to the bottom tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The tiles rendered underneath all entities </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00500">500</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00105">105</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa3e2fb0f6724e1888a44e3c3b19c2100"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3e2fb0f6724e1888a44e3c3b19c2100">&#9670;&nbsp;</a></span>enter()</h2>
+<a id="a11fd05aa30dce62dcedf9af70a3a9dc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11fd05aa30dce62dcedf9af70a3a9dc3">&#9670;&nbsp;</a></span>catchLayer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::map::Map::enter </td>
+          <td class="memname"><a class="el" href="a00565.html#ga4a075115f26522d583c4790378b17bac">CatchLayer</a> &amp; core::map::LayerSet::catchLayer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00982.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the catchable layer for this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>CatchLayer&amp; The catch tiles at this height </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00089">89</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aad3584dd2249cf0a3e356b2ace33e64e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad3584dd2249cf0a3e356b2ace33e64e">&#9670;&nbsp;</a></span>collisionLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00565.html#ga66eea922eb1a848502083dd129b60e7f">CollisionLayer</a> &amp; core::map::LayerSet::collisionLayer </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the collision layer for this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>CollisionLayer&amp; The collisions at this height </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00087">87</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1b7674d2902d2c4d095967e722ee2223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b7674d2902d2c4d095967e722ee2223">&#9670;&nbsp;</a></span>getSortedTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00854.html">Tile</a> ** core::map::LayerSet::getSortedTile </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00862.html">Tileset</a> &amp;&#160;</td>
+          <td class="paramname"><em>tileset</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::uint16_t&#160;</td>
-          <td class="paramname"><em>spawnId</em>, </td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>prevMap</em>&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -440,38 +387,56 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes runtime data structures and spawns entities into the game. Also runs the on-load script. </p>
+<p>Returns a pointer to the pointer to sorted tile. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary game systems </td></tr>
-    <tr><td class="paramname">spawnId</td><td>The spawn to place the player at </td></tr>
-    <tr><td class="paramname">prevMap</td><td>The name of the map coming from </td></tr>
+    <tr><td class="paramname">tileset</td><td>The tileset to use for determining size </td></tr>
+    <tr><td class="paramname">layer</td><td>Which sorted layer the tile is in </td></tr>
+    <tr><td class="paramname">x</td><td>The x position of the tile </td></tr>
+    <tr><td class="paramname">y</td><td>The y position of the tile </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00287">287</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00125">125</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8f29db7be27249b09782f456e3848b57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f29db7be27249b09782f456e3848b57">&#9670;&nbsp;</a></span>exit()</h2>
+<a id="a020db7d524731baf7ec546c647667b34"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a020db7d524731baf7ec546c647667b34">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::map::Map::exit </td>
+          <td class="memname">void core::map::LayerSet::init </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00982.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>newMap</em>&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>height</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>bottomLayerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>ysortLayerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>topLayercount</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -481,66 +446,30 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes spawned entities and runs the on-unload script. </p>
+<p>Creates the given number of layers and sets the proper size for each layer, initializing each layer tile to empty. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary game systems </td></tr>
-    <tr><td class="paramname">newMap</td><td>The name of the map going to </td></tr>
+    <tr><td class="paramname">width</td><td>The width of the map, in tiles </td></tr>
+    <tr><td class="paramname">height</td><td>The height of the map, in tiles </td></tr>
+    <tr><td class="paramname">bottomLayerCount</td><td>The number of layers rendered under entities </td></tr>
+    <tr><td class="paramname">ysortLayerCount</td><td>The number of layers rendered with entities </td></tr>
+    <tr><td class="paramname">topLayercount</td><td>The number of layers renered over entities </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00379">379</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00038">38</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aec99911fc9d5bc0970e56c436ddd7d69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec99911fc9d5bc0970e56c436ddd7d69">&#9670;&nbsp;</a></span>interact()</h2>
+<a id="afbd66f6cc0ff02ba963cde390e2d6481"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbd66f6cc0ff02ba963cde390e2d6481">&#9670;&nbsp;</a></span>layerCount()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::map::Map::interact </td>
-          <td>(</td>
-          <td class="paramtype">bl::entity::Entity&#160;</td>
-          <td class="paramname"><em>interactor</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00654.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>interactPos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Lets entities interact with the map itself. This is called by the Interaction system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">interactor</td><td>The entity doing the interact </td></tr>
-    <tr><td class="paramname">interactPos</td><td>The position being interacted with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00673">673</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a833e582ddd65ac935efec33e3d0559af"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a833e582ddd65ac935efec33e3d0559af">&#9670;&nbsp;</a></span>levelCount()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint8_t core::map::Map::levelCount </td>
+          <td class="memname">unsigned int core::map::LayerSet::layerCount </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -548,110 +477,49 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of levels in the map. </p>
+<p>Returns the total number of layers contained. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00408">408</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00097">97</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a60e86e22243ee4db667f5925ddc1133b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60e86e22243ee4db667f5925ddc1133b">&#9670;&nbsp;</a></span>lightingSystem()</h2>
+<a id="a04216c8dcfded560e0ac260f70a6e083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04216c8dcfded560e0ac260f70a6e083">&#9670;&nbsp;</a></span>operator=()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00830.html">LightingSystem</a> &amp; core::map::Map::lightingSystem </td>
+          <td class="memname"><a class="el" href="a00834.html">LayerSet</a> &amp; core::map::LayerSet::operator= </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00834.html">LayerSet</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the lighting system in this map. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00412">412</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a4094150c3345d44d091ea24c8bb810ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4094150c3345d44d091ea24c8bb810ae">&#9670;&nbsp;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::map::Map::load </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the map from the given file. Will try to determine if the extension or path need to be added in order to support how map names used to be entered. </p>
+<p>Copies the internals from the given layer set. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">file</td><td>The file to load from </td></tr>
+    <tr><td class="paramname">copy</td><td>The set to copy </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the map was able to be loaded, false on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00834.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a>&amp; A reference to this set </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00478">478</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00029">29</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ade2ff9b41bcd36a1c549b976d82e5411"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2ff9b41bcd36a1c549b976d82e5411">&#9670;&nbsp;</a></span>movePossible()</h2>
+<a id="af246bb884a72ffc8190f55916a207c56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af246bb884a72ffc8190f55916a207c56">&#9670;&nbsp;</a></span>renderSortedLayers() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::map::Map::movePossible </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00654.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>position</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00549.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not a particular movement is possible. Does not take into account entities blocking the way. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">position</td><td>The position being moved from </td></tr>
-    <tr><td class="paramname">dir</td><td>The direction to move in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the move is allowed, false if it is not </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00560">560</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af8f5d395c8461b985b62172935226749"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af8f5d395c8461b985b62172935226749">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; core::map::Map::name </td>
+          <td class="memname">const std::vector&lt; <a class="el" href="a00565.html#ga6f70b9c1f8b3325b63baf210dd69e816">SortedLayer</a> &gt; &amp; core::map::LayerSet::renderSortedLayers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -659,139 +527,63 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the name of the map. </p>
+<p>Returns an immutable reference to the y-sorted layers. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00399">399</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a04325969a762da291e93b7fd3da05c51"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04325969a762da291e93b7fd3da05c51">&#9670;&nbsp;</a></span>observe()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::map::Map::observe </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00706.html">event::EntityMoved</a> &amp;&#160;</td>
-          <td class="paramname"><em>moveEvent</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="a00810.html" title="Represents an event in a Map. A script that is run on a trigger within a given region. ">Event</a> listener for moving entities. Used to trigger map events. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">moveEvent</td><td>The move event </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00611">611</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00101">101</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3461aea991fb6d712e8741f399f1a019"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3461aea991fb6d712e8741f399f1a019">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::map::Map::render </td>
-          <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>residual</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a00834.html#acc0e9dfed87249efd330bb6bac1bb844">EntityRenderCallback</a> &amp;&#160;</td>
-          <td class="paramname"><em>entityCb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Renders the map to the given target using its built-in View. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
-    <tr><td class="paramname">residual</td><td>Residual time between calls to update, in seconds </td></tr>
-    <tr><td class="paramname">entityCb</td><td>Function to call to render entities at the correct times </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00420">420</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a407fdd7f538bc392009cf390a37aa05a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a407fdd7f538bc392009cf390a37aa05a">&#9670;&nbsp;</a></span>save()</h2>
+<a id="a7429a5312b21c42fbe63a28ad17a7ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7429a5312b21c42fbe63a28ad17a7ca3">&#9670;&nbsp;</a></span>renderSortedLayers() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::map::Map::save </td>
+          <td class="memname">std::vector&lt; <a class="el" href="a00565.html#ga6f70b9c1f8b3325b63baf210dd69e816">SortedLayer</a> &gt; &amp; core::map::LayerSet::renderSortedLayers </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Saves the map to the given file. The path should be relative to the maps directory and include the .map extension. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">file</td><td>The file to save to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if saved successfully, false on error </dd></dl>
+<p>Returns a mutable reference to the y-sorted layers. Use with caution. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00493">493</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00103">103</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af9e4a26b354554a05370597e19fb0799"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9e4a26b354554a05370597e19fb0799">&#9670;&nbsp;</a></span>sizePixels()</h2>
+<a id="a9bbc8285278880bb4bed954e67c26d52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bbc8285278880bb4bed954e67c26d52">&#9670;&nbsp;</a></span>topLayers() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Vector2f core::map::Map::sizePixels </td>
+          <td class="memname">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::topLayers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a reference to the top tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00095">95</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac7f0852c5c9e7b3d181a2f1460d393f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7f0852c5c9e7b3d181a2f1460d393f0">&#9670;&nbsp;</a></span>topLayers() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::topLayers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -799,72 +591,24 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the size of the map in pixels. </p>
+<p>Returns a reference to the top tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00403">403</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00109">109</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9df15ba047b6d7d206240074fd33ae36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9df15ba047b6d7d206240074fd33ae36">&#9670;&nbsp;</a></span>sizeTiles()</h2>
+<a id="a3b67467546b52ec0ea7a9b9dcd2a7046"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b67467546b52ec0ea7a9b9dcd2a7046">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const sf::Vector2i &amp; core::map::Map::sizeTiles </td>
+          <td class="memname">void core::map::LayerSet::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the size of the map in tiles. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00401">401</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2ac4613a5c40778e3a1e369806b4e414"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ac4613a5c40778e3a1e369806b4e414">&#9670;&nbsp;</a></span>triggerAnimation()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::map::Map::triggerAnimation </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00654.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>position</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00655">655</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6a840df67936d59acd8c48a81e613bb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a840df67936d59acd8c48a81e613bb3">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::map::Map::update </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00982.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
+          <td class="paramtype">const sf::IntRect &amp;&#160;</td>
+          <td class="paramname"><em>area</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -880,30 +624,27 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates internal logic over the elapsed time. </p>
-<ul>
-<li><dl class="params"><dt>Parameters</dt><dd>
+<p>Updates tiles in the layer set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary game systems </td></tr>
-    <tr><td class="paramname">dt</td><td>Elapsed time in seconds since last update </td></tr>
+    <tr><td class="paramname">area</td><td>The area of the map to update </td></tr>
+    <tr><td class="paramname">dt</td><td>Elapsed time in seconds since last call to <a class="el" href="a00834.html#a3b67467546b52ec0ea7a9b9dcd2a7046" title="Updates tiles in the layer set. ">update()</a> </td></tr>
   </table>
   </dd>
 </dl>
-</li>
-</ul>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00414">414</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00111">111</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad15ddd5ceb1065b4c3b325d92b095c6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad15ddd5ceb1065b4c3b325d92b095c6e">&#9670;&nbsp;</a></span>weatherSystem()</h2>
+<a id="adcfc8139cbc2571dbda7f89b5e6b4b35"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcfc8139cbc2571dbda7f89b5e6b4b35">&#9670;&nbsp;</a></span>ysortLayers() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00854.html">Weather</a> &amp; core::map::Map::weatherSystem </td>
+          <td class="memname">std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::ysortLayers </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -911,695 +652,44 @@ Friends</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the weather system in this map. </p>
+<p>Returns a reference to the sorted tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The tiles rendered inline with entities based on y coordinate </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01528_source.html#l00410">410</a> of file <a class="el" href="a01528_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00093">93</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a7c80f581370155f01148731497a89423"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c80f581370155f01148731497a89423">&#9670;&nbsp;</a></span>loaders::LegacyMapLoader</h2>
+<a id="a1175cfcdf248187a7fc1912400ff2134"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1175cfcdf248187a7fc1912400ff2134">&#9670;&nbsp;</a></span>ysortLayers() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">friend class <a class="el" href="a01134.html">loaders::LegacyMapLoader</a></td>
+          <td class="memname">const std::vector&lt; <a class="el" href="a00565.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> &gt; &amp; core::map::LayerSet::ysortLayers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00266">266</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
+<p>Returns a reference to the sorted tiles in this set. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;TileLayer&gt;&amp; The tiles rendered inline with entities based on y coordinate </dd></dl>
 
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="add95424621aedccbc147298f78beaabf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add95424621aedccbc147298f78beaabf">&#9670;&nbsp;</a></span>activated</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::map::Map::activated</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00259">259</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af14f7bb1a45100d65fa0a1b9cb7b7a99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af14f7bb1a45100d65fa0a1b9cb7b7a99">&#9670;&nbsp;</a></span>catchZonesField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;13, std::vector&lt;<a class="el" href="a00802.html">CatchZone</a>&gt; &gt; core::map::Map::catchZonesField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00244">244</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a835cf2e4fa27b2ad9266a1f830b01f1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a835cf2e4fa27b2ad9266a1f830b01f1c">&#9670;&nbsp;</a></span>characterField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;9, std::vector&lt;<a class="el" href="a00806.html">CharacterSpawn</a>&gt; &gt; core::map::Map::characterField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00240">240</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a6f4b947135fc8c4c213b1b21b60574f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f4b947135fc8c4c213b1b21b60574f8">&#9670;&nbsp;</a></span>cover</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::RectangleShape core::map::Map::cover</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00261">261</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9d72efdacc1ae41f5a3d0799ff81df15"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d72efdacc1ae41f5a3d0799ff81df15">&#9670;&nbsp;</a></span>eventRegions</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::container::Grid&lt;const <a class="el" href="a00810.html">Event</a>*&gt; core::map::Map::eventRegions</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00257">257</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a99bbbbb8680600470224c895d348e5c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99bbbbb8680600470224c895d348e5c4">&#9670;&nbsp;</a></span>eventsField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;11, std::vector&lt;<a class="el" href="a00810.html">Event</a>&gt; &gt; core::map::Map::eventsField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00242">242</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac9de7e7a21573f487afd36653d082d34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9de7e7a21573f487afd36653d082d34">&#9670;&nbsp;</a></span>itemsField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;10, std::vector&lt;<a class="el" href="a00814.html">Item</a>&gt; &gt; core::map::Map::itemsField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00241">241</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af16585980e2bc12ba56628abda649bc9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af16585980e2bc12ba56628abda649bc9">&#9670;&nbsp;</a></span>levels</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="a00822.html">LayerSet</a>&gt;&amp; core::map::Map::levels</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00251">251</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5e64d61a4a926033e0eca4fb867966c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e64d61a4a926033e0eca4fb867966c4">&#9670;&nbsp;</a></span>levelsField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;6, std::vector&lt;<a class="el" href="a00822.html">LayerSet</a>&gt; &gt; core::map::Map::levelsField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00237">237</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af853e8387a4be929c7f9b4e338904fe3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af853e8387a4be929c7f9b4e338904fe3">&#9670;&nbsp;</a></span>lighting</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00830.html">LightingSystem</a>&amp; core::map::Map::lighting</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00254">254</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a36ad21c0461e2345ef9ff1c3a02098dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36ad21c0461e2345ef9ff1c3a02098dc">&#9670;&nbsp;</a></span>lightsField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;12, <a class="el" href="a00830.html">LightingSystem</a>&gt; core::map::Map::lightsField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00243">243</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="acdde3e087ece55ef8098e4fb56e5b70d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdde3e087ece55ef8098e4fb56e5b70d">&#9670;&nbsp;</a></span>loadScriptField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;2, std::string&gt; core::map::Map::loadScriptField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00233">233</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a49b66b62049670895781179190b32a36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49b66b62049670895781179190b32a36">&#9670;&nbsp;</a></span>nameField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;1, std::string&gt; core::map::Map::nameField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00232">232</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a78cc69777581c6dca1ebcd9b52c7c6e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78cc69777581c6dca1ebcd9b52c7c6e2">&#9670;&nbsp;</a></span>onEnterScript</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;bl::script::Script&gt; core::map::Map::onEnterScript</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00255">255</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8a9fd44626fd4f63907fb76840cef8cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a9fd44626fd4f63907fb76840cef8cc">&#9670;&nbsp;</a></span>onExitScript</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unique_ptr&lt;bl::script::Script&gt; core::map::Map::onExitScript</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00256">256</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a757a5276834006e8c38b34635745b507"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a757a5276834006e8c38b34635745b507">&#9670;&nbsp;</a></span>playlistField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;4, std::string&gt; core::map::Map::playlistField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00235">235</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9cbf1cd91928b4d3c055bdee88a0b56d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cbf1cd91928b4d3c055bdee88a0b56d">&#9670;&nbsp;</a></span>renderRange</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::IntRect core::map::Map::renderRange</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00260">260</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a67fc3881397fbf275aa87f6e7e7afda5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67fc3881397fbf275aa87f6e7e7afda5">&#9670;&nbsp;</a></span>size</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2i core::map::Map::size</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00249">249</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aaceb01b8360c354ed6141703e632e863"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaceb01b8360c354ed6141703e632e863">&#9670;&nbsp;</a></span>spawnField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;8, std::unordered_map&lt;std::uint16_t, <a class="el" href="a00838.html">Spawn</a>&gt; &gt; core::map::Map::spawnField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00239">239</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a7ffe64af395d8973af09eb294db30b01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ffe64af395d8973af09eb294db30b01">&#9670;&nbsp;</a></span>spawns</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_map&lt;std::uint16_t, <a class="el" href="a00838.html">Spawn</a>&gt;&amp; core::map::Map::spawns</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00252">252</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af6b1bb3f4c3827e1a1e6bba30e9abbaf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6b1bb3f4c3827e1a1e6bba30e9abbaf">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00982.html">system::Systems</a>* core::map::Map::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00248">248</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac90f1b6379cde5d99141d59f1c5a4fe2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac90f1b6379cde5d99141d59f1c5a4fe2">&#9670;&nbsp;</a></span>tileset</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::resource::Resource&lt;<a class="el" href="a00850.html">Tileset</a>&gt;::Ref core::map::Map::tileset</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00250">250</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a79fb8ba2e4fd37c67acf3e36de52a61d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a79fb8ba2e4fd37c67acf3e36de52a61d">&#9670;&nbsp;</a></span>tilesetField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;7, std::string&gt; core::map::Map::tilesetField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00238">238</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa82db11a41091be57000c9cc14b1beb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa82db11a41091be57000c9cc14b1beb3">&#9670;&nbsp;</a></span>transitionField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;14, bl::container::Vector2D&lt;<a class="el" href="a00553.html#gacd6894855472f8b22d022ece25eda9b4">LevelTransition</a>&gt; &gt; core::map::Map::transitionField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00246">246</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af112ccfdbc37e39fe43de3d04e97face"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af112ccfdbc37e39fe43de3d04e97face">&#9670;&nbsp;</a></span>unloadScriptField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;3, std::string&gt; core::map::Map::unloadScriptField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00234">234</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4f8e9e4439c27e830242b631649ef0f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4f8e9e4439c27e830242b631649ef0f3">&#9670;&nbsp;</a></span>weather</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00854.html">Weather</a> core::map::Map::weather</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00253">253</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a82cbac005e2c7b2c0bd7129bb3377341"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82cbac005e2c7b2c0bd7129bb3377341">&#9670;&nbsp;</a></span>weatherField</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::file::binary::SerializableField&lt;5, <a class="el" href="a00854.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a>&gt; core::map::Map::weatherField</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01477_source.html#l00236">236</a> of file <a class="el" href="a01477_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00338_source.html#l00107">107</a> of file <a class="el" href="a00338_source.html">LayerSet.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Maps/<a class="el" href="a01477_source.html">Map.hpp</a></li>
-<li>src/Core/Maps/<a class="el" href="a01528_source.html">Map.cpp</a></li>
+<li>include/Core/Maps/<a class="el" href="a00098_source.html">LayerSet.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a00338_source.html">LayerSet.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

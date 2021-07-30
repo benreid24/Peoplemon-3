@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['shiftcb',['ShiftCb',['../a01046.html#a88200f4f964a29cae628e3b25534fee3',1,'editor::page::Layers::ShiftCb()'],['../a01058.html#a511be2fb33bfdd78a58c2eb20950f096',1,'editor::page::Levels::ShiftCb()']]],
-  ['sortedlayer',['SortedLayer',['../a00553.html#ga6f70b9c1f8b3325b63baf210dd69e816',1,'core::map']]],
-  ['statuscb',['StatusCb',['../a00902.html#a6fb9f156a9650c9c7536fef50a92d982',1,'core::script::ConversationContext']]]
+  ['renderfiltercb',['RenderFilterCb',['../a01066.html#a6cb05983c539d8a2899238dfb3cdb688',1,'editor::page::Layers::RenderFilterCb()'],['../a01078.html#afcccffdca8e57fb51327020bd188651c',1,'editor::page::Levels::RenderFilterCb()']]]
 ];

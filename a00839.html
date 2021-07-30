@@ -63,36 +63,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00569.html">map</a></li><li class="navelem"><a class="el" href="a00842.html">Tile</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00581.html">map</a></li><li class="navelem"><a class="el" href="a00842.html">LightingSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::Tile Member List</div>  </div>
+<div class="title">core::map::LightingSystem Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00842.html">core::map::Tile</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00842.html">core::map::LightingSystem</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a43af2a1dc372418d2e9396f2f20ef2e3">Blank</a></td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#a2bdd2b0e56ce8d3db236b58963733220">id</a>() const</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a62dbb7a9b1a1c3795a03bf22adacefcc">IdType</a> typedef</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#a855e52b3af1103bbed9e64a92d122ead">initialize</a>(Tileset &amp;tileset, const sf::Vector2f &amp;position)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#adb6ca5d23413ac9a8fc588b51d7f5924">isAnimation</a>() const</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#ae753b3875a3498b40f77da5514d91b82">render</a>(sf::RenderTarget &amp;target, float residual) const</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#acb061c31a69653572a840036f0029066">set</a>(Tileset &amp;tileset, IdType id, bool anim)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#a563dcbe31e11a234d36c6564b70fab80">setDataOnly</a>(IdType id, bool anim)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a06f11238d9b0080e14f581875bf2f5d5">step</a>()</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#ad1e508d4204b77e33641b30be5bf6641">Tile</a>()</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a78ca22623afc5be445aae28dad7abf50">Tile</a>(const Tile &amp;copy)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#af600134b96792d186f3848e33bb1cf84">Tile</a>(IdType id, bool isAnim=false)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00842.html#ad3a332aadb166ba7a00d4f642709063e">Tileset</a> class</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00842.html#ab7b1dae2fbfb7a442238c70b5dd97bd8">update</a>(float dt)</td><td class="entry"><a class="el" href="a00842.html">core::map::Tile</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a95c863e4e666ebdad55d48576f3ec1fe">activate</a>(const sf::Vector2i &amp;mapSize)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#ac5970d28007f5d8ac6eacd10e9c1339a">addLight</a>(const Light &amp;light, bool updateSave=false)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a47f7d35fe57772bffd8134b1ba093d82">adjustForSunlight</a>(bool adjust)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#aeb8c68996269a5fecac1bc95ffe14c5a">adjustsForSunlight</a>() const</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#af06434143fb3ccb9c966ca1394e179d7">clear</a>()</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a6d47ce1a95ed476def9d802665910f2f">getClosestLight</a>(const sf::Vector2i &amp;position)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a11e3cd08c517c0dcc83ec7e526675017">getMaxLightLevel</a>() const</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a1b51dcfcd7a4245be85b691cb36110ac">getMinLightLevel</a>() const</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> typedef</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a93d7ad2157872bba949b1fc06850a94c">legacyResize</a>(const sf::Vector2i &amp;mapSize)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a28251123bbe9c32883aa8c8a1a79ee54">LightingSystem</a>()</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#aa0d8fadc62f2a2485130268a032d229e">None</a></td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#aeaef84a90e78c8b34dca45c1acf58253">observe</a>(const event::TimeChange &amp;timeChange) override</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a9421423e1aad98aa768f1b970ea65de8">observe</a>(const event::WeatherStarted &amp;event) override</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a1cb14927fa14df8ea52015e904e23e01">observe</a>(const event::WeatherStopped &amp;event) override</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a605b027cec958f495b91029d39aae436">removeLight</a>(Handle light, bool updateSave=false)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a6c6385b63b528e330e9858b82f39d039">render</a>(sf::RenderTarget &amp;target)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a55da73f21ff2620acb3732c7bc552205">setAmbientLevel</a>(std::uint8_t lowLightLevel, std::uint8_t highLightLevel)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#ad0afb30eb9aa24178624afdfd4b9ad6c">subscribe</a>(bl::event::Dispatcher &amp;eventBus)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a4e1f411ead4350673a1af661a09e32e4">unsubscribe</a>()</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00842.html#a22a68d5afbb4a40d25f2c1cc983ac3a0">updateLight</a>(Handle handle, const Light &amp;value, bool updateSave=false)</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00842.html#a000a46cc9acd119b226ef91f624eaa39">~LightingSystem</a>()=default</td><td class="entry"><a class="el" href="a00842.html">core::map::LightingSystem</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

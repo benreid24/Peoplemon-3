@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component::NPC Class Reference</title>
+<title>Peoplemon: core::component::FixedPathBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00564.html">component</a></li><li class="navelem"><a class="el" href="a00646.html">NPC</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00576.html">component</a></li><li class="navelem"><a class="el" href="a00646.html">FixedPathBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,112 +72,106 @@ $(function() {
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00643.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::NPC Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00549.html">Components</a></div></div>  </div>
+<div class="title">core::component::FixedPathBehavior Class Reference<div class="ingroups"><a class="el" href="a00557.html">Core</a> &raquo; <a class="el" href="a00561.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Adding this to an entity will allow it to be interacted with and talked to.  
+<p>Add this component to an entity to make it follow a fixed path.  
  <a href="a00646.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a01453_source.html">NPC.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00020_source.html">FixedPathBehavior.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1daa2f89c95a84673d7f3ada08261905"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#a1daa2f89c95a84673d7f3ada08261905">NPC</a> (const <a class="el" href="a00786.html">file::NPC</a> &amp;data)</td></tr>
-<tr class="memdesc:a1daa2f89c95a84673d7f3ada08261905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a> component.  <a href="#a1daa2f89c95a84673d7f3ada08261905">More...</a><br /></td></tr>
-<tr class="separator:a1daa2f89c95a84673d7f3ada08261905"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd96ec1e45b6996df6ec7ef1cf3630d5"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#afd96ec1e45b6996df6ec7ef1cf3630d5">name</a> () const</td></tr>
-<tr class="memdesc:afd96ec1e45b6996df6ec7ef1cf3630d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a>.  <a href="#afd96ec1e45b6996df6ec7ef1cf3630d5">More...</a><br /></td></tr>
-<tr class="separator:afd96ec1e45b6996df6ec7ef1cf3630d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a66927356a70e6eeabc7846a6eabbd1"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00770.html">file::Conversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#a9a66927356a70e6eeabc7846a6eabbd1">conversation</a> () const</td></tr>
-<tr class="memdesc:a9a66927356a70e6eeabc7846a6eabbd1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The conversation of the <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a>.  <a href="#a9a66927356a70e6eeabc7846a6eabbd1">More...</a><br /></td></tr>
-<tr class="separator:a9a66927356a70e6eeabc7846a6eabbd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab757ec001a55edb4dff46ee85efdae41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#ab757ec001a55edb4dff46ee85efdae41">FixedPathBehavior</a> (const <a class="el" href="a00770.html">file::Behavior::Path</a> &amp;path)</td></tr>
+<tr class="memdesc:ab757ec001a55edb4dff46ee85efdae41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Fixed Path Behavior component.  <a href="#ab757ec001a55edb4dff46ee85efdae41">More...</a><br /></td></tr>
+<tr class="separator:ab757ec001a55edb4dff46ee85efdae41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3466c2d72fabdc6ef94946b5e6e7d5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#aca3466c2d72fabdc6ef94946b5e6e7d5">update</a> (<a class="el" href="a00666.html">Position</a> &amp;position, <a class="el" href="a00642.html">Controllable</a> &amp;controller)</td></tr>
+<tr class="memdesc:aca3466c2d72fabdc6ef94946b5e6e7d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the entity along the path.  <a href="#aca3466c2d72fabdc6ef94946b5e6e7d5">More...</a><br /></td></tr>
+<tr class="separator:aca3466c2d72fabdc6ef94946b5e6e7d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:a13ebe4075e277da5cf849d87a4b86892"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#a13ebe4075e277da5cf849d87a4b86892">ComponentId</a> = 12</td></tr>
-<tr class="memdesc:a13ebe4075e277da5cf849d87a4b86892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#a13ebe4075e277da5cf849d87a4b86892">More...</a><br /></td></tr>
-<tr class="separator:a13ebe4075e277da5cf849d87a4b86892"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba4b2d28d8b5191392916aab809bd76d"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00646.html#aba4b2d28d8b5191392916aab809bd76d">ComponentId</a> = 9</td></tr>
+<tr class="memdesc:aba4b2d28d8b5191392916aab809bd76d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#aba4b2d28d8b5191392916aab809bd76d">More...</a><br /></td></tr>
+<tr class="separator:aba4b2d28d8b5191392916aab809bd76d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adding this to an entity will allow it to be interacted with and talked to. </p>
+<div class="textblock"><p>Add this component to an entity to make it follow a fixed path. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01453_source.html#l00018">18</a> of file <a class="el" href="a01453_source.html">NPC.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00018">18</a> of file <a class="el" href="a00020_source.html">FixedPathBehavior.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1daa2f89c95a84673d7f3ada08261905"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1daa2f89c95a84673d7f3ada08261905">&#9670;&nbsp;</a></span>NPC()</h2>
+<a id="ab757ec001a55edb4dff46ee85efdae41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab757ec001a55edb4dff46ee85efdae41">&#9670;&nbsp;</a></span>FixedPathBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::component::NPC::NPC </td>
+          <td class="memname">core::component::FixedPathBehavior::FixedPathBehavior </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00786.html">file::NPC</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00770.html">file::Behavior::Path</a> &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a> component. </p>
+<p>Construct a new Fixed Path Behavior component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">data</td><td>The <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a> file data </td></tr>
+    <tr><td class="paramname">path</td><td>The path to follow </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a01510_source.html#l00007">7</a> of file <a class="el" href="a01510_source.html">NPC.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00290_source.html#l00007">7</a> of file <a class="el" href="a00290_source.html">FixedPathBehavior.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9a66927356a70e6eeabc7846a6eabbd1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a66927356a70e6eeabc7846a6eabbd1">&#9670;&nbsp;</a></span>conversation()</h2>
+<a id="aca3466c2d72fabdc6ef94946b5e6e7d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca3466c2d72fabdc6ef94946b5e6e7d5">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00770.html">file::Conversation</a> &amp; core::component::NPC::conversation </td>
+          <td class="memname">void core::component::FixedPathBehavior::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype"><a class="el" href="a00666.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The conversation of the <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01510_source.html#l00020">20</a> of file <a class="el" href="a01510_source.html">NPC.cpp</a>.</p>
-
-</div>
-</div>
-<a id="afd96ec1e45b6996df6ec7ef1cf3630d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd96ec1e45b6996df6ec7ef1cf3630d5">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; core::component::NPC::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00642.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The name of the <a class="el" href="a00646.html" title="Adding this to an entity will allow it to be interacted with and talked to. ">NPC</a>. </p>
+<p>Updates the entity along the path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position component of the entity </td></tr>
+    <tr><td class="paramname">controller</td><td>The controllable component of the entity </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a01510_source.html#l00018">18</a> of file <a class="el" href="a01510_source.html">NPC.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00290_source.html#l00013">13</a> of file <a class="el" href="a00290_source.html">FixedPathBehavior.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a13ebe4075e277da5cf849d87a4b86892"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13ebe4075e277da5cf849d87a4b86892">&#9670;&nbsp;</a></span>ComponentId</h2>
+<a id="aba4b2d28d8b5191392916aab809bd76d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba4b2d28d8b5191392916aab809bd76d">&#9670;&nbsp;</a></span>ComponentId</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,7 +180,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bl::entity::Component::IdType core::component::NPC::ComponentId = 12</td>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::FixedPathBehavior::ComponentId = 9</td>
         </tr>
       </table>
   </td>
@@ -198,19 +192,19 @@ Static Public Attributes</h2></td></tr>
 
 <p>Required for BLIB ECS. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01453_source.html#l00021">21</a> of file <a class="el" href="a01453_source.html">NPC.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00020_source.html#l00021">21</a> of file <a class="el" href="a00020_source.html">FixedPathBehavior.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Components/<a class="el" href="a01453_source.html">NPC.hpp</a></li>
-<li>src/Core/Components/<a class="el" href="a01510_source.html">NPC.cpp</a></li>
+<li>include/Core/Components/<a class="el" href="a00020_source.html">FixedPathBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00290_source.html">FixedPathBehavior.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

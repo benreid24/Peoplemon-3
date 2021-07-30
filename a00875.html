@@ -63,28 +63,38 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00575.html">player</a></li><li class="navelem"><a class="el" href="a00576.html">input</a></li><li class="navelem"><a class="el" href="a00878.html">Listener</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00587.html">player</a></li><li class="navelem"><a class="el" href="a00588.html">input</a></li><li class="navelem"><a class="el" href="a00878.html">Control</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::player::input::Listener Member List</div>  </div>
+<div class="title">core::player::input::Control Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00878.html">core::player::input::Listener</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00878.html">core::player::input::Control</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#aa2bbdcb41488da37bb883ebeedc82f3b">::core::player::Input</a> class</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#aeffd124ef155fca87d6670f47b001718">Listener</a>()</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a>(Listener &amp;&amp;copy)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#aac6a335ce53e00aa2f19da5b20caa296">process</a>(component::Command control)=0</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a>()</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a211d7e40bc38759b3b10afdf35a3d53d">activated</a>(const sf::Event &amp;event) const</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#aa4767dbb326c9d093b6ea3e2a38b390a">button</a></td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a32fe6130f93889272a714614c6c25a55">Control</a>()</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#acf1f9395be7aec8654155a8bfd8af179">Control</a>(sf::Keyboard::Key key)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a571f94300bb21185e9cb7c9d3d10d7dc">Control</a>(sf::Mouse::Button button)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a5c33b0d0b33a4875ad9a02065d2a714e">deactivated</a>(const sf::Event &amp;event) const</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a08b1092c830495a4a973085b9db46216">fromEvent</a>(const sf::Event &amp;event)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a689c184fe0e177f6e95311c1c975a119">fromString</a>(const std::string &amp;str)</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a1a06551f514c41b7ebb7fc9366c3bb11a9d692e0af6edeff71655da069b0aa6cc">Invalid</a> enum value</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a1a06551f514c41b7ebb7fc9366c3bb11a22bd488aab13a6562ef5c4a851cdbb31">Key</a> enum value</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#acee67a633130ac87a7c9fd7f372024eb">key</a></td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a6c56a5f022d51243b30d9e6aac09d8cc">matches</a>(const sf::Event &amp;event) const</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a1a06551f514c41b7ebb7fc9366c3bb11a2b298c7c9c4d1effd7edc0586b606daf">Mouse</a> enum value</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a2d427a44fb28509ba3c18bb37a85b78d">toString</a>() const</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a1a06551f514c41b7ebb7fc9366c3bb11">Type</a> enum name</td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a72effd7db23cd66288130fa8a2c09013">type</a></td><td class="entry"><a class="el" href="a00878.html">core::player::input::Control</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

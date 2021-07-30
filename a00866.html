@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player::input::Control Struct Reference</title>
+<title>Peoplemon: core::map::Weather Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,122 +63,145 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00575.html">player</a></li><li class="navelem"><a class="el" href="a00576.html">input</a></li><li class="navelem"><a class="el" href="a00866.html">Control</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00581.html">map</a></li><li class="navelem"><a class="el" href="a00866.html">Weather</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00863.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::player::input::Control Struct Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00554.html">Player</a></div></div>  </div>
+<div class="title">core::map::Weather Class Reference<div class="ingroups"><a class="el" href="a00557.html">Core</a> &raquo; <a class="el" href="a00565.html">Maps</a> &raquo; <a class="el" href="a00572.html">Weather</a><a class="el" href="a00557.html">Core</a> &raquo;  &#124; <a class="el" href="a00565.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic struct encapsulating a player input control.  
+<p>Parent weather system for maps. Manages active weather.  
  <a href="a00866.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00128_source.html">Control.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01510_source.html">Weather.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1a06551f514c41b7ebb7fc9366c3bb11"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11">Type</a> : std::uint8_t { <a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11a9d692e0af6edeff71655da069b0aa6cc">Invalid</a> = 0, 
-<a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11a22bd488aab13a6562ef5c4a851cdbb31">Key</a> = 1, 
-<a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11a2b298c7c9c4d1effd7edc0586b606daf">Mouse</a> = 2
- }<tr class="memdesc:a1a06551f514c41b7ebb7fc9366c3bb11"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of control (keyboard or mouse)  <a href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11">More...</a><br /></td></tr>
+<tr class="memitem:a1be4194375652797f8c87a7881b2ff3d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6">None</a> = 0, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c">AllRandom</a> = 1, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db">LightRain</a> = 2, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d">LightRainThunder</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550">HardRain</a> = 4, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b">HardRainThunder</a> = 5, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242">LightSnow</a> = 6, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0">LightSnowThunder</a> = 7, 
+<br />
+&#160;&#160;<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882">HardSnow</a> = 8, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83">HardSnowThunder</a> = 9, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c">ThinFog</a> = 10, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2">ThickFog</a> = 11, 
+<br />
+&#160;&#160;<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6">Sunny</a> = 12, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">SandStorm</a> = 13, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040">WaterRandom</a> = 14, 
+<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635">SnowRandom</a> = 15, 
+<br />
+&#160;&#160;<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4">DesertRandom</a> = 16
+<br />
+ }<tr class="memdesc:a1be4194375652797f8c87a7881b2ff3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather.  <a href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:a1a06551f514c41b7ebb7fc9366c3bb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a1be4194375652797f8c87a7881b2ff3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a32fe6130f93889272a714614c6c25a55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a32fe6130f93889272a714614c6c25a55">Control</a> ()</td></tr>
-<tr class="memdesc:a32fe6130f93889272a714614c6c25a55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty invalid control.  <a href="#a32fe6130f93889272a714614c6c25a55">More...</a><br /></td></tr>
-<tr class="separator:a32fe6130f93889272a714614c6c25a55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf1f9395be7aec8654155a8bfd8af179"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#acf1f9395be7aec8654155a8bfd8af179">Control</a> (sf::Keyboard::Key <a class="el" href="a00866.html#acee67a633130ac87a7c9fd7f372024eb">key</a>)</td></tr>
-<tr class="memdesc:acf1f9395be7aec8654155a8bfd8af179"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a control for the given key.  <a href="#acf1f9395be7aec8654155a8bfd8af179">More...</a><br /></td></tr>
-<tr class="separator:acf1f9395be7aec8654155a8bfd8af179"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a571f94300bb21185e9cb7c9d3d10d7dc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a571f94300bb21185e9cb7c9d3d10d7dc">Control</a> (sf::Mouse::Button <a class="el" href="a00866.html#aa4767dbb326c9d093b6ea3e2a38b390a">button</a>)</td></tr>
-<tr class="memdesc:a571f94300bb21185e9cb7c9d3d10d7dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a control for the given mouse button.  <a href="#a571f94300bb21185e9cb7c9d3d10d7dc">More...</a><br /></td></tr>
-<tr class="separator:a571f94300bb21185e9cb7c9d3d10d7dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d427a44fb28509ba3c18bb37a85b78d"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a2d427a44fb28509ba3c18bb37a85b78d">toString</a> () const</td></tr>
-<tr class="memdesc:a2d427a44fb28509ba3c18bb37a85b78d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the string representation of the control.  <a href="#a2d427a44fb28509ba3c18bb37a85b78d">More...</a><br /></td></tr>
-<tr class="separator:a2d427a44fb28509ba3c18bb37a85b78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c56a5f022d51243b30d9e6aac09d8cc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a6c56a5f022d51243b30d9e6aac09d8cc">matches</a> (const sf::Event &amp;event) const</td></tr>
-<tr class="memdesc:a6c56a5f022d51243b30d9e6aac09d8cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given event effects this control.  <a href="#a6c56a5f022d51243b30d9e6aac09d8cc">More...</a><br /></td></tr>
-<tr class="separator:a6c56a5f022d51243b30d9e6aac09d8cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a211d7e40bc38759b3b10afdf35a3d53d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a211d7e40bc38759b3b10afdf35a3d53d">activated</a> (const sf::Event &amp;event) const</td></tr>
-<tr class="memdesc:a211d7e40bc38759b3b10afdf35a3d53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given event activates this control.  <a href="#a211d7e40bc38759b3b10afdf35a3d53d">More...</a><br /></td></tr>
-<tr class="separator:a211d7e40bc38759b3b10afdf35a3d53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5c33b0d0b33a4875ad9a02065d2a714e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a5c33b0d0b33a4875ad9a02065d2a714e">deactivated</a> (const sf::Event &amp;event) const</td></tr>
-<tr class="memdesc:a5c33b0d0b33a4875ad9a02065d2a714e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given event deactivates this control.  <a href="#a5c33b0d0b33a4875ad9a02065d2a714e">More...</a><br /></td></tr>
-<tr class="separator:a5c33b0d0b33a4875ad9a02065d2a714e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a689c184fe0e177f6e95311c1c975a119"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00866.html">Control</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a689c184fe0e177f6e95311c1c975a119">fromString</a> (const std::string &amp;str)</td></tr>
-<tr class="memdesc:a689c184fe0e177f6e95311c1c975a119"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the control from the given string.  <a href="#a689c184fe0e177f6e95311c1c975a119">More...</a><br /></td></tr>
-<tr class="separator:a689c184fe0e177f6e95311c1c975a119"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08b1092c830495a4a973085b9db46216"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00866.html">Control</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a08b1092c830495a4a973085b9db46216">fromEvent</a> (const sf::Event &amp;event)</td></tr>
-<tr class="memdesc:a08b1092c830495a4a973085b9db46216"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a control from the gien event.  <a href="#a08b1092c830495a4a973085b9db46216">More...</a><br /></td></tr>
-<tr class="separator:a08b1092c830495a4a973085b9db46216"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a72effd7db23cd66288130fa8a2c09013"><td class="memItemLeft" align="right" valign="top">enum <a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11">core::player::input::Control::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a72effd7db23cd66288130fa8a2c09013">type</a></td></tr>
-<tr class="separator:a72effd7db23cd66288130fa8a2c09013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78c8745d7f7e331e00da1f55f06764ec"><td class="memItemLeft" >union {</td></tr>
-<tr class="memitem:a24972922090ca3ab88ed3a8df4fb7bf7"><td class="memItemLeft" >&#160;&#160;&#160;sf::Keyboard::Key&#160;&#160;&#160;<a class="el" href="a00866.html#acee67a633130ac87a7c9fd7f372024eb">key</a></td></tr>
-<tr class="memdesc:a24972922090ca3ab88ed3a8df4fb7bf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">The key of the control if a key.  <a href="#a24972922090ca3ab88ed3a8df4fb7bf7">More...</a><br /></td></tr>
-<tr class="separator:a24972922090ca3ab88ed3a8df4fb7bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2607ca8fa0b029e1df2f00cbe9856fd"><td class="memItemLeft" >&#160;&#160;&#160;sf::Mouse::Button&#160;&#160;&#160;<a class="el" href="a00866.html#aa4767dbb326c9d093b6ea3e2a38b390a">button</a></td></tr>
-<tr class="memdesc:ae2607ca8fa0b029e1df2f00cbe9856fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The button of the control if a button.  <a href="#ae2607ca8fa0b029e1df2f00cbe9856fd">More...</a><br /></td></tr>
-<tr class="separator:ae2607ca8fa0b029e1df2f00cbe9856fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78c8745d7f7e331e00da1f55f06764ec"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
-<tr class="separator:a78c8745d7f7e331e00da1f55f06764ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37aa44274a43da3e5578c6d9ec07e416"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a37aa44274a43da3e5578c6d9ec07e416">Weather</a> ()</td></tr>
+<tr class="memdesc:a37aa44274a43da3e5578c6d9ec07e416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the weather system with None.  <a href="#a37aa44274a43da3e5578c6d9ec07e416">More...</a><br /></td></tr>
+<tr class="separator:a37aa44274a43da3e5578c6d9ec07e416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#aa78c7aadf9c291bdb5747cdbf00d004b">~Weather</a> ()</td></tr>
+<tr class="memdesc:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates active weather.  <a href="#aa78c7aadf9c291bdb5747cdbf00d004b">More...</a><br /></td></tr>
+<tr class="separator:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94b0c20978e093b1921d1f94b8143b27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a94b0c20978e093b1921d1f94b8143b27">activate</a> (const sf::FloatRect &amp;area)</td></tr>
+<tr class="memdesc:a94b0c20978e093b1921d1f94b8143b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the weather system.  <a href="#a94b0c20978e093b1921d1f94b8143b27">More...</a><br /></td></tr>
+<tr class="separator:a94b0c20978e093b1921d1f94b8143b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48dd781d8df78511a1ca9e1871cede5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#ae48dd781d8df78511a1ca9e1871cede5">set</a> (<a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> type, bool immediate=false)</td></tr>
+<tr class="memdesc:ae48dd781d8df78511a1ca9e1871cede5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current weather type.  <a href="#ae48dd781d8df78511a1ca9e1871cede5">More...</a><br /></td></tr>
+<tr class="separator:ae48dd781d8df78511a1ca9e1871cede5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#aaf34d1cbd85edeb7ea7d04cd56b14824">getType</a> () const</td></tr>
+<tr class="memdesc:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current type of weather.  <a href="#aaf34d1cbd85edeb7ea7d04cd56b14824">More...</a><br /></td></tr>
+<tr class="separator:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a06a5ca8817b3ba6c71d7ff6d05b91be9">update</a> (<a class="el" href="a00994.html">system::Systems</a> &amp;systems, float dt)</td></tr>
+<tr class="memdesc:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current weather.  <a href="#a06a5ca8817b3ba6c71d7ff6d05b91be9">More...</a><br /></td></tr>
+<tr class="separator:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf48b9a7241517d44a01f5191f06603"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00866.html#a2bf48b9a7241517d44a01f5191f06603">render</a> (sf::RenderTarget &amp;target, float residual) const</td></tr>
+<tr class="memdesc:a2bf48b9a7241517d44a01f5191f06603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the current weather.  <a href="#a2bf48b9a7241517d44a01f5191f06603">More...</a><br /></td></tr>
+<tr class="separator:a2bf48b9a7241517d44a01f5191f06603"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic struct encapsulating a player input control. </p>
+<div class="textblock"><p>Parent weather system for maps. Manages active weather. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00022">22</a> of file <a class="el" href="a00128_source.html">Control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01510_source.html#l00029">29</a> of file <a class="el" href="a01510_source.html">Weather.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a1a06551f514c41b7ebb7fc9366c3bb11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a06551f514c41b7ebb7fc9366c3bb11">&#9670;&nbsp;</a></span>Type</h2>
+<a id="a1be4194375652797f8c87a7881b2ff3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be4194375652797f8c87a7881b2ff3d">&#9670;&nbsp;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11">core::player::input::Control::Type</a> : std::uint8_t</td>
+          <td class="memname">enum <a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a> : std::uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The type of control (keyboard or mouse) </p>
+<p>The type of weather. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1a06551f514c41b7ebb7fc9366c3bb11a9d692e0af6edeff71655da069b0aa6cc"></a>Invalid&#160;</td><td class="fielddoc"><p>The control is invalid or empty. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6"></a>None&#160;</td><td class="fielddoc"><p>No weather will occur. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1a06551f514c41b7ebb7fc9366c3bb11a22bd488aab13a6562ef5c4a851cdbb31"></a>Key&#160;</td><td class="fielddoc"><p>The control is on the keyboard. </p>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c"></a>AllRandom&#160;</td><td class="fielddoc"><p>All types of weather may occur over time. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1a06551f514c41b7ebb7fc9366c3bb11a2b298c7c9c4d1effd7edc0586b606daf"></a>Mouse&#160;</td><td class="fielddoc"><p>The control is on the mouse. </p>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db"></a>LightRain&#160;</td><td class="fielddoc"><p><a class="el" href="a00838.html" title="Represents a renderable light in a Map. ">Light</a> rain with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d"></a>LightRainThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a00838.html" title="Represents a renderable light in a Map. ">Light</a> rain with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550"></a>HardRain&#160;</td><td class="fielddoc"><p>Hard rain with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b"></a>HardRainThunder&#160;</td><td class="fielddoc"><p>Hard rain with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242"></a>LightSnow&#160;</td><td class="fielddoc"><p><a class="el" href="a00838.html" title="Represents a renderable light in a Map. ">Light</a> snow with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0"></a>LightSnowThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a00838.html" title="Represents a renderable light in a Map. ">Light</a> snow with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882"></a>HardSnow&#160;</td><td class="fielddoc"><p>Hard snow with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83"></a>HardSnowThunder&#160;</td><td class="fielddoc"><p>Hard snow with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c"></a>ThinFog&#160;</td><td class="fielddoc"><p>Thin fog covers the area. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2"></a>ThickFog&#160;</td><td class="fielddoc"><p>Thick fog obscures everything. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6"></a>Sunny&#160;</td><td class="fielddoc"><p>A very sunny day with puslating light. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60"></a>SandStorm&#160;</td><td class="fielddoc"><p>A sandstorm ravages you. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040"></a>WaterRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightRain, HardRain, LightRainThunder, HardRainThunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635"></a>SnowRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightSnow, HardSnow, LightSnowThunder, HardSnowThunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4"></a>DesertRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of Sunny, Sandstorm. </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00093">93</a> of file <a class="el" href="a00128_source.html">Control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01510_source.html#l00035">35</a> of file <a class="el" href="a01510_source.html">Weather.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a32fe6130f93889272a714614c6c25a55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a32fe6130f93889272a714614c6c25a55">&#9670;&nbsp;</a></span>Control() <span class="overload">[1/3]</span></h2>
+<a id="a37aa44274a43da3e5578c6d9ec07e416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37aa44274a43da3e5578c6d9ec07e416">&#9670;&nbsp;</a></span>Weather()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::player::input::Control::Control </td>
+          <td class="memname">core::map::Weather::Weather </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -186,238 +209,70 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates an empty invalid control. </p>
+<p>Initializes the weather system with None. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00095">95</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00040">40</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acf1f9395be7aec8654155a8bfd8af179"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf1f9395be7aec8654155a8bfd8af179">&#9670;&nbsp;</a></span>Control() <span class="overload">[2/3]</span></h2>
+<a id="aa78c7aadf9c291bdb5747cdbf00d004b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa78c7aadf9c291bdb5747cdbf00d004b">&#9670;&nbsp;</a></span>~Weather()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::player::input::Control::Control </td>
+          <td class="memname">core::map::Weather::~Weather </td>
           <td>(</td>
-          <td class="paramtype">sf::Keyboard::Key&#160;</td>
-          <td class="paramname"><em>key</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a control for the given key. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">key</td><td>The key to be active on </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Terminates active weather. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00099">99</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a571f94300bb21185e9cb7c9d3d10d7dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a571f94300bb21185e9cb7c9d3d10d7dc">&#9670;&nbsp;</a></span>Control() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::player::input::Control::Control </td>
-          <td>(</td>
-          <td class="paramtype">sf::Mouse::Button&#160;</td>
-          <td class="paramname"><em>button</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a control for the given mouse button. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">button</td><td>The mouse button to be active on </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00103">103</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00046">46</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a211d7e40bc38759b3b10afdf35a3d53d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a211d7e40bc38759b3b10afdf35a3d53d">&#9670;&nbsp;</a></span>activated()</h2>
+<a id="a94b0c20978e093b1921d1f94b8143b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b0c20978e093b1921d1f94b8143b27">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::player::input::Control::activated </td>
+          <td class="memname">void core::map::Weather::activate </td>
           <td>(</td>
-          <td class="paramtype">const sf::Event &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given event activates this control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>The event to process </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if this control was activated, false if not </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00165">165</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5c33b0d0b33a4875ad9a02065d2a714e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c33b0d0b33a4875ad9a02065d2a714e">&#9670;&nbsp;</a></span>deactivated()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::player::input::Control::deactivated </td>
-          <td>(</td>
-          <td class="paramtype">const sf::Event &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given event deactivates this control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>The event to process </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the control is deactivated by the event </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00182">182</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a08b1092c830495a4a973085b9db46216"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08b1092c830495a4a973085b9db46216">&#9670;&nbsp;</a></span>fromEvent()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00866.html">Control</a> core::player::input::Control::fromEvent </td>
-          <td>(</td>
-          <td class="paramtype">const sf::Event &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
+          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
+          <td class="paramname"><em>area</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Creates a control from the gien event. </p>
+<p>Activates the weather system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">event</td><td>The event to create the control from </td></tr>
+    <tr><td class="paramname">area</td><td>Initial area to spawn particles in </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00866.html" title="Basic struct encapsulating a player input control. ">Control</a> The produced control. May be Invalid </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00139">139</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a689c184fe0e177f6e95311c1c975a119"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a689c184fe0e177f6e95311c1c975a119">&#9670;&nbsp;</a></span>fromString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00866.html">Control</a> core::player::input::Control::fromString </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Parses the control from the given string. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">str</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a00866.html" title="Basic struct encapsulating a player input control. ">Control</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00127">127</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00048">48</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6c56a5f022d51243b30d9e6aac09d8cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c56a5f022d51243b30d9e6aac09d8cc">&#9670;&nbsp;</a></span>matches()</h2>
+<a id="aaf34d1cbd85edeb7ea7d04cd56b14824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf34d1cbd85edeb7ea7d04cd56b14824">&#9670;&nbsp;</a></span>getType()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::player::input::Control::matches </td>
-          <td>(</td>
-          <td class="paramtype">const sf::Event &amp;&#160;</td>
-          <td class="paramname"><em>event</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the given event effects this control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>The event to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the event is for this control, false if not </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00145">145</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2d427a44fb28509ba3c18bb37a85b78d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d427a44fb28509ba3c18bb37a85b78d">&#9670;&nbsp;</a></span>toString()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; core::player::input::Control::toString </td>
+          <td class="memname"><a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> core::map::Weather::getType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -425,86 +280,138 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the string representation of the control. </p>
+<p>Returns the current type of weather. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00107">107</a> of file <a class="el" href="a00398_source.html">Control.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00062">62</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a78c8745d7f7e331e00da1f55f06764ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78c8745d7f7e331e00da1f55f06764ec">&#9670;&nbsp;</a></span>@2</h2>
+<a id="a2bf48b9a7241517d44a01f5191f06603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf48b9a7241517d44a01f5191f06603">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">union { ... } </td>
+          <td class="memname">void core::map::Weather::render </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>residual</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Renders the current weather. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
+    <tr><td class="paramname">residual</td><td>Residual time not yet accounted for in update </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00120">120</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
+
 </div>
 </div>
-<a id="aa4767dbb326c9d093b6ea3e2a38b390a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4767dbb326c9d093b6ea3e2a38b390a">&#9670;&nbsp;</a></span>button</h2>
+<a id="ae48dd781d8df78511a1ca9e1871cede5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae48dd781d8df78511a1ca9e1871cede5">&#9670;&nbsp;</a></span>set()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Mouse::Button core::player::input::Control::button</td>
+          <td class="memname">void core::map::Weather::set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00866.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>immediate</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The button of the control if a button. </p>
+<p>Sets the current weather type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of weather to transition to </td></tr>
+    <tr><td class="paramname">immediate</td><td>True to skip the stop phase of the current weather </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00109">109</a> of file <a class="el" href="a00128_source.html">Control.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00050">50</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acee67a633130ac87a7c9fd7f372024eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acee67a633130ac87a7c9fd7f372024eb">&#9670;&nbsp;</a></span>key</h2>
+<a id="a06a5ca8817b3ba6c71d7ff6d05b91be9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06a5ca8817b3ba6c71d7ff6d05b91be9">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Keyboard::Key core::player::input::Control::key</td>
+          <td class="memname">void core::map::Weather::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00994.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The key of the control if a key. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00106">106</a> of file <a class="el" href="a00128_source.html">Control.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a72effd7db23cd66288130fa8a2c09013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72effd7db23cd66288130fa8a2c09013">&#9670;&nbsp;</a></span>type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a00866.html#a1a06551f514c41b7ebb7fc9366c3bb11">core::player::input::Control::Type</a>  core::player::input::Control::type</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p>Updates the current weather. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary game systems </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed since last call to <a class="el" href="a00866.html#a06a5ca8817b3ba6c71d7ff6d05b91be9" title="Updates the current weather. ">update()</a> in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00064">64</a> of file <a class="el" href="a00398_source.html">Weather.cpp</a>.</p>
+
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Player/Input/<a class="el" href="a00128_source.html">Control.hpp</a></li>
-<li>src/Core/Player/Input/<a class="el" href="a00398_source.html">Control.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Maps/<a class="el" href="a01510_source.html">Weather.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a00398_source.html">Weather.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

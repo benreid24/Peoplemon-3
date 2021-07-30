@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['tilelayer',['TileLayer',['../a00553.html#ga20b619b84a2c30417adb8107ad0b51a6',1,'core::map']]],
-  ['tilestore',['TileStore',['../a00850.html#a8c224b5c1376d3eae70ae22be00278fb',1,'core::map::Tileset']]]
+  ['shiftcb',['ShiftCb',['../a01066.html#a88200f4f964a29cae628e3b25534fee3',1,'editor::page::Layers::ShiftCb()'],['../a01078.html#a511be2fb33bfdd78a58c2eb20950f096',1,'editor::page::Levels::ShiftCb()']]],
+  ['sortedlayer',['SortedLayer',['../a00565.html#ga6f70b9c1f8b3325b63baf210dd69e816',1,'core::map']]],
+  ['statuscb',['StatusCb',['../a00914.html#a6fb9f156a9650c9c7536fef50a92d982',1,'core::script::ConversationContext']]]
 ];

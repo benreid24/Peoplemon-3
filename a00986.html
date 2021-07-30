@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::system::World Class Reference</title>
+<title>Peoplemon: core::system::Position Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00562.html">system</a></li><li class="navelem"><a class="el" href="a00986.html">World</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00574.html">system</a></li><li class="navelem"><a class="el" href="a00986.html">Position</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,99 +71,127 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a00983.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::system::World Class Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00557.html">Systems</a></div></div>  </div>
+<div class="title">core::system::Position Class Reference<div class="ingroups"><a class="el" href="a00557.html">Core</a> &raquo; <a class="el" href="a00569.html">Systems</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>System for managing the current map and previous maps.  
+<p>The primary entity positioning system. Handles determining which entities get updated as well as tracking where entities are for collisions.  
  <a href="a00986.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00200_source.html">World.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a01498_source.html">Position.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::system::Position:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a00986.png" usemap="#core::system::Position_map" alt=""/>
+  <map id="core::system::Position_map" name="core::system::Position_map">
+</map>
+ </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2d59d17c578592c34a3001f3232f8e02"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a2d59d17c578592c34a3001f3232f8e02">World</a> (<a class="el" href="a00982.html">Systems</a> &amp;systems)</td></tr>
-<tr class="memdesc:a2d59d17c578592c34a3001f3232f8e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the world system.  <a href="#a2d59d17c578592c34a3001f3232f8e02">More...</a><br /></td></tr>
-<tr class="separator:a2d59d17c578592c34a3001f3232f8e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c6e58b7535290f0b93002ba50339ee4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a1c6e58b7535290f0b93002ba50339ee4">~World</a> ()</td></tr>
-<tr class="memdesc:a1c6e58b7535290f0b93002ba50339ee4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom cleanup code to prevent dangling pointers in event subscribers.  <a href="#a1c6e58b7535290f0b93002ba50339ee4">More...</a><br /></td></tr>
-<tr class="separator:a1c6e58b7535290f0b93002ba50339ee4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d85231f1c949e41a64b8967f599c2c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a8d85231f1c949e41a64b8967f599c2c4">switchMaps</a> (const std::string &amp;newMap, int spawnId)</td></tr>
-<tr class="memdesc:a8d85231f1c949e41a64b8967f599c2c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Switches the current map to the map in the given file.  <a href="#a8d85231f1c949e41a64b8967f599c2c4">More...</a><br /></td></tr>
-<tr class="separator:a8d85231f1c949e41a64b8967f599c2c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e7738a624376c5030f9634f4afeb759"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00834.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a> ()</td></tr>
-<tr class="memdesc:a9e7738a624376c5030f9634f4afeb759"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a reference to the active map.  <a href="#a9e7738a624376c5030f9634f4afeb759">More...</a><br /></td></tr>
-<tr class="separator:a9e7738a624376c5030f9634f4afeb759"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37312fecc4ea11c1b9fe90a4842267bd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00834.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a37312fecc4ea11c1b9fe90a4842267bd">activeMap</a> () const</td></tr>
-<tr class="memdesc:a37312fecc4ea11c1b9fe90a4842267bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the active map.  <a href="#a37312fecc4ea11c1b9fe90a4842267bd">More...</a><br /></td></tr>
-<tr class="separator:a37312fecc4ea11c1b9fe90a4842267bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a715aaca253fce94661b867f4468bdf1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a715aaca253fce94661b867f4468bdf1b">update</a> (float dt)</td></tr>
-<tr class="memdesc:a715aaca253fce94661b867f4468bdf1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current map.  <a href="#a715aaca253fce94661b867f4468bdf1b">More...</a><br /></td></tr>
-<tr class="separator:a715aaca253fce94661b867f4468bdf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2430735d1e951fe4b5b8321026896b70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a2430735d1e951fe4b5b8321026896b70">Position</a> (<a class="el" href="a00994.html">Systems</a> &amp;owner)</td></tr>
+<tr class="memdesc:a2430735d1e951fe4b5b8321026896b70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct the <a class="el" href="a00986.html" title="The primary entity positioning system. Handles determining which entities get updated as well as trac...">Position</a> system.  <a href="#a2430735d1e951fe4b5b8321026896b70">More...</a><br /></td></tr>
+<tr class="separator:a2430735d1e951fe4b5b8321026896b70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bf147b773980900c1a4ee73bb7cb768"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a2bf147b773980900c1a4ee73bb7cb768">~Position</a> ()=default</td></tr>
+<tr class="memdesc:a2bf147b773980900c1a4ee73bb7cb768"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a00986.html" title="The primary entity positioning system. Handles determining which entities get updated as well as trac...">Position</a> system.  <a href="#a2bf147b773980900c1a4ee73bb7cb768">More...</a><br /></td></tr>
+<tr class="separator:a2bf147b773980900c1a4ee73bb7cb768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad16dba924297b3bc9365a010270c9193"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#ad16dba924297b3bc9365a010270c9193">init</a> ()</td></tr>
+<tr class="memdesc:ad16dba924297b3bc9365a010270c9193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the view on the entity registry.  <a href="#ad16dba924297b3bc9365a010270c9193">More...</a><br /></td></tr>
+<tr class="separator:ad16dba924297b3bc9365a010270c9193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88922da0cca6643e2fde8eae97e31a52"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a88922da0cca6643e2fde8eae97e31a52">update</a> ()</td></tr>
+<tr class="memdesc:a88922da0cca6643e2fde8eae97e31a52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the group of entities that updates should be performed on based on the current camera position. This should be called before any other systems.  <a href="#a88922da0cca6643e2fde8eae97e31a52">More...</a><br /></td></tr>
+<tr class="separator:a88922da0cca6643e2fde8eae97e31a52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57c2242bd3c84d3b0bb5b6bc00c54eae"><td class="memItemLeft" align="right" valign="top">bl::entity::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a57c2242bd3c84d3b0bb5b6bc00c54eae">getEntity</a> (const <a class="el" href="a00666.html">component::Position</a> &amp;pos) const</td></tr>
+<tr class="memdesc:a57c2242bd3c84d3b0bb5b6bc00c54eae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity at the given position or InvalidEntity if not found.  <a href="#a57c2242bd3c84d3b0bb5b6bc00c54eae">More...</a><br /></td></tr>
+<tr class="separator:a57c2242bd3c84d3b0bb5b6bc00c54eae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4262241444b45ec46aa50ae9e8a04178"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a4262241444b45ec46aa50ae9e8a04178">spaceFree</a> (const <a class="el" href="a00666.html">component::Position</a> &amp;position) const</td></tr>
+<tr class="memdesc:a4262241444b45ec46aa50ae9e8a04178"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a tile is currently occupied.  <a href="#a4262241444b45ec46aa50ae9e8a04178">More...</a><br /></td></tr>
+<tr class="separator:a4262241444b45ec46aa50ae9e8a04178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a015e37cdb07476ff84301e2e3feebd2c"><td class="memItemLeft" align="right" valign="top">bl::entity::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a015e37cdb07476ff84301e2e3feebd2c">search</a> (const <a class="el" href="a00666.html">component::Position</a> &amp;start, <a class="el" href="a00561.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> dir, unsigned int range)</td></tr>
+<tr class="memdesc:a015e37cdb07476ff84301e2e3feebd2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Searches for an entity from the starting position in the given direction for the given number of spaces. Note that start position should be the position of a searching entity and is not included in the search results.  <a href="#a015e37cdb07476ff84301e2e3feebd2c">More...</a><br /></td></tr>
+<tr class="separator:a015e37cdb07476ff84301e2e3feebd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a964de7e5c758cfec83ed01bc69bf6755"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; bl::entity::Entity &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a964de7e5c758cfec83ed01bc69bf6755">updateRangeEntities</a> () const</td></tr>
+<tr class="memdesc:a964de7e5c758cfec83ed01bc69bf6755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an iterable set containing all the entities that should be updated.  <a href="#a964de7e5c758cfec83ed01bc69bf6755">More...</a><br /></td></tr>
+<tr class="separator:a964de7e5c758cfec83ed01bc69bf6755"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee48477b3cb2ed9fa4c0d02976e2276"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#a4ee48477b3cb2ed9fa4c0d02976e2276">editorPushLevel</a> ()</td></tr>
+<tr class="memdesc:a4ee48477b3cb2ed9fa4c0d02976e2276"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the editor when a level is added.  <a href="#a4ee48477b3cb2ed9fa4c0d02976e2276">More...</a><br /></td></tr>
+<tr class="separator:a4ee48477b3cb2ed9fa4c0d02976e2276"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdd770fb2982f2dae0223c99b24bfa4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#abdd770fb2982f2dae0223c99b24bfa4a">editorPopLevel</a> ()</td></tr>
+<tr class="memdesc:abdd770fb2982f2dae0223c99b24bfa4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called by the editor when a level is removed.  <a href="#abdd770fb2982f2dae0223c99b24bfa4a">More...</a><br /></td></tr>
+<tr class="separator:abdd770fb2982f2dae0223c99b24bfa4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>System for managing the current map and previous maps. </p>
+<div class="textblock"><p>The primary entity positioning system. Handles determining which entities get updated as well as tracking where entities are for collisions. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00200_source.html#l00018">18</a> of file <a class="el" href="a00200_source.html">World.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01498_source.html#l00026">26</a> of file <a class="el" href="a01498_source.html">Position.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2d59d17c578592c34a3001f3232f8e02"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d59d17c578592c34a3001f3232f8e02">&#9670;&nbsp;</a></span>World()</h2>
+<a id="a2430735d1e951fe4b5b8321026896b70"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2430735d1e951fe4b5b8321026896b70">&#9670;&nbsp;</a></span>Position()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::system::World::World </td>
+          <td class="memname">core::system::Position::Position </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00982.html">Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00994.html">Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>owner</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the world system. </p>
+<p>Construct the <a class="el" href="a00986.html" title="The primary entity positioning system. Handles determining which entities get updated as well as trac...">Position</a> system. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>A reference to the parent <a class="el" href="a00982.html" title="Owns all primary systems and a reference to the engine. ">Systems</a> object </td></tr>
+    <tr><td class="paramname">owner</td><td>The primary <a class="el" href="a00994.html" title="Owns all primary systems and a reference to the engine. ">Systems</a> object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00010">10</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00012">12</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a1c6e58b7535290f0b93002ba50339ee4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c6e58b7535290f0b93002ba50339ee4">&#9670;&nbsp;</a></span>~World()</h2>
+<a id="a2bf147b773980900c1a4ee73bb7cb768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bf147b773980900c1a4ee73bb7cb768">&#9670;&nbsp;</a></span>~Position()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::system::World::~World </td>
+          <td class="memname">virtual core::system::Position::~Position </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Custom cleanup code to prevent dangling pointers in event subscribers. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00013">13</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p>Destroy the <a class="el" href="a00986.html" title="The primary entity positioning system. Handles determining which entities get updated as well as trac...">Position</a> system. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9e7738a624376c5030f9634f4afeb759"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e7738a624376c5030f9634f4afeb759">&#9670;&nbsp;</a></span>activeMap() <span class="overload">[1/2]</span></h2>
+<a id="abdd770fb2982f2dae0223c99b24bfa4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdd770fb2982f2dae0223c99b24bfa4a">&#9670;&nbsp;</a></span>editorPopLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00834.html">map::Map</a> &amp; core::system::World::activeMap </td>
+          <td class="memname">void core::system::Position::editorPopLevel </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -171,50 +199,106 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a reference to the active map. </p>
+<p>Called by the editor when a level is removed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00043">43</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00143">143</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a37312fecc4ea11c1b9fe90a4842267bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37312fecc4ea11c1b9fe90a4842267bd">&#9670;&nbsp;</a></span>activeMap() <span class="overload">[2/2]</span></h2>
+<a id="a4ee48477b3cb2ed9fa4c0d02976e2276"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee48477b3cb2ed9fa4c0d02976e2276">&#9670;&nbsp;</a></span>editorPushLevel()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00834.html">map::Map</a> &amp; core::system::World::activeMap </td>
+          <td class="memname">void core::system::Position::editorPushLevel </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called by the editor when a level is added. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00138">138</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a57c2242bd3c84d3b0bb5b6bc00c54eae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57c2242bd3c84d3b0bb5b6bc00c54eae">&#9670;&nbsp;</a></span>getEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::entity::Entity core::system::Position::getEntity </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00666.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns a const reference to the active map. </p>
+<p>Returns the entity at the given position or InvalidEntity if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pos</td><td>The position to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::entity::Entity The entity at the given position or bl::entity::InvalidEntity </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00045">45</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00122">122</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8d85231f1c949e41a64b8967f599c2c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d85231f1c949e41a64b8967f599c2c4">&#9670;&nbsp;</a></span>switchMaps()</h2>
+<a id="ad16dba924297b3bc9365a010270c9193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad16dba924297b3bc9365a010270c9193">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::system::World::switchMaps </td>
+          <td class="memname">void core::system::Position::init </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>newMap</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the view on the entity registry. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00015">15</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a015e37cdb07476ff84301e2e3feebd2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a015e37cdb07476ff84301e2e3feebd2c">&#9670;&nbsp;</a></span>search()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::entity::Entity core::system::Position::search </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a00666.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>start</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>spawnId</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00561.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>range</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -224,57 +308,101 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Switches the current map to the map in the given file. </p>
+<p>Searches for an entity from the starting position in the given direction for the given number of spaces. Note that start position should be the position of a searching entity and is not included in the search results. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newMap</td><td>Filename of new map, or "LastMap" for previous map </td></tr>
-    <tr><td class="paramname">spawnId</td><td>The id to spawn at. Ignored if "LastMap" is specified </td></tr>
+    <tr><td class="paramname">start</td><td>The position to start at. Is not searched </td></tr>
+    <tr><td class="paramname">range</td><td>Number of spaces to search. Must be greater than 1 </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the new map could be loaded and switched to, false on error </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::entity::Entity The entity that was found, or bl::entity::InvalidEntity if none </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00017">17</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00059">59</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a715aaca253fce94661b867f4468bdf1b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a715aaca253fce94661b867f4468bdf1b">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a4262241444b45ec46aa50ae9e8a04178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4262241444b45ec46aa50ae9e8a04178">&#9670;&nbsp;</a></span>spaceFree()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::system::World::update </td>
+          <td class="memname">bool core::system::Position::spaceFree </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00666.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not a tile is currently occupied. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The tile position to check </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if no entity is on the tile, false if an entity is currently there </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00052">52</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a88922da0cca6643e2fde8eae97e31a52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88922da0cca6643e2fde8eae97e31a52">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::Position::update </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the current map. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds since last call to update </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Update the group of entities that updates should be performed on based on the current camera position. This should be called before any other systems. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00464_source.html#l00047">47</a> of file <a class="el" href="a00464_source.html">World.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00023">23</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a964de7e5c758cfec83ed01bc69bf6755"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a964de7e5c758cfec83ed01bc69bf6755">&#9670;&nbsp;</a></span>updateRangeEntities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; bl::entity::Entity &gt; &amp; core::system::Position::updateRangeEntities </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an iterable set containing all the entities that should be updated. </p>
+<dl class="section return"><dt>Returns</dt><dd>const bl::container::Grid&lt;bl::entity::Entity&gt;::Range&amp; Entities that should be updated </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01555_source.html#l00050">50</a> of file <a class="el" href="a01555_source.html">Position.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Systems/<a class="el" href="a00200_source.html">World.hpp</a></li>
-<li>src/Core/Systems/<a class="el" href="a00464_source.html">World.cpp</a></li>
+<li>include/Core/Systems/<a class="el" href="a01498_source.html">Position.hpp</a></li>
+<li>src/Core/Systems/<a class="el" href="a01555_source.html">Position.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::StateChange Struct Reference</title>
+<title>Peoplemon: core::event::MapEntered Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,77 +63,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00561.html">core</a></li><li class="navelem"><a class="el" href="a00568.html">event</a></li><li class="navelem"><a class="el" href="a00730.html">StateChange</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00580.html">event</a></li><li class="navelem"><a class="el" href="a00730.html">MapEntered</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00727.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::StateChange Struct Reference<div class="ingroups"><a class="el" href="a00545.html">Core</a> &raquo; <a class="el" href="a00550.html">Events</a></div></div>  </div>
+<div class="title">core::event::MapEntered Struct Reference<div class="ingroups"><a class="el" href="a00557.html">Core</a> &raquo; <a class="el" href="a00562.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when the game should switch states. This event type is primarily for decoupling input code in Core from state code in Game.  
+<p>Fired when a map is entered.  
  <a href="a00730.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00059_source.html">StateChange.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00056_source.html">Maps.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a283a05dbe026e2a9c7a4060821b9ee69"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">Type</a> { <a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69a4e4f3e43d4d764a417a2f4a7ccf90711">GamePaused</a> = 0, 
-<a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69a43a8e2b725f97d8b9b1dffe9f2ebb476">BackPressed</a> = 1
- }<tr class="memdesc:a283a05dbe026e2a9c7a4060821b9ee69"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of state change that should occur.  <a href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a283a05dbe026e2a9c7a4060821b9ee69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad07cbfa01fe6f851ba939f109dc6c9ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html#ad07cbfa01fe6f851ba939f109dc6c9ed">StateChange</a> (<a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">Type</a> t)</td></tr>
-<tr class="memdesc:ad07cbfa01fe6f851ba939f109dc6c9ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new State Change event.  <a href="#ad07cbfa01fe6f851ba939f109dc6c9ed">More...</a><br /></td></tr>
-<tr class="separator:ad07cbfa01fe6f851ba939f109dc6c9ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html#a9b42f00fbdc65cd550ca1659bc4f4399">MapEntered</a> (const <a class="el" href="a00846.html">map::Map</a> &amp;<a class="el" href="a00730.html#ab24b8ba625ac228bf39a2d0170f83b27">map</a>)</td></tr>
+<tr class="memdesc:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Map Entered object.  <a href="#a9b42f00fbdc65cd550ca1659bc4f4399">More...</a><br /></td></tr>
+<tr class="separator:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aec10a8e2bdd80fb55b2d1604577b6c14"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html#aec10a8e2bdd80fb55b2d1604577b6c14">type</a></td></tr>
-<tr class="memdesc:aec10a8e2bdd80fb55b2d1604577b6c14"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of state change that should occur.  <a href="#aec10a8e2bdd80fb55b2d1604577b6c14">More...</a><br /></td></tr>
-<tr class="separator:aec10a8e2bdd80fb55b2d1604577b6c14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab24b8ba625ac228bf39a2d0170f83b27"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00846.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html#ab24b8ba625ac228bf39a2d0170f83b27">map</a></td></tr>
+<tr class="memdesc:ab24b8ba625ac228bf39a2d0170f83b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the map that was just entered.  <a href="#ab24b8ba625ac228bf39a2d0170f83b27">More...</a><br /></td></tr>
+<tr class="separator:ab24b8ba625ac228bf39a2d0170f83b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when the game should switch states. This event type is primarily for decoupling input code in Core from state code in Game. </p>
+<div class="textblock"><p>Fired when a map is entered. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00015">15</a> of file <a class="el" href="a00059_source.html">StateChange.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a283a05dbe026e2a9c7a4060821b9ee69"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a283a05dbe026e2a9c7a4060821b9ee69">&#9670;&nbsp;</a></span>Type</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">core::event::StateChange::Type</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The type of state change that should occur. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a283a05dbe026e2a9c7a4060821b9ee69a4e4f3e43d4d764a417a2f4a7ccf90711"></a>GamePaused&#160;</td><td class="fielddoc"><p>The game should pause. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a283a05dbe026e2a9c7a4060821b9ee69a43a8e2b725f97d8b9b1dffe9f2ebb476"></a>BackPressed&#160;</td><td class="fielddoc"><p>Context dependent action. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00017">17</a> of file <a class="el" href="a00059_source.html">StateChange.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad07cbfa01fe6f851ba939f109dc6c9ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad07cbfa01fe6f851ba939f109dc6c9ed">&#9670;&nbsp;</a></span>StateChange()</h2>
+<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00041">41</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9b42f00fbdc65cd550ca1659bc4f4399"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b42f00fbdc65cd550ca1659bc4f4399">&#9670;&nbsp;</a></span>MapEntered()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -142,10 +108,10 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::StateChange::StateChange </td>
+          <td class="memname">core::event::MapEntered::MapEntered </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">Type</a>&#160;</td>
-          <td class="paramname"><em>t</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a00846.html">map::Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -156,45 +122,45 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new State Change event. </p>
+<p>Construct a new Map Entered object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">t</td><td>The type of state change </td></tr>
+    <tr><td class="paramname">map</td><td>The map that was entered </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00033">33</a> of file <a class="el" href="a00059_source.html">StateChange.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00047">47</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aec10a8e2bdd80fb55b2d1604577b6c14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec10a8e2bdd80fb55b2d1604577b6c14">&#9670;&nbsp;</a></span>type</h2>
+<a id="ab24b8ba625ac228bf39a2d0170f83b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab24b8ba625ac228bf39a2d0170f83b27">&#9670;&nbsp;</a></span>map</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a00730.html#a283a05dbe026e2a9c7a4060821b9ee69">Type</a> core::event::StateChange::type</td>
+          <td class="memname">const <a class="el" href="a00846.html">map::Map</a>&amp; core::event::MapEntered::map</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The type of state change that should occur. </p>
+<p>A reference to the map that was just entered. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00026">26</a> of file <a class="el" href="a00059_source.html">StateChange.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00051">51</a> of file <a class="el" href="a00056_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00059_source.html">StateChange.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a00056_source.html">Maps.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jul 21 2021 01:44:41 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jul 30 2021 00:29:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
