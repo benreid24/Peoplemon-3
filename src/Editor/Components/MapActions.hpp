@@ -254,6 +254,73 @@ private:
     AppendLevelAction() = default;
 };
 
+class EditMap::SetScriptAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(bool load, const std::string& s, const std::string& p);
+
+    virtual ~SetScriptAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const bool load;
+    const std::string s;
+    const std::string p;
+
+    SetScriptAction(bool load, const std::string& s, const std::string& p);
+};
+
+class EditMap::AddEventAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::Event& e, unsigned int i);
+
+    virtual ~AddEventAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::Event event;
+    const unsigned int i;
+
+    AddEventAction(const core::map::Event& e, unsigned int i);
+};
+
+class EditMap::EditEventAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::Event& orig, const core::map::Event& val,
+                              unsigned int i);
+
+    virtual ~EditEventAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::Event orig;
+    const core::map::Event val;
+    const unsigned int i;
+
+    EditEventAction(const core::map::Event& orig, const core::map::Event& val, unsigned int i);
+};
+
+class EditMap::RemoveEventAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::Event& e, unsigned int i);
+
+    virtual ~RemoveEventAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::Event event;
+    const unsigned int i;
+
+    RemoveEventAction(const core::map::Event& orig, unsigned int i);
+};
+
 } // namespace component
 } // namespace editor
 

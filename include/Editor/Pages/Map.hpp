@@ -1,7 +1,9 @@
 #ifndef EDITOR_PAGES_MAP_HPP
 #define EDITOR_PAGES_MAP_HPP
 
+#include <Editor/Components/EventEditor.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
+#include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
@@ -54,6 +56,10 @@ private:
     bl::gui::ComboBox::Ptr itemSpawnEntry;
     std::vector<core::item::Id> itemIdLookup;
 
+    bl::gui::RadioButton::Ptr createEventRadio;
+    bl::gui::RadioButton::Ptr editEventRadio;
+    bl::gui::RadioButton::Ptr deleteEventRadio;
+
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
@@ -65,6 +71,7 @@ private:
     enum struct Tool {
         Metadata,
         MapEdit,
+        Events,
         Spawns,
         NPCs,
         Items,
@@ -87,6 +94,13 @@ private:
 
     bl::gui::FilePicker playlistPicker;
     void onChoosePlaylist(const std::string& file);
+
+    component::ScriptSelector scriptSelector;
+    bool choosingOnloadScript;
+    void onChooseScript(const std::string& script);
+
+    component::EventEditor eventEditor;
+    void onEventEdit(const core::map::Event* orig, const core::map::Event& event);
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
     void onLevelChange(unsigned int level);

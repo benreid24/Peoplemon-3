@@ -197,16 +197,53 @@ public:
      */
     void setWeather(core::map::Weather::Type weather);
 
+    /**
+     * @brief Set the OnEnter script
+     *
+     * @param script The script to run when the map is entered
+     */
     void setOnEnterScript(const std::string& script);
 
+    /**
+     * @brief Get the OnEnter script
+     *
+     */
+    const std::string& getOnEnterScript() const;
+
+    /**
+     * @brief Set the OnExit script
+     *
+     * @param script The script to run when the map is left
+     */
     void setOnExitScript(const std::string& script);
+
+    /**
+     * @brief Get the OnExit script
+     *
+     */
+    const std::string& getOnExitScript() const;
 
     void setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sunlight);
 
+    /**
+     * @brief Creates a new level
+     *
+     */
     void appendLevel();
 
+    /**
+     * @brief Shifts the given level up or down
+     *
+     * @param level The level to move
+     * @param up True for up, false for down
+     */
     void shiftLevel(unsigned int level, bool up);
 
+    /**
+     * @brief Removes the given level
+     *
+     * @param level The level to remove
+     */
     void removeLevel(unsigned int level);
 
     /**
@@ -332,13 +369,35 @@ public:
 
     void removeLight(const sf::Vector2i& positionPixels);
 
+    /**
+     * @brief Creates a new map event
+     *
+     * @param event The event to create
+     */
     void createEvent(const core::map::Event& event);
 
+    /**
+     * @brief Returns a pointer to an event that overlaps the given position
+     *
+     * @param position The position to search
+     * @return const core::map::Event* Pointer to event or nullptr if none overlap
+     */
     const core::map::Event* getEvent(const sf::Vector2i& position);
 
+    /**
+     * @brief Alters the value of the given event
+     *
+     * @param orig Pointer to the event to update
+     * @param event New value to set
+     */
     void editEvent(const core::map::Event* orig, const core::map::Event& event);
 
-    void removeEvent(const sf::Vector2i& position);
+    /**
+     * @brief Deletes the given event
+     *
+     * @param event Pointer to the event to delete
+     */
+    void removeEvent(const core::map::Event* event);
 
     void addCatchZone(const core::map::CatchZone& zone);
 
@@ -409,8 +468,7 @@ private:
     class SetWeatherAction;
     class SetYSortLayerAction;
     class SetTopLayerAction;
-    class SetEnterScriptAction;
-    class SetExitScriptAction;
+    class SetScriptAction;
     class SetAmbientLightAction;
     class AppendLevelAction;
     class ShiftLevelAction;

@@ -7,14 +7,47 @@ namespace editor
 {
 namespace page
 {
+/**
+ * @brief Section of the map area with the map itself and related controls
+ *
+ * @ingroup Pages
+ *
+ */
 class MapArea {
 public:
+    /**
+     * @brief Construct a new Map Area
+     *
+     * @param clickCb Callback when the map itself is clicked
+     * @param syncCb Callback when the GUI should be updated
+     * @param systems The main game systems
+     */
     MapArea(const component::EditMap::PositionCb& clickCb,
             const component::EditMap::ActionCb& syncCb, core::system::Systems& systems);
 
+    /**
+     * @brief Returns the contained map
+     *
+     */
     component::EditMap& editMap();
 
+    /**
+     * @brief Returns the GUI element to pack
+     *
+     */
     bl::gui::Element::Ptr getContent();
+
+    /**
+     * @brief Disables the map controls when a dialog is opened or the map tab is inactive
+     *
+     */
+    void disableControls();
+
+    /**
+     * @brief Enables the map controls
+     *
+     */
+    void enableControls();
 
 private:
     bl::gui::Box::Ptr content;
@@ -23,6 +56,7 @@ private:
     bl::gui::Label::Ptr undoText;
     bl::gui::Button::Ptr redoBut;
     bl::gui::Label::Ptr redoText;
+    bl::gui::CheckButton::Ptr enableBut;
     component::EditMap::Ptr map;
 
     void refreshButtons();

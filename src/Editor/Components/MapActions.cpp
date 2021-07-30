@@ -677,5 +677,99 @@ bool EditMap::AppendLevelAction::undo(EditMap& map) {
 
 const char* EditMap::AppendLevelAction::description() const { return "add level"; }
 
+EditMap::Action::Ptr EditMap::SetScriptAction::create(bool l, const std::string& s,
+                                                      const std::string& p) {
+    return Ptr(new SetScriptAction(l, s, p));
+}
+
+EditMap::SetScriptAction::SetScriptAction(bool l, const std::string& s, const std::string& p)
+: load(l)
+, s(s)
+, p(p) {}
+
+bool EditMap::SetScriptAction::apply(EditMap& map) {
+    if (load) { map.loadScriptField = s; }
+    else {
+        map.unloadScriptField = s;
+    }
+    return true;
+}
+
+bool EditMap::SetScriptAction::undo(EditMap& map) {
+    if (load) { map.loadScriptField = p; }
+    else {
+        map.unloadScriptField = p;
+    }
+    return true;
+}
+
+const char* EditMap::SetScriptAction::description() const {
+    if (load) { return "set load script"; }
+    return "set unload script";
+}
+
+EditMap::Action::Ptr EditMap::AddEventAction::create(const core::map::Event& e, unsigned int i) {
+    return Ptr(new AddEventAction(e, i));
+}
+
+EditMap::AddEventAction::AddEventAction(const core::map::Event& e, unsigned int i)
+: event(e)
+, i(i) {}
+
+bool EditMap::AddEventAction::apply(EditMap& map) {
+    map.eventsField.getValue().emplace_back(event);
+    return false;
+}
+
+bool EditMap::AddEventAction::undo(EditMap& map) {
+    map.eventsField.getValue().erase(map.eventsField.getValue().begin() + i);
+    return false;
+}
+
+const char* EditMap::AddEventAction::description() const { return "add event"; }
+
+EditMap::Action::Ptr EditMap::EditEventAction::create(const core::map::Event& o,
+                                                      const core::map::Event& e, unsigned int i) {
+    return Ptr(new EditEventAction(o, e, i));
+}
+
+EditMap::EditEventAction::EditEventAction(const core::map::Event& o, const core::map::Event& e,
+                                          unsigned int i)
+: orig(o)
+, val(e)
+, i(i) {}
+
+bool EditMap::EditEventAction::apply(EditMap& map) {
+    map.eventsField.getValue()[i] = val;
+    return false;
+}
+
+bool EditMap::EditEventAction::undo(EditMap& map) {
+    map.eventsField.getValue()[i] = orig;
+    return false;
+}
+
+const char* EditMap::EditEventAction::description() const { return "edit event"; }
+
+EditMap::Action::Ptr EditMap::RemoveEventAction::create(const core::map::Event& e, unsigned int i) {
+    return Ptr(new RemoveEventAction(e, i));
+}
+
+EditMap::RemoveEventAction::RemoveEventAction(const core::map::Event& e, unsigned int i)
+: event(e)
+, i(i) {}
+
+bool EditMap::RemoveEventAction::apply(EditMap& map) {
+    map.eventsField.getValue().erase(map.eventsField.getValue().begin() + i);
+    return false;
+}
+
+bool EditMap::RemoveEventAction::undo(EditMap& map) {
+    map.eventsField.getValue().insert(map.eventsField.getValue().begin() + i, event);
+    return false;
+}
+
+const char* EditMap::RemoveEventAction::description() const { return "remove event"; }
+
 } // namespace component
 } // namespace editor

@@ -382,6 +382,18 @@ void EditMap::shiftLevel(unsigned int level, bool up) {
 
 void EditMap::appendLevel() { addAction(AppendLevelAction::create()); }
 
+void EditMap::setOnEnterScript(const std::string& s) {
+    addAction(SetScriptAction::create(true, s, loadScriptField.getValue()));
+}
+
+const std::string& EditMap::getOnEnterScript() const { return loadScriptField.getValue(); }
+
+void EditMap::setOnExitScript(const std::string& s) {
+    addAction(SetScriptAction::create(false, s, unloadScriptField.getValue()));
+}
+
+const std::string& EditMap::getOnExitScript() const { return unloadScriptField.getValue(); }
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();
@@ -479,9 +491,22 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         }
         break;
 
-    case RenderOverlay::Events:
-        // TODO
-        break;
+    case RenderOverlay::Events: {
+        static sf::Clock timer;
+        sf::RectangleShape area;
+        const std::uint8_t a =
+            static_cast<int>(timer.getElapsedTime().asSeconds()) % 2 == 0 ? 165 : 100;
+        area.setFillColor(sf::Color(0, 0, 0, a));
+        for (const auto& event : eventsField.getValue()) {
+            const auto& pos  = event.position.getValue();
+            const auto& size = event.areaSize.getValue();
+            area.setPosition(static_cast<float>(pos.x) * core::Properties::PixelsPerTile(),
+                             static_cast<float>(pos.y) * core::Properties::PixelsPerTile());
+            area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
+                          static_cast<float>(size.y) * core::Properties::PixelsPerTile()});
+            target.draw(area);
+        }
+    } break;
 
     case RenderOverlay::PeoplemonZones:
         // TODO
@@ -507,6 +532,30 @@ void EditMap::render(sf::RenderTarget& target, float residual,
                             static_cast<float>(core::Properties::PixelsPerTile())});
         target.draw(selectRect);
     }
+}
+
+void EditMap::createEvent(const core::map::Event& event) {
+    addAction(AddEventAction::create(event, eventsField.getValue().size()));
+}
+
+const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
+    for (const core::map::Event& event : eventsField.getValue()) {
+        const sf::IntRect area(event.position, event.areaSize);
+        if (area.contains(tiles)) return &event;
+    }
+    return nullptr;
+}
+
+void EditMap::editEvent(const core::map::Event* orig, const core::map::Event& val) {
+    unsigned int i = 0;
+    while (&eventsField.getValue()[i] != orig) { ++i; }
+    addAction(EditEventAction::create(*orig, val, i));
+}
+
+void EditMap::removeEvent(const core::map::Event* e) {
+    unsigned int i = 0;
+    while (&eventsField.getValue()[i] != e) { ++i; }
+    addAction(RemoveEventAction::create(*e, i));
 }
 
 } // namespace component

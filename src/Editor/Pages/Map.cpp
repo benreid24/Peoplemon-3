@@ -40,13 +40,17 @@ Map::Map(core::system::Systems& s)
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
 , playlistPicker(core::Properties::PlaylistPath(), {"plst"},
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
-                 [this]() { playlistPicker.close(); }) {
+                 [this]() { playlistPicker.close(); })
+, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
+, choosingOnloadScript(false)
+, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2)) {
     content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
     Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newMapBut = Button::create("New Map");
     newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = true;
             mapPicker.open(FilePicker::CreateNew, "New map", parent);
@@ -54,6 +58,7 @@ Map::Map(core::system::Systems& s)
     });
     Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = false;
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
@@ -139,6 +144,7 @@ Map::Map(core::system::Systems& s)
     playlistLabel               = Label::create("playerlistFile.bplst");
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
         playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
@@ -283,19 +289,31 @@ Map::Map(core::system::Systems& s)
     box->pack(row, true, false);
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
+    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
+        choosingOnloadScript = true;
+        scriptSelector.open(parent, mapArea.editMap().getOnEnterScript());
+    });
     row->pack(pickButton);
     pickButton = Button::create("Set OnExit");
+    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        mapArea.disableControls();
+        choosingOnloadScript = false;
+        scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
+    });
     row->pack(pickButton);
     box->pack(row, true, false);
     eventBox->pack(box, true, true);
-    box                          = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createEvent = RadioButton::create("Create Event");
-    createEvent->setValue(true);
+    box              = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    createEventRadio = RadioButton::create("Create Event");
+    createEventRadio->setValue(true);
     label = Label::create("Delete Event");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    box->pack(createEvent);
-    box->pack(RadioButton::create("Edit Event", createEvent->getRadioGroup()));
-    box->pack(RadioButton::create(label, createEvent->getRadioGroup()));
+    box->pack(createEventRadio);
+    editEventRadio = RadioButton::create("Edit Event", createEventRadio->getRadioGroup());
+    box->pack(editEventRadio);
+    deleteEventRadio = RadioButton::create(label, createEventRadio->getRadioGroup());
+    box->pack(deleteEventRadio);
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
@@ -340,7 +358,7 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Objects", objectBook);
-    controlBook->addPage("events", "Scripts", eventBox);
+    controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
     controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
 
     controlPane->pack(mapCtrlBox, true, false);
@@ -376,7 +394,12 @@ void Map::update(float) {
 
     default:
         // TODO - check for events or catch zones or whatever else
-        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        if (activeTool == Tool::Events) {
+            mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Events, 0);
+        }
+        else {
+            mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+        }
         break;
     }
 
@@ -549,6 +572,35 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         default:
             break;
         }
+        break;
+
+    case Tool::Events:
+        if (createEventRadio->getValue()) {
+            mapArea.disableControls();
+            eventEditor.open(parent, nullptr, tiles);
+        }
+        else if (editEventRadio->getValue()) {
+            mapArea.disableControls();
+            const core::map::Event* e = mapArea.editMap().getEvent(tiles);
+            if (e) { eventEditor.open(parent, e, tiles); }
+        }
+        else if (deleteEventRadio->getValue()) {
+            const core::map::Event* e = mapArea.editMap().getEvent(tiles);
+            if (e) {
+                std::stringstream ss;
+                ss << e->script.getValue() << '\n';
+                ss << "Delete event?";
+                std::string s = ss.str();
+                for (char& c : s) {
+                    if (c == '"' || c == '\'') { c = '`'; }
+                }
+                if (1 == bl::dialog::tinyfd_messageBox(
+                             "Delete Event?", s.c_str(), "yesno", "warning", 0)) {
+                    mapArea.editMap().removeEvent(e);
+                }
+            }
+        }
+        break;
 
     case Tool::Items:
     case Tool::Lights:
@@ -595,6 +647,9 @@ void Map::syncGui() {
     nameEntry->setInput(mapArea.editMap().name());
     playlistLabel->setText(mapArea.editMap().playlistField);
     weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField.getValue()));
+
+    onEnterLabel->setText(mapArea.editMap().getOnEnterScript());
+    onExitLabel->setText(mapArea.editMap().getOnExitScript());
 }
 
 void Map::onLevelChange(unsigned int l) {
@@ -620,6 +675,21 @@ void Map::onLevelChange(unsigned int l) {
         layerSelect->addOption("Layer " + std::to_string(i));
     }
     layerSelect->setSelectedOption(0);
+}
+
+void Map::onChooseScript(const std::string& s) {
+    if (choosingOnloadScript) { mapArea.editMap().setOnEnterScript(s); }
+    else {
+        mapArea.editMap().setOnExitScript(s);
+    }
+}
+
+void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val) {
+    if (orig) { mapArea.editMap().editEvent(orig, val); }
+    else {
+        mapArea.editMap().createEvent(val);
+    }
+    mapArea.enableControls();
 }
 
 } // namespace page
