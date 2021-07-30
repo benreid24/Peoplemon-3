@@ -51,6 +51,9 @@ public:
         /// Renders events in the map
         Events,
 
+        /// Renders spawns in the map
+        Spawns,
+
         /// Renders catch zones
         PeoplemonZones
     };

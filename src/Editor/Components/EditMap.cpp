@@ -36,6 +36,9 @@ const bl::resource::Resource<sf::Texture>::Ref catchGfx[] = {
     bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data};
 
+const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
+    bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
+
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
@@ -505,6 +508,38 @@ void EditMap::render(sf::RenderTarget& target, float residual,
             area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
                           static_cast<float>(size.y) * core::Properties::PixelsPerTile()});
             target.draw(area);
+        }
+    } break;
+
+    case RenderOverlay::Spawns: {
+        sf::Text id;
+        id.setFont(core::Properties::MenuFont());
+        id.setCharacterSize(24);
+        id.setFillColor(sf::Color::Red);
+        id.setOutlineColor(sf::Color::Black);
+        id.setOutlineThickness(1.f);
+        const sf::Vector2f ht(core::Properties::PixelsPerTile() / 2,
+                              core::Properties::PixelsPerTile() / 2);
+
+        sf::Sprite spr(*arrowGfx);
+        const sf::Vector2f so(sf::Vector2f(arrowGfx->getSize()) * 0.5f);
+        spr.setOrigin(so);
+
+        for (const auto& spawn : spawnField.getValue()) {
+            if (spawn.second.position.getValue().level == overlayLevel) {
+                const sf::Vector2f p(spawn.second.position.getValue().positionTiles());
+                const sf::Vector2f pos = p * static_cast<float>(core::Properties::PixelsPerTile());
+                spr.setPosition(pos + so);
+                spr.setRotation(static_cast<int>(spawn.second.position.getValue().direction) * 90);
+                target.draw(spr);
+
+                id.setString(std::to_string(spawn.first));
+                const sf::Vector2f ts(id.getGlobalBounds().width + id.getLocalBounds().left,
+                                      id.getGlobalBounds().height + id.getLocalBounds().top);
+                const sf::Vector2f to(ht - ts * 0.5f);
+                id.setPosition(pos + to);
+                target.draw(id);
+            }
         }
     } break;
 

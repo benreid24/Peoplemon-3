@@ -199,9 +199,9 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
 
-    Box::Ptr spawnBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    RadioButton::Ptr spawnCreate = RadioButton::create("Spawn");
+    Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    spawnCreate       = RadioButton::create("Spawn");
     spawnCreate->setValue(true);
     spawnDirEntry = ComboBox::create();
     spawnDirEntry->addOption("Up");
@@ -209,10 +209,10 @@ Map::Map(core::system::Systems& s)
     spawnDirEntry->addOption("Down");
     spawnDirEntry->addOption("Left");
     spawnDirEntry->setSelectedOption(0);
-    RadioButton::Ptr spawnRotate = RadioButton::create("Edit", spawnCreate->getRadioGroup());
-    Label::Ptr label             = Label::create("Delete");
+    spawnRotate      = RadioButton::create("Edit", spawnCreate->getRadioGroup());
+    Label::Ptr label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr spawnDelete = RadioButton::create(label, spawnCreate->getRadioGroup());
+    spawnDelete = RadioButton::create(label, spawnCreate->getRadioGroup());
     box->pack(spawnCreate);
     box->pack(spawnDirEntry);
     spawnBox->pack(box);
@@ -268,10 +268,10 @@ Map::Map(core::system::Systems& s)
     lightBox->pack(lightDelete);
 
     Notebook::Ptr objectBook = Notebook::create("maps");
-    objectBook->addPage("spawns", "Spawns", spawnBox);
-    objectBook->addPage("ai", "NPC's", npcBox);
-    objectBook->addPage("items", "Items", itemBox);
-    objectBook->addPage("lights", "Lights", lightBox);
+    objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
+    objectBook->addPage("ai", "NPC's", npcBox, [this]() { activeTool = Tool::NPCs; });
+    objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
+    objectBook->addPage("lights", "Lights", lightBox, [this]() { activeTool = Tool::Lights; });
 
     Box::Ptr eventBox = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
     box               = Box::create(LinePacker::create(LinePacker::Vertical, 6));
@@ -393,12 +393,18 @@ void Map::update(float) {
         break;
 
     default:
-        // TODO - check for events or catch zones or whatever else
-        if (activeTool == Tool::Events) {
+        switch (activeTool) {
+        case Tool::Events:
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Events, 0);
-        }
-        else {
+            break;
+
+        case Tool::Spawns:
+            mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Spawns,
+                                               levelSelect->getSelectedOption());
+            break;
+        default:
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
+            break;
         }
         break;
     }
@@ -606,7 +612,6 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
     case Tool::Lights:
     case Tool::NPCs:
     case Tool::Peoplemon:
-    case Tool::Scripts:
     case Tool::Spawns:
     case Tool::Metadata:
     default:

@@ -133,8 +133,8 @@ public:
             if (!input.read(dir)) return false;
             component::Position pos;
             pos.direction = static_cast<component::Direction>(dir);
-            pos.setTiles({static_cast<int>(std::floor(x / 32)),
-                          static_cast<int>(std::floor(y / 32))}); // TODO - add/subtract 1?
+            pos.setTiles(
+                {static_cast<int>(std::floor(x / 32)), static_cast<int>(std::floor(y / 32))});
             result.spawnField.getValue().try_emplace(id, id, pos);
         }
 
