@@ -771,5 +771,103 @@ bool EditMap::RemoveEventAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveEventAction::description() const { return "remove event"; }
 
+EditMap::Action::Ptr EditMap::AddSpawnAction::create(unsigned int l, const sf::Vector2i& pos,
+                                                     unsigned int id,
+                                                     core::component::Direction dir) {
+    return Ptr(new AddSpawnAction(l, pos, id, dir));
+}
+
+EditMap::AddSpawnAction::AddSpawnAction(unsigned int l, const sf::Vector2i& p, unsigned int id,
+                                        core::component::Direction dir)
+: level(l)
+, pos(p)
+, id(id)
+, dir(dir) {}
+
+bool EditMap::AddSpawnAction::apply(EditMap& map) {
+    map.spawnField.getValue()[id] =
+        core::map::Spawn(id, core::component::Position(level, pos, dir));
+    return false;
+}
+
+bool EditMap::AddSpawnAction::undo(EditMap& map) {
+    map.spawnField.getValue().erase(id);
+    return false;
+}
+
+const char* EditMap::AddSpawnAction::description() const { return "add spwwn"; }
+
+EditMap::Action::Ptr EditMap::RotateSpawnAction::create(unsigned int id) {
+    return Ptr(new RotateSpawnAction(id));
+}
+
+EditMap::RotateSpawnAction::RotateSpawnAction(unsigned int id)
+: id(id) {}
+
+bool EditMap::RotateSpawnAction::apply(EditMap& map) {
+    using namespace core::component;
+
+    auto& d = map.spawnField.getValue()[id].position.getValue().direction;
+    switch (d) {
+    case Direction::Up:
+        d = Direction::Right;
+        break;
+    case Direction::Right:
+        d = Direction::Down;
+        break;
+    case Direction::Down:
+        d = Direction::Left;
+        break;
+    case Direction::Left:
+    default:
+        d = Direction::Up;
+    }
+    return false;
+}
+
+bool EditMap::RotateSpawnAction::undo(EditMap& map) {
+    using namespace core::component;
+
+    auto& d = map.spawnField.getValue()[id].position.getValue().direction;
+    switch (d) {
+    case Direction::Up:
+        d = Direction::Left;
+        break;
+    case Direction::Right:
+        d = Direction::Up;
+        break;
+    case Direction::Down:
+        d = Direction::Right;
+        break;
+    case Direction::Left:
+    default:
+        d = Direction::Down;
+    }
+    return false;
+}
+
+const char* EditMap::RotateSpawnAction::description() const { return "rotate spwwn"; }
+
+EditMap::Action::Ptr EditMap::RemoveSpawnAction::create(unsigned int id,
+                                                        const core::map::Spawn& spawn) {
+    return Ptr(new RemoveSpawnAction(id, spawn));
+}
+
+EditMap::RemoveSpawnAction::RemoveSpawnAction(unsigned int id, const core::map::Spawn& spawn)
+: id(id)
+, spawn(spawn) {}
+
+bool EditMap::RemoveSpawnAction::apply(EditMap& map) {
+    map.spawnField.getValue().erase(id);
+    return false;
+}
+
+bool EditMap::RemoveSpawnAction::undo(EditMap& map) {
+    map.spawnField.getValue()[id] = spawn;
+    return false;
+}
+
+const char* EditMap::RemoveSpawnAction::description() const { return "delete spawn"; }
+
 } // namespace component
 } // namespace editor

@@ -60,6 +60,10 @@ private:
     bl::gui::RadioButton::Ptr editEventRadio;
     bl::gui::RadioButton::Ptr deleteEventRadio;
 
+    bl::gui::RadioButton::Ptr spawnCreate;
+    bl::gui::RadioButton::Ptr spawnRotate;
+    bl::gui::RadioButton::Ptr spawnDelete;
+
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
@@ -76,7 +80,6 @@ private:
         NPCs,
         Items,
         Lights,
-        Scripts,
         Peoplemon
     } activeTool;
     enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
