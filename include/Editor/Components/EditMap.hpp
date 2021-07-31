@@ -348,9 +348,40 @@ public:
      */
     void setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch id);
 
-    void setSpawn(const core::map::Spawn& spawn);
+    /**
+     * @brief Tells whether or not the given id is in use
+     *
+     * @param id The id to check
+     * @return True if unused, false if used
+     */
+    bool spawnIdUnused(unsigned int id) const;
 
-    void removeSpawn(const sf::Vector2i& position);
+    /**
+     * @brief Adds a new player spawn to the map
+     *
+     * @param level The level to place the spawn on
+     * @param tile The position the spawn is at
+     * @param id The id of the spawn
+     * @param dir The direction of the spawn
+     */
+    void addSpawn(unsigned int level, const sf::Vector2i& tile, unsigned int id,
+                  core::component::Direction dir);
+
+    /**
+     * @brief Rotates a player spawn
+     *
+     * @param level The level the spawn is on
+     * @param tile The position the spawn is at
+     */
+    void rotateSpawn(unsigned int level, const sf::Vector2i& tile);
+
+    /**
+     * @brief Removes the spawn at the given position
+     *
+     * @param level The level the spawn is on
+     * @param position The position the spawn is at
+     */
+    void removeSpawn(unsigned int level, const sf::Vector2i& position);
 
     void addNpcSpawn(const core::map::CharacterSpawn& spawn);
 
@@ -485,7 +516,8 @@ private:
     class SetCollisionAreaAction;
     class SetCatchAction;
     class SetCatchAreaAction;
-    class SetSpawnAction;
+    class AddSpawnAction;
+    class RotateSpawnAction;
     class RemoveSpawnAction;
     class AddNpcSpawnAction;
     class EditNpcSpawnAction;

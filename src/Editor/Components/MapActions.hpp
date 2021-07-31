@@ -321,6 +321,57 @@ private:
     RemoveEventAction(const core::map::Event& orig, unsigned int i);
 };
 
+class EditMap::AddSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int lvl, const sf::Vector2i& pos, unsigned int id,
+                              core::component::Direction dir);
+
+    virtual ~AddSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const sf::Vector2i pos;
+    const unsigned int id;
+    const core::component::Direction dir;
+
+    AddSpawnAction(unsigned int lvl, const sf::Vector2i& pos, unsigned int id,
+                   core::component::Direction dir);
+};
+
+class EditMap::RotateSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int id);
+
+    virtual ~RotateSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int id;
+
+    RotateSpawnAction(unsigned int id);
+};
+
+class EditMap::RemoveSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int id, const core::map::Spawn& spawn);
+
+    virtual ~RemoveSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int id;
+    const core::map::Spawn spawn;
+
+    RemoveSpawnAction(unsigned int id, const core::map::Spawn& spawn);
+};
+
 } // namespace component
 } // namespace editor
 

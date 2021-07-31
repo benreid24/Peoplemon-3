@@ -397,6 +397,35 @@ void EditMap::setOnExitScript(const std::string& s) {
 
 const std::string& EditMap::getOnExitScript() const { return unloadScriptField.getValue(); }
 
+bool EditMap::spawnIdUnused(unsigned int i) const {
+    return spawnField.getValue().find(i) == spawnField.getValue().end();
+}
+
+void EditMap::addSpawn(unsigned int l, const sf::Vector2i& pos, unsigned int id,
+                       core::component::Direction dir) {
+    addAction(AddSpawnAction::create(l, pos, id, dir));
+}
+
+void EditMap::rotateSpawn(unsigned int l, const sf::Vector2i& pos) {
+    for (const auto& pair : spawnField.getValue()) {
+        if (pair.second.position.getValue().level == l) {
+            if (pair.second.position.getValue().positionTiles() == pos) {
+                addAction(RotateSpawnAction::create(pair.first));
+            }
+        }
+    }
+}
+
+void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
+    for (const auto& pair : spawnField.getValue()) {
+        if (pair.second.position.getValue().level == l) {
+            if (pair.second.position.getValue().positionTiles() == pos) {
+                addAction(RemoveSpawnAction::create(pair.first, pair.second));
+            }
+        }
+    }
+}
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();
