@@ -1,4 +1,5 @@
 target_sources(PeoplemonEditor PRIVATE
+    CharacterSpawnWindow.cpp
     EditMap.cpp
     EventEditor.cpp
     HighlightRadioButton.cpp

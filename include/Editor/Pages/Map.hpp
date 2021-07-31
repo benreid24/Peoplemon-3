@@ -1,6 +1,7 @@
 #ifndef EDITOR_PAGES_MAP_HPP
 #define EDITOR_PAGES_MAP_HPP
 
+#include <Editor/Components/CharacterSpawnWindow.hpp>
 #include <Editor/Components/EventEditor.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
@@ -64,6 +65,10 @@ private:
     bl::gui::RadioButton::Ptr spawnRotate;
     bl::gui::RadioButton::Ptr spawnDelete;
 
+    bl::gui::RadioButton::Ptr npcSpawn;
+    bl::gui::RadioButton::Ptr npcEdit;
+    bl::gui::RadioButton::Ptr npcDelete;
+
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
@@ -107,6 +112,10 @@ private:
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
     void onLevelChange(unsigned int level);
+
+    component::CharacterSpawnWindow characterEditor;
+    void onCharacterEdit(const core::map::CharacterSpawn* orig,
+                         const core::map::CharacterSpawn& spawn);
 
     bool checkUnsaved();
     void syncGui();

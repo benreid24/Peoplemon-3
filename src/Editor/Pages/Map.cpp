@@ -53,7 +53,9 @@ Map::Map(core::system::Systems& s)
                  [this]() { playlistPicker.close(); })
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
 , choosingOnloadScript(false)
-, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2)) {
+, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
+, characterEditor(
+      std::bind(&Map::onCharacterEdit, this, std::placeholders::_1, std::placeholders::_2)) {
     content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
 
@@ -231,12 +233,12 @@ Map::Map(core::system::Systems& s)
     box->pack(spawnDelete);
     spawnBox->pack(box);
 
-    Box::Ptr npcBox           = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
-    RadioButton::Ptr npcSpawn = RadioButton::create("Spawn");
-    RadioButton::Ptr npcEdit  = RadioButton::create("Edit", npcSpawn->getRadioGroup());
-    label                     = Label::create("Delete");
+    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
+    npcSpawn        = RadioButton::create("Spawn");
+    npcEdit         = RadioButton::create("Edit", npcSpawn->getRadioGroup());
+    label           = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr npcDelete = RadioButton::create(label, npcSpawn->getRadioGroup());
+    npcDelete = RadioButton::create(label, npcSpawn->getRadioGroup());
     npcSpawn->setValue(true);
     npcBox->pack(npcSpawn);
     npcBox->pack(npcEdit);
@@ -412,6 +414,7 @@ void Map::update(float) {
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Spawns,
                                                levelSelect->getSelectedOption());
             break;
+
         default:
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
             break;
@@ -642,9 +645,21 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         }
         break;
 
+    case Tool::NPCs:
+        if (npcSpawn->getValue()) {
+            characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+        }
+        else if (npcEdit->getValue()) {
+            // TODO - get pointer
+            characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+        }
+        else if (npcDelete->getValue()) {
+            // TODO - get pointer, confirm, then delete
+        }
+        break;
+
     case Tool::Items:
     case Tool::Lights:
-    case Tool::NPCs:
     case Tool::Peoplemon:
     case Tool::Metadata:
     default:
@@ -728,6 +743,10 @@ void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val)
         mapArea.editMap().createEvent(val);
     }
     mapArea.enableControls();
+}
+
+void Map::onCharacterEdit(const core::map::CharacterSpawn*, const core::map::CharacterSpawn&) {
+    // TODO - apply
 }
 
 } // namespace page
