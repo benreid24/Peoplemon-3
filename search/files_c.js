@@ -12,8 +12,8 @@ var searchData=
   ['playercontrolled_2ehpp',['PlayerControlled.hpp',['../a00032.html',1,'']]],
   ['playlists_2ecpp',['Playlists.cpp',['../a00512.html',1,'']]],
   ['playlists_2ehpp',['Playlists.hpp',['../a00233.html',1,'']]],
-  ['position_2ecpp',['Position.cpp',['../a01552.html',1,'(Global Namespace)'],['../a01555.html',1,'(Global Namespace)']]],
-  ['position_2ehpp',['Position.hpp',['../a01495.html',1,'(Global Namespace)'],['../a01498.html',1,'(Global Namespace)']]],
+  ['position_2ecpp',['Position.cpp',['../a01565.html',1,'(Global Namespace)'],['../a01568.html',1,'(Global Namespace)']]],
+  ['position_2ehpp',['Position.hpp',['../a01508.html',1,'(Global Namespace)'],['../a01511.html',1,'(Global Namespace)']]],
   ['properties_2ecpp',['Properties.cpp',['../a00416.html',1,'']]],
   ['properties_2ehpp',['Properties.hpp',['../a00143.html',1,'']]]
 ];
