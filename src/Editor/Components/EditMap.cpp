@@ -426,6 +426,16 @@ void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
     }
 }
 
+const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
+                                                      const sf::Vector2i& pos) const {
+    for (const auto& spawn : characterField.getValue()) {
+        if (spawn.position.getValue().level == level) {
+            if (spawn.position.getValue().positionTiles() == pos) { return &spawn; }
+        }
+    }
+    return nullptr;
+}
+
 void EditMap::render(sf::RenderTarget& target, float residual,
                      const EntityRenderCallback& entityCb) const {
     const sf::View& view = target.getView();

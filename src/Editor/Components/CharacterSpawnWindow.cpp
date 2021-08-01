@@ -77,10 +77,18 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
     parent->pack(window);
 
     if (orig) {
-        // TODO - populate
+        fileLabel->setText(orig->file);
+        xInput->setInput(std::to_string(orig->position.getValue().positionTiles().x));
+        yInput->setInput(std::to_string(orig->position.getValue().positionTiles().y));
+        levelInput->setInput(std::to_string(orig->position.getValue().level));
+        dirEntry->setSelectedOption(static_cast<int>(orig->position.getValue().direction));
     }
     else {
-        // TODO - defaults
+        fileLabel->setText("");
+        xInput->setInput(std::to_string(pos.x));
+        yInput->setInput(std::to_string(pos.y));
+        levelInput->setInput(std::to_string(level));
+        dirEntry->setSelectedOption(0);
     }
 }
 

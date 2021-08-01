@@ -650,8 +650,9 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
         }
         else if (npcEdit->getValue()) {
-            // TODO - get pointer
-            characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (s) { characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s); }
         }
         else if (npcDelete->getValue()) {
             // TODO - get pointer, confirm, then delete

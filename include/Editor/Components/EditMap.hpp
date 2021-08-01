@@ -385,7 +385,15 @@ public:
 
     void addNpcSpawn(const core::map::CharacterSpawn& spawn);
 
-    const core::map::CharacterSpawn* getNpcSpawn(const sf::Vector2i& position);
+    /**
+     * @brief Get the Npc Spawn at the given position, if any
+     *
+     * @param The level the spawn is on
+     * @param position The position to get the spawn at
+     * @return const core::map::CharacterSpawn* The spawn or nullptr if none
+     */
+    const core::map::CharacterSpawn* getNpcSpawn(unsigned int level,
+                                                 const sf::Vector2i& position) const;
 
     void editNpcSpawn(const core::map::CharacterSpawn& orig,
                       const core::map::CharacterSpawn& spawn);
