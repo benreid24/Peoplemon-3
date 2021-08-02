@@ -18,7 +18,7 @@ class CharacterSpawnWindow {
 public:
     /// Callback for when spawns are created or edited
     using OnEdit =
-        std::function<void(core::map::CharacterSpawn*, const core::map::CharacterSpawn&)>;
+        std::function<void(const core::map::CharacterSpawn*, const core::map::CharacterSpawn&)>;
 
     /**
      * @brief Creates a new CharacterSpawnWindow
@@ -40,6 +40,7 @@ public:
 
 private:
     const OnEdit onEdit;
+    const core::map::CharacterSpawn* orig;
     bl::gui::GUI::Ptr parent;
     bl::gui::Window::Ptr window;
     bl::gui::Label::Ptr fileLabel;

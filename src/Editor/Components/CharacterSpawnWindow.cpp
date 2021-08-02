@@ -4,6 +4,16 @@ namespace editor
 {
 namespace component
 {
+namespace
+{
+bool isNum(const std::string& s) {
+    for (char c : s) {
+        if (c < '0' || c > '9') return false;
+    }
+    return true;
+}
+} // namespace
+
 using namespace bl::gui;
 
 CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
@@ -60,7 +70,35 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
     editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        // TODO - validate input and call cb
+        if (fileLabel->getText().empty()) {
+            bl::dialog::tinyfd_messageBox(
+                "Selelct Character", "Please select an NPC or trainer to spawn", "ok", "error", 1);
+            return;
+        }
+        if (levelInput->getInput().empty() || !isNum(levelInput->getInput())) {
+            bl::dialog::tinyfd_messageBox(
+                "Bad Level", "Please enter a valid level", "ok", "error", 1);
+            return;
+        }
+        if (xInput->getInput().empty() || !isNum(xInput->getInput())) {
+            bl::dialog::tinyfd_messageBox(
+                "Bad Position", "Please enter a valid x tile", "ok", "error", 1);
+            return;
+        }
+        if (yInput->getInput().empty() || !isNum(yInput->getInput())) {
+            bl::dialog::tinyfd_messageBox(
+                "Bad Position", "Please enter a valid y tile", "ok", "error", 1);
+            return;
+        }
+        window->remove();
+        onEdit(orig,
+               core::map::CharacterSpawn(
+                   core::component::Position(
+                       std::atoi(levelInput->getInput().c_str()),
+                       sf::Vector2i(std::atoi(xInput->getInput().c_str()),
+                                    std::atoi(yInput->getInput().c_str())),
+                       static_cast<core::component::Direction>(dirEntry->getSelectedOption())),
+                   fileLabel->getText()));
     });
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
@@ -84,7 +122,7 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
         dirEntry->setSelectedOption(static_cast<int>(orig->position.getValue().direction));
     }
     else {
-        fileLabel->setText("");
+        fileLabel->setText("mom1.npc");
         xInput->setInput(std::to_string(pos.x));
         yInput->setInput(std::to_string(pos.y));
         levelInput->setInput(std::to_string(level));
