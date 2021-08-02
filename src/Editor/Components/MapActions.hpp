@@ -372,6 +372,23 @@ private:
     RemoveSpawnAction(unsigned int id, const core::map::Spawn& spawn);
 };
 
+class EditMap::AddNpcSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::CharacterSpawn& s, unsigned int i);
+
+    virtual ~AddNpcSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::CharacterSpawn spawn;
+    const unsigned int i;
+    bl::entity::Entity spawned;
+
+    AddNpcSpawnAction(const core::map::CharacterSpawn& s, unsigned int i);
+};
+
 } // namespace component
 } // namespace editor
 

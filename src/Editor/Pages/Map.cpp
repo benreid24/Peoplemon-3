@@ -655,7 +655,15 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             if (s) { characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s); }
         }
         else if (npcDelete->getValue()) {
-            // TODO - get pointer, confirm, then delete
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (s) {
+                const std::string msg = "Delete spawn for character: " + s->file.getValue() + "?";
+                if (1 == bl::dialog::tinyfd_messageBox(
+                             "Delete Character?", msg.c_str(), "yesno", "warning", 0)) {
+                    mapArea.editMap().removeNpcSpawn(s);
+                }
+            }
         }
         break;
 
@@ -746,8 +754,12 @@ void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val)
     mapArea.enableControls();
 }
 
-void Map::onCharacterEdit(const core::map::CharacterSpawn*, const core::map::CharacterSpawn&) {
-    // TODO - apply
+void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
+                          const core::map::CharacterSpawn& spawn) {
+    if (orig) { mapArea.editMap().editNpcSpawn(orig, spawn); }
+    else {
+        mapArea.editMap().addNpcSpawn(spawn);
+    }
 }
 
 } // namespace page

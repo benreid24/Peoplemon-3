@@ -30,9 +30,9 @@ public:
      * @brief Spawns a trainer or an npc from the given spawn information
      *
      * @param spawn The map spawn information
-     * @return True if the spawn is valid and an entity was created, false on error
+     * @return Id of the created entity, or InvalidId if spawn failed
      */
-    bool spawnCharacter(const map::CharacterSpawn& spawn);
+    bl::entity::Entity spawnCharacter(const map::CharacterSpawn& spawn);
 
     /**
      * @brief Spawns an item into the world

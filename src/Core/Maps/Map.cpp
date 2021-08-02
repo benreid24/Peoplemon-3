@@ -355,7 +355,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField.getValue()) {
-        if (!game.entity().spawnCharacter(spawn)) {
+        if (game.entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
         }
     }

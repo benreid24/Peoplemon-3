@@ -158,7 +158,7 @@ bool EditMap::editorActivate() {
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField.getValue()) {
-        if (!systems->entity().spawnCharacter(spawn)) {
+        if (systems->entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
         }
     }
@@ -426,6 +426,10 @@ void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
     }
 }
 
+void EditMap::addNpcSpawn(const core::map::CharacterSpawn& s) {
+    addAction(AddNpcSpawnAction::create(s, characterField.getValue().size()));
+}
+
 const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
                                                       const sf::Vector2i& pos) const {
     for (const auto& spawn : characterField.getValue()) {
@@ -434,6 +438,15 @@ const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
         }
     }
     return nullptr;
+}
+
+void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
+                           const core::map::CharacterSpawn& val) {
+    // TODO
+}
+
+void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
+    // TODO
 }
 
 void EditMap::render(sf::RenderTarget& target, float residual,

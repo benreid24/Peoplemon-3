@@ -446,7 +446,7 @@ Value spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<V
                              static_cast<int>(args[3].deref().getAsNum())},
                             component::directionFromString(args[4].deref().getAsString())),
         args[0].deref().getAsString());
-    return makeBool(systems.entity().spawnCharacter(spawn));
+    return {static_cast<float>(systems.entity().spawnCharacter(spawn))};
 }
 
 Value getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {

@@ -383,6 +383,11 @@ public:
      */
     void removeSpawn(unsigned int level, const sf::Vector2i& position);
 
+    /**
+     * @brief Adds a character spawn to the map
+     *
+     * @param spawn The spawn to add
+     */
     void addNpcSpawn(const core::map::CharacterSpawn& spawn);
 
     /**
@@ -395,10 +400,21 @@ public:
     const core::map::CharacterSpawn* getNpcSpawn(unsigned int level,
                                                  const sf::Vector2i& position) const;
 
-    void editNpcSpawn(const core::map::CharacterSpawn& orig,
+    /**
+     * @brief Edits an existing character spawn
+     *
+     * @param orig The address of the existing spawn
+     * @param spawn The new spawn value
+     */
+    void editNpcSpawn(const core::map::CharacterSpawn* orig,
                       const core::map::CharacterSpawn& spawn);
 
-    void removeNpcSpawn(const sf::Vector2i& position);
+    /**
+     * @brief Removes a character spawn
+     *
+     * @param spawn The address of the spawn to remove
+     */
+    void removeNpcSpawn(const core::map::CharacterSpawn* spawn);
 
     void addItem(unsigned int level, const sf::Vector2i& position, core::item::Id item,
                  bool visible);
