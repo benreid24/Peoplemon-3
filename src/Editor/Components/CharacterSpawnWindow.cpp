@@ -60,8 +60,8 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     dirEntry = ComboBox::create();
     dirEntry->addOption("Up");
     dirEntry->addOption("Right");
-    dirEntry->addOption("Left");
     dirEntry->addOption("Down");
+    dirEntry->addOption("Left");
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Dir:"), false, true);
     row->pack(dirEntry, false, true);
@@ -111,7 +111,8 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 
 void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
                                 const sf::Vector2i& pos, const core::map::CharacterSpawn* orig) {
-    parent = p;
+    parent     = p;
+    this->orig = orig;
     parent->pack(window);
 
     if (orig) {
