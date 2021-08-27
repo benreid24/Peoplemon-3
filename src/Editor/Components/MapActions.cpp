@@ -896,5 +896,35 @@ bool EditMap::AddNpcSpawnAction::undo(EditMap& map) {
 
 const char* EditMap::AddNpcSpawnAction::description() const { return "add character"; }
 
+EditMap::Action::Ptr EditMap::EditNpcSpawnAction::create(const core::map::CharacterSpawn* spawn,
+                                                         const core::map::CharacterSpawn& s,
+                                                         bl::entity::Entity id) {
+    return Ptr(new EditNpcSpawnAction(spawn, s, id));
+}
+
+EditMap::EditNpcSpawnAction::EditNpcSpawnAction(const core::map::CharacterSpawn* spawn,
+                                                const core::map::CharacterSpawn& s,
+                                                bl::entity::Entity id)
+: spawn(const_cast<core::map::CharacterSpawn*>(spawn))
+, orig(*spawn)
+, value(s)
+, latestId(id) {}
+
+bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
+    map.systems->engine().entities().destroyEntity(latestId);
+    latestId = map.systems->entity().spawnCharacter(value);
+    *spawn   = value;
+    return false;
+}
+
+bool EditMap::EditNpcSpawnAction::undo(EditMap& map) {
+    map.systems->engine().entities().destroyEntity(latestId);
+    latestId = map.systems->entity().spawnCharacter(orig);
+    *spawn   = orig;
+    return false;
+}
+
+const char* EditMap::EditNpcSpawnAction::description() const { return "edit character"; }
+
 } // namespace component
 } // namespace editor

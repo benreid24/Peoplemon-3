@@ -442,7 +442,12 @@ const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
 
 void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
                            const core::map::CharacterSpawn& val) {
-    // TODO
+    const bl::entity::Entity e = systems->position().getEntity(orig->position);
+    if (e != bl::entity::InvalidEntity) { addAction(EditNpcSpawnAction::create(orig, val, e)); }
+    else {
+        const auto& pos = orig->position.getValue().positionTiles();
+        BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
+    }
 }
 
 void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {

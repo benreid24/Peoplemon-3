@@ -647,7 +647,11 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
 
     case Tool::NPCs:
         if (npcSpawn->getValue()) {
-            characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (!s) {
+                characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+            }
         }
         else if (npcEdit->getValue()) {
             const core::map::CharacterSpawn* s =
