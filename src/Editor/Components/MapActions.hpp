@@ -409,6 +409,25 @@ private:
                        bl::entity::Entity id);
 };
 
+class EditMap::RemoveNpcSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::CharacterSpawn& orig, unsigned int i,
+                              bl::entity::Entity spawned);
+
+    virtual ~RemoveNpcSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::CharacterSpawn orig;
+    const unsigned int i;
+    bl::entity::Entity spawned;
+
+    RemoveNpcSpawnAction(const core::map::CharacterSpawn& orig, unsigned int i,
+                         bl::entity::Entity spawned);
+};
+
 } // namespace component
 } // namespace editor
 

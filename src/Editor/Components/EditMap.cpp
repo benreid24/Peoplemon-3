@@ -451,7 +451,16 @@ void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
 }
 
 void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
-    // TODO
+    unsigned int i = 0;
+    for (; i < characterField.getValue().size(); ++i) {
+        if (&characterField.getValue()[i] == s) { break; }
+    }
+    const bl::entity::Entity e = systems->position().getEntity(s->position);
+    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i, e)); }
+    else {
+        const auto& pos = s->position.getValue().positionTiles();
+        BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
+    }
 }
 
 void EditMap::render(sf::RenderTarget& target, float residual,
