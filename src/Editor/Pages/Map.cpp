@@ -650,13 +650,17 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             const core::map::CharacterSpawn* s =
                 mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
             if (!s) {
+                mapArea.disableControls();
                 characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
             }
         }
         else if (npcEdit->getValue()) {
             const core::map::CharacterSpawn* s =
                 mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
-            if (s) { characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s); }
+            if (s) {
+                mapArea.disableControls();
+                characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s);
+            }
         }
         else if (npcDelete->getValue()) {
             const core::map::CharacterSpawn* s =

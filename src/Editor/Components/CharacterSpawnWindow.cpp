@@ -1,5 +1,7 @@
 #include <Editor/Components/CharacterSpawnWindow.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace editor
 {
 namespace component
@@ -17,7 +19,8 @@ bool isNum(const std::string& s) {
 using namespace bl::gui;
 
 CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
-: onEdit(cb) {
+: onEdit(cb)
+, npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
         window->remove();
@@ -28,7 +31,11 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row->pack(fileLabel, true, true);
     Button::Ptr npcBut = Button::create("NPC");
     npcBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        // TODO
+        const std::string f = bl::file::Util::getExtension(fileLabel->getText()) ==
+                                      core::Properties::NpcFileExtension() ?
+                                  fileLabel->getText() :
+                                  "";
+        npcEditor.show(parent, f);
     });
     row->pack(npcBut, false, true);
     Button::Ptr tnrBut = Button::create("Trainer");
@@ -130,6 +137,8 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
         dirEntry->setSelectedOption(0);
     }
 }
+
+void CharacterSpawnWindow::onNpcChoose(const std::string& file) { fileLabel->setText(file); }
 
 } // namespace component
 } // namespace editor

@@ -4,5 +4,6 @@ target_sources(PeoplemonEditor PUBLIC
     EventEditor.hpp
     HighlightRadioButton.hpp
     NewMapDialog.hpp
+    NPCEditorWindow.hpp
     ScriptSelector.hpp
 )

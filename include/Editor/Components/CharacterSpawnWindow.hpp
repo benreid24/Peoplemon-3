@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
+#include <Editor/Components/NPCEditorWindow.hpp>
 
 namespace editor
 {
@@ -48,6 +49,9 @@ private:
     bl::gui::TextEntry::Ptr xInput;
     bl::gui::TextEntry::Ptr yInput;
     bl::gui::ComboBox::Ptr dirEntry;
+
+    component::NpcEditorWindow npcEditor;
+    void onNpcChoose(const std::string& file);
 };
 
 } // namespace component

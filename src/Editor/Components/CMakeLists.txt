@@ -6,5 +6,6 @@ target_sources(PeoplemonEditor PRIVATE
     MapActions.hpp
     MapActions.cpp
     NewMapDialog.cpp
+    NPCEditorWindow.cpp
     ScriptSelector.cpp
 )
