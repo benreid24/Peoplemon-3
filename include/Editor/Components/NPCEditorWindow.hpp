@@ -44,7 +44,17 @@ private:
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::Label::Ptr animLabel;
     bl::gui::Label::Ptr convLabel;
-    bl::gui::ComboBox::Ptr behaviorSelect;
+
+    bl::gui::FilePicker filePicker;
+    bool makingNew;
+    void onChooseFile(const std::string& file);
+
+    void makeDirty();
+    void makeClean();
+    void reset();
+    void load(const std::string& file);
+    bool validate(bool saving) const;
+    bool confirmDiscard() const;
 };
 
 } // namespace component

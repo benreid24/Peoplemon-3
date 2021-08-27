@@ -28,6 +28,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     fileLabel    = Label::create("file here");
+    fileLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);
     row->pack(fileLabel, true, true);
     Button::Ptr npcBut = Button::create("NPC");
     npcBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
