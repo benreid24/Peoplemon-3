@@ -21,9 +21,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
              std::bind(&NpcEditorWindow::onChooseFile, this, std::placeholders::_1),
              [this]() { filePicker.close(); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
-        hide();
-    });
+    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
 
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newBut = Button::create("New");
@@ -192,8 +190,10 @@ bool NpcEditorWindow::validate(bool saving) const {
         bl::dialog::tinyfd_messageBox("Warning", "Bad animation", "ok", "warning", 1);
         return false;
     }
-    if (!FileUtil::exists(
-            FileUtil::joinPath(core::Properties::ConversationPath(), animLabel->getText()))) {
+    const std::string p =
+        FileUtil::joinPath(core::Properties::ConversationPath(), convLabel->getText());
+    if (!FileUtil::exists(p)) {
+        BL_LOG_INFO << p;
         bl::dialog::tinyfd_messageBox("Warning", "Bad conversation", "ok", "warning", 1);
         return false;
     }

@@ -473,7 +473,7 @@ const std::string& Properties::TrainerPath() {
 
 const std::string& Properties::ConversationPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.conversation.path", defaults::NpcFileExtension);
+        "core.conversation.path", defaults::ConversationPath);
     return val;
 }
 
