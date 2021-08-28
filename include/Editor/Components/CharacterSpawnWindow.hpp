@@ -52,6 +52,7 @@ private:
 
     component::NpcEditorWindow npcEditor;
     void onNpcChoose(const std::string& file);
+    void closeAll();
 };
 
 } // namespace component

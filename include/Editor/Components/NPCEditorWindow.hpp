@@ -34,6 +34,12 @@ public:
      */
     void show(bl::gui::GUI::Ptr parent, const std::string& file);
 
+    /**
+     * @brief Hides the window and all created child windows
+     * 
+     */
+    void hide();
+
 private:
     const SelectCb selectCb;
     bool clean;

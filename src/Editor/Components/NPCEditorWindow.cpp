@@ -22,7 +22,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
              [this]() { filePicker.close(); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
-        window->remove();
+        hide();
     });
 
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
@@ -103,14 +103,14 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
         if (confirmDiscard()) {
             if (validate(false)) {
                 selectCb(fileLabel->getText());
-                window->remove();
+                hide();
             }
         }
     });
     selectBut->setColor(sf::Color::Blue, sf::Color::Black);
     Button::Ptr cancelBut = Button::create("Cancel");
     cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        window->remove();
+        hide();
     });
     cancelBut->setColor(sf::Color::Red, sf::Color::Black);
     row->pack(selectBut, false, true);
@@ -207,6 +207,11 @@ bool NpcEditorWindow::confirmDiscard() const {
                         "Warning", "Discard unsaved changes?", "yesno", "warning", 0);
     }
     return true;
+}
+
+void NpcEditorWindow::hide() {
+    window->remove();
+    filePicker.close();
 }
 
 } // namespace component

@@ -23,7 +23,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 , npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
-        window->remove();
+        closeAll();
     });
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
@@ -98,7 +98,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
                 "Bad Position", "Please enter a valid y tile", "ok", "error", 1);
             return;
         }
-        window->remove();
+        closeAll();
         onEdit(orig,
                core::map::CharacterSpawn(
                    core::component::Position(
@@ -111,7 +111,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
     cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        window->remove();
+        closeAll();
     });
     row->pack(cancelBut, false, true);
     window->pack(row, true, false);
@@ -140,6 +140,11 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
 }
 
 void CharacterSpawnWindow::onNpcChoose(const std::string& file) { fileLabel->setText(file); }
+
+void CharacterSpawnWindow::closeAll() {
+    window->remove();
+    npcEditor.hide();
+}
 
 } // namespace component
 } // namespace editor
