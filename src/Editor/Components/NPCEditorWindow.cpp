@@ -19,7 +19,8 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 , clean(true)
 , filePicker(core::Properties::NpcPath(), {"npc"},
              std::bind(&NpcEditorWindow::onChooseFile, this, std::placeholders::_1),
-             [this]() { filePicker.close(); }) {
+             [this]() { filePicker.close(); })
+, animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
 
@@ -74,7 +75,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr animBut = Button::create("Select Anim");
     animBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        // TODO
+        animWindow.open(parent, core::Properties::CharacterAnimationPath(), animLabel->getText());
     });
     animLabel = Label::create("animation.anim");
     animLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);
@@ -212,7 +213,10 @@ bool NpcEditorWindow::confirmDiscard() const {
 void NpcEditorWindow::hide() {
     window->remove();
     filePicker.close();
+    animWindow.hide();
 }
+
+void NpcEditorWindow::onChooseAnimation(const std::string& f) { animLabel->setText(f); }
 
 } // namespace component
 } // namespace editor

@@ -2,6 +2,7 @@
 #define EDITOR_COMPONENTS_NPCEDITORWINDOW_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Editor/Components/AnimationWindow.hpp>
 #include <functional>
 
 namespace editor
@@ -36,7 +37,7 @@ public:
 
     /**
      * @brief Hides the window and all created child windows
-     * 
+     *
      */
     void hide();
 
@@ -54,6 +55,9 @@ private:
     bl::gui::FilePicker filePicker;
     bool makingNew;
     void onChooseFile(const std::string& file);
+
+    AnimationWindow animWindow;
+    void onChooseAnimation(const std::string& anim);
 
     void makeDirty();
     void makeClean();

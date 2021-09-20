@@ -367,9 +367,9 @@ Map::Map(core::system::Systems& s)
     };
 
     Notebook::Ptr controlBook = Notebook::create("maps");
-    controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
-    controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
-    controlBook->addPage("obj", "Objects", objectBook);
+    controlBook->addPage("map", "Props", infoBox, [this]() { activeTool = Tool::Metadata; });
+    controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
+    controlBook->addPage("obj", "Entities", objectBook);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
     controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
 
