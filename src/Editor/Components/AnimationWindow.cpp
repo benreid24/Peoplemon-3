@@ -32,6 +32,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
                                filePicker.get().close();
                                filePicker.destroy();
                            });
+        filePicker.get().open(FilePicker::PickExisting, "Select Animation", parent);
     });
     fileLabel = Label::create("file here");
     fileLabel->setColor(sf::Color::Blue, sf::Color::Transparent);
@@ -79,7 +80,8 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
 
 void AnimationWindow::open(const GUI::Ptr& p, const std::string& pt, const std::string& file) {
     packAnim(file);
-    path = pt;
+    path   = pt;
+    parent = p;
     p->pack(window);
 }
 
@@ -102,11 +104,18 @@ void AnimationWindow::packAnim(const std::string& f) {
         }
         animation->setAnimation(animSrc, true);
     }
+    if (filePicker.hasValue()) {
+        filePicker.get().close();
+        filePicker.destroy();
+    }
 }
 
 void AnimationWindow::hide() {
     window->remove();
-    if (filePicker.hasValue()) { filePicker.get().close(); }
+    if (filePicker.hasValue()) {
+        filePicker.get().close();
+        filePicker.destroy();
+    }
 }
 
 } // namespace component

@@ -49,6 +49,7 @@ private:
     const ChooseCb chooseCb;
     std::string path;
     bl::gui::Window::Ptr window;
+    bl::gui::GUI::Ptr parent;
     bl::gui::Label::Ptr fileLabel;
     bl::gui::Animation::Ptr animation;
     bl::resource::Resource<bl::gfx::AnimationData>::Ref animSrc;
