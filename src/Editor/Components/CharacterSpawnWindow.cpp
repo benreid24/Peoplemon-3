@@ -8,12 +8,25 @@ namespace component
 {
 namespace
 {
+const std::string NoFile = "<no file selected>";
+
 bool isNum(const std::string& s) {
     for (char c : s) {
         if (c < '0' || c > '9') return false;
     }
     return true;
 }
+
+bool validFile(const std::string& f) {
+    if (f.empty() || f == NoFile) { return false; }
+    if (!bl::file::Util::exists(bl::file::Util::joinPath(core::Properties::NpcPath(), f))) {
+        if (!bl::file::Util::exists(bl::file::Util::joinPath(core::Properties::TrainerPath(), f))) {
+            return false;
+        }
+    }
+    return true;
+}
+
 } // namespace
 
 using namespace bl::gui;
@@ -32,10 +45,11 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row->pack(fileLabel, true, true);
     Button::Ptr npcBut = Button::create("NPC");
     npcBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        const std::string f = bl::file::Util::getExtension(fileLabel->getText()) ==
-                                      core::Properties::NpcFileExtension() ?
-                                  fileLabel->getText() :
-                                  "";
+        std::string f = fileLabel->getText();
+        if (bl::file::Util::getExtension(f) == core::Properties::NpcFileExtension() ||
+            !validFile(f)) {
+            f.clear();
+        }
         npcEditor.show(parent, f);
     });
     row->pack(npcBut, false, true);
@@ -78,7 +92,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
     editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        if (fileLabel->getText().empty()) {
+        if (validFile(fileLabel->getText())) {
             bl::dialog::tinyfd_messageBox(
                 "Selelct Character", "Please select an NPC or trainer to spawn", "ok", "error", 1);
             return;
@@ -131,7 +145,7 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
         dirEntry->setSelectedOption(static_cast<int>(orig->position.getValue().direction));
     }
     else {
-        fileLabel->setText("mom1.npc");
+        fileLabel->setText("<no file selected>");
         xInput->setInput(std::to_string(pos.x));
         yInput->setInput(std::to_string(pos.y));
         levelInput->setInput(std::to_string(level));
