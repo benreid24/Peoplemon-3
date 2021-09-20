@@ -86,7 +86,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr convBut = Button::create("Select Conversation");
     convBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        // TODO
+        // TODO - conversation editor
     });
     convLabel = Label::create("conversation.conv");
     convLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);

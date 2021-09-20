@@ -8,7 +8,7 @@ target_sources(PeoplemonEditor PRIVATE
     MapActions.cpp
     NewMapDialog.cpp
     NPCEditorWindow.cpp
-    OpenAnimationEditor.hpp
-    OpenAnimationEditor.cpp
     ScriptSelector.cpp
 )
+
+add_subdirectory(Helpers)

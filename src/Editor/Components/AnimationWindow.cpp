@@ -1,6 +1,6 @@
 #include <Editor/Components/AnimationWindow.hpp>
 
-#include "OpenAnimationEditor.hpp"
+#include "Helpers/OpenAnimationEditor.hpp"
 #include <BLIB/Engine/Resources.hpp>
 #include <cstdlib>
 #include <sstream>
