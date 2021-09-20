@@ -1,5 +1,6 @@
 #include <Editor/Components/AnimationWindow.hpp>
 
+#include "OpenAnimationEditor.hpp"
 #include <BLIB/Engine/Resources.hpp>
 #include <cstdlib>
 #include <sstream>
@@ -12,15 +13,7 @@ using namespace bl::gui;
 
 namespace
 {
-const char* getEditorPath() {
-    static const char* WindowsPath = "tools\\AnimationEditor\\AnimationEditor.exe";
-    static const char* UnixPath    = "tools/AnimationEditor/AnimationEditor";
-    if (bl::file::Util::exists(UnixPath)) { return UnixPath; }
-    return WindowsPath;
-}
-
 bool validFile(const std::string& f) { return !f.empty() && bl::file::Util::exists(f); }
-
 } // namespace
 
 AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
@@ -48,17 +41,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
 
     Button::Ptr editBut = Button::create("Open Editor");
     editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        const char* editor = getEditorPath();
-        if (!bl::file::Util::exists(editor)) {
-            bl::dialog::tinyfd_messageBox(
-                "Animation Editor Missing",
-                "Please download the animation editor and place it in the tools directory",
-                "ok",
-                "error",
-                1);
-            return;
-        }
-        std::system(editor);
+        openAnimationEditor();
     });
     window->pack(editBut, false, false);
 
