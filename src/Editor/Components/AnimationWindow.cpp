@@ -58,10 +58,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
                 1);
             return;
         }
-        std::stringstream cmd;
-        cmd << editor << " ";
-        if (validFile(fileLabel->getText())) { cmd << fileLabel->getText(); }
-        std::system(cmd.str().c_str());
+        std::system(editor);
     });
     window->pack(editBut, false, false);
 
