@@ -74,7 +74,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr chooseBut = Button::create("Use Animation");
     chooseBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        if (fileLabel->getText().empty() || !bl::file::Util::exists(fileLabel->getText())) {
+        if (validFile(fileLabel->getText())) {
             bl::dialog::tinyfd_messageBox(
                 "No File", "Please select an animation", "ok", "error", 1);
             return;
