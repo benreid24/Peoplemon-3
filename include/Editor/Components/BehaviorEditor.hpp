@@ -54,6 +54,21 @@ public:
     void hide();
 
 private:
+    class PathEditor {
+    public:
+        PathEditor();
+        void pack(bl::gui::Box::Ptr box);
+        void init(const core::file::Behavior::Path& path);
+        const core::file::Behavior::Path& getValue() const;
+
+    private:
+        core::file::Behavior::Path value;
+        bl::gui::ScrollArea::Ptr container;
+        bl::gui::CheckButton::Ptr toggle;
+
+        void sync();
+    };
+
     const OnSetCb onSetCb;
     core::file::Behavior value;
     core::file::Behavior ogValue;
@@ -64,6 +79,7 @@ private:
     bl::gui::ComboBox::Ptr dirBox;
     bl::gui::ComboBox::Ptr spinBox;
     bl::gui::TextEntry::Ptr radiusEntry;
+    PathEditor pathEditor;
 };
 
 } // namespace component

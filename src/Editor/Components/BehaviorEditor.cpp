@@ -4,6 +4,8 @@ namespace editor
 {
 namespace component
 {
+using namespace bl::gui;
+
 namespace
 {
 std::string getLabel(core::file::Behavior::Type t) {
@@ -41,11 +43,9 @@ bool isNumber(const std::string& i) {
 
 } // namespace
 
-using namespace bl::gui;
-
 BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
 : onSetCb(cb) {
-    window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
+    window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "Behavior Editor");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
 
     typeLabel = Label::create("");
@@ -77,7 +77,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
     notebook->addPage("spin", "Spin", page);
 
     page = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    page->pack(Label::create("TODO")); // TODO - path editor
+    pathEditor.pack(page);
     notebook->addPage("path", "Path", page);
 
     page = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -108,7 +108,8 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
             break;
 
         case 2:
-            // TODO - path
+            value.setType(T::FollowingPath);
+            value.path() = pathEditor.getValue();
             break;
 
         case 3:
@@ -169,7 +170,7 @@ void BehaviorEditor::configure(GUI::Ptr p, const core::file::Behavior& behavior)
 
     case T::FollowingPath:
         notebook->makePageActive(2);
-        // TODO - path
+        pathEditor.init(behavior.path());
         break;
 
     case T::Wandering:
@@ -182,6 +183,102 @@ void BehaviorEditor::configure(GUI::Ptr p, const core::file::Behavior& behavior)
 void BehaviorEditor::hide() { window->remove(); }
 
 const core::file::Behavior& BehaviorEditor::getValue() const { return value; }
+
+BehaviorEditor::PathEditor::PathEditor() {
+    container = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 6));
+    container->setOutlineThickness(1);
+    container->setColor(sf::Color::Transparent, sf::Color::Black);
+    container->setMaxSize({0, 300});
+}
+
+void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
+    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    toggle       = CheckButton::create("Reverse Path At End");
+    toggle->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        value.reverse = toggle->getValue();
+    });
+    row->pack(toggle, false, true);
+    parent->pack(row);
+    parent->pack(Label::create("Paces:"));
+    parent->pack(container, true, true);
+
+    Button::Ptr appendBut = Button::create("Add Pace");
+    appendBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        value.paces.emplace_back(core::component::Direction::Down, 1);
+        sync();
+    });
+    parent->pack(appendBut);
+}
+
+void BehaviorEditor::PathEditor::init(const core::file::Behavior::Path& path) {
+    value = path;
+    sync();
+}
+
+const core::file::Behavior::Path& BehaviorEditor::PathEditor::getValue() const { return value; }
+
+void BehaviorEditor::PathEditor::sync() {
+    container->clearChildren(true);
+
+    for (unsigned int i = 0; i < value.paces.size(); ++i) {
+        auto& pace           = value.paces[i];
+        Box::Ptr row         = Box::create(LinePacker::create(LinePacker::Horizontal));
+        ComboBox::Ptr dirBox = ComboBox::create();
+        dirBox->addOption("Up");
+        dirBox->addOption("Right");
+        dirBox->addOption("Down");
+        dirBox->addOption("Left");
+        dirBox->getSignal(Action::ValueChanged)
+            .willAlwaysCall([&pace, dirBox](const Action&, Element*) {
+                pace.direction =
+                    static_cast<core::component::Direction>(dirBox->getSelectedOption());
+            });
+        dirBox->setSelectedOption(static_cast<int>(pace.direction));
+        row->pack(dirBox, false, true);
+
+        TextEntry::Ptr stepEntry = TextEntry::create();
+        stepEntry->setInput(std::to_string(pace.steps));
+        stepEntry->setColor(sf::Color::Green, sf::Color::Transparent);
+        stepEntry->getSignal(Action::TextEntered)
+            .willAlwaysCall([&pace, stepEntry](const Action&, Element*) {
+                if (isNumber(stepEntry->getInput())) {
+                    stepEntry->setColor(sf::Color::Green, sf::Color::Transparent);
+                    pace.steps = std::atoi(stepEntry->getInput().c_str());
+                }
+                else {
+                    stepEntry->setColor(sf::Color::Red, sf::Color::Transparent);
+                }
+            });
+        stepEntry->setRequisition({80, 1});
+        row->pack(Label::create("Steps:"), false, true);
+        row->pack(stepEntry, true, true);
+
+        Button::Ptr beforeBut = Button::create("Add Before");
+        beforeBut->getSignal(Action::LeftClicked)
+            .willAlwaysCall([this, i](const Action&, Element*) {
+                value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
+                sync();
+            });
+        row->pack(beforeBut, false, true);
+
+        Button::Ptr afterBut = Button::create("Add After");
+        afterBut->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
+            value.paces.insert(value.paces.begin() + i + 1, {core::component::Direction::Down, 1});
+            sync();
+        });
+        row->pack(afterBut, false, true);
+
+        Button::Ptr delBut = Button::create("Remove");
+        delBut->setColor(sf::Color::Red, sf::Color::Black);
+        delBut->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
+            value.paces.erase(value.paces.begin() + i);
+            sync();
+        });
+        row->pack(delBut, false, true);
+
+        container->pack(row, false, true);
+    }
+}
 
 } // namespace component
 } // namespace editor

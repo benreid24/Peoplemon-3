@@ -226,6 +226,7 @@ void NpcEditorWindow::hide() {
     window->remove();
     filePicker.close();
     animWindow.hide();
+    behaviorEditor.hide();
 }
 
 void NpcEditorWindow::onChooseAnimation(const std::string& f) { animLabel->setText(f); }
