@@ -1,5 +1,6 @@
 target_sources(PeoplemonEditor PUBLIC
     AnimationWindow.hpp
+    BehaviorEditor.hpp
     CharacterSpawnWindow.hpp
     EditMap.hpp
     EventEditor.hpp

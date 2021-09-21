@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Editor/Components/AnimationWindow.hpp>
+#include <Editor/Components/BehaviorEditor.hpp>
 #include <functional>
 
 namespace editor
@@ -58,6 +59,8 @@ private:
 
     AnimationWindow animWindow;
     void onChooseAnimation(const std::string& anim);
+
+    BehaviorEditor behaviorEditor;
 
     void makeDirty();
     void makeClean();

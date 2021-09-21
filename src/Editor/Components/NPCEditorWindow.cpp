@@ -20,7 +20,8 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 , filePicker(core::Properties::NpcPath(), {"npc"},
              std::bind(&NpcEditorWindow::onChooseFile, this, std::placeholders::_1),
              [this]() { filePicker.close(); })
-, animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1)) {
+, animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1))
+, behaviorEditor(std::bind(&NpcEditorWindow::makeDirty, this)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
     window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
 
@@ -53,7 +54,14 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     saveBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
         if (validate(true)) {
             core::file::NPC npc;
-            npc.name() = nameEntry->getInput();
+            npc.name()         = nameEntry->getInput();
+            npc.conversation() = convLabel->getText();
+            npc.animation()    = animLabel->getText();
+            npc.behavior()     = behaviorEditor.getValue();
+            if (!npc.save(
+                    bl::file::Util::joinPath(core::Properties::NpcPath(), fileLabel->getText()))) {
+                // TODO - error message
+            }
         }
     });
     fileLabel = Label::create("filename.npc");
@@ -94,7 +102,9 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     row->pack(convLabel, true, true);
     window->pack(row, true, false);
 
-    // TODO - behavior editor
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    behaviorEditor.pack(row);
+    window->pack(row, true, false);
 
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr selectBut = Button::create("Use NPC");
@@ -153,6 +163,7 @@ void NpcEditorWindow::reset() {
     nameEntry->setInput("");
     animLabel->setText("<no anim selected>");
     convLabel->setText("<no conv selected>");
+    behaviorEditor.configure(parent, {});
 }
 
 void NpcEditorWindow::load(const std::string& file) {
@@ -161,6 +172,7 @@ void NpcEditorWindow::load(const std::string& file) {
         nameEntry->setInput(npc.name());
         animLabel->setText(npc.animation());
         convLabel->setText(npc.conversation());
+        behaviorEditor.configure(parent, npc.behavior());
     }
     else {
         bl::dialog::tinyfd_messageBox(
