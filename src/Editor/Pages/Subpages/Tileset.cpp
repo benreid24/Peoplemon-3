@@ -34,12 +34,12 @@ Tileset::Tileset(const DeleteCb& dcb)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
 , dirty(false) {
-    content = Notebook::create("tileset");
+    content = Notebook::create();
 
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr tileButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addTileBut = Button::create("Add Tile");
-    addTileBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    addTileBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         const char* filters[] = {"*.png", "*.jpg", "*.bmp", "*.gif"};
         const char* file =
             bl::dialog::tinyfd_openFileDialog("Add tile(s)", nullptr, 4, filters, "Image files", 1);
@@ -67,7 +67,7 @@ Tileset::Tileset(const DeleteCb& dcb)
     });
     bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
     bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
-    delTileBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    delTileBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (1 == bl::dialog::tinyfd_messageBox("Remove tile?",
                                                "Are you sure you want to delete this tile?\nThis "
                                                "action cannot be undone and clears edit history",
@@ -94,7 +94,7 @@ Tileset::Tileset(const DeleteCb& dcb)
     bl::gui::Box::Ptr animPage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr animButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addAnimBut = Button::create("Add Animation");
-    addAnimBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    addAnimBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         const char* filters[] = {"*.anim"};
         const char* file      = bl::dialog::tinyfd_openFileDialog(
             "Add animation", nullptr, 1, filters, "Animation files", 0);
@@ -124,7 +124,7 @@ Tileset::Tileset(const DeleteCb& dcb)
         }
     });
     bl::gui::Button::Ptr delAnimBut = Button::create("Delete Animation");
-    delAnimBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    delAnimBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (1 ==
             bl::dialog::tinyfd_messageBox("Remove animation?",
                                           "Are you sure you want to delete this animation?\nThis "
@@ -191,8 +191,9 @@ void Tileset::updateGui() {
         img->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(img, group);
-        button->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, pair](const Action&, Element*) { activeTile = pair->first; });
+        button->getSignal(Event::LeftClicked).willAlwaysCall([this, pair](const Event&, Element*) {
+            activeTile = pair->first;
+        });
         if (!group) {
             activeTile = pair->first;
             button->setValue(true);
@@ -208,8 +209,9 @@ void Tileset::updateGui() {
         anim->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);
-        button->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, pair](const Action&, Element*) { activeAnim = pair->first; });
+        button->getSignal(Event::LeftClicked).willAlwaysCall([this, pair](const Event&, Element*) {
+            activeAnim = pair->first;
+        });
         if (!group) {
             activeAnim = pair->first;
             button->setValue(true);

@@ -16,19 +16,19 @@ ScriptSelector::ScriptSelector(const OnSelect& os)
          std::bind(&ScriptSelector::onPick, this, std::placeholders::_1),
          [this]() { picker.close(); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Select Script");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
 
     Button::Ptr pickBut = Button::create("Pick File");
-    pickBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    pickBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         picker.open(FilePicker::PickExisting, "Pick Script", parent, false);
     });
     window->pack(pickBut);
 
     scriptInput = TextEntry::create();
     scriptInput->setRequisition({250, 1});
-    scriptInput->getSignal(Action::TextEntered).willAlwaysCall([this](const Action&, Element*) {
+    scriptInput->getSignal(Event::TextEntered).willAlwaysCall([this](const Event&, Element*) {
         checkSyntax();
     });
     window->pack(scriptInput, true, false);
@@ -38,13 +38,13 @@ ScriptSelector::ScriptSelector(const OnSelect& os)
 
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 10));
     Button::Ptr choose = Button::create("Select");
-    choose->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    choose->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         onSelect(scriptInput->getInput());
         window->remove();
     });
     row->pack(choose, false, true);
     Button::Ptr cancel = Button::create("Cancel");
-    cancel->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancel->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
     row->pack(cancel, false, true);

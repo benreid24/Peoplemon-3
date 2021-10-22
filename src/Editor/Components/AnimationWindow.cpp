@@ -20,11 +20,11 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
 : characterMode(cm)
 , chooseCb(cb) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Animation Picker");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
     Box::Ptr row        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickBut = Button::create("Choose Animation");
-    pickBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    pickBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         filePicker.emplace(path,
                            std::vector<std::string>{"anim"},
                            std::bind(&AnimationWindow::packAnim, this, std::placeholders::_1),
@@ -41,7 +41,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
     window->pack(row);
 
     Button::Ptr editBut = Button::create("Open Editor");
-    editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         openAnimationEditor();
     });
     window->pack(editBut, false, false);
@@ -57,7 +57,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
 
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr chooseBut = Button::create("Use Animation");
-    chooseBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    chooseBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validFile(fileLabel->getText())) {
             bl::dialog::tinyfd_messageBox(
                 "No File", "Please select an animation", "ok", "error", 1);
@@ -69,7 +69,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
     });
     chooseBut->setColor(sf::Color::Green, sf::Color::Black);
     Button::Ptr cancelBut = Button::create("Cancel");
-    cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancelBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         hide();
     });
     cancelBut->setColor(sf::Color::Red, sf::Color::Black);

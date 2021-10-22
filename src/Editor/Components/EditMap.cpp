@@ -49,7 +49,7 @@ EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb
 
 EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& actionCb,
                  const ActionCb& syncCb, core::system::Systems& s)
-: bl::gui::Element("maps", "editmap")
+: bl::gui::Element()
 , Map()
 , historyHead(0)
 , saveHead(0)
@@ -78,12 +78,11 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
         }
     };
 
-    getSignal(bl::gui::Action::LeftClicked)
-        .willAlwaysCall([this](const bl::gui::Action&, Element*) {
-            if (controlsEnabled) { callCb(clickCb); }
-        });
+    getSignal(bl::gui::Event::LeftClicked).willAlwaysCall([this](const bl::gui::Event&, Element*) {
+        if (controlsEnabled) { callCb(clickCb); }
+    });
 
-    getSignal(bl::gui::Action::MouseMoved).willAlwaysCall([this](const bl::gui::Action&, Element*) {
+    getSignal(bl::gui::Event::MouseMoved).willAlwaysCall([this](const bl::gui::Event&, Element*) {
         callCb(moveCb);
     });
 }
@@ -272,18 +271,20 @@ void EditMap::EditCamera::zoom(float z) {
     if (size < 0.1f) size = 0.1f;
 }
 
-sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
+sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
 
-void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
+void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
+                       const bl::gui::Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    renderView             = bl::gui::Container::computeView(oldView, getAcquisition());
+    renderView =
+        bl::interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView());
     target.setView(renderView);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
 
-bool EditMap::handleScroll(const bl::gui::RawEvent& event) {
-    if (controlsEnabled) camera->zoom(-event.event.mouseWheelScroll.delta * 0.1f);
+bool EditMap::handleScroll(const bl::gui::Event& event) {
+    if (controlsEnabled) camera->zoom(-event.scrollDelta() * 0.1f);
     return true;
 }
 

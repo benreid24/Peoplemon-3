@@ -63,7 +63,7 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
     window->pack(row, true, false);
 
     Button::Ptr createBut = Button::create("Create Map");
-    createBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    createBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (nameEntry->getInput().empty()) {
             bl::dialog::tinyfd_messageBox("Error", "Please enter a map name", "ok", "error", 1);
             return;
@@ -100,7 +100,7 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
     });
     window->pack(createBut);
 
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
 }
@@ -114,8 +114,8 @@ void NewMapDialog::show(GUI::Ptr parent, const std::string& file) {
 
     if (!pickInit) {
         pickInit = true;
-        pickBut->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, parent](const Action&, Element*) {
+        pickBut->getSignal(Event::LeftClicked)
+            .willAlwaysCall([this, parent](const Event&, Element*) {
                 tilesetPicker.open(FilePicker::CreateOrPick, "Pick tileset", parent, true);
             });
     }

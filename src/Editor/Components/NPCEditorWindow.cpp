@@ -23,11 +23,11 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 , animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1))
 , behaviorEditor(std::bind(&NpcEditorWindow::makeDirty, this)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newBut = Button::create("New");
-    newBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    newBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = true;
             reset();
@@ -36,14 +36,14 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
         }
     });
     Button::Ptr setBut = Button::create("Set File");
-    setBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    setBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (fileLabel->getText() == EmptyFile || confirmDiscard()) {
             makingNew = true;
             filePicker.open(FilePicker::PickExisting, "New NPC", parent, false);
         }
     });
     Button::Ptr openBut = Button::create("Open");
-    openBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    openBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = false;
             filePicker.open(FilePicker::PickExisting, "Open NPC", parent, false);
@@ -51,7 +51,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     });
     saveBut = Button::create("Save");
     saveBut->setColor(sf::Color::Yellow, sf::Color::Blue);
-    saveBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    saveBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate(true)) {
             core::file::NPC npc;
             npc.name()         = nameEntry->getInput();
@@ -82,7 +82,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr animBut = Button::create("Select Anim");
-    animBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    animBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         animWindow.open(parent, core::Properties::CharacterAnimationPath(), animLabel->getText());
     });
     animLabel = Label::create("animation.anim");
@@ -93,7 +93,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr convBut = Button::create("Select Conversation");
-    convBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    convBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         // TODO - conversation editor
     });
     convLabel = Label::create("conversation.conv");
@@ -108,7 +108,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
 
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr selectBut = Button::create("Use NPC");
-    selectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    selectBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             if (validate(false)) {
                 selectCb(fileLabel->getText());
@@ -118,7 +118,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     });
     selectBut->setColor(sf::Color::Blue, sf::Color::Black);
     Button::Ptr cancelBut = Button::create("Cancel");
-    cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancelBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         hide();
     });
     cancelBut->setColor(sf::Color::Red, sf::Color::Black);

@@ -35,16 +35,14 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 : onEdit(cb)
 , npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
-        closeAll();
-    });
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { closeAll(); });
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     fileLabel    = Label::create("file here");
     fileLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);
     row->pack(fileLabel, true, true);
     Button::Ptr npcBut = Button::create("NPC");
-    npcBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    npcBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         std::string f = fileLabel->getText();
         if (bl::file::Util::getExtension(f) == core::Properties::NpcFileExtension() ||
             !validFile(f)) {
@@ -54,7 +52,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     });
     row->pack(npcBut, false, true);
     Button::Ptr tnrBut = Button::create("Trainer");
-    tnrBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    tnrBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         // TODO
     });
     row->pack(tnrBut, false, true);
@@ -91,7 +89,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
-    editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validFile(fileLabel->getText())) {
             bl::dialog::tinyfd_messageBox(
                 "Selelct Character", "Please select an NPC or trainer to spawn", "ok", "error", 1);
@@ -124,7 +122,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     });
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
-    cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancelBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         closeAll();
     });
     row->pack(cancelBut, false, true);

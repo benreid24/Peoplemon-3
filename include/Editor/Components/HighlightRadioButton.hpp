@@ -35,7 +35,7 @@ public:
     virtual ~HighlightRadioButton() = default;
 
 private:
-    sf::RectangleShape highlight;
+    mutable sf::RectangleShape highlight;
 
     HighlightRadioButton(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group* group);
 

@@ -511,10 +511,10 @@ private:
     bool doLoad(const std::string& file);
     bool editorActivate();
 
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const bl::gui::Renderer& renderer) const override;
-    virtual bool handleScroll(const bl::gui::RawEvent& scroll) override;
+    virtual bool handleScroll(const bl::gui::Event& scroll) override;
     virtual void update(float dt) override;
     virtual void render(sf::RenderTarget& target, float residual,
                         const core::map::Map::EntityRenderCallback& entityCb) const override;

@@ -51,7 +51,7 @@ Collisions::Collisions() {
         component::HighlightRadioButton::Ptr but =
             component::HighlightRadioButton::create(img, group);
         if (group == nullptr) but->setValue(true);
-        but->getSignal(Action::LeftClicked).willAlwaysCall([this, &pair](const Action&, Element*) {
+        but->getSignal(Event::LeftClicked).willAlwaysCall([this, &pair](const Event&, Element*) {
             active = pair.second;
         });
         group = but->getRadioGroup();

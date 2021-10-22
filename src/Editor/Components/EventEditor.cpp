@@ -10,7 +10,7 @@ EventEditor::EventEditor(const OnEdit& oe)
 : onEdit(oe)
 , scriptSelector(std::bind(&EventEditor::onScriptChosen, this, std::placeholders::_1)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 10), "Event Editor");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
 
@@ -19,7 +19,7 @@ EventEditor::EventEditor(const OnEdit& oe)
     scriptLabel->setColor(sf::Color::Blue, sf::Color::Transparent);
     row->pack(scriptLabel, true, true);
     Button::Ptr pickButton = Button::create("Pick/Edit Script");
-    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         scriptSelector.open(parent, scriptLabel->getText());
     });
     row->pack(pickButton, false, true);
@@ -64,7 +64,7 @@ EventEditor::EventEditor(const OnEdit& oe)
 
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
-    editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (valid()) {
             onEdit(orig, makeEvent());
             window->remove();
@@ -72,7 +72,7 @@ EventEditor::EventEditor(const OnEdit& oe)
     });
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
-    cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancelBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
     row->pack(cancelBut, false, true);

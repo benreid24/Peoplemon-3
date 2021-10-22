@@ -17,7 +17,7 @@ Catchables::Catchables() {
     img->scaleToSize({128, 128});
     component::HighlightRadioButton::Ptr noCatch = component::HighlightRadioButton::create(img);
     noCatch->setValue(true);
-    noCatch->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    noCatch->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         active = core::map::Catch::NoEncounter;
     });
 
@@ -26,7 +26,7 @@ Catchables::Catchables() {
     img->scaleToSize({128, 128});
     component::HighlightRadioButton::Ptr catchPossible =
         component::HighlightRadioButton::create(img, noCatch->getRadioGroup());
-    catchPossible->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    catchPossible->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         active = core::map::Catch::RandomEncounter;
     });
 

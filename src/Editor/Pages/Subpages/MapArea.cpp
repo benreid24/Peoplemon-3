@@ -18,13 +18,13 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     Box::Ptr leftSide = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     undoText          = Label::create("Undo");
     undoBut           = Button::create(undoText);
-    undoBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    undoBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         map->undo();
     });
     undoBut->setActive(false);
     redoText = Label::create("Redo");
     redoBut  = Button::create(redoText);
-    redoBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    redoBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         map->redo();
     });
     redoBut->setActive(false);
@@ -34,8 +34,8 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     Box::Ptr rightSide = Box::create(
         LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Compact, LinePacker::RightAlign));
     enableBut = CheckButton::create("Enable Map Controls");
-    enableBut->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action& a, Element*) {
-        map->setControlsEnabled(a.data.bvalue);
+    enableBut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& a, Element*) {
+        map->setControlsEnabled(a.toggleValue());
     });
     positionLabel = Label::create("Tile: ()");
     rightSide->pack(enableBut, false, true);

@@ -18,6 +18,7 @@ Layers::Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const Ap
 , filterCb(filterCb) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     content        = Notebook::create();
+    content->setRequisition({1.f, 200.f});
 }
 
 void Layers::sync(const std::vector<core::map::LayerSet>& levels,
@@ -58,9 +59,9 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
     Button::Ptr addBut = Button::create("Add");
-    addBut->getSignal(Action::LeftClicked)
+    addBut->getSignal(Event::LeftClicked)
         .willAlwaysCall(
-            [this, bottomAddCb, visibleCb](const Action&, Element*) { bottomAddCb(index); });
+            [this, bottomAddCb, visibleCb](const Event&, Element*) { bottomAddCb(index); });
     bottomBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     row->pack(Label::create("Bottom Layers"), true, true);
     row->pack(addBut, false, false);
@@ -68,8 +69,8 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
     addBut = Button::create("Add");
-    addBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall([this, ysortAddCb](const Action&, Element*) { ysortAddCb(index); });
+    addBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall([this, ysortAddCb](const Event&, Element*) { ysortAddCb(index); });
     ysortBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     row->pack(Label::create("Y-Sort Layers"), true, true);
     row->pack(addBut, false, false);
@@ -77,8 +78,9 @@ Layers::LevelTab::LevelTab(unsigned int i, const core::map::LayerSet& level,
 
     row    = Box::create(LinePacker::create(LinePacker::Horizontal, 0, LinePacker::Uniform));
     addBut = Button::create("Add");
-    addBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall([this, topAddCb](const Action&, Element*) { topAddCb(index); });
+    addBut->getSignal(Event::LeftClicked).willAlwaysCall([this, topAddCb](const Event&, Element*) {
+        topAddCb(index);
+    });
     topBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     row->pack(Label::create("Top Layers"), true, true);
     row->pack(addBut, false, false);
@@ -125,8 +127,8 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
 
     visibleToggle = CheckButton::create("Visible");
     visibleToggle->setValue(visible);
-    visibleToggle->getSignal(Action::ValueChanged)
-        .willAlwaysCall([this, visibleCb](const Action&, Element*) {
+    visibleToggle->getSignal(Event::ValueChanged)
+        .willAlwaysCall([this, visibleCb](const Event&, Element*) {
             visibleCb(index, visibleToggle->getValue());
         });
     row->pack(visibleToggle, false, true);
@@ -134,22 +136,22 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
     upBut = Button::create("Up");
     upBut->setActive(canUp);
     if (canUp) {
-        upBut->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, true); });
+        upBut->getSignal(Event::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Event&, Element*) { shiftCb(index, true); });
     }
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
     downBut->setActive(canDown);
     if (canDown) {
-        downBut->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, shiftCb](const Action&, Element*) { shiftCb(index, false); });
+        downBut->getSignal(Event::LeftClicked)
+            .willAlwaysCall([this, shiftCb](const Event&, Element*) { shiftCb(index, false); });
     }
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");
     delBut->setColor(sf::Color(180, 15, 15), sf::Color(60, 0, 0));
-    delBut->getSignal(Action::LeftClicked).willAlwaysCall([this, delCb](const Action&, Element*) {
+    delBut->getSignal(Event::LeftClicked).willAlwaysCall([this, delCb](const Event&, Element*) {
         delCb(index);
     });
     row->pack(delBut, false, true);

@@ -46,7 +46,7 @@ bool isNumber(const std::string& i) {
 BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
 : onSetCb(cb) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "Behavior Editor");
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) { hide(); });
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
     typeLabel = Label::create("");
     notebook  = Notebook::create();
@@ -92,7 +92,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
     row                = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr setBut = Button::create("Save");
     setBut->setColor(sf::Color::Green, sf::Color::Black);
-    setBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    setBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         using T = core::file::Behavior::Type;
         switch (notebook->getActivePageIndex()) {
         case 0:
@@ -131,7 +131,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
     row->pack(setBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
     cancelBut->setColor(sf::Color::Red, sf::Color::Black);
-    cancelBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    cancelBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         value = ogValue;
         hide();
     });
@@ -143,7 +143,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
 void BehaviorEditor::pack(Box::Ptr row) {
     row->pack(typeLabel, true, true);
     Button::Ptr editBut = Button::create("Edit Behavior");
-    editBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         ogValue = value;
         parent->pack(window);
     });
@@ -194,7 +194,7 @@ BehaviorEditor::PathEditor::PathEditor() {
 void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     toggle       = CheckButton::create("Reverse Path At End");
-    toggle->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    toggle->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         value.reverse = toggle->getValue();
     });
     row->pack(toggle, false, true);
@@ -203,7 +203,7 @@ void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
     parent->pack(container, true, true);
 
     Button::Ptr appendBut = Button::create("Add Pace");
-    appendBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    appendBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         value.paces.emplace_back(core::component::Direction::Down, 1);
         sync();
     });
@@ -228,8 +228,8 @@ void BehaviorEditor::PathEditor::sync() {
         dirBox->addOption("Right");
         dirBox->addOption("Down");
         dirBox->addOption("Left");
-        dirBox->getSignal(Action::ValueChanged)
-            .willAlwaysCall([&pace, dirBox](const Action&, Element*) {
+        dirBox->getSignal(Event::ValueChanged)
+            .willAlwaysCall([&pace, dirBox](const Event&, Element*) {
                 pace.direction =
                     static_cast<core::component::Direction>(dirBox->getSelectedOption());
             });
@@ -239,8 +239,8 @@ void BehaviorEditor::PathEditor::sync() {
         TextEntry::Ptr stepEntry = TextEntry::create();
         stepEntry->setInput(std::to_string(pace.steps));
         stepEntry->setColor(sf::Color::Green, sf::Color::Transparent);
-        stepEntry->getSignal(Action::TextEntered)
-            .willAlwaysCall([&pace, stepEntry](const Action&, Element*) {
+        stepEntry->getSignal(Event::TextEntered)
+            .willAlwaysCall([&pace, stepEntry](const Event&, Element*) {
                 if (isNumber(stepEntry->getInput())) {
                     stepEntry->setColor(sf::Color::Green, sf::Color::Transparent);
                     pace.steps = std::atoi(stepEntry->getInput().c_str());
@@ -254,15 +254,14 @@ void BehaviorEditor::PathEditor::sync() {
         row->pack(stepEntry, true, true);
 
         Button::Ptr beforeBut = Button::create("Add Before");
-        beforeBut->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, i](const Action&, Element*) {
-                value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
-                sync();
-            });
+        beforeBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
+            value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
+            sync();
+        });
         row->pack(beforeBut, false, true);
 
         Button::Ptr afterBut = Button::create("Add After");
-        afterBut->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
+        afterBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
             value.paces.insert(value.paces.begin() + i + 1, {core::component::Direction::Down, 1});
             sync();
         });
@@ -270,7 +269,7 @@ void BehaviorEditor::PathEditor::sync() {
 
         Button::Ptr delBut = Button::create("Remove");
         delBut->setColor(sf::Color::Red, sf::Color::Black);
-        delBut->getSignal(Action::LeftClicked).willAlwaysCall([this, i](const Action&, Element*) {
+        delBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
             value.paces.erase(value.paces.begin() + i);
             sync();
         });
