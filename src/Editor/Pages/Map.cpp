@@ -128,6 +128,7 @@ Map::Map(core::system::Systems& s)
         selectionState = NoSelection;
     });
     Button::Ptr selectAllBut = Button::create("All");
+    selectAllBut->setTooltip("Select all tiles");
     selectAllBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         selectionState = SelectionMade;
         selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
@@ -149,6 +150,7 @@ Map::Map(core::system::Systems& s)
     row->pack(box, true, false);
 
     Button::Ptr resizeBut = Button::create("Resize Map");
+    // TODO - implement map resizing
     row->pack(resizeBut);
     infoBox->pack(row, true, false);
 
@@ -167,6 +169,7 @@ Map::Map(core::system::Systems& s)
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     row->pack(Label::create("Weather:"));
     weatherEntry = ComboBox::create();
+    weatherEntry->setTooltip("Set the weather for the entire map");
     weatherEntry->addOption("None");
     weatherEntry->addOption("AllRandom");
     weatherEntry->addOption("LightRain");
@@ -212,8 +215,9 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.unpack(); });
 
     Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    spawnCreate       = RadioButton::create("Spawn", "spawn");
+    box         = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    spawnCreate = RadioButton::create("Spawn", "spawn");
+    spawnCreate->setTooltip("Create player spawns for when entering the map");
     spawnCreate->setValue(true);
     spawnDirEntry = ComboBox::create();
     spawnDirEntry->addOption("Up");
@@ -302,6 +306,7 @@ Map::Map(core::system::Systems& s)
     box->pack(row, true, false);
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
+    pickButton->setTooltip("Set the script that runs when the player enters the map");
     pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
         choosingOnloadScript = true;
@@ -309,6 +314,7 @@ Map::Map(core::system::Systems& s)
     });
     row->pack(pickButton);
     pickButton = Button::create("Set OnExit");
+    pickButton->setTooltip("Set the script that runs when the player exits the map");
     pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
         choosingOnloadScript = false;

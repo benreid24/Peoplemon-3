@@ -16,9 +16,10 @@ namespace
 bool validFile(const std::string& f) { return !f.empty() && bl::file::Util::exists(f); }
 } // namespace
 
-AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
+AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb)
 : characterMode(cm)
-, chooseCb(cb) {
+, chooseCb(cb)
+, closeCb(ccb) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Animation Picker");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -32,6 +33,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb)
                                filePicker.get().close();
                                filePicker.destroy();
                            });
+        window->setForceFocus(false);
         filePicker.get().open(FilePicker::PickExisting, "Select Animation", parent);
     });
     fileLabel = Label::create("file here");
@@ -83,6 +85,7 @@ void AnimationWindow::open(const GUI::Ptr& p, const std::string& pt, const std::
     path   = pt;
     parent = p;
     p->pack(window);
+    window->setForceFocus(true);
 }
 
 void AnimationWindow::packAnim(const std::string& f) {
@@ -107,11 +110,14 @@ void AnimationWindow::packAnim(const std::string& f) {
     if (filePicker.hasValue()) {
         filePicker.get().close();
         filePicker.destroy();
+        window->setForceFocus(true);
     }
 }
 
 void AnimationWindow::hide() {
     window->remove();
+    window->setForceFocus(false);
+    closeCb();
     if (filePicker.hasValue()) {
         filePicker.get().close();
         filePicker.destroy();

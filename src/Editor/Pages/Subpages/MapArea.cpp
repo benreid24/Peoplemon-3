@@ -16,14 +16,12 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
 
     Box::Ptr leftSide = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    undoText          = Label::create("Undo");
-    undoBut           = Button::create(undoText);
+    undoBut           = Button::create("Undo");
     undoBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         map->undo();
     });
     undoBut->setActive(false);
-    redoText = Label::create("Redo");
-    redoBut  = Button::create(redoText);
+    redoBut = Button::create("Redo");
     redoBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         map->redo();
     });
@@ -34,6 +32,7 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     Box::Ptr rightSide = Box::create(
         LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Compact, LinePacker::RightAlign));
     enableBut = CheckButton::create("Enable Map Controls");
+    enableBut->setTooltip("Enable or disable map editing. Useful for not making accidental edits");
     enableBut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& a, Element*) {
         map->setControlsEnabled(a.toggleValue());
     });
@@ -54,21 +53,21 @@ bl::gui::Element::Ptr MapArea::getContent() { return content; }
 void MapArea::refreshButtons() {
     const char* undoDesc = map->undoDescription();
     if (undoDesc) {
-        undoText->setText(std::string("Undo ") + undoDesc);
+        undoBut->setTooltip(std::string("Undo ") + undoDesc);
         undoBut->setActive(true);
     }
     else {
-        undoText->setText("Undo");
+        undoBut->setTooltip("");
         undoBut->setActive(false);
     }
 
     const char* redoDesc = map->redoDescription();
     if (redoDesc) {
-        redoText->setText(std::string("Redo ") + redoDesc);
+        redoBut->setTooltip(std::string("Redo ") + redoDesc);
         redoBut->setActive(true);
     }
     else {
-        redoText->setText("Redo");
+        redoBut->setTooltip("");
         redoBut->setActive(false);
     }
 }

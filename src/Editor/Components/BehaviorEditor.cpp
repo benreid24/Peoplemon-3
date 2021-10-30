@@ -43,8 +43,11 @@ bool isNumber(const std::string& i) {
 
 } // namespace
 
-BehaviorEditor::BehaviorEditor(const OnSetCb& cb)
-: onSetCb(cb) {
+BehaviorEditor::BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& op,
+                               const NotifyWindowCb& oc)
+: onSetCb(cb)
+, onOpen(op)
+, onClose(oc) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "Behavior Editor");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -145,7 +148,9 @@ void BehaviorEditor::pack(Box::Ptr row) {
     Button::Ptr editBut = Button::create("Edit Behavior");
     editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         ogValue = value;
+        onOpen();
         parent->pack(window);
+        window->setForceFocus(true);
     });
     row->pack(editBut, false, true);
 }
@@ -180,7 +185,11 @@ void BehaviorEditor::configure(GUI::Ptr p, const core::file::Behavior& behavior)
     }
 }
 
-void BehaviorEditor::hide() { window->remove(); }
+void BehaviorEditor::hide() {
+    window->remove();
+    window->setForceFocus(false);
+    onClose();
+}
 
 const core::file::Behavior& BehaviorEditor::getValue() const { return value; }
 

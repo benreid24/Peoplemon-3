@@ -14,14 +14,21 @@ const std::string EmptyFile = "<no file selected>";
 using namespace bl::gui;
 using FileUtil = bl::file::Util;
 
-NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
+NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 : selectCb(cb)
+, closeCb(ccb)
 , clean(true)
 , filePicker(core::Properties::NpcPath(), {"npc"},
              std::bind(&NpcEditorWindow::onChooseFile, this, std::placeholders::_1),
-             [this]() { filePicker.close(); })
-, animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1))
-, behaviorEditor(std::bind(&NpcEditorWindow::makeDirty, this)) {
+             [this]() {
+                 filePicker.close();
+                 window->setForceFocus(true);
+             })
+, animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1),
+             [this]() { window->setForceFocus(true); })
+, behaviorEditor(
+      std::bind(&NpcEditorWindow::makeDirty, this), [this]() { window->setForceFocus(false); },
+      [this]() { window->setForceFocus(true); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -32,6 +39,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
             makingNew = true;
             reset();
             makeClean();
+            window->setForceFocus(false);
             filePicker.open(FilePicker::CreateNew, "New NPC", parent, true);
         }
     });
@@ -39,6 +47,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     setBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (fileLabel->getText() == EmptyFile || confirmDiscard()) {
             makingNew = true;
+            window->setForceFocus(false);
             filePicker.open(FilePicker::PickExisting, "New NPC", parent, false);
         }
     });
@@ -46,6 +55,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     openBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = false;
+            window->setForceFocus(false);
             filePicker.open(FilePicker::PickExisting, "Open NPC", parent, false);
         }
     });
@@ -83,6 +93,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr animBut = Button::create("Select Anim");
     animBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        window->setForceFocus(false);
         animWindow.open(parent, core::Properties::CharacterAnimationPath(), animLabel->getText());
     });
     animLabel = Label::create("animation.anim");
@@ -136,10 +147,12 @@ void NpcEditorWindow::show(GUI::Ptr p, const std::string& file) {
     }
     makeClean();
     parent->pack(window);
+    window->setForceFocus(true);
 }
 
 void NpcEditorWindow::onChooseFile(const std::string& file) {
     filePicker.close();
+    window->setForceFocus(true);
     fileLabel->setText(file);
     if (makingNew) { makeDirty(); }
     else {
@@ -227,6 +240,8 @@ void NpcEditorWindow::hide() {
     filePicker.close();
     animWindow.hide();
     behaviorEditor.hide();
+    window->setForceFocus(false);
+    closeCb();
 }
 
 void NpcEditorWindow::onChooseAnimation(const std::string& f) { animLabel->setText(f); }

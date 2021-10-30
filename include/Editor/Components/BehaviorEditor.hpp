@@ -16,15 +16,17 @@ namespace component
  */
 class BehaviorEditor {
 public:
-    using OnSetCb = std::function<void()>;
+    using OnSetCb        = std::function<void()>;
+    using NotifyWindowCb = std::function<void()>;
 
     /**
      * @brief Construct a new Behavior Editor
      *
      * @param cb Callback for when the behavior is modified
-     *
+     * @param onOpen Called when the window is opened
+     * @param onClose Called when the window is closed
      */
-    BehaviorEditor(const OnSetCb& cb);
+    BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& onOpen, const NotifyWindowCb& onClose);
 
     /**
      * @brief Returns the behavior value
@@ -70,6 +72,8 @@ private:
     };
 
     const OnSetCb onSetCb;
+    const NotifyWindowCb onOpen;
+    const NotifyWindowCb onClose;
     core::file::Behavior value;
     core::file::Behavior ogValue;
     bl::gui::GUI::Ptr parent;

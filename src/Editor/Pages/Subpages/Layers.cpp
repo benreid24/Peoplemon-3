@@ -134,6 +134,7 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");
+    upBut->setTooltip("Move this layer up the list. Higher layers are below lower layers");
     upBut->setActive(canUp);
     if (canUp) {
         upBut->getSignal(Event::LeftClicked)
@@ -142,6 +143,7 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
+    downBut->setTooltip("Move this layer down the list. Lower layers are on top of higher layers");
     downBut->setActive(canDown);
     if (canDown) {
         downBut->getSignal(Event::LeftClicked)

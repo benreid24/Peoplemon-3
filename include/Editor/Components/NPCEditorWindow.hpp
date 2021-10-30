@@ -21,12 +21,16 @@ public:
     /// Callback for when an NPC file is selected
     using SelectCb = std::function<void(const std::string& file)>;
 
+    /// Called when the window is closed
+    using CloseCb = std::function<void()>;
+
     /**
      * @brief Construct a new Npc Editor Window
      *
      * @param cb Callback for when an NPC file is selected
+     * @param cb Callback for when the window is closed
      */
-    NpcEditorWindow(const SelectCb& cb);
+    NpcEditorWindow(const SelectCb& cb, const CloseCb& closeCb);
 
     /**
      * @brief Opens the NPC editor
@@ -44,6 +48,7 @@ public:
 
 private:
     const SelectCb selectCb;
+    const CloseCb closeCb;
     bool clean;
     bl::gui::GUI::Ptr parent;
     bl::gui::Window::Ptr window;

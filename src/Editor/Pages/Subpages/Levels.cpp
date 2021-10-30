@@ -13,6 +13,8 @@ Levels::Levels(const RenderFilterCb& filterCb, const ShiftCb& os, const AddCb& a
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 12));
 
     Button::Ptr addBut = Button::create("Add Level");
+    addBut->setTooltip(
+        "Add a new level. A level is a set of layers and can be thought of as in-game elevation");
     addBut->getSignal(Event::LeftClicked).willAlwaysCall([this, addCb](const Event&, Element*) {
         addCb();
     });

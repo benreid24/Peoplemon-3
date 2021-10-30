@@ -33,7 +33,8 @@ using namespace bl::gui;
 
 CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 : onEdit(cb)
-, npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1)) {
+, npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1),
+            [this]() { BL_LOG_INFO << "forced: " << window->setForceFocus(true); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { closeAll(); });
 
@@ -48,6 +49,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
             !validFile(f)) {
             f.clear();
         }
+        window->setForceFocus(false);
         npcEditor.show(parent, f);
     });
     row->pack(npcBut, false, true);
@@ -134,6 +136,7 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
     parent     = p;
     this->orig = orig;
     parent->pack(window);
+    window->setForceFocus(true);
 
     if (orig) {
         fileLabel->setText(orig->file);
@@ -155,6 +158,7 @@ void CharacterSpawnWindow::onNpcChoose(const std::string& file) { fileLabel->set
 
 void CharacterSpawnWindow::closeAll() {
     window->remove();
+    window->setForceFocus(false);
     npcEditor.hide();
 }
 

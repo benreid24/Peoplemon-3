@@ -21,13 +21,17 @@ public:
     /// Called when an animation is chosen
     using ChooseCb = std::function<void(const std::string&)>;
 
+    /// Called when the window is closed
+    using CloseCb = std::function<void()>;
+
     /**
      * @brief Construct a new Animation Window
      *
      * @param characterMode True to select folders of animations, false for single anims
      * @param chooseCb Callback to call when an animation is chosen
+     * @param closeCb Callback for when the window is closed
      */
-    AnimationWindow(bool characterMode, const ChooseCb& chooseCb);
+    AnimationWindow(bool characterMode, const ChooseCb& chooseCb, const CloseCb& closeCb);
 
     /**
      * @brief Opens the animation picker window
@@ -47,6 +51,7 @@ public:
 private:
     const bool characterMode;
     const ChooseCb chooseCb;
+    const CloseCb closeCb;
     std::string path;
     bl::gui::Window::Ptr window;
     bl::gui::GUI::Ptr parent;

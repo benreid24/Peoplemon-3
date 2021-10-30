@@ -39,6 +39,7 @@ Tileset::Tileset(const DeleteCb& dcb)
     bl::gui::Box::Ptr tilePage      = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     bl::gui::Box::Ptr tileButBox    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     bl::gui::Button::Ptr addTileBut = Button::create("Add Tile");
+    addTileBut->setTooltip("Import an image as a tile");
     addTileBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         const char* filters[] = {"*.png", "*.jpg", "*.bmp", "*.gif"};
         const char* file =
@@ -66,7 +67,9 @@ Tileset::Tileset(const DeleteCb& dcb)
         }
     });
     bl::gui::Button::Ptr importSpritesheetBut = Button::create("Add Tilesheet");
-    bl::gui::Button::Ptr delTileBut           = Button::create("Delete Tile");
+    importSpritesheetBut->setTooltip("Import a spritesheet as many tiles");
+    // TODO - implement sprite sheet import
+    bl::gui::Button::Ptr delTileBut = Button::create("Delete Tile");
     delTileBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (1 == bl::dialog::tinyfd_messageBox("Remove tile?",
                                                "Are you sure you want to delete this tile?\nThis "
@@ -148,12 +151,15 @@ Tileset::Tileset(const DeleteCb& dcb)
     scroll->pack(animsBox, true, true);
     animPage->pack(scroll, true, true);
 
+    content->setMaxTabWidth(250.f);
     content->addPage("tile", "Tiles", tilePage, [this]() { tool = Active::Tiles; });
     content->addPage("anim", "Animations", animPage, [this]() { tool = Active::Animations; });
     content->addPage(
         "col", "Collisions", collisions.getContent(), [this]() { tool = Active::CollisionTiles; });
     content->addPage(
         "catch", "Catch Tiles", catchables.getContent(), [this]() { tool = Active::CatchTiles; });
+    content->addPage("level", "Level Transitions", Label::create("TODO"));
+    // TODO - create page for level transitions
 
     loadTileset("Worldtileset.tlst");
 }
