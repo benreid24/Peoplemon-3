@@ -285,7 +285,7 @@ Map::Map(core::system::Systems& s)
         RadioButton::create(label, "delete", lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
 
-    Notebook::Ptr objectBook = Notebook::create();
+    objectBook = Notebook::create();
     objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
     objectBook->addPage("ai", "NPC's", npcBox, [this]() { activeTool = Tool::NPCs; });
     objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
@@ -377,12 +377,26 @@ Map::Map(core::system::Systems& s)
             levelPage.pack();
     };
 
+    const auto onObjectActive = [this]() {
+        if (objectBook->getActivePageName() == "spawns") { activeTool = Tool::Spawns; }
+        else if (objectBook->getActivePageName() == "items") {
+            activeTool = Tool::Items;
+        }
+        else if (objectBook->getActivePageName() == "ai") {
+            activeTool = Tool::NPCs;
+        }
+        else if (objectBook->getActivePageName() == "lights") {
+            activeTool = Tool::Lights;
+        }
+    };
+
     Notebook::Ptr controlBook = Notebook::create();
     controlBook->addPage("map", "Props", infoBox, [this]() { activeTool = Tool::Metadata; });
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
-    controlBook->addPage("obj", "Entities", objectBook);
+    controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
-    controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
+    controlBook->addPage(
+        "ppl", "Peoplemon", peoplemonBox, [this]() { activeTool = Tool::Peoplemon; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);

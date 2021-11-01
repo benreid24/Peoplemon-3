@@ -52,6 +52,7 @@ private:
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr saveMapBut;
 
+    bl::gui::Notebook::Ptr objectBook;
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
     bl::gui::ComboBox::Ptr itemSpawnEntry;

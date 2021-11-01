@@ -17,7 +17,8 @@ Layers::Layers(const AppendCb& bottomAddCb, const AppendCb& ysortAddCb, const Ap
 , shiftCb(shiftCb)
 , filterCb(filterCb) {
     contentWrapper = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    content        = Notebook::create();
+    contentWrapper->setOutlineThickness(0.f);
+    content = Notebook::create();
     content->setRequisition({1.f, 200.f});
 }
 
@@ -116,7 +117,10 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
                            const VisibleCb& visibleCb, const DeleteCb& delCb,
                            const ShiftCb& shiftCb)
 : index(i) {
-    row = Box::create(LinePacker::create(LinePacker::Horizontal));
+    row = Box::create(LinePacker::create(
+        LinePacker::Horizontal, 2.f, LinePacker::Compact, LinePacker::LeftAlign));
+    row->setOutlineThickness(1.f);
+    row->setColor(sf::Color::Transparent, sf::Color::Red);
 
     name = Label::create("Layer " + std::to_string(i));
     name->setColor(sf::Color(bl::util::Random::get<std::uint8_t>(80, 255),
