@@ -119,8 +119,7 @@ Layers::LayerRow::LayerRow(unsigned int i, bool canUp, bool canDown, bool visibl
 : index(i) {
     row = Box::create(LinePacker::create(
         LinePacker::Horizontal, 2.f, LinePacker::Compact, LinePacker::LeftAlign));
-    row->setOutlineThickness(1.f);
-    row->setColor(sf::Color::Transparent, sf::Color::Red);
+    row->setOutlineThickness(0.f);
 
     name = Label::create("Layer " + std::to_string(i));
     name->setColor(sf::Color(bl::util::Random::get<std::uint8_t>(80, 255),
