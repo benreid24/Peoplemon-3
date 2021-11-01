@@ -85,10 +85,10 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& op,
 
     page = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     row  = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    row->pack(Label::create("Radius (tiles):"), false, true);
+    row->pack(Label::create("Radius (tiles):"), false, false);
     radiusEntry = TextEntry::create();
     radiusEntry->setInput("7");
-    row->pack(radiusEntry, true, true);
+    row->pack(radiusEntry, true, false);
     page->pack(row, true, true);
     notebook->addPage("wander", "Wander", page);
 
@@ -213,9 +213,9 @@ void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
     parent->pack(container, true, true);
 
     Button::Ptr appendBut = Button::create("Add Pace");
-    appendBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+    appendBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element* e) {
         value.paces.emplace_back(core::component::Direction::Down, 1);
-        sync();
+        e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
     });
     parent->pack(appendBut);
 }
@@ -264,24 +264,25 @@ void BehaviorEditor::PathEditor::sync() {
         row->pack(stepEntry, true, true);
 
         Button::Ptr beforeBut = Button::create("Add Before");
-        beforeBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
-            value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
-            sync();
-        });
+        beforeBut->getSignal(Event::LeftClicked)
+            .willAlwaysCall([this, i](const Event&, Element* e) {
+                value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
+                e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
+            });
         row->pack(beforeBut, false, true);
 
         Button::Ptr afterBut = Button::create("Add After");
-        afterBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
+        afterBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element* e) {
             value.paces.insert(value.paces.begin() + i + 1, {core::component::Direction::Down, 1});
-            sync();
+            e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
         });
         row->pack(afterBut, false, true);
 
         Button::Ptr delBut = Button::create("Remove");
         delBut->setColor(sf::Color::Red, sf::Color::Black);
-        delBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
+        delBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element* e) {
             value.paces.erase(value.paces.begin() + i);
-            sync();
+            e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
         });
         row->pack(delBut, false, true);
 
