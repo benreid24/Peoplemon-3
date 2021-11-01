@@ -198,6 +198,7 @@ BehaviorEditor::PathEditor::PathEditor() {
     container->setOutlineThickness(1);
     container->setColor(sf::Color::Transparent, sf::Color::Black);
     container->setMaxSize({0, 300});
+    container->includeScrollbarsInRequisition(true);
 }
 
 void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
