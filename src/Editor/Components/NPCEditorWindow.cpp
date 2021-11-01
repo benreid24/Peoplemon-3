@@ -34,6 +34,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newBut = Button::create("New");
+    newBut->setTooltip("Create a new NPC file");
     newBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = true;
@@ -44,6 +45,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         }
     });
     Button::Ptr setBut = Button::create("Set File");
+    setBut->setTooltip("Change the file to save this NPC to");
     setBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (fileLabel->getText() == EmptyFile || confirmDiscard()) {
             makingNew = true;
@@ -52,6 +54,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         }
     });
     Button::Ptr openBut = Button::create("Open");
+    openBut->setTooltip("Open a different NPC file");
     openBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = false;
@@ -60,6 +63,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         }
     });
     saveBut = Button::create("Save");
+    saveBut->setTooltip("Overwrite the current NPC file");
     saveBut->setColor(sf::Color::Yellow, sf::Color::Blue);
     saveBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate(true)) {
@@ -119,6 +123,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr selectBut = Button::create("Use NPC");
+    selectBut->setTooltip("Use the current NPC file");
     selectBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             if (validate(false)) {

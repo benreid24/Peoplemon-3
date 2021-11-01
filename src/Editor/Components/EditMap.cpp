@@ -85,6 +85,8 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
     getSignal(bl::gui::Event::MouseMoved).willAlwaysCall([this](const bl::gui::Event&, Element*) {
         callCb(moveCb);
     });
+
+    setOutlineThickness(0.f);
 }
 
 bool EditMap::editorLoad(const std::string& file) {

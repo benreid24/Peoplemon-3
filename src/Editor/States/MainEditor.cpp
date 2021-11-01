@@ -38,6 +38,7 @@ MainEditor::MainEditor(core::system::Systems& s)
     todoPage.registerGui(gui);
 
     notebook = bl::gui::Notebook::create();
+    notebook->setOutlineThickness(0.f);
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
     notebook->addPage(

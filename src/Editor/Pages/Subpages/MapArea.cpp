@@ -12,8 +12,10 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
       cb, std::bind(&MapArea::onMouseOver, this, std::placeholders::_1, std::placeholders::_2),
       std::bind(&MapArea::refreshButtons, this), syncCb, s)) {
     content = Box::create(LinePacker::create(LinePacker::Vertical, 0));
+    content->setOutlineThickness(0.f);
 
     Box::Ptr controlRow = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
+    controlRow->setOutlineThickness(0.f);
 
     Box::Ptr leftSide = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     undoBut           = Button::create("Undo");

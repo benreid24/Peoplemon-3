@@ -34,7 +34,7 @@ using namespace bl::gui;
 CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 : onEdit(cb)
 , npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1),
-            [this]() { BL_LOG_INFO << "forced: " << window->setForceFocus(true); }) {
+            [this]() { window->setForceFocus(true); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { closeAll(); });
 

@@ -56,7 +56,8 @@ Map::Map(core::system::Systems& s)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
 , characterEditor(
       std::bind(&Map::onCharacterEdit, this, std::placeholders::_1, std::placeholders::_2)) {
-    content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    content = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    content->setOutlineThickness(0.f);
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
     Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
@@ -215,8 +216,8 @@ Map::Map(core::system::Systems& s)
         [this]() { levelPage.unpack(); });
 
     Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box         = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    spawnCreate = RadioButton::create("Spawn", "spawn");
+    box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    spawnCreate       = RadioButton::create("Spawn", "spawn");
     spawnCreate->setTooltip("Create player spawns for when entering the map");
     spawnCreate->setValue(true);
     spawnDirEntry = ComboBox::create();
@@ -290,20 +291,22 @@ Map::Map(core::system::Systems& s)
     objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
     objectBook->addPage("lights", "Lights", lightBox, [this]() { activeTool = Tool::Lights; });
 
-    Box::Ptr eventBox = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
-    box               = Box::create(LinePacker::create(LinePacker::Vertical, 6));
-    row               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Box::Ptr eventBox      = Box::create(LinePacker::create(LinePacker::Horizontal, 2));
+    ScrollArea::Ptr scroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 6));
+    scroll->setMaxSize({320.f, 3000.f});
+    scroll->setNeverShowVerticalScrollbar(true);
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Enter:"));
     onEnterLabel = Label::create("onEnter.bs");
     onEnterLabel->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
     row->pack(onEnterLabel, true, false);
-    box->pack(row, true, false);
+    scroll->pack(row, true, false);
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Exit:"));
     onExitLabel = Label::create("onExit.bs");
     onExitLabel->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
     row->pack(onExitLabel, true, false);
-    box->pack(row, true, false);
+    scroll->pack(row, true, false);
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
     pickButton->setTooltip("Set the script that runs when the player enters the map");
@@ -321,8 +324,8 @@ Map::Map(core::system::Systems& s)
         scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
     });
     row->pack(pickButton);
-    box->pack(row, true, false);
-    eventBox->pack(box, true, true);
+    scroll->pack(row, true, false);
+    eventBox->pack(scroll, true, true);
     box              = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     createEventRadio = RadioButton::create("Create Event", "create");
     createEventRadio->setValue(true);
