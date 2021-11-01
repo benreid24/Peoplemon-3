@@ -197,7 +197,7 @@ BehaviorEditor::PathEditor::PathEditor() {
     container = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 6));
     container->setOutlineThickness(1);
     container->setColor(sf::Color::Transparent, sf::Color::Black);
-    container->setMaxSize({0, 300});
+    container->setMaxSize({10000.f, 300.f});
     container->includeScrollbarsInRequisition(true);
 }
 
