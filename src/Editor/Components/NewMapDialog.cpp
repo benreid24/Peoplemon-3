@@ -25,8 +25,12 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
       [this](const std::string& tileset) {
           tilesetLabel->setText(tileset);
           tilesetPicker.close();
+          window->setForceFocus(true);
       },
-      [this]() { tilesetPicker.close(); }) {
+      [this]() {
+          tilesetPicker.close();
+          window->setForceFocus(true);
+      }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "New map");
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
@@ -116,11 +120,13 @@ void NewMapDialog::show(GUI::Ptr parent, const std::string& file) {
         pickInit = true;
         pickBut->getSignal(Event::LeftClicked)
             .willAlwaysCall([this, parent](const Event&, Element*) {
+                window->setForceFocus(false);
                 tilesetPicker.open(FilePicker::CreateOrPick, "Pick tileset", parent, true);
             });
     }
 
     parent->pack(window);
+    window->setForceFocus(true);
 }
 
 } // namespace component
