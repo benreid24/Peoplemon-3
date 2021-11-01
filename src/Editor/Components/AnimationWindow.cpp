@@ -32,12 +32,13 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
                            [this]() {
                                filePicker.get().close();
                                filePicker.destroy();
+                               window->setForceFocus(true);
                            });
         window->setForceFocus(false);
         filePicker.get().open(FilePicker::PickExisting, "Select Animation", parent);
     });
     fileLabel = Label::create("file here");
-    fileLabel->setColor(sf::Color::Blue, sf::Color::Transparent);
+    fileLabel->setColor(sf::Color::Cyan, sf::Color::Transparent);
     row->pack(pickBut, false, true);
     row->pack(fileLabel, true, true);
     window->pack(row);
