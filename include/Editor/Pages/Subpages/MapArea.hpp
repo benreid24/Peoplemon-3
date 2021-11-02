@@ -43,6 +43,12 @@ public:
      */
     void enableControls();
 
+    /**
+     * @brief Disables the map controls when a dialog is opened or the map tab is inactive
+     *
+     */
+    void disableControls();
+
 private:
     bl::gui::Box::Ptr content;
     bl::gui::Label::Ptr positionLabel;

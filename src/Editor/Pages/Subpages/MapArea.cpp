@@ -84,5 +84,10 @@ void MapArea::enableControls() {
     enableBut->setValue(true);
 }
 
+void MapArea::disableControls() {
+    editMap().setControlsEnabled(false);
+    enableBut->setValue(false);
+}
+
 } // namespace page
 } // namespace editor

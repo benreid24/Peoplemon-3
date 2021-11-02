@@ -39,14 +39,13 @@ using core::file::Conversation;
 using namespace bl::gui;
 
 ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, const NotifyCb& rgtcb,
-                                   const CreateNode& cncb, bl::gui::Box::Ptr& c,
+                                   const CreateNode& cncb, Box::Ptr& container,
                                    const std::vector<core::file::Conversation::Node>* nodes)
 : onEdit(ecb)
 , onDelete(odcb)
 , regenTree(rgtcb)
 , createNode(cncb)
 , allNodes(nodes)
-, container(c)
 , nextNode(
       "Next Node:", regenTree, createNode,
       [this](unsigned int nn) {
@@ -60,7 +59,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     }
 
     promptRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 6.f));
-    promptEntry = TextEntry::create();
+    promptEntry = TextEntry::create(3);
     promptEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         current->message() = promptEntry->getInput();
     });

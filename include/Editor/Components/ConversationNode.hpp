@@ -78,7 +78,6 @@ private:
     core::file::Conversation::Node values[10];
     core::file::Conversation::Node* current;
 
-    bl::gui::Box::Ptr container;
     bl::gui::Box::Ptr editArea;
 
     bl::gui::Box::Ptr promptRow;

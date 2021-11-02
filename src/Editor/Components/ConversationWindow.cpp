@@ -10,13 +10,22 @@ using namespace bl::gui;
 namespace
 {
 const std::string EmptyFile = "<no file selected>";
-}
+
+const core::file::Conversation DefaultConversation = []() {
+    core::file::Conversation val;
+    val.appendNode({core::file::Conversation::Node::Type::Talk});
+    return val;
+}();
+
+} // namespace
 
 ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb& onCancel)
 : selectCb(onSelect)
 , cancelCb(onCancel)
+, value(DefaultConversation)
+, currentNode(0)
 , treeBox(Box::create(LinePacker::create()))
-, nodeBox(Box::create(LinePacker::create()))
+, nodeBox(Box::create(LinePacker::create(LinePacker::Vertical, 4.f)))
 , treeComponent(
       [this](unsigned int i) {
           if (i >= value.nodes().size()) {
@@ -55,14 +64,16 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
           window->setForceFocus(true);
           switch (filePickerMode) {
           case FilePickerMode::MakeNew:
-              value = {};
+              value       = DefaultConversation;
+              currentNode = 0;
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
               break;
           case FilePickerMode::OpenExisting:
               if (!value.load(conv)) {
                   const std::string msg = "Failed to load conversation: " + conv;
                   bl::dialog::tinyfd_messageBox("Error", msg.c_str(), "ok", "error", 1);
-                  value = {};
+                  value       = DefaultConversation;
+                  currentNode = 0;
               }
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
               break;
@@ -129,7 +140,6 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     treeBox->setColor(sf::Color::Cyan, sf::Color::Black);
     treeBox->setOutlineThickness(2.f);
     row->pack(treeBox, true, true);
-    nodeBox = Box::create(LinePacker::create());
     nodeBox->setRequisition({200.f, 500.f});
     nodeBox->setColor(sf::Color::Magenta, sf::Color::Black);
     nodeBox->setOutlineThickness(2.f);
@@ -154,14 +164,16 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
 }
 
 void ConversationWindow::sync() {
-    // TODO - sync gui
+    nodeComponent.update(value.nodes().at(currentNode));
+    treeComponent.update(value.nodes());
 }
 
 void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& current) {
-    parent = p;
+    parent      = p;
+    currentNode = 0;
     if (!current.empty()) { value.load(current); }
     else {
-        value = {};
+        value = DefaultConversation;
     }
 
     sync();
