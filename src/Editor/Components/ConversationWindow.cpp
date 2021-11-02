@@ -15,19 +15,54 @@ const std::string EmptyFile = "<no file selected>";
 ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb& onCancel)
 : selectCb(onSelect)
 , cancelCb(onCancel)
+, treeBox(Box::create(LinePacker::create()))
+, nodeBox(Box::create(LinePacker::create()))
+, treeComponent(
+      [this](unsigned int i) {
+          if (i >= value.nodes().size()) {
+              bl::dialog::tinyfd_messageBox("Error", "Invalid node", "ok", "error", 1);
+          }
+          else {
+              currentNode = i;
+              window->queueUpdateAction(
+                  [this]() { nodeComponent.update(value.nodes().at(currentNode)); });
+          }
+      },
+      treeBox)
+, nodeComponent(
+      [this]() {
+          makeDirty();
+          value.setNode(currentNode, nodeComponent.getValue());
+      },
+      [this]() {
+          if (value.nodes().size() > 1 &&
+              1 == bl::dialog::tinyfd_messageBox(
+                       "Warning", "Delete conversation node?", "yesno", "warning", 0)) {
+              value.deleteNode(currentNode);
+              makeDirty();
+              window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
+          }
+      },
+      [this]() { treeComponent.update(value.nodes()); },
+      [this]() {
+          value.appendNode({core::file::Conversation::Node::Type::Talk});
+          return value.nodes().size() - 1;
+      },
+      nodeBox, &value.nodes())
 , filePicker(
       core::Properties::ConversationPath(), {"conv"},
       [this](const std::string& conv) {
           window->setForceFocus(true);
           switch (filePickerMode) {
           case FilePickerMode::MakeNew:
-              // TODO - clear value
+              value = {};
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
               break;
           case FilePickerMode::OpenExisting:
-              if (!value.load(
-                      bl::file::Util::joinPath(core::Properties::ConversationPath(), conv))) {
-                  // TODO - report error and clear
+              if (!value.load(conv)) {
+                  const std::string msg = "Failed to load conversation: " + conv;
+                  bl::dialog::tinyfd_messageBox("Error", msg.c_str(), "ok", "error", 1);
+                  value = {};
               }
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
               break;
@@ -89,17 +124,16 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     row->pack(fileLabel, true, true);
     window->pack(row, true, false);
 
-    row                  = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
-    Box::Ptr placeholder = Box::create(LinePacker::create());
-    placeholder->setRequisition({500.f, 500.f});
-    placeholder->setColor(sf::Color::Cyan, sf::Color::Black);
-    placeholder->setOutlineThickness(2.f);
-    row->pack(placeholder, true, true);
-    placeholder = Box::create(LinePacker::create());
-    placeholder->setRequisition({200.f, 500.f});
-    placeholder->setColor(sf::Color::Magenta, sf::Color::Black);
-    placeholder->setOutlineThickness(2.f);
-    row->pack(placeholder, true, true);
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
+    treeBox->setRequisition({500.f, 500.f});
+    treeBox->setColor(sf::Color::Cyan, sf::Color::Black);
+    treeBox->setOutlineThickness(2.f);
+    row->pack(treeBox, true, true);
+    nodeBox = Box::create(LinePacker::create());
+    nodeBox->setRequisition({200.f, 500.f});
+    nodeBox->setColor(sf::Color::Magenta, sf::Color::Black);
+    nodeBox->setOutlineThickness(2.f);
+    row->pack(nodeBox, true, true);
     window->pack(row, true, true);
 
     row = Box::create(LinePacker::create(
@@ -127,7 +161,7 @@ void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& cur
     parent = p;
     if (!current.empty()) { value.load(current); }
     else {
-        // TODO - clear value
+        value = {};
     }
 
     sync();

@@ -79,11 +79,6 @@ void MapArea::onMouseOver(const sf::Vector2f&, const sf::Vector2i& tiles) {
                            ")");
 }
 
-void MapArea::disableControls() {
-    editMap().setControlsEnabled(false);
-    enableBut->setValue(false);
-}
-
 void MapArea::enableControls() {
     editMap().setControlsEnabled(true);
     enableBut->setValue(true);

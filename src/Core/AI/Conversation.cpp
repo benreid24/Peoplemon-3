@@ -87,7 +87,6 @@ void Conversation::followNodes() {
     };
 
     while (!finished() && !isBlocking(current)) {
-        BL_LOG_INFO << "Not blocking: " << current;
         switch (nodes->at(current).getType()) {
         case E::CheckInteracted:
             // TODO - get interacted status from gamesave

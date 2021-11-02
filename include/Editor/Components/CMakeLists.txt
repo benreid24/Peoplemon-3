@@ -2,6 +2,8 @@ target_sources(PeoplemonEditor PUBLIC
     AnimationWindow.hpp
     BehaviorEditor.hpp
     CharacterSpawnWindow.hpp
+    ConversationNode.hpp
+    ConversationTree.hpp
     ConversationWindow.hpp
     EditMap.hpp
     EventEditor.hpp

@@ -3,6 +3,8 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Files/Conversation.hpp>
+#include <Editor/Components/ConversationNode.hpp>
+#include <Editor/Components/ConversationTree.hpp>
 
 namespace editor
 {
@@ -44,9 +46,14 @@ private:
     const SelectCb selectCb;
     const CancelCb cancelCb;
     core::file::Conversation value;
+    unsigned int currentNode;
 
     bl::gui::GUI::Ptr parent;
     bl::gui::Window::Ptr window;
+    bl::gui::Box::Ptr treeBox;
+    bl::gui::Box::Ptr nodeBox;
+    ConversationTree treeComponent;
+    ConversationNode nodeComponent;
     bl::gui::FilePicker filePicker;
     bool dirty;
 

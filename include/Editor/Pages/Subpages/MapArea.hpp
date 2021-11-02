@@ -38,12 +38,6 @@ public:
     bl::gui::Element::Ptr getContent();
 
     /**
-     * @brief Disables the map controls when a dialog is opened or the map tab is inactive
-     *
-     */
-    void disableControls();
-
-    /**
      * @brief Enables the map controls
      *
      */

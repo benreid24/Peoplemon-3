@@ -63,7 +63,6 @@ Map::Map(core::system::Systems& s)
     Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newMapBut = Button::create("New Map");
     newMapBut->getSignal(Event::LeftClicked).willCall([this](const Event&, Element*) {
-        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = true;
             mapPicker.open(FilePicker::CreateNew, "New map", parent);
@@ -71,7 +70,6 @@ Map::Map(core::system::Systems& s)
     });
     Button::Ptr loadMapBut = Button::create("Load Map");
     loadMapBut->getSignal(Event::LeftClicked).willCall([this](const Event&, Element*) {
-        mapArea.disableControls();
         if (checkUnsaved()) {
             makingNewMap = false;
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
@@ -159,7 +157,6 @@ Map::Map(core::system::Systems& s)
     playlistLabel               = Label::create("playerlistFile.bplst");
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        mapArea.disableControls();
         playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
@@ -311,7 +308,6 @@ Map::Map(core::system::Systems& s)
     Button::Ptr pickButton = Button::create("Set OnEnter");
     pickButton->setTooltip("Set the script that runs when the player enters the map");
     pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        mapArea.disableControls();
         choosingOnloadScript = true;
         scriptSelector.open(parent, mapArea.editMap().getOnEnterScript());
     });
@@ -319,7 +315,6 @@ Map::Map(core::system::Systems& s)
     pickButton = Button::create("Set OnExit");
     pickButton->setTooltip("Set the script that runs when the player exits the map");
     pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        mapArea.disableControls();
         choosingOnloadScript = false;
         scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
     });
@@ -619,12 +614,8 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         break;
 
     case Tool::Events:
-        if (createEventRadio->getValue()) {
-            mapArea.disableControls();
-            eventEditor.open(parent, nullptr, tiles);
-        }
+        if (createEventRadio->getValue()) { eventEditor.open(parent, nullptr, tiles); }
         else if (editEventRadio->getValue()) {
-            mapArea.disableControls();
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
             if (e) { eventEditor.open(parent, e, tiles); }
         }
@@ -675,17 +666,13 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             const core::map::CharacterSpawn* s =
                 mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
             if (!s) {
-                mapArea.disableControls();
                 characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
             }
         }
         else if (npcEdit->getValue()) {
             const core::map::CharacterSpawn* s =
                 mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
-            if (s) {
-                mapArea.disableControls();
-                characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s);
-            }
+            if (s) { characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s); }
         }
         else if (npcDelete->getValue()) {
             const core::map::CharacterSpawn* s =
