@@ -70,6 +70,30 @@ private:
         const std::vector<core::file::Conversation::Node>* nodes;
     };
 
+    class Choice {
+    public:
+        using OnChange = std::function<void(unsigned int, const std::string&, unsigned int)>;
+        using OnDelete = std::function<void(unsigned int, std::list<Choice>::iterator)>;
+
+        Choice(unsigned int index, const std::string& c, unsigned int jump,
+               const OnChange& onChange, const OnDelete& onDelete, const NotifyCb& regenTree,
+               const CreateNode& createNode,
+               const std::vector<core::file::Conversation::Node>* nodes);
+
+        void setIndex(unsigned int i);
+        void setIterator(std::list<Choice>::iterator it);
+        bl::gui::Box::Ptr& content();
+
+    private:
+        const OnChange onChange;
+        const OnDelete onDelete;
+        unsigned int index;
+        std::list<Choice>::iterator it;
+        bl::gui::Box::Ptr box;
+        bl::gui::TextEntry::Ptr entry;
+        NodeConnector jump;
+    };
+
     const NotifyCb onEdit;
     const NotifyCb onDelete;
     const NotifyCb regenTree;
@@ -79,10 +103,19 @@ private:
     core::file::Conversation::Node* current;
 
     bl::gui::Box::Ptr editArea;
+    bl::gui::ComboBox::Ptr typeEntry;
 
     bl::gui::Box::Ptr promptRow;
     bl::gui::TextEntry::Ptr promptEntry;
     NodeConnector nextNode;
+
+    bl::gui::Box::Ptr choiceArea;
+    bl::gui::ScrollArea::Ptr choiceScroll;
+    std::list<Choice> choices;
+    void onChoiceChange(unsigned int j, const std::string& t, unsigned int n);
+    void onChoiceDelete(unsigned int i, std::list<Choice>::iterator it);
+
+    void onTypeChange();
 };
 
 } // namespace component

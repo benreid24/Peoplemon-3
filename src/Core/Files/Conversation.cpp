@@ -306,14 +306,14 @@ bool Conversation::load(const std::string& file) {
     bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                  bl::file::binary::File::Read);
     VersionedLoader loader;
-    const bool r = loader.read(input, *this);
-    return r;
+    return loader.read(input, *this);
 }
 
 bool Conversation::save(const std::string& file) const {
     bl::file::binary::File output(bl::file::Util::joinPath(Properties::ConversationPath(), file),
                                   bl::file::binary::File::Write);
-    return serialize(output);
+    VersionedLoader loader;
+    return loader.write(output, *this);
 }
 
 const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes.getValue(); }

@@ -73,7 +73,8 @@ Trainer::Trainer()
 
 bool Trainer::save(const std::string& file) const {
     bl::file::binary::File output(file, bl::file::binary::File::Write);
-    return serialize(output);
+    VersionedLoader loader;
+    return loader.write(output, *this);
 }
 
 bool Trainer::load(const std::string& file, component::Direction spawnDir) {

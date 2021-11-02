@@ -61,12 +61,15 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
 , filePicker(
       core::Properties::ConversationPath(), {"conv"},
       [this](const std::string& conv) {
+          filePicker.close();
+          fileLabel->setText(conv);
           window->setForceFocus(true);
           switch (filePickerMode) {
           case FilePickerMode::MakeNew:
               value       = DefaultConversation;
               currentNode = 0;
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
+              makeClean();
               break;
           case FilePickerMode::OpenExisting:
               if (!value.load(conv)) {
@@ -74,17 +77,21 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
                   bl::dialog::tinyfd_messageBox("Error", msg.c_str(), "ok", "error", 1);
                   value       = DefaultConversation;
                   currentNode = 0;
+                  fileLabel->setText(EmptyFile);
               }
+              makeClean();
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
               break;
           case FilePickerMode::SetFile:
           default:
-              fileLabel->setText(conv);
               makeDirty();
               break;
           }
       },
-      [this]() { window->setForceFocus(true); })
+      [this]() {
+          filePicker.close();
+          window->setForceFocus(true);
+      })
 , dirty(false) {
     window = Window::create(LinePacker::create(LinePacker::Vertical), "Conversation Editor");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
@@ -108,7 +115,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
         filePickerMode = FilePickerMode::OpenExisting;
         if (!dirty || confirmDiscard()) {
             window->setForceFocus(false);
-            filePicker.open(FilePicker::CreateNew, "Open Conversation", parent, true);
+            filePicker.open(FilePicker::PickExisting, "Open Conversation", parent, true);
         }
     });
     row->pack(but, false, true);
@@ -116,10 +123,8 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     but->setTooltip("Change the file to save to");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         filePickerMode = FilePickerMode::SetFile;
-        if (!dirty || confirmDiscard()) {
-            window->setForceFocus(false);
-            filePicker.open(FilePicker::CreateNew, "Change File", parent, true);
-        }
+        window->setForceFocus(false);
+        filePicker.open(FilePicker::CreateNew, "Change File", parent, true);
     });
     row->pack(but, false, true);
     saveBut = Button::create("Save");
@@ -140,8 +145,8 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     treeBox->setColor(sf::Color::Cyan, sf::Color::Black);
     treeBox->setOutlineThickness(2.f);
     row->pack(treeBox, true, true);
-    nodeBox->setRequisition({200.f, 500.f});
-    nodeBox->setColor(sf::Color::Magenta, sf::Color::Black);
+    nodeBox->setRequisition({250.f, 500.f});
+    nodeBox->setColor(sf::Color::Transparent, sf::Color::Black);
     nodeBox->setOutlineThickness(2.f);
     row->pack(nodeBox, true, true);
     window->pack(row, true, true);
@@ -171,10 +176,7 @@ void ConversationWindow::sync() {
 void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& current) {
     parent      = p;
     currentNode = 0;
-    if (!current.empty()) { value.load(current); }
-    else {
-        value = DefaultConversation;
-    }
+    if (current.empty() || !value.load(current)) { value = DefaultConversation; }
 
     sync();
     makeClean();
