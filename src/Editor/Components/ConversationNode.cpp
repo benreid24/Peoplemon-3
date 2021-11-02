@@ -61,10 +61,10 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
 : onEdit(ecb)
 , onDelete(odcb)
 , regenTree(rgtcb)
-, createNode(cncb)
+, createNodeCb(cncb)
 , allNodes(nodes)
 , nextNode(
-      "Next Node:", regenTree, createNode,
+      "Next Node:", regenTree, std::bind(&ConversationNode::createNode, this),
       [this](unsigned int nn) {
           current->next() = nn;
           onEdit();
@@ -124,7 +124,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
                                             std::placeholders::_1,
                                             std::placeholders::_2),
                                   regenTree,
-                                  createNode,
+                                  std::bind(&ConversationNode::createNode, this),
                                   allNodes);
         it->setIterator(it);
         choiceScroll->pack(it->content(), true, false);
@@ -173,7 +173,7 @@ void ConversationNode::update(const Conversation::Node& node) {
                                                 std::placeholders::_1,
                                                 std::placeholders::_2),
                                       regenTree,
-                                      createNode,
+                                      std::bind(&ConversationNode::createNode, this),
                                       allNodes);
             it->setIterator(it);
             choiceScroll->pack(choices.back().content(), true, false);
@@ -219,6 +219,13 @@ void ConversationNode::onChoiceDelete(unsigned int j, std::list<Choice>::iterato
     onEdit();
 }
 
+unsigned int ConversationNode::createNode() {
+    const unsigned int nn = createNodeCb();
+    nextNode.sync();
+    for (auto& c : choices) { c.syncJump(); }
+    return nn;
+}
+
 ConversationNode::NodeConnector::NodeConnector(
     const std::string& label, const NotifyCb& regenTree, const CreateNode& createNode,
     const ChangeCb& changeCb, const std::vector<core::file::Conversation::Node>* nodes)
@@ -235,7 +242,6 @@ ConversationNode::NodeConnector::NodeConnector(
     cb->getSignal(Event::LeftClicked)
         .willAlwaysCall([this, createNode, regenTree](const Event&, Element*) {
             const unsigned int nn = createNode();
-            sync();
             setSelected(nn);
             regenTree();
         });
@@ -244,11 +250,15 @@ ConversationNode::NodeConnector::NodeConnector(
 }
 
 void ConversationNode::NodeConnector::sync() {
+    const unsigned int oldSel = entry->getSelectedOption() == entry->optionCount() - 1 ?
+                                    ConversationEnd :
+                                    entry->getSelectedOption();
     entry->clearOptions();
     for (unsigned int i = 0; i < nodes->size(); ++i) {
         entry->addOption(nodeToString(i, nodes->at(i)));
     }
     entry->addOption("End Conversation");
+    setSelected(oldSel);
 }
 
 void ConversationNode::NodeConnector::setSelected(unsigned int i) {
@@ -302,6 +312,8 @@ void ConversationNode::Choice::setIndex(unsigned int i) { index = i; }
 void ConversationNode::Choice::setIterator(std::list<Choice>::iterator i) { it = i; }
 
 Box::Ptr& ConversationNode::Choice::content() { return box; }
+
+void ConversationNode::Choice::syncJump() { jump.sync(); }
 
 } // namespace component
 } // namespace editor

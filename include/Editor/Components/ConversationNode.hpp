@@ -83,6 +83,7 @@ private:
         void setIndex(unsigned int i);
         void setIterator(std::list<Choice>::iterator it);
         bl::gui::Box::Ptr& content();
+        void syncJump();
 
     private:
         const OnChange onChange;
@@ -97,7 +98,7 @@ private:
     const NotifyCb onEdit;
     const NotifyCb onDelete;
     const NotifyCb regenTree;
-    const CreateNode createNode;
+    const CreateNode createNodeCb;
     const std::vector<core::file::Conversation::Node>* allNodes;
     core::file::Conversation::Node values[10];
     core::file::Conversation::Node* current;
@@ -114,6 +115,7 @@ private:
     std::list<Choice> choices;
     void onChoiceChange(unsigned int j, const std::string& t, unsigned int n);
     void onChoiceDelete(unsigned int i, std::list<Choice>::iterator it);
+    unsigned int createNode();
 
     void onTypeChange();
 };
