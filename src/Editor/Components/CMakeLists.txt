@@ -2,6 +2,7 @@ target_sources(PeoplemonEditor PRIVATE
     AnimationWindow.cpp
     BehaviorEditor.cpp
     CharacterSpawnWindow.cpp
+    ConversationWindow.cpp
     EditMap.cpp
     EventEditor.cpp
     HighlightRadioButton.cpp

@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Editor/Components/AnimationWindow.hpp>
 #include <Editor/Components/BehaviorEditor.hpp>
+#include <Editor/Components/ConversationWindow.hpp>
 #include <functional>
 
 namespace editor
@@ -66,6 +67,11 @@ private:
     void onChooseAnimation(const std::string& anim);
 
     BehaviorEditor behaviorEditor;
+
+    ConversationWindow conversationWindow;
+    void onChooseConversation(const std::string& conv);
+
+    void forceWindowOnTop();
 
     void makeDirty();
     void makeClean();

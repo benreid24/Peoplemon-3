@@ -25,10 +25,12 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
                  window->setForceFocus(true);
              })
 , animWindow(true, std::bind(&NpcEditorWindow::onChooseAnimation, this, std::placeholders::_1),
-             [this]() { window->setForceFocus(true); })
+             std::bind(&NpcEditorWindow::forceWindowOnTop, this))
 , behaviorEditor(
       std::bind(&NpcEditorWindow::makeDirty, this), [this]() { window->setForceFocus(false); },
-      [this]() { window->setForceFocus(true); }) {
+      std::bind(&NpcEditorWindow::forceWindowOnTop, this))
+, conversationWindow(std::bind(&NpcEditorWindow::onChooseConversation, this, std::placeholders::_1),
+                     std::bind(&NpcEditorWindow::forceWindowOnTop, this)) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 8), "NPC Editor");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -74,7 +76,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             npc.behavior()     = behaviorEditor.getValue();
             if (!npc.save(
                     bl::file::Util::joinPath(core::Properties::NpcPath(), fileLabel->getText()))) {
-                // TODO - error message
+                bl::dialog::tinyfd_messageBox("Error", "Failed to save NPC", "ok", "error", 1);
             }
         }
     });
@@ -109,7 +111,8 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr convBut = Button::create("Select Conversation");
     convBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        // TODO - conversation editor
+        window->setForceFocus(false);
+        conversationWindow.open(parent, convLabel->getText());
     });
     convLabel = Label::create("conversation.conv");
     convLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);
@@ -250,6 +253,13 @@ void NpcEditorWindow::hide() {
 }
 
 void NpcEditorWindow::onChooseAnimation(const std::string& f) { animLabel->setText(f); }
+
+void NpcEditorWindow::onChooseConversation(const std::string& c) {
+    convLabel->setText(c);
+    window->setForceFocus(true);
+}
+
+void NpcEditorWindow::forceWindowOnTop() { window->setForceFocus(true); }
 
 } // namespace component
 } // namespace editor
