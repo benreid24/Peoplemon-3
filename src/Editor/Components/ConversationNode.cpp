@@ -233,6 +233,7 @@ ConversationNode::NodeConnector::NodeConnector(
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     row->pack(Label::create(label), false, true);
     entry = ComboBox::create();
+    entry->setMaxHeight(150.f);
     entry->getSignal(Event::ValueChanged).willAlwaysCall([this, changeCb](const Event&, Element*) {
         changeCb(getSelected());
     });

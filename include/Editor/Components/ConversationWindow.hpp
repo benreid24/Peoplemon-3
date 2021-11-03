@@ -50,9 +50,8 @@ private:
 
     bl::gui::GUI::Ptr parent;
     bl::gui::Window::Ptr window;
-    bl::gui::Box::Ptr treeBox;
     bl::gui::Box::Ptr nodeBox;
-    ConversationTree treeComponent;
+    ConversationTree::Ptr treeComponent;
     ConversationNode nodeComponent;
     bl::gui::FilePicker filePicker;
     bool dirty;
