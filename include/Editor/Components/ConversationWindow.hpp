@@ -64,6 +64,7 @@ private:
     void sync();
     bool validate() const;
     bool confirmDiscard() const;
+    void setSelected(unsigned int i);
 };
 
 } // namespace component

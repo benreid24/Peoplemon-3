@@ -28,23 +28,25 @@ using core::file::Conversation;
 using namespace bl::gui;
 
 ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, const NotifyCb& rgtcb,
-                                   const CreateNode& cncb, Box::Ptr& container,
+                                   const CreateNode& cncb, const SelectCb& selectCb,
+                                   Box::Ptr& container,
                                    const std::vector<core::file::Conversation::Node>* nodes)
 : onEdit(ecb)
 , onDelete(odcb)
 , regenTree(rgtcb)
 , createNodeCb(cncb)
+, onJump(selectCb)
 , allNodes(nodes)
 , nextNode(
-      "Next Node:", regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
+      regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
       [this](unsigned int nn) {
           current.next() = nn;
           onEdit();
           regenTree();
       },
-      nodes) {
+      onJump, nodes) {
     nodeTitle = Label::create("");
-    nodeTitle->setCharacterSize(18);
+    nodeTitle->setCharacterSize(32);
     nodeTitle->setColor(sf::Color::Cyan, sf::Color::Transparent);
     container->pack(nodeTitle, true, false);
 
@@ -83,6 +85,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     choiceScroll->setColor(sf::Color::Transparent, sf::Color::Black);
     choiceScroll->setOutlineThickness(2.f);
     choiceScroll->setMaxSize({1000.f, 400.f});
+    choiceScroll->setNeverShowHorizontalScrollbar(true);
     but = Button::create("Add Choice");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         current.choices().emplace_back("", ConversationEnd);
@@ -102,10 +105,12 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
                                   regenTree,
                                   createNodeCb,
                                   std::bind(&ConversationNode::syncJumps, this),
+                                  onJump,
                                   allNodes);
         it->setIterator(it);
         choiceScroll->pack(it->content(), true, false);
         onEdit();
+        regenTree();
     });
     choiceArea->pack(choiceScroll, true, true);
     choiceArea->pack(but, false, false);
@@ -153,6 +158,7 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
                                       regenTree,
                                       createNodeCb,
                                       std::bind(&ConversationNode::syncJumps, this),
+                                      onJump,
                                       allNodes);
             it->setIterator(it);
             choiceScroll->pack(choices.back().content(), true, false);
@@ -208,12 +214,12 @@ void ConversationNode::syncJumps() {
 }
 
 ConversationNode::NodeConnector::NodeConnector(
-    const std::string& label, const NotifyCb& regenTree, const CreateNode& createNode,
-    const NotifyCb& syncJumpCb, const ChangeCb& changeCb,
+    const NotifyCb& regenTree, const CreateNode& createNode, const NotifyCb& syncJumpCb,
+    const ChangeCb& changeCb, const SelectCb& selectCb,
     const std::vector<core::file::Conversation::Node>* nodes)
 : nodes(nodes) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    row->pack(Label::create(label), false, true);
+    row->pack(Label::create("Next:"), false, true);
     entry = ComboBox::create();
     entry->setMaxHeight(150.f);
     entry->getSignal(Event::ValueChanged).willAlwaysCall([this, changeCb](const Event&, Element*) {
@@ -223,12 +229,20 @@ ConversationNode::NodeConnector::NodeConnector(
     Button::Ptr cb = Button::create("Create");
     cb->setTooltip("Create a new node and jump to it");
     cb->getSignal(Event::LeftClicked)
-        .willAlwaysCall([this, createNode, regenTree, syncJumpCb](const Event&, Element*) {
-            const unsigned int nn = createNode();
-            setSelected(nn);
-            syncJumpCb();
-            regenTree();
-        });
+        .willAlwaysCall(
+            [this, createNode, regenTree, syncJumpCb, changeCb](const Event&, Element*) {
+                const unsigned int nn = createNode();
+                syncJumpCb();
+                setSelected(nn);
+                changeCb(nn);
+                regenTree();
+            });
+    row->pack(cb, false, true);
+    cb = Button::create("Goto");
+    cb->setTooltip("Select the node this points to");
+    cb->getSignal(Event::LeftClicked).willAlwaysCall([this, selectCb](const Event&, Element*) {
+        selectCb(getSelected());
+    });
     row->pack(cb, false, true);
     sync();
 }
@@ -259,14 +273,14 @@ Box::Ptr& ConversationNode::NodeConnector::content() { return row; }
 ConversationNode::Choice::Choice(unsigned int i, const std::string& c, unsigned int jp,
                                  const OnChange& changeCb, const OnDelete& delCb,
                                  const NotifyCb& regenTree, const CreateNode& createNode,
-                                 const NotifyCb& syncJumpCb,
+                                 const NotifyCb& syncJumpCb, const SelectCb& selectCb,
                                  const std::vector<core::file::Conversation::Node>* nodes)
 : onChange(changeCb)
 , onDelete(delCb)
 , index(i)
 , jump(
-      "Jump To:", regenTree, createNode, syncJumpCb,
-      [this](unsigned int nj) { onChange(index, entry->getInput(), nj); }, nodes) {
+      regenTree, createNode, syncJumpCb,
+      [this](unsigned int nj) { onChange(index, entry->getInput(), nj); }, selectCb, nodes) {
     jump.setSelected(jp);
 
     box = Box::create(LinePacker::create(LinePacker::Vertical));

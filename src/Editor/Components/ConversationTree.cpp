@@ -97,7 +97,7 @@ std::string nodeToString(unsigned int i, const core::file::Conversation::Node& n
     std::stringstream ss;
     const std::string n   = "#" + std::to_string(i);
     const std::string t   = core::file::Conversation::Node::typeToString(node.getType());
-    const unsigned int sc = t.size() > n.size() ? (t.size() - t.size()) / 2 : 0;
+    const unsigned int sc = t.size() > n.size() ? (t.size() - n.size()) / 2 : 0;
     for (unsigned int i = 0; i < sc; ++i) { ss << " "; }
     ss << n << "\n" << t;
     return ss.str();
@@ -150,12 +150,16 @@ void ConversationTree::onClick(const bl::gui::Event& e) {
         const float dy    = n.center.y - mpos.y;
         const float dsqrd = dx * dx + dy * dy;
         if (dsqrd <= NodeRadiusSquared) {
-            setSelectedColor(renderNodes[selected].terminator ? TerminatorColor : NodeColor);
-            selected = i;
+            setSelected(i);
             clickCb(n.index);
             break;
         }
     }
+}
+
+void ConversationTree::setSelected(unsigned int i) {
+    setSelectedColor(renderNodes[selected].terminator ? TerminatorColor : NodeColor);
+    selected = i;
 }
 
 void ConversationTree::onDrag(const bl::gui::Event& e) {

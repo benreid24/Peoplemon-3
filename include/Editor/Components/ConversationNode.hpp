@@ -22,6 +22,9 @@ public:
     /// Called when a new node should be created
     using CreateNode = std::function<unsigned int()>;
 
+    /// Called when a node is jumped to
+    using SelectCb = std::function<void(unsigned int)>;
+
     /**
      * @brief Construct a new Conversation Node editor
      *
@@ -29,11 +32,13 @@ public:
      * @param deleteCb Callback for when the node is deleted
      * @param regenTree Called when the conversation tree should be re-rendered
      * @param createNode Called when a new conversation node should be created
+     * @param selectCb Called when a node is jumped to
      * @param container The gui element to pack into
      * @param nodes A pointer to all nodes
      */
     ConversationNode(const NotifyCb& editCb, const NotifyCb& deleteCb, const NotifyCb& regenTree,
-                     const CreateNode& createNode, bl::gui::Box::Ptr& container,
+                     const CreateNode& createNode, const SelectCb& selectCb,
+                     bl::gui::Box::Ptr& container,
                      const std::vector<core::file::Conversation::Node>* nodes);
 
     /**
@@ -56,9 +61,9 @@ private:
     public:
         using ChangeCb = std::function<void(unsigned int)>;
 
-        NodeConnector(const std::string& label, const NotifyCb& regenTree,
-                      const CreateNode& createNode, const NotifyCb& syncJumpCb,
-                      const ChangeCb& changeCb,
+        NodeConnector(const NotifyCb& regenTree, const CreateNode& createNode,
+                      const NotifyCb& syncJumpCb, const ChangeCb& changeCb,
+                      const SelectCb& selectCb,
                       const std::vector<core::file::Conversation::Node>* nodes);
 
         void sync();
@@ -79,7 +84,7 @@ private:
 
         Choice(unsigned int index, const std::string& c, unsigned int jump,
                const OnChange& onChange, const OnDelete& onDelete, const NotifyCb& regenTree,
-               const CreateNode& createNode, const NotifyCb& syncJumpCb,
+               const CreateNode& createNode, const NotifyCb& syncJumpCb, const SelectCb& selectCb,
                const std::vector<core::file::Conversation::Node>* nodes);
 
         void setIndex(unsigned int i);
@@ -90,6 +95,7 @@ private:
     private:
         const OnChange onChange;
         const OnDelete onDelete;
+        const SelectCb onJump;
         unsigned int index;
         std::list<Choice>::iterator it;
         bl::gui::Box::Ptr box;
@@ -101,6 +107,7 @@ private:
     const NotifyCb onDelete;
     const NotifyCb regenTree;
     const CreateNode createNodeCb;
+    const SelectCb onJump;
     const std::vector<core::file::Conversation::Node>* allNodes;
     core::file::Conversation::Node current;
     unsigned int index;

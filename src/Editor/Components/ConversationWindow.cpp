@@ -48,7 +48,8 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
           value.appendNode(node);
           return value.nodes().size() - 1;
       },
-      nodeBox, &value.nodes())
+      std::bind(&ConversationWindow::setSelected, this, std::placeholders::_1), nodeBox,
+      &value.nodes())
 , filePicker(
       core::Properties::ConversationPath(), {"conv"},
       [this](const std::string& conv) {
@@ -133,21 +134,13 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     row->pack(fileLabel, true, true);
     window->pack(row, true, false);
 
-    treeComponent = ConversationTree::create([this](unsigned int i) {
-        if (i >= value.nodes().size()) {
-            bl::dialog::tinyfd_messageBox("Error", "Invalid node", "ok", "error", 1);
-        }
-        else {
-            currentNode = i;
-            window->queueUpdateAction(
-                [this]() { nodeComponent.update(currentNode, value.nodes().at(currentNode)); });
-        }
-    });
+    treeComponent = ConversationTree::create(
+        std::bind(&ConversationWindow::setSelected, this, std::placeholders::_1));
     treeComponent->setRequisition({500.f, 500.f});
 
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
     row->pack(treeComponent, true, true);
-    nodeBox->setRequisition({250.f, 500.f});
+    nodeBox->setRequisition({270.f, 500.f});
     nodeBox->setColor(sf::Color::Transparent, sf::Color::Black);
     nodeBox->setOutlineThickness(2.f);
     row->pack(nodeBox, true, true);
@@ -168,6 +161,8 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     but->setColor(sf::Color(52, 235, 222), sf::Color::Black);
     row->pack(but);
     window->pack(row, true, false);
+
+    window->setPosition({100.f, 100.f});
 }
 
 void ConversationWindow::sync() {
@@ -205,6 +200,18 @@ void ConversationWindow::makeClean() {
 void ConversationWindow::makeDirty() {
     dirty = true;
     saveBut->setColor(sf::Color::Red, sf::Color::Black);
+}
+
+void ConversationWindow::setSelected(unsigned int i) {
+    if (i >= value.nodes().size()) {
+        bl::dialog::tinyfd_messageBox("Error", "Invalid node", "ok", "error", 1);
+    }
+    else {
+        currentNode = i;
+        window->queueUpdateAction(
+            [this]() { nodeComponent.update(currentNode, value.nodes().at(currentNode)); });
+        treeComponent->setSelected(i);
+    }
 }
 
 } // namespace component

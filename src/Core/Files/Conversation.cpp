@@ -9,25 +9,6 @@ namespace file
 {
 namespace
 {
-void shiftUpJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
-    const auto updateJump = [i](std::uint32_t& jump, unsigned int j) {
-        if (jump > i)
-            jump += i;
-        else if (jump == i && j != i - 1)
-            jump += 1;
-    };
-
-    for (unsigned int j = 0; j < nodes.size(); ++j) {
-        Conversation::Node& node = nodes[j];
-        updateJump(node.nextOnPass(), j);
-        updateJump(node.nextOnReject(), j);
-
-        if (node.getType() == Conversation::Node::Prompt) {
-            for (auto& pair : node.choices()) { updateJump(pair.second, j); }
-        }
-    }
-}
-
 void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
     const auto updateJump = [&nodes, i](std::uint32_t& jump) {
         const auto isSimpleNext = [&nodes](unsigned int i) {
@@ -51,7 +32,7 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
                 jump                  = j > i ? j - 1 : j;
             }
             else {
-                jump = nodes.size();
+                jump = 9999999;
             }
         }
         else if (jump > i)
@@ -224,7 +205,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                     BL_LOG_WARN << "Invalid jump '" << pair.first << "' in conversation '"
                                 << input.filename() << "', jumping to end";
                 }
-                *pair.second = nodes.size();
+                *pair.second = 9999999;
             }
         }
 
@@ -328,35 +309,7 @@ void Conversation::deleteNode(unsigned int i) {
     }
 }
 
-void Conversation::insertNode(unsigned int i, const Node& node) {
-    if (i < cnodes.getValue().size()) {
-        shiftUpJumps(cnodes.getValue(), i);
-        cnodes.getValue().insert(cnodes.getValue().begin() + i, node);
-        cnodes.getValue()[i].nextOnPass()   = i + 1;
-        cnodes.getValue()[i].nextOnReject() = cnodes.getValue().size();
-    }
-    else {
-        appendNode(node);
-    }
-}
-
-void Conversation::appendNode(const Node& node) {
-    cnodes.getValue().push_back(node);
-    if (cnodes.getValue().size() > 1) {
-        switch (cnodes.getValue()[cnodes.getValue().size() - 2].getType()) {
-        case Node::Talk:
-        case Node::RunScript:
-        case Node::SetSaveFlag:
-        case Node::GiveItem:
-        case Node::GiveMoney:
-            cnodes.getValue()[cnodes.getValue().size() - 2].next() = cnodes.getValue().size() - 1;
-            break;
-
-        default:
-            break;
-        }
-    }
-}
+void Conversation::appendNode(const Node& node) { cnodes.getValue().push_back(node); }
 
 void Conversation::setNode(unsigned int i, const Node& node) {
     if (i < cnodes.getValue().size()) { cnodes.getValue()[i] = node; }

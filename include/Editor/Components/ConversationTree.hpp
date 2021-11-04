@@ -36,6 +36,13 @@ public:
      */
     void update(const std::vector<core::file::Conversation::Node>& nodes);
 
+    /**
+     * @brief Set the selected node index
+     *
+     * @param i Index of the selected node
+     */
+    void setSelected(unsigned int i);
+
 private:
     struct Node {
         sf::Text label;
