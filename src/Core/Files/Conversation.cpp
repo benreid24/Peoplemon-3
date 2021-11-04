@@ -500,6 +500,33 @@ Conversation Conversation::makeLoadError(const std::string& f) {
     return conv;
 }
 
+std::string Conversation::Node::typeToString(Type t) {
+    switch (t) {
+    case Node::Type::Talk:
+        return "Talk";
+    case Node::Type::Prompt:
+        return "Question";
+    case Node::Type::GiveItem:
+        return "Give Item";
+    case Node::Type::TakeItem:
+        return "Take Item";
+    case Node::Type::GiveMoney:
+        return "Give Money";
+    case Node::Type::TakeMoney:
+        return "Take Money";
+    case Node::Type::RunScript:
+        return "Run Script";
+    case Node::Type::CheckSaveFlag:
+        return "Check Flag";
+    case Node::Type::SetSaveFlag:
+        return "Set Flag";
+    case Node::Type::CheckInteracted:
+        return "Check Talked";
+    default:
+        return "Unknown";
+    }
+}
+
 } // namespace file
 } // namespace core
 

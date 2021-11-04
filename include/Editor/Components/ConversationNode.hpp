@@ -39,9 +39,10 @@ public:
     /**
      * @brief Update the node editor content with the given node value
      *
+     * @param i The index of the current node
      * @param node Value to populate the gui with
      */
-    void update(const core::file::Conversation::Node& node);
+    void update(unsigned int i, const core::file::Conversation::Node& node);
 
     /**
      * @brief Get the current node value
@@ -56,7 +57,8 @@ private:
         using ChangeCb = std::function<void(unsigned int)>;
 
         NodeConnector(const std::string& label, const NotifyCb& regenTree,
-                      const CreateNode& createNode, const ChangeCb& changeCb,
+                      const CreateNode& createNode, const NotifyCb& syncJumpCb,
+                      const ChangeCb& changeCb,
                       const std::vector<core::file::Conversation::Node>* nodes);
 
         void sync();
@@ -77,7 +79,7 @@ private:
 
         Choice(unsigned int index, const std::string& c, unsigned int jump,
                const OnChange& onChange, const OnDelete& onDelete, const NotifyCb& regenTree,
-               const CreateNode& createNode,
+               const CreateNode& createNode, const NotifyCb& syncJumpCb,
                const std::vector<core::file::Conversation::Node>* nodes);
 
         void setIndex(unsigned int i);
@@ -100,9 +102,10 @@ private:
     const NotifyCb regenTree;
     const CreateNode createNodeCb;
     const std::vector<core::file::Conversation::Node>* allNodes;
-    core::file::Conversation::Node values[10];
-    core::file::Conversation::Node* current;
+    core::file::Conversation::Node current;
+    unsigned int index;
 
+    bl::gui::Label::Ptr nodeTitle;
     bl::gui::Box::Ptr editArea;
     bl::gui::ComboBox::Ptr typeEntry;
 
@@ -115,7 +118,7 @@ private:
     std::list<Choice> choices;
     void onChoiceChange(unsigned int j, const std::string& t, unsigned int n);
     void onChoiceDelete(unsigned int i, std::list<Choice>::iterator it);
-    unsigned int createNode();
+    void syncJumps();
 
     void onTypeChange();
 };

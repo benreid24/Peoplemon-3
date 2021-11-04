@@ -73,6 +73,14 @@ public:
         };
 
         /**
+         * @brief Converts a node type to a human readable string
+         * 
+         * @param type The type to convert
+         * @return std::string A string for that type
+         */
+        static std::string typeToString(Type type);
+
+        /**
          * @brief Creates an empty talk node
          *
          */

@@ -13,7 +13,9 @@ const std::string EmptyFile = "<no file selected>";
 
 const core::file::Conversation DefaultConversation = []() {
     core::file::Conversation val;
-    val.appendNode({core::file::Conversation::Node::Type::Talk});
+    core::file::Conversation::Node node(core::file::Conversation::Node::Type::Talk);
+    node.next() = 9999999;
+    val.appendNode(node);
     return val;
 }();
 
@@ -41,7 +43,9 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
       },
       [this]() { treeComponent->update(value.nodes()); },
       [this]() {
-          value.appendNode({core::file::Conversation::Node::Type::Talk});
+          core::file::Conversation::Node node{core::file::Conversation::Node::Type::Talk};
+          node.next() = 999999;
+          value.appendNode(node);
           return value.nodes().size() - 1;
       },
       nodeBox, &value.nodes())
@@ -136,7 +140,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
         else {
             currentNode = i;
             window->queueUpdateAction(
-                [this]() { nodeComponent.update(value.nodes().at(currentNode)); });
+                [this]() { nodeComponent.update(currentNode, value.nodes().at(currentNode)); });
         }
     });
     treeComponent->setRequisition({500.f, 500.f});
@@ -167,7 +171,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
 }
 
 void ConversationWindow::sync() {
-    nodeComponent.update(value.nodes().at(currentNode));
+    nodeComponent.update(currentNode, value.nodes().at(currentNode));
     treeComponent->update(value.nodes());
 }
 

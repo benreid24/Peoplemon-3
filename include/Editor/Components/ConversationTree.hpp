@@ -43,14 +43,16 @@ private:
         unsigned int vBegin;
         unsigned int vEnd;
         bool terminator;
+        unsigned int index;
 
         Node();
-        void setup(const sf::Vector2f& pos, const core::file::Conversation::Node& node,
-                   unsigned int vi, unsigned int ve, bool terminator);
+        void setup(const sf::Vector2f& pos, unsigned int i,
+                   const core::file::Conversation::Node& node, unsigned int vi, unsigned int ve,
+                   bool terminator);
     };
 
-    const ClickCb onClick;
-    sf::View view;
+    const ClickCb clickCb;
+    mutable sf::View view;
     sf::RectangleShape background;
     bl::gfx::VertexBuffer vertexBuffer;
     std::vector<Node> renderNodes;
@@ -59,8 +61,13 @@ private:
 
     ConversationTree(const ClickCb& clickCb);
 
-    void onAcquisition();
-    void onMove();
+    void updateBackground();
+    void onDrag(const bl::gui::Event& dragEvent);
+    virtual bool handleScroll(const bl::gui::Event& zoomEvent) override;
+    void onClick(const bl::gui::Event& clickEvent);
+
+    sf::Vector2f transformToTreeCoord(const sf::Vector2f& point) const;
+    void setSelectedColor(const sf::Color& color);
 
     virtual void update(float dt) override;
     virtual sf::Vector2f minimumRequisition() const override;
