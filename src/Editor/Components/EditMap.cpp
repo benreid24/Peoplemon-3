@@ -286,8 +286,9 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
 }
 
 bool EditMap::handleScroll(const bl::gui::Event& event) {
-    if (controlsEnabled) camera->zoom(-event.scrollDelta() * 0.1f);
-    return true;
+    const bool c = getAcquisition().contains(event.mousePosition());
+    if (controlsEnabled && c) camera->zoom(-event.scrollDelta() * 0.1f);
+    return c;
 }
 
 void EditMap::undo() {

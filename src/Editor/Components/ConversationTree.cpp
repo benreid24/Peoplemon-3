@@ -137,9 +137,12 @@ void ConversationTree::updateBackground() {
 }
 
 bool ConversationTree::handleScroll(const bl::gui::Event& e) {
-    const float d = e.scrollDelta() * 20.f;
-    view.setSize(view.getSize() - sf::Vector2f{d, d});
-    return true;
+    if (getAcquisition().contains(e.mousePosition())) {
+        const float d = e.scrollDelta() * 20.f;
+        view.setSize(view.getSize() - sf::Vector2f{d, d});
+        return true;
+    }
+    return false;
 }
 
 void ConversationTree::onClick(const bl::gui::Event& e) {
