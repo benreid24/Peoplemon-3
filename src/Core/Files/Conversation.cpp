@@ -480,6 +480,34 @@ std::string Conversation::Node::typeToString(Type t) {
     }
 }
 
+void Conversation::getNextJumps(const Node& node, std::vector<unsigned int>& next) {
+    using T = Node::Type;
+
+    next.clear();
+    switch (node.getType()) {
+    case T::Talk:
+    case T::RunScript:
+    case T::SetSaveFlag:
+    case T::GiveMoney:
+    case T::GiveItem:
+        next.push_back(node.next());
+        break;
+    case T::CheckInteracted:
+    case T::CheckSaveFlag:
+    case T::TakeMoney:
+    case T::TakeItem:
+        next.push_back(node.nextOnPass());
+        next.push_back(node.nextOnReject());
+        break;
+    case T::Prompt:
+        for (const auto& c : node.choices()) { next.push_back(c.second); }
+        break;
+    default:
+        BL_LOG_ERROR << "Unknown node type: " << node.getType();
+        break;
+    }
+}
+
 } // namespace file
 } // namespace core
 

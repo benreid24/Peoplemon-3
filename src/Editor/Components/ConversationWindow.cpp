@@ -1,6 +1,9 @@
 #include <Editor/Components/ConversationWindow.hpp>
 
+#include <BLIB/Scripts.hpp>
+#include <Core/Items/Id.hpp>
 #include <Core/Properties.hpp>
+#include <queue>
 
 namespace editor
 {
@@ -18,6 +21,33 @@ const core::file::Conversation DefaultConversation = []() {
     val.appendNode(node);
     return val;
 }();
+
+bool nodeTerminates(const std::vector<core::file::Conversation::Node>& nodes, unsigned int i) {
+    std::queue<unsigned int> toVisit;
+    std::vector<bool> visited(nodes.size(), false);
+
+    toVisit.push(i);
+    visited[i] = true;
+
+    std::vector<unsigned int> next;
+    next.reserve(8);
+    while (!toVisit.empty()) {
+        const unsigned int n = toVisit.front();
+        toVisit.pop();
+
+        core::file::Conversation::getNextJumps(nodes[n], next);
+        for (unsigned int j : next) {
+            if (j >= nodes.size()) return true;
+
+            if (!visited[j]) {
+                visited[j] = true;
+                toVisit.push(j);
+            }
+        }
+    }
+
+    return false;
+}
 
 } // namespace
 
@@ -183,12 +213,118 @@ void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& cur
 }
 
 bool ConversationWindow::confirmDiscard() const {
-    return 1 == bl::dialog::tinyfd_messageBox(
-                    "Warning", "Discard unsaved changes?", "yesno", "warning", 0);
+    return !dirty || 1 == bl::dialog::tinyfd_messageBox(
+                              "Warning", "Discard unsaved changes?", "yesno", "warning", 0);
 }
 
 bool ConversationWindow::validate() const {
-    // TODO - validate
+    const auto error = [](const std::string& e) {
+        bl::dialog::tinyfd_messageBox("Error", e.c_str(), "ok", "error", 1);
+    };
+
+    const auto warning = [](const std::string& e) {
+        bl::dialog::tinyfd_messageBox("Warning", e.c_str(), "ok", "warning", 1);
+    };
+
+    const auto checkNode = [&error, &warning](const core::file::Conversation::Node& n,
+                                              unsigned int i) -> bool {
+        using T        = core::file::Conversation::Node::Type;
+        using OutputCb = std::function<void(const std::string&)>;
+
+        const auto output = [&n, i](const OutputCb& cb, const std::string& m) {
+            const std::string prefix = "Node " + std::to_string(i) + ": ";
+            cb(prefix + m);
+        };
+
+        switch (n.getType()) {
+        case T::Talk:
+        case T::Prompt:
+            if (n.message().empty()) { output(warning, "Message is empty"); }
+            return true;
+
+        case T::TakeItem:
+        case T::GiveItem:
+            if (n.item() == core::item::Id::Unknown) {
+                output(error, "Invalid item");
+                return false;
+            }
+            return true;
+
+        case T::GiveMoney:
+        case T::TakeMoney:
+            if (n.money() == 0) {
+                output(error, "Invalid money amount");
+                return false;
+            }
+            return true;
+
+        case T::RunScript: {
+            bl::script::Script check(n.script());
+            if (!check.valid()) {
+                output(error, "SyntaxError: " + check.errorMessage());
+                return false;
+            }
+        }
+            return true;
+
+        case T::SetSaveFlag:
+        case T::CheckSaveFlag:
+            if (n.saveFlag().empty()) {
+                output(error, "Save flag cannot be empty");
+                return false;
+            }
+            return true;
+
+        case T::CheckInteracted:
+            return true;
+
+        default:
+            output(error, "Unknown node type");
+            return false;
+        }
+    };
+
+    unsigned int validated = 0;
+    std::queue<unsigned int> toVisit;
+    std::vector<bool> visited(value.nodes().size(), false);
+
+    toVisit.push(0);
+    visited[0] = true;
+
+    std::vector<unsigned int> next;
+    next.reserve(8);
+    while (!toVisit.empty()) {
+        const unsigned int n                       = toVisit.front();
+        const core::file::Conversation::Node& node = value.nodes()[n];
+        toVisit.pop();
+        validated += 1;
+
+        if (!checkNode(node, n)) return false;
+        if (!nodeTerminates(value.nodes(), n)) {
+            error("Conversation end is unreachable from node " + std::to_string(n));
+            return false;
+        }
+
+        core::file::Conversation::getNextJumps(node, next);
+        if (next.empty()) {
+            error("Node " + std::to_string(n) + " has no jumps");
+            return false;
+        }
+
+        for (unsigned int j : next) {
+            if (j >= value.nodes().size()) continue;
+            if (!visited[j]) {
+                visited[j] = true;
+                toVisit.push(j);
+            }
+        }
+    }
+
+    if (validated != value.nodes().size()) {
+        warning("There are " + std::to_string(value.nodes().size() - validated) +
+                " unreachable nodes");
+    }
+
     return true;
 }
 

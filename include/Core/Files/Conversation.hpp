@@ -74,7 +74,7 @@ public:
 
         /**
          * @brief Converts a node type to a human readable string
-         * 
+         *
          * @param type The type to convert
          * @return std::string A string for that type
          */
@@ -313,6 +313,14 @@ public:
      * @return Conversation The conversation that reports the error
      */
     static Conversation makeLoadError(const std::string& filename);
+
+    /**
+     * @brief Populates the jumps vector with the indices reachable from the given node
+     *
+     * @param node The node to get the jumps for
+     * @param jumps The result vector to populate
+     */
+    static void getNextJumps(const Node& node, std::vector<unsigned int>& jumps);
 
 private:
     bl::file::binary::SerializableField<1, std::vector<Node>> cnodes;

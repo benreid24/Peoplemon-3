@@ -178,8 +178,6 @@ sf::Vector2f ConversationTree::transformToTreeCoord(const sf::Vector2f& p) const
 }
 
 void ConversationTree::update(const std::vector<core::file::Conversation::Node>& nodes) {
-    using T = core::file::Conversation::Node::Type;
-
     // Clear existing render data
     renderNodes.clear();
     vertexBuffer.resize(0);
@@ -209,29 +207,7 @@ void ConversationTree::update(const std::vector<core::file::Conversation::Node>&
         const core::file::Conversation::Node& node = nodes[i];
         toVisit.pop();
 
-        next.clear();
-        switch (node.getType()) {
-        case T::Talk:
-        case T::RunScript:
-        case T::SetSaveFlag:
-        case T::GiveMoney:
-        case T::GiveItem:
-            next.push_back(node.next());
-            break;
-        case T::CheckInteracted:
-        case T::CheckSaveFlag:
-        case T::TakeMoney:
-        case T::TakeItem:
-            next.push_back(node.nextOnPass());
-            next.push_back(node.nextOnReject());
-            break;
-        case T::Prompt:
-            for (const auto& c : node.choices()) { next.push_back(c.second); }
-            break;
-        default:
-            BL_LOG_ERROR << "Unknown node type: " << node.getType();
-            break;
-        }
+        core::file::Conversation::getNextJumps(node, next);
 
         for (unsigned int jump : next) {
             if (jump >= nodes.size()) {
