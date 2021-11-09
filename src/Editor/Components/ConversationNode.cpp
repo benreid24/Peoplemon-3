@@ -85,7 +85,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     choiceScroll->setColor(sf::Color::Transparent, sf::Color::Black);
     choiceScroll->setOutlineThickness(2.f);
     choiceScroll->setMaxSize({1000.f, 400.f});
-    choiceScroll->setNeverShowHorizontalScrollbar(true);
+    choiceScroll->includeScrollbarsInRequisition(true);
     but = Button::create("Add Choice");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         current.choices().emplace_back("", ConversationEnd);
