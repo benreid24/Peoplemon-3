@@ -156,6 +156,22 @@ private:
     SetPlaylistAction(const std::string& orig, const std::string& playlist);
 };
 
+class EditMap::SetNameAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(const std::string& name, const EditMap& editMap);
+
+    virtual ~SetNameAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::string orig;
+    const std::string name;
+
+    SetNameAction(const std::string& orig, const std::string& name);
+};
+
 class EditMap::SetWeatherAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(core::map::Weather::Type type, const EditMap& map);

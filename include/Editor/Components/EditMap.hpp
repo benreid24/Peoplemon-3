@@ -184,6 +184,11 @@ public:
 
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
+    /**
+     * @brief Set the name of the map
+     * 
+     * @param name The new name of the map
+     */
     void setName(const std::string& name);
 
     /**

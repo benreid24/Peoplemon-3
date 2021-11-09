@@ -437,6 +437,26 @@ bool EditMap::SetPlaylistAction::undo(EditMap& map) {
 
 const char* EditMap::SetPlaylistAction::description() const { return "set playlist"; }
 
+EditMap::Action::Ptr EditMap::SetNameAction::create(const std::string& name, const EditMap& map) {
+    return Ptr(new SetNameAction(map.nameField.getValue(), name));
+}
+
+EditMap::SetNameAction::SetNameAction(const std::string& orig, const std::string& name)
+: orig(orig)
+, name(name) {}
+
+bool EditMap::SetNameAction::apply(EditMap& map) {
+    map.nameField = name;
+    return true;
+}
+
+bool EditMap::SetNameAction::undo(EditMap& map) {
+    map.nameField = orig;
+    return true;
+}
+
+const char* EditMap::SetNameAction::description() const { return "set name"; }
+
 EditMap::Action::Ptr EditMap::SetWeatherAction::create(core::map::Weather::Type type,
                                                        const EditMap& map) {
     return Ptr(new SetWeatherAction(type, map.weatherField.getValue()));

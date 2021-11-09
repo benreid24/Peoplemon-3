@@ -328,6 +328,8 @@ void EditMap::addAction(const Action::Ptr& a) {
     actionCb();
 }
 
+void EditMap::setName(const std::string& n) { addAction(SetNameAction::create(n, *this)); }
+
 void EditMap::setPlaylist(const std::string& playlist) {
     addAction(SetPlaylistAction::create(playlist, *this));
 }

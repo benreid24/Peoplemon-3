@@ -146,6 +146,9 @@ Map::Map(core::system::Systems& s)
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
+    nameEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        mapArea.editMap().setName(nameEntry->getInput());
+    });
     box->pack(Label::create("Name:"), false, true);
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
