@@ -51,7 +51,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     container->pack(nodeTitle, true, false);
 
     promptRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 6.f));
-    promptEntry = TextEntry::create(3);
+    promptEntry = TextEntry::create(3, true);
     promptEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         current.message() = promptEntry->getInput();
         onEdit();
@@ -60,7 +60,7 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     promptRow->pack(promptEntry, true, true);
 
     Box::Ptr row =
-        Box::create(LinePacker::create(LinePacker::Horizontal, 0.f, LinePacker::Uniform));
+        Box::create(LinePacker::create(LinePacker::Horizontal, 4.f, LinePacker::Uniform));
     Box::Ptr subrow = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     subrow->pack(Label::create("Node Type:"), false, true);
     typeEntry = ComboBox::create();
