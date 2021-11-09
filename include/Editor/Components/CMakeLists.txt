@@ -8,6 +8,7 @@ target_sources(PeoplemonEditor PUBLIC
     EditMap.hpp
     EventEditor.hpp
     HighlightRadioButton.hpp
+    ItemSelector.hpp
     NewMapDialog.hpp
     NPCEditorWindow.hpp
     ScriptSelector.hpp

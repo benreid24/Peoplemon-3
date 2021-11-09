@@ -16,7 +16,7 @@ const sf::Color SelectedNodeColor(190, 190, 70);
 const sf::Color DownArrowColor(30, 220, 65);
 const sf::Color UpArrowColor(230, 90, 40);
 
-constexpr float NodeRadius                 = 40.f;
+constexpr float NodeRadius                 = 55.f;
 constexpr float NodeRadiusSquared          = NodeRadius * NodeRadius;
 constexpr float NodePadding                = 100.f;
 constexpr float Spacing                    = NodeRadius * 2.f + NodePadding;
@@ -27,7 +27,7 @@ constexpr unsigned int ArrowTriangleCount = 3;
 constexpr unsigned int ArrowVertexCount   = ArrowTriangleCount * 3;
 constexpr float ArrowWidth                = 5.f;
 constexpr float ArrowDepth                = 18.f;
-constexpr float FlashPeriod               = 1.f;
+constexpr float FlashPeriod               = 0.7f;
 
 void renderCircle(bl::gfx::VertexBuffer& buffer, unsigned int offset, const sf::Vector2f& pos,
                   bool terminator) {

@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Files/Conversation.hpp>
+#include <Editor/Components/ItemSelector.hpp>
 
 namespace editor
 {
@@ -61,9 +62,9 @@ private:
     public:
         using ChangeCb = std::function<void(unsigned int)>;
 
-        NodeConnector(const NotifyCb& regenTree, const CreateNode& createNode,
-                      const NotifyCb& syncJumpCb, const ChangeCb& changeCb,
-                      const SelectCb& selectCb,
+        NodeConnector(const std::string& prompt, const NotifyCb& regenTree,
+                      const CreateNode& createNode, const NotifyCb& syncJumpCb,
+                      const ChangeCb& changeCb, const SelectCb& selectCb,
                       const std::vector<core::file::Conversation::Node>* nodes);
 
         void sync();
@@ -116,6 +117,9 @@ private:
     bl::gui::Box::Ptr editArea;
     bl::gui::ComboBox::Ptr typeEntry;
 
+    NodeConnector passNext;
+    NodeConnector failNext;
+
     bl::gui::Box::Ptr promptRow;
     bl::gui::TextEntry::Ptr promptEntry;
     NodeConnector nextNode;
@@ -126,6 +130,10 @@ private:
     void onChoiceChange(unsigned int j, const std::string& t, unsigned int n);
     void onChoiceDelete(unsigned int i, std::list<Choice>::iterator it);
     void syncJumps();
+
+    component::ItemSelector::Ptr itemSelector;
+    bl::gui::Box::Ptr itemRow;
+    void onItemChange(core::item::Id item);
 
     void onTypeChange();
 };

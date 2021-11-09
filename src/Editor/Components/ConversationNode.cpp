@@ -37,8 +37,24 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
 , createNodeCb(cncb)
 , onJump(selectCb)
 , allNodes(nodes)
+, passNext(
+      "Pass:", regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
+      [this](unsigned int nn) {
+          current.nextOnPass() = nn;
+          onEdit();
+          regenTree();
+      },
+      onJump, nodes)
+, failNext(
+      "Fail:", regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
+      [this](unsigned int nn) {
+          current.nextOnReject() = nn;
+          onEdit();
+          regenTree();
+      },
+      onJump, nodes)
 , nextNode(
-      regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
+      "Next:", regenTree, createNodeCb, std::bind(&ConversationNode::syncJumps, this),
       [this](unsigned int nn) {
           current.next() = nn;
           onEdit();
@@ -115,6 +131,12 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     choiceArea->pack(choiceScroll, true, true);
     choiceArea->pack(but, false, false);
 
+    itemSelector = component::ItemSelector::create(
+        std::bind(&ConversationNode::onItemChange, this, std::placeholders::_1));
+    itemRow = Box::create(LinePacker::create(LinePacker::Horizontal, 2.f));
+    itemRow->pack(Label::create("Item:"), false, true);
+    itemRow->pack(itemSelector, false, true);
+
     editArea = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     container->pack(editArea, true, true);
 }
@@ -126,6 +148,8 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     nodeTitle->setText(nodeToString(index, node));
     editArea->clearChildren(true);
     nextNode.sync();
+    passNext.sync();
+    failNext.sync();
     typeEntry->setSelectedOption(static_cast<int>(node.getType()), false);
     switch (node.getType()) {
     case Conversation::Node::Type::Talk:
@@ -167,6 +191,22 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
         editArea->pack(choiceArea, true, true);
         break;
 
+    case Conversation::Node::GiveItem:
+        editArea->pack(itemRow, true, false);
+        itemSelector->setItem(node.item());
+        nextNode.setSelected(node.next());
+        editArea->pack(nextNode.content(), true, false);
+        break;
+
+    case Conversation::Node::TakeItem:
+        editArea->pack(itemRow, true, false);
+        itemSelector->setItem(node.item());
+        passNext.setSelected(node.nextOnPass());
+        editArea->pack(passNext.content(), true, false);
+        failNext.setSelected(node.nextOnReject());
+        editArea->pack(failNext.content(), true, false);
+        break;
+
     default:
         BL_LOG_ERROR << "Unimplemented node type: " << node.getType();
         break;
@@ -174,6 +214,11 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
 }
 
 const Conversation::Node& ConversationNode::getValue() const { return current; }
+
+void ConversationNode::onItemChange(core::item::Id item) {
+    current.item() = item;
+    onEdit();
+}
 
 void ConversationNode::onChoiceChange(unsigned int j, const std::string& t, unsigned int n) {
     current.choices()[j].first  = t;
@@ -190,9 +235,10 @@ void ConversationNode::onTypeChange() {
         update(index, {t});
         e = true;
     }
+    
+    if (e) { update(index, {t}); }
     onEdit();
     regenTree();
-    if (e) { update(index, {t}); }
 }
 
 void ConversationNode::onChoiceDelete(unsigned int j, std::list<Choice>::iterator it) {
@@ -210,16 +256,18 @@ void ConversationNode::onChoiceDelete(unsigned int j, std::list<Choice>::iterato
 
 void ConversationNode::syncJumps() {
     nextNode.sync();
+    passNext.sync();
+    failNext.sync();
     for (auto& c : choices) { c.syncJump(); }
 }
 
 ConversationNode::NodeConnector::NodeConnector(
-    const NotifyCb& regenTree, const CreateNode& createNode, const NotifyCb& syncJumpCb,
-    const ChangeCb& changeCb, const SelectCb& selectCb,
+    const std::string& prompt, const NotifyCb& regenTree, const CreateNode& createNode,
+    const NotifyCb& syncJumpCb, const ChangeCb& changeCb, const SelectCb& selectCb,
     const std::vector<core::file::Conversation::Node>* nodes)
 : nodes(nodes) {
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    row->pack(Label::create("Next:"), false, true);
+    row->pack(Label::create(prompt), false, true);
     entry = ComboBox::create();
     entry->setMaxHeight(150.f);
     entry->getSignal(Event::ValueChanged).willAlwaysCall([this, changeCb](const Event&, Element*) {
@@ -279,7 +327,7 @@ ConversationNode::Choice::Choice(unsigned int i, const std::string& c, unsigned 
 , onDelete(delCb)
 , index(i)
 , jump(
-      regenTree, createNode, syncJumpCb,
+      "Next:", regenTree, createNode, syncJumpCb,
       [this](unsigned int nj) { onChange(index, entry->getInput(), nj); }, selectCb, nodes) {
     jump.setSelected(jp);
 

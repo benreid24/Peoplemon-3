@@ -74,7 +74,9 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
       [this]() { treeComponent->update(value.nodes()); },
       [this]() {
           core::file::Conversation::Node node{core::file::Conversation::Node::Type::Talk};
-          node.next() = 999999;
+          node.next()         = 999999;
+          node.nextOnReject() = 999999;
+          node.nextOnPass()   = 999999;
           value.appendNode(node);
           return value.nodes().size() - 1;
       },

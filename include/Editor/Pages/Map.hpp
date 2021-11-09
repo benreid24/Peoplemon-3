@@ -3,6 +3,7 @@
 
 #include <Editor/Components/CharacterSpawnWindow.hpp>
 #include <Editor/Components/EventEditor.hpp>
+#include <Editor/Components/ItemSelector.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -55,8 +56,7 @@ private:
     bl::gui::Notebook::Ptr objectBook;
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
-    bl::gui::ComboBox::Ptr itemSpawnEntry;
-    std::vector<core::item::Id> itemIdLookup;
+    component::ItemSelector::Ptr itemSelector;
 
     bl::gui::RadioButton::Ptr createEventRadio;
     bl::gui::RadioButton::Ptr editEventRadio;

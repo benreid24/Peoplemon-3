@@ -252,22 +252,16 @@ Map::Map(core::system::Systems& s)
     npcBox->pack(npcEdit);
     npcBox->pack(npcDelete);
 
-    Box::Ptr itemBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    itemSpawnEntry   = ComboBox::create();
-    itemIdLookup.reserve(core::item::Item::validIds().size());
-    for (const core::item::Id item : core::item::Item::validIds()) {
-        itemSpawnEntry->addOption(core::item::Item::getName(item));
-        itemIdLookup.push_back(item);
-    }
-    itemSpawnEntry->setSelectedOption(0);
+    Box::Ptr itemBox           = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box                        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    itemSelector               = component::ItemSelector::create();
     RadioButton::Ptr itemSpawn = RadioButton::create("Spawn", "spawn");
     itemSpawn->setValue(true);
     label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
     RadioButton::Ptr itemDelete = RadioButton::create(label, "delete", itemSpawn->getRadioGroup());
     box->pack(itemSpawn);
-    box->pack(itemSpawnEntry, true, false);
+    box->pack(itemSelector, true, false);
     itemBox->pack(box, true, false);
     itemBox->pack(itemDelete);
 

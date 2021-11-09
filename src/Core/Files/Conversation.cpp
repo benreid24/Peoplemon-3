@@ -325,6 +325,7 @@ Conversation::Node::Node(Type t) { setType(t); }
 void Conversation::Node::setType(Type t) {
     type = t;
     prompt.clear();
+    next() = nextOnPass() = nextOnReject() = 999999;
 
     switch (type) {
     case GiveItem:
