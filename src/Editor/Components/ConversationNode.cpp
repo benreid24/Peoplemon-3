@@ -151,10 +151,13 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     passNext.sync();
     failNext.sync();
     typeEntry->setSelectedOption(static_cast<int>(node.getType()), false);
+    nextNode.setSelected(node.next());
+    passNext.setSelected(node.nextOnPass());
+    failNext.setSelected(node.nextOnReject());
+
     switch (node.getType()) {
     case Conversation::Node::Type::Talk:
         promptEntry->setInput(node.message());
-        nextNode.setSelected(node.next());
         editArea->pack(promptRow, true, false);
         editArea->pack(nextNode.content(), true, false);
         break;
@@ -194,16 +197,13 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     case Conversation::Node::GiveItem:
         editArea->pack(itemRow, true, false);
         itemSelector->setItem(node.item());
-        nextNode.setSelected(node.next());
         editArea->pack(nextNode.content(), true, false);
         break;
 
     case Conversation::Node::TakeItem:
         editArea->pack(itemRow, true, false);
         itemSelector->setItem(node.item());
-        passNext.setSelected(node.nextOnPass());
         editArea->pack(passNext.content(), true, false);
-        failNext.setSelected(node.nextOnReject());
         editArea->pack(failNext.content(), true, false);
         break;
 
@@ -230,15 +230,26 @@ void ConversationNode::onChoiceChange(unsigned int j, const std::string& t, unsi
 void ConversationNode::onTypeChange() {
     const Conversation::Node::Type t =
         static_cast<Conversation::Node::Type>(typeEntry->getSelectedOption());
+
+    Conversation::Node val(t);
+    val.next()         = current.next();
+    val.nextOnPass()   = current.nextOnPass();
+    val.nextOnReject() = current.nextOnReject();
+
     bool e = false;
     if (current.getType() != t) {
-        update(index, {t});
+        update(index, val);
         e = true;
     }
-    
-    if (e) { update(index, {t}); }
+
     onEdit();
     regenTree();
+    if (e) {
+        update(index, val);
+        syncJumps();
+        regenTree();
+        onEdit();
+    }
 }
 
 void ConversationNode::onChoiceDelete(unsigned int j, std::list<Choice>::iterator it) {
