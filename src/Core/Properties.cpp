@@ -457,20 +457,20 @@ const std::string& Properties::NpcFileExtension() {
 }
 
 const std::string& Properties::NpcPath() {
-    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.npc.path", defaults::NpcFileExtension);
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.npc.path", defaults::NpcPath);
     return val;
 }
 
 const std::string& Properties::TrainerFileExtension() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.trainer.extension", defaults::NpcFileExtension);
+        "core.trainer.extension", defaults::TrainerFileExtension);
     return val;
 }
 
 const std::string& Properties::TrainerPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.trainer.path", defaults::NpcFileExtension);
+        "core.trainer.path", defaults::TrainerPath);
     return val;
 }
 

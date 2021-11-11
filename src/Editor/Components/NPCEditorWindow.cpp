@@ -152,6 +152,7 @@ void NpcEditorWindow::show(GUI::Ptr p, const std::string& file) {
     if (!file.empty()) {
         fileLabel->setText(file);
         load(file);
+        BL_LOG_INFO << "loaded: " << file;
     }
     makeClean();
     parent->pack(window);
