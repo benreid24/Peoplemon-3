@@ -135,6 +135,10 @@ private:
     bl::gui::Box::Ptr itemRow;
     void onItemChange(core::item::Id item);
 
+    bl::gui::Box::Ptr moneyRow;
+    bl::gui::TextEntry::Ptr moneyEntry;
+    void onMoneyChange();
+
     void onTypeChange();
 };
 

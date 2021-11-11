@@ -67,6 +67,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
               1 == bl::dialog::tinyfd_messageBox(
                        "Warning", "Delete conversation node?", "yesno", "warning", 0)) {
               value.deleteNode(currentNode);
+              if (currentNode >= value.nodes().size()) { currentNode = value.nodes().size() - 1; }
               makeDirty();
               window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
           }
@@ -83,8 +84,14 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
       std::bind(&ConversationWindow::setSelected, this, std::placeholders::_1), nodeBox,
       &value.nodes())
 , filePicker(
-      core::Properties::ConversationPath(), {"conv"},
-      [this](const std::string& conv) {
+      core::Properties::ConversationPath(), {core::Properties::ConversationFileExtension()},
+      [this](const std::string& c) {
+          std::string conv = c;
+          if (bl::file::Util::getExtension(conv) != core::Properties::ConversationFileExtension() &&
+              filePickerMode != FilePickerMode::OpenExisting) {
+              conv += "." + core::Properties::ConversationFileExtension();
+          }
+
           filePicker.close();
           fileLabel->setText(conv);
           window->setForceFocus(true);
@@ -96,11 +103,11 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
               makeClean();
               break;
           case FilePickerMode::OpenExisting:
+              currentNode = 0;
               if (!value.load(conv)) {
                   const std::string msg = "Failed to load conversation: " + conv;
                   bl::dialog::tinyfd_messageBox("Error", msg.c_str(), "ok", "error", 1);
-                  value       = DefaultConversation;
-                  currentNode = 0;
+                  value = DefaultConversation;
                   fileLabel->setText(EmptyFile);
               }
               makeClean();
@@ -200,6 +207,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
 void ConversationWindow::sync() {
     nodeComponent.update(currentNode, value.nodes().at(currentNode));
     treeComponent->update(value.nodes());
+    treeComponent->setSelected(currentNode);
 }
 
 void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& current) {

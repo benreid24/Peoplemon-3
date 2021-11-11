@@ -16,7 +16,7 @@ const sf::Color SelectedNodeColor(190, 190, 70);
 const sf::Color DownArrowColor(30, 220, 65);
 const sf::Color UpArrowColor(230, 90, 40);
 
-constexpr float NodeRadius                 = 55.f;
+constexpr float NodeRadius                 = 60.f;
 constexpr float NodeRadiusSquared          = NodeRadius * NodeRadius;
 constexpr float NodePadding                = 100.f;
 constexpr float Spacing                    = NodeRadius * 2.f + NodePadding;

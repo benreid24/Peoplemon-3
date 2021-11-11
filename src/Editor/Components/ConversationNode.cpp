@@ -137,6 +137,13 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     itemRow->pack(Label::create("Item:"), false, true);
     itemRow->pack(itemSelector, false, true);
 
+    moneyRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    moneyEntry = TextEntry::create();
+    moneyEntry->getSignal(Event::ValueChanged)
+        .willAlwaysCall(std::bind(&ConversationNode::onMoneyChange, this));
+    moneyRow->pack(Label::create("Money Amount:"), false, true);
+    moneyRow->pack(moneyEntry, true, true);
+
     editArea = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     container->pack(editArea, true, true);
 }
@@ -207,6 +214,19 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
         editArea->pack(failNext.content(), true, false);
         break;
 
+    case Conversation::Node::GiveMoney:
+        editArea->pack(moneyRow, true, false);
+        moneyEntry->setInput(std::to_string(node.money()));
+        editArea->pack(nextNode.content(), true, false);
+        break;
+
+    case Conversation::Node::TakeMoney:
+        editArea->pack(moneyRow, true, false);
+        moneyEntry->setInput(std::to_string(node.money()));
+        editArea->pack(passNext.content(), true, false);
+        editArea->pack(failNext.content(), true, false);
+        break;
+
     default:
         BL_LOG_ERROR << "Unimplemented node type: " << node.getType();
         break;
@@ -217,6 +237,20 @@ const Conversation::Node& ConversationNode::getValue() const { return current; }
 
 void ConversationNode::onItemChange(core::item::Id item) {
     current.item() = item;
+    onEdit();
+}
+
+void ConversationNode::onMoneyChange() {
+    std::string val = moneyEntry->getInput();
+    for (unsigned int i = 0; i < val.size(); ++i) {
+        if (!std::isdigit(val[i])) {
+            val.erase(i);
+            --i;
+        }
+    }
+    moneyEntry->setInput(val);
+
+    current.money() = val.empty() ? 0 : std::atoi(val.c_str());
     onEdit();
 }
 
@@ -248,6 +282,9 @@ void ConversationNode::onTypeChange() {
         update(index, val);
         syncJumps();
         regenTree();
+        if (t == Conversation::Node::GiveItem || t == Conversation::Node::TakeItem) {
+            current.item() = itemSelector->currentItem();
+        }
         onEdit();
     }
 }
