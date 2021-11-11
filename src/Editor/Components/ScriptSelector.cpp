@@ -9,19 +9,24 @@ namespace component
 {
 using namespace bl::gui;
 
-ScriptSelector::ScriptSelector(const OnSelect& os)
+ScriptSelector::ScriptSelector(const OnSelect& os, const OnCancel& oc)
 : onSelect(os)
+, onCancel(oc)
 , error(false)
 , picker(core::Properties::ScriptPath(), {"psc", "bs"},
-         std::bind(&ScriptSelector::onPick, this, std::placeholders::_1),
-         [this]() { picker.close(); }) {
+         std::bind(&ScriptSelector::onPick, this, std::placeholders::_1), [this]() {
+             picker.close();
+             window->setForceFocus(true);
+         }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Select Script");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
+        onCancel();
     });
 
     Button::Ptr pickBut = Button::create("Pick File");
     pickBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        window->setForceFocus(false);
         picker.open(FilePicker::PickExisting, "Pick Script", parent, false);
     });
     window->pack(pickBut);
@@ -39,13 +44,14 @@ ScriptSelector::ScriptSelector(const OnSelect& os)
     Box::Ptr row       = Box::create(LinePacker::create(LinePacker::Horizontal, 10));
     Button::Ptr choose = Button::create("Select");
     choose->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        onSelect(scriptInput->getInput());
         window->remove();
+        onSelect(scriptInput->getInput());
     });
     row->pack(choose, false, true);
     Button::Ptr cancel = Button::create("Cancel");
     cancel->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
+        onCancel();
     });
     row->pack(cancel, false, true);
     window->pack(row, true, false);
@@ -55,12 +61,14 @@ void ScriptSelector::open(const GUI::Ptr& p, const std::string& s) {
     parent = p;
     scriptInput->setInput(s);
     parent->pack(window);
+    window->setForceFocus(true);
     checkSyntax();
 }
 
 void ScriptSelector::onPick(const std::string& s) {
     scriptInput->setInput(s);
     picker.close();
+    window->setForceFocus(true);
     checkSyntax();
 }
 

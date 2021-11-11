@@ -57,32 +57,34 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
 , value(DefaultConversation)
 , currentNode(0)
 , nodeBox(Box::create(LinePacker::create(LinePacker::Vertical, 4.f)))
-, nodeComponent(
-      [this]() {
-          makeDirty();
-          value.setNode(currentNode, nodeComponent.getValue());
-      },
-      [this]() {
-          if (value.nodes().size() > 1 &&
-              1 == bl::dialog::tinyfd_messageBox(
-                       "Warning", "Delete conversation node?", "yesno", "warning", 0)) {
-              value.deleteNode(currentNode);
-              if (currentNode >= value.nodes().size()) { currentNode = value.nodes().size() - 1; }
-              makeDirty();
-              window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
-          }
-      },
-      [this]() { treeComponent->update(value.nodes()); },
-      [this]() {
-          core::file::Conversation::Node node{core::file::Conversation::Node::Type::Talk};
-          node.next()         = 999999;
-          node.nextOnReject() = 999999;
-          node.nextOnPass()   = 999999;
-          value.appendNode(node);
-          return value.nodes().size() - 1;
-      },
-      std::bind(&ConversationWindow::setSelected, this, std::placeholders::_1), nodeBox,
-      &value.nodes())
+, nodeComponent([this](bool f) { window->setForceFocus(f); },
+                [this]() {
+                    makeDirty();
+                    value.setNode(currentNode, nodeComponent.getValue());
+                },
+                [this]() {
+                    if (value.nodes().size() > 1 &&
+                        1 == bl::dialog::tinyfd_messageBox(
+                                 "Warning", "Delete conversation node?", "yesno", "warning", 0)) {
+                        value.deleteNode(currentNode);
+                        if (currentNode >= value.nodes().size()) {
+                            currentNode = value.nodes().size() - 1;
+                        }
+                        makeDirty();
+                        window->queueUpdateAction(std::bind(&ConversationWindow::sync, this));
+                    }
+                },
+                [this]() { treeComponent->update(value.nodes()); },
+                [this]() {
+                    core::file::Conversation::Node node{core::file::Conversation::Node::Type::Talk};
+                    node.next()         = 999999;
+                    node.nextOnReject() = 999999;
+                    node.nextOnPass()   = 999999;
+                    value.appendNode(node);
+                    return value.nodes().size() - 1;
+                },
+                std::bind(&ConversationWindow::setSelected, this, std::placeholders::_1), nodeBox,
+                &value.nodes())
 , filePicker(
       core::Properties::ConversationPath(), {core::Properties::ConversationFileExtension()},
       [this](const std::string& c) {
@@ -215,6 +217,7 @@ void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& cur
     currentNode = 0;
     if (current.empty() || !value.load(current)) { value = DefaultConversation; }
 
+    nodeComponent.setParent(p);
     sync();
     makeClean();
 
@@ -242,14 +245,33 @@ bool ConversationWindow::validate() const {
         using OutputCb = std::function<void(const std::string&)>;
 
         const auto output = [&n, i](const OutputCb& cb, const std::string& m) {
-            const std::string prefix = "Node " + std::to_string(i) + ": ";
-            cb(prefix + m);
+            std::string o = "Node " + std::to_string(i) + ": " + m;
+            for (unsigned int i = 0; i < o.size(); ++i) {
+                if (o[i] == '\'') o[i] = '`';
+                if (o[i] == '"') {
+                    o.erase(i, 1);
+                    o.insert(i, "<QUOTE>");
+                }
+            }
+            cb(o);
         };
 
         switch (n.getType()) {
         case T::Talk:
         case T::Prompt:
             if (n.message().empty()) { output(warning, "Message is empty"); }
+            if (n.getType() == T::Prompt) {
+                if (n.choices().empty()) {
+                    output(error, "Prompt has no choices");
+                    return false;
+                }
+                for (const auto& c : n.choices()) {
+                    if (c.first.empty()) {
+                        output(error, "Choice has empty text");
+                        return false;
+                    }
+                }
+            }
             return true;
 
         case T::TakeItem:

@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/ScriptSelector.hpp>
 
 namespace editor
 {
@@ -26,9 +27,13 @@ public:
     /// Called when a node is jumped to
     using SelectCb = std::function<void(unsigned int)>;
 
+    // Called when the window should force focus or not
+    using FocusCb = std::function<void(bool)>;
+
     /**
      * @brief Construct a new Conversation Node editor
      *
+     * @param focusCb Called when the parent window should force focus or not
      * @param editCb Callback for when the node is modified
      * @param deleteCb Callback for when the node is deleted
      * @param regenTree Called when the conversation tree should be re-rendered
@@ -37,9 +42,9 @@ public:
      * @param container The gui element to pack into
      * @param nodes A pointer to all nodes
      */
-    ConversationNode(const NotifyCb& editCb, const NotifyCb& deleteCb, const NotifyCb& regenTree,
-                     const CreateNode& createNode, const SelectCb& selectCb,
-                     bl::gui::Box::Ptr& container,
+    ConversationNode(const FocusCb& focusCb, const NotifyCb& editCb, const NotifyCb& deleteCb,
+                     const NotifyCb& regenTree, const CreateNode& createNode,
+                     const SelectCb& selectCb, bl::gui::Box::Ptr& container,
                      const std::vector<core::file::Conversation::Node>* nodes);
 
     /**
@@ -56,6 +61,12 @@ public:
      * @return const core::file::Conversation::Node& The current node value
      */
     const core::file::Conversation::Node& getValue() const;
+
+    /**
+     * @brief Set the parent GUI object
+     *
+     */
+    void setParent(const bl::gui::GUI::Ptr& parent);
 
 private:
     class NodeConnector {
@@ -104,6 +115,8 @@ private:
         NodeConnector jump;
     };
 
+    bl::gui::GUI::Ptr parent;
+    const FocusCb focusCb;
     const NotifyCb onEdit;
     const NotifyCb onDelete;
     const NotifyCb regenTree;
@@ -141,6 +154,10 @@ private:
 
     bl::gui::Box::Ptr flagRow;
     bl::gui::TextEntry::Ptr flagEntry;
+
+    bl::gui::Box::Ptr scriptRow;
+    bl::gui::Label::Ptr scriptLabel;
+    ScriptSelector scriptSelector;
 
     void onTypeChange();
 };

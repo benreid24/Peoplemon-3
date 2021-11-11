@@ -27,11 +27,12 @@ std::string nodeToString(unsigned int i, const core::file::Conversation::Node& n
 using core::file::Conversation;
 using namespace bl::gui;
 
-ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, const NotifyCb& rgtcb,
-                                   const CreateNode& cncb, const SelectCb& selectCb,
-                                   Box::Ptr& container,
+ConversationNode::ConversationNode(const FocusCb& fcb, const NotifyCb& ecb, const NotifyCb& odcb,
+                                   const NotifyCb& rgtcb, const CreateNode& cncb,
+                                   const SelectCb& selectCb, Box::Ptr& container,
                                    const std::vector<core::file::Conversation::Node>* nodes)
-: onEdit(ecb)
+: focusCb(fcb)
+, onEdit(ecb)
 , onDelete(odcb)
 , regenTree(rgtcb)
 , createNodeCb(cncb)
@@ -60,7 +61,14 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
           onEdit();
           regenTree();
       },
-      onJump, nodes) {
+      onJump, nodes)
+, scriptSelector(
+      [this](const std::string& s) {
+          current.script() = s;
+          scriptLabel->setText(s);
+          onEdit();
+      },
+      [this]() { focusCb(true); }) {
     nodeTitle = Label::create("");
     nodeTitle->setCharacterSize(32);
     nodeTitle->setColor(sf::Color::Cyan, sf::Color::Transparent);
@@ -155,7 +163,25 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
 
     editArea = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     container->pack(editArea, true, true);
+
+    scriptRow              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    ScrollArea::Ptr scroll = ScrollArea::create(LinePacker::create());
+    scroll->setMaxSize({450.f, 550.f});
+    scroll->setColor(sf::Color(30, 180, 240, 130), sf::Color::Blue);
+    scriptLabel = Label::create("<no script selected>");
+    scriptLabel->setColor(sf::Color(30, 180, 60), sf::Color::Transparent);
+    scroll->pack(scriptLabel);
+    scriptRow->pack(Label::create("Script:"));
+    scriptRow->pack(scroll, true, false);
+    but = Button::create("Edit Script");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        focusCb(false);
+        scriptSelector.open(parent, current.script());
+    });
+    scriptRow->pack(but);
 }
+
+void ConversationNode::setParent(const GUI::Ptr& p) { parent = p; }
 
 void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     current = node;
@@ -252,6 +278,12 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     case Conversation::Node::CheckInteracted:
         editArea->pack(passNext.content(), true, false);
         editArea->pack(failNext.content(), true, false);
+        break;
+
+    case Conversation::Node::RunScript:
+        editArea->pack(scriptRow, true, false);
+        scriptLabel->setText(node.script().empty() ? "<no script selected>" : node.script());
+        editArea->pack(nextNode.content(), true, false);
         break;
 
     default:

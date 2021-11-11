@@ -51,7 +51,7 @@ Map::Map(core::system::Systems& s)
 , playlistPicker(core::Properties::PlaylistPath(), {"plst"},
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
                  [this]() { playlistPicker.close(); })
-, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
+, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
 , characterEditor(

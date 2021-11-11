@@ -8,7 +8,8 @@ using namespace bl::gui;
 
 EventEditor::EventEditor(const OnEdit& oe)
 : onEdit(oe)
-, scriptSelector(std::bind(&EventEditor::onScriptChosen, this, std::placeholders::_1)) {
+, scriptSelector(std::bind(&EventEditor::onScriptChosen, this, std::placeholders::_1),
+                 [this]() { window->setForceFocus(true); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 10), "Event Editor");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
@@ -20,6 +21,7 @@ EventEditor::EventEditor(const OnEdit& oe)
     row->pack(scriptLabel, true, true);
     Button::Ptr pickButton = Button::create("Pick/Edit Script");
     pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        window->setForceFocus(false);
         scriptSelector.open(parent, scriptLabel->getText());
     });
     row->pack(pickButton, false, true);
@@ -146,7 +148,10 @@ core::map::Event EventEditor::makeEvent() const {
     return e;
 }
 
-void EventEditor::onScriptChosen(const std::string& s) { scriptLabel->setText(s); }
+void EventEditor::onScriptChosen(const std::string& s) {
+    scriptLabel->setText(s);
+    window->setForceFocus(true);
+}
 
 } // namespace component
 } // namespace editor

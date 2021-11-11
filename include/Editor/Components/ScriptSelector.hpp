@@ -19,12 +19,16 @@ public:
     /// Callback type for when a script is chosen
     using OnSelect = std::function<void(const std::string&)>;
 
+    /// Called when the window is closed without a selection
+    using OnCancel = std::function<void()>;
+
     /**
      * @brief Construct a new Script Selector dialog
      *
      * @param onSelect Callback to call when a script is chosen
+     * @param onCancel Called when the window is closed without a selection
      */
-    ScriptSelector(const OnSelect& onSelect);
+    ScriptSelector(const OnSelect& onSelect, const OnCancel& onCancel);
 
     /**
      * @brief Opens the dialog to select a script
@@ -36,6 +40,7 @@ public:
 
 private:
     const OnSelect onSelect;
+    const OnCancel onCancel;
     bl::gui::Window::Ptr window;
     bl::gui::TextEntry::Ptr scriptInput;
     bl::gui::Label::Ptr errorLabel;
