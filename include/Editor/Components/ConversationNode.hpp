@@ -139,6 +139,9 @@ private:
     bl::gui::TextEntry::Ptr moneyEntry;
     void onMoneyChange();
 
+    bl::gui::Box::Ptr flagRow;
+    bl::gui::TextEntry::Ptr flagEntry;
+
     void onTypeChange();
 };
 

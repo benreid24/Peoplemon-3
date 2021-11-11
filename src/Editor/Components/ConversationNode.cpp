@@ -144,6 +144,15 @@ ConversationNode::ConversationNode(const NotifyCb& ecb, const NotifyCb& odcb, co
     moneyRow->pack(Label::create("Money Amount:"), false, true);
     moneyRow->pack(moneyEntry, true, true);
 
+    flagRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    flagEntry = TextEntry::create();
+    flagEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        current.saveFlag() = flagEntry->getInput();
+        onEdit();
+    });
+    flagRow->pack(Label::create("Flag Name:"), false, true);
+    flagRow->pack(flagEntry, true, true);
+
     editArea = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     container->pack(editArea, true, true);
 }
@@ -223,6 +232,19 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     case Conversation::Node::TakeMoney:
         editArea->pack(moneyRow, true, false);
         moneyEntry->setInput(std::to_string(node.money()));
+        editArea->pack(passNext.content(), true, false);
+        editArea->pack(failNext.content(), true, false);
+        break;
+
+    case Conversation::Node::SetSaveFlag:
+        editArea->pack(flagRow, true, false);
+        flagEntry->setInput(node.saveFlag());
+        editArea->pack(nextNode.content(), true, false);
+        break;
+
+    case Conversation::Node::CheckSaveFlag:
+        editArea->pack(flagRow, true, false);
+        flagEntry->setInput(node.saveFlag());
         editArea->pack(passNext.content(), true, false);
         editArea->pack(failNext.content(), true, false);
         break;
