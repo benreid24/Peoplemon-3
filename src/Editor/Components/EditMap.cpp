@@ -49,7 +49,7 @@ EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb
 
 EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& actionCb,
                  const ActionCb& syncCb, core::system::Systems& s)
-: bl::gui::Element("maps", "editmap")
+: bl::gui::Element()
 , Map()
 , historyHead(0)
 , saveHead(0)
@@ -78,14 +78,15 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
         }
     };
 
-    getSignal(bl::gui::Action::LeftClicked)
-        .willAlwaysCall([this](const bl::gui::Action&, Element*) {
-            if (controlsEnabled) { callCb(clickCb); }
-        });
+    getSignal(bl::gui::Event::LeftClicked).willAlwaysCall([this](const bl::gui::Event&, Element*) {
+        if (controlsEnabled) { callCb(clickCb); }
+    });
 
-    getSignal(bl::gui::Action::MouseMoved).willAlwaysCall([this](const bl::gui::Action&, Element*) {
+    getSignal(bl::gui::Event::MouseMoved).willAlwaysCall([this](const bl::gui::Event&, Element*) {
         callCb(moveCb);
     });
+
+    setOutlineThickness(0.f);
 }
 
 bool EditMap::editorLoad(const std::string& file) {
@@ -158,7 +159,7 @@ bool EditMap::editorActivate() {
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField.getValue()) {
-        if (!systems->entity().spawnCharacter(spawn)) {
+        if (systems->entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
         }
     }
@@ -272,19 +273,22 @@ void EditMap::EditCamera::zoom(float z) {
     if (size < 0.1f) size = 0.1f;
 }
 
-sf::Vector2i EditMap::minimumRequisition() const { return {100, 100}; }
+sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
 
-void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates, const bl::gui::Renderer&) const {
+void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
+                       const bl::gui::Renderer& renderer) const {
     const sf::View oldView = target.getView();
-    renderView             = bl::gui::Container::computeView(oldView, getAcquisition());
+    renderView =
+        bl::interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView());
     target.setView(renderView);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
 
-bool EditMap::handleScroll(const bl::gui::RawEvent& event) {
-    if (controlsEnabled) camera->zoom(-event.event.mouseWheelScroll.delta * 0.1f);
-    return true;
+bool EditMap::handleScroll(const bl::gui::Event& event) {
+    const bool c = getAcquisition().contains(event.mousePosition());
+    if (controlsEnabled && c) camera->zoom(-event.scrollDelta() * 0.1f);
+    return c;
 }
 
 void EditMap::undo() {
@@ -323,6 +327,8 @@ void EditMap::addAction(const Action::Ptr& a) {
     historyHead = history.size();
     actionCb();
 }
+
+void EditMap::setName(const std::string& n) { addAction(SetNameAction::create(n, *this)); }
 
 void EditMap::setPlaylist(const std::string& playlist) {
     addAction(SetPlaylistAction::create(playlist, *this));
@@ -423,6 +429,43 @@ void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
                 addAction(RemoveSpawnAction::create(pair.first, pair.second));
             }
         }
+    }
+}
+
+void EditMap::addNpcSpawn(const core::map::CharacterSpawn& s) {
+    addAction(AddNpcSpawnAction::create(s, characterField.getValue().size()));
+}
+
+const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
+                                                      const sf::Vector2i& pos) const {
+    for (const auto& spawn : characterField.getValue()) {
+        if (spawn.position.getValue().level == level) {
+            if (spawn.position.getValue().positionTiles() == pos) { return &spawn; }
+        }
+    }
+    return nullptr;
+}
+
+void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
+                           const core::map::CharacterSpawn& val) {
+    const bl::entity::Entity e = systems->position().getEntity(orig->position);
+    if (e != bl::entity::InvalidEntity) { addAction(EditNpcSpawnAction::create(orig, val, e)); }
+    else {
+        const auto& pos = orig->position.getValue().positionTiles();
+        BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
+    }
+}
+
+void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
+    unsigned int i = 0;
+    for (; i < characterField.getValue().size(); ++i) {
+        if (&characterField.getValue()[i] == s) { break; }
+    }
+    const bl::entity::Entity e = systems->position().getEntity(s->position);
+    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i, e)); }
+    else {
+        const auto& pos = s->position.getValue().positionTiles();
+        BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
     }
 }
 

@@ -13,7 +13,9 @@ Levels::Levels(const RenderFilterCb& filterCb, const ShiftCb& os, const AddCb& a
     content        = Box::create(LinePacker::create(LinePacker::Vertical, 12));
 
     Button::Ptr addBut = Button::create("Add Level");
-    addBut->getSignal(Action::LeftClicked).willAlwaysCall([this, addCb](const Action&, Element*) {
+    addBut->setTooltip(
+        "Add a new level. A level is a set of layers and can be thought of as in-game elevation");
+    addBut->getSignal(Event::LeftClicked).willAlwaysCall([this, addCb](const Event&, Element*) {
         addCb();
     });
     content->pack(addBut);
@@ -49,22 +51,22 @@ Levels::Item::Item(unsigned int i, unsigned int mi, bool v, const RenderFilterCb
 
     visibleToggle = CheckButton::create("Visible");
     visibleToggle->setValue(v);
-    visibleToggle->getSignal(Action::ValueChanged)
-        .willAlwaysCall([this, i, &filterCb](const Action&, Element*) {
+    visibleToggle->getSignal(Event::ValueChanged)
+        .willAlwaysCall([this, i, &filterCb](const Event&, Element*) {
             filterCb(i, visibleToggle->getValue());
         });
     row->pack(visibleToggle, false, true);
 
     upBut = Button::create("Up");
     upBut->setActive(i > 0);
-    upBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall([this, i, &shiftCb](const Action&, Element*) { shiftCb(i, true); });
+    upBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall([this, i, &shiftCb](const Event&, Element*) { shiftCb(i, true); });
     row->pack(upBut, false, true);
 
     downBut = Button::create("Down");
     downBut->setActive(i < mi);
-    downBut->getSignal(Action::LeftClicked)
-        .willAlwaysCall([this, i, &shiftCb](const Action&, Element*) { shiftCb(i, false); });
+    downBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall([this, i, &shiftCb](const Event&, Element*) { shiftCb(i, false); });
     row->pack(downBut, false, true);
 
     delBut = Button::create("Delete");

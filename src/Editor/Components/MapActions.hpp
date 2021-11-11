@@ -156,6 +156,22 @@ private:
     SetPlaylistAction(const std::string& orig, const std::string& playlist);
 };
 
+class EditMap::SetNameAction : public EditMap::Action {
+public:
+    static EditMap::Action::Ptr create(const std::string& name, const EditMap& editMap);
+
+    virtual ~SetNameAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::string orig;
+    const std::string name;
+
+    SetNameAction(const std::string& orig, const std::string& name);
+};
+
 class EditMap::SetWeatherAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(core::map::Weather::Type type, const EditMap& map);
@@ -370,6 +386,62 @@ private:
     const core::map::Spawn spawn;
 
     RemoveSpawnAction(unsigned int id, const core::map::Spawn& spawn);
+};
+
+class EditMap::AddNpcSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::CharacterSpawn& s, unsigned int i);
+
+    virtual ~AddNpcSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::CharacterSpawn spawn;
+    const unsigned int i;
+    bl::entity::Entity spawned;
+
+    AddNpcSpawnAction(const core::map::CharacterSpawn& s, unsigned int i);
+};
+
+class EditMap::EditNpcSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::CharacterSpawn* spawn,
+                              const core::map::CharacterSpawn& s, bl::entity::Entity id);
+
+    virtual ~EditNpcSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    core::map::CharacterSpawn* spawn;
+    const core::map::CharacterSpawn orig;
+    const core::map::CharacterSpawn value;
+    bl::entity::Entity latestId;
+
+    EditNpcSpawnAction(const core::map::CharacterSpawn* spawn, const core::map::CharacterSpawn& s,
+                       bl::entity::Entity id);
+};
+
+class EditMap::RemoveNpcSpawnAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const core::map::CharacterSpawn& orig, unsigned int i,
+                              bl::entity::Entity spawned);
+
+    virtual ~RemoveNpcSpawnAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::CharacterSpawn orig;
+    const unsigned int i;
+    bl::entity::Entity spawned;
+
+    RemoveNpcSpawnAction(const core::map::CharacterSpawn& orig, unsigned int i,
+                         bl::entity::Entity spawned);
 };
 
 } // namespace component

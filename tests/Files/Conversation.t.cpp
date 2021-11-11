@@ -23,76 +23,9 @@ TEST(Conversation, BasicAppend) {
     EXPECT_EQ(conversation.nodes().at(0).message(), "one");
     EXPECT_EQ(conversation.nodes().at(0).next(), 1);
     EXPECT_EQ(conversation.nodes().at(1).message(), "two");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
+    EXPECT_EQ(conversation.nodes().at(1).next(), 1);
     EXPECT_EQ(conversation.nodes().at(2).message(), "three");
     EXPECT_EQ(conversation.nodes().at(2).next(), 1);
-}
-
-TEST(Conversation, BasicInsert) {
-    Conversation conversation;
-    Conversation::Node node;
-
-    node.setType(Conversation::Node::Talk);
-    node.next() = 1;
-
-    node.message() = "one";
-    conversation.appendNode(node);
-    node.message() = "two";
-    conversation.appendNode(node);
-    node.message() = "three";
-    node.next()    = 3;
-    conversation.appendNode(node);
-
-    node.message() = "inserted";
-    node.next()    = 2;
-    conversation.insertNode(1, node);
-
-    ASSERT_EQ(conversation.nodes().size(), 4);
-    EXPECT_EQ(conversation.nodes().at(0).message(), "one");
-    EXPECT_EQ(conversation.nodes().at(0).next(), 1);
-
-    EXPECT_EQ(conversation.nodes().at(1).message(), "inserted");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
-
-    EXPECT_EQ(conversation.nodes().at(2).message(), "two");
-    EXPECT_EQ(conversation.nodes().at(2).next(), 3);
-    EXPECT_EQ(conversation.nodes().at(3).message(), "three");
-    EXPECT_EQ(conversation.nodes().at(3).next(), 4);
-}
-
-TEST(Conversation, InsertWithJump) {
-    Conversation conversation;
-    Conversation::Node node;
-
-    node.setType(Conversation::Node::Talk);
-
-    node.message() = "one";
-    conversation.appendNode(node);
-    node.message() = "two";
-    conversation.appendNode(node);
-    node.message() = "three";
-    node.next()    = 3;
-    conversation.appendNode(node);
-
-    node.message() = "one";
-    node.next()    = 2;
-    conversation.setNode(0, node);
-
-    node.message() = "inserted";
-    node.next()    = 2;
-    conversation.insertNode(1, node);
-
-    ASSERT_EQ(conversation.nodes().size(), 4);
-    EXPECT_EQ(conversation.nodes().at(0).message(), "one");
-    EXPECT_EQ(conversation.nodes().at(0).next(), 3);
-
-    EXPECT_EQ(conversation.nodes().at(1).message(), "inserted");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
-
-    EXPECT_EQ(conversation.nodes().at(2).message(), "two");
-    EXPECT_EQ(conversation.nodes().at(2).next(), 3);
-    EXPECT_EQ(conversation.nodes().at(3).message(), "three");
-    EXPECT_EQ(conversation.nodes().at(3).next(), 4);
 }
 
 TEST(Conversation, BasicDelete) {
@@ -103,8 +36,10 @@ TEST(Conversation, BasicDelete) {
     node.next() = 1;
 
     node.message() = "one";
+    node.next()    = 1;
     conversation.appendNode(node);
     node.message() = "two";
+    node.next()    = 2;
     conversation.appendNode(node);
     node.message() = "three";
     node.next()    = 3;
@@ -132,10 +67,13 @@ TEST(Conversation, DeleteConnectJump) {
     node.next() = 1;
 
     node.message() = "one";
+    node.next()    = 1;
     conversation.appendNode(node);
     node.message() = "two";
+    node.next()    = 2;
     conversation.appendNode(node);
     node.message() = "three";
+    node.next()    = 3;
     conversation.appendNode(node);
     node.message() = "four";
     node.next()    = 4;
@@ -164,12 +102,15 @@ TEST(Conversation, DeleteInvalidateJump) {
     node.next() = 1;
 
     node.message() = "one";
+    node.next()    = 1;
     conversation.appendNode(node);
     node.message() = "two";
+    node.next()    = 2;
     conversation.appendNode(node);
 
     node.setType(Conversation::Node::TakeItem);
     node.message() = "three";
+    node.next()    = 3;
     conversation.appendNode(node);
 
     node.setType(Conversation::Node::Talk);

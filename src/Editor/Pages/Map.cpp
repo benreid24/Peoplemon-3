@@ -51,31 +51,34 @@ Map::Map(core::system::Systems& s)
 , playlistPicker(core::Properties::PlaylistPath(), {"plst"},
                  std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
                  [this]() { playlistPicker.close(); })
-, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1))
+, scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
-, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2)) {
-    content              = Box::create(LinePacker::create(LinePacker::Horizontal, 4), "maps");
-    Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4), "maps");
+, eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
+, characterEditor(
+      std::bind(&Map::onCharacterEdit, this, std::placeholders::_1, std::placeholders::_2)) {
+    content = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    content->setOutlineThickness(0.f);
+    Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4));
 
     Box::Ptr mapCtrlBox   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr newMapBut = Button::create("New Map");
-    newMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
-        mapArea.disableControls();
+    newMapBut->getSignal(Event::LeftClicked).willCall([this](const Event&, Element*) {
         if (checkUnsaved()) {
             makingNewMap = true;
+            mapArea.disableControls();
             mapPicker.open(FilePicker::CreateNew, "New map", parent);
         }
     });
     Button::Ptr loadMapBut = Button::create("Load Map");
-    loadMapBut->getSignal(Action::LeftClicked).willCall([this](const Action&, Element*) {
-        mapArea.disableControls();
+    loadMapBut->getSignal(Event::LeftClicked).willCall([this](const Event&, Element*) {
         if (checkUnsaved()) {
             makingNewMap = false;
+            mapArea.disableControls();
             mapPicker.open(FilePicker::PickExisting, "Load map", parent);
         }
     });
     saveMapBut = Button::create("Save Map");
-    saveMapBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    saveMapBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (!mapArea.editMap().editorSave()) {
             bl::dialog::tinyfd_messageBox(
                 "Error Saving Map",
@@ -95,38 +98,39 @@ Map::Map(core::system::Systems& s)
     Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
-    levelSelect = ComboBox::create("maps");
-    levelSelect->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element* e) {
+    levelSelect = ComboBox::create();
+    levelSelect->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element* e) {
         onLevelChange(dynamic_cast<ComboBox*>(e)->getSelectedOption());
     });
     box->pack(levelSelect, true, true);
 
-    layerSelect = ComboBox::create("maps");
+    layerSelect = ComboBox::create();
     box->pack(layerSelect, true, true);
     tileBox->pack(box, true, false);
 
     box                         = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    RadioButton::Ptr tileSetBut = RadioButton::create("Set", nullptr, "set");
+    RadioButton::Ptr tileSetBut = RadioButton::create("Set", "set");
     tileSetBut->setValue(true);
-    tileSetBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    tileSetBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Set;
     });
     RadioButton::Ptr tileClearBut =
-        RadioButton::create("Clear", tileSetBut->getRadioGroup(), "clear");
-    tileClearBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        RadioButton::create("Clear", "clear", tileSetBut->getRadioGroup());
+    tileClearBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Clear;
     });
     RadioButton::Ptr tileSelectBut =
-        RadioButton::create("Select", tileSetBut->getRadioGroup(), "select");
-    tileSelectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+        RadioButton::create("Select", "select", tileSetBut->getRadioGroup());
+    tileSelectBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Select;
     });
     Button::Ptr tileDeselectBut = Button::create("Deselect");
-    tileDeselectBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    tileDeselectBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         selectionState = NoSelection;
     });
     Button::Ptr selectAllBut = Button::create("All");
-    selectAllBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    selectAllBut->setTooltip("Select all tiles");
+    selectAllBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         selectionState = SelectionMade;
         selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
     });
@@ -142,18 +146,22 @@ Map::Map(core::system::Systems& s)
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
+    nameEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        mapArea.editMap().setName(nameEntry->getInput());
+    });
     box->pack(Label::create("Name:"), false, true);
     box->pack(nameEntry, true, true);
     row->pack(box, true, false);
 
     Button::Ptr resizeBut = Button::create("Resize Map");
+    // TODO - implement map resizing
     row->pack(resizeBut);
     infoBox->pack(row, true, false);
 
     row                         = Box::create(LinePacker::create(LinePacker::Horizontal));
     playlistLabel               = Label::create("playerlistFile.bplst");
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
-    pickPlaylistBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    pickPlaylistBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
         playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
     });
@@ -165,6 +173,7 @@ Map::Map(core::system::Systems& s)
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     row->pack(Label::create("Weather:"));
     weatherEntry = ComboBox::create();
+    weatherEntry->setTooltip("Set the weather for the entire map");
     weatherEntry->addOption("None");
     weatherEntry->addOption("AllRandom");
     weatherEntry->addOption("LightRain");
@@ -184,7 +193,7 @@ Map::Map(core::system::Systems& s)
     weatherEntry->addOption("DesertRandom");
     weatherEntry->setSelectedOption(0);
     weatherEntry->setMaxHeight(300);
-    weatherEntry->getSignal(Action::ValueChanged).willAlwaysCall([this](const Action&, Element*) {
+    weatherEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         const core::map::Weather::Type type =
             static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
         if (mapArea.editMap().weatherSystem().getType() != type) {
@@ -194,7 +203,7 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
-    Notebook::Ptr editBook = Notebook::create("maps");
+    Notebook::Ptr editBook = Notebook::create();
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
         "layers",
@@ -211,7 +220,8 @@ Map::Map(core::system::Systems& s)
 
     Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    spawnCreate       = RadioButton::create("Spawn");
+    spawnCreate       = RadioButton::create("Spawn", "spawn");
+    spawnCreate->setTooltip("Create player spawns for when entering the map");
     spawnCreate->setValue(true);
     spawnDirEntry = ComboBox::create();
     spawnDirEntry->addOption("Up");
@@ -219,10 +229,10 @@ Map::Map(core::system::Systems& s)
     spawnDirEntry->addOption("Down");
     spawnDirEntry->addOption("Left");
     spawnDirEntry->setSelectedOption(0);
-    spawnRotate      = RadioButton::create("Rotate", spawnCreate->getRadioGroup());
+    spawnRotate      = RadioButton::create("Rotate", "rotate", spawnCreate->getRadioGroup());
     Label::Ptr label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    spawnDelete = RadioButton::create(label, spawnCreate->getRadioGroup());
+    spawnDelete = RadioButton::create(label, "delete", spawnCreate->getRadioGroup());
     box->pack(spawnCreate);
     box->pack(spawnDirEntry);
     spawnBox->pack(box);
@@ -231,39 +241,33 @@ Map::Map(core::system::Systems& s)
     box->pack(spawnDelete);
     spawnBox->pack(box);
 
-    Box::Ptr npcBox           = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
-    RadioButton::Ptr npcSpawn = RadioButton::create("Spawn");
-    RadioButton::Ptr npcEdit  = RadioButton::create("Edit", npcSpawn->getRadioGroup());
-    label                     = Label::create("Delete");
+    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
+    npcSpawn        = RadioButton::create("Spawn", "spawn");
+    npcEdit         = RadioButton::create("Edit", "edit", npcSpawn->getRadioGroup());
+    label           = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr npcDelete = RadioButton::create(label, npcSpawn->getRadioGroup());
+    npcDelete = RadioButton::create(label, "delete", npcSpawn->getRadioGroup());
     npcSpawn->setValue(true);
     npcBox->pack(npcSpawn);
     npcBox->pack(npcEdit);
     npcBox->pack(npcDelete);
 
-    Box::Ptr itemBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    itemSpawnEntry   = ComboBox::create();
-    itemIdLookup.reserve(core::item::Item::validIds().size());
-    for (const core::item::Id item : core::item::Item::validIds()) {
-        itemSpawnEntry->addOption(core::item::Item::getName(item));
-        itemIdLookup.push_back(item);
-    }
-    itemSpawnEntry->setSelectedOption(0);
-    RadioButton::Ptr itemSpawn = RadioButton::create("Spawn");
+    Box::Ptr itemBox           = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box                        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    itemSelector               = component::ItemSelector::create();
+    RadioButton::Ptr itemSpawn = RadioButton::create("Spawn", "spawn");
     itemSpawn->setValue(true);
     label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr itemDelete = RadioButton::create(label, itemSpawn->getRadioGroup());
+    RadioButton::Ptr itemDelete = RadioButton::create(label, "delete", itemSpawn->getRadioGroup());
     box->pack(itemSpawn);
-    box->pack(itemSpawnEntry, true, false);
+    box->pack(itemSelector, true, false);
     itemBox->pack(box, true, false);
     itemBox->pack(itemDelete);
 
     Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-    RadioButton::Ptr lightCreate = RadioButton::create("Create/Modify");
+    RadioButton::Ptr lightCreate = RadioButton::create("Create/Modify", "create");
     lightCreate->setValue(true);
     lightRadiusEntry = TextEntry::create();
     lightRadiusEntry->setRequisition({80, 0});
@@ -274,65 +278,71 @@ Map::Map(core::system::Systems& s)
     lightBox->pack(box, true, false);
     label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr lightDelete = RadioButton::create(label, lightCreate->getRadioGroup());
+    RadioButton::Ptr lightDelete =
+        RadioButton::create(label, "delete", lightCreate->getRadioGroup());
     lightBox->pack(lightDelete);
 
-    Notebook::Ptr objectBook = Notebook::create("maps");
+    objectBook = Notebook::create();
     objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
     objectBook->addPage("ai", "NPC's", npcBox, [this]() { activeTool = Tool::NPCs; });
     objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
     objectBook->addPage("lights", "Lights", lightBox, [this]() { activeTool = Tool::Lights; });
 
-    Box::Ptr eventBox = Box::create(LinePacker::create(LinePacker::Horizontal, 0));
-    box               = Box::create(LinePacker::create(LinePacker::Vertical, 6));
-    row               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    Box::Ptr eventBox      = Box::create(LinePacker::create(LinePacker::Horizontal, 2));
+    ScrollArea::Ptr scroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 6));
+    scroll->setMaxSize({320.f, 3000.f});
+    scroll->setNeverShowVerticalScrollbar(true);
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Enter:"));
     onEnterLabel = Label::create("onEnter.bs");
     onEnterLabel->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
     row->pack(onEnterLabel, true, false);
-    box->pack(row, true, false);
+    scroll->pack(row, true, false);
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Exit:"));
     onExitLabel = Label::create("onExit.bs");
     onExitLabel->setColor(sf::Color(20, 20, 220), sf::Color::Transparent);
     row->pack(onExitLabel, true, false);
-    box->pack(row, true, false);
+    scroll->pack(row, true, false);
     row                    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr pickButton = Button::create("Set OnEnter");
-    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        mapArea.disableControls();
+    pickButton->setTooltip("Set the script that runs when the player enters the map");
+    pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         choosingOnloadScript = true;
+        mapArea.disableControls();
         scriptSelector.open(parent, mapArea.editMap().getOnEnterScript());
     });
     row->pack(pickButton);
     pickButton = Button::create("Set OnExit");
-    pickButton->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
-        mapArea.disableControls();
+    pickButton->setTooltip("Set the script that runs when the player exits the map");
+    pickButton->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         choosingOnloadScript = false;
+        mapArea.disableControls();
         scriptSelector.open(parent, mapArea.editMap().getOnExitScript());
     });
     row->pack(pickButton);
-    box->pack(row, true, false);
-    eventBox->pack(box, true, true);
+    scroll->pack(row, true, false);
+    eventBox->pack(scroll, true, true);
     box              = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    createEventRadio = RadioButton::create("Create Event");
+    createEventRadio = RadioButton::create("Create Event", "create");
     createEventRadio->setValue(true);
     label = Label::create("Delete Event");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
     box->pack(createEventRadio);
-    editEventRadio = RadioButton::create("Edit Event", createEventRadio->getRadioGroup());
+    editEventRadio = RadioButton::create("Edit Event", "edit", createEventRadio->getRadioGroup());
     box->pack(editEventRadio);
-    deleteEventRadio = RadioButton::create(label, createEventRadio->getRadioGroup());
+    deleteEventRadio = RadioButton::create(label, "delete", createEventRadio->getRadioGroup());
     box->pack(deleteEventRadio);
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
     Box::Ptr peoplemonBox       = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone");
-    RadioButton::Ptr editZone = RadioButton::create("Edit Catch Zone", createZone->getRadioGroup());
-    label                     = Label::create("Delete Catch Zone");
+    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone", "create");
+    RadioButton::Ptr editZone =
+        RadioButton::create("Edit Catch Zone", "edit", createZone->getRadioGroup());
+    label = Label::create("Delete Catch Zone");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr deleteZone = RadioButton::create(label, createZone->getRadioGroup());
+    RadioButton::Ptr deleteZone = RadioButton::create(label, "delete", createZone->getRadioGroup());
     peoplemonBox->pack(createZone);
     peoplemonBox->pack(editZone);
     peoplemonBox->pack(deleteZone);
@@ -348,13 +358,13 @@ Map::Map(core::system::Systems& s)
         activeSubtool = Subtool::None;
 
         if (editBook->getActivePageName() == "tiles") {
-            if (tilesetButGroup->getActiveButton()->group() == "set") {
+            if (tilesetButGroup->getActiveButton()->getName() == "set") {
                 activeSubtool = Subtool::Set;
             }
-            else if (tilesetButGroup->getActiveButton()->group() == "clear") {
+            else if (tilesetButGroup->getActiveButton()->getName() == "clear") {
                 activeSubtool = Subtool::Clear;
             }
-            else if (tilesetButGroup->getActiveButton()->group() == "select") {
+            else if (tilesetButGroup->getActiveButton()->getName() == "select") {
                 activeSubtool = Subtool::Select;
             }
         }
@@ -364,12 +374,26 @@ Map::Map(core::system::Systems& s)
             levelPage.pack();
     };
 
-    Notebook::Ptr controlBook = Notebook::create("maps");
-    controlBook->addPage("map", "Map", infoBox, [this]() { activeTool = Tool::Metadata; });
-    controlBook->addPage("edit", "Edit", editBook, editOpened, editClosed);
-    controlBook->addPage("obj", "Objects", objectBook);
+    const auto onObjectActive = [this]() {
+        if (objectBook->getActivePageName() == "spawns") { activeTool = Tool::Spawns; }
+        else if (objectBook->getActivePageName() == "items") {
+            activeTool = Tool::Items;
+        }
+        else if (objectBook->getActivePageName() == "ai") {
+            activeTool = Tool::NPCs;
+        }
+        else if (objectBook->getActivePageName() == "lights") {
+            activeTool = Tool::Lights;
+        }
+    };
+
+    Notebook::Ptr controlBook = Notebook::create();
+    controlBook->addPage("map", "Props", infoBox, [this]() { activeTool = Tool::Metadata; });
+    controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
+    controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
-    controlBook->addPage("ppl", "Peoplemon", peoplemonBox);
+    controlBook->addPage(
+        "ppl", "Peoplemon", peoplemonBox, [this]() { activeTool = Tool::Peoplemon; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
@@ -412,6 +436,7 @@ void Map::update(float) {
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Spawns,
                                                levelSelect->getSelectedOption());
             break;
+
         default:
             mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::None, 0);
             break;
@@ -596,7 +621,6 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
             eventEditor.open(parent, nullptr, tiles);
         }
         else if (editEventRadio->getValue()) {
-            mapArea.disableControls();
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
             if (e) { eventEditor.open(parent, e, tiles); }
         }
@@ -642,9 +666,38 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         }
         break;
 
+    case Tool::NPCs:
+        if (npcSpawn->getValue()) {
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (!s) {
+                mapArea.disableControls();
+                characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, nullptr);
+            }
+        }
+        else if (npcEdit->getValue()) {
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (s) {
+                mapArea.disableControls();
+                characterEditor.open(parent, levelSelect->getSelectedOption(), tiles, s);
+            }
+        }
+        else if (npcDelete->getValue()) {
+            const core::map::CharacterSpawn* s =
+                mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
+            if (s) {
+                const std::string msg = "Delete spawn for character: " + s->file.getValue() + "?";
+                if (1 == bl::dialog::tinyfd_messageBox(
+                             "Delete Character?", msg.c_str(), "yesno", "warning", 0)) {
+                    mapArea.editMap().removeNpcSpawn(s);
+                }
+            }
+        }
+        break;
+
     case Tool::Items:
     case Tool::Lights:
-    case Tool::NPCs:
     case Tool::Peoplemon:
     case Tool::Metadata:
     default:
@@ -728,6 +781,14 @@ void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val)
         mapArea.editMap().createEvent(val);
     }
     mapArea.enableControls();
+}
+
+void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
+                          const core::map::CharacterSpawn& spawn) {
+    if (orig) { mapArea.editMap().editNpcSpawn(orig, spawn); }
+    else {
+        mapArea.editMap().addNpcSpawn(spawn);
+    }
 }
 
 } // namespace page

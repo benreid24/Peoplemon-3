@@ -25,8 +25,12 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
       [this](const std::string& tileset) {
           tilesetLabel->setText(tileset);
           tilesetPicker.close();
+          window->setForceFocus(true);
       },
-      [this]() { tilesetPicker.close(); }) {
+      [this]() {
+          tilesetPicker.close();
+          window->setForceFocus(true);
+      }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "New map");
 
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
@@ -63,7 +67,7 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
     window->pack(row, true, false);
 
     Button::Ptr createBut = Button::create("Create Map");
-    createBut->getSignal(Action::LeftClicked).willAlwaysCall([this](const Action&, Element*) {
+    createBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (nameEntry->getInput().empty()) {
             bl::dialog::tinyfd_messageBox("Error", "Please enter a map name", "ok", "error", 1);
             return;
@@ -100,7 +104,7 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
     });
     window->pack(createBut);
 
-    window->getSignal(Action::Closed).willAlwaysCall([this](const Action&, Element*) {
+    window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) {
         window->remove();
     });
 }
@@ -114,13 +118,15 @@ void NewMapDialog::show(GUI::Ptr parent, const std::string& file) {
 
     if (!pickInit) {
         pickInit = true;
-        pickBut->getSignal(Action::LeftClicked)
-            .willAlwaysCall([this, parent](const Action&, Element*) {
+        pickBut->getSignal(Event::LeftClicked)
+            .willAlwaysCall([this, parent](const Event&, Element*) {
+                window->setForceFocus(false);
                 tilesetPicker.open(FilePicker::CreateOrPick, "Pick tileset", parent, true);
             });
     }
 
     parent->pack(window);
+    window->setForceFocus(true);
 }
 
 } // namespace component

@@ -38,24 +38,22 @@ public:
     bl::gui::Element::Ptr getContent();
 
     /**
-     * @brief Disables the map controls when a dialog is opened or the map tab is inactive
-     *
-     */
-    void disableControls();
-
-    /**
      * @brief Enables the map controls
      *
      */
     void enableControls();
 
+    /**
+     * @brief Disables the map controls when a dialog is opened or the map tab is inactive
+     *
+     */
+    void disableControls();
+
 private:
     bl::gui::Box::Ptr content;
     bl::gui::Label::Ptr positionLabel;
     bl::gui::Button::Ptr undoBut;
-    bl::gui::Label::Ptr undoText;
     bl::gui::Button::Ptr redoBut;
-    bl::gui::Label::Ptr redoText;
     bl::gui::CheckButton::Ptr enableBut;
     component::EditMap::Ptr map;
 

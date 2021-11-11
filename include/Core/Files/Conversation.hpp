@@ -73,6 +73,14 @@ public:
         };
 
         /**
+         * @brief Converts a node type to a human readable string
+         *
+         * @param type The type to convert
+         * @return std::string A string for that type
+         */
+        static std::string typeToString(Type type);
+
+        /**
          * @brief Creates an empty talk node
          *
          */
@@ -284,14 +292,6 @@ public:
     void deleteNode(unsigned int i);
 
     /**
-     * @brief Inserts a new node at the given index. Jumps to other indexes are updated
-     *
-     * @param i The index to insert at
-     * @param node The node to insert
-     */
-    void insertNode(unsigned int i, const Node& node);
-
-    /**
      * @brief Appends the given node to the list of nodes
      *
      * @param node The node to append
@@ -313,6 +313,14 @@ public:
      * @return Conversation The conversation that reports the error
      */
     static Conversation makeLoadError(const std::string& filename);
+
+    /**
+     * @brief Populates the jumps vector with the indices reachable from the given node
+     *
+     * @param node The node to get the jumps for
+     * @param jumps The result vector to populate
+     */
+    static void getNextJumps(const Node& node, std::vector<unsigned int>& jumps);
 
 private:
     bl::file::binary::SerializableField<1, std::vector<Node>> cnodes;

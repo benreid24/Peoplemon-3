@@ -67,11 +67,12 @@ constexpr int ThickFogLightModifier  = 50;
 constexpr int SunnyLightModifier     = 20;
 constexpr int SandstormLightModifier = 30;
 
-const std::string NpcFileExtension     = "npc";
-const std::string NpcPath              = "Resources/Characters/NPCs";
-const std::string TrainerFileExtension = "tnr";
-const std::string TrainerPath          = "Resources/Characters/Trainers";
-const std::string ConversationPath     = "Resources/Characters/Conversations";
+const std::string NpcFileExtension          = "npc";
+const std::string NpcPath                   = "Resources/Characters/NPCs";
+const std::string TrainerFileExtension      = "tnr";
+const std::string TrainerPath               = "Resources/Characters/Trainers";
+const std::string ConversationPath          = "Resources/Characters/Conversations";
+const std::string ConversationFileExtension = "conv";
 
 const std::string CharacterAnimationPath = "Resources/Characters/Animations";
 constexpr float CharacterMoveSpeed       = 81.f;
@@ -170,6 +171,8 @@ bool Properties::load() {
     bl::engine::Configuration::set("core.trainer.extension", defaults::TrainerFileExtension);
     bl::engine::Configuration::set("core.trainer.path", defaults::TrainerPath);
     bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
+    bl::engine::Configuration::set("core.conversation.extension",
+                                   defaults::ConversationFileExtension);
 
     bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
     bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
@@ -473,7 +476,13 @@ const std::string& Properties::TrainerPath() {
 
 const std::string& Properties::ConversationPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.conversation.path", defaults::NpcFileExtension);
+        "core.conversation.path", defaults::ConversationPath);
+    return val;
+}
+
+const std::string& Properties::ConversationFileExtension() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.conversation.extension", defaults::ConversationFileExtension);
     return val;
 }
 

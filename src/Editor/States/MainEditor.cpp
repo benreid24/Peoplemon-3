@@ -21,9 +21,10 @@ MainEditor::MainEditor(core::system::Systems& s)
 , currentPage(&mapPage) {
     gui = bl::gui::GUI::create(
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
-        {0, 0, core::Properties::WindowWidth() + 300, core::Properties::WindowHeight() + 150},
-        "editor",
-        "gui");
+        {0.f,
+         0.f,
+         static_cast<float>(core::Properties::WindowWidth()) + 350.f,
+         static_cast<float>(core::Properties::WindowHeight()) + 200.f});
     renderer = bl::gui::DefaultRenderer::create();
     gui->setRenderer(renderer);
 
@@ -36,7 +37,8 @@ MainEditor::MainEditor(core::system::Systems& s)
     creditsPage.registerGui(gui);
     todoPage.registerGui(gui);
 
-    notebook = bl::gui::Notebook::create("editor", "main_nav");
+    notebook = bl::gui::Notebook::create();
+    notebook->setOutlineThickness(0.f);
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
     notebook->addPage(
@@ -91,8 +93,10 @@ void MainEditor::observe(const sf::Event& event) {
                                                     0.f,
                                                     static_cast<float>(event.size.width),
                                                     static_cast<float>(event.size.height)}));
-        gui->setRegion(
-            {0, 0, static_cast<int>(event.size.width), static_cast<int>(event.size.height)});
+        gui->setRegion({0.f,
+                        0.f,
+                        static_cast<float>(event.size.width),
+                        static_cast<float>(event.size.height)});
     }
 }
 

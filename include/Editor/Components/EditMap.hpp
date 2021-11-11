@@ -184,6 +184,11 @@ public:
 
     void resize(unsigned int width, unsigned int height, bool modLeft, bool modTop);
 
+    /**
+     * @brief Set the name of the map
+     * 
+     * @param name The new name of the map
+     */
     void setName(const std::string& name);
 
     /**
@@ -383,14 +388,38 @@ public:
      */
     void removeSpawn(unsigned int level, const sf::Vector2i& position);
 
+    /**
+     * @brief Adds a character spawn to the map
+     *
+     * @param spawn The spawn to add
+     */
     void addNpcSpawn(const core::map::CharacterSpawn& spawn);
 
-    const core::map::CharacterSpawn* getNpcSpawn(const sf::Vector2i& position);
+    /**
+     * @brief Get the Npc Spawn at the given position, if any
+     *
+     * @param The level the spawn is on
+     * @param position The position to get the spawn at
+     * @return const core::map::CharacterSpawn* The spawn or nullptr if none
+     */
+    const core::map::CharacterSpawn* getNpcSpawn(unsigned int level,
+                                                 const sf::Vector2i& position) const;
 
-    void editNpcSpawn(const core::map::CharacterSpawn& orig,
+    /**
+     * @brief Edits an existing character spawn
+     *
+     * @param orig The address of the existing spawn
+     * @param spawn The new spawn value
+     */
+    void editNpcSpawn(const core::map::CharacterSpawn* orig,
                       const core::map::CharacterSpawn& spawn);
 
-    void removeNpcSpawn(const sf::Vector2i& position);
+    /**
+     * @brief Removes a character spawn
+     *
+     * @param spawn The address of the spawn to remove
+     */
+    void removeNpcSpawn(const core::map::CharacterSpawn* spawn);
 
     void addItem(unsigned int level, const sf::Vector2i& position, core::item::Id item,
                  bool visible);
@@ -487,10 +516,10 @@ private:
     bool doLoad(const std::string& file);
     bool editorActivate();
 
-    virtual sf::Vector2i minimumRequisition() const override;
+    virtual sf::Vector2f minimumRequisition() const override;
     virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
                           const bl::gui::Renderer& renderer) const override;
-    virtual bool handleScroll(const bl::gui::RawEvent& scroll) override;
+    virtual bool handleScroll(const bl::gui::Event& scroll) override;
     virtual void update(float dt) override;
     virtual void render(sf::RenderTarget& target, float residual,
                         const core::map::Map::EntityRenderCallback& entityCb) const override;

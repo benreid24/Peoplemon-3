@@ -1,7 +1,9 @@
 #ifndef EDITOR_PAGES_MAP_HPP
 #define EDITOR_PAGES_MAP_HPP
 
+#include <Editor/Components/CharacterSpawnWindow.hpp>
 #include <Editor/Components/EventEditor.hpp>
+#include <Editor/Components/ItemSelector.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -51,10 +53,10 @@ private:
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr saveMapBut;
 
+    bl::gui::Notebook::Ptr objectBook;
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
-    bl::gui::ComboBox::Ptr itemSpawnEntry;
-    std::vector<core::item::Id> itemIdLookup;
+    component::ItemSelector::Ptr itemSelector;
 
     bl::gui::RadioButton::Ptr createEventRadio;
     bl::gui::RadioButton::Ptr editEventRadio;
@@ -63,6 +65,10 @@ private:
     bl::gui::RadioButton::Ptr spawnCreate;
     bl::gui::RadioButton::Ptr spawnRotate;
     bl::gui::RadioButton::Ptr spawnDelete;
+
+    bl::gui::RadioButton::Ptr npcSpawn;
+    bl::gui::RadioButton::Ptr npcEdit;
+    bl::gui::RadioButton::Ptr npcDelete;
 
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
@@ -107,6 +113,10 @@ private:
 
     void onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
     void onLevelChange(unsigned int level);
+
+    component::CharacterSpawnWindow characterEditor;
+    void onCharacterEdit(const core::map::CharacterSpawn* orig,
+                         const core::map::CharacterSpawn& spawn);
 
     bool checkUnsaved();
     void syncGui();

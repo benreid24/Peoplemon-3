@@ -22,7 +22,7 @@ int main() {
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
             .withVideoMode(sf::VideoMode(
-                core::Properties::WindowWidth() + 300, core::Properties::WindowHeight() + 120, 32))
+                core::Properties::WindowWidth() + 350, core::Properties::WindowHeight() + 200, 32))
             .withWindowStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
             .withWindowTitle("Peoplemon Editor")
             .withWindowIcon("EditorResources/icon.png")
