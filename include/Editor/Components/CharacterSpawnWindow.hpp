@@ -12,7 +12,7 @@ namespace component
 /**
  * @brief Editing window for character spawns. Manages NPCs and trainers
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class CharacterSpawnWindow {

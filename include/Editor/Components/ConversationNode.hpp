@@ -13,7 +13,7 @@ namespace component
 /**
  * @brief Helper component for editing individual conversation nodes
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class ConversationNode {

@@ -18,7 +18,7 @@ namespace component
 /**
  * @brief Wrapper over the core::Map class that is directly usable in a bl::gui::GUI
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class EditMap
@@ -186,7 +186,7 @@ public:
 
     /**
      * @brief Set the name of the map
-     * 
+     *
      * @param name The new name of the map
      */
     void setName(const std::string& name);

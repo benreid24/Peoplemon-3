@@ -14,7 +14,7 @@ namespace component
 /**
  * @brief Editor for NPC files
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class NpcEditorWindow {

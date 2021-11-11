@@ -12,7 +12,7 @@ namespace component
 /**
  * @brief Map event editor dialog
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class EventEditor {

@@ -11,7 +11,7 @@ namespace component
 /**
  * @brief Wrapper over ComboBox that allows selection of any item in the item database
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class ItemSelector : public bl::gui::ComboBox {

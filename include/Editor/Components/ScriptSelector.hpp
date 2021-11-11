@@ -11,7 +11,7 @@ namespace component
 /**
  * @brief GUI component for selecting or writing scripts. Performs syntax validation as well
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class ScriptSelector {

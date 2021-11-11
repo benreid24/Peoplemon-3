@@ -11,7 +11,7 @@ namespace component
  * @brief Helper GUI component that functions as a RadioButton but also renders a conspicuous
  *        highlight when it is active
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class HighlightRadioButton : public bl::gui::RadioButton {
