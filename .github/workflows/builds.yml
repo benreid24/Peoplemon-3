@@ -1,6 +1,8 @@
 on:
   repository_dispatch:
     types: [builds]
+  pull_request:
+    branches: [master]
 
 name: Build Binaries
 
@@ -65,6 +67,9 @@ jobs:
         with:
           submodules: 'recursive'
 
+      - name: Install Dependencies
+        run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+
       - name: Configure Build
         run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
@@ -106,7 +111,7 @@ jobs:
 
   macos_build:
     name: MacOS Build
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     
     steps:
       - name: Checkout Code
