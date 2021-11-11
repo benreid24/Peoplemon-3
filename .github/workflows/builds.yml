@@ -130,8 +130,8 @@ jobs:
           mkdir Peoplemon.app/Contents/Resources
           mkdir Peoplemon.app/Contents/MacOS
 
-          cp data/Info.plist Peoplemon.app/Contents
-          cp data/peoplemon.icns Peoplemon.app/Contents/Resources
+          cp macos/Info.plist Peoplemon.app/Contents
+          cp macos/peoplemon.icns Peoplemon.app/Contents/Resources
 
           mv Resources Peoplemon.app/Contents/MacOS
           mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
