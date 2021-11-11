@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: game::state Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,28 +63,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00573.html">core</a></li><li class="navelem"><a class="el" href="a00576.html">component</a></li><li class="navelem"><a class="el" href="a00655.html">Movable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00651.html">game</a></li><li class="navelem"><a class="el" href="a00652.html">state</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Movable Member List</div>  </div>
+<div class="title">game::state Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00655.html">core::component::Movable</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00655.html#a0cc81d7ec9f7723aafed518bd32d08b6">ComponentId</a></td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00655.html#a1e22f0d34312a87dcfbfc3d758ac401e">goingFast</a>() const</td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00655.html#a6c7157a7c55d7362357fc6e12962c9e5">Movable</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, float speed, float fastSpeed)</td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00655.html#a09c3a77cd3443d7058d1f695c6a9b205">move</a>(Direction dir, bool fast)</td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00655.html#a8a843bd9a56205f07badfa288c8e030a">moving</a>() const</td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00655.html#a8b3cf3f9cb99c2d3e1ca4747974aeed5">update</a>(float dt)</td><td class="entry"><a class="el" href="a00655.html">core::component::Movable</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Parent namespace for all engine states implemented by the game.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01217.html">MainGame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The big honcho. This is the primary state that runs a majority of the time.  <a href="a01217.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01221.html">MainMenu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provides the main menu as an engine state.  <a href="a01221.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01225.html">MapExplorer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debug only state that allows free roaming the map with a special camera.  <a href="a01225.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01229.html">NewGame</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This state does the game intro, gets the player's name and gender, and triggers the main game state in the player's bedroom.  <a href="a01229.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01233.html">PauseMenu</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01237.html">State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent to all game states. Provides some commonly required data like core game systems.  <a href="a01237.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Parent namespace for all engine states implemented by the game. </p>
+</div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jul 31 2021 04:01:16 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 11 2021 17:46:10 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
