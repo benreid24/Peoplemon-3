@@ -1,8 +1,6 @@
 on:
   repository_dispatch:
     types: [builds]
-  pull_request:
-    branches: [master]
 
 name: Build Binaries
 
