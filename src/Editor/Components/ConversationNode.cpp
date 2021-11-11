@@ -249,6 +249,11 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
         editArea->pack(failNext.content(), true, false);
         break;
 
+    case Conversation::Node::CheckInteracted:
+        editArea->pack(passNext.content(), true, false);
+        editArea->pack(failNext.content(), true, false);
+        break;
+
     default:
         BL_LOG_ERROR << "Unimplemented node type: " << node.getType();
         break;
