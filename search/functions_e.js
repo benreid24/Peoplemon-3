@@ -13,7 +13,7 @@ var searchData=
   ['removeanimation',['removeAnimation',['../a00925.html#ac37678ae95be1cd29e86f823bbc8fbab',1,'core::map::Tileset']]],
   ['removecatchzone',['removeCatchZone',['../a01105.html#a50b825fe0f8541b379be47cc25714362',1,'editor::component::EditMap']]],
   ['removeevent',['removeEvent',['../a01105.html#a62c73ab1f708d6a64779e73c717517a7',1,'editor::component::EditMap']]],
-  ['removeitem',['removeItem',['../a00933.html#a0889148b02fd6dc5b65b1ccb02a28052',1,'core::player::Bag::removeItem()'],['../a01105.html#ab1e645b27fe1b1e160ba5609a1aa4aa4',1,'editor::component::EditMap::removeItem()']]],
+  ['removeitem',['removeItem',['../a00933.html#a0889148b02fd6dc5b65b1ccb02a28052',1,'core::player::Bag::removeItem()'],['../a01105.html#ad3fa229d816c98563ba569c51b652d55',1,'editor::component::EditMap::removeItem()']]],
   ['removelayer',['removeLayer',['../a01105.html#a097918a525f00da772b553f4e6e12c12',1,'editor::component::EditMap']]],
   ['removelevel',['removeLevel',['../a01105.html#a8bbce988fc27e025a12da256fa81d96f',1,'editor::component::EditMap']]],
   ['removelight',['removeLight',['../a00905.html#a605b027cec958f495b91029d39aae436',1,'core::map::LightingSystem::removeLight()'],['../a01105.html#a5fb153893b98e4b199d570fdee6c32a2',1,'editor::component::EditMap::removeLight()']]],

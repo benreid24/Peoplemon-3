@@ -2,7 +2,6 @@ var searchData=
 [
   ['editcatchzone',['editCatchZone',['../a01105.html#a81f887d051177871be025e679a130598',1,'editor::component::EditMap']]],
   ['editevent',['editEvent',['../a01105.html#a885595009d2d56cd20e9c378a74b335c',1,'editor::component::EditMap']]],
-  ['edititem',['editItem',['../a01105.html#a86b04e6411f1cd6c217a34b5152b3272',1,'editor::component::EditMap']]],
   ['editmap',['editMap',['../a01197.html#a873a74f5b56cc405748ac0cc90061ef6',1,'editor::page::MapArea']]],
   ['editnpcspawn',['editNpcSpawn',['../a01105.html#a5febb40e6c69338e4e4025125f55c90b',1,'editor::component::EditMap']]],
   ['editorload',['editorLoad',['../a01105.html#a13955c52d125c7bf9ecbc8b14fb4bdd4',1,'editor::component::EditMap']]],

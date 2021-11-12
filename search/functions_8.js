@@ -1,6 +1,7 @@
 var searchData=
 [
   ['id',['id',['../a00713.html#a40ab58e7151fe67940b97fb4352ff2ac',1,'core::component::Item::id()'],['../a00917.html#a2bdd2b0e56ce8d3db236b58963733220',1,'core::map::Tile::id()']]],
+  ['ineditor',['InEditor',['../a00965.html#a20291a49eb345b805e612b6d7b30353d',1,'core::Properties']]],
   ['infrequentthundermaxinterval',['InfrequentThunderMaxInterval',['../a00965.html#a371a060d4d6d72b7a28b5638aad6b7e4',1,'core::Properties']]],
   ['infrequentthundermininterval',['InfrequentThunderMinInterval',['../a00965.html#a9c12ded8ed2d14caf9d7db37eee547bb',1,'core::Properties']]],
   ['init',['init',['../a00897.html#a020db7d524731baf7ec546c647667b34',1,'core::map::LayerSet::init()'],['../a00993.html#a19e770a6184e5d668bc2a4c6bd452a7b',1,'core::system::AI::init()'],['../a01017.html#a229eaf87bd9d21d65b672560277d1ce3',1,'core::system::Controllable::init()'],['../a01041.html#a459cd2885e63d5b4cf2affe7001dbee1',1,'core::system::Movement::init()'],['../a01045.html#a4483ab03c14c211d3a82733a0b3b8bbb',1,'core::system::Player::init()'],['../a01049.html#ad16dba924297b3bc9365a010270c9193',1,'core::system::Position::init()'],['../a01053.html#aee01f818a3650a6742f7b040e1f6d058',1,'core::system::Render::init()']]],

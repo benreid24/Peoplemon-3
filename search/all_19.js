@@ -2,6 +2,7 @@ var searchData=
 [
   ['_7eaddeventaction',['~AddEventAction',['../a01393.html#a8a4836c6422af4c0d892c07c45634ed7',1,'editor::component::EditMap::AddEventAction']]],
   ['_7eaddnpcspawnaction',['~AddNpcSpawnAction',['../a01417.html#ac350c5ea44d04663b2ed494c470e5672',1,'editor::component::EditMap::AddNpcSpawnAction']]],
+  ['_7eaddoredititemaction',['~AddOrEditItemAction',['../a01429.html#abdea9423e356d3c161189d62149b22e4',1,'editor::component::EditMap::AddOrEditItemAction']]],
   ['_7eaddspawnaction',['~AddSpawnAction',['../a01405.html#a4740c0cff9b7df68d0eb6a97f638ec23',1,'editor::component::EditMap::AddSpawnAction']]],
   ['_7eappendlayeraction',['~AppendLayerAction',['../a01369.html#a97bd77b03ff6ded7e15c1f78f1bf99f1',1,'editor::component::EditMap::AppendLayerAction']]],
   ['_7eappendlevelaction',['~AppendLevelAction',['../a01385.html#a2aee21dbb270636dd7db6fef0f57bd46',1,'editor::component::EditMap::AppendLevelAction']]],
@@ -32,6 +33,7 @@ var searchData=
   ['_7eposition',['~Position',['../a01049.html#a2bf147b773980900c1a4ee73bb7cb768',1,'core::system::Position']]],
   ['_7erain',['~Rain',['../a01293.html#a82885718014cb1e2d87f5c1fcb3f31cb',1,'core::map::weather::Rain']]],
   ['_7eremoveeventaction',['~RemoveEventAction',['../a01401.html#a25c4cf22d68eb86384c7908c468508d9',1,'editor::component::EditMap::RemoveEventAction']]],
+  ['_7eremoveitemaction',['~RemoveItemAction',['../a01433.html#a07a44786513a94ddcfd0509296a14f3e',1,'editor::component::EditMap::RemoveItemAction']]],
   ['_7eremovelayeraction',['~RemoveLayerAction',['../a01373.html#a500c1c9eedcf26f4d9abe059b078775f',1,'editor::component::EditMap::RemoveLayerAction']]],
   ['_7eremovenpcspawnaction',['~RemoveNpcSpawnAction',['../a01425.html#a25735c0a423f0df2cc54c8199b2542c7',1,'editor::component::EditMap::RemoveNpcSpawnAction']]],
   ['_7eremovespawnaction',['~RemoveSpawnAction',['../a01413.html#a5bed4c72ab8ec2dbab2a7aeb3cc21bbb',1,'editor::component::EditMap::RemoveSpawnAction']]],
