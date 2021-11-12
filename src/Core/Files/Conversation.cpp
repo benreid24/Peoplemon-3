@@ -79,8 +79,11 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
         std::uint16_t nodeCount = 0;
         if (!input.read(nodeCount)) return false;
         nodes.reserve(nodeCount);
-        for (std::uint16_t i = 0; i < nodeCount; ++i) {
-            Conversation::Node node;
+        std::uint16_t i = 0;
+        for (std::uint16_t ai = 0; ai < nodeCount; ++ai) {
+            nodes.emplace_back();
+            Conversation::Node& node = nodes.back();
+            bool inc                 = true;
 
             std::uint8_t type;
             if (!input.read(type)) return false;
@@ -88,26 +91,21 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
             switch (type) {
             case 't':
                 node.setType(Conversation::Node::Talk);
-
                 if (!input.read(node.message())) return false;
                 node.next() = i + 1;
-                nodes.push_back(node);
                 break;
 
             case 'o': {
                 node.setType(Conversation::Node::Prompt);
-                nodes.push_back(node);
-                Conversation::Node& n = nodes.back();
-
                 std::uint16_t choiceCount;
-                if (!input.read(n.message())) return false;
+                if (!input.read(node.message())) return false;
                 if (!input.read(choiceCount)) return false;
-                n.choices().resize(choiceCount, std::make_pair("", nodeCount));
+                node.choices().resize(choiceCount, std::make_pair("", 9999999));
                 for (std::uint16_t j = 0; j < choiceCount; ++j) {
-                    std::string choice, jump;
-                    if (!input.read(n.choices()[j].first)) return false;
+                    std::string jump;
+                    if (!input.read(node.choices()[j].first)) return false;
                     if (!input.read(jump)) return false;
-                    namedJumps.push_back(std::make_pair(jump, &n.choices()[i].second));
+                    namedJumps.emplace_back(jump, &node.choices()[j].second);
                 }
 
             } break;
@@ -115,8 +113,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
             case 'j':
                 node.setType(Conversation::Node::_LEGACY_Jump);
                 if (!input.read(node.message())) return false;
-                nodes.push_back(node);
-                namedJumps.push_back(std::make_pair(node.message(), &nodes.back().next()));
+                namedJumps.emplace_back(node.message(), &node.next());
                 break;
 
             case 'z':
@@ -124,7 +121,6 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                 node.runConcurrently() = false;
                 if (!input.read(node.script())) return false;
                 node.next() = i + 1;
-                nodes.push_back(node);
                 break;
 
             case 'r': {
@@ -141,7 +137,8 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                     node.setType(Conversation::Node::TakeItem);
                     node.item() = item::Item::cast(d);
                 }
-                node.next() = i + 1;
+                node.nextOnPass() = i + 1;
+                namedJumps.emplace_back(node.message(), &node.nextOnReject());
             } break;
 
             case 'g': {
@@ -172,28 +169,30 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                 if (!input.read(jump)) return false;
                 if (!input.read(node.saveFlag())) return false;
                 node.nextOnPass() = i + 1;
-                nodes.push_back(node);
-                namedJumps.push_back(std::make_pair(jump, &nodes.back().nextOnReject()));
+                namedJumps.emplace_back(jump, &nodes.back().nextOnReject());
             } break;
 
             case 'l':
                 if (!input.read(node.message())) return false;
                 labelPoints.insert(std::make_pair(node.message(), i));
+                nodes.pop_back();
+                inc = false;
                 break;
 
             case 'w': {
                 node.setType(Conversation::Node::CheckInteracted);
                 node.nextOnPass() = i + 1;
-                nodes.push_back(node);
                 std::string jump;
                 if (!input.read(jump)) return false;
-                namedJumps.push_back(std::make_pair(jump, &nodes.back().nextOnReject()));
+                namedJumps.emplace_back(jump, &node.nextOnReject());
             } break;
 
             default:
                 BL_LOG_ERROR << "Unknown legacy conversation node type: " << type;
                 return false;
             }
+
+            if (inc) ++i;
         }
 
         // Resolve named jumps
@@ -226,7 +225,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
                         if (pair.second == orig)
                             pair.second = next;
                         else if (pair.second > orig)
-                            pair.second -= orig;
+                            pair.second -= 1;
                     }
                 }
             }
@@ -234,7 +233,8 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
 
         for (unsigned int i = 0; i < nodes.size(); ++i) {
             if (nodes[i].getType() == Conversation::Node::_LEGACY_Jump) {
-                const unsigned int next = nodes[i].next();
+                const unsigned int next =
+                    nodes[i].next() > i ? nodes[i].next() - 1 : nodes[i].next();
                 nodes.erase(nodes.begin() + i);
                 connectJump(i, next);
                 --i;

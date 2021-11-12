@@ -10,6 +10,7 @@ namespace core
 namespace
 {
 const std::string ConfigFile = "configuration.cfg";
+bool inEditor                = false;
 
 namespace defaults
 {
@@ -99,7 +100,9 @@ constexpr float ScreenFadePeriod = 2.f;
 bl::resource::Resource<sf::Font>::Ref menuFont;
 } // namespace
 
-bool Properties::load() {
+bool Properties::load(bool ie) {
+    inEditor = ie;
+
     // These must be set for playlists and animations to work properly
     bl::engine::Configuration::set("blib.playlist.song_path", defaults::MusicPath);
     bl::engine::Configuration::set("blib.animation.spritesheet_path", defaults::SpritesheetPath);
@@ -225,6 +228,8 @@ int Properties::WindowHeight() {
         bl::engine::Configuration::getOrDefault<int>("core.window.height", defaults::WindowHeight);
     return val;
 }
+
+bool Properties::InEditor() { return inEditor; }
 
 int Properties::PixelsPerTile() {
     static const int val = bl::engine::Configuration::getOrDefault<int>(
@@ -457,20 +462,20 @@ const std::string& Properties::NpcFileExtension() {
 }
 
 const std::string& Properties::NpcPath() {
-    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.npc.path", defaults::NpcFileExtension);
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.npc.path", defaults::NpcPath);
     return val;
 }
 
 const std::string& Properties::TrainerFileExtension() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.trainer.extension", defaults::NpcFileExtension);
+        "core.trainer.extension", defaults::TrainerFileExtension);
     return val;
 }
 
 const std::string& Properties::TrainerPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.trainer.path", defaults::NpcFileExtension);
+        "core.trainer.path", defaults::TrainerPath);
     return val;
 }
 

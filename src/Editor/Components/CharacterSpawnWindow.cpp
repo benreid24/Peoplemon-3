@@ -45,7 +45,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     Button::Ptr npcBut = Button::create("NPC");
     npcBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         std::string f = fileLabel->getText();
-        if (bl::file::Util::getExtension(f) == core::Properties::NpcFileExtension() ||
+        if (bl::file::Util::getExtension(f) != core::Properties::NpcFileExtension() ||
             !validFile(f)) {
             f.clear();
         }

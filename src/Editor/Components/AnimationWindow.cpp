@@ -82,10 +82,10 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
 }
 
 void AnimationWindow::open(const GUI::Ptr& p, const std::string& pt, const std::string& file) {
-    packAnim(file);
     path   = pt;
     parent = p;
     p->pack(window);
+    packAnim(file);
     window->setForceFocus(true);
 }
 
@@ -94,7 +94,9 @@ void AnimationWindow::packAnim(const std::string& f) {
     const std::string vf = characterMode ? bl::file::Util::joinPath(af, "down.anim") : af;
     fileLabel->setText(af);
     animSrc = bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, vf)).data;
+    BL_LOG_INFO << bl::file::Util::joinPath(path, vf);
     if (animSrc) {
+        BL_LOG_INFO << "loaded";
         sf::Vector2f size = animSrc->getMaxSize();
         if (size.x > 400.f) {
             size.y *= 400.f / size.x;

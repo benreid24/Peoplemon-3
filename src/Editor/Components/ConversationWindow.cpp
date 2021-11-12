@@ -219,6 +219,7 @@ void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& cur
 
     nodeComponent.setParent(p);
     sync();
+    fileLabel->setText(current);
     makeClean();
 
     parent->pack(window);

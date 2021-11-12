@@ -12,7 +12,7 @@ namespace component
 /**
  * @brief Special component that renders a clickable tree view of a conversation
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class ConversationTree : public bl::gui::Element {
@@ -72,6 +72,7 @@ private:
     void onDrag(const bl::gui::Event& dragEvent);
     virtual bool handleScroll(const bl::gui::Event& zoomEvent) override;
     void onClick(const bl::gui::Event& clickEvent);
+    void centerView();
 
     sf::Vector2f transformToTreeCoord(const sf::Vector2f& point) const;
     void setSelectedColor(const sf::Color& color);

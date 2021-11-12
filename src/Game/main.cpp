@@ -19,7 +19,7 @@ int main() {
 #endif
 
     BL_LOG_INFO << "Loading application properties";
-    if (!core::Properties::load()) {
+    if (!core::Properties::load(false)) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }

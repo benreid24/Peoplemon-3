@@ -11,7 +11,7 @@ namespace component
 /**
  * @brief Inline GUI elements with openable window for editing behaviors
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class BehaviorEditor {

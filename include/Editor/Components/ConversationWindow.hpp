@@ -13,7 +13,7 @@ namespace component
 /**
  * @brief A window for choosing and editing conversations
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class ConversationWindow {

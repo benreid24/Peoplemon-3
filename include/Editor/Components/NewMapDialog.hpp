@@ -10,7 +10,7 @@ namespace component
 /**
  * @brief Dialog for creating new maps
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class NewMapDialog {

@@ -444,6 +444,50 @@ private:
                          bl::entity::Entity spawned);
 };
 
+class EditMap::AddOrEditItemAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int i, unsigned int level, const sf::Vector2i& pos,
+                              core::item::Id item, bool visible, const core::map::Item& orig,
+                              bool add);
+
+    virtual ~AddOrEditItemAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int i;
+    const unsigned int level;
+    const sf::Vector2i position;
+    const core::item::Id item;
+    const bool visible;
+    const core::map::Item orig;
+    const bool add;
+
+    AddOrEditItemAction(unsigned int i, unsigned int level, const sf::Vector2i& pos,
+                        core::item::Id item, bool visible, const core::map::Item& orig, bool add);
+};
+
+class EditMap::RemoveItemAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int i, unsigned int level, const sf::Vector2i& pos,
+                              const core::map::Item& orig);
+
+    virtual ~RemoveItemAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int i;
+    const unsigned int level;
+    const sf::Vector2i position;
+    const core::map::Item orig;
+
+    RemoveItemAction(unsigned int i, unsigned int level, const sf::Vector2i& pos,
+                     const core::map::Item& orig);
+};
+
 } // namespace component
 } // namespace editor
 

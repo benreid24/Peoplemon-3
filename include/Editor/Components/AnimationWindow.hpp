@@ -13,7 +13,7 @@ namespace component
 /**
  * @brief A basic window to choose and view animations
  *
- * @ingroup Components
+ * @ingroup UIComponents
  *
  */
 class AnimationWindow {
