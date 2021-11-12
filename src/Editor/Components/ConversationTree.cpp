@@ -116,6 +116,8 @@ ConversationTree::ConversationTree(const ClickCb& ccb)
 , vertexBuffer(sf::PrimitiveType::Triangles, sf::VertexBuffer::Usage::Static, 0)
 , selected(0)
 , flashTime(0.f) {
+    setTooltip(
+        "Click and drag to move. Scroll to zoom. Click node to edit. Right click to center view.");
     getSignal(Event::AcquisitionChanged)
         .willAlwaysCall(std::bind(&ConversationTree::updateBackground, this));
     getSignal(Event::Moved).willAlwaysCall(std::bind(&ConversationTree::updateBackground, this));
@@ -123,6 +125,7 @@ ConversationTree::ConversationTree(const ClickCb& ccb)
         .willAlwaysCall(std::bind(&ConversationTree::onDrag, this, std::placeholders::_1));
     getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&ConversationTree::onClick, this, std::placeholders::_1));
+    getSignal(Event::RightClicked).willAlwaysCall(std::bind(&ConversationTree::centerView, this));
 
     view.setSize(800.f, 800.f);
     view.setCenter(0.f, 400.f);
@@ -138,8 +141,7 @@ void ConversationTree::updateBackground() {
 
 bool ConversationTree::handleScroll(const bl::gui::Event& e) {
     if (getAcquisition().contains(e.mousePosition())) {
-        const float d = e.scrollDelta() * 20.f;
-        view.setSize(view.getSize() - sf::Vector2f{d, d});
+        view.zoom(1.f + e.scrollDelta() * -0.1f);
         return true;
     }
     return false;
@@ -163,12 +165,27 @@ void ConversationTree::onClick(const bl::gui::Event& e) {
 void ConversationTree::setSelected(unsigned int i) {
     setSelectedColor(renderNodes[selected].terminator ? TerminatorColor : NodeColor);
     selected = i;
+    view.setCenter(renderNodes[i].center);
 }
 
 void ConversationTree::onDrag(const bl::gui::Event& e) {
     const sf::Vector2f dragStart = transformToTreeCoord(e.dragStart());
     const sf::Vector2f mpos      = transformToTreeCoord(e.mousePosition());
     view.move(dragStart - mpos);
+}
+
+void ConversationTree::centerView() {
+    sf::FloatRect bounds;
+    for (unsigned int i = 0; i < vertexBuffer.size(); ++i) {
+        bounds.left   = std::min(bounds.left, vertexBuffer[i].position.x);
+        bounds.top    = std::min(bounds.top, vertexBuffer[i].position.y);
+        bounds.width  = std::max(bounds.width, vertexBuffer[i].position.x);
+        bounds.height = std::max(bounds.height, vertexBuffer[i].position.y);
+    }
+    const sf::Vector2f ds(bounds.width - bounds.left, bounds.height - bounds.top);
+    const sf::Vector2f size(std::max(ds.x, ds.y), std::max(ds.x, ds.y));
+    view.setCenter((bounds.left + bounds.width) * 0.5f, (bounds.top + bounds.height) * 0.5f);
+    view.setSize(size);
 }
 
 sf::Vector2f ConversationTree::transformToTreeCoord(const sf::Vector2f& p) const {
@@ -273,17 +290,7 @@ void ConversationTree::update(const std::vector<core::file::Conversation::Node>&
     }
 
     // Reset bounds
-    sf::FloatRect bounds;
-    for (unsigned int i = 0; i < vertexBuffer.size(); ++i) {
-        bounds.left   = std::min(bounds.left, vertexBuffer[i].position.x);
-        bounds.top    = std::min(bounds.top, vertexBuffer[i].position.y);
-        bounds.width  = std::max(bounds.width, vertexBuffer[i].position.x);
-        bounds.height = std::max(bounds.height, vertexBuffer[i].position.y);
-    }
-    const sf::Vector2f ds(bounds.width - bounds.left, bounds.height - bounds.top);
-    const sf::Vector2f size(std::max(ds.x, ds.y), std::max(ds.x, ds.y));
-    view.setCenter((bounds.left + bounds.width) * 0.5f, (bounds.top + bounds.height) * 0.5f);
-    view.setSize(size);
+    centerView();
 
     vertexBuffer.update();
 }

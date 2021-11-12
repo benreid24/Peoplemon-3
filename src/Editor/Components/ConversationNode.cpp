@@ -231,7 +231,6 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
                                       allNodes);
             it->setIterator(it);
             choiceScroll->pack(choices.back().content(), true, false);
-            regenTree();
         }
         editArea->pack(choiceArea, true, true);
         break;

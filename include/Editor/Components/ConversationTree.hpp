@@ -72,6 +72,7 @@ private:
     void onDrag(const bl::gui::Event& dragEvent);
     virtual bool handleScroll(const bl::gui::Event& zoomEvent) override;
     void onClick(const bl::gui::Event& clickEvent);
+    void centerView();
 
     sf::Vector2f transformToTreeCoord(const sf::Vector2f& point) const;
     void setSelectedColor(const sf::Color& color);
