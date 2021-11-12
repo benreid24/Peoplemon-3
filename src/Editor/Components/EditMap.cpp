@@ -60,7 +60,8 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , camera(EditCamera::Ptr(new EditCamera()))
 , controlsEnabled(false)
 , renderOverlay(RenderOverlay::None)
-, overlayLevel(0) {
+, overlayLevel(0)
+, nextItemId(0) {
     systems = &s;
 
     static const auto callCb = [this, &s](const PositionCb& cb) {
@@ -122,6 +123,10 @@ void EditMap::newMap(const std::string& filename, const std::string& name,
 bool EditMap::doLoad(const std::string& file) {
     clear();
     if (!Map::load(file)) return false;
+    nextItemId = 0;
+    for (const auto& item : itemsField.getValue()) {
+        if (nextItemId <= item.mapId.getValue()) { nextItemId = item.mapId.getValue() + 1; }
+    }
     return editorActivate();
 }
 
@@ -663,6 +668,48 @@ void EditMap::removeEvent(const core::map::Event* e) {
     unsigned int i = 0;
     while (&eventsField.getValue()[i] != e) { ++i; }
     addAction(RemoveEventAction::create(*e, i));
+}
+
+void EditMap::addOrEditItem(unsigned int level, const sf::Vector2i& tiles, core::item::Id item,
+                            bool visible) {
+    unsigned int i = 0;
+    bool found     = false;
+    for (; i < itemsField.getValue().size(); ++i) {
+        if (itemsField.getValue()[i].level.getValue() == level) {
+            if (itemsField.getValue()[i].position.getValue() == tiles) {
+                found = true;
+                break;
+            }
+        }
+    }
+    if (!found) i = itemsField.getValue().size();
+    addAction(AddOrEditItemAction::create(i,
+                                          level,
+                                          tiles,
+                                          item,
+                                          visible,
+                                          found ? itemsField.getValue()[i] : core::map::Item(),
+                                          !found));
+}
+
+std::pair<core::item::Id, bool> EditMap::getItem(unsigned int level, const sf::Vector2i& tiles) {
+    for (const auto& item : itemsField.getValue()) {
+        if (item.level.getValue() == level && item.position.getValue() == tiles) {
+            return {core::item::Item::cast(item.id.getValue()), item.visible.getValue()};
+        }
+    }
+    return {core::item::Id::Unknown, true};
+}
+
+void EditMap::removeItem(unsigned int level, const sf::Vector2i& tiles) {
+    unsigned int i = 0;
+    for (const auto& item : itemsField.getValue()) {
+        if (item.level.getValue() == level && item.position.getValue() == tiles) {
+            addAction(RemoveItemAction::create(i, level, tiles, item));
+            break;
+        }
+        ++i;
+    }
 }
 
 } // namespace component

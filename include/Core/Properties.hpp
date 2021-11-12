@@ -27,6 +27,7 @@ public:
     static const std::string& WindowIconFile();
     static int WindowWidth();
     static int WindowHeight();
+    static bool InEditor();
 
     static int PixelsPerTile();
     static int ExtraRenderTiles();
@@ -108,9 +109,10 @@ public:
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties
      *
+     * @param inEditor True if in the editor, false if in the game
      * @return True if loaded without error, false for failure
      */
-    static bool load();
+    static bool load(bool inEditor);
 
 private:
     Properties() = default;

@@ -70,6 +70,11 @@ private:
     bl::gui::RadioButton::Ptr npcEdit;
     bl::gui::RadioButton::Ptr npcDelete;
 
+    bl::gui::RadioButton::Ptr itemSpawn;
+    bl::gui::RadioButton::Ptr itemRead;
+    bl::gui::RadioButton::Ptr itemDelete;
+    bl::gui::CheckButton::Ptr itemHidden;
+
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 

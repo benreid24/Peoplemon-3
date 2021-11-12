@@ -13,7 +13,7 @@ int main() {
     bl::logging::Config::addFileOutput("editor.log", bl::logging::Config::Debug);
 
     BL_LOG_INFO << "Loading application properties";
-    if (!core::Properties::load()) {
+    if (!core::Properties::load(true)) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }

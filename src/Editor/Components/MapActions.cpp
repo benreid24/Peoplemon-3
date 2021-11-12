@@ -972,5 +972,87 @@ bool EditMap::RemoveNpcSpawnAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveNpcSpawnAction::description() const { return "remove character"; }
 
+EditMap::Action::Ptr EditMap::AddOrEditItemAction::create(unsigned int i, unsigned int level,
+                                                          const sf::Vector2i& pos,
+                                                          core::item::Id item, bool visible,
+                                                          const core::map::Item& orig, bool a) {
+    return Action::Ptr(new AddOrEditItemAction(i, level, pos, item, visible, orig, a));
+}
+
+EditMap::AddOrEditItemAction::AddOrEditItemAction(unsigned int i, unsigned int level,
+                                                  const sf::Vector2i& pos, core::item::Id item,
+                                                  bool visible, const core::map::Item& orig, bool a)
+: i(i)
+, level(level)
+, position(pos)
+, item(item)
+, visible(visible)
+, orig(orig)
+, add(a) {}
+
+bool EditMap::AddOrEditItemAction::apply(EditMap& map) {
+    if (add) {
+        map.itemsField.getValue().emplace_back(
+            static_cast<std::uint16_t>(item), map.nextItemId, position, level, visible);
+        ++map.nextItemId;
+        map.systems->entity().spawnItem(
+            core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible));
+    }
+    else {
+        map.itemsField.getValue()[i].id      = static_cast<std::uint16_t>(item);
+        map.itemsField.getValue()[i].visible = visible;
+    }
+    return false;
+}
+
+bool EditMap::AddOrEditItemAction::undo(EditMap& map) {
+    if (add) {
+        map.itemsField.getValue().pop_back();
+        const auto ent = map.systems->position().getEntity(
+            {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
+        if (ent != bl::entity::InvalidEntity) {
+            map.systems->engine().entities().destroyEntity(ent);
+        }
+    }
+    else {
+        map.itemsField.getValue()[i].id      = orig.id;
+        map.itemsField.getValue()[i].visible = orig.visible;
+    }
+    return false;
+}
+
+const char* EditMap::AddOrEditItemAction::description() const {
+    return add ? "spawn item" : "edit item";
+}
+
+EditMap::Action::Ptr EditMap::RemoveItemAction::create(unsigned int i, unsigned int level,
+                                                       const sf::Vector2i& pos,
+                                                       const core::map::Item& orig) {
+    return Action::Ptr(new RemoveItemAction(i, level, pos, orig));
+}
+
+EditMap::RemoveItemAction::RemoveItemAction(unsigned int i, unsigned int level,
+                                            const sf::Vector2i& pos, const core::map::Item& orig)
+: i(i)
+, level(level)
+, position(pos)
+, orig(orig) {}
+
+bool EditMap::RemoveItemAction::apply(EditMap& map) {
+    map.itemsField.getValue().erase(map.itemsField.getValue().begin() + i);
+    const auto ent = map.systems->position().getEntity(
+        {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
+    if (ent != bl::entity::InvalidEntity) { map.systems->engine().entities().destroyEntity(ent); }
+    return false;
+}
+
+bool EditMap::RemoveItemAction::undo(EditMap& map) {
+    map.itemsField.getValue().insert(map.itemsField.getValue().begin() + i, orig);
+    map.systems->entity().spawnItem(orig);
+    return false;
+}
+
+const char* EditMap::RemoveItemAction::description() const { return "remove item"; }
+
 } // namespace component
 } // namespace editor

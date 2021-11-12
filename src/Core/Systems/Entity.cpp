@@ -157,7 +157,7 @@ bool Entity::spawnItem(const map::Item& item) {
         return false;
     }
 
-    if (item.visible) {
+    if (item.visible || Properties::InEditor()) {
         if (!owner.engine().entities().addComponent<component::Collision>(entity, {})) {
             BL_LOG_ERROR << "Failed to add collision to item entity: " << entity;
             return false;

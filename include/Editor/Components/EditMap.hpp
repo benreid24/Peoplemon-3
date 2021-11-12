@@ -421,12 +421,33 @@ public:
      */
     void removeNpcSpawn(const core::map::CharacterSpawn* spawn);
 
-    void addItem(unsigned int level, const sf::Vector2i& position, core::item::Id item,
-                 bool visible);
+    /**
+     * @brief Returns spawn info the item at the given position, if any
+     *
+     * @param level The level to search
+     * @param position The position to check
+     * @return std::pair<core::item::Id, bool> The item id and hidden state. Unknown if none
+     */
+    std::pair<core::item::Id, bool> getItem(unsigned int level, const sf::Vector2i& position);
 
-    void editItem(const sf::Vector2i& position, core::item::Id item, bool visible);
+    /**
+     * @brief Spawns or modifies an item at the given position and level
+     *
+     * @param level The level for the item to be on
+     * @param position The position to spawn at
+     * @param item The item to spawn
+     * @param visible True if the item should be visible, false for hidden
+     */
+    void addOrEditItem(unsigned int level, const sf::Vector2i& position, core::item::Id item,
+                       bool visible);
 
-    void removeItem(const sf::Vector2i& position);
+    /**
+     * @brief Removes the item from the given position if one is present
+     *
+     * @param level The level to search
+     * @param position The position to clear
+     */
+    void removeItem(unsigned int level, const sf::Vector2i& position);
 
     void setLight(const sf::Vector2i& positionPixels, unsigned int radius);
 
@@ -510,6 +531,7 @@ private:
     mutable sf::Sprite overlaySprite;
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
+    unsigned int nextItemId;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
@@ -551,8 +573,7 @@ private:
     class AddNpcSpawnAction;
     class EditNpcSpawnAction;
     class RemoveNpcSpawnAction;
-    class AddItemAction;
-    class EditItemAction;
+    class AddOrEditItemAction;
     class RemoveItemAction;
     class SetLightAction;
     class RemoveLightAction;

@@ -252,18 +252,26 @@ Map::Map(core::system::Systems& s)
     npcBox->pack(npcEdit);
     npcBox->pack(npcDelete);
 
-    Box::Ptr itemBox           = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box                        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    itemSelector               = component::ItemSelector::create();
-    RadioButton::Ptr itemSpawn = RadioButton::create("Spawn", "spawn");
+    Box::Ptr itemBox = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    box              = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    itemSelector     = component::ItemSelector::create();
+    itemSpawn        = RadioButton::create("Spawn/Edit", "spawn");
     itemSpawn->setValue(true);
+    itemRead = RadioButton::create("Read", "read", itemSpawn->getRadioGroup());
+    itemRead->setTooltip("Populate this form with details from an item in the map");
+    itemHidden = CheckButton::create("Hidden item");
+    itemHidden->setTooltip("Check this to make the item invisible");
     label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr itemDelete = RadioButton::create(label, "delete", itemSpawn->getRadioGroup());
+    itemDelete = RadioButton::create(label, "delete", itemSpawn->getRadioGroup());
     box->pack(itemSpawn);
-    box->pack(itemSelector, true, false);
+    box->pack(itemRead);
+    box->pack(itemDelete);
     itemBox->pack(box, true, false);
-    itemBox->pack(itemDelete);
+    box = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box->pack(itemSelector, true, false);
+    box->pack(itemHidden);
+    itemBox->pack(box, true, true);
 
     Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
@@ -697,6 +705,24 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         break;
 
     case Tool::Items:
+        if (itemSpawn->getValue()) {
+            mapArea.editMap().addOrEditItem(levelSelect->getSelectedOption(),
+                                            tiles,
+                                            itemSelector->currentItem(),
+                                            !itemHidden->getValue());
+        }
+        else if (itemRead->getValue()) {
+            const auto i = mapArea.editMap().getItem(levelSelect->getSelectedOption(), tiles);
+            if (i.first != core::item::Id::Unknown) {
+                itemSelector->setItem(i.first);
+                itemHidden->setValue(!i.second);
+            }
+        }
+        else if (itemDelete->getValue()) {
+            mapArea.editMap().removeItem(levelSelect->getSelectedOption(), tiles);
+        }
+        break;
+
     case Tool::Lights:
     case Tool::Peoplemon:
     case Tool::Metadata:
