@@ -449,8 +449,19 @@ public:
      */
     void removeItem(unsigned int level, const sf::Vector2i& position);
 
+    /**
+     * @brief Spawn or modify the light near the given position to the new size
+     *
+     * @param positionPixels The light radius in pixels
+     * @param radius The position of the light in pixels
+     */
     void setLight(const sf::Vector2i& positionPixels, unsigned int radius);
 
+    /**
+     * @brief Removes the light near the given position if one is there
+     *
+     * @param positionPixels The position of the light to remove, in pixels
+     */
     void removeLight(const sf::Vector2i& positionPixels);
 
     /**

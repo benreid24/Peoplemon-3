@@ -56,6 +56,8 @@ private:
     bl::gui::Notebook::Ptr objectBook;
     bl::gui::ComboBox::Ptr spawnDirEntry;
     bl::gui::TextEntry::Ptr lightRadiusEntry;
+    bl::gui::RadioButton::Ptr lightCreateOrEdit;
+    bl::gui::RadioButton::Ptr lightRemove;
     component::ItemSelector::Ptr itemSelector;
 
     bl::gui::RadioButton::Ptr createEventRadio;
@@ -77,6 +79,9 @@ private:
 
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
+
+    bl::gui::ComboBox::Ptr tempWeatherEntry;
+    bl::gui::ComboBox::Ptr timeSetEntry;
 
     MapArea mapArea;
     Tileset tileset;

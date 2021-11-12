@@ -302,7 +302,7 @@ void ConversationNode::onMoneyChange() {
     std::string val = moneyEntry->getInput();
     for (unsigned int i = 0; i < val.size(); ++i) {
         if (!std::isdigit(val[i])) {
-            val.erase(i);
+            val.erase(i, 1);
             --i;
         }
     }

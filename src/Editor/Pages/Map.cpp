@@ -203,6 +203,71 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
+    box              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    tempWeatherEntry = ComboBox::create();
+    tempWeatherEntry->addOption("None");
+    tempWeatherEntry->addOption("AllRandom");
+    tempWeatherEntry->addOption("LightRain");
+    tempWeatherEntry->addOption("LightRainThunder");
+    tempWeatherEntry->addOption("HardRain");
+    tempWeatherEntry->addOption("HardRainThunder");
+    tempWeatherEntry->addOption("LightSnow");
+    tempWeatherEntry->addOption("LightSnowThunder");
+    tempWeatherEntry->addOption("HardSnow");
+    tempWeatherEntry->addOption("HardSnowThunder");
+    tempWeatherEntry->addOption("ThinFog");
+    tempWeatherEntry->addOption("ThickFog");
+    tempWeatherEntry->addOption("Sunny");
+    tempWeatherEntry->addOption("SandStorm");
+    tempWeatherEntry->addOption("WaterRandom");
+    tempWeatherEntry->addOption("SnowRandom");
+    tempWeatherEntry->addOption("DesertRandom");
+    tempWeatherEntry->setSelectedOption(0);
+    tempWeatherEntry->setMaxHeight(300);
+    Button::Ptr but = Button::create("Set Weather");
+    but->setTooltip("Sets the current weather. Does not save weather to map file");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const core::map::Weather::Type type =
+            static_cast<core::map::Weather::Type>(tempWeatherEntry->getSelectedOption());
+        if (mapArea.editMap().weatherSystem().getType() != type) {
+            mapArea.editMap().weatherSystem().set(type);
+        }
+    });
+    row->pack(tempWeatherEntry, false, true);
+    row->pack(but, false, true);
+    box->pack(row, true, false);
+
+    row          = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    timeSetEntry = ComboBox::create();
+    timeSetEntry->addOption("Morning");
+    timeSetEntry->addOption("Noon");
+    timeSetEntry->addOption("Evening");
+    timeSetEntry->addOption("Midnight");
+    timeSetEntry->setSelectedOption(0);
+    but = Button::create("Set Time");
+    but->setTooltip("Sets the current time. Does not save to map file");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        switch (timeSetEntry->getSelectedOption()) {
+        case 0:
+            systems.clock().set({6, 0}); // 6 am
+            break;
+        case 1:
+            systems.clock().set({12, 0}); // noon
+            break;
+        case 2:
+            systems.clock().set({18, 0}); // 6 pm
+            break;
+        case 3:
+        default:
+            systems.clock().set({0, 0}); // midnight
+            break;
+        }
+    });
+    row->pack(timeSetEntry, false, true);
+    row->pack(but, false, true);
+    box->pack(row, true, false);
+
     Notebook::Ptr editBook = Notebook::create();
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
@@ -217,6 +282,7 @@ Map::Map(core::system::Systems& s)
         levelPage.getContent(),
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
+    editBook->addPage("state", "State", box);
 
     Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
@@ -273,22 +339,32 @@ Map::Map(core::system::Systems& s)
     box->pack(itemHidden);
     itemBox->pack(box, true, true);
 
-    Box::Ptr lightBox            = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    box                          = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
-    RadioButton::Ptr lightCreate = RadioButton::create("Create/Modify", "create");
-    lightCreate->setValue(true);
+    Box::Ptr lightBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
+    box               = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
+    lightCreateOrEdit = RadioButton::create("Create/Modify", "create");
+    lightCreateOrEdit->setValue(true);
     lightRadiusEntry = TextEntry::create();
+    lightRadiusEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        std::string v = lightRadiusEntry->getInput();
+        for (unsigned int i = 0; i < v.size(); ++i) {
+            if (!std::isdigit(v[i])) {
+                v.erase(i, 1);
+                --i;
+            }
+        }
+        if (v.empty()) v = "0";
+        lightRadiusEntry->setInput(v);
+    });
     lightRadiusEntry->setRequisition({80, 0});
     lightRadiusEntry->setInput("100");
-    box->pack(lightCreate, false, false);
+    box->pack(lightCreateOrEdit, false, false);
     box->pack(Label::create("Radius (pixels):"), false, false);
     box->pack(lightRadiusEntry, true, false);
     lightBox->pack(box, true, false);
     label = Label::create("Delete");
     label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr lightDelete =
-        RadioButton::create(label, "delete", lightCreate->getRadioGroup());
-    lightBox->pack(lightDelete);
+    lightRemove = RadioButton::create(label, "delete", lightCreateOrEdit->getRadioGroup());
+    lightBox->pack(lightRemove);
 
     objectBook = Notebook::create();
     objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
@@ -485,7 +561,7 @@ void Map::makeNewMap(const std::string& file, const std::string& name, const std
     mapArea.editMap().newMap(file, name, tileset, w, h);
 }
 
-void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
+void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
     BL_LOG_INFO << "Clicked (" << tiles.x << ", " << tiles.y << ")";
 
     switch (activeTool) {
@@ -724,6 +800,15 @@ void Map::onMapClick(const sf::Vector2f&, const sf::Vector2i& tiles) {
         break;
 
     case Tool::Lights:
+        if (lightCreateOrEdit->getValue()) {
+            mapArea.editMap().setLight(sf::Vector2i(pixels),
+                                       std::atoi(lightRadiusEntry->getInput().c_str()));
+        }
+        else if (lightRemove->getValue()) {
+            mapArea.editMap().removeLight(sf::Vector2i(pixels));
+        }
+        break;
+
     case Tool::Peoplemon:
     case Tool::Metadata:
     default:

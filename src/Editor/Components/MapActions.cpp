@@ -1054,5 +1054,63 @@ bool EditMap::RemoveItemAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveItemAction::description() const { return "remove item"; }
 
+EditMap::Action::Ptr EditMap::SetLightAction::create(const sf::Vector2i& pos, unsigned int radius,
+                                                     const core::map::Light& orig) {
+    return Action::Ptr(new SetLightAction(pos, radius, orig));
+}
+
+EditMap::SetLightAction::SetLightAction(const sf::Vector2i& pos, unsigned int radius,
+                                        const core::map::Light& orig)
+: value(radius, pos)
+, orig(orig) {}
+
+bool EditMap::SetLightAction::apply(EditMap& map) {
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(value.position.getValue());
+    if (h == core::map::LightingSystem::None) {
+        map.lighting.addLight(value, true);
+        spawned = true;
+    }
+    else {
+        map.lighting.updateLight(h, value, true);
+    }
+    return false;
+}
+
+bool EditMap::SetLightAction::undo(EditMap& map) {
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(value.position.getValue());
+    if (spawned) { map.lighting.removeLight(h, true); }
+    else {
+        map.lighting.updateLight(h, orig, true);
+    }
+    return false;
+}
+
+const char* EditMap::SetLightAction::description() const {
+    return spawned ? "spawn light" : "edit light";
+}
+
+EditMap::Action::Ptr EditMap::RemoveLightAction::create(const core::map::Light& orig) {
+    return Action::Ptr(new RemoveLightAction(orig));
+}
+
+EditMap::RemoveLightAction::RemoveLightAction(const core::map::Light& orig)
+: orig(orig) {}
+
+bool EditMap::RemoveLightAction::apply(EditMap& map) {
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(orig.position.getValue());
+    map.lighting.removeLight(h, true);
+    return false;
+}
+
+bool EditMap::RemoveLightAction::undo(EditMap& map) {
+    map.lighting.addLight(orig, true);
+    return false;
+}
+
+const char* EditMap::RemoveLightAction::description() const { return "remove light"; }
+
 } // namespace component
 } // namespace editor
