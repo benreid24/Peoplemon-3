@@ -52,12 +52,13 @@ void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
 LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& position) {
     auto set            = lights.getCellAndNeighbors(position.x, position.y);
     Handle closest      = None;
-    unsigned long cdist = 0;
+    unsigned long cdist = 10000000;
     for (const auto& light : set) {
         const long dx            = light.get().second.position.getValue().x - position.x;
         const long dy            = light.get().second.position.getValue().y - position.y;
+        const unsigned int r     = light.get().second.radius.getValue();
         const unsigned long dist = dx * dx + dy * dy;
-        if (dist < cdist) {
+        if (dist < cdist && dist < r * r) {
             cdist   = dist;
             closest = light.get().first;
         }

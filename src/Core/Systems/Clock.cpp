@@ -25,6 +25,8 @@ void Clock::update(float dt) {
     }
 }
 
+void Clock::set(const Time& n) { currentTime = n; }
+
 Clock::Time::Time(unsigned int h, unsigned int m, unsigned int d)
 : day(d)
 , hour(h)

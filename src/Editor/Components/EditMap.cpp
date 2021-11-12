@@ -714,13 +714,15 @@ void EditMap::removeItem(unsigned int level, const sf::Vector2i& tiles) {
 
 void EditMap::setLight(const sf::Vector2i& pos, unsigned int rad) {
     const core::map::LightingSystem::Handle h = lighting.getClosestLight(pos);
-    addAction(SetLightAction::create(h, pos, rad, lighting.getLight(h)));
+    const core::map::Light orig =
+        h != core::map::LightingSystem::None ? lighting.getLight(h) : core::map::Light(rad, pos);
+    addAction(SetLightAction::create(pos, rad, orig));
 }
 
 void EditMap::removeLight(const sf::Vector2i& pos) {
     const core::map::LightingSystem::Handle h = lighting.getClosestLight(pos);
     if (h != core::map::LightingSystem::None) {
-        addAction(RemoveLightAction::create(h, lighting.getLight(h)));
+        addAction(RemoveLightAction::create(lighting.getLight(h)));
     }
 }
 

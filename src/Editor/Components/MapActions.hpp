@@ -490,8 +490,8 @@ private:
 
 class EditMap::SetLightAction : public EditMap::Action {
 public:
-    static Action::Ptr create(core::map::LightingSystem::Handle handle, const sf::Vector2i& pos,
-                              unsigned int radius, const core::map::Light& orig);
+    static Action::Ptr create(const sf::Vector2i& pos, unsigned int radius,
+                              const core::map::Light& orig);
 
     virtual ~SetLightAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -499,19 +499,16 @@ public:
     virtual const char* description() const override;
 
 private:
-    const core::map::LightingSystem::Handle handle;
-    core::map::LightingSystem::Handle spawned;
     const core::map::Light value;
     const core::map::Light orig;
+    bool spawned;
 
-    SetLightAction(core::map::LightingSystem::Handle handle, const sf::Vector2i& pos,
-                   unsigned int radius, const core::map::Light& orig);
+    SetLightAction(const sf::Vector2i& pos, unsigned int radius, const core::map::Light& orig);
 };
 
 class EditMap::RemoveLightAction : public EditMap::Action {
 public:
-    static Action::Ptr create(core::map::LightingSystem::Handle handle,
-                              const core::map::Light& orig);
+    static Action::Ptr create(const core::map::Light& orig);
 
     virtual ~RemoveLightAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -519,10 +516,9 @@ public:
     virtual const char* description() const override;
 
 private:
-    core::map::LightingSystem::Handle handle;
     const core::map::Light orig;
 
-    RemoveLightAction(core::map::LightingSystem::Handle handle, const core::map::Light& orig);
+    RemoveLightAction(const core::map::Light& orig);
 };
 
 } // namespace component

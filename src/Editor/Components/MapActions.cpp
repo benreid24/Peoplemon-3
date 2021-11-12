@@ -1054,56 +1054,59 @@ bool EditMap::RemoveItemAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveItemAction::description() const { return "remove item"; }
 
-EditMap::Action::Ptr EditMap::SetLightAction::create(core::map::LightingSystem::Handle h,
-                                                     const sf::Vector2i& pos, unsigned int radius,
+EditMap::Action::Ptr EditMap::SetLightAction::create(const sf::Vector2i& pos, unsigned int radius,
                                                      const core::map::Light& orig) {
-    return Action::Ptr(new SetLightAction(h, pos, radius, orig));
+    return Action::Ptr(new SetLightAction(pos, radius, orig));
 }
 
-EditMap::SetLightAction::SetLightAction(core::map::LightingSystem::Handle h,
-                                        const sf::Vector2i& pos, unsigned int radius,
+EditMap::SetLightAction::SetLightAction(const sf::Vector2i& pos, unsigned int radius,
                                         const core::map::Light& orig)
-: handle(h)
-, value(radius, pos)
+: value(radius, pos)
 , orig(orig) {}
 
 bool EditMap::SetLightAction::apply(EditMap& map) {
-    if (handle == core::map::LightingSystem::None) { spawned = map.lighting.addLight(value, true); }
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(value.position.getValue());
+    if (h == core::map::LightingSystem::None) {
+        map.lighting.addLight(value, true);
+        spawned = true;
+    }
     else {
-        map.lighting.updateLight(handle, value, true);
+        map.lighting.updateLight(h, value, true);
     }
     return false;
 }
 
 bool EditMap::SetLightAction::undo(EditMap& map) {
-    if (handle == core::map::LightingSystem::None) { map.lighting.removeLight(spawned, true); }
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(value.position.getValue());
+    if (spawned) { map.lighting.removeLight(h, true); }
     else {
-        map.lighting.updateLight(handle, orig, true);
+        map.lighting.updateLight(h, orig, true);
     }
     return false;
 }
 
 const char* EditMap::SetLightAction::description() const {
-    return handle == core::map::LightingSystem::None ? "edit light" : "spawn light";
+    return spawned ? "spawn light" : "edit light";
 }
 
-EditMap::Action::Ptr EditMap::RemoveLightAction::create(core::map::LightingSystem::Handle handle,
-                                                        const core::map::Light& orig) {
-    return Action::Ptr(new RemoveLightAction(handle, orig));
+EditMap::Action::Ptr EditMap::RemoveLightAction::create(const core::map::Light& orig) {
+    return Action::Ptr(new RemoveLightAction(orig));
 }
 
-EditMap::RemoveLightAction::RemoveLightAction(core::map::LightingSystem::Handle handle,
-                                              const core::map::Light& orig)
-: handle(handle)
-, orig(orig) {}
+EditMap::RemoveLightAction::RemoveLightAction(const core::map::Light& orig)
+: orig(orig) {}
 
 bool EditMap::RemoveLightAction::apply(EditMap& map) {
-    map.lighting.removeLight(handle, true);
+    const core::map::LightingSystem::Handle h =
+        map.lighting.getClosestLight(orig.position.getValue());
+    map.lighting.removeLight(h, true);
     return false;
 }
 
 bool EditMap::RemoveLightAction::undo(EditMap& map) {
-    handle = map.lighting.addLight(orig, true);
+    map.lighting.addLight(orig, true);
     return false;
 }
 

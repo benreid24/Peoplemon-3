@@ -203,6 +203,71 @@ Map::Map(core::system::Systems& s)
     row->pack(weatherEntry);
     infoBox->pack(row, true, false);
 
+    box              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    tempWeatherEntry = ComboBox::create();
+    tempWeatherEntry->addOption("None");
+    tempWeatherEntry->addOption("AllRandom");
+    tempWeatherEntry->addOption("LightRain");
+    tempWeatherEntry->addOption("LightRainThunder");
+    tempWeatherEntry->addOption("HardRain");
+    tempWeatherEntry->addOption("HardRainThunder");
+    tempWeatherEntry->addOption("LightSnow");
+    tempWeatherEntry->addOption("LightSnowThunder");
+    tempWeatherEntry->addOption("HardSnow");
+    tempWeatherEntry->addOption("HardSnowThunder");
+    tempWeatherEntry->addOption("ThinFog");
+    tempWeatherEntry->addOption("ThickFog");
+    tempWeatherEntry->addOption("Sunny");
+    tempWeatherEntry->addOption("SandStorm");
+    tempWeatherEntry->addOption("WaterRandom");
+    tempWeatherEntry->addOption("SnowRandom");
+    tempWeatherEntry->addOption("DesertRandom");
+    tempWeatherEntry->setSelectedOption(0);
+    tempWeatherEntry->setMaxHeight(300);
+    Button::Ptr but = Button::create("Set Weather");
+    but->setTooltip("Sets the current weather. Does not save weather to map file");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const core::map::Weather::Type type =
+            static_cast<core::map::Weather::Type>(tempWeatherEntry->getSelectedOption());
+        if (mapArea.editMap().weatherSystem().getType() != type) {
+            mapArea.editMap().weatherSystem().set(type);
+        }
+    });
+    row->pack(tempWeatherEntry, false, true);
+    row->pack(but, false, true);
+    box->pack(row, true, false);
+
+    row          = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    timeSetEntry = ComboBox::create();
+    timeSetEntry->addOption("Morning");
+    timeSetEntry->addOption("Noon");
+    timeSetEntry->addOption("Evening");
+    timeSetEntry->addOption("Midnight");
+    timeSetEntry->setSelectedOption(0);
+    but = Button::create("Set Time");
+    but->setTooltip("Sets the current time. Does not save to map file");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        switch (timeSetEntry->getSelectedOption()) {
+        case 0:
+            systems.clock().set({6, 0}); // 6 am
+            break;
+        case 1:
+            systems.clock().set({12, 0}); // noon
+            break;
+        case 2:
+            systems.clock().set({18, 0}); // 6 pm
+            break;
+        case 3:
+        default:
+            systems.clock().set({0, 0}); // midnight
+            break;
+        }
+    });
+    row->pack(timeSetEntry, false, true);
+    row->pack(but, false, true);
+    box->pack(row, true, false);
+
     Notebook::Ptr editBook = Notebook::create();
     editBook->addPage("tiles", "Tiles", tileBox);
     editBook->addPage(
@@ -217,6 +282,7 @@ Map::Map(core::system::Systems& s)
         levelPage.getContent(),
         [this]() { levelPage.pack(); },
         [this]() { levelPage.unpack(); });
+    editBook->addPage("state", "State", box);
 
     Box::Ptr spawnBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     box               = Box::create(LinePacker::create(LinePacker::Horizontal, 4));

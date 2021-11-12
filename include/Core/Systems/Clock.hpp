@@ -105,6 +105,13 @@ public:
      */
     void update(float dt);
 
+    /**
+     * @brief Sets the current time
+     *
+     * @param time The new current time
+     */
+    void set(const Time& time);
+
     // TODO - saving/loading from game save
 
 private:

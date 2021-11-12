@@ -80,6 +80,9 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
+    bl::gui::ComboBox::Ptr tempWeatherEntry;
+    bl::gui::ComboBox::Ptr timeSetEntry;
+
     MapArea mapArea;
     Tileset tileset;
     Levels levelPage;
