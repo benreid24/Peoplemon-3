@@ -20,6 +20,7 @@ var searchData=
   ['getentity',['getEntity',['../a01049.html#a57c2242bd3c84d3b0bb5b6bc00c54eae',1,'core::system::Position']]],
   ['getevent',['getEvent',['../a01105.html#a2073a352976f194591b0adb85aa92f70',1,'editor::component::EditMap']]],
   ['getitem',['getItem',['../a01105.html#a3acf2f44e97867b83889d5d6fedba214',1,'editor::component::EditMap']]],
+  ['getlight',['getLight',['../a00905.html#a2dd44bd44a3664a0c05a29a3b46b71fe',1,'core::map::LightingSystem']]],
   ['getmaxlightlevel',['getMaxLightLevel',['../a00905.html#a11e3cd08c517c0dcc83ec7e526675017',1,'core::map::LightingSystem']]],
   ['getminlightlevel',['getMinLightLevel',['../a00905.html#a1b51dcfcd7a4245be85b691cb36110ac',1,'core::map::LightingSystem']]],
   ['getname',['getName',['../a00869.html#a66a65e779c8516580db2664f0b5368ba',1,'core::item::Item']]],

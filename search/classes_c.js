@@ -10,6 +10,7 @@ var searchData=
   ['setcatchareaaction',['SetCatchAreaAction',['../a01353.html',1,'editor::component::EditMap']]],
   ['setcollisionaction',['SetCollisionAction',['../a01341.html',1,'editor::component::EditMap']]],
   ['setcollisionareaaction',['SetCollisionAreaAction',['../a01345.html',1,'editor::component::EditMap']]],
+  ['setlightaction',['SetLightAction',['../a01437.html',1,'editor::component::EditMap']]],
   ['setnameaction',['SetNameAction',['../a01361.html',1,'editor::component::EditMap']]],
   ['setplaylistaction',['SetPlaylistAction',['../a01357.html',1,'editor::component::EditMap']]],
   ['setscriptaction',['SetScriptAction',['../a01389.html',1,'editor::component::EditMap']]],

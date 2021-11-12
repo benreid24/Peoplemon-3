@@ -115,6 +115,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6d47ce1a95ed476def9d802665910f2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00905.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html#a6d47ce1a95ed476def9d802665910f2f">getClosestLight</a> (const sf::Vector2i &amp;position)</td></tr>
 <tr class="memdesc:a6d47ce1a95ed476def9d802665910f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a handle to the light closest to the given position.  <a href="#a6d47ce1a95ed476def9d802665910f2f">More...</a><br /></td></tr>
 <tr class="separator:a6d47ce1a95ed476def9d802665910f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2dd44bd44a3664a0c05a29a3b46b71fe"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a00901.html">Light</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html#a2dd44bd44a3664a0c05a29a3b46b71fe">getLight</a> (<a class="el" href="a00905.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> handle) const</td></tr>
+<tr class="memdesc:a2dd44bd44a3664a0c05a29a3b46b71fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the light with the given handle. Invalid handles return a default value (a light with a negative position and 0 radius)  <a href="#a2dd44bd44a3664a0c05a29a3b46b71fe">More...</a><br /></td></tr>
+<tr class="separator:a2dd44bd44a3664a0c05a29a3b46b71fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a605b027cec958f495b91029d39aae436"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html#a605b027cec958f495b91029d39aae436">removeLight</a> (<a class="el" href="a00905.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> light, bool updateSave=false)</td></tr>
 <tr class="memdesc:a605b027cec958f495b91029d39aae436"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the given light from the system and optionally persist the removal.  <a href="#a605b027cec958f495b91029d39aae436">More...</a><br /></td></tr>
 <tr class="separator:a605b027cec958f495b91029d39aae436"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -265,7 +268,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00108">108</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00115">115</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -333,7 +336,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00096">96</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00103">103</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -355,7 +358,7 @@ Static Public Attributes</h2></td></tr>
 <p>Returns whether or not this map is adjusted for time of day. </p>
 <dl class="section return"><dt>Returns</dt><dd>True is adjusting light level based on time, false if constant light level </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00098">98</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00105">105</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -376,7 +379,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Clears all lights from the map, including the persisted light data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00123">123</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00130">130</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -409,6 +412,35 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a2dd44bd44a3664a0c05a29a3b46b71fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dd44bd44a3664a0c05a29a3b46b71fe">&#9670;&nbsp;</a></span>getLight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a00901.html">Light</a> &amp; core::map::LightingSystem::getLight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00905.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a>&#160;</td>
+          <td class="paramname"><em>handle</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the value of the light with the given handle. Invalid handles return a default value (a light with a negative position and 0 radius) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">handle</td><td>The handle to get the light for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a00901.html" title="Represents a renderable light in a Map. ">Light</a>&amp; The value of the light with the given handle </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00069">69</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a11e3cd08c517c0dcc83ec7e526675017"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a11e3cd08c517c0dcc83ec7e526675017">&#9670;&nbsp;</a></span>getMaxLightLevel()</h2>
 
@@ -427,7 +459,7 @@ Static Public Attributes</h2></td></tr>
 <p>Returns the maximum ambient light level of this map. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::uint8_t The maximum ambient light level </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00094">94</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00101">101</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -449,7 +481,7 @@ Static Public Attributes</h2></td></tr>
 <p>Returns the minimum ambient light level of this map. </p>
 <dl class="section return"><dt>Returns</dt><dd>std::uint8_t The minmum ambient light level </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00092">92</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00099">99</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -477,7 +509,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00100">100</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00107">107</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -513,7 +545,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00169">169</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00176">176</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -549,7 +581,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00181">181</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00188">188</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -585,7 +617,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00225">225</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00232">232</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -624,7 +656,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00068">68</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00075">75</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -652,7 +684,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00133">133</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00140">140</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -691,7 +723,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00086">86</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00093">93</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -713,7 +745,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Subscribes the lighting system to time events for ambient light level. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00119">119</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00126">126</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -734,7 +766,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Unsubscribes the lighting system from the event dispatcher. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00121">121</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00368_source.html#l00128">128</a> of file <a class="el" href="a00368_source.html">LightingSystem.cpp</a>.</p>
 
 </div>
 </div>
@@ -819,7 +851,7 @@ Static Public Attributes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Nov 12 2021 14:29:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Nov 12 2021 22:28:21 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

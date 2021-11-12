@@ -26,6 +26,7 @@ var searchData=
   ['removelayeraction',['RemoveLayerAction',['../a01373.html',1,'editor::component::EditMap']]],
   ['removelevel',['removeLevel',['../a01105.html#a8bbce988fc27e025a12da256fa81d96f',1,'editor::component::EditMap']]],
   ['removelight',['removeLight',['../a00905.html#a605b027cec958f495b91029d39aae436',1,'core::map::LightingSystem::removeLight()'],['../a01105.html#a5fb153893b98e4b199d570fdee6c32a2',1,'editor::component::EditMap::removeLight()']]],
+  ['removelightaction',['RemoveLightAction',['../a01441.html',1,'editor::component::EditMap']]],
   ['removelistener',['removeListener',['../a00961.html#aefac3bbb9d680778ea8998b52f78097b',1,'core::player::Input']]],
   ['removenpcspawn',['removeNpcSpawn',['../a01105.html#a42ab51aee9f223f1af47a0501568eb0f',1,'editor::component::EditMap']]],
   ['removenpcspawnaction',['RemoveNpcSpawnAction',['../a01425.html',1,'editor::component::EditMap']]],
