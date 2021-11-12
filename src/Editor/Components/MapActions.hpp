@@ -488,6 +488,43 @@ private:
                      const core::map::Item& orig);
 };
 
+class EditMap::SetLightAction : public EditMap::Action {
+public:
+    static Action::Ptr create(core::map::LightingSystem::Handle handle, const sf::Vector2i& pos,
+                              unsigned int radius, const core::map::Light& orig);
+
+    virtual ~SetLightAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const core::map::LightingSystem::Handle handle;
+    core::map::LightingSystem::Handle spawned;
+    const core::map::Light value;
+    const core::map::Light orig;
+
+    SetLightAction(core::map::LightingSystem::Handle handle, const sf::Vector2i& pos,
+                   unsigned int radius, const core::map::Light& orig);
+};
+
+class EditMap::RemoveLightAction : public EditMap::Action {
+public:
+    static Action::Ptr create(core::map::LightingSystem::Handle handle,
+                              const core::map::Light& orig);
+
+    virtual ~RemoveLightAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    core::map::LightingSystem::Handle handle;
+    const core::map::Light orig;
+
+    RemoveLightAction(core::map::LightingSystem::Handle handle, const core::map::Light& orig);
+};
+
 } // namespace component
 } // namespace editor
 

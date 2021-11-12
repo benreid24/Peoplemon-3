@@ -712,5 +712,17 @@ void EditMap::removeItem(unsigned int level, const sf::Vector2i& tiles) {
     }
 }
 
+void EditMap::setLight(const sf::Vector2i& pos, unsigned int rad) {
+    const core::map::LightingSystem::Handle h = lighting.getClosestLight(pos);
+    addAction(SetLightAction::create(h, pos, rad, lighting.getLight(h)));
+}
+
+void EditMap::removeLight(const sf::Vector2i& pos) {
+    const core::map::LightingSystem::Handle h = lighting.getClosestLight(pos);
+    if (h != core::map::LightingSystem::None) {
+        addAction(RemoveLightAction::create(h, lighting.getLight(h)));
+    }
+}
+
 } // namespace component
 } // namespace editor

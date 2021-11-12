@@ -65,6 +65,12 @@ LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& posit
     return closest;
 }
 
+const Light& LightingSystem::getLight(Handle h) const {
+    static const Light empty(0, {-1, -1});
+    const auto it = handles.find(h);
+    return it != handles.end() ? it->second->get().second : empty;
+}
+
 void LightingSystem::removeLight(Handle handle, bool p) {
     auto it = handles.find(handle);
     if (it == handles.end()) return;

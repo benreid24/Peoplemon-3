@@ -137,7 +137,7 @@ jobs:
           mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
           zip -vr MacOS.zip Peoplemon.app
           
-          mv -r Peoplemon.app PeoplemonEditor.app
+          mv Peoplemon.app PeoplemonEditor.app
           mv EditorResources PeoplemonEditor.app/Contents/MacOS
           mv PeoplemonEditorRelease PeoplemonEditor.app/Contents/MacOS/Peoplemon
           zip -vr MacOSEditor.zip PeoplemonEditor.app

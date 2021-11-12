@@ -72,6 +72,15 @@ public:
     Handle getClosestLight(const sf::Vector2i& position);
 
     /**
+     * @brief Returns the value of the light with the given handle. Invalid handles return a default
+     *        value (a light with a negative position and 0 radius)
+     *
+     * @param handle The handle to get the light for
+     * @return const Light& The value of the light with the given handle
+     */
+    const Light& getLight(Handle handle) const;
+
+    /**
      * @brief Remove the given light from the system and optionally persist the removal
      *
      * @param light A handle to the light to remove
