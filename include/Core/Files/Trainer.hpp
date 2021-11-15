@@ -123,7 +123,7 @@ public:
      * @brief The behavior of the trainer
      *
      */
-    Behavior behavior() const;
+    const Behavior& behavior() const;
 
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;

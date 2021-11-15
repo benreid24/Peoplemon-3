@@ -14,6 +14,7 @@ target_sources(PeoplemonEditor PRIVATE
     NewMapDialog.cpp
     NPCEditorWindow.cpp
     ScriptSelector.cpp
+    TrainerEditorWindow.cpp
 )
 
 add_subdirectory(Helpers)

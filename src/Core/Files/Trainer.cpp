@@ -113,7 +113,7 @@ std::uint8_t Trainer::visionRange() const { return rangeField.getValue(); }
 
 Behavior& Trainer::behavior() { return behaviorField.getValue(); }
 
-Behavior Trainer::behavior() const { return behaviorField.getValue(); }
+const Behavior& Trainer::behavior() const { return behaviorField.getValue(); }
 
 } // namespace file
 } // namespace core

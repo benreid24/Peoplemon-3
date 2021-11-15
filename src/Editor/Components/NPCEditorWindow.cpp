@@ -40,8 +40,6 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     newBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (confirmDiscard()) {
             makingNew = true;
-            reset();
-            makeClean();
             window->setForceFocus(false);
             filePicker.open(FilePicker::CreateNew, "New NPC", parent, true);
         }
@@ -52,7 +50,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         if (fileLabel->getText() == EmptyFile || confirmDiscard()) {
             makingNew = true;
             window->setForceFocus(false);
-            filePicker.open(FilePicker::PickExisting, "New NPC", parent, false);
+            filePicker.open(FilePicker::CreateOrPick, "Set NPC File", parent, false);
         }
     });
     Button::Ptr openBut = Button::create("Open");
@@ -78,6 +76,9 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
                     bl::file::Util::joinPath(core::Properties::NpcPath(), fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save NPC", "ok", "error", 1);
             }
+            else {
+                makeClean();
+            }
         }
     });
     fileLabel = Label::create("filename.npc");
@@ -92,6 +93,8 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Label::Ptr label = Label::create("Name:");
     nameEntry        = TextEntry::create();
+    nameEntry->getSignal(Event::ValueChanged)
+        .willAlwaysCall(std::bind(&NpcEditorWindow::makeDirty, this));
     row->pack(label, false, true);
     row->pack(nameEntry, true, true);
     window->pack(row, true, false);
@@ -159,14 +162,19 @@ void NpcEditorWindow::show(GUI::Ptr p, const std::string& file) {
 }
 
 void NpcEditorWindow::onChooseFile(const std::string& file) {
+    const std::string f =
+        bl::file::Util::getExtension(file) == core::Properties::NpcFileExtension() ?
+            file :
+            file + "." + core::Properties::NpcFileExtension();
     filePicker.close();
     window->setForceFocus(true);
-    fileLabel->setText(file);
     if (makingNew) { makeDirty(); }
     else {
-        load(file);
+        reset();
+        load(f);
         makeClean();
     }
+    fileLabel->setText(f);
 }
 
 void NpcEditorWindow::makeClean() {
@@ -227,11 +235,14 @@ bool NpcEditorWindow::validate(bool saving) const {
     const std::string p =
         FileUtil::joinPath(core::Properties::ConversationPath(), convLabel->getText());
     if (!FileUtil::exists(p)) {
-        BL_LOG_INFO << p;
         bl::dialog::tinyfd_messageBox("Warning", "Bad conversation", "ok", "warning", 1);
         return false;
     }
-    // TODO - validate behavior
+    if (behaviorEditor.getValue().type() == core::file::Behavior::Type::FollowingPath &&
+        behaviorEditor.getValue().path().paces.empty()) {
+        bl::dialog::tinyfd_messageBox("Warning", "Behavior path is empty", "ok", "warning", 1);
+        return false;
+    }
     return true;
 }
 
@@ -252,11 +263,15 @@ void NpcEditorWindow::hide() {
     closeCb();
 }
 
-void NpcEditorWindow::onChooseAnimation(const std::string& f) { animLabel->setText(f); }
+void NpcEditorWindow::onChooseAnimation(const std::string& f) {
+    animLabel->setText(f);
+    makeDirty();
+}
 
 void NpcEditorWindow::onChooseConversation(const std::string& c) {
     convLabel->setText(c);
     window->setForceFocus(true);
+    makeDirty();
 }
 
 void NpcEditorWindow::forceWindowOnTop() { window->setForceFocus(true); }
