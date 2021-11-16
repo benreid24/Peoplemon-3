@@ -415,6 +415,7 @@ void Map::update(system::Systems& systems, float dt) {
     tileset->update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
     weather.update(systems, dt);
+    lighting.update(dt);
 }
 
 void Map::render(sf::RenderTarget& target, float residual,

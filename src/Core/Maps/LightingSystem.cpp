@@ -10,6 +10,11 @@ namespace core
 {
 namespace map
 {
+namespace
+{
+constexpr float AdjustSpeed = 30.f;
+}
+
 LightingSystem::LightingSystem()
 : lightsField(*this)
 , lowLevelField(*this, 175)
@@ -20,7 +25,9 @@ LightingSystem::LightingSystem()
 , minLevel(lowLevelField.getValue())
 , maxLevel(highLevelField.getValue())
 , sunlightFactor(1.f)
-, weatherModifier(0) {}
+, weatherModifier(0)
+, targetWeatherModifier(0)
+, weatherResidual(0.f) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     const Handle h =
@@ -137,6 +144,31 @@ void LightingSystem::clear() {
     handles.clear();
 }
 
+void LightingSystem::update(float dt) {
+    if (weatherModifier != targetWeatherModifier) {
+        weatherResidual += AdjustSpeed * dt;
+        const float p = std::floor(weatherResidual);
+        if (p > 0.f) {
+            weatherResidual -= p;
+            if (targetWeatherModifier > weatherModifier) {
+                weatherModifier += static_cast<int>(p);
+                if (weatherModifier > targetWeatherModifier) {
+                    weatherModifier = targetWeatherModifier;
+                }
+            }
+            else {
+                weatherModifier -= static_cast<int>(p);
+                if (weatherModifier < targetWeatherModifier) {
+                    weatherModifier = targetWeatherModifier;
+                }
+            }
+        }
+    }
+    else {
+        weatherResidual = 0.f;
+    }
+}
+
 void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() * 0.5f);
     const sf::Vector2f& size = target.getView().getSize();
@@ -189,47 +221,47 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
     switch (event.type) {
     case Weather::LightRain:
     case Weather::LightRainThunder:
-        weatherModifier = Properties::LightRainLightModifier();
+        targetWeatherModifier = Properties::LightRainLightModifier();
         break;
 
     case Weather::HardRain:
     case Weather::HardRainThunder:
-        weatherModifier = Properties::HardRainLightModifier();
+        targetWeatherModifier = Properties::HardRainLightModifier();
         break;
 
     case Weather::LightSnow:
     case Weather::LightSnowThunder:
-        weatherModifier = Properties::LightSnowLightModifier();
+        targetWeatherModifier = Properties::LightSnowLightModifier();
         break;
 
     case Weather::HardSnow:
     case Weather::HardSnowThunder:
-        weatherModifier = Properties::HardSnowLightModifier();
+        targetWeatherModifier = Properties::HardSnowLightModifier();
         break;
 
     case Weather::ThinFog:
-        weatherModifier = Properties::ThinFogLightModifier();
+        targetWeatherModifier = Properties::ThinFogLightModifier();
         break;
 
     case Weather::ThickFog:
-        weatherModifier = Properties::ThickFogLightModifier();
+        targetWeatherModifier = Properties::ThickFogLightModifier();
         break;
 
     case Weather::SandStorm:
-        weatherModifier = Properties::SandstormLightModifier();
+        targetWeatherModifier = Properties::SandstormLightModifier();
         break;
 
     case Weather::Sunny:
-        weatherModifier = Properties::SunnyLightModifier();
+        targetWeatherModifier = Properties::SunnyLightModifier();
         break;
 
     default:
-        weatherModifier = 0;
+        targetWeatherModifier = 0;
         break;
     }
 }
 
-void LightingSystem::observe(const event::WeatherStopped&) { weatherModifier = 0; }
+void LightingSystem::observe(const event::WeatherStopped&) { targetWeatherModifier = 0; }
 
 } // namespace map
 } // namespace core
