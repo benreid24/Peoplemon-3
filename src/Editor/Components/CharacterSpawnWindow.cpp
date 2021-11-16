@@ -71,6 +71,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Level:"), false, true);
     levelInput = TextEntry::create();
+    levelInput->setMode(TextEntry::Mode::Integer);
     row->pack(levelInput, true, false);
     window->pack(row, true, false);
 
@@ -78,11 +79,13 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     Box::Ptr input = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     input->pack(Label::create("X:"), false, true);
     xInput = TextEntry::create();
+    xInput->setMode(TextEntry::Mode::Integer);
     input->pack(xInput, true, true);
     row->pack(input, true, false);
     input = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     input->pack(Label::create("Y:"), false, true);
     yInput = TextEntry::create();
+    yInput->setMode(TextEntry::Mode::Integer);
     input->pack(yInput, true, true);
     row->pack(input, true, false);
     window->pack(row, true, false);

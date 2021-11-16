@@ -156,6 +156,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Vision Range (tiles):"), false, true);
     visionRangeEntry = ComboBox::create();
+    visionRangeEntry->setMaxHeight(300.f);
     for (int i = 0; i <= 20; ++i) { visionRangeEntry->addOption(std::to_string(i)); }
     visionRangeEntry->setSelectedOption(4);
     visionRangeEntry->getSignal(Event::ValueChanged)

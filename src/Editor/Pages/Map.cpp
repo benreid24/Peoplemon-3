@@ -344,17 +344,7 @@ Map::Map(core::system::Systems& s)
     lightCreateOrEdit = RadioButton::create("Create/Modify", "create");
     lightCreateOrEdit->setValue(true);
     lightRadiusEntry = TextEntry::create();
-    lightRadiusEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
-        std::string v = lightRadiusEntry->getInput();
-        for (unsigned int i = 0; i < v.size(); ++i) {
-            if (!std::isdigit(v[i])) {
-                v.erase(i, 1);
-                --i;
-            }
-        }
-        if (v.empty()) v = "0";
-        lightRadiusEntry->setInput(v);
-    });
+    lightRadiusEntry->setMode(TextEntry::Mode::Integer);
     lightRadiusEntry->setRequisition({80, 0});
     lightRadiusEntry->setInput("100");
     box->pack(lightCreateOrEdit, false, false);
