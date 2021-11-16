@@ -425,32 +425,16 @@ void Map::render(sf::RenderTarget& target, float residual,
     cover.setOrigin(view.getSize() * 0.5f);
     target.draw(cover, {sf::BlendNone});
 
-    static const sf::Vector2i ExtraRender =
-        sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
+    refreshRenderRange(target.getView());
 
-    const sf::Vector2f cornerPixels =
-        target.getView().getCenter() - target.getView().getSize() / 2.f;
-    sf::Vector2i corner =
-        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile() - ExtraRender;
-    if (corner.x < 0) corner.x = 0;
-    if (corner.y < 0) corner.y = 0;
-
-    sf::Vector2i wsize =
-        static_cast<sf::Vector2i>(target.getView().getSize()) / Properties::PixelsPerTile() +
-        ExtraRender * 2;
-    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
-    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
-    renderRange = {corner, wsize};
-
-    const auto renderRow = [&target, residual, &corner, &wsize](const TileLayer& layer, int row) {
-        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+    const auto renderRow = [&target, residual, this](const TileLayer& layer, int row) {
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
             layer.get(x, row).render(target, residual);
         }
     };
 
-    const auto renderSorted = [&target, residual, &corner, &wsize](const SortedLayer& layer,
-                                                                   int row) {
-        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+    const auto renderSorted = [&target, residual, this](const SortedLayer& layer, int row) {
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
             Tile* t = layer(x, row);
             if (t) t->render(target, residual);
         }
@@ -460,14 +444,18 @@ void Map::render(sf::RenderTarget& target, float residual,
         LayerSet& level = levels[i];
 
         for (const TileLayer& layer : level.bottomLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                renderRow(layer, y);
+            }
         }
-        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+        for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
             for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
-            entityCb(i, y, corner.x, corner.x + wsize.x);
+            entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
         }
         for (const TileLayer& layer : level.topLayers()) {
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                renderRow(layer, y);
+            }
         }
     }
 
@@ -708,6 +696,23 @@ void Map::clear() {
     weatherField = Weather::None;
     weather.set(Weather::None, true);
     renderRange = sf::IntRect(0, 0, 1, 1);
+}
+
+void Map::refreshRenderRange(const sf::View& view) const {
+    static const sf::Vector2i ExtraRender =
+        sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
+
+    const sf::Vector2f cornerPixels = view.getCenter() - view.getSize() * 0.5f;
+    sf::Vector2i corner =
+        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile() - ExtraRender;
+    if (corner.x < 0) corner.x = 0;
+    if (corner.y < 0) corner.y = 0;
+
+    sf::Vector2i wsize =
+        static_cast<sf::Vector2i>(view.getSize()) / Properties::PixelsPerTile() + ExtraRender * 2;
+    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
+    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
+    renderRange = {corner, wsize};
 }
 
 } // namespace map

@@ -483,37 +483,21 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     cover.setOrigin(view.getSize() * 0.5f);
     target.draw(cover, {sf::BlendNone});
 
-    static const sf::Vector2i ExtraRender =
-        sf::Vector2i(core::Properties::ExtraRenderTiles(), core::Properties::ExtraRenderTiles());
+    refreshRenderRange(target.getView());
 
-    const sf::Vector2f cornerPixels =
-        target.getView().getCenter() - target.getView().getSize() / 2.f;
-    sf::Vector2i corner =
-        static_cast<sf::Vector2i>(cornerPixels) / core::Properties::PixelsPerTile() - ExtraRender;
-    if (corner.x < 0) corner.x = 0;
-    if (corner.y < 0) corner.y = 0;
-
-    sf::Vector2i wsize =
-        static_cast<sf::Vector2i>(target.getView().getSize()) / core::Properties::PixelsPerTile() +
-        ExtraRender * 2;
-    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
-    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
-    renderRange = {corner, wsize};
-
-    const auto renderRow = [&target, residual, &corner, &wsize](const core::map::TileLayer& layer,
-                                                                int row) {
-        for (int x = corner.x; x < corner.x + wsize.x; ++x) {
+    const auto renderRow = [&target, residual, this](const core::map::TileLayer& layer, int row) {
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
             layer.get(x, row).render(target, residual);
         }
     };
 
-    const auto renderSorted =
-        [&target, residual, &corner, &wsize](const core::map::SortedLayer& layer, int row) {
-            for (int x = corner.x; x < corner.x + wsize.x; ++x) {
-                core::map::Tile* t = layer(x, row);
-                if (t) t->render(target, residual);
-            }
-        };
+    const auto renderSorted = [&target, residual, this](const core::map::SortedLayer& layer,
+                                                        int row) {
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            core::map::Tile* t = layer(x, row);
+            if (t) t->render(target, residual);
+        }
+    };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         if (!levelFilter[i]) continue;
@@ -523,21 +507,25 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         for (const core::map::TileLayer& layer : level.bottomLayers()) {
             if (!layerFilter[i][li++]) continue;
 
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                renderRow(layer, y);
+            }
         }
-        for (int y = corner.y; y < corner.y + wsize.y; ++y) {
+        for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
             li = level.bottomLayers().size();
             for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
                 if (!layerFilter[i][li++]) continue;
                 renderSorted(layer, y);
             }
-            entityCb(i, y, corner.x, corner.x + wsize.x);
+            entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
         }
         li = level.bottomLayers().size() + level.ysortLayers().size();
         for (const core::map::TileLayer& layer : level.topLayers()) {
             if (!layerFilter[i][li++]) continue;
 
-            for (int y = corner.y; y < corner.y + wsize.y; ++y) { renderRow(layer, y); }
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                renderRow(layer, y);
+            }
         }
     }
 
