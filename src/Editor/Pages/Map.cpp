@@ -890,6 +890,7 @@ void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
     else {
         mapArea.editMap().addNpcSpawn(spawn);
     }
+    mapArea.enableControls();
 }
 
 } // namespace page
