@@ -83,9 +83,11 @@ public:
 
 private:
     const Weather::Type _type;
+    const unsigned int targetParticleCount;
     bl::particle::System<sf::Vector3f> rain;
     const sf::Vector3f fallVelocity;
     mutable sf::FloatRect area;
+    float stopFactor;
 
     bl::resource::Resource<sf::Texture>::Ref dropTxtr;
     mutable sf::Sprite drop;
