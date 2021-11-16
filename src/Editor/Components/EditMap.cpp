@@ -454,7 +454,9 @@ const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
 void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
                            const core::map::CharacterSpawn& val) {
     const bl::entity::Entity e = systems->position().getEntity(orig->position);
-    if (e != bl::entity::InvalidEntity) { addAction(EditNpcSpawnAction::create(orig, val, e)); }
+    if (e != bl::entity::InvalidEntity) {
+        addAction(EditNpcSpawnAction::create(orig - characterField.getValue().data(), *orig, val));
+    }
     else {
         const auto& pos = orig->position.getValue().positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
@@ -467,7 +469,7 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
         if (&characterField.getValue()[i] == s) { break; }
     }
     const bl::entity::Entity e = systems->position().getEntity(s->position);
-    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i, e)); }
+    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
     else {
         const auto& pos = s->position.getValue().positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
