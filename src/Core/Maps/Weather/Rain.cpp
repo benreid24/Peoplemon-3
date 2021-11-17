@@ -63,6 +63,7 @@ void Rain::start(const sf::FloatRect& a) {
 void Rain::stop() {
     stopFactor = 0.f;
     bl::audio::AudioSystem::stopSound(rainSoundHandle, StopTime + 0.5f);
+    thunder.stop();
 }
 
 bool Rain::stopped() const { return rain.particleCount() == 0; }

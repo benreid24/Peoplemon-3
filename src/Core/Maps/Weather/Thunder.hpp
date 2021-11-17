@@ -34,6 +34,12 @@ public:
     ~Thunder();
 
     /**
+     * @brief Prevents further thunder and fades out current strike if present
+     * 
+     */
+    void stop();
+
+    /**
      * @brief Update the thunder
      *
      * @param dt Time elapsed in seconds since last call to update()
@@ -56,6 +62,7 @@ private:
     mutable sf::RectangleShape lightning;
     bl::resource::Resource<sf::SoundBuffer>::Ref sound;
     bl::audio::AudioSystem::Handle soundHandle;
+    bool stopping;
 };
 
 } // namespace weather

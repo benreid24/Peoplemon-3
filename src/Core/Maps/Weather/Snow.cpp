@@ -39,7 +39,10 @@ Weather::Type Snow::type() const { return _type; }
 
 void Snow::start(const sf::FloatRect& a) { area = a; }
 
-void Snow::stop() { stopFactor = 0.f; }
+void Snow::stop() {
+    stopFactor = 0.f;
+    thunder.stop();
+}
 
 bool Snow::stopped() const { return snow.particleCount() == 0; }
 

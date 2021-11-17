@@ -30,24 +30,27 @@ Thunder::Thunder(bool e, bool f)
                   Properties::InfrequentThunderMinInterval())
 , maxInterval(f ? Properties::FrequentThunderMaxInterval() :
                   Properties::InfrequentThunderMaxInterval())
-, timeSinceLastThunder(0.f) {
+, timeSinceLastThunder(0.f)
+, stopping(false) {
     lightning.setFillColor(sf::Color::Transparent);
     if (e) { sound = bl::engine::Resources::sounds().load(Properties::ThunderSoundFile()).data; }
 }
 
 Thunder::~Thunder() { bl::audio::AudioSystem::stopSound(soundHandle, 0.5f); }
 
+void Thunder::stop() { stopping = true; }
+
 void Thunder::update(float dt) {
     if (enabled) {
         timeSinceLastThunder += dt;
-        if (lightning.getFillColor().a > 0) {
+        if (lightning.getFillColor().a != 0) {
             const float a = computeAlpha(timeSinceLastThunder);
             if (a <= 0.f) { lightning.setFillColor(sf::Color::Transparent); }
             else {
                 lightning.setFillColor(sf::Color(255, 255, 255, a));
             }
         }
-        else {
+        else if (!stopping) {
             if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
                 timeSinceLastThunder = 0.f;
                 soundHandle          = bl::audio::AudioSystem::playSound(sound);
