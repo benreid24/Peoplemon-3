@@ -166,8 +166,8 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
             case 'c': {
                 std::string jump;
                 node.setType(Conversation::Node::CheckSaveFlag);
-                if (!input.read(jump)) return false;
                 if (!input.read(node.saveFlag())) return false;
+                if (!input.read(jump)) return false;
                 node.nextOnPass() = i + 1;
                 namedJumps.emplace_back(jump, &nodes.back().nextOnReject());
             } break;
