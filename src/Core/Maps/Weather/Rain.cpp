@@ -84,11 +84,14 @@ void Rain::update(float dt) {
     thunder.update(dt);
 
     if (stopFactor >= 0.f) {
-        stopFactor += std::min(StopSpeed * dt, 1.f);
+        stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);
         rain.setTargetCount(
             targetParticleCount -
             static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));
-        if (stopFactor >= 1.f) { stopFactor = -1.f; }
+        if (stopFactor >= 1.f) {
+            stopFactor = -1.f;
+            rain.setTargetCount(0);
+        }
     }
 }
 
