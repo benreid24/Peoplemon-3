@@ -188,14 +188,17 @@ void LightingSystem::render(sf::RenderTarget& target) {
     renderSurface.clear(sf::Color(0, 0, 0, ambient));
 
     bl::shapes::GradientCircle circle(100);
-    circle.setCenterColor(sf::Color::Transparent);
-    circle.setOuterColor(sf::Color(0, 0, 0, ambient));
+    circle.setCenterColor(sf::Color(0, 0, 0, ambient));
+    circle.setOuterColor(sf::Color(0, 0, 0, 0));
+
+    static const sf::BlendMode blendMode(
+        sf::BlendMode::One, sf::BlendMode::One, sf::BlendMode::ReverseSubtract);
 
     if (ambient > 80) {
         for (auto& light : lightSet) {
             circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
             circle.setRadius(light.get().second.radius.getValue());
-            renderSurface.draw(circle, sf::BlendNone);
+            renderSurface.draw(circle, blendMode);
         }
     }
 
