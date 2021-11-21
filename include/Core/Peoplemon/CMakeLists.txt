@@ -1,6 +1,7 @@
 target_sources(Core PUBLIC
     Ailment.hpp
     BattlePeoplemon.hpp
+    BattleStats.hpp
     Id.hpp
     Move.hpp
     MoveEffect.hpp

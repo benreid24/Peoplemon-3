@@ -1,6 +1,7 @@
 #ifndef CORE_PEOPLEMON_STATS_HPP
 #define CORE_PEOPLEMON_STATS_HPP
 
+#include <BLIB/Files/Binary/Serializer.hpp>
 #include <Core/Peoplemon/Stat.hpp>
 #include <array>
 
@@ -21,10 +22,7 @@ struct Stats {
     int def;
     int spatk;
     int spdef;
-    int acc;
-    int evade;
     int spd;
-    int crit;
 
     /**
      * @brief Initializes all members to 0
@@ -58,6 +56,14 @@ struct Stats {
     int get(Stat stat) const;
 
     /**
+     * @brief Returns the multiplier for a given stat increase/decrease
+     *
+     * @param stage The current stat stage in range [-6, 6]
+     * @return int The multiplier to apply
+     */
+    static int stageMultiplier(int stage);
+
+    /**
      * @brief Helper method to compute a Peoplemon's current stats
      *
      * @param base Base stats for the Peoplemon to compute
@@ -71,7 +77,7 @@ struct Stats {
                               unsigned int level, const Stats& stages = {});
 
     /// Helper array to iterate over stats in loop
-    static const std::array<Stat, 9> IterableStats;
+    static const std::array<Stat, 6> IterableStats;
 
     /// The maximum amount that EVs or IVs can sum to
     static constexpr int MaxEVSum = 510;
@@ -85,5 +91,49 @@ struct Stats {
 
 } // namespace pplmn
 } // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+using core::pplmn::Stats;
+
+template<>
+struct Serializer<Stats> {
+    static bool serialize(File& output, const Stats& v) {
+        if (!output.write<std::uint16_t>(v.hp)) return false;
+        if (!output.write<std::uint16_t>(v.atk)) return false;
+        if (!output.write<std::uint16_t>(v.def)) return false;
+        if (!output.write<std::uint16_t>(v.spatk)) return false;
+        if (!output.write<std::uint16_t>(v.spdef)) return false;
+        if (!output.write<std::uint16_t>(v.spd)) return false;
+        return true;
+    }
+
+    static bool deserialize(File& input, Stats& v) {
+        std::uint16_t val = 0;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.hp = val;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.atk = val;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.def = val;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.spatk = val;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.spdef = val;
+        if (!input.read<std::uint16_t>(val)) return false;
+        v.spd = val;
+        return true;
+    }
+
+    static std::size_t size(const Stats&) { return sizeof(std::uint16_t) * 6; }
+};
+
+} // namespace binary
+} // namespace file
+} // namespace bl
 
 #endif

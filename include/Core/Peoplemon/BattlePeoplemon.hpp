@@ -1,6 +1,7 @@
 #ifndef CORE_PEOPLEMON_BATTLEPEOPLEMON_HPP
 #define CORE_PEOPLEMON_BATTLEPEOPLEMON_HPP
 
+#include <Core/Peoplemon/BattleStats.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Peoplemon/PassiveAilment.hpp>
@@ -118,7 +119,7 @@ public:
 private:
     OwnedPeoplemon* ppl;
     Stats cached;
-    Stats stages;
+    BattleStats battleStats;
     PassiveAilment ailments;
     SpecialAbility ability;
     unsigned int turnsWithAilment;

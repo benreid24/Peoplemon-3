@@ -17,10 +17,10 @@ enum struct Stat : unsigned int {
     Defense        = 2,
     SpecialAttack  = 3,
     SpecialDefense = 4,
-    Accuracy       = 5,
-    Evasion        = 6,
-    Speed          = 7,
-    Critical       = 8
+    Speed          = 5,
+    Evasion,
+    Accuracy,
+    Critical
 };
 
 } // namespace pplmn
