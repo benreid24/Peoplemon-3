@@ -40,6 +40,12 @@ public:
     const Stats& currentStats() const;
 
     /**
+     * @brief Returns the current battle-only stats of the peoplemon, including changes
+     *
+     */
+    const BattleStats& battleStats() const;
+
+    /**
      * @brief Apply a stage change to the given stat
      *
      * @param stat The stat to change

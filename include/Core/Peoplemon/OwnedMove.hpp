@@ -1,6 +1,7 @@
 #ifndef CORE_PEOPLEMON_OWNEDMOVE_HPP
 #define CORE_PEOPLEMON_OWNEDMOVE_HPP
 
+#include <BLIB/Files/Binary/Serializer.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 
 namespace core
@@ -39,5 +40,39 @@ struct OwnedMove {
 
 } // namespace pplmn
 } // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+using core::pplmn::OwnedMove;
+
+template<>
+struct Serializer<OwnedMove> {
+    using IdSerializer = Serializer<core::pplmn::MoveId>;
+
+    static bool serialize(File& output, const OwnedMove& v) {
+        if (!IdSerializer::serialize(output, v.id)) return false;
+        if (!output.write<std::uint8_t>(v.curPP)) return false;
+        if (!output.write<std::uint8_t>(v.maxPP)) return false;
+        return true;
+    }
+
+    static bool deserialize(File& input, OwnedMove& v) {
+        if (!IdSerializer::deserialize(input, v.id)) return false;
+        std::uint8_t t;
+        if (!input.read<std::uint8_t>(t)) return false;
+        v.curPP = t;
+        if (!input.read<std::uint8_t>(t)) return false;
+        v.maxPP = t;
+        return true;
+    }
+};
+
+} // namespace binary
+} // namespace file
+} // namespace bl
 
 #endif
