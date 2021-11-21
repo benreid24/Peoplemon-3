@@ -55,7 +55,7 @@ public:
      * @brief Returns the current level of this peoplemon
      *
      */
-    unsigned int level() const;
+    unsigned int currentLevel() const;
 
     /**
      * @brief Returns the current XP of this peoplemon
@@ -64,12 +64,13 @@ public:
     unsigned int currentXP() const;
 
     /**
-     * @brief Award XP to this peoplemon. Level's up the peoplemon if applicable
+     * @brief Award XP to this peoplemon. Level's up the peoplemon if applicable. Returns the number
+     *        of XP left over after a level up. A return of 0 indicates that all XP has been awarded
      *
      * @param xp The XP to award
-     * @return True if the peoplemon leveled up, false otherwise
+     * @return The number of unused XP (overflow from a level up)
      */
-    bool awardXP(unsigned int xp);
+    unsigned int awardXP(unsigned int xp);
 
     /**
      * @brief Returns the computed stats for the peoplemon. Does not take into account changes
@@ -82,7 +83,7 @@ public:
      * @brief Access the current HP
      *
      */
-    unsigned int& hp();
+    unsigned int& currentHp();
 
     /**
      * @brief Award EVs to this peoplemon
@@ -110,7 +111,7 @@ private:
     std::string customName;
     unsigned int level;
     unsigned int xp;
-    unsigned int currentHp;
+    unsigned int hp;
     Stats ivs;
     Stats evs;
     OwnedMove moves[4];

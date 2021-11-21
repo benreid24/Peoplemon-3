@@ -145,7 +145,7 @@ private:
     std::unordered_map<Id, std::string> descriptions;
     std::unordered_map<Id, Type> types;
     std::unordered_map<Id, SpecialAbility> abilities;
-    std::unordered_map<Id, Stats> baseStats;
+    std::unordered_map<Id, Stats> stats;
     std::unordered_map<Id, std::unordered_set<MoveId>> validMoves;
     std::unordered_map<Id, std::unordered_map<unsigned int, MoveId>> learnedMoves;
     std::unordered_map<Id, unsigned int> evolveLevels;
