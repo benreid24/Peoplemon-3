@@ -107,19 +107,19 @@ public:
     // TODO - maybe refactor to allow arbitrary target? (double battles!)
 
 private:
-    std::unordered_map<MoveId, std::string> names;
-    std::unordered_map<MoveId, std::string> descriptions;
-    std::unordered_map<MoveId, Type> types;
-    std::unordered_map<MoveId, int> damages;
-    std::unordered_map<MoveId, int> accuracies;
-    std::unordered_map<MoveId, int> priorities;
-    std::unordered_map<MoveId, unsigned int> pps;
-    std::unordered_map<MoveId, bool> contactors;
-    std::unordered_map<MoveId, bool> specials;
-    std::unordered_map<MoveId, MoveEffect> effects;
-    std::unordered_map<MoveId, int> effectChances;
-    std::unordered_map<MoveId, int> effectIntensities;
-    std::unordered_map<MoveId, bool> effectSelves;
+    static std::unordered_map<MoveId, std::string>* names;
+    static std::unordered_map<MoveId, std::string>* descriptions;
+    static std::unordered_map<MoveId, Type>* types;
+    static std::unordered_map<MoveId, int>* damages;
+    static std::unordered_map<MoveId, int>* accuracies;
+    static std::unordered_map<MoveId, int>* priorities;
+    static std::unordered_map<MoveId, unsigned int>* pps;
+    static std::unordered_map<MoveId, bool>* contactors;
+    static std::unordered_map<MoveId, bool>* specials;
+    static std::unordered_map<MoveId, MoveEffect>* effects;
+    static std::unordered_map<MoveId, int>* effectChances;
+    static std::unordered_map<MoveId, int>* effectIntensities;
+    static std::unordered_map<MoveId, bool>* effectSelves;
 };
 
 } // namespace pplmn

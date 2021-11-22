@@ -6,6 +6,7 @@
 #include <unordered_set>
 #include <vector>
 
+#include <Core/Files/PeoplemonDB.hpp>
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/SpecialAbility.hpp>
@@ -32,6 +33,13 @@ namespace pplmn
  */
 class Peoplemon {
 public:
+    /**
+     * @brief Sets the data source for all peoplemon. Must remain in scope
+     *
+     * @param data The data source. Must remain in scope
+     */
+    static void setDataSource(file::PeoplemonDB& data);
+
     /**
      * @brief Casts an integer to a validated id. Returns Unknown if the id is invalid
      *
@@ -127,9 +135,9 @@ public:
      *        peoplemon
      *
      * @param id The peoplemon that was defeated
-     * @return float The XP reward multiplier
+     * @return int The XP reward multiplier
      */
-    static float xpYieldMultiplier(Id id);
+    static int xpYieldMultiplier(Id id);
 
     /**
      * @brief Returns the XP required to level up the given peoplemon
@@ -141,18 +149,18 @@ public:
     static unsigned int levelUpXp(Id id, unsigned int level);
 
 private:
-    std::unordered_map<Id, std::string> names;
-    std::unordered_map<Id, std::string> descriptions;
-    std::unordered_map<Id, Type> types;
-    std::unordered_map<Id, SpecialAbility> abilities;
-    std::unordered_map<Id, Stats> stats;
-    std::unordered_map<Id, std::unordered_set<MoveId>> validMoves;
-    std::unordered_map<Id, std::unordered_map<unsigned int, MoveId>> learnedMoves;
-    std::unordered_map<Id, unsigned int> evolveLevels;
-    std::unordered_map<Id, Id> evolveIds;
-    std::unordered_map<Id, Stats> evAwards;
-    std::unordered_map<Id, unsigned int> xpGroups;
-    std::unordered_map<Id, int> xpMults;
+    static std::unordered_map<Id, std::string>* names;
+    static std::unordered_map<Id, std::string>* descriptions;
+    static std::unordered_map<Id, Type>* types;
+    static std::unordered_map<Id, SpecialAbility>* abilities;
+    static std::unordered_map<Id, Stats>* stats;
+    static std::unordered_map<Id, std::unordered_set<MoveId>>* validMoves;
+    static std::unordered_map<Id, std::unordered_map<unsigned int, MoveId>>* learnedMoves;
+    static std::unordered_map<Id, unsigned int>* evolveLevels;
+    static std::unordered_map<Id, Id>* evolveIds;
+    static std::unordered_map<Id, Stats>* evAwards;
+    static std::unordered_map<Id, unsigned int>* xpGroups;
+    static std::unordered_map<Id, int>* xpMults;
 };
 
 } // namespace pplmn

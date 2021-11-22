@@ -2,6 +2,8 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
+#include <Core/Files/PeoplemonDB.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Editor/States/MainEditor.hpp>
@@ -15,6 +17,14 @@ int main() {
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load(true)) {
         BL_LOG_ERROR << "Failed to load application properties";
+        return 1;
+    }
+
+    BL_LOG_INFO << "Loading game metadata";
+    // TODO - load move database
+    core::file::PeoplemonDB ppldb;
+    if (!ppldb.load()) {
+        BL_LOG_ERROR << "Failed to load peoplemon database";
         return 1;
     }
 

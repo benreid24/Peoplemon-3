@@ -69,6 +69,10 @@ struct Serializer<OwnedMove> {
         v.maxPP = t;
         return true;
     }
+
+    static std::size_t size(const OwnedMove& v) {
+        return IdSerializer::size(v.id) + sizeof(std::uint8_t) * 2;
+    }
 };
 
 } // namespace binary

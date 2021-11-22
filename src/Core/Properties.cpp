@@ -95,6 +95,9 @@ const std::string ScriptPath = "Resources/Scripts";
 
 constexpr float ScreenFadePeriod = 2.f;
 
+const std::string PeoplemonDBFile = "Resources/Config/peoplemon.db";
+const std::string MoveDBFile      = "Resources/Config/moves.db";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -196,6 +199,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("blib.script.path", defaults::ScriptPath);
 
     bl::engine::Configuration::set("game.main.fadeout", defaults::ScreenFadePeriod);
+
+    bl::engine::Configuration::set("core.pplmn.dbfile", defaults::PeoplemonDBFile);
+    bl::engine::Configuration::set("core.moves.dbfile", defaults::MoveDBFile);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -562,6 +568,18 @@ float Properties::ScreenFadePeriod() {
     static const float v = bl::engine::Configuration::getOrDefault<float>(
         "game.main.fadeout", defaults::ScreenFadePeriod);
     return v;
+}
+
+const std::string& Properties::PeoplemonDBFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.pplmn.dbfile", defaults::PeoplemonDBFile);
+    return val;
+}
+
+const std::string& Properties::MoveDBFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.moves.dbfile", defaults::PeoplemonDBFile);
+    return val;
 }
 
 } // namespace core
