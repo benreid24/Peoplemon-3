@@ -12,16 +12,14 @@ namespace item
 namespace
 {
 std::vector<Id> ids;
-std::unordered_map<Id, std::string> names;
-std::unordered_map<Id, std::string> descriptions;
-std::unordered_map<Id, int> values;
-const std::string unknownName        = "Unknown Item";
-const std::string unknownDescription = "This item is not known to Peoplemon";
-bool loaded                          = false;
-
-void checkLoad();
+const std::string UnknownName        = "<Unknown Item>";
+const std::string UnknownDescription = "<This item is not known to Peoplemon>";
 
 } // namespace
+
+std::unordered_map<Id, std::string>* Item::names        = nullptr;
+std::unordered_map<Id, std::string>* Item::descriptions = nullptr;
+std::unordered_map<Id, int>* Item::values               = nullptr;
 
 Id Item::cast(unsigned int id) {
     const Id result = static_cast<Id>(id);
@@ -34,6 +32,16 @@ Id Item::cast(unsigned int id) {
 
     BL_LOG_WARN << "Unknown item id: " << id;
     return Id::Unknown;
+}
+
+void Item::setDataSource(file::ItemDB& db) {
+    names        = &db.names();
+    descriptions = &db.descriptions();
+    values       = &db.values();
+
+    ids.reserve(names->size());
+    for (const auto& p : *names) { ids.emplace_back(p.first); }
+    std::sort(ids.begin(), ids.end());
 }
 
 Category Item::getCategory(Id item) {
@@ -60,27 +68,21 @@ Type Item::getType(Id item) {
 }
 
 const std::string& Item::getName(Id item) {
-    checkLoad();
-    const auto it = names.find(item);
-    return it == names.end() ? unknownName : it->second;
+    const auto it = names->find(item);
+    return it == names->end() ? UnknownName : it->second;
 }
 
 const std::string& Item::getDescription(Id item) {
-    checkLoad();
-    const auto it = descriptions.find(item);
-    return it == descriptions.end() ? unknownDescription : it->second;
+    const auto it = descriptions->find(item);
+    return it == descriptions->end() ? UnknownDescription : it->second;
 }
 
 int Item::getValue(Id item) {
-    checkLoad();
-    const auto it = values.find(item);
-    return it == values.end() ? 0 : it->second;
+    const auto it = values->find(item);
+    return it == values->end() ? 0 : it->second;
 }
 
-const std::vector<Id>& Item::validIds() {
-    checkLoad();
-    return ids;
-}
+const std::vector<Id>& Item::validIds() { return ids; }
 
 UseResult Item::useOnPeoplemon(Id) { return {false, "Unimplemented useOnPeoplemon"}; }
 
@@ -89,51 +91,6 @@ UseResult Item::evolvePeoplemon(Id) { return {false, "Unimplemented evolvePeople
 UseResult Item::useOnPlayer(Id) { return {false, "Unimplemented useOnPlayer"}; }
 
 UseResult Item::useKeyItem(Id) { return {false, "Unimplemented useKeyItem"}; }
-
-namespace
-{
-void checkLoad() {
-    if (loaded) return;
-    loaded = true;
-
-    const bl::file::json::Group data = bl::file::json::loadFromFile(Properties::ItemMetadataFile());
-    for (const std::string& idStr : data.getFields()) {
-        try {
-            const unsigned int rawId = std::stol(idStr);
-            const item::Id id        = item::Item::cast(rawId);
-            if (id == item::Id::Unknown) {
-                BL_LOG_ERROR << "Unknown item id: " << rawId;
-                continue;
-            }
-            ids.emplace_back(id);
-
-            const bl::file::json::RGroup ng = data.getGroup(idStr);
-            if (!ng.has_value()) {
-                BL_LOG_ERROR << "Item id " << idStr << " has invalid json data";
-                continue;
-            }
-
-            const bl::file::json::Group& g      = ng.value();
-            const bl::file::json::String name   = g.getString("name");
-            const bl::file::json::String desc   = g.getString("description");
-            const bl::file::json::Numeric value = g.getNumeric("value");
-            if (!name.has_value()) {
-                BL_LOG_WARN << "Item " << idStr << " is missing 'name' field";
-            }
-            if (!desc.has_value()) {
-                BL_LOG_WARN << "Item " << idStr << " is missing 'description' field";
-            }
-            if (!value.has_value()) {
-                BL_LOG_WARN << "Item " << idStr << " is missing 'value' field";
-            }
-
-            names.emplace(id, name.value_or(unknownName));
-            descriptions.emplace(id, desc.value_or(unknownDescription));
-            values.emplace(id, static_cast<int>(value.value_or(0)));
-        } catch (...) { BL_LOG_WARN << "Invalid item id: " << idStr; }
-    }
-}
-} // namespace
 
 } // namespace item
 } // namespace core

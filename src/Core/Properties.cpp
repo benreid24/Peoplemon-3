@@ -84,7 +84,7 @@ const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationP
 
 const float CharacterSpinPeriod = 1.75f;
 
-const std::string ItemMetadataFile = "Resources/Config/items.json";
+const std::string ItemMetadataFile = "Resources/Config/items.db";
 const std::string ItemSprite       = "Resources/Images/item.png";
 
 const float GhostWriterSpeed   = 16.f;

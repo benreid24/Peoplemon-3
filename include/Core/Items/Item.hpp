@@ -1,6 +1,7 @@
 #ifndef CORE_ITEMS_ITEM_HPP
 #define CORE_ITEMS_ITEM_HPP
 
+#include <Core/Files/ItemDB.hpp>
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
@@ -25,6 +26,13 @@ struct Item {
      * @return Id The resulting id, or Unknown if unrecognized
      */
     static Id cast(unsigned int id);
+
+    /**
+     * @brief Set the data source for the item methods
+     *
+     * @param source The data source. Must remain in scope
+     */
+    static void setDataSource(file::ItemDB& source);
 
     /**
      * @brief Returns the category of the given item
@@ -103,6 +111,11 @@ struct Item {
      * @return UseResult The result of the use
      */
     static UseResult useKeyItem(Id item); // TODO - player data
+
+private:
+    static std::unordered_map<Id, std::string>* names;
+    static std::unordered_map<Id, std::string>* descriptions;
+    static std::unordered_map<Id, int>* values;
 };
 
 } // namespace item
