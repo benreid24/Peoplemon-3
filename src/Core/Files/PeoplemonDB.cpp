@@ -37,7 +37,7 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
 
             std::uint8_t u8;
             if (!input.read<std::uint8_t>(u8)) return false;
-            db.types()[id] = static_cast<pplmn::Type>(u8);
+            db.types()[id] = pplmn::legacyTypeToNew(u8);
             if (!input.read<std::uint8_t>(u8)) return false;
             db.abilities()[id] = static_cast<pplmn::SpecialAbility>(u8);
 
@@ -67,7 +67,7 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
                 const pplmn::MoveId m = pplmn::Move::cast(mi);
                 if (m == pplmn::MoveId::Unknown) {
                     BL_LOG_ERROR << "Invalid learn move id " << mi << " for peoplemon "
-                                 << static_cast<unsigned int>(id);
+                                 << static_cast<unsigned int>(id) << "(" << db.names()[id] << ")";
                 }
                 db.validMoves()[id].insert(m);
             }
@@ -81,7 +81,7 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
                 const pplmn::MoveId m = pplmn::Move::cast(mi);
                 if (m == pplmn::MoveId::Unknown) {
                     BL_LOG_ERROR << "Invalid learn move id " << mi << " for peoplemon "
-                                 << static_cast<unsigned int>(id);
+                                 << static_cast<unsigned int>(id) << "(" << db.names()[id] << ")";
                 }
                 db.learnedMoves()[id][lvl] = m;
             }
@@ -92,7 +92,8 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
             pplmn::Id tid = pplmn::Peoplemon::cast(u8);
             if (tid == pplmn::Id::Unknown && u8 != 0) {
                 BL_LOG_ERROR << "Invalid evolution id " << static_cast<unsigned int>(u8)
-                             << " for peoplemon " << static_cast<unsigned int>(id);
+                             << " for peoplemon " << static_cast<unsigned int>(id) << "("
+                             << db.names()[id] << ")";
             }
             db.evolveIds()[id] = tid;
 

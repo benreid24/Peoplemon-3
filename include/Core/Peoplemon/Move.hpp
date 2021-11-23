@@ -3,6 +3,7 @@
 
 #include <unordered_map>
 
+#include <Core/Files/MoveDB.hpp>
 #include <Core/Peoplemon/MoveEffect.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/Type.hpp>
@@ -28,6 +29,13 @@ public:
     static MoveId cast(unsigned int id);
 
     /**
+     * @brief Set the data source for each method
+     *
+     * @param source The data source. Must remain in scope
+     */
+    static void setDataSource(file::MoveDB& source);
+
+    /**
      * @brief Returns the name of the given move
      *
      */
@@ -43,7 +51,7 @@ public:
      * @brief Returns the type of the given move
      *
      */
-    static Type type(Move move);
+    static Type type(MoveId move);
 
     /**
      * @brief Returns the damage of the given move
@@ -109,6 +117,7 @@ public:
 private:
     static std::unordered_map<MoveId, std::string>* names;
     static std::unordered_map<MoveId, std::string>* descriptions;
+    static std::unordered_map<MoveId, std::string>* animationPaths;
     static std::unordered_map<MoveId, Type>* types;
     static std::unordered_map<MoveId, int>* damages;
     static std::unordered_map<MoveId, int>* accuracies;
