@@ -74,6 +74,7 @@ const std::string TrainerFileExtension      = "tnr";
 const std::string TrainerPath               = "Resources/Characters/Trainers";
 const std::string ConversationPath          = "Resources/Characters/Conversations";
 const std::string ConversationFileExtension = "conv";
+const std::string LegacyPeoplemonPath       = "Resources/Characters/LegacyPeoplemon";
 
 const std::string CharacterAnimationPath = "Resources/Characters/Animations";
 constexpr float CharacterMoveSpeed       = 81.f;
@@ -179,6 +180,7 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
     bl::engine::Configuration::set("core.conversation.extension",
                                    defaults::ConversationFileExtension);
+    bl::engine::Configuration::set("core.trainer.pplpath", defaults::LegacyPeoplemonPath);
 
     bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
     bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
@@ -494,6 +496,12 @@ const std::string& Properties::ConversationPath() {
 const std::string& Properties::ConversationFileExtension() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.conversation.extension", defaults::ConversationFileExtension);
+    return val;
+}
+
+const std::string& Properties::LegacyPeoplemonPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.pplpath", defaults::LegacyPeoplemonPath);
     return val;
 }
 

@@ -86,6 +86,7 @@ public:
     static const std::string& TrainerPath();
     static const std::string& ConversationPath();
     static const std::string& ConversationFileExtension();
+    static const std::string& LegacyPeoplemonPath();
 
     static const std::string& CharacterAnimationPath();
     static float CharacterMoveSpeed();

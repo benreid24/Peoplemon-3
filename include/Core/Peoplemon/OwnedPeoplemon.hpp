@@ -1,12 +1,38 @@
 #ifndef CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 #define CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 
+#include <BLIB/Files/Binary.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/OwnedMove.hpp>
 #include <Core/Peoplemon/Stats.hpp>
 #include <string>
+
+namespace core
+{
+namespace pplmn
+{
+class OwnedPeoplemon;
+} // namespace pplmn
+} // namespace core
+
+namespace bl
+{
+namespace file
+{
+namespace binary
+{
+template<>
+struct Serializer<core::pplmn::OwnedPeoplemon> {
+    static bool serialize(File& output, const core::pplmn::OwnedPeoplemon& p);
+
+    static bool deserialize(File& input, core::pplmn::OwnedPeoplemon& p);
+};
+
+} // namespace binary
+} // namespace file
+} // namespace bl
 
 namespace core
 {
@@ -37,6 +63,14 @@ public:
      * @param level The level to create at
      */
     OwnedPeoplemon(Id id, unsigned int level);
+
+    /**
+     * @brief Loads the peoplemon from a legacy file
+     *
+     * @param file Path to the file, relative to the peoplemon directory
+     * @return True on success, false on error
+     */
+    bool loadLegacyFile(const std::string& file);
 
     /**
      * @brief Returns the name of this peoplemon, custom or defualt
@@ -104,7 +138,27 @@ public:
      */
     item::Id& holdItem();
 
-    // TODO - expose moves?
+    /**
+     * @brief Returns the moves known by this Peoplemon
+     *
+     */
+    const OwnedMove* knownMoves() const;
+
+    /**
+     * @brief Returns whether or not this peoplemon knows the given move
+     *
+     * @param move The move to check for
+     * @return True if known, false if unknown
+     */
+    bool knowsMove(MoveId move) const;
+
+    /**
+     * @brief Teaches the peoplemon the given move, potentially replacing an existing one
+     *
+     * @param move The move to learn
+     * @param i The index to place it, in range [0, 4)
+     */
+    void learnMove(MoveId move, unsigned int i);
 
 private:
     Id id;
@@ -120,6 +174,7 @@ private:
 
     friend class WildPeoplemon;
     friend class BattlePeoplemon;
+    friend class bl::file::binary::Serializer<OwnedPeoplemon>;
 };
 
 } // namespace pplmn
