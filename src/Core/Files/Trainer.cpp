@@ -1,6 +1,7 @@
 #include <Core/Files/Trainer.hpp>
 
 #include <BLIB/Files/Binary/VersionedFile.hpp>
+#include <Core/Items/Item.hpp>
 
 namespace core
 {
@@ -24,16 +25,29 @@ struct LegacyLoader : public bl::file::binary::VersionedPayloadLoader<Trainer> {
 
         std::uint16_t pplCount;
         if (!input.read<std::uint16_t>(pplCount)) return false;
+        trainer.peoplemon().reserve(pplCount);
         for (std::uint16_t i = 0; i < pplCount; ++i) {
-            // TODO - load peoplemon
-            if (!input.read(discard)) return false; // peoplemon file
+            if (!input.read(discard)) return false;
+            trainer.peoplemon().emplace_back();
+            if (!trainer.peoplemon().back().loadLegacyFile(discard)) {
+                BL_LOG_ERROR << "Bad peoplemon file " << discard << " for trainer "
+                             << input.filename();
+                return false;
+            }
         }
 
         std::uint8_t itemCount;
         if (!input.read<std::uint8_t>(itemCount)) return false;
+        trainer.items().reserve(itemCount);
         for (std::uint8_t i = 0; i < itemCount; ++i) {
-            std::uint16_t item; // TODO - store items
+            std::uint16_t item;
             if (!input.read<std::uint16_t>(item)) return false;
+            const item::Id it = item::Item::cast(item);
+            if (it == item::Id::Unknown) {
+                BL_LOG_ERROR << "Bad item " << item << " for trainer " << input.filename();
+                return false;
+            }
+            trainer.items().emplace_back(it);
         }
 
         std::uint8_t aiType; // TODO - store trainer ai
@@ -69,7 +83,9 @@ Trainer::Trainer()
 , postBattleField(*this)
 , loseBattleLineField(*this)
 , rangeField(*this)
-, behaviorField(*this) {}
+, behaviorField(*this)
+, peoplemonField(*this)
+, itemsField(*this) {}
 
 bool Trainer::save(const std::string& file) const {
     bl::file::binary::File output(file, bl::file::binary::File::Write);
@@ -114,6 +130,16 @@ std::uint8_t Trainer::visionRange() const { return rangeField.getValue(); }
 Behavior& Trainer::behavior() { return behaviorField.getValue(); }
 
 const Behavior& Trainer::behavior() const { return behaviorField.getValue(); }
+
+std::vector<pplmn::OwnedPeoplemon>& Trainer::peoplemon() { return peoplemonField.getValue(); }
+
+const std::vector<pplmn::OwnedPeoplemon>& Trainer::peoplemon() const {
+    return peoplemonField.getValue();
+}
+
+std::vector<item::Id>& Trainer::items() { return itemsField.getValue(); }
+
+const std::vector<item::Id>& Trainer::items() const { return itemsField.getValue(); }
 
 } // namespace file
 } // namespace core

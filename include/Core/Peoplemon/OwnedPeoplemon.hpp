@@ -26,8 +26,8 @@ namespace binary
 template<>
 struct Serializer<core::pplmn::OwnedPeoplemon> {
     static bool serialize(File& output, const core::pplmn::OwnedPeoplemon& p);
-
     static bool deserialize(File& input, core::pplmn::OwnedPeoplemon& p);
+    static std::size_t size(const core::pplmn::OwnedPeoplemon& p);
 };
 
 } // namespace binary

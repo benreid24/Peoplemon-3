@@ -203,6 +203,18 @@ bool Serializer<OwnedPeoplemon>::serialize(File& output, const OwnedPeoplemon& p
     return true;
 }
 
+std::size_t Serializer<OwnedPeoplemon>::size(const OwnedPeoplemon& p) {
+    std::size_t s = 0;
+    s += Serializer<Id>::size(p.id);
+    s += sizeof(std::uint16_t) * 3;
+    s += Serializer<Stats>::size(p.ivs);
+    s += Serializer<Stats>::size(p.evs);
+    for (int i = 0; i < 4; ++i) { s += Serializer<OwnedMove>::size(p.moves[i]); }
+    s += Serializer<Ailment>::size(p.ailment);
+    s += Serializer<core::item::Id>::size(p.item);
+    return s;
+}
+
 } // namespace binary
 } // namespace file
 } // namespace bl
