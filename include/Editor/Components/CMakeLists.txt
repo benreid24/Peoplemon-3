@@ -9,6 +9,7 @@ target_sources(PeoplemonEditor PUBLIC
     EventEditor.hpp
     HighlightRadioButton.hpp
     ItemSelector.hpp
+    OwnedPeoplemonWindow.hpp
     NewMapDialog.hpp
     NPCEditorWindow.hpp
     ScriptSelector.hpp

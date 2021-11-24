@@ -168,12 +168,9 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 
     Label::Ptr l = Label::create("Items:");
     l->setHorizontalAlignment(RenderSettings::Alignment::Left);
-    window->pack(l);
+    window->pack(l, true, false);
     row           = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     itemSelectBox = SelectBox::create();
-    itemSelectBox->addOption("One");
-    itemSelectBox->addOption("Two");
-    itemSelectBox->addOption("Three");
     itemSelectBox->setMaxSize({1200.f, 90.f});
     itemSelectBox->setRequisition({250.f, 108.f});
     row->pack(itemSelectBox, true, true);
@@ -185,6 +182,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         if (curItem != core::item::Id::Unknown) {
             items.push_back(curItem);
             itemSelectBox->addOption(core::item::Item::getName(curItem));
+            makeDirty();
         }
     });
     subRow->pack(but);
@@ -195,11 +193,45 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
         if (sel.has_value()) {
             items.erase(items.begin() + sel.value());
             itemSelectBox->removeOption(sel.value());
+            makeDirty();
         }
     });
     but->setColor(sf::Color::Red, sf::Color::Black);
     column->pack(but);
     row->pack(column, true, true);
+    window->pack(row, true, false);
+
+    l = Label::create("Peoplemon:");
+    l->setHorizontalAlignment(RenderSettings::Alignment::Left);
+    window->pack(l, true, false);
+    row    = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    pplBox = SelectBox::create();
+    pplBox->setMaxSize({1200.f, 90.f});
+    pplBox->setRequisition({250.f, 108.f});
+    row->pack(pplBox, true, true);
+    column = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    but    = Button::create("Add");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        // TODO
+    });
+    column->pack(but);
+    but = Button::create("Edit");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        // TODO
+    });
+    column->pack(but);
+    but = Button::create("Remove");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const auto sel = pplBox->getSelectedOption();
+        if (sel.has_value()) {
+            peoplemon.erase(peoplemon.begin() + sel.value());
+            pplBox->removeOption(sel.value());
+            makeDirty();
+        }
+    });
+    but->setColor(sf::Color::Red, sf::Color::Black);
+    column->pack(but);
+    row->pack(column, false, true);
     window->pack(row, true, false);
 
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
@@ -273,6 +305,8 @@ void TrainerEditorWindow::reset() {
     visionRangeEntry->setSelectedOption(4);
     items.clear();
     itemSelectBox->clearOptions();
+    pplBox->clearOptions();
+    peoplemon.clear();
 }
 
 void TrainerEditorWindow::load(const std::string& file) {
@@ -338,6 +372,10 @@ bool TrainerEditorWindow::validate(bool saving) const {
     if (behaviorEditor.getValue().type() == core::file::Behavior::Type::FollowingPath &&
         behaviorEditor.getValue().path().paces.empty()) {
         bl::dialog::tinyfd_messageBox("Warning", "Behavior path is empty", "ok", "warning", 1);
+        return false;
+    }
+    if (peoplemon.empty()) {
+        bl::dialog::tinyfd_messageBox("Warning", "Trainer has no peoplemon", "ok", "warning", 1);
         return false;
     }
     return true;

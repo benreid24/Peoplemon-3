@@ -9,6 +9,7 @@ target_sources(PeoplemonEditor PRIVATE
     EventEditor.cpp
     HighlightRadioButton.cpp
     ItemSelector.cpp
+    OwnedPeoplemonWindow.cpp
     MapActions.hpp
     MapActions.cpp
     NewMapDialog.cpp

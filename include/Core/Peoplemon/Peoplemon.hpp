@@ -49,6 +49,13 @@ public:
     static Id cast(unsigned int id);
 
     /**
+     * @brief Returtns the list of all valid ids
+     *
+     * @return std::vector<Id> A vector containing all valid ids
+     */
+    static const std::vector<Id>& validIds();
+
+    /**
      * @brief Returns the name of the given Peoplemon
      *
      * @param id The peoplemon to get the name of

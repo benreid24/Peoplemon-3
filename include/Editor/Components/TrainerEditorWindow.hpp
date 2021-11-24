@@ -68,6 +68,9 @@ private:
     ItemSelector::Ptr itemSelector;
     std::vector<core::item::Id> items;
 
+    bl::gui::SelectBox::Ptr pplBox;
+    std::vector<core::pplmn::OwnedPeoplemon> peoplemon;
+
     bl::gui::FilePicker filePicker;
     bool makingNew;
     void onChooseFile(const std::string& file);
