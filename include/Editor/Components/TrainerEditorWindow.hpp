@@ -5,6 +5,7 @@
 #include <Editor/Components/AnimationWindow.hpp>
 #include <Editor/Components/BehaviorEditor.hpp>
 #include <Editor/Components/ConversationWindow.hpp>
+#include <Editor/Components/ItemSelector.hpp>
 #include <functional>
 
 namespace editor
@@ -61,6 +62,11 @@ private:
     bl::gui::Label::Ptr abLabel;
     bl::gui::TextEntry::Ptr loseLineEntry;
     bl::gui::ComboBox::Ptr visionRangeEntry;
+
+    core::item::Id curItem;
+    bl::gui::SelectBox::Ptr itemSelectBox;
+    ItemSelector::Ptr itemSelector;
+    std::vector<core::item::Id> items;
 
     bl::gui::FilePicker filePicker;
     bool makingNew;

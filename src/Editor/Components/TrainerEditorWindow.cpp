@@ -18,6 +18,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 : selectCb(cb)
 , closeCb(ccb)
 , clean(true)
+, itemSelector(ItemSelector::create([this](core::item::Id item) { curItem = item; }))
 , filePicker(core::Properties::TrainerPath(), {"tnr"},
              std::bind(&TrainerEditorWindow::onChooseFile, this, std::placeholders::_1),
              [this]() {
@@ -76,6 +77,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             trainer.animation()              = animLabel->getText();
             trainer.behavior()               = behaviorEditor.getValue();
             trainer.visionRange()            = visionRangeEntry->getSelectedOption();
+            trainer.items()                  = items;
             if (!trainer.save(bl::file::Util::joinPath(core::Properties::TrainerPath(),
                                                        fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save Trainer", "ok", "error", 1);
@@ -164,6 +166,42 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     row->pack(visionRangeEntry, false, true);
     window->pack(row);
 
+    Label::Ptr l = Label::create("Items:");
+    l->setHorizontalAlignment(RenderSettings::Alignment::Left);
+    window->pack(l);
+    row           = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    itemSelectBox = SelectBox::create();
+    itemSelectBox->addOption("One");
+    itemSelectBox->addOption("Two");
+    itemSelectBox->addOption("Three");
+    itemSelectBox->setMaxSize({1200.f, 90.f});
+    itemSelectBox->setRequisition({250.f, 108.f});
+    row->pack(itemSelectBox, true, true);
+    Box::Ptr column = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    Box::Ptr subRow = Box::create(LinePacker::create(LinePacker::Horizontal));
+    subRow->pack(itemSelector);
+    Button::Ptr but = Button::create("Add");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        if (curItem != core::item::Id::Unknown) {
+            items.push_back(curItem);
+            itemSelectBox->addOption(core::item::Item::getName(curItem));
+        }
+    });
+    subRow->pack(but);
+    column->pack(subRow, true, false);
+    but = Button::create("Remove");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const auto sel = itemSelectBox->getSelectedOption();
+        if (sel.has_value()) {
+            items.erase(items.begin() + sel.value());
+            itemSelectBox->removeOption(sel.value());
+        }
+    });
+    but->setColor(sf::Color::Red, sf::Color::Black);
+    column->pack(but);
+    row->pack(column, true, true);
+    window->pack(row, true, false);
+
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr selectBut = Button::create("Use Trainer");
     selectBut->setTooltip("Use the current Trainer file");
@@ -233,6 +271,8 @@ void TrainerEditorWindow::reset() {
     loseLineEntry->setInput("");
     behaviorEditor.configure(parent, {});
     visionRangeEntry->setSelectedOption(4);
+    items.clear();
+    itemSelectBox->clearOptions();
 }
 
 void TrainerEditorWindow::load(const std::string& file) {
@@ -245,6 +285,8 @@ void TrainerEditorWindow::load(const std::string& file) {
         loseLineEntry->setInput(trainer.lostBattleLine());
         visionRangeEntry->setSelectedOption(trainer.visionRange());
         behaviorEditor.configure(parent, trainer.behavior());
+        items = trainer.items();
+        for (const auto item : items) { itemSelectBox->addOption(core::item::Item::getName(item)); }
     }
     else {
         bl::dialog::tinyfd_messageBox(
