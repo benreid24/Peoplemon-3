@@ -19,6 +19,15 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 , closeCb(ccb)
 , clean(true)
 , itemSelector(ItemSelector::create([this](core::item::Id item) { curItem = item; }))
+, pplWindow(
+      [this]() {
+          window->setForceFocus(true);
+          if (editPplIndex.has_value()) { peoplemon[editPplIndex.value()] = pplWindow.getValue(); }
+          else {
+              peoplemon.emplace_back(pplWindow.getValue());
+          }
+      },
+      [this]() { window->setForceFocus(true); })
 , filePicker(core::Properties::TrainerPath(), {"tnr"},
              std::bind(&TrainerEditorWindow::onChooseFile, this, std::placeholders::_1),
              [this]() {
@@ -212,12 +221,20 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     column = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     but    = Button::create("Add");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        // TODO
+        if (peoplemon.size() < 6) {
+            editPplIndex.reset();
+            window->setForceFocus(false);
+            pplWindow.show(parent);
+        }
     });
     column->pack(but);
     but = Button::create("Edit");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        // TODO
+        editPplIndex = pplBox->getSelectedOption();
+        window->setForceFocus(false);
+        pplWindow.show(parent,
+                       editPplIndex.has_value() ? peoplemon[editPplIndex.value()] :
+                                                  core::pplmn::OwnedPeoplemon());
     });
     column->pack(but);
     but = Button::create("Remove");

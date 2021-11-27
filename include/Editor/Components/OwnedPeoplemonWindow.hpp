@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/StatBox.hpp>
 
 namespace editor
 {
@@ -62,19 +63,8 @@ private:
 
     // TODO - move selectors
 
-    bl::gui::TextEntry::Ptr evHpEntry;
-    bl::gui::TextEntry::Ptr evAtkEntry;
-    bl::gui::TextEntry::Ptr evDefEntry;
-    bl::gui::TextEntry::Ptr evSpAtkEntry;
-    bl::gui::TextEntry::Ptr evSpDefEntry;
-    bl::gui::TextEntry::Ptr evSpdEntry;
-
-    bl::gui::TextEntry::Ptr ivHpEntry;
-    bl::gui::TextEntry::Ptr ivAtkEntry;
-    bl::gui::TextEntry::Ptr ivDefEntry;
-    bl::gui::TextEntry::Ptr ivSpAtkEntry;
-    bl::gui::TextEntry::Ptr ivSpDefEntry;
-    bl::gui::TextEntry::Ptr ivSpdEntry;
+    StatBox evBox;
+    StatBox ivBox;
 
     bool validate() const;
     void syncMoves(core::pplmn::Id ppl);

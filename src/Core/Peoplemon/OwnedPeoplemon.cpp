@@ -10,7 +10,7 @@ namespace core
 namespace pplmn
 {
 OwnedPeoplemon::OwnedPeoplemon()
-: id(Id::Unknown)
+: _id(Id::Unknown)
 , level(1)
 , xp(0)
 , hp(0)
@@ -19,7 +19,7 @@ OwnedPeoplemon::OwnedPeoplemon()
 
 OwnedPeoplemon::OwnedPeoplemon(Id ppl, unsigned int l)
 : OwnedPeoplemon() {
-    id    = ppl;
+    _id   = ppl;
     level = l;
     hp    = currentStats().hp;
     ivs.randomize();
@@ -34,9 +34,9 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
 
     std::uint16_t u16;
     if (!input.read<std::uint16_t>(u16)) return false;
-    id = Peoplemon::cast(u16);
-    if (id == Id::Unknown) {
-        BL_LOG_ERROR << "Bad peoplemon id " << u16 << " in " << f;
+    _id = Peoplemon::cast(u16);
+    if (_id == Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon _id " << u16 << " in " << f;
         return false;
     }
 
@@ -55,7 +55,7 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
     if (!input.read<std::uint16_t>(u16)) return false;
     item = item::Item::cast(u16);
     if (item == item::Id::None) {
-        BL_LOG_ERROR << "Bad item id " << u16 << " in " << f;
+        BL_LOG_ERROR << "Bad item _id " << u16 << " in " << f;
         return false;
     }
 
@@ -100,8 +100,10 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
     return true;
 }
 
+Id OwnedPeoplemon::id() const { return _id; }
+
 const std::string& OwnedPeoplemon::name() const {
-    return customName.empty() ? Peoplemon::name(id) : customName;
+    return customName.empty() ? Peoplemon::name(_id) : customName;
 }
 
 void OwnedPeoplemon::setCustomName(const std::string& n) { customName = n; }
@@ -116,7 +118,7 @@ unsigned int OwnedPeoplemon::awardXP(unsigned int award) {
         return 0;
     }
 
-    const unsigned int req = Peoplemon::levelUpXp(id, level);
+    const unsigned int req = Peoplemon::levelUpXp(_id, level);
     if (xp + award >= req) {
         const unsigned int aa = req - xp;
         xp                    = 0;
@@ -130,8 +132,12 @@ unsigned int OwnedPeoplemon::awardXP(unsigned int award) {
 }
 
 Stats OwnedPeoplemon::currentStats() const {
-    return Stats::computeStats(Peoplemon::baseStats(id), evs, ivs, level);
+    return Stats::computeStats(Peoplemon::baseStats(_id), evs, ivs, level);
 }
+
+const Stats& OwnedPeoplemon::currentEVs() const { return evs; }
+
+const Stats& OwnedPeoplemon::currentIVs() const { return ivs; }
 
 unsigned int& OwnedPeoplemon::currentHp() { return hp; }
 
@@ -146,6 +152,10 @@ void OwnedPeoplemon::awardEVs(const Stats& award) {
 Ailment& OwnedPeoplemon::currentAilment() { return ailment; }
 
 item::Id& OwnedPeoplemon::holdItem() { return item; }
+
+Ailment OwnedPeoplemon::currentAilment() const { return ailment; }
+
+item::Id OwnedPeoplemon::holdItem() const { return item; }
 
 bool OwnedPeoplemon::knowsMove(MoveId m) const {
     for (unsigned int i = 0; i < 4; ++i) {
@@ -170,7 +180,7 @@ namespace file
 namespace binary
 {
 bool Serializer<OwnedPeoplemon>::deserialize(File& input, OwnedPeoplemon& p) {
-    if (!Serializer<Id>::deserialize(input, p.id)) return false;
+    if (!Serializer<Id>::deserialize(input, p._id)) return false;
     std::uint16_t u16;
     if (!input.read<std::uint16_t>(u16)) return false;
     p.level = u16;
@@ -189,7 +199,7 @@ bool Serializer<OwnedPeoplemon>::deserialize(File& input, OwnedPeoplemon& p) {
 }
 
 bool Serializer<OwnedPeoplemon>::serialize(File& output, const OwnedPeoplemon& p) {
-    if (!Serializer<Id>::serialize(output, p.id)) return false;
+    if (!Serializer<Id>::serialize(output, p._id)) return false;
     if (!output.write<std::uint16_t>(p.level)) return false;
     if (!output.write<std::uint16_t>(p.xp)) return false;
     if (!output.write<std::uint16_t>(p.hp)) return false;
@@ -205,7 +215,7 @@ bool Serializer<OwnedPeoplemon>::serialize(File& output, const OwnedPeoplemon& p
 
 std::size_t Serializer<OwnedPeoplemon>::size(const OwnedPeoplemon& p) {
     std::size_t s = 0;
-    s += Serializer<Id>::size(p.id);
+    s += Serializer<Id>::size(p._id);
     s += sizeof(std::uint16_t) * 3;
     s += Serializer<Stats>::size(p.ivs);
     s += Serializer<Stats>::size(p.evs);

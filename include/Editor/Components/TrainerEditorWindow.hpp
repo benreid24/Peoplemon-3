@@ -2,10 +2,12 @@
 #define EDITOR_COMPONENTS_TRAINEREDITORWINDOW_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Editor/Components/AnimationWindow.hpp>
 #include <Editor/Components/BehaviorEditor.hpp>
 #include <Editor/Components/ConversationWindow.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/OwnedPeoplemonWindow.hpp>
 #include <functional>
 
 namespace editor
@@ -70,6 +72,8 @@ private:
 
     bl::gui::SelectBox::Ptr pplBox;
     std::vector<core::pplmn::OwnedPeoplemon> peoplemon;
+    OwnedPeoplemonWindow pplWindow;
+    std::optional<unsigned int> editPplIndex;
 
     bl::gui::FilePicker filePicker;
     bool makingNew;

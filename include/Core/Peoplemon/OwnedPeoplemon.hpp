@@ -9,6 +9,14 @@
 #include <Core/Peoplemon/Stats.hpp>
 #include <string>
 
+namespace editor
+{
+namespace component
+{
+class OwnedPeoplemonWindow;
+}
+} // namespace editor
+
 namespace core
 {
 namespace pplmn
@@ -73,6 +81,13 @@ public:
     bool loadLegacyFile(const std::string& file);
 
     /**
+     * @brief Returns the id of this peoplemon
+     *
+     * @return Id The id of this peoplemon
+     */
+    Id id() const;
+
+    /**
      * @brief Returns the name of this peoplemon, custom or defualt
      *
      */
@@ -114,6 +129,18 @@ public:
     Stats currentStats() const;
 
     /**
+     * @brief Returns the current EVs of this peoplemon
+     *
+     */
+    const Stats& currentEVs() const;
+
+    /**
+     * @brief Returns the current IVs of this peoplemon
+     *
+     */
+    const Stats& currentIVs() const;
+
+    /**
      * @brief Access the current HP
      *
      */
@@ -133,10 +160,22 @@ public:
     Ailment& currentAilment();
 
     /**
+     * @brief Access the current ailment of this peoplemon
+     *
+     */
+    Ailment currentAilment() const;
+
+    /**
      * @brief Access the current hold item of this peoplemon
      *
      */
     item::Id& holdItem();
+
+    /**
+     * @brief Access the current hold item of this peoplemon
+     *
+     */
+    item::Id holdItem() const;
 
     /**
      * @brief Returns the moves known by this Peoplemon
@@ -161,7 +200,7 @@ public:
     void learnMove(MoveId move, unsigned int i);
 
 private:
-    Id id;
+    Id _id;
     std::string customName;
     unsigned int level;
     unsigned int xp;
@@ -175,6 +214,7 @@ private:
     friend class WildPeoplemon;
     friend class BattlePeoplemon;
     friend class bl::file::binary::Serializer<OwnedPeoplemon>;
+    friend class editor::component::OwnedPeoplemonWindow;
 };
 
 } // namespace pplmn

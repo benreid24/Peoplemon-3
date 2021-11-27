@@ -76,6 +76,14 @@ struct Stats {
     static Stats computeStats(const Stats& base, const Stats& evs, const Stats& ivs,
                               unsigned int level, const Stats& stages = {});
 
+    /**
+     * @brief Converts the given stat to its string representation
+     *
+     * @param stat The stat to convert
+     * @return const char* The string representation of the stat
+     */
+    static const char* statToString(Stat stat);
+
     /// Helper array to iterate over stats in loop
     static const std::array<Stat, 6> IterableStats;
 

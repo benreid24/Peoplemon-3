@@ -9,6 +9,7 @@ namespace
 const std::string InvalidStr = "<INVALID>";
 }
 
+std::vector<Id> allIds;
 std::unordered_map<Id, std::string>* Peoplemon::names                                     = nullptr;
 std::unordered_map<Id, std::string>* Peoplemon::descriptions                              = nullptr;
 std::unordered_map<Id, Type>* Peoplemon::types                                            = nullptr;
@@ -35,6 +36,10 @@ void Peoplemon::setDataSource(file::PeoplemonDB& db) {
     evAwards     = &db.evAwards();
     xpGroups     = &db.xpGroups();
     xpMults      = &db.xpMults();
+
+    allIds.clear();
+    allIds.reserve(names->size());
+    for (const auto& p : *names) { allIds.emplace_back(p.first); }
 }
 
 Id Peoplemon::cast(unsigned int id) {
@@ -43,6 +48,8 @@ Id Peoplemon::cast(unsigned int id) {
     if (id >= maxid && names->find(r) == names->end()) return Id::Unknown;
     return r;
 }
+
+const std::vector<Id>& Peoplemon::validIds() { return allIds; }
 
 const std::string& Peoplemon::name(Id id) {
     const auto it = names->find(id);

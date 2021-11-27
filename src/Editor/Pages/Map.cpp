@@ -358,7 +358,7 @@ Map::Map(core::system::Systems& s)
 
     objectBook = Notebook::create();
     objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
-    objectBook->addPage("ai", "NPC's", npcBox, [this]() { activeTool = Tool::NPCs; });
+    objectBook->addPage("ai", "Characters", npcBox, [this]() { activeTool = Tool::NPCs; });
     objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
     objectBook->addPage("lights", "Lights", lightBox, [this]() { activeTool = Tool::Lights; });
 

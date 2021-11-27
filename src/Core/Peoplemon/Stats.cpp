@@ -54,5 +54,30 @@ int Stats::stageMultiplier(int stage) {
     }
 }
 
+const char* Stats::statToString(Stat s) {
+    switch (s) {
+    case Stat::Attack:
+        return "atk";
+    case Stat::Defense:
+        return "def";
+    case Stat::HP:
+        return "hp";
+    case Stat::SpecialAttack:
+        return "spatk";
+    case Stat::SpecialDefense:
+        return "spdef";
+    case Stat::Speed:
+        return "spd";
+    case Stat::Accuracy:
+        return "acc";
+    case Stat::Critical:
+        return "crit";
+    case Stat::Evasion:
+        return "evd";
+    default:
+        return "<?err?>";
+    }
+}
+
 } // namespace pplmn
 } // namespace core
