@@ -1,5 +1,7 @@
 #include <Editor/Components/StatBox.hpp>
 
+#include <BLIB/Util/Random.hpp>
+
 namespace editor
 {
 namespace component
@@ -120,6 +122,19 @@ void StatBox::pack(Box& content) {
     row->pack(lbl, true, true);
     row->pack(spdEntry, false, true);
     content.pack(row, true, false);
+
+    Button::Ptr but = Button::create("Randomize");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const unsigned int max =
+            mode == EV ? core::pplmn::Stats::MaxEVStat / 4 : core::pplmn::Stats::MaxIVStat;
+        hpEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        atkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        defEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        spAtkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        spDefEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        spdEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+    });
+    content.pack(but);
 }
 
 void StatBox::onChange(Element* e) {
@@ -132,14 +147,14 @@ void StatBox::onChange(Element* e) {
             if (val.sum() > Stats::MaxEVSum) {
                 std::stringstream ss;
                 ss << "EV values cannot sum to more than " << Stats::MaxEVSum;
-                bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "warning", "ok", 1);
+                bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "ok", "warning", 1);
             }
             for (const core::pplmn::Stat stat : Stats::IterableStats) {
                 if (val.get(stat) > Stats::MaxEVStat) {
                     std::stringstream ss;
                     ss << Stats::statToString(stat) << " EV stat cannot be above "
                        << Stats::MaxEVStat;
-                    bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "warning", "ok", 1);
+                    bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "ok", "warning", 1);
                 }
             }
         }
@@ -149,7 +164,7 @@ void StatBox::onChange(Element* e) {
                     std::stringstream ss;
                     ss << Stats::statToString(stat) << " IV stat cannot be above "
                        << Stats::MaxIVStat;
-                    bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "warning", "ok", 1);
+                    bl::dialog::tinyfd_messageBox("Warning", ss.str().c_str(), "ok", "warning", 1);
                 }
             }
         }

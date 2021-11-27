@@ -307,7 +307,7 @@ Map::Map(core::system::Systems& s)
     box->pack(spawnDelete);
     spawnBox->pack(box);
 
-    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
+    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Vertical, 8));
     npcSpawn        = RadioButton::create("Spawn", "spawn");
     npcEdit         = RadioButton::create("Edit", "edit", npcSpawn->getRadioGroup());
     label           = Label::create("Delete");

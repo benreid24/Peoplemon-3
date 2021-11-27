@@ -12,6 +12,7 @@ target_sources(PeoplemonEditor PRIVATE
     OwnedPeoplemonWindow.cpp
     MapActions.hpp
     MapActions.cpp
+    MoveSelector.cpp
     NewMapDialog.cpp
     NPCEditorWindow.cpp
     ScriptSelector.cpp

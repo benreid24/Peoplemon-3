@@ -11,7 +11,7 @@ namespace component
 /**
  * @brief Provides an inline GUI entry for stats in either EV mode or IV mode
  *
- * @ingroup Components
+ * @ingroup EditorComponents
  *
  */
 class StatBox {

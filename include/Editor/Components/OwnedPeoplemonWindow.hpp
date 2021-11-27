@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/MoveSelector.hpp>
 #include <Editor/Components/StatBox.hpp>
 
 namespace editor
@@ -61,7 +62,9 @@ private:
     bl::gui::TextEntry::Ptr levelEntry;
     ItemSelector::Ptr itemSelector;
 
-    // TODO - move selectors
+    MoveSelector::Ptr moveSelector;
+    bl::gui::SelectBox::Ptr moveBox;
+    std::vector<core::pplmn::MoveId> moves;
 
     StatBox evBox;
     StatBox ivBox;

@@ -7,7 +7,8 @@ namespace pplmn
 namespace
 {
 const std::string Invalid = "<INVALID>";
-}
+std::vector<MoveId> allIds;
+} // namespace
 std::unordered_map<MoveId, std::string>* Move::names          = nullptr;
 std::unordered_map<MoveId, std::string>* Move::descriptions   = nullptr;
 std::unordered_map<MoveId, std::string>* Move::animationPaths = nullptr;
@@ -47,7 +48,13 @@ void Move::setDataSource(file::MoveDB& db) {
     effectChances     = &db.effectChances();
     effectIntensities = &db.effectIntensities();
     effectSelves      = &db.effectSelves();
+
+    allIds.clear();
+    allIds.reserve(names->size());
+    for (const auto& p : *names) { allIds.emplace_back(p.first); }
 }
+
+const std::vector<MoveId>& Move::validIds() { return allIds; }
 
 const std::string& Move::name(MoveId id) {
     const auto it = names->find(id);

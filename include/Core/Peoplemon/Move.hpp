@@ -29,6 +29,13 @@ public:
     static MoveId cast(unsigned int id);
 
     /**
+     * @brief Returns the list of all valid move ids
+     *
+     * @return const std::vector<MoveId>& The list of all valid move ids
+     */
+    static const std::vector<MoveId>& validIds();
+
+    /**
      * @brief Set the data source for each method
      *
      * @param source The data source. Must remain in scope

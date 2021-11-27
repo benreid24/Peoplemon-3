@@ -283,6 +283,7 @@ void TrainerEditorWindow::show(GUI::Ptr p, const std::string& file) {
     makeClean();
     parent->pack(window);
     window->setForceFocus(true);
+    itemSelector->refresh();
 }
 
 void TrainerEditorWindow::onChooseFile(const std::string& file) {

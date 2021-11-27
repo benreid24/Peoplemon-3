@@ -1,5 +1,6 @@
 #include <Editor/Components/OwnedPeoplemonWindow.hpp>
 
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace editor
@@ -46,8 +47,44 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     row->pack(levelEntry, false, true);
     window->pack(row);
 
-    row          = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
-    Box::Ptr box = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    Label::Ptr l = Label::create("Moves:");
+    l->setHorizontalAlignment(RenderSettings::Alignment::Left);
+    window->pack(l, true, false);
+    row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    moveBox = SelectBox::create();
+    moveBox->setMaxSize({1200.f, 90.f});
+    moveBox->setRequisition({250.f, 108.f});
+    row->pack(moveBox, true, true);
+    Box::Ptr box    = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));
+    Box::Ptr subRow = Box::create(LinePacker::create());
+    moveSelector    = MoveSelector::create();
+    subRow->pack(moveSelector, false, true);
+    Button::Ptr but = Button::create("Add");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        if (moves.size() < 4) {
+            if (std::find(moves.begin(), moves.end(), moveSelector->currentMove()) == moves.end()) {
+                moves.push_back(moveSelector->currentMove());
+                moveBox->addOption(core::pplmn::Move::name(moveSelector->currentMove()));
+            }
+        }
+    });
+    subRow->pack(but, false, true);
+    box->pack(subRow, true, false);
+    but = Button::create("Remove");
+    but->setColor(sf::Color::Red, sf::Color::Black);
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        const auto sel = moveBox->getSelectedOption();
+        if (moves.size() > 1 && sel.has_value()) {
+            moves.erase(moves.begin() + sel.value());
+            moveBox->removeOption(sel.value());
+        }
+    });
+    box->pack(but);
+    row->pack(box);
+    window->pack(row, true, false);
+
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
+    box = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     box->pack(Label::create("EVs"), true, false);
     evBox.pack(*box);
     row->pack(box, true, true);
@@ -57,9 +94,9 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     row->pack(box, true, true);
     window->pack(row);
 
-    row             = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    itemSelector    = ItemSelector::create();
-    Button::Ptr but = Button::create("Clear");
+    row          = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    itemSelector = ItemSelector::create();
+    but          = Button::create("Clear");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         itemSelector->setSelectedOption(-1);
     });
@@ -69,6 +106,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     window->pack(row);
 
     but = Button::create("Save");
+    but->setColor(sf::Color::Green, sf::Color::Black);
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate()) {
             hide();
@@ -102,7 +140,19 @@ void OwnedPeoplemonWindow::show(const GUI::Ptr& p, const core::pplmn::OwnedPeopl
 
     evBox.update(value.currentEVs());
     ivBox.update(value.currentIVs());
+
     itemSelector->setItem(value.holdItem());
+    itemSelector->refresh();
+
+    moveBox->clearOptions();
+    moves.clear();
+    moves.reserve(4);
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (value.moves[i].id != core::pplmn::MoveId::Unknown) {
+            moves.push_back(value.moves[i].id);
+            moveBox->addOption(core::pplmn::Move::name(value.moves[i].id));
+        }
+    }
 
     parent->pack(window);
     window->setForceFocus(true);
@@ -120,17 +170,49 @@ core::pplmn::OwnedPeoplemon OwnedPeoplemonWindow::getValue() const {
     val.evs  = evBox.currentValue();
     val.item = itemSelector->currentItem();
     val.hp   = val.currentStats().hp;
-    // TODO - moves
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (i < moves.size()) { val.moves[i] = core::pplmn::OwnedMove(moves[i]); }
+        else {
+            val.moves[i].id = core::pplmn::MoveId::Unknown;
+        }
+    }
     return val;
 }
 
 void OwnedPeoplemonWindow::syncMoves(core::pplmn::Id ppl) {
-    // TODO
+    moveBox->clearOptions();
+    for (int i = 0; i < static_cast<int>(moves.size()); ++i) {
+        if (core::pplmn::Peoplemon::canLearnMove(ppl, moves[i])) {
+            moveBox->addOption(core::pplmn::Move::name(moves[i]));
+        }
+        else {
+            moves.erase(moves.begin() + i);
+            --i;
+        }
+    }
 }
 
 bool OwnedPeoplemonWindow::validate() const {
-    // TODO
-    return false;
+    const unsigned int level = std::atoi(levelEntry->getInput().c_str());
+    if (level > 100) {
+        bl::dialog::tinyfd_messageBox(
+            "Warning", "Level cannot be greater than 100", "ok", "warning", 1);
+        return false;
+    }
+
+    const auto it = idMap.find(idSelect->getSelectedOption());
+    if (it == idMap.end() || it->second == core::pplmn::Id::Unknown) {
+        bl::dialog::tinyfd_messageBox("Warning", "Please select a species", "ok", "warning", 1);
+        return false;
+    }
+
+    if (moves.empty()) {
+        bl::dialog::tinyfd_messageBox(
+            "Warning", "Please add at least one move", "ok", "warning", 1);
+        return false;
+    }
+
+    return true;
 }
 
 } // namespace component
