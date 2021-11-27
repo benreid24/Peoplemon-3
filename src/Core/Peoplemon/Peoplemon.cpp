@@ -40,6 +40,7 @@ void Peoplemon::setDataSource(file::PeoplemonDB& db) {
     allIds.clear();
     allIds.reserve(names->size());
     for (const auto& p : *names) { allIds.emplace_back(p.first); }
+    std::sort(allIds.begin(), allIds.end());
 }
 
 Id Peoplemon::cast(unsigned int id) {

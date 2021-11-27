@@ -26,6 +26,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
         const auto it = idMap.find(static_cast<int>(e.inputValue()));
         if (it != idMap.end() && it->second != core::pplmn::Id::Unknown) { syncMoves(it->second); }
     });
+    idSelect->setMaxHeight(400.f);
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     row->pack(Label::create("Species:"), false, true);
     row->pack(idSelect, false, true);
