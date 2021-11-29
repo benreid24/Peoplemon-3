@@ -1,6 +1,7 @@
 #include <Editor/Components/TrainerEditorWindow.hpp>
 
 #include <Core/Files/Trainer.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 
 namespace editor
@@ -10,7 +11,15 @@ namespace component
 namespace
 {
 const std::string EmptyFile = "<no file selected>";
+
+std::string pplToStr(const core::pplmn::OwnedPeoplemon& ppl) {
+    std::stringstream ss;
+    ss << ppl.id() << ": " << core::pplmn::Peoplemon::name(ppl.id()) << " (Level "
+       << ppl.currentLevel() << ")";
+    return ss.str();
 }
+
+} // namespace
 using namespace bl::gui;
 using FileUtil = bl::file::Util;
 
@@ -22,10 +31,15 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 , pplWindow(
       [this]() {
           window->setForceFocus(true);
-          if (editPplIndex.has_value()) { peoplemon[editPplIndex.value()] = pplWindow.getValue(); }
+          if (editPplIndex.has_value()) {
+              peoplemon[editPplIndex.value()] = pplWindow.getValue();
+              //
+          }
           else {
               peoplemon.emplace_back(pplWindow.getValue());
+              pplBox->addOption()
           }
+          makeDirty();
       },
       [this]() { window->setForceFocus(true); })
 , filePicker(core::Properties::TrainerPath(), {"tnr"},
@@ -96,7 +110,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             }
         }
     });
-    fileLabel = Label::create("filename.tnr");
+    fileLabel = Label::create("");
     fileLabel->setColor(sf::Color::Cyan, sf::Color::Cyan);
     row->pack(newBut, false, true);
     row->pack(setBut, false, true);
