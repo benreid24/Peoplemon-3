@@ -110,7 +110,7 @@ const std::vector<TileLayer>& LayerSet::topLayers() const { return top.getValue(
 
 void LayerSet::update(const sf::IntRect& area, float dt) {
     static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
-        const unsigned int xb = area.left + area.left;
+        const unsigned int xb = area.left + area.width;
         const unsigned int yb = area.top + area.height;
         for (unsigned int x = area.left; x < xb; ++x) {
             for (unsigned int y = area.top; y < yb; ++y) { layer.getRef(x, y).update(dt); }

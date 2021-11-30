@@ -400,15 +400,14 @@ public:
 private:
     const core::map::CharacterSpawn spawn;
     const unsigned int i;
-    bl::entity::Entity spawned;
 
     AddNpcSpawnAction(const core::map::CharacterSpawn& s, unsigned int i);
 };
 
 class EditMap::EditNpcSpawnAction : public EditMap::Action {
 public:
-    static Action::Ptr create(const core::map::CharacterSpawn* spawn,
-                              const core::map::CharacterSpawn& s, bl::entity::Entity id);
+    static Action::Ptr create(unsigned int i, const core::map::CharacterSpawn& orig,
+                              const core::map::CharacterSpawn& s);
 
     virtual ~EditNpcSpawnAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -416,19 +415,17 @@ public:
     virtual const char* description() const override;
 
 private:
-    core::map::CharacterSpawn* spawn;
+    const unsigned int i;
     const core::map::CharacterSpawn orig;
     const core::map::CharacterSpawn value;
-    bl::entity::Entity latestId;
 
-    EditNpcSpawnAction(const core::map::CharacterSpawn* spawn, const core::map::CharacterSpawn& s,
-                       bl::entity::Entity id);
+    EditNpcSpawnAction(unsigned int i, const core::map::CharacterSpawn& orig,
+                       const core::map::CharacterSpawn& s);
 };
 
 class EditMap::RemoveNpcSpawnAction : public EditMap::Action {
 public:
-    static Action::Ptr create(const core::map::CharacterSpawn& orig, unsigned int i,
-                              bl::entity::Entity spawned);
+    static Action::Ptr create(const core::map::CharacterSpawn& orig, unsigned int i);
 
     virtual ~RemoveNpcSpawnAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -438,10 +435,8 @@ public:
 private:
     const core::map::CharacterSpawn orig;
     const unsigned int i;
-    bl::entity::Entity spawned;
 
-    RemoveNpcSpawnAction(const core::map::CharacterSpawn& orig, unsigned int i,
-                         bl::entity::Entity spawned);
+    RemoveNpcSpawnAction(const core::map::CharacterSpawn& orig, unsigned int i);
 };
 
 class EditMap::AddOrEditItemAction : public EditMap::Action {

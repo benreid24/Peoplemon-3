@@ -33,8 +33,10 @@ using namespace bl::gui;
 
 CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
 : onEdit(cb)
-, npcEditor(std::bind(&CharacterSpawnWindow::onNpcChoose, this, std::placeholders::_1),
-            [this]() { window->setForceFocus(true); }) {
+, npcEditor(std::bind(&CharacterSpawnWindow::onFilechoose, this, std::placeholders::_1),
+            [this]() { window->setForceFocus(true); })
+, trainerEditor(std::bind(&CharacterSpawnWindow::onFilechoose, this, std::placeholders::_1),
+                [this]() { window->setForceFocus(true); }) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Character Spawn");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { closeAll(); });
 
@@ -55,7 +57,13 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row->pack(npcBut, false, true);
     Button::Ptr tnrBut = Button::create("Trainer");
     tnrBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        // TODO
+        std::string f = fileLabel->getText();
+        if (bl::file::Util::getExtension(f) != core::Properties::TrainerFileExtension() ||
+            !validFile(f)) {
+            f.clear();
+        }
+        window->setForceFocus(false);
+        trainerEditor.show(parent, f);
     });
     row->pack(tnrBut, false, true);
     window->pack(row, true, false);
@@ -63,6 +71,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     row->pack(Label::create("Level:"), false, true);
     levelInput = TextEntry::create();
+    levelInput->setMode(TextEntry::Mode::Integer);
     row->pack(levelInput, true, false);
     window->pack(row, true, false);
 
@@ -70,11 +79,13 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     Box::Ptr input = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     input->pack(Label::create("X:"), false, true);
     xInput = TextEntry::create();
+    xInput->setMode(TextEntry::Mode::Integer);
     input->pack(xInput, true, true);
     row->pack(input, true, false);
     input = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     input->pack(Label::create("Y:"), false, true);
     yInput = TextEntry::create();
+    yInput->setMode(TextEntry::Mode::Integer);
     input->pack(yInput, true, true);
     row->pack(input, true, false);
     window->pack(row, true, false);
@@ -92,7 +103,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     row                 = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr editBut = Button::create("Confirm");
     editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        if (validFile(fileLabel->getText())) {
+        if (!validFile(fileLabel->getText())) {
             bl::dialog::tinyfd_messageBox(
                 "Selelct Character", "Please select an NPC or trainer to spawn", "ok", "error", 1);
             return;
@@ -154,7 +165,7 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
     }
 }
 
-void CharacterSpawnWindow::onNpcChoose(const std::string& file) { fileLabel->setText(file); }
+void CharacterSpawnWindow::onFilechoose(const std::string& file) { fileLabel->setText(file); }
 
 void CharacterSpawnWindow::closeAll() {
     window->remove();

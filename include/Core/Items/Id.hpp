@@ -22,7 +22,9 @@ namespace item
  *
  */
 enum struct Id : std::uint16_t {
-    Unknown     = 0,
+    Unknown = 0,
+    None    = Unknown,
+
     Potion      = 1,
     SuperPotion = 2,
     // TODO - item ids

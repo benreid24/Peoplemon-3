@@ -28,7 +28,7 @@ public:
      * @param cb The function to call when the item is changed
      *
      */
-    static Ptr create(const ChangeCb& cb = {});
+    static Ptr create(const ChangeCb& cb = [](core::item::Id) {});
 
     /**
      * @brief Returns the current selected item

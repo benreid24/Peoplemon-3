@@ -262,6 +262,7 @@ protected:
 
     void clear();
     void triggerAnimation(const component::Position& position);
+    void refreshRenderRange(const sf::View& view) const;
 
     friend class loaders::LegacyMapLoader;
 };

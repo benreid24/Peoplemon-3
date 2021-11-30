@@ -74,6 +74,7 @@ const std::string TrainerFileExtension      = "tnr";
 const std::string TrainerPath               = "Resources/Characters/Trainers";
 const std::string ConversationPath          = "Resources/Characters/Conversations";
 const std::string ConversationFileExtension = "conv";
+const std::string LegacyPeoplemonPath       = "Resources/Characters/LegacyPeoplemon";
 
 const std::string CharacterAnimationPath = "Resources/Characters/Animations";
 constexpr float CharacterMoveSpeed       = 81.f;
@@ -84,7 +85,7 @@ const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationP
 
 const float CharacterSpinPeriod = 1.75f;
 
-const std::string ItemMetadataFile = "Resources/Config/items.json";
+const std::string ItemMetadataFile = "Resources/Config/items.db";
 const std::string ItemSprite       = "Resources/Images/item.png";
 
 const float GhostWriterSpeed   = 16.f;
@@ -94,6 +95,9 @@ const unsigned int HudFontSize = 20;
 const std::string ScriptPath = "Resources/Scripts";
 
 constexpr float ScreenFadePeriod = 2.f;
+
+const std::string PeoplemonDBFile = "Resources/Config/peoplemon.db";
+const std::string MoveDBFile      = "Resources/Config/moves.db";
 
 } // namespace defaults
 
@@ -176,6 +180,7 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.conversation.path", defaults::ConversationPath);
     bl::engine::Configuration::set("core.conversation.extension",
                                    defaults::ConversationFileExtension);
+    bl::engine::Configuration::set("core.trainer.pplpath", defaults::LegacyPeoplemonPath);
 
     bl::engine::Configuration::set("core.character.animpath", defaults::CharacterAnimationPath);
     bl::engine::Configuration::set("core.character.speed", defaults::CharacterMoveSpeed);
@@ -196,6 +201,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("blib.script.path", defaults::ScriptPath);
 
     bl::engine::Configuration::set("game.main.fadeout", defaults::ScreenFadePeriod);
+
+    bl::engine::Configuration::set("core.pplmn.dbfile", defaults::PeoplemonDBFile);
+    bl::engine::Configuration::set("core.moves.dbfile", defaults::MoveDBFile);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -491,6 +499,12 @@ const std::string& Properties::ConversationFileExtension() {
     return val;
 }
 
+const std::string& Properties::LegacyPeoplemonPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.pplpath", defaults::LegacyPeoplemonPath);
+    return val;
+}
+
 const std::string& Properties::CharacterAnimationPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.character.animpath", defaults::CharacterAnimationPath);
@@ -562,6 +576,18 @@ float Properties::ScreenFadePeriod() {
     static const float v = bl::engine::Configuration::getOrDefault<float>(
         "game.main.fadeout", defaults::ScreenFadePeriod);
     return v;
+}
+
+const std::string& Properties::PeoplemonDBFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.pplmn.dbfile", defaults::PeoplemonDBFile);
+    return val;
+}
+
+const std::string& Properties::MoveDBFile() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.moves.dbfile", defaults::PeoplemonDBFile);
+    return val;
 }
 
 } // namespace core

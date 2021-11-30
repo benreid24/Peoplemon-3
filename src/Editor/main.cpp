@@ -2,6 +2,13 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
+#include <Core/Files/ItemDB.hpp>
+#include <Core/Files/MoveDB.hpp>
+#include <Core/Files/PeoplemonDB.hpp>
+#include <Core/Items/Item.hpp>
+#include <Core/Peoplemon/Move.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
+
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Editor/States/MainEditor.hpp>
@@ -17,6 +24,30 @@ int main() {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
+
+    BL_LOG_INFO << "Loading game metadata";
+    BL_LOG_INFO << "Loading items";
+    core::file::ItemDB itemdb;
+    if (!itemdb.load()) {
+        BL_LOG_ERROR << "Failed to load item database";
+        return 1;
+    }
+    core::item::Item::setDataSource(itemdb);
+    BL_LOG_INFO << "Loading moves";
+    core::file::MoveDB movedb;
+    if (!movedb.load()) {
+        BL_LOG_ERROR << "Failed to load move database";
+        return 1;
+    }
+    core::pplmn::Move::setDataSource(movedb);
+    BL_LOG_INFO << "Loading Peoplemon";
+    core::file::PeoplemonDB ppldb;
+    if (!ppldb.load()) {
+        BL_LOG_ERROR << "Failed to load peoplemon database";
+        return 1;
+    }
+    core::pplmn::Peoplemon::setDataSource(ppldb);
+    BL_LOG_INFO << "Game metadata loaded";
 
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =

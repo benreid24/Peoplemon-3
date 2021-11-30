@@ -2,6 +2,8 @@
 #define CORE_FILES_TRAINER_HPP
 
 #include <Core/Files/Behavior.hpp>
+#include <Core/Items/Id.hpp>
+#include <Core/Peoplemon/OwnedPeoplemon.hpp>
 
 #include <BLIB/Files/Binary/SerializableField.hpp>
 #include <BLIB/Files/Binary/SerializableObject.hpp>
@@ -123,7 +125,31 @@ public:
      * @brief The behavior of the trainer
      *
      */
-    Behavior behavior() const;
+    const Behavior& behavior() const;
+
+    /**
+     * @brief Returns the peoplemon the trainer has
+     *
+     */
+    const std::vector<pplmn::OwnedPeoplemon>& peoplemon() const;
+
+    /**
+     * @brief Returns the peoplemon the trainer has
+     *
+     */
+    std::vector<pplmn::OwnedPeoplemon>& peoplemon();
+
+    /**
+     * @brief Returns the items the trainer has
+     *
+     */
+    const std::vector<item::Id>& items() const;
+
+    /**
+     * @brief Returns the items the trainer has
+     *
+     */
+    std::vector<item::Id>& items();
 
 private:
     bl::file::binary::SerializableField<1, std::string> nameField;
@@ -133,7 +159,9 @@ private:
     bl::file::binary::SerializableField<5, std::string> loseBattleLineField;
     bl::file::binary::SerializableField<6, std::uint8_t> rangeField;
     bl::file::binary::SerializableField<7, Behavior> behaviorField;
-    // TODO - determine how to store peoplemon and battle music/background
+    bl::file::binary::SerializableField<8, std::vector<pplmn::OwnedPeoplemon>> peoplemonField;
+    bl::file::binary::SerializableField<9, std::vector<item::Id>> itemsField;
+    // TODO - determine how to store battle music/background
 };
 
 } // namespace file

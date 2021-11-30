@@ -161,6 +161,13 @@ public:
     void clear();
 
     /**
+     * @brief Updates the lighting system
+     *
+     * @param dt Time elapsed in seconds
+     */
+    void update(float dt);
+
+    /**
      * @brief Renders the current lighting to the given target. This should be called at the end of
      *        the rendering process to ensure that all layers and entities are lit properly
      *
@@ -209,6 +216,8 @@ private:
     float levelRange;
     float sunlightFactor;
     int weatherModifier;
+    int targetWeatherModifier;
+    float weatherResidual;
 };
 
 } // namespace map

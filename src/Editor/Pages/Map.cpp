@@ -307,7 +307,7 @@ Map::Map(core::system::Systems& s)
     box->pack(spawnDelete);
     spawnBox->pack(box);
 
-    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Horizontal, 8));
+    Box::Ptr npcBox = Box::create(LinePacker::create(LinePacker::Vertical, 8));
     npcSpawn        = RadioButton::create("Spawn", "spawn");
     npcEdit         = RadioButton::create("Edit", "edit", npcSpawn->getRadioGroup());
     label           = Label::create("Delete");
@@ -344,17 +344,7 @@ Map::Map(core::system::Systems& s)
     lightCreateOrEdit = RadioButton::create("Create/Modify", "create");
     lightCreateOrEdit->setValue(true);
     lightRadiusEntry = TextEntry::create();
-    lightRadiusEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
-        std::string v = lightRadiusEntry->getInput();
-        for (unsigned int i = 0; i < v.size(); ++i) {
-            if (!std::isdigit(v[i])) {
-                v.erase(i, 1);
-                --i;
-            }
-        }
-        if (v.empty()) v = "0";
-        lightRadiusEntry->setInput(v);
-    });
+    lightRadiusEntry->setMode(TextEntry::Mode::Integer);
     lightRadiusEntry->setRequisition({80, 0});
     lightRadiusEntry->setInput("100");
     box->pack(lightCreateOrEdit, false, false);
@@ -368,7 +358,7 @@ Map::Map(core::system::Systems& s)
 
     objectBook = Notebook::create();
     objectBook->addPage("spawns", "Spawns", spawnBox, [this]() { activeTool = Tool::Spawns; });
-    objectBook->addPage("ai", "NPC's", npcBox, [this]() { activeTool = Tool::NPCs; });
+    objectBook->addPage("ai", "Characters", npcBox, [this]() { activeTool = Tool::NPCs; });
     objectBook->addPage("items", "Items", itemBox, [this]() { activeTool = Tool::Items; });
     objectBook->addPage("lights", "Lights", lightBox, [this]() { activeTool = Tool::Lights; });
 
@@ -900,6 +890,7 @@ void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
     else {
         mapArea.editMap().addNpcSpawn(spawn);
     }
+    mapArea.enableControls();
 }
 
 } // namespace page

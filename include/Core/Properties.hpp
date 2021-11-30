@@ -86,6 +86,7 @@ public:
     static const std::string& TrainerPath();
     static const std::string& ConversationPath();
     static const std::string& ConversationFileExtension();
+    static const std::string& LegacyPeoplemonPath();
 
     static const std::string& CharacterAnimationPath();
     static float CharacterMoveSpeed();
@@ -104,6 +105,9 @@ public:
     static const std::string& ScriptPath();
 
     static float ScreenFadePeriod();
+
+    static const std::string& PeoplemonDBFile();
+    static const std::string& MoveDBFile();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

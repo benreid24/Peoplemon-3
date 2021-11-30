@@ -15,14 +15,18 @@ namespace
 constexpr float SplashTime = -0.15f;
 constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
+constexpr float StopTime   = 4.f;
+constexpr float StopSpeed  = 1.f / StopTime;
 } // namespace
 
 Rain::Rain(bool hard, bool canThunder)
 : _type(hard ? (canThunder ? Weather::HardRainThunder : Weather::HardRain) :
                (canThunder ? Weather::LightRainThunder : Weather::LightRain))
-, rain(std::bind(&Rain::createDrop, this, std::placeholders::_1),
-       hard ? Properties::HardRainParticleCount() : Properties::LightRainParticleCount(), 200.f)
+, targetParticleCount(hard ? Properties::HardRainParticleCount() :
+                             Properties::LightRainParticleCount())
+, rain(std::bind(&Rain::createDrop, this, std::placeholders::_1), targetParticleCount, 200.f)
 , fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
+, stopFactor(-1.f)
 , thunder(canThunder, hard) {
     dropTxtr = bl::engine::Resources::textures().load(Properties::RainDropFile()).data;
     drop.setTexture(*dropTxtr, true);
@@ -57,8 +61,9 @@ void Rain::start(const sf::FloatRect& a) {
 }
 
 void Rain::stop() {
-    rain.setTargetCount(0);
-    bl::audio::AudioSystem::stopSound(rainSoundHandle, 2.5f);
+    stopFactor = 0.f;
+    bl::audio::AudioSystem::stopSound(rainSoundHandle, StopTime + 0.5f);
+    thunder.stop();
 }
 
 bool Rain::stopped() const { return rain.particleCount() == 0; }
@@ -78,6 +83,17 @@ void Rain::update(float dt) {
 
     rain.update(updateDrop, dt);
     thunder.update(dt);
+
+    if (stopFactor >= 0.f) {
+        stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);
+        rain.setTargetCount(
+            targetParticleCount -
+            static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));
+        if (stopFactor >= 1.f) {
+            stopFactor = -1.f;
+            rain.setTargetCount(0);
+        }
+    }
 }
 
 void Rain::render(sf::RenderTarget& target, float lag) const {

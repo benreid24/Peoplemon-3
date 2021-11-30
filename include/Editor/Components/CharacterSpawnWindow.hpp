@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Editor/Components/NPCEditorWindow.hpp>
+#include <Editor/Components/TrainerEditorWindow.hpp>
 
 namespace editor
 {
@@ -51,7 +52,8 @@ private:
     bl::gui::ComboBox::Ptr dirEntry;
 
     component::NpcEditorWindow npcEditor;
-    void onNpcChoose(const std::string& file);
+    component::TrainerEditorWindow trainerEditor;
+    void onFilechoose(const std::string& file);
     void closeAll();
 };
 

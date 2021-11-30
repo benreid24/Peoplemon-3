@@ -88,6 +88,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& op,
     row->pack(Label::create("Radius (tiles):"), false, false);
     radiusEntry = TextEntry::create();
     radiusEntry->setInput("7");
+    radiusEntry->setMode(TextEntry::Mode::Integer);
     row->pack(radiusEntry, true, false);
     page->pack(row, true, true);
     notebook->addPage("wander", "Wander", page);
@@ -125,6 +126,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& op,
                     "Error", "Radius must be a positive integer", "ok", "error", 1);
                 return;
             }
+            break;
         }
 
         typeLabel->setText(getLabel(value.type()));

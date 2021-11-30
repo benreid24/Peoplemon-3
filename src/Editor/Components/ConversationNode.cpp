@@ -147,6 +147,7 @@ ConversationNode::ConversationNode(const FocusCb& fcb, const NotifyCb& ecb, cons
 
     moneyRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     moneyEntry = TextEntry::create();
+    moneyEntry->setMode(TextEntry::Mode::Integer);
     moneyEntry->getSignal(Event::ValueChanged)
         .willAlwaysCall(std::bind(&ConversationNode::onMoneyChange, this));
     moneyRow->pack(Label::create("Money Amount:"), false, true);
@@ -299,15 +300,7 @@ void ConversationNode::onItemChange(core::item::Id item) {
 }
 
 void ConversationNode::onMoneyChange() {
-    std::string val = moneyEntry->getInput();
-    for (unsigned int i = 0; i < val.size(); ++i) {
-        if (!std::isdigit(val[i])) {
-            val.erase(i, 1);
-            --i;
-        }
-    }
-    moneyEntry->setInput(val);
-
+    const std::string& val = moneyEntry->getInput();
     current.money() = val.empty() ? 0 : std::atoi(val.c_str());
     onEdit();
 }

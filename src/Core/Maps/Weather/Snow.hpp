@@ -85,10 +85,12 @@ private:
     };
 
     const Weather::Type _type;
+    const unsigned int targetParticleCount;
     const float fallSpeed;
     bl::resource::Resource<sf::Texture>::Ref snowTxtr;
     mutable sf::Sprite snowFlake;
     mutable sf::FloatRect area;
+    float stopFactor;
 
     bl::particle::System<Flake> snow;
     Thunder thunder;

@@ -16,14 +16,18 @@ constexpr float SlowFallSpeed   = -100.f;
 constexpr float GroundTime      = -2.f;
 constexpr float HorizontalAccel = 128.f;
 constexpr float HorizontalVel   = 64.f;
+constexpr float StopTime        = 4.f;
+constexpr float StopSpeed       = 1.f / StopTime;
 } // namespace
 
 Snow::Snow(bool hard, bool thunder)
 : _type(hard ? (thunder ? Weather::HardSnowThunder : Weather::HardSnow) :
                (thunder ? Weather::LightSnowThunder : Weather::LightSnow))
+, targetParticleCount(hard ? Properties::HardSnowParticleCount() :
+                             Properties::LightSnowParticleCount())
 , fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)
-, snow(std::bind(&Snow::createFlake, this, std::placeholders::_1),
-       hard ? Properties::HardSnowParticleCount() : Properties::LightSnowParticleCount(), 450.f)
+, stopFactor(-1.f)
+, snow(std::bind(&Snow::createFlake, this, std::placeholders::_1), targetParticleCount, 450.f)
 , thunder(thunder, hard) {
     snowTxtr = bl::engine::Resources::textures().load(Properties::SnowFlakeFile()).data;
     snowFlake.setTexture(*snowTxtr, true);
@@ -35,7 +39,10 @@ Weather::Type Snow::type() const { return _type; }
 
 void Snow::start(const sf::FloatRect& a) { area = a; }
 
-void Snow::stop() { snow.setTargetCount(0); }
+void Snow::stop() {
+    stopFactor = 0.f;
+    thunder.stop();
+}
 
 bool Snow::stopped() const { return snow.particleCount() == 0; }
 
@@ -62,6 +69,17 @@ void Snow::update(float dt) {
     };
 
     snow.update(updateFlake, dt);
+
+    if (stopFactor >= 0.f) {
+        stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);
+        snow.setTargetCount(
+            targetParticleCount -
+            static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));
+        if (stopFactor >= 0.8f) {
+            stopFactor = -1.f;
+            snow.setTargetCount(0);
+        }
+    }
 }
 
 void Snow::render(sf::RenderTarget& target, float lag) const {
