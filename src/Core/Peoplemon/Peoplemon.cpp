@@ -130,5 +130,12 @@ unsigned int Peoplemon::levelUpXp(Id id, unsigned int level) {
     }
 }
 
+Id Peoplemon::evolvesFrom(Id id) {
+    for (const auto& p : *evolveIds) {
+        if (p.second == id) return p.first;
+    }
+    return Id::Unknown;
+}
+
 } // namespace pplmn
 } // namespace core

@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace editor
 {
@@ -14,7 +15,7 @@ namespace component
  * @ingroup EditorComponents
  *
  */
-class MoveSelector : public bl::gui::ComboBox {
+class MoveSelector : public bl::gui::Box {
 public:
     /// Pointer to this component
     using Ptr = std::shared_ptr<MoveSelector>;
@@ -45,15 +46,30 @@ public:
     void setCurrentMove(core::pplmn::MoveId move);
 
     /**
-     * @brief Refreshes the list of available moves from the move database
+     * @brief Notifies the selector of the peoplemon being selected for
+     *
+     * @param ppl The peoplemon to select for
+     * @param level The level of the peoplemon
+     */
+    void notifyPeoplemon(core::pplmn::Id ppl, unsigned int level);
+
+    /**
+     * @brief Selects a random move
      *
      */
-    void refresh();
+    void selectRandom();
 
 private:
-    static std::vector<core::pplmn::MoveId> idLookup;
+    core::pplmn::Id peoplemon;
+    unsigned int level;
+    std::vector<core::pplmn::MoveId> validMoves;
+    bl::gui::ComboBox::Ptr selector;
+    bl::gui::RadioButton::Ptr noMoveFilter;
+    bl::gui::RadioButton::Ptr levelMoveFilter;
+    bl::gui::RadioButton::Ptr poolMoveFilter;
 
     MoveSelector(const ChangeCb& ccb);
+    void refresh();
 };
 
 } // namespace component

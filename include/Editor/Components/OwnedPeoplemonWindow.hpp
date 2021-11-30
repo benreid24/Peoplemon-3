@@ -65,12 +65,12 @@ private:
     MoveSelector::Ptr moveSelector;
     bl::gui::SelectBox::Ptr moveBox;
     std::vector<core::pplmn::MoveId> moves;
+    void syncMoves();
 
     StatBox evBox;
     StatBox ivBox;
 
     bool validate() const;
-    void syncMoves(core::pplmn::Id ppl);
 };
 
 } // namespace component

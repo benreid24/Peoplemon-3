@@ -22,11 +22,11 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     });
 
     idSelect = ComboBox::create();
-    idSelect->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& e, Element*) {
-        const auto it = idMap.find(static_cast<int>(e.inputValue()));
-        if (it != idMap.end() && it->second != core::pplmn::Id::Unknown) { syncMoves(it->second); }
-    });
     idSelect->setMaxHeight(400.f);
+    idSelect->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        const auto ppl = getValue();
+        moveSelector->notifyPeoplemon(ppl.id(), ppl.currentLevel());
+    });
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     row->pack(Label::create("Species:"), false, true);
     row->pack(idSelect, false, true);
@@ -48,6 +48,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     levelEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         const unsigned int level = std::atoi(levelEntry->getInput().c_str());
         evBox.notifyLevel(level);
+        moveSelector->notifyPeoplemon(getValue().id(), level);
     });
     row->pack(levelEntry, false, true);
     window->pack(row);
@@ -55,7 +56,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     Label::Ptr l = Label::create("Moves:");
     l->setHorizontalAlignment(RenderSettings::Alignment::Left);
     window->pack(l, true, false);
-    row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     moveBox = SelectBox::create();
     moveBox->setMaxSize({1200.f, 90.f});
     moveBox->setRequisition({250.f, 108.f});
@@ -64,6 +65,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     Box::Ptr subRow = Box::create(LinePacker::create());
     moveSelector    = MoveSelector::create();
     subRow->pack(moveSelector, false, true);
+    Box::Ptr column = Box::create(LinePacker::create(LinePacker::Vertical));
     Button::Ptr but = Button::create("Add");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (moves.size() < 4) {
@@ -73,8 +75,12 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
             }
         }
     });
-    subRow->pack(but, false, true);
-    box->pack(subRow, true, false);
+    column->pack(but, false, false);
+    but = Button::create("Random");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        moveSelector->selectRandom();
+    });
+    column->pack(but, false, false);
     but = Button::create("Remove");
     but->setColor(sf::Color::Red, sf::Color::Black);
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
@@ -84,7 +90,8 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
             moveBox->removeOption(sel.value());
         }
     });
-    box->pack(but);
+    subRow->pack(column, false, true);
+    box->pack(subRow, true, false);
     row->pack(box);
     window->pack(row, true, false);
 
@@ -158,6 +165,7 @@ void OwnedPeoplemonWindow::show(const GUI::Ptr& p, const core::pplmn::OwnedPeopl
             moveBox->addOption(core::pplmn::Move::name(value.moves[i].id));
         }
     }
+    moveSelector->notifyPeoplemon(value.id(), value.currentLevel());
 
     parent->pack(window);
     window->setForceFocus(true);
@@ -184,18 +192,7 @@ core::pplmn::OwnedPeoplemon OwnedPeoplemonWindow::getValue() const {
     return val;
 }
 
-void OwnedPeoplemonWindow::syncMoves(core::pplmn::Id ppl) {
-    moveBox->clearOptions();
-    for (int i = 0; i < static_cast<int>(moves.size()); ++i) {
-        if (core::pplmn::Peoplemon::canLearnMove(ppl, moves[i])) {
-            moveBox->addOption(core::pplmn::Move::name(moves[i]));
-        }
-        else {
-            moves.erase(moves.begin() + i);
-            --i;
-        }
-    }
-}
+void OwnedPeoplemonWindow::syncMoves() {}
 
 bool OwnedPeoplemonWindow::validate() const {
     const unsigned int level = std::atoi(levelEntry->getInput().c_str());

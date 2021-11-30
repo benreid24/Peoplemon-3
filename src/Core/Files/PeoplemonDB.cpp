@@ -69,7 +69,9 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
                     BL_LOG_ERROR << "Invalid learn move id " << mi << " for peoplemon "
                                  << static_cast<unsigned int>(id) << "(" << db.names()[id] << ")";
                 }
-                db.validMoves()[id].insert(m);
+                else {
+                    db.validMoves()[id].insert(m);
+                }
             }
 
             if (!input.read<std::uint16_t>(u16)) return false;
@@ -83,7 +85,10 @@ struct LegacyDBLoader : public VersionedPayloadLoader<PeoplemonDB> {
                     BL_LOG_ERROR << "Invalid learn move id " << mi << " for peoplemon "
                                  << static_cast<unsigned int>(id) << "(" << db.names()[id] << ")";
                 }
-                db.learnedMoves()[id][lvl] = m;
+                else {
+                    db.learnedMoves()[id][lvl] = m;
+                    db.validMoves()[id].insert(m);
+                }
             }
 
             if (!input.read<std::uint8_t>(u8)) return false;

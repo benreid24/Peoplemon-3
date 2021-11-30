@@ -130,6 +130,14 @@ public:
     static Id evolvesInto(Id orig);
 
     /**
+     * @brief Returns what the given Peoplemon evolved from. This is expensive
+     *
+     * @param evolved The peoplemon to work backwards from
+     * @return Id The peoplemon that was evolved from, if any
+     */
+    static Id evolvesFrom(Id evolved);
+
+    /**
      * @brief Returns the ev points awarded for defeating the given peoplemon
      *
      * @param id The peoplemon that was defeated
