@@ -14,12 +14,13 @@ const std::string EmptyFile = "<no file selected>";
 
 std::string pplToStr(const core::pplmn::OwnedPeoplemon& ppl) {
     std::stringstream ss;
-    ss << ppl.id() << ": " << core::pplmn::Peoplemon::name(ppl.id()) << " (Level "
+    ss << "Id: " << ppl.id() << ": " << core::pplmn::Peoplemon::name(ppl.id()) << " (Level "
        << ppl.currentLevel() << ")";
     return ss.str();
 }
 
 } // namespace
+
 using namespace bl::gui;
 using FileUtil = bl::file::Util;
 
@@ -31,13 +32,14 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 , pplWindow(
       [this]() {
           window->setForceFocus(true);
+          const auto val = pplWindow.getValue();
           if (editPplIndex.has_value()) {
-              peoplemon[editPplIndex.value()] = pplWindow.getValue();
-              //
+              peoplemon[editPplIndex.value()] = val;
+              pplBox->editOptionText(editPplIndex.value(), pplToStr(val));
           }
           else {
-              peoplemon.emplace_back(pplWindow.getValue());
-              pplBox->addOption()
+              peoplemon.emplace_back(val);
+              pplBox->addOption(pplToStr(val));
           }
           makeDirty();
       },
@@ -101,6 +103,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             trainer.behavior()               = behaviorEditor.getValue();
             trainer.visionRange()            = visionRangeEntry->getSelectedOption();
             trainer.items()                  = items;
+            trainer.peoplemon()              = peoplemon;
             if (!trainer.save(bl::file::Util::joinPath(core::Properties::TrainerPath(),
                                                        fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save Trainer", "ok", "error", 1);
@@ -353,6 +356,8 @@ void TrainerEditorWindow::load(const std::string& file) {
         behaviorEditor.configure(parent, trainer.behavior());
         items = trainer.items();
         for (const auto item : items) { itemSelectBox->addOption(core::item::Item::getName(item)); }
+        peoplemon = trainer.peoplemon();
+        for (const auto& ppl : peoplemon) { pplBox->addOption(pplToStr(ppl)); }
     }
     else {
         bl::dialog::tinyfd_messageBox(

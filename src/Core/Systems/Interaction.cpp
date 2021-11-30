@@ -159,10 +159,8 @@ void Interaction::giveItemDecided(const std::string& c) {
             processConversationNode();
         }
         else {
-            owner.hud().displayMessage(
-                "You don't have a single " +
-                    item::Item::getName(currentConversation.currentNode().item()) + "!",
-                std::bind(&Interaction::failMessageFinished, this));
+            owner.hud().displayMessage("A voice echos in your head: YOU DON'T HAVE THAT ITEM BRO",
+                                       std::bind(&Interaction::failMessageFinished, this));
         }
     }
     else {
