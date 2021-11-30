@@ -44,6 +44,14 @@ struct Stats {
     void randomize();
 
     /**
+     * @brief Adds the given EV points to this set of stats while obeying the constraints on EV
+     *        values and sums
+     *
+     * @param evs The EVs to award
+     */
+    void addEVs(const Stats& evs);
+
+    /**
      * @brief Returns a reference to the given stat
      *
      */

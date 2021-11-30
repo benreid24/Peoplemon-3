@@ -141,13 +141,7 @@ const Stats& OwnedPeoplemon::currentIVs() const { return ivs; }
 
 unsigned int& OwnedPeoplemon::currentHp() { return hp; }
 
-void OwnedPeoplemon::awardEVs(const Stats& award) {
-    for (const Stat stat : Stats::IterableStats) {
-        int a = std::min(award.get(stat), Stats::MaxEVSum - evs.sum());
-        a     = std::min(a, Stats::MaxEVStat - evs.get(stat));
-        evs.get(stat) += a;
-    }
-}
+void OwnedPeoplemon::awardEVs(const Stats& award) { evs.addEVs(award); }
 
 Ailment& OwnedPeoplemon::currentAilment() { return ailment; }
 

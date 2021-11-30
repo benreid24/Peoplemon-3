@@ -45,6 +45,10 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     levelEntry->setInput("50");
     levelEntry->setMode(TextEntry::Mode::Integer | TextEntry::Mode::Unsigned);
     levelEntry->setRequisition({60.f, 1.f});
+    levelEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        const unsigned int level = std::atoi(levelEntry->getInput().c_str());
+        evBox.notifyLevel(level);
+    });
     row->pack(levelEntry, false, true);
     window->pack(row);
 

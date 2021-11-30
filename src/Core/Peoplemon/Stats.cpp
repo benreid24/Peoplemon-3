@@ -23,6 +23,14 @@ void Stats::randomize() {
     for (const Stat stat : IterableStats) { get(stat) = bl::util::Random::get<int>(0, MaxIVStat); }
 }
 
+void Stats::addEVs(const Stats& award) {
+    for (const Stat stat : Stats::IterableStats) {
+        int a = std::min(award.get(stat), Stats::MaxEVSum - sum());
+        a     = std::min(a, Stats::MaxEVStat - get(stat));
+        get(stat) += a;
+    }
+}
+
 int& Stats::get(Stat s) {
     const unsigned int i = static_cast<unsigned int>(s);
     return (&hp)[i];

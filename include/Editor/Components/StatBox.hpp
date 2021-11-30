@@ -40,6 +40,14 @@ public:
     void update(const core::pplmn::Stats& value);
 
     /**
+     * @brief Make the statbox aware of the level of the peoplemon it is editing. Used for random EV
+     *        generation
+     *
+     * @param level The current level of the peoplemon being edited
+     */
+    void notifyLevel(unsigned int level);
+
+    /**
      * @brief Resets all stats to 0
      *
      */
@@ -60,8 +68,11 @@ private:
     bl::gui::TextEntry::Ptr spAtkEntry;
     bl::gui::TextEntry::Ptr spDefEntry;
     bl::gui::TextEntry::Ptr spdEntry;
+    bl::gui::Label::Ptr sumLabel;
+    unsigned int level;
 
     void onChange(bl::gui::Element* e);
+    void syncSum();
 };
 
 } // namespace component

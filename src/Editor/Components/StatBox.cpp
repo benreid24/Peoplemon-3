@@ -1,6 +1,7 @@
 #include <Editor/Components/StatBox.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace editor
 {
@@ -9,11 +10,31 @@ namespace component
 namespace
 {
 constexpr float InputWidth = 60.f;
+
+core::pplmn::Stats genRandomEVs(unsigned int level) {
+    using namespace core::pplmn;
+
+    if (level < 7) return {};
+
+    Stats stats;
+    const unsigned int l         = level - 7;
+    const unsigned int iterCount = l * l / 12;
+    const std::vector<Id>& ids   = Peoplemon::validIds();
+    for (unsigned int i = 0; i < iterCount; ++i) {
+        const unsigned int j = bl::util::Random::get<unsigned int>(0, ids.size());
+        stats.addEVs(Peoplemon::evAward(ids[j]));
+        if (stats.sum() >= Stats::MaxEVSum) break;
+    }
+
+    return stats;
 }
+
+} // namespace
 using namespace bl::gui;
 
 StatBox::StatBox(Mode m)
-: mode(m) {
+: mode(m)
+, level(50) {
     const auto f = std::bind(&StatBox::onChange, this, std::placeholders::_2);
 
     hpEntry = TextEntry::create();
@@ -76,7 +97,15 @@ void StatBox::update(const core::pplmn::Stats& val) {
     spAtkEntry->setInput(std::to_string(val.spatk));
     spDefEntry->setInput(std::to_string(val.spdef));
     spdEntry->setInput(std::to_string(val.spd));
+    syncSum();
 }
+
+void StatBox::syncSum() {
+    const core::pplmn::Stats stats = currentValue();
+    sumLabel->setText("Sum: " + std::to_string(stats.sum()));
+}
+
+void StatBox::notifyLevel(unsigned int l) { level = l; }
 
 void StatBox::pack(Box& content) {
     LinePacker::Ptr rowPacker = LinePacker::create(LinePacker::Horizontal, 4.f);
@@ -123,16 +152,24 @@ void StatBox::pack(Box& content) {
     row->pack(spdEntry, false, true);
     content.pack(row, true, false);
 
+    sumLabel = Label::create("");
+    content.pack(sumLabel, true, false);
+
     Button::Ptr but = Button::create("Randomize");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        const unsigned int max =
-            mode == EV ? core::pplmn::Stats::MaxEVStat / 4 : core::pplmn::Stats::MaxIVStat;
-        hpEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        atkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        defEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        spAtkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        spDefEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        spdEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        if (mode == Mode::IV) {
+            constexpr unsigned int max = core::pplmn::Stats::MaxIVStat;
+            hpEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            atkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            defEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            spAtkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            spDefEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            spdEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+        }
+        else {
+            update(genRandomEVs(level));
+        }
+        syncSum();
     });
     content.pack(but);
 }
@@ -168,6 +205,8 @@ void StatBox::onChange(Element* e) {
                 }
             }
         }
+
+        syncSum();
     }
 }
 
