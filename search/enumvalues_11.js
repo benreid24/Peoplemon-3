@@ -1,16 +1,9 @@
 var searchData=
 [
-  ['sandstorm',['SandStorm',['../a00929.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60',1,'core::map::Weather']]],
-  ['setsaveflag',['SetSaveFlag',['../a00849.html#af2fcaf16b4ce64411e9382567991f78eae51672825780a948a7b6757e5ba61b50',1,'core::file::Conversation::Node']]],
-  ['snowrandom',['SnowRandom',['../a00929.html#a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635',1,'core::map::Weather']]],
-  ['spawns',['Spawns',['../a01105.html#a8e534b393969b6fc5b303ebd36115b5ea95f20efbb12b95c9caf79c92402c9e85',1,'editor::component::EditMap']]],
-  ['spininplace',['SpinInPlace',['../a00821.html#acd71b7b95ca61f055f30cc3bc6fb91f1ae6cf42958535e2f8bd4b5ac3bf6773b4',1,'core::file::Behavior']]],
-  ['sprintdown',['SprintDown',['../a00615.html#gga6701adf1fdd04d85dd6482e453417813a3e7785e9a2e12edc80119bdedffc11c1',1,'core::component']]],
-  ['sprintleft',['SprintLeft',['../a00615.html#gga6701adf1fdd04d85dd6482e453417813aef360d123552f89bc9359013a7dfbfc5',1,'core::component']]],
-  ['sprintright',['SprintRight',['../a00615.html#gga6701adf1fdd04d85dd6482e453417813a5522e6de62762b12579e3ddbbf16b11d',1,'core::component']]],
-  ['sprintup',['SprintUp',['../a00615.html#gga6701adf1fdd04d85dd6482e453417813aa5e639d8aa06b19bb20b63153bc34d70',1,'core::component']]],
-  ['standstill',['StandStill',['../a00821.html#acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90',1,'core::file::Behavior']]],
-  ['sunny',['Sunny',['../a00929.html#a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6',1,'core::map::Weather']]],
-  ['superpotion',['SuperPotion',['../a00618.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531',1,'core::item']]],
-  ['surfrequired',['SurfRequired',['../a00619.html#ggaa99d95911252405b5f77e93a2d5ecb0caff6c58e584836a1ea8b0cbfe397f3c5b',1,'core::map']]]
+  ['quadratic',['Quadratic',['../a00719.html#ggab39f21e54ca605725b382bd7848530b3a8b2972385ed28d0e199ae2985d6fea4c',1,'core::pplmn']]],
+  ['quickdraw',['QuickDraw',['../a00719.html#ggae0a3870bdfdee167eb5686dda0f03885a997b227c6f447653b40d646752c4792d',1,'core::pplmn']]],
+  ['quiet',['Quiet',['../a00719.html#ggaa52c811bcb6c639158aff81bd4cfb39fa098753f8980036f4b936e3d4b6997111',1,'core::pplmn']]],
+  ['quinna',['QuinnA',['../a00719.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab28743c866aee8938946c4a959c2422e',1,'core::pplmn']]],
+  ['quinnb',['QuinnB',['../a00719.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2d99d8f8ce477a5693a567bd80cc58e1',1,'core::pplmn']]],
+  ['quinnc',['QuinnC',['../a00719.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa5d1ec5421302d53cc9045337c73838e',1,'core::pplmn']]]
 ];

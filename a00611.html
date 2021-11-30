@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Core</title>
+<title>Peoplemon: src/Editor/Components/Helpers/OpenAnimationEditor.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,7 +47,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -62,64 +61,43 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li><li class="navelem"><a class="el" href="dir_8a5ba89507fee9f7e225b2553f50c69e.html">Helpers</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#groups">Modules</a> &#124;
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Core</div>  </div>
+<div class="title">OpenAnimationEditor.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of core classes that do not belong anywhere else.  
-<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;BLIB/Files.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces.hpp&gt;</code><br />
+<code>#include &lt;cstdlib&gt;</code><br />
+</div>
+<p><a href="a00611_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
-Modules</h2></td></tr>
-<tr class="memitem:a00614"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00614.html">AI</a></td></tr>
-<tr class="memdesc:a00614"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and utilities for implementing AI. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00742"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00742.html">editor</a></td></tr>
+<tr class="memdesc:a00742"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00615"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00615.html">Components</a></td></tr>
-<tr class="memdesc:a00615"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00616"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00616.html">Events</a></td></tr>
-<tr class="memdesc:a00616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of event types that are propagated through the engine event bus. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00617"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00617.html">Files</a></td></tr>
-<tr class="memdesc:a00617"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of data classes that provide saving and loading of different game file formats. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00618"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00618.html">Items</a></td></tr>
-<tr class="memdesc:a00618"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00619"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00619.html">Maps</a></td></tr>
-<tr class="memdesc:a00619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00620"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00620.html">Player</a></td></tr>
-<tr class="memdesc:a00620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for managing player state and functionality. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00621"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00621.html">Scripts</a></td></tr>
-<tr class="memdesc:a00621"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helpers and contexts for in-game scripts. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00623"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00623.html">Systems</a></td></tr>
-<tr class="memdesc:a00623"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a00743"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00743.html">editor::component</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00965.html">core::Properties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be accessed without performing look ups, and hides the string config names.  <a href="a00965.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00969.html">core::Resources</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of resource manager singletons for Peoplemon specific resources.  <a href="a00969.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab6f94080c1e646bd7dc2dd3bdfaed52d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00743.html#ab6f94080c1e646bd7dc2dd3bdfaed52d">editor::component::openAnimationEditor</a> ()</td></tr>
+<tr class="separator:ab6f94080c1e646bd7dc2dd3bdfaed52d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of core classes that do not belong anywhere else. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 15 2021 16:18:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 05:47:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/UseResult.hpp File Reference</title>
+<title>Peoplemon: include/Core/Items/Category.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,36 +68,40 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">UseResult.hpp File Reference</div>  </div>
+<div class="title">Category.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00080_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00873.html">core::item::UseResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct to store the result of using an item.  <a href="a00873.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00627"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00627.html">core</a></td></tr>
-<tr class="memdesc:a00627"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00727"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html">core</a></td></tr>
+<tr class="memdesc:a00727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00638"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00638.html">core::item</a></td></tr>
-<tr class="memdesc:a00638"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="memitem:a00738"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00738.html">core::item</a></td></tr>
+<tr class="memdesc:a00738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00717.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a> : std::uint8_t { <a class="el" href="a00717.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Category::Unknown</a>, 
+<a class="el" href="a00717.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">core::item::Category::Regular</a>, 
+<a class="el" href="a00717.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">core::item::Category::Key</a>, 
+<a class="el" href="a00717.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">core::item::Category::TM</a>
+ }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a00717.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 15 2021 16:18:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 05:47:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

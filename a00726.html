@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: Weather</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -47,6 +47,7 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,36 +62,51 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a00627.html">core</a></li><li class="navelem"><a class="el" href="a00630.html">component</a></li><li class="navelem"><a class="el" href="a00729.html">Position</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Position Member List</div>  </div>
+<div class="title">Weather<div class="ingroups"><a class="el" href="a00710.html">Core</a> &raquo; <a class="el" href="a00718.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00729.html">core::component::Position</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#add146e5fd9ac9c41aca0a7139967b2c9">ComponentId</a></td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#ae16da9a3f2c1b47769c46c2dab15cc45">direction</a></td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#a85c055db134f3287473da33da9d19196">facePosition</a>(const Position &amp;from, const Position &amp;to)</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#af63a89b4408f29af39335a9ce033cfb5">level</a></td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#a91c3884308bd21a0c2daafaacb721d0f">move</a>(Direction dir) const</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#abe72957cbf3de560c704b34666836512">moving</a>() const</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#a4fc34e7b3bacddd954577f065e62d60b">Position</a>()</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#ab410b37b0031af775ce7e26ad8dd5a91">Position</a>(std::uint8_t level, const sf::Vector2i &amp;tiles, Direction direction)</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#afbe190dd0355250a29c90a654c91cad1">positionPixels</a>() const</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#a4bcc6eccb348a0481036e3c2477392da">positionTiles</a>() const</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00729.html#a5f39d36df5f5bcea37173c80a87cf7eb">setPixels</a>(const sf::Vector2f &amp;interpolated)</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00729.html#a0f46114599def8b594e297bdfb049e25">setTiles</a>(const sf::Vector2i &amp;posTiles)</td><td class="entry"><a class="el" href="a00729.html">core::component::Position</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Collection of weather type implementations.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01050.html">core::map::Weather</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent weather system for maps. Manages active weather.  <a href="a01050.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01490.html">core::map::weather::Base</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01490.html" title="Base class for all weather types. ">Base</a> class for all weather types.  <a href="a01490.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01494.html">core::map::weather::Fog</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01050.html" title="Parent weather system for maps. Manages active weather. ">Weather</a> type for thin or thick fog.  <a href="a01494.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01502.html">core::map::weather::Rain</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01050.html" title="Parent weather system for maps. Manages active weather. ">Weather</a> type for rainy days. Handles light and hard rain and owns thunder if need be.  <a href="a01502.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01506.html">core::map::weather::Sandstorm</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates sandstorms.  <a href="a01506.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01514.html">core::map::weather::Snow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01514.html" title="Snow weather system. ">Snow</a> weather system.  <a href="a01514.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01522.html">core::map::weather::Sunny</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes sunny weather.  <a href="a01522.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01526.html">core::map::weather::Thunder</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple helper class for creating thunder in different weather types.  <a href="a01526.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of weather type implementations. </p>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 15 2021 16:18:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 05:47:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::HighlightRadioButton Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,162 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00627.html">core</a></li><li class="navelem"><a class="el" href="a00635.html">map</a></li><li class="navelem"><a class="el" href="a00640.html">weather</a></li><li class="navelem"><a class="el" href="a01293.html">Rain</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00742.html">editor</a></li><li class="navelem"><a class="el" href="a00743.html">component</a></li><li class="navelem"><a class="el" href="a01290.html">HighlightRadioButton</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01287.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::weather::Rain Member List</div>  </div>
+<div class="title">editor::component::HighlightRadioButton Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01293.html">core::map::weather::Rain</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01293.html#a6eb323fb81944530506583b7ffda4392">Rain</a>(bool hard, bool thunder)</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01293.html#a30423a0be3c46f3cb426b1f51d910b82">render</a>(sf::RenderTarget &amp;target, float residual) const override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01293.html#aa218d77b3cfb32f5b77610cc50601ddb">start</a>(const sf::FloatRect &amp;area) override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01293.html#a1e2c26d2a0bc7bbcfe34b986bf511936">stop</a>() override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01293.html#a264b133ab12761b7e6f8dc3e93a5b0aa">stopped</a>() const override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01293.html#a401fbef52b8a04f28d13ff4d5812a0bc">type</a>() const override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01293.html#ae97c2b16cce4438446990321c3c41dbe">update</a>(float dt) override</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a01281.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01293.html#a82885718014cb1e2d87f5c1fcb3f31cb">~Rain</a>()</td><td class="entry"><a class="el" href="a01293.html">core::map::weather::Rain</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it is active.  
+ <a href="a01290.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00281_source.html">HighlightRadioButton.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::HighlightRadioButton:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01290.png" usemap="#editor::component::HighlightRadioButton_map" alt=""/>
+  <map id="editor::component::HighlightRadioButton_map" name="editor::component::HighlightRadioButton_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae94199920bb76763de3727781370a416"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01290.html#ae94199920bb76763de3727781370a416">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a01290.html">HighlightRadioButton</a> &gt;</td></tr>
+<tr class="memdesc:ae94199920bb76763de3727781370a416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a <a class="el" href="a01290.html" title="Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it...">HighlightRadioButton</a>.  <a href="#ae94199920bb76763de3727781370a416">More...</a><br /></td></tr>
+<tr class="separator:ae94199920bb76763de3727781370a416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a74721198827da76c2229c84f0d20371a"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01290.html#a74721198827da76c2229c84f0d20371a">~HighlightRadioButton</a> ()=default</td></tr>
+<tr class="memdesc:a74721198827da76c2229c84f0d20371a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Highlight Radio Button.  <a href="#a74721198827da76c2229c84f0d20371a">More...</a><br /></td></tr>
+<tr class="separator:a74721198827da76c2229c84f0d20371a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a35bafb19f836081e138745476836221b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01290.html#ae94199920bb76763de3727781370a416">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01290.html#a35bafb19f836081e138745476836221b">create</a> (bl::gui::Element::Ptr child, bl::gui::RadioButton::Group *group=nullptr)</td></tr>
+<tr class="memdesc:a35bafb19f836081e138745476836221b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a01290.html" title="Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it...">HighlightRadioButton</a>.  <a href="#a35bafb19f836081e138745476836221b">More...</a><br /></td></tr>
+<tr class="separator:a35bafb19f836081e138745476836221b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it is active. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00017">17</a> of file <a class="el" href="a00281_source.html">HighlightRadioButton.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ae94199920bb76763de3727781370a416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae94199920bb76763de3727781370a416">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01290.html#ae94199920bb76763de3727781370a416">editor::component::HighlightRadioButton::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a01290.html">HighlightRadioButton</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to a <a class="el" href="a01290.html" title="Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it...">HighlightRadioButton</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00281_source.html#l00020">20</a> of file <a class="el" href="a00281_source.html">HighlightRadioButton.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a74721198827da76c2229c84f0d20371a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74721198827da76c2229c84f0d20371a">&#9670;&nbsp;</a></span>~HighlightRadioButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual editor::component::HighlightRadioButton::~HighlightRadioButton </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the Highlight Radio Button. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a35bafb19f836081e138745476836221b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35bafb19f836081e138745476836221b">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01290.html#ae94199920bb76763de3727781370a416">HighlightRadioButton::Ptr</a> editor::component::HighlightRadioButton::create </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::Element::Ptr&#160;</td>
+          <td class="paramname"><em>child</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::gui::RadioButton::Group *&#160;</td>
+          <td class="paramname"><em>group</em> = <code>nullptr</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="a01290.html" title="Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it...">HighlightRadioButton</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">child</td><td>Child element to use for button display </td></tr>
+    <tr><td class="paramname">group</td><td>Radio group to be a part of </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The newly created <a class="el" href="a01290.html" title="Helper GUI component that functions as a RadioButton but also renders a conspicuous highlight when it...">HighlightRadioButton</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00008">8</a> of file <a class="el" href="a00617_source.html">HighlightRadioButton.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00281_source.html">HighlightRadioButton.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00617_source.html">HighlightRadioButton.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 15 2021 16:18:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 05:47:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

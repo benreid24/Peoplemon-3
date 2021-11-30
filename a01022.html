@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::map::Light Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,28 +63,221 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00627.html">core</a></li><li class="navelem"><a class="el" href="a00628.html">system</a></li><li class="navelem"><a class="el" href="a01025.html">HUD</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00727.html">core</a></li><li class="navelem"><a class="el" href="a00735.html">map</a></li><li class="navelem"><a class="el" href="a01022.html">Light</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01019.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::system::HUD Member List</div>  </div>
+<div class="title">core::map::Light Struct Reference<div class="ingroups"><a class="el" href="a00710.html">Core</a> &raquo; <a class="el" href="a00718.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01025.html">core::system::HUD</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01025.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a> typedef</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01025.html#a4d1d6c90f36a4b23611a790d7b8c8c41">displayMessage</a>(const std::string &amp;message, Callback cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01025.html#aa1052b3650984bc4bb29975e87ffcea9">HUD</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01025.html#a1ee7195346b6a0496c5b2b3cfbc95c2f">promptUser</a>(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, Callback cb)</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01025.html#a2d056532e298b8f50839ef15cfa1abe4">render</a>(sf::RenderTarget &amp;target, float lag)</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01025.html#a4f1d21a8201eacf4ae9325fa8db4330e">update</a>(float dt)</td><td class="entry"><a class="el" href="a01025.html">core::system::HUD</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Represents a renderable light in a <a class="el" href="a01030.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  
+ <a href="a01022.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00113_source.html">Light.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::Light:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01022.png" usemap="#core::map::Light_map" alt=""/>
+  <map id="core::map::Light_map" name="core::map::Light_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a62ef88f9796f56cb5b2466194198b70b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#a62ef88f9796f56cb5b2466194198b70b">Light</a> ()</td></tr>
+<tr class="memdesc:a62ef88f9796f56cb5b2466194198b70b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty light.  <a href="#a62ef88f9796f56cb5b2466194198b70b">More...</a><br /></td></tr>
+<tr class="separator:a62ef88f9796f56cb5b2466194198b70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a461d72d8fa4b7d0a73bfd674ea015cf8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#a461d72d8fa4b7d0a73bfd674ea015cf8">Light</a> (std::uint16_t <a class="el" href="a01022.html#a2eb9385ea00323bbbeccfb1b4ad21e1b">radius</a>, const sf::Vector2i &amp;<a class="el" href="a01022.html#a26313ed5ca13ca5cfec6e3bd7fc82a66">position</a>)</td></tr>
+<tr class="memdesc:a461d72d8fa4b7d0a73bfd674ea015cf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a light from the given parameters.  <a href="#a461d72d8fa4b7d0a73bfd674ea015cf8">More...</a><br /></td></tr>
+<tr class="separator:a461d72d8fa4b7d0a73bfd674ea015cf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad9177395ba7eb37677aa6fee2eb75975"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#ad9177395ba7eb37677aa6fee2eb75975">Light</a> (const <a class="el" href="a01022.html">Light</a> &amp;copy)</td></tr>
+<tr class="memdesc:ad9177395ba7eb37677aa6fee2eb75975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructs the light.  <a href="#ad9177395ba7eb37677aa6fee2eb75975">More...</a><br /></td></tr>
+<tr class="separator:ad9177395ba7eb37677aa6fee2eb75975"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99b7bd7cf795d78289e4eff8f772f389"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01022.html">Light</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#a99b7bd7cf795d78289e4eff8f772f389">operator=</a> (const <a class="el" href="a01022.html">Light</a> &amp;copy)</td></tr>
+<tr class="memdesc:a99b7bd7cf795d78289e4eff8f772f389"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copies from the given light.  <a href="#a99b7bd7cf795d78289e4eff8f772f389">More...</a><br /></td></tr>
+<tr class="separator:a99b7bd7cf795d78289e4eff8f772f389"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a2eb9385ea00323bbbeccfb1b4ad21e1b"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 1, std::uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#a2eb9385ea00323bbbeccfb1b4ad21e1b">radius</a></td></tr>
+<tr class="separator:a2eb9385ea00323bbbeccfb1b4ad21e1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26313ed5ca13ca5cfec6e3bd7fc82a66"><td class="memItemLeft" align="right" valign="top">bl::file::binary::SerializableField&lt; 2, sf::Vector2i &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html#a26313ed5ca13ca5cfec6e3bd7fc82a66">position</a></td></tr>
+<tr class="separator:a26313ed5ca13ca5cfec6e3bd7fc82a66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a renderable light in a <a class="el" href="a01030.html" title="The primary map class that represents a usable map in the game. ">Map</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00016">16</a> of file <a class="el" href="a00113_source.html">Light.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a62ef88f9796f56cb5b2466194198b70b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62ef88f9796f56cb5b2466194198b70b">&#9670;&nbsp;</a></span>Light() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::map::Light::Light </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates an empty light. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00437_source.html#l00007">7</a> of file <a class="el" href="a00437_source.html">Light.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a461d72d8fa4b7d0a73bfd674ea015cf8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a461d72d8fa4b7d0a73bfd674ea015cf8">&#9670;&nbsp;</a></span>Light() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::map::Light::Light </td>
+          <td>(</td>
+          <td class="paramtype">std::uint16_t&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a light from the given parameters. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">radius</td><td>The radius of the light, in pixels </td></tr>
+    <tr><td class="paramname">position</td><td>The position of the light, in pixels </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00437_source.html#l00011">11</a> of file <a class="el" href="a00437_source.html">Light.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad9177395ba7eb37677aa6fee2eb75975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad9177395ba7eb37677aa6fee2eb75975">&#9670;&nbsp;</a></span>Light() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::map::Light::Light </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01022.html">Light</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy constructs the light. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The light to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00437_source.html#l00017">17</a> of file <a class="el" href="a00437_source.html">Light.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a99b7bd7cf795d78289e4eff8f772f389"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99b7bd7cf795d78289e4eff8f772f389">&#9670;&nbsp;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01022.html">Light</a> &amp; core::map::Light::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01022.html">Light</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copies from the given light. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">copy</td><td>The light to copy </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01022.html" title="Represents a renderable light in a Map. ">Light</a>&amp; A reference to this light </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00437_source.html#l00022">22</a> of file <a class="el" href="a00437_source.html">Light.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a26313ed5ca13ca5cfec6e3bd7fc82a66"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26313ed5ca13ca5cfec6e3bd7fc82a66">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::file::binary::SerializableField&lt;2, sf::Vector2i&gt; core::map::Light::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00018">18</a> of file <a class="el" href="a00113_source.html">Light.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2eb9385ea00323bbbeccfb1b4ad21e1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2eb9385ea00323bbbeccfb1b4ad21e1b">&#9670;&nbsp;</a></span>radius</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::file::binary::SerializableField&lt;1, std::uint16_t&gt; core::map::Light::radius</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00017">17</a> of file <a class="el" href="a00113_source.html">Light.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Maps/<a class="el" href="a00113_source.html">Light.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a00437_source.html">Light.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 15 2021 16:18:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 30 2021 05:47:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
