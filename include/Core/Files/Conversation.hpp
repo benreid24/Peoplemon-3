@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_CONVERSATION_HPP
 #define CORE_FILES_CONVERSATION_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Items/Id.hpp>
 #include <cstdint>
 #include <string>
@@ -24,7 +24,7 @@ class ConversationLoader;
  * @ingroup File
  *
  */
-class Conversation : private bl::file::binary::SerializableObject {
+class Conversation {
 public:
     /**
      * @brief Building block of conversations. A conversation is a tree of nodes and each node is an
@@ -237,29 +237,14 @@ public:
             std::uint32_t condNodes[2];
         } jumps;
 
-        friend class bl::file::binary::Serializer<core::file::Conversation::Node, false>;
+        friend class bl::serial::binary::Serializer<Node, false>;
     };
 
     /**
      * @brief Creates an empty conversation
      *
      */
-    Conversation();
-
-    /**
-     * @brief Copy constructs the conversation
-     *
-     * @param copy The conversation to copy from
-     */
-    Conversation(const Conversation& copy);
-
-    /**
-     * @brief Copies the conversation
-     *
-     * @param copy The conversation to copy
-     * @return Conversation& A reference to this conversation
-     */
-    Conversation& operator=(const Conversation& copy);
+    Conversation() = default;
 
     /**
      * @brief Loads the conversation from the given file
@@ -323,10 +308,11 @@ public:
     static void getNextJumps(const Node& node, std::vector<unsigned int>& jumps);
 
 private:
-    bl::file::binary::SerializableField<1, std::vector<Node>> cnodes;
+    std::vector<Node> cnodes;
 
     friend class loader::LegacyConversationLoader;
     friend class loader::ConversationLoader;
+    friend class bl::serial::binary::SerializableObject<Conversation>;
 };
 
 } // namespace file
@@ -334,19 +320,99 @@ private:
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace binary
 {
 template<>
 struct Serializer<core::file::Conversation::Node, false> {
-    static bool serialize(File& output, const core::file::Conversation::Node& node);
-    static bool deserialize(File& input, core::file::Conversation::Node& node);
-    static std::uint32_t size(const core::file::Conversation::Node& node);
+    using Node = core::file::Conversation::Node;
+
+    static bool serialize(OutputStream& output, const Node& node) {
+        if (!Serializer<Node::Type>::serialize(output, node.getType())) return false;
+        if (!output.write(node.prompt)) return false;
+        if (!output.write<std::uint32_t>(node.jumps.condNodes[0])) return false;
+        if (!output.write<std::uint32_t>(node.jumps.condNodes[1])) return false;
+
+        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+            return Serializer<core::item::Id>::serialize(output,
+                                                         *std::get_if<core::item::Id>(&node.data));
+        }
+        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+            return output.write<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
+        }
+        else if (node.getType() == Node::Prompt) {
+            return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::serialize(
+                output,
+                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+        }
+        else if (node.getType() == Node::RunScript) {
+            return output.write<std::uint8_t>(node.runConcurrently());
+        }
+
+        return true;
+    }
+
+    static bool deserialize(InputStream& input, Node& node) {
+        Node::Type type;
+        if (!Serializer<Node::Type>::deserialize(input, type)) return false;
+        node.setType(type);
+
+        if (!input.read(node.prompt)) return false;
+        if (!input.read<std::uint32_t>(node.jumps.condNodes[0])) return false;
+        if (!input.read<std::uint32_t>(node.jumps.condNodes[1])) return false;
+
+        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+            return Serializer<core::item::Id>::deserialize(
+                input, *std::get_if<core::item::Id>(&node.data));
+        }
+        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+            return input.read<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
+        }
+        else if (node.getType() == Node::Prompt) {
+            return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::deserialize(
+                input,
+                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+        }
+        else if (node.getType() == Node::RunScript) {
+            std::uint8_t rc = 0;
+            if (!input.read<std::uint8_t>(rc)) return false;
+            node.runConcurrently() = rc;
+        }
+    }
+
+    static std::uint32_t size(const Node& node) {
+        std::uint32_t s = Serializer<Node::Type>::size(node.getType()) +
+                          Serializer<std::string>::size(node.prompt) + sizeof(std::uint32_t) * 2;
+
+        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
+            s += Serializer<core::item::Id>::size(core::item::Id::Unknown);
+        }
+        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
+            s += sizeof(std::uint32_t);
+        }
+        else if (node.getType() == Node::Prompt) {
+            s += Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::size(
+                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
+        }
+
+        return s;
+    }
+};
+
+template<>
+struct SerializableObject<core::file::Conversation> : public SerializableObjectBase {
+    using Node         = core::file::Conversation::Node;
+    using Conversation = core::file::Conversation;
+
+    SerializableField<1, std::vector<Node>, offsetof(Conversation, cnodes)> nodes;
+
+    SerializableObject()
+    : nodes(*this) {}
 };
 
 } // namespace binary
-} // namespace file
+} // namespace serial
 } // namespace bl
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_SPAWN_HPP
 #define CORE_MAPS_SPAWN_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
@@ -16,9 +16,9 @@ namespace map
  * @ingroup Maps
  *
  */
-struct Spawn : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, std::uint16_t> id;
-    bl::file::binary::SerializableField<2, component::Position> position;
+struct Spawn {
+    std::uint16_t id;
+    component::Position position;
 
     /**
      * @brief Creates an empty spawn
@@ -33,24 +33,29 @@ struct Spawn : public bl::file::binary::SerializableObject {
      * @param position The position to spawn at
      */
     Spawn(std::uint16_t id, const component::Position& position);
-
-    /**
-     * @brief Copy constructs a new Spawn
-     *
-     * @param copy The spawn to copy from
-     */
-    Spawn(const Spawn& copy);
-
-    /**
-     * @brief Copies the given spawn
-     *
-     * @param copy The spawn to copy from
-     * @return Spawn& A reference to this spawn
-     */
-    Spawn& operator=(const Spawn& copy);
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Spawn> : public SerializableObjectBase {
+    SerializableField<1, std::uint16_t, offsetof(core::map::Spawn, id)> id;
+    SerializableField<2, core::component::Position, offsetof(core::map::Spawn, position)> position;
+
+    SerializableObject()
+    : id(*this)
+    , position(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

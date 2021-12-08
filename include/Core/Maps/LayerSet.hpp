@@ -57,35 +57,13 @@ using HeightTransitionLayer = Layer<std::uint8_t>;
  * @ingroup Maps
  *
  */
-class LayerSet : public bl::file::binary::SerializableObject {
+class LayerSet {
 public:
     /**
      * @brief Builds a new empty layer set
      *
      */
-    LayerSet();
-
-    /**
-     * @brief Move constructs the layer set from the given layer set
-     *
-     * @param move The layer set to move from
-     */
-    LayerSet(LayerSet&& move);
-
-    /**
-     * @brief Copy constructs from the given layer set
-     *
-     * @param copy The set to copy
-     */
-    LayerSet(const LayerSet& copy);
-
-    /**
-     * @brief Copies the internals from the given layer set
-     *
-     * @param copy The set to copy
-     * @return LayerSet& A reference to this set
-     */
-    LayerSet& operator=(const LayerSet& copy);
+    LayerSet() = default;
 
     /**
      * @brief Creates the given number of layers and sets the proper size for each layer,
@@ -115,11 +93,25 @@ public:
     CollisionLayer& collisionLayer();
 
     /**
+     * @brief Returns a reference to the collision layer for this set
+     *
+     * @return CollisionLayer& The collisions at this height
+     */
+    const CollisionLayer& collisionLayer() const;
+
+    /**
      * @brief Returns a reference to the catchable layer for this set
      *
      * @return CatchLayer& The catch tiles at this height
      */
     CatchLayer& catchLayer();
+
+    /**
+     * @brief Returns a reference to the catchable layer for this set
+     *
+     * @return CatchLayer& The catch tiles at this height
+     */
+    const CatchLayer& catchLayer() const;
 
     /**
      * @brief Returns a reference to the bottom tiles in this set
@@ -200,16 +192,47 @@ public:
     Tile** getSortedTile(Tileset& tileset, unsigned int layer, unsigned int x, unsigned int y);
 
 private:
-    bl::file::binary::SerializableField<1, CollisionLayer> collisions;
-    bl::file::binary::SerializableField<2, CatchLayer> catches;
-    bl::file::binary::SerializableField<3, std::vector<TileLayer>> bottom;
-    bl::file::binary::SerializableField<4, std::vector<TileLayer>> ysort;
-    bl::file::binary::SerializableField<5, std::vector<TileLayer>> top;
+    CollisionLayer collisions;
+    CatchLayer catches;
+    std::vector<TileLayer> bottom;
+    std::vector<TileLayer> ysort;
+    std::vector<TileLayer> top;
 
     std::vector<SortedLayer> ysortedLayers;
+
+    friend class bl::serial::binary::SerializableObject<LayerSet>;
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::LayerSet> : public SerializableObjectBase {
+    SerializableField<1, core::map::CollisionLayer, offsetof(core::map::LayerSet, collisions)>
+        collisions;
+    SerializableField<2, core::map::CatchLayer, offsetof(core::map::LayerSet, catches)> catches;
+    SerializableField<3, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, bottom)>
+        bottom;
+    SerializableField<4, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, ysort)>
+        ysort;
+    SerializableField<5, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, top)> top;
+
+    SerializableObject()
+    : collisions(*this)
+    , catches(*this)
+    , bottom(*this)
+    , ysort(*this)
+    , top(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

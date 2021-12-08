@@ -1,23 +1,27 @@
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Properties.hpp>
 
-using namespace bl::file::binary;
+using namespace bl::serial::binary;
 
 namespace core
 {
 namespace file
 {
-struct ItemDBLoader : public VersionedPayloadLoader<ItemDB> {
-    virtual bool read(ItemDB& db, File& input) const override { return db.deserialize(input); }
+struct ItemDBLoader : public SerializerVersion<ItemDB> {
+    using Serial = Serializer<ItemDB>;
 
-    virtual bool write(const ItemDB& db, File& output) const override {
-        return db.serialize(output);
+    virtual bool read(ItemDB& db, InputStream& input) const override {
+        return Serial::deserialize(input, db);
+    }
+
+    virtual bool write(const ItemDB& db, OutputStream& output) const override {
+        return Serial::serialize(output, db);
     }
 };
 namespace
 {
-struct LegacyDBLoader : public VersionedPayloadLoader<ItemDB> {
-    virtual bool read(ItemDB& db, File& input) const override {
+struct LegacyDBLoader : public SerializerVersion<ItemDB> {
+    virtual bool read(ItemDB& db, InputStream& input) const override {
         std::uint16_t n;
         if (!input.read<std::uint16_t>(n)) return false;
         for (std::uint16_t i = 0; i < n; ++i) {
@@ -27,39 +31,32 @@ struct LegacyDBLoader : public VersionedPayloadLoader<ItemDB> {
 
             std::string str;
             if (!input.read(str)) return false;
-            db.names()[id] = str;
+            db.names[id] = str;
             if (!input.read(str)) return false;
-            db.descriptions()[id] = str;
+            db.descriptions[id] = str;
 
             std::uint32_t val;
             if (!input.read<std::uint32_t>(val)) return false;
-            db.values()[id] = val;
+            db.values[id] = val;
         }
         return true;
     }
 
-    virtual bool write(const ItemDB&, File&) const override { return false; }
+    virtual bool write(const ItemDB&, OutputStream&) const override { return false; }
 };
 
-using VersionedLoader = VersionedFile<ItemDB, LegacyDBLoader, ItemDBLoader>;
+using VersionedLoader = VersionedSerializer<ItemDB, LegacyDBLoader, ItemDBLoader>;
 
 } // namespace
 
-ItemDB::ItemDB()
-: names(*this)
-, descriptions(*this)
-, values(*this) {}
-
 bool ItemDB::load() {
-    VersionedLoader loader;
-    File input(Properties::ItemMetadataFile(), File::Read);
-    return loader.read(input, *this);
+    InputFile input(Properties::ItemMetadataFile());
+    return VersionedLoader::read(input, *this);
 }
 
 bool ItemDB::save() const {
-    VersionedLoader loader;
-    File output(Properties::ItemMetadataFile(), File::Write);
-    return loader.write(output, *this);
+    OutputFile output(Properties::ItemMetadataFile());
+    return VersionedLoader::write(output, *this);
 }
 
 } // namespace file

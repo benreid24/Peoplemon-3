@@ -5,25 +5,11 @@ namespace core
 namespace map
 {
 Light::Light()
-: radius(*this)
-, position(*this) {}
+: radius(0) {}
 
 Light::Light(std::uint16_t rad, const sf::Vector2i& pos)
-: Light() {
-    radius   = rad;
-    position = pos;
-}
-
-Light::Light(const Light& copy)
-: Light() {
-    *this = copy;
-}
-
-Light& Light::operator=(const Light& copy) {
-    radius   = copy.radius;
-    position = copy.position;
-    return *this;
-}
+: radius(rad)
+, position(pos) {}
 
 } // namespace map
 } // namespace core

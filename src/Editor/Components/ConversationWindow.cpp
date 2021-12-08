@@ -89,7 +89,8 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
       core::Properties::ConversationPath(), {core::Properties::ConversationFileExtension()},
       [this](const std::string& c) {
           std::string conv = c;
-          if (bl::file::Util::getExtension(conv) != core::Properties::ConversationFileExtension() &&
+          if (bl::util::FileUtil::getExtension(conv) !=
+                  core::Properties::ConversationFileExtension() &&
               filePickerMode != FilePickerMode::OpenExisting) {
               conv += "." + core::Properties::ConversationFileExtension();
           }

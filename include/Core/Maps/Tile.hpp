@@ -1,8 +1,8 @@
 #ifndef CORE_MAPS_TILE_HPP
 #define CORE_MAPS_TILE_HPP
 
-#include <BLIB/Files/Binary.hpp>
 #include <BLIB/Media/Graphics.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
 
@@ -123,18 +123,18 @@ private:
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace binary
 {
 template<>
 struct Serializer<core::map::Tile, false> {
-    static bool serialize(File& output, const core::map::Tile& tile) {
+    static bool serialize(OutputStream& output, const core::map::Tile& tile) {
         if (!Serializer<core::map::Tile::IdType>::serialize(output, tile.id())) return false;
         return Serializer<bool>::serialize(output, tile.isAnimation());
     }
 
-    static bool deserialize(File& input, core::map::Tile& result) {
+    static bool deserialize(InputStream& input, core::map::Tile& result) {
         core::map::Tile::IdType id;
         bool isAnim;
         if (!Serializer<core::map::Tile::IdType>::deserialize(input, id)) return false;

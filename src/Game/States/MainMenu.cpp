@@ -1,8 +1,8 @@
 #include <Game/States/MainMenu.hpp>
 
 #include <BLIB/Engine.hpp>
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/NewGame.hpp>
 
@@ -21,7 +21,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
     backgroundTxtr =
         bl::engine::Resources::textures()
-            .load(bl::file::Util::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"))
+            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"))
             .data;
     background.setTexture(*backgroundTxtr, true);
 

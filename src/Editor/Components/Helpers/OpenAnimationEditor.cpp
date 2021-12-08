@@ -1,5 +1,5 @@
-#include <BLIB/Files.hpp>
 #include <BLIB/Interfaces.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <cstdlib>
 
 namespace editor
@@ -11,7 +11,7 @@ namespace
 const char* getEditorPath() {
     static const char* WindowsPath = "tools\\AnimationEditor\\AnimationEditor.exe";
     static const char* UnixPath    = "tools/AnimationEditor/AnimationEditor";
-    if (bl::file::Util::exists(UnixPath)) { return UnixPath; }
+    if (bl::util::FileUtil::exists(UnixPath)) { return UnixPath; }
     return WindowsPath;
 }
 
@@ -19,7 +19,7 @@ const char* getEditorPath() {
 
 void openAnimationEditor() {
     const char* editor = getEditorPath();
-    if (!bl::file::Util::exists(editor)) {
+    if (!bl::util::FileUtil::exists(editor)) {
         bl::dialog::tinyfd_messageBox(
             "Animation Editor Missing",
             "Please download the animation editor and place it in the tools directory",

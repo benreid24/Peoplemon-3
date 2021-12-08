@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_ITEM_HPP
 #define CORE_MAPS_ITEM_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 
 namespace core
 {
@@ -13,12 +13,12 @@ namespace map
  * @ingroup Maps
  *
  */
-struct Item : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, std::uint16_t> id;
-    bl::file::binary::SerializableField<2, std::uint16_t> mapId;
-    bl::file::binary::SerializableField<3, sf::Vector2i> position;
-    bl::file::binary::SerializableField<4, std::uint8_t> level;
-    bl::file::binary::SerializableField<5, bool> visible;
+struct Item {
+    std::uint16_t id;
+    std::uint16_t mapId;
+    sf::Vector2i position;
+    std::uint8_t level;
+    bool visible;
 
     /**
      * @brief Makes an empty item
@@ -37,24 +37,37 @@ struct Item : public bl::file::binary::SerializableObject {
      */
     Item(std::uint16_t id, std::uint16_t mapId, const sf::Vector2i& pos, std::uint8_t level,
          bool visible);
-
-    /**
-     * @brief Copy constructs the item from the given item
-     *
-     * @param copy The item to copy
-     */
-    Item(const Item& copy);
-
-    /**
-     * @brief Copies from the given item
-     *
-     * @param copy The item to copy
-     * @return Item& A reference to this item
-     */
-    Item& operator=(const Item& copy);
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Item> : public SerializableObjectBase {
+    using I = core::map::Item;
+
+    SerializableField<1, std::uint16_t, offsetof(I, id)> id;
+    SerializableField<2, std::uint16_t, offsetof(I, mapId)> mapId;
+    SerializableField<3, sf::Vector2i, offsetof(I, position)> position;
+    SerializableField<4, std::uint8_t, offsetof(I, level)> level;
+    SerializableField<5, bool, offsetof(I, visible)> visible;
+
+    SerializableObject()
+    : id(*this)
+    , mapId(*this)
+    , position(*this)
+    , level(*this)
+    , visible(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

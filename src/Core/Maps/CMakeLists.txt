@@ -1,6 +1,5 @@
 target_sources(Core PRIVATE
     CatchZone.cpp
-    CharacterSpawn.cpp
     Event.cpp
     Item.cpp
     LayerSet.cpp

@@ -26,8 +26,8 @@ OwnedPeoplemon::OwnedPeoplemon(Id ppl, unsigned int l)
 }
 
 bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
-    bl::file::binary::File input(bl::file::Util::joinPath(Properties::LegacyPeoplemonPath(), f),
-                                 bl::file::binary::File::Read);
+    bl::serial::binary::InputFile input(
+        bl::util::FileUtil::joinPath(Properties::LegacyPeoplemonPath(), f));
     if (!input.good()) return false;
 
     if (!input.read(customName)) return false;
@@ -139,7 +139,7 @@ const Stats& OwnedPeoplemon::currentEVs() const { return evs; }
 
 const Stats& OwnedPeoplemon::currentIVs() const { return ivs; }
 
-unsigned int& OwnedPeoplemon::currentHp() { return hp; }
+std::uint16_t& OwnedPeoplemon::currentHp() { return hp; }
 
 void OwnedPeoplemon::awardEVs(const Stats& award) { evs.addEVs(award); }
 
@@ -164,61 +164,3 @@ void OwnedPeoplemon::learnMove(MoveId m, unsigned int i) { moves[i] = OwnedMove(
 
 } // namespace pplmn
 } // namespace core
-
-using namespace core::pplmn;
-
-namespace bl
-{
-namespace file
-{
-namespace binary
-{
-bool Serializer<OwnedPeoplemon>::deserialize(File& input, OwnedPeoplemon& p) {
-    if (!Serializer<Id>::deserialize(input, p._id)) return false;
-    std::uint16_t u16;
-    if (!input.read<std::uint16_t>(u16)) return false;
-    p.level = u16;
-    if (!input.read<std::uint16_t>(u16)) return false;
-    p.xp = u16;
-    if (!input.read<std::uint16_t>(u16)) return false;
-    p.hp = u16;
-    if (!Serializer<Stats>::deserialize(input, p.ivs)) return false;
-    if (!Serializer<Stats>::deserialize(input, p.evs)) return false;
-    for (int i = 0; i < 4; ++i) {
-        if (!Serializer<OwnedMove>::deserialize(input, p.moves[i])) return false;
-    }
-    if (!Serializer<Ailment>::deserialize(input, p.ailment)) return false;
-    if (!Serializer<core::item::Id>::deserialize(input, p.item)) return false;
-    return true;
-}
-
-bool Serializer<OwnedPeoplemon>::serialize(File& output, const OwnedPeoplemon& p) {
-    if (!Serializer<Id>::serialize(output, p._id)) return false;
-    if (!output.write<std::uint16_t>(p.level)) return false;
-    if (!output.write<std::uint16_t>(p.xp)) return false;
-    if (!output.write<std::uint16_t>(p.hp)) return false;
-    if (!Serializer<Stats>::serialize(output, p.ivs)) return false;
-    if (!Serializer<Stats>::serialize(output, p.evs)) return false;
-    for (int i = 0; i < 4; ++i) {
-        if (!Serializer<OwnedMove>::serialize(output, p.moves[i])) return false;
-    }
-    if (!Serializer<Ailment>::serialize(output, p.ailment)) return false;
-    if (!Serializer<core::item::Id>::serialize(output, p.item)) return false;
-    return true;
-}
-
-std::size_t Serializer<OwnedPeoplemon>::size(const OwnedPeoplemon& p) {
-    std::size_t s = 0;
-    s += Serializer<Id>::size(p._id);
-    s += sizeof(std::uint16_t) * 3;
-    s += Serializer<Stats>::size(p.ivs);
-    s += Serializer<Stats>::size(p.evs);
-    for (int i = 0; i < 4; ++i) { s += Serializer<OwnedMove>::size(p.moves[i]); }
-    s += Serializer<Ailment>::size(p.ailment);
-    s += Serializer<core::item::Id>::size(p.item);
-    return s;
-}
-
-} // namespace binary
-} // namespace file
-} // namespace bl

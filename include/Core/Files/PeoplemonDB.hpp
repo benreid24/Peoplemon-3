@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_PEOPLEMONDB_HPP
 #define CORE_FILES_PEOPLEMONDB_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <unordered_map>
 #include <unordered_set>
@@ -16,17 +16,13 @@ namespace core
 {
 namespace file
 {
-class PeoplemonDBLoader;
-
-struct PeoplemonDB
-: private bl::file::binary::SerializableObject
-, private bl::util::NonCopyable {
-    /**
-     * @brief Makes a new empty peoplemon database
-     *
-     */
-    PeoplemonDB();
-
+/**
+ * @brief Data structure that holds the underlaying data for all the peoplemon
+ *
+ * @ingroup Files
+ *
+ */
+struct PeoplemonDB : private bl::util::NonCopyable {
     /**
      * @brief Saves the database data to the save file
      *
@@ -39,26 +35,74 @@ struct PeoplemonDB
      */
     bool load();
 
-#define SF bl::file::binary::SerializableField
-    SF<1, std::unordered_map<pplmn::Id, std::string>> names;
-    SF<2, std::unordered_map<pplmn::Id, std::string>> descriptions;
-    SF<3, std::unordered_map<pplmn::Id, pplmn::Type>> types;
-    SF<4, std::unordered_map<pplmn::Id, pplmn::SpecialAbility>> abilities;
-    SF<5, std::unordered_map<pplmn::Id, pplmn::Stats>> stats;
-    SF<6, std::unordered_map<pplmn::Id, std::unordered_set<pplmn::MoveId>>> validMoves;
-    SF<7, std::unordered_map<pplmn::Id, std::unordered_map<unsigned int, pplmn::MoveId>>>
-        learnedMoves;
-    SF<8, std::unordered_map<pplmn::Id, unsigned int>> evolveLevels;
-    SF<9, std::unordered_map<pplmn::Id, pplmn::Id>> evolveIds;
-    SF<10, std::unordered_map<pplmn::Id, pplmn::Stats>> evAwards;
-    SF<11, std::unordered_map<pplmn::Id, unsigned int>> xpGroups;
-    SF<12, std::unordered_map<pplmn::Id, int>> xpMults;
-#undef SF
-
-    friend class PeoplemonDBLoader;
+    std::unordered_map<pplmn::Id, std::string> names;
+    std::unordered_map<pplmn::Id, std::string> descriptions;
+    std::unordered_map<pplmn::Id, pplmn::Type> types;
+    std::unordered_map<pplmn::Id, pplmn::SpecialAbility> abilities;
+    std::unordered_map<pplmn::Id, pplmn::Stats> stats;
+    std::unordered_map<pplmn::Id, std::unordered_set<pplmn::MoveId>> validMoves;
+    std::unordered_map<pplmn::Id, std::unordered_map<unsigned int, pplmn::MoveId>> learnedMoves;
+    std::unordered_map<pplmn::Id, unsigned int> evolveLevels;
+    std::unordered_map<pplmn::Id, pplmn::Id> evolveIds;
+    std::unordered_map<pplmn::Id, pplmn::Stats> evAwards;
+    std::unordered_map<pplmn::Id, unsigned int> xpGroups;
+    std::unordered_map<pplmn::Id, int> xpMults;
 };
 
 } // namespace file
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBase {
+    using DB = core::file::PeoplemonDB;
+    using Id = core::pplmn::Id;
+
+    SerializableField<1, std::unordered_map<Id, std::string>, offsetof(DB, names)> names;
+    SerializableField<2, std::unordered_map<Id, std::string>, offsetof(DB, descriptions)>
+        descriptions;
+    SerializableField<3, std::unordered_map<Id, core::pplmn::Type>, offsetof(DB, types)> types;
+    SerializableField<4, std::unordered_map<Id, core::pplmn::SpecialAbility>,
+                      offsetof(DB, abilities)>
+        abilities;
+    SerializableField<5, std::unordered_map<Id, core::pplmn::Stats>, offsetof(DB, stats)> stats;
+    SerializableField<6, std::unordered_map<Id, std::unordered_set<core::pplmn::MoveId>>,
+                      offsetof(DB, validMoves)>
+        validMoves;
+    SerializableField<7,
+                      std::unordered_map<Id, std::unordered_map<unsigned int, core::pplmn::MoveId>>,
+                      offsetof(DB, learnedMoves)>
+        learnedMoves;
+    SerializableField<8, std::unordered_map<Id, unsigned int>, offsetof(DB, evolveLevels)>
+        evolveLevels;
+    SerializableField<9, std::unordered_map<Id, Id>, offsetof(DB, evolveIds)> evolveIds;
+    SerializableField<10, std::unordered_map<Id, core::pplmn::Stats>, offsetof(DB, evAwards)>
+        evAwards;
+    SerializableField<11, std::unordered_map<Id, unsigned int>, offsetof(DB, xpGroups)> xpGroups;
+    SerializableField<12, std::unordered_map<Id, int>, offsetof(DB, xpMults)> xpMults;
+
+    SerializableObject()
+    : names(*this)
+    , descriptions(*this)
+    , types(*this)
+    , abilities(*this)
+    , stats(*this)
+    , validMoves(*this)
+    , learnedMoves(*this)
+    , evolveLevels(*this)
+    , evolveIds(*this)
+    , evAwards(*this)
+    , xpGroups(*this)
+    , xpMults(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

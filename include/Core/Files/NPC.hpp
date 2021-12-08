@@ -1,10 +1,8 @@
 #ifndef CORE_FILES_NPC_HPP
 #define CORE_FILES_NPC_HPP
 
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Files/Behavior.hpp>
-
-#include <BLIB/Files/Binary/SerializableField.hpp>
-#include <BLIB/Files/Binary/SerializableObject.hpp>
 
 /**
  * @addtogroup Files
@@ -24,13 +22,13 @@ namespace file
  * @ingroup Files
  *
  */
-class NPC : public bl::file::binary::SerializableObject {
+class NPC {
 public:
     /**
      * @brief Construct a new NPC file
      *
      */
-    NPC();
+    NPC() = default;
 
     /**
      * @brief Saves the NPC data to the given file
@@ -98,13 +96,41 @@ public:
     Behavior behavior() const;
 
 private:
-    bl::file::binary::SerializableField<1, std::string> nameField;
-    bl::file::binary::SerializableField<2, std::string> animField;
-    bl::file::binary::SerializableField<3, std::string> conversationField;
-    bl::file::binary::SerializableField<4, Behavior> behaviorField;
+    std::string nameField;
+    std::string animField;
+    std::string conversationField;
+    Behavior behaviorField;
+
+    friend class bl::serial::binary::SerializableObject<NPC>;
 };
 
 } // namespace file
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
+    using N = core::file::NPC;
+
+    SerializableField<1, std::string, offsetof(N, nameField)> nameField;
+    SerializableField<2, std::string, offsetof(N, animField)> animField;
+    SerializableField<3, std::string, offsetof(N, conversationField)> conversationField;
+    SerializableField<4, core::file::Behavior, offsetof(N, behaviorField)> behaviorField;
+
+    SerializableObject()
+    : nameField(*this)
+    , animField(*this)
+    , conversationField(*this)
+    , behaviorField(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

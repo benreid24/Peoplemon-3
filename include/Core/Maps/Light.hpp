@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_LIGHT_HPP
 #define CORE_MAPS_LIGHT_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 
 namespace core
 {
@@ -13,9 +13,9 @@ namespace map
  * @ingroup Maps
  *
  */
-struct Light : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, std::uint16_t> radius;
-    bl::file::binary::SerializableField<2, sf::Vector2i> position;
+struct Light {
+    std::uint16_t radius;
+    sf::Vector2i position;
 
     /**
      * @brief Creates an empty light
@@ -30,24 +30,29 @@ struct Light : public bl::file::binary::SerializableObject {
      * @param position The position of the light, in pixels
      */
     Light(std::uint16_t radius, const sf::Vector2i& position);
-
-    /**
-     * @brief Copy constructs the light
-     *
-     * @param copy The light to copy
-     */
-    Light(const Light& copy);
-
-    /**
-     * @brief Copies from the given light
-     *
-     * @param copy The light to copy
-     * @return Light& A reference to this light
-     */
-    Light& operator=(const Light& copy);
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Light> : public SerializableObjectBase {
+    SerializableField<1, std::uint16_t, offsetof(core::map::Light, radius)> radius;
+    SerializableField<2, sf::Vector2i, offsetof(core::map::Light, position)> position;
+
+    SerializableObject()
+    : radius(*this)
+    , position(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

@@ -1,7 +1,7 @@
 #ifndef CORE_PLAYER_INPUT_CONTROL_HPP
 #define CORE_PLAYER_INPUT_CONTROL_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Components/Command.hpp>
 #include <SFML/Window.hpp>
 #include <string>
@@ -115,7 +115,7 @@ struct Control {
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace binary
 {
@@ -123,11 +123,11 @@ using core::player::input::Control;
 
 template<>
 struct Serializer<Control, false> {
-    static bool serialize(File& output, const Control& c) {
+    static bool serialize(OutputStream& output, const Control& c) {
         return Serializer<std::string>::serialize(output, c.toString());
     }
 
-    static bool deserialize(File& input, Control& c) {
+    static bool deserialize(InputStream& input, Control& c) {
         std::string s;
         if (!Serializer<std::string>::deserialize(input, s)) return false;
         c = Control::fromString(s);
@@ -140,7 +140,7 @@ struct Serializer<Control, false> {
 };
 
 } // namespace binary
-} // namespace file
+} // namespace serial
 } // namespace bl
 
 #endif

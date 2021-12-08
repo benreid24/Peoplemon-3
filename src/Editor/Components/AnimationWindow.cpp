@@ -13,7 +13,7 @@ using namespace bl::gui;
 
 namespace
 {
-bool validFile(const std::string& f) { return !f.empty() && bl::file::Util::exists(f); }
+bool validFile(const std::string& f) { return !f.empty() && bl::util::FileUtil::exists(f); }
 } // namespace
 
 AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb)
@@ -51,7 +51,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
 
     row      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     auto src = bl::engine::Resources::animations()
-                   .load(bl::file::Util::joinPath(path, "4/down.anim"))
+                   .load(bl::util::FileUtil::joinPath(path, "4/down.anim"))
                    .data;
     animation = Animation::create(src, true);
     animation->setRequisition({32, 45});
@@ -90,11 +90,11 @@ void AnimationWindow::open(const GUI::Ptr& p, const std::string& pt, const std::
 }
 
 void AnimationWindow::packAnim(const std::string& f) {
-    const std::string af = characterMode ? bl::file::Util::getPath(f) : f;
-    const std::string vf = characterMode ? bl::file::Util::joinPath(af, "down.anim") : af;
+    const std::string af = characterMode ? bl::util::FileUtil::getPath(f) : f;
+    const std::string vf = characterMode ? bl::util::FileUtil::joinPath(af, "down.anim") : af;
     fileLabel->setText(af);
-    animSrc = bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, vf)).data;
-    BL_LOG_INFO << bl::file::Util::joinPath(path, vf);
+    animSrc = bl::engine::Resources::animations().load(bl::util::FileUtil::joinPath(path, vf)).data;
+    BL_LOG_INFO << bl::util::FileUtil::joinPath(path, vf);
     if (animSrc) {
         BL_LOG_INFO << "loaded";
         sf::Vector2f size = animSrc->getMaxSize();

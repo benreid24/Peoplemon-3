@@ -1,8 +1,8 @@
 #ifndef CORE_MAPS_LAYER_HPP
 #define CORE_MAPS_LAYER_HPP
 
-#include <BLIB/Files/Binary.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 
 #include <cstdint>
 #include <vector>
@@ -18,43 +18,13 @@ namespace map
  * @ingroup Maps
  */
 template<typename T>
-class Layer : public bl::file::binary::SerializableObject {
+class Layer {
 public:
     /**
      * @brief Construct an empty layer
      *
      */
     Layer();
-
-    /**
-     * @brief Copy constructs the layer
-     *
-     * @param copy The layer to copy
-     */
-    Layer(const Layer& copy);
-
-    /**
-     * @brief Move constructs the layer
-     *
-     * @param copy The layer to move from
-     */
-    Layer(Layer&& mlayer);
-
-    /**
-     * @brief Copies the given layer
-     *
-     * @param copy The layer to copy
-     * @return Layer& A reference to this layer
-     */
-    Layer& operator=(const Layer& copy);
-
-    /**
-     * @brief Move assigns the layer
-     *
-     * @param mlayer The layer to move from
-     * @return Layer& A reference to this layer
-     */
-    Layer& operator=(Layer&& mlayer);
 
     /**
      * @brief Clears all stored data (if any) and creates the layer with the given size
@@ -105,96 +75,93 @@ public:
     void set(unsigned int x, unsigned int y, const T& value);
 
 private:
-    bl::file::binary::SerializableField<1, std::uint32_t> w;
-    bl::file::binary::SerializableField<2, std::uint32_t> h;
-    bl::file::binary::SerializableField<3, std::vector<T>> data;
+    std::uint32_t w;
+    std::uint32_t h;
+    std::vector<T> data;
+
+    friend class bl::serial::binary::SerializableObject<Layer<T>>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
 
 template<typename T>
 Layer<T>::Layer()
-: w(*this)
-, h(*this)
-, data(*this) {}
-
-template<typename T>
-Layer<T>::Layer(const Layer& copy)
-: Layer() {
-    *this = copy;
-}
-
-template<typename T>
-Layer<T>::Layer(Layer&& m)
-: Layer() {
-    *this = std::forward<Layer<T>>(m);
-}
-
-template<typename T>
-Layer<T>& Layer<T>::operator=(const Layer& copy) {
-    w    = copy.w.getValue();
-    h    = copy.h.getValue();
-    data = copy.data.getValue();
-    return *this;
-}
-
-template<typename T>
-Layer<T>& Layer<T>::operator=(Layer&& copy) {
-    w               = copy.w.getValue();
-    h               = copy.h.getValue();
-    data.getValue() = copy.data.getMovable();
-    return *this;
-}
+: w(0)
+, h(0) {}
 
 template<typename T>
 void Layer<T>::create(unsigned int width, unsigned int height, const T& val) {
     w = width;
     h = height;
-    data.getValue().clear();
-    data.getValue().resize(width * height, val);
+    data.clear();
+    data.resize(width * height, val);
 }
 
 template<typename T>
 unsigned int Layer<T>::width() const {
-    return w.getValue();
+    return w;
 }
 
 template<typename T>
 unsigned int Layer<T>::height() const {
-    return h.getValue();
+    return h;
 }
 
 template<typename T>
 const T& Layer<T>::get(unsigned int x, unsigned int y) const {
-    const unsigned int i = y * w.getValue() + x;
-    if (i < data.getValue().size()) { return data.getValue()[i]; }
+    const unsigned int i = y * w + x;
+    if (i < data.size()) { return data[i]; }
     else {
         static const T null{};
-        BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
-                    << w.getValue() << "," << h.getValue() << ")";
+        BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=(" << w
+                    << "," << h << ")";
         return null;
     }
 }
 
 template<typename T>
 T& Layer<T>::getRef(unsigned int x, unsigned int y) {
-    const unsigned int i = y * w.getValue() + x;
-    if (i < data.getValue().size()) { return data.getValue()[i]; }
+    const unsigned int i = y * w + x;
+    if (i < data.size()) { return data[i]; }
     else {
         static T null{};
-        BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=("
-                    << w.getValue() << "," << h.getValue() << ")";
+        BL_LOG_WARN << "Out of bounds layer access: pos=(" << x << "," << y << ") size=(" << w
+                    << "," << h << ")";
         return null;
     }
 }
 
 template<typename T>
 void Layer<T>::set(unsigned int x, unsigned int y, const T& value) {
-    const unsigned int i = y * w.getValue() + x;
-    if (i < data.getValue().size()) { data.getValue()[i] = value; }
+    const unsigned int i = y * w + x;
+    if (i < data.size()) { data[i] = value; }
 }
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<typename T>
+struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
+    using Layer = core::map::Layer<T>;
+
+    SerializableField<1, std::uint32_t, offsetof(Layer, w)> w;
+    SerializableField<1, std::uint32_t, offsetof(Layer, h)> h;
+    SerializableField<1, std::vector<T>, offsetof(Layer, data)> data;
+
+    SerializableObject()
+    : w(*this)
+    , h(*this)
+    , data(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

@@ -10,7 +10,7 @@ Behavior::Behavior()
 : _type(Type::StandStill)
 , data(Standing(component::Direction::Down)) {}
 
-bool Behavior::legacyLoad(bl::file::binary::File& input) {
+bool Behavior::legacyLoad(bl::serial::binary::InputStream& input) {
     std::uint8_t behaviorType;
     if (!input.read(behaviorType)) return false;
     switch (behaviorType) {
@@ -127,9 +127,13 @@ Behavior::Path::Path()
 Behavior::Wander::Wander(unsigned int r)
 : radius(r) {}
 
-Behavior::Path::Pace::Pace(component::Direction dir, unsigned int s)
+Behavior::Path::Pace::Pace(component::Direction dir, std::uint16_t s)
 : direction(dir)
 , steps(s) {}
+
+Behavior::Path::Pace::Pace()
+: direction(component::Direction::Up)
+, steps(1) {}
 
 } // namespace file
 } // namespace core

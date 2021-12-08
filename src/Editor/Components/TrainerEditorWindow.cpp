@@ -22,7 +22,7 @@ std::string pplToStr(const core::pplmn::OwnedPeoplemon& ppl) {
 } // namespace
 
 using namespace bl::gui;
-using FileUtil = bl::file::Util;
+using FileUtil = bl::util::FileUtil;
 
 TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 : selectCb(cb)
@@ -95,17 +95,17 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     saveBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate(true)) {
             core::file::Trainer trainer;
-            trainer.name()                   = nameEntry->getInput();
-            trainer.prebattleConversation()  = bbLabel->getText();
-            trainer.postBattleConversation() = abLabel->getText();
-            trainer.lostBattleLine()         = loseLineEntry->getInput();
-            trainer.animation()              = animLabel->getText();
-            trainer.behavior()               = behaviorEditor.getValue();
-            trainer.visionRange()            = visionRangeEntry->getSelectedOption();
-            trainer.items()                  = items;
-            trainer.peoplemon()              = peoplemon;
-            if (!trainer.save(bl::file::Util::joinPath(core::Properties::TrainerPath(),
-                                                       fileLabel->getText()))) {
+            trainer.name                   = nameEntry->getInput();
+            trainer.prebattleConversation  = bbLabel->getText();
+            trainer.postBattleConversation = abLabel->getText();
+            trainer.lostBattleLine         = loseLineEntry->getInput();
+            trainer.animation              = animLabel->getText();
+            trainer.behavior               = behaviorEditor.getValue();
+            trainer.visionRange            = visionRangeEntry->getSelectedOption();
+            trainer.items                  = items;
+            trainer.peoplemon              = peoplemon;
+            if (!trainer.save(bl::util::FileUtil::joinPath(core::Properties::TrainerPath(),
+                                                           fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save Trainer", "ok", "error", 1);
             }
             else {
@@ -305,7 +305,7 @@ void TrainerEditorWindow::show(GUI::Ptr p, const std::string& file) {
 
 void TrainerEditorWindow::onChooseFile(const std::string& file) {
     const std::string f =
-        bl::file::Util::getExtension(file) == core::Properties::TrainerFileExtension() ?
+        bl::util::FileUtil::getExtension(file) == core::Properties::TrainerFileExtension() ?
             file :
             file + "." + core::Properties::TrainerFileExtension();
     filePicker.close();
@@ -347,16 +347,16 @@ void TrainerEditorWindow::reset() {
 void TrainerEditorWindow::load(const std::string& file) {
     core::file::Trainer trainer;
     if (trainer.load(FileUtil::joinPath(core::Properties::TrainerPath(), file))) {
-        nameEntry->setInput(trainer.name());
-        animLabel->setText(trainer.animation());
-        bbLabel->setText(trainer.prebattleConversation());
-        abLabel->setText(trainer.postBattleConversation());
-        loseLineEntry->setInput(trainer.lostBattleLine());
-        visionRangeEntry->setSelectedOption(trainer.visionRange());
-        behaviorEditor.configure(parent, trainer.behavior());
-        items = trainer.items();
+        nameEntry->setInput(trainer.name);
+        animLabel->setText(trainer.animation);
+        bbLabel->setText(trainer.prebattleConversation);
+        abLabel->setText(trainer.postBattleConversation);
+        loseLineEntry->setInput(trainer.lostBattleLine);
+        visionRangeEntry->setSelectedOption(trainer.visionRange);
+        behaviorEditor.configure(parent, trainer.behavior);
+        items = trainer.items;
         for (const auto item : items) { itemSelectBox->addOption(core::item::Item::getName(item)); }
-        peoplemon = trainer.peoplemon();
+        peoplemon = trainer.peoplemon;
         for (const auto& ppl : peoplemon) { pplBox->addOption(pplToStr(ppl)); }
     }
     else {

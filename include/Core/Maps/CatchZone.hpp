@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_CATCHZONE_HPP
 #define CORE_MAPS_CATCHZONE_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <string>
 #include <vector>
@@ -16,30 +16,9 @@ namespace map
  * @ingroup Maps
  *
  */
-struct CatchZone : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, sf::IntRect> area;
-    bl::file::binary::SerializableField<2, std::vector<std::string>> peoplemon;
-
-    /**
-     * @brief Initializes the serializer data and creates an empty zone
-     *
-     */
-    CatchZone();
-
-    /**
-     * @brief Copy constructs the catch zone
-     *
-     * @param copy The CatchZone to copy
-     */
-    CatchZone(const CatchZone& copy);
-
-    /**
-     * @brief Copies from the given catch zone
-     *
-     * @param copy The CatchZone to copy
-     * @return CatchZone& A reference to this zone
-     */
-    CatchZone& operator=(const CatchZone& copy);
+struct CatchZone {
+    sf::IntRect area;
+    std::vector<std::string> peoplemon;
 
     /**
      * @brief Must be called once the map is loaded. This loads the wild peoplemon information
@@ -52,5 +31,26 @@ struct CatchZone : public bl::file::binary::SerializableObject {
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::CatchZone> : public SerializableObjectBase {
+    SerializableField<1, sf::IntRect, offsetof(core::map::CatchZone, area)> area;
+    SerializableField<2, std::vector<std::string>, offsetof(core::map::CatchZone, peoplemon)>
+        peoplemon;
+
+    SerializableObject()
+    : area(*this)
+    , peoplemon(*this) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif
