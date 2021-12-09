@@ -151,8 +151,8 @@ struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
     using Layer = core::map::Layer<T>;
 
     SerializableField<1, Layer, std::uint32_t> w;
-    SerializableField<1, Layer, std::uint32_t> h;
-    SerializableField<1, Layer, std::vector<T>> data;
+    SerializableField<2, Layer, std::uint32_t> h;
+    SerializableField<3, Layer, std::vector<T>> data;
 
     SerializableObject()
     : w(*this, &Layer::w)
