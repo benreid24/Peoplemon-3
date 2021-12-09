@@ -117,16 +117,16 @@ template<>
 struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
     using N = core::file::NPC;
 
-    SerializableField<1, std::string, offsetof(N, nameField)> nameField;
-    SerializableField<2, std::string, offsetof(N, animField)> animField;
-    SerializableField<3, std::string, offsetof(N, conversationField)> conversationField;
-    SerializableField<4, core::file::Behavior, offsetof(N, behaviorField)> behaviorField;
+    SerializableField<1, N, std::string> nameField;
+    SerializableField<2, N, std::string> animField;
+    SerializableField<3, N, std::string> conversationField;
+    SerializableField<4, N, core::file::Behavior> behaviorField;
 
     SerializableObject()
-    : nameField(*this)
-    , animField(*this)
-    , conversationField(*this)
-    , behaviorField(*this) {}
+    : nameField(*this, &N::nameField)
+    , animField(*this, &N::animField)
+    , conversationField(*this, &N::conversationField)
+    , behaviorField(*this, &N::behaviorField) {}
 };
 
 } // namespace binary

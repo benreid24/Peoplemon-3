@@ -93,40 +93,36 @@ struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
     using Id = core::pplmn::MoveId;
     using DB = core::file::MoveDB;
 
-    SerializableField<1, std::unordered_map<Id, std::string>, offsetof(DB, names)> names;
-    SerializableField<2, std::unordered_map<Id, std::string>, offsetof(DB, descriptions)>
-        descriptions;
-    SerializableField<3, std::unordered_map<Id, std::string>, offsetof(DB, animationPaths)>
-        animationPaths;
-    SerializableField<4, std::unordered_map<Id, core::pplmn::Type>, offsetof(DB, types)> types;
-    SerializableField<5, std::unordered_map<Id, int>, offsetof(DB, damages)> damages;
-    SerializableField<6, std::unordered_map<Id, int>, offsetof(DB, accuracies)> accuracies;
-    SerializableField<7, std::unordered_map<Id, int>, offsetof(DB, priorities)> priorities;
-    SerializableField<8, std::unordered_map<Id, unsigned int>, offsetof(DB, pps)> pps;
-    SerializableField<9, std::unordered_map<Id, bool>, offsetof(DB, contactors)> contactors;
-    SerializableField<10, std::unordered_map<Id, bool>, offsetof(DB, specials)> specials;
-    SerializableField<11, std::unordered_map<Id, core::pplmn::MoveEffect>, offsetof(DB, effects)>
-        effects;
-    SerializableField<12, std::unordered_map<Id, int>, offsetof(DB, effectChances)> effectChances;
-    SerializableField<13, std::unordered_map<Id, int>, offsetof(DB, effectIntensities)>
-        effectIntensities;
-    SerializableField<14, std::unordered_map<Id, bool>, offsetof(DB, effectSelves)> effectSelves;
+    SerializableField<1, DB, std::unordered_map<Id, std::string>> names;
+    SerializableField<2, DB, std::unordered_map<Id, std::string>> descriptions;
+    SerializableField<3, DB, std::unordered_map<Id, std::string>> animationPaths;
+    SerializableField<4, DB, std::unordered_map<Id, core::pplmn::Type>> types;
+    SerializableField<5, DB, std::unordered_map<Id, int>> damages;
+    SerializableField<6, DB, std::unordered_map<Id, int>> accuracies;
+    SerializableField<7, DB, std::unordered_map<Id, int>> priorities;
+    SerializableField<8, DB, std::unordered_map<Id, unsigned int>> pps;
+    SerializableField<9, DB, std::unordered_map<Id, bool>> contactors;
+    SerializableField<10, DB, std::unordered_map<Id, bool>> specials;
+    SerializableField<11, DB, std::unordered_map<Id, core::pplmn::MoveEffect>> effects;
+    SerializableField<12, DB, std::unordered_map<Id, int>> effectChances;
+    SerializableField<13, DB, std::unordered_map<Id, int>> effectIntensities;
+    SerializableField<14, DB, std::unordered_map<Id, bool>> effectSelves;
 
     SerializableObject()
-    : names(*this)
-    , descriptions(*this)
-    , animationPaths(*this)
-    , types(*this)
-    , damages(*this)
-    , accuracies(*this)
-    , priorities(*this)
-    , pps(*this)
-    , contactors(*this)
-    , specials(*this)
-    , effects(*this)
-    , effectChances(*this)
-    , effectIntensities(*this)
-    , effectSelves(*this) {}
+    : names(*this, &DB::names)
+    , descriptions(*this, &DB::descriptions)
+    , animationPaths(*this, &DB::animationPaths)
+    , types(*this, &DB::types)
+    , damages(*this, &DB::damages)
+    , accuracies(*this, &DB::accuracies)
+    , priorities(*this, &DB::priorities)
+    , pps(*this, &DB::pps)
+    , contactors(*this, &DB::contactors)
+    , specials(*this, &DB::specials)
+    , effects(*this, &DB::effects)
+    , effectChances(*this, &DB::effectChances)
+    , effectIntensities(*this, &DB::effectIntensities)
+    , effectSelves(*this, &DB::effectSelves) {}
 };
 
 } // namespace binary

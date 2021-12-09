@@ -48,13 +48,12 @@ namespace binary
 {
 template<>
 struct SerializableObject<core::map::CharacterSpawn> : public SerializableObjectBase {
-    SerializableField<1, core::component::Position, offsetof(core::map::CharacterSpawn, position)>
-        position;
-    SerializableField<2, std::string, offsetof(core::map::CharacterSpawn, file)> file;
+    SerializableField<1, core::map::CharacterSpawn, core::component::Position> position;
+    SerializableField<2, core::map::CharacterSpawn, std::string> file;
 
     SerializableObject()
-    : position(*this)
-    , file(*this) {}
+    : position(*this, &core::map::CharacterSpawn::position)
+    , file(*this, &core::map::CharacterSpawn::file) {}
 };
 
 } // namespace binary

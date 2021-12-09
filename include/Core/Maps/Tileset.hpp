@@ -185,14 +185,12 @@ struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
     using TS = core::map::Tileset;
     using T  = core::map::Tile;
 
-    SerializableField<1, std::unordered_map<T::IdType, std::string>, offsetof(TS, textureFiles)>
-        textureFiles;
-    SerializableField<2, std::unordered_map<T::IdType, std::string>, offsetof(TS, animFiles)>
-        animFiles;
+    SerializableField<1, TS, std::unordered_map<T::IdType, std::string>> textureFiles;
+    SerializableField<2, TS, std::unordered_map<T::IdType, std::string>> animFiles;
 
     SerializableObject()
-    : textureFiles(*this)
-    , animFiles(*this) {}
+    : textureFiles(*this, &TS::textureFiles)
+    , animFiles(*this, &TS::animFiles) {}
 };
 
 } // namespace binary

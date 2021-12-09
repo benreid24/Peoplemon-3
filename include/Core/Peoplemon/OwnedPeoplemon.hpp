@@ -218,34 +218,28 @@ struct SerializableObject<core::pplmn::OwnedPeoplemon> : public SerializableObje
     using Ail   = core::pplmn::Ailment;
     using Item  = core::item::Id;
 
-    SerializableField<1, Id, offsetof(OP, _id)> id;
-    SerializableField<2, std::string, offsetof(OP, customName)> customName;
-    SerializableField<3, std::uint16_t, offsetof(OP, level)> level;
-    SerializableField<4, std::uint32_t, offsetof(OP, xp)> xp;
-    SerializableField<5, std::uint16_t, offsetof(OP, hp)> hp;
-    SerializableField<6, Stats, offsetof(OP, ivs)> ivs;
-    SerializableField<7, Stats, offsetof(OP, evs)> evs;
-    SerializableField<8, Move, offsetof(OP, moves)> move0;
-    SerializableField<9, Move, offsetof(OP, moves) + sizeof(Move)> move1;
-    SerializableField<10, Move, offsetof(OP, moves) + sizeof(Move) * 2> move2;
-    SerializableField<11, Move, offsetof(OP, moves) + sizeof(Move) * 3> move3;
-    SerializableField<12, Ail, offsetof(OP, ailment)> ailment;
-    SerializableField<13, Item, offsetof(OP, item)> item;
+    SerializableField<1, OP, Id> id;
+    SerializableField<2, OP, std::string> customName;
+    SerializableField<3, OP, std::uint16_t> level;
+    SerializableField<4, OP, std::uint32_t> xp;
+    SerializableField<5, OP, std::uint16_t> hp;
+    SerializableField<6, OP, Stats> ivs;
+    SerializableField<7, OP, Stats> evs;
+    SerializableField<8, OP, Move[4]> moves;
+    SerializableField<9, OP, Ail> ailment;
+    SerializableField<10, OP, Item> item;
 
     SerializableObject()
-    : id(*this)
-    , customName(*this)
-    , level(*this)
-    , xp(*this)
-    , hp(*this)
-    , ivs(*this)
-    , evs(*this)
-    , move0(*this)
-    , move1(*this)
-    , move2(*this)
-    , move3(*this)
-    , ailment(*this)
-    , item(*this) {}
+    : id(*this, &OP::_id)
+    , customName(*this, &OP::customName)
+    , level(*this, &OP::level)
+    , xp(*this, &OP::xp)
+    , hp(*this, &OP::hp)
+    , ivs(*this, &OP::ivs)
+    , evs(*this, &OP::evs)
+    , moves(*this, &OP::moves)
+    , ailment(*this, &OP::ailment)
+    , item(*this, &OP::item) {}
 };
 
 } // namespace binary

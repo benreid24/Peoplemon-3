@@ -71,16 +71,16 @@ template<>
 struct SerializableObject<core::map::Event> : public SerializableObjectBase {
     using E = core::map::Event;
 
-    SerializableField<1, core::map::Event::Trigger, offsetof(E, trigger)> trigger;
-    SerializableField<2, sf::Vector2i, offsetof(E, position)> position;
-    SerializableField<3, sf::Vector2i, offsetof(E, areaSize)> areaSize;
-    SerializableField<4, std::string, offsetof(E, script)> script;
+    SerializableField<1, E, core::map::Event::Trigger> trigger;
+    SerializableField<2, E, sf::Vector2i> position;
+    SerializableField<3, E, sf::Vector2i> areaSize;
+    SerializableField<4, E, std::string> script;
 
     SerializableObject()
-    : trigger(*this)
-    , position(*this)
-    , areaSize(*this)
-    , script(*this) {}
+    : trigger(*this, &E::trigger)
+    , position(*this, &E::position)
+    , areaSize(*this, &E::areaSize)
+    , script(*this, &E::script) {}
 };
 
 } // namespace binary

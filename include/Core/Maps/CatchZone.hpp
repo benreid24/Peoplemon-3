@@ -40,13 +40,12 @@ namespace binary
 {
 template<>
 struct SerializableObject<core::map::CatchZone> : public SerializableObjectBase {
-    SerializableField<1, sf::IntRect, offsetof(core::map::CatchZone, area)> area;
-    SerializableField<2, std::vector<std::string>, offsetof(core::map::CatchZone, peoplemon)>
-        peoplemon;
+    SerializableField<1, core::map::CatchZone, sf::IntRect> area;
+    SerializableField<2, core::map::CatchZone, std::vector<std::string>> peoplemon;
 
     SerializableObject()
-    : area(*this)
-    , peoplemon(*this) {}
+    : area(*this, &core::map::CatchZone::area)
+    , peoplemon(*this, &core::map::CatchZone::peoplemon) {}
 };
 
 } // namespace binary

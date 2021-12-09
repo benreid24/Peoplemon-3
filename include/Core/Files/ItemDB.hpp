@@ -57,15 +57,14 @@ struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
     using Id = core::item::Id;
     using DB = core::file::ItemDB;
 
-    SerializableField<1, std::unordered_map<Id, std::string>, offsetof(DB, names)> names;
-    SerializableField<2, std::unordered_map<Id, std::string>, offsetof(DB, descriptions)>
-        descriptions;
-    SerializableField<3, std::unordered_map<Id, int>, offsetof(DB, values)> values;
+    SerializableField<1, DB, std::unordered_map<Id, std::string>> names;
+    SerializableField<2, DB, std::unordered_map<Id, std::string>> descriptions;
+    SerializableField<3, DB, std::unordered_map<Id, int>> values;
 
     SerializableObject()
-    : names(*this)
-    , descriptions(*this)
-    , values(*this) {}
+    : names(*this, &DB::names)
+    , descriptions(*this, &DB::descriptions)
+    , values(*this, &DB::values) {}
 };
 
 } // namespace binary

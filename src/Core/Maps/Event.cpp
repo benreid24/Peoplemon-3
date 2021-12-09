@@ -8,10 +8,10 @@ Event::Event()
 : trigger(Trigger::OnEnter) {}
 
 Event::Event(const std::string& s, const sf::Vector2i& pos, const sf::Vector2i& sz, Trigger t)
-: script(s)
+: trigger(t)
 , position(pos)
 , areaSize(sz)
-, trigger(t) {}
+, script(s) {}
 
 } // namespace map
 } // namespace core

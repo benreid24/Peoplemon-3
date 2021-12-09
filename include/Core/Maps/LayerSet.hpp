@@ -214,21 +214,18 @@ namespace binary
 {
 template<>
 struct SerializableObject<core::map::LayerSet> : public SerializableObjectBase {
-    SerializableField<1, core::map::CollisionLayer, offsetof(core::map::LayerSet, collisions)>
-        collisions;
-    SerializableField<2, core::map::CatchLayer, offsetof(core::map::LayerSet, catches)> catches;
-    SerializableField<3, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, bottom)>
-        bottom;
-    SerializableField<4, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, ysort)>
-        ysort;
-    SerializableField<5, std::vector<core::map::TileLayer>, offsetof(core::map::LayerSet, top)> top;
+    SerializableField<1, core::map::LayerSet, core::map::CollisionLayer> collisions;
+    SerializableField<2, core::map::LayerSet, core::map::CatchLayer> catches;
+    SerializableField<3, core::map::LayerSet, std::vector<core::map::TileLayer>> bottom;
+    SerializableField<4, core::map::LayerSet, std::vector<core::map::TileLayer>> ysort;
+    SerializableField<5, core::map::LayerSet, std::vector<core::map::TileLayer>> top;
 
     SerializableObject()
-    : collisions(*this)
-    , catches(*this)
-    , bottom(*this)
-    , ysort(*this)
-    , top(*this) {}
+    : collisions(*this, &core::map::LayerSet::collisions)
+    , catches(*this, &core::map::LayerSet::catches)
+    , bottom(*this, &core::map::LayerSet::bottom)
+    , ysort(*this, &core::map::LayerSet::ysort)
+    , top(*this, &core::map::LayerSet::top) {}
 };
 
 } // namespace binary

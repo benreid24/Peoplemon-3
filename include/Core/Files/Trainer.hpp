@@ -61,26 +61,26 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     using T   = core::file::Trainer;
     using Ppl = core::pplmn::OwnedPeoplemon;
 
-    SerializableField<1, std::string, offsetof(T, name)> name;
-    SerializableField<2, std::string, offsetof(T, animation)> anim;
-    SerializableField<3, std::string, offsetof(T, prebattleConversation)> preBattle;
-    SerializableField<4, std::string, offsetof(T, postBattleConversation)> postBattle;
-    SerializableField<5, std::string, offsetof(T, lostBattleLine)> loseBattleLine;
-    SerializableField<6, std::uint8_t, offsetof(T, visionRange)> range;
-    SerializableField<7, core::file::Behavior, offsetof(T, behavior)> behavior;
-    SerializableField<8, std::vector<Ppl>, offsetof(T, peoplemon)> peoplemon;
-    SerializableField<9, std::vector<core::item::Id>, offsetof(T, items)> items;
+    SerializableField<1, T, std::string> name;
+    SerializableField<2, T, std::string> anim;
+    SerializableField<3, T, std::string> preBattle;
+    SerializableField<4, T, std::string> postBattle;
+    SerializableField<5, T, std::string> loseBattleLine;
+    SerializableField<6, T, std::uint8_t> range;
+    SerializableField<7, T, core::file::Behavior> behavior;
+    SerializableField<8, T, std::vector<Ppl>> peoplemon;
+    SerializableField<9, T, std::vector<core::item::Id>> items;
 
     SerializableObject()
-    : name(*this)
-    , anim(*this)
-    , preBattle(*this)
-    , postBattle(*this)
-    , loseBattleLine(*this)
-    , range(*this)
-    , behavior(*this)
-    , peoplemon(*this)
-    , items(*this) {}
+    : name(*this, &T::name)
+    , anim(*this, &T::animation)
+    , preBattle(*this, &T::prebattleConversation)
+    , postBattle(*this, &T::postBattleConversation)
+    , loseBattleLine(*this, &T::lostBattleLine)
+    , range(*this, &T::visionRange)
+    , behavior(*this, &T::behavior)
+    , peoplemon(*this, &T::peoplemon)
+    , items(*this, &T::items) {}
 };
 
 } // namespace binary

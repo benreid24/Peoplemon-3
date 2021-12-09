@@ -63,42 +63,35 @@ struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBa
     using DB = core::file::PeoplemonDB;
     using Id = core::pplmn::Id;
 
-    SerializableField<1, std::unordered_map<Id, std::string>, offsetof(DB, names)> names;
-    SerializableField<2, std::unordered_map<Id, std::string>, offsetof(DB, descriptions)>
-        descriptions;
-    SerializableField<3, std::unordered_map<Id, core::pplmn::Type>, offsetof(DB, types)> types;
-    SerializableField<4, std::unordered_map<Id, core::pplmn::SpecialAbility>,
-                      offsetof(DB, abilities)>
-        abilities;
-    SerializableField<5, std::unordered_map<Id, core::pplmn::Stats>, offsetof(DB, stats)> stats;
-    SerializableField<6, std::unordered_map<Id, std::unordered_set<core::pplmn::MoveId>>,
-                      offsetof(DB, validMoves)>
+    SerializableField<1, DB, std::unordered_map<Id, std::string>> names;
+    SerializableField<2, DB, std::unordered_map<Id, std::string>> descriptions;
+    SerializableField<3, DB, std::unordered_map<Id, core::pplmn::Type>> types;
+    SerializableField<4, DB, std::unordered_map<Id, core::pplmn::SpecialAbility>> abilities;
+    SerializableField<5, DB, std::unordered_map<Id, core::pplmn::Stats>> stats;
+    SerializableField<6, DB, std::unordered_map<Id, std::unordered_set<core::pplmn::MoveId>>>
         validMoves;
-    SerializableField<7,
-                      std::unordered_map<Id, std::unordered_map<unsigned int, core::pplmn::MoveId>>,
-                      offsetof(DB, learnedMoves)>
+    SerializableField<7, DB,
+                      std::unordered_map<Id, std::unordered_map<unsigned int, core::pplmn::MoveId>>>
         learnedMoves;
-    SerializableField<8, std::unordered_map<Id, unsigned int>, offsetof(DB, evolveLevels)>
-        evolveLevels;
-    SerializableField<9, std::unordered_map<Id, Id>, offsetof(DB, evolveIds)> evolveIds;
-    SerializableField<10, std::unordered_map<Id, core::pplmn::Stats>, offsetof(DB, evAwards)>
-        evAwards;
-    SerializableField<11, std::unordered_map<Id, unsigned int>, offsetof(DB, xpGroups)> xpGroups;
-    SerializableField<12, std::unordered_map<Id, int>, offsetof(DB, xpMults)> xpMults;
+    SerializableField<8, DB, std::unordered_map<Id, unsigned int>> evolveLevels;
+    SerializableField<9, DB, std::unordered_map<Id, Id>> evolveIds;
+    SerializableField<10, DB, std::unordered_map<Id, core::pplmn::Stats>> evAwards;
+    SerializableField<11, DB, std::unordered_map<Id, unsigned int>> xpGroups;
+    SerializableField<12, DB, std::unordered_map<Id, int>> xpMults;
 
     SerializableObject()
-    : names(*this)
-    , descriptions(*this)
-    , types(*this)
-    , abilities(*this)
-    , stats(*this)
-    , validMoves(*this)
-    , learnedMoves(*this)
-    , evolveLevels(*this)
-    , evolveIds(*this)
-    , evAwards(*this)
-    , xpGroups(*this)
-    , xpMults(*this) {}
+    : names(*this, &DB::names)
+    , descriptions(*this, &DB::descriptions)
+    , types(*this, &DB::types)
+    , abilities(*this, &DB::abilities)
+    , stats(*this, &DB::stats)
+    , validMoves(*this, &DB::validMoves)
+    , learnedMoves(*this, &DB::learnedMoves)
+    , evolveLevels(*this, &DB::evolveLevels)
+    , evolveIds(*this, &DB::evolveIds)
+    , evAwards(*this, &DB::evAwards)
+    , xpGroups(*this, &DB::xpGroups)
+    , xpMults(*this, &DB::xpMults) {}
 };
 
 } // namespace binary

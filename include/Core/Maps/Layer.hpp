@@ -150,14 +150,14 @@ template<typename T>
 struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
     using Layer = core::map::Layer<T>;
 
-    SerializableField<1, std::uint32_t, offsetof(Layer, w)> w;
-    SerializableField<1, std::uint32_t, offsetof(Layer, h)> h;
-    SerializableField<1, std::vector<T>, offsetof(Layer, data)> data;
+    SerializableField<1, Layer, std::uint32_t> w;
+    SerializableField<1, Layer, std::uint32_t> h;
+    SerializableField<1, Layer, std::vector<T>> data;
 
     SerializableObject()
-    : w(*this)
-    , h(*this)
-    , data(*this) {}
+    : w(*this, &Layer::w)
+    , h(*this, &Layer::h)
+    , data(*this, &Layer::data) {}
 };
 
 } // namespace binary

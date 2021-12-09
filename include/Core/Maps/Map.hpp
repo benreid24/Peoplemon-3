@@ -275,41 +275,36 @@ template<>
 struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     using M = core::map::Map;
 
-    SerializableField<1, std::string, offsetof(M, nameField)> nameField;
-    SerializableField<2, std::string, offsetof(M, loadScriptField)> loadScriptField;
-    SerializableField<3, std::string, offsetof(M, unloadScriptField)> unloadScriptField;
-    SerializableField<4, std::string, offsetof(M, playlistField)> playlistField;
-    SerializableField<5, core::map::Weather::Type, offsetof(M, weatherField)> weatherField;
-    SerializableField<6, std::vector<core::map::LayerSet>, offsetof(M, levels)> levels;
-    SerializableField<7, std::string, offsetof(M, tilesetField)> tilesetField;
-    SerializableField<8, std::unordered_map<std::uint16_t, core::map::Spawn>, offsetof(M, spawns)>
-        spawnField;
-    SerializableField<9, std::vector<core::map::CharacterSpawn>, offsetof(M, characterField)>
-        characterField;
-    SerializableField<10, std::vector<core::map::Item>, offsetof(M, itemsField)> itemsField;
-    SerializableField<11, std::vector<core::map::Event>, offsetof(M, eventsField)> eventsField;
-    SerializableField<12, core::map::LightingSystem, offsetof(M, lighting)> lighting;
-    SerializableField<13, std::vector<core::map::CatchZone>, offsetof(M, catchZonesField)>
-        catchZonesField;
-    SerializableField<14, bl::container::Vector2D<core::map::LevelTransition>,
-                      offsetof(M, transitionField)>
-        transitionField;
+    SerializableField<1, M, std::string> nameField;
+    SerializableField<2, M, std::string> loadScriptField;
+    SerializableField<3, M, std::string> unloadScriptField;
+    SerializableField<4, M, std::string> playlistField;
+    SerializableField<5, M, core::map::Weather::Type> weatherField;
+    SerializableField<6, M, std::vector<core::map::LayerSet>> levels;
+    SerializableField<7, M, std::string> tilesetField;
+    SerializableField<8, M, std::unordered_map<std::uint16_t, core::map::Spawn>> spawnField;
+    SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
+    SerializableField<10, M, std::vector<core::map::Item>> itemsField;
+    SerializableField<11, M, std::vector<core::map::Event>> eventsField;
+    SerializableField<12, M, core::map::LightingSystem> lighting;
+    SerializableField<13, M, std::vector<core::map::CatchZone>> catchZonesField;
+    SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
 
     SerializableObject()
-    : nameField(*this)
-    , loadScriptField(*this)
-    , unloadScriptField(*this)
-    , playlistField(*this)
-    , weatherField(*this)
-    , levels(*this)
-    , tilesetField(*this)
-    , spawnField(*this)
-    , characterField(*this)
-    , itemsField(*this)
-    , eventsField(*this)
-    , lighting(*this)
-    , catchZonesField(*this)
-    , transitionField(*this) {}
+    : nameField(*this, &M::nameField)
+    , loadScriptField(*this, &M::loadScriptField)
+    , unloadScriptField(*this, &M::unloadScriptField)
+    , playlistField(*this, &M::playlistField)
+    , weatherField(*this, &M::weatherField)
+    , levels(*this, &M::levels)
+    , tilesetField(*this, &M::tilesetField)
+    , spawnField(*this, &M::spawns)
+    , characterField(*this, &M::characterField)
+    , itemsField(*this, &M::itemsField)
+    , eventsField(*this, &M::eventsField)
+    , lighting(*this, &M::lighting)
+    , catchZonesField(*this, &M::catchZonesField)
+    , transitionField(*this, &M::transitionField) {}
 };
 
 } // namespace binary

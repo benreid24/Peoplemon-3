@@ -200,12 +200,12 @@ template<>
 struct SerializableObject<core::file::Behavior::Path::Pace> : public SerializableObjectBase {
     using P = core::file::Behavior::Path::Pace;
 
-    SerializableField<1, core::component::Direction, offsetof(P, direction)> direction;
-    SerializableField<2, std::uint16_t, offsetof(P, steps)> steps;
+    SerializableField<1, P, core::component::Direction> direction;
+    SerializableField<2, P, std::uint16_t> steps;
 
     SerializableObject()
-    : direction(*this)
-    , steps(*this) {}
+    : direction(*this, &P::direction)
+    , steps(*this, &P::steps) {}
 };
 
 template<>

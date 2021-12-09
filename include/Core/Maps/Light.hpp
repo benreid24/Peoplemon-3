@@ -43,12 +43,12 @@ namespace binary
 {
 template<>
 struct SerializableObject<core::map::Light> : public SerializableObjectBase {
-    SerializableField<1, std::uint16_t, offsetof(core::map::Light, radius)> radius;
-    SerializableField<2, sf::Vector2i, offsetof(core::map::Light, position)> position;
+    SerializableField<1, core::map::Light, std::uint16_t> radius;
+    SerializableField<2, core::map::Light, sf::Vector2i> position;
 
     SerializableObject()
-    : radius(*this)
-    , position(*this) {}
+    : radius(*this, &core::map::Light::radius)
+    , position(*this, &core::map::Light::position) {}
 };
 
 } // namespace binary

@@ -52,18 +52,18 @@ template<>
 struct SerializableObject<core::map::Item> : public SerializableObjectBase {
     using I = core::map::Item;
 
-    SerializableField<1, std::uint16_t, offsetof(I, id)> id;
-    SerializableField<2, std::uint16_t, offsetof(I, mapId)> mapId;
-    SerializableField<3, sf::Vector2i, offsetof(I, position)> position;
-    SerializableField<4, std::uint8_t, offsetof(I, level)> level;
-    SerializableField<5, bool, offsetof(I, visible)> visible;
+    SerializableField<1, I, std::uint16_t> id;
+    SerializableField<2, I, std::uint16_t> mapId;
+    SerializableField<3, I, sf::Vector2i> position;
+    SerializableField<4, I, std::uint8_t> level;
+    SerializableField<5, I, bool> visible;
 
     SerializableObject()
-    : id(*this)
-    , mapId(*this)
-    , position(*this)
-    , level(*this)
-    , visible(*this) {}
+    : id(*this, &I::id)
+    , mapId(*this, &I::mapId)
+    , position(*this, &I::position)
+    , level(*this, &I::level)
+    , visible(*this, &I::visible) {}
 };
 
 } // namespace binary

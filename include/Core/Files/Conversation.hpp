@@ -379,6 +379,8 @@ struct Serializer<core::file::Conversation::Node, false> {
             if (!input.read<std::uint8_t>(rc)) return false;
             node.runConcurrently() = rc;
         }
+
+        return true;
     }
 
     static std::uint32_t size(const Node& node) {
@@ -405,10 +407,10 @@ struct SerializableObject<core::file::Conversation> : public SerializableObjectB
     using Node         = core::file::Conversation::Node;
     using Conversation = core::file::Conversation;
 
-    SerializableField<1, std::vector<Node>, offsetof(Conversation, cnodes)> nodes;
+    SerializableField<1, Conversation, std::vector<Node>> nodes;
 
     SerializableObject()
-    : nodes(*this) {}
+    : nodes(*this, &Conversation::cnodes) {}
 };
 
 } // namespace binary

@@ -232,16 +232,16 @@ template<>
 struct SerializableObject<core::map::LightingSystem> : public SerializableObjectBase {
     using LS = core::map::LightingSystem;
 
-    SerializableField<1, std::vector<core::map::Light>, offsetof(LS, rawLights)> lights;
-    SerializableField<2, std::uint8_t, offsetof(LS, minLevel)> low;
-    SerializableField<3, std::uint8_t, offsetof(LS, maxLevel)> high;
-    SerializableField<4, std::uint8_t, offsetof(LS, sunlight)> sun;
+    SerializableField<1, LS, std::vector<core::map::Light>> lights;
+    SerializableField<2, LS, std::uint8_t> low;
+    SerializableField<3, LS, std::uint8_t> high;
+    SerializableField<4, LS, std::uint8_t> sun;
 
     SerializableObject()
-    : lights(*this)
-    , low(*this)
-    , high(*this)
-    , sun(*this) {}
+    : lights(*this, &LS::rawLights)
+    , low(*this, &LS::minLevel)
+    , high(*this, &LS::maxLevel)
+    , sun(*this, &LS::sunlight) {}
 };
 
 } // namespace binary
