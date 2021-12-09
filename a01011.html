@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::file::Trainer Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,33 +63,282 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00727.html">core</a></li><li class="navelem"><a class="el" href="a00735.html">map</a></li><li class="navelem"><a class="el" href="a01014.html">Layer</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00724.html">core</a></li><li class="navelem"><a class="el" href="a00733.html">file</a></li><li class="navelem"><a class="el" href="a01011.html">Trainer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01008.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Layer&lt; T &gt; Member List</div>  </div>
+<div class="title">core::file::Trainer Struct Reference<div class="ingroups"><a class="el" href="a00707.html">Core</a> &raquo; <a class="el" href="a00713.html">Files</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#a1661b368529c237d40d5693fa791b253">create</a>(unsigned int width, unsigned int height, const T &amp;val=T())</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01014.html#ad530001b8233635fe00998242e1aa951">get</a>(unsigned int x, unsigned int y) const</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#ac26fc2153dbbd5177ddf086751b3943c">getRef</a>(unsigned int x, unsigned int y)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01014.html#a4cb6fa2c128fdca7a065794f9122ff84">height</a>() const</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#ad12bfd4e982d632cde7c2002b0fa315e">Layer</a>()</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01014.html#abacf46365bd73be836733be1dbe2d1fd">Layer</a>(const Layer &amp;copy)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#a6f8ec6c79de2ec40252dd4434036b193">Layer</a>(Layer &amp;&amp;mlayer)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01014.html#ab68cc1d2ed062dfc2f964dfb2a65fea0">operator=</a>(const Layer &amp;copy)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#a9011eee3e01fcf9e1386b76fa72e4a80">operator=</a>(Layer &amp;&amp;mlayer)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01014.html#a1833ca76d0d20bb33f390f65f7fb06be">set</a>(unsigned int x, unsigned int y, const T &amp;value)</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01014.html#a47005a3926e8b5865c66b0bb364b9f49">width</a>() const</td><td class="entry"><a class="el" href="a01014.html">core::map::Layer&lt; T &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Static data for trainers in the world.  
+ <a href="a01011.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a01966_source.html">Trainer.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aae7dcadabea0b6c9741747a951b14874"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#aae7dcadabea0b6c9741747a951b14874">save</a> (const std::string &amp;file) const</td></tr>
+<tr class="memdesc:aae7dcadabea0b6c9741747a951b14874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the trainer data to the given file.  <a href="#aae7dcadabea0b6c9741747a951b14874">More...</a><br /></td></tr>
+<tr class="separator:aae7dcadabea0b6c9741747a951b14874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d8d44fdf1e328cb5e516c11b6948404"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a5d8d44fdf1e328cb5e516c11b6948404">load</a> (const std::string &amp;file, <a class="el" href="a00711.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> spawnDir=<a class="el" href="a00711.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">component::Direction::Down</a>)</td></tr>
+<tr class="memdesc:a5d8d44fdf1e328cb5e516c11b6948404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the trainer data from the given file.  <a href="#a5d8d44fdf1e328cb5e516c11b6948404">More...</a><br /></td></tr>
+<tr class="separator:a5d8d44fdf1e328cb5e516c11b6948404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab06008a26fe9889e54941f66af523041"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#ab06008a26fe9889e54941f66af523041">name</a></td></tr>
+<tr class="separator:ab06008a26fe9889e54941f66af523041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4076555f46f631f0c8ef42c2bba8e676"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a4076555f46f631f0c8ef42c2bba8e676">animation</a></td></tr>
+<tr class="separator:a4076555f46f631f0c8ef42c2bba8e676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af19a011a9d20784fd5136e8fbf0e8645"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#af19a011a9d20784fd5136e8fbf0e8645">prebattleConversation</a></td></tr>
+<tr class="separator:af19a011a9d20784fd5136e8fbf0e8645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404abcb2008c2ab1f9227e84ebc797fd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a404abcb2008c2ab1f9227e84ebc797fd">postBattleConversation</a></td></tr>
+<tr class="separator:a404abcb2008c2ab1f9227e84ebc797fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10821bc25bfbdbdaa93007bb92b9443f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a10821bc25bfbdbdaa93007bb92b9443f">lostBattleLine</a></td></tr>
+<tr class="separator:a10821bc25bfbdbdaa93007bb92b9443f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a0956c65f5d87aced159237d14d917"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a15a0956c65f5d87aced159237d14d917">visionRange</a></td></tr>
+<tr class="separator:a15a0956c65f5d87aced159237d14d917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ba3d99464f7d87dc2383eaee686170"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00927.html">Behavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#ac4ba3d99464f7d87dc2383eaee686170">behavior</a></td></tr>
+<tr class="separator:ac4ba3d99464f7d87dc2383eaee686170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1288e555a01414f59e00753361be6c51"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01147.html">pplmn::OwnedPeoplemon</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a1288e555a01414f59e00753361be6c51">peoplemon</a></td></tr>
+<tr class="separator:a1288e555a01414f59e00753361be6c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83839a731809026b3246db9f70ae784e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00714.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html#a83839a731809026b3246db9f70ae784e">items</a></td></tr>
+<tr class="separator:a83839a731809026b3246db9f70ae784e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Static data for trainers in the world. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00019">19</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5d8d44fdf1e328cb5e516c11b6948404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d8d44fdf1e328cb5e516c11b6948404">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::file::Trainer::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00711.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
+          <td class="paramname"><em>spawnDir</em> = <code><a class="el" href="a00711.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">component::Direction::Down</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the trainer data from the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>The file to load from </td></tr>
+    <tr><td class="paramname">spawnDir</td><td>The direction to put in the standing behavior on load </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on load, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02041_source.html#l00085">85</a> of file <a class="el" href="a02041_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aae7dcadabea0b6c9741747a951b14874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae7dcadabea0b6c9741747a951b14874">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::file::Trainer::save </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the trainer data to the given file. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>The file to save to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True on save, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02041_source.html#l00080">80</a> of file <a class="el" href="a02041_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4076555f46f631f0c8ef42c2bba8e676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4076555f46f631f0c8ef42c2bba8e676">&#9670;&nbsp;</a></span>animation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::file::Trainer::animation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00039">39</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4ba3d99464f7d87dc2383eaee686170"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ba3d99464f7d87dc2383eaee686170">&#9670;&nbsp;</a></span>behavior</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00927.html">Behavior</a> core::file::Trainer::behavior</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00044">44</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a83839a731809026b3246db9f70ae784e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83839a731809026b3246db9f70ae784e">&#9670;&nbsp;</a></span>items</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a00714.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&gt; core::file::Trainer::items</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00046">46</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a10821bc25bfbdbdaa93007bb92b9443f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10821bc25bfbdbdaa93007bb92b9443f">&#9670;&nbsp;</a></span>lostBattleLine</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::file::Trainer::lostBattleLine</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00042">42</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab06008a26fe9889e54941f66af523041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06008a26fe9889e54941f66af523041">&#9670;&nbsp;</a></span>name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::file::Trainer::name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00038">38</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1288e555a01414f59e00753361be6c51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1288e555a01414f59e00753361be6c51">&#9670;&nbsp;</a></span>peoplemon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01147.html">pplmn::OwnedPeoplemon</a>&gt; core::file::Trainer::peoplemon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00045">45</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a404abcb2008c2ab1f9227e84ebc797fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a404abcb2008c2ab1f9227e84ebc797fd">&#9670;&nbsp;</a></span>postBattleConversation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::file::Trainer::postBattleConversation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00041">41</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af19a011a9d20784fd5136e8fbf0e8645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af19a011a9d20784fd5136e8fbf0e8645">&#9670;&nbsp;</a></span>prebattleConversation</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string core::file::Trainer::prebattleConversation</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00040">40</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a15a0956c65f5d87aced159237d14d917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a0956c65f5d87aced159237d14d917">&#9670;&nbsp;</a></span>visionRange</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t core::file::Trainer::visionRange</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a01966_source.html#l00043">43</a> of file <a class="el" href="a01966_source.html">Trainer.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Files/<a class="el" href="a01966_source.html">Trainer.hpp</a></li>
+<li>src/Core/Files/<a class="el" href="a02041_source.html">Trainer.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 05:47:19 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 14:35:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

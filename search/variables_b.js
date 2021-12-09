@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['namefield',['nameField',['../a01030.html#a49b66b62049670895781179190b32a36',1,'core::map::Map']]],
-  ['names',['names',['../a00970.html#a33796f63d5bf9ac1b3cd8afc0d53f732',1,'core::file::ItemDB::names()'],['../a00974.html#a735a22670df01473f45982a53db34a21',1,'core::file::MoveDB::names()'],['../a00982.html#a09b7aa217730b3b0361f67921f29bdfe',1,'core::file::PeoplemonDB::names()']]],
-  ['newmap',['newMap',['../a00910.html#a00ff75fa358f180551ec141cabe054cb',1,'core::event::SwitchMapTriggered']]],
-  ['newtime',['newTime',['../a00918.html#a09b0cf6d04a4c701d36df8feba7ad6f6',1,'core::event::TimeChange']]],
-  ['nextnode',['nextNode',['../a00958.html#af011639afea65256814222ecfa484188',1,'core::file::Conversation::Node']]],
-  ['none',['None',['../a01026.html#aa0d8fadc62f2a2485130268a032d229e',1,'core::map::LightingSystem']]]
+  ['name',['name',['../a01011.html#ab06008a26fe9889e54941f66af523041',1,'core::file::Trainer::name()'],['../a01015.html#a5d9550d296bcf627c1d61fcb16fb8fd5',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;::name()']]],
+  ['namefield',['nameField',['../a00999.html#a5c01613cb8eeca8aa11ca93bee5108bd',1,'bl::serial::binary::SerializableObject&lt; core::file::NPC &gt;::nameField()'],['../a01091.html#a2297cfe2b338492cc80f179b3e1ea1f9',1,'core::map::Map::nameField()'],['../a01095.html#a5489ed05440a0205b766c9cf063af2ae',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::nameField()']]],
+  ['names',['names',['../a00979.html#ab4d8181fc439338572debd2e7123fde0',1,'core::file::ItemDB::names()'],['../a00983.html#a81802c266f699a4ec3f600991e832e81',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::names()'],['../a00987.html#acdd870edc6357a355f2decf4e79d00e8',1,'core::file::MoveDB::names()'],['../a00991.html#a74b80b7fa429c01ddc641a9aeb6230d7',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::names()'],['../a01003.html#afb02ade81f85267703cc559884ba6f7a',1,'core::file::PeoplemonDB::names()'],['../a01007.html#a5565d69beb019110d374275f2c23559e',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::names()']]],
+  ['newmap',['newMap',['../a00907.html#a00ff75fa358f180551ec141cabe054cb',1,'core::event::SwitchMapTriggered']]],
+  ['newtime',['newTime',['../a00915.html#a09b0cf6d04a4c701d36df8feba7ad6f6',1,'core::event::TimeChange']]],
+  ['nextnode',['nextNode',['../a00963.html#af011639afea65256814222ecfa484188',1,'core::file::Conversation::Node']]],
+  ['nodes',['nodes',['../a00975.html#ad9684ba6e80ab232cd158a538cf97e6a',1,'bl::serial::binary::SerializableObject&lt; core::file::Conversation &gt;']]],
+  ['none',['None',['../a01083.html#aa0d8fadc62f2a2485130268a032d229e',1,'core::map::LightingSystem']]]
 ];

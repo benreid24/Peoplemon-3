@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['radius',['radius',['../a00950.html#aee062833e33ddc7d70ba0b000bf6c18d',1,'core::file::Behavior::Wander::radius()'],['../a01022.html#a2eb9385ea00323bbbeccfb1b4ad21e1b',1,'core::map::Light::radius()']]],
-  ['renderrange',['renderRange',['../a01030.html#a9cbf1cd91928b4d3c055bdee88a0b56d',1,'core::map::Map']]],
-  ['reverse',['reverse',['../a00942.html#a80a455e5880a9d7c6b842f599fca4d0c',1,'core::file::Behavior::Path']]]
+  ['radius',['radius',['../a00947.html#aee062833e33ddc7d70ba0b000bf6c18d',1,'core::file::Behavior::Wander::radius()'],['../a01075.html#a45a705b338ce028d7f229f1390e1fd30',1,'core::map::Light::radius()'],['../a01079.html#a9cd8d3df8107b5a9c09fdbe1c1889445',1,'bl::serial::binary::SerializableObject&lt; core::map::Light &gt;::radius()']]],
+  ['range',['range',['../a01015.html#a0a955b1250e4e374c8663dbc1db4f3b7',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;']]],
+  ['renderrange',['renderRange',['../a01091.html#a9cbf1cd91928b4d3c055bdee88a0b56d',1,'core::map::Map']]],
+  ['reverse',['reverse',['../a00939.html#a80a455e5880a9d7c6b842f599fca4d0c',1,'core::file::Behavior::Path']]]
 ];

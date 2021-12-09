@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['validmoves',['validMoves',['../a00982.html#a718afa5691a02a505d3a3e73f4313414',1,'core::file::PeoplemonDB']]],
-  ['values',['values',['../a00970.html#a8151beb85e4a6c808fe28794a32c030b',1,'core::file::ItemDB']]],
-  ['visible',['visible',['../a01010.html#a44f324ee933e3f743bb815cda8017688',1,'core::map::Item']]]
+  ['validmoves',['validMoves',['../a01003.html#a7cb3528dc8c9ee3efb5bea573a31cd6b',1,'core::file::PeoplemonDB::validMoves()'],['../a01007.html#a4ce30c6c14ca2052d0fcbdbab9bed60b',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::validMoves()']]],
+  ['values',['values',['../a00979.html#ab83de343322d05cb9dc523cf1156e3a5',1,'core::file::ItemDB::values()'],['../a00983.html#ad8e9a48120d032efa018a9d3f8ec9574',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::values()']]],
+  ['visible',['visible',['../a01051.html#af311bd583a573b483571a3602e4e6425',1,'core::map::Item::visible()'],['../a01055.html#ad2199f6edacfbd77b84de21ddfd0c297',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::visible()']]],
+  ['visionrange',['visionRange',['../a01011.html#a15a0956c65f5d87aced159237d14d917',1,'core::file::Trainer']]]
 ];

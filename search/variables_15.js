@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['xpgroups',['xpGroups',['../a00982.html#a5e6e475af0190be21a6897fdbae64ff3',1,'core::file::PeoplemonDB']]],
-  ['xpmults',['xpMults',['../a00982.html#a9e13bcd589fe6b24d8ea7ecbed665ab3',1,'core::file::PeoplemonDB']]]
+  ['xp',['xp',['../a01151.html#add974c34fad16b8417bf55bdbce5a331',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;']]],
+  ['xpgroups',['xpGroups',['../a01003.html#a92357ab32f5f3f0bd7596fbdbd7d732d',1,'core::file::PeoplemonDB::xpGroups()'],['../a01007.html#aaf65ca9c1e53926663dab327304545e3',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpGroups()']]],
+  ['xpmults',['xpMults',['../a01003.html#a697048ac89879380c41a57933d0c813d',1,'core::file::PeoplemonDB::xpMults()'],['../a01007.html#ae6ae3c0dc86c559b1889fafbab994a8d',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpMults()']]]
 ];

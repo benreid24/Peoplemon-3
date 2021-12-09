@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['idserializer',['IdSerializer',['../a01070.html#ac84530c427bab8edc5c696ed12f86a9d',1,'bl::file::binary::Serializer&lt; OwnedMove &gt;']]],
-  ['idtype',['IdType',['../a01038.html#a62dbb7a9b1a1c3795a03bf22adacefcc',1,'core::map::Tile']]]
+  ['handle',['Handle',['../a01083.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
+  ['heighttransitionlayer',['HeightTransitionLayer',['../a00715.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
 ];

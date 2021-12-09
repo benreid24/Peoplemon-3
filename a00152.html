@@ -74,10 +74,10 @@ $(function() {
 <div class="title">OwnedPeoplemon.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Files/Binary.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01894_source.html">Core/Items/Id.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Serialization/Binary.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01975_source.html">Core/Items/Id.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00131_source.html">Core/Peoplemon/Ailment.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a01897_source.html">Core/Peoplemon/Id.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01978_source.html">Core/Peoplemon/Id.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00149_source.html">Core/Peoplemon/OwnedMove.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00167_source.html">Core/Peoplemon/Stats.hpp</a>&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
@@ -86,37 +86,37 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01074.html">bl::file::binary::Serializer&lt; core::pplmn::OwnedPeoplemon &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01147.html">core::pplmn::OwnedPeoplemon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon. Only contains persistent data specific to the individual peoplemon.  <a href="a01147.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html">core::pplmn::OwnedPeoplemon</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon. Only contains persistent data specific to the individual peoplemon.  <a href="a01078.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01151.html">bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00742"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00742.html">editor</a></td></tr>
-<tr class="memdesc:a00742"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a00739"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00739.html">editor</a></td></tr>
+<tr class="memdesc:a00739"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00743"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00743.html">editor::component</a></td></tr>
+<tr class="memitem:a00740"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00740.html">editor::component</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00727"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html">core</a></td></tr>
-<tr class="memdesc:a00727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00724"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html">core</a></td></tr>
+<tr class="memdesc:a00724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00741"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00741.html">core::pplmn</a></td></tr>
-<tr class="memdesc:a00741"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01082.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="memitem:a00738"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00738.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a00738"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01155.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00731"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00731.html">bl</a></td></tr>
+<tr class="memitem:a00728"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00728.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00732"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00732.html">bl::file</a></td></tr>
+<tr class="memitem:a00729"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00729.html">bl::serial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00733"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00733.html">bl::file::binary</a></td></tr>
+<tr class="memitem:a00730"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00730.html">bl::serial::binary</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 05:47:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 14:35:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['id',['id',['../a01010.html#af0ce7985d30021a3bf78a844d376e741',1,'core::map::Item::id()'],['../a01034.html#ad8e77982f321c6621fad4d2c9f9b8836',1,'core::map::Spawn::id()'],['../a01066.html#ad1535f09b088c7be3e505c29524b6e98',1,'core::pplmn::OwnedMove::id()'],['../a01098.html#a11bb70fa5cfd71306283bb8a09d21d42',1,'core::pplmn::WildPeoplemon::id()'],['../a01106.html#a02dc0d4f209e4e53154c4d12589f522e',1,'core::player::Bag::Item::id()']]],
-  ['item',['item',['../a00894.html#abbcca9187defa6d853137d023430f604',1,'core::event::ItemPickedUp']]],
-  ['itemsfield',['itemsField',['../a01030.html#ac9de7e7a21573f487afd36653d082d34',1,'core::map::Map']]],
-  ['iterablestats',['IterableStats',['../a01086.html#a927521653784b6c88e4e9ac287775edb',1,'core::pplmn::Stats']]]
+  ['id',['id',['../a01051.html#a42dc42fa8350e814cd5500ea707dcc2c',1,'core::map::Item::id()'],['../a01055.html#a1baf0f93117931fe5dbde723eb530deb',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::id()'],['../a01099.html#a615264598ba90a3f39140715abf018be',1,'core::map::Spawn::id()'],['../a01103.html#a34cf91a0c35ee4903f4f9317ecd26c78',1,'bl::serial::binary::SerializableObject&lt; core::map::Spawn &gt;::id()'],['../a01139.html#ad1535f09b088c7be3e505c29524b6e98',1,'core::pplmn::OwnedMove::id()'],['../a01151.html#a6deaf7f1989a691262772d8d5e3eeb61',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::id()'],['../a01171.html#a11bb70fa5cfd71306283bb8a09d21d42',1,'core::pplmn::WildPeoplemon::id()'],['../a01179.html#a02dc0d4f209e4e53154c4d12589f522e',1,'core::player::Bag::Item::id()']]],
+  ['item',['item',['../a00891.html#abbcca9187defa6d853137d023430f604',1,'core::event::ItemPickedUp::item()'],['../a01151.html#aac09cfcacdec10c9629bbf4cd71a0b51',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::item()']]],
+  ['items',['items',['../a01011.html#a83839a731809026b3246db9f70ae784e',1,'core::file::Trainer::items()'],['../a01015.html#ac327d5205bc06345f6f8ec5c7ef32ca3',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;::items()']]],
+  ['itemsfield',['itemsField',['../a01091.html#a1096f83b66c3df92b2afbd6f62002337',1,'core::map::Map::itemsField()'],['../a01095.html#ae4804955da4a78a9f7041d85d8ec4470',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::itemsField()']]],
+  ['iterablestats',['IterableStats',['../a01159.html#a927521653784b6c88e4e9ac287775edb',1,'core::pplmn::Stats']]],
+  ['ivs',['ivs',['../a01151.html#a28b688dccd7d7e8532e4ddfd0caa4dc2',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;']]]
 ];

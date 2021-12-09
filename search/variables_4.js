@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['effectchances',['effectChances',['../a00974.html#aa8d5ea4f43153f9d31be0a38abe97abd',1,'core::file::MoveDB']]],
-  ['effectintensities',['effectIntensities',['../a00974.html#a8efef7aa72d9ff06432e8ff0f5242884',1,'core::file::MoveDB']]],
-  ['effects',['effects',['../a00974.html#a9a35ac7aa76e06254241d0bb4705e110',1,'core::file::MoveDB']]],
-  ['effectselves',['effectSelves',['../a00974.html#adfb3de71eafa5e53f454879d80d81d25',1,'core::file::MoveDB']]],
-  ['entity',['entity',['../a00890.html#aadb1d60a34628c9dae21efcae2f32708',1,'core::event::EntityMoved']]],
-  ['evade',['evade',['../a01058.html#a51b5de38ed872678cf090535984a0ddd',1,'core::pplmn::BattleStats']]],
-  ['evawards',['evAwards',['../a00982.html#acc67cef3e1872b7780b09cbe14a52a6f',1,'core::file::PeoplemonDB']]],
-  ['eventregions',['eventRegions',['../a01030.html#a9d72efdacc1ae41f5a3d0799ff81df15',1,'core::map::Map']]],
-  ['eventsfield',['eventsField',['../a01030.html#a99bbbbb8680600470224c895d348e5c4',1,'core::map::Map']]],
-  ['evolveids',['evolveIds',['../a00982.html#a4e0d0ec927b96fecd3f92748ed2631f5',1,'core::file::PeoplemonDB']]],
-  ['evolvelevels',['evolveLevels',['../a00982.html#a3edeaa7c914fc532fd72f55222fd38cc',1,'core::file::PeoplemonDB']]]
+  ['effectchances',['effectChances',['../a00987.html#aca4515e25d5f6249b6f9bf837584c8bb',1,'core::file::MoveDB::effectChances()'],['../a00991.html#ac32d8ee3354f316fe7ee70ea58ced489',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::effectChances()']]],
+  ['effectintensities',['effectIntensities',['../a00987.html#a32c5e03c877cb71d061307c253f9b12b',1,'core::file::MoveDB::effectIntensities()'],['../a00991.html#a5374d8102f044198dfee81db58d0fa3b',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::effectIntensities()']]],
+  ['effects',['effects',['../a00987.html#aac182713029f7cd02602770c5747b550',1,'core::file::MoveDB::effects()'],['../a00991.html#a8229ddb85970aa919d8da2d9d59dbf5d',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::effects()']]],
+  ['effectselves',['effectSelves',['../a00987.html#af5909a80c9a2e07d97bc4d7af8e8a042',1,'core::file::MoveDB::effectSelves()'],['../a00991.html#a62e85635bdfea098a9c05b90f107f863',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::effectSelves()']]],
+  ['entity',['entity',['../a00887.html#aadb1d60a34628c9dae21efcae2f32708',1,'core::event::EntityMoved']]],
+  ['evade',['evade',['../a01131.html#a51b5de38ed872678cf090535984a0ddd',1,'core::pplmn::BattleStats']]],
+  ['evawards',['evAwards',['../a01003.html#ab3f879933c67aa6f0a40ab93126c1b14',1,'core::file::PeoplemonDB::evAwards()'],['../a01007.html#a52b5911bfb876e5e70a08e3bdf6a2b96',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::evAwards()']]],
+  ['eventregions',['eventRegions',['../a01091.html#a9d72efdacc1ae41f5a3d0799ff81df15',1,'core::map::Map']]],
+  ['eventsfield',['eventsField',['../a01091.html#a49e2b6916486642fbd3f785d4fe3b828',1,'core::map::Map::eventsField()'],['../a01095.html#ad418ffa5b092001eb1fb074cf6badbb1',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::eventsField()']]],
+  ['evolveids',['evolveIds',['../a01003.html#a59d65e1554869a469ae9b59b2b145725',1,'core::file::PeoplemonDB::evolveIds()'],['../a01007.html#a4fe64b2a8fe9c4c4cbebf951f7623db7',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::evolveIds()']]],
+  ['evolvelevels',['evolveLevels',['../a01003.html#aa97d24667e753d4f012b11bd3243d2e4',1,'core::file::PeoplemonDB::evolveLevels()'],['../a01007.html#a8542a8deefe92bdc0355d0d0f2182a21',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::evolveLevels()']]],
+  ['evs',['evs',['../a01151.html#a9f70663118fda966cfafe83b2c9059ed',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;']]]
 ];

@@ -1,10 +1,12 @@
 var searchData=
 [
-  ['learnedmoves',['learnedMoves',['../a00982.html#a738eae92c95579dfc91b168613d38da7',1,'core::file::PeoplemonDB']]],
-  ['level',['level',['../a00838.html#af63a89b4408f29af39335a9ce033cfb5',1,'core::component::Position::level()'],['../a01010.html#aafbc6b281ef4b873f2576cb1862c933a',1,'core::map::Item::level()']]],
-  ['levels',['levels',['../a01030.html#af16585980e2bc12ba56628abda649bc9',1,'core::map::Map']]],
-  ['levelsfield',['levelsField',['../a01030.html#a5e64d61a4a926033e0eca4fb867966c4',1,'core::map::Map']]],
-  ['lighting',['lighting',['../a01030.html#af853e8387a4be929c7f9b4e338904fe3',1,'core::map::Map']]],
-  ['lightsfield',['lightsField',['../a01030.html#a36ad21c0461e2345ef9ff1c3a02098dc',1,'core::map::Map']]],
-  ['loadscriptfield',['loadScriptField',['../a01030.html#acdde3e087ece55ef8098e4fb56e5b70d',1,'core::map::Map']]]
+  ['learnedmoves',['learnedMoves',['../a01003.html#ada82aa88a177d79b3b3d9e420d92a170',1,'core::file::PeoplemonDB::learnedMoves()'],['../a01007.html#ae9ac93700270ed14984e66acc64ba222',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::learnedMoves()']]],
+  ['level',['level',['../a00835.html#af63a89b4408f29af39335a9ce033cfb5',1,'core::component::Position::level()'],['../a01051.html#a7ad464637a37d45221515c3f84e61f2b',1,'core::map::Item::level()'],['../a01055.html#afc3881f08799feaaf54097e9f64cb096',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::level()'],['../a01151.html#a6d67a6b66ae81cbfb22937daf25ba498',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::level()']]],
+  ['levels',['levels',['../a01091.html#a279bdb8f93374962416a7964fcf25971',1,'core::map::Map::levels()'],['../a01095.html#ac307a0874bf1f8bdaef01b8f4f31560c',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::levels()']]],
+  ['lighting',['lighting',['../a01091.html#a1a780b79bddb3dc59ff85b7441d5074f',1,'core::map::Map::lighting()'],['../a01095.html#aaa5bf9a396ebd814836d9265df468993',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::lighting()']]],
+  ['lights',['lights',['../a01087.html#a6dafdf634de6b7cabcf366f4de19299f',1,'bl::serial::binary::SerializableObject&lt; core::map::LightingSystem &gt;']]],
+  ['loadscriptfield',['loadScriptField',['../a01091.html#a59d171da5116629fa47c4536802207ed',1,'core::map::Map::loadScriptField()'],['../a01095.html#a98eea4db50484db74f9fa360ca3bf2d4',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::loadScriptField()']]],
+  ['losebattleline',['loseBattleLine',['../a01015.html#a8464f4e753c2b790f968128e914b04f4',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;']]],
+  ['lostbattleline',['lostBattleLine',['../a01011.html#a10821bc25bfbdbdaa93007bb92b9443f',1,'core::file::Trainer']]],
+  ['low',['low',['../a01087.html#a238e4f508a9480e45d352638f6c1333f',1,'bl::serial::binary::SerializableObject&lt; core::map::LightingSystem &gt;']]]
 ];

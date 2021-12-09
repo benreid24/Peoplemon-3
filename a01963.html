@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Map.cpp File Reference</title>
+<title>Peoplemon: include/Core/Components/Trainer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_b572e9e567c53bf52c1d322a7f434893.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,46 +71,35 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Map.cpp File Reference</div>  </div>
+<div class="title">Trainer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a01906_source.html">Core/Maps/Map.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00056_source.html">Core/Events/Maps.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00197_source.html">Core/Properties.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00200_source.html">Core/Resources.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00209_source.html">Core/Scripts/LegacyWarn.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00212_source.html">Core/Scripts/MapChangeContext.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00215_source.html">Core/Scripts/MapEventContext.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00224_source.html">Core/Systems/Cameras/Follow.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00251_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
-<code>#include &lt;cmath&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01924_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a01966_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a01963_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01474.html">core::map::loaders::LegacyMapLoader</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01478.html">core::map::loaders::PrimaryMapLoader</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00871.html">core::component::Trainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will make it a trainer that can battle.  <a href="a00871.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00727"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html">core</a></td></tr>
-<tr class="memdesc:a00727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00724"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00724.html">core</a></td></tr>
+<tr class="memdesc:a00724"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00735"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00735.html">core::map</a></td></tr>
-<tr class="memdesc:a00735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00739"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00739.html">core::map::loaders</a></td></tr>
-<tr class="memdesc:a00739"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
+<tr class="memitem:a00727"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00727.html">core::component</a></td></tr>
+<tr class="memdesc:a00727"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Nov 30 2021 05:47:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 9 2021 14:35:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
