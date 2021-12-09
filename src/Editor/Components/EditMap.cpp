@@ -102,7 +102,7 @@ bool EditMap::editorLoad(const std::string& file) {
 bool EditMap::editorSave() {
     if (save(savefile)) {
         saveHead = historyHead;
-        return tileset->save(tilesetField.getValue());
+        return tileset->save(tilesetField);
     }
     return false;
 }
@@ -115,7 +115,7 @@ void EditMap::newMap(const std::string& filename, const std::string& name,
     tilesetField = tileset;
     levels.resize(1);
     levels.front().init(width, height, 2, 2, 1);
-    transitionField.getValue().setSize(width, height, core::map::LevelTransition::None);
+    transitionField.setSize(width, height, core::map::LevelTransition::None);
     editorActivate();
     syncCb();
 }
@@ -124,8 +124,8 @@ bool EditMap::doLoad(const std::string& file) {
     clear();
     if (!Map::load(file)) return false;
     nextItemId = 0;
-    for (const auto& item : itemsField.getValue()) {
-        if (nextItemId <= item.mapId.getValue()) { nextItemId = item.mapId.getValue() + 1; }
+    for (const auto& item : itemsField) {
+        if (nextItemId <= item.mapId) { nextItemId = item.mapId + 1; }
     }
     return editorActivate();
 }
@@ -151,9 +151,9 @@ bool EditMap::editorActivate() {
     tileset->activate();
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }
 
-    weather.set(weatherField.getValue());
+    weather.set(weatherField);
     lighting.activate(size);
-    for (core::map::CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+    for (core::map::CatchZone& zone : catchZonesField) { zone.activate(); }
 
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);
@@ -163,13 +163,13 @@ bool EditMap::editorActivate() {
         lighting.subscribe(systems->engine().eventBus());
     }
 
-    for (const core::map::CharacterSpawn& spawn : characterField.getValue()) {
+    for (const core::map::CharacterSpawn& spawn : characterField) {
         if (systems->entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
-            BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
+            BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
-    for (const core::map::Item& item : itemsField.getValue()) { systems->entity().spawnItem(item); }
+    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item); }
 
     systems->engine().eventBus().dispatch<core::event::MapEntered>({*this});
 
@@ -397,20 +397,18 @@ void EditMap::shiftLevel(unsigned int level, bool up) {
 void EditMap::appendLevel() { addAction(AppendLevelAction::create()); }
 
 void EditMap::setOnEnterScript(const std::string& s) {
-    addAction(SetScriptAction::create(true, s, loadScriptField.getValue()));
+    addAction(SetScriptAction::create(true, s, loadScriptField));
 }
 
-const std::string& EditMap::getOnEnterScript() const { return loadScriptField.getValue(); }
+const std::string& EditMap::getOnEnterScript() const { return loadScriptField; }
 
 void EditMap::setOnExitScript(const std::string& s) {
-    addAction(SetScriptAction::create(false, s, unloadScriptField.getValue()));
+    addAction(SetScriptAction::create(false, s, unloadScriptField));
 }
 
-const std::string& EditMap::getOnExitScript() const { return unloadScriptField.getValue(); }
+const std::string& EditMap::getOnExitScript() const { return unloadScriptField; }
 
-bool EditMap::spawnIdUnused(unsigned int i) const {
-    return spawnField.getValue().find(i) == spawnField.getValue().end();
-}
+bool EditMap::spawnIdUnused(unsigned int i) const { return spawns.find(i) == spawns.end(); }
 
 void EditMap::addSpawn(unsigned int l, const sf::Vector2i& pos, unsigned int id,
                        core::component::Direction dir) {
@@ -418,9 +416,9 @@ void EditMap::addSpawn(unsigned int l, const sf::Vector2i& pos, unsigned int id,
 }
 
 void EditMap::rotateSpawn(unsigned int l, const sf::Vector2i& pos) {
-    for (const auto& pair : spawnField.getValue()) {
-        if (pair.second.position.getValue().level == l) {
-            if (pair.second.position.getValue().positionTiles() == pos) {
+    for (const auto& pair : spawns) {
+        if (pair.second.position.level == l) {
+            if (pair.second.position.positionTiles() == pos) {
                 addAction(RotateSpawnAction::create(pair.first));
             }
         }
@@ -428,9 +426,9 @@ void EditMap::rotateSpawn(unsigned int l, const sf::Vector2i& pos) {
 }
 
 void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
-    for (const auto& pair : spawnField.getValue()) {
-        if (pair.second.position.getValue().level == l) {
-            if (pair.second.position.getValue().positionTiles() == pos) {
+    for (const auto& pair : spawns) {
+        if (pair.second.position.level == l) {
+            if (pair.second.position.positionTiles() == pos) {
                 addAction(RemoveSpawnAction::create(pair.first, pair.second));
             }
         }
@@ -438,14 +436,14 @@ void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
 }
 
 void EditMap::addNpcSpawn(const core::map::CharacterSpawn& s) {
-    addAction(AddNpcSpawnAction::create(s, characterField.getValue().size()));
+    addAction(AddNpcSpawnAction::create(s, characterField.size()));
 }
 
 const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
                                                       const sf::Vector2i& pos) const {
-    for (const auto& spawn : characterField.getValue()) {
-        if (spawn.position.getValue().level == level) {
-            if (spawn.position.getValue().positionTiles() == pos) { return &spawn; }
+    for (const auto& spawn : characterField) {
+        if (spawn.position.level == level) {
+            if (spawn.position.positionTiles() == pos) { return &spawn; }
         }
     }
     return nullptr;
@@ -455,23 +453,23 @@ void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
                            const core::map::CharacterSpawn& val) {
     const bl::entity::Entity e = systems->position().getEntity(orig->position);
     if (e != bl::entity::InvalidEntity) {
-        addAction(EditNpcSpawnAction::create(orig - characterField.getValue().data(), *orig, val));
+        addAction(EditNpcSpawnAction::create(orig - characterField.data(), *orig, val));
     }
     else {
-        const auto& pos = orig->position.getValue().positionTiles();
+        const auto& pos = orig->position.positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
     }
 }
 
 void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
     unsigned int i = 0;
-    for (; i < characterField.getValue().size(); ++i) {
-        if (&characterField.getValue()[i] == s) { break; }
+    for (; i < characterField.size(); ++i) {
+        if (&characterField[i] == s) { break; }
     }
     const bl::entity::Entity e = systems->position().getEntity(s->position);
     if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
     else {
-        const auto& pos = s->position.getValue().positionTiles();
+        const auto& pos = s->position.positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
     }
 }
@@ -503,7 +501,7 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
         if (!levelFilter[i]) continue;
-        core::map::LayerSet& level = levels[i];
+        const core::map::LayerSet& level = levels[i];
 
         unsigned int li = 0;
         for (const core::map::TileLayer& layer : level.bottomLayers()) {
@@ -567,9 +565,9 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         const std::uint8_t a =
             static_cast<int>(timer.getElapsedTime().asSeconds()) % 2 == 0 ? 165 : 100;
         area.setFillColor(sf::Color(0, 0, 0, a));
-        for (const auto& event : eventsField.getValue()) {
-            const auto& pos  = event.position.getValue();
-            const auto& size = event.areaSize.getValue();
+        for (const auto& event : eventsField) {
+            const auto& pos  = event.position;
+            const auto& size = event.areaSize;
             area.setPosition(static_cast<float>(pos.x) * core::Properties::PixelsPerTile(),
                              static_cast<float>(pos.y) * core::Properties::PixelsPerTile());
             area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
@@ -592,12 +590,12 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         const sf::Vector2f so(sf::Vector2f(arrowGfx->getSize()) * 0.5f);
         spr.setOrigin(so);
 
-        for (const auto& spawn : spawnField.getValue()) {
-            if (spawn.second.position.getValue().level == overlayLevel) {
-                const sf::Vector2f p(spawn.second.position.getValue().positionTiles());
+        for (const auto& spawn : spawns) {
+            if (spawn.second.position.level == overlayLevel) {
+                const sf::Vector2f p(spawn.second.position.positionTiles());
                 const sf::Vector2f pos = p * static_cast<float>(core::Properties::PixelsPerTile());
                 spr.setPosition(pos + so);
-                spr.setRotation(static_cast<int>(spawn.second.position.getValue().direction) * 90);
+                spr.setRotation(static_cast<int>(spawn.second.position.direction) * 90);
                 target.draw(spr);
 
                 id.setString(std::to_string(spawn.first));
@@ -637,11 +635,11 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 }
 
 void EditMap::createEvent(const core::map::Event& event) {
-    addAction(AddEventAction::create(event, eventsField.getValue().size()));
+    addAction(AddEventAction::create(event, eventsField.size()));
 }
 
 const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
-    for (const core::map::Event& event : eventsField.getValue()) {
+    for (const core::map::Event& event : eventsField) {
         const sf::IntRect area(event.position, event.areaSize);
         if (area.contains(tiles)) return &event;
     }
@@ -650,13 +648,13 @@ const core::map::Event* EditMap::getEvent(const sf::Vector2i& tiles) {
 
 void EditMap::editEvent(const core::map::Event* orig, const core::map::Event& val) {
     unsigned int i = 0;
-    while (&eventsField.getValue()[i] != orig) { ++i; }
+    while (&eventsField[i] != orig) { ++i; }
     addAction(EditEventAction::create(*orig, val, i));
 }
 
 void EditMap::removeEvent(const core::map::Event* e) {
     unsigned int i = 0;
-    while (&eventsField.getValue()[i] != e) { ++i; }
+    while (&eventsField[i] != e) { ++i; }
     addAction(RemoveEventAction::create(*e, i));
 }
 
@@ -664,28 +662,23 @@ void EditMap::addOrEditItem(unsigned int level, const sf::Vector2i& tiles, core:
                             bool visible) {
     unsigned int i = 0;
     bool found     = false;
-    for (; i < itemsField.getValue().size(); ++i) {
-        if (itemsField.getValue()[i].level.getValue() == level) {
-            if (itemsField.getValue()[i].position.getValue() == tiles) {
+    for (; i < itemsField.size(); ++i) {
+        if (itemsField[i].level == level) {
+            if (itemsField[i].position == tiles) {
                 found = true;
                 break;
             }
         }
     }
-    if (!found) i = itemsField.getValue().size();
-    addAction(AddOrEditItemAction::create(i,
-                                          level,
-                                          tiles,
-                                          item,
-                                          visible,
-                                          found ? itemsField.getValue()[i] : core::map::Item(),
-                                          !found));
+    if (!found) i = itemsField.size();
+    addAction(AddOrEditItemAction::create(
+        i, level, tiles, item, visible, found ? itemsField[i] : core::map::Item(), !found));
 }
 
 std::pair<core::item::Id, bool> EditMap::getItem(unsigned int level, const sf::Vector2i& tiles) {
-    for (const auto& item : itemsField.getValue()) {
-        if (item.level.getValue() == level && item.position.getValue() == tiles) {
-            return {core::item::Item::cast(item.id.getValue()), item.visible.getValue()};
+    for (const auto& item : itemsField) {
+        if (item.level == level && item.position == tiles) {
+            return {core::item::Item::cast(item.id), item.visible};
         }
     }
     return {core::item::Id::Unknown, true};
@@ -693,8 +686,8 @@ std::pair<core::item::Id, bool> EditMap::getItem(unsigned int level, const sf::V
 
 void EditMap::removeItem(unsigned int level, const sf::Vector2i& tiles) {
     unsigned int i = 0;
-    for (const auto& item : itemsField.getValue()) {
-        if (item.level.getValue() == level && item.position.getValue() == tiles) {
+    for (const auto& item : itemsField) {
+        if (item.level == level && item.position == tiles) {
             addAction(RemoveItemAction::create(i, level, tiles, item));
             break;
         }

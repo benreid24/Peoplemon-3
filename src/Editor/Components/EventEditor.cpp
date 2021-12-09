@@ -89,12 +89,12 @@ void EventEditor::open(const GUI::Ptr& p, const core::map::Event* source,
     orig = source;
 
     if (source) {
-        scriptLabel->setText(source->script.getValue());
-        xInput->setInput(std::to_string(source->position.getValue().x));
-        yInput->setInput(std::to_string(source->position.getValue().y));
-        wInput->setInput(std::to_string(source->areaSize.getValue().x));
-        hInput->setInput(std::to_string(source->areaSize.getValue().y));
-        triggerSelect->setSelectedOption(static_cast<int>(source->trigger.getValue()) - 1);
+        scriptLabel->setText(source->script);
+        xInput->setInput(std::to_string(source->position.x));
+        yInput->setInput(std::to_string(source->position.y));
+        wInput->setInput(std::to_string(source->areaSize.x));
+        hInput->setInput(std::to_string(source->areaSize.y));
+        triggerSelect->setSelectedOption(static_cast<int>(source->trigger) - 1);
     }
     else {
         scriptLabel->setText("");
@@ -139,12 +139,12 @@ bool EventEditor::valid() const {
 
 core::map::Event EventEditor::makeEvent() const {
     core::map::Event e;
-    e.script                = scriptLabel->getText();
-    e.position.getValue().x = std::atoi(xInput->getInput().c_str());
-    e.position.getValue().y = std::atoi(yInput->getInput().c_str());
-    e.areaSize.getValue().x = std::atoi(wInput->getInput().c_str());
-    e.areaSize.getValue().y = std::atoi(hInput->getInput().c_str());
-    e.trigger = static_cast<core::map::Event::Trigger>(triggerSelect->getSelectedOption() + 1);
+    e.script     = scriptLabel->getText();
+    e.position.x = std::atoi(xInput->getInput().c_str());
+    e.position.y = std::atoi(yInput->getInput().c_str());
+    e.areaSize.x = std::atoi(wInput->getInput().c_str());
+    e.areaSize.y = std::atoi(hInput->getInput().c_str());
+    e.trigger    = static_cast<core::map::Event::Trigger>(triggerSelect->getSelectedOption() + 1);
     return e;
 }
 

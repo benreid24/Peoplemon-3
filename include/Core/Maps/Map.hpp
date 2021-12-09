@@ -15,9 +15,9 @@
 
 #include <BLIB/Entities.hpp>
 #include <BLIB/Events.hpp>
-#include <BLIB/Files/Binary.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <functional>
 #include <unordered_map>
 #include <vector>
@@ -65,9 +65,7 @@ class PrimaryMapLoader;
  * @ingroup Maps
  *
  */
-class Map
-: public bl::file::binary::SerializableObject
-, public bl::event::Listener<event::EntityMoved> {
+class Map : public bl::event::Listener<event::EntityMoved> {
 public:
     /**
      * @brief Function signature for the callback to render rows of entities
@@ -229,29 +227,25 @@ public:
     bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
 
 protected:
-    bl::file::binary::SerializableField<1, std::string> nameField;
-    bl::file::binary::SerializableField<2, std::string> loadScriptField;
-    bl::file::binary::SerializableField<3, std::string> unloadScriptField;
-    bl::file::binary::SerializableField<4, std::string> playlistField;
-    bl::file::binary::SerializableField<5, Weather::Type> weatherField;
-    bl::file::binary::SerializableField<6, std::vector<LayerSet>> levelsField;
-    bl::file::binary::SerializableField<7, std::string> tilesetField;
-    bl::file::binary::SerializableField<8, std::unordered_map<std::uint16_t, Spawn>> spawnField;
-    bl::file::binary::SerializableField<9, std::vector<CharacterSpawn>> characterField;
-    bl::file::binary::SerializableField<10, std::vector<Item>> itemsField;
-    bl::file::binary::SerializableField<11, std::vector<Event>> eventsField;
-    bl::file::binary::SerializableField<12, LightingSystem> lightsField;
-    bl::file::binary::SerializableField<13, std::vector<CatchZone>> catchZonesField;
-    bl::file::binary::SerializableField<14, bl::container::Vector2D<LevelTransition>>
-        transitionField;
+    std::string nameField;
+    std::string loadScriptField;
+    std::string unloadScriptField;
+    std::string playlistField;
+    Weather::Type weatherField;
+    std::vector<LayerSet> levels;
+    std::string tilesetField;
+    std::unordered_map<std::uint16_t, Spawn> spawns;
+    std::vector<CharacterSpawn> characterField;
+    std::vector<Item> itemsField;
+    std::vector<Event> eventsField;
+    LightingSystem lighting;
+    std::vector<CatchZone> catchZonesField;
+    bl::container::Vector2D<LevelTransition> transitionField;
 
     system::Systems* systems;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
-    std::vector<LayerSet>& levels;
-    std::unordered_map<std::uint16_t, Spawn>& spawns;
     Weather weather;
-    LightingSystem& lighting;
     std::unique_ptr<bl::script::Script> onEnterScript;
     std::unique_ptr<bl::script::Script> onExitScript;
     bl::container::Grid<const Event*> eventRegions;
@@ -265,9 +259,56 @@ protected:
     void refreshRenderRange(const sf::View& view) const;
 
     friend class loaders::LegacyMapLoader;
+    friend class bl::serial::binary::SerializableObject<Map>;
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Map> : public SerializableObjectBase {
+    using M = core::map::Map;
+
+    SerializableField<1, M, std::string> nameField;
+    SerializableField<2, M, std::string> loadScriptField;
+    SerializableField<3, M, std::string> unloadScriptField;
+    SerializableField<4, M, std::string> playlistField;
+    SerializableField<5, M, core::map::Weather::Type> weatherField;
+    SerializableField<6, M, std::vector<core::map::LayerSet>> levels;
+    SerializableField<7, M, std::string> tilesetField;
+    SerializableField<8, M, std::unordered_map<std::uint16_t, core::map::Spawn>> spawnField;
+    SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
+    SerializableField<10, M, std::vector<core::map::Item>> itemsField;
+    SerializableField<11, M, std::vector<core::map::Event>> eventsField;
+    SerializableField<12, M, core::map::LightingSystem> lighting;
+    SerializableField<13, M, std::vector<core::map::CatchZone>> catchZonesField;
+    SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
+
+    SerializableObject()
+    : nameField(*this, &M::nameField)
+    , loadScriptField(*this, &M::loadScriptField)
+    , unloadScriptField(*this, &M::unloadScriptField)
+    , playlistField(*this, &M::playlistField)
+    , weatherField(*this, &M::weatherField)
+    , levels(*this, &M::levels)
+    , tilesetField(*this, &M::tilesetField)
+    , spawnField(*this, &M::spawns)
+    , characterField(*this, &M::characterField)
+    , itemsField(*this, &M::itemsField)
+    , eventsField(*this, &M::eventsField)
+    , lighting(*this, &M::lighting)
+    , catchZonesField(*this, &M::catchZonesField)
+    , transitionField(*this, &M::transitionField) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

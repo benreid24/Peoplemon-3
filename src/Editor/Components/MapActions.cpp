@@ -9,9 +9,9 @@ namespace component
 {
 namespace
 {
-const core::map::Tile& getTile(std::vector<core::map::LayerSet>& levels, unsigned int level,
+const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, unsigned int level,
                                unsigned int layer, const sf::Vector2i& pos) {
-    core::map::LayerSet& l = levels[level];
+    const core::map::LayerSet& l = levels[level];
     if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
         const unsigned int i = layer - l.ysortLayers().size() - l.bottomLayers().size();
         return l.topLayers()[i].get(pos.x, pos.y);
@@ -146,7 +146,7 @@ EditMap::Action::Ptr EditMap::SetTileAction::create(unsigned int level, unsigned
     bool wasAnim                 = false;
     if (pos.x >= 0 && pos.y >= 0 && pos.x < map.sizeTiles().x && pos.y < map.sizeTiles().y) {
         if (level < map.levels.size()) {
-            core::map::LayerSet& l = map.levels[level];
+            const core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 const core::map::Tile& tile = getTile(map.levels, level, layer, pos);
                 prev                        = tile.id();
@@ -418,7 +418,7 @@ const char* EditMap::SetCatchAreaAction::description() const { return "set catch
 
 EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
                                                         const EditMap& map) {
-    return Ptr(new SetPlaylistAction(map.playlistField.getValue(), playlist));
+    return Ptr(new SetPlaylistAction(map.playlistField, playlist));
 }
 
 EditMap::SetPlaylistAction::SetPlaylistAction(const std::string& orig, const std::string& playlist)
@@ -438,7 +438,7 @@ bool EditMap::SetPlaylistAction::undo(EditMap& map) {
 const char* EditMap::SetPlaylistAction::description() const { return "set playlist"; }
 
 EditMap::Action::Ptr EditMap::SetNameAction::create(const std::string& name, const EditMap& map) {
-    return Ptr(new SetNameAction(map.nameField.getValue(), name));
+    return Ptr(new SetNameAction(map.nameField, name));
 }
 
 EditMap::SetNameAction::SetNameAction(const std::string& orig, const std::string& name)
@@ -459,7 +459,7 @@ const char* EditMap::SetNameAction::description() const { return "set name"; }
 
 EditMap::Action::Ptr EditMap::SetWeatherAction::create(core::map::Weather::Type type,
                                                        const EditMap& map) {
-    return Ptr(new SetWeatherAction(type, map.weatherField.getValue()));
+    return Ptr(new SetWeatherAction(type, map.weatherField));
 }
 
 EditMap::SetWeatherAction::SetWeatherAction(core::map::Weather::Type type,
@@ -737,12 +737,12 @@ EditMap::AddEventAction::AddEventAction(const core::map::Event& e, unsigned int 
 , i(i) {}
 
 bool EditMap::AddEventAction::apply(EditMap& map) {
-    map.eventsField.getValue().emplace_back(event);
+    map.eventsField.emplace_back(event);
     return false;
 }
 
 bool EditMap::AddEventAction::undo(EditMap& map) {
-    map.eventsField.getValue().erase(map.eventsField.getValue().begin() + i);
+    map.eventsField.erase(map.eventsField.begin() + i);
     return false;
 }
 
@@ -760,12 +760,12 @@ EditMap::EditEventAction::EditEventAction(const core::map::Event& o, const core:
 , i(i) {}
 
 bool EditMap::EditEventAction::apply(EditMap& map) {
-    map.eventsField.getValue()[i] = val;
+    map.eventsField[i] = val;
     return false;
 }
 
 bool EditMap::EditEventAction::undo(EditMap& map) {
-    map.eventsField.getValue()[i] = orig;
+    map.eventsField[i] = orig;
     return false;
 }
 
@@ -780,12 +780,12 @@ EditMap::RemoveEventAction::RemoveEventAction(const core::map::Event& e, unsigne
 , i(i) {}
 
 bool EditMap::RemoveEventAction::apply(EditMap& map) {
-    map.eventsField.getValue().erase(map.eventsField.getValue().begin() + i);
+    map.eventsField.erase(map.eventsField.begin() + i);
     return false;
 }
 
 bool EditMap::RemoveEventAction::undo(EditMap& map) {
-    map.eventsField.getValue().insert(map.eventsField.getValue().begin() + i, event);
+    map.eventsField.insert(map.eventsField.begin() + i, event);
     return false;
 }
 
@@ -805,13 +805,12 @@ EditMap::AddSpawnAction::AddSpawnAction(unsigned int l, const sf::Vector2i& p, u
 , dir(dir) {}
 
 bool EditMap::AddSpawnAction::apply(EditMap& map) {
-    map.spawnField.getValue()[id] =
-        core::map::Spawn(id, core::component::Position(level, pos, dir));
+    map.spawns[id] = core::map::Spawn(id, core::component::Position(level, pos, dir));
     return false;
 }
 
 bool EditMap::AddSpawnAction::undo(EditMap& map) {
-    map.spawnField.getValue().erase(id);
+    map.spawns.erase(id);
     return false;
 }
 
@@ -827,7 +826,7 @@ EditMap::RotateSpawnAction::RotateSpawnAction(unsigned int id)
 bool EditMap::RotateSpawnAction::apply(EditMap& map) {
     using namespace core::component;
 
-    auto& d = map.spawnField.getValue()[id].position.getValue().direction;
+    auto& d = map.spawns[id].position.direction;
     switch (d) {
     case Direction::Up:
         d = Direction::Right;
@@ -848,7 +847,7 @@ bool EditMap::RotateSpawnAction::apply(EditMap& map) {
 bool EditMap::RotateSpawnAction::undo(EditMap& map) {
     using namespace core::component;
 
-    auto& d = map.spawnField.getValue()[id].position.getValue().direction;
+    auto& d = map.spawns[id].position.direction;
     switch (d) {
     case Direction::Up:
         d = Direction::Left;
@@ -878,12 +877,12 @@ EditMap::RemoveSpawnAction::RemoveSpawnAction(unsigned int id, const core::map::
 , spawn(spawn) {}
 
 bool EditMap::RemoveSpawnAction::apply(EditMap& map) {
-    map.spawnField.getValue().erase(id);
+    map.spawns.erase(id);
     return false;
 }
 
 bool EditMap::RemoveSpawnAction::undo(EditMap& map) {
-    map.spawnField.getValue()[id] = spawn;
+    map.spawns[id] = spawn;
     return false;
 }
 
@@ -899,14 +898,14 @@ EditMap::AddNpcSpawnAction::AddNpcSpawnAction(const core::map::CharacterSpawn& s
 , i(i) {}
 
 bool EditMap::AddNpcSpawnAction::apply(EditMap& map) {
-    map.characterField.getValue().push_back(spawn);
+    map.characterField.push_back(spawn);
     map.systems->entity().spawnCharacter(spawn);
     return false;
 }
 
 bool EditMap::AddNpcSpawnAction::undo(EditMap& map) {
-    map.characterField.getValue().erase(map.characterField.getValue().begin() + i);
-    bl::entity::Entity c = map.systems->position().getEntity(spawn.position.getValue());
+    map.characterField.erase(map.characterField.begin() + i);
+    bl::entity::Entity c = map.systems->position().getEntity(spawn.position);
     if (c != bl::entity::InvalidEntity) { map.systems->engine().entities().destroyEntity(c); }
     return false;
 }
@@ -927,20 +926,20 @@ EditMap::EditNpcSpawnAction::EditNpcSpawnAction(unsigned int i,
 , value(s) {}
 
 bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
-    bl::entity::Entity e = map.systems->position().getEntity(orig.position.getValue());
+    bl::entity::Entity e = map.systems->position().getEntity(orig.position);
     map.systems->engine().entities().destroyEntity(e);
     map.systems->engine().entities().doDestroy();
     map.systems->entity().spawnCharacter(value);
-    map.characterField.getValue()[i] = value;
+    map.characterField[i] = value;
     return false;
 }
 
 bool EditMap::EditNpcSpawnAction::undo(EditMap& map) {
-    bl::entity::Entity e = map.systems->position().getEntity(value.position.getValue());
+    bl::entity::Entity e = map.systems->position().getEntity(value.position);
     map.systems->engine().entities().destroyEntity(e);
     map.systems->engine().entities().doDestroy();
     map.systems->entity().spawnCharacter(orig);
-    map.characterField.getValue()[i] = orig;
+    map.characterField[i] = orig;
     return false;
 }
 
@@ -957,14 +956,14 @@ EditMap::RemoveNpcSpawnAction::RemoveNpcSpawnAction(const core::map::CharacterSp
 , i(i) {}
 
 bool EditMap::RemoveNpcSpawnAction::apply(EditMap& map) {
-    map.characterField.getValue().erase(map.characterField.getValue().begin() + i);
-    bl::entity::Entity e = map.systems->position().getEntity(orig.position.getValue());
+    map.characterField.erase(map.characterField.begin() + i);
+    bl::entity::Entity e = map.systems->position().getEntity(orig.position);
     map.systems->engine().entities().destroyEntity(e);
     return false;
 }
 
 bool EditMap::RemoveNpcSpawnAction::undo(EditMap& map) {
-    map.characterField.getValue().insert(map.characterField.getValue().begin() + i, orig);
+    map.characterField.insert(map.characterField.begin() + i, orig);
     map.systems->entity().spawnCharacter(orig);
     return false;
 }
@@ -991,22 +990,22 @@ EditMap::AddOrEditItemAction::AddOrEditItemAction(unsigned int i, unsigned int l
 
 bool EditMap::AddOrEditItemAction::apply(EditMap& map) {
     if (add) {
-        map.itemsField.getValue().emplace_back(
+        map.itemsField.emplace_back(
             static_cast<std::uint16_t>(item), map.nextItemId, position, level, visible);
         ++map.nextItemId;
         map.systems->entity().spawnItem(
             core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible));
     }
     else {
-        map.itemsField.getValue()[i].id      = static_cast<std::uint16_t>(item);
-        map.itemsField.getValue()[i].visible = visible;
+        map.itemsField[i].id      = static_cast<std::uint16_t>(item);
+        map.itemsField[i].visible = visible;
     }
     return false;
 }
 
 bool EditMap::AddOrEditItemAction::undo(EditMap& map) {
     if (add) {
-        map.itemsField.getValue().pop_back();
+        map.itemsField.pop_back();
         const auto ent = map.systems->position().getEntity(
             {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
         if (ent != bl::entity::InvalidEntity) {
@@ -1014,8 +1013,8 @@ bool EditMap::AddOrEditItemAction::undo(EditMap& map) {
         }
     }
     else {
-        map.itemsField.getValue()[i].id      = orig.id;
-        map.itemsField.getValue()[i].visible = orig.visible;
+        map.itemsField[i].id      = orig.id;
+        map.itemsField[i].visible = orig.visible;
     }
     return false;
 }
@@ -1038,7 +1037,7 @@ EditMap::RemoveItemAction::RemoveItemAction(unsigned int i, unsigned int level,
 , orig(orig) {}
 
 bool EditMap::RemoveItemAction::apply(EditMap& map) {
-    map.itemsField.getValue().erase(map.itemsField.getValue().begin() + i);
+    map.itemsField.erase(map.itemsField.begin() + i);
     const auto ent = map.systems->position().getEntity(
         {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
     if (ent != bl::entity::InvalidEntity) { map.systems->engine().entities().destroyEntity(ent); }
@@ -1046,7 +1045,7 @@ bool EditMap::RemoveItemAction::apply(EditMap& map) {
 }
 
 bool EditMap::RemoveItemAction::undo(EditMap& map) {
-    map.itemsField.getValue().insert(map.itemsField.getValue().begin() + i, orig);
+    map.itemsField.insert(map.itemsField.begin() + i, orig);
     map.systems->entity().spawnItem(orig);
     return false;
 }
@@ -1064,8 +1063,7 @@ EditMap::SetLightAction::SetLightAction(const sf::Vector2i& pos, unsigned int ra
 , orig(orig) {}
 
 bool EditMap::SetLightAction::apply(EditMap& map) {
-    const core::map::LightingSystem::Handle h =
-        map.lighting.getClosestLight(value.position.getValue());
+    const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(value.position);
     if (h == core::map::LightingSystem::None) {
         map.lighting.addLight(value, true);
         spawned = true;
@@ -1077,8 +1075,7 @@ bool EditMap::SetLightAction::apply(EditMap& map) {
 }
 
 bool EditMap::SetLightAction::undo(EditMap& map) {
-    const core::map::LightingSystem::Handle h =
-        map.lighting.getClosestLight(value.position.getValue());
+    const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(value.position);
     if (spawned) { map.lighting.removeLight(h, true); }
     else {
         map.lighting.updateLight(h, orig, true);
@@ -1098,8 +1095,7 @@ EditMap::RemoveLightAction::RemoveLightAction(const core::map::Light& orig)
 : orig(orig) {}
 
 bool EditMap::RemoveLightAction::apply(EditMap& map) {
-    const core::map::LightingSystem::Handle h =
-        map.lighting.getClosestLight(orig.position.getValue());
+    const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(orig.position);
     map.lighting.removeLight(h, true);
     return false;
 }

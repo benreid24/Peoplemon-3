@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 #define CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/Id.hpp>
@@ -24,23 +24,6 @@ namespace pplmn
 class OwnedPeoplemon;
 } // namespace pplmn
 } // namespace core
-
-namespace bl
-{
-namespace file
-{
-namespace binary
-{
-template<>
-struct Serializer<core::pplmn::OwnedPeoplemon> {
-    static bool serialize(File& output, const core::pplmn::OwnedPeoplemon& p);
-    static bool deserialize(File& input, core::pplmn::OwnedPeoplemon& p);
-    static std::size_t size(const core::pplmn::OwnedPeoplemon& p);
-};
-
-} // namespace binary
-} // namespace file
-} // namespace bl
 
 namespace core
 {
@@ -144,7 +127,7 @@ public:
      * @brief Access the current HP
      *
      */
-    unsigned int& currentHp();
+    std::uint16_t& currentHp();
 
     /**
      * @brief Award EVs to this peoplemon
@@ -202,9 +185,9 @@ public:
 private:
     Id _id;
     std::string customName;
-    unsigned int level;
-    unsigned int xp;
-    unsigned int hp;
+    std::uint16_t level;
+    std::uint32_t xp;
+    std::uint16_t hp;
     Stats ivs;
     Stats evs;
     OwnedMove moves[4];
@@ -213,11 +196,54 @@ private:
 
     friend class WildPeoplemon;
     friend class BattlePeoplemon;
-    friend class bl::file::binary::Serializer<OwnedPeoplemon>;
+    friend class bl::serial::binary::SerializableObject<OwnedPeoplemon>;
     friend class editor::component::OwnedPeoplemonWindow;
 };
 
 } // namespace pplmn
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::pplmn::OwnedPeoplemon> : public SerializableObjectBase {
+    using OP    = core::pplmn::OwnedPeoplemon;
+    using Id    = core::pplmn::Id;
+    using Stats = core::pplmn::Stats;
+    using Move  = core::pplmn::OwnedMove;
+    using Ail   = core::pplmn::Ailment;
+    using Item  = core::item::Id;
+
+    SerializableField<1, OP, Id> id;
+    SerializableField<2, OP, std::string> customName;
+    SerializableField<3, OP, std::uint16_t> level;
+    SerializableField<4, OP, std::uint32_t> xp;
+    SerializableField<5, OP, std::uint16_t> hp;
+    SerializableField<6, OP, Stats> ivs;
+    SerializableField<7, OP, Stats> evs;
+    SerializableField<8, OP, Move[4]> moves;
+    SerializableField<9, OP, Ail> ailment;
+    SerializableField<10, OP, Item> item;
+
+    SerializableObject()
+    : id(*this, &OP::_id)
+    , customName(*this, &OP::customName)
+    , level(*this, &OP::level)
+    , xp(*this, &OP::xp)
+    , hp(*this, &OP::hp)
+    , ivs(*this, &OP::ivs)
+    , evs(*this, &OP::evs)
+    , moves(*this, &OP::moves)
+    , ailment(*this, &OP::ailment)
+    , item(*this, &OP::item) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

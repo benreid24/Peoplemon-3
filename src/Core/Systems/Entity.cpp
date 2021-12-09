@@ -1,6 +1,6 @@
 #include <Core/Systems/Entity.hpp>
 
-#include <BLIB/Files/Util.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Components/Item.hpp>
@@ -63,17 +63,17 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     }
 
     /// NPC
-    if (bl::file::Util::getExtension(spawn.file) == Properties::NpcFileExtension()) {
+    if (bl::util::FileUtil::getExtension(spawn.file) == Properties::NpcFileExtension()) {
         file::NPC data;
-        if (!data.load(bl::file::Util::joinPath(Properties::NpcPath(), spawn.file),
-                       spawn.position.getValue().direction)) {
-            BL_LOG_ERROR << "Failed to load NPC: " << spawn.file.getValue();
+        if (!data.load(bl::util::FileUtil::joinPath(Properties::NpcPath(), spawn.file),
+                       spawn.position.direction)) {
+            BL_LOG_ERROR << "Failed to load NPC: " << spawn.file;
             return bl::entity::InvalidEntity;
         }
         BL_LOG_INFO << "Spawning NPC " << data.name() << " at ("
-                    << static_cast<int>(spawn.position.getValue().level) << ", "
-                    << spawn.position.getValue().positionTiles().x << ", "
-                    << spawn.position.getValue().positionTiles().y << ")";
+                    << static_cast<int>(spawn.position.level) << ", "
+                    << spawn.position.positionTiles().x << ", " << spawn.position.positionTiles().y
+                    << ")";
 
         if (!owner.ai().addBehavior(entity, data.behavior())) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
@@ -88,24 +88,24 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     }
 
     // Trainer
-    else if (bl::file::Util::getExtension(spawn.file) == Properties::TrainerFileExtension()) {
+    else if (bl::util::FileUtil::getExtension(spawn.file) == Properties::TrainerFileExtension()) {
         file::Trainer data;
-        if (!data.load(bl::file::Util::joinPath(Properties::TrainerPath(), spawn.file),
-                       spawn.position.getValue().direction)) {
-            BL_LOG_ERROR << "Failed to load trainer: " << spawn.file.getValue();
+        if (!data.load(bl::util::FileUtil::joinPath(Properties::TrainerPath(), spawn.file),
+                       spawn.position.direction)) {
+            BL_LOG_ERROR << "Failed to load trainer: " << spawn.file;
             return bl::entity::InvalidEntity;
         }
-        BL_LOG_INFO << "Spawning trainer " << data.name() << " at ("
-                    << static_cast<int>(spawn.position.getValue().level) << ", "
-                    << spawn.position.getValue().positionTiles().x << ", "
-                    << spawn.position.getValue().positionTiles().y << ")";
+        BL_LOG_INFO << "Spawning trainer " << data.name << " at ("
+                    << static_cast<int>(spawn.position.level) << ", "
+                    << spawn.position.positionTiles().x << ", " << spawn.position.positionTiles().y
+                    << ")";
 
-        if (!owner.ai().addBehavior(entity, data.behavior())) {
+        if (!owner.ai().addBehavior(entity, data.behavior)) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
             return bl::entity::InvalidEntity;
         }
 
-        animation = data.animation();
+        animation = data.animation;
 
         /*if (!owner.engine().entities().addComponent<component::Trainer>(entity,
                                                                         component::Trainer(data))) {
@@ -114,7 +114,7 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
         }*/
     }
     else {
-        BL_LOG_ERROR << "Unknown character file type: " << spawn.file.getValue();
+        BL_LOG_ERROR << "Unknown character file type: " << spawn.file;
         return bl::entity::InvalidEntity;
     }
 
@@ -125,7 +125,7 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             component::Renderable::fromMoveAnims(
                 posHandle,
                 moveHandle,
-                bl::file::Util::joinPath(Properties::CharacterAnimationPath(), animation)))) {
+                bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animation)))) {
         BL_LOG_ERROR << "Failed to add renderable component to character: " << entity;
         return bl::entity::InvalidEntity;
     }
@@ -136,11 +136,10 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
 bool Entity::spawnItem(const map::Item& item) {
     const item::Id id = item::Item::cast(item.id);
-    BL_LOG_INFO << "Spawning item " << item.id.getValue() << " (" << item::Item::getName(id)
-                << ") at (" << item.position.getValue().x << " , " << item.position.getValue().y
-                << ")";
+    BL_LOG_INFO << "Spawning item " << item.id << " (" << item::Item::getName(id) << ") at ("
+                << item.position.x << " , " << item.position.y << ")";
     if (id == item::Id::Unknown) {
-        BL_LOG_ERROR << "Unknown item id: " << item.id.getValue();
+        BL_LOG_ERROR << "Unknown item id: " << item.id;
         return false;
     }
 

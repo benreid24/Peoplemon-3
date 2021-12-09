@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_EVENT_HPP
 #define CORE_MAPS_EVENT_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <cstdint>
 #include <string>
@@ -16,7 +16,7 @@ namespace map
  * @ingroup Maps
  *
  */
-struct Event : public bl::file::binary::SerializableObject {
+struct Event {
     /// What action triggers the event
     enum struct Trigger : std::uint8_t {
         /// The event triggers when the player steps into the zone
@@ -35,10 +35,10 @@ struct Event : public bl::file::binary::SerializableObject {
         OnInteract = 5
     };
 
-    bl::file::binary::SerializableField<1, Trigger> trigger;
-    bl::file::binary::SerializableField<2, sf::Vector2i> position;
-    bl::file::binary::SerializableField<3, sf::Vector2i> areaSize;
-    bl::file::binary::SerializableField<4, std::string> script;
+    Trigger trigger;
+    sf::Vector2i position;
+    sf::Vector2i areaSize;
+    std::string script;
 
     /**
      * @brief Creates an empty event
@@ -56,24 +56,35 @@ struct Event : public bl::file::binary::SerializableObject {
      */
     Event(const std::string& script, const sf::Vector2i& pos, const sf::Vector2i& size,
           Trigger trigger);
-
-    /**
-     * @brief Copy constructs the event
-     *
-     * @param copy The event to copy from
-     */
-    Event(const Event& copy);
-
-    /**
-     * @brief Copies from the given event
-     *
-     * @param copy The event to copy
-     * @return Event& A reference to this event
-     */
-    Event& operator=(const Event& copy);
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Event> : public SerializableObjectBase {
+    using E = core::map::Event;
+
+    SerializableField<1, E, core::map::Event::Trigger> trigger;
+    SerializableField<2, E, sf::Vector2i> position;
+    SerializableField<3, E, sf::Vector2i> areaSize;
+    SerializableField<4, E, std::string> script;
+
+    SerializableObject()
+    : trigger(*this, &E::trigger)
+    , position(*this, &E::position)
+    , areaSize(*this, &E::areaSize)
+    , script(*this, &E::script) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

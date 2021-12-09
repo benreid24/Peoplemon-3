@@ -8,8 +8,8 @@ namespace map
 {
 namespace loaders
 {
-struct LegacyTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Tileset> {
-    virtual bool read(Tileset& tileset, bl::file::binary::File& input) const override {
+struct LegacyTilesetLoader : public bl::serial::binary::SerializerVersion<Tileset> {
+    virtual bool read(Tileset& tileset, bl::serial::binary::InputStream& input) const override {
         std::uint16_t n = 0;
 
         if (!input.read<std::uint16_t>(n)) return false;
@@ -18,7 +18,7 @@ struct LegacyTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Til
             std::uint16_t id;
             if (!input.read<std::uint16_t>(id)) return false;
             if (!input.read(path)) return false;
-            tileset.textureFiles.getValue().emplace(id, path);
+            tileset.textureFiles.emplace(id, path);
         }
 
         if (!input.read<std::uint16_t>(n)) return false;
@@ -27,25 +27,28 @@ struct LegacyTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Til
             std::uint16_t id;
             if (!input.read<std::uint16_t>(id)) return false;
             if (!input.read(path)) return false;
-            tileset.animFiles.getValue().emplace(id, path);
+            tileset.animFiles.emplace(id, path);
         }
 
         return true;
     }
 
-    virtual bool write(const Tileset&, bl::file::binary::File&) const override {
+    virtual bool write(const Tileset&, bl::serial::binary::OutputStream&) const override {
         // unimplemented
         return false;
     }
 };
 
-struct PrimaryTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Tileset> {
-    virtual bool read(Tileset& tileset, bl::file::binary::File& input) const override {
-        return tileset.deserialize(input);
+struct PrimaryTilesetLoader : public bl::serial::binary::SerializerVersion<Tileset> {
+    using Serializer = bl::serial::binary::Serializer<Tileset>;
+
+    virtual bool read(Tileset& tileset, bl::serial::binary::InputStream& input) const override {
+        return Serializer::deserialize(input, tileset);
     }
 
-    virtual bool write(const Tileset& tileset, bl::file::binary::File& output) const override {
-        return tileset.serialize(output);
+    virtual bool write(const Tileset& tileset,
+                       bl::serial::binary::OutputStream& output) const override {
+        return Serializer::serialize(output, tileset);
     }
 };
 
@@ -53,57 +56,41 @@ struct PrimaryTilesetLoader : public bl::file::binary::VersionedPayloadLoader<Ti
 
 namespace
 {
-using VersionedLoader = bl::file::binary::VersionedFile<Tileset, loaders::LegacyTilesetLoader,
-                                                        loaders::PrimaryTilesetLoader>;
+using VersionedSerializer =
+    bl::serial::binary::VersionedSerializer<Tileset, loaders::LegacyTilesetLoader,
+                                            loaders::PrimaryTilesetLoader>;
 }
 
 // TODO - figure out if paths need to be prepended
 // TODO - ensure spritesheet found for animations brought in
 
 Tileset::Tileset()
-: textureFiles(*this)
-, animFiles(*this)
-, nextTextureId(1)
+: nextTextureId(1)
 , nextAnimationId(1) {}
 
-Tileset::Tileset(const Tileset& copy)
-: Tileset() {
-    *this = copy;
-}
-
-Tileset& Tileset::operator=(const Tileset& copy) {
-    textureFiles     = copy.textureFiles;
-    animFiles        = copy.animFiles;
-    nextTextureId    = copy.nextTextureId;
-    nextAnimationId  = copy.nextAnimationId;
-    textures         = copy.textures;
-    anims            = copy.anims;
-    sharedAnimations = copy.sharedAnimations;
-    return *this;
-}
-
 Tile::IdType Tileset::addTexture(const std::string& uri) {
-    textureFiles.getValue().emplace(nextTextureId, uri);
+    textureFiles.emplace(nextTextureId, uri);
     textures.emplace(nextTextureId,
                      bl::engine::Resources::textures()
-                         .load(bl::file::Util::joinPath(Properties::MapTilePath(), uri))
+                         .load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), uri))
                          .data);
     return nextTextureId++;
 }
 
 void Tileset::removeTexture(Tile::IdType id) {
-    textureFiles.getValue().erase(id);
+    textureFiles.erase(id);
     textures.erase(id);
 }
 
 Tile::IdType Tileset::addAnimation(const std::string& uri) {
-    animFiles.getValue().emplace(nextAnimationId, uri);
-    auto it = anims
-                  .emplace(nextAnimationId,
-                           bl::engine::Resources::animations()
-                               .load(bl::file::Util::joinPath(Properties::MapAnimationPath(), uri))
-                               .data)
-                  .first;
+    animFiles.emplace(nextAnimationId, uri);
+    auto it =
+        anims
+            .emplace(nextAnimationId,
+                     bl::engine::Resources::animations()
+                         .load(bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), uri))
+                         .data)
+            .first;
     if (it->second->isLooping()) {
         auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
         jit->second.play();
@@ -112,7 +99,7 @@ Tile::IdType Tileset::addAnimation(const std::string& uri) {
 }
 
 void Tileset::removeAnimation(Tile::IdType id) {
-    animFiles.getValue().erase(id);
+    animFiles.erase(id);
     anims.erase(id);
     sharedAnimations.erase(id);
 }
@@ -173,33 +160,32 @@ void Tileset::update(float dt) {
 }
 
 bool Tileset::load(const std::string& file) {
-    textureFiles.getValue().clear();
-    animFiles.getValue().clear();
+    textureFiles.clear();
+    animFiles.clear();
     nextTextureId = nextAnimationId = 1;
     textures.clear();
     anims.clear();
     sharedAnimations.clear();
 
-    bl::file::binary::File input(bl::file::Util::joinPath(Properties::TilesetPath(), file),
-                                 bl::file::binary::File::Read);
-    VersionedLoader loader;
-    if (!loader.read(input, *this)) return false;
+    bl::serial::binary::InputFile input(
+        bl::util::FileUtil::joinPath(Properties::TilesetPath(), file));
+    if (!VersionedSerializer::read(input, *this)) return false;
 
-    for (const auto& tpair : textureFiles.getValue()) {
+    for (const auto& tpair : textureFiles) {
         textures.emplace(
             tpair.first,
             bl::engine::Resources::textures()
-                .load(bl::file::Util::joinPath(Properties::MapTilePath(), tpair.second))
+                .load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), tpair.second))
                 .data);
         if (tpair.first >= nextTextureId) nextTextureId = tpair.first + 1;
     }
 
-    for (const auto& apair : animFiles.getValue()) {
+    for (const auto& apair : animFiles) {
         auto it = anims
                       .emplace(apair.first,
                                bl::engine::Resources::animations()
-                                   .load(bl::file::Util::joinPath(Properties::MapAnimationPath(),
-                                                                  apair.second))
+                                   .load(bl::util::FileUtil::joinPath(
+                                       Properties::MapAnimationPath(), apair.second))
                                    .data)
                       .first;
         if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
@@ -210,10 +196,9 @@ bool Tileset::load(const std::string& file) {
 }
 
 bool Tileset::save(const std::string& file) const {
-    bl::file::binary::File output(bl::file::Util::joinPath(Properties::TilesetPath(), file),
-                                  bl::file::binary::File::Write);
-    VersionedLoader loader;
-    return loader.write(output, *this);
+    bl::serial::binary::OutputFile output(
+        bl::util::FileUtil::joinPath(Properties::TilesetPath(), file));
+    return VersionedSerializer::write(output, *this);
 }
 
 bl::resource::Resource<sf::Texture>::Ref Tileset::getTile(Tile::IdType id) {

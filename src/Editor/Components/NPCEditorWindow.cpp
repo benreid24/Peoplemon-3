@@ -12,7 +12,7 @@ namespace
 const std::string EmptyFile = "<no file selected>";
 }
 using namespace bl::gui;
-using FileUtil = bl::file::Util;
+using FileUtil = bl::util::FileUtil;
 
 NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
 : selectCb(cb)
@@ -72,8 +72,8 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             npc.conversation() = convLabel->getText();
             npc.animation()    = animLabel->getText();
             npc.behavior()     = behaviorEditor.getValue();
-            if (!npc.save(
-                    bl::file::Util::joinPath(core::Properties::NpcPath(), fileLabel->getText()))) {
+            if (!npc.save(bl::util::FileUtil::joinPath(core::Properties::NpcPath(),
+                                                       fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save NPC", "ok", "error", 1);
             }
             else {
@@ -163,7 +163,7 @@ void NpcEditorWindow::show(GUI::Ptr p, const std::string& file) {
 
 void NpcEditorWindow::onChooseFile(const std::string& file) {
     const std::string f =
-        bl::file::Util::getExtension(file) == core::Properties::NpcFileExtension() ?
+        bl::util::FileUtil::getExtension(file) == core::Properties::NpcFileExtension() ?
             file :
             file + "." + core::Properties::NpcFileExtension();
     filePicker.close();

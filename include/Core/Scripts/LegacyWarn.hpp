@@ -1,8 +1,8 @@
 #ifndef CORE_SCRIPTS_LEGACYWARN_HPP
 #define CORE_SCRIPTS_LEGACYWARN_HPP
 
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
 #include <string>
 
@@ -25,9 +25,9 @@ struct LegacyWarn {
 
 inline void LegacyWarn::warn(const std::string& script) {
 #ifdef PEOPLEMON_DEBUG
-    if (bl::file::Util::getExtension(script) == "psc") {
+    if (bl::util::FileUtil::getExtension(script) == "psc") {
         BL_LOG_WARN << "Tried to load legacy script: "
-                    << bl::file::Util::joinPath(Properties::ScriptPath(), script);
+                    << bl::util::FileUtil::joinPath(Properties::ScriptPath(), script);
     }
 #else
     (void)script;

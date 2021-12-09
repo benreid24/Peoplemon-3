@@ -2,8 +2,8 @@
 
 #include <BLIB/Engine/Configuration.hpp>
 #include <BLIB/Engine/Resources.hpp>
-#include <BLIB/Files/Util.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 
 namespace core
 {
@@ -80,8 +80,10 @@ const std::string CharacterAnimationPath = "Resources/Characters/Animations";
 constexpr float CharacterMoveSpeed       = 81.f;
 constexpr float FastCharacterMoveSpeed   = 205.f;
 
-const std::string BoyPlayerAnims  = bl::file::Util::joinPath(CharacterAnimationPath, "BoyPlayer");
-const std::string GirlPlayerAnims = bl::file::Util::joinPath(CharacterAnimationPath, "GirlPlayer");
+const std::string BoyPlayerAnims =
+    bl::util::FileUtil::joinPath(CharacterAnimationPath, "BoyPlayer");
+const std::string GirlPlayerAnims =
+    bl::util::FileUtil::joinPath(CharacterAnimationPath, "GirlPlayer");
 
 const float CharacterSpinPeriod = 1.75f;
 

@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_STATS_HPP
 #define CORE_PEOPLEMON_STATS_HPP
 
-#include <BLIB/Files/Binary/Serializer.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Peoplemon/Stat.hpp>
 #include <array>
 
@@ -110,7 +110,7 @@ struct Stats {
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace binary
 {
@@ -118,7 +118,7 @@ using core::pplmn::Stats;
 
 template<>
 struct Serializer<Stats> {
-    static bool serialize(File& output, const Stats& v) {
+    static bool serialize(OutputStream& output, const Stats& v) {
         if (!output.write<std::uint16_t>(v.hp)) return false;
         if (!output.write<std::uint16_t>(v.atk)) return false;
         if (!output.write<std::uint16_t>(v.def)) return false;
@@ -128,7 +128,7 @@ struct Serializer<Stats> {
         return true;
     }
 
-    static bool deserialize(File& input, Stats& v) {
+    static bool deserialize(InputStream& input, Stats& v) {
         std::uint16_t val = 0;
         if (!input.read<std::uint16_t>(val)) return false;
         v.hp = val;
@@ -149,7 +149,7 @@ struct Serializer<Stats> {
 };
 
 } // namespace binary
-} // namespace file
+} // namespace serial
 } // namespace bl
 
 #endif

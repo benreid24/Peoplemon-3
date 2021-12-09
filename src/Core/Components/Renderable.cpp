@@ -1,7 +1,7 @@
 #include <Core/Components/Renderable.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
-#include <BLIB/Files/Util.hpp>
+#include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -30,14 +30,18 @@ Renderable Renderable::fromMoveAnims(
     MoveAnims& mv = *new MoveAnims(movable);
     rc.data.reset(&mv);
 
-    mv.data[0] =
-        bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "up.anim")).data;
-    mv.data[1] =
-        bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "right.anim")).data;
-    mv.data[2] =
-        bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "down.anim")).data;
-    mv.data[3] =
-        bl::engine::Resources::animations().load(bl::file::Util::joinPath(path, "left.anim")).data;
+    mv.data[0] = bl::engine::Resources::animations()
+                     .load(bl::util::FileUtil::joinPath(path, "up.anim"))
+                     .data;
+    mv.data[1] = bl::engine::Resources::animations()
+                     .load(bl::util::FileUtil::joinPath(path, "right.anim"))
+                     .data;
+    mv.data[2] = bl::engine::Resources::animations()
+                     .load(bl::util::FileUtil::joinPath(path, "down.anim"))
+                     .data;
+    mv.data[3] = bl::engine::Resources::animations()
+                     .load(bl::util::FileUtil::joinPath(path, "left.anim"))
+                     .data;
 
     mv.anim.setData(*mv.data[0]);
     mv.anim.setIsCentered(false);
@@ -54,32 +58,33 @@ Renderable Renderable::fromFastMoveAnims(
     FastMoveAnims& mv = *new FastMoveAnims(movable);
     rc.data.reset(&mv);
 
-    const std::string walkPath = bl::file::Util::joinPath(path, "Walk");
-    const std::string runPath  = bl::file::Util::joinPath(path, "Run");
+    const std::string walkPath = bl::util::FileUtil::joinPath(path, "Walk");
+    const std::string runPath  = bl::util::FileUtil::joinPath(path, "Run");
 
     mv.walk[0] = bl::engine::Resources::animations()
-                     .load(bl::file::Util::joinPath(walkPath, "up.anim"))
+                     .load(bl::util::FileUtil::joinPath(walkPath, "up.anim"))
                      .data;
     mv.walk[1] = bl::engine::Resources::animations()
-                     .load(bl::file::Util::joinPath(walkPath, "right.anim"))
+                     .load(bl::util::FileUtil::joinPath(walkPath, "right.anim"))
                      .data;
     mv.walk[2] = bl::engine::Resources::animations()
-                     .load(bl::file::Util::joinPath(walkPath, "down.anim"))
+                     .load(bl::util::FileUtil::joinPath(walkPath, "down.anim"))
                      .data;
     mv.walk[3] = bl::engine::Resources::animations()
-                     .load(bl::file::Util::joinPath(walkPath, "left.anim"))
+                     .load(bl::util::FileUtil::joinPath(walkPath, "left.anim"))
                      .data;
 
-    mv.run[0] =
-        bl::engine::Resources::animations().load(bl::file::Util::joinPath(runPath, "up.anim")).data;
+    mv.run[0] = bl::engine::Resources::animations()
+                    .load(bl::util::FileUtil::joinPath(runPath, "up.anim"))
+                    .data;
     mv.run[1] = bl::engine::Resources::animations()
-                    .load(bl::file::Util::joinPath(runPath, "right.anim"))
+                    .load(bl::util::FileUtil::joinPath(runPath, "right.anim"))
                     .data;
     mv.run[2] = bl::engine::Resources::animations()
-                    .load(bl::file::Util::joinPath(runPath, "down.anim"))
+                    .load(bl::util::FileUtil::joinPath(runPath, "down.anim"))
                     .data;
     mv.run[3] = bl::engine::Resources::animations()
-                    .load(bl::file::Util::joinPath(runPath, "left.anim"))
+                    .load(bl::util::FileUtil::joinPath(runPath, "left.anim"))
                     .data;
 
     mv.anim.setData(*mv.walk[0]);

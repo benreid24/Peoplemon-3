@@ -16,16 +16,16 @@ namespace map
 {
 namespace loaders
 {
-class LegacyMapLoader : public bl::file::binary::VersionedPayloadLoader<Map> {
+class LegacyMapLoader : public bl::serial::binary::SerializerVersion<Map> {
 public:
-    virtual bool read(Map& result, bl::file::binary::File& input) const override {
-        if (!input.read(result.nameField.getValue())) return false;
-        if (!input.read(result.tilesetField.getValue())) return false;
-        if (!input.read(result.playlistField.getValue())) return false;
-        if (!input.read(result.loadScriptField.getValue())) return false;
-        if (!input.read(result.unloadScriptField.getValue())) return false;
+    virtual bool read(Map& result, bl::serial::binary::InputStream& input) const override {
+        if (!input.read(result.nameField)) return false;
+        if (!input.read(result.tilesetField)) return false;
+        if (!input.read(result.playlistField)) return false;
+        if (!input.read(result.loadScriptField)) return false;
+        if (!input.read(result.unloadScriptField)) return false;
 
-        BL_LOG_INFO << "Legacy map: " << result.nameField.getValue();
+        BL_LOG_INFO << "Legacy map: " << result.nameField;
 
         std::uint32_t width, height;
         std::uint16_t layerCount, firstTopLayer, firstYSortLayer;
@@ -40,7 +40,7 @@ public:
                                    firstYSortLayer,
                                    firstTopLayer - firstYSortLayer,
                                    layerCount - firstTopLayer);
-        result.transitionField.getValue().setSize(width, height, LevelTransition::None);
+        result.transitionField.setSize(width, height, LevelTransition::None);
 
         std::uint8_t weatherType;
         if (!input.read(weatherType)) return false;
@@ -67,10 +67,10 @@ public:
 
             std::uint16_t pplCount;
             if (!input.read(pplCount)) return false;
-            zone.peoplemon.getValue().reserve(pplCount);
+            zone.peoplemon.reserve(pplCount);
             for (unsigned int j = 0; j < pplCount; ++j) {
-                zone.peoplemon.getValue().push_back({});
-                if (!input.read(zone.peoplemon.getValue().back())) return false;
+                zone.peoplemon.push_back({});
+                if (!input.read(zone.peoplemon.back())) return false;
             }
         }
 
@@ -135,7 +135,7 @@ public:
             pos.direction = static_cast<component::Direction>(dir);
             pos.setTiles(
                 {static_cast<int>(std::floor(x / 32)), static_cast<int>(std::floor(y / 32))});
-            result.spawnField.getValue().try_emplace(id, id, pos);
+            result.spawns.try_emplace(id, id, pos);
         }
 
         std::uint16_t characterCount;
@@ -148,7 +148,7 @@ public:
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
             if (!input.read(dir)) return false;
-            result.characterField.getValue().emplace_back(
+            result.characterField.emplace_back(
                 component::Position(
                     0, sf::Vector2i(x / 32, y / 32), static_cast<component::Direction>(dir)),
                 file);
@@ -160,19 +160,19 @@ public:
             std::uint32_t x, y;
             Item item;
             item.level = 0;
-            if (!input.read(item.id.getValue())) return false;
-            if (!input.read(item.mapId.getValue())) return false;
+            if (!input.read(item.id)) return false;
+            if (!input.read(item.mapId)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
-            item.position.getValue() = sf::Vector2i(x / 32, y / 32); // TODO - add/sub 1?
-            if (item.id.getValue() > 500) {
-                item.id      = item.id.getValue() - 500;
+            item.position = sf::Vector2i(x / 32, y / 32); // TODO - add/sub 1?
+            if (item.id > 500) {
+                item.id      = item.id - 500;
                 item.visible = false;
             }
             else {
                 item.visible = true;
             }
-            result.itemsField.getValue().push_back(item);
+            result.itemsField.push_back(item);
         }
 
         std::uint16_t lightCount;
@@ -182,9 +182,9 @@ public:
             std::uint32_t x, y;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
-            if (!input.read(light.radius.getValue())) return false;
-            light.position.getValue() = sf::Vector2i(x, y);
-            result.lightsField.getValue().addLight(light, true);
+            if (!input.read(light.radius)) return false;
+            light.position = sf::Vector2i(x, y);
+            result.lighting.addLight(light, true);
         }
 
         std::uint16_t eventCount;
@@ -207,85 +207,71 @@ public:
             y /= 32;
 
             // separate embedded legacy scripts out into files to make conversion easier
-            if (bl::file::Util::getExtension(script) != "psc") {
+            if (bl::util::FileUtil::getExtension(script) != "psc") {
                 bl::script::Script test(script);
                 if (!test.valid() && !script.empty()) {
                     const std::string filename =
                         "legacy_event_" + std::to_string(x) + "_" + std::to_string(y) + ".psc";
                     const std::string path =
-                        bl::file::Util::joinPath(Properties::ScriptPath(), result.name());
-                    if (!bl::file::Util::createDirectory(path))
+                        bl::util::FileUtil::joinPath(Properties::ScriptPath(), result.name());
+                    if (!bl::util::FileUtil::createDirectory(path))
                         BL_LOG_ERROR << "Failed to mkdir: " << path;
-                    const std::string fullfile = bl::file::Util::joinPath(path, filename);
+                    const std::string fullfile = bl::util::FileUtil::joinPath(path, filename);
                     std::ofstream output(fullfile.c_str());
                     output << script;
-                    script = bl::file::Util::joinPath(result.name(), filename);
+                    script = bl::util::FileUtil::joinPath(result.name(), filename);
                     BL_LOG_WARN << "Legacy script requires conversion: " << fullfile;
                 }
             }
 
             if (!script.empty()) {
-                result.eventsField.getValue().emplace_back(script,
-                                                           sf::Vector2i(x, y),
-                                                           sf::Vector2i(w, h),
-                                                           static_cast<Event::Trigger>(trigger));
+                result.eventsField.emplace_back(script,
+                                                sf::Vector2i(x, y),
+                                                sf::Vector2i(w, h),
+                                                static_cast<Event::Trigger>(trigger));
             }
         }
 
         return true;
     }
 
-    virtual bool write(const Map&, bl::file::binary::File&) const override {
+    virtual bool write(const Map&, bl::serial::binary::OutputStream&) const override {
         // unimplemented
         return false;
     }
 };
 
-class PrimaryMapLoader : public bl::file::binary::VersionedPayloadLoader<Map> {
+class PrimaryMapLoader : public bl::serial::binary::SerializerVersion<Map> {
+    using Serializer = bl::serial::binary::Serializer<Map>;
+
 public:
-    virtual bool read(Map& result, bl::file::binary::File& input) const override {
-        return result.deserialize(input);
+    virtual bool read(Map& result, bl::serial::binary::InputStream& input) const override {
+        return Serializer::deserialize(input, result);
     }
 
-    virtual bool write(const Map& map, bl::file::binary::File& output) const override {
-        return map.serialize(output);
+    virtual bool write(const Map& map, bl::serial::binary::OutputStream& output) const override {
+        return Serializer::serialize(output, map);
     }
 };
 
 } // namespace loaders
 namespace
 {
-using VersionedLoader =
-    bl::file::binary::VersionedFile<Map, loaders::LegacyMapLoader, loaders::PrimaryMapLoader>;
+using VersionedSerializer = bl::serial::binary::VersionedSerializer<Map, loaders::LegacyMapLoader,
+                                                                    loaders::PrimaryMapLoader>;
 
 }
 
 Map::Map()
-: nameField(*this)
-, loadScriptField(*this)
-, unloadScriptField(*this)
-, playlistField(*this)
-, weatherField(*this)
-, levelsField(*this)
-, tilesetField(*this)
-, spawnField(*this)
-, characterField(*this)
-, itemsField(*this)
-, eventsField(*this)
-, lightsField(*this)
-, catchZonesField(*this)
-, transitionField(*this)
+: weatherField(Weather::None)
 , systems(nullptr)
-, levels(levelsField.getValue())
-, spawns(spawnField.getValue())
-, lighting(lightsField.getValue())
 , eventRegions(100.f, 100.f, 100.f, 100.f)
 , activated(false) {
     cover.setFillColor(sf::Color::Black);
 }
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
-    BL_LOG_INFO << "Entering map " << nameField.getValue() << " at spawn " << spawnId;
+    BL_LOG_INFO << "Entering map " << nameField << " at spawn " << spawnId;
 
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
@@ -316,7 +302,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // One time activation if not yet activated
     if (!activated) {
         activated = true;
-        BL_LOG_INFO << "Activating map " << nameField.getValue();
+        BL_LOG_INFO << "Activating map " << nameField;
 
         // Load tileset and init tiles
         tileset = Resources::tilesets().load(tilesetField).data;
@@ -325,9 +311,9 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         for (LayerSet& level : levels) { level.activate(*tileset); }
 
         // Initialize weather, lighting, and wild peoplemon
-        weather.set(weatherField.getValue());
+        weather.set(weatherField);
         lighting.activate(size);
-        for (CatchZone& zone : catchZonesField.getValue()) { zone.activate(); }
+        for (CatchZone& zone : catchZonesField) { zone.activate(); }
 
         // Load and parse scripts
         script::LegacyWarn::warn(loadScriptField);
@@ -340,28 +326,27 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
                              static_cast<float>(size.y * Properties::PixelsPerTile()),
                              static_cast<float>(Properties::WindowWidth()),
                              static_cast<float>(Properties::WindowHeight()));
-        for (const Event& event : eventsField.getValue()) {
-            eventRegions.add(
-                static_cast<float>(event.position.getValue().x * Properties::PixelsPerTile()),
-                static_cast<float>(event.position.getValue().y * Properties::PixelsPerTile()),
-                &event);
+        for (const Event& event : eventsField) {
+            eventRegions.add(static_cast<float>(event.position.x * Properties::PixelsPerTile()),
+                             static_cast<float>(event.position.y * Properties::PixelsPerTile()),
+                             &event);
         }
 
-        BL_LOG_INFO << nameField.getValue() << " activated";
+        BL_LOG_INFO << nameField << " activated";
     }
 
     // Ensure lighting is updated for time
     lighting.subscribe(game.engine().eventBus());
 
     // Spawn npcs and trainers
-    for (const CharacterSpawn& spawn : characterField.getValue()) {
+    for (const CharacterSpawn& spawn : characterField) {
         if (game.entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
-            BL_LOG_WARN << "Failed to spawn character: " << spawn.file.getValue();
+            BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
     // Spawn items
-    for (const Item& item : itemsField.getValue()) { game.entity().spawnItem(item); }
+    for (const Item& item : itemsField) { game.entity().spawnItem(item); }
 
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));
@@ -371,13 +356,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     game.engine().eventBus().subscribe(this);
 
     game.engine().eventBus().dispatch<event::MapEntered>({*this});
-    BL_LOG_INFO << "Entered map: " << nameField.getValue();
+    BL_LOG_INFO << "Entered map: " << nameField;
 
     return true;
 }
 
 void Map::exit(system::Systems& game, const std::string& newMap) {
-    BL_LOG_INFO << "Exiting map " << nameField.getValue();
+    BL_LOG_INFO << "Exiting map " << nameField;
     game.engine().eventBus().dispatch<event::MapExited>({*this});
 
     // unsubscribe from entity events
@@ -393,10 +378,10 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
 
-    BL_LOG_INFO << "Exited map: " << nameField.getValue();
+    BL_LOG_INFO << "Exited map: " << nameField;
 }
 
-const std::string& Map::name() const { return nameField.getValue(); }
+const std::string& Map::name() const { return nameField; }
 
 const sf::Vector2i& Map::sizeTiles() const { return size; }
 
@@ -442,7 +427,7 @@ void Map::render(sf::RenderTarget& target, float residual,
     };
 
     for (unsigned int i = 0; i < levels.size(); ++i) {
-        LayerSet& level = levels[i];
+        const LayerSet& level = levels[i];
 
         for (const TileLayer& layer : level.bottomLayers()) {
             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
@@ -468,22 +453,21 @@ bool Map::load(const std::string& file) {
     BL_LOG_INFO << "Loading map " << file;
     renderRange = sf::IntRect(0, 0, 1, 1);
 
-    std::string path = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
-    if (!bl::file::Util::exists(path)) path = bl::file::Util::joinPath(Properties::MapPath(), path);
-    if (!bl::file::Util::exists(path)) {
+    std::string path = bl::util::FileUtil::getExtension(file) == "map" ? file : file + ".map";
+    if (!bl::util::FileUtil::exists(path))
+        path = bl::util::FileUtil::joinPath(Properties::MapPath(), path);
+    if (!bl::util::FileUtil::exists(path)) {
         BL_LOG_ERROR << "Failed to find map '" << file << "'. Tried '" << path << "'";
         return false;
     }
-    VersionedLoader loader;
-    bl::file::binary::File input(path, bl::file::binary::File::Read);
-    return loader.read(input, *this);
+    bl::serial::binary::InputFile input(path);
+    return VersionedSerializer::read(input, *this);
 }
 
 bool Map::save(const std::string& file) {
-    bl::file::binary::File output(bl::file::Util::joinPath(Properties::MapPath(), file),
-                                  bl::file::binary::File::Write);
-    VersionedLoader loader;
-    return loader.write(output, *this);
+    bl::serial::binary::OutputFile output(
+        bl::util::FileUtil::joinPath(Properties::MapPath(), file));
+    return VersionedSerializer::write(output, *this);
 }
 
 bool Map::contains(const component::Position& pos) const {
@@ -499,7 +483,7 @@ component::Position Map::adjacentTile(const component::Position& pos,
 
     // Handle up transitions (move out of tile)
     if (contains(pos)) {
-        switch (transitionField.getValue()(pos.positionTiles().x, pos.positionTiles().y)) {
+        switch (transitionField(pos.positionTiles().x, pos.positionTiles().y)) {
         case LevelTransition::HorizontalRightDown:
             if (dir == component::Direction::Left) npos.level += 1;
             break;
@@ -518,7 +502,7 @@ component::Position Map::adjacentTile(const component::Position& pos,
     }
 
     if (contains(npos)) {
-        switch (transitionField.getValue()(npos.positionTiles().x, npos.positionTiles().y)) {
+        switch (transitionField(npos.positionTiles().x, npos.positionTiles().y)) {
         case LevelTransition::HorizontalRightDown:
             if (dir == component::Direction::Right) npos.level -= 1;
             break;
@@ -602,8 +586,8 @@ void Map::observe(const event::EntityMoved& movedEvent) {
 
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
-        BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.getValue().x
-                    << ", " << event.position.getValue().y << ")";
+        BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.x << ", "
+                    << event.position.y << ")";
         bl::script::Script s(
             event.script,
             script::MapEventContext(*systems, movedEvent.entity, event, movedEvent.position));
@@ -614,11 +598,11 @@ void Map::observe(const event::EntityMoved& movedEvent) {
                                                         movedEvent.position.positionPixels().y);
     for (const auto& it : range) {
         const Event& e = *it.get();
-        const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
+        const sf::IntRect area(e.position, e.areaSize);
         const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
         const bool isIn  = area.contains(movedEvent.position.positionTiles());
 
-        switch (e.trigger.getValue()) {
+        switch (e.trigger) {
         case Event::Trigger::OnEnter:
             if (!wasIn && isIn) trigger(e);
             break;
@@ -673,9 +657,8 @@ bool Map::interact(bl::entity::Entity interactor, const component::Position& pos
         eventRegions.getCellAndNeighbors(pos.positionPixels().x, pos.positionPixels().y);
     for (const auto& it : range) {
         const Event& e = *it.get();
-        const sf::IntRect area(e.position.getValue(), e.areaSize.getValue());
-        if (area.contains(pos.positionTiles()) &&
-            e.trigger.getValue() == Event::Trigger::OnInteract) {
+        const sf::IntRect area(e.position, e.areaSize);
+        if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {
             trigger(e);
             return true;
         }
@@ -685,14 +668,14 @@ bool Map::interact(bl::entity::Entity interactor, const component::Position& pos
 }
 
 void Map::clear() {
-    levelsField.getValue().clear();
-    spawnField.getValue().clear();
-    characterField.getValue().clear();
-    itemsField.getValue().clear();
-    eventsField.getValue().clear();
+    levels.clear();
+    spawns.clear();
+    characterField.clear();
+    itemsField.clear();
+    eventsField.clear();
     lightingSystem().clear();
-    catchZonesField.getValue().clear();
-    transitionField.getValue().clear();
+    catchZonesField.clear();
+    transitionField.clear();
     eventRegions.clear();
     weatherField = Weather::None;
     weather.set(Weather::None, true);

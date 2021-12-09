@@ -1,9 +1,10 @@
 #ifndef CORE_MAPS_CHARACTERSPAWN_HPP
 #define CORE_MAPS_CHARACTERSPAWN_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 
 namespace core
 {
@@ -15,41 +16,48 @@ namespace map
  * @ingroup Maps
  *
  */
-struct CharacterSpawn : public bl::file::binary::SerializableObject {
-    bl::file::binary::SerializableField<1, component::Position> position;
-    bl::file::binary::SerializableField<2, std::string> file;
+struct CharacterSpawn {
+    component::Position position;
+    std::string file;
 
     /**
-     * @brief Creates an empty spawn
+     * @brief Construct a new Character Spawn object
      *
      */
-    CharacterSpawn();
+    CharacterSpawn() = default;
 
     /**
-     * @brief Creates a spawn from the given parameters
+     * @brief Construct a new Character Spawn object
      *
-     * @param pos The position to spawn the character at
-     * @param file The file to load the character from
+     * @param pos The position to spawn at
+     * @param file The file to load from
      */
-    CharacterSpawn(const component::Position& pos, const std::string& file);
-
-    /**
-     * @brief Copy constructs from the given copy spawn
-     *
-     * @param copy The spawn to copy from
-     */
-    CharacterSpawn(const CharacterSpawn& copy);
-
-    /**
-     * @brief Copies from the given spawn
-     *
-     * @param copy The spawn to copy from
-     * @return CharacterSpawn& A reference to this spawn
-     */
-    CharacterSpawn& operator=(const CharacterSpawn& copy);
+    CharacterSpawn(const component::Position& pos, const std::string& file)
+    : position(pos)
+    , file(file) {}
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::CharacterSpawn> : public SerializableObjectBase {
+    SerializableField<1, core::map::CharacterSpawn, core::component::Position> position;
+    SerializableField<2, core::map::CharacterSpawn, std::string> file;
+
+    SerializableObject()
+    : position(*this, &core::map::CharacterSpawn::position)
+    , file(*this, &core::map::CharacterSpawn::file) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

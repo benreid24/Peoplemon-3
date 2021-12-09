@@ -16,14 +16,11 @@ constexpr float AdjustSpeed = 30.f;
 }
 
 LightingSystem::LightingSystem()
-: lightsField(*this)
-, lowLevelField(*this, 175)
-, highLevelField(*this, 255)
-, sunlightField(*this, true)
+: minLevel(175)
+, maxLevel(255)
+, sunlight(1)
 , eventGuard(this)
 , lights(320, 320, 800, 600)
-, minLevel(lowLevelField.getValue())
-, maxLevel(highLevelField.getValue())
 , sunlightFactor(1.f)
 , weatherModifier(0)
 , targetWeatherModifier(0)
@@ -32,23 +29,22 @@ LightingSystem::LightingSystem()
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
     const Handle h =
         bl::util::Random::get<Handle>(static_cast<Handle>(1), std::numeric_limits<Handle>::max());
-    auto ptr = lights.add(
-        light.position.getValue().x, light.position.getValue().y, std::make_pair(h, light));
+    auto ptr = lights.add(light.position.x, light.position.y, std::make_pair(h, light));
     handles.emplace(h, ptr);
 
-    if (p) { lightsField.getValue().push_back(light); }
+    if (p) { rawLights.push_back(light); }
     return h;
 }
 
 void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
     auto it = handles.find(handle);
     if (it == handles.end()) return;
-    it->second->move(light.position.getValue().x, light.position.getValue().y);
+    it->second->move(light.position.x, light.position.y);
     it->second->get().second = light;
 
     if (p) {
-        for (auto& l : lightsField.getValue()) {
-            if (l.position.getValue() == it->second->get().second.position.getValue()) {
+        for (auto& l : rawLights) {
+            if (l.position == it->second->get().second.position) {
                 l = light;
                 break;
             }
@@ -61,9 +57,9 @@ LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& posit
     Handle closest      = None;
     unsigned long cdist = 10000000;
     for (const auto& light : set) {
-        const long dx            = light.get().second.position.getValue().x - position.x;
-        const long dy            = light.get().second.position.getValue().y - position.y;
-        const unsigned int r     = light.get().second.radius.getValue();
+        const long dx            = light.get().second.position.x - position.x;
+        const long dy            = light.get().second.position.y - position.y;
+        const unsigned int r     = light.get().second.radius;
         const unsigned long dist = dx * dx + dy * dy;
         if (dist < cdist && dist < r * r) {
             cdist   = dist;
@@ -84,10 +80,9 @@ void LightingSystem::removeLight(Handle handle, bool p) {
     if (it == handles.end()) return;
 
     if (p) {
-        for (unsigned int i = 0; i < lightsField.getValue().size(); ++i) {
-            if (lightsField.getValue()[i].position.getValue() ==
-                it->second->get().second.position.getValue()) {
-                lightsField.getValue().erase(lightsField.getValue().begin() + i);
+        for (unsigned int i = 0; i < rawLights.size(); ++i) {
+            if (rawLights[i].position == it->second->get().second.position) {
+                rawLights.erase(rawLights.begin() + i);
                 break;
             }
         }
@@ -103,13 +98,13 @@ void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t hi
     levelRange = maxLevel - minLevel;
 }
 
-std::uint8_t LightingSystem::getMinLightLevel() const { return lowLevelField.getValue(); }
+std::uint8_t LightingSystem::getMinLightLevel() const { return minLevel; }
 
-std::uint8_t LightingSystem::getMaxLightLevel() const { return highLevelField.getValue(); }
+std::uint8_t LightingSystem::getMaxLightLevel() const { return maxLevel; }
 
-void LightingSystem::adjustForSunlight(bool a) { sunlightField = a; }
+void LightingSystem::adjustForSunlight(bool a) { sunlight = a ? 1 : 0; }
 
-bool LightingSystem::adjustsForSunlight() const { return sunlightField.getValue(); }
+bool LightingSystem::adjustsForSunlight() const { return sunlight != 0; }
 
 void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
     handles.clear();
@@ -122,7 +117,7 @@ void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
 void LightingSystem::activate(const sf::Vector2i& mapSize) {
     legacyResize(mapSize);
 
-    for (const auto& light : lightsField.getValue()) { addLight(light, false); }
+    for (const auto& light : rawLights) { addLight(light, false); }
 
     renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
                          Properties::LightingHeightTiles() * Properties::PixelsPerTile());
@@ -135,11 +130,11 @@ void LightingSystem::subscribe(bl::event::Dispatcher& bus) { eventGuard.subscrib
 void LightingSystem::unsubscribe() { eventGuard.unsubscribe(); }
 
 void LightingSystem::clear() {
-    lightsField.getValue().clear();
-    highLevelField = 255;
-    lowLevelField  = 75;
-    levelRange     = maxLevel - minLevel;
-    sunlightField  = true;
+    rawLights.clear();
+    maxLevel   = 255;
+    minLevel   = 75;
+    levelRange = maxLevel - minLevel;
+    sunlight   = 1;
     lights.clear();
     handles.clear();
 }
@@ -196,8 +191,8 @@ void LightingSystem::render(sf::RenderTarget& target) {
 
     if (ambient > 80) {
         for (auto& light : lightSet) {
-            circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position.getValue()));
-            circle.setRadius(light.get().second.radius.getValue());
+            circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position));
+            circle.setRadius(light.get().second.radius);
             renderSurface.draw(circle, blendMode);
         }
     }
@@ -209,7 +204,7 @@ void LightingSystem::render(sf::RenderTarget& target) {
 }
 
 void LightingSystem::observe(const event::TimeChange& now) {
-    if (sunlightField.getValue()) {
+    if (adjustsForSunlight()) {
         const float x  = now.newTime.hour * 60 + now.newTime.minute;
         const float n  = 0.7;
         sunlightFactor = 1.f - (0.5 * std::cos(3.1415926 * x / 720) + 0.5) *

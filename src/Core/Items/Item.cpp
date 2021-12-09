@@ -1,6 +1,5 @@
 #include <Core/Items/Item.hpp>
 
-#include <BLIB/Files/JSON.hpp>
 #include <BLIB/Logging.hpp>
 #include <Core/Properties.hpp>
 #include <unordered_map>
@@ -35,9 +34,9 @@ Id Item::cast(unsigned int id) {
 }
 
 void Item::setDataSource(file::ItemDB& db) {
-    names        = &db.names();
-    descriptions = &db.descriptions();
-    values       = &db.values();
+    names        = &db.names;
+    descriptions = &db.descriptions;
+    values       = &db.values;
 
     ids.reserve(names->size());
     for (const auto& p : *names) { ids.emplace_back(p.first); }

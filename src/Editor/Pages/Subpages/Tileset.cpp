@@ -13,13 +13,13 @@ namespace page
 namespace
 {
 std::string makeCopyName(const std::string& dest, const std::string& file) {
-    const std::string& base  = bl::file::Util::getFilename(file);
-    const std::string result = bl::file::Util::joinPath(dest, base);
-    if (bl::file::Util::exists(result)) {
+    const std::string& base  = bl::util::FileUtil::getFilename(file);
+    const std::string result = bl::util::FileUtil::joinPath(dest, base);
+    if (bl::util::FileUtil::exists(result)) {
         std::stringstream ss;
-        ss << bl::file::Util::getBaseName(base) << "_" << std::hex
+        ss << bl::util::FileUtil::getBaseName(base) << "_" << std::hex
            << bl::util::Random::get<int>(1000, 10000000) << "."
-           << bl::file::Util::getExtension(base);
+           << bl::util::FileUtil::getExtension(base);
         return ss.str();
     }
     return base;
@@ -50,13 +50,13 @@ Tileset::Tileset(const DeleteCb& dcb)
             while (std::getline(ss, tile, '|')) {
                 sf::Image img;
                 std::string filename = makeCopyName(core::Properties::MapTilePath(), tile);
-                filename             = bl::file::Util::getBaseName(filename) + ".png";
+                filename             = bl::util::FileUtil::getBaseName(filename) + ".png";
                 if (!img.loadFromFile(tile)) {
                     BL_LOG_ERROR << "Failed to load tile: " << tile;
                     continue;
                 }
                 if (!img.saveToFile(
-                        bl::file::Util::joinPath(core::Properties::MapTilePath(), filename))) {
+                        bl::util::FileUtil::joinPath(core::Properties::MapTilePath(), filename))) {
                     BL_LOG_ERROR << "Failed to copy tile: " << tile << " -> " << filename;
                     continue;
                 }
@@ -110,15 +110,15 @@ Tileset::Tileset(const DeleteCb& dcb)
                 return;
             }
 
-            bl::file::Util::copyFile(
-                file, bl::file::Util::joinPath(core::Properties::MapAnimationPath(), animFile));
-            const std::string sp =
-                bl::file::Util::joinPath(bl::file::Util::getPath(file), anim.spritesheetFile());
-            if (bl::file::Util::exists(sp)) {
-                bl::file::Util::copyFile(
+            bl::util::FileUtil::copyFile(
+                file, bl::util::FileUtil::joinPath(core::Properties::MapAnimationPath(), animFile));
+            const std::string sp = bl::util::FileUtil::joinPath(bl::util::FileUtil::getPath(file),
+                                                                anim.spritesheetFile());
+            if (bl::util::FileUtil::exists(sp)) {
+                bl::util::FileUtil::copyFile(
                     sp,
-                    bl::file::Util::joinPath(core::Properties::SpritesheetPath(),
-                                             anim.spritesheetFile()));
+                    bl::util::FileUtil::joinPath(core::Properties::SpritesheetPath(),
+                                                 anim.spritesheetFile()));
             }
 
             tileset->addAnimation(animFile);

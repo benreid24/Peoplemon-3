@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_BEHAVIOR_HPP
 #define CORE_FILES_BEHAVIOR_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Components/Direction.hpp>
 #include <cstdint>
 #include <variant>
@@ -16,7 +16,7 @@ namespace file
  * @ingroup Files
  *
  */
-class Behavior : public bl::file::binary::SerializableObject {
+class Behavior {
 public:
     /// The type of behavior
     enum Type : std::uint8_t {
@@ -68,7 +68,7 @@ public:
             component::Direction direction;
 
             /// The number of steps to take. No need to account for direction change
-            unsigned int steps;
+            std::uint16_t steps;
 
             /**
              * @brief Construct a new Pace
@@ -76,7 +76,13 @@ public:
              * @param dir The direction to walk in
              * @param steps The number of steps to take
              */
-            Pace(component::Direction dir, unsigned int steps);
+            Pace(component::Direction dir, std::uint16_t steps);
+
+            /**
+             * @brief Makes a single step up
+             *
+             */
+            Pace();
         };
 
         /// The sections of the path
@@ -111,7 +117,7 @@ public:
      * @param input The input file
      * @return True if data was read, false on error
      */
-    bool legacyLoad(bl::file::binary::File& input);
+    bool legacyLoad(bl::serial::binary::InputStream& input);
 
     /**
      * @brief The type of behavior this is
@@ -177,9 +183,131 @@ public:
 private:
     Type _type;
     std::variant<Standing, Spinning, Path, Wander> data;
+
+    friend class bl::serial::binary::Serializer<Behavior>;
 };
 
 } // namespace file
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::file::Behavior::Path::Pace> : public SerializableObjectBase {
+    using P = core::file::Behavior::Path::Pace;
+
+    SerializableField<1, P, core::component::Direction> direction;
+    SerializableField<2, P, std::uint16_t> steps;
+
+    SerializableObject()
+    : direction(*this, &P::direction)
+    , steps(*this, &P::steps) {}
+};
+
+template<>
+struct Serializer<core::file::Behavior> {
+    using B = core::file::Behavior;
+
+    static bool deserialize(InputStream& in, B& b) {
+        if (!Serializer<B::Type>::deserialize(in, b._type)) return false;
+
+        switch (b._type) {
+        case B::Type::StandStill: {
+            core::component::Direction dir;
+            if (!Serializer<core::component::Direction>::deserialize(in, dir)) return false;
+            b.data.emplace<B::Standing>(dir);
+            return true;
+        }
+        case B::Type::SpinInPlace: {
+            B::Spinning::Direction dir;
+            if (!Serializer<B::Spinning::Direction>::deserialize(in, dir)) return false;
+            b.data.emplace<B::Spinning>(dir);
+            return true;
+        }
+        case B::Type::Wandering: {
+            std::uint16_t rad;
+            if (!in.read<std::uint16_t>(rad)) return false;
+            b.data.emplace<B::Wander>(rad);
+            return true;
+        }
+        case B::Type::FollowingPath: {
+            b.data.emplace<B::Path>();
+            auto& path = std::get<B::Path>(b.data);
+
+            std::uint8_t rev;
+            if (!in.read<std::uint8_t>(rev)) return false;
+            path.reverse = rev != 0;
+
+            return Serializer<std::vector<B::Path::Pace>>::deserialize(in, path.paces);
+        }
+        default:
+            return false;
+        }
+    }
+
+    static bool serialize(OutputStream& out, const B& b) {
+        if (!Serializer<B::Type>::serialize(out, b._type)) return false;
+
+        switch (b._type) {
+        case B::Type::StandStill: {
+            const auto& s = std::get<B::Standing>(b.data);
+            return Serializer<core::component::Direction>::serialize(out, s.facedir);
+        }
+        case B::Type::SpinInPlace: {
+            const auto& s = std::get<B::Spinning>(b.data);
+            return Serializer<B::Spinning::Direction>::serialize(out, s.spinDir);
+        }
+        case B::Type::Wandering: {
+            const auto& w = std::get<B::Wander>(b.data);
+            return out.write<std::uint16_t>(w.radius);
+        }
+        case B::Type::FollowingPath: {
+            const auto& path = std::get<B::Path>(b.data);
+            if (!out.write<std::uint8_t>(path.reverse ? 1 : 0)) return false;
+            return Serializer<std::vector<B::Path::Pace>>::serialize(out, path.paces);
+        }
+        default:
+            return false;
+        }
+    }
+
+    static std::size_t size(const B& b) {
+        std::size_t sz = Serializer<B::Type>::size(b._type);
+
+        switch (b._type) {
+        case B::Type::StandStill: {
+            const auto& s = std::get<B::Standing>(b.data);
+            sz += Serializer<core::component::Direction>::size(s.facedir);
+            break;
+        }
+        case B::Type::SpinInPlace: {
+            const auto& s = std::get<B::Spinning>(b.data);
+            sz += Serializer<B::Spinning::Direction>::size(s.spinDir);
+            break;
+        }
+        case B::Type::Wandering: {
+            sz += sizeof(std::uint16_t);
+            break;
+        }
+        case B::Type::FollowingPath: {
+            const auto& path = std::get<B::Path>(b.data);
+            sz += sizeof(std::uint8_t);
+            sz += Serializer<std::vector<B::Path::Pace>>::size(path.paces);
+            break;
+        }
+        default:
+            return 0;
+        }
+        return sz;
+    }
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

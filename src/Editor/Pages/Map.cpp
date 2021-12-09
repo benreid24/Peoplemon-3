@@ -530,7 +530,8 @@ void Map::doLoadMap(const std::string& file) {
     mapPicker.close();
 
     if (makingNewMap) {
-        const std::string f = bl::file::Util::getExtension(file) == "map" ? file : file + ".map";
+        const std::string f =
+            bl::util::FileUtil::getExtension(file) == "map" ? file : file + ".map";
         newMapWindow.show(parent, f);
     }
     else {
@@ -702,7 +703,7 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
             if (e) {
                 std::stringstream ss;
-                ss << e->script.getValue() << '\n';
+                ss << e->script << '\n';
                 ss << "Delete event?";
                 std::string s = ss.str();
                 for (char& c : s) {
@@ -761,7 +762,7 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
             const core::map::CharacterSpawn* s =
                 mapArea.editMap().getNpcSpawn(levelSelect->getSelectedOption(), tiles);
             if (s) {
-                const std::string msg = "Delete spawn for character: " + s->file.getValue() + "?";
+                const std::string msg = "Delete spawn for character: " + s->file + "?";
                 if (1 == bl::dialog::tinyfd_messageBox(
                              "Delete Character?", msg.c_str(), "yesno", "warning", 0)) {
                     mapArea.editMap().removeNpcSpawn(s);
@@ -838,7 +839,7 @@ void Map::syncGui() {
 
     nameEntry->setInput(mapArea.editMap().name());
     playlistLabel->setText(mapArea.editMap().playlistField);
-    weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField.getValue()));
+    weatherEntry->setSelectedOption(static_cast<int>(mapArea.editMap().weatherField));
 
     onEnterLabel->setText(mapArea.editMap().getOnEnterScript());
     onExitLabel->setText(mapArea.editMap().getOnExitScript());

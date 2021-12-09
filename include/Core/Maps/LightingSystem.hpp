@@ -5,7 +5,7 @@
 #include <BLIB/Containers/Grid.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
 #include <BLIB/Events.hpp>
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Events/TimeChange.hpp>
 #include <Core/Events/Weather.hpp>
 #include <Core/Maps/Light.hpp>
@@ -25,8 +25,7 @@ namespace map
  *
  */
 class LightingSystem
-: public bl::file::binary::SerializableObject
-, public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped> {
+: public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped> {
 public:
     /// Handle representing a light in the map
     using Handle = std::uint16_t;
@@ -197,10 +196,10 @@ public:
     virtual void observe(const event::WeatherStopped& event) override;
 
 private:
-    bl::file::binary::SerializableField<1, std::vector<Light>> lightsField;
-    bl::file::binary::SerializableField<2, std::uint8_t> lowLevelField;
-    bl::file::binary::SerializableField<3, std::uint8_t> highLevelField;
-    bl::file::binary::SerializableField<4, bool> sunlightField;
+    std::vector<Light> rawLights;
+    std::uint8_t minLevel;
+    std::uint8_t maxLevel;
+    std::uint8_t sunlight;
 
     bl::event::ClassGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
         eventGuard;
@@ -211,16 +210,42 @@ private:
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
-    std::uint8_t& minLevel;
-    std::uint8_t& maxLevel;
     float levelRange;
     float sunlightFactor;
     int weatherModifier;
     int targetWeatherModifier;
     float weatherResidual;
+
+    friend class bl::serial::binary::SerializableObject<LightingSystem>;
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::LightingSystem> : public SerializableObjectBase {
+    using LS = core::map::LightingSystem;
+
+    SerializableField<1, LS, std::vector<core::map::Light>> lights;
+    SerializableField<2, LS, std::uint8_t> low;
+    SerializableField<3, LS, std::uint8_t> high;
+    SerializableField<4, LS, std::uint8_t> sun;
+
+    SerializableObject()
+    : lights(*this, &LS::rawLights)
+    , low(*this, &LS::minLevel)
+    , high(*this, &LS::maxLevel)
+    , sun(*this, &LS::sunlight) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

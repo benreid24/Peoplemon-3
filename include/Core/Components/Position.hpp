@@ -2,7 +2,7 @@
 #define CORE_ENTITIES_POSITION_HPP
 
 #include <BLIB/Entities/Component.hpp>
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <Core/Components/Direction.hpp>
 
 namespace core
@@ -107,25 +107,27 @@ private:
 
 namespace bl
 {
-namespace file
+namespace serial
 {
 namespace binary
 {
 template<>
 struct Serializer<core::component::Position, false> {
-    static bool serialize(File& output, const core::component::Position& position) {
+    static bool serialize(OutputStream& output, const core::component::Position& position) {
         if (!Serializer<sf::Vector2i>::serialize(output, position.positionTiles())) return false;
-        if (!Serializer<core::component::Direction>::serialize(output, position.direction))
+        if (!Serializer<core::component::Direction>::serialize(output, position.direction)) {
             return false;
+        }
         return Serializer<std::uint8_t>::serialize(output, position.level);
     }
 
-    static bool deserialize(File& input, core::component::Position& result) {
+    static bool deserialize(InputStream& input, core::component::Position& result) {
         sf::Vector2i pos;
         if (!Serializer<sf::Vector2i>::deserialize(input, pos)) return false;
         result.setTiles(pos);
-        if (!Serializer<core::component::Direction>::deserialize(input, result.direction))
+        if (!Serializer<core::component::Direction>::deserialize(input, result.direction)) {
             return false;
+        }
         return Serializer<std::uint8_t>::deserialize(input, result.level);
     }
 
@@ -137,7 +139,7 @@ struct Serializer<core::component::Position, false> {
 };
 
 } // namespace binary
-} // namespace file
+} // namespace serial
 } // namespace bl
 
 #endif

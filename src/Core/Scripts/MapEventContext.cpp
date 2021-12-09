@@ -65,7 +65,7 @@ Value triggerPosition(bl::entity::Entity, const component::Position& pos, const 
 }
 
 Value eventType(bl::entity::Entity, const component::Position&, const map::Event& event) {
-    switch (event.trigger.getValue()) {
+    switch (event.trigger) {
     case map::Event::Trigger::OnEnter:
         return {"OnEnter"};
     case map::Event::Trigger::OnExit:
@@ -83,15 +83,15 @@ Value eventType(bl::entity::Entity, const component::Position&, const map::Event
 
 Value eventPosition(bl::entity::Entity, const component::Position&, const map::Event& event) {
     Value coord;
-    coord.setProperty("x", {static_cast<float>(event.position.getValue().x)});
-    coord.setProperty("y", {static_cast<float>(event.position.getValue().y)});
+    coord.setProperty("x", {static_cast<float>(event.position.x)});
+    coord.setProperty("y", {static_cast<float>(event.position.y)});
     return coord;
 }
 
 Value eventSize(bl::entity::Entity, const component::Position&, const map::Event& event) {
     Value size;
-    size.setProperty("x", {static_cast<float>(event.areaSize.getValue().x)});
-    size.setProperty("y", {static_cast<float>(event.areaSize.getValue().y)});
+    size.setProperty("x", {static_cast<float>(event.areaSize.x)});
+    size.setProperty("y", {static_cast<float>(event.areaSize.y)});
     return size;
 }
 

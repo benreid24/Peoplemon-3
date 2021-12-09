@@ -24,18 +24,18 @@ std::unordered_map<Id, unsigned int>* Peoplemon::xpGroups                       
 std::unordered_map<Id, int>* Peoplemon::xpMults                                           = nullptr;
 
 void Peoplemon::setDataSource(file::PeoplemonDB& db) {
-    names        = &db.names();
-    descriptions = &db.descriptions();
-    types        = &db.types();
-    abilities    = &db.abilities();
-    stats        = &db.stats();
-    validMoves   = &db.validMoves();
-    learnedMoves = &db.learnedMoves();
-    evolveLevels = &db.evolveLevels();
-    evolveIds    = &db.evolveIds();
-    evAwards     = &db.evAwards();
-    xpGroups     = &db.xpGroups();
-    xpMults      = &db.xpMults();
+    names        = &db.names;
+    descriptions = &db.descriptions;
+    types        = &db.types;
+    abilities    = &db.abilities;
+    stats        = &db.stats;
+    validMoves   = &db.validMoves;
+    learnedMoves = &db.learnedMoves;
+    evolveLevels = &db.evolveLevels;
+    evolveIds    = &db.evolveIds;
+    evAwards     = &db.evAwards;
+    xpGroups     = &db.xpGroups;
+    xpMults      = &db.xpMults;
 
     allIds.clear();
     allIds.reserve(names->size());

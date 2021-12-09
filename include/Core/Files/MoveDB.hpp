@@ -1,7 +1,7 @@
 #ifndef CORE_FILE_MOVEDB_HPP
 #define CORE_FILE_MOVEDB_HPP
 
-#include <BLIB/Files/Binary.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Peoplemon/MoveEffect.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
@@ -19,15 +19,7 @@ class MoveDBLoader;
  * @ingroup Files
  *
  */
-struct MoveDB
-: private bl::file::binary::SerializableObject
-, private bl::util::NonCopyable {
-    /**
-     * @brief Creates an empty dataset
-     *
-     */
-    MoveDB();
-
+struct MoveDB : private bl::util::NonCopyable {
     /**
      * @brief Loads the moves from the data file
      *
@@ -42,22 +34,20 @@ struct MoveDB
      */
     bool save() const;
 
-#define SF bl::file::binary::SerializableField
-    SF<1, std::unordered_map<pplmn::MoveId, std::string>> names;
-    SF<2, std::unordered_map<pplmn::MoveId, std::string>> descriptions;
-    SF<3, std::unordered_map<pplmn::MoveId, std::string>> animationPaths;
-    SF<4, std::unordered_map<pplmn::MoveId, pplmn::Type>> types;
-    SF<5, std::unordered_map<pplmn::MoveId, int>> damages;
-    SF<6, std::unordered_map<pplmn::MoveId, int>> accuracies;
-    SF<7, std::unordered_map<pplmn::MoveId, int>> priorities;
-    SF<8, std::unordered_map<pplmn::MoveId, unsigned int>> pps;
-    SF<9, std::unordered_map<pplmn::MoveId, bool>> contactors;
-    SF<10, std::unordered_map<pplmn::MoveId, bool>> specials;
-    SF<11, std::unordered_map<pplmn::MoveId, pplmn::MoveEffect>> effects;
-    SF<12, std::unordered_map<pplmn::MoveId, int>> effectChances;
-    SF<13, std::unordered_map<pplmn::MoveId, int>> effectIntensities;
-    SF<14, std::unordered_map<pplmn::MoveId, bool>> effectSelves;
-#undef SF
+    std::unordered_map<pplmn::MoveId, std::string> names;
+    std::unordered_map<pplmn::MoveId, std::string> descriptions;
+    std::unordered_map<pplmn::MoveId, std::string> animationPaths;
+    std::unordered_map<pplmn::MoveId, pplmn::Type> types;
+    std::unordered_map<pplmn::MoveId, int> damages;
+    std::unordered_map<pplmn::MoveId, int> accuracies;
+    std::unordered_map<pplmn::MoveId, int> priorities;
+    std::unordered_map<pplmn::MoveId, unsigned int> pps;
+    std::unordered_map<pplmn::MoveId, bool> contactors;
+    std::unordered_map<pplmn::MoveId, bool> specials;
+    std::unordered_map<pplmn::MoveId, pplmn::MoveEffect> effects;
+    std::unordered_map<pplmn::MoveId, int> effectChances;
+    std::unordered_map<pplmn::MoveId, int> effectIntensities;
+    std::unordered_map<pplmn::MoveId, bool> effectSelves;
 
     // TODO - have some sort of struct for render behavior. Something like:
     /*
@@ -86,9 +76,57 @@ struct MoveDB
     */
 
     friend class MoveDBLoader;
+    friend class bl::serial::binary::SerializableObject<MoveDB>;
 };
 
 } // namespace file
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
+    using Id = core::pplmn::MoveId;
+    using DB = core::file::MoveDB;
+
+    SerializableField<1, DB, std::unordered_map<Id, std::string>> names;
+    SerializableField<2, DB, std::unordered_map<Id, std::string>> descriptions;
+    SerializableField<3, DB, std::unordered_map<Id, std::string>> animationPaths;
+    SerializableField<4, DB, std::unordered_map<Id, core::pplmn::Type>> types;
+    SerializableField<5, DB, std::unordered_map<Id, int>> damages;
+    SerializableField<6, DB, std::unordered_map<Id, int>> accuracies;
+    SerializableField<7, DB, std::unordered_map<Id, int>> priorities;
+    SerializableField<8, DB, std::unordered_map<Id, unsigned int>> pps;
+    SerializableField<9, DB, std::unordered_map<Id, bool>> contactors;
+    SerializableField<10, DB, std::unordered_map<Id, bool>> specials;
+    SerializableField<11, DB, std::unordered_map<Id, core::pplmn::MoveEffect>> effects;
+    SerializableField<12, DB, std::unordered_map<Id, int>> effectChances;
+    SerializableField<13, DB, std::unordered_map<Id, int>> effectIntensities;
+    SerializableField<14, DB, std::unordered_map<Id, bool>> effectSelves;
+
+    SerializableObject()
+    : names(*this, &DB::names)
+    , descriptions(*this, &DB::descriptions)
+    , animationPaths(*this, &DB::animationPaths)
+    , types(*this, &DB::types)
+    , damages(*this, &DB::damages)
+    , accuracies(*this, &DB::accuracies)
+    , priorities(*this, &DB::priorities)
+    , pps(*this, &DB::pps)
+    , contactors(*this, &DB::contactors)
+    , specials(*this, &DB::specials)
+    , effects(*this, &DB::effects)
+    , effectChances(*this, &DB::effectChances)
+    , effectIntensities(*this, &DB::effectIntensities)
+    , effectSelves(*this, &DB::effectSelves) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

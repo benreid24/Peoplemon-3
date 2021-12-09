@@ -7,34 +7,6 @@ namespace core
 {
 namespace map
 {
-LayerSet::LayerSet()
-: collisions(*this)
-, catches(*this)
-, bottom(*this)
-, ysort(*this)
-, top(*this) {}
-
-LayerSet::LayerSet(LayerSet&& m)
-: collisions(*this, m.collisions.getMovable())
-, catches(*this, m.catches.getMovable())
-, bottom(*this, m.bottom.getMovable())
-, ysort(*this, m.ysort.getMovable())
-, top(*this, m.top.getMovable()) {}
-
-LayerSet::LayerSet(const LayerSet& copy)
-: LayerSet() {
-    *this = copy;
-}
-
-LayerSet& LayerSet::operator=(const LayerSet& copy) {
-    collisions = copy.collisions.getValue();
-    catches    = copy.catches.getValue();
-    bottom     = copy.bottom.getValue();
-    ysort      = copy.ysort.getValue();
-    top        = copy.top.getValue();
-    return *this;
-}
-
 void LayerSet::init(unsigned int width, unsigned int height, unsigned int bottomCount,
                     unsigned int ysortLayerCount, unsigned int topLayerCount) {
     collisionLayer().create(width, height, Collision::Open);
@@ -73,7 +45,7 @@ void LayerSet::activate(Tileset& tileset) {
     };
 
     ysortedLayers.clear();
-    ysortedLayers.reserve(ysort.getValue().size());
+    ysortedLayers.reserve(ysort.size());
     for (TileLayer& layer : bottomLayers()) { activateLayer(layer); }
     for (unsigned int i = 0; i < ysortLayers().size(); ++i) {
         TileLayer& layer = ysortLayers()[i];
@@ -84,29 +56,31 @@ void LayerSet::activate(Tileset& tileset) {
     for (TileLayer& layer : topLayers()) { activateLayer(layer); }
 }
 
-CollisionLayer& LayerSet::collisionLayer() { return collisions.getValue(); }
+CollisionLayer& LayerSet::collisionLayer() { return collisions; }
 
-CatchLayer& LayerSet::catchLayer() { return catches.getValue(); }
+const CollisionLayer& LayerSet::collisionLayer() const { return collisions; }
 
-std::vector<TileLayer>& LayerSet::bottomLayers() { return bottom.getValue(); }
+CatchLayer& LayerSet::catchLayer() { return catches; }
 
-std::vector<TileLayer>& LayerSet::ysortLayers() { return ysort.getValue(); }
+const CatchLayer& LayerSet::catchLayer() const { return catches; }
 
-std::vector<TileLayer>& LayerSet::topLayers() { return top.getValue(); }
+std::vector<TileLayer>& LayerSet::bottomLayers() { return bottom; }
 
-unsigned int LayerSet::layerCount() const {
-    return bottom.getValue().size() + ysort.getValue().size() + top.getValue().size();
-}
+std::vector<TileLayer>& LayerSet::ysortLayers() { return ysort; }
+
+std::vector<TileLayer>& LayerSet::topLayers() { return top; }
+
+unsigned int LayerSet::layerCount() const { return bottom.size() + ysort.size() + top.size(); }
 
 const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
 
 std::vector<SortedLayer>& LayerSet::renderSortedLayers() { return ysortedLayers; }
 
-const std::vector<TileLayer>& LayerSet::bottomLayers() const { return bottom.getValue(); }
+const std::vector<TileLayer>& LayerSet::bottomLayers() const { return bottom; }
 
-const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort.getValue(); }
+const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort; }
 
-const std::vector<TileLayer>& LayerSet::topLayers() const { return top.getValue(); }
+const std::vector<TileLayer>& LayerSet::topLayers() const { return top; }
 
 void LayerSet::update(const sf::IntRect& area, float dt) {
     static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
@@ -117,9 +91,9 @@ void LayerSet::update(const sf::IntRect& area, float dt) {
         }
     };
 
-    for (TileLayer& layer : bottomLayers()) { updateLayer(layer, area, dt); }
-    for (TileLayer& layer : ysortLayers()) { updateLayer(layer, area, dt); }
-    for (TileLayer& layer : topLayers()) { updateLayer(layer, area, dt); }
+    for (TileLayer& layer : bottom) { updateLayer(layer, area, dt); }
+    for (TileLayer& layer : ysort) { updateLayer(layer, area, dt); }
+    for (TileLayer& layer : top) { updateLayer(layer, area, dt); }
 }
 
 Tile** LayerSet::getSortedTile(Tileset& tileset, unsigned int l, unsigned int x, unsigned int y) {

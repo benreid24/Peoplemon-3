@@ -3,9 +3,9 @@
 
 #include <Core/Maps/Tile.hpp>
 
-#include <BLIB/Files/Binary.hpp>
 #include <BLIB/Media/Graphics.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Serialization/Binary.hpp>
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -42,7 +42,7 @@ class PrimaryTilesetLoader;
  * @ingroup Maps
  *
  */
-class Tileset : private bl::file::binary::SerializableObject {
+class Tileset {
 public:
     using TileStore = std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref>;
     using AnimStore =
@@ -53,21 +53,6 @@ public:
      *
      */
     Tileset();
-
-    /**
-     * @brief Copies the tileset
-     *
-     * @param copy The tileset to copy
-     */
-    Tileset(const Tileset& copy);
-
-    /**
-     * @brief Copies the tileset
-     *
-     * @param copy The tileset to copy
-     * @return A reference to this tileset
-     */
-    Tileset& operator=(const Tileset& copy);
 
     /**
      * @brief Adds a texture to the tileset and returns its id
@@ -169,9 +154,8 @@ public:
     std::vector<AnimStore::const_iterator> getAnims() const;
 
 private:
-    bl::file::binary::SerializableField<1, std::unordered_map<Tile::IdType, std::string>>
-        textureFiles;
-    bl::file::binary::SerializableField<2, std::unordered_map<Tile::IdType, std::string>> animFiles;
+    std::unordered_map<Tile::IdType, std::string> textureFiles;
+    std::unordered_map<Tile::IdType, std::string> animFiles;
     Tile::IdType nextTextureId;
     Tile::IdType nextAnimationId;
 
@@ -184,9 +168,33 @@ private:
     friend class Tile;
     friend class loaders::LegacyTilesetLoader;
     friend class loaders::PrimaryTilesetLoader;
+    friend class bl::serial::binary::SerializableObject<Tileset>;
 };
 
 } // namespace map
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace binary
+{
+template<>
+struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
+    using TS = core::map::Tileset;
+    using T  = core::map::Tile;
+
+    SerializableField<1, TS, std::unordered_map<T::IdType, std::string>> textureFiles;
+    SerializableField<2, TS, std::unordered_map<T::IdType, std::string>> animFiles;
+
+    SerializableObject()
+    : textureFiles(*this, &TS::textureFiles)
+    , animFiles(*this, &TS::animFiles) {}
+};
+
+} // namespace binary
+} // namespace serial
+} // namespace bl
 
 #endif

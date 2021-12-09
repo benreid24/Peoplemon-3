@@ -34,20 +34,20 @@ MoveId Move::cast(unsigned int id) {
 }
 
 void Move::setDataSource(file::MoveDB& db) {
-    names             = &db.names();
-    descriptions      = &db.descriptions();
-    animationPaths    = &db.animationPaths();
-    types             = &db.types();
-    damages           = &db.damages();
-    accuracies        = &db.accuracies();
-    priorities        = &db.priorities();
-    pps               = &db.pps();
-    contactors        = &db.contactors();
-    specials          = &db.specials();
-    effects           = &db.effects();
-    effectChances     = &db.effectChances();
-    effectIntensities = &db.effectIntensities();
-    effectSelves      = &db.effectSelves();
+    names             = &db.names;
+    descriptions      = &db.descriptions;
+    animationPaths    = &db.animationPaths;
+    types             = &db.types;
+    damages           = &db.damages;
+    accuracies        = &db.accuracies;
+    priorities        = &db.priorities;
+    pps               = &db.pps;
+    contactors        = &db.contactors;
+    specials          = &db.specials;
+    effects           = &db.effects;
+    effectChances     = &db.effectChances;
+    effectIntensities = &db.effectIntensities;
+    effectSelves      = &db.effectSelves;
 
     allIds.clear();
     allIds.reserve(names->size());

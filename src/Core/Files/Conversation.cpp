@@ -66,9 +66,9 @@ std::string tolower(const std::string& s) {
 
 namespace loader
 {
-struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoader<Conversation> {
-    virtual bool read(Conversation& result, bl::file::binary::File& input) const override {
-        std::vector<Conversation::Node>& nodes = result.cnodes.getValue();
+struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<Conversation> {
+    virtual bool read(Conversation& result, bl::serial::binary::InputStream& input) const override {
+        std::vector<Conversation::Node>& nodes = result.cnodes;
         nodes.clear();
 
         // Data for legacy conversaion
@@ -202,7 +202,7 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
             else {
                 if (tolower(pair.first) != "end") {
                     BL_LOG_WARN << "Invalid jump '" << pair.first << "' in conversation '"
-                                << input.filename() << "', jumping to end";
+                                << "', jumping to end";
                 }
                 *pair.second = 9999999;
             }
@@ -244,20 +244,22 @@ struct LegacyConversationLoader : public bl::file::binary::VersionedPayloadLoade
         return true;
     }
 
-    virtual bool write(const Conversation&, bl::file::binary::File&) const override {
+    virtual bool write(const Conversation&, bl::serial::binary::OutputStream&) const override {
         // not implemented
         return false;
     }
 };
 
-struct ConversationLoader : public bl::file::binary::VersionedPayloadLoader<Conversation> {
-    virtual bool read(Conversation& result, bl::file::binary::File& input) const override {
-        return result.deserialize(input);
+struct ConversationLoader : public bl::serial::binary::SerializerVersion<Conversation> {
+    using Serializer = bl::serial::binary::Serializer<Conversation>;
+
+    virtual bool read(Conversation& result, bl::serial::binary::InputStream& input) const override {
+        return Serializer::deserialize(input, result);
     }
 
     virtual bool write(const Conversation& conversation,
-                       bl::file::binary::File& output) const override {
-        return conversation.serialize(output);
+                       bl::serial::binary::OutputStream& output) const override {
+        return Serializer::serialize(output, conversation);
     }
 };
 
@@ -266,53 +268,38 @@ struct ConversationLoader : public bl::file::binary::VersionedPayloadLoader<Conv
 namespace
 {
 using VersionedLoader =
-    bl::file::binary::VersionedFile<Conversation, loader::LegacyConversationLoader,
-                                    loader::ConversationLoader>;
-}
-
-Conversation::Conversation()
-: cnodes(*this) {}
-
-Conversation::Conversation(const Conversation& copy)
-: Conversation() {
-    cnodes.getValue() = copy.cnodes.getValue();
-}
-
-Conversation& Conversation::operator=(const Conversation& copy) {
-    cnodes.getValue() = copy.cnodes.getValue();
-    return *this;
+    bl::serial::binary::VersionedSerializer<Conversation, loader::LegacyConversationLoader,
+                                            loader::ConversationLoader>;
 }
 
 bool Conversation::load(const std::string& file) {
-    bl::file::binary::File input(bl::file::Util::joinPath(Properties::ConversationPath(), file),
-                                 bl::file::binary::File::Read);
-    VersionedLoader loader;
-    return loader.read(input, *this);
+    bl::serial::binary::InputFile input(
+        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
+    return VersionedLoader::read(input, *this);
 }
 
 bool Conversation::save(const std::string& file) const {
-    bl::file::binary::File output(bl::file::Util::joinPath(Properties::ConversationPath(), file),
-                                  bl::file::binary::File::Write);
-    VersionedLoader loader;
-    return loader.write(output, *this);
+    bl::serial::binary::OutputFile output(
+        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
+    return VersionedLoader::write(output, *this);
 }
 
-const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes.getValue(); }
+const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes; }
 
 void Conversation::deleteNode(unsigned int i) {
-    if (i < cnodes.getValue().size()) {
-        shiftDownJumps(cnodes.getValue(), i);
-        cnodes.getValue().erase(cnodes.getValue().begin() + i);
+    if (i < cnodes.size()) {
+        shiftDownJumps(cnodes, i);
+        cnodes.erase(cnodes.begin() + i);
     }
     else {
         BL_LOG_WARN << "Tried to delete out of range node: " << i;
     }
 }
 
-void Conversation::appendNode(const Node& node) { cnodes.getValue().push_back(node); }
+void Conversation::appendNode(const Node& node) { cnodes.push_back(node); }
 
 void Conversation::setNode(unsigned int i, const Node& node) {
-    if (i < cnodes.getValue().size()) { cnodes.getValue()[i] = node; }
+    if (i < cnodes.size()) { cnodes[i] = node; }
     else {
         BL_LOG_WARN << "Out of range node assign: " << i;
     }
@@ -511,85 +498,3 @@ void Conversation::getNextJumps(const Node& node, std::vector<unsigned int>& nex
 
 } // namespace file
 } // namespace core
-
-namespace bl
-{
-namespace file
-{
-namespace binary
-{
-using Node = core::file::Conversation::Node;
-bool Serializer<Node, false>::serialize(File& output, const Node& node) {
-    if (!Serializer<Node::Type>::serialize(output, node.getType())) return false;
-    if (!output.write(node.prompt)) return false;
-    if (!output.write<std::uint32_t>(node.jumps.condNodes[0])) return false;
-    if (!output.write<std::uint32_t>(node.jumps.condNodes[1])) return false;
-
-    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-        return Serializer<core::item::Id>::serialize(output,
-                                                     *std::get_if<core::item::Id>(&node.data));
-    }
-    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-        return output.write<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
-    }
-    else if (node.getType() == Node::Prompt) {
-        return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::serialize(
-            output, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-    }
-    else if (node.getType() == Node::RunScript) {
-        return output.write<std::uint8_t>(node.runConcurrently());
-    }
-
-    return true;
-}
-
-bool Serializer<Node, false>::deserialize(File& input, Node& node) {
-    Node::Type type;
-    if (!Serializer<Node::Type>::deserialize(input, type)) return false;
-    node.setType(type);
-
-    if (!input.read(node.prompt)) return false;
-    if (!input.read<std::uint32_t>(node.jumps.condNodes[0])) return false;
-    if (!input.read<std::uint32_t>(node.jumps.condNodes[1])) return false;
-
-    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-        return Serializer<core::item::Id>::deserialize(input,
-                                                       *std::get_if<core::item::Id>(&node.data));
-    }
-    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-        return input.read<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
-    }
-    else if (node.getType() == Node::Prompt) {
-        return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::deserialize(
-            input, *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-    }
-    else if (node.getType() == Node::RunScript) {
-        std::uint8_t rc = 0;
-        if (!input.read<std::uint8_t>(rc)) return false;
-        node.runConcurrently() = rc;
-    }
-
-    return true;
-}
-
-std::uint32_t Serializer<Node, false>::size(const Node& node) {
-    std::uint32_t s = Serializer<Node::Type>::size(node.getType()) +
-                      Serializer<std::string>::size(node.prompt) + sizeof(std::uint32_t) * 2;
-
-    if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-        s += Serializer<core::item::Id>::size(core::item::Id::Unknown);
-    }
-    else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-        s += sizeof(std::uint32_t);
-    }
-    else if (node.getType() == Node::Prompt) {
-        s += Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::size(
-            *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-    }
-
-    return s;
-}
-
-} // namespace binary
-} // namespace file
-} // namespace bl

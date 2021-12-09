@@ -19,8 +19,9 @@ bool isNum(const std::string& s) {
 
 bool validFile(const std::string& f) {
     if (f.empty() || f == NoFile) { return false; }
-    if (!bl::file::Util::exists(bl::file::Util::joinPath(core::Properties::NpcPath(), f))) {
-        if (!bl::file::Util::exists(bl::file::Util::joinPath(core::Properties::TrainerPath(), f))) {
+    if (!bl::util::FileUtil::exists(bl::util::FileUtil::joinPath(core::Properties::NpcPath(), f))) {
+        if (!bl::util::FileUtil::exists(
+                bl::util::FileUtil::joinPath(core::Properties::TrainerPath(), f))) {
             return false;
         }
     }
@@ -47,7 +48,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     Button::Ptr npcBut = Button::create("NPC");
     npcBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         std::string f = fileLabel->getText();
-        if (bl::file::Util::getExtension(f) != core::Properties::NpcFileExtension() ||
+        if (bl::util::FileUtil::getExtension(f) != core::Properties::NpcFileExtension() ||
             !validFile(f)) {
             f.clear();
         }
@@ -58,7 +59,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     Button::Ptr tnrBut = Button::create("Trainer");
     tnrBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         std::string f = fileLabel->getText();
-        if (bl::file::Util::getExtension(f) != core::Properties::TrainerFileExtension() ||
+        if (bl::util::FileUtil::getExtension(f) != core::Properties::TrainerFileExtension() ||
             !validFile(f)) {
             f.clear();
         }
@@ -151,10 +152,10 @@ void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
 
     if (orig) {
         fileLabel->setText(orig->file);
-        xInput->setInput(std::to_string(orig->position.getValue().positionTiles().x));
-        yInput->setInput(std::to_string(orig->position.getValue().positionTiles().y));
-        levelInput->setInput(std::to_string(orig->position.getValue().level));
-        dirEntry->setSelectedOption(static_cast<int>(orig->position.getValue().direction));
+        xInput->setInput(std::to_string(orig->position.positionTiles().x));
+        yInput->setInput(std::to_string(orig->position.positionTiles().y));
+        levelInput->setInput(std::to_string(orig->position.level));
+        dirEntry->setSelectedOption(static_cast<int>(orig->position.direction));
     }
     else {
         fileLabel->setText("<no file selected>");
