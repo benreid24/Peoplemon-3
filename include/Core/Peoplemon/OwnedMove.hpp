@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_OWNEDMOVE_HPP
 #define CORE_PEOPLEMON_OWNEDMOVE_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 
 namespace core
@@ -76,6 +76,25 @@ struct Serializer<OwnedMove> {
 };
 
 } // namespace binary
+
+namespace json
+{
+template<>
+struct SerializableObject<core::pplmn::OwnedMove> : public SerializableObjectBase {
+    using Id   = core::pplmn::MoveId;
+    using Move = core::pplmn::OwnedMove;
+
+    SerializableField<Move, Id> id;
+    SerializableField<Move, unsigned int> curPP;
+    SerializableField<Move, unsigned int> maxPP;
+
+    SerializableObject()
+    : id("id", *this, &Move::id)
+    , curPP("pp", *this, &Move::curPP)
+    , maxPP("maxPP", *this, &Move::maxPP) {}
+};
+
+} // namespace json
 } // namespace serial
 } // namespace bl
 

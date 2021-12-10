@@ -10,6 +10,8 @@ namespace core
 {
 namespace system
 {
+using Serializer = bl::serial::json::Serializer<Player>;
+
 Player::Player(Systems& owner)
 : owner(owner)
 , gender(player::Gender::Boy) {}
@@ -102,9 +104,22 @@ void Player::removePlayerControlled(bl::entity::Entity e) {
     owner.engine().entities().removeComponent<component::PlayerControlled>(e);
 }
 
-void Player::init() { owner.engine().eventBus().subscribe(&input); }
+void Player::init() {
+    owner.engine().eventBus().subscribe(&input);
+    owner.engine().eventBus().subscribe(this);
+}
 
 void Player::update() { input.update(); }
+
+void Player::observe(const event::GameSaving& save) {
+    Serializer::serializeInto(save.saveData, "player", *this);
+}
+
+void Player::observe(const event::GameLoading& load) {
+    if (!Serializer::deserializeFrom(load.saveData, "player", *this)) {
+        load.failMessage = "Failed to load player data from save";
+    }
+}
 
 } // namespace system
 } // namespace core

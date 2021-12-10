@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 #define CORE_PEOPLEMON_OWNEDPEOPLEMON_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/Id.hpp>
@@ -197,6 +197,7 @@ private:
     friend class WildPeoplemon;
     friend class BattlePeoplemon;
     friend class bl::serial::binary::SerializableObject<OwnedPeoplemon>;
+    friend class bl::serial::json::SerializableObject<OwnedPeoplemon>;
     friend class editor::component::OwnedPeoplemonWindow;
 };
 
@@ -243,6 +244,43 @@ struct SerializableObject<core::pplmn::OwnedPeoplemon> : public SerializableObje
 };
 
 } // namespace binary
+
+namespace json
+{
+template<>
+struct SerializableObject<core::pplmn::OwnedPeoplemon> : public SerializableObjectBase {
+    using OP    = core::pplmn::OwnedPeoplemon;
+    using Id    = core::pplmn::Id;
+    using Stats = core::pplmn::Stats;
+    using Move  = core::pplmn::OwnedMove;
+    using Ail   = core::pplmn::Ailment;
+    using Item  = core::item::Id;
+
+    SerializableField<OP, Id> id;
+    SerializableField<OP, std::string> customName;
+    SerializableField<OP, std::uint16_t> level;
+    SerializableField<OP, std::uint32_t> xp;
+    SerializableField<OP, std::uint16_t> hp;
+    SerializableField<OP, Stats> ivs;
+    SerializableField<OP, Stats> evs;
+    SerializableField<OP, Move[4]> moves;
+    SerializableField<OP, Ail> ailment;
+    SerializableField<OP, Item> item;
+
+    SerializableObject()
+    : id("id", *this, &OP::_id)
+    , customName("name", *this, &OP::customName)
+    , level("level", *this, &OP::level)
+    , xp("xp", *this, &OP::xp)
+    , hp("hp", *this, &OP::hp)
+    , ivs("ivs", *this, &OP::ivs)
+    , evs("evs", *this, &OP::evs)
+    , moves("moves", *this, &OP::moves)
+    , ailment("ailment", *this, &OP::ailment)
+    , item("item", *this, &OP::item) {}
+};
+
+} // namespace json
 } // namespace serial
 } // namespace bl
 

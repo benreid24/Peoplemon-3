@@ -16,7 +16,7 @@ namespace event
  */
 struct GameSaving {
     /// Top level game save data object
-    mutable bl::serial::json::Group& saveData;
+    bl::serial::json::Group& saveData;
 };
 
 /**
