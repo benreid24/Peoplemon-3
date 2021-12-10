@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_STATS_HPP
 #define CORE_PEOPLEMON_STATS_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Peoplemon/Stat.hpp>
 #include <array>
 
@@ -149,6 +149,29 @@ struct Serializer<Stats> {
 };
 
 } // namespace binary
+
+namespace json
+{
+template<>
+struct SerializableObject<core::pplmn::Stats> : public SerializableObjectBase {
+    using Stats = core::pplmn::Stats;
+
+    SerializableField<Stats, int> hp;
+    SerializableField<Stats, int> atk;
+    SerializableField<Stats, int> def;
+    SerializableField<Stats, int> spd;
+    SerializableField<Stats, int> spatk;
+    SerializableField<Stats, int> spdef;
+
+    SerializableObject()
+    : hp("hp", *this, &Stats::hp)
+    , atk("atk", *this, &Stats::atk)
+    , def("def", *this, &Stats::def)
+    , spd("spd", *this, &Stats::spd)
+    , spatk("spatk", *this, &Stats::spatk)
+    , spdef("spdef", *this, &Stats::spdef) {}
+};
+} // namespace json
 } // namespace serial
 } // namespace bl
 
