@@ -23,7 +23,7 @@ jobs:
 
       - name: Download Animation Editor
         run: |
-          curl -L -o AnimEditor.zip https://github.com/benreid24/Animation-Editor-2/releases/download/v1.1.1/Windows.zip
+          curl -L -o AnimEditor.zip https://github.com/benreid24/Animation-Editor-2/releases/download/v1.1.2/Windows.zip
           mkdir tools
           Expand-Archive -Path ./AnimEditor.zip -DestinationPath ./tools
 
