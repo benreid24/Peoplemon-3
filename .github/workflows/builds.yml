@@ -73,7 +73,9 @@ jobs:
           submodules: 'recursive'
 
       - name: Install Dependencies
-        run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+        run: |
+          sudo apt-get update
+          sudo apt-get install --fix-missing libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
 
       - name: Configure Build
         run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
