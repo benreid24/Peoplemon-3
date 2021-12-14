@@ -63,6 +63,12 @@ public:
     bl::entity::Entity player() const;
 
     /**
+     * @brief Returns the current position of the player
+     *
+     */
+    const component::Position& position() const;
+
+    /**
      * @brief Returns a reference to the player input system
      *
      */
@@ -95,7 +101,7 @@ public:
 private:
     Systems& owner;
     bl::entity::Entity playerId;
-    bl::entity::Registry::ComponentHandle<component::Position> position;
+    bl::entity::Registry::ComponentHandle<component::Position> _position;
     bl::entity::Registry::ComponentHandle<component::Movable> movable;
 
     player::Input input;
@@ -103,6 +109,7 @@ private:
     player::Gender gender;
     player::Bag inventory;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    component::Position savePos;
 
     virtual void observe(const event::GameSaving& save) override;
     virtual void observe(const event::GameLoading& load) override;

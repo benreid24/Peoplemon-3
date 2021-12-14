@@ -6,6 +6,8 @@
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
+#include <Core/Files/GameSave.hpp>
+
 namespace core
 {
 namespace system
@@ -21,7 +23,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
     BL_LOG_INFO << "New player id: " << playerId;
 
     if (!owner.engine().entities().addComponent<component::Position>(playerId, pos)) {
-        BL_LOG_ERROR << "Failed to add position to player";
+        BL_LOG_ERROR << "Failed to add _position to player";
         return false;
     }
 
@@ -30,15 +32,15 @@ bool Player::spawnPlayer(const component::Position& pos) {
         return false;
     }
 
-    position = owner.engine().entities().getComponentHandle<component::Position>(playerId);
-    if (!position.hasValue()) {
-        BL_LOG_ERROR << "Failed to get position handle for player";
+    _position = owner.engine().entities().getComponentHandle<component::Position>(playerId);
+    if (!_position.hasValue()) {
+        BL_LOG_ERROR << "Failed to get _position handle for player";
         return false;
     }
 
     if (!owner.engine().entities().addComponent<component::Movable>(
             playerId,
-            {position, Properties::CharacterMoveSpeed(), Properties::FastCharacterMoveSpeed()})) {
+            {_position, Properties::CharacterMoveSpeed(), Properties::FastCharacterMoveSpeed()})) {
         BL_LOG_ERROR << "Failed to add movable component to player";
         return false;
     }
@@ -60,7 +62,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
     if (!owner.engine().entities().addComponent<component::Renderable>(
             playerId,
             component::Renderable::fromFastMoveAnims(
-                position, movable, Properties::PlayerAnimations(gender)))) {
+                _position, movable, Properties::PlayerAnimations(gender)))) {
         BL_LOG_ERROR << "Failed to add renderble component to player";
         return false;
     }
@@ -69,6 +71,8 @@ bool Player::spawnPlayer(const component::Position& pos) {
 }
 
 bl::entity::Entity Player::player() const { return playerId; }
+
+const component::Position& Player::position() const { return _position.get(); }
 
 player::Input& Player::inputSystem() { return input; }
 
@@ -109,7 +113,14 @@ void Player::init() {
     owner.engine().eventBus().subscribe(this);
 }
 
-void Player::update() { input.update(); }
+void Player::update() {
+    input.update();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
+        if (!file::GameSave::saveGame("testing", owner.engine().eventBus())) {
+            BL_LOG_ERROR << "Failed to save game";
+        }
+    }
+}
 
 void Player::observe(const event::GameSaving& save) {
     Serializer::serializeInto(save.saveData, "player", *this);

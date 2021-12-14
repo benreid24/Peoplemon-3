@@ -116,9 +116,11 @@ public:
      * @param systems The primary game systems
      * @param spawnId The spawn to place the player at
      * @param prevMap The name of the map coming from
+     * @param prevPlayerPos Used to spawn the player when coming back from a map or loading save
      * @return True on success, false on error
      */
-    bool enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap);
+    bool enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap,
+               const component::Position& prevPlayerPos);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
