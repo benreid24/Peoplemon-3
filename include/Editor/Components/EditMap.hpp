@@ -2,6 +2,7 @@
 #define EDITOR_COMPONENTS_EDITMAP_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <BLIB/Media/Graphics/VertexBuffer.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Core/Systems/Cameras/Camera.hpp>
@@ -164,6 +165,12 @@ public:
      * @param level Which level to source the overlay from
      */
     void setRenderOverlay(RenderOverlay overlay, unsigned int level);
+
+    /**
+     * @brief Set whether or not to render a grid between tiles
+     *
+     */
+    void showGrid(bool show);
 
     /**
      * @brief Sets the tile selection to render. Set width or height to 0 to hide. Set width or
@@ -540,6 +547,8 @@ private:
     mutable sf::View renderView;
     mutable sf::RectangleShape selectRect;
     mutable sf::Sprite overlaySprite;
+    bool renderGrid;
+    bl::gfx::VertexBuffer grid;
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
