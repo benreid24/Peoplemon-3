@@ -59,7 +59,7 @@ bool GameSave::load(bl::event::Dispatcher& bus) const {
     const std::string file             = nameToFile(saveName);
     const bl::serial::json::Group data = bl::serial::json::loadFromFile(file);
     event::GameLoading loader{data, ""};
-    bus.dispatch<event::GameLoading>(loader);
+    bus.dispatch<event::GameLoading>(loader, false);
     if (!loader.failMessage.empty()) {
         BL_LOG_ERROR << "Failed to load save file'" << file << "': " << loader.failMessage;
         return false;

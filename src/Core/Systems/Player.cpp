@@ -132,15 +132,5 @@ void Player::observe(const event::GameLoading& load) {
     }
 }
 
-void Player::observe(const event::GameSaving& save) {
-    Serializer::serializeInto(save.saveData, "player", *this);
-}
-
-void Player::observe(const event::GameLoading& load) {
-    if (!Serializer::deserializeFrom(load.saveData, "player", *this)) {
-        load.failMessage = "Failed to load player data from save";
-    }
-}
-
 } // namespace system
 } // namespace core

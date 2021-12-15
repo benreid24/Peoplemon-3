@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/LoadGame.hpp>
 #include <Game/States/NewGame.hpp>
 
 namespace game
@@ -38,7 +39,10 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
     sfText.setString("Load Game");
     loadGame = Item::create(TextRenderItem::create(sfText));
-    loadGame->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Load Game selected"; });
+    loadGame->getSignal(Item::Activated).willCall([&systems]() {
+        BL_LOG_INFO << "Load Game selected";
+        systems.engine().replaceState(LoadGame::create(systems));
+    });
 
     sfText.setString("Settings");
     settings = Item::create(TextRenderItem::create(sfText));

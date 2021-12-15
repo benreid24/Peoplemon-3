@@ -1,5 +1,5 @@
-#ifndef GAME_STATES_NEWGAME_HPP
-#define GAME_STATES_NEWGAME_HPP
+#ifndef GAME_STATES_LOADGAME_HPP
+#define GAME_STATES_LOADGAME_HPP
 
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
@@ -9,13 +9,12 @@ namespace game
 namespace state
 {
 /**
- * @brief This state does the game intro, gets the player's name and gender, and triggers the main
- *        game state in the player's bedroom
+ * @brief Provides a menu to select a save and loads the selected save
  * 
  * @ingroup States
  *
  */
-class NewGame : public State {
+class LoadGame : public State {
 public:
     /**
      * @brief Creates the new game state
@@ -29,10 +28,10 @@ public:
      * @brief Destroy the New Game state
      *
      */
-    virtual ~NewGame() = default;
+    virtual ~LoadGame() = default;
 
     /**
-     * @brief Returns "NewGame"
+     * @brief Returns "LoadGame"
      *
      */
     virtual const char* name() const override;
@@ -71,7 +70,7 @@ private:
     sf::Text tempText;
     float aliveTime;
 
-    NewGame(core::system::Systems& systems);
+    LoadGame(core::system::Systems& systems);
 };
 } // namespace state
 } // namespace game
