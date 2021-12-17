@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['validmoves',['validMoves',['../a01003.html#a7cb3528dc8c9ee3efb5bea573a31cd6b',1,'core::file::PeoplemonDB::validMoves()'],['../a01007.html#a4ce30c6c14ca2052d0fcbdbab9bed60b',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::validMoves()']]],
-  ['values',['values',['../a00979.html#ab83de343322d05cb9dc523cf1156e3a5',1,'core::file::ItemDB::values()'],['../a00983.html#ad8e9a48120d032efa018a9d3f8ec9574',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::values()']]],
-  ['visible',['visible',['../a01051.html#af311bd583a573b483571a3602e4e6425',1,'core::map::Item::visible()'],['../a01055.html#ad2199f6edacfbd77b84de21ddfd0c297',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::visible()']]],
-  ['visionrange',['visionRange',['../a01011.html#a15a0956c65f5d87aced159237d14d917',1,'core::file::Trainer']]]
+  ['unloadscriptfield',['unloadScriptField',['../a01126.html#a3cfd5f03b515e6983d07a6e92e7333e2',1,'core::map::Map::unloadScriptField()'],['../a01130.html#a4913555f35e2cffa47b077d32358acd1',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::unloadScriptField()']]],
+  ['used',['used',['../a01058.html#a8708157b68b11806b776e976645b3436',1,'core::item::UseResult']]]
 ];

@@ -1,11 +1,15 @@
 var searchData=
 [
-  ['name',['name',['../a01011.html#ab06008a26fe9889e54941f66af523041',1,'core::file::Trainer::name()'],['../a01015.html#a5d9550d296bcf627c1d61fcb16fb8fd5',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;::name()']]],
-  ['namefield',['nameField',['../a00999.html#a5c01613cb8eeca8aa11ca93bee5108bd',1,'bl::serial::binary::SerializableObject&lt; core::file::NPC &gt;::nameField()'],['../a01091.html#a2297cfe2b338492cc80f179b3e1ea1f9',1,'core::map::Map::nameField()'],['../a01095.html#a5489ed05440a0205b766c9cf063af2ae',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::nameField()']]],
-  ['names',['names',['../a00979.html#ab4d8181fc439338572debd2e7123fde0',1,'core::file::ItemDB::names()'],['../a00983.html#a81802c266f699a4ec3f600991e832e81',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::names()'],['../a00987.html#acdd870edc6357a355f2decf4e79d00e8',1,'core::file::MoveDB::names()'],['../a00991.html#a74b80b7fa429c01ddc641a9aeb6230d7',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::names()'],['../a01003.html#afb02ade81f85267703cc559884ba6f7a',1,'core::file::PeoplemonDB::names()'],['../a01007.html#a5565d69beb019110d374275f2c23559e',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::names()']]],
-  ['newmap',['newMap',['../a00907.html#a00ff75fa358f180551ec141cabe054cb',1,'core::event::SwitchMapTriggered']]],
-  ['newtime',['newTime',['../a00915.html#a09b0cf6d04a4c701d36df8feba7ad6f6',1,'core::event::TimeChange']]],
-  ['nextnode',['nextNode',['../a00963.html#af011639afea65256814222ecfa484188',1,'core::file::Conversation::Node']]],
-  ['nodes',['nodes',['../a00975.html#ad9684ba6e80ab232cd158a538cf97e6a',1,'bl::serial::binary::SerializableObject&lt; core::file::Conversation &gt;']]],
-  ['none',['None',['../a01083.html#aa0d8fadc62f2a2485130268a032d229e',1,'core::map::LightingSystem']]]
+  ['map',['map',['../a00922.html#aad55f26e8decefb28139ad792f768091',1,'core::event::MapSwitch::map()'],['../a00926.html#ab24b8ba625ac228bf39a2d0170f83b27',1,'core::event::MapEntered::map()'],['../a00930.html#a61fb2a7377d2165b3c714ec0ff88c72d',1,'core::event::MapExited::map()']]],
+  ['mapid',['mapId',['../a01086.html#adfceec7153ea73406f8176ae4e25c288',1,'core::map::Item::mapId()'],['../a01090.html#a87442c78ff69346c1b20911324947894',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::mapId()']]],
+  ['maxevstat',['MaxEVStat',['../a01202.html#a6c87c24c8c4e78b01eee073ab01a350c',1,'core::pplmn::Stats']]],
+  ['maxevsum',['MaxEVSum',['../a01202.html#adaf4575e24ee270e7a9cd0973c396839',1,'core::pplmn::Stats']]],
+  ['maxivstat',['MaxIVStat',['../a01202.html#a8b05114768e3a3a99a5cb2f491414ee3',1,'core::pplmn::Stats']]],
+  ['maxlevel',['maxLevel',['../a01218.html#a71113cb50ed0a6a260d9d69c2c88dd1d',1,'core::pplmn::WildPeoplemon']]],
+  ['maxpp',['maxPP',['../a01174.html#a4839e01f2e5bdb00b5be96bfebdbd4ba',1,'core::pplmn::OwnedMove::maxPP()'],['../a01182.html#a5f429619cc63217b6b8ff73363baab59',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedMove &gt;::maxPP()']]],
+  ['message',['message',['../a01058.html#a1a2a895e89e731733ee48b596768d1e7',1,'core::item::UseResult']]],
+  ['minlevel',['minLevel',['../a01218.html#a2e0cd209a05095b405b856203e92d9ac',1,'core::pplmn::WildPeoplemon']]],
+  ['minute',['minute',['../a01310.html#a232574606b98573f432b2ea332670b7d',1,'core::system::Clock::Time']]],
+  ['money',['money',['../a01346.html#a43d3500450a52f4126b86aa76c0da6fb',1,'bl::serial::json::SerializableObject&lt; core::system::Player &gt;']]],
+  ['moves',['moves',['../a01190.html#a6e56f00cc4d508fc7ac3a9c7897e78f3',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::moves()'],['../a01194.html#aa8b779777d15ca2299d8640ca1d995bc',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::moves()']]]
 ];

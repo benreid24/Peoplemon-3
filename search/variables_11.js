@@ -1,11 +1,20 @@
 var searchData=
 [
-  ['texturefiles',['textureFiles',['../a01119.html#ad936fac27653460d8bdb2151de404ac9',1,'bl::serial::binary::SerializableObject&lt; core::map::Tileset &gt;']]],
-  ['tileset',['tileset',['../a01091.html#ac90f1b6379cde5d99141d59f1c5a4fe2',1,'core::map::Map']]],
-  ['tilesetfield',['tilesetField',['../a01091.html#aa1551b4863b357d0a180d26a8f9b2a34',1,'core::map::Map::tilesetField()'],['../a01095.html#aa539a9afce388b8b5b19e8d05c13aa98',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::tilesetField()']]],
-  ['top',['top',['../a01071.html#ae8449c827d3fd33bcf222c9ddc4eba76',1,'bl::serial::binary::SerializableObject&lt; core::map::LayerSet &gt;']]],
-  ['transitionfield',['transitionField',['../a01091.html#ab08aaf13a4dfdff975b1b6a014d0debb',1,'core::map::Map::transitionField()'],['../a01095.html#a53f4eb10f6962377765cfed0add44b82',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::transitionField()']]],
-  ['trigger',['trigger',['../a01043.html#ad571d3e4a9a933ba8180506cd4267b5f',1,'core::map::Event::trigger()'],['../a01047.html#a9c006f36e7f228c46747838bb8d46fba',1,'bl::serial::binary::SerializableObject&lt; core::map::Event &gt;::trigger()']]],
-  ['type',['type',['../a00911.html#aec10a8e2bdd80fb55b2d1604577b6c14',1,'core::event::StateChange::type()'],['../a00919.html#a946f22738e6b3cddbe3b16f1176b218a',1,'core::event::WeatherStarted::type()'],['../a00923.html#ab88bdc50383dc2b3e14fc4940462ec16',1,'core::event::WeatherStopped::type()'],['../a01183.html#a72effd7db23cd66288130fa8a2c09013',1,'core::player::input::Control::type()']]],
-  ['types',['types',['../a00987.html#ad83cbef92ac4a34a614d60cd2373a96e',1,'core::file::MoveDB::types()'],['../a00991.html#af5666cebab635af79e495a8131308718',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::types()'],['../a01003.html#a6fea3f47309c1c1b261a22fc6968d442',1,'core::file::PeoplemonDB::types()'],['../a01007.html#afd9a98c851a62d4d1aac031c774a8b29',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::types()']]]
+  ['savedata',['saveData',['../a00910.html#a33f85bf10fed8beec7e1df537af7a8be',1,'core::event::GameSaving::saveData()'],['../a00914.html#a4ba5034aa0575afb5f65b407eaa03b3e',1,'core::event::GameLoading::saveData()']]],
+  ['savename',['saveName',['../a01006.html#ad68c1f3d40204d7c30196eeaab189c01',1,'core::file::GameSave::saveName()'],['../a01010.html#a126150c078ccbeec47269025e8d7096b',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave &gt;::saveName()']]],
+  ['savetime',['saveTime',['../a01006.html#a792c1608752e257000414b249db94a3f',1,'core::file::GameSave::saveTime()'],['../a01010.html#a10c4fd7822fdb92308867fd367689bd7',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave &gt;::saveTime()']]],
+  ['script',['script',['../a01078.html#a131b80b3560636f8e3a68a8d35d5d49f',1,'core::map::Event::script()'],['../a01082.html#a4fd7b8995e9c488bf02f9f99efcc228c',1,'bl::serial::binary::SerializableObject&lt; core::map::Event &gt;::script()']]],
+  ['size',['size',['../a01126.html#a67fc3881397fbf275aa87f6e7e7afda5',1,'core::map::Map::size()'],['../a01294.html#a57bf801c937bdcc46e3d63a6eebdf9ef',1,'core::system::camera::Camera::size()']]],
+  ['spatk',['spatk',['../a01202.html#a8c5f8a77908d17c98ad6d6770de844fb',1,'core::pplmn::Stats::spatk()'],['../a01210.html#af178f418e90cd309fc839822adc35ccb',1,'bl::serial::json::SerializableObject&lt; core::pplmn::Stats &gt;::spatk()']]],
+  ['spawn',['spawn',['../a00934.html#a21a77ef99757ce3ea0e92d355136d787',1,'core::event::SwitchMapTriggered']]],
+  ['spawnfield',['spawnField',['../a01130.html#a36fb928878114aea8a3b109b23213e36',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;']]],
+  ['spawns',['spawns',['../a01126.html#a15af2b46e11a844c877c347230a7fcb4',1,'core::map::Map']]],
+  ['spd',['spd',['../a01202.html#a2f5dffdc3b6a8df5c8c85a3d5ed43dda',1,'core::pplmn::Stats::spd()'],['../a01210.html#a04f96e8601e9adc88612e7023b479abe',1,'bl::serial::json::SerializableObject&lt; core::pplmn::Stats &gt;::spd()']]],
+  ['spdef',['spdef',['../a01202.html#a2620504e5036992847fcc85ff1865dbf',1,'core::pplmn::Stats::spdef()'],['../a01210.html#a246637c00641728417ab00f7b0d834c9',1,'bl::serial::json::SerializableObject&lt; core::pplmn::Stats &gt;::spdef()']]],
+  ['specials',['specials',['../a01022.html#a071743eebffefa73c6e3abbd39eb39ca',1,'core::file::MoveDB::specials()'],['../a01026.html#ac3e2fc549149c4a4e36ce23d2904b470',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::specials()']]],
+  ['spindir',['spinDir',['../a00962.html#afaf4bf6515bba318d0c635ff8704c05e',1,'core::file::Behavior::Spinning']]],
+  ['stats',['stats',['../a01038.html#a96d31bbc8db827fd0824755d14c8b42b',1,'core::file::PeoplemonDB::stats()'],['../a01042.html#af225c2ae40283909bc8f08f6fe29f395',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::stats()']]],
+  ['steps',['steps',['../a00970.html#a61177dcaadc052f9a5fc3c953b8130cc',1,'core::file::Behavior::Path::Pace::steps()'],['../a00978.html#ae17464f8ad4627a8e7b0b3f9f03f171f',1,'bl::serial::binary::SerializableObject&lt; core::file::Behavior::Path::Pace &gt;::steps()']]],
+  ['sun',['sun',['../a01122.html#a79aebc4376260467561b8348f7814501',1,'bl::serial::binary::SerializableObject&lt; core::map::LightingSystem &gt;']]],
+  ['systems',['systems',['../a01126.html#af6b1bb3f4c3827e1a1e6bba30e9abbaf',1,'core::map::Map::systems()'],['../a01478.html#af7278d27f56dbefc4a2843d9541a92cc',1,'editor::page::Page::systems()'],['../a01562.html#abef8cda2c9a894f74c716672440f6e4b',1,'game::state::State::systems()']]]
 ];
