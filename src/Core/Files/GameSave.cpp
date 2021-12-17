@@ -24,8 +24,8 @@ void GameSave::listSaves(std::vector<GameSave>& result) {
     result.reserve(saveFiles.size());
     for (const std::string& file : saveFiles) {
         const bl::serial::json::Value data = bl::serial::json::loadFromFile(file);
-        const auto g                       = data.getAsGroup();
-        if (!g.has_value()) {
+        const auto* g                      = data.getAsGroup();
+        if (!g) {
             BL_LOG_ERROR << "Bad save file: " << file;
             continue;
         }
@@ -46,8 +46,8 @@ bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
     save.saveName = name;
     save.saveTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
 
-    const auto data                 = bl::serial::json::Serializer<GameSave>::serialize(save);
-    bl::serial::json::Group allData = data.getAsGroup().value();
+    bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(save);
+    bl::serial::json::Group& allData = *data.getAsGroup();
     bus.dispatch<event::GameSaving>({allData});
 
     bl::serial::json::saveToFile(file, allData);
