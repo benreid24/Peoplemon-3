@@ -16,7 +16,8 @@ using Serializer = bl::serial::json::Serializer<Player>;
 
 Player::Player(Systems& owner)
 : owner(owner)
-, gender(player::Gender::Boy) {}
+, gender(player::Gender::Boy)
+, monei(0) {}
 
 bool Player::spawnPlayer(const component::Position& pos) {
     playerId = owner.engine().entities().createEntity();
@@ -79,6 +80,10 @@ player::Input& Player::inputSystem() { return input; }
 player::Bag& Player::bag() { return inventory; }
 
 const player::Bag& Player::bag() const { return inventory; }
+
+long Player::money() const { return monei; }
+
+long& Player::money() { return monei; }
 
 bool Player::makePlayerControlled(bl::entity::Entity entity) {
     auto controllable =

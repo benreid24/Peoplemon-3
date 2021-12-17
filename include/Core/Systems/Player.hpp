@@ -87,6 +87,18 @@ public:
     const player::Bag& bag() const;
 
     /**
+     * @brief Returns the amount of money the player has
+     * 
+     */
+    long money() const;
+
+    /**
+     * @brief Returns the amount of money the player has
+     * 
+     */
+    long& money();
+
+    /**
      * @brief Subscribes the input system to the event bus
      *
      */
@@ -108,6 +120,7 @@ private:
     std::string name;
     player::Gender gender;
     player::Bag inventory;
+    long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     component::Position savePos;
 
@@ -134,12 +147,14 @@ struct SerializableObject<core::system::Player> : public SerializableObjectBase 
     SerializableField<Player, core::player::Gender> gender;
     SerializableField<Player, core::player::Bag> bag;
     SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>> peoplemon;
+    SerializableField<Player, long> money;
 
     SerializableObject()
     : name("name", *this, &Player::name)
     , gender("gender", *this, &Player::gender)
     , bag("bag", *this, &Player::inventory)
-    , peoplemon("peoplemon", *this, &Player::peoplemon) {}
+    , peoplemon("peoplemon", *this, &Player::peoplemon)
+    , money("money", *this, &Player::monei) {}
 };
 
 } // namespace json
