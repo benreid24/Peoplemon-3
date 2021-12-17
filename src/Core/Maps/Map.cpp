@@ -270,7 +270,8 @@ Map::Map()
     cover.setFillColor(sf::Color::Black);
 }
 
-bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap) {
+bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap,
+                const component::Position& prevPlayerPos) {
     BL_LOG_INFO << "Entering map " << nameField << " at spawn " << spawnId;
 
     systems = &game;
@@ -281,23 +282,25 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // TODO - load and push playlist
 
     // Spawn player
-    auto spawnIt = spawns.find(spawnId);
-    if (spawnIt != spawns.end()) {
-        if (!game.player().spawnPlayer(spawnIt->second.position)) {
-            BL_LOG_ERROR << "Failed to spawn player";
-            return false;
-        }
-        game.cameras().clearAndReplace(
-            system::camera::Follow::create(game, game.player().player()));
-
-        // Activate camera and weather
-        game.cameras().update(0.f);
-        weather.activate(game.cameras().getArea());
+    auto spawnIt                 = spawns.find(spawnId);
+    component::Position spawnPos = prevPlayerPos;
+    if (spawnId != 0 && spawnIt != spawns.end()) { spawnPos = spawnIt->second.position; }
+    else if (spawnId == 0 && spawnIt != spawns.end()) {
+        BL_LOG_WARN << "Spawn id 0 is reserved, falling back on default behavior";
     }
-    else {
+    else if (spawnId != 0) {
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
         return false;
     }
+    if (!game.player().spawnPlayer(spawnPos)) {
+        BL_LOG_ERROR << "Failed to spawn player";
+        return false;
+    }
+    game.cameras().clearAndReplace(system::camera::Follow::create(game, game.player().player()));
+
+    // Activate camera and weather
+    game.cameras().update(0.f);
+    weather.activate(game.cameras().getArea());
 
     // One time activation if not yet activated
     if (!activated) {

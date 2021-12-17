@@ -18,7 +18,7 @@ Systems::Systems(bl::engine::Engine& engine)
 , _render(*this)
 , _interaction(*this)
 , _hud(*this) {
-    _engine.eventBus().subscribe(&_position);
+    _world.init();
     _position.init();
     _movement.init();
     _render.init();

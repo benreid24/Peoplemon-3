@@ -2,8 +2,11 @@
 #define CORE_SYSTEMS_PLAYER_HPP
 
 #include <BLIB/Entities.hpp>
+#include <BLIB/Events.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
+#include <Core/Events/GameSave.hpp>
+#include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
 #include <Core/Player/Input.hpp>
@@ -20,7 +23,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player {
+class Player : public bl::event::Listener<event::GameSaving, event::GameLoading> {
 public:
     /**
      * @brief Construct a new Player system
@@ -60,6 +63,12 @@ public:
     bl::entity::Entity player() const;
 
     /**
+     * @brief Returns the current position of the player
+     *
+     */
+    const component::Position& position() const;
+
+    /**
      * @brief Returns a reference to the player input system
      *
      */
@@ -78,6 +87,18 @@ public:
     const player::Bag& bag() const;
 
     /**
+     * @brief Returns the amount of money the player has
+     * 
+     */
+    long money() const;
+
+    /**
+     * @brief Returns the amount of money the player has
+     * 
+     */
+    long& money();
+
+    /**
      * @brief Subscribes the input system to the event bus
      *
      */
@@ -92,16 +113,52 @@ public:
 private:
     Systems& owner;
     bl::entity::Entity playerId;
-    bl::entity::Registry::ComponentHandle<component::Position> position;
+    bl::entity::Registry::ComponentHandle<component::Position> _position;
     bl::entity::Registry::ComponentHandle<component::Movable> movable;
 
     player::Input input;
+    std::string name;
     player::Gender gender;
     player::Bag inventory;
-    // TODO - other stuff like peoplemon, etc
+    long monei;
+    std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    component::Position savePos;
+
+    virtual void observe(const event::GameSaving& save) override;
+    virtual void observe(const event::GameLoading& load) override;
+
+    friend class bl::serial::json::SerializableObject<Player>;
 };
 
 } // namespace system
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace json
+{
+template<>
+struct SerializableObject<core::system::Player> : public SerializableObjectBase {
+    using Player = core::system::Player;
+
+    SerializableField<Player, std::string> name;
+    SerializableField<Player, core::player::Gender> gender;
+    SerializableField<Player, core::player::Bag> bag;
+    SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>> peoplemon;
+    SerializableField<Player, long> money;
+
+    SerializableObject()
+    : name("name", *this, &Player::name)
+    , gender("gender", *this, &Player::gender)
+    , bag("bag", *this, &Player::inventory)
+    , peoplemon("peoplemon", *this, &Player::peoplemon)
+    , money("money", *this, &Player::monei) {}
+};
+
+} // namespace json
+} // namespace serial
+} // namespace bl
 
 #endif

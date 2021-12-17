@@ -13,6 +13,7 @@ Position::Position(Systems& owner)
 : owner(owner) {}
 
 void Position::init() {
+    owner.engine().eventBus().subscribe(this);
     entities = owner.engine().entities().getEntitiesWithComponents<component::Position>();
     for (const auto& pair : *entities) {
         observe(bl::entity::event::ComponentAdded<component::Position>(

@@ -1,4 +1,5 @@
 target_sources(Peoplemon PRIVATE
+    LoadGame.cpp
     MainGame.cpp
     MainMenu.cpp
     MapExplorer.cpp

@@ -28,8 +28,14 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
         map->redo();
     });
     redoBut->setActive(false);
+    CheckButton::Ptr gbut = CheckButton::create("Grid");
+    gbut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& e, Element*) {
+        map->showGrid(e.toggleValue());
+        BL_LOG_INFO << e.toggleValue();
+    });
     leftSide->pack(undoBut, false, true);
     leftSide->pack(redoBut, false, true);
+    leftSide->pack(gbut, false, true);
 
     Box::Ptr rightSide = Box::create(
         LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Compact, LinePacker::RightAlign));

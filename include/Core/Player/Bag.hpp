@@ -1,6 +1,7 @@
 #ifndef CORE_PLAYER_BAG_HPP
 #define CORE_PLAYER_BAG_HPP
 
+#include <BLIB/Serialization/JSON.hpp>
 #include <Core/Items/Item.hpp>
 #include <vector>
 
@@ -106,9 +107,44 @@ private:
     std::vector<Item> items;
 
     unsigned int find(item::Id id) const;
+
+    friend class bl::serial::json::SerializableObject<Bag>;
 };
 
 } // namespace player
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace json
+{
+template<>
+struct SerializableObject<core::player::Bag::Item> : public SerializableObjectBase {
+    using Item = core::player::Bag::Item;
+    using Id   = core::item::Id;
+
+    SerializableField<Item, Id> id;
+    SerializableField<Item, unsigned int> qty;
+
+    SerializableObject()
+    : id("id", *this, &Item::id)
+    , qty("qty", *this, &Item::qty) {}
+};
+
+template<>
+struct SerializableObject<core::player::Bag> : public SerializableObjectBase {
+    using Bag = core::player::Bag;
+
+    SerializableField<Bag, std::vector<Bag::Item>> items;
+
+    SerializableObject()
+    : items("items", *this, &Bag::items) {}
+};
+
+} // namespace json
+} // namespace serial
+} // namespace bl
 
 #endif

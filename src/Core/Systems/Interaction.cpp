@@ -117,7 +117,7 @@ void Interaction::processConversationNode() {
         break;
 
     case E::GiveMoney:
-        // TODO - track and add player money
+        owner.player().money() += node.money();
         owner.hud().displayMessage("Received " + std::to_string(node.money()) + " monies",
                                    std::bind(&Interaction::continuePressed, this));
         break;
@@ -171,7 +171,9 @@ void Interaction::giveItemDecided(const std::string& c) {
 
 void Interaction::giveMoneyDecided(const std::string& c) {
     if (c == "Yes") {
-        if (true) { // TODO - track and take player money
+        const long money = currentConversation.currentNode().money();
+        if (owner.player().money() >= money) {
+            owner.player().money() -= money;
             currentConversation.notifyCheckPassed();
             processConversationNode();
         }

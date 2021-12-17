@@ -241,6 +241,24 @@ int Properties::WindowHeight() {
 
 bool Properties::InEditor() { return inEditor; }
 
+const std::string& Properties::SaveDirectory() {
+    static const std::string d =
+        bl::util::FileUtil::joinPath(bl::util::FileUtil::getDataDirectory("Peoplemon"), "saves");
+    if (!bl::util::FileUtil::directoryExists(d)) { bl::util::FileUtil::createDirectory(d); }
+    return d;
+}
+
+const std::string& Properties::SaveExtension() {
+    static const std::string e = "psf";
+    return e;
+}
+
+const std::string& Properties::ControlsFile() {
+    static const std::string f = bl::util::FileUtil::joinPath(
+        bl::util::FileUtil::getDataDirectory("Peoplemon"), "controls.pcf");
+    return f;
+}
+
 int Properties::PixelsPerTile() {
     static const int val = bl::engine::Configuration::getOrDefault<int>(
         "core.render.pixels_per_tile", defaults::PixelsPerTile);

@@ -2,7 +2,7 @@
 #define CORE_ENTITIES_POSITION_HPP
 
 #include <BLIB/Entities/Component.hpp>
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Components/Direction.hpp>
 
 namespace core
@@ -100,6 +100,8 @@ public:
 private:
     sf::Vector2i position;
     sf::Vector2f interpolatedPosition;
+
+    friend class bl::serial::json::SerializableObject<Position>;
 };
 
 } // namespace component
@@ -139,6 +141,28 @@ struct Serializer<core::component::Position, false> {
 };
 
 } // namespace binary
+
+namespace json
+{
+template<>
+struct SerializableObject<core::component::Position> : SerializableObjectBase {
+    using Pos = core::component::Position;
+    using Dir = core::component::Direction;
+
+    SerializableField<Pos, std::uint8_t> level;
+    SerializableField<Pos, Dir> direction;
+    SerializableField<Pos, sf::Vector2i> position;
+    SerializableField<Pos, sf::Vector2f> pixels;
+
+    SerializableObject()
+    : level("level", *this, &Pos::level)
+    , direction("direction", *this, &Pos::direction)
+    , position("position", *this, &Pos::position)
+    , pixels("pixels", *this, &Pos::interpolatedPosition) {}
+};
+
+} // namespace json
+
 } // namespace serial
 } // namespace bl
 

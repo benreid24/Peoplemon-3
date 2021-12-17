@@ -1,6 +1,9 @@
 #ifndef CORE_SYSTEMS_WORLD_HPP
 #define CORE_SYSTEMS_WORLD_HPP
 
+#include <BLIB/Events.hpp>
+#include <BLIB/Serialization/JSON.hpp>
+#include <Core/Events/GameSave.hpp>
 #include <Core/Maps/Map.hpp>
 
 namespace core
@@ -15,7 +18,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class World {
+class World : public bl::event::Listener<event::GameSaving, event::GameLoading> {
 public:
     /**
      * @brief Creates the world system
@@ -29,6 +32,12 @@ public:
      *
      */
     ~World();
+
+    /**
+     * @brief Subscribes the system to the engine event bus
+     *
+     */
+    void init();
 
     /**
      * @brief Switches the current map to the map in the given file
@@ -58,13 +67,59 @@ public:
      */
     void update(float dt);
 
+    /**
+     * @brief Adds saved world data to the save file
+     *
+     */
+    virtual void observe(const event::GameSaving& save) override;
+
+    /**
+     * @brief Initializes world state from the loading game save
+     *
+     */
+    virtual void observe(const event::GameLoading& load) override;
+
 private:
     Systems& owner;
     bl::resource::Resource<map::Map>::Ref currentMap;
     bl::resource::Resource<map::Map>::Ref previousMap;
+
+    std::string currentMapFile;
+    std::string prevMapFile;
+    component::Position playerPos;
+    component::Position prevPlayerPos;
+
+    friend class bl::serial::json::SerializableObject<World>;
 };
 
 } // namespace system
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace json
+{
+template<>
+struct SerializableObject<core::system::World> : SerializableObjectBase {
+    using World = core::system::World;
+    using Pos   = core::component::Position;
+
+    SerializableField<World, std::string> currentMap;
+    SerializableField<World, std::string> prevMap;
+    SerializableField<World, Pos> playerPos;
+    SerializableField<World, Pos> prevPlayerPos;
+
+    SerializableObject()
+    : currentMap("current", *this, &World::currentMapFile)
+    , prevMap("previous", *this, &World::prevMapFile)
+    , playerPos("position", *this, &World::playerPos)
+    , prevPlayerPos("prevPos", *this, &World::prevPlayerPos) {}
+};
+
+} // namespace json
+} // namespace serial
+} // namespace bl
 
 #endif
