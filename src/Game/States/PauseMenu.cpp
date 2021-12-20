@@ -57,6 +57,7 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menu.addItem(save, map.get(), Item::Bottom);
     menu.addItem(settings, save.get(), Item::Bottom);
     menu.addItem(quit, settings.get(), Item::Bottom);
+    menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
 
     inputDriver.drive(menu);
     menu.setPosition({28.f, 4.f});
@@ -69,8 +70,6 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menuBackground.setOrigin(0.f, 0.f);
     menuBackground.setPosition(menuBackground.getOutlineThickness(),
                                menuBackground.getOutlineThickness());
-
-    menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
 }
 
 const char* PauseMenu::name() const { return "PauseMenu"; }
