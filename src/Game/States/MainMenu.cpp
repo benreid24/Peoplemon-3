@@ -16,9 +16,10 @@ bl::engine::State::Ptr MainMenu::create(core::system::Systems& systems) {
 }
 
 MainMenu::MainMenu(core::system::Systems& systems)
-: State(systems) {
+: State(systems)
+, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black)) {
     using bl::menu::Item;
-    using bl::menu::TextRenderItem;
+    using bl::menu::TextItem;
 
     backgroundTxtr =
         bl::engine::Resources::textures()
@@ -26,51 +27,45 @@ MainMenu::MainMenu(core::system::Systems& systems)
             .data;
     background.setTexture(*backgroundTxtr, true);
 
-    sf::Text sfText("New Game", core::Properties::MenuFont());
-    sfText.setFillColor(sf::Color::Black);
-    sfText.setCharacterSize(32);
-    sfText.setStyle(sf::Text::Bold);
-
-    newGame = Item::create(TextRenderItem::create(sfText));
+    newGame = TextItem::create("New Game", core::Properties::MenuFont(), sf::Color::Black, 32);
+    newGame->getTextObject().setStyle(sf::Text::Bold);
     newGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "New Game selected";
         systems.engine().replaceState(NewGame::create(systems));
     });
 
-    sfText.setString("Load Game");
-    loadGame = Item::create(TextRenderItem::create(sfText));
+    loadGame = TextItem::create("Load Game", core::Properties::MenuFont(), sf::Color::Black, 32);
+    loadGame->getTextObject().setStyle(sf::Text::Bold);
     loadGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "Load Game selected";
         systems.engine().replaceState(LoadGame::create(systems));
     });
 
-    sfText.setString("Settings");
-    settings = Item::create(TextRenderItem::create(sfText));
+    settings = TextItem::create("Settings", core::Properties::MenuFont(), sf::Color::Black, 32);
+    settings->getTextObject().setStyle(sf::Text::Bold);
     settings->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Settings selected"; });
 
-    sfText.setString("Quit");
-    quit = Item::create(TextRenderItem::create(sfText));
+    quit = TextItem::create("Quit", core::Properties::MenuFont(), sf::Color::Black, 32);
+    quit->getTextObject().setStyle(sf::Text::Bold);
     quit->getSignal(Item::Activated).willCall([this]() {
         BL_LOG_INFO << "Quit selected";
         this->systems.engine().flags().set(bl::engine::Flags::PopState);
     });
 
-    newGame->attach(loadGame, Item::Bottom);
-    loadGame->attach(settings, Item::Bottom);
-    settings->attach(quit, Item::Bottom);
+    menu.setRootItem(newGame);
+    menu.addItem(loadGame, newGame.get(), Item::Bottom);
+    menu.addItem(settings, loadGame.get(), Item::Bottom);
+    menu.addItem(quit, settings.get(), Item::Bottom);
 
-    selector = bl::menu::ArrowSelector::create(14.f);
-    selector->getArrow().setFillColor(sf::Color::Black);
-    menu = std::make_shared<bl::menu::Menu>(newGame, selector);
-    inputDriver.drive(*menu);
-    renderer.setUniformSize({0.f, 45.f});
+    inputDriver.drive(menu);
+    menu.setMinHeight(38.f);
 }
 
 const char* MainMenu::name() const { return "MainMenu"; }
 
 void MainMenu::activate(bl::engine::Engine&) {
     // TODO - music
-    menu->setSelectedItem(newGame);
+    menu.setSelectedItem(newGame.get());
     systems.player().inputSystem().addListener(inputDriver);
 }
 
@@ -82,9 +77,11 @@ void MainMenu::update(bl::engine::Engine&, float) { systems.player().update(); }
 
 void MainMenu::render(bl::engine::Engine& engine, float) {
     sf::RenderWindow& w = engine.window();
+    menu.setPosition({w.getView().getSize().x * 0.15f, w.getView().getSize().y * 0.25f});
+
     w.clear();
     w.draw(background);
-    menu->render(renderer, w, {w.getView().getSize().x * 0.15f, w.getView().getSize().y * 0.25f});
+    menu.render(w);
     w.display();
 }
 

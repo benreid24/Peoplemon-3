@@ -17,27 +17,21 @@ bool isNextCommand(component::Command cmd) {
     return cmd == component::Command::Back || cmd == component::Command::Interact;
 }
 
-sf::Text choiceText() {
-    sf::Text text;
-    text.setFont(Properties::MenuFont());
-    text.setCharacterSize(Properties::HudFontSize());
-    text.setFillColor(sf::Color::Black);
-    return text;
-}
-
 } // namespace
 
 HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
+, textboxTxtr(bl::engine::Resources::textures().load(Properties::TextboxFile()).data)
+, viewSize(sf::Vector2f(textboxTxtr->getSize()) * 2.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
-, flashingTriangle(promptTriangle, 0.75f, 0.65f) {
-    textboxTxtr = bl::engine::Resources::textures().load(Properties::TextboxFile()).data;
-    const sf::Vector2f boxSize = static_cast<sf::Vector2f>(textboxTxtr->getSize());
+, flashingTriangle(promptTriangle, 0.75f, 0.65f)
+, choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
+, choiceBoxX(viewSize.x * 0.75f + 3.f) {
+    const sf::Vector2f boxSize = sf::Vector2f(textboxTxtr->getSize());
     textbox.setTexture(*textboxTxtr, true);
     textbox.setPosition(boxSize.x * 0.5f, boxSize.y);
-    viewSize = boxSize * 2.f;
 
     displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
@@ -48,14 +42,12 @@ HUD::HUD(Systems& owner)
     promptTriangle.setOutlineThickness(1.5f);
     promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));
 
-    choiceArrow = bl::menu::ArrowSelector::create(10.f);
-    choiceArrow->getArrow().setFillColor(sf::Color::Black);
-    choiceRenderer.setVerticalPadding(ChoicePadding);
-    choiceRenderer.setUniformSize({0.f, ChoiceHeight});
+    choiceMenu.setPadding({0.f, ChoicePadding});
+    choiceMenu.setMinHeight(ChoiceHeight);
+    choiceDriver.drive(choiceMenu);
     choiceBackground.setFillColor(sf::Color::White);
     choiceBackground.setOutlineColor(sf::Color::Black);
     choiceBackground.setOutlineThickness(1.5f);
-    choicePosition.x = viewSize.x * 0.5f + boxSize.x * 0.5f + 3.f;
 }
 
 void HUD::update(float dt) {
@@ -91,7 +83,7 @@ void HUD::render(sf::RenderTarget& target, float lag) {
     if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
     else if (state == WaitingPrompt) {
         target.draw(choiceBackground);
-        choiceMenu.get().render(choiceRenderer, target, choicePosition);
+        choiceMenu.render(target);
     }
     target.setView(oldView);
 }
@@ -127,43 +119,36 @@ void HUD::startPrinting() {
 void HUD::printDoneStateTransition() {
     if (queuedOutput.front().getType() == Item::Message) { state = WaitingContinue; }
     else {
-        state = WaitingPrompt;
-
+        state                                   = WaitingPrompt;
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
-        sf::Text text                           = choiceText();
 
-        text.setString(choices.empty() ? "INVALID" : choices.front());
-        choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
-        sf::Vector2f size(
-            text.getGlobalBounds().width,
-            std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight));
+        bl::menu::Item::Ptr mitem =
+            bl::menu::TextItem::create(choices.empty() ? "INVALID" : choices.front(),
+                                       Properties::MenuFont(),
+                                       sf::Color::Black,
+                                       Properties::HudFontSize());
+        mitem->getSignal(bl::menu::Item::Activated)
+            .willAlwaysCall(std::bind(&HUD::choiceMade, this, 0));
+        choiceMenu.setRootItem(mitem);
+
+        bl::menu::Item* prev = mitem.get();
         for (unsigned int i = 1; i < choices.size(); ++i) {
-            text.setString(choices[i]);
-            choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
-            choiceItems[i - 1]->attach(choiceItems.back(), bl::menu::Item::Bottom);
-
-            size.x = std::max(size.x, text.getGlobalBounds().width);
-            size.y +=
-                std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight) +
-                ChoicePadding;
+            mitem = bl::menu::TextItem::create(
+                choices[i], Properties::MenuFont(), sf::Color::Black, Properties::HudFontSize());
+            mitem->getSignal(bl::menu::Item::Activated)
+                .willAlwaysCall(std::bind(&HUD::choiceMade, this, i));
+            choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);
         }
-        for (unsigned int i = 0; i < choices.size(); ++i) {
-            const auto cb = [this, i]() { choiceMade(i); };
-            choiceItems[i]->getSignal(bl::menu::Item::Activated).willCall(cb);
-        }
-        choiceMenu.emplace(choiceItems.front(), choiceArrow);
-        choiceDriver.drive(choiceMenu.get());
-        choiceBackground.setSize(size + sf::Vector2f(26.f, 14.f));
-        choicePosition.y = viewSize.y - size.y - 18.f;
-        choiceBackground.setPosition(choicePosition);
-        choicePosition += sf::Vector2f(18.f, 2.f);
+        const sf::FloatRect& bounds = choiceMenu.getBounds();
+        choiceBackground.setSize({bounds.width + 26.f, bounds.height + 14.f});
+        const float y = viewSize.y - bounds.height - 18.f;
+        choiceBackground.setPosition({choiceBoxX, y});
+        choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
     }
 }
 
 void HUD::choiceMade(unsigned int i) {
     queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);
-    choiceMenu.destroy();
-    choiceItems.clear();
     next();
 }
 

@@ -1,7 +1,6 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
-#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
@@ -117,20 +116,17 @@ private:
     std::queue<Item> queuedOutput;
     bl::interface::GhostWriter currentMessage;
 
-    sf::Vector2f viewSize;
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
+    const sf::Vector2f viewSize;
     sf::Sprite textbox;
     sf::Text displayText;
     bl::shapes::Triangle promptTriangle;
     bl::gfx::Flashing flashingTriangle;
 
     sf::RectangleShape choiceBackground;
-    bl::container::ObjectWrapper<bl::menu::Menu> choiceMenu;
-    bl::menu::BasicRenderer choiceRenderer;
-    bl::menu::ArrowSelector::Ptr choiceArrow;
+    bl::menu::Menu choiceMenu;
     core::player::input::MenuDriver choiceDriver;
-    std::vector<bl::menu::Item::Ptr> choiceItems;
-    sf::Vector2f choicePosition;
+    const float choiceBoxX;
 
     void ensureActive();
     void startPrinting();

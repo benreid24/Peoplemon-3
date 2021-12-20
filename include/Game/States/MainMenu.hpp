@@ -61,14 +61,12 @@ private:
     bl::resource::Resource<sf::Texture>::Ref backgroundTxtr;
     sf::Sprite background;
 
-    std::shared_ptr<bl::menu::Menu> menu;
+    bl::menu::Menu menu;
     core::player::input::MenuDriver inputDriver;
-    bl::menu::BasicRenderer renderer;
-    bl::menu::ArrowSelector::Ptr selector;
-    bl::menu::Item::Ptr newGame;
-    bl::menu::Item::Ptr loadGame;
-    bl::menu::Item::Ptr settings;
-    bl::menu::Item::Ptr quit;
+    bl::menu::TextItem::Ptr newGame;
+    bl::menu::TextItem::Ptr loadGame;
+    bl::menu::TextItem::Ptr settings;
+    bl::menu::TextItem::Ptr quit;
 
     MainMenu(core::system::Systems& systems);
 };
