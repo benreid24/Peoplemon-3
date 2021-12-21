@@ -6,13 +6,14 @@
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Menus/ScreenKeyboard.hpp>
 #include <Core/Player/Input/Listener.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include <optional>
 #include <queue>
 #include <string>
+#include <variant>
 #include <vector>
 
 namespace core
@@ -67,7 +68,7 @@ public:
      * @param cb Callback to issue when the message is completed and the player hits continue
      */
     void displayMessage(
-        const std::string& message, Callback cb = [](const std::string&) {});
+        const std::string& message, const Callback& cb = [](const std::string&) {});
 
     /**
      * @brief Asks the player a question through the HUD
@@ -77,28 +78,47 @@ public:
      * @param cb The callback to issue with the choice that was chosen when the player chooses
      */
     void promptUser(const std::string& prompt, const std::vector<std::string>& choices,
-                    Callback cb);
+                    const Callback& cb);
+
+    /**
+     * @brief Prompts the player to input a string using the screen keyboard
+     *
+     * @param prompt Text prompt to display. Does not ghost write in
+     * @param minLen Minimum length string to allow
+     * @param maxLen Maximum length string to allow
+     * @param cb Callback to trigger when the string is entered
+     */
+    void getInputString(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
+                        const Callback& cb);
 
 private:
-    enum State { Hidden, Printing, WaitingContinue, WaitingPrompt };
+    enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard };
 
     class Item {
     public:
-        enum Type { Message, Prompt };
+        enum Type { Message, Prompt, Keyboard };
 
-        Item(const std::string& message, Callback cb);
-        Item(const std::string& prompt, const std::vector<std::string>& choices, Callback cb);
+        Item(const std::string& message, const Callback& cb);
+        Item(const std::string& prompt, const std::vector<std::string>& choices,
+             const Callback& cb);
+        Item(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
+             const Callback& cb);
 
         Type getType() const;
         const std::string& getMessage() const;
         const std::vector<std::string>& getChoices() const;
         const Callback& getCallback() const;
+        unsigned int minInputLength() const;
+        unsigned int maxInputLength() const;
 
     private:
+        struct Empty {};
+
         const Type type;
         const Callback cb;
         const std::string message;
-        const std::optional<std::vector<std::string>> choices;
+        const std::variant<Empty, std::vector<std::string>, std::pair<unsigned int, unsigned int>>
+            data;
     };
 
     struct HudListener : public player::input::Listener {
@@ -115,6 +135,7 @@ private:
     HudListener inputListener;
     std::queue<Item> queuedOutput;
     bl::interface::GhostWriter currentMessage;
+    menu::ScreenKeyboard screenKeyboard;
 
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
     const sf::Vector2f viewSize;
@@ -132,6 +153,7 @@ private:
     void startPrinting();
     void printDoneStateTransition();
     void choiceMade(unsigned int i);
+    void keyboardSubmit(const std::string& input);
     void next();
 };
 

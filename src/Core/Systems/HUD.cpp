@@ -23,6 +23,8 @@ HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
+, screenKeyboard(owner.engine().eventBus(),
+                 std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
 , textboxTxtr(bl::engine::Resources::textures().load(Properties::TextboxFile()).data)
 , viewSize(sf::Vector2f(textboxTxtr->getSize()) * 2.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
@@ -63,6 +65,7 @@ void HUD::update(float dt) {
         flashingTriangle.update(dt);
         break;
 
+    case WaitingKeyboard:
     case WaitingPrompt:
         // noop
         break;
@@ -80,15 +83,26 @@ void HUD::render(sf::RenderTarget& target, float lag) {
         viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
     target.draw(textbox);
     target.draw(displayText);
-    if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
-    else if (state == WaitingPrompt) {
+
+    switch (state) {
+    case WaitingContinue:
+        flashingTriangle.render(target, {}, lag);
+        break;
+    case WaitingPrompt:
         target.draw(choiceBackground);
         choiceMenu.render(target);
+        break;
+    case WaitingKeyboard:
+        target.draw(screenKeyboard);
+        break;
+    default:
+        break;
     }
+
     target.setView(oldView);
 }
 
-void HUD::displayMessage(const std::string& msg, Callback cb) {
+void HUD::displayMessage(const std::string& msg, const Callback& cb) {
     sf::Text text = displayText;
     text.setString(msg);
     bl::interface::wordWrap(text, textboxTxtr->getSize().x);
@@ -97,11 +111,20 @@ void HUD::displayMessage(const std::string& msg, Callback cb) {
 }
 
 void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& choices,
-                     Callback cb) {
+                     const Callback& cb) {
     sf::Text text = displayText;
     text.setString(prompt);
     bl::interface::wordWrap(text, textboxTxtr->getSize().x);
     queuedOutput.emplace(text.getString().toAnsiString(), choices, cb);
+    ensureActive();
+}
+
+void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned int mx,
+                         const Callback& cb) {
+    sf::Text text = displayText;
+    text.setString(prompt);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
+    queuedOutput.emplace(text.getString().toAnsiString(), mn, mx, cb);
     ensureActive();
 }
 
@@ -161,6 +184,11 @@ void HUD::next() {
     }
 }
 
+void HUD::keyboardSubmit(const std::string& i) {
+    queuedOutput.front().getCallback()(i);
+    next();
+}
+
 HUD::HudListener::HudListener(HUD& o)
 : owner(o) {}
 
@@ -185,28 +213,47 @@ void HUD::HudListener::process(component::Command cmd) {
         owner.choiceDriver.process(cmd);
         break;
 
+    case WaitingKeyboard:
     default:
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;
     }
 }
 
-HUD::Item::Item(const std::string& msg, HUD::Callback cb)
+HUD::Item::Item(const std::string& msg, const HUD::Callback& cb)
 : type(Message)
 , cb(cb)
-, message(msg) {}
+, message(msg)
+, data(std::in_place_type_t<Empty>{}) {}
 
-HUD::Item::Item(const std::string& p, const std::vector<std::string>& c, HUD::Callback cb)
+HUD::Item::Item(const std::string& p, const std::vector<std::string>& c, const HUD::Callback& cb)
 : type(Prompt)
 , cb(cb)
 , message(p)
-, choices(c) {}
+, data(std::in_place_type_t<std::vector<std::string>>{}, c) {}
+
+HUD::Item::Item(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
+                const Callback& cb)
+: type(Keyboard)
+, cb(cb)
+, message(prompt)
+, data(std::in_place_type_t<std::pair<unsigned int, unsigned int>>{}, minLen, maxLen) {}
 
 HUD::Item::Type HUD::Item::getType() const { return type; }
 
 const std::string& HUD::Item::getMessage() const { return message; }
 
-const std::vector<std::string>& HUD::Item::getChoices() const { return choices.value(); }
+const std::vector<std::string>& HUD::Item::getChoices() const {
+    return *std::get_if<std::vector<std::string>>(&data);
+}
+
+unsigned int HUD::Item::minInputLength() const {
+    return std::get_if<std::pair<unsigned int, unsigned int>>(&data)->first;
+}
+
+unsigned int HUD::Item::maxInputLength() const {
+    return std::get_if<std::pair<unsigned int, unsigned int>>(&data)->second;
+}
 
 const HUD::Callback& HUD::Item::getCallback() const { return cb; }
 

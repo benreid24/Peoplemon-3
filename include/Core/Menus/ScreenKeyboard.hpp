@@ -36,11 +36,9 @@ public:
      *
      * @param bus The event bus to subscribe to when start() is called
      * @param onSubmit Callback to call when the input is submitted
-     * @param minLen Minimum input length to accept
-     * @param maxLen Maximum input length to accept
+     *
      */
-    ScreenKeyboard(bl::event::Dispatcher& bus, const OnSubmit& onSubmit, unsigned int minLen = 0,
-                   unsigned int maxLen = 16);
+    ScreenKeyboard(bl::event::Dispatcher& bus, const OnSubmit& onSubmit);
 
     /**
      * @brief Unsubscribes the keyboard if still subscribed
@@ -51,8 +49,10 @@ public:
     /**
      * @brief Subscribes the keyboard to the event bus
      *
+     * @param minLen Minimum input length to accept
+     * @param maxLen Maximum input length to accept
      */
-    void start();
+    void start(unsigned int minLen = 0, unsigned int maxLen = 16);
 
     /**
      * @brief Unsubscribes the keyboard from the event bus
@@ -80,8 +80,8 @@ public:
 
 private:
     const OnSubmit onSubmit;
-    const unsigned int minLen;
-    const unsigned int maxLen;
+    unsigned int minLen;
+    unsigned int maxLen;
     bl::event::Dispatcher& bus;
     std::string input;
     bool keyboardEnabled;

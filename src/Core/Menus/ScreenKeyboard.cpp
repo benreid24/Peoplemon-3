@@ -14,11 +14,10 @@ constexpr std::initializer_list<std::initializer_list<char>> KeyChars = {{}};
 
 using namespace bl::menu;
 
-ScreenKeyboard::ScreenKeyboard(bl::event::Dispatcher& b, const OnSubmit& os, unsigned int mn,
-                               unsigned int mx)
+ScreenKeyboard::ScreenKeyboard(bl::event::Dispatcher& b, const OnSubmit& os)
 : onSubmit(os)
-, minLen(mn)
-, maxLen(mx)
+, minLen(0)
+, maxLen(16)
 , bus(b)
 , keyboardEnabled(false)
 , position(100.f, 380.f)
@@ -130,7 +129,13 @@ ScreenKeyboard::ScreenKeyboard(bl::event::Dispatcher& b, const OnSubmit& os, uns
 
 ScreenKeyboard::~ScreenKeyboard() { stop(); }
 
-void ScreenKeyboard::start() { bus.subscribe(this); }
+void ScreenKeyboard::start(unsigned int mn, unsigned int mx) {
+    minLen = mn;
+    maxLen = mx;
+    input.clear();
+    renderedInput.setString(input);
+    bus.subscribe(this);
+}
 
 void ScreenKeyboard::stop() { bus.unsubscribe(this); }
 
@@ -139,7 +144,24 @@ void ScreenKeyboard::setPosition(const sf::Vector2f& pos) { position = pos; }
 const std::string& ScreenKeyboard::value() const { return input; }
 
 void ScreenKeyboard::observe(const sf::Event& e) {
-    // TODO - get text entered events and paste events
+    switch (e.type) {
+    case sf::Event::TextEntered:
+        if (e.text.unicode == 8) { input.pop_back(); }
+        else {
+            input.push_back(e.text.unicode);
+        }
+        break;
+    case sf::Event::KeyPressed:
+        if (e.key.control && e.key.code == sf::Keyboard::Return) {
+            input += sf::Clipboard::getString().toAnsiString();
+        }
+        else if (e.key.code == sf::Keyboard::Return) {
+            onEnter();
+        }
+        break;
+    default:
+        break;
+    }
 }
 
 void ScreenKeyboard::onKeyPress(char c) {
