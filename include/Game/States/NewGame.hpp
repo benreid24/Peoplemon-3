@@ -69,7 +69,6 @@ public:
 
 private:
     sf::Text tempText;
-    float aliveTime;
 
     NewGame(core::system::Systems& systems);
 };

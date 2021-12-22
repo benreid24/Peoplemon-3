@@ -59,7 +59,6 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menu.addItem(quit, settings.get(), Item::Bottom);
     menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
 
-    inputDriver.drive(menu);
     menu.setPosition({28.f, 4.f});
     menu.setMinHeight(38.f);
 
@@ -77,10 +76,12 @@ const char* PauseMenu::name() const { return "PauseMenu"; }
 void PauseMenu::activate(bl::engine::Engine&) {
     menu.setSelectedItem(resume.get());
     systems.player().inputSystem().addListener(inputDriver);
+    inputDriver.drive(&menu);
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
     systems.player().inputSystem().removeListener(inputDriver);
+    inputDriver.drive(nullptr);
 }
 
 void PauseMenu::update(bl::engine::Engine&, float dt) {

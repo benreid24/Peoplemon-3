@@ -23,17 +23,17 @@ HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
-, screenKeyboard(owner.engine().eventBus(),
-                 std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
+, screenKeyboard(std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
 , textboxTxtr(bl::engine::Resources::textures().load(Properties::TextboxFile()).data)
-, viewSize(sf::Vector2f(textboxTxtr->getSize()) * 2.f)
+, viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
+           static_cast<float>(textboxTxtr->getSize().y) * 4.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
 , flashingTriangle(promptTriangle, 0.75f, 0.65f)
 , choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , choiceBoxX(viewSize.x * 0.75f + 3.f) {
     const sf::Vector2f boxSize = sf::Vector2f(textboxTxtr->getSize());
     textbox.setTexture(*textboxTxtr, true);
-    textbox.setPosition(boxSize.x * 0.5f, boxSize.y);
+    textbox.setPosition(boxSize.x * 0.5f, boxSize.y * 3.f);
 
     displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
@@ -46,10 +46,11 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceDriver.drive(choiceMenu);
     choiceBackground.setFillColor(sf::Color::White);
     choiceBackground.setOutlineColor(sf::Color::Black);
     choiceBackground.setOutlineThickness(1.5f);
+    screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
+                                textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
 }
 
 void HUD::update(float dt) {
@@ -141,7 +142,7 @@ void HUD::startPrinting() {
 
 void HUD::printDoneStateTransition() {
     if (queuedOutput.front().getType() == Item::Message) { state = WaitingContinue; }
-    else {
+    else if (queuedOutput.front().getType() == Item::Prompt) {
         state                                   = WaitingPrompt;
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
 
@@ -167,11 +168,18 @@ void HUD::printDoneStateTransition() {
         const float y = viewSize.y - bounds.height - 18.f;
         choiceBackground.setPosition({choiceBoxX, y});
         choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
+        choiceDriver.drive(&choiceMenu);
+    }
+    else if (queuedOutput.front().getType() == Item::Keyboard) {
+        state = WaitingKeyboard;
+        screenKeyboard.start(queuedOutput.front().minInputLength(),
+                             queuedOutput.front().maxInputLength());
     }
 }
 
 void HUD::choiceMade(unsigned int i) {
     queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);
+    choiceDriver.drive(nullptr);
     next();
 }
 
@@ -186,6 +194,7 @@ void HUD::next() {
 
 void HUD::keyboardSubmit(const std::string& i) {
     queuedOutput.front().getCallback()(i);
+    screenKeyboard.stop();
     next();
 }
 
@@ -214,6 +223,9 @@ void HUD::HudListener::process(component::Command cmd) {
         break;
 
     case WaitingKeyboard:
+        owner.screenKeyboard.process(cmd);
+        break;
+
     default:
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;

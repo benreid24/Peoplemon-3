@@ -1,7 +1,6 @@
 #ifndef CORE_MENUS_SCREENKEYBOARD_HPP
 #define CORE_MENUS_SCREENKEYBOARD_HPP
 
-#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
@@ -25,9 +24,7 @@ namespace menu
  * @ingroup Menus
  *
  */
-class ScreenKeyboard
-: public bl::event::Listener<sf::Event>
-, public sf::Drawable {
+class ScreenKeyboard : public sf::Drawable {
 public:
     using OnSubmit = std::function<void(const std::string&)>;
 
@@ -38,7 +35,7 @@ public:
      * @param onSubmit Callback to call when the input is submitted
      *
      */
-    ScreenKeyboard(bl::event::Dispatcher& bus, const OnSubmit& onSubmit);
+    ScreenKeyboard(const OnSubmit& onSubmit);
 
     /**
      * @brief Unsubscribes the keyboard if still subscribed
@@ -73,34 +70,32 @@ public:
     const std::string& value() const;
 
     /**
-     * @brief Handles the given window event
+     * @brief Returns the size of the screen keyboard
      *
      */
-    virtual void observe(const sf::Event& event) override;
+    const sf::Vector2f& getSize() const;
+
+    /**
+     * @brief Handles player input
+     *
+     */
+    void process(component::Command cmd);
 
 private:
     const OnSubmit onSubmit;
     unsigned int minLen;
     unsigned int maxLen;
-    bl::event::Dispatcher& bus;
     std::string input;
-    bool keyboardEnabled;
 
     sf::Vector2f position;
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
-    sf::Sprite background;
     sf::Text renderedInput;
+    sf::RectangleShape background;
 
-    bl::menu::ArrowSelector::Ptr selector;
     core::player::input::MenuDriver inputDriver;
-    bl::resource::Resource<sf::Texture>::Ref enableKbTxtr;
-    bl::resource::Resource<sf::Texture>::Ref disableKbTxtr;
-    bl::menu::ImageItem::Ptr kbSwitch;
     bl::menu::Menu keyboardMenu;
 
     void onKeyPress(char key);
     void onEnter();
-    void onKeyboardToggle();
 
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
