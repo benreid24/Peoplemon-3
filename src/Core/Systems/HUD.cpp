@@ -17,27 +17,23 @@ bool isNextCommand(component::Command cmd) {
     return cmd == component::Command::Back || cmd == component::Command::Interact;
 }
 
-sf::Text choiceText() {
-    sf::Text text;
-    text.setFont(Properties::MenuFont());
-    text.setCharacterSize(Properties::HudFontSize());
-    text.setFillColor(sf::Color::Black);
-    return text;
-}
-
 } // namespace
 
 HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
+, screenKeyboard(std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
+, textboxTxtr(bl::engine::Resources::textures().load(Properties::TextboxFile()).data)
+, viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
+           static_cast<float>(textboxTxtr->getSize().y) * 4.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
-, flashingTriangle(promptTriangle, 0.75f, 0.65f) {
-    textboxTxtr = bl::engine::Resources::textures().load(Properties::TextboxFile()).data;
-    const sf::Vector2f boxSize = static_cast<sf::Vector2f>(textboxTxtr->getSize());
+, flashingTriangle(promptTriangle, 0.75f, 0.65f)
+, choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
+, choiceBoxX(viewSize.x * 0.75f + 3.f) {
+    const sf::Vector2f boxSize = sf::Vector2f(textboxTxtr->getSize());
     textbox.setTexture(*textboxTxtr, true);
-    textbox.setPosition(boxSize.x * 0.5f, boxSize.y);
-    viewSize = boxSize * 2.f;
+    textbox.setPosition(boxSize.x * 0.5f, boxSize.y * 3.f);
 
     displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
@@ -48,14 +44,13 @@ HUD::HUD(Systems& owner)
     promptTriangle.setOutlineThickness(1.5f);
     promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));
 
-    choiceArrow = bl::menu::ArrowSelector::create(10.f);
-    choiceArrow->getArrow().setFillColor(sf::Color::Black);
-    choiceRenderer.setVerticalPadding(ChoicePadding);
-    choiceRenderer.setUniformSize({0.f, ChoiceHeight});
+    choiceMenu.setPadding({0.f, ChoicePadding});
+    choiceMenu.setMinHeight(ChoiceHeight);
     choiceBackground.setFillColor(sf::Color::White);
     choiceBackground.setOutlineColor(sf::Color::Black);
     choiceBackground.setOutlineThickness(1.5f);
-    choicePosition.x = viewSize.x * 0.5f + boxSize.x * 0.5f + 3.f;
+    screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
+                                textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
 }
 
 void HUD::update(float dt) {
@@ -71,6 +66,7 @@ void HUD::update(float dt) {
         flashingTriangle.update(dt);
         break;
 
+    case WaitingKeyboard:
     case WaitingPrompt:
         // noop
         break;
@@ -88,15 +84,26 @@ void HUD::render(sf::RenderTarget& target, float lag) {
         viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
     target.draw(textbox);
     target.draw(displayText);
-    if (state == WaitingContinue) { flashingTriangle.render(target, {}, lag); }
-    else if (state == WaitingPrompt) {
+
+    switch (state) {
+    case WaitingContinue:
+        flashingTriangle.render(target, {}, lag);
+        break;
+    case WaitingPrompt:
         target.draw(choiceBackground);
-        choiceMenu.get().render(choiceRenderer, target, choicePosition);
+        choiceMenu.render(target);
+        break;
+    case WaitingKeyboard:
+        target.draw(screenKeyboard);
+        break;
+    default:
+        break;
     }
+
     target.setView(oldView);
 }
 
-void HUD::displayMessage(const std::string& msg, Callback cb) {
+void HUD::displayMessage(const std::string& msg, const Callback& cb) {
     sf::Text text = displayText;
     text.setString(msg);
     bl::interface::wordWrap(text, textboxTxtr->getSize().x);
@@ -105,11 +112,20 @@ void HUD::displayMessage(const std::string& msg, Callback cb) {
 }
 
 void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& choices,
-                     Callback cb) {
+                     const Callback& cb) {
     sf::Text text = displayText;
     text.setString(prompt);
     bl::interface::wordWrap(text, textboxTxtr->getSize().x);
     queuedOutput.emplace(text.getString().toAnsiString(), choices, cb);
+    ensureActive();
+}
+
+void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned int mx,
+                         const Callback& cb) {
+    sf::Text text = displayText;
+    text.setString(prompt);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
+    queuedOutput.emplace(text.getString().toAnsiString(), mn, mx, cb);
     ensureActive();
 }
 
@@ -126,44 +142,44 @@ void HUD::startPrinting() {
 
 void HUD::printDoneStateTransition() {
     if (queuedOutput.front().getType() == Item::Message) { state = WaitingContinue; }
-    else {
-        state = WaitingPrompt;
-
+    else if (queuedOutput.front().getType() == Item::Prompt) {
+        state                                   = WaitingPrompt;
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
-        sf::Text text                           = choiceText();
 
-        text.setString(choices.empty() ? "INVALID" : choices.front());
-        choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
-        sf::Vector2f size(
-            text.getGlobalBounds().width,
-            std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight));
+        bl::menu::Item::Ptr mitem =
+            bl::menu::TextItem::create(choices.empty() ? "INVALID" : choices.front(),
+                                       Properties::MenuFont(),
+                                       sf::Color::Black,
+                                       Properties::HudFontSize());
+        mitem->getSignal(bl::menu::Item::Activated)
+            .willAlwaysCall(std::bind(&HUD::choiceMade, this, 0));
+        choiceMenu.setRootItem(mitem);
+
+        bl::menu::Item* prev = mitem.get();
         for (unsigned int i = 1; i < choices.size(); ++i) {
-            text.setString(choices[i]);
-            choiceItems.push_back(bl::menu::Item::create(bl::menu::TextRenderItem::create(text)));
-            choiceItems[i - 1]->attach(choiceItems.back(), bl::menu::Item::Bottom);
-
-            size.x = std::max(size.x, text.getGlobalBounds().width);
-            size.y +=
-                std::max(text.getGlobalBounds().height + text.getGlobalBounds().top, ChoiceHeight) +
-                ChoicePadding;
+            mitem = bl::menu::TextItem::create(
+                choices[i], Properties::MenuFont(), sf::Color::Black, Properties::HudFontSize());
+            mitem->getSignal(bl::menu::Item::Activated)
+                .willAlwaysCall(std::bind(&HUD::choiceMade, this, i));
+            choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);
         }
-        for (unsigned int i = 0; i < choices.size(); ++i) {
-            const auto cb = [this, i]() { choiceMade(i); };
-            choiceItems[i]->getSignal(bl::menu::Item::Activated).willCall(cb);
-        }
-        choiceMenu.emplace(choiceItems.front(), choiceArrow);
-        choiceDriver.drive(choiceMenu.get());
-        choiceBackground.setSize(size + sf::Vector2f(26.f, 14.f));
-        choicePosition.y = viewSize.y - size.y - 18.f;
-        choiceBackground.setPosition(choicePosition);
-        choicePosition += sf::Vector2f(18.f, 2.f);
+        const sf::FloatRect& bounds = choiceMenu.getBounds();
+        choiceBackground.setSize({bounds.width + 26.f, bounds.height + 14.f});
+        const float y = viewSize.y - bounds.height - 18.f;
+        choiceBackground.setPosition({choiceBoxX, y});
+        choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
+        choiceDriver.drive(&choiceMenu);
+    }
+    else if (queuedOutput.front().getType() == Item::Keyboard) {
+        state = WaitingKeyboard;
+        screenKeyboard.start(queuedOutput.front().minInputLength(),
+                             queuedOutput.front().maxInputLength());
     }
 }
 
 void HUD::choiceMade(unsigned int i) {
     queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);
-    choiceMenu.destroy();
-    choiceItems.clear();
+    choiceDriver.drive(nullptr);
     next();
 }
 
@@ -174,6 +190,12 @@ void HUD::next() {
         state = HUD::Hidden;
         owner.player().inputSystem().removeListener(inputListener);
     }
+}
+
+void HUD::keyboardSubmit(const std::string& i) {
+    queuedOutput.front().getCallback()(i);
+    screenKeyboard.stop();
+    next();
 }
 
 HUD::HudListener::HudListener(HUD& o)
@@ -200,28 +222,50 @@ void HUD::HudListener::process(component::Command cmd) {
         owner.choiceDriver.process(cmd);
         break;
 
+    case WaitingKeyboard:
+        owner.screenKeyboard.process(cmd);
+        break;
+
     default:
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;
     }
 }
 
-HUD::Item::Item(const std::string& msg, HUD::Callback cb)
+HUD::Item::Item(const std::string& msg, const HUD::Callback& cb)
 : type(Message)
 , cb(cb)
-, message(msg) {}
+, message(msg)
+, data(std::in_place_type_t<Empty>{}) {}
 
-HUD::Item::Item(const std::string& p, const std::vector<std::string>& c, HUD::Callback cb)
+HUD::Item::Item(const std::string& p, const std::vector<std::string>& c, const HUD::Callback& cb)
 : type(Prompt)
 , cb(cb)
 , message(p)
-, choices(c) {}
+, data(std::in_place_type_t<std::vector<std::string>>{}, c) {}
+
+HUD::Item::Item(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
+                const Callback& cb)
+: type(Keyboard)
+, cb(cb)
+, message(prompt)
+, data(std::in_place_type_t<std::pair<unsigned int, unsigned int>>{}, minLen, maxLen) {}
 
 HUD::Item::Type HUD::Item::getType() const { return type; }
 
 const std::string& HUD::Item::getMessage() const { return message; }
 
-const std::vector<std::string>& HUD::Item::getChoices() const { return choices.value(); }
+const std::vector<std::string>& HUD::Item::getChoices() const {
+    return *std::get_if<std::vector<std::string>>(&data);
+}
+
+unsigned int HUD::Item::minInputLength() const {
+    return std::get_if<std::pair<unsigned int, unsigned int>>(&data)->first;
+}
+
+unsigned int HUD::Item::maxInputLength() const {
+    return std::get_if<std::pair<unsigned int, unsigned int>>(&data)->second;
+}
 
 const HUD::Callback& HUD::Item::getCallback() const { return cb; }
 

@@ -35,7 +35,7 @@ public:
      *
      * @param menu The menu to control
      */
-    void drive(bl::menu::Menu& menu);
+    void drive(bl::menu::Menu* menu);
 
     /**
      * @brief Returns true if Back was pressed. Not processed by Menu, must be done manually

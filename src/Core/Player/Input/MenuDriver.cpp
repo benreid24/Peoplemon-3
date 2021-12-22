@@ -19,7 +19,7 @@ MenuDriver::MenuDriver()
 , debounce(0.3f)
 , lastInput(0.f) {}
 
-void MenuDriver::drive(bl::menu::Menu& m) { menu = &m; }
+void MenuDriver::drive(bl::menu::Menu* m) { menu = m; }
 
 bool MenuDriver::backPressed() {
     const bool b = back;

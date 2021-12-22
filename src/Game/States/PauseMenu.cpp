@@ -10,7 +10,7 @@ namespace state
 namespace
 {
 constexpr float Width  = 200.f;
-constexpr float Height = 365.f;
+constexpr float Height = 385.f;
 } // namespace
 
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
@@ -18,63 +18,49 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 }
 
 PauseMenu::PauseMenu(core::system::Systems& s)
-: State(s) {
+: State(s)
+, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black)) {
     using bl::menu::Item;
-    using bl::menu::TextRenderItem;
+    using bl::menu::TextItem;
 
-    sf::Text text;
-    text.setFont(core::Properties::MenuFont());
-    text.setFillColor(sf::Color::Black);
-    text.setCharacterSize(30);
-
-    text.setString("Resume");
-    resume = Item::create(TextRenderItem::create(text));
+    resume = TextItem::create("Resume", core::Properties::MenuFont());
     resume->getSignal(Item::Activated).willCall([this]() { this->systems.engine().popState(); });
 
-    text.setString("Peopledex");
-    ppldex = Item::create(TextRenderItem::create(text));
+    ppldex = TextItem::create("Peopledex", core::Properties::MenuFont());
     ppldex->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Peopledex"; });
 
-    text.setString("Peoplemon");
-    pplmon = Item::create(TextRenderItem::create(text));
+    pplmon = TextItem::create("Peoplemon", core::Properties::MenuFont());
     pplmon->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Peoplemon"; });
 
-    text.setString("Bag");
-    bag = Item::create(TextRenderItem::create(text));
+    bag = TextItem::create("Bag", core::Properties::MenuFont());
     bag->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Bag"; });
 
-    text.setString("Map");
-    map = Item::create(TextRenderItem::create(text));
+    map = TextItem::create("Map", core::Properties::MenuFont());
     map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
 
-    text.setString("Save");
-    save = Item::create(TextRenderItem::create(text));
+    save = TextItem::create("Save", core::Properties::MenuFont());
     save->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Save"; });
 
-    text.setString("Settings");
-    settings = Item::create(TextRenderItem::create(text));
+    settings = TextItem::create("Settings", core::Properties::MenuFont());
     settings->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Settings"; });
 
-    text.setString("Quit");
-    quit = Item::create(TextRenderItem::create(text));
+    quit = TextItem::create("Quit", core::Properties::MenuFont());
     quit->getSignal(Item::Activated).willCall([this]() {
         this->systems.engine().flags().set(bl::engine::Flags::Terminate);
     });
 
-    resume->attach(ppldex, Item::Bottom);
-    ppldex->attach(pplmon, Item::Bottom);
-    pplmon->attach(bag, Item::Bottom);
-    bag->attach(map, Item::Bottom);
-    map->attach(save, Item::Bottom);
-    save->attach(settings, Item::Bottom);
-    settings->attach(quit, Item::Bottom);
+    menu.setRootItem(resume);
+    menu.addItem(ppldex, resume.get(), Item::Bottom);
+    menu.addItem(pplmon, ppldex.get(), Item::Bottom);
+    menu.addItem(bag, pplmon.get(), Item::Bottom);
+    menu.addItem(map, bag.get(), Item::Bottom);
+    menu.addItem(save, map.get(), Item::Bottom);
+    menu.addItem(settings, save.get(), Item::Bottom);
+    menu.addItem(quit, settings.get(), Item::Bottom);
+    menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
 
-    selector = bl::menu::ArrowSelector::create(14.f);
-    selector->getArrow().setFillColor(sf::Color::Black);
-    menu.emplace(resume, selector);
-    inputDriver.drive(menu.get());
-    renderer.setVerticalPadding(8.f);
-    renderer.setUniformSize({0.f, 42.f});
+    menu.setPosition({28.f, 4.f});
+    menu.setMinHeight(38.f);
 
     menuBackground.setSize({Width, Height});
     menuBackground.setFillColor(sf::Color::White);
@@ -88,12 +74,14 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 const char* PauseMenu::name() const { return "PauseMenu"; }
 
 void PauseMenu::activate(bl::engine::Engine&) {
-    menu.get().setSelectedItem(resume);
+    menu.setSelectedItem(resume.get());
     systems.player().inputSystem().addListener(inputDriver);
+    inputDriver.drive(&menu);
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
     systems.player().inputSystem().removeListener(inputDriver);
+    inputDriver.drive(nullptr);
 }
 
 void PauseMenu::update(bl::engine::Engine&, float dt) {
@@ -114,7 +102,7 @@ void PauseMenu::render(bl::engine::Engine&, float lag) {
         0.25f));
 
     systems.engine().window().draw(menuBackground);
-    menu.get().render(renderer, systems.engine().window(), {28.f, 4.f});
+    menu.render(systems.engine().window());
     systems.engine().window().display();
 
     systems.engine().window().setView(oldView);

@@ -85,6 +85,14 @@ long Player::money() const { return monei; }
 
 long& Player::money() { return monei; }
 
+void Player::newGame(const std::string& n, player::Gender g) {
+    name   = n;
+    gender = g;
+    inventory.clear();
+    monei = 0;
+    peoplemon.clear();
+}
+
 bool Player::makePlayerControlled(bl::entity::Entity entity) {
     auto controllable =
         owner.engine().entities().getComponentHandle<component::Controllable>(entity);
