@@ -75,6 +75,14 @@ public:
     player::Input& inputSystem();
 
     /**
+     * @brief Initializes all player data structures for a new game
+     *
+     * @param name The name of the player
+     * @param gender The gender of the player
+     */
+    void newGame(const std::string& name, player::Gender gender);
+
+    /**
      * @brief Returns the player's bag
      *
      */
@@ -88,13 +96,13 @@ public:
 
     /**
      * @brief Returns the amount of money the player has
-     * 
+     *
      */
     long money() const;
 
     /**
      * @brief Returns the amount of money the player has
-     * 
+     *
      */
     long& money();
 

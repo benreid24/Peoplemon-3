@@ -98,6 +98,7 @@ ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
             keyboardMenu.attachExisting(submit.get(), keys.back()[i].get(), Item::Bottom, false);
         }
     }
+    keyboardMenu.setSelectedItem(keys[0][0].get());
 
     background.setSize({keyboardMenu.getBounds().width + 28.f,
                         keyboardMenu.getBounds().height + InputAreaHeight + 20.f});

@@ -11,7 +11,7 @@ namespace state
 /**
  * @brief This state does the game intro, gets the player's name and gender, and triggers the main
  *        game state in the player's bedroom
- * 
+ *
  * @ingroup States
  *
  */
@@ -68,9 +68,21 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    sf::Text tempText;
+    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Resource<sf::Texture>::Ref profTxtr;
+    sf::Sprite background;
+    sf::Sprite prof;
+
+    std::string playerName;
+    bool isBoy;
+
+    sf::RectangleShape cover;
+    float fadeTime;
 
     NewGame(core::system::Systems& systems);
+    void nameSet(const std::string& name);
+    void genderSet(const std::string& gender);
+    void fadeOut();
 };
 } // namespace state
 } // namespace game
