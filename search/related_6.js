@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c',['operator&lt;&lt;',['../a01325.html#a73b813712c239aa2edc3c4575fafcb40',1,'core::system::Clock::Time']]]
+  ['operator_3c_3c',['operator&lt;&lt;',['../a01332.html#a73b813712c239aa2edc3c4575fafcb40',1,'core::system::Clock::Time']]]
 ];
