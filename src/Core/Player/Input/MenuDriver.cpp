@@ -34,10 +34,13 @@ bool MenuDriver::pausePressed() {
 }
 
 void MenuDriver::process(component::Command cmd) {
-    if (!menu) return;
-
     if (timer.getElapsedTime().asSeconds() - lastInput < debounce) return;
     lastInput = timer.getElapsedTime().asSeconds();
+    processImmediate(cmd);
+}
+
+void MenuDriver::processImmediate(component::Command cmd) {
+    if (!menu) return;
 
     switch (cmd) {
     case component::Command::MoveDown:

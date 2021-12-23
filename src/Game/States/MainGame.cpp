@@ -24,7 +24,7 @@ const char* MainGame::name() const { return "MainGame"; }
 
 void MainGame::activate(bl::engine::Engine&) {
     systems.engine().eventBus().subscribe(this);
-    systems.controllable().setAllLocks(true, false);
+    if (state == MapFadein) systems.controllable().setAllLocks(true, false);
 }
 
 void MainGame::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }

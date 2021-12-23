@@ -57,6 +57,13 @@ public:
     virtual void process(component::Command command) override;
 
     /**
+     * @brief Forwards the corresponding menu event to the menu being driven. Ignores debounce time
+     *
+     * @param command The command to handle
+     */
+    void processImmediate(component::Command command);
+
+    /**
      * @brief Sets the minimum time, in seconds, between input events being processed. This limits
      *        the speed of cursor movement to something reasonable. Default is 0.3s
      *

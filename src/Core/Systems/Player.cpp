@@ -77,6 +77,8 @@ const component::Position& Player::position() const { return _position.get(); }
 
 player::Input& Player::inputSystem() { return input; }
 
+const std::string& Player::name() const { return playerName; }
+
 player::Bag& Player::bag() { return inventory; }
 
 const player::Bag& Player::bag() const { return inventory; }
@@ -86,8 +88,8 @@ long Player::money() const { return monei; }
 long& Player::money() { return monei; }
 
 void Player::newGame(const std::string& n, player::Gender g) {
-    name   = n;
-    gender = g;
+    playerName = n;
+    gender     = g;
     inventory.clear();
     monei = 0;
     peoplemon.clear();
@@ -126,14 +128,7 @@ void Player::init() {
     owner.engine().eventBus().subscribe(this);
 }
 
-void Player::update() {
-    input.update();
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P)) {
-        if (!file::GameSave::saveGame("testing", owner.engine().eventBus())) {
-            BL_LOG_ERROR << "Failed to save game";
-        }
-    }
-}
+void Player::update() { input.update(); }
 
 void Player::observe(const event::GameSaving& save) {
     Serializer::serializeInto(save.saveData, "player", *this);

@@ -83,6 +83,12 @@ public:
     void newGame(const std::string& name, player::Gender gender);
 
     /**
+     * @brief Returns the name of the player
+     *
+     */
+    const std::string& name() const;
+
+    /**
      * @brief Returns the player's bag
      *
      */
@@ -125,7 +131,7 @@ private:
     bl::entity::Registry::ComponentHandle<component::Movable> movable;
 
     player::Input input;
-    std::string name;
+    std::string playerName;
     player::Gender gender;
     player::Bag inventory;
     long monei;
@@ -158,7 +164,7 @@ struct SerializableObject<core::system::Player> : public SerializableObjectBase 
     SerializableField<Player, long> money;
 
     SerializableObject()
-    : name("name", *this, &Player::name)
+    : name("name", *this, &Player::playerName)
     , gender("gender", *this, &Player::gender)
     , bag("bag", *this, &Player::inventory)
     , peoplemon("peoplemon", *this, &Player::peoplemon)
