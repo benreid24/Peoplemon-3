@@ -1,24 +1,16 @@
-#ifndef GAME_STATES_LOADGAME_HPP
-#define GAME_STATES_LOADGAME_HPP
+#ifndef GAME_STATES_SAVEGAME_HPP
+#define GAME_STATES_SAVEGAME_HPP
 
-#include <Core/Files/GameSave.hpp>
-#include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
 {
 namespace state
 {
-/**
- * @brief Provides a menu to select a save and loads the selected save
- *
- * @ingroup States
- *
- */
-class LoadGame : public State {
+class SaveGame : public State {
 public:
     /**
-     * @brief Creates the load game state
+     * @brief Creates the save game state
      *
      * @param systems The primary systems object
      * @return bl::engine::State::Ptr The new state
@@ -26,13 +18,13 @@ public:
     static bl::engine::State::Ptr create(core::system::Systems& systems);
 
     /**
-     * @brief Destroy the New Game state
+     * @brief Destroy the Save Game state
      *
      */
-    virtual ~LoadGame() = default;
+    virtual ~SaveGame() = default;
 
     /**
-     * @brief Returns "LoadGame"
+     * @brief Returns "SaveGame"
      *
      */
     virtual const char* name() const override;
@@ -68,24 +60,12 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    enum LoadState { SelectingSave, ChooseAction, SaveLoaded, SaveDeleted, Fading, Error } state;
-
-    std::vector<core::file::GameSave> saves;
-    unsigned int selectedSave;
+    const sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
-    sf::RectangleShape cover;
-    float fadeTime;
 
-    sf::RectangleShape menuBackground;
-    bl::menu::Menu saveMenu;
-    sf::RectangleShape actionBackground;
-    bl::menu::Menu actionMenu;
-    core::player::input::MenuDriver inputDriver;
-
-    LoadGame(core::system::Systems& systems);
-    void saveSelected(unsigned int save);
-    void errorDone();
+    SaveGame(core::system::Systems& systems);
+    void onFinish();
 };
 
 } // namespace state

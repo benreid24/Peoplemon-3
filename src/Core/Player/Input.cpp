@@ -37,6 +37,7 @@ void Input::removeListener(input::Listener& l) {
     for (int i = listeners.size() - 1; i >= 0; --i) {
         if (listeners[i] == &l) { listeners.erase(listeners.begin() + i); }
     }
+    l.owner = nullptr;
 }
 
 void Input::update() {

@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/SaveGame.hpp>
 
 namespace game
 {
@@ -39,7 +40,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
 
     save = TextItem::create("Save", core::Properties::MenuFont());
-    save->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Save"; });
+    save->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(SaveGame::create(systems));
+    });
 
     settings = TextItem::create("Settings", core::Properties::MenuFont());
     settings->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Settings"; });
