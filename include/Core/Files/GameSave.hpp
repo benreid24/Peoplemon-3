@@ -46,6 +46,14 @@ struct GameSave {
      * @return True on success, false on error
      */
     bool load(bl::event::Dispatcher& bus) const;
+
+    /**
+     * @brief Deletes the game save
+     *
+     * @return True on success, false on error
+     *
+     */
+    bool remove() const;
 };
 
 } // namespace file

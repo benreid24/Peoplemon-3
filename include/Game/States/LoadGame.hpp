@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_LOADGAME_HPP
 #define GAME_STATES_LOADGAME_HPP
 
+#include <Core/Files/GameSave.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
 
@@ -10,7 +11,7 @@ namespace state
 {
 /**
  * @brief Provides a menu to select a save and loads the selected save
- * 
+ *
  * @ingroup States
  *
  */
@@ -67,11 +68,26 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    sf::Text tempText;
-    float aliveTime;
+    enum LoadState { SelectingSave, ChooseAction, SaveLoaded, SaveDeleted, Fading, Error } state;
+
+    std::vector<core::file::GameSave> saves;
+    unsigned int selectedSave;
+    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    sf::Sprite background;
+    sf::RectangleShape cover;
+    float fadeTime;
+
+    sf::RectangleShape menuBackground;
+    bl::menu::Menu saveMenu;
+    sf::RectangleShape actionBackground;
+    bl::menu::Menu actionMenu;
+    core::player::input::MenuDriver inputDriver;
 
     LoadGame(core::system::Systems& systems);
+    void saveSelected(unsigned int save);
+    void errorDone();
 };
+
 } // namespace state
 } // namespace game
 

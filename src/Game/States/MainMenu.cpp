@@ -38,7 +38,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
     loadGame->getTextObject().setStyle(sf::Text::Bold);
     loadGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "Load Game selected";
-        systems.engine().replaceState(LoadGame::create(systems));
+        systems.engine().pushState(LoadGame::create(systems));
     });
 
     settings = TextItem::create("Settings", core::Properties::MenuFont(), sf::Color::Black, 32);

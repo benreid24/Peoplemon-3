@@ -67,5 +67,10 @@ bool GameSave::load(bl::event::Dispatcher& bus) const {
     return true;
 }
 
+bool GameSave::remove() const {
+    const std::string file = nameToFile(saveName);
+    return bl::util::FileUtil::deleteFile(file);
+}
+
 } // namespace file
 } // namespace core
