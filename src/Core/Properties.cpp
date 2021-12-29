@@ -101,6 +101,8 @@ constexpr float ScreenFadePeriod = 2.f;
 const std::string PeoplemonDBFile = "Resources/Config/peoplemon.db";
 const std::string MoveDBFile      = "Resources/Config/moves.db";
 
+const std::string PeoplemonImageFolder = "Resources/Images/Peoplemon";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -206,6 +208,8 @@ bool Properties::load(bool ie) {
 
     bl::engine::Configuration::set("core.pplmn.dbfile", defaults::PeoplemonDBFile);
     bl::engine::Configuration::set("core.moves.dbfile", defaults::MoveDBFile);
+
+    bl::engine::Configuration::set("core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -608,6 +612,19 @@ const std::string& Properties::MoveDBFile() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.moves.dbfile", defaults::PeoplemonDBFile);
     return val;
+}
+
+sf::Color Properties::HPBarColor(unsigned int hp, unsigned int maxHp) {
+    const float percent = static_cast<float>(hp) / static_cast<float>(maxHp);
+    if (percent > 0.5f) return sf::Color(28, 201, 74);
+    if (percent > 0.25f) return sf::Color(230, 222, 14);
+    return sf::Color(235, 33, 33);
+}
+
+const std::string& Properties::PeoplemonImageFolder() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
+    return f;
 }
 
 } // namespace core

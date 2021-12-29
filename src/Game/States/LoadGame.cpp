@@ -32,8 +32,6 @@ LoadGame::LoadGame(core::system::Systems& s)
     menuBackground.setOutlineColor(sf::Color::Black);
     menuBackground.setOutlineThickness(3.f);
     menuBackground.setPosition(150.f, 200.f);
-
-    saveMenu.setPosition({170.f, 216.f});
     saveMenu.setMinHeight(30.f);
 
     cover.setFillColor(sf::Color::Transparent);
@@ -45,7 +43,7 @@ LoadGame::LoadGame(core::system::Systems& s)
     Item::Ptr del = TextItem::create("Delete", core::Properties::MenuFont(), sf::Color::Black, 26);
     del->getSignal(Item::Activated).willAlwaysCall([this]() { state = SaveDeleted; });
     Item::Ptr back =
-        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(90, 0, 0), 26);
+        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     back->getSignal(Item::Activated).willAlwaysCall([this]() {
         inputDriver.processImmediate(core::component::Command::Back);
     });
@@ -67,7 +65,7 @@ void LoadGame::activate(bl::engine::Engine&) {
     core::file::GameSave::listSaves(saves);
 
     Item::Ptr item =
-        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(90, 0, 0), 26);
+        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     item->getSignal(Item::Activated).willAlwaysCall([this]() {
         inputDriver.processImmediate(core::component::Command::Back);
     });
@@ -79,12 +77,17 @@ void LoadGame::activate(bl::engine::Engine&) {
         Item::Ptr it =
             TextItem::create(save.saveName, core::Properties::MenuFont(), sf::Color::Black, 26);
         it->getSignal(Item::Activated).willAlwaysCall([this, i]() { saveSelected(i); });
-        saveMenu.addItem(it, item.get(), Item::Bottom);
+        saveMenu.addItem(it, item.get(), Item::Top);
         item = it;
     }
+    saveMenu.setSelectedItem(item.get());
 
     state = SelectingSave;
     menuBackground.setSize({saveMenu.getBounds().width + 30.f, saveMenu.getBounds().height + 32.f});
+    saveMenu.setPosition({170.f,
+                          menuBackground.getGlobalBounds().top +
+                              menuBackground.getGlobalBounds().height -
+                              saveMenu.getBounds().height + 16.f});
     inputDriver.drive(&saveMenu);
     systems.player().inputSystem().addListener(inputDriver);
 }

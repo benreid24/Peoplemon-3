@@ -130,6 +130,12 @@ public:
     std::uint16_t& currentHp();
 
     /**
+     * @brief Returns the current HP
+     *
+     */
+    std::uint16_t currentHp() const;
+
+    /**
      * @brief Award EVs to this peoplemon
      *
      * @param evs The EVs to add

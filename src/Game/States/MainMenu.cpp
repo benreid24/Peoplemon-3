@@ -57,13 +57,13 @@ MainMenu::MainMenu(core::system::Systems& systems)
     menu.addItem(settings, loadGame.get(), Item::Bottom);
     menu.addItem(quit, settings.get(), Item::Bottom);
     menu.setMinHeight(38.f);
+    menu.setSelectedItem(newGame.get());
 }
 
 const char* MainMenu::name() const { return "MainMenu"; }
 
 void MainMenu::activate(bl::engine::Engine&) {
     // TODO - music
-    menu.setSelectedItem(newGame.get());
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
 }

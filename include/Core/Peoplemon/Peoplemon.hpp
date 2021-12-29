@@ -163,6 +163,14 @@ public:
      */
     static unsigned int levelUpXp(Id id, unsigned int level);
 
+    /**
+     * @brief Returns the path of the image to render as the peoplemon thumbnail
+     *
+     * @param id The id of the peoplemon
+     * @return std::string The image to use as the thumbnail
+     */
+    static std::string thumbnailImage(Id id);
+
 private:
     static std::unordered_map<Id, std::string>* names;
     static std::unordered_map<Id, std::string>* descriptions;

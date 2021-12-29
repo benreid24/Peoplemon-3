@@ -1,6 +1,7 @@
 #include <Game/States/PeoplemonMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Menus/PeoplemonButton.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -21,6 +22,11 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
                                                             "Peoplemon/background.png"))
                          .data;
     background.setTexture(*backgroundTxtr, true);
+
+    core::menu::PeoplemonButton::Ptr ppl =
+        core::menu::PeoplemonButton::create(systems.player().team().front());
+    menu.setRootItem(ppl);
+    menu.setPosition({50.f, 150.f});
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }

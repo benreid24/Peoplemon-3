@@ -113,6 +113,9 @@ public:
     static const std::string& PeoplemonDBFile();
     static const std::string& MoveDBFile();
 
+    static sf::Color HPBarColor(unsigned int hp, unsigned int maxHp);
+    static const std::string& PeoplemonImageFolder();
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties
