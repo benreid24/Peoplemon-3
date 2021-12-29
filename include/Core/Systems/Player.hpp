@@ -89,6 +89,18 @@ public:
     const std::string& name() const;
 
     /**
+     * @brief Returns the peoplemon owned by the player
+     *
+     */
+    const std::vector<pplmn::OwnedPeoplemon>& team() const;
+
+    /**
+     * @brief Returns the peoplemon owned by the player
+     *
+     */
+    std::vector<pplmn::OwnedPeoplemon>& team();
+
+    /**
      * @brief Returns the player's bag
      *
      */

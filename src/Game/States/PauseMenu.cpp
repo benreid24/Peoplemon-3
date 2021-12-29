@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
 namespace game
@@ -31,7 +32,10 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     ppldex->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Peopledex"; });
 
     pplmon = TextItem::create("Peoplemon", core::Properties::MenuFont());
-    pplmon->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Peoplemon"; });
+    pplmon->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(
+            PeoplemonMenu::create(systems, PeoplemonMenu::Context::PauseMenu));
+    });
 
     bag = TextItem::create("Bag", core::Properties::MenuFont());
     bag->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Bag"; });
@@ -54,8 +58,13 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 
     menu.setRootItem(resume);
     menu.addItem(ppldex, resume.get(), Item::Bottom);
-    menu.addItem(pplmon, ppldex.get(), Item::Bottom);
-    menu.addItem(bag, pplmon.get(), Item::Bottom);
+    if (!systems.player().team().empty()) {
+        menu.addItem(pplmon, ppldex.get(), Item::Bottom);
+        menu.addItem(bag, pplmon.get(), Item::Bottom);
+    }
+    else {
+        menu.addItem(bag, ppldex.get(), Item::Bottom);
+    }
     menu.addItem(map, bag.get(), Item::Bottom);
     menu.addItem(save, map.get(), Item::Bottom);
     menu.addItem(settings, save.get(), Item::Bottom);
@@ -64,6 +73,7 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 
     menu.setPosition({28.f, 4.f});
     menu.setMinHeight(38.f);
+    menu.setSelectedItem(resume.get());
 
     menuBackground.setSize({Width, Height});
     menuBackground.setFillColor(sf::Color::White);
@@ -77,7 +87,6 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 const char* PauseMenu::name() const { return "PauseMenu"; }
 
 void PauseMenu::activate(bl::engine::Engine&) {
-    menu.setSelectedItem(resume.get());
     systems.player().inputSystem().addListener(inputDriver);
     inputDriver.drive(&menu);
 }
