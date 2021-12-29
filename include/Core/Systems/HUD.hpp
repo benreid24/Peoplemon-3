@@ -144,7 +144,6 @@ private:
     bl::shapes::Triangle promptTriangle;
     bl::gfx::Flashing flashingTriangle;
 
-    sf::RectangleShape choiceBackground;
     bl::menu::Menu choiceMenu;
     core::player::input::MenuDriver choiceDriver;
     const float choiceBoxX;

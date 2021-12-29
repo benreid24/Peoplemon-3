@@ -28,10 +28,7 @@ LoadGame::LoadGame(core::system::Systems& s)
                                                       "LoadGame/loadGameBgnd.png"))
                    .data;
     background.setTexture(*bgndTxtr, true);
-    menuBackground.setFillColor(sf::Color::White);
-    menuBackground.setOutlineColor(sf::Color::Black);
-    menuBackground.setOutlineThickness(3.f);
-    menuBackground.setPosition(150.f, 200.f);
+    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 8.f, 8.f, 8.f});
     saveMenu.setMinHeight(30.f);
 
     cover.setFillColor(sf::Color::Transparent);
@@ -51,11 +48,7 @@ LoadGame::LoadGame(core::system::Systems& s)
     actionMenu.setRootItem(load);
     actionMenu.addItem(del, load.get(), Item::Bottom);
     actionMenu.addItem(back, del.get(), Item::Bottom);
-    actionBackground.setFillColor(sf::Color::White);
-    actionBackground.setOutlineColor(sf::Color::Black);
-    actionBackground.setOutlineThickness(3.f);
-    actionBackground.setSize(
-        {actionMenu.getBounds().width + 30.f, actionMenu.getBounds().height + 24.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 2.f, 8.f, 2.f});
 }
 
 const char* LoadGame::name() const { return "LoadGame"; }
@@ -83,11 +76,7 @@ void LoadGame::activate(bl::engine::Engine&) {
     saveMenu.setSelectedItem(item.get());
 
     state = SelectingSave;
-    menuBackground.setSize({saveMenu.getBounds().width + 30.f, saveMenu.getBounds().height + 32.f});
-    saveMenu.setPosition({170.f,
-                          menuBackground.getGlobalBounds().top +
-                              menuBackground.getGlobalBounds().height -
-                              saveMenu.getBounds().height + 16.f});
+    saveMenu.setPosition({170.f, 200.f + saveMenu.getBounds().height});
     inputDriver.drive(&saveMenu);
     systems.player().inputSystem().addListener(inputDriver);
 }
@@ -155,11 +144,7 @@ void LoadGame::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
 
     engine.window().draw(background);
-    engine.window().draw(menuBackground);
-    if (state != SelectingSave) {
-        engine.window().draw(actionBackground);
-        actionMenu.render(engine.window());
-    }
+    if (state != SelectingSave) { actionMenu.render(engine.window()); }
     saveMenu.render(engine.window());
     if (state == Fading) { engine.window().draw(cover); }
 
@@ -170,10 +155,8 @@ void LoadGame::saveSelected(unsigned int i) {
     selectedSave = i;
     state        = ChooseAction;
     inputDriver.drive(&actionMenu);
-    const sf::Vector2f pos(menuBackground.getPosition().x + menuBackground.getGlobalBounds().width +
-                               40.f,
-                           menuBackground.getPosition().y + static_cast<float>(i) * 26.f + 32.f);
-    actionBackground.setPosition(pos);
+    const sf::Vector2f pos(170.f + saveMenu.getBounds().width + 40.f,
+                           200.f + static_cast<float>(i) * 26.f + 32.f);
     actionMenu.setPosition(pos + sf::Vector2f(22.f, 14.f));
 }
 

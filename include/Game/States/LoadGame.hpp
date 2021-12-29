@@ -77,9 +77,7 @@ private:
     sf::RectangleShape cover;
     float fadeTime;
 
-    sf::RectangleShape menuBackground;
     bl::menu::Menu saveMenu;
-    sf::RectangleShape actionBackground;
     bl::menu::Menu actionMenu;
     core::player::input::MenuDriver inputDriver;
 
