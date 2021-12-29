@@ -42,6 +42,9 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     backBut->getSignal(bl::menu::Item::Deselected).willAlwaysCall([this]() {
         backBut->getSprite().setColor(sf::Color::White);
     });
+    backBut->getSignal(bl::menu::Item::Activated).willAlwaysCall([this]() {
+        systems.engine().popState();
+    });
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }
@@ -65,6 +68,21 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     for (unsigned int i = 0; i < col2N; ++i) {
         buttons[i * 2 + 1] = menu::PeoplemonButton::create(team[i * 2 + 1]);
     }
+    for (unsigned int i = 0; i < 6; ++i) {
+        if (team[i].currentHp() == 0) {
+            buttons[i]->setHighlightColor(sf::Color(200, 10, 10));
+            if (context == Context::BattleFaint || context == Context::BattleSwitch) {
+                buttons[i]->setSelectable(false);
+            }
+        }
+        else if (data && data->outNow == i) {
+            if (context == Context::BattleSwitch) {
+                buttons[i]->setHighlightColor(sf::Color(90, 110, 250));
+                buttons[i]->setSelectable(false);
+            }
+        }
+        // TODO - triggers
+    }
     menu.setRootItem(buttons[0]);
     for (unsigned int i = 1; i < col1N; ++i) {
         menu.addItem(buttons[i * 2], buttons[(i - 1) * 2].get(), bl::menu::Item::Bottom);
@@ -76,12 +94,15 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
                 buttons[i * 2 + 1].get(), buttons[(i - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
         }
     }
-    if (col2N > 0) {
-        menu.addItem(backBut, buttons[(col1N - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
-        menu.attachExisting(backBut.get(), buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom, false);
-    }
-    else {
-        menu.addItem(backBut, buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom);
+    if (context != Context::BattleFaint) {
+        if (col2N > 0) {
+            menu.addItem(backBut, buttons[(col1N - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
+            menu.attachExisting(
+                backBut.get(), buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom, false);
+        }
+        else {
+            menu.addItem(backBut, buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom);
+        }
     }
     menu.setSelectedItem(buttons[0].get());
 

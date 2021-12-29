@@ -13,6 +13,7 @@ namespace
 {
 constexpr float Width  = 200.f;
 constexpr float Height = 385.f;
+
 } // namespace
 
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
