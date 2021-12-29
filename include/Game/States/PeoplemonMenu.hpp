@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
+#include <Game/Menus/PeoplemonButton.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -81,15 +82,29 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
+    enum MenuState {
+        Browsing,
+        SelectingMove,
+        Moving,
+    };
+
     const Context context;
     ContextData const* data;
     sf::View oldView;
+
+    MenuState state;
+    menu::PeoplemonButton* mover1;
+    menu::PeoplemonButton* mover2;
+    sf::Vector2f mover1Dest;
+    sf::Vector2f mover2Dest;
 
     bl::resource::Resource<sf::Texture>::Ref backgroundTxtr;
     sf::Sprite background;
 
     bl::menu::Menu menu;
     core::player::input::MenuDriver inputDriver;
+    menu::PeoplemonButton::Ptr buttons[6];
+    bl::menu::ImageItem::Ptr backBut;
 
     PeoplemonMenu(core::system::Systems& systems, Context ctx, ContextData* data);
 };

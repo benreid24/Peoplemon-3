@@ -8,13 +8,33 @@ namespace game
 {
 namespace menu
 {
+/**
+ * @brief Menu item for peoplemon
+ * 
+ * @ingroup Menus
+ * 
+ */
 class PeoplemonButton : public bl::menu::Item {
 public:
     using Ptr = std::shared_ptr<PeoplemonButton>;
 
+    /**
+     * @brief Creates a new peoplemon button from the peoplemon
+     * 
+     * @param ppl The peoplemon to represent
+     * @return Ptr The new item
+     */
     static Ptr create(const core::pplmn::OwnedPeoplemon& ppl);
 
+    /**
+     * @brief Set the highlight color
+     * 
+     */
+    void setHighlightColor(const sf::Color& color);
+
 private:
+    sf::Color color;
+    bool isSelected;
     bl::resource::Resource<sf::Texture>::Ref txtr;
     bl::resource::Resource<sf::Texture>::Ref faceTxtr;
     sf::Sprite image;

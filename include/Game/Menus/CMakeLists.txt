@@ -1,3 +1,3 @@
-target_sources(Core PUBLIC
+target_sources(Peoplemon PUBLIC
     PeoplemonButton.hpp
 )

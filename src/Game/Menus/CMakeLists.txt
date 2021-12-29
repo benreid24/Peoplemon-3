@@ -1,3 +1,3 @@
-target_sources(Core PRIVATE
+target_sources(Peoplemon PRIVATE
     PeoplemonButton.cpp
 )

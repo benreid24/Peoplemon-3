@@ -13,7 +13,8 @@ PeoplemonButton::Ptr PeoplemonButton::create(const core::pplmn::OwnedPeoplemon& 
     return Ptr(new PeoplemonButton(ppl));
 }
 
-PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl) {
+PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl)
+: color(sf::Color::White) {
     txtr = bl::engine::Resources::textures()
                .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
                                                   "Peoplemon/button.png"))
@@ -79,6 +80,16 @@ PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl) {
     face.setOrigin(face.getGlobalBounds().width * 0.5f, face.getGlobalBounds().height * 0.5f);
     face.setScale(scale, scale);
     face.setPosition(71.f, 76.f);
+
+    getSignal(bl::menu::Item::Selected).willAlwaysCall([this]() {
+        image.setColor(sf::Color(170, 190, 30));
+    });
+    getSignal(bl::menu::Item::Deselected).willAlwaysCall([this]() { image.setColor(color); });
+}
+
+void PeoplemonButton::setHighlightColor(const sf::Color& c) {
+    color = c;
+    if (!isSelected) { image.setColor(color); }
 }
 
 sf::Vector2f PeoplemonButton::getSize() const {
