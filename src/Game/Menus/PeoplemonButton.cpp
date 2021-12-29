@@ -1,26 +1,26 @@
-#include <Core/Menus/PeoplemonButton.hpp>
+#include <Game/Menus/PeoplemonButton.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 
-namespace core
+namespace game
 {
 namespace menu
 {
-PeoplemonButton::Ptr PeoplemonButton::create(const pplmn::OwnedPeoplemon& ppl) {
+PeoplemonButton::Ptr PeoplemonButton::create(const core::pplmn::OwnedPeoplemon& ppl) {
     return Ptr(new PeoplemonButton(ppl));
 }
 
-PeoplemonButton::PeoplemonButton(const pplmn::OwnedPeoplemon& ppl) {
-    txtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "Peoplemon/button.png"))
-            .data;
+PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl) {
+    txtr = bl::engine::Resources::textures()
+               .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                  "Peoplemon/button.png"))
+               .data;
     image.setTexture(*txtr, true);
 
-    name.setFont(Properties::MenuFont());
+    name.setFont(core::Properties::MenuFont());
     name.setCharacterSize(22);
     name.setStyle(sf::Text::Bold);
     name.setFillColor(sf::Color(60, 225, 200));
@@ -30,34 +30,36 @@ PeoplemonButton::PeoplemonButton(const pplmn::OwnedPeoplemon& ppl) {
     const unsigned int curHp = ppl.currentHp();
     const unsigned int maxHp = ppl.currentStats().hp;
     const float hpPercent    = static_cast<float>(curHp) / static_cast<float>(maxHp);
-    const sf::Color hpColor  = Properties::HPBarColor(curHp, maxHp);
+    const sf::Color hpColor  = core::Properties::HPBarColor(curHp, maxHp);
 
     hpBar.setPosition(164.f, 70.f);
     hpBar.setSize({hpPercent * 178.f, 12.f});
     hpBar.setFillColor(hpColor);
 
-    hpText.setFont(Properties::MenuFont());
+    hpText.setFont(core::Properties::MenuFont());
     hpText.setCharacterSize(18);
     hpText.setString(std::to_string(curHp) + " / " + std::to_string(maxHp));
     hpText.setFillColor(hpColor);
     hpText.setPosition(342.f - hpText.getGlobalBounds().width - 8.f, 83.f);
 
-    item.setFont(Properties::MenuFont());
+    item.setFont(core::Properties::MenuFont());
     item.setCharacterSize(16);
     item.setFillColor(sf::Color(30, 230, 160));
-    item.setString(ppl.holdItem() != item::Id::None ? item::Item::getName(ppl.holdItem()) :
-                                                      "No hold item");
+    item.setString(ppl.holdItem() != core::item::Id::None ?
+                       core::item::Item::getName(ppl.holdItem()) :
+                       "No hold item");
     item.setPosition(85.f, 136.f);
 
-    level.setFont(Properties::MenuFont());
+    level.setFont(core::Properties::MenuFont());
     level.setString(std::to_string(ppl.currentLevel()));
     level.setPosition(304.f, 16.f);
     level.setFillColor(sf::Color(50, 220, 250));
     level.setCharacterSize(16);
     level.setStyle(sf::Text::Bold);
 
-    faceTxtr =
-        bl::engine::Resources::textures().load(pplmn::Peoplemon::thumbnailImage(ppl.id())).data;
+    faceTxtr = bl::engine::Resources::textures()
+                   .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
+                   .data;
     face.setTexture(*faceTxtr, true);
     sf::Rect<unsigned int> bounds(100000, 100000, 0, 0);
     const sf::Image img(faceTxtr->copyToImage());
@@ -96,4 +98,4 @@ void PeoplemonButton::render(sf::RenderTarget& target, sf::RenderStates states,
 }
 
 } // namespace menu
-} // namespace core
+} // namespace game

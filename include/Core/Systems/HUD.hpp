@@ -6,9 +6,9 @@
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Menus/ScreenKeyboard.hpp>
 #include <Core/Player/Input/Listener.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Systems/HUD/ScreenKeyboard.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <queue>
@@ -135,7 +135,7 @@ private:
     HudListener inputListener;
     std::queue<Item> queuedOutput;
     bl::interface::GhostWriter currentMessage;
-    menu::ScreenKeyboard screenKeyboard;
+    hud::ScreenKeyboard screenKeyboard;
 
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
     const sf::Vector2f viewSize;

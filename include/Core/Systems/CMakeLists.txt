@@ -15,3 +15,4 @@ target_sources(Core PUBLIC
 )
 
 add_subdirectory(Cameras)
+add_subdirectory(HUD)

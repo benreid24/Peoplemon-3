@@ -1,11 +1,13 @@
-#include <Core/Menus/ScreenKeyboard.hpp>
+#include <Core/Systems/HUD/ScreenKeyboard.hpp>
 
 #include <BLIB/Engine.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
 {
-namespace menu
+namespace system
+{
+namespace hud
 {
 namespace
 {
@@ -143,5 +145,6 @@ void ScreenKeyboard::draw(sf::RenderTarget& target, sf::RenderStates states) con
     keyboardMenu.render(target, states);
 }
 
-} // namespace menu
+} // namespace hud
+} // namespace system
 } // namespace core
