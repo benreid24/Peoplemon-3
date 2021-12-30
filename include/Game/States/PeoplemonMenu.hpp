@@ -86,10 +86,11 @@ private:
         Browsing,
         SelectingMove,
         Moving,
+        ShowingMessage
     };
 
     const Context context;
-    ContextData const* data;
+    ContextData* const data;
     sf::View oldView;
 
     MenuState state;
@@ -123,6 +124,7 @@ private:
     void cleanupMove(bool completed);
     void takeItem();
     void resetAction();
+    void messageDone();
 };
 
 } // namespace state

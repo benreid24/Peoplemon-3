@@ -22,7 +22,7 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
 , data(d)
 , state(Browsing)
 , menu(bl::menu::NoSelector::create())
-, actionMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black))
+, actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , actionOpen(false) {
     backgroundTxtr = bl::engine::Resources::textures()
                          .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
@@ -80,9 +80,24 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
         actionRoot = info.get();
     }
     else {
-        // store/switch, back
+        bl::menu::TextItem::Ptr sel =
+            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" : "Switch",
+                                       core::Properties::MenuFont(),
+                                       sf::Color::Black,
+                                       26);
+        bl::menu::TextItem::Ptr back =
+            bl::menu::TextItem::create("Back", core::Properties::MenuFont(), sf::Color::Black, 26);
+
+        sel->getSignal(bl::menu::Item::Activated)
+            .willAlwaysCall(std::bind(&PeoplemonMenu::chosen, this));
+        back->getSignal(bl::menu::Item::Activated)
+            .willAlwaysCall(std::bind(&PeoplemonMenu::resetAction, this));
+
+        actionMenu.setRootItem(sel);
+        actionMenu.addItem(back, sel.get(), bl::menu::Item::Right);
+        actionRoot = back.get();
     }
-    actionMenu.setMinHeight(42.f);
+    actionMenu.setMinHeight(36.f);
     actionMenu.setPadding({18.f, 12.f});
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {12.f, 0.f, 0.f, 2.f});
 }
@@ -178,13 +193,17 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
             cleanupMove(true);
         }
     }
+    else if (state == MenuState::ShowingMessage) {
+        systems.hud().update(dt);
+    }
 }
 
-void PeoplemonMenu::render(bl::engine::Engine& engine, float) {
+void PeoplemonMenu::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
     engine.window().draw(background);
     menu.render(engine.window());
     if (actionOpen) { actionMenu.render(engine.window()); }
+    if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
     engine.window().display();
 }
 
@@ -271,7 +290,22 @@ void PeoplemonMenu::cleanupMove(bool c) {
 }
 
 void PeoplemonMenu::takeItem() {
-    // TODO - take and report w/ hud
+    auto& ppl              = systems.player().team()[mover1];
+    const core::item::Id i = ppl.holdItem();
+    if (i != core::item::Id::None) {
+        systems.player().bag().addItem(i);
+        ppl.holdItem() = core::item::Id::None;
+        systems.hud().displayMessage(ppl.name() + " had its " + core::item::Item::getName(i) +
+                                         " taken away",
+                                     std::bind(&PeoplemonMenu::messageDone, this));
+    }
+    else {
+        systems.hud().displayMessage(ppl.name() + " is not holding anything",
+                                     std::bind(&PeoplemonMenu::messageDone, this));
+    }
+    state = MenuState::ShowingMessage;
+    inputDriver.drive(nullptr);
+    actionOpen = false;
 }
 
 void PeoplemonMenu::resetAction() {
@@ -311,6 +345,16 @@ void PeoplemonMenu::connectButtons() {
             menu.attachExisting(backBut.get(), buttons[ml].get(), bl::menu::Item::Bottom);
         }
     }
+}
+
+void PeoplemonMenu::chosen() {
+    if (data) data->chosen = mover1;
+    systems.engine().popState();
+}
+
+void PeoplemonMenu::messageDone() {
+    state = MenuState::Browsing;
+    inputDriver.drive(&menu);
 }
 
 } // namespace state
