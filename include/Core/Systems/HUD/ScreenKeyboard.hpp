@@ -1,5 +1,5 @@
-#ifndef CORE_MENUS_SCREENKEYBOARD_HPP
-#define CORE_MENUS_SCREENKEYBOARD_HPP
+#ifndef CORE_SYSTEMS_HUD_SCREENKEYBOARD_HPP
+#define CORE_SYSTEMS_HUD_SCREENKEYBOARD_HPP
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
@@ -7,21 +7,23 @@
 #include <SFML/Graphics.hpp>
 
 /**
- * @addtogroup Menus
+ * @addtogroup HUD
  * @ingroup Core
- * @brief Collection of shared menu components used in the game
+ * @brief Helper classes and utilities for the HUD
  *
  */
 
 namespace core
 {
-/// Collection of shared menu components used in the game
-namespace menu
+namespace system
+{
+/// Helper classes and utilities for the HUD
+namespace hud
 {
 /**
  * @brief A screen keyboard for getting arbitrary user input
  *
- * @ingroup Menus
+ * @ingroup HUD
  *
  */
 class ScreenKeyboard : public sf::Drawable {
@@ -100,7 +102,8 @@ private:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
 
-} // namespace menu
+} // namespace hud
+} // namespace system
 } // namespace core
 
 #endif

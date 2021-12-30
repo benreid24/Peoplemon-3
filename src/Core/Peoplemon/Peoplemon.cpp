@@ -1,5 +1,8 @@
 #include <Core/Peoplemon/Peoplemon.hpp>
 
+#include <BLIB/Util/FileUtil.hpp>
+#include <Core/Properties.hpp>
+
 namespace core
 {
 namespace pplmn
@@ -135,6 +138,14 @@ Id Peoplemon::evolvesFrom(Id id) {
         if (p.second == id) return p.first;
     }
     return Id::Unknown;
+}
+
+std::string Peoplemon::thumbnailImage(Id id) {
+    static const std::string missingno =
+        bl::util::FileUtil::joinPath(Properties::PeoplemonImageFolder(), "0.png");
+    const std::string f = bl::util::FileUtil::joinPath(
+        Properties::PeoplemonImageFolder(), std::to_string(static_cast<unsigned int>(id)) + ".png");
+    return bl::util::FileUtil::exists(f) ? f : missingno;
 }
 
 } // namespace pplmn

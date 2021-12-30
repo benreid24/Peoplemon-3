@@ -141,6 +141,8 @@ const Stats& OwnedPeoplemon::currentIVs() const { return ivs; }
 
 std::uint16_t& OwnedPeoplemon::currentHp() { return hp; }
 
+std::uint16_t OwnedPeoplemon::currentHp() const { return hp; }
+
 void OwnedPeoplemon::awardEVs(const Stats& award) { evs.addEVs(award); }
 
 Ailment& OwnedPeoplemon::currentAilment() { return ailment; }

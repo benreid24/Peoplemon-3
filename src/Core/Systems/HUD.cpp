@@ -46,9 +46,7 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceBackground.setFillColor(sf::Color::White);
-    choiceBackground.setOutlineColor(sf::Color::Black);
-    choiceBackground.setOutlineThickness(1.5f);
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 0.f, 4.f, 0.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
 }
@@ -90,7 +88,6 @@ void HUD::render(sf::RenderTarget& target, float lag) {
         flashingTriangle.render(target, {}, lag);
         break;
     case WaitingPrompt:
-        target.draw(choiceBackground);
         choiceMenu.render(target);
         break;
     case WaitingKeyboard:
@@ -163,10 +160,8 @@ void HUD::printDoneStateTransition() {
                 .willAlwaysCall(std::bind(&HUD::choiceMade, this, i));
             choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);
         }
-        const sf::FloatRect& bounds = choiceMenu.getBounds();
-        choiceBackground.setSize({bounds.width + 26.f, bounds.height + 14.f});
-        const float y = viewSize.y - bounds.height - 18.f;
-        choiceBackground.setPosition({choiceBoxX, y});
+        const sf::FloatRect bounds = choiceMenu.getBounds();
+        const float y              = viewSize.y - bounds.height - 18.f;
         choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
         choiceDriver.drive(&choiceMenu);
     }

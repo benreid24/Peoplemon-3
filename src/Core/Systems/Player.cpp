@@ -79,6 +79,10 @@ player::Input& Player::inputSystem() { return input; }
 
 const std::string& Player::name() const { return playerName; }
 
+std::vector<pplmn::OwnedPeoplemon>& Player::team() { return peoplemon; }
+
+const std::vector<pplmn::OwnedPeoplemon>& Player::team() const { return peoplemon; }
+
 player::Bag& Player::bag() { return inventory; }
 
 const player::Bag& Player::bag() const { return inventory; }
@@ -93,6 +97,14 @@ void Player::newGame(const std::string& n, player::Gender g) {
     inventory.clear();
     monei = 0;
     peoplemon.clear();
+
+#ifdef PEOPLEMON_DEBUG
+    peoplemon.emplace_back(pplmn::Id::AnnaA, 30);
+    peoplemon.back().learnMove(pplmn::MoveId::Awkwardness, 0);
+    peoplemon.back().learnMove(pplmn::MoveId::Confuse, 1);
+    peoplemon.back().learnMove(pplmn::MoveId::MedicalAttention, 2);
+    peoplemon.back().learnMove(pplmn::MoveId::Oblivious, 3);
+#endif
 }
 
 bool Player::makePlayerControlled(bl::entity::Entity entity) {

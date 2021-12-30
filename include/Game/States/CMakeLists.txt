@@ -5,6 +5,7 @@ target_sources(Peoplemon PUBLIC
     MapExplorer.hpp
     NewGame.hpp
     PauseMenu.hpp
+    PeoplemonMenu.hpp
     SaveGame.hpp
     State.hpp
 )
