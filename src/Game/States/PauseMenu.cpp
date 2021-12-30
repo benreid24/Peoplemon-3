@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/BagMenu.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
@@ -13,7 +14,6 @@ namespace
 {
 constexpr float Width  = 200.f;
 constexpr float Height = 385.f;
-
 } // namespace
 
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
@@ -39,7 +39,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     });
 
     bag = TextItem::create("Bag", core::Properties::MenuFont());
-    bag->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Bag"; });
+    bag->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(BagMenu::create(systems, BagMenu::Context::PauseMenu));
+    });
 
     map = TextItem::create("Map", core::Properties::MenuFont());
     map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
