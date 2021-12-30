@@ -9,7 +9,7 @@ namespace state
 {
 namespace
 {
-constexpr float MoveTime = 0.85f;
+constexpr float MoveTime = 0.55f;
 }
 
 bl::engine::State::Ptr PeoplemonMenu::create(core::system::Systems& s, Context c, ContextData* d) {
@@ -221,8 +221,9 @@ void PeoplemonMenu::selected(menu::PeoplemonButton* b) {
     case Browsing:
         actionOpen = true;
         actionMenu.setPosition(
-            buttons[i]->getPosition() +
-            sf::Vector2f(menu.getBounds().left + 85.f, menu.getBounds().top + 45.f));
+            buttons[i]->getPosition() + buttons[i]->getSize() +
+            sf::Vector2f(menu.getBounds().left, menu.getBounds().top) -
+            sf::Vector2f(actionMenu.getBounds().width, actionMenu.getBounds().height));
         actionMenu.setSelectedItem(actionRoot);
         inputDriver.drive(&actionMenu);
         mover1 = i;

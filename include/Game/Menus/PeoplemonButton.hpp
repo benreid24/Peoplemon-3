@@ -10,9 +10,9 @@ namespace menu
 {
 /**
  * @brief Menu item for peoplemon
- * 
+ *
  * @ingroup Menus
- * 
+ *
  */
 class PeoplemonButton : public bl::menu::Item {
 public:
@@ -20,7 +20,7 @@ public:
 
     /**
      * @brief Creates a new peoplemon button from the peoplemon
-     * 
+     *
      * @param ppl The peoplemon to represent
      * @return Ptr The new item
      */
@@ -28,9 +28,15 @@ public:
 
     /**
      * @brief Set the highlight color
-     * 
+     *
      */
     void setHighlightColor(const sf::Color& color);
+
+    /**
+     * @brief Returns the size of the button
+     *
+     */
+    virtual sf::Vector2f getSize() const override;
 
 private:
     sf::Color color;
@@ -48,7 +54,6 @@ private:
     PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl);
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
                         const sf::Vector2f& pos) const override;
-    virtual sf::Vector2f getSize() const override;
 };
 
 } // namespace menu
