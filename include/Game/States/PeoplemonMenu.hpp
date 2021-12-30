@@ -93,8 +93,9 @@ private:
     sf::View oldView;
 
     MenuState state;
-    menu::PeoplemonButton* mover1;
-    menu::PeoplemonButton* mover2;
+    unsigned int mover1;
+    unsigned int mover2;
+    sf::Vector2f moveVel;
     sf::Vector2f mover1Dest;
     sf::Vector2f mover2Dest;
 
@@ -106,7 +107,22 @@ private:
     menu::PeoplemonButton::Ptr buttons[6];
     bl::menu::ImageItem::Ptr backBut;
 
+    bl::menu::Menu actionMenu;
+    bl::menu::Item* actionRoot;
+    bool actionOpen;
+
     PeoplemonMenu(core::system::Systems& systems, Context ctx, ContextData* data);
+
+    void connectButtons();
+
+    void selected(menu::PeoplemonButton* but);
+
+    void chosen(); // store or battle switch
+    void showInfo();
+    void startMove();
+    void cleanupMove(bool completed);
+    void takeItem();
+    void resetAction();
 };
 
 } // namespace state
