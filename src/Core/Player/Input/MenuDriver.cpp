@@ -14,23 +14,16 @@ sf::Clock timer;
 MenuDriver::MenuDriver()
 : Listener()
 , menu(nullptr)
-, back(false)
-, pause(false)
 , debounce(0.3f)
-, lastInput(0.f) {}
+, lastInput(0.f)
+, prevInput(component::Command::None) {}
 
 void MenuDriver::drive(bl::menu::Menu* m) { menu = m; }
 
-bool MenuDriver::backPressed() {
-    const bool b = back;
-    back         = false;
-    return b;
-}
-
-bool MenuDriver::pausePressed() {
-    const bool p = pause;
-    pause        = false;
-    return p;
+component::Command MenuDriver::mostRecentInput() {
+    const component::Command cmd = prevInput;
+    prevInput                    = component::Command::None;
+    return cmd;
 }
 
 void MenuDriver::process(component::Command cmd) {
@@ -40,6 +33,7 @@ void MenuDriver::process(component::Command cmd) {
 }
 
 void MenuDriver::processImmediate(component::Command cmd) {
+    prevInput = cmd;
     if (!menu) return;
 
     switch (cmd) {
@@ -64,13 +58,7 @@ void MenuDriver::processImmediate(component::Command cmd) {
         break;
 
     case component::Command::Back:
-        back = true;
-        break;
-
     case component::Command::Pause:
-        pause = true;
-        break;
-
     default:
         break;
     }

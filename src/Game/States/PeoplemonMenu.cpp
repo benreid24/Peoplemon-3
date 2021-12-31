@@ -165,6 +165,8 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     }
     menu.setSelectedItem(buttons[0].get());
 
+    state      = MenuState::Browsing;
+    actionOpen = false;
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
 }
@@ -177,7 +179,7 @@ void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
 
 void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
     systems.player().update();
-    if (inputDriver.backPressed()) {
+    if (inputDriver.mostRecentInput() == core::component::Command::Back) {
         if (state == MenuState::SelectingMove) { cleanupMove(false); }
         else if (context != Context::BattleFaint) {
             systems.engine().popState();

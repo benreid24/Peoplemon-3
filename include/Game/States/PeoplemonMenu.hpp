@@ -35,7 +35,7 @@ public:
      * @brief Represents where the menu is being opened from
      *
      */
-    enum struct Context { BattleSwitch, BattleFaint, StorageSelect, PauseMenu };
+    enum struct Context { BattleSwitch, BattleFaint, StorageSelect, PauseMenu, GiveItem };
 
     /**
      * @brief Creates a new PeoplemonMenu state
@@ -82,12 +82,7 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    enum MenuState {
-        Browsing,
-        SelectingMove,
-        Moving,
-        ShowingMessage
-    };
+    enum MenuState { Browsing, SelectingMove, Moving, ShowingMessage };
 
     const Context context;
     ContextData* const data;

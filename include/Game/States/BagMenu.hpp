@@ -4,6 +4,8 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
+#include <Game/Menus/BagItemButton.hpp>
+#include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -70,16 +72,44 @@ public:
     virtual void render(bl::engine::Engine&, float) override;
 
 private:
+    enum struct MenuState { Browsing, Sliding, ChoosingGive };
+
     const Context context;
     core::item::Id* const result;
+
+    MenuState state;
+    float slideAmount;
+    float slideVel;
+    float slideOff;
+    bl::menu::Menu* activeMenu;
+    bl::menu::Menu* slideOut;
 
     sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 
     core::player::input::MenuDriver inputDriver;
+    bl::menu::Menu actionMenu;
+    bl::menu::Menu regularMenu;
+    bl::menu::Menu keyMenu;
+    bl::menu::Menu tmMenu;
+    sf::Text pocketLabel;
+    sf::Text description;
+    bool actionOpen;
+    menu::BagItemButton* selectedItem;
+    PeoplemonMenu::ContextData pplContext;
 
     BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result);
+
+    void itemHighlighted(menu::BagItemButton* but);
+    void itemSelected(menu::BagItemButton* but);
+    void exitSelected();
+
+    void chooseItem();
+    void useItem();
+    void giveItem();
+    void dropItem();
+    void resetAction();
 };
 
 } // namespace state

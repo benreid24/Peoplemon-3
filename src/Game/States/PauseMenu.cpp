@@ -101,8 +101,10 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
 void PauseMenu::update(bl::engine::Engine&, float dt) {
     systems.player().update();
     systems.world().update(dt);
-    if (inputDriver.backPressed()) { systems.engine().popState(); }
-    if (inputDriver.pausePressed()) { systems.engine().popState(); }
+    const core::component::Command input = inputDriver.mostRecentInput();
+    if (input == core::component::Command::Back || input == core::component::Command::Pause) {
+        systems.engine().popState();
+    }
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {

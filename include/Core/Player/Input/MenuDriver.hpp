@@ -38,16 +38,10 @@ public:
     void drive(bl::menu::Menu* menu);
 
     /**
-     * @brief Returns true if Back was pressed. Not processed by Menu, must be done manually
+     * @brief Returns the most recent input received by the driver. Resets on query
      *
      */
-    bool backPressed();
-
-    /**
-     * @brief Returns true if Pause was pressed. Not processed by Menu
-     *
-     */
-    bool pausePressed();
+    component::Command mostRecentInput();
 
     /**
      * @brief Forwards the corresponding menu event to the menu being driven, if set
@@ -73,10 +67,9 @@ public:
 
 private:
     bl::menu::Menu* menu;
-    bool back;
-    bool pause;
     float debounce;
     float lastInput;
+    component::Command prevInput;
 };
 
 } // namespace input

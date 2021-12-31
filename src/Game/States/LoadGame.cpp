@@ -89,13 +89,14 @@ void LoadGame::deactivate(bl::engine::Engine&) {
 void LoadGame::update(bl::engine::Engine& engine, float dt) {
     systems.player().update();
 
+    const core::component::Command input = inputDriver.mostRecentInput();
     switch (state) {
     case SelectingSave:
-        if (inputDriver.backPressed()) { engine.popState(); }
+        if (input == core::component::Command::Back) { engine.popState(); }
         break;
 
     case ChooseAction:
-        if (inputDriver.backPressed()) {
+        if (input == core::component::Command::Back) {
             state = SelectingSave;
             inputDriver.drive(&saveMenu);
         }
