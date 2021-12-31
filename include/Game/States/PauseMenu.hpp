@@ -65,9 +65,9 @@ public:
     virtual void render(bl::engine::Engine&, float lag) override;
 
 private:
-    sf::RectangleShape menuBackground;
     bl::menu::Menu menu;
     core::player::input::MenuDriver inputDriver;
+    sf::View view;
 
     bl::menu::Item::Ptr resume;
     bl::menu::Item::Ptr ppldex;

@@ -34,6 +34,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     menu::PeoplemonButton::Ptr ppl = menu::PeoplemonButton::create(systems.player().team().front());
     menu.setRootItem(ppl);
     menu.setPosition(MenuPosition);
+    menu.configureBackground(
+        sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
 
     backBut = bl::menu::ImageItem::create(
         bl::engine::Resources::textures()
@@ -99,7 +101,7 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     }
     actionMenu.setMinHeight(36.f);
     actionMenu.setPadding({18.f, 12.f});
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {12.f, 0.f, 0.f, 2.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 0.f, 2.f});
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }
