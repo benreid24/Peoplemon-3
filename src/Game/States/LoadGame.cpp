@@ -30,6 +30,8 @@ LoadGame::LoadGame(core::system::Systems& s)
     background.setTexture(*bgndTxtr, true);
     saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 8.f, 8.f, 8.f});
     saveMenu.setMinHeight(30.f);
+    saveMenu.setPosition({170.f, 200.f});
+    saveMenu.setMaximumSize({-1.f, 250.f});
 
     cover.setFillColor(sf::Color::Transparent);
     cover.setSize({static_cast<float>(core::Properties::WindowWidth()),
@@ -44,11 +46,11 @@ LoadGame::LoadGame(core::system::Systems& s)
     back->getSignal(Item::Activated).willAlwaysCall([this]() {
         inputDriver.processImmediate(core::component::Command::Back);
     });
-    actionMenu.setMinHeight(30.f);
+    actionMenu.setMinHeight(28.f);
     actionMenu.setRootItem(load);
     actionMenu.addItem(del, load.get(), Item::Bottom);
     actionMenu.addItem(back, del.get(), Item::Bottom);
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 2.f, 8.f, 2.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
 }
 
 const char* LoadGame::name() const { return "LoadGame"; }
@@ -76,7 +78,6 @@ void LoadGame::activate(bl::engine::Engine&) {
     saveMenu.setSelectedItem(item.get());
 
     state = SelectingSave;
-    saveMenu.setPosition({170.f, 200.f + saveMenu.getBounds().height});
     inputDriver.drive(&saveMenu);
     systems.player().inputSystem().addListener(inputDriver);
 }
@@ -88,13 +89,14 @@ void LoadGame::deactivate(bl::engine::Engine&) {
 void LoadGame::update(bl::engine::Engine& engine, float dt) {
     systems.player().update();
 
+    const core::component::Command input = inputDriver.mostRecentInput();
     switch (state) {
     case SelectingSave:
-        if (inputDriver.backPressed()) { engine.popState(); }
+        if (input == core::component::Command::Back) { engine.popState(); }
         break;
 
     case ChooseAction:
-        if (inputDriver.backPressed()) {
+        if (input == core::component::Command::Back) {
             state = SelectingSave;
             inputDriver.drive(&saveMenu);
         }

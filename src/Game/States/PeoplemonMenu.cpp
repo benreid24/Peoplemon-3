@@ -34,6 +34,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     menu::PeoplemonButton::Ptr ppl = menu::PeoplemonButton::create(systems.player().team().front());
     menu.setRootItem(ppl);
     menu.setPosition(MenuPosition);
+    menu.configureBackground(
+        sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
 
     backBut = bl::menu::ImageItem::create(
         bl::engine::Resources::textures()
@@ -81,7 +83,9 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     }
     else {
         bl::menu::TextItem::Ptr sel =
-            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" : "Switch",
+            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" :
+                                       context == Context::GiveItem      ? "Give" :
+                                                                           "Switch",
                                        core::Properties::MenuFont(),
                                        sf::Color::Black,
                                        26);
@@ -99,7 +103,7 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     }
     actionMenu.setMinHeight(36.f);
     actionMenu.setPadding({18.f, 12.f});
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {12.f, 0.f, 0.f, 2.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 0.f, 2.f});
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }
@@ -136,6 +140,9 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
                 buttons[i]->setSelectable(false);
             }
         }
+        if (context == Context::GiveItem && team[i].holdItem() != core::item::Id::None) {
+            buttons[i]->setSelectable(false);
+        }
         buttons[i]
             ->getSignal(bl::menu::Item::Activated)
             .willAlwaysCall(std::bind(&PeoplemonMenu::selected, this, buttons[i].get()));
@@ -163,8 +170,11 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     }
     menu.setSelectedItem(buttons[0].get());
 
+    state      = MenuState::Browsing;
+    actionOpen = false;
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
+    if (data) data->chosen = -1;
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
@@ -175,7 +185,7 @@ void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
 
 void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
     systems.player().update();
-    if (inputDriver.backPressed()) {
+    if (inputDriver.mostRecentInput() == core::component::Command::Back) {
         if (state == MenuState::SelectingMove) { cleanupMove(false); }
         else if (context != Context::BattleFaint) {
             systems.engine().popState();
@@ -349,6 +359,34 @@ void PeoplemonMenu::connectButtons() {
 }
 
 void PeoplemonMenu::chosen() {
+    switch (context) {
+    case Context::BattleFaint:
+    case Context::BattleSwitch:
+        if (systems.player().team()[mover1].currentHp() == 0) {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage("Unconscious Peoplemon can't fight!",
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+            return;
+        }
+        break;
+
+    case Context::GiveItem:
+        if (systems.player().team()[mover1].holdItem() != core::item::Id::None) {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage(systems.player().team()[mover1].name() +
+                                             " is already holding something",
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+            return;
+        }
+        break;
+    default:
+        break;
+    }
+
     if (data) data->chosen = mover1;
     systems.engine().popState();
 }

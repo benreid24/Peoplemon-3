@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/BagMenu.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
@@ -13,7 +14,6 @@ namespace
 {
 constexpr float Width  = 200.f;
 constexpr float Height = 385.f;
-
 } // namespace
 
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
@@ -39,7 +39,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     });
 
     bag = TextItem::create("Bag", core::Properties::MenuFont());
-    bag->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Bag"; });
+    bag->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(BagMenu::create(systems, BagMenu::Context::PauseMenu));
+    });
 
     map = TextItem::create("Map", core::Properties::MenuFont());
     map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
@@ -72,24 +74,23 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     menu.addItem(quit, settings.get(), Item::Bottom);
     menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
 
-    menu.setPosition({28.f, 4.f});
+    const sf::Vector2f scr(core::Properties::WindowWidth(), core::Properties::WindowHeight());
     menu.setMinHeight(38.f);
     menu.setSelectedItem(resume.get());
-
-    menuBackground.setSize({Width, Height});
-    menuBackground.setFillColor(sf::Color::White);
-    menuBackground.setOutlineColor(sf::Color::Black);
-    menuBackground.setOutlineThickness(3.f);
-    menuBackground.setOrigin(0.f, 0.f);
-    menuBackground.setPosition(menuBackground.getOutlineThickness(),
-                               menuBackground.getOutlineThickness());
+    menu.configureBackground(sf::Color::White, sf::Color::Black, 4.f, {24.f, 8.f, 8.f, 8.f});
+    menu.setPosition(
+        {scr.x - menu.visibleSize().x - 32.f, scr.y * 0.5f - menu.visibleSize().y * 0.5f});
 }
 
 const char* PauseMenu::name() const { return "PauseMenu"; }
 
-void PauseMenu::activate(bl::engine::Engine&) {
+void PauseMenu::activate(bl::engine::Engine& engine) {
     systems.player().inputSystem().addListener(inputDriver);
     inputDriver.drive(&menu);
+    view = engine.window().getView();
+    const sf::Vector2f size(core::Properties::WindowWidth(), core::Properties::WindowHeight());
+    view.setCenter(size * 0.5f);
+    view.setSize(size);
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
@@ -100,25 +101,21 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
 void PauseMenu::update(bl::engine::Engine&, float dt) {
     systems.player().update();
     systems.world().update(dt);
-    if (inputDriver.backPressed()) { systems.engine().popState(); }
-    if (inputDriver.pausePressed()) { systems.engine().popState(); }
+    const core::component::Command input = inputDriver.mostRecentInput();
+    if (input == core::component::Command::Back || input == core::component::Command::Pause) {
+        systems.engine().popState();
+    }
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {
     systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
 
     const sf::View oldView = systems.engine().window().getView();
-    systems.engine().window().setView(bl::interface::ViewUtil::computeViewPreserveAR(
-        {menuBackground.getGlobalBounds().width, menuBackground.getGlobalBounds().height},
-        oldView,
-        {0.72f, 0.22f},
-        0.25f));
-
-    systems.engine().window().draw(menuBackground);
+    systems.engine().window().setView(view);
     menu.render(systems.engine().window());
-    systems.engine().window().display();
-
     systems.engine().window().setView(oldView);
+
+    systems.engine().window().display();
 }
 
 } // namespace state
