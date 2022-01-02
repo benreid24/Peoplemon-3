@@ -89,6 +89,12 @@ public:
     const std::string& name() const;
 
     /**
+     * @brief Returns the gender of the player
+     *
+     */
+    player::Gender gender() const;
+
+    /**
      * @brief Returns the peoplemon owned by the player
      *
      */
@@ -99,6 +105,12 @@ public:
      *
      */
     std::vector<pplmn::OwnedPeoplemon>& team();
+
+    /**
+     * @brief Restores HP and removes all ailments
+     *
+     */
+    void healPeoplemon();
 
     /**
      * @brief Returns the player's bag
@@ -144,7 +156,7 @@ private:
 
     player::Input input;
     std::string playerName;
-    player::Gender gender;
+    player::Gender sex;
     player::Bag inventory;
     long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
@@ -177,7 +189,7 @@ struct SerializableObject<core::system::Player> : public SerializableObjectBase 
 
     SerializableObject()
     : name("name", *this, &Player::playerName)
-    , gender("gender", *this, &Player::gender)
+    , gender("gender", *this, &Player::sex)
     , bag("bag", *this, &Player::inventory)
     , peoplemon("peoplemon", *this, &Player::peoplemon)
     , money("money", *this, &Player::monei) {}

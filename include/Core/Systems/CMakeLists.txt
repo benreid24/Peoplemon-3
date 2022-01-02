@@ -9,6 +9,7 @@ target_sources(Core PUBLIC
     Movement.hpp
     Player.hpp
     Position.hpp
+    Scripts.hpp
     Systems.hpp
     Render.hpp
     World.hpp

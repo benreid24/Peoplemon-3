@@ -17,7 +17,8 @@ Systems::Systems(bl::engine::Engine& engine)
 , _movement(*this)
 , _render(*this)
 , _interaction(*this)
-, _hud(*this) {
+, _hud(*this)
+, _scripts(*this) {
     _world.init();
     _position.init();
     _movement.init();
@@ -26,6 +27,7 @@ Systems::Systems(bl::engine::Engine& engine)
     _player.init();
     _ai.init();
     _interaction.init();
+    _scripts.init();
 }
 
 void Systems::update(float dt) {
@@ -87,6 +89,10 @@ AI& Systems::ai() { return _ai; }
 Interaction& Systems::interaction() { return _interaction; }
 
 HUD& Systems::hud() { return _hud; }
+
+Scripts& Systems::scripts() { return _scripts; }
+
+const Scripts& Systems::scripts() const { return _scripts; }
 
 } // namespace system
 } // namespace core

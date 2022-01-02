@@ -44,6 +44,22 @@ public:
      */
     bool interact(bl::entity::Entity interactor);
 
+    /**
+     * @brief Returns whether or not the given npc has been talked to
+     *
+     * @param name The name of the NPC
+     * @return True if talked to in the current map, false otherwise
+     */
+    bool npcTalkedTo(const std::string& name) const;
+
+    /**
+     * @brief Returns whether or not the given trainer has been talked to
+     *
+     * @param name The name of the trainer
+     * @return True if talked to in the current map, false otherwise
+     */
+    bool trainerTalkedto(const std::string& name) const;
+
 private:
     Systems& owner;
     bl::entity::Entity interactingEntity;

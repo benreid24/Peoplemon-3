@@ -12,6 +12,14 @@ namespace core
 {
 namespace system
 {
+namespace
+{
+std::string trainerName(const std::string& n) { return "tnr:" + n; }
+
+std::string npcName(const std::string& n) { return "npc:" + n; }
+
+} // namespace
+
 Interaction::Interaction(Systems& owner)
 : owner(owner)
 , interactingEntity(bl::entity::InvalidEntity)
@@ -34,19 +42,16 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         }
         const bl::entity::Entity nonplayer =
             interactor != owner.player().player() ? interactor : interacted;
-        const auto wit = talkedTo.find(owner.world().activeMap().name());
 
         const component::NPC* npc =
             owner.engine().entities().getComponent<component::NPC>(nonplayer);
         if (npc) {
-            const std::string n = "npc:" + npc->name();
-            const bool talked =
-                wit != talkedTo.end() ? wit->second.find(n) != wit->second.end() : false;
-            setTalked(n);
+            setTalked(npcName(npc->name()));
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
-            currentConversation.setConversation(npc->conversation(), nonplayer, talked);
+            currentConversation.setConversation(
+                npc->conversation(), nonplayer, npcTalkedTo(npc->name()));
             interactingEntity = nonplayer;
             processConversationNode();
             return true;
@@ -55,16 +60,14 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             const component::Trainer* trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
-                const std::string n = "tnr:" + trainer->name();
-                const bool talked =
-                    wit != talkedTo.end() ? wit->second.find(n) != wit->second.end() : false;
-                setTalked(n);
+                setTalked(trainerName(trainer->name()));
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
                 // TODO - handle battle
-                currentConversation.setConversation(
-                    trainer->beforeBattleConversation(), nonplayer, talked);
+                currentConversation.setConversation(trainer->beforeBattleConversation(),
+                                                    nonplayer,
+                                                    trainerTalkedto(trainer->name()));
                 interactingEntity = nonplayer;
                 processConversationNode();
                 return true;
@@ -142,14 +145,6 @@ void Interaction::processConversationNode() {
             std::bind(&Interaction::giveMoneyDecided, this, std::placeholders::_1));
         break;
 
-    case E::CheckInteracted:
-        //
-        break;
-
-    case E::CheckSaveFlag:
-        //
-        break;
-
     default:
         BL_LOG_ERROR << "Invalid conversation node type " << node.getType() << ", terminating";
         owner.controllable().resetEntityLock(interactingEntity);
@@ -217,6 +212,18 @@ void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
         mpos->direction                = dir;
     }
+}
+
+bool Interaction::npcTalkedTo(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("npc:" + name) != wit->second.end();
+}
+
+bool Interaction::trainerTalkedto(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("tnr:" + name) != wit->second.end();
 }
 
 void Interaction::observe(const event::GameSaving& save) {

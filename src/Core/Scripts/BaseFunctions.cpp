@@ -19,6 +19,9 @@ using bl::script::Value;
 
 namespace
 {
+constexpr Value::Type EntryTypes =
+    static_cast<Value::Type>(0xFF ^ (Value::TFunction | Value::TVoid));
+
 typedef Value (*Builtin)(system::Systems& systems, SymbolTable& table,
                          const std::vector<Value>& args);
 
@@ -161,12 +164,6 @@ Value BaseFunctions::makePosition(const component::Position& pos) {
 
 namespace
 {
-Value makeBool(bool b) {
-    Value v;
-    v.makeBool(b);
-    return v;
-}
-
 Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
@@ -176,9 +173,10 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
 
 Value getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
     Value player(static_cast<float>(systems.player().player()));
-    player.setProperty("name", {"player name"}); // TODO - store player name
-    player.setProperty("gender", {"?"});         // TODO - store player gender
-    player.setProperty("money", {100.f});        // TODO - track player money
+    player.setProperty("name", systems.player().name());
+    player.setProperty("gender",
+                       {systems.player().gender() == player::Gender::Boy ? "boy" : "girl"});
+    player.setProperty("money", systems.player().money());
     player.setProperty("position", makePosition(systems, systems.player().player()));
 
     std::vector<player::Bag::Item> items;
@@ -234,7 +232,7 @@ Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<
 
     const int money = static_cast<unsigned int>(args[0].deref().getAsNum());
     if (money > 0) {
-        // TODO - track and give player money
+        systems.player().money() += money;
         if (args[1].deref().getAsBool()) {
             bl::util::Waiter waiter;
             system::HUD::Callback unlock = [](const std::string&) {};
@@ -274,9 +272,9 @@ Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<V
                         ("Give the " + item::Item::getName(item) + "?");
                 systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
                 table.waitOn(waiter);
-                if (choice == "No") return makeBool(false);
+                if (choice == "No") return false;
             }
-            return makeBool(systems.player().bag().removeItem(item, qty));
+            return systems.player().bag().removeItem(item, qty);
         }
         else {
             BL_LOG_WARN << "qty must be a positive integer";
@@ -285,7 +283,7 @@ Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<V
     else {
         BL_LOG_WARN << "Unknown item id: " << rawId;
     }
-    return makeBool(false);
+    return false;
 }
 
 Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
@@ -304,34 +302,38 @@ Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<
             const std::string msg = "Give " + std::to_string(qty) + " monies?";
             systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
             table.waitOn(waiter);
-            if (choice == "No") return makeBool(false);
+            if (choice == "No") return false;
         }
-        return makeBool(false); // TODO - track and take player money
+        if (systems.player().money() >= qty) {
+            systems.player().money() -= qty;
+            return true;
+        }
+        return false;
     }
     else {
         BL_LOG_WARN << "qty must be a positive integer";
     }
-    return makeBool(false);
+    return false;
 }
 
 Value givePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - track and give peoplemon
-    return makeBool(false);
+    return false;
 }
 
 Value takePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - track and take peoplemon
-    return makeBool(false);
+    return false;
 }
 
 Value whiteout(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement whiting out
-    return makeBool(false);
+    return false;
 }
 
-Value restorePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - track and heal peoplemon
-    return makeBool(false);
+Value restorePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+    systems.player().healPeoplemon();
+    return true;
 }
 
 Value displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
@@ -373,7 +375,7 @@ Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vect
 
 Value rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement credits
-    return makeBool(false);
+    return false;
 }
 
 Value getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -388,15 +390,15 @@ Value getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& a
         if (pair.second.get<component::NPC>()->name() == name) {
             Value npc(static_cast<float>(pair.first));
             npc.setProperty("name", {name});
-            npc.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-            npc.setProperty("defeated", makeBool(false));
+            npc.setProperty("talkedTo", systems.interaction().npcTalkedTo(name));
+            npc.setProperty("defeated", false);
             npc.setProperty("position",
                             BaseFunctions::makePosition(*pair.second.get<component::Position>()));
             return npc;
         }
     }
 
-    return makeBool(false);
+    return false;
 }
 
 Value loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -414,8 +416,8 @@ Value loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
                 systems.engine().entities().getComponent<component::NPC>(entity);
             if (npc) {
                 character.setProperty("name", {npc->name()});
-                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-                character.setProperty("defeated", makeBool(false));
+                character.setProperty("talkedTo", systems.interaction().npcTalkedTo(npc->name()));
+                character.setProperty("defeated", false);
                 return character;
             }
 
@@ -423,14 +425,15 @@ Value loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
                 systems.engine().entities().getComponent<component::Trainer>(entity);
             if (trainer) {
                 character.setProperty("name", {trainer->name()});
-                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-                character.setProperty("defeated", makeBool(false));
+                character.setProperty("talkedTo",
+                                      systems.interaction().trainerTalkedto(trainer->name()));
+                character.setProperty("defeated", false); // TODO - track defeated
                 return character;
             }
         }
     }
 
-    return makeBool(false);
+    return false;
 }
 
 Value spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -462,15 +465,15 @@ Value getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value
         if (pair.second.get<component::Trainer>()->name() == name) {
             Value trainer(static_cast<float>(pair.first));
             trainer.setProperty("name", {name});
-            trainer.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-            trainer.setProperty("defeated", makeBool(false)); // TODO - track who defeated
+            trainer.setProperty("talkedTo", systems.interaction().trainerTalkedto(name));
+            trainer.setProperty("defeated", false); // TODO - track who defeated
             trainer.setProperty(
                 "position", BaseFunctions::makePosition(*pair.second.get<component::Position>()));
             return trainer;
         }
     }
 
-    return makeBool(false);
+    return false;
 }
 
 Value moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -500,7 +503,7 @@ Value moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value
         }
     }
 
-    return makeBool(result);
+    return result;
 }
 
 Value rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -522,21 +525,21 @@ Value removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Val
     if (entity != systems.player().player()) {
         const bool result = systems.engine().entities().entityExists(entity);
         systems.engine().entities().destroyEntity(entity);
-        return makeBool(result);
+        return result;
     }
-    return makeBool(false);
+    return false;
 }
 
 Value entityToPosition(system::Systems&, SymbolTable&, const std::vector<Value>&) {
     // TODO - implement path finder
-    return makeBool(false);
+    return false;
 }
 
 Value entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
     Function::validateArgs<Value::TNumeric>("entityInteract", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
-    return makeBool(systems.interaction().interact(entity));
+    return systems.interaction().interact(entity);
 }
 
 Value setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
@@ -581,13 +584,11 @@ private:
     const Callback cb;
 };
 
-system::Clock::Time parseTime(const Value& v) {
+system::Clock::Time parseTime(const Value& val) {
     system::Clock::Time t(12, 0, 0);
-    auto c = v.getProperty("hour");
-    if (c && c->getType() == Value::TNumeric) { // TODO - move deref into Value to allow references
-                                                // natively everywhere?
-        t.hour = static_cast<unsigned int>(c->getAsNum());
-    }
+    const Value v = val.deref();
+    auto c        = v.getProperty("hour");
+    if (c && c->getType() == Value::TNumeric) { t.hour = static_cast<unsigned int>(c->getAsNum()); }
     c = v.getProperty("minute");
     if (c && c->getType() == Value::TNumeric) {
         t.minute = static_cast<unsigned int>(c->getAsNum());
@@ -647,14 +648,16 @@ Value runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Val
     return {};
 }
 
-Value addSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - add game save functionality
-    return makeBool(false);
+Value addSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TString, EntryTypes>("addSaveEntry", args);
+    systems.scripts().setEntry(args[0].getAsString(), args[1].deref());
+    return true;
 }
 
-Value getSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - add game save functionality
-    return makeBool(false);
+Value getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
+    Function::validateArgs<Value::TString>("getSaveEntry", args);
+    const Value* val = systems.scripts().getEntry(args[0].getAsString());
+    return val ? *val : false;
 }
 
 Value loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
