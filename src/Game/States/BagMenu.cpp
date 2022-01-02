@@ -13,6 +13,8 @@ namespace
 using ExitCb = std::function<void()>;
 using ItemCb = std::function<void(menu::BagItemButton*)>;
 
+constexpr float SlideTime = 0.5f;
+
 void populateMenu(bl::menu::Menu& menu, const std::vector<core::player::Bag::Item>& items,
                   const ExitCb& ecb, const ItemCb& icb, const ItemCb& dcb) {
     menu::BagItemButton::Ptr exit = menu::BagItemButton::create({core::item::Id::None, 0});
@@ -93,6 +95,7 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i)
         actionMenu.setRootItem(use);
         actionMenu.addItem(back, use.get(), bl::menu::Item::Bottom);
     }
+    actionMenu.setPadding({16.f, 4.f});
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 2.f, 2.f, 2.f});
     actionMenu.setPosition({252.f, 82.f});
 
@@ -124,6 +127,8 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i)
 const char* BagMenu::name() const { return "BagMenu"; }
 
 void BagMenu::activate(bl::engine::Engine& engine) {
+    bl::menu::Menu* toDrive = nullptr;
+
     if (state != MenuState::ChoosingGive) {
         oldView = engine.window().getView();
         sf::View v(oldView);
@@ -159,13 +164,28 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         state      = MenuState::Browsing;
         actionOpen = false;
         activeMenu = &regularMenu;
+        toDrive    = activeMenu;
     }
     else {
-        // TODO - do give item
+        if (pplContext.chosen >= 0) {
+            resetAction();
+            core::player::Bag::Item it = selectedItem->getItem();
+            it.qty -= 1;
+            if (it.qty > 0) { selectedItem->update(it); }
+            else {
+                activeMenu->removeItem(selectedItem);
+            }
+            systems.player().team()[pplContext.chosen].holdItem() = it.id;
+            toDrive                                               = activeMenu;
+        }
+        else {
+            toDrive = &actionMenu;
+        }
+        state = MenuState::Browsing;
     }
 
     systems.player().inputSystem().addListener(inputDriver);
-    inputDriver.drive(activeMenu);
+    inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
@@ -173,45 +193,95 @@ void BagMenu::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(inputDriver);
 }
 
-void BagMenu::update(bl::engine::Engine& engine, float) {
+void BagMenu::update(bl::engine::Engine& engine, float dt) {
     systems.player().update();
 
     if (state == MenuState::Browsing) {
         const core::component::Command input = inputDriver.mostRecentInput();
-        switch (input) {
-        case core::component::Command::Back:
-            engine.popState();
-            break;
 
-        case core::component::Command::MoveLeft:
-            // TODO - move left
-            break;
+        if (actionOpen) {
+            if (input == core::component::Command::Back) { resetAction(); }
+        }
+        else {
+            switch (input) {
+            case core::component::Command::Back:
+                engine.popState();
+                break;
 
-        case core::component::Command::MoveRight:
-            // TODO - move right
-            break;
+            case core::component::Command::MoveLeft:
+                beginSlide(true);
+                if (activeMenu == &regularMenu) {
+                    activeMenu = &keyMenu;
+                    pocketLabel.setString("Key Items");
+                }
+                else if (activeMenu == &keyMenu) {
+                    activeMenu = &tmMenu;
+                    pocketLabel.setString("TM's");
+                }
+                else {
+                    activeMenu = &regularMenu;
+                    pocketLabel.setString("Regular Items");
+                }
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
 
-        default:
-            break;
+            case core::component::Command::MoveRight:
+                beginSlide(false);
+                if (activeMenu == &regularMenu) {
+                    activeMenu = &tmMenu;
+                    pocketLabel.setString("TM's");
+                }
+                else if (activeMenu == &keyMenu) {
+                    activeMenu = &regularMenu;
+                    pocketLabel.setString("Regular Items");
+                }
+                else {
+                    activeMenu = &keyMenu;
+                    pocketLabel.setString("Key Items");
+                }
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
+
+            default:
+                break;
+            }
         }
     }
     else if (state == MenuState::Sliding) {
-        // TODO - interpolate
+        slideOff += slideVel * dt;
+        if (std::abs(slideOff) >= activeMenu->getBounds().width) {
+            state = MenuState::Browsing;
+            inputDriver.drive(activeMenu);
+        }
     }
 }
 
 void BagMenu::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
     engine.window().draw(background);
-    activeMenu->render(engine.window());
+    if (state == MenuState::Sliding) {
+        const sf::View oldView = engine.window().getView();
+        sf::RenderStates states;
+        states.transform.translate({slideOff, 0.f});
+        slideOut->render(engine.window(), states);
+        const float m = slideVel > 0.f ? -1.f : 1.f;
+        states.transform.translate({m * regularMenu.getBounds().width, 0});
+        activeMenu->render(engine.window(), states);
+        engine.window().setView(oldView);
+    }
+    else {
+        activeMenu->render(engine.window());
+    }
     if (actionOpen) { actionMenu.render(engine.window()); }
     engine.window().draw(pocketLabel);
     engine.window().draw(description);
     engine.window().display();
 }
 
-void BagMenu::itemSelected(menu::BagItemButton* but) {
-    selectedItem = but;
+void BagMenu::itemSelected(const menu::BagItemButton* but) {
+    selectedItem = const_cast<menu::BagItemButton*>(but);
     actionOpen   = true;
     inputDriver.drive(&actionMenu);
 }
@@ -229,7 +299,6 @@ void BagMenu::useItem() {
 
 void BagMenu::giveItem() {
     state = MenuState::ChoosingGive;
-    resetAction();
     systems.engine().pushState(
         PeoplemonMenu::create(systems, PeoplemonMenu::Context::GiveItem, &pplContext));
 }
@@ -246,7 +315,7 @@ void BagMenu::resetAction() {
     inputDriver.drive(activeMenu);
 }
 
-void BagMenu::itemHighlighted(menu::BagItemButton* but) {
+void BagMenu::itemHighlighted(const menu::BagItemButton* but) {
     const auto i = but->getItem().id;
     if (i != core::item::Id::None) {
         const std::string& d = core::item::Item::getDescription(i);
@@ -256,6 +325,15 @@ void BagMenu::itemHighlighted(menu::BagItemButton* but) {
     else {
         description.setString("Close the bag");
     }
+}
+
+void BagMenu::beginSlide(bool l) {
+    slideOut = activeMenu;
+    slideOff = 0.f;
+    slideVel = activeMenu->getBounds().width / SlideTime;
+    if (l) slideVel = -slideVel;
+    inputDriver.drive(nullptr);
+    state = MenuState::Sliding;
 }
 
 } // namespace state

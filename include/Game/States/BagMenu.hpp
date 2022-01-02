@@ -101,9 +101,10 @@ private:
 
     BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result);
 
-    void itemHighlighted(menu::BagItemButton* but);
-    void itemSelected(menu::BagItemButton* but);
+    void itemHighlighted(const menu::BagItemButton* but);
+    void itemSelected(const menu::BagItemButton* but);
     void exitSelected();
+    void beginSlide(bool left);
 
     void chooseItem();
     void useItem();

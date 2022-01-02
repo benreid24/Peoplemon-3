@@ -83,7 +83,9 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d
     }
     else {
         bl::menu::TextItem::Ptr sel =
-            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" : "Switch",
+            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" :
+                                       context == Context::GiveItem      ? "Give" :
+                                                                           "Switch",
                                        core::Properties::MenuFont(),
                                        sf::Color::Black,
                                        26);
@@ -138,6 +140,9 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
                 buttons[i]->setSelectable(false);
             }
         }
+        if (context == Context::GiveItem && team[i].holdItem() != core::item::Id::None) {
+            buttons[i]->setSelectable(false);
+        }
         buttons[i]
             ->getSignal(bl::menu::Item::Activated)
             .willAlwaysCall(std::bind(&PeoplemonMenu::selected, this, buttons[i].get()));
@@ -169,6 +174,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     actionOpen = false;
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
+    if (data) data->chosen = -1;
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
@@ -353,6 +359,34 @@ void PeoplemonMenu::connectButtons() {
 }
 
 void PeoplemonMenu::chosen() {
+    switch (context) {
+    case Context::BattleFaint:
+    case Context::BattleSwitch:
+        if (systems.player().team()[mover1].currentHp() == 0) {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage("Unconscious Peoplemon can't fight!",
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+            return;
+        }
+        break;
+
+    case Context::GiveItem:
+        if (systems.player().team()[mover1].holdItem() != core::item::Id::None) {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage(systems.player().team()[mover1].name() +
+                                             " is already holding something",
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+            return;
+        }
+        break;
+    default:
+        break;
+    }
+
     if (data) data->chosen = mover1;
     systems.engine().popState();
 }
