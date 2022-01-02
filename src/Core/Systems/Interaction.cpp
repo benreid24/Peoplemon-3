@@ -1,5 +1,6 @@
 #include <Core/Systems/Interaction.hpp>
 
+#include <BLIB/Serialization/JSON.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
@@ -16,6 +17,8 @@ Interaction::Interaction(Systems& owner)
 , interactingEntity(bl::entity::InvalidEntity)
 , currentConversation(owner) {}
 
+void Interaction::init() { owner.engine().eventBus().subscribe(this); }
+
 bool Interaction::interact(bl::entity::Entity interactor) {
     const component::Position* pos =
         owner.engine().entities().getComponent<component::Position>(interactor);
@@ -31,14 +34,19 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         }
         const bl::entity::Entity nonplayer =
             interactor != owner.player().player() ? interactor : interacted;
+        const auto wit = talkedTo.find(owner.world().activeMap().name());
 
         const component::NPC* npc =
             owner.engine().entities().getComponent<component::NPC>(nonplayer);
         if (npc) {
+            const std::string n = "npc:" + npc->name();
+            const bool talked =
+                wit != talkedTo.end() ? wit->second.find(n) != wit->second.end() : false;
+            setTalked(n);
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
-            currentConversation.setConversation(npc->conversation(), nonplayer);
+            currentConversation.setConversation(npc->conversation(), nonplayer, talked);
             interactingEntity = nonplayer;
             processConversationNode();
             return true;
@@ -47,11 +55,16 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             const component::Trainer* trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
+                const std::string n = "tnr:" + trainer->name();
+                const bool talked =
+                    wit != talkedTo.end() ? wit->second.find(n) != wit->second.end() : false;
+                setTalked(n);
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
                 // TODO - handle battle
-                currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
+                currentConversation.setConversation(
+                    trainer->beforeBattleConversation(), nonplayer, talked);
                 interactingEntity = nonplayer;
                 processConversationNode();
                 return true;
@@ -129,6 +142,14 @@ void Interaction::processConversationNode() {
             std::bind(&Interaction::giveMoneyDecided, this, std::placeholders::_1));
         break;
 
+    case E::CheckInteracted:
+        //
+        break;
+
+    case E::CheckSaveFlag:
+        //
+        break;
+
     default:
         BL_LOG_ERROR << "Invalid conversation node type " << node.getType() << ", terminating";
         owner.controllable().resetEntityLock(interactingEntity);
@@ -196,6 +217,25 @@ void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
         mpos->direction                = dir;
     }
+}
+
+void Interaction::observe(const event::GameSaving& save) {
+    bl::serial::json::Serializer<Interaction>::serializeInto(save.saveData, "interaction", *this);
+}
+
+void Interaction::observe(const event::GameLoading& save) {
+    if (!bl::serial::json::Serializer<Interaction>::deserializeFrom(
+            save.saveData, "interaction", *this)) {
+        save.failMessage = "Failed to load interaction system data";
+    }
+}
+
+void Interaction::setTalked(const std::string& name) {
+    auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) {
+        wit = talkedTo.try_emplace(owner.world().activeMap().name()).first;
+    }
+    wit->second.emplace(name);
 }
 
 } // namespace system

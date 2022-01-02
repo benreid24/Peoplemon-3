@@ -25,6 +25,7 @@ Systems::Systems(bl::engine::Engine& engine)
     _controllable.init();
     _player.init();
     _ai.init();
+    _interaction.init();
 }
 
 void Systems::update(float dt) {

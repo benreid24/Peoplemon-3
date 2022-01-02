@@ -23,10 +23,11 @@ Conversation::Conversation(system::Systems& s)
 , nodes(nullptr)
 , current(0) {}
 
-void Conversation::setConversation(const file::Conversation& conv, bl::entity::Entity e) {
-    nodes   = &conv.nodes();
-    current = 0;
-    entity  = e;
+void Conversation::setConversation(const file::Conversation& conv, bl::entity::Entity e, bool t) {
+    nodes         = &conv.nodes();
+    current       = 0;
+    entity        = e;
+    alreadyTalked = t;
     followNodes();
 }
 
@@ -89,8 +90,8 @@ void Conversation::followNodes() {
     while (!finished() && !isBlocking(current)) {
         switch (nodes->at(current).getType()) {
         case E::CheckInteracted:
-            // TODO - get interacted status from gamesave
-            current = nodes->at(current).nextOnReject();
+            current =
+                alreadyTalked ? nodes->at(current).nextOnPass() : nodes->at(current).nextOnReject();
             break;
 
         case E::SetSaveFlag:
