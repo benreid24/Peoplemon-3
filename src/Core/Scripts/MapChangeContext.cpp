@@ -13,17 +13,18 @@ using bl::script::Function;
 using bl::script::SymbolTable;
 using bl::script::Value;
 
-typedef Value (*Builtin)(const std::string&, const std::string&, std::uint16_t);
+typedef void (*Builtin)(const std::string&, const std::string&, std::uint16_t, Value&);
 
-Value mapName(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn);
-Value previousMap(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn);
-Value spawnId(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn);
+void mapName(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn,
+             Value& result);
+void previousMap(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn,
+                 Value& result);
+void spawnId(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn,
+             Value& result);
 
 Value bind(const std::string& prevMap, const std::string& newMap, std::uint16_t spawn,
            Builtin func) {
-    return {Function([prevMap, newMap, spawn, func](SymbolTable&, const std::vector<Value>&) {
-        return (*func)(prevMap, newMap, spawn);
-    })};
+    return Value(Function(std::bind(func, prevMap, newMap, spawn, std::placeholders::_3)));
 }
 
 } // namespace
@@ -45,14 +46,16 @@ void MapChangeContext::addCustomSymbols(SymbolTable& table) const {
 
 namespace
 {
-Value mapName(const std::string&, const std::string& newMap, std::uint16_t) { return {newMap}; }
-
-Value previousMap(const std::string& prevMap, const std::string&, std::uint16_t) {
-    return {prevMap};
+void mapName(const std::string&, const std::string& newMap, std::uint16_t, Value& result) {
+    result = newMap;
 }
 
-Value spawnId(const std::string&, const std::string&, std::uint16_t spawn) {
-    return {static_cast<float>(spawn)};
+void previousMap(const std::string& prevMap, const std::string&, std::uint16_t, Value& result) {
+    result = prevMap;
+}
+
+void spawnId(const std::string&, const std::string&, std::uint16_t spawn, Value& result) {
+    result = static_cast<float>(spawn);
 }
 
 } // namespace
