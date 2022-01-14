@@ -16,7 +16,7 @@ using Serializer = bl::serial::json::Serializer<Player>;
 
 Player::Player(Systems& owner)
 : owner(owner)
-, gender(player::Gender::Boy)
+, sex(player::Gender::Boy)
 , monei(0) {}
 
 bool Player::spawnPlayer(const component::Position& pos) {
@@ -63,7 +63,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
     if (!owner.engine().entities().addComponent<component::Renderable>(
             playerId,
             component::Renderable::fromFastMoveAnims(
-                _position, movable, Properties::PlayerAnimations(gender)))) {
+                _position, movable, Properties::PlayerAnimations(sex)))) {
         BL_LOG_ERROR << "Failed to add renderble component to player";
         return false;
     }
@@ -79,6 +79,8 @@ player::Input& Player::inputSystem() { return input; }
 
 const std::string& Player::name() const { return playerName; }
 
+player::Gender Player::gender() const { return sex; }
+
 std::vector<pplmn::OwnedPeoplemon>& Player::team() { return peoplemon; }
 
 const std::vector<pplmn::OwnedPeoplemon>& Player::team() const { return peoplemon; }
@@ -93,7 +95,7 @@ long& Player::money() { return monei; }
 
 void Player::newGame(const std::string& n, player::Gender g) {
     playerName = n;
-    gender     = g;
+    sex        = g;
     inventory.clear();
     monei = 0;
     peoplemon.clear();
@@ -105,6 +107,10 @@ void Player::newGame(const std::string& n, player::Gender g) {
     peoplemon.back().learnMove(pplmn::MoveId::MedicalAttention, 2);
     peoplemon.back().learnMove(pplmn::MoveId::Oblivious, 3);
 #endif
+}
+
+void Player::healPeoplemon() {
+    for (auto& ppl : peoplemon) { ppl.heal(); }
 }
 
 bool Player::makePlayerControlled(bl::entity::Entity entity) {

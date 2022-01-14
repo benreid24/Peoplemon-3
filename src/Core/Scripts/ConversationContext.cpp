@@ -13,19 +13,19 @@ using bl::script::Function;
 using bl::script::SymbolTable;
 using bl::script::Value;
 
-typedef Value (*Builtin)(SymbolTable&, bl::entity::Entity, const ConversationContext::StatusCb&);
+typedef void (*Builtin)(SymbolTable&, bl::entity::Entity, const ConversationContext::StatusCb&,
+                        Value&);
 
-Value talkingEntity(SymbolTable& table, bl::entity::Entity entity,
-                    const ConversationContext::StatusCb& cb);
-Value conversationOver(SymbolTable& table, bl::entity::Entity entity,
-                       const ConversationContext::StatusCb& cb);
-Value waitConversationOver(SymbolTable& table, bl::entity::Entity entity,
-                           const ConversationContext::StatusCb& cb);
+void talkingEntity(SymbolTable& table, bl::entity::Entity entity,
+                   const ConversationContext::StatusCb& cb, Value& result);
+void conversationOver(SymbolTable& table, bl::entity::Entity entity,
+                      const ConversationContext::StatusCb& cb, Value& result);
+void waitConversationOver(SymbolTable& table, bl::entity::Entity entity,
+                          const ConversationContext::StatusCb& cb, Value& result);
 
 Value bind(bl::entity::Entity entity, const ConversationContext::StatusCb& cb, Builtin func) {
-    return {Function([entity, cb, func](SymbolTable& table, const std::vector<Value>&) {
-        return (*func)(table, entity, cb);
-    })};
+    return Value(
+        Function(std::bind(func, std::placeholders::_1, entity, cb, std::placeholders::_3)));
 }
 
 } // namespace
@@ -45,21 +45,19 @@ void ConversationContext::addCustomSymbols(SymbolTable& table) const {
 
 namespace
 {
-Value talkingEntity(SymbolTable&, bl::entity::Entity entity, const ConversationContext::StatusCb&) {
-    return {static_cast<float>(entity)};
+void talkingEntity(SymbolTable&, bl::entity::Entity entity, const ConversationContext::StatusCb&,
+                   Value& res) {
+    res = static_cast<float>(entity);
 }
 
-Value conversationOver(SymbolTable&, bl::entity::Entity entity,
-                       const ConversationContext::StatusCb& cb) {
-    Value v;
-    v.makeBool(cb(entity));
-    return v;
+void conversationOver(SymbolTable&, bl::entity::Entity entity,
+                      const ConversationContext::StatusCb& cb, Value& res) {
+    res = cb(entity);
 }
 
-Value waitConversationOver(SymbolTable& table, bl::entity::Entity entity,
-                           const ConversationContext::StatusCb& cb) {
+void waitConversationOver(SymbolTable& table, bl::entity::Entity entity,
+                          const ConversationContext::StatusCb& cb, Value&) {
     while (!cb(entity)) { table.waitFor(100); }
-    return {};
 }
 
 } // namespace

@@ -10,6 +10,7 @@ target_sources(Core PRIVATE
     Player.cpp
     Position.cpp
     Render.cpp
+    Scripts.cpp
     Systems.cpp
     World.cpp
 )

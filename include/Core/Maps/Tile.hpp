@@ -37,7 +37,7 @@ public:
      *
      * @param copy The tile to copy
      */
-    Tile(const Tile& copy);
+    Tile(const Tile& copy) = default;
 
     /**
      * @brief Builds a tile with the given info
@@ -149,7 +149,7 @@ struct Serializer<core::map::Tile, false> {
     }
 };
 } // namespace binary
-} // namespace file
+} // namespace serial
 } // namespace bl
 
 #endif

@@ -13,26 +13,26 @@ using bl::script::Function;
 using bl::script::SymbolTable;
 using bl::script::Value;
 
-typedef Value (*Builtin)(bl::entity::Entity, const component::Position&, const map::Event&);
+typedef void (*Builtin)(bl::entity::Entity, const component::Position&, const map::Event&, Value&);
 
-Value triggeringEntity(bl::entity::Entity entity, const component::Position& pos,
-                       const map::Event& event);
+void triggeringEntity(bl::entity::Entity entity, const component::Position& pos,
+                      const map::Event& event, Value&);
 
-Value triggerPosition(bl::entity::Entity entity, const component::Position& pos,
-                      const map::Event& event);
+void triggerPosition(bl::entity::Entity entity, const component::Position& pos,
+                     const map::Event& event, Value&);
 
-Value eventType(bl::entity::Entity entity, const component::Position& pos, const map::Event& event);
+void eventType(bl::entity::Entity entity, const component::Position& pos, const map::Event& event,
+               Value&);
 
-Value eventPosition(bl::entity::Entity entity, const component::Position& pos,
-                    const map::Event& event);
+void eventPosition(bl::entity::Entity entity, const component::Position& pos,
+                   const map::Event& event, Value&);
 
-Value eventSize(bl::entity::Entity entity, const component::Position& pos, const map::Event& event);
+void eventSize(bl::entity::Entity entity, const component::Position& pos, const map::Event& event,
+               Value&);
 
 Value bind(bl::entity::Entity entity, const component::Position& pos, const map::Event& event,
            Builtin func) {
-    return {Function([entity, pos, &event, func](SymbolTable&, const std::vector<Value>&) {
-        return (*func)(entity, pos, event);
-    })};
+    return Value(Function(std::bind(func, entity, pos, event, std::placeholders::_3)));
 }
 
 } // namespace
@@ -56,43 +56,49 @@ void MapEventContext::addCustomSymbols(SymbolTable& table) const {
 
 namespace
 {
-Value triggeringEntity(bl::entity::Entity entity, const component::Position&, const map::Event&) {
-    return {static_cast<float>(entity)};
+void triggeringEntity(bl::entity::Entity entity, const component::Position&, const map::Event&,
+                      Value& result) {
+    result = static_cast<float>(entity);
 }
 
-Value triggerPosition(bl::entity::Entity, const component::Position& pos, const map::Event&) {
-    return BaseFunctions::makePosition(pos);
+void triggerPosition(bl::entity::Entity, const component::Position& pos, const map::Event&,
+                     Value& result) {
+    result = BaseFunctions::makePosition(pos);
 }
 
-Value eventType(bl::entity::Entity, const component::Position&, const map::Event& event) {
+void eventType(bl::entity::Entity, const component::Position&, const map::Event& event,
+               Value& result) {
     switch (event.trigger) {
     case map::Event::Trigger::OnEnter:
-        return {"OnEnter"};
+        result = "OnEnter";
+        break;
     case map::Event::Trigger::OnExit:
-        return {"OnExit"};
+        result = "OnExit";
+        break;
     case map::Event::Trigger::onEnterOrExit:
-        return {"onEnterOrExit"};
+        result = "onEnterOrExit";
+        break;
     case map::Event::Trigger::WhileIn:
-        return {"WhileIn"};
+        result = "WhileIn";
+        break;
     case map::Event::Trigger::OnInteract:
-        return {"OnInteract"};
+        result = "OnInteract";
+        break;
     default:
-        return {"Unknown"};
+        result = "Unknown";
     }
 }
 
-Value eventPosition(bl::entity::Entity, const component::Position&, const map::Event& event) {
-    Value coord;
+void eventPosition(bl::entity::Entity, const component::Position&, const map::Event& event,
+                   Value& coord) {
     coord.setProperty("x", {static_cast<float>(event.position.x)});
     coord.setProperty("y", {static_cast<float>(event.position.y)});
-    return coord;
 }
 
-Value eventSize(bl::entity::Entity, const component::Position&, const map::Event& event) {
-    Value size;
+void eventSize(bl::entity::Entity, const component::Position&, const map::Event& event,
+               Value& size) {
     size.setProperty("x", {static_cast<float>(event.areaSize.x)});
     size.setProperty("y", {static_cast<float>(event.areaSize.y)});
-    return size;
 }
 
 } // namespace

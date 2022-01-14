@@ -12,6 +12,7 @@
 #include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
 #include <Core/Systems/Render.hpp>
+#include <Core/Systems/Scripts.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
@@ -183,6 +184,18 @@ public:
      */
     HUD& hud();
 
+    /**
+     * @brief Returns the scripting system
+     *
+     */
+    Scripts& scripts();
+
+    /**
+     * @brief Returns the scripting system
+     *
+     */
+    const Scripts& scripts() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -197,6 +210,7 @@ private:
     Render _render;
     Interaction _interaction;
     HUD _hud;
+    Scripts _scripts;
 
     /**
      * @brief Creates the core game object and associates it with the engine

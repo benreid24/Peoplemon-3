@@ -164,5 +164,10 @@ const OwnedMove* OwnedPeoplemon::knownMoves() const { return moves; }
 
 void OwnedPeoplemon::learnMove(MoveId m, unsigned int i) { moves[i] = OwnedMove(m); }
 
+void OwnedPeoplemon::heal() {
+    ailment = Ailment::None;
+    hp      = currentStats().hp;
+}
+
 } // namespace pplmn
 } // namespace core

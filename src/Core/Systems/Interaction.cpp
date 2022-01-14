@@ -1,5 +1,6 @@
 #include <Core/Systems/Interaction.hpp>
 
+#include <BLIB/Serialization/JSON.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
@@ -11,10 +12,20 @@ namespace core
 {
 namespace system
 {
+namespace
+{
+std::string trainerName(const std::string& n) { return "tnr:" + n; }
+
+std::string npcName(const std::string& n) { return "npc:" + n; }
+
+} // namespace
+
 Interaction::Interaction(Systems& owner)
 : owner(owner)
 , interactingEntity(bl::entity::InvalidEntity)
 , currentConversation(owner) {}
+
+void Interaction::init() { owner.engine().eventBus().subscribe(this); }
 
 bool Interaction::interact(bl::entity::Entity interactor) {
     const component::Position* pos =
@@ -35,10 +46,12 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         const component::NPC* npc =
             owner.engine().entities().getComponent<component::NPC>(nonplayer);
         if (npc) {
+            setTalked(npcName(npc->name()));
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
-            currentConversation.setConversation(npc->conversation(), nonplayer);
+            currentConversation.setConversation(
+                npc->conversation(), nonplayer, npcTalkedTo(npc->name()));
             interactingEntity = nonplayer;
             processConversationNode();
             return true;
@@ -47,11 +60,14 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             const component::Trainer* trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
+                setTalked(trainerName(trainer->name()));
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
                 // TODO - handle battle
-                currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
+                currentConversation.setConversation(trainer->beforeBattleConversation(),
+                                                    nonplayer,
+                                                    trainerTalkedto(trainer->name()));
                 interactingEntity = nonplayer;
                 processConversationNode();
                 return true;
@@ -196,6 +212,37 @@ void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
         mpos->direction                = dir;
     }
+}
+
+bool Interaction::npcTalkedTo(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("npc:" + name) != wit->second.end();
+}
+
+bool Interaction::trainerTalkedto(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("tnr:" + name) != wit->second.end();
+}
+
+void Interaction::observe(const event::GameSaving& save) {
+    bl::serial::json::Serializer<Interaction>::serializeInto(save.saveData, "interaction", *this);
+}
+
+void Interaction::observe(const event::GameLoading& save) {
+    if (!bl::serial::json::Serializer<Interaction>::deserializeFrom(
+            save.saveData, "interaction", *this)) {
+        save.failMessage = "Failed to load interaction system data";
+    }
+}
+
+void Interaction::setTalked(const std::string& name) {
+    auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) {
+        wit = talkedTo.try_emplace(owner.world().activeMap().name()).first;
+    }
+    wit->second.emplace(name);
 }
 
 } // namespace system

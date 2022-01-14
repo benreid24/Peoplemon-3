@@ -188,6 +188,12 @@ public:
      */
     void learnMove(MoveId move, unsigned int i);
 
+    /**
+     * @brief Restores HP and removes ailments
+     *
+     */
+    void heal();
+
 private:
     Id _id;
     std::string customName;

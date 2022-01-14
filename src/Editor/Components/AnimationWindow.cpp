@@ -30,12 +30,12 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
                            std::vector<std::string>{"anim"},
                            std::bind(&AnimationWindow::packAnim, this, std::placeholders::_1),
                            [this]() {
-                               filePicker.get().close();
-                               filePicker.destroy();
+                               filePicker.value().close();
+                               filePicker.reset();
                                window->setForceFocus(true);
                            });
         window->setForceFocus(false);
-        filePicker.get().open(FilePicker::PickExisting, "Select Animation", parent);
+        filePicker.value().open(FilePicker::PickExisting, "Select Animation", parent);
     });
     fileLabel = Label::create("file here");
     fileLabel->setColor(sf::Color::Cyan, sf::Color::Transparent);
@@ -110,9 +110,9 @@ void AnimationWindow::packAnim(const std::string& f) {
         }
         animation->setAnimation(animSrc, true);
     }
-    if (filePicker.hasValue()) {
-        filePicker.get().close();
-        filePicker.destroy();
+    if (filePicker.has_value()) {
+        filePicker.value().close();
+        filePicker.reset();
         window->setForceFocus(true);
     }
 }
@@ -121,9 +121,9 @@ void AnimationWindow::hide() {
     window->remove();
     window->setForceFocus(false);
     closeCb();
-    if (filePicker.hasValue()) {
-        filePicker.get().close();
-        filePicker.destroy();
+    if (filePicker.has_value()) {
+        filePicker.value().close();
+        filePicker.reset();
     }
 }
 
