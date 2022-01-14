@@ -23,7 +23,7 @@ public:
 
     /**
      * @brief Creates the GUI elements
-     * 
+     *
      * @param deleteCb Called when a tile or animation is removed
      *
      */
@@ -71,7 +71,7 @@ public:
      * @brief Returns the active catch type
      *
      */
-    core::map::Catch getActiveCatch() const;
+    std::uint8_t getActiveCatch() const;
 
     /**
      * @brief Returns whether or not the tileset is in a dirty state

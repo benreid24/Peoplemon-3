@@ -5,6 +5,7 @@
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <Editor/Pages/Subpages/Catchables.hpp>
 
 namespace editor
 {
@@ -31,10 +32,6 @@ const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
     bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data};
-
-const bl::resource::Resource<sf::Texture>::Ref catchGfx[] = {
-    bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data};
 
 const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
     bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
@@ -155,7 +152,6 @@ bool EditMap::editorActivate() {
 
     weather.set(weatherField);
     lighting.activate(size);
-    for (core::map::CatchZone& zone : catchZonesField) { zone.activate(); }
 
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);
@@ -385,11 +381,11 @@ void EditMap::setCollisionArea(unsigned int level, const sf::IntRect& area,
     addAction(SetCollisionAreaAction::create(level, area, val, *this));
 }
 
-void EditMap::setCatch(unsigned int level, const sf::Vector2i& pos, core::map::Catch value) {
+void EditMap::setCatch(unsigned int level, const sf::Vector2i& pos, std::uint8_t value) {
     addAction(SetCatchAction::create(level, pos, value, *this));
 }
 
-void EditMap::setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch value) {
+void EditMap::setCatchArea(unsigned int level, const sf::IntRect& area, std::uint8_t value) {
     addAction(SetCatchAreaAction::create(level, area, value, *this));
 }
 
@@ -569,18 +565,21 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         }
         break;
 
-    case RenderOverlay::CatchTiles:
+    case RenderOverlay::CatchTiles: {
+        const float p = core::Properties::PixelsPerTile();
+        sf::RectangleShape ct(sf::Vector2f(p, p));
+        ct.setOutlineThickness(-1.f);
+        ct.setOutlineColor(sf::Color::Black);
         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                overlaySprite.setTexture(*catchGfx[static_cast<unsigned int>(
-                                             levels[overlayLevel].catchLayer().get(x, y))],
-                                         true);
-                overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
-                                          y * core::Properties::PixelsPerTile());
-                target.draw(overlaySprite);
+                ct.setFillColor(
+                    page::Catchables::getColor(levels[overlayLevel].catchLayer().get(x, y)));
+                ct.setPosition(x * core::Properties::PixelsPerTile(),
+                               y * core::Properties::PixelsPerTile());
+                target.draw(ct);
             }
         }
-        break;
+    } break;
 
     case RenderOverlay::Events: {
         static sf::Clock timer;

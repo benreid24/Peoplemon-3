@@ -62,15 +62,11 @@ public:
             if (!input.read(width)) return false;
             if (!input.read(height)) return false;
 
-            CatchZone zone;
-            zone.area = sf::IntRect(left, top, width, height);
-
             std::uint16_t pplCount;
+            std::string trash;
             if (!input.read(pplCount)) return false;
-            zone.peoplemon.reserve(pplCount);
             for (unsigned int j = 0; j < pplCount; ++j) {
-                zone.peoplemon.push_back({});
-                if (!input.read(zone.peoplemon.back())) return false;
+                if (!input.read(trash)) return false;
             }
         }
 
@@ -84,9 +80,9 @@ public:
 
         for (unsigned int x = 0; x < width; ++x) {
             for (unsigned int y = 0; y < height; ++y) {
-                std::uint8_t c = static_cast<std::uint8_t>(Catch::NoEncounter);
+                std::uint8_t c = 0;
                 if (!input.read(c)) return false;
-                result.levels.front().catchLayer().set(x, y, static_cast<Catch>(c));
+                result.levels.front().catchLayer().set(x, y, c);
             }
         }
 
@@ -316,7 +312,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         // Initialize weather, lighting, and wild peoplemon
         weather.set(weatherField);
         lighting.activate(size);
-        for (CatchZone& zone : catchZonesField) { zone.activate(); }
 
         // Load and parse scripts
         script::LegacyWarn::warn(loadScriptField);
@@ -677,7 +672,7 @@ void Map::clear() {
     itemsField.clear();
     eventsField.clear();
     lightingSystem().clear();
-    catchZonesField.clear();
+    catchRegionsField.clear();
     transitionField.clear();
     eventRegions.clear();
     weatherField = Weather::None;

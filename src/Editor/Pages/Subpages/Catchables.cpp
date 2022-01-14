@@ -7,6 +7,20 @@ namespace editor
 {
 namespace page
 {
+namespace
+{
+const std::array<sf::Color, 10> colors = {sf::Color(89, 147, 240, 150),
+                                          sf::Color(89, 237, 240, 150),
+                                          sf::Color(89, 240, 164, 150),
+                                          sf::Color(139, 240, 89, 150),
+                                          sf::Color(227, 240, 89, 150),
+                                          sf::Color(240, 200, 89, 150),
+                                          sf::Color(240, 144, 89, 150),
+                                          sf::Color(240, 89, 119, 150),
+                                          sf::Color(240, 89, 237, 150),
+                                          sf::Color(170, 89, 240, 150)};
+}
+
 using namespace bl::gui;
 
 Catchables::Catchables() {
@@ -18,7 +32,7 @@ Catchables::Catchables() {
     component::HighlightRadioButton::Ptr noCatch = component::HighlightRadioButton::create(img);
     noCatch->setValue(true);
     noCatch->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        active = core::map::Catch::NoEncounter;
+        active = 0;
     });
 
     txtr = bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data;
@@ -27,7 +41,7 @@ Catchables::Catchables() {
     component::HighlightRadioButton::Ptr catchPossible =
         component::HighlightRadioButton::create(img, noCatch->getRadioGroup());
     catchPossible->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        active = core::map::Catch::RandomEncounter;
+        active = 1; // TODO - need to get the actual regions from the map
     });
 
     content->pack(noCatch, true, true);
@@ -36,7 +50,11 @@ Catchables::Catchables() {
 
 Element::Ptr Catchables::getContent() { return content; }
 
-core::map::Catch Catchables::selected() const { return active; }
+std::uint8_t Catchables::selected() const { return active; }
+
+sf::Color Catchables::getColor(std::uint8_t i) {
+    return i > 0 ? colors[i % colors.size()] : sf::Color::Transparent;
+}
 
 } // namespace page
 } // namespace editor

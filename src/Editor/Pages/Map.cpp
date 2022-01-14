@@ -648,12 +648,10 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 break;
             case Tileset::CatchTiles:
                 if (selectionState == SelectionMade) {
-                    mapArea.editMap().setCatchArea(
-                        levelSelect->getSelectedOption(), selection, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatchArea(levelSelect->getSelectedOption(), selection, 0);
                 }
                 else {
-                    mapArea.editMap().setCatch(
-                        levelSelect->getSelectedOption(), tiles, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
                 }
                 break;
             default:

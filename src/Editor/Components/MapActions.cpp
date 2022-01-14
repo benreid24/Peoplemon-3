@@ -350,13 +350,13 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
 const char* EditMap::SetCollisionAreaAction::description() const { return "set col area"; }
 
 EditMap::Action::Ptr EditMap::SetCatchAction::create(unsigned int level, const sf::Vector2i& pos,
-                                                     core::map::Catch value, const EditMap& map) {
+                                                     std::uint8_t value, const EditMap& map) {
     return Ptr(
         new SetCatchAction(level, pos, value, map.levels[level].catchLayer().get(pos.x, pos.y)));
 }
 
 EditMap::SetCatchAction::SetCatchAction(unsigned int level, const sf::Vector2i& pos,
-                                        core::map::Catch value, core::map::Catch ogVal)
+                                        std::uint8_t value, std::uint8_t ogVal)
 : level(level)
 , pos(pos)
 , value(value)
@@ -376,10 +376,9 @@ const char* EditMap::SetCatchAction::description() const { return "set catch til
 
 EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
                                                          const sf::IntRect& area,
-                                                         core::map::Catch value,
-                                                         const EditMap& map) {
-    bl::container::Vector2D<core::map::Catch> ogcols;
-    ogcols.setSize(area.width, area.height, core::map::Catch::NoEncounter);
+                                                         std::uint8_t value, const EditMap& map) {
+    bl::container::Vector2D<std::uint8_t> ogcols;
+    ogcols.setSize(area.width, area.height, 0);
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             ogcols(x - area.left, y - area.top) = map.levels[level].catchLayer().get(x, y);
@@ -389,8 +388,8 @@ EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
 }
 
 EditMap::SetCatchAreaAction::SetCatchAreaAction(unsigned int level, const sf::IntRect& area,
-                                                core::map::Catch value,
-                                                bl::container::Vector2D<core::map::Catch>&& ogcols)
+                                                std::uint8_t value,
+                                                bl::container::Vector2D<std::uint8_t>&& ogcols)
 : level(level)
 , area(area)
 , value(value)

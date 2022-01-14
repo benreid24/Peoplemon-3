@@ -2,7 +2,6 @@
 #define EDITOR_PAGES_SUBPAGES_CATCHABLES_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
-#include <Core/Maps/Catch.hpp>
 
 namespace editor
 {
@@ -32,11 +31,17 @@ public:
      * @brief Returns the currently selected catch type
      *
      */
-    core::map::Catch selected() const;
+    std::uint8_t selected() const;
+
+    /**
+     * @brief Returns the color to use for the given catch region
+     *
+     */
+    static sf::Color getColor(std::uint8_t index);
 
 private:
     bl::gui::Box::Ptr content;
-    core::map::Catch active;
+    std::uint8_t active;
 };
 
 } // namespace page

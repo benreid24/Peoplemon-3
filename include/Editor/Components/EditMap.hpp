@@ -349,7 +349,7 @@ public:
      * @param position The position of the catch to set
      * @param id The new catch value
      */
-    void setCatch(unsigned int level, const sf::Vector2i& position, core::map::Catch id);
+    void setCatch(unsigned int level, const sf::Vector2i& position, std::uint8_t id);
 
     /**
      * @brief Sets a range of catch tiles to a single value
@@ -358,7 +358,7 @@ public:
      * @param area The region to set
      * @param id The value to set all tiles to
      */
-    void setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch id);
+    void setCatchArea(unsigned int level, const sf::IntRect& area, std::uint8_t id);
 
     /**
      * @brief Tells whether or not the given id is in use
@@ -501,13 +501,11 @@ public:
      */
     void removeEvent(const core::map::Event* event);
 
-    void addCatchZone(const core::map::CatchZone& zone);
+    void addCatchRegion(const core::map::CatchRegion& zone);
 
-    const core::map::CatchZone* getCatchZone(const sf::Vector2i& position);
+    void editCatchRegion(std::uint8_t index, const core::map::CatchRegion& zone);
 
-    void editCatchZone(const core::map::CatchZone* orig, const core::map::CatchZone& zone);
-
-    void removeCatchZone(const sf::Vector2i& position);
+    void removeCatchRegion(std::uint8_t index);
 
 private:
     struct Action {
@@ -600,9 +598,9 @@ private:
     class AddEventAction;
     class EditEventAction;
     class RemoveEventAction;
-    class AddCatchZoneAction;
-    class EditCatchZoneAction;
-    class RemoveCatchZoneAction;
+    class AddCatchRegionAction;
+    class EditCatchRegionAction;
+    class RemoveCatchRegionAction;
 };
 
 } // namespace component
