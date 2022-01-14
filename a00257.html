@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/Systems.hpp File Reference</title>
+<title>Peoplemon: include/Core/Systems/Scripts.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,76 +69,47 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Systems.hpp File Reference</div>  </div>
+<div class="title">Scripts.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00221_source.html">Core/Systems/AI.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00230_source.html">Core/Systems/Cameras.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00233_source.html">Core/Systems/Clock.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02100_source.html">Core/Systems/Controllable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00236_source.html">Core/Systems/Entity.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00242_source.html">Core/Systems/HUD.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00245_source.html">Core/Systems/Interaction.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248_source.html">Core/Systems/Movement.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00251_source.html">Core/Systems/Player.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02124_source.html">Core/Systems/Position.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00254_source.html">Core/Systems/Render.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00260_source.html">Core/Systems/World.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Engine/Engine.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Util/NonCopyable.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Events.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Serialization/JSON.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02156_source.html">Core/Events/GameSave.hpp</a>&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
 </div>
 <p><a href="a00257_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01411.html">core::system::Systems</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns all primary systems and a reference to the engine.  <a href="a01411.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01422.html">core::system::Scripts</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that stores and handles saving/loading of save entries for scripts.  <a href="a01422.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html">bl::serial::json::SerializableObject&lt; core::system::Scripts &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">tests</a></td></tr>
+<tr class="memitem:a00779"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00779.html">core</a></td></tr>
+<tr class="memdesc:a00779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00773"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00773.html">core</a></td></tr>
-<tr class="memdesc:a00773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00780"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00780.html">core::system</a></td></tr>
+<tr class="memdesc:a00780"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00774"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00774.html">core::system</a></td></tr>
-<tr class="memdesc:a00774"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a00783"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00783.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00257.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
-<tr class="separator:ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00784"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00784.html">bl::serial</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00786"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00786.html">bl::serial::json</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&nbsp;</a></span>main()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int main </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a02232_source.html#l00018">18</a> of file <a class="el" href="a02232_source.html">main.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 7 2022 01:28:32 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 14 2022 05:32:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

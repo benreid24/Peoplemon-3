@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::Event Struct Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,251 +63,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00773.html">core</a></li><li class="navelem"><a class="el" href="a00782.html">map</a></li><li class="navelem"><a class="el" href="a01123.html">Event</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00783.html">bl</a></li><li class="navelem"><a class="el" href="a00784.html">serial</a></li><li class="navelem"><a class="el" href="a00785.html">binary</a></li><li class="navelem"><a class="el" href="a01126.html">SerializableObject&lt; core::map::CharacterSpawn &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a01120.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Event Struct Reference<div class="ingroups"><a class="el" href="a00755.html">Core</a> &raquo; <a class="el" href="a00763.html">Maps</a></div></div>  </div>
+<div class="title">bl::serial::binary::SerializableObject&lt; core::map::CharacterSpawn &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents an event in a <a class="el" href="a01171.html" title="The primary map class that represents a usable map in the game. ">Map</a>. A script that is run on a trigger within a given region.  
- <a href="a01123.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00104_source.html">Event.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a14f3d414a99e46aa6f6ade27229d374d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374dad26d8f96861fe247a1885391d562bef0">Trigger::OnEnter</a> = 1, 
-<a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374da401b0572a5e3b960959886516846a144">Trigger::OnExit</a> = 2, 
-<a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374da6d20b2de77fae1c49fb08f93d689945a">Trigger::onEnterOrExit</a> = 3, 
-<a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374dac3ca701c1d3855d22fd7bcc423a4890d">Trigger::WhileIn</a> = 4, 
-<br />
-&#160;&#160;<a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374da0c29c81c4fda0de9aced5e23885da7ec">Trigger::OnInteract</a> = 5
-<br />
- }<tr class="memdesc:a14f3d414a99e46aa6f6ade27229d374d"><td class="mdescLeft">&#160;</td><td class="mdescRight">What action triggers the event.  <a href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a14f3d414a99e46aa6f6ade27229d374d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#a326f9ba9256628d2db4b3429c1ea0ee0">Event</a> ()</td></tr>
-<tr class="memdesc:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty event.  <a href="#a326f9ba9256628d2db4b3429c1ea0ee0">More...</a><br /></td></tr>
-<tr class="separator:a326f9ba9256628d2db4b3429c1ea0ee0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac85c5b74c5b1fca7397733c8c040040a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#ac85c5b74c5b1fca7397733c8c040040a">Event</a> (const std::string &amp;<a class="el" href="a01123.html#a131b80b3560636f8e3a68a8d35d5d49f">script</a>, const sf::Vector2i &amp;pos, const sf::Vector2i &amp;size, <a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> <a class="el" href="a01123.html#ad571d3e4a9a933ba8180506cd4267b5f">trigger</a>)</td></tr>
-<tr class="memdesc:ac85c5b74c5b1fca7397733c8c040040a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an event from the given parameters.  <a href="#ac85c5b74c5b1fca7397733c8c040040a">More...</a><br /></td></tr>
-<tr class="separator:ac85c5b74c5b1fca7397733c8c040040a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ad571d3e4a9a933ba8180506cd4267b5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#ad571d3e4a9a933ba8180506cd4267b5f">trigger</a></td></tr>
-<tr class="separator:ad571d3e4a9a933ba8180506cd4267b5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02ec061584ee80e1a69a727d401ed046"><td class="memItemLeft" align="right" valign="top">sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#a02ec061584ee80e1a69a727d401ed046">position</a></td></tr>
-<tr class="separator:a02ec061584ee80e1a69a727d401ed046"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb0d38a39d22e7ce3451d066a284a06c"><td class="memItemLeft" align="right" valign="top">sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#afb0d38a39d22e7ce3451d066a284a06c">areaSize</a></td></tr>
-<tr class="separator:afb0d38a39d22e7ce3451d066a284a06c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a131b80b3560636f8e3a68a8d35d5d49f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html#a131b80b3560636f8e3a68a8d35d5d49f">script</a></td></tr>
-<tr class="separator:a131b80b3560636f8e3a68a8d35d5d49f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents an event in a <a class="el" href="a01171.html" title="The primary map class that represents a usable map in the game. ">Map</a>. A script that is run on a trigger within a given region. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00019">19</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a14f3d414a99e46aa6f6ade27229d374d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14f3d414a99e46aa6f6ade27229d374d">&#9670;&nbsp;</a></span>Trigger</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">core::map::Event::Trigger</a> : std::uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>What action triggers the event. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374dad26d8f96861fe247a1885391d562bef0"></a>OnEnter&#160;</td><td class="fielddoc"><p>The event triggers when the player steps into the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da401b0572a5e3b960959886516846a144"></a>OnExit&#160;</td><td class="fielddoc"><p>The event triggers when the player steps out of the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da6d20b2de77fae1c49fb08f93d689945a"></a>onEnterOrExit&#160;</td><td class="fielddoc"><p>The event triggers when the player either enters or exits the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374dac3ca701c1d3855d22fd7bcc423a4890d"></a>WhileIn&#160;</td><td class="fielddoc"><p>The event triggers repeatedly while the player is in the zone. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a14f3d414a99e46aa6f6ade27229d374da0c29c81c4fda0de9aced5e23885da7ec"></a>OnInteract&#160;</td><td class="fielddoc"><p>The event triggers when the player interacts with the zone. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00021">21</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a326f9ba9256628d2db4b3429c1ea0ee0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a326f9ba9256628d2db4b3429c1ea0ee0">&#9670;&nbsp;</a></span>Event() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::map::Event::Event </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates an empty event. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00455_source.html#l00007">7</a> of file <a class="el" href="a00455_source.html">Event.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac85c5b74c5b1fca7397733c8c040040a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac85c5b74c5b1fca7397733c8c040040a">&#9670;&nbsp;</a></span>Event() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::map::Event::Event </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>script</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a>&#160;</td>
-          <td class="paramname"><em>trigger</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates an event from the given parameters. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">script</td><td>The script to run when triggered </td></tr>
-    <tr><td class="paramname">pos</td><td>The position of the event trigger zone, in tiles </td></tr>
-    <tr><td class="paramname">size</td><td>The size of the event trigger zone, in tiles </td></tr>
-    <tr><td class="paramname">trigger</td><td>The trigger that starts the event </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00455_source.html#l00010">10</a> of file <a class="el" href="a00455_source.html">Event.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="afb0d38a39d22e7ce3451d066a284a06c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb0d38a39d22e7ce3451d066a284a06c">&#9670;&nbsp;</a></span>areaSize</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2i core::map::Event::areaSize</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00040">40</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a02ec061584ee80e1a69a727d401ed046"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02ec061584ee80e1a69a727d401ed046">&#9670;&nbsp;</a></span>position</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sf::Vector2i core::map::Event::position</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00039">39</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a131b80b3560636f8e3a68a8d35d5d49f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a131b80b3560636f8e3a68a8d35d5d49f">&#9670;&nbsp;</a></span>script</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string core::map::Event::script</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00041">41</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad571d3e4a9a933ba8180506cd4267b5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad571d3e4a9a933ba8180506cd4267b5f">&#9670;&nbsp;</a></span>trigger</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01123.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> core::map::Event::trigger</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00038">38</a> of file <a class="el" href="a00104_source.html">Event.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Maps/<a class="el" href="a00104_source.html">Event.hpp</a></li>
-<li>src/Core/Maps/<a class="el" href="a00455_source.html">Event.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01126.html">bl::serial::binary::SerializableObject&lt; core::map::CharacterSpawn &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01126.html#a4148fecfdf236e08c72ea9d054bccd8d">file</a></td><td class="entry"><a class="el" href="a01126.html">bl::serial::binary::SerializableObject&lt; core::map::CharacterSpawn &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01126.html#adb2c16fef4f3e6b04e941d13fe315a22">position</a></td><td class="entry"><a class="el" href="a01126.html">bl::serial::binary::SerializableObject&lt; core::map::CharacterSpawn &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01126.html#a55c7d6ff7a260e9a2ef58484527da3b6">SerializableObject</a>()</td><td class="entry"><a class="el" href="a01126.html">bl::serial::binary::SerializableObject&lt; core::map::CharacterSpawn &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 7 2022 01:28:33 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
