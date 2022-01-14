@@ -1106,5 +1106,71 @@ bool EditMap::RemoveLightAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveLightAction::description() const { return "remove light"; }
 
+EditMap::Action::Ptr EditMap::AddCatchRegionAction::create() {
+    return Action::Ptr{new AddCatchRegionAction()};
+}
+
+bool EditMap::AddCatchRegionAction::apply(EditMap& map) {
+    map.catchRegionsField.emplace_back();
+    map.catchRegionsField.back().name = "New Region";
+    return true;
+}
+
+bool EditMap::AddCatchRegionAction::undo(EditMap& map) {
+    map.catchRegionsField.pop_back();
+    return true;
+}
+
+const char* EditMap::AddCatchRegionAction::description() const { return "add catch region"; }
+
+EditMap::Action::Ptr EditMap::EditCatchRegionAction::create(std::uint8_t index,
+                                                            const core::map::CatchRegion& val,
+                                                            const core::map::CatchRegion& orig) {
+    return Action::Ptr{new EditCatchRegionAction(index, val, orig)};
+}
+
+EditMap::EditCatchRegionAction::EditCatchRegionAction(std::uint8_t i,
+                                                      const core::map::CatchRegion& v,
+                                                      const core::map::CatchRegion& o)
+: index(i)
+, value(v)
+, orig(o) {}
+
+bool EditMap::EditCatchRegionAction::apply(EditMap& map) {
+    map.catchRegionsField[index] = value;
+    return true;
+}
+
+bool EditMap::EditCatchRegionAction::undo(EditMap& map) {
+    map.catchRegionsField[index] = orig;
+    return true;
+}
+
+const char* EditMap::EditCatchRegionAction::description() const { return "edit catch region"; }
+
+EditMap::Action::Ptr EditMap::RemoveCatchRegionAction::create(std::uint8_t index,
+                                                              const core::map::CatchRegion& orig) {
+    return Action::Ptr{new RemoveCatchRegionAction(index, orig)};
+}
+
+EditMap::RemoveCatchRegionAction::RemoveCatchRegionAction(std::uint8_t i,
+                                                          const core::map::CatchRegion& o)
+: index(i)
+, orig(o) {}
+
+bool EditMap::RemoveCatchRegionAction::apply(EditMap& map) {
+    map.catchRegionsField.erase(map.catchRegionsField.begin() + index);
+    // TODO - adjust tiles in map and capture positions of removed ones
+    return true;
+}
+
+bool EditMap::RemoveCatchRegionAction::undo(EditMap& map) {
+    map.catchRegionsField.insert(map.catchRegionsField.begin() + index, orig);
+    // TODO - adjust tiles in map and capture positions of removed ones
+    return true;
+}
+
+const char* EditMap::RemoveCatchRegionAction::description() const { return "remove catch region"; }
+
 } // namespace component
 } // namespace editor

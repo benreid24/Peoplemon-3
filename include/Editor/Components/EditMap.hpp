@@ -501,10 +501,31 @@ public:
      */
     void removeEvent(const core::map::Event* event);
 
-    void addCatchRegion(const core::map::CatchRegion& zone);
+    /**
+     * @brief Adds a new catch region to the map
+     *
+     */
+    void addCatchRegion();
 
+    /**
+     * @brief Returns a reference to all catch regions
+     *
+     */
+    const std::vector<core::map::CatchRegion>& catchRegions() const;
+
+    /**
+     * @brief Modifies the catch region at the given index
+     *
+     * @param index The index to modify
+     * @param zone The new value
+     */
     void editCatchRegion(std::uint8_t index, const core::map::CatchRegion& zone);
 
+    /**
+     * @brief Removes the catch region at the given index
+     *
+     * @param index The catch region to remove
+     */
     void removeCatchRegion(std::uint8_t index);
 
 private:

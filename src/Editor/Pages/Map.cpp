@@ -22,9 +22,9 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, tileset([this](core::map::Tile::IdType id, bool isAnim) {
-    mapArea.editMap().removeAllTiles(id, isAnim);
-})
+, tileset([this](core::map::Tile::IdType id,
+                 bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
+          mapArea.editMap())
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })
@@ -826,6 +826,7 @@ bool Map::checkUnsaved() {
 
 void Map::syncGui() {
     tileset.loadTileset(mapArea.editMap().tilesetField);
+    tileset.refresh();
     levelSelect->clearOptions();
     for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
         levelSelect->addOption("Level " + std::to_string(i));

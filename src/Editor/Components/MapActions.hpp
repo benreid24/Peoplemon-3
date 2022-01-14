@@ -516,6 +516,54 @@ private:
     RemoveLightAction(const core::map::Light& orig);
 };
 
+class EditMap::AddCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create();
+
+    virtual ~AddCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    AddCatchRegionAction() = default;
+};
+
+class EditMap::EditCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t index, const core::map::CatchRegion& value,
+                              const core::map::CatchRegion& orig);
+
+    virtual ~EditCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t index;
+    const core::map::CatchRegion value;
+    const core::map::CatchRegion orig;
+
+    EditCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& value,
+                          const core::map::CatchRegion& orig);
+};
+
+class EditMap::RemoveCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t index, const core::map::CatchRegion& orig);
+
+    virtual ~RemoveCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t index;
+    const core::map::CatchRegion orig;
+
+    RemoveCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& orig);
+};
+
 } // namespace component
 } // namespace editor
 

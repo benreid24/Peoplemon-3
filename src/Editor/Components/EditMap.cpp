@@ -568,7 +568,7 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     case RenderOverlay::CatchTiles: {
         const float p = core::Properties::PixelsPerTile();
         sf::RectangleShape ct(sf::Vector2f(p, p));
-        ct.setOutlineThickness(-1.f);
+        ct.setOutlineThickness(-0.5f);
         ct.setOutlineColor(sf::Color::Black);
         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
@@ -731,6 +731,20 @@ void EditMap::removeLight(const sf::Vector2i& pos) {
     if (h != core::map::LightingSystem::None) {
         addAction(RemoveLightAction::create(lighting.getLight(h)));
     }
+}
+
+void EditMap::addCatchRegion() { addAction(AddCatchRegionAction::create()); }
+
+const std::vector<core::map::CatchRegion>& EditMap::catchRegions() const {
+    return catchRegionsField;
+}
+
+void EditMap::editCatchRegion(std::uint8_t index, const core::map::CatchRegion& value) {
+    addAction(EditCatchRegionAction::create(index, value, catchRegionsField[index]));
+}
+
+void EditMap::removeCatchRegion(std::uint8_t index) {
+    addAction(RemoveCatchRegionAction::create(index, catchRegionsField[index]));
 }
 
 } // namespace component

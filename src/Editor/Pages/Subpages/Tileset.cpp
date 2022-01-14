@@ -28,8 +28,9 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb)
+Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
 : deleteCb(dcb)
+, catchables(map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
@@ -225,11 +226,15 @@ void Tileset::updateGui() {
         group = button->getRadioGroup();
         animsBox->pack(button);
     }
+
+    catchables.refresh();
 }
 
 bool Tileset::unsavedChanges() const { return dirty; }
 
 void Tileset::markSaved() { dirty = false; }
+
+void Tileset::refresh() { catchables.refresh(); }
 
 } // namespace page
 } // namespace editor

@@ -2,12 +2,18 @@
 #define EDITOR_PAGES_SUBPAGES_TILESET_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Maps/CatchRegion.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
 
 namespace editor
 {
+namespace component
+{
+class EditMap;
+}
+
 namespace page
 {
 /**
@@ -25,9 +31,10 @@ public:
      * @brief Creates the GUI elements
      *
      * @param deleteCb Called when a tile or animation is removed
+     * @param map The map being edited
      *
      */
-    Tileset(const DeleteCb& deleteCb);
+    Tileset(const DeleteCb& deleteCb, component::EditMap& map);
 
     /**
      * @brief Loads the given tileset and updates the GUI elements
@@ -84,6 +91,12 @@ public:
      *
      */
     void markSaved();
+
+    /**
+     * @brief Refreshes the GUI
+     *
+     */
+    void refresh();
 
 private:
     const DeleteCb deleteCb;
