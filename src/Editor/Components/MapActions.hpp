@@ -560,6 +560,7 @@ public:
 private:
     const std::uint8_t index;
     const core::map::CatchRegion orig;
+    std::vector<std::pair<unsigned int, sf::Vector2i>> cleared;
 
     RemoveCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& orig);
 };

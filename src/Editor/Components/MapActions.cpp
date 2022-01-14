@@ -1159,14 +1159,56 @@ EditMap::RemoveCatchRegionAction::RemoveCatchRegionAction(std::uint8_t i,
 , orig(o) {}
 
 bool EditMap::RemoveCatchRegionAction::apply(EditMap& map) {
+    const std::uint8_t i = index + 1;
+
     map.catchRegionsField.erase(map.catchRegionsField.begin() + index);
-    // TODO - adjust tiles in map and capture positions of removed ones
+
+    if (cleared.empty()) {
+        for (unsigned int level = 0; level < map.levels.size(); ++level) {
+            for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+                for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                    if (map.levels[level].catchLayer().get(x, y) == i) {
+                        cleared.emplace_back(level, sf::Vector2i(x, y));
+                    }
+                }
+            }
+        }
+    }
+
+    for (const auto& pos : cleared) {
+        map.levels[pos.first].catchLayer().set(pos.second.x, pos.second.y, 0);
+    }
+
+    for (unsigned int level = 0; level < map.levels.size(); ++level) {
+        for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+            for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                const std::uint8_t j = map.levels[level].catchLayer().get(x, y);
+                if (j > i) { map.levels[level].catchLayer().set(x, y, j - 1); }
+            }
+        }
+    }
+
     return true;
 }
 
 bool EditMap::RemoveCatchRegionAction::undo(EditMap& map) {
+    const std::uint8_t i = index + 1;
+
     map.catchRegionsField.insert(map.catchRegionsField.begin() + index, orig);
-    // TODO - adjust tiles in map and capture positions of removed ones
+
+    for (unsigned int level = 0; level < map.levels.size(); ++level) {
+        for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+            for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                const std::uint8_t j = map.levels[level].catchLayer().get(x, y);
+                if (j >= i) { map.levels[level].catchLayer().set(x, y, j + 1); }
+            }
+        }
+    }
+
+    for (const auto& pos : cleared) {
+        map.levels[pos.first].catchLayer().set(pos.second.x, pos.second.y, i);
+    }
+
     return true;
 }
 
