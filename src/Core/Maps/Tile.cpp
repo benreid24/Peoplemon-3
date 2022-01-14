@@ -12,11 +12,6 @@ Tile::Tile()
 , tid(Blank)
 , anim(nullptr) {}
 
-Tile::Tile(const Tile& copy)
-: Tile() {
-    *this = copy;
-}
-
 Tile::Tile(IdType i, bool a)
 : Tile() {
     tid    = i;
