@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::Weather Class Reference</title>
+<title>Peoplemon: core::map::Tileset Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,145 +63,134 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00788.html">map</a></li><li class="navelem"><a class="el" href="a01210.html">Weather</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00794.html">map</a></li><li class="navelem"><a class="el" href="a01210.html">Tileset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01207.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::Weather Class Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00769.html">Maps</a> &raquo; <a class="el" href="a00778.html">Weather</a><a class="el" href="a00761.html">Core</a> &raquo;  &#124; <a class="el" href="a00769.html">Maps</a></div></div>  </div>
+<div class="title">core::map::Tileset Class Reference<div class="ingroups"><a class="el" href="a00767.html">Core</a> &raquo; <a class="el" href="a00775.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Parent weather system for maps. Manages active weather.  
+<p>Stores the collection of images and animations used by Tiles in a <a class="el" href="a01186.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  
  <a href="a01210.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02165_source.html">Weather.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02222_source.html">Tileset.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a1be4194375652797f8c87a7881b2ff3d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6">None</a> = 0, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c">AllRandom</a> = 1, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db">LightRain</a> = 2, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d">LightRainThunder</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550">HardRain</a> = 4, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b">HardRainThunder</a> = 5, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242">LightSnow</a> = 6, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0">LightSnowThunder</a> = 7, 
-<br />
-&#160;&#160;<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882">HardSnow</a> = 8, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83">HardSnowThunder</a> = 9, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c">ThinFog</a> = 10, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2">ThickFog</a> = 11, 
-<br />
-&#160;&#160;<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6">Sunny</a> = 12, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">SandStorm</a> = 13, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040">WaterRandom</a> = 14, 
-<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635">SnowRandom</a> = 15, 
-<br />
-&#160;&#160;<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4">DesertRandom</a> = 16
-<br />
- }<tr class="memdesc:a1be4194375652797f8c87a7881b2ff3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather.  <a href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a1be4194375652797f8c87a7881b2ff3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c224b5c1376d3eae70ae22be00278fb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a8c224b5c1376d3eae70ae22be00278fb">TileStore</a> = std::unordered_map&lt; <a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>, bl::resource::Resource&lt; sf::Texture &gt;::Ref &gt;</td></tr>
+<tr class="separator:a8c224b5c1376d3eae70ae22be00278fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c78c0f4a5e7482a50675e4200e24037"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a0c78c0f4a5e7482a50675e4200e24037">AnimStore</a> = std::unordered_map&lt; <a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>, bl::resource::Resource&lt; bl::gfx::AnimationData &gt;::Ref &gt;</td></tr>
+<tr class="separator:a0c78c0f4a5e7482a50675e4200e24037"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a37aa44274a43da3e5578c6d9ec07e416"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a37aa44274a43da3e5578c6d9ec07e416">Weather</a> ()</td></tr>
-<tr class="memdesc:a37aa44274a43da3e5578c6d9ec07e416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the weather system with None.  <a href="#a37aa44274a43da3e5578c6d9ec07e416">More...</a><br /></td></tr>
-<tr class="separator:a37aa44274a43da3e5578c6d9ec07e416"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#aa78c7aadf9c291bdb5747cdbf00d004b">~Weather</a> ()</td></tr>
-<tr class="memdesc:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates active weather.  <a href="#aa78c7aadf9c291bdb5747cdbf00d004b">More...</a><br /></td></tr>
-<tr class="separator:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94b0c20978e093b1921d1f94b8143b27"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a94b0c20978e093b1921d1f94b8143b27">activate</a> (const sf::FloatRect &amp;area)</td></tr>
-<tr class="memdesc:a94b0c20978e093b1921d1f94b8143b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the weather system.  <a href="#a94b0c20978e093b1921d1f94b8143b27">More...</a><br /></td></tr>
-<tr class="separator:a94b0c20978e093b1921d1f94b8143b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae48dd781d8df78511a1ca9e1871cede5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#ae48dd781d8df78511a1ca9e1871cede5">set</a> (<a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> type, bool immediate=false)</td></tr>
-<tr class="memdesc:ae48dd781d8df78511a1ca9e1871cede5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current weather type.  <a href="#ae48dd781d8df78511a1ca9e1871cede5">More...</a><br /></td></tr>
-<tr class="separator:ae48dd781d8df78511a1ca9e1871cede5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#aaf34d1cbd85edeb7ea7d04cd56b14824">getType</a> () const</td></tr>
-<tr class="memdesc:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current type of weather.  <a href="#aaf34d1cbd85edeb7ea7d04cd56b14824">More...</a><br /></td></tr>
-<tr class="separator:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a06a5ca8817b3ba6c71d7ff6d05b91be9">update</a> (<a class="el" href="a01430.html">system::Systems</a> &amp;systems, float dt)</td></tr>
-<tr class="memdesc:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current weather.  <a href="#a06a5ca8817b3ba6c71d7ff6d05b91be9">More...</a><br /></td></tr>
-<tr class="separator:a06a5ca8817b3ba6c71d7ff6d05b91be9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bf48b9a7241517d44a01f5191f06603"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a2bf48b9a7241517d44a01f5191f06603">render</a> (sf::RenderTarget &amp;target, float residual) const</td></tr>
-<tr class="memdesc:a2bf48b9a7241517d44a01f5191f06603"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the current weather.  <a href="#a2bf48b9a7241517d44a01f5191f06603">More...</a><br /></td></tr>
-<tr class="separator:a2bf48b9a7241517d44a01f5191f06603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c53d037c39617ac70df16cd9a1b8ad4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a3c53d037c39617ac70df16cd9a1b8ad4">Tileset</a> ()</td></tr>
+<tr class="memdesc:a3c53d037c39617ac70df16cd9a1b8ad4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty <a class="el" href="a01210.html" title="Stores the collection of images and animations used by Tiles in a Map. ">Tileset</a>.  <a href="#a3c53d037c39617ac70df16cd9a1b8ad4">More...</a><br /></td></tr>
+<tr class="separator:a3c53d037c39617ac70df16cd9a1b8ad4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a175fd13a1058ebd72c52c3df7d9cc9d7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a175fd13a1058ebd72c52c3df7d9cc9d7">addTexture</a> (const std::string &amp;uri)</td></tr>
+<tr class="memdesc:a175fd13a1058ebd72c52c3df7d9cc9d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a texture to the tileset and returns its id.  <a href="#a175fd13a1058ebd72c52c3df7d9cc9d7">More...</a><br /></td></tr>
+<tr class="separator:a175fd13a1058ebd72c52c3df7d9cc9d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5b354f88c2b1a68384bec0378532eb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a4d5b354f88c2b1a68384bec0378532eb">removeTexture</a> (<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> id)</td></tr>
+<tr class="memdesc:a4d5b354f88c2b1a68384bec0378532eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given texture from the tileset. Undefined behavior if any tiles reference it. Care must be taken to blank those tiles before the next render.  <a href="#a4d5b354f88c2b1a68384bec0378532eb">More...</a><br /></td></tr>
+<tr class="separator:a4d5b354f88c2b1a68384bec0378532eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07bdca0418450411918cf31cfeae7ed5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a07bdca0418450411918cf31cfeae7ed5">addAnimation</a> (const std::string &amp;uri)</td></tr>
+<tr class="memdesc:a07bdca0418450411918cf31cfeae7ed5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given animation to the tileset and returns its id.  <a href="#a07bdca0418450411918cf31cfeae7ed5">More...</a><br /></td></tr>
+<tr class="separator:a07bdca0418450411918cf31cfeae7ed5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac37678ae95be1cd29e86f823bbc8fbab"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#ac37678ae95be1cd29e86f823bbc8fbab">removeAnimation</a> (<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> id)</td></tr>
+<tr class="memdesc:ac37678ae95be1cd29e86f823bbc8fbab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given animation from the tileset. Undefined behavior if any tiles reference it. Care must be taken to blank those tiles before the next render.  <a href="#ac37678ae95be1cd29e86f823bbc8fbab">More...</a><br /></td></tr>
+<tr class="separator:ac37678ae95be1cd29e86f823bbc8fbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04db8e6c31133a168ac11c7d9e75d62e"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a04db8e6c31133a168ac11c7d9e75d62e">tileHeight</a> (<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> id, bool isAnim) const</td></tr>
+<tr class="memdesc:a04db8e6c31133a168ac11c7d9e75d62e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the height of the requested tile, in pixels.  <a href="#a04db8e6c31133a168ac11c7d9e75d62e">More...</a><br /></td></tr>
+<tr class="separator:a04db8e6c31133a168ac11c7d9e75d62e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a315f5fd18fb800e8f73c8cb954da14b8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a315f5fd18fb800e8f73c8cb954da14b8">load</a> (const std::string &amp;file)</td></tr>
+<tr class="memdesc:a315f5fd18fb800e8f73c8cb954da14b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the tileset from the given file and loads all media.  <a href="#a315f5fd18fb800e8f73c8cb954da14b8">More...</a><br /></td></tr>
+<tr class="separator:a315f5fd18fb800e8f73c8cb954da14b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08c83cb06eb79099138bc7a31c32a3db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a08c83cb06eb79099138bc7a31c32a3db">save</a> (const std::string &amp;file) const</td></tr>
+<tr class="memdesc:a08c83cb06eb79099138bc7a31c32a3db"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the tileset to the given file. No media is saved.  <a href="#a08c83cb06eb79099138bc7a31c32a3db">More...</a><br /></td></tr>
+<tr class="separator:a08c83cb06eb79099138bc7a31c32a3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afff23448c0557ce85175e06d5725e229"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#afff23448c0557ce85175e06d5725e229">activate</a> ()</td></tr>
+<tr class="memdesc:afff23448c0557ce85175e06d5725e229"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts playing all shared animations.  <a href="#afff23448c0557ce85175e06d5725e229">More...</a><br /></td></tr>
+<tr class="separator:afff23448c0557ce85175e06d5725e229"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c40a697e9d31abcb46ea99435169bc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a1c40a697e9d31abcb46ea99435169bc4">update</a> (float dt)</td></tr>
+<tr class="memdesc:a1c40a697e9d31abcb46ea99435169bc4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the animations in the tileset. Does not update unique animations, only shared. Unique animations are updated by the <a class="el" href="a01202.html" title="Data representation of a tile in a Map TileLayer. ">Tile</a> that renders them.  <a href="#a1c40a697e9d31abcb46ea99435169bc4">More...</a><br /></td></tr>
+<tr class="separator:a1c40a697e9d31abcb46ea99435169bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3962b1639d81256ea6b573d199011798"><td class="memItemLeft" align="right" valign="top">bl::resource::Resource&lt; sf::Texture &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a3962b1639d81256ea6b573d199011798">getTile</a> (<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> id)</td></tr>
+<tr class="memdesc:a3962b1639d81256ea6b573d199011798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a tile from the set. Returns nullptr if not found.  <a href="#a3962b1639d81256ea6b573d199011798">More...</a><br /></td></tr>
+<tr class="separator:a3962b1639d81256ea6b573d199011798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295c9473de6624f77ce7188b5d633aee"><td class="memItemLeft" align="right" valign="top">std::vector&lt; TileStore::const_iterator &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a295c9473de6624f77ce7188b5d633aee">getTiles</a> () const</td></tr>
+<tr class="memdesc:a295c9473de6624f77ce7188b5d633aee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all contained tiles.  <a href="#a295c9473de6624f77ce7188b5d633aee">More...</a><br /></td></tr>
+<tr class="separator:a295c9473de6624f77ce7188b5d633aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a042e804c15b785b031219965502c0880"><td class="memItemLeft" align="right" valign="top">bl::resource::Resource&lt; bl::gfx::AnimationData &gt;::Ref&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a042e804c15b785b031219965502c0880">getAnim</a> (<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> id)</td></tr>
+<tr class="memdesc:a042e804c15b785b031219965502c0880"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns an animation from the set. Returns nullptr if not found.  <a href="#a042e804c15b785b031219965502c0880">More...</a><br /></td></tr>
+<tr class="separator:a042e804c15b785b031219965502c0880"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af48424eb3aa07cda2b6311bfd2d7561c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; AnimStore::const_iterator &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#af48424eb3aa07cda2b6311bfd2d7561c">getAnims</a> () const</td></tr>
+<tr class="memdesc:af48424eb3aa07cda2b6311bfd2d7561c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all contained animations.  <a href="#af48424eb3aa07cda2b6311bfd2d7561c">More...</a><br /></td></tr>
+<tr class="separator:af48424eb3aa07cda2b6311bfd2d7561c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a8a6c6f6de547e6f39d3212d1f4d49a65"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a8a6c6f6de547e6f39d3212d1f4d49a65">Tile</a></td></tr>
+<tr class="separator:a8a6c6f6de547e6f39d3212d1f4d49a65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46a5e488e04da057f1cba5fa4ba0e83e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a46a5e488e04da057f1cba5fa4ba0e83e">loaders::LegacyTilesetLoader</a></td></tr>
+<tr class="separator:a46a5e488e04da057f1cba5fa4ba0e83e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c6088a948ad33f476223e3faa9c9ff2"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a6c6088a948ad33f476223e3faa9c9ff2">loaders::PrimaryTilesetLoader</a></td></tr>
+<tr class="separator:a6c6088a948ad33f476223e3faa9c9ff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e7cebe20d3e4e17ec95cc932fb50b5c"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html#a1e7cebe20d3e4e17ec95cc932fb50b5c">bl::serial::binary::SerializableObject&lt; Tileset &gt;</a></td></tr>
+<tr class="separator:a1e7cebe20d3e4e17ec95cc932fb50b5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Parent weather system for maps. Manages active weather. </p>
+<div class="textblock"><p>Stores the collection of images and animations used by Tiles in a <a class="el" href="a01186.html" title="The primary map class that represents a usable map in the game. ">Map</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02165_source.html#l00029">29</a> of file <a class="el" href="a02165_source.html">Weather.hpp</a>.</p>
-</div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a1be4194375652797f8c87a7881b2ff3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1be4194375652797f8c87a7881b2ff3d">&#9670;&nbsp;</a></span>Type</h2>
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00045">45</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a0c78c0f4a5e7482a50675e4200e24037"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c78c0f4a5e7482a50675e4200e24037">&#9670;&nbsp;</a></span>AnimStore</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a> : std::uint8_t</td>
+          <td class="memname">using <a class="el" href="a01210.html#a0c78c0f4a5e7482a50675e4200e24037">core::map::Tileset::AnimStore</a> =  std::unordered_map&lt;<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>, bl::resource::Resource&lt;bl::gfx::AnimationData&gt;::Ref&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The type of weather. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6"></a>None&#160;</td><td class="fielddoc"><p>No weather will occur. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c"></a>AllRandom&#160;</td><td class="fielddoc"><p>All types of weather may occur over time. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db"></a>LightRain&#160;</td><td class="fielddoc"><p><a class="el" href="a01162.html" title="Represents a renderable light in a Map. ">Light</a> rain with no thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d"></a>LightRainThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a01162.html" title="Represents a renderable light in a Map. ">Light</a> rain with thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550"></a>HardRain&#160;</td><td class="fielddoc"><p>Hard rain with no thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b"></a>HardRainThunder&#160;</td><td class="fielddoc"><p>Hard rain with thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242"></a>LightSnow&#160;</td><td class="fielddoc"><p><a class="el" href="a01162.html" title="Represents a renderable light in a Map. ">Light</a> snow with no thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0"></a>LightSnowThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a01162.html" title="Represents a renderable light in a Map. ">Light</a> snow with thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882"></a>HardSnow&#160;</td><td class="fielddoc"><p>Hard snow with no thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83"></a>HardSnowThunder&#160;</td><td class="fielddoc"><p>Hard snow with thunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c"></a>ThinFog&#160;</td><td class="fielddoc"><p>Thin fog covers the area. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2"></a>ThickFog&#160;</td><td class="fielddoc"><p>Thick fog obscures everything. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6"></a>Sunny&#160;</td><td class="fielddoc"><p>A very sunny day with puslating light. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60"></a>SandStorm&#160;</td><td class="fielddoc"><p>A sandstorm ravages you. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040"></a>WaterRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightRain, HardRain, LightRainThunder, HardRainThunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635"></a>SnowRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightSnow, HardSnow, LightSnowThunder, HardSnowThunder. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4"></a>DesertRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of Sunny, Sandstorm. </p>
-</td></tr>
-</table>
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00049">49</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a02165_source.html#l00035">35</a> of file <a class="el" href="a02165_source.html">Weather.hpp</a>.</p>
+</div>
+</div>
+<a id="a8c224b5c1376d3eae70ae22be00278fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c224b5c1376d3eae70ae22be00278fb">&#9670;&nbsp;</a></span>TileStore</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01210.html#a8c224b5c1376d3eae70ae22be00278fb">core::map::Tileset::TileStore</a> =  std::unordered_map&lt;<a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>, bl::resource::Resource&lt;sf::Texture&gt;::Ref&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00047">47</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a37aa44274a43da3e5578c6d9ec07e416"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37aa44274a43da3e5578c6d9ec07e416">&#9670;&nbsp;</a></span>Weather()</h2>
+<a id="a3c53d037c39617ac70df16cd9a1b8ad4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c53d037c39617ac70df16cd9a1b8ad4">&#9670;&nbsp;</a></span>Tileset()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::Weather::Weather </td>
+          <td class="memname">core::map::Tileset::Tileset </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -209,70 +198,129 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the weather system with None. </p>
+<p>Creates an empty <a class="el" href="a01210.html" title="Stores the collection of images and animations used by Tiles in a Map. ">Tileset</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00040">40</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa78c7aadf9c291bdb5747cdbf00d004b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa78c7aadf9c291bdb5747cdbf00d004b">&#9670;&nbsp;</a></span>~Weather()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::map::Weather::~Weather </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Terminates active weather. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00046">46</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00067">67</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a94b0c20978e093b1921d1f94b8143b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94b0c20978e093b1921d1f94b8143b27">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="afff23448c0557ce85175e06d5725e229"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff23448c0557ce85175e06d5725e229">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::map::Weather::activate </td>
+          <td class="memname">void core::map::Tileset::activate </td>
           <td>(</td>
-          <td class="paramtype">const sf::FloatRect &amp;&#160;</td>
-          <td class="paramname"><em>area</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Activates the weather system. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">area</td><td>Initial area to spawn particles in </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Starts playing all shared animations. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00048">48</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00140">140</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aaf34d1cbd85edeb7ea7d04cd56b14824"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf34d1cbd85edeb7ea7d04cd56b14824">&#9670;&nbsp;</a></span>getType()</h2>
+<a id="a07bdca0418450411918cf31cfeae7ed5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a07bdca0418450411918cf31cfeae7ed5">&#9670;&nbsp;</a></span>addAnimation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> core::map::Weather::getType </td>
+          <td class="memname"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> core::map::Tileset::addAnimation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds the given animation to the tileset and returns its id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uri</td><td>The path to the animation </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> The id of the new animation </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00085">85</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a175fd13a1058ebd72c52c3df7d9cc9d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a175fd13a1058ebd72c52c3df7d9cc9d7">&#9670;&nbsp;</a></span>addTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> core::map::Tileset::addTexture </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>uri</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds a texture to the tileset and returns its id. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uri</td><td>The path of the texture to add </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a> The id of the new texture </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00071">71</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a042e804c15b785b031219965502c0880"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a042e804c15b785b031219965502c0880">&#9670;&nbsp;</a></span>getAnim()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::resource::Resource&lt; bl::gfx::AnimationData &gt;::Ref core::map::Tileset::getAnim </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns an animation from the set. Returns nullptr if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the animation to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::resource::Resource&lt;sf::Texture&gt;::Ref A reference to the animation </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00219">219</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af48424eb3aa07cda2b6311bfd2d7561c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af48424eb3aa07cda2b6311bfd2d7561c">&#9670;&nbsp;</a></span>getAnims()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; Tileset::AnimStore::const_iterator &gt; core::map::Tileset::getAnims </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -280,29 +328,193 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the current type of weather. </p>
+<p>Returns all contained animations. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00062">62</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00224">224</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2bf48b9a7241517d44a01f5191f06603"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bf48b9a7241517d44a01f5191f06603">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a3962b1639d81256ea6b573d199011798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3962b1639d81256ea6b573d199011798">&#9670;&nbsp;</a></span>getTile()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::map::Weather::render </td>
+          <td class="memname">bl::resource::Resource&lt; sf::Texture &gt;::Ref core::map::Tileset::getTile </td>
           <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
+          <td class="paramtype"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns a tile from the set. Returns nullptr if not found. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the tile to get </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::resource::Resource&lt;sf::Texture&gt;::Ref A reference to the tile </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00204">204</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a295c9473de6624f77ce7188b5d633aee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295c9473de6624f77ce7188b5d633aee">&#9670;&nbsp;</a></span>getTiles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; Tileset::TileStore::const_iterator &gt; core::map::Tileset::getTiles </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns all contained tiles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00209">209</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a315f5fd18fb800e8f73c8cb954da14b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315f5fd18fb800e8f73c8cb954da14b8">&#9670;&nbsp;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::map::Tileset::load </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Loads the tileset from the given file and loads all media. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>The file to load from </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if loaded successfully, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00162">162</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac37678ae95be1cd29e86f823bbc8fbab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac37678ae95be1cd29e86f823bbc8fbab">&#9670;&nbsp;</a></span>removeAnimation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::Tileset::removeAnimation </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given animation from the tileset. Undefined behavior if any tiles reference it. Care must be taken to blank those tiles before the next render. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the animation to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00101">101</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4d5b354f88c2b1a68384bec0378532eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d5b354f88c2b1a68384bec0378532eb">&#9670;&nbsp;</a></span>removeTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::Tileset::removeTexture </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given texture from the tileset. Undefined behavior if any tiles reference it. Care must be taken to blank those tiles before the next render. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id</td><td>The id of the texture to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00080">80</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a08c83cb06eb79099138bc7a31c32a3db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c83cb06eb79099138bc7a31c32a3db">&#9670;&nbsp;</a></span>save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::map::Tileset::save </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Saves the tileset to the given file. No media is saved. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">file</td><td>The file to save to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if successfully written, false on error </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00198">198</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a04db8e6c31133a168ac11c7d9e75d62e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04db8e6c31133a168ac11c7d9e75d62e">&#9670;&nbsp;</a></span>tileHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::map::Tileset::tileHeight </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01202.html#a62dbb7a9b1a1c3795a03bf22adacefcc">Tile::IdType</a>&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>residual</em>&#160;</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isAnim</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -312,106 +524,154 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Renders the current weather. </p>
+<p>Returns the height of the requested tile, in pixels. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
-    <tr><td class="paramname">residual</td><td>Residual time not yet accounted for in update </td></tr>
+    <tr><td class="paramname">id</td><td>The id of the tile </td></tr>
+    <tr><td class="paramname">isAnim</td><td>True for animation, false for sprite </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>unsigned int The height of the tile in pixels, or 0 if not found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00120">120</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00144">144</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae48dd781d8df78511a1ca9e1871cede5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae48dd781d8df78511a1ca9e1871cede5">&#9670;&nbsp;</a></span>set()</h2>
+<a id="a1c40a697e9d31abcb46ea99435169bc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c40a697e9d31abcb46ea99435169bc4">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::map::Weather::set </td>
+          <td class="memname">void core::map::Tileset::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01210.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>immediate</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the current weather type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">type</td><td>The type of weather to transition to </td></tr>
-    <tr><td class="paramname">immediate</td><td>True to skip the stop phase of the current weather </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00050">50</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a06a5ca8817b3ba6c71d7ff6d05b91be9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06a5ca8817b3ba6c71d7ff6d05b91be9">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::map::Weather::update </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01430.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the current weather. </p>
+<p>Updates the animations in the tileset. Does not update unique animations, only shared. Unique animations are updated by the <a class="el" href="a01202.html" title="Data representation of a tile in a Map TileLayer. ">Tile</a> that renders them. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary game systems </td></tr>
-    <tr><td class="paramname">dt</td><td>Time elapsed since last call to <a class="el" href="a01210.html#a06a5ca8817b3ba6c71d7ff6d05b91be9" title="Updates the current weather. ">update()</a> in seconds </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed since last called to <a class="el" href="a01210.html#a1c40a697e9d31abcb46ea99435169bc4" title="Updates the animations in the tileset. Does not update unique animations, only shared. Unique animations are updated by the Tile that renders them. ">update()</a> in seconds </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00521_source.html#l00064">64</a> of file <a class="el" href="a00521_source.html">Weather.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02279_source.html#l00158">158</a> of file <a class="el" href="a02279_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="a1e7cebe20d3e4e17ec95cc932fb50b5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e7cebe20d3e4e17ec95cc932fb50b5c">&#9670;&nbsp;</a></span>bl::serial::binary::SerializableObject< Tileset ></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class bl::serial::binary::SerializableObject&lt; <a class="el" href="a01210.html">Tileset</a> &gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00171">171</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a46a5e488e04da057f1cba5fa4ba0e83e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46a5e488e04da057f1cba5fa4ba0e83e">&#9670;&nbsp;</a></span>loaders::LegacyTilesetLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01742.html">loaders::LegacyTilesetLoader</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00169">169</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c6088a948ad33f476223e3faa9c9ff2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c6088a948ad33f476223e3faa9c9ff2">&#9670;&nbsp;</a></span>loaders::PrimaryTilesetLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01746.html">loaders::PrimaryTilesetLoader</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00170">170</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8a6c6f6de547e6f39d3212d1f4d49a65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a6c6f6de547e6f39d3212d1f4d49a65">&#9670;&nbsp;</a></span>Tile</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="a01202.html">Tile</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02222_source.html#l00168">168</a> of file <a class="el" href="a02222_source.html">Tileset.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Maps/<a class="el" href="a02165_source.html">Weather.hpp</a></li>
-<li>src/Core/Maps/<a class="el" href="a00521_source.html">Weather.cpp</a></li>
+<li>include/Core/Maps/<a class="el" href="a02222_source.html">Tileset.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a02279_source.html">Tileset.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

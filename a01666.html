@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::loader::ConversationLoader Struct Reference</title>
+<title>Peoplemon: game::state::PauseMenu Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,64 +63,103 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00789.html">file</a></li><li class="navelem"><a class="el" href="a00790.html">loader</a></li><li class="navelem"><a class="el" href="a01666.html">ConversationLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00812.html">game</a></li><li class="navelem"><a class="el" href="a00814.html">state</a></li><li class="navelem"><a class="el" href="a01666.html">PauseMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01663.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::loader::ConversationLoader Struct Reference</div>  </div>
+<div class="title">game::state::PauseMenu Class Reference<div class="ingroups"><a class="el" href="a00768.html">Editor</a> &#124; <a class="el" href="a00769.html">Game</a> &raquo; <a class="el" href="a00783.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Game state for the pause menu.  
+ <a href="a01666.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00383_source.html">PauseMenu.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::file::loader::ConversationLoader:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::PauseMenu:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01666.png" usemap="#core::file::loader::ConversationLoader_map" alt=""/>
-  <map id="core::file::loader::ConversationLoader_map" name="core::file::loader::ConversationLoader_map">
+  <img src="a01666.png" usemap="#game::state::PauseMenu_map" alt=""/>
+  <map id="game::state::PauseMenu_map" name="game::state::PauseMenu_map">
+<area href="a01682.html" title="Parent to all game states. Provides some commonly required data like core game systems. " alt="game::state::State" shape="rect" coords="0,56,147,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a4a5ddd0a189ced4727ee4175895828fb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#a4a5ddd0a189ced4727ee4175895828fb">Serializer</a> = bl::serial::binary::Serializer&lt; <a class="el" href="a01038.html">Conversation</a> &gt;</td></tr>
-<tr class="separator:a4a5ddd0a189ced4727ee4175895828fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3dde3c8df7511bef5398ba837c249a2e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#a3dde3c8df7511bef5398ba837c249a2e">read</a> (<a class="el" href="a01038.html">Conversation</a> &amp;result, bl::serial::binary::InputStream &amp;input) const override</td></tr>
-<tr class="separator:a3dde3c8df7511bef5398ba837c249a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00e07a3c586545373a2d52ae92c926c2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#a00e07a3c586545373a2d52ae92c926c2">write</a> (const <a class="el" href="a01038.html">Conversation</a> &amp;conversation, bl::serial::binary::OutputStream &amp;output) const override</td></tr>
-<tr class="separator:a00e07a3c586545373a2d52ae92c926c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcba21f5b156a4eef3a7513a4180644c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#abcba21f5b156a4eef3a7513a4180644c">~PauseMenu</a> ()=default</td></tr>
+<tr class="memdesc:abcba21f5b156a4eef3a7513a4180644c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Pause Menu object.  <a href="#abcba21f5b156a4eef3a7513a4180644c">More...</a><br /></td></tr>
+<tr class="separator:abcba21f5b156a4eef3a7513a4180644c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad306171de1cd78c01dd80e894515ac00"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#ad306171de1cd78c01dd80e894515ac00">name</a> () const override</td></tr>
+<tr class="memdesc:ad306171de1cd78c01dd80e894515ac00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "PauseMenu".  <a href="#ad306171de1cd78c01dd80e894515ac00">More...</a><br /></td></tr>
+<tr class="separator:ad306171de1cd78c01dd80e894515ac00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73bb135e241e4a8c6d902ffe07143d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#aa73bb135e241e4a8c6d902ffe07143d0">activate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:aa73bb135e241e4a8c6d902ffe07143d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to event buses.  <a href="#aa73bb135e241e4a8c6d902ffe07143d0">More...</a><br /></td></tr>
+<tr class="separator:aa73bb135e241e4a8c6d902ffe07143d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#a87e83a1eaa0229d77ec1b19e9baf6887">deactivate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes from event buses.  <a href="#a87e83a1eaa0229d77ec1b19e9baf6887">More...</a><br /></td></tr>
+<tr class="separator:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4204ac3d392b1ee39b7f0732c28c89e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#ac4204ac3d392b1ee39b7f0732c28c89e">update</a> (bl::engine::Engine &amp;, float dt) override</td></tr>
+<tr class="memdesc:ac4204ac3d392b1ee39b7f0732c28c89e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates systems that are not paused.  <a href="#ac4204ac3d392b1ee39b7f0732c28c89e">More...</a><br /></td></tr>
+<tr class="separator:ac4204ac3d392b1ee39b7f0732c28c89e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3406e519f646a493220da627e6d87475"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#a3406e519f646a493220da627e6d87475">render</a> (bl::engine::Engine &amp;, float lag) override</td></tr>
+<tr class="memdesc:a3406e519f646a493220da627e6d87475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the world and the menu overlayed on top of it.  <a href="#a3406e519f646a493220da627e6d87475">More...</a><br /></td></tr>
+<tr class="separator:a3406e519f646a493220da627e6d87475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae7bf5c21466113543605afd251075112"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01666.html#ae7bf5c21466113543605afd251075112">create</a> (<a class="el" href="a01442.html">core::system::Systems</a> &amp;<a class="el" href="a01682.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
+<tr class="memdesc:ae7bf5c21466113543605afd251075112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new pause menu state.  <a href="#ae7bf5c21466113543605afd251075112">More...</a><br /></td></tr>
+<tr class="separator:ae7bf5c21466113543605afd251075112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01442.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01682.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
+<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a02201_source.html#l00253">253</a> of file <a class="el" href="a02201_source.html">Conversation.cpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a4a5ddd0a189ced4727ee4175895828fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a5ddd0a189ced4727ee4175895828fb">&#9670;&nbsp;</a></span>Serializer</h2>
+<div class="textblock"><p>Game state for the pause menu. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00383_source.html#l00019">19</a> of file <a class="el" href="a00383_source.html">PauseMenu.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abcba21f5b156a4eef3a7513a4180644c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcba21f5b156a4eef3a7513a4180644c">&#9670;&nbsp;</a></span>~PauseMenu()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a01666.html#a4a5ddd0a189ced4727ee4175895828fb">core::file::loader::ConversationLoader::Serializer</a> =  bl::serial::binary::Serializer&lt;<a class="el" href="a01038.html">Conversation</a>&gt;</td>
+          <td class="memname">virtual game::state::PauseMenu::~PauseMenu </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02201_source.html#l00254">254</a> of file <a class="el" href="a02201_source.html">Conversation.cpp</a>.</p>
+<p>Destroy the Pause Menu object. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a3dde3c8df7511bef5398ba837c249a2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3dde3c8df7511bef5398ba837c249a2e">&#9670;&nbsp;</a></span>read()</h2>
+<a id="aa73bb135e241e4a8c6d902ffe07143d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73bb135e241e4a8c6d902ffe07143d0">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,36 +168,30 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::file::loader::ConversationLoader::read </td>
+          <td class="memname">void game::state::PauseMenu::activate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01038.html">Conversation</a> &amp;&#160;</td>
-          <td class="paramname"><em>result</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bl::serial::binary::InputStream &amp;&#160;</td>
-          <td class="paramname"><em>input</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02201_source.html#l00256">256</a> of file <a class="el" href="a02201_source.html">Conversation.cpp</a>.</p>
+<p>Subscribes to event buses. </p>
+
+<p>Implements <a class="el" href="a01682.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00087">87</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a00e07a3c586545373a2d52ae92c926c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00e07a3c586545373a2d52ae92c926c2">&#9670;&nbsp;</a></span>write()</h2>
+<a id="ae7bf5c21466113543605afd251075112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7bf5c21466113543605afd251075112">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,42 +200,226 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::file::loader::ConversationLoader::write </td>
+          <td class="memname">bl::engine::State::Ptr game::state::PauseMenu::create </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01038.html">Conversation</a> &amp;&#160;</td>
-          <td class="paramname"><em>conversation</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a01442.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bl::serial::binary::OutputStream &amp;&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02201_source.html#l00260">260</a> of file <a class="el" href="a02201_source.html">Conversation.cpp</a>.</p>
+<p>Creates a new pause menu state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The created engine state </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00019">19</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Files/<a class="el" href="a02201_source.html">Conversation.cpp</a></li>
+<a id="a87e83a1eaa0229d77ec1b19e9baf6887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e83a1eaa0229d77ec1b19e9baf6887">&#9670;&nbsp;</a></span>deactivate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::PauseMenu::deactivate </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unsubscribes from event buses. </p>
+
+<p>Implements <a class="el" href="a01682.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00096">96</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad306171de1cd78c01dd80e894515ac00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad306171de1cd78c01dd80e894515ac00">&#9670;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * game::state::PauseMenu::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns "PauseMenu". </p>
+
+<p>Implements <a class="el" href="a01682.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00085">85</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3406e519f646a493220da627e6d87475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3406e519f646a493220da627e6d87475">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::PauseMenu::render </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>lag</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renders the world and the menu overlayed on top of it. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lag</td><td>Time elapsed not accounted for in <a class="el" href="a01666.html#ac4204ac3d392b1ee39b7f0732c28c89e" title="Updates systems that are not paused. ">update()</a> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a01682.html#a489c514e24d0a29a5e8bac1fc3cd7ba3">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00110">110</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac4204ac3d392b1ee39b7f0732c28c89e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4204ac3d392b1ee39b7f0732c28c89e">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::PauseMenu::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates systems that are not paused. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a01682.html#af7fd85a21d6ff60886858d2676957991">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00101">101</a> of file <a class="el" href="a00755_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01442.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00078">78</a> of file <a class="el" href="a00392_source.html">State.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Game/States/<a class="el" href="a00383_source.html">PauseMenu.hpp</a></li>
+<li>src/Game/States/<a class="el" href="a00755_source.html">PauseMenu.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

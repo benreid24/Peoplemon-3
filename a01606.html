@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::state::MainEditor Class Reference</title>
+<title>Peoplemon: editor::page::Levels Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,320 +63,253 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00795.html">editor</a></li><li class="navelem"><a class="el" href="a00805.html">state</a></li><li class="navelem"><a class="el" href="a01606.html">MainEditor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">editor</a></li><li class="navelem"><a class="el" href="a00810.html">page</a></li><li class="navelem"><a class="el" href="a01606.html">Levels</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01603.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::state::MainEditor Class Reference<div class="ingroups"><a class="el" href="a00762.html">Editor</a> &#124; <a class="el" href="a00763.html">Game</a> &raquo; <a class="el" href="a00777.html">States</a></div></div>  </div>
+<div class="title">editor::page::Levels Class Reference<div class="ingroups"><a class="el" href="a00768.html">Editor</a> &raquo; <a class="el" href="a00782.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The primary state of the editor. Owns the GUI and all tabs.  
+<p>Provides controls to add, move, remove, and toggle visibility for levels.  
  <a href="a01606.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00353_source.html">MainEditor.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::state::MainEditor:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01606.png" usemap="#editor::state::MainEditor_map" alt=""/>
-  <map id="editor::state::MainEditor_map" name="editor::state::MainEditor_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00344_source.html">Levels.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:afcccffdca8e57fb51327020bd188651c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#afcccffdca8e57fb51327020bd188651c">RenderFilterCb</a> = std::function&lt; void(unsigned int level, bool visible)&gt;</td></tr>
+<tr class="separator:afcccffdca8e57fb51327020bd188651c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a511be2fb33bfdd78a58c2eb20950f096"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a511be2fb33bfdd78a58c2eb20950f096">ShiftCb</a> = std::function&lt; void(unsigned int level, bool up)&gt;</td></tr>
+<tr class="separator:a511be2fb33bfdd78a58c2eb20950f096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4553503d683ea77d723d0c3d309cb8a"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#ae4553503d683ea77d723d0c3d309cb8a">AddCb</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:ae4553503d683ea77d723d0c3d309cb8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7884cbb08e36693db414877e7ebb094f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a7884cbb08e36693db414877e7ebb094f">~MainEditor</a> ()=default</td></tr>
-<tr class="memdesc:a7884cbb08e36693db414877e7ebb094f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Main Editor state.  <a href="#a7884cbb08e36693db414877e7ebb094f">More...</a><br /></td></tr>
-<tr class="separator:a7884cbb08e36693db414877e7ebb094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a540f7f0e84c5ee24d8b82c89cfde80da">name</a> () const override</td></tr>
-<tr class="memdesc:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "MainEditor".  <a href="#a540f7f0e84c5ee24d8b82c89cfde80da">More...</a><br /></td></tr>
-<tr class="separator:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81c5d0df817cbe9780c4644fce9fd143"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a81c5d0df817cbe9780c4644fce9fd143">activate</a> (bl::engine::Engine &amp;) override</td></tr>
-<tr class="memdesc:a81c5d0df817cbe9780c4644fce9fd143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the gui to window events.  <a href="#a81c5d0df817cbe9780c4644fce9fd143">More...</a><br /></td></tr>
-<tr class="separator:a81c5d0df817cbe9780c4644fce9fd143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a2cd7bfe17d6359081b91d672fa6b62a7">deactivate</a> (bl::engine::Engine &amp;) override</td></tr>
-<tr class="memdesc:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the gui from window events.  <a href="#a2cd7bfe17d6359081b91d672fa6b62a7">More...</a><br /></td></tr>
-<tr class="separator:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a485c0684a4e0be10d1c0e49cf8a3ca24"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a485c0684a4e0be10d1c0e49cf8a3ca24">update</a> (bl::engine::Engine &amp;, float dt) override</td></tr>
-<tr class="memdesc:a485c0684a4e0be10d1c0e49cf8a3ca24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the gui and the current page.  <a href="#a485c0684a4e0be10d1c0e49cf8a3ca24">More...</a><br /></td></tr>
-<tr class="separator:a485c0684a4e0be10d1c0e49cf8a3ca24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2297a35d73f3990585ede4d9ce95a82c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a2297a35d73f3990585ede4d9ce95a82c">render</a> (bl::engine::Engine &amp;, float lag) override</td></tr>
-<tr class="memdesc:a2297a35d73f3990585ede4d9ce95a82c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the gui.  <a href="#a2297a35d73f3990585ede4d9ce95a82c">More...</a><br /></td></tr>
-<tr class="separator:a2297a35d73f3990585ede4d9ce95a82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memItemLeft" align="right" valign="top">static Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#ae5c3888e51aae992b41fc4172f8efbfb">create</a> (<a class="el" href="a01430.html">core::system::Systems</a> &amp;systems)</td></tr>
-<tr class="memdesc:ae5c3888e51aae992b41fc4172f8efbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Main Editor state.  <a href="#ae5c3888e51aae992b41fc4172f8efbfb">More...</a><br /></td></tr>
-<tr class="separator:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a0b3f9791455580173dbe578da068b9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a4a0b3f9791455580173dbe578da068b9">Levels</a> (const <a class="el" href="a01606.html#afcccffdca8e57fb51327020bd188651c">RenderFilterCb</a> &amp;filterCb, const <a class="el" href="a01606.html#a511be2fb33bfdd78a58c2eb20950f096">ShiftCb</a> &amp;onShift, const <a class="el" href="a01606.html#ae4553503d683ea77d723d0c3d309cb8a">AddCb</a> &amp;addCb)</td></tr>
+<tr class="memdesc:a4a0b3f9791455580173dbe578da068b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01606.html" title="Provides controls to add, move, remove, and toggle visibility for levels. ">Levels</a> subpage.  <a href="#a4a0b3f9791455580173dbe578da068b9">More...</a><br /></td></tr>
+<tr class="separator:a4a0b3f9791455580173dbe578da068b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe151f92f9183b024776ea19913ee65c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#abe151f92f9183b024776ea19913ee65c">sync</a> (const std::vector&lt; bool &gt; &amp;filter)</td></tr>
+<tr class="memdesc:abe151f92f9183b024776ea19913ee65c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Syncs the number of levels and their visible status.  <a href="#abe151f92f9183b024776ea19913ee65c">More...</a><br /></td></tr>
+<tr class="separator:abe151f92f9183b024776ea19913ee65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a341b89de3e013305565ab936e91840b0"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a341b89de3e013305565ab936e91840b0">getContent</a> ()</td></tr>
+<tr class="memdesc:a341b89de3e013305565ab936e91840b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the GUI content to pack.  <a href="#a341b89de3e013305565ab936e91840b0">More...</a><br /></td></tr>
+<tr class="separator:a341b89de3e013305565ab936e91840b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa216817420d1ed8560ddedc60a1e479a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#aa216817420d1ed8560ddedc60a1e479a">pack</a> ()</td></tr>
+<tr class="memdesc:aa216817420d1ed8560ddedc60a1e479a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs the GUI content.  <a href="#aa216817420d1ed8560ddedc60a1e479a">More...</a><br /></td></tr>
+<tr class="separator:aa216817420d1ed8560ddedc60a1e479a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25db0e107482472953794932ca80f4e6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html#a25db0e107482472953794932ca80f4e6">unpack</a> ()</td></tr>
+<tr class="memdesc:a25db0e107482472953794932ca80f4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the GUI content. Good for saving space when not active.  <a href="#a25db0e107482472953794932ca80f4e6">More...</a><br /></td></tr>
+<tr class="separator:a25db0e107482472953794932ca80f4e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The primary state of the editor. Owns the GUI and all tabs. </p>
+<div class="textblock"><p>Provides controls to add, move, remove, and toggle visibility for levels. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00353_source.html#l00036">36</a> of file <a class="el" href="a00353_source.html">MainEditor.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7884cbb08e36693db414877e7ebb094f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7884cbb08e36693db414877e7ebb094f">&#9670;&nbsp;</a></span>~MainEditor()</h2>
+<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00016">16</a> of file <a class="el" href="a00344_source.html">Levels.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ae4553503d683ea77d723d0c3d309cb8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4553503d683ea77d723d0c3d309cb8a">&#9670;&nbsp;</a></span>AddCb</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual editor::state::MainEditor::~MainEditor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a01606.html#ae4553503d683ea77d723d0c3d309cb8a">editor::page::Levels::AddCb</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Destroy the Main Editor state. </p>
+<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00020">20</a> of file <a class="el" href="a00344_source.html">Levels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="afcccffdca8e57fb51327020bd188651c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcccffdca8e57fb51327020bd188651c">&#9670;&nbsp;</a></span>RenderFilterCb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01606.html#afcccffdca8e57fb51327020bd188651c">editor::page::Levels::RenderFilterCb</a> =  std::function&lt;void(unsigned int level, bool visible)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00018">18</a> of file <a class="el" href="a00344_source.html">Levels.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a511be2fb33bfdd78a58c2eb20950f096"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a511be2fb33bfdd78a58c2eb20950f096">&#9670;&nbsp;</a></span>ShiftCb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01606.html#a511be2fb33bfdd78a58c2eb20950f096">editor::page::Levels::ShiftCb</a> =  std::function&lt;void(unsigned int level, bool up)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00344_source.html#l00019">19</a> of file <a class="el" href="a00344_source.html">Levels.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4a0b3f9791455580173dbe578da068b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a0b3f9791455580173dbe578da068b9">&#9670;&nbsp;</a></span>Levels()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::page::Levels::Levels </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01606.html#afcccffdca8e57fb51327020bd188651c">RenderFilterCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>filterCb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01606.html#a511be2fb33bfdd78a58c2eb20950f096">ShiftCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>onShift</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01606.html#ae4553503d683ea77d723d0c3d309cb8a">AddCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>addCb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01606.html" title="Provides controls to add, move, remove, and toggle visibility for levels. ">Levels</a> subpage. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filterCb</td><td>Shows or hides a level </td></tr>
+    <tr><td class="paramname">shiftCb</td><td>Called when a layer is moved up or down </td></tr>
+    <tr><td class="paramname">addCb</td><td>Called when a level is created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00009">9</a> of file <a class="el" href="a00716_source.html">Levels.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a81c5d0df817cbe9780c4644fce9fd143"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81c5d0df817cbe9780c4644fce9fd143">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a341b89de3e013305565ab936e91840b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a341b89de3e013305565ab936e91840b0">&#9670;&nbsp;</a></span>getContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::state::MainEditor::activate </td>
+          <td class="memname">Box::Ptr editor::page::Levels::getContent </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the GUI content to pack. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00028">28</a> of file <a class="el" href="a00716_source.html">Levels.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa216817420d1ed8560ddedc60a1e479a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa216817420d1ed8560ddedc60a1e479a">&#9670;&nbsp;</a></span>pack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::Levels::pack </td>
+          <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Subscribes the gui to window events. </p>
+<p>Packs the GUI content. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00065">65</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00030">30</a> of file <a class="el" href="a00716_source.html">Levels.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae5c3888e51aae992b41fc4172f8efbfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5c3888e51aae992b41fc4172f8efbfb">&#9670;&nbsp;</a></span>create()</h2>
+<a id="abe151f92f9183b024776ea19913ee65c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe151f92f9183b024776ea19913ee65c">&#9670;&nbsp;</a></span>sync()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">MainEditor::Ptr editor::state::MainEditor::create </td>
+          <td class="memname">void editor::page::Levels::sync </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01430.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype">const std::vector&lt; bool &gt; &amp;&#160;</td>
+          <td class="paramname"><em>filter</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Main Editor state. </p>
+<p>Syncs the number of levels and their visible status. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">filter</td><td>The current render filter for levels </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00009">9</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00034">34</a> of file <a class="el" href="a00716_source.html">Levels.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2cd7bfe17d6359081b91d672fa6b62a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cd7bfe17d6359081b91d672fa6b62a7">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="a25db0e107482472953794932ca80f4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25db0e107482472953794932ca80f4e6">&#9670;&nbsp;</a></span>unpack()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::state::MainEditor::deactivate </td>
+          <td class="memname">void editor::page::Levels::unpack </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Unsubscribes the gui from window events. </p>
+<p>Hides the GUI content. Good for saving space when not active. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00070">70</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a540f7f0e84c5ee24d8b82c89cfde80da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a540f7f0e84c5ee24d8b82c89cfde80da">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char * editor::state::MainEditor::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns "MainEditor". </p>
-
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00063">63</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2297a35d73f3990585ede4d9ce95a82c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2297a35d73f3990585ede4d9ce95a82c">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::state::MainEditor::render </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Renders the gui. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">lag</td><td>Time not accounted for in update </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00084">84</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a485c0684a4e0be10d1c0e49cf8a3ca24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a485c0684a4e0be10d1c0e49cf8a3ca24">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::state::MainEditor::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the gui and the current page. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00722_source.html#l00075">75</a> of file <a class="el" href="a00722_source.html">MainEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00032">32</a> of file <a class="el" href="a00716_source.html">Levels.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/States/<a class="el" href="a00353_source.html">MainEditor.hpp</a></li>
-<li>src/Editor/States/<a class="el" href="a00722_source.html">MainEditor.cpp</a></li>
+<li>include/Editor/Pages/Subpages/<a class="el" href="a00344_source.html">Levels.hpp</a></li>
+<li>src/Editor/Pages/Subpages/<a class="el" href="a00716_source.html">Levels.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

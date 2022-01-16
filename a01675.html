@@ -63,25 +63,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00789.html">file</a></li><li class="navelem"><a class="el" href="a01678.html">MoveDBLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00812.html">game</a></li><li class="navelem"><a class="el" href="a00814.html">state</a></li><li class="navelem"><a class="el" href="a01678.html">SaveGame</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::file::MoveDBLoader Member List</div>  </div>
+<div class="title">game::state::SaveGame Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01678.html">core::file::MoveDBLoader</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01678.html">game::state::SaveGame</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01678.html#a8e717fe02dc264542063f630fd7d0064">read</a>(MoveDB &amp;v, bl::serial::binary::InputStream &amp;input) const override</td><td class="entry"><a class="el" href="a01678.html">core::file::MoveDBLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01678.html#ac66cff9abc3e01ade6998f86250bb6fd">Serializer</a> typedef</td><td class="entry"><a class="el" href="a01678.html">core::file::MoveDBLoader</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01678.html#a3a39c4b9adee41ee523bbfa9362332e3">write</a>(const MoveDB &amp;v, bl::serial::binary::OutputStream &amp;output) const override</td><td class="entry"><a class="el" href="a01678.html">core::file::MoveDBLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01678.html#a6cea776f0ed2c0e19511a449d688d320">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01678.html#ae4b2f27695ec049e4af9574767343ad9">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01678.html#af40f2394e40db0d0063351e889e8ba86">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01678.html#a841f007cbe748753871c131b490c2917">name</a>() const override</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01678.html#ab041e578bd76d36f5f8b88a1ee48577b">render</a>(bl::engine::Engine &amp;engine, float lag) override</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01682.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01682.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01678.html#a8852be016e014cf3c24dff7fcf032a9a">update</a>(bl::engine::Engine &amp;engine, float dt) override</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01678.html#a5fa013556108d047a964a0aa64d883da">~SaveGame</a>()=default</td><td class="entry"><a class="el" href="a01678.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01682.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

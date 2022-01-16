@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Items</title>
+<title>Peoplemon: Editor</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,183 +64,31 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#groups">Modules</a>  </div>
   <div class="headertitle">
-<div class="title">Items<div class="ingroups"><a class="el" href="a00761.html">Core</a></div></div>  </div>
+<div class="title">Editor</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of enums and classes for managing and using items.  
+<p>All classes and functionality used for implementing the game editor.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html">core::item::Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of static methods centered around items.  <a href="a01106.html#details">More...</a><br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a00782"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html">Pages</a></td></tr>
+<tr class="memdesc:a00782"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01110.html">core::item::UseResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct to store the result of using an item.  <a href="a01110.html#details">More...</a><br /></td></tr>
+<tr class="memitem:a00783"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00783.html">States</a></td></tr>
+<tr class="memdesc:a00783"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine states for the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00768.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a> : std::uint8_t { <a class="el" href="a00768.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Category::Unknown</a>, 
-<a class="el" href="a00768.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">core::item::Category::Regular</a>, 
-<a class="el" href="a00768.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">core::item::Category::Key</a>, 
-<a class="el" href="a00768.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">core::item::Category::TM</a>
- }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a00768.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Id::Unknown</a> = 0, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a> = Unknown, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16">core::item::Id::Potion</a> = 1, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531">core::item::Id::SuperPotion</a> = 2, 
-<br />
-&#160;&#160;<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016">core::item::Id::ID_COUNT</a>
-<br />
- }<tr class="memdesc:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item in its simplist form.  <a href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00768.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Type::Unknown</a> = 0, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">core::item::Type::TargetPeoplemon</a> = 1, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">core::item::Type::Peopleball</a>, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">core::item::Type::EvolveStone</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">core::item::Type::PlayerModifier</a>, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">core::item::Type::Useless</a>, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">core::item::Type::HoldItem</a>, 
-<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">core::item::Type::KeyItem</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00768.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">core::item::Type::TM</a>
-<br />
- }<tr class="memdesc:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type classification of an item. This is used to determine when an item may be used and how to use it.  <a href="a00768.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Collection of enums and classes for managing and using items. </p>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="gac5b9981750f250d2d6aa8682b2a10b71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gac5b9981750f250d2d6aa8682b2a10b71">&#9670;&nbsp;</a></span>Category</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00768.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a> : std::uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents a category that an item can belong to. Used for bag sorting. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Unknown item category. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345"></a>Regular&#160;</td><td class="fielddoc"><p>Regular items. Covers ids [1, 100]. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba"></a>Key&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c"></a>TM&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00016">16</a> of file <a class="el" href="a00083_source.html">Category.hpp</a>.</p>
-
-</div>
-</div>
-<a id="gaf2565ceb5b45ea8af94be0067e7474ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf2565ceb5b45ea8af94be0067e7474ca">&#9670;&nbsp;</a></span>Id</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> : std::uint16_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Represents an item in its simplist form. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754"></a>None&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16"></a>Potion&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531"></a>SuperPotion&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016"></a>ID_COUNT&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a02168_source.html#l00024">24</a> of file <a class="el" href="a02168_source.html">Id.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ga0e0fc5f0899c8ab17fd8d7d307e878dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga0e0fc5f0899c8ab17fd8d7d307e878dd">&#9670;&nbsp;</a></span>Type</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00768.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a> : std::uint16_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The type classification of an item. This is used to determine when an item may be used and how to use it. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e"></a>Unknown&#160;</td><td class="fielddoc"><p>Invalid type for Unknown items. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73"></a>TargetPeoplemon&#160;</td><td class="fielddoc"><p>The item is used on a peoplemon. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4"></a>Peopleball&#160;</td><td class="fielddoc"><p>The item is used to catch peoplemon. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3"></a>EvolveStone&#160;</td><td class="fielddoc"><p>The item is used to evolve peoplemon. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab"></a>PlayerModifier&#160;</td><td class="fielddoc"><p>The item modifiers player state (ie repel) </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d"></a>Useless&#160;</td><td class="fielddoc"><p>Items who's only use is to be sold. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0"></a>HoldItem&#160;</td><td class="fielddoc"><p>The item may be held by Peoplemon. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d"></a>KeyItem&#160;</td><td class="fielddoc"><p>The item is a key item. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c"></a>TM&#160;</td><td class="fielddoc"><p>The item is a TM. </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a02174_source.html#l00017">17</a> of file <a class="el" href="a02174_source.html">Type.hpp</a>.</p>
-
-</div>
-</div>
+<p>All classes and functionality used for implementing the game editor. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

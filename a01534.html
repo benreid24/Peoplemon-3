@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::page::Credits Class Reference</title>
+<title>Peoplemon: editor::component::NpcEditorWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,308 +63,196 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00795.html">editor</a></li><li class="navelem"><a class="el" href="a00804.html">page</a></li><li class="navelem"><a class="el" href="a01534.html">Credits</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">editor</a></li><li class="navelem"><a class="el" href="a00802.html">component</a></li><li class="navelem"><a class="el" href="a01534.html">NpcEditorWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01531.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::Credits Class Reference<div class="ingroups"><a class="el" href="a00762.html">Editor</a> &raquo; <a class="el" href="a00776.html">Pages</a></div></div>  </div>
+<div class="title">editor::component::NpcEditorWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a01550.html" title="Base class for all editor pages. ">Page</a> for editing the credits.  
+<p>Editor for NPC files.  
  <a href="a01534.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00317_source.html">Credits.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::Credits:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01534.png" usemap="#editor::page::Credits_map" alt=""/>
-  <map id="editor::page::Credits_map" name="editor::page::Credits_map">
-<area href="a01550.html" title="Base class for all editor pages. " alt="editor::page::Page" shape="rect" coords="0,0,124,24"/>
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00302_source.html">NPCEditorWindow.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7d3680a3c8e1e1533a52408a0ffa1edf"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#a7d3680a3c8e1e1533a52408a0ffa1edf">SelectCb</a> = std::function&lt; void(const std::string &amp;file)&gt;</td></tr>
+<tr class="memdesc:a7d3680a3c8e1e1533a52408a0ffa1edf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when an NPC file is selected.  <a href="#a7d3680a3c8e1e1533a52408a0ffa1edf">More...</a><br /></td></tr>
+<tr class="separator:a7d3680a3c8e1e1533a52408a0ffa1edf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff722647c3de7746c0864ce84d798d11"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#aff722647c3de7746c0864ce84d798d11">CloseCb</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:aff722647c3de7746c0864ce84d798d11"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the window is closed.  <a href="#aff722647c3de7746c0864ce84d798d11">More...</a><br /></td></tr>
+<tr class="separator:aff722647c3de7746c0864ce84d798d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a85042c5b49936e520b39da93e06b330d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#a85042c5b49936e520b39da93e06b330d">Credits</a> (<a class="el" href="a01430.html">core::system::Systems</a> &amp;<a class="el" href="a01550.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
-<tr class="memdesc:a85042c5b49936e520b39da93e06b330d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01534.html" title="Page for editing the credits. ">Credits</a> page.  <a href="#a85042c5b49936e520b39da93e06b330d">More...</a><br /></td></tr>
-<tr class="separator:a85042c5b49936e520b39da93e06b330d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a369d118452362f2bd95d7220ae234e07"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#a369d118452362f2bd95d7220ae234e07">~Credits</a> ()=default</td></tr>
-<tr class="memdesc:a369d118452362f2bd95d7220ae234e07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01550.html" title="Base class for all editor pages. ">Page</a>.  <a href="#a369d118452362f2bd95d7220ae234e07">More...</a><br /></td></tr>
-<tr class="separator:a369d118452362f2bd95d7220ae234e07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1572097f9a6f71dd033f6d3d480c9abf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#a1572097f9a6f71dd033f6d3d480c9abf">update</a> (float dt) override</td></tr>
-<tr class="memdesc:a1572097f9a6f71dd033f6d3d480c9abf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="#a1572097f9a6f71dd033f6d3d480c9abf">More...</a><br /></td></tr>
-<tr class="separator:a1572097f9a6f71dd033f6d3d480c9abf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
-<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
-<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96a1a58360cd7eed40f30059052d29f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html#a96a1a58360cd7eed40f30059052d29f1">registerGui</a> (bl::gui::GUI::Ptr <a class="el" href="a01550.html#a8873055176987a0040083f574ca63df7">parent</a>)</td></tr>
-<tr class="memdesc:a96a1a58360cd7eed40f30059052d29f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the parent GUI.  <a href="#a96a1a58360cd7eed40f30059052d29f1">More...</a><br /></td></tr>
-<tr class="separator:a96a1a58360cd7eed40f30059052d29f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01430.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
-<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
-<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8873055176987a0040083f574ca63df7"><td class="memItemLeft" align="right" valign="top">bl::gui::GUI::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01550.html#a8873055176987a0040083f574ca63df7">parent</a></td></tr>
-<tr class="separator:a8873055176987a0040083f574ca63df7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefa13c5da78df42af6d1139badc25a6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#aefa13c5da78df42af6d1139badc25a6f">NpcEditorWindow</a> (const <a class="el" href="a01534.html#a7d3680a3c8e1e1533a52408a0ffa1edf">SelectCb</a> &amp;cb, const <a class="el" href="a01534.html#aff722647c3de7746c0864ce84d798d11">CloseCb</a> &amp;closeCb)</td></tr>
+<tr class="memdesc:aefa13c5da78df42af6d1139badc25a6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Npc Editor Window.  <a href="#aefa13c5da78df42af6d1139badc25a6f">More...</a><br /></td></tr>
+<tr class="separator:aefa13c5da78df42af6d1139badc25a6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada7ab218e8e7bcb7d3bae876ddb388ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#ada7ab218e8e7bcb7d3bae876ddb388ef">show</a> (bl::gui::GUI::Ptr parent, const std::string &amp;file)</td></tr>
+<tr class="memdesc:ada7ab218e8e7bcb7d3bae876ddb388ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the NPC editor.  <a href="#ada7ab218e8e7bcb7d3bae876ddb388ef">More...</a><br /></td></tr>
+<tr class="separator:ada7ab218e8e7bcb7d3bae876ddb388ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3bf73436017dc2059d56af7aa0b700d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01534.html#ad3bf73436017dc2059d56af7aa0b700d">hide</a> ()</td></tr>
+<tr class="memdesc:ad3bf73436017dc2059d56af7aa0b700d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the window and all created child windows.  <a href="#ad3bf73436017dc2059d56af7aa0b700d">More...</a><br /></td></tr>
+<tr class="separator:ad3bf73436017dc2059d56af7aa0b700d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a01550.html" title="Base class for all editor pages. ">Page</a> for editing the credits. </p>
+<div class="textblock"><p>Editor for NPC files. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00317_source.html#l00016">16</a> of file <a class="el" href="a00317_source.html">Credits.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a85042c5b49936e520b39da93e06b330d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85042c5b49936e520b39da93e06b330d">&#9670;&nbsp;</a></span>Credits()</h2>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00020">20</a> of file <a class="el" href="a00302_source.html">NPCEditorWindow.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="aff722647c3de7746c0864ce84d798d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff722647c3de7746c0864ce84d798d11">&#9670;&nbsp;</a></span>CloseCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::page::Credits::Credits </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01430.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a01534.html#aff722647c3de7746c0864ce84d798d11">editor::component::NpcEditorWindow::CloseCb</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01534.html" title="Page for editing the credits. ">Credits</a> page. </p>
+<p>Called when the window is closed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00026">26</a> of file <a class="el" href="a00302_source.html">NPCEditorWindow.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7d3680a3c8e1e1533a52408a0ffa1edf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d3680a3c8e1e1533a52408a0ffa1edf">&#9670;&nbsp;</a></span>SelectCb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01534.html#a7d3680a3c8e1e1533a52408a0ffa1edf">editor::component::NpcEditorWindow::SelectCb</a> =  std::function&lt;void(const std::string&amp; file)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for when an NPC file is selected. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00023">23</a> of file <a class="el" href="a00302_source.html">NPCEditorWindow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aefa13c5da78df42af6d1139badc25a6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefa13c5da78df42af6d1139badc25a6f">&#9670;&nbsp;</a></span>NpcEditorWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::NpcEditorWindow::NpcEditorWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01534.html#a7d3680a3c8e1e1533a52408a0ffa1edf">SelectCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01534.html#aff722647c3de7746c0864ce84d798d11">CloseCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>closeCb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Npc Editor Window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">cb</td><td>Callback for when an NPC file is selected </td></tr>
+    <tr><td class="paramname">cb</td><td>Callback for when the window is closed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00007">7</a> of file <a class="el" href="a00686_source.html">Credits.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a369d118452362f2bd95d7220ae234e07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a369d118452362f2bd95d7220ae234e07">&#9670;&nbsp;</a></span>~Credits()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual editor::page::Credits::~Credits </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a01550.html" title="Base class for all editor pages. ">Page</a>. </p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00017">17</a> of file <a class="el" href="a00671_source.html">NPCEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ca56d8d39860251755e5800924e57ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
+<a id="ad3bf73436017dc2059d56af7aa0b700d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3bf73436017dc2059d56af7aa0b700d">&#9670;&nbsp;</a></span>hide()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
+          <td class="memname">void editor::component::NpcEditorWindow::hide </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the content to put in the editor. </p>
+<p>Hides the window and all created child windows. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00010">10</a> of file <a class="el" href="a00695_source.html">Page.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00257">257</a> of file <a class="el" href="a00671_source.html">NPCEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a96a1a58360cd7eed40f30059052d29f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96a1a58360cd7eed40f30059052d29f1">&#9670;&nbsp;</a></span>registerGui()</h2>
+<a id="ada7ab218e8e7bcb7d3bae876ddb388ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada7ab218e8e7bcb7d3bae876ddb388ef">&#9670;&nbsp;</a></span>show()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::Page::registerGui </td>
+          <td class="memname">void editor::component::NpcEditorWindow::show </td>
           <td>(</td>
           <td class="paramtype">bl::gui::GUI::Ptr&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Registers the parent GUI. </p>
+<p>Opens the NPC editor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent GUI element </td></tr>
+    <tr><td class="paramname">file</td><td>The file to open. Empty for new file </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00695_source.html#l00012">12</a> of file <a class="el" href="a00695_source.html">Page.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1572097f9a6f71dd033f6d3d480c9abf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1572097f9a6f71dd033f6d3d480c9abf">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::page::Credits::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Does nothing. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a01550.html#a2b795b1243ceabcf90c0cb492ae7f903">editor::page::Page</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00013">13</a> of file <a class="el" href="a00686_source.html">Credits.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00069">69</a> of file <a class="el" href="a00326_source.html">Page.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8873055176987a0040083f574ca63df7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8873055176987a0040083f574ca63df7">&#9670;&nbsp;</a></span>parent</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::gui::GUI::Ptr editor::page::Page::parent</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00070">70</a> of file <a class="el" href="a00326_source.html">Page.hpp</a>.</p>
-
-</div>
-</div>
-<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01430.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00326_source.html#l00068">68</a> of file <a class="el" href="a00326_source.html">Page.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00671_source.html#l00152">152</a> of file <a class="el" href="a00671_source.html">NPCEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Pages/<a class="el" href="a00317_source.html">Credits.hpp</a></li>
-<li>src/Editor/Pages/<a class="el" href="a00686_source.html">Credits.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00302_source.html">NPCEditorWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00671_source.html">NPCEditorWindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

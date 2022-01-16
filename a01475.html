@@ -63,26 +63,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00795.html">editor</a></li><li class="navelem"><a class="el" href="a00796.html">component</a></li><li class="navelem"><a class="el" href="a01478.html">ConversationWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00801.html">editor</a></li><li class="navelem"><a class="el" href="a00802.html">component</a></li><li class="navelem"><a class="el" href="a01478.html">ConversationNode</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">editor::component::ConversationWindow Member List</div>  </div>
+<div class="title">editor::component::ConversationNode Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01478.html">editor::component::ConversationWindow</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01478.html">editor::component::ConversationNode</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01478.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">CancelCb</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationWindow</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01478.html#aeab5bb5895e016081f6c5f4efa5929ce">ConversationWindow</a>(const SelectCb &amp;onSelect, const CancelCb &amp;onCancel)</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationWindow</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01478.html#abe9c7683baa8fe1761c4e96c9fe7a853">open</a>(const bl::gui::GUI::Ptr &amp;parent, const std::string &amp;current)</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationWindow</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01478.html#aab1244bd95ed503546dbc38e8d949c79">SelectCb</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationWindow</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01478.html#aebdab7b64f396fab63882599e795146b">ConversationNode</a>(const FocusCb &amp;focusCb, const NotifyCb &amp;editCb, const NotifyCb &amp;deleteCb, const NotifyCb &amp;regenTree, const CreateNode &amp;createNode, const SelectCb &amp;selectCb, bl::gui::Box::Ptr &amp;container, const std::vector&lt; core::file::Conversation::Node &gt; *nodes)</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01478.html#aa1c05d0e6667b774c4247541c07707de">CreateNode</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01478.html#a786e9da723a67dc55cfe4aabe469377f">FocusCb</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01478.html#a1f240ced7f0cd3252ec8bb1528cf7d64">getValue</a>() const</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01478.html#a973113f2e7ff0ac33e576514d15cafef">NotifyCb</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01478.html#a75e783f2d730ca2f56816cc9d103ec35">SelectCb</a> typedef</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01478.html#a9153e22a303274a39132316abb357fcb">setParent</a>(const bl::gui::GUI::Ptr &amp;parent)</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01478.html#a4df91fc3fab9b642d3211b9eaf57c543">update</a>(unsigned int i, const core::file::Conversation::Node &amp;node)</td><td class="entry"><a class="el" href="a01478.html">editor::component::ConversationNode</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

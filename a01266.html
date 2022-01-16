@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::pplmn::StoredPeoplemon Struct Reference</title>
+<title>Peoplemon: bl::serial::binary::Serializer&lt; Stats &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,102 +63,148 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00794.html">pplmn</a></li><li class="navelem"><a class="el" href="a01266.html">StoredPeoplemon</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00790.html">serial</a></li><li class="navelem"><a class="el" href="a00791.html">binary</a></li><li class="navelem"><a class="el" href="a01266.html">Serializer&lt; Stats &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a01263.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::pplmn::StoredPeoplemon Struct Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00770.html">Peoplemon</a></div></div>  </div>
+<div class="title">bl::serial::binary::Serializer&lt; Stats &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> in storage.  
- <a href="a01266.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00167_source.html">Stats.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01238.html">OwnedPeoplemon</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a482cbc6f5acf9a7126f43f7259f4ba40">peoplemon</a></td></tr>
-<tr class="memdesc:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="mdescLeft">&#160;</td><td class="mdescRight">The peoplemon itself.  <a href="#a482cbc6f5acf9a7126f43f7259f4ba40">More...</a><br /></td></tr>
-<tr class="separator:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a552fd44bb4cc36562d64213713feed93"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a552fd44bb4cc36562d64213713feed93">boxNumber</a></td></tr>
-<tr class="memdesc:a552fd44bb4cc36562d64213713feed93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which box the peoplemon is in.  <a href="#a552fd44bb4cc36562d64213713feed93">More...</a><br /></td></tr>
-<tr class="separator:a552fd44bb4cc36562d64213713feed93"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82dec03ba3a2969b4d05efdc34de21f9"><td class="memItemLeft" align="right" valign="top">sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a82dec03ba3a2969b4d05efdc34de21f9">position</a></td></tr>
-<tr class="memdesc:a82dec03ba3a2969b4d05efdc34de21f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position of the peoplemon in the box.  <a href="#a82dec03ba3a2969b4d05efdc34de21f9">More...</a><br /></td></tr>
-<tr class="separator:a82dec03ba3a2969b4d05efdc34de21f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a4d7bc06c35cb7a94024521de227697c4"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a4d7bc06c35cb7a94024521de227697c4">serialize</a> (OutputStream &amp;output, const <a class="el" href="a01262.html">Stats</a> &amp;v)</td></tr>
+<tr class="separator:a4d7bc06c35cb7a94024521de227697c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b47ad0008f351e173965cd8ce49de61"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a7b47ad0008f351e173965cd8ce49de61">deserialize</a> (InputStream &amp;input, <a class="el" href="a01262.html">Stats</a> &amp;v)</td></tr>
+<tr class="separator:a7b47ad0008f351e173965cd8ce49de61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e2808bf1558246228ca93df42280a94"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01266.html#a3e2808bf1558246228ca93df42280a94">size</a> (const <a class="el" href="a01262.html">Stats</a> &amp;)</td></tr>
+<tr class="separator:a3e2808bf1558246228ca93df42280a94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> in storage. </p>
+<div class="textblock"><h3>template&lt;&gt;<br />
+struct bl::serial::binary::Serializer&lt; Stats &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00017">17</a> of file <a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a552fd44bb4cc36562d64213713feed93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a552fd44bb4cc36562d64213713feed93">&#9670;&nbsp;</a></span>boxNumber</h2>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int core::pplmn::StoredPeoplemon::boxNumber</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Which box the peoplemon is in. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00022">22</a> of file <a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a482cbc6f5acf9a7126f43f7259f4ba40"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a482cbc6f5acf9a7126f43f7259f4ba40">&#9670;&nbsp;</a></span>peoplemon</h2>
+<p class="definition">Definition at line <a class="el" href="a00167_source.html#l00120">120</a> of file <a class="el" href="a00167_source.html">Stats.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a7b47ad0008f351e173965cd8ce49de61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b47ad0008f351e173965cd8ce49de61">&#9670;&nbsp;</a></span>deserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01238.html">OwnedPeoplemon</a> core::pplmn::StoredPeoplemon::peoplemon</td>
+          <td class="memname">static bool bl::serial::binary::Serializer&lt; <a class="el" href="a01262.html">Stats</a> &gt;::deserialize </td>
+          <td>(</td>
+          <td class="paramtype">InputStream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01262.html">Stats</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The peoplemon itself. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00019">19</a> of file <a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00167_source.html#l00131">131</a> of file <a class="el" href="a00167_source.html">Stats.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a82dec03ba3a2969b4d05efdc34de21f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82dec03ba3a2969b4d05efdc34de21f9">&#9670;&nbsp;</a></span>position</h2>
+<a id="a4d7bc06c35cb7a94024521de227697c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d7bc06c35cb7a94024521de227697c4">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Vector2i core::pplmn::StoredPeoplemon::position</td>
+          <td class="memname">static bool bl::serial::binary::Serializer&lt; <a class="el" href="a01262.html">Stats</a> &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype">OutputStream &amp;&#160;</td>
+          <td class="paramname"><em>output</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01262.html">Stats</a> &amp;&#160;</td>
+          <td class="paramname"><em>v</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The position of the peoplemon in the box. </p>
+<p class="definition">Definition at line <a class="el" href="a00167_source.html#l00121">121</a> of file <a class="el" href="a00167_source.html">Stats.hpp</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a00173_source.html#l00025">25</a> of file <a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a>.</p>
+</div>
+</div>
+<a id="a3e2808bf1558246228ca93df42280a94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e2808bf1558246228ca93df42280a94">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::size_t bl::serial::binary::Serializer&lt; <a class="el" href="a01262.html">Stats</a> &gt;::size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01262.html">Stats</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00167_source.html#l00148">148</a> of file <a class="el" href="a00167_source.html">Stats.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Peoplemon/<a class="el" href="a00173_source.html">StoredPeoplemon.hpp</a></li>
+<li>include/Core/Peoplemon/<a class="el" href="a00167_source.html">Stats.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

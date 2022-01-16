@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component::WanderBehavior Class Reference</title>
+<title>Peoplemon: core::component::StandingBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,108 +63,90 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00782.html">component</a></li><li class="navelem"><a class="el" href="a00946.html">WanderBehavior</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00788.html">component</a></li><li class="navelem"><a class="el" href="a00946.html">StandingBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00943.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::WanderBehavior Class Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00765.html">Components</a></div></div>  </div>
+<div class="title">core::component::StandingBehavior Class Reference<div class="ingroups"><a class="el" href="a00767.html">Core</a> &raquo; <a class="el" href="a00771.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Add this component to an entity to make it wander around.  
+<p>AI behavior for standing in place facing a fixed direction.  
  <a href="a00946.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00050_source.html">WanderBehavior.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00044_source.html">StandingBehavior.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab82ba28e5298eeba0356925ed31b7a71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a> (unsigned int radius, const sf::Vector2i &amp;origin)</td></tr>
-<tr class="memdesc:ab82ba28e5298eeba0356925ed31b7a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Wander Behavior component.  <a href="#ab82ba28e5298eeba0356925ed31b7a71">More...</a><br /></td></tr>
-<tr class="separator:ab82ba28e5298eeba0356925ed31b7a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6df8568525c0a27c9843e82032f7f56"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#af6df8568525c0a27c9843e82032f7f56">update</a> (<a class="el" href="a00902.html">Position</a> &amp;position, <a class="el" href="a00878.html">Controllable</a> &amp;controller, float dt)</td></tr>
-<tr class="memdesc:af6df8568525c0a27c9843e82032f7f56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the entity and wanders around.  <a href="#af6df8568525c0a27c9843e82032f7f56">More...</a><br /></td></tr>
-<tr class="separator:af6df8568525c0a27c9843e82032f7f56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af61e892602a954bdb55121e64111a3d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#af61e892602a954bdb55121e64111a3d0">StandingBehavior</a> (<a class="el" href="a00771.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> faceDir)</td></tr>
+<tr class="memdesc:af61e892602a954bdb55121e64111a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Standing Behavior component.  <a href="#af61e892602a954bdb55121e64111a3d0">More...</a><br /></td></tr>
+<tr class="separator:af61e892602a954bdb55121e64111a3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f199e60f44f1e782b1db45eac54947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#a89f199e60f44f1e782b1db45eac54947">update</a> (<a class="el" href="a00910.html">Position</a> &amp;position, <a class="el" href="a00886.html">Controllable</a> &amp;controller)</td></tr>
+<tr class="memdesc:a89f199e60f44f1e782b1db45eac54947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures the managed entity is facing the required position.  <a href="#a89f199e60f44f1e782b1db45eac54947">More...</a><br /></td></tr>
+<tr class="separator:a89f199e60f44f1e782b1db45eac54947"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:af05bcb487c6d5cff5408fb34a0fa4200"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#af05bcb487c6d5cff5408fb34a0fa4200">ComponentId</a> = 10</td></tr>
-<tr class="memdesc:af05bcb487c6d5cff5408fb34a0fa4200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#af05bcb487c6d5cff5408fb34a0fa4200">More...</a><br /></td></tr>
-<tr class="separator:af05bcb487c6d5cff5408fb34a0fa4200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00946.html#a7eb665c7ba2d5eabd8fde6a61d6c71bb">ComponentId</a> = 7</td></tr>
+<tr class="memdesc:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#a7eb665c7ba2d5eabd8fde6a61d6c71bb">More...</a><br /></td></tr>
+<tr class="separator:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Add this component to an entity to make it wander around. </p>
+<div class="textblock"><p>AI behavior for standing in place facing a fixed direction. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00050_source.html#l00018">18</a> of file <a class="el" href="a00050_source.html">WanderBehavior.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00044_source.html#l00017">17</a> of file <a class="el" href="a00044_source.html">StandingBehavior.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab82ba28e5298eeba0356925ed31b7a71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab82ba28e5298eeba0356925ed31b7a71">&#9670;&nbsp;</a></span>WanderBehavior()</h2>
+<a id="af61e892602a954bdb55121e64111a3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af61e892602a954bdb55121e64111a3d0">&#9670;&nbsp;</a></span>StandingBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::component::WanderBehavior::WanderBehavior </td>
+          <td class="memname">core::component::StandingBehavior::StandingBehavior </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>radius</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a00771.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td>
+          <td class="paramname"><em>faceDir</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>origin</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Wander Behavior component. </p>
+<p>Construct a new Standing Behavior component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">radius</td><td>The radius to stay within, in tiles </td></tr>
-    <tr><td class="paramname">origin</td><td>The starting position, in tiles </td></tr>
+    <tr><td class="paramname">faceDir</td><td>The direction to face </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00434_source.html#l00009">9</a> of file <a class="el" href="a00434_source.html">WanderBehavior.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00007">7</a> of file <a class="el" href="a00431_source.html">StandingBehavior.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af6df8568525c0a27c9843e82032f7f56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6df8568525c0a27c9843e82032f7f56">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a89f199e60f44f1e782b1db45eac54947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f199e60f44f1e782b1db45eac54947">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::component::WanderBehavior::update </td>
+          <td class="memname">void core::component::StandingBehavior::update </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00902.html">Position</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="a00910.html">Position</a> &amp;&#160;</td>
           <td class="paramname"><em>position</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a00878.html">Controllable</a> &amp;&#160;</td>
-          <td class="paramname"><em>controller</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a00886.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -174,23 +156,22 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates the entity and wanders around. </p>
+<p>Ensures the managed entity is facing the required position. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">position</td><td>The position of the entity </td></tr>
-    <tr><td class="paramname">controller</td><td>The controllable of the entity </td></tr>
-    <tr><td class="paramname">dt</td><td>Time elapsed, in seconds </td></tr>
+    <tr><td class="paramname">position</td><td>The entities position component </td></tr>
+    <tr><td class="paramname">controller</td><td>The entities controllable component </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00434_source.html#l00018">18</a> of file <a class="el" href="a00434_source.html">WanderBehavior.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00431_source.html#l00010">10</a> of file <a class="el" href="a00431_source.html">StandingBehavior.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af05bcb487c6d5cff5408fb34a0fa4200"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af05bcb487c6d5cff5408fb34a0fa4200">&#9670;&nbsp;</a></span>ComponentId</h2>
+<a id="a7eb665c7ba2d5eabd8fde6a61d6c71bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb665c7ba2d5eabd8fde6a61d6c71bb">&#9670;&nbsp;</a></span>ComponentId</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +180,7 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bl::entity::Component::IdType core::component::WanderBehavior::ComponentId = 10</td>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::StandingBehavior::ComponentId = 7</td>
         </tr>
       </table>
   </td>
@@ -211,19 +192,19 @@ Static Public Attributes</h2></td></tr>
 
 <p>Required for BLIB ECS. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00050_source.html#l00021">21</a> of file <a class="el" href="a00050_source.html">WanderBehavior.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00044_source.html#l00020">20</a> of file <a class="el" href="a00044_source.html">StandingBehavior.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Components/<a class="el" href="a00050_source.html">WanderBehavior.hpp</a></li>
-<li>src/Core/Components/<a class="el" href="a00434_source.html">WanderBehavior.cpp</a></li>
+<li>include/Core/Components/<a class="el" href="a00044_source.html">StandingBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00431_source.html">StandingBehavior.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

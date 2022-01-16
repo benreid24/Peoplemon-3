@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/Tileset.hpp File Reference</title>
+<title>Peoplemon: include/Core/Components/Trainer.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_b572e9e567c53bf52c1d322a7f434893.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,50 +71,35 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Tileset.hpp File Reference</div>  </div>
+<div class="title">Trainer.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00128_source.html">Core/Maps/Tile.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Media/Graphics.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Serialization/Binary.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02147_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02189_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a02186_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01202.html">core::map::Tileset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the collection of images and animations used by Tiles in a <a class="el" href="a01178.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a01202.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01206.html">bl::serial::binary::SerializableObject&lt; core::map::Tileset &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html">core::component::Trainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will make it a trainer that can battle.  <a href="a00950.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00779"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00779.html">core</a></td></tr>
-<tr class="memdesc:a00779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">core</a></td></tr>
+<tr class="memdesc:a00785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00788"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00788.html">core::map</a></td></tr>
-<tr class="memdesc:a00788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00792"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00792.html">core::map::loaders</a></td></tr>
-<tr class="memdesc:a00792"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00783"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00783.html">bl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00784"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00784.html">bl::serial</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">bl::serial::binary</a></td></tr>
+<tr class="memitem:a00788"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00788.html">core::component</a></td></tr>
+<tr class="memdesc:a00788"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

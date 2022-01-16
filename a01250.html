@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::pplmn::Peoplemon Class Reference</title>
+<title>Peoplemon: bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,317 +63,181 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00794.html">pplmn</a></li><li class="navelem"><a class="el" href="a01250.html">Peoplemon</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00789.html">bl</a></li><li class="navelem"><a class="el" href="a00790.html">serial</a></li><li class="navelem"><a class="el" href="a00791.html">binary</a></li><li class="navelem"><a class="el" href="a01250.html">SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01247.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::pplmn::Peoplemon Class Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00770.html">Peoplemon</a></div></div>  </div>
+<div class="title">bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Serves as the primary store of all <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> information.  
- <a href="a01250.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a02192_source.html">Peoplemon.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01250.png" usemap="#bl::serial::binary::SerializableObject_3C_20core::pplmn::OwnedPeoplemon_20_3E_map" alt=""/>
+  <map id="bl::serial::binary::SerializableObject_3C_20core::pplmn::OwnedPeoplemon_20_3E_map" name="bl::serial::binary::SerializableObject_3C_20core::pplmn::OwnedPeoplemon_20_3E_map">
+</map>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a307220e0167b57e958be788d185f5012"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a307220e0167b57e958be788d185f5012">setDataSource</a> (<a class="el" href="a01090.html">file::PeoplemonDB</a> &amp;data)</td></tr>
-<tr class="memdesc:a307220e0167b57e958be788d185f5012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data source for all peoplemon. Must remain in scope.  <a href="#a307220e0167b57e958be788d185f5012">More...</a><br /></td></tr>
-<tr class="separator:a307220e0167b57e958be788d185f5012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae086afdc8270d28eb4b36a88cce6ef42"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ae086afdc8270d28eb4b36a88cce6ef42">cast</a> (unsigned int id)</td></tr>
-<tr class="memdesc:ae086afdc8270d28eb4b36a88cce6ef42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Casts an integer to a validated id. Returns Unknown if the id is invalid.  <a href="#ae086afdc8270d28eb4b36a88cce6ef42">More...</a><br /></td></tr>
-<tr class="separator:ae086afdc8270d28eb4b36a88cce6ef42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab38db91857d1237c94c4cbe9851eeea2"><td class="memItemLeft" align="right" valign="top">static const std::vector&lt; <a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab38db91857d1237c94c4cbe9851eeea2">validIds</a> ()</td></tr>
-<tr class="memdesc:ab38db91857d1237c94c4cbe9851eeea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returtns the list of all valid ids.  <a href="#ab38db91857d1237c94c4cbe9851eeea2">More...</a><br /></td></tr>
-<tr class="separator:ab38db91857d1237c94c4cbe9851eeea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9b9c3a216937bd06a0726667dd981b2"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab9b9c3a216937bd06a0726667dd981b2">name</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:ab9b9c3a216937bd06a0726667dd981b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>.  <a href="#ab9b9c3a216937bd06a0726667dd981b2">More...</a><br /></td></tr>
-<tr class="separator:ab9b9c3a216937bd06a0726667dd981b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a948f4c521db8ea97d28e7c35a1ebc755"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a948f4c521db8ea97d28e7c35a1ebc755">description</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:a948f4c521db8ea97d28e7c35a1ebc755"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the description of the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>.  <a href="#a948f4c521db8ea97d28e7c35a1ebc755">More...</a><br /></td></tr>
-<tr class="separator:a948f4c521db8ea97d28e7c35a1ebc755"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2e08d67666b3d31cf41f500e343bbd3"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ad2e08d67666b3d31cf41f500e343bbd3">type</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:ad2e08d67666b3d31cf41f500e343bbd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of the <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>.  <a href="#ad2e08d67666b3d31cf41f500e343bbd3">More...</a><br /></td></tr>
-<tr class="separator:ad2e08d67666b3d31cf41f500e343bbd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a448660cf4cf308482fe592d8843b9259"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gae0a3870bdfdee167eb5686dda0f03885">SpecialAbility</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a448660cf4cf308482fe592d8843b9259">specialAbility</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:a448660cf4cf308482fe592d8843b9259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ability of the given peoplemon, if any.  <a href="#a448660cf4cf308482fe592d8843b9259">More...</a><br /></td></tr>
-<tr class="separator:a448660cf4cf308482fe592d8843b9259"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4dc2b8b52b832ea77d185aa04cbac7b"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a01254.html">Stats</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab4dc2b8b52b832ea77d185aa04cbac7b">baseStats</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:ab4dc2b8b52b832ea77d185aa04cbac7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the base stats for the given peoplemon.  <a href="#ab4dc2b8b52b832ea77d185aa04cbac7b">More...</a><br /></td></tr>
-<tr class="separator:ab4dc2b8b52b832ea77d185aa04cbac7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c115a75dc2dd473679831245190568e"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a9c115a75dc2dd473679831245190568e">canLearnMove</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> ppl, <a class="el" href="a00770.html#gab39f21e54ca605725b382bd7848530b3">MoveId</a> move)</td></tr>
-<tr class="memdesc:a9c115a75dc2dd473679831245190568e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> can learn the given move.  <a href="#a9c115a75dc2dd473679831245190568e">More...</a><br /></td></tr>
-<tr class="separator:a9c115a75dc2dd473679831245190568e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33939738c63aca8f3dd3e09b85e4776a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gab39f21e54ca605725b382bd7848530b3">MoveId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a33939738c63aca8f3dd3e09b85e4776a">moveLearnedAtLevel</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> ppl, unsigned int level)</td></tr>
-<tr class="memdesc:a33939738c63aca8f3dd3e09b85e4776a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the move the peoplemon learns at the given level, if any.  <a href="#a33939738c63aca8f3dd3e09b85e4776a">More...</a><br /></td></tr>
-<tr class="separator:a33939738c63aca8f3dd3e09b85e4776a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19ee66bb4966fd40ca2448c5d581d16f"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a19ee66bb4966fd40ca2448c5d581d16f">evolveLevel</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:a19ee66bb4966fd40ca2448c5d581d16f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the minimum level that the given peoplemon will evolve at.  <a href="#a19ee66bb4966fd40ca2448c5d581d16f">More...</a><br /></td></tr>
-<tr class="separator:a19ee66bb4966fd40ca2448c5d581d16f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b22442057a9e895b27e8305f099d58c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a5b22442057a9e895b27e8305f099d58c">evolvesInto</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> orig)</td></tr>
-<tr class="memdesc:a5b22442057a9e895b27e8305f099d58c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns what the given peoplemon will evolve into.  <a href="#a5b22442057a9e895b27e8305f099d58c">More...</a><br /></td></tr>
-<tr class="separator:a5b22442057a9e895b27e8305f099d58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a776e807326617fee529e8ba7410631cc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a776e807326617fee529e8ba7410631cc">evolvesFrom</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> evolved)</td></tr>
-<tr class="memdesc:a776e807326617fee529e8ba7410631cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns what the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> evolved from. This is expensive.  <a href="#a776e807326617fee529e8ba7410631cc">More...</a><br /></td></tr>
-<tr class="separator:a776e807326617fee529e8ba7410631cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf9f55ec64804e71ba3c9f2c44fd884a"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="a01254.html">Stats</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#acf9f55ec64804e71ba3c9f2c44fd884a">evAward</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:acf9f55ec64804e71ba3c9f2c44fd884a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the ev points awarded for defeating the given peoplemon.  <a href="#acf9f55ec64804e71ba3c9f2c44fd884a">More...</a><br /></td></tr>
-<tr class="separator:acf9f55ec64804e71ba3c9f2c44fd884a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a51166a756fa3991293f127ba795a925a"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a51166a756fa3991293f127ba795a925a">xpYieldMultiplier</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:a51166a756fa3991293f127ba795a925a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the multiplier used when computing the XP award for defeating the given peoplemon.  <a href="#a51166a756fa3991293f127ba795a925a">More...</a><br /></td></tr>
-<tr class="separator:a51166a756fa3991293f127ba795a925a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab389aabb3d2c454e34d2eeebfb5d2e1"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#aab389aabb3d2c454e34d2eeebfb5d2e1">levelUpXp</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id, unsigned int level)</td></tr>
-<tr class="memdesc:aab389aabb3d2c454e34d2eeebfb5d2e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the XP required to level up the given peoplemon.  <a href="#aab389aabb3d2c454e34d2eeebfb5d2e1">More...</a><br /></td></tr>
-<tr class="separator:aab389aabb3d2c454e34d2eeebfb5d2e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb1b03ef2dd34e4e83568c186d8e3d87"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#aeb1b03ef2dd34e4e83568c186d8e3d87">thumbnailImage</a> (<a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> id)</td></tr>
-<tr class="memdesc:aeb1b03ef2dd34e4e83568c186d8e3d87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the path of the image to render as the peoplemon thumbnail.  <a href="#aeb1b03ef2dd34e4e83568c186d8e3d87">More...</a><br /></td></tr>
-<tr class="separator:aeb1b03ef2dd34e4e83568c186d8e3d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ab8e952fdde98e83f0c4be7456343f686"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a> = <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a></td></tr>
+<tr class="separator:ab8e952fdde98e83f0c4be7456343f686"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c51c6d45811c02af425187672b8eb7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a40c51c6d45811c02af425187672b8eb7">Id</a> = <a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></td></tr>
+<tr class="separator:a40c51c6d45811c02af425187672b8eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab724a37c123b777d06e57036396a7dd9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a> = <a class="el" href="a01262.html">core::pplmn::Stats</a></td></tr>
+<tr class="separator:ab724a37c123b777d06e57036396a7dd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8fb1cc60b1dc627db3358e671a7cb2b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ab8fb1cc60b1dc627db3358e671a7cb2b">Move</a> = <a class="el" href="a01234.html">core::pplmn::OwnedMove</a></td></tr>
+<tr class="separator:ab8fb1cc60b1dc627db3358e671a7cb2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17944b2064c8310581ab338589d3eb09"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a17944b2064c8310581ab338589d3eb09">Ail</a> = <a class="el" href="a00776.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">core::pplmn::Ailment</a></td></tr>
+<tr class="separator:a17944b2064c8310581ab338589d3eb09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81ccb47b3792c59199b92094f911c5a3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a81ccb47b3792c59199b92094f911c5a3">Item</a> = <a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></td></tr>
+<tr class="separator:a81ccb47b3792c59199b92094f911c5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac8cbb13ae84e605076e956c49cf1baa8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#ac8cbb13ae84e605076e956c49cf1baa8">SerializableObject</a> ()</td></tr>
+<tr class="separator:ac8cbb13ae84e605076e956c49cf1baa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6deaf7f1989a691262772d8d5e3eeb61"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a6deaf7f1989a691262772d8d5e3eeb61">id</a></td></tr>
+<tr class="separator:a6deaf7f1989a691262772d8d5e3eeb61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49fb587b16a80f89d45030da78e5174a"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a49fb587b16a80f89d45030da78e5174a">customName</a></td></tr>
+<tr class="separator:a49fb587b16a80f89d45030da78e5174a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d67a6b66ae81cbfb22937daf25ba498"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 3, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a6d67a6b66ae81cbfb22937daf25ba498">level</a></td></tr>
+<tr class="separator:a6d67a6b66ae81cbfb22937daf25ba498"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add974c34fad16b8417bf55bdbce5a331"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 4, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#add974c34fad16b8417bf55bdbce5a331">xp</a></td></tr>
+<tr class="separator:add974c34fad16b8417bf55bdbce5a331"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9272137926ea3b0feb5c391873a812b4"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 5, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a9272137926ea3b0feb5c391873a812b4">hp</a></td></tr>
+<tr class="separator:a9272137926ea3b0feb5c391873a812b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28b688dccd7d7e8532e4ddfd0caa4dc2"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 6, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a28b688dccd7d7e8532e4ddfd0caa4dc2">ivs</a></td></tr>
+<tr class="separator:a28b688dccd7d7e8532e4ddfd0caa4dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f70663118fda966cfafe83b2c9059ed"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 7, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a9f70663118fda966cfafe83b2c9059ed">evs</a></td></tr>
+<tr class="separator:a9f70663118fda966cfafe83b2c9059ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e56f00cc4d508fc7ac3a9c7897e78f3"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 8, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab8fb1cc60b1dc627db3358e671a7cb2b">Move</a>[4]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#a6e56f00cc4d508fc7ac3a9c7897e78f3">moves</a></td></tr>
+<tr class="separator:a6e56f00cc4d508fc7ac3a9c7897e78f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aabf750223d365749b2e6ce163285b145"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 9, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00776.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">Ail</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#aabf750223d365749b2e6ce163285b145">ailment</a></td></tr>
+<tr class="separator:aabf750223d365749b2e6ce163285b145"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac09cfcacdec10c9629bbf4cd71a0b51"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 10, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">Item</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01250.html#aac09cfcacdec10c9629bbf4cd71a0b51">item</a></td></tr>
+<tr class="separator:aac09cfcacdec10c9629bbf4cd71a0b51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Serves as the primary store of all <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> information. </p>
+<div class="textblock"><h3>template&lt;&gt;<br />
+struct bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a02192_source.html#l00034">34</a> of file <a class="el" href="a02192_source.html">Peoplemon.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab4dc2b8b52b832ea77d185aa04cbac7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4dc2b8b52b832ea77d185aa04cbac7b">&#9670;&nbsp;</a></span>baseStats()</h2>
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00226">226</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a17944b2064c8310581ab338589d3eb09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17944b2064c8310581ab338589d3eb09">&#9670;&nbsp;</a></span>Ail</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01254.html">Stats</a> &amp; core::pplmn::Peoplemon::baseStats </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a00776.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">Ail</a> =  <a class="el" href="a00776.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">core::pplmn::Ailment</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the base stats for the given peoplemon. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon to get base stats for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01254.html" title="Stats for Peoplemon. This struct is used for base stats, EVs, IVs, battle increases/decreases, and base stats. ">Stats</a>&amp; The base stats of the given peoplemon </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00078">78</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00231">231</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9c115a75dc2dd473679831245190568e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c115a75dc2dd473679831245190568e">&#9670;&nbsp;</a></span>canLearnMove()</h2>
+<a id="a40c51c6d45811c02af425187672b8eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40c51c6d45811c02af425187672b8eb7">&#9670;&nbsp;</a></span>Id</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::pplmn::Peoplemon::canLearnMove </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>ppl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a00770.html#gab39f21e54ca605725b382bd7848530b3">MoveId</a>&#160;</td>
-          <td class="paramname"><em>move</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> =  <a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns whether or not the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> can learn the given move. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ppl</td><td>The peoplemon trying to learn </td></tr>
-    <tr><td class="paramname">move</td><td>The move to be learned </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> can learn it, false otherwise </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00084">84</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00228">228</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae086afdc8270d28eb4b36a88cce6ef42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae086afdc8270d28eb4b36a88cce6ef42">&#9670;&nbsp;</a></span>cast()</h2>
+<a id="a81ccb47b3792c59199b92094f911c5a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81ccb47b3792c59199b92094f911c5a3">&#9670;&nbsp;</a></span>Item</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> core::pplmn::Peoplemon::cast </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">Item</a> =  <a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Casts an integer to a validated id. Returns Unknown if the id is invalid. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The id to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Id The corresponding Id, or <a class="el" href="a00770.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">Id::Unknown</a> if invalid </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00049">49</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00232">232</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a948f4c521db8ea97d28e7c35a1ebc755"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a948f4c521db8ea97d28e7c35a1ebc755">&#9670;&nbsp;</a></span>description()</h2>
+<a id="ab8fb1cc60b1dc627db3358e671a7cb2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8fb1cc60b1dc627db3358e671a7cb2b">&#9670;&nbsp;</a></span>Move</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; core::pplmn::Peoplemon::description </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a01250.html#ab8fb1cc60b1dc627db3358e671a7cb2b">Move</a> =  <a class="el" href="a01234.html">core::pplmn::OwnedMove</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the description of the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon to get the description of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const std::string&amp; The description of the peoplemon </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00063">63</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00230">230</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="acf9f55ec64804e71ba3c9f2c44fd884a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acf9f55ec64804e71ba3c9f2c44fd884a">&#9670;&nbsp;</a></span>evAward()</h2>
+<a id="ab8e952fdde98e83f0c4be7456343f686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e952fdde98e83f0c4be7456343f686">&#9670;&nbsp;</a></span>OP</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01254.html">Stats</a> &amp; core::pplmn::Peoplemon::evAward </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a> =  <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the ev points awarded for defeating the given peoplemon. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon that was defeated </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01254.html" title="Stats for Peoplemon. This struct is used for base stats, EVs, IVs, battle increases/decreases, and base stats. ">Stats</a>&amp; The EVs awarded </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00108">108</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00227">227</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a19ee66bb4966fd40ca2448c5d581d16f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19ee66bb4966fd40ca2448c5d581d16f">&#9670;&nbsp;</a></span>evolveLevel()</h2>
+<a id="ab724a37c123b777d06e57036396a7dd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab724a37c123b777d06e57036396a7dd9">&#9670;&nbsp;</a></span>Stats</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int core::pplmn::Peoplemon::evolveLevel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::<a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a> =  <a class="el" href="a01262.html">core::pplmn::Stats</a></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the minimum level that the given peoplemon will evolve at. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon to check </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>unsigned int The level to evolve at. Over 100 means no evolution </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00098">98</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00229">229</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a776e807326617fee529e8ba7410631cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a776e807326617fee529e8ba7410631cc">&#9670;&nbsp;</a></span>evolvesFrom()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac8cbb13ae84e605076e956c49cf1baa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8cbb13ae84e605076e956c49cf1baa8">&#9670;&nbsp;</a></span>SerializableObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -382,361 +246,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> core::pplmn::Peoplemon::evolvesFrom </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>evolved</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns what the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> evolved from. This is expensive. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">evolved</td><td>The peoplemon to work backwards from </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Id The peoplemon that was evolved from, if any </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00136">136</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5b22442057a9e895b27e8305f099d58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b22442057a9e895b27e8305f099d58c">&#9670;&nbsp;</a></span>evolvesInto()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> core::pplmn::Peoplemon::evolvesInto </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>orig</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns what the given peoplemon will evolve into. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">orig</td><td>The peoplemon that is evolving </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Id The peoplemon that is being evolved into </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00103">103</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aab389aabb3d2c454e34d2eeebfb5d2e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab389aabb3d2c454e34d2eeebfb5d2e1">&#9670;&nbsp;</a></span>levelUpXp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int core::pplmn::Peoplemon::levelUpXp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>level</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the XP required to level up the given peoplemon. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon trying to level up </td></tr>
-    <tr><td class="paramname">level</td><td>The current level of the peoplemon </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>unsigned int The XP required to advance to the next level </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00119">119</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a33939738c63aca8f3dd3e09b85e4776a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33939738c63aca8f3dd3e09b85e4776a">&#9670;&nbsp;</a></span>moveLearnedAtLevel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00770.html#gab39f21e54ca605725b382bd7848530b3">MoveId</a> core::pplmn::Peoplemon::moveLearnedAtLevel </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>ppl</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>level</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the move the peoplemon learns at the given level, if any. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ppl</td><td>The peoplemon that levled up </td></tr>
-    <tr><td class="paramname">level</td><td>The level reached </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>MoveId The move to learn, if any </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00089">89</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab9b9c3a216937bd06a0726667dd981b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9b9c3a216937bd06a0726667dd981b2">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; core::pplmn::Peoplemon::name </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the name of the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon to get the name of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const std::string&amp; The name of the peoplemon </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00058">58</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a307220e0167b57e958be788d185f5012"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a307220e0167b57e958be788d185f5012">&#9670;&nbsp;</a></span>setDataSource()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::pplmn::Peoplemon::setDataSource </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01090.html">file::PeoplemonDB</a> &amp;&#160;</td>
-          <td class="paramname"><em>data</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the data source for all peoplemon. Must remain in scope. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">data</td><td>The data source. Must remain in scope </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00029">29</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a448660cf4cf308482fe592d8843b9259"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a448660cf4cf308482fe592d8843b9259">&#9670;&nbsp;</a></span>specialAbility()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00770.html#gae0a3870bdfdee167eb5686dda0f03885">SpecialAbility</a> core::pplmn::Peoplemon::specialAbility </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the ability of the given peoplemon, if any. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon to get the ability for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>SpecialAbility The ability of the peoplemon </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00073">73</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aeb1b03ef2dd34e4e83568c186d8e3d87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb1b03ef2dd34e4e83568c186d8e3d87">&#9670;&nbsp;</a></span>thumbnailImage()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string core::pplmn::Peoplemon::thumbnailImage </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the path of the image to render as the peoplemon thumbnail. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The id of the peoplemon </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>std::string The image to use as the thumbnail </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00143">143</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad2e08d67666b3d31cf41f500e343bbd3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2e08d67666b3d31cf41f500e343bbd3">&#9670;&nbsp;</a></span>type()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a00770.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> core::pplmn::Peoplemon::type </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the type of the <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> to get the type of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Type The type of the given <a class="el" href="a01250.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00068">68</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab38db91857d1237c94c4cbe9851eeea2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab38db91857d1237c94c4cbe9851eeea2">&#9670;&nbsp;</a></span>validIds()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> &gt; &amp; core::pplmn::Peoplemon::validIds </td>
+          <td class="memname">bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::SerializableObject </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -744,64 +254,184 @@ Static Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returtns the list of all valid ids. </p>
-<dl class="section return"><dt>Returns</dt><dd>std::vector&lt;Id&gt; A vector containing all valid ids </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00056">56</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00245">245</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a51166a756fa3991293f127ba795a925a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51166a756fa3991293f127ba795a925a">&#9670;&nbsp;</a></span>xpYieldMultiplier()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="aabf750223d365749b2e6ce163285b145"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabf750223d365749b2e6ce163285b145">&#9670;&nbsp;</a></span>ailment</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int core::pplmn::Peoplemon::xpYieldMultiplier </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00770.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
-          <td></td>
+          <td class="memname">SerializableField&lt;9, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00776.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">Ail</a>&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::ailment</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the multiplier used when computing the XP award for defeating the given peoplemon. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">id</td><td>The peoplemon that was defeated </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int The XP reward multiplier </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02249_source.html#l00114">114</a> of file <a class="el" href="a02249_source.html">Peoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00242">242</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Peoplemon/<a class="el" href="a02192_source.html">Peoplemon.hpp</a></li>
-<li>src/Core/Peoplemon/<a class="el" href="a02249_source.html">Peoplemon.cpp</a></li>
+<a id="a49fb587b16a80f89d45030da78e5174a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49fb587b16a80f89d45030da78e5174a">&#9670;&nbsp;</a></span>customName</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;2, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::string&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::customName</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00235">235</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9f70663118fda966cfafe83b2c9059ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f70663118fda966cfafe83b2c9059ed">&#9670;&nbsp;</a></span>evs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;7, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a>&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::evs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00240">240</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9272137926ea3b0feb5c391873a812b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9272137926ea3b0feb5c391873a812b4">&#9670;&nbsp;</a></span>hp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;5, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint16_t&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::hp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00238">238</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6deaf7f1989a691262772d8d5e3eeb61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6deaf7f1989a691262772d8d5e3eeb61">&#9670;&nbsp;</a></span>id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;1, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00234">234</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aac09cfcacdec10c9629bbf4cd71a0b51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac09cfcacdec10c9629bbf4cd71a0b51">&#9670;&nbsp;</a></span>item</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;10, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">Item</a>&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::item</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00243">243</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a28b688dccd7d7e8532e4ddfd0caa4dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28b688dccd7d7e8532e4ddfd0caa4dc2">&#9670;&nbsp;</a></span>ivs</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;6, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab724a37c123b777d06e57036396a7dd9">Stats</a>&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::ivs</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00239">239</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6d67a6b66ae81cbfb22937daf25ba498"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d67a6b66ae81cbfb22937daf25ba498">&#9670;&nbsp;</a></span>level</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;3, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint16_t&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::level</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00236">236</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e56f00cc4d508fc7ac3a9c7897e78f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e56f00cc4d508fc7ac3a9c7897e78f3">&#9670;&nbsp;</a></span>moves</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;8, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, <a class="el" href="a01250.html#ab8fb1cc60b1dc627db3358e671a7cb2b">Move</a>[4]&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::moves</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00241">241</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="add974c34fad16b8417bf55bdbce5a331"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add974c34fad16b8417bf55bdbce5a331">&#9670;&nbsp;</a></span>xp</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;4, <a class="el" href="a01250.html#ab8e952fdde98e83f0c4be7456343f686">OP</a>, std::uint32_t&gt; bl::serial::binary::SerializableObject&lt; <a class="el" href="a01246.html">core::pplmn::OwnedPeoplemon</a> &gt;::xp</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00152_source.html#l00237">237</a> of file <a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Peoplemon/<a class="el" href="a00152_source.html">OwnedPeoplemon.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

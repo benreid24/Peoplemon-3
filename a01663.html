@@ -63,25 +63,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00789.html">file</a></li><li class="navelem"><a class="el" href="a00790.html">loader</a></li><li class="navelem"><a class="el" href="a01666.html">ConversationLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00812.html">game</a></li><li class="navelem"><a class="el" href="a00814.html">state</a></li><li class="navelem"><a class="el" href="a01666.html">PauseMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::file::loader::ConversationLoader Member List</div>  </div>
+<div class="title">game::state::PauseMenu Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01666.html">core::file::loader::ConversationLoader</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01666.html">game::state::PauseMenu</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01666.html#a3dde3c8df7511bef5398ba837c249a2e">read</a>(Conversation &amp;result, bl::serial::binary::InputStream &amp;input) const override</td><td class="entry"><a class="el" href="a01666.html">core::file::loader::ConversationLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01666.html#a4a5ddd0a189ced4727ee4175895828fb">Serializer</a> typedef</td><td class="entry"><a class="el" href="a01666.html">core::file::loader::ConversationLoader</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01666.html#a00e07a3c586545373a2d52ae92c926c2">write</a>(const Conversation &amp;conversation, bl::serial::binary::OutputStream &amp;output) const override</td><td class="entry"><a class="el" href="a01666.html">core::file::loader::ConversationLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01666.html#aa73bb135e241e4a8c6d902ffe07143d0">activate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01666.html#ae7bf5c21466113543605afd251075112">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01666.html#a87e83a1eaa0229d77ec1b19e9baf6887">deactivate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01666.html#ad306171de1cd78c01dd80e894515ac00">name</a>() const override</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01666.html#a3406e519f646a493220da627e6d87475">render</a>(bl::engine::Engine &amp;, float lag) override</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01682.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01682.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01666.html#ac4204ac3d392b1ee39b7f0732c28c89e">update</a>(bl::engine::Engine &amp;, float dt) override</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01666.html#abcba21f5b156a4eef3a7513a4180644c">~PauseMenu</a>()=default</td><td class="entry"><a class="el" href="a01666.html">game::state::PauseMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01682.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a01682.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

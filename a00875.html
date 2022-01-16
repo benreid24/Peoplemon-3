@@ -63,27 +63,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00782.html">component</a></li><li class="navelem"><a class="el" href="a00878.html">Controllable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00787.html">ai</a></li><li class="navelem"><a class="el" href="a00878.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::component::Controllable Member List</div>  </div>
+<div class="title">core::ai::Conversation Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a00878.html">core::component::Controllable</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a00878.html">core::ai::Conversation</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a6d0d756a20c91b5f38723a0c990f8c25">ComponentId</a></td><td class="entry"><a class="el" href="a00878.html">core::component::Controllable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#a84032df1e4453b3772eaf8ae156083eb">Controllable</a>(system::Systems &amp;systems, bl::entity::Entity owner)</td><td class="entry"><a class="el" href="a00878.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a55880414805a8e7e94a04e86b9935da8">processControl</a>(Command command, bool overrideLock=false)</td><td class="entry"><a class="el" href="a00878.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a00878.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a>()</td><td class="entry"><a class="el" href="a00878.html">core::component::Controllable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a>(bool lock, bool preserve=true)</td><td class="entry"><a class="el" href="a00878.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation</a>(system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#aca98664465772bfc586aac07028cf04a">currentNode</a>() const</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>() const</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a69aa2e5032d179d992770a787183e61d">notifyCheckFailed</a>()</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a8e0a2f9daee0c2320b63c86512e2dc49">notifyCheckPassed</a>()</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a9dbb8b01be97b67152554105faa29a97">notifyChoiceMade</a>(const std::string &amp;choice)</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a00878.html#a58a30139629398b7ac280c1d623febcf">notifyNext</a>()</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a00878.html#a6e44f4e0e5e28c4f7fa8c0af09d672f3">setConversation</a>(const file::Conversation &amp;conversation, bl::entity::Entity entity, bool talked)</td><td class="entry"><a class="el" href="a00878.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

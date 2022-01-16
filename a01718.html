@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::loaders::LegacyTilesetLoader Struct Reference</title>
+<title>Peoplemon: core::file::PeoplemonDBLoader Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,41 +63,64 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00788.html">map</a></li><li class="navelem"><a class="el" href="a00792.html">loaders</a></li><li class="navelem"><a class="el" href="a01718.html">LegacyTilesetLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00795.html">file</a></li><li class="navelem"><a class="el" href="a01718.html">PeoplemonDBLoader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01715.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::loaders::LegacyTilesetLoader Struct Reference</div>  </div>
+<div class="title">core::file::PeoplemonDBLoader Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::loaders::LegacyTilesetLoader:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::file::PeoplemonDBLoader:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01718.png" usemap="#core::map::loaders::LegacyTilesetLoader_map" alt=""/>
-  <map id="core::map::loaders::LegacyTilesetLoader_map" name="core::map::loaders::LegacyTilesetLoader_map">
+  <img src="a01718.png" usemap="#core::file::PeoplemonDBLoader_map" alt=""/>
+  <map id="core::file::PeoplemonDBLoader_map" name="core::file::PeoplemonDBLoader_map">
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4180433ec8b0ce870123262a09d50f5c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01718.html#a4180433ec8b0ce870123262a09d50f5c">Serial</a> = Serializer&lt; <a class="el" href="a01098.html">PeoplemonDB</a> &gt;</td></tr>
+<tr class="separator:a4180433ec8b0ce870123262a09d50f5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2b6f0ac73e844d04b5584d451de66391"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01718.html#a2b6f0ac73e844d04b5584d451de66391">read</a> (<a class="el" href="a01202.html">Tileset</a> &amp;tileset, bl::serial::binary::InputStream &amp;input) const override</td></tr>
-<tr class="separator:a2b6f0ac73e844d04b5584d451de66391"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0622311b480258be54b10a693d351f00"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01718.html#a0622311b480258be54b10a693d351f00">write</a> (const <a class="el" href="a01202.html">Tileset</a> &amp;, bl::serial::binary::OutputStream &amp;) const override</td></tr>
-<tr class="separator:a0622311b480258be54b10a693d351f00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91e74089fe616e052c76163e0422212e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01718.html#a91e74089fe616e052c76163e0422212e">read</a> (<a class="el" href="a01098.html">PeoplemonDB</a> &amp;db, InputStream &amp;input) const override</td></tr>
+<tr class="separator:a91e74089fe616e052c76163e0422212e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1af4772649ea851a813e637d93c0c9db"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01718.html#a1af4772649ea851a813e637d93c0c9db">write</a> (const <a class="el" href="a01098.html">PeoplemonDB</a> &amp;db, OutputStream &amp;output) const override</td></tr>
+<tr class="separator:a1af4772649ea851a813e637d93c0c9db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a02243_source.html#l00011">11</a> of file <a class="el" href="a02243_source.html">Tileset.cpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2b6f0ac73e844d04b5584d451de66391"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b6f0ac73e844d04b5584d451de66391">&#9670;&nbsp;</a></span>read()</h2>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00013">13</a> of file <a class="el" href="a00452_source.html">PeoplemonDB.cpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a4180433ec8b0ce870123262a09d50f5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4180433ec8b0ce870123262a09d50f5c">&#9670;&nbsp;</a></span>Serial</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01718.html#a4180433ec8b0ce870123262a09d50f5c">core::file::PeoplemonDBLoader::Serial</a> =  Serializer&lt;<a class="el" href="a01098.html">PeoplemonDB</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00014">14</a> of file <a class="el" href="a00452_source.html">PeoplemonDB.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a91e74089fe616e052c76163e0422212e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91e74089fe616e052c76163e0422212e">&#9670;&nbsp;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -106,15 +129,15 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::map::loaders::LegacyTilesetLoader::read </td>
+          <td class="memname">virtual bool core::file::PeoplemonDBLoader::read </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01202.html">Tileset</a> &amp;&#160;</td>
-          <td class="paramname"><em>tileset</em>, </td>
+          <td class="paramtype"><a class="el" href="a01098.html">PeoplemonDB</a> &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bl::serial::binary::InputStream &amp;&#160;</td>
+          <td class="paramtype">InputStream &amp;&#160;</td>
           <td class="paramname"><em>input</em>&#160;</td>
         </tr>
         <tr>
@@ -130,12 +153,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02243_source.html#l00012">12</a> of file <a class="el" href="a02243_source.html">Tileset.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00016">16</a> of file <a class="el" href="a00452_source.html">PeoplemonDB.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0622311b480258be54b10a693d351f00"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0622311b480258be54b10a693d351f00">&#9670;&nbsp;</a></span>write()</h2>
+<a id="a1af4772649ea851a813e637d93c0c9db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1af4772649ea851a813e637d93c0c9db">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,16 +167,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::map::loaders::LegacyTilesetLoader::write </td>
+          <td class="memname">virtual bool core::file::PeoplemonDBLoader::write </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01202.html">Tileset</a> &amp;&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramtype">const <a class="el" href="a01098.html">PeoplemonDB</a> &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bl::serial::binary::OutputStream &amp;&#160;</td>
-          <td class="paramname">&#160;</td>
+          <td class="paramtype">OutputStream &amp;&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -168,18 +191,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02243_source.html#l00036">36</a> of file <a class="el" href="a02243_source.html">Tileset.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00020">20</a> of file <a class="el" href="a00452_source.html">PeoplemonDB.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Maps/<a class="el" href="a02243_source.html">Tileset.cpp</a></li>
+<li>src/Core/Files/<a class="el" href="a00452_source.html">PeoplemonDB.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

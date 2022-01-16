@@ -63,31 +63,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00780.html">system</a></li><li class="navelem"><a class="el" href="a01354.html">Cameras</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00786.html">system</a></li><li class="navelem"><a class="el" href="a01354.html">AI</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::Cameras Member List</div>  </div>
+<div class="title">core::system::AI Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01354.html">core::system::Cameras</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01354.html">core::system::AI</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a116f5db7d8e070c6db1fa3e49fc906f4">activeCamera</a>()</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01354.html#a8d46e1e5e68e46b944c10afb37e07787">Cameras</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a7a4e1f78dd4868bf74bc20da7d81a3e6">clearAndReplace</a>(camera::Camera::Ptr camera)</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01354.html#a47d591f9579304388bc4431ec67e806c">configureView</a>(const map::Map &amp;map, sf::View &amp;view) const</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a00e5347dcc472f6d327b81f10d07ff7e">getArea</a>() const</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01354.html#a65d64ce29ffa7bd7bee2d2eea433d4fa">popCamera</a>()</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a0a7ee6761428d0499076642f9ada0e12">pushCamera</a>(camera::Camera::Ptr camera)</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01354.html#ad8044d79071772269298bb73078c23fa">replaceCamera</a>(camera::Camera::Ptr camera)</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a9f046df43a869c2ba03e76ed29efea0d">update</a>(float dt)</td><td class="entry"><a class="el" href="a01354.html">core::system::Cameras</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01354.html#af85db40e9f2dac434c672b2ae0a5f936">addBehavior</a>(bl::entity::Entity entity, const file::Behavior &amp;behavior)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01354.html#a6cfa6e6029611935d58e614c7fd841ec">AI</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a19e770a6184e5d668bc2a4c6bd452a7b">init</a>()</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01354.html#ab02c2f427a9768b02b3ec3c5e038c749">makeFollowPath</a>(bl::entity::Entity entity, const file::Behavior::Path &amp;path)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a836e0d8a0097c7c6229e317ade1be1bd">makeSpinning</a>(bl::entity::Entity entity, file::Behavior::Spinning::Direction dir)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01354.html#aac40eb78e7bbc905a98dcef05f2233e2">makeStanding</a>(bl::entity::Entity entity, component::Direction dir)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a2079c166f087b4186874ebcdefa1bec0">makeWander</a>(bl::entity::Entity entity, unsigned int radius)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01354.html#a698c00e827b46b8e9c2185da680cf554">moveToPosition</a>(bl::entity::Entity entity, const component::Position &amp;pos, component::Direction finalDir)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01354.html#a7362ed59930d44f45522b63595a02427">update</a>(float dt)</td><td class="entry"><a class="el" href="a01354.html">core::system::AI</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::item::Item Struct Reference</title>
+<title>Peoplemon: core::file::Trainer Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,511 +63,282 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00791.html">item</a></li><li class="navelem"><a class="el" href="a01106.html">Item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00795.html">file</a></li><li class="navelem"><a class="el" href="a01106.html">Trainer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01103.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::item::Item Struct Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00768.html">Items</a></div></div>  </div>
+<div class="title">core::file::Trainer Struct Reference<div class="ingroups"><a class="el" href="a00767.html">Core</a> &raquo; <a class="el" href="a00773.html">Files</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of static methods centered around items.  
+<p>Static data for trainers in the world.  
  <a href="a01106.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02132_source.html">Item.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02189_source.html">Trainer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aa5689f7029accde6792cbe06f24f6928"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#aa5689f7029accde6792cbe06f24f6928">cast</a> (unsigned int id)</td></tr>
-<tr class="memdesc:aa5689f7029accde6792cbe06f24f6928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to cast a raw id to an item Id.  <a href="#aa5689f7029accde6792cbe06f24f6928">More...</a><br /></td></tr>
-<tr class="separator:aa5689f7029accde6792cbe06f24f6928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1c25894c0c71ec92f9e15686c3cb3e46"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a1c25894c0c71ec92f9e15686c3cb3e46">setDataSource</a> (<a class="el" href="a01066.html">file::ItemDB</a> &amp;source)</td></tr>
-<tr class="memdesc:a1c25894c0c71ec92f9e15686c3cb3e46"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the data source for the item methods.  <a href="#a1c25894c0c71ec92f9e15686c3cb3e46">More...</a><br /></td></tr>
-<tr class="separator:a1c25894c0c71ec92f9e15686c3cb3e46"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43383dc1aac9007ce84cf09b1c88ea97"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00768.html#gac5b9981750f250d2d6aa8682b2a10b71">Category</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a43383dc1aac9007ce84cf09b1c88ea97">getCategory</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:a43383dc1aac9007ce84cf09b1c88ea97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the category of the given item.  <a href="#a43383dc1aac9007ce84cf09b1c88ea97">More...</a><br /></td></tr>
-<tr class="separator:a43383dc1aac9007ce84cf09b1c88ea97"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85cc354d7a95c7e997203879ec2f672b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a00768.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a85cc354d7a95c7e997203879ec2f672b">getType</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:a85cc354d7a95c7e997203879ec2f672b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of the given item.  <a href="#a85cc354d7a95c7e997203879ec2f672b">More...</a><br /></td></tr>
-<tr class="separator:a85cc354d7a95c7e997203879ec2f672b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66a65e779c8516580db2664f0b5368ba"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a66a65e779c8516580db2664f0b5368ba">getName</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item)</td></tr>
-<tr class="memdesc:a66a65e779c8516580db2664f0b5368ba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the given item.  <a href="#a66a65e779c8516580db2664f0b5368ba">More...</a><br /></td></tr>
-<tr class="separator:a66a65e779c8516580db2664f0b5368ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cfd5fd4c7e7b62fdacc91a6c4504b5b"><td class="memItemLeft" align="right" valign="top">static const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a1cfd5fd4c7e7b62fdacc91a6c4504b5b">getDescription</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item)</td></tr>
-<tr class="memdesc:a1cfd5fd4c7e7b62fdacc91a6c4504b5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the description of the given item.  <a href="#a1cfd5fd4c7e7b62fdacc91a6c4504b5b">More...</a><br /></td></tr>
-<tr class="separator:a1cfd5fd4c7e7b62fdacc91a6c4504b5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa2c0f21e51278b09de768e82ef77711f"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#aa2c0f21e51278b09de768e82ef77711f">getValue</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item)</td></tr>
-<tr class="memdesc:aa2c0f21e51278b09de768e82ef77711f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the given item.  <a href="#aa2c0f21e51278b09de768e82ef77711f">More...</a><br /></td></tr>
-<tr class="separator:aa2c0f21e51278b09de768e82ef77711f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e5b86d670054997c14b045956fd7514"><td class="memItemLeft" align="right" valign="top">static const std::vector&lt; <a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a9e5b86d670054997c14b045956fd7514">validIds</a> ()</td></tr>
-<tr class="memdesc:a9e5b86d670054997c14b045956fd7514"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the list of valid item ids.  <a href="#a9e5b86d670054997c14b045956fd7514">More...</a><br /></td></tr>
-<tr class="separator:a9e5b86d670054997c14b045956fd7514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a052230bd5d242eaff1b2cdfd9a11e68b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01110.html">UseResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a052230bd5d242eaff1b2cdfd9a11e68b">useOnPeoplemon</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:a052230bd5d242eaff1b2cdfd9a11e68b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the given item on the given peoplemon.  <a href="#a052230bd5d242eaff1b2cdfd9a11e68b">More...</a><br /></td></tr>
-<tr class="separator:a052230bd5d242eaff1b2cdfd9a11e68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2d421dc9c52a47281168d5f5972f49c"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01110.html">UseResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#ac2d421dc9c52a47281168d5f5972f49c">evolvePeoplemon</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:ac2d421dc9c52a47281168d5f5972f49c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the given item to evolve the given peoplemon.  <a href="#ac2d421dc9c52a47281168d5f5972f49c">More...</a><br /></td></tr>
-<tr class="separator:ac2d421dc9c52a47281168d5f5972f49c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf3be3607f497ae41e55326be099118b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01110.html">UseResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#abf3be3607f497ae41e55326be099118b">useOnPlayer</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:abf3be3607f497ae41e55326be099118b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the given item on the player.  <a href="#abf3be3607f497ae41e55326be099118b">More...</a><br /></td></tr>
-<tr class="separator:abf3be3607f497ae41e55326be099118b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d96f520d883a29178854c84224232e1"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01110.html">UseResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a0d96f520d883a29178854c84224232e1">useKeyItem</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> item)</td></tr>
-<tr class="memdesc:a0d96f520d883a29178854c84224232e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uses the given key item. Most are not usable.  <a href="#a0d96f520d883a29178854c84224232e1">More...</a><br /></td></tr>
-<tr class="separator:a0d96f520d883a29178854c84224232e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aae7dcadabea0b6c9741747a951b14874"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#aae7dcadabea0b6c9741747a951b14874">save</a> (const std::string &amp;file) const</td></tr>
+<tr class="memdesc:aae7dcadabea0b6c9741747a951b14874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the trainer data to the given file.  <a href="#aae7dcadabea0b6c9741747a951b14874">More...</a><br /></td></tr>
+<tr class="separator:aae7dcadabea0b6c9741747a951b14874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d8d44fdf1e328cb5e516c11b6948404"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a5d8d44fdf1e328cb5e516c11b6948404">load</a> (const std::string &amp;file, <a class="el" href="a00771.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> spawnDir=<a class="el" href="a00771.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">component::Direction::Down</a>)</td></tr>
+<tr class="memdesc:a5d8d44fdf1e328cb5e516c11b6948404"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the trainer data from the given file.  <a href="#a5d8d44fdf1e328cb5e516c11b6948404">More...</a><br /></td></tr>
+<tr class="separator:a5d8d44fdf1e328cb5e516c11b6948404"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab06008a26fe9889e54941f66af523041"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#ab06008a26fe9889e54941f66af523041">name</a></td></tr>
+<tr class="separator:ab06008a26fe9889e54941f66af523041"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4076555f46f631f0c8ef42c2bba8e676"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a4076555f46f631f0c8ef42c2bba8e676">animation</a></td></tr>
+<tr class="separator:a4076555f46f631f0c8ef42c2bba8e676"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af19a011a9d20784fd5136e8fbf0e8645"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#af19a011a9d20784fd5136e8fbf0e8645">prebattleConversation</a></td></tr>
+<tr class="separator:af19a011a9d20784fd5136e8fbf0e8645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a404abcb2008c2ab1f9227e84ebc797fd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a404abcb2008c2ab1f9227e84ebc797fd">postBattleConversation</a></td></tr>
+<tr class="separator:a404abcb2008c2ab1f9227e84ebc797fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a10821bc25bfbdbdaa93007bb92b9443f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a10821bc25bfbdbdaa93007bb92b9443f">lostBattleLine</a></td></tr>
+<tr class="separator:a10821bc25bfbdbdaa93007bb92b9443f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15a0956c65f5d87aced159237d14d917"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a15a0956c65f5d87aced159237d14d917">visionRange</a></td></tr>
+<tr class="separator:a15a0956c65f5d87aced159237d14d917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ba3d99464f7d87dc2383eaee686170"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01014.html">Behavior</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#ac4ba3d99464f7d87dc2383eaee686170">behavior</a></td></tr>
+<tr class="separator:ac4ba3d99464f7d87dc2383eaee686170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1288e555a01414f59e00753361be6c51"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01246.html">pplmn::OwnedPeoplemon</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a1288e555a01414f59e00753361be6c51">peoplemon</a></td></tr>
+<tr class="separator:a1288e555a01414f59e00753361be6c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83839a731809026b3246db9f70ae784e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html#a83839a731809026b3246db9f70ae784e">items</a></td></tr>
+<tr class="separator:a83839a731809026b3246db9f70ae784e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of static methods centered around items. </p>
+<div class="textblock"><p>Static data for trainers in the world. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02132_source.html#l00021">21</a> of file <a class="el" href="a02132_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00019">19</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa5689f7029accde6792cbe06f24f6928"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5689f7029accde6792cbe06f24f6928">&#9670;&nbsp;</a></span>cast()</h2>
+<a id="a5d8d44fdf1e328cb5e516c11b6948404"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d8d44fdf1e328cb5e516c11b6948404">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> core::item::Item::cast </td>
+          <td class="memname">bool core::file::Trainer::load </td>
           <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a00771.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
+          <td class="paramname"><em>spawnDir</em> = <code><a class="el" href="a00771.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">component::Direction::Down</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Helper function to cast a raw id to an item Id. </p>
+<p>Loads the trainer data from the given file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">id</td><td>The raw item id </td></tr>
+    <tr><td class="paramname">file</td><td>The file to load from </td></tr>
+    <tr><td class="paramname">spawnDir</td><td>The direction to put in the standing behavior on load </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Id The resulting id, or Unknown if unrecognized </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True on load, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00023">23</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02270_source.html#l00085">85</a> of file <a class="el" href="a02270_source.html">Trainer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ac2d421dc9c52a47281168d5f5972f49c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2d421dc9c52a47281168d5f5972f49c">&#9670;&nbsp;</a></span>evolvePeoplemon()</h2>
+<a id="aae7dcadabea0b6c9741747a951b14874"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae7dcadabea0b6c9741747a951b14874">&#9670;&nbsp;</a></span>save()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01110.html">UseResult</a> core::item::Item::evolvePeoplemon </td>
+          <td class="memname">bool core::file::Trainer::save </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Uses the given item to evolve the given peoplemon. </p>
+<p>Saves the trainer data to the given file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">item</td><td>The item to use </td></tr>
+    <tr><td class="paramname">file</td><td>The file to save to </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01110.html" title="Basic struct to store the result of using an item. ">UseResult</a> The result of the use </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>True on save, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00088">88</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02270_source.html#l00080">80</a> of file <a class="el" href="a02270_source.html">Trainer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a43383dc1aac9007ce84cf09b1c88ea97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43383dc1aac9007ce84cf09b1c88ea97">&#9670;&nbsp;</a></span>getCategory()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4076555f46f631f0c8ef42c2bba8e676"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4076555f46f631f0c8ef42c2bba8e676">&#9670;&nbsp;</a></span>animation</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00768.html#gac5b9981750f250d2d6aa8682b2a10b71">Category</a> core::item::Item::getCategory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::string core::file::Trainer::animation</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the category of the given item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to get the category of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Category The category of the given item </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00046">46</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00039">39</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1cfd5fd4c7e7b62fdacc91a6c4504b5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cfd5fd4c7e7b62fdacc91a6c4504b5b">&#9670;&nbsp;</a></span>getDescription()</h2>
+<a id="ac4ba3d99464f7d87dc2383eaee686170"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ba3d99464f7d87dc2383eaee686170">&#9670;&nbsp;</a></span>behavior</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; core::item::Item::getDescription </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname"><a class="el" href="a01014.html">Behavior</a> core::file::Trainer::behavior</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the description of the given item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to get the description for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const std::string&amp; The description of the item </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00074">74</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00044">44</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a66a65e779c8516580db2664f0b5368ba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66a65e779c8516580db2664f0b5368ba">&#9670;&nbsp;</a></span>getName()</h2>
+<a id="a83839a731809026b3246db9f70ae784e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83839a731809026b3246db9f70ae784e">&#9670;&nbsp;</a></span>items</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string &amp; core::item::Item::getName </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::vector&lt;<a class="el" href="a00774.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&gt; core::file::Trainer::items</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the name of the given item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to get the name for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>const std::string&amp; The name of the item </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00069">69</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00046">46</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a85cc354d7a95c7e997203879ec2f672b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85cc354d7a95c7e997203879ec2f672b">&#9670;&nbsp;</a></span>getType()</h2>
+<a id="a10821bc25bfbdbdaa93007bb92b9443f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a10821bc25bfbdbdaa93007bb92b9443f">&#9670;&nbsp;</a></span>lostBattleLine</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00768.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Type</a> core::item::Item::getType </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::string core::file::Trainer::lostBattleLine</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the type of the given item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to get the type of </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Type The type of the given item </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00054">54</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00042">42</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa2c0f21e51278b09de768e82ef77711f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2c0f21e51278b09de768e82ef77711f">&#9670;&nbsp;</a></span>getValue()</h2>
+<a id="ab06008a26fe9889e54941f66af523041"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab06008a26fe9889e54941f66af523041">&#9670;&nbsp;</a></span>name</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int core::item::Item::getValue </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::string core::file::Trainer::name</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the value of the given item. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to get the value for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>int The value of the item </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00079">79</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00038">38</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1c25894c0c71ec92f9e15686c3cb3e46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c25894c0c71ec92f9e15686c3cb3e46">&#9670;&nbsp;</a></span>setDataSource()</h2>
+<a id="a1288e555a01414f59e00753361be6c51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1288e555a01414f59e00753361be6c51">&#9670;&nbsp;</a></span>peoplemon</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::item::Item::setDataSource </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01066.html">file::ItemDB</a> &amp;&#160;</td>
-          <td class="paramname"><em>source</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::vector&lt;<a class="el" href="a01246.html">pplmn::OwnedPeoplemon</a>&gt; core::file::Trainer::peoplemon</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Set the data source for the item methods. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>The data source. Must remain in scope </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00036">36</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00045">45</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0d96f520d883a29178854c84224232e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d96f520d883a29178854c84224232e1">&#9670;&nbsp;</a></span>useKeyItem()</h2>
+<a id="a404abcb2008c2ab1f9227e84ebc797fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a404abcb2008c2ab1f9227e84ebc797fd">&#9670;&nbsp;</a></span>postBattleConversation</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01110.html">UseResult</a> core::item::Item::useKeyItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::string core::file::Trainer::postBattleConversation</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Uses the given key item. Most are not usable. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to use </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01110.html" title="Basic struct to store the result of using an item. ">UseResult</a> The result of the use </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00092">92</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00041">41</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a052230bd5d242eaff1b2cdfd9a11e68b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a052230bd5d242eaff1b2cdfd9a11e68b">&#9670;&nbsp;</a></span>useOnPeoplemon()</h2>
+<a id="af19a011a9d20784fd5136e8fbf0e8645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af19a011a9d20784fd5136e8fbf0e8645">&#9670;&nbsp;</a></span>prebattleConversation</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01110.html">UseResult</a> core::item::Item::useOnPeoplemon </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::string core::file::Trainer::prebattleConversation</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Uses the given item on the given peoplemon. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to use </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01110.html" title="Basic struct to store the result of using an item. ">UseResult</a> The result of the use </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00086">86</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00040">40</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abf3be3607f497ae41e55326be099118b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf3be3607f497ae41e55326be099118b">&#9670;&nbsp;</a></span>useOnPlayer()</h2>
+<a id="a15a0956c65f5d87aced159237d14d917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15a0956c65f5d87aced159237d14d917">&#9670;&nbsp;</a></span>visionRange</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01110.html">UseResult</a> core::item::Item::useOnPlayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
+          <td class="memname">std::uint8_t core::file::Trainer::visionRange</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Uses the given item on the player. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to use </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01110.html" title="Basic struct to store the result of using an item. ">UseResult</a> The result of the use </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00090">90</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9e5b86d670054997c14b045956fd7514"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e5b86d670054997c14b045956fd7514">&#9670;&nbsp;</a></span>validIds()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt; <a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> &gt; &amp; core::item::Item::validIds </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the list of valid item ids. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02213_source.html#l00084">84</a> of file <a class="el" href="a02213_source.html">Item.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02189_source.html#l00043">43</a> of file <a class="el" href="a02189_source.html">Trainer.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Items/<a class="el" href="a02132_source.html">Item.hpp</a></li>
-<li>src/Core/Items/<a class="el" href="a02213_source.html">Item.cpp</a></li>
+<li>include/Core/Files/<a class="el" href="a02189_source.html">Trainer.hpp</a></li>
+<li>src/Core/Files/<a class="el" href="a02270_source.html">Trainer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

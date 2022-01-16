@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component::Controllable Class Reference</title>
+<title>Peoplemon: core::ai::Conversation Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,138 +63,134 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00782.html">component</a></li><li class="navelem"><a class="el" href="a00878.html">Controllable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00787.html">ai</a></li><li class="navelem"><a class="el" href="a00878.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a00875.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Controllable Class Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00765.html">Components</a></div></div>  </div>
+<div class="title">core::ai::Conversation Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Adding this component to an entity allows it to be controlled.  
+<p>Wrapper around <a href="file::Conversation">file::Conversation</a> that tracks current node,.  
  <a href="a00878.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02120_source.html">Controllable.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02144_source.html">Conversation.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a84032df1e4453b3772eaf8ae156083eb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a84032df1e4453b3772eaf8ae156083eb">Controllable</a> (<a class="el" href="a01430.html">system::Systems</a> &amp;systems, bl::entity::Entity owner)</td></tr>
-<tr class="memdesc:a84032df1e4453b3772eaf8ae156083eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00878.html" title="Adding this component to an entity allows it to be controlled. ">Controllable</a> component.  <a href="#a84032df1e4453b3772eaf8ae156083eb">More...</a><br /></td></tr>
-<tr class="separator:a84032df1e4453b3772eaf8ae156083eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a55880414805a8e7e94a04e86b9935da8"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a55880414805a8e7e94a04e86b9935da8">processControl</a> (<a class="el" href="a00765.html#ga6701adf1fdd04d85dd6482e453417813">Command</a> command, bool overrideLock=false)</td></tr>
-<tr class="memdesc:a55880414805a8e7e94a04e86b9935da8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes the given command and manipulates the entity accordingly.  <a href="#a55880414805a8e7e94a04e86b9935da8">More...</a><br /></td></tr>
-<tr class="separator:a55880414805a8e7e94a04e86b9935da8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ab44a5346c7f6c8c4ecd0884fe6b79e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a> (bool lock, bool preserve=true)</td></tr>
-<tr class="memdesc:a4ab44a5346c7f6c8c4ecd0884fe6b79e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks the controllable and prevents any commands from being processed. Optionally remembers the previous lock state to reset back to.  <a href="#a4ab44a5346c7f6c8c4ecd0884fe6b79e">More...</a><br /></td></tr>
-<tr class="separator:a4ab44a5346c7f6c8c4ecd0884fe6b79e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a684e622e78595232078a6a3ea4fe8ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a> ()</td></tr>
-<tr class="memdesc:a684e622e78595232078a6a3ea4fe8ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the lock state back to the last preserved state.  <a href="#a684e622e78595232078a6a3ea4fe8ca3">More...</a><br /></td></tr>
-<tr class="separator:a684e622e78595232078a6a3ea4fe8ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a6d0d756a20c91b5f38723a0c990f8c25"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a6d0d756a20c91b5f38723a0c990f8c25">ComponentId</a> = 5</td></tr>
-<tr class="memdesc:a6d0d756a20c91b5f38723a0c990f8c25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#a6d0d756a20c91b5f38723a0c990f8c25">More...</a><br /></td></tr>
-<tr class="separator:a6d0d756a20c91b5f38723a0c990f8c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc8c8967fa26d26d905b466dffa27cf6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation</a> (<a class="el" href="a01442.html">system::Systems</a> &amp;systems)</td></tr>
+<tr class="memdesc:adc8c8967fa26d26d905b466dffa27cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates an empty conversation wrapper.  <a href="#adc8c8967fa26d26d905b466dffa27cf6">More...</a><br /></td></tr>
+<tr class="separator:adc8c8967fa26d26d905b466dffa27cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e44f4e0e5e28c4f7fa8c0af09d672f3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a6e44f4e0e5e28c4f7fa8c0af09d672f3">setConversation</a> (const <a class="el" href="a01046.html">file::Conversation</a> &amp;conversation, bl::entity::Entity entity, bool talked)</td></tr>
+<tr class="memdesc:a6e44f4e0e5e28c4f7fa8c0af09d672f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the wrapper to point to the given underlying. The underlying must remain in scope during the lifetime of the wrapper. Sets current node to first waiting node.  <a href="#a6e44f4e0e5e28c4f7fa8c0af09d672f3">More...</a><br /></td></tr>
+<tr class="separator:a6e44f4e0e5e28c4f7fa8c0af09d672f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca98664465772bfc586aac07028cf04a"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01050.html">file::Conversation::Node</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#aca98664465772bfc586aac07028cf04a">currentNode</a> () const</td></tr>
+<tr class="memdesc:aca98664465772bfc586aac07028cf04a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current node.  <a href="#aca98664465772bfc586aac07028cf04a">More...</a><br /></td></tr>
+<tr class="separator:aca98664465772bfc586aac07028cf04a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e225fd3305f10349d174ece5d32c43a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a5e225fd3305f10349d174ece5d32c43a">finished</a> () const</td></tr>
+<tr class="memdesc:a5e225fd3305f10349d174ece5d32c43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the conversation is finished.  <a href="#a5e225fd3305f10349d174ece5d32c43a">More...</a><br /></td></tr>
+<tr class="separator:a5e225fd3305f10349d174ece5d32c43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a30139629398b7ac280c1d623febcf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a58a30139629398b7ac280c1d623febcf">notifyNext</a> ()</td></tr>
+<tr class="memdesc:a58a30139629398b7ac280c1d623febcf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Continues to the next node on player input.  <a href="#a58a30139629398b7ac280c1d623febcf">More...</a><br /></td></tr>
+<tr class="separator:a58a30139629398b7ac280c1d623febcf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a8e0a2f9daee0c2320b63c86512e2dc49">notifyCheckPassed</a> ()</td></tr>
+<tr class="memdesc:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for a check pass (ie take item/money success etc)  <a href="#a8e0a2f9daee0c2320b63c86512e2dc49">More...</a><br /></td></tr>
+<tr class="separator:a8e0a2f9daee0c2320b63c86512e2dc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69aa2e5032d179d992770a787183e61d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a69aa2e5032d179d992770a787183e61d">notifyCheckFailed</a> ()</td></tr>
+<tr class="memdesc:a69aa2e5032d179d992770a787183e61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for a check pass (ie take item/money fail etc)  <a href="#a69aa2e5032d179d992770a787183e61d">More...</a><br /></td></tr>
+<tr class="separator:a69aa2e5032d179d992770a787183e61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9dbb8b01be97b67152554105faa29a97"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00878.html#a9dbb8b01be97b67152554105faa29a97">notifyChoiceMade</a> (const std::string &amp;choice)</td></tr>
+<tr class="memdesc:a9dbb8b01be97b67152554105faa29a97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Jumps to the node for the given choice if the current node is a Prompt.  <a href="#a9dbb8b01be97b67152554105faa29a97">More...</a><br /></td></tr>
+<tr class="separator:a9dbb8b01be97b67152554105faa29a97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adding this component to an entity allows it to be controlled. </p>
+<div class="textblock"><p>Wrapper around <a href="file::Conversation">file::Conversation</a> that tracks current node,. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02120_source.html#l00023">23</a> of file <a class="el" href="a02120_source.html">Controllable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02144_source.html#l00028">28</a> of file <a class="el" href="a02144_source.html">Conversation.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a84032df1e4453b3772eaf8ae156083eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84032df1e4453b3772eaf8ae156083eb">&#9670;&nbsp;</a></span>Controllable()</h2>
+<a id="adc8c8967fa26d26d905b466dffa27cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc8c8967fa26d26d905b466dffa27cf6">&#9670;&nbsp;</a></span>Conversation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::component::Controllable::Controllable </td>
+          <td class="memname">core::ai::Conversation::Conversation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01430.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a01442.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">bl::entity::Entity&#160;</td>
-          <td class="paramname"><em>owner</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a00878.html" title="Adding this component to an entity allows it to be controlled. ">Controllable</a> component. </p>
+<p>Creates an empty conversation wrapper. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
-    <tr><td class="paramname">owner</td><td>The entity that owns this component </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02204_source.html#l00010">10</a> of file <a class="el" href="a02204_source.html">Controllable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00021">21</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a55880414805a8e7e94a04e86b9935da8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55880414805a8e7e94a04e86b9935da8">&#9670;&nbsp;</a></span>processControl()</h2>
+<a id="aca98664465772bfc586aac07028cf04a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca98664465772bfc586aac07028cf04a">&#9670;&nbsp;</a></span>currentNode()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::component::Controllable::processControl </td>
+          <td class="memname">const <a class="el" href="a01050.html">file::Conversation::Node</a> &amp; core::ai::Conversation::currentNode </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00765.html#ga6701adf1fdd04d85dd6482e453417813">Command</a>&#160;</td>
-          <td class="paramname"><em>command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>overrideLock</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Processes the given command and manipulates the entity accordingly. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">command</td><td>The command to apply </td></tr>
-    <tr><td class="paramname">overrideLock</td><td>True to process the control even if locked </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the control had effect, false if no effect </dd></dl>
+<p>Returns the current node. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02204_source.html#l00016">16</a> of file <a class="el" href="a02204_source.html">Controllable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00036">36</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a684e622e78595232078a6a3ea4fe8ca3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a684e622e78595232078a6a3ea4fe8ca3">&#9670;&nbsp;</a></span>resetLock()</h2>
+<a id="a5e225fd3305f10349d174ece5d32c43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e225fd3305f10349d174ece5d32c43a">&#9670;&nbsp;</a></span>finished()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::component::Controllable::resetLock </td>
+          <td class="memname">bool core::ai::Conversation::finished </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the conversation is finished. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00034">34</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a69aa2e5032d179d992770a787183e61d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69aa2e5032d179d992770a787183e61d">&#9670;&nbsp;</a></span>notifyCheckFailed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyCheckFailed </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -202,29 +198,105 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Resets the lock state back to the last preserved state. </p>
+<p>Jumps to the node for a check pass (ie take item/money fail etc) </p>
 
-<p class="definition">Definition at line <a class="el" href="a02204_source.html#l00056">56</a> of file <a class="el" href="a02204_source.html">Controllable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00056">56</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a4ab44a5346c7f6c8c4ecd0884fe6b79e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ab44a5346c7f6c8c4ecd0884fe6b79e">&#9670;&nbsp;</a></span>setLocked()</h2>
+<a id="a8e0a2f9daee0c2320b63c86512e2dc49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e0a2f9daee0c2320b63c86512e2dc49">&#9670;&nbsp;</a></span>notifyCheckPassed()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::component::Controllable::setLocked </td>
+          <td class="memname">void core::ai::Conversation::notifyCheckPassed </td>
           <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>lock</em>, </td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jumps to the node for a check pass (ie take item/money success etc) </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00049">49</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9dbb8b01be97b67152554105faa29a97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9dbb8b01be97b67152554105faa29a97">&#9670;&nbsp;</a></span>notifyChoiceMade()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyChoiceMade </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>choice</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Jumps to the node for the given choice if the current node is a Prompt. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">choice</td><td>The choice that was made </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00063">63</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a58a30139629398b7ac280c1d623febcf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58a30139629398b7ac280c1d623febcf">&#9670;&nbsp;</a></span>notifyNext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::notifyNext </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Continues to the next node on player input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00042">42</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e44f4e0e5e28c4f7fa8c0af09d672f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e44f4e0e5e28c4f7fa8c0af09d672f3">&#9670;&nbsp;</a></span>setConversation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::ai::Conversation::setConversation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01046.html">file::Conversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>conversation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::entity::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>preserve</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>talked</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -234,55 +306,29 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Locks the controllable and prevents any commands from being processed. Optionally remembers the previous lock state to reset back to. </p>
+<p>Sets the wrapper to point to the given underlying. The underlying must remain in scope during the lifetime of the wrapper. Sets current node to first waiting node. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">lock</td><td>True to lock, false to unlock </td></tr>
-    <tr><td class="paramname">preserve</td><td>True to remember previous lock state, false to discard </td></tr>
+    <tr><td class="paramname">conversation</td><td>The conversation to wrap </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity being conversed with </td></tr>
+    <tr><td class="paramname">talked</td><td>Whether or not this entity has already been talked to </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02204_source.html#l00051">51</a> of file <a class="el" href="a02204_source.html">Controllable.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6d0d756a20c91b5f38723a0c990f8c25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d0d756a20c91b5f38723a0c990f8c25">&#9670;&nbsp;</a></span>ComponentId</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr bl::entity::Component::IdType core::component::Controllable::ComponentId = 5</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Required for BLIB ECS. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02120_source.html#l00026">26</a> of file <a class="el" href="a02120_source.html">Controllable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02234_source.html#l00026">26</a> of file <a class="el" href="a02234_source.html">Conversation.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Components/<a class="el" href="a02120_source.html">Controllable.hpp</a></li>
-<li>src/Core/Components/<a class="el" href="a02204_source.html">Controllable.cpp</a></li>
+<li>include/Core/AI/<a class="el" href="a02144_source.html">Conversation.hpp</a></li>
+<li>src/Core/AI/<a class="el" href="a02234_source.html">Conversation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

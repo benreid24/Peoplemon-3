@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/Id.hpp File Reference</title>
+<title>Peoplemon: include/Core/Items/Item.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,44 +68,41 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Id.hpp File Reference</div>  </div>
+<div class="title">Item.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00074_source.html">Core/Files/ItemDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00083_source.html">Core/Items/Category.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02204_source.html">Core/Items/Id.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02210_source.html">Core/Items/Type.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00092_source.html">Core/Items/UseResult.hpp</a>&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a02168_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00779"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00779.html">core</a></td></tr>
-<tr class="memdesc:a00779"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00791"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00791.html">core::item</a></td></tr>
-<tr class="memdesc:a00791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01114.html">core::item::Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of static methods centered around items.  <a href="a01114.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Id::Unknown</a> = 0, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a> = Unknown, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16">core::item::Id::Potion</a> = 1, 
-<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531">core::item::Id::SuperPotion</a> = 2, 
-<br />
-&#160;&#160;<a class="el" href="a00768.html#ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016">core::item::Id::ID_COUNT</a>
-<br />
- }<tr class="memdesc:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item in its simplist form.  <a href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">core</a></td></tr>
+<tr class="memdesc:a00785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">core::item</a></td></tr>
+<tr class="memdesc:a00797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

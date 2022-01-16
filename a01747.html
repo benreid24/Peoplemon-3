@@ -63,31 +63,29 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00788.html">map</a></li><li class="navelem"><a class="el" href="a00793.html">weather</a></li><li class="navelem"><a class="el" href="a01750.html">Snow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00794.html">map</a></li><li class="navelem"><a class="el" href="a00799.html">weather</a></li><li class="navelem"><a class="el" href="a01750.html">Base</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::Snow Member List</div>  </div>
+<div class="title">core::map::weather::Base Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01750.html">core::map::weather::Snow</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01750.html">core::map::weather::Base</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01750.html#a5fc8125136e4e8d1e571ca37f60e3839">render</a>(sf::RenderTarget &amp;target, float residual) const override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01750.html#a2011b83b06558c0a154e6ddd475bc8f4">Snow</a>(bool hard, bool thunder)</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01750.html#ae1be65bf2a27d23758cb7b973cb0bd5a">start</a>(const sf::FloatRect &amp;area) override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01750.html#a002ac5c20717ad3e786eba3d14d22b01">stop</a>() override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01750.html#a1e2d19add6534381d1edd4ce30e965e4">stopped</a>() const override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01750.html#a01d72106d7be3681a9405a04e8b18e20">type</a>() const override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01750.html#a792edfd9888f819b8dc6b1cc9dd84c40">update</a>(float dt) override</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01726.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a01726.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01750.html#a85acdae4403afe591719e14437484061">~Snow</a>()=default</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Snow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01750.html#aa445e96cd7c6ee8de64b0cd0019b76bb">render</a>(sf::RenderTarget &amp;target, float residual) const =0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01750.html#a82498ce54c06b0c75eeb85b7008f90d2">start</a>(const sf::FloatRect &amp;initialView)=0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01750.html#adea1271d369903e717e122178f312034">stop</a>()=0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01750.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() const =0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01750.html#af408f0694287fd7c7c2060de024b20d7">type</a>() const =0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01750.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01750.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a01750.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

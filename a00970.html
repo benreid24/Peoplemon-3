@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::ItemPickedUp Struct Reference</title>
+<title>Peoplemon: core::event::GameSaving Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,104 +63,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00779.html">core</a></li><li class="navelem"><a class="el" href="a00787.html">event</a></li><li class="navelem"><a class="el" href="a00970.html">ItemPickedUp</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00785.html">core</a></li><li class="navelem"><a class="el" href="a00793.html">event</a></li><li class="navelem"><a class="el" href="a00970.html">GameSaving</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a00967.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::ItemPickedUp Struct Reference<div class="ingroups"><a class="el" href="a00761.html">Core</a> &raquo; <a class="el" href="a00766.html">Events</a></div></div>  </div>
+<div class="title">core::event::GameSaving Struct Reference<div class="ingroups"><a class="el" href="a00767.html">Core</a> &raquo; <a class="el" href="a00772.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when an item is picked up.  
+<p>Fired when the game is saving. Allows arbitrary systems to add data to the save.  
  <a href="a00970.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02129_source.html">Item.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02192_source.html">GameSave.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a02a242e508999f81f07890b9cd2b2f47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00970.html#a02a242e508999f81f07890b9cd2b2f47">ItemPickedUp</a> (<a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="el" href="a00970.html#abbcca9187defa6d853137d023430f604">item</a>)</td></tr>
-<tr class="memdesc:a02a242e508999f81f07890b9cd2b2f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a00970.html" title="Fired when an item is picked up. ">ItemPickedUp</a> event.  <a href="#a02a242e508999f81f07890b9cd2b2f47">More...</a><br /></td></tr>
-<tr class="separator:a02a242e508999f81f07890b9cd2b2f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abbcca9187defa6d853137d023430f604"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00970.html#abbcca9187defa6d853137d023430f604">item</a></td></tr>
-<tr class="memdesc:abbcca9187defa6d853137d023430f604"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the item that was picked up.  <a href="#abbcca9187defa6d853137d023430f604">More...</a><br /></td></tr>
-<tr class="separator:abbcca9187defa6d853137d023430f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f85bf10fed8beec7e1df537af7a8be"><td class="memItemLeft" align="right" valign="top">bl::serial::json::Group &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00970.html#a33f85bf10fed8beec7e1df537af7a8be">saveData</a></td></tr>
+<tr class="memdesc:a33f85bf10fed8beec7e1df537af7a8be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Top level game save data object.  <a href="#a33f85bf10fed8beec7e1df537af7a8be">More...</a><br /></td></tr>
+<tr class="separator:a33f85bf10fed8beec7e1df537af7a8be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when an item is picked up. </p>
+<div class="textblock"><p>Fired when the game is saving. Allows arbitrary systems to add data to the save. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00016">16</a> of file <a class="el" href="a02129_source.html">Item.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a02a242e508999f81f07890b9cd2b2f47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02a242e508999f81f07890b9cd2b2f47">&#9670;&nbsp;</a></span>ItemPickedUp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::event::ItemPickedUp::ItemPickedUp </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="a00970.html" title="Fired when an item is picked up. ">ItemPickedUp</a> event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item that was picked up </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00025">25</a> of file <a class="el" href="a02129_source.html">Item.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abbcca9187defa6d853137d023430f604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbcca9187defa6d853137d023430f604">&#9670;&nbsp;</a></span>item</h2>
+<p class="definition">Definition at line <a class="el" href="a02192_source.html#l00017">17</a> of file <a class="el" href="a02192_source.html">GameSave.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a33f85bf10fed8beec7e1df537af7a8be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f85bf10fed8beec7e1df537af7a8be">&#9670;&nbsp;</a></span>saveData</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00768.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> core::event::ItemPickedUp::item</td>
+          <td class="memname">bl::serial::json::Group&amp; core::event::GameSaving::saveData</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The id of the item that was picked up. </p>
+<p>Top level game save data object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02129_source.html#l00018">18</a> of file <a class="el" href="a02129_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02192_source.html#l00019">19</a> of file <a class="el" href="a02192_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a02129_source.html">Item.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a02192_source.html">GameSave.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

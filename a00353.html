@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/States/MainEditor.hpp File Reference</title>
+<title>Peoplemon: include/Editor/Pages/Todo.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_deb240fe6eddc91a5a7d9b1aac504bb4.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,44 +71,33 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">MainEditor.hpp File Reference</div>  </div>
+<div class="title">Todo.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Engine.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Interfaces/GUI.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00260_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00326_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00317_source.html">Editor/Pages/Credits.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00320_source.html">Editor/Pages/Items.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02183_source.html">Editor/Pages/Map.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00323_source.html">Editor/Pages/Moves.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02195_source.html">Editor/Pages/Peoplemon.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00329_source.html">Editor/Pages/Playlists.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00347_source.html">Editor/Pages/Testing.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00350_source.html">Editor/Pages/Todo.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00329_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00353_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html">editor::state::MainEditor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary state of the editor. Owns the GUI and all tabs.  <a href="a01606.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01626.html">editor::page::Todo</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper page to track tasks marked as "TODO". Things such as entities, position on a map, conversations, and scripts may be saved as "TODO" and will show up on this page. Clicking that entry will change the editor state to that object. This allows developers to easily revisit things without having to remember or record what they were or where.  <a href="a01626.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00795"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00795.html">editor</a></td></tr>
-<tr class="memdesc:a00795"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a00801"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00801.html">editor</a></td></tr>
+<tr class="memdesc:a00801"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00805"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00805.html">editor::state</a></td></tr>
-<tr class="memdesc:a00805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine states for the editor. <br /></td></tr>
+<tr class="memitem:a00810"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00810.html">editor::page</a></td></tr>
+<tr class="memdesc:a00810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Jan 14 2022 05:32:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
