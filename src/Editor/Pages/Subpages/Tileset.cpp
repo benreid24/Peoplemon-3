@@ -165,6 +165,8 @@ Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
     loadTileset("Worldtileset.tlst");
 }
 
+void Tileset::setGUI(const GUI::Ptr& gui) { catchables.setGUI(gui); }
+
 Element::Ptr Tileset::getContent() { return content; }
 
 Tileset::Active Tileset::getActiveTool() const { return tool; }

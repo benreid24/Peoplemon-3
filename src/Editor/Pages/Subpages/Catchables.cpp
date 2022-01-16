@@ -25,7 +25,8 @@ const std::array<sf::Color, 10> colors = {sf::Color(89, 147, 240, 150),
 using namespace bl::gui;
 
 Catchables::Catchables(component::EditMap& m)
-: map(m){
+: map(m)
+, editWindow(std::bind(&Catchables::onEdit, this)) {
     content      = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));
     scrollRegion = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8.f));
 
@@ -37,7 +38,7 @@ Catchables::Catchables(component::EditMap& m)
     noCatchBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         active = 0;
     });
-    Button::Ptr addbut = Button::create("Add");
+    Button::Ptr addbut = Button::create("Add Wild Region");
     addbut->setHorizontalAlignment(RenderSettings::Right);
     addbut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         map.addCatchRegion();
@@ -48,6 +49,8 @@ Catchables::Catchables(component::EditMap& m)
     content->pack(row, true, false);
     content->pack(scrollRegion, true, true);
 }
+
+void Catchables::setGUI(const GUI::Ptr& g) { gui = g; }
 
 Element::Ptr Catchables::getContent() { return content; }
 
@@ -125,7 +128,8 @@ void Catchables::rowClicked(const bl::gui::Box* row, RowAction action) {
         break;
 
     case Edit:
-        // TODO - open region editor window
+        editing = i;
+        editWindow.open(gui, map.catchRegions()[i]);
         break;
 
     case Select:
@@ -134,6 +138,8 @@ void Catchables::rowClicked(const bl::gui::Box* row, RowAction action) {
         break;
     }
 }
+
+void Catchables::onEdit() { map.editCatchRegion(editing, editWindow.getValue()); }
 
 } // namespace page
 } // namespace editor

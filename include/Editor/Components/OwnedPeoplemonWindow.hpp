@@ -6,6 +6,7 @@
 #include <Editor/Components/ItemSelector.hpp>
 #include <Editor/Components/MoveSelector.hpp>
 #include <Editor/Components/StatBox.hpp>
+#include <Editor/Components/PeoplemonSelector.hpp>
 
 namespace editor
 {
@@ -55,9 +56,8 @@ private:
     const NotifyCB onCancel;
     bl::gui::GUI::Ptr parent;
     bl::gui::Window::Ptr window;
-    std::unordered_map<int, core::pplmn::Id> idMap;
 
-    bl::gui::ComboBox::Ptr idSelect;
+    PeoplemonSelector::Ptr idSelect;
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::TextEntry::Ptr levelEntry;
     ItemSelector::Ptr itemSelector;

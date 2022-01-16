@@ -45,6 +45,12 @@ public:
     bool loadTileset(const std::string& tileset);
 
     /**
+     * @brief Sets the parent GUI object
+     * 
+     */
+    void setGUI(const bl::gui::GUI::Ptr& gui);
+
+    /**
      * @brief Returns the gui element to pack
      *
      */

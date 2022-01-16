@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Maps/CatchRegion.hpp>
+#include <Editor/Components/CatchRegionWindow.hpp>
 
 namespace editor
 {
@@ -24,10 +25,17 @@ public:
     /**
      * @brief Construct a new Catchables GUI
      *
+     * @param gui The main gui object
      * @param map The map being edited
      *
      */
     Catchables(component::EditMap& map);
+
+    /**
+     * @brief Sets the parent GUI object
+     * 
+     */
+    void setGUI(const bl::gui::GUI::Ptr& gui);
 
     /**
      * @brief Returns the GUI element to pack
@@ -54,12 +62,15 @@ public:
     void refresh();
 
 private:
+    bl::gui::GUI::Ptr gui;
     component::EditMap& map;
+    component::CatchRegionWindow editWindow;
     bl::gui::Box::Ptr content;
     bl::gui::ScrollArea::Ptr scrollRegion;
     bl::gui::RadioButton::Ptr noCatchBut;
     std::vector<bl::gui::Box::Ptr> rows;
     std::uint8_t active;
+    std::uint8_t editing;
 
     enum RowAction { Edit, Remove, Select };
     using RowSelect = std::function<void(const bl::gui::Box*, RowAction)>;
@@ -68,6 +79,7 @@ private:
                                 bl::gui::RadioButton::Group* group);
     void rowClicked(const bl::gui::Box* row, RowAction action);
     void refreshColors();
+    void onEdit();
 };
 
 } // namespace page
