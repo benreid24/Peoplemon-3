@@ -582,6 +582,8 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 void Map::observe(const event::EntityMoved& movedEvent) {
     triggerAnimation(movedEvent.position);
 
+    if (movedEvent.entity != systems->player().player()) { return; }
+
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.x << ", "

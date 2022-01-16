@@ -82,9 +82,10 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation();
 
-        /*if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data)))
-        { BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity; return false;
-        }*/
+        if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
+            BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
+            return false;
+        }
     }
 
     // Trainer
@@ -107,11 +108,11 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation;
 
-        /*if (!owner.engine().entities().addComponent<component::Trainer>(entity,
+        if (!owner.engine().entities().addComponent<component::Trainer>(entity,
                                                                         component::Trainer(data))) {
             BL_LOG_ERROR << "Failed to add trainer component to entity: " << entity;
             return false;
-        }*/
+        }
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file;

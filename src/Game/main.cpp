@@ -14,6 +14,7 @@
 #include <Game/States/MainMenu.hpp>
 
 #include <iostream>
+#include <BLIB/Entities.hpp>
 
 int main() {
     // TODO - make log roller
@@ -30,6 +31,9 @@ int main() {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
+
+    // TODO - remove this when int/float are separated
+    bl::entity::IdGenerator::generateSequentialIds(true);
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

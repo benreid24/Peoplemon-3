@@ -1,4 +1,6 @@
 #include <Core/Systems/Controllable.hpp>
+
+#include <Core/Components/PlayerControlled.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -15,8 +17,12 @@ void Controllable::init() {
 bool Controllable::setEntityLocked(bl::entity::Entity e, bool l, bool p) {
     auto it = entities->results().find(e);
     if (it != entities->results().end()) {
+        BL_LOG_INFO << "Locked entity " << e;
         it->second.get<component::Controllable>()->setLocked(l, p);
         return true;
+    }
+    else {
+        BL_LOG_ERROR << "Failed to lock entity: " << e;
     }
     return false;
 }

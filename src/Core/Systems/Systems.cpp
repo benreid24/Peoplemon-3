@@ -30,12 +30,14 @@ Systems::Systems(bl::engine::Engine& engine)
     _scripts.init();
 }
 
-void Systems::update(float dt) {
+void Systems::update(float dt, bool ent) {
     _clock.update(dt);
 
-    _ai.update(dt);
-    _player.update();
-    _movement.update(dt);
+    if (ent) {
+        _ai.update(dt);
+        _player.update();
+        _movement.update(dt);
+    }
     _position.update();
     _cameras.update(dt);
     _hud.update(dt);

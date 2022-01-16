@@ -564,8 +564,7 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
 }
 
 void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TString, PrimitiveValue::TBool>(
-        "rotateEntity", args);
+    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TString>("rotateEntity", args);
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
     const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
@@ -589,9 +588,32 @@ void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
     }
 }
 
-void entityToPosition(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
+void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                      Value& result) {
+    Value::validateArgs<PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TBool>("entityToPosition", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    component::Position* pos =
+        systems.engine().entities().getComponent<component::Position>(entity);
+    if (pos) {
+        BL_LOG_INFO << "moved entity";
+        const component::Position old = *pos;
+        component::Position np        = *pos;
+        np.setTiles(sf::Vector2i(args[2].value().getAsNum(), args[3].value().getAsNum()));
+        np.level = args[1].value().getAsNum();
+        *pos     = np;
+        systems.engine().eventBus().dispatch<event::EntityMoved>({entity, old, np});
+    }
+    else {
+        BL_LOG_ERROR << "Moving entity with no position component: " << entity;
+    }
+
     // TODO - implement path finder
-    result = false;
+    result = true;
 }
 
 void entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
