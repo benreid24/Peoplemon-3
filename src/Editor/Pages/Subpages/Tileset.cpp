@@ -28,8 +28,9 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb)
+Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
 : deleteCb(dcb)
+, catchables(map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
@@ -164,6 +165,8 @@ Tileset::Tileset(const DeleteCb& dcb)
     loadTileset("Worldtileset.tlst");
 }
 
+void Tileset::setGUI(const GUI::Ptr& gui) { catchables.setGUI(gui); }
+
 Element::Ptr Tileset::getContent() { return content; }
 
 Tileset::Active Tileset::getActiveTool() const { return tool; }
@@ -174,7 +177,7 @@ core::map::Tile::IdType Tileset::getActiveAnim() const { return activeAnim; }
 
 core::map::Collision Tileset::getActiveCollision() const { return collisions.selected(); }
 
-core::map::Catch Tileset::getActiveCatch() const { return catchables.selected(); }
+std::uint8_t Tileset::getActiveCatch() const { return catchables.selected(); }
 
 bool Tileset::loadTileset(const std::string& file) {
     auto newTileset = core::Resources::tilesets().load(file).data;
@@ -225,11 +228,15 @@ void Tileset::updateGui() {
         group = button->getRadioGroup();
         animsBox->pack(button);
     }
+
+    catchables.refresh();
 }
 
 bool Tileset::unsavedChanges() const { return dirty; }
 
 void Tileset::markSaved() { dirty = false; }
+
+void Tileset::refresh() { catchables.refresh(); }
 
 } // namespace page
 } // namespace editor

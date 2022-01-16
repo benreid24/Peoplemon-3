@@ -1,7 +1,6 @@
 #ifndef CORE_MAPS_LAYERSET_HPP
 #define CORE_MAPS_LAYERSET_HPP
 
-#include <Core/Maps/Catch.hpp>
 #include <Core/Maps/Collision.hpp>
 #include <Core/Maps/Layer.hpp>
 #include <Core/Maps/Tile.hpp>
@@ -24,7 +23,7 @@ using CollisionLayer = Layer<Collision>;
  * @ingroup Maps
  *
  */
-using CatchLayer = Layer<Catch>;
+using CatchLayer = Layer<std::uint8_t>;
 
 /**
  * @brief Specialization of Layer for tiles

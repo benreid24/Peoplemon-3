@@ -1,6 +1,7 @@
 target_sources(PeoplemonEditor PRIVATE
     AnimationWindow.cpp
     BehaviorEditor.cpp
+    CatchRegionWindow.cpp
     CharacterSpawnWindow.cpp
     ConversationNode.cpp
     ConversationTree.cpp
@@ -10,6 +11,7 @@ target_sources(PeoplemonEditor PRIVATE
     HighlightRadioButton.cpp
     ItemSelector.cpp
     OwnedPeoplemonWindow.cpp
+    PeoplemonSelector.cpp
     MapActions.hpp
     MapActions.cpp
     MoveSelector.cpp

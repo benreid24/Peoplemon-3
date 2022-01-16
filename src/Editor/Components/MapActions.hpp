@@ -103,7 +103,7 @@ private:
 class EditMap::SetCatchAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(unsigned int level, const sf::Vector2i& pos,
-                                       core::map::Catch value, const EditMap& map);
+                                       std::uint8_t value, const EditMap& map);
 
     virtual ~SetCatchAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -113,17 +113,17 @@ public:
 private:
     const unsigned int level;
     const sf::Vector2i pos;
-    const core::map::Catch value;
-    const core::map::Catch ogVal;
+    const std::uint8_t value;
+    const std::uint8_t ogVal;
 
-    SetCatchAction(unsigned int level, const sf::Vector2i& pos, core::map::Catch value,
-                   core::map::Catch ogVal);
+    SetCatchAction(unsigned int level, const sf::Vector2i& pos, std::uint8_t value,
+                   std::uint8_t ogVal);
 };
 
 class EditMap::SetCatchAreaAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(unsigned int level, const sf::IntRect& area,
-                                       core::map::Catch value, const EditMap& map);
+                                       std::uint8_t value, const EditMap& map);
 
     virtual ~SetCatchAreaAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -133,11 +133,11 @@ public:
 private:
     const unsigned int level;
     const sf::IntRect area;
-    const core::map::Catch value;
-    const bl::container::Vector2D<core::map::Catch> ogVals;
+    const std::uint8_t value;
+    const bl::container::Vector2D<std::uint8_t> ogVals;
 
-    SetCatchAreaAction(unsigned int level, const sf::IntRect& area, core::map::Catch value,
-                       bl::container::Vector2D<core::map::Catch>&& ogcols);
+    SetCatchAreaAction(unsigned int level, const sf::IntRect& area, std::uint8_t value,
+                       bl::container::Vector2D<std::uint8_t>&& ogcols);
 };
 
 class EditMap::SetPlaylistAction : public EditMap::Action {
@@ -514,6 +514,55 @@ private:
     const core::map::Light orig;
 
     RemoveLightAction(const core::map::Light& orig);
+};
+
+class EditMap::AddCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create();
+
+    virtual ~AddCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    AddCatchRegionAction() = default;
+};
+
+class EditMap::EditCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t index, const core::map::CatchRegion& value,
+                              const core::map::CatchRegion& orig);
+
+    virtual ~EditCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t index;
+    const core::map::CatchRegion value;
+    const core::map::CatchRegion orig;
+
+    EditCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& value,
+                          const core::map::CatchRegion& orig);
+};
+
+class EditMap::RemoveCatchRegionAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t index, const core::map::CatchRegion& orig);
+
+    virtual ~RemoveCatchRegionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t index;
+    const core::map::CatchRegion orig;
+    std::vector<std::pair<unsigned int, sf::Vector2i>> cleared;
+
+    RemoveCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& orig);
 };
 
 } // namespace component

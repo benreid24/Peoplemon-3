@@ -350,13 +350,13 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
 const char* EditMap::SetCollisionAreaAction::description() const { return "set col area"; }
 
 EditMap::Action::Ptr EditMap::SetCatchAction::create(unsigned int level, const sf::Vector2i& pos,
-                                                     core::map::Catch value, const EditMap& map) {
+                                                     std::uint8_t value, const EditMap& map) {
     return Ptr(
         new SetCatchAction(level, pos, value, map.levels[level].catchLayer().get(pos.x, pos.y)));
 }
 
 EditMap::SetCatchAction::SetCatchAction(unsigned int level, const sf::Vector2i& pos,
-                                        core::map::Catch value, core::map::Catch ogVal)
+                                        std::uint8_t value, std::uint8_t ogVal)
 : level(level)
 , pos(pos)
 , value(value)
@@ -376,10 +376,9 @@ const char* EditMap::SetCatchAction::description() const { return "set catch til
 
 EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
                                                          const sf::IntRect& area,
-                                                         core::map::Catch value,
-                                                         const EditMap& map) {
-    bl::container::Vector2D<core::map::Catch> ogcols;
-    ogcols.setSize(area.width, area.height, core::map::Catch::NoEncounter);
+                                                         std::uint8_t value, const EditMap& map) {
+    bl::container::Vector2D<std::uint8_t> ogcols;
+    ogcols.setSize(area.width, area.height, 0);
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             ogcols(x - area.left, y - area.top) = map.levels[level].catchLayer().get(x, y);
@@ -389,8 +388,8 @@ EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
 }
 
 EditMap::SetCatchAreaAction::SetCatchAreaAction(unsigned int level, const sf::IntRect& area,
-                                                core::map::Catch value,
-                                                bl::container::Vector2D<core::map::Catch>&& ogcols)
+                                                std::uint8_t value,
+                                                bl::container::Vector2D<std::uint8_t>&& ogcols)
 : level(level)
 , area(area)
 , value(value)
@@ -1106,6 +1105,114 @@ bool EditMap::RemoveLightAction::undo(EditMap& map) {
 }
 
 const char* EditMap::RemoveLightAction::description() const { return "remove light"; }
+
+EditMap::Action::Ptr EditMap::AddCatchRegionAction::create() {
+    return Action::Ptr{new AddCatchRegionAction()};
+}
+
+bool EditMap::AddCatchRegionAction::apply(EditMap& map) {
+    map.catchRegionsField.emplace_back();
+    map.catchRegionsField.back().name = "New Region";
+    return true;
+}
+
+bool EditMap::AddCatchRegionAction::undo(EditMap& map) {
+    map.catchRegionsField.pop_back();
+    return true;
+}
+
+const char* EditMap::AddCatchRegionAction::description() const { return "add catch region"; }
+
+EditMap::Action::Ptr EditMap::EditCatchRegionAction::create(std::uint8_t index,
+                                                            const core::map::CatchRegion& val,
+                                                            const core::map::CatchRegion& orig) {
+    return Action::Ptr{new EditCatchRegionAction(index, val, orig)};
+}
+
+EditMap::EditCatchRegionAction::EditCatchRegionAction(std::uint8_t i,
+                                                      const core::map::CatchRegion& v,
+                                                      const core::map::CatchRegion& o)
+: index(i)
+, value(v)
+, orig(o) {}
+
+bool EditMap::EditCatchRegionAction::apply(EditMap& map) {
+    map.catchRegionsField[index] = value;
+    return true;
+}
+
+bool EditMap::EditCatchRegionAction::undo(EditMap& map) {
+    map.catchRegionsField[index] = orig;
+    return true;
+}
+
+const char* EditMap::EditCatchRegionAction::description() const { return "edit catch region"; }
+
+EditMap::Action::Ptr EditMap::RemoveCatchRegionAction::create(std::uint8_t index,
+                                                              const core::map::CatchRegion& orig) {
+    return Action::Ptr{new RemoveCatchRegionAction(index, orig)};
+}
+
+EditMap::RemoveCatchRegionAction::RemoveCatchRegionAction(std::uint8_t i,
+                                                          const core::map::CatchRegion& o)
+: index(i)
+, orig(o) {}
+
+bool EditMap::RemoveCatchRegionAction::apply(EditMap& map) {
+    const std::uint8_t i = index + 1;
+
+    map.catchRegionsField.erase(map.catchRegionsField.begin() + index);
+
+    if (cleared.empty()) {
+        for (unsigned int level = 0; level < map.levels.size(); ++level) {
+            for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+                for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                    if (map.levels[level].catchLayer().get(x, y) == i) {
+                        cleared.emplace_back(level, sf::Vector2i(x, y));
+                    }
+                }
+            }
+        }
+    }
+
+    for (const auto& pos : cleared) {
+        map.levels[pos.first].catchLayer().set(pos.second.x, pos.second.y, 0);
+    }
+
+    for (unsigned int level = 0; level < map.levels.size(); ++level) {
+        for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+            for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                const std::uint8_t j = map.levels[level].catchLayer().get(x, y);
+                if (j > i) { map.levels[level].catchLayer().set(x, y, j - 1); }
+            }
+        }
+    }
+
+    return true;
+}
+
+bool EditMap::RemoveCatchRegionAction::undo(EditMap& map) {
+    const std::uint8_t i = index + 1;
+
+    map.catchRegionsField.insert(map.catchRegionsField.begin() + index, orig);
+
+    for (unsigned int level = 0; level < map.levels.size(); ++level) {
+        for (unsigned int x = 0; x < map.levels[level].catchLayer().width(); ++x) {
+            for (unsigned int y = 0; y < map.levels[level].catchLayer().height(); ++y) {
+                const std::uint8_t j = map.levels[level].catchLayer().get(x, y);
+                if (j >= i) { map.levels[level].catchLayer().set(x, y, j + 1); }
+            }
+        }
+    }
+
+    for (const auto& pos : cleared) {
+        map.levels[pos.first].catchLayer().set(pos.second.x, pos.second.y, i);
+    }
+
+    return true;
+}
+
+const char* EditMap::RemoveCatchRegionAction::description() const { return "remove catch region"; }
 
 } // namespace component
 } // namespace editor

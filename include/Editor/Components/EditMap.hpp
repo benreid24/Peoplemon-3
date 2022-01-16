@@ -349,7 +349,7 @@ public:
      * @param position The position of the catch to set
      * @param id The new catch value
      */
-    void setCatch(unsigned int level, const sf::Vector2i& position, core::map::Catch id);
+    void setCatch(unsigned int level, const sf::Vector2i& position, std::uint8_t id);
 
     /**
      * @brief Sets a range of catch tiles to a single value
@@ -358,7 +358,7 @@ public:
      * @param area The region to set
      * @param id The value to set all tiles to
      */
-    void setCatchArea(unsigned int level, const sf::IntRect& area, core::map::Catch id);
+    void setCatchArea(unsigned int level, const sf::IntRect& area, std::uint8_t id);
 
     /**
      * @brief Tells whether or not the given id is in use
@@ -501,13 +501,32 @@ public:
      */
     void removeEvent(const core::map::Event* event);
 
-    void addCatchZone(const core::map::CatchZone& zone);
+    /**
+     * @brief Adds a new catch region to the map
+     *
+     */
+    void addCatchRegion();
 
-    const core::map::CatchZone* getCatchZone(const sf::Vector2i& position);
+    /**
+     * @brief Returns a reference to all catch regions
+     *
+     */
+    const std::vector<core::map::CatchRegion>& catchRegions() const;
 
-    void editCatchZone(const core::map::CatchZone* orig, const core::map::CatchZone& zone);
+    /**
+     * @brief Modifies the catch region at the given index
+     *
+     * @param index The index to modify
+     * @param zone The new value
+     */
+    void editCatchRegion(std::uint8_t index, const core::map::CatchRegion& zone);
 
-    void removeCatchZone(const sf::Vector2i& position);
+    /**
+     * @brief Removes the catch region at the given index
+     *
+     * @param index The catch region to remove
+     */
+    void removeCatchRegion(std::uint8_t index);
 
 private:
     struct Action {
@@ -600,9 +619,9 @@ private:
     class AddEventAction;
     class EditEventAction;
     class RemoveEventAction;
-    class AddCatchZoneAction;
-    class EditCatchZoneAction;
-    class RemoveCatchZoneAction;
+    class AddCatchRegionAction;
+    class EditCatchRegionAction;
+    class RemoveCatchRegionAction;
 };
 
 } // namespace component

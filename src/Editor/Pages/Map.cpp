@@ -22,9 +22,9 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, tileset([this](core::map::Tile::IdType id, bool isAnim) {
-    mapArea.editMap().removeAllTiles(id, isAnim);
-})
+, tileset([this](core::map::Tile::IdType id,
+                 bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
+          mapArea.editMap())
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })
@@ -648,12 +648,10 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 break;
             case Tileset::CatchTiles:
                 if (selectionState == SelectionMade) {
-                    mapArea.editMap().setCatchArea(
-                        levelSelect->getSelectedOption(), selection, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatchArea(levelSelect->getSelectedOption(), selection, 0);
                 }
                 else {
-                    mapArea.editMap().setCatch(
-                        levelSelect->getSelectedOption(), tiles, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
                 }
                 break;
             default:
@@ -828,6 +826,8 @@ bool Map::checkUnsaved() {
 
 void Map::syncGui() {
     tileset.loadTileset(mapArea.editMap().tilesetField);
+    tileset.refresh();
+    tileset.setGUI(parent);
     levelSelect->clearOptions();
     for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
         levelSelect->addOption("Level " + std::to_string(i));

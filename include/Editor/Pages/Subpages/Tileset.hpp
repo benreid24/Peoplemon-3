@@ -2,12 +2,18 @@
 #define EDITOR_PAGES_SUBPAGES_TILESET_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Maps/CatchRegion.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
 
 namespace editor
 {
+namespace component
+{
+class EditMap;
+}
+
 namespace page
 {
 /**
@@ -23,11 +29,12 @@ public:
 
     /**
      * @brief Creates the GUI elements
-     * 
+     *
      * @param deleteCb Called when a tile or animation is removed
+     * @param map The map being edited
      *
      */
-    Tileset(const DeleteCb& deleteCb);
+    Tileset(const DeleteCb& deleteCb, component::EditMap& map);
 
     /**
      * @brief Loads the given tileset and updates the GUI elements
@@ -36,6 +43,12 @@ public:
      * @return True on success, false on error
      */
     bool loadTileset(const std::string& tileset);
+
+    /**
+     * @brief Sets the parent GUI object
+     * 
+     */
+    void setGUI(const bl::gui::GUI::Ptr& gui);
 
     /**
      * @brief Returns the gui element to pack
@@ -71,7 +84,7 @@ public:
      * @brief Returns the active catch type
      *
      */
-    core::map::Catch getActiveCatch() const;
+    std::uint8_t getActiveCatch() const;
 
     /**
      * @brief Returns whether or not the tileset is in a dirty state
@@ -84,6 +97,12 @@ public:
      *
      */
     void markSaved();
+
+    /**
+     * @brief Refreshes the GUI
+     *
+     */
+    void refresh();
 
 private:
     const DeleteCb deleteCb;
