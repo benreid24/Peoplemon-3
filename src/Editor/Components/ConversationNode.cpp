@@ -238,13 +238,13 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
 
     case Conversation::Node::GiveItem:
         editArea->pack(itemRow, true, false);
-        itemSelector->setItem(node.item());
+        itemSelector->setItem(node.item().id);
         editArea->pack(nextNode.content(), true, false);
         break;
 
     case Conversation::Node::TakeItem:
         editArea->pack(itemRow, true, false);
-        itemSelector->setItem(node.item());
+        itemSelector->setItem(node.item().id);
         editArea->pack(passNext.content(), true, false);
         editArea->pack(failNext.content(), true, false);
         break;
@@ -295,13 +295,13 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
 const Conversation::Node& ConversationNode::getValue() const { return current; }
 
 void ConversationNode::onItemChange(core::item::Id item) {
-    current.item() = item;
+    current.item().id = item;
     onEdit();
 }
 
 void ConversationNode::onMoneyChange() {
     const std::string& val = moneyEntry->getInput();
-    current.money() = val.empty() ? 0 : std::atoi(val.c_str());
+    current.money()        = val.empty() ? 0 : std::atoi(val.c_str());
     onEdit();
 }
 
@@ -334,7 +334,7 @@ void ConversationNode::onTypeChange() {
         syncJumps();
         regenTree();
         if (t == Conversation::Node::GiveItem || t == Conversation::Node::TakeItem) {
-            current.item() = itemSelector->currentItem();
+            current.item().id = itemSelector->currentItem();
         }
         onEdit();
     }

@@ -119,17 +119,27 @@ void Interaction::processConversationNode() {
     } break;
 
     case E::GiveItem:
-        owner.player().bag().addItem(node.item());
-        // TODO - add prefix to item metadata for a/the use
-        owner.hud().displayMessage("Got a " + item::Item::getName(node.item()),
-                                   std::bind(&Interaction::continuePressed, this));
+        owner.player().bag().addItem(node.item().id);
+        if (node.item().afterPrompt) {
+            // TODO - add prefix to item metadata for a/the use
+            owner.hud().displayMessage("Got a " + item::Item::getName(node.item().id),
+                                       std::bind(&Interaction::continuePressed, this));
+        }
         break;
 
     case E::TakeItem:
-        owner.hud().promptUser(
-            "Hand over a " + item::Item::getName(node.item()),
-            {"Yes", "No"},
-            std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
+        if (node.item().beforePrompt) {
+            owner.hud().promptUser(
+                "Hand over a " + item::Item::getName(node.item().id),
+                {"Yes", "No"},
+                std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
+        }
+        else {
+            if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
+                currentConversation.notifyCheckPassed();
+                processConversationNode();
+            }
+        }
         break;
 
     case E::GiveMoney:
@@ -170,7 +180,7 @@ void Interaction::choiceMade(const std::string& c) {
 
 void Interaction::giveItemDecided(const std::string& c) {
     if (c == "Yes") {
-        if (owner.player().bag().removeItem(currentConversation.currentNode().item())) {
+        if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
             currentConversation.notifyCheckPassed();
             processConversationNode();
         }

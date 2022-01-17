@@ -278,7 +278,7 @@ bool ConversationWindow::validate() const {
 
         case T::TakeItem:
         case T::GiveItem:
-            if (n.item() == core::item::Id::Unknown) {
+            if (n.item().id == core::item::Id::Unknown) {
                 output(error, "Invalid item");
                 return false;
             }
