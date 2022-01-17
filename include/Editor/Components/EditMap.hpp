@@ -238,6 +238,13 @@ public:
      */
     const std::string& getOnExitScript() const;
 
+    /**
+     * @brief Set the maps default ambient light settings
+     *
+     * @param lower The lower light level at night
+     * @param upper The upper light level during the day (or always if no sunlight)
+     * @param sunlight True to adjust between lower and upper for time of day, false for upper only
+     */
     void setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sunlight);
 
     /**

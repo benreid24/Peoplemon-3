@@ -4,6 +4,7 @@
 #include <Editor/Components/CharacterSpawnWindow.hpp>
 #include <Editor/Components/EventEditor.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -52,6 +53,11 @@ private:
     bl::gui::ComboBox::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr saveMapBut;
+
+    bl::gui::CheckButton::Ptr sunlightBut;
+    component::LightSlider::Ptr minLightSlider;
+    component::LightSlider::Ptr maxLightSlider;
+    bl::gui::Button::Ptr lightingSetBut;
 
     bl::gui::Notebook::Ptr objectBook;
     bl::gui::ComboBox::Ptr spawnDirEntry;
@@ -113,6 +119,12 @@ private:
 
     bl::gui::FilePicker playlistPicker;
     void onChoosePlaylist(const std::string& file);
+
+    void syncLighting();
+    void onLightingChange();
+    void onLightingSave();
+    void onLightingReset();
+    void setLightingDefault();
 
     component::ScriptSelector scriptSelector;
     bool choosingOnloadScript;

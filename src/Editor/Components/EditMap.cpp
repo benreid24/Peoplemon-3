@@ -747,5 +747,9 @@ void EditMap::removeCatchRegion(std::uint8_t index) {
     addAction(RemoveCatchRegionAction::create(index, catchRegionsField[index]));
 }
 
+void EditMap::setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sun) {
+    addAction(SetAmbientLightAction::create(sun, upper, lower, lightingSystem()));
+}
+
 } // namespace component
 } // namespace editor

@@ -565,6 +565,28 @@ private:
     RemoveCatchRegionAction(std::uint8_t index, const core::map::CatchRegion& orig);
 };
 
+class EditMap::SetAmbientLightAction : public EditMap::Action {
+public:
+    static Action::Ptr create(bool sunlight, std::uint8_t upper, std::uint8_t lower,
+                              const core::map::LightingSystem& lighting);
+
+    virtual ~SetAmbientLightAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const bool sunlight;
+    const bool origSunlight;
+    const std::uint8_t origLower;
+    const std::uint8_t lower;
+    const std::uint8_t origUpper;
+    const std::uint8_t upper;
+
+    SetAmbientLightAction(bool sun, std::uint8_t upper, std::uint8_t lower,
+                          const core::map::LightingSystem& lighting);
+};
+
 } // namespace component
 } // namespace editor
 

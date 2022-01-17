@@ -1214,5 +1214,34 @@ bool EditMap::RemoveCatchRegionAction::undo(EditMap& map) {
 
 const char* EditMap::RemoveCatchRegionAction::description() const { return "remove catch region"; }
 
+EditMap::Action::Ptr EditMap::SetAmbientLightAction::create(
+    bool sun, std::uint8_t upper, std::uint8_t lower, const core::map::LightingSystem& lighting) {
+    return Ptr(new SetAmbientLightAction(sun, upper, lower, lighting));
+}
+
+EditMap::SetAmbientLightAction::SetAmbientLightAction(bool sun, std::uint8_t upper,
+                                                      std::uint8_t lower,
+                                                      const core::map::LightingSystem& lighting)
+: sunlight(sun)
+, origSunlight(lighting.adjustsForSunlight())
+, origLower(lighting.getMinLightLevel())
+, lower(lower)
+, origUpper(lighting.getMaxLightLevel())
+, upper(upper) {}
+
+bool EditMap::SetAmbientLightAction::apply(EditMap& map) {
+    map.lightingSystem().adjustForSunlight(sunlight);
+    map.lightingSystem().setAmbientLevel(lower, upper);
+    return true;
+}
+
+bool EditMap::SetAmbientLightAction::undo(EditMap& map) {
+    map.lightingSystem().adjustForSunlight(origSunlight);
+    map.lightingSystem().setAmbientLevel(origLower, origUpper);
+    return true;
+}
+
+const char* EditMap::SetAmbientLightAction::description() const { return "set lighting"; }
+
 } // namespace component
 } // namespace editor

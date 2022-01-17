@@ -95,6 +95,33 @@ Map::Map(core::system::Systems& s)
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
+    const auto lightingChangeCb = std::bind(&Map::onLightingChange, this);
+    Box::Ptr lightingOuterBox   = Box::create(LinePacker::create());
+    Box::Ptr lightingBox        = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    Box::Ptr row                = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    Button::Ptr lightReset      = Button::create("Reset");
+    lightReset->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::onLightingReset, this));
+    Button::Ptr lightDefault = Button::create("Default");
+    lightDefault->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::setLightingDefault, this));
+    lightingSetBut = Button::create("Set");
+    lightingSetBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::onLightingSave, this));
+    row->pack(lightDefault);
+    row->pack(lightReset);
+    row->pack(lightingSetBut);
+    lightingBox->pack(row);
+    sunlightBut = CheckButton::create("Adjust for sunlight");
+    sunlightBut->getSignal(Event::LeftClicked).willAlwaysCall(lightingChangeCb);
+    row->pack(sunlightBut);
+    minLightSlider =
+        component::LightSlider::create("Min Light", std::bind(&Map::onLightingChange, this));
+    maxLightSlider =
+        component::LightSlider::create("Max Light", std::bind(&Map::onLightingChange, this));
+    lightingBox->pack(minLightSlider, true, false);
+    lightingBox->pack(maxLightSlider, true, false);
+
     Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
@@ -142,7 +169,7 @@ Map::Map(core::system::Systems& s)
     tileBox->pack(box, true, false);
 
     Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
@@ -463,6 +490,12 @@ Map::Map(core::system::Systems& s)
 
     Notebook::Ptr controlBook = Notebook::create();
     controlBook->addPage("map", "Props", infoBox, [this]() { activeTool = Tool::Metadata; });
+    controlBook->addPage(
+        "lighting",
+        "Lighting",
+        lightingOuterBox,
+        [lightingBox, lightingOuterBox]() { lightingOuterBox->pack(lightingBox, true, true); },
+        [lightingBox]() { lightingBox->remove(); });
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
@@ -843,6 +876,8 @@ void Map::syncGui() {
 
     onEnterLabel->setText(mapArea.editMap().getOnEnterScript());
     onExitLabel->setText(mapArea.editMap().getOnExitScript());
+
+    syncLighting();
 }
 
 void Map::onLevelChange(unsigned int l) {
@@ -892,6 +927,54 @@ void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
         mapArea.editMap().addNpcSpawn(spawn);
     }
     mapArea.enableControls();
+}
+
+void Map::onLightingChange() {
+    if (sunlightBut->getValue()) {
+        minLightSlider->setVisible(true);
+        maxLightSlider->setPrompt("Max Light");
+    }
+    else {
+        minLightSlider->setVisible(false);
+        maxLightSlider->setPrompt("Ambient Light");
+    }
+    lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
+}
+
+void Map::onLightingReset() {
+    syncLighting();
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::onLightingSave() {
+    mapArea.editMap().setAmbientLight(
+        minLightSlider->getLightLevel(), maxLightSlider->getLightLevel(), sunlightBut->getValue());
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::syncLighting() {
+    const auto& lighting = mapArea.editMap().lightingSystem();
+    const bool sunlight  = lighting.adjustsForSunlight();
+    sunlightBut->setValue(sunlight);
+    minLightSlider->setLightLevel(lighting.getMinLightLevel());
+    maxLightSlider->setLightLevel(lighting.getMaxLightLevel());
+
+    if (sunlight) {
+        minLightSlider->setVisible(true);
+        maxLightSlider->setPrompt("Max Light");
+    }
+    else {
+        minLightSlider->setVisible(false);
+        maxLightSlider->setPrompt("Ambient Light");
+    }
+
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::setLightingDefault() {
+    minLightSlider->setLightLevel(75);
+    maxLightSlider->setLightLevel(255);
+    lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
 }
 
 } // namespace page
