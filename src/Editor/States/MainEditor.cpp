@@ -11,13 +11,13 @@ MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new Ma
 MainEditor::MainEditor(core::system::Systems& s)
 : systems(s)
 , mapPage(s)
+, conversationsPage(s)
 , testingPage(s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
 , playlistsPage(s)
 , creditsPage(s)
-, todoPage(s)
 , currentPage(&mapPage) {
     gui = bl::gui::GUI::create(
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
@@ -29,18 +29,21 @@ MainEditor::MainEditor(core::system::Systems& s)
     gui->setRenderer(renderer);
 
     mapPage.registerGui(gui);
+    conversationsPage.registerGui(gui);
     testingPage.registerGui(gui);
     peoplemonPage.registerGui(gui);
     movesPage.registerGui(gui);
     itemsPage.registerGui(gui);
     playlistsPage.registerGui(gui);
     creditsPage.registerGui(gui);
-    todoPage.registerGui(gui);
 
     notebook = bl::gui::Notebook::create();
     notebook->setOutlineThickness(0.f);
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
+    notebook->addPage("conv", "Conversations", conversationsPage.getContent(), [this]() {
+        currentPage = &conversationsPage;
+    });
     notebook->addPage(
         "test", "Game Testing", testingPage.getContent(), [this]() { currentPage = &testingPage; });
     notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent(), [this]() {
@@ -55,7 +58,6 @@ MainEditor::MainEditor(core::system::Systems& s)
     });
     notebook->addPage(
         "credits", "Credits", creditsPage.getContent(), [this]() { currentPage = &creditsPage; });
-    notebook->addPage("todo", "TODO", todoPage.getContent(), [this]() { currentPage = &todoPage; });
 
     gui->pack(notebook, true, true);
 }

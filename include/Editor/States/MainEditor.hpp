@@ -6,6 +6,7 @@
 #include <Core/Systems/Systems.hpp>
 #include <Editor/Pages/Page.hpp>
 
+#include <Editor/Pages/Conversations.hpp>
 #include <Editor/Pages/Credits.hpp>
 #include <Editor/Pages/Items.hpp>
 #include <Editor/Pages/Map.hpp>
@@ -13,7 +14,6 @@
 #include <Editor/Pages/Peoplemon.hpp>
 #include <Editor/Pages/Playlists.hpp>
 #include <Editor/Pages/Testing.hpp>
-#include <Editor/Pages/Todo.hpp>
 
 /**
  * @addtogroup States
@@ -86,13 +86,13 @@ private:
     core::system::Systems& systems;
 
     page::Map mapPage;
+    page::Conversations conversationsPage;
     page::Testing testingPage;
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;
     page::Items itemsPage;
     page::Playlists playlistsPage;
     page::Credits creditsPage;
-    page::Todo todoPage;
     page::Page* currentPage;
 
     bl::gui::GUI::Ptr gui;

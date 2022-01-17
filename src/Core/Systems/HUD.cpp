@@ -46,7 +46,7 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2 .f, 4.f, 8.f});
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 8.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
 }
