@@ -66,8 +66,7 @@ void Scripts::refresh() {
             scripts.back().error.emplace("Failed to read file");
         }
         else {
-            bl::script::Script test(
-                bl::util::FileUtil::joinPath(core::Properties::ScriptPath(), file));
+            bl::script::Script test(file);
             if (!test.valid()) { scripts.back().error.emplace(test.errorMessage()); }
         }
     }
@@ -84,7 +83,8 @@ void Scripts::refresh() {
         }
         label->getSignal(Event::LeftClicked)
             .willAlwaysCall(std::bind(&Scripts::openWindow, this, i));
-        scriptArea->pack(label);
+        label->setHorizontalAlignment(RenderSettings::Left);
+        scriptArea->pack(label, true, false);
     }
 }
 
@@ -92,7 +92,6 @@ void Scripts::openWindow(unsigned int i) {
     file->setText(scripts[i].file);
     source->setText(scripts[i].source);
     error->setText("Error: " + scripts[i].error.value_or("No errors detected"));
-    BL_LOG_ERROR << "Set error label: " << error->getText();
     if (scripts[i].error.has_value()) { error->setColor(sf::Color::Red, sf::Color::Transparent); }
     else {
         error->setColor(sf::Color::Green, sf::Color::Transparent);
