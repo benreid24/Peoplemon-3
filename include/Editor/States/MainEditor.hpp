@@ -13,6 +13,7 @@
 #include <Editor/Pages/Moves.hpp>
 #include <Editor/Pages/Peoplemon.hpp>
 #include <Editor/Pages/Playlists.hpp>
+#include <Editor/Pages/Scripts.hpp>
 #include <Editor/Pages/Testing.hpp>
 
 /**
@@ -87,6 +88,7 @@ private:
 
     page::Map mapPage;
     page::Conversations conversationsPage;
+    page::Scripts scriptPage;
     page::Testing testingPage;
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;

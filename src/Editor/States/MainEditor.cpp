@@ -12,6 +12,7 @@ MainEditor::MainEditor(core::system::Systems& s)
 : systems(s)
 , mapPage(s)
 , conversationsPage(s)
+, scriptPage(s)
 , testingPage(s)
 , peoplemonPage(s)
 , movesPage(s)
@@ -30,6 +31,7 @@ MainEditor::MainEditor(core::system::Systems& s)
 
     mapPage.registerGui(gui);
     conversationsPage.registerGui(gui);
+    scriptPage.registerGui(gui);
     testingPage.registerGui(gui);
     peoplemonPage.registerGui(gui);
     movesPage.registerGui(gui);
@@ -44,6 +46,8 @@ MainEditor::MainEditor(core::system::Systems& s)
     notebook->addPage("conv", "Conversations", conversationsPage.getContent(), [this]() {
         currentPage = &conversationsPage;
     });
+    notebook->addPage(
+        "script", "Scripts", scriptPage.getContent(), [this]() { currentPage = &scriptPage; });
     notebook->addPage(
         "test", "Game Testing", testingPage.getContent(), [this]() { currentPage = &testingPage; });
     notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent(), [this]() {

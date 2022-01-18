@@ -7,6 +7,7 @@ target_sources(PeoplemonEditor PUBLIC
     Page.hpp
     Peoplemon.hpp
     Playlists.hpp
+    Scripts.hpp
     Testing.hpp
 )
 
