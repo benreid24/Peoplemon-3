@@ -1,5 +1,4 @@
 target_sources(PeoplemonEditor PUBLIC
-    Conversations.hpp
     Credits.hpp
     Items.hpp
     Map.hpp
@@ -9,6 +8,7 @@ target_sources(PeoplemonEditor PUBLIC
     Playlists.hpp
     Scripts.hpp
     Testing.hpp
+    VariousEditors.hpp
 )
 
 add_subdirectory(Subpages)

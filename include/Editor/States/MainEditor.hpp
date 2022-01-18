@@ -6,7 +6,6 @@
 #include <Core/Systems/Systems.hpp>
 #include <Editor/Pages/Page.hpp>
 
-#include <Editor/Pages/Conversations.hpp>
 #include <Editor/Pages/Credits.hpp>
 #include <Editor/Pages/Items.hpp>
 #include <Editor/Pages/Map.hpp>
@@ -15,6 +14,7 @@
 #include <Editor/Pages/Playlists.hpp>
 #include <Editor/Pages/Scripts.hpp>
 #include <Editor/Pages/Testing.hpp>
+#include <Editor/Pages/VariousEditors.hpp>
 
 /**
  * @addtogroup States
@@ -87,7 +87,7 @@ private:
     core::system::Systems& systems;
 
     page::Map mapPage;
-    page::Conversations conversationsPage;
+    page::VariousEditors variousEditorsPage;
     page::Scripts scriptPage;
     page::Testing testingPage;
     page::Peoplemon peoplemonPage;

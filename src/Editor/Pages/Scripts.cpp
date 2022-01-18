@@ -103,10 +103,10 @@ void Scripts::openWindow(unsigned int i) {
 bool Scripts::Script::operator<(const Script& rhs) const {
     if (error.has_value()) {
         if (rhs.error.has_value()) { return file < rhs.file; }
-        return false;
+        return true;
     }
     else if (rhs.error.has_value()) {
-        return false;
+        return true;
     }
     return file < rhs.file;
 }

@@ -11,7 +11,7 @@ MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new Ma
 MainEditor::MainEditor(core::system::Systems& s)
 : systems(s)
 , mapPage(s)
-, conversationsPage(s)
+, variousEditorsPage(s)
 , scriptPage(s)
 , testingPage(s)
 , peoplemonPage(s)
@@ -30,7 +30,7 @@ MainEditor::MainEditor(core::system::Systems& s)
     gui->setRenderer(renderer);
 
     mapPage.registerGui(gui);
-    conversationsPage.registerGui(gui);
+    variousEditorsPage.registerGui(gui);
     scriptPage.registerGui(gui);
     testingPage.registerGui(gui);
     peoplemonPage.registerGui(gui);
@@ -43,8 +43,8 @@ MainEditor::MainEditor(core::system::Systems& s)
     notebook->setOutlineThickness(0.f);
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
-    notebook->addPage("conv", "Conversations", conversationsPage.getContent(), [this]() {
-        currentPage = &conversationsPage;
+    notebook->addPage("editors", "Various Editors", variousEditorsPage.getContent(), [this]() {
+        currentPage = &variousEditorsPage;
     });
     notebook->addPage(
         "script", "Scripts", scriptPage.getContent(), [this]() { currentPage = &scriptPage; });
