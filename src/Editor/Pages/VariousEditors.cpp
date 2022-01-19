@@ -1,4 +1,4 @@
-#include <Editor/Pages/variousEditors.hpp>
+#include <Editor/Pages/VariousEditors.hpp>
 
 namespace editor
 {
