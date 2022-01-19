@@ -305,7 +305,7 @@ void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
             if (args[2].value().getAsBool()) {
                 bl::util::Waiter waiter;
                 std::string choice;
-                system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+                system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                     choice = c;
                     waiter.unblock();
                 };
@@ -342,7 +342,7 @@ void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
         if (args[1].value().getAsBool()) {
             bl::util::Waiter waiter;
             std::string choice;
-            system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+            system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                 choice = c;
                 waiter.unblock();
             };
@@ -499,7 +499,8 @@ void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
 
     const map::CharacterSpawn spawn(
         component::Position(args[1].value().getAsInt(),
-                            {args[2].value().getAsInt(), args[3].value().getAsInt()},
+                            {static_cast<int>(args[2].value().getAsInt()),
+                             static_cast<int>(args[3].value().getAsInt())},
                             component::directionFromString(args[4].value().getAsString())),
         args[0].value().getAsString());
     result = systems.entity().spawnCharacter(spawn);
@@ -737,7 +738,7 @@ void getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Valu
 void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
-        {args[0].value().getAsString(), args[1].value().getAsInt()});
+        {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
 }
 
 void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
