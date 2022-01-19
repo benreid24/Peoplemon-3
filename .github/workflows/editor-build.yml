@@ -34,7 +34,7 @@ jobs:
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./PeoplemonEditor
           
           mv EditorResources PeoplemonEditor
-          mv PeoplemonEditorDebug.exe Peoplemon/PeoplemonEditor.exe
+          mv PeoplemonEditorDebug.exe PeoplemonEditor/PeoplemonEditor.exe
           mv tools PeoplemonEditor
           Compress-Archive -Path PeoplemonEditor -DestinationPath WindowsEditor.zip
 
