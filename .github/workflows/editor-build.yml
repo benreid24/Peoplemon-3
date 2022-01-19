@@ -30,11 +30,11 @@ jobs:
       - name: Package Project
         run: |
           mkdir PeoplemonEditor
-          mv PeoplemonDebug.exe Peoplemon/PeoplemonDebug.exe
+          mv PeoplemonDebug.exe PeoplemonEditor/PeoplemonDebug.exe
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./PeoplemonEditor
           
           mv EditorResources PeoplemonEditor
-          mv PeoplemonEditorRelease.exe Peoplemon/PeoplemonEditor.exe
+          mv PeoplemonEditorDebug.exe Peoplemon/PeoplemonEditor.exe
           mv tools PeoplemonEditor
           Compress-Archive -Path PeoplemonEditor -DestinationPath WindowsEditor.zip
 
