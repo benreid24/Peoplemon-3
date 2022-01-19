@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Files/NPC.cpp File Reference</title>
+<title>Peoplemon: include/Core/Maps/Map.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_994c653631f7b2778c11e1a06b2fb1e1.html">Files</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">NPC.cpp File Reference</div>  </div>
+<div class="title">Map.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a02177_source.html">Core/Files/NPC.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00053_source.html">Core/Events/EntityMoved.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00095_source.html">Core/Maps/CatchRegion.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00098_source.html">Core/Maps/CharacterSpawn.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00101_source.html">Core/Maps/Event.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02213_source.html">Core/Maps/Item.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00107_source.html">Core/Maps/LayerSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00110_source.html">Core/Maps/LevelTransition.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00116_source.html">Core/Maps/LightingSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00122_source.html">Core/Maps/Spawn.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02264_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02243_source.html">Core/Maps/Weather.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Events.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Serialization/Binary.hpp&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a02258_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01204.html">core::map::Map</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary map class that represents a usable map in the game.  <a href="a01204.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01208.html">bl::serial::binary::SerializableObject&lt; core::map::Map &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">core</a></td></tr>
-<tr class="memdesc:a00785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">core</a></td></tr>
+<tr class="memdesc:a00797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00795"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00795.html">core::file</a></td></tr>
-<tr class="memdesc:a00795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of data classes that provide saving and loading of different game file formats. <br /></td></tr>
+<tr class="memitem:a00798"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00798.html">core::system</a></td></tr>
+<tr class="memdesc:a00798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00806"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00806.html">core::map</a></td></tr>
+<tr class="memdesc:a00806"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00810"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00810.html">core::map::loaders</a></td></tr>
+<tr class="memdesc:a00810"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00801"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00801.html">bl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00802"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00802.html">bl::serial</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00803"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00803.html">bl::serial::binary</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 19 2022 17:41:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,11 +1,15 @@
 var searchData=
 [
-  ['name',['name',['../a01106.html#ab06008a26fe9889e54941f66af523041',1,'core::file::Trainer::name()'],['../a01110.html#a5d9550d296bcf627c1d61fcb16fb8fd5',1,'bl::serial::binary::SerializableObject&lt; core::file::Trainer &gt;::name()'],['../a01122.html#aa685b24f69d96f95d4c9d07b06c1f689',1,'core::map::CatchRegion::name()'],['../a01126.html#af3617af46ee695a64d7286e891bc197c',1,'bl::serial::binary::SerializableObject&lt; core::map::CatchRegion &gt;::name()'],['../a01422.html#a08e8a5d109e9c05993631974161ea39a',1,'bl::serial::json::SerializableObject&lt; core::system::Player &gt;::name()']]],
-  ['namefield',['nameField',['../a01094.html#a5c01613cb8eeca8aa11ca93bee5108bd',1,'bl::serial::binary::SerializableObject&lt; core::file::NPC &gt;::nameField()'],['../a01186.html#a2297cfe2b338492cc80f179b3e1ea1f9',1,'core::map::Map::nameField()'],['../a01190.html#a5489ed05440a0205b766c9cf063af2ae',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::nameField()']]],
-  ['names',['names',['../a01074.html#ab4d8181fc439338572debd2e7123fde0',1,'core::file::ItemDB::names()'],['../a01078.html#a81802c266f699a4ec3f600991e832e81',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::names()'],['../a01082.html#acdd870edc6357a355f2decf4e79d00e8',1,'core::file::MoveDB::names()'],['../a01086.html#a74b80b7fa429c01ddc641a9aeb6230d7',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::names()'],['../a01098.html#afb02ade81f85267703cc559884ba6f7a',1,'core::file::PeoplemonDB::names()'],['../a01102.html#a5565d69beb019110d374275f2c23559e',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::names()']]],
-  ['newmap',['newMap',['../a00994.html#a00ff75fa358f180551ec141cabe054cb',1,'core::event::SwitchMapTriggered']]],
-  ['newtime',['newTime',['../a01002.html#a09b0cf6d04a4c701d36df8feba7ad6f6',1,'core::event::TimeChange']]],
-  ['nextnode',['nextNode',['../a01050.html#af011639afea65256814222ecfa484188',1,'core::file::Conversation::Node']]],
-  ['nodes',['nodes',['../a01062.html#ad9684ba6e80ab232cd158a538cf97e6a',1,'bl::serial::binary::SerializableObject&lt; core::file::Conversation &gt;']]],
-  ['none',['None',['../a01178.html#aa0d8fadc62f2a2485130268a032d229e',1,'core::map::LightingSystem']]]
+  ['map',['map',['../a00996.html#aad55f26e8decefb28139ad792f768091',1,'core::event::MapSwitch::map()'],['../a01000.html#ab24b8ba625ac228bf39a2d0170f83b27',1,'core::event::MapEntered::map()'],['../a01004.html#a61fb2a7377d2165b3c714ec0ff88c72d',1,'core::event::MapExited::map()']]],
+  ['mapid',['mapId',['../a01164.html#adfceec7153ea73406f8176ae4e25c288',1,'core::map::Item::mapId()'],['../a01168.html#a87442c78ff69346c1b20911324947894',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::mapId()']]],
+  ['maxevstat',['MaxEVStat',['../a01280.html#a6c87c24c8c4e78b01eee073ab01a350c',1,'core::pplmn::Stats']]],
+  ['maxevsum',['MaxEVSum',['../a01280.html#adaf4575e24ee270e7a9cd0973c396839',1,'core::pplmn::Stats']]],
+  ['maxivstat',['MaxIVStat',['../a01280.html#a8b05114768e3a3a99a5cb2f491414ee3',1,'core::pplmn::Stats']]],
+  ['maxlevel',['maxLevel',['../a01296.html#a4455c1e1512329c24872cbda32895f17',1,'core::pplmn::WildPeoplemon::maxLevel()'],['../a01300.html#a4dca957271e7930c2c2ce444d1dc0ad7',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::WildPeoplemon &gt;::maxLevel()']]],
+  ['maxpp',['maxPP',['../a01252.html#a4839e01f2e5bdb00b5be96bfebdbd4ba',1,'core::pplmn::OwnedMove::maxPP()'],['../a01260.html#a5f429619cc63217b6b8ff73363baab59',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedMove &gt;::maxPP()']]],
+  ['message',['message',['../a01136.html#a1a2a895e89e731733ee48b596768d1e7',1,'core::item::UseResult']]],
+  ['minlevel',['minLevel',['../a01296.html#a3bd0467c151fec11b848f119b4e0db17',1,'core::pplmn::WildPeoplemon::minLevel()'],['../a01300.html#a5c4367dc398ebc114b406d42206cfdc9',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::WildPeoplemon &gt;::minLevel()']]],
+  ['minute',['minute',['../a01392.html#a232574606b98573f432b2ea332670b7d',1,'core::system::Clock::Time']]],
+  ['money',['money',['../a01440.html#a43d3500450a52f4126b86aa76c0da6fb',1,'bl::serial::json::SerializableObject&lt; core::system::Player &gt;']]],
+  ['moves',['moves',['../a01268.html#a6e56f00cc4d508fc7ac3a9c7897e78f3',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::moves()'],['../a01272.html#aa8b779777d15ca2299d8640ca1d995bc',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::moves()']]]
 ];

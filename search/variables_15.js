@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['w',['w',['../a01158.html#a8e9cc692b8bd3f5cb15cff6cac411f8a',1,'bl::serial::binary::SerializableObject&lt; core::map::Layer&lt; T &gt; &gt;']]],
-  ['weather',['weather',['../a01186.html#a4f8e9e4439c27e830242b631649ef0f3',1,'core::map::Map']]],
-  ['weatherfield',['weatherField',['../a01186.html#a5a0555310c30e857b9ee568f897cdd3f',1,'core::map::Map::weatherField()'],['../a01190.html#aad577f20109c4f44a5a6b659b7169b2e',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::weatherField()']]],
-  ['wilds',['wilds',['../a01122.html#ad13a93a6da9f31784cf5c3afbea6033d',1,'core::map::CatchRegion::wilds()'],['../a01126.html#a19e8bba08eeddec8ffd8229433ce5d37',1,'bl::serial::binary::SerializableObject&lt; core::map::CatchRegion &gt;::wilds()']]]
+  ['validmoves',['validMoves',['../a01116.html#a7cb3528dc8c9ee3efb5bea573a31cd6b',1,'core::file::PeoplemonDB::validMoves()'],['../a01120.html#a4ce30c6c14ca2052d0fcbdbab9bed60b',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::validMoves()']]],
+  ['values',['values',['../a01092.html#ab83de343322d05cb9dc523cf1156e3a5',1,'core::file::ItemDB::values()'],['../a01096.html#ad8e9a48120d032efa018a9d3f8ec9574',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::values()']]],
+  ['visible',['visible',['../a01164.html#af311bd583a573b483571a3602e4e6425',1,'core::map::Item::visible()'],['../a01168.html#ad2199f6edacfbd77b84de21ddfd0c297',1,'bl::serial::binary::SerializableObject&lt; core::map::Item &gt;::visible()']]],
+  ['visionrange',['visionRange',['../a01124.html#a15a0956c65f5d87aced159237d14d917',1,'core::file::Trainer']]]
 ];

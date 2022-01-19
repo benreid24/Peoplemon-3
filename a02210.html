@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/Type.hpp File Reference</title>
+<title>Peoplemon: include/Core/Items/Item.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,49 +68,41 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Type.hpp File Reference</div>  </div>
+<div class="title">Item.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00074_source.html">Core/Files/ItemDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00083_source.html">Core/Items/Category.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02246_source.html">Core/Items/Id.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02252_source.html">Core/Items/Type.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00092_source.html">Core/Items/UseResult.hpp</a>&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a02210_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">core</a></td></tr>
-<tr class="memdesc:a00785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">core::item</a></td></tr>
-<tr class="memdesc:a00797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01132.html">core::item::Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of static methods centered around items.  <a href="a01132.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00774.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Type::Unknown</a> = 0, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">core::item::Type::TargetPeoplemon</a> = 1, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">core::item::Type::Peopleball</a>, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">core::item::Type::EvolveStone</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">core::item::Type::PlayerModifier</a>, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">core::item::Type::Useless</a>, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">core::item::Type::HoldItem</a>, 
-<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">core::item::Type::KeyItem</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00774.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">core::item::Type::TM</a>
-<br />
- }<tr class="memdesc:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type classification of an item. This is used to determine when an item may be used and how to use it.  <a href="a00774.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">core</a></td></tr>
+<tr class="memdesc:a00797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00809"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00809.html">core::item</a></td></tr>
+<tr class="memdesc:a00809"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 19 2022 17:41:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

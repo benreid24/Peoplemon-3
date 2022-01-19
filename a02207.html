@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Peoplemon/Id.hpp File Reference</title>
+<title>Peoplemon: include/Core/Events/Item.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,201 +63,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7c3823283bbfff1894463e96029f8928.html">Peoplemon</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Id.hpp File Reference</div>  </div>
+<div class="title">Item.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a02246_source.html">Core/Items/Id.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a02207_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00785"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00785.html">core</a></td></tr>
-<tr class="memdesc:a00785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00800"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00800.html">core::pplmn</a></td></tr>
-<tr class="memdesc:a00800"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01258.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00992.html">core::event::ItemPickedUp</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fired when an item is picked up.  <a href="a00992.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a> = 0, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8adbfbc56da610002e1b6d370c70e82786">core::pplmn::Id::VinceA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a66358519b5d9ee1e9219d2f9b1a61d6b">core::pplmn::Id::VinceB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af5ecb7487a3402808562aa12e2e81edd">core::pplmn::Id::VinceC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a69832de1c523d7c14a5f983a89325e3b">core::pplmn::Id::JoeA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8abe5e23a01d3501763da519a396cdd087">core::pplmn::Id::JoeB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa2e594d6611d9b3bb0665539a24f19f4">core::pplmn::Id::JoeC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa4efc168cb8bab5597c2d73d800a9eed">core::pplmn::Id::NickA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a72c9cf8c50d28dfeeb966619ccb97aa5">core::pplmn::Id::NickB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5237d143fabb63385e0b34a33ba56b06">core::pplmn::Id::NickC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aacf0e141b63da25bbb3e49c182def3b0">core::pplmn::Id::DominicA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa2c8fb330afa11a65b1807b014b0780b">core::pplmn::Id::DominicB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a035e44efa8ac243c5d488314b2dd7e2e">core::pplmn::Id::DominicC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a9bc4af7c24019c2679652d44008db9c2">core::pplmn::Id::BryanA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a23ee644d76ff25293ddedef29e3c701f">core::pplmn::Id::BryanB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a901c83c883ea8aabc3b6b46a5ace6f8c">core::pplmn::Id::BryanC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3a81859f543b3659b0de5bc682b3cffd">core::pplmn::Id::KrullA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab666e400b463026e0da91e5f661409e8">core::pplmn::Id::KrullB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3a56137e6d5f84feaf96e24ad6254496">core::pplmn::Id::KrullC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a0318443099974d384b9b3a662d3582ea">core::pplmn::Id::MsMerrilA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a8d30117e4e201e664ebbb7d17f374959">core::pplmn::Id::MsMerrilB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a20d26dfb83ab2967a278125bce10f239">core::pplmn::Id::MsMerrilC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aade0a3ac9644912e3396363d1945382e">core::pplmn::Id::JamesPabloA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a1e03c85b0c79a00eeed7840937ccf59a">core::pplmn::Id::JamesPabloB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a89bc0f39c51df6fa0669f68abf35697c">core::pplmn::Id::JustinLA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af5c0080dae29fb99c432da57b4ee2f9e">core::pplmn::Id::JustinLB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a46e341ea4f1ef1eb0d4ecef8eb7c5a66">core::pplmn::Id::BelleA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8acd5728ee4ea3532fccf2ee02156a8f8a">core::pplmn::Id::BelleB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab67c37918f467d94eeefe1733c561b01">core::pplmn::Id::BelleC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a4ff5ae8f7bbdb46ebc6db58b4d24dd4b">core::pplmn::Id::BelleD</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3ceb344cbd6210c0c08722711bf6e0d0">core::pplmn::Id::AnnaA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa0d3d94617628852d2bcccc8c7e889f9">core::pplmn::Id::AnnaB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aea99af852f09202df7a94b07f4f6fb5c">core::pplmn::Id::AnnaC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ad801fc849fa8a86b310655af4d17f2c2">core::pplmn::Id::AnnaD</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a7c6389e7c996499e2b4dd3f31f484d26">core::pplmn::Id::AnnaE</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a65b6b82a36754d7939bce21379d19610">core::pplmn::Id::AnnaF</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a292506ce01a66cbd4a2f5e251d855395">core::pplmn::Id::AnnaG</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8abd60f9532d067ec7a1c630d80787863f">core::pplmn::Id::AnnaH</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2058a793591ecd330c34b898910a6a5e">core::pplmn::Id::MsNeutakiA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a0824d91d80f60c266a02656e9f2f8980">core::pplmn::Id::MsNuetakiB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af118804937c51bf13c497dfde90f9306">core::pplmn::Id::Mike1A</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8abc3cc84cecb72cb1515cbf573775d36e">core::pplmn::Id::Mike1B</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae4ef6976bde724befe4a34859e066cf6">core::pplmn::Id::Mike1C</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a22eebaedac3a21f49bb089e93bbc7608">core::pplmn::Id::JohnA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ace2fa55b48f30626f5f60c610deecc2f">core::pplmn::Id::JohnB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae194356cccc3d7b13702610b8dd8657b">core::pplmn::Id::JohnC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3d606fc50ebb4a267700ff11c85ae3b2">core::pplmn::Id::JohnD</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2c7f3ae698080715efed609698f64f49">core::pplmn::Id::ChrisA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac857f01bf939531e0babc1b02b00727e">core::pplmn::Id::ChrisB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88fd32507d7624ec74e29e60c2275a01">core::pplmn::Id::ChrisC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af4c7dd1f23d1cb5cd04e79fe503e15ff">core::pplmn::Id::MsMezzarosA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a28f49f820c0dd112c68eb978bb523148">core::pplmn::Id::MsMezzarosB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae1dc37b217acf294a3def4d57620b627">core::pplmn::Id::MrMontanteC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a7ae0b0860eaed3633b203207b72e65d9">core::pplmn::Id::MrMontante</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a21190394ea56299dd9edcdead4521111">core::pplmn::Id::MrSweigerlingA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a398706ef807f3c912723554f9857525e">core::pplmn::Id::MrSweigerlingB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a7e92afba2b833719d96dfb3a3e624739">core::pplmn::Id::JakeA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aad9b84c2e35ae25729e17993dbb79401">core::pplmn::Id::JakeB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab28743c866aee8938946c4a959c2422e">core::pplmn::Id::QuinnA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2d99d8f8ce477a5693a567bd80cc58e1">core::pplmn::Id::QuinnB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa5d1ec5421302d53cc9045337c73838e">core::pplmn::Id::QuinnC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a8bdb1f729db37229c2d1a5138e890098">core::pplmn::Id::BrandonA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3315d99b5dca68fad726ff38bc8a61b3">core::pplmn::Id::BrandonB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a23fd6625f40b5df72367e94ab7acbed0">core::pplmn::Id::BrandonC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aec54a81b73de8e0b0a17bf22f61091a7">core::pplmn::Id::LexiA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8adeabee002aeea53138e9b188c00bd384">core::pplmn::Id::LexiB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a32d9c70ec738ef8bb80ccf24f5e552bd">core::pplmn::Id::LexiC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a483359d54869656c007a53c050343588">core::pplmn::Id::MsMeisnerA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5dd0efe0ab8672154e1cafe6fc506e49">core::pplmn::Id::MsMeisnerB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a06475174d922e7dcbb3ed34c0236dbdf">core::pplmn::Id::Justin</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a10fe09a8ff9d4cc7543c1018f0b19d42">core::pplmn::Id::AbirajA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a088b52435b5eb99da187d53355c943f3">core::pplmn::Id::AbirajB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a17f0a68951269014c72495410c2132d9">core::pplmn::Id::KylerMaleA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a0742f0b85a167b201ca9e121d02790b1">core::pplmn::Id::KylerMaleB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac78fc7a8fcd238c1e018d28f64aed3b2">core::pplmn::Id::KylerMaleC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5d58419143f234cd3235749639d56462">core::pplmn::Id::KylerFemaleA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a33cd691d86b457fea2793eda3fc30920">core::pplmn::Id::KylerFemaleB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8abce2171f856ee6e73d568670d78255c1">core::pplmn::Id::KylerFemaleC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a8e1ed8f4ed9b6e289a95f7b98266a770">core::pplmn::Id::MattA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a698e26dfc4afc3acb4596e21e1771040">core::pplmn::Id::MattB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2eed90cd075641f39604a1d266738bcb">core::pplmn::Id::MattC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af5cbeb987dbcb7decfc5f113fce6c63f">core::pplmn::Id::BryanWagnerA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a32b86ea61c8e5f84c3e1b9a7a7b8d971">core::pplmn::Id::BryanWagnerB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae139bac5b54fabf2517324483f4de25f">core::pplmn::Id::BryanWagnerC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a04b48c123d5ad66de1718b5bd136aaa5">core::pplmn::Id::EmanualA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aaef4663756c296b1cc37ee31c9015f9c">core::pplmn::Id::EmanualB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac401a06268e91c8711ddadd2ef599832">core::pplmn::Id::EmanualC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8afc9027256c3f6289543f6ef2e4a0ee1c">core::pplmn::Id::MaxBurgioA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a04dc42aa5121d8460f7860892644114d">core::pplmn::Id::MaxBurgioB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a7d4cf39b2a2b78940a145ff2f7d41ed5">core::pplmn::Id::MaxBurgioC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8acdf9bd1eb37b27e236d33aa449713435">core::pplmn::Id::Mike2A</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a8d82dc7af0ddf43056b721c04d56dd75">core::pplmn::Id::Mike2B</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aa960b2700803b6b0fbcd2e1d00fc3693">core::pplmn::Id::Mike2C</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2e67313f5221956f12b03b40d81ef76c">core::pplmn::Id::StephaniePA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aac9355e64cfd1dea9ebf410dba44651d">core::pplmn::Id::StephaniePB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab2dd6ad3a6d4a69f7dd8c0aebcfdcf8f">core::pplmn::Id::StephaniePC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8aba61244249b3a9cd0f1ca396301db896">core::pplmn::Id::PiperA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a21ae32d6ce124e5ed866840d7178b7b1">core::pplmn::Id::PiperB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae6681420e3c9b48a3f57540616c0cd78">core::pplmn::Id::ColinA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a90f0b82606dc6bb3dbf4b377a59af03e">core::pplmn::Id::ColinB</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a659fc13bfeb60cffaffb95a0461a526d">core::pplmn::Id::ColinC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3b10a51757c9e7383799e080bcb0e301">core::pplmn::Id::JakeDA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ad5ed4ca538dc21757eb98a8ca03d0a56">core::pplmn::Id::JakeDB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5317f2b0ef15f66652132075ff120ea6">core::pplmn::Id::SarahA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ad34fd1802e1cd9616cf39561762fa355">core::pplmn::Id::SarahB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a0888ec1c7748c7b15b65703d189941b2">core::pplmn::Id::SarahC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac9dfe097d298bc4c9e6edaa672e219b0">core::pplmn::Id::SarahD</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a93c9b96a84d2edf7806f3b6ecf930784">core::pplmn::Id::JackiA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a46e066b196f03ff49bf3756ba8f5889d">core::pplmn::Id::JackiB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a805e9a7a73093b4b3b67cfa614501274">core::pplmn::Id::LukeA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a4d2e26b40ca817092a94612da659d05b">core::pplmn::Id::LukeB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a99694c687036f20cd2e8f9daaff97ddd">core::pplmn::Id::LukeC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8afeea60078eb514fe105e27e4c0b263d1">core::pplmn::Id::StephanieA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab8e0322d2caf11c5c4e70d1704706b2b">core::pplmn::Id::StephanieB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a39d3896ab46d1e1fe305f12d8db1d218">core::pplmn::Id::StephanieC</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ad0d156801a46fdd5a82c92b3882692cf">core::pplmn::Id::PonceA</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a422f52aeede80ebd951d52da854d0dd3">core::pplmn::Id::PonceB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a312d4596f3370e104172e3eeb20e9cee">core::pplmn::Id::PamA</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8af6fc944a6832f29eb9d64da0931ced3c">core::pplmn::Id::PamB</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ae1941485a7f801125289bd742764ee80">core::pplmn::Id::PamC</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac92b57f3272dbb49fe74b7304bc20fde">core::pplmn::Id::Kristina</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a2964815d03a032c8ca37ac5d557647dd">core::pplmn::Id::Julie</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5e50cdd7d57010616c4bebdc85a9d019">core::pplmn::Id::Maggi</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5e155acb2cb01e8c6cca4a216b2c8665">core::pplmn::Id::BenToo</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a092f2ba9f39fbc2876e64d12cd662f72">core::pplmn::Id::Ben</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ad22436e79f255e49de0d3971df5a12cc">core::pplmn::Id::RockManiac</a>, 
-<a class="el" href="a00776.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a421098a9ac9968cc8b3a36cb130816eb">core::pplmn::Id::_NUM_PEOPLEMON</a>
-<br />
- }<tr class="memdesc:gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of a peoplemon.  <a href="a00776.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00797"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00797.html">core</a></td></tr>
+<tr class="memdesc:a00797"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00805"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00805.html">core::event</a></td></tr>
+<tr class="memdesc:a00805"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing all the event types that propagate through the event bus. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 16 2022 02:34:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 19 2022 17:41:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
