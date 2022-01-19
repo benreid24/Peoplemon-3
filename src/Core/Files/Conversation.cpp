@@ -135,7 +135,9 @@ struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<C
                 }
                 else { // take item
                     node.setType(Conversation::Node::TakeItem);
-                    node.item() = item::Item::cast(d);
+                    node.item().id           = item::Item::cast(d);
+                    node.item().beforePrompt = false;
+                    node.item().afterPrompt  = false;
                 }
                 node.nextOnPass() = i + 1;
                 namedJumps.emplace_back(node.message(), &node.nextOnReject());
@@ -152,7 +154,9 @@ struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<C
                 }
                 else { // give item
                     node.setType(Conversation::Node::GiveItem);
-                    node.item() = item::Item::cast(d);
+                    node.item().id           = item::Item::cast(d);
+                    node.item().beforePrompt = false;
+                    node.item().afterPrompt  = false;
                 }
                 node.next() = i + 1;
             } break;
@@ -317,7 +321,7 @@ void Conversation::Node::setType(Type t) {
     switch (type) {
     case GiveItem:
     case TakeItem:
-        data.emplace<item::Id>(item::Id::Unknown);
+        data.emplace<Item>();
         break;
 
     case GiveMoney:
@@ -369,27 +373,27 @@ std::vector<std::pair<std::string, std::uint32_t>>& Conversation::Node::choices(
     return null;
 }
 
-unsigned int& Conversation::Node::money() {
-    static unsigned int null;
-    unsigned int* m = std::get_if<unsigned int>(&data);
+std::uint32_t& Conversation::Node::money() {
+    static std::uint32_t null;
+    std::uint32_t* m = std::get_if<std::uint32_t>(&data);
     if (m) return *m;
     BL_LOG_ERROR << "Bad node access (money). Type=" << static_cast<int>(type);
     return null;
 }
 
-item::Id& Conversation::Node::item() {
-    static item::Id null = item::Id::Unknown;
-    item::Id* i          = std::get_if<item::Id>(&data);
+Conversation::Node::Item& Conversation::Node::item() {
+    static Item null;
+    Item* i = std::get_if<Item>(&data);
     if (i) return *i;
     BL_LOG_ERROR << "Bad node access (item). Type=" << static_cast<int>(type);
     return null;
 }
 
-std::uint32_t& Conversation::Node::next() { return jumps.nextNode; }
+std::uint32_t& Conversation::Node::next() { return jumps[0]; }
 
-std::uint32_t& Conversation::Node::nextOnPass() { return jumps.condNodes[0]; }
+std::uint32_t& Conversation::Node::nextOnPass() { return jumps[0]; }
 
-std::uint32_t& Conversation::Node::nextOnReject() { return jumps.condNodes[1]; }
+std::uint32_t& Conversation::Node::nextOnReject() { return jumps[1]; }
 
 const std::string& Conversation::Node::message() const { return prompt; }
 
@@ -413,19 +417,19 @@ unsigned int Conversation::Node::money() const {
     return null;
 }
 
-item::Id Conversation::Node::item() const {
-    static item::Id null = item::Id::Unknown;
-    const item::Id* i    = std::get_if<item::Id>(&data);
+const Conversation::Node::Item& Conversation::Node::item() const {
+    static const Item null;
+    const Item* i = std::get_if<Item>(&data);
     if (i) return *i;
     BL_LOG_ERROR << "Bad node access (item). Type=" << static_cast<int>(type);
     return null;
 }
 
-std::uint32_t Conversation::Node::next() const { return jumps.nextNode; }
+std::uint32_t Conversation::Node::next() const { return jumps[0]; }
 
-std::uint32_t Conversation::Node::nextOnPass() const { return jumps.condNodes[0]; }
+std::uint32_t Conversation::Node::nextOnPass() const { return jumps[0]; }
 
-std::uint32_t Conversation::Node::nextOnReject() const { return jumps.condNodes[1]; }
+std::uint32_t Conversation::Node::nextOnReject() const { return jumps[1]; }
 
 Conversation Conversation::makeLoadError(const std::string& f) {
     Conversation conv;

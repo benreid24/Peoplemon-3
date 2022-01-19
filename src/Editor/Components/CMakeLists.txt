@@ -10,6 +10,8 @@ target_sources(PeoplemonEditor PRIVATE
     EventEditor.cpp
     HighlightRadioButton.cpp
     ItemSelector.cpp
+    LightPreview.cpp
+    LightSlider.cpp
     OwnedPeoplemonWindow.cpp
     PeoplemonSelector.cpp
     MapActions.hpp

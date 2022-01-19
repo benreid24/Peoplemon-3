@@ -192,13 +192,13 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 Value BaseFunctions::makePosition(const component::Position& pos) {
     Value value;
     Value coord;
-    coord.setProperty("x", {static_cast<float>(pos.positionTiles().x)});
-    coord.setProperty("y", {static_cast<float>(pos.positionTiles().y)});
+    coord.setProperty("x", {pos.positionTiles().x});
+    coord.setProperty("y", {pos.positionTiles().y});
     value.setProperty("tiles", coord);
     coord.setProperty("x", {pos.positionPixels().x});
     coord.setProperty("y", {pos.positionPixels().y});
     value.setProperty("pixels", coord);
-    value.setProperty("level", {static_cast<float>(pos.level)});
+    value.setProperty("level", {pos.level});
     value.setProperty("direction", {component::directionToString(pos.direction)});
     return value;
 }
@@ -213,7 +213,7 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
 }
 
 void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& player) {
-    player = static_cast<float>(systems.player().player());
+    player = systems.player().player();
     player.setProperty("name", {systems.player().name()});
     player.setProperty("gender",
                        {systems.player().gender() == player::Gender::Boy ? "boy" : "girl"});
@@ -226,24 +226,24 @@ void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&
     auto& bag = player.getProperty("bag", false).deref().value().getAsArray();
     bag.reserve(items.size());
     for (const player::Bag::Item& item : items) {
-        bag.emplace_back(new Value(static_cast<float>(item.id)));
-        bag.back().setProperty("id", {static_cast<float>(item.id)});
+        bag.emplace_back(new Value(item.id));
+        bag.back().setProperty("id", {item.id});
         bag.back().setProperty("name", {item::Item::getName(item.id)});
-        bag.back().setProperty("qty", {static_cast<float>(item.qty)});
+        bag.back().setProperty("qty", {item.qty});
     }
 }
 
 void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
               Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
                         PrimitiveValue::TBool,
                         PrimitiveValue::TBool>("giveItem", args);
 
-    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsNum());
+    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsInt());
     const item::Id item      = item::Item::cast(rawId);
     if (item != item::Id::Unknown) {
-        const int qty = static_cast<int>(args[1].value().getAsNum());
+        const long qty = args[1].value().getAsInt();
         if (qty > 0) {
             systems.player().bag().addItem(item, qty);
             if (args[2].value().getAsBool()) {
@@ -270,10 +270,10 @@ void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
 
 void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TBool, PrimitiveValue::TBool>(
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
         "giveMoney", args);
 
-    const int money = static_cast<unsigned int>(args[0].value().getAsNum());
+    const long money = args[0].value().getAsInt();
     if (money > 0) {
         systems.player().money() += money;
         if (args[1].value().getAsBool()) {
@@ -294,18 +294,18 @@ void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
 
 void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
               Value& result) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TNumeric, PrimitiveValue::TBool>(
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger, PrimitiveValue::TBool>(
         "takeItem", args);
 
-    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsNum());
+    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsInt());
     const item::Id item      = item::Item::cast(rawId);
     if (item != item::Id::Unknown) {
-        const int qty = static_cast<int>(args[1].value().getAsNum());
+        const long qty = args[1].value().getAsInt();
         if (qty > 0) {
             if (args[2].value().getAsBool()) {
                 bl::util::Waiter waiter;
                 std::string choice;
-                system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+                system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                     choice = c;
                     waiter.unblock();
                 };
@@ -335,14 +335,14 @@ void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
 
 void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                Value& result) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TBool>("takeMoney", args);
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool>("takeMoney", args);
 
-    const int qty = static_cast<int>(args[0].value().getAsNum());
+    const long qty = args[0].value().getAsInt();
     if (qty > 0) {
         if (args[1].value().getAsBool()) {
             bl::util::Waiter waiter;
             std::string choice;
-            system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+            system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                 choice = c;
                 waiter.unblock();
             };
@@ -440,7 +440,7 @@ void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& ar
                             ->results();
     for (const auto& pair : npcMap) {
         if (pair.second.get<component::NPC>()->name() == name) {
-            npc = static_cast<float>(pair.first);
+            npc = pair.first;
             npc.setProperty("name", {name});
             npc.setProperty("talkedTo", {systems.interaction().npcTalkedTo(name)});
             npc.setProperty("defeated", {false});
@@ -455,14 +455,14 @@ void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& ar
 
 void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                    Value& character) {
-    Value::validateArgs<PrimitiveValue::TNumeric>("loadCharacter", args);
+    Value::validateArgs<PrimitiveValue::TInteger>("loadCharacter", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     if (systems.engine().entities().entityExists(entity)) {
         const component::Position* pos =
             systems.engine().entities().getComponent<component::Position>(entity);
         if (pos) {
-            character = static_cast<float>(entity);
+            character = entity;
             character.setProperty("position", BaseFunctions::makePosition(*pos));
 
             const component::NPC* npc =
@@ -492,18 +492,18 @@ void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Val
 void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                     Value& result) {
     Value::validateArgs<PrimitiveValue::TString,
-                        PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
                         PrimitiveValue::TString>("spawnCharacter", args);
 
     const map::CharacterSpawn spawn(
-        component::Position(static_cast<std::uint8_t>(args[1].value().getAsNum()),
-                            {static_cast<int>(args[2].value().getAsNum()),
-                             static_cast<int>(args[3].value().getAsNum())},
+        component::Position(args[1].value().getAsInt(),
+                            {static_cast<int>(args[2].value().getAsInt()),
+                             static_cast<int>(args[3].value().getAsInt())},
                             component::directionFromString(args[4].value().getAsString())),
         args[0].value().getAsString());
-    result = static_cast<float>(systems.entity().spawnCharacter(spawn));
+    result = systems.entity().spawnCharacter(spawn);
 }
 
 void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -518,7 +518,7 @@ void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>
             ->results();
     for (const auto& pair : trainerMap) {
         if (pair.second.get<component::Trainer>()->name() == name) {
-            trainer = static_cast<float>(pair.first);
+            trainer = pair.first;
             trainer.setProperty("name", {name});
             trainer.setProperty("talkedTo", {systems.interaction().trainerTalkedto(name)});
             trainer.setProperty("defeated", {false}); // TODO - track who defeated
@@ -533,10 +533,10 @@ void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>
 
 void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                 Value& res) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TString, PrimitiveValue::TBool>(
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString, PrimitiveValue::TBool>(
         "moveEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
     const bool block                = args[2].value().getAsBool();
     const bool result               = systems.movement().moveEntity(entity, dir, false);
@@ -564,10 +564,9 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
 }
 
 void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TString, PrimitiveValue::TBool>(
-        "rotateEntity", args);
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString>("rotateEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
     component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(entity);
@@ -576,9 +575,9 @@ void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
 
 void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                   Value& res) {
-    Value::validateArgs<PrimitiveValue::TNumeric>("removeEntity", args);
+    Value::validateArgs<PrimitiveValue::TInteger>("removeEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     if (entity != systems.player().player()) {
         const bool result = systems.engine().entities().entityExists(entity);
         systems.engine().entities().destroyEntity(entity);
@@ -589,41 +588,64 @@ void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
     }
 }
 
-void entityToPosition(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
+void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                      Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TBool>("entityToPosition", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    component::Position* pos =
+        systems.engine().entities().getComponent<component::Position>(entity);
+    if (pos) {
+        BL_LOG_INFO << "moved entity";
+        const component::Position old = *pos;
+        component::Position np        = *pos;
+        np.setTiles(sf::Vector2i(args[2].value().getAsInt(), args[3].value().getAsInt()));
+        np.level = args[1].value().getAsInt();
+        *pos     = np;
+        systems.engine().eventBus().dispatch<event::EntityMoved>({entity, old, np});
+    }
+    else {
+        BL_LOG_ERROR << "Moving entity with no position component: " << entity;
+    }
+
     // TODO - implement path finder
-    result = false;
+    result = true;
 }
 
 void entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                     Value& result) {
-    Value::validateArgs<PrimitiveValue::TNumeric>("entityInteract", args);
+    Value::validateArgs<PrimitiveValue::TInteger>("entityInteract", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     result                          = systems.interaction().interact(entity);
 }
 
 void setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TBool>("setEntityLock", args);
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool>("setEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     const bool lock                 = args[1].value().getAsBool();
     systems.controllable().setEntityLocked(entity, lock, true);
 }
 
 void resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                      Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric>("resetEntityLock", args);
+    Value::validateArgs<PrimitiveValue::TInteger>("resetEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     systems.controllable().resetEntityLock(entity);
 }
 
 void getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& clock) {
     const system::Clock::Time now = systems.clock().now();
-    clock                         = static_cast<float>(now.hour * 60 + now.minute);
-    clock.setProperty("minute", {static_cast<float>(now.minute)});
-    clock.setProperty("hour", {static_cast<float>(now.hour)});
-    clock.setProperty("day", {static_cast<float>(now.day)});
+    clock                         = now.hour * 60 + now.minute;
+    clock.setProperty("minute", {now.minute});
+    clock.setProperty("hour", {now.hour});
+    clock.setProperty("day", {now.day});
 }
 
 class ClockTrigger : public bl::event::Listener<event::TimeChange> {
@@ -645,33 +667,29 @@ private:
 system::Clock::Time parseTime(const Value& val) {
     system::Clock::Time t(12, 0, 0);
     const PrimitiveValue& h = val.getProperty("hour", false).deref().value();
-    if (h.getType() == PrimitiveValue::TNumeric) {
-        t.hour = static_cast<unsigned int>(h.getAsNum());
-    }
+    t.hour                  = static_cast<unsigned int>(h.getNumAsInt());
     const PrimitiveValue& m = val.getProperty("minute", false).deref().value();
-    if (m.getType() == PrimitiveValue::TNumeric) {
-        t.minute = static_cast<unsigned int>(m.getAsNum());
-    }
+    t.minute                = static_cast<unsigned int>(m.getNumAsInt());
     return t;
 }
 
 void makeTime(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value& time) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TNumeric>("makeTime", args);
-    if (args[0].value().getAsNum() < 0.f || args[0].value().getAsNum() > 23.f)
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("makeTime", args);
+    if (args[0].value().getAsInt() < 0 || args[0].value().getAsInt() > 23)
         throw Error("hour must be in range [0, 23]");
-    if (args[1].value().getAsNum() < 0.f || args[1].value().getAsNum() > 59.f)
+    if (args[1].value().getAsInt() < 0 || args[1].value().getAsInt() > 59)
         throw Error("minute must be in range [0, 59]");
 
-    const unsigned int hour   = static_cast<unsigned int>(args[0].value().getAsNum());
-    const unsigned int minute = static_cast<unsigned int>(args[1].value().getAsNum());
-    time                      = static_cast<float>(hour * 60 + minute);
-    time.setProperty("hour", {static_cast<float>(hour)});
-    time.setProperty("minute", {static_cast<float>(minute)});
+    const unsigned int hour   = static_cast<unsigned int>(args[0].value().getAsInt());
+    const unsigned int minute = static_cast<unsigned int>(args[1].value().getAsInt());
+    time                      = hour * 60 + minute;
+    time.setProperty("hour", {hour});
+    time.setProperty("minute", {minute});
 }
 
 void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                    Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TBool>("waitUntilTime", args);
+    Value::validateArgs<PrimitiveValue::TAny, PrimitiveValue::TBool>("waitUntilTime", args);
 
     const system::Clock::Time now  = systems.clock().now();
     const system::Clock::Time then = parseTime(args[0]);
@@ -688,7 +706,7 @@ void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vect
 }
 
 void runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TNumeric>("runAtClockTime", args);
+    Value::validateArgs<PrimitiveValue::TAny, PrimitiveValue::TInteger>("runAtClockTime", args);
 
     const std::string source       = args[0].value().getAsString();
     const system::Clock::Time time = parseTime(args[1]);
@@ -718,20 +736,20 @@ void getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Valu
 }
 
 void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TNumeric>("loadMap", args);
+    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
-        {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsNum())});
+        {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
 }
 
 void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                      Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric, PrimitiveValue::TNumeric, PrimitiveValue::TBool>(
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger, PrimitiveValue::TBool>(
         "setAmbientLight", args);
-    if (args[0].value().getAsNum() < 0.f) { throw Error("Light level must be positive"); }
-    if (args[0].value().getAsNum() > 255.f) { throw Error("Light level must be under 255"); }
+    if (args[0].value().getAsInt() < 0) { throw Error("Light level must be positive"); }
+    if (args[0].value().getAsInt() > 255) { throw Error("Light level must be under 255"); }
 
-    const std::uint8_t low  = static_cast<std::uint8_t>(args[0].value().getAsNum());
-    const std::uint8_t high = static_cast<std::uint8_t>(args[1].value().getAsNum());
+    const std::uint8_t low  = static_cast<std::uint8_t>(args[0].value().getAsInt());
+    const std::uint8_t high = static_cast<std::uint8_t>(args[1].value().getAsInt());
     const bool sunlight     = args[2].value().getAsBool();
     systems.world().activeMap().lightingSystem().setAmbientLevel(low, high);
     systems.world().activeMap().lightingSystem().adjustForSunlight(sunlight);
@@ -739,13 +757,13 @@ void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<V
 
 void createLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                  Value& result) {
-    Value::validateArgs<PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric>("createLight", args);
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger>("createLight", args);
 
-    const float x = args[0].value().getAsNum();
-    const float y = args[1].value().getAsNum();
-    const float r = args[2].value().getAsNum();
+    const float x = args[0].value().getAsInt();
+    const float y = args[1].value().getAsInt();
+    const float r = args[2].value().getAsInt();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -760,20 +778,20 @@ void createLight(system::Systems& systems, SymbolTable&, const std::vector<Value
     const map::LightingSystem::Handle handle =
         systems.world().activeMap().lightingSystem().addLight(light);
 
-    result = static_cast<float>(handle);
+    result = handle;
 }
 
 void updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric,
-                        PrimitiveValue::TNumeric>("updateLight", args);
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger>("updateLight", args);
 
     const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].value().getAsNum());
-    const float x = args[1].value().getAsNum();
-    const float y = args[2].value().getAsNum();
-    const float r = args[3].value().getAsNum();
+        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
+    const float x = args[1].value().getAsInt();
+    const float y = args[2].value().getAsInt();
+    const float r = args[3].value().getAsInt();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -789,9 +807,9 @@ void updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value
 }
 
 void removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
-    Value::validateArgs<PrimitiveValue::TNumeric>("removeLight", args);
+    Value::validateArgs<PrimitiveValue::TInteger>("removeLight", args);
     const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].value().getAsNum());
+        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
     systems.world().activeMap().lightingSystem().removeLight(handle);
 }
 

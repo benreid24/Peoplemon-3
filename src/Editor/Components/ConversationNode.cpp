@@ -139,11 +139,21 @@ ConversationNode::ConversationNode(const FocusCb& fcb, const NotifyCb& ecb, cons
     choiceArea->pack(choiceScroll, true, true);
     choiceArea->pack(but, false, false);
 
-    itemSelector = component::ItemSelector::create(
-        std::bind(&ConversationNode::onItemChange, this, std::placeholders::_1));
-    itemRow = Box::create(LinePacker::create(LinePacker::Horizontal, 2.f));
-    itemRow->pack(Label::create("Item:"), false, true);
-    itemRow->pack(itemSelector, false, true);
+    itemRow = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    itemSelector =
+        component::ItemSelector::create(std::bind(&ConversationNode::onItemChange, this));
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 2.f));
+    row->pack(Label::create("Item:"), false, true);
+    row->pack(itemSelector, false, true);
+    itemBeforeCheck = CheckButton::create("Prompt Before");
+    itemBeforeCheck->getSignal(Event::ValueChanged)
+        .willAlwaysCall(std::bind(&ConversationNode::onItemChange, this));
+    itemAfterCheck = CheckButton::create("Display Result");
+    itemAfterCheck->getSignal(Event::ValueChanged)
+        .willAlwaysCall(std::bind(&ConversationNode::onItemChange, this));
+    itemRow->pack(row, true, false);
+    itemRow->pack(itemBeforeCheck);
+    itemRow->pack(itemAfterCheck);
 
     moneyRow   = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     moneyEntry = TextEntry::create();
@@ -238,13 +248,17 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
 
     case Conversation::Node::GiveItem:
         editArea->pack(itemRow, true, false);
-        itemSelector->setItem(node.item());
+        itemSelector->setItem(node.item().id);
         editArea->pack(nextNode.content(), true, false);
+        itemBeforeCheck->setValue(node.item().beforePrompt);
+        itemAfterCheck->setValue(node.item().afterPrompt);
         break;
 
     case Conversation::Node::TakeItem:
         editArea->pack(itemRow, true, false);
-        itemSelector->setItem(node.item());
+        itemSelector->setItem(node.item().id);
+        itemBeforeCheck->setValue(node.item().beforePrompt);
+        itemAfterCheck->setValue(node.item().afterPrompt);
         editArea->pack(passNext.content(), true, false);
         editArea->pack(failNext.content(), true, false);
         break;
@@ -294,14 +308,16 @@ void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
 
 const Conversation::Node& ConversationNode::getValue() const { return current; }
 
-void ConversationNode::onItemChange(core::item::Id item) {
-    current.item() = item;
+void ConversationNode::onItemChange() {
+    current.item().id           = itemSelector->currentItem();
+    current.item().beforePrompt = itemBeforeCheck->getValue();
+    current.item().afterPrompt  = itemAfterCheck->getValue();
     onEdit();
 }
 
 void ConversationNode::onMoneyChange() {
     const std::string& val = moneyEntry->getInput();
-    current.money() = val.empty() ? 0 : std::atoi(val.c_str());
+    current.money()        = val.empty() ? 0 : std::atoi(val.c_str());
     onEdit();
 }
 
@@ -334,7 +350,7 @@ void ConversationNode::onTypeChange() {
         syncJumps();
         regenTree();
         if (t == Conversation::Node::GiveItem || t == Conversation::Node::TakeItem) {
-            current.item() = itemSelector->currentItem();
+            current.item().id = itemSelector->currentItem();
         }
         onEdit();
     }

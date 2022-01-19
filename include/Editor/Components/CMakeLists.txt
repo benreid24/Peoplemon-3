@@ -9,6 +9,8 @@ target_sources(PeoplemonEditor PUBLIC
     EventEditor.hpp
     HighlightRadioButton.hpp
     ItemSelector.hpp
+    LightPreview.hpp
+    LightSlider.hpp
     OwnedPeoplemonWindow.hpp
     PeoplemonSelector.hpp
     MoveSelector.hpp

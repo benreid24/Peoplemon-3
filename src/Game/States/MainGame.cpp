@@ -22,10 +22,7 @@ MainGame::MainGame(core::system::Systems& systems)
 
 const char* MainGame::name() const { return "MainGame"; }
 
-void MainGame::activate(bl::engine::Engine&) {
-    systems.engine().eventBus().subscribe(this);
-    if (state == MapFadein) systems.controllable().setAllLocks(true, false);
-}
+void MainGame::activate(bl::engine::Engine&) { systems.engine().eventBus().subscribe(this); }
 
 void MainGame::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
 
@@ -47,6 +44,8 @@ void MainGame::update(bl::engine::Engine&, float dt) {
             const float a = fadeTime / core::Properties::ScreenFadePeriod() * 255.f;
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }
+
+        systems.update(dt, false);
         break;
 
     case MapFadein:
@@ -54,19 +53,19 @@ void MainGame::update(bl::engine::Engine&, float dt) {
         if (fadeTime >= core::Properties::ScreenFadePeriod()) {
             state    = Running;
             fadeTime = 0.f;
-            systems.controllable().setAllLocks(false, false);
         }
         else {
             const float a = (1.f - fadeTime / core::Properties::ScreenFadePeriod()) * 255.f;
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }
+
+        systems.update(dt, false);
         break;
 
     default:
+        systems.update(dt, true);
         break;
     }
-
-    systems.update(dt);
 }
 
 void MainGame::render(bl::engine::Engine& engine, float lag) {

@@ -55,5 +55,7 @@ void Controllable::setLocked(bool l, bool p) {
 
 void Controllable::resetLock() { locked = wasLocked; }
 
+bool Controllable::isLocked() const { return locked; }
+
 } // namespace component
 } // namespace core

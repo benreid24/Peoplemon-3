@@ -6,8 +6,9 @@ target_sources(PeoplemonEditor PUBLIC
     Page.hpp
     Peoplemon.hpp
     Playlists.hpp
+    Scripts.hpp
     Testing.hpp
-    Todo.hpp
+    VariousEditors.hpp
 )
 
 add_subdirectory(Subpages)

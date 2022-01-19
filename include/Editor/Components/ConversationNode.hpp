@@ -145,8 +145,10 @@ private:
     void syncJumps();
 
     component::ItemSelector::Ptr itemSelector;
+    bl::gui::CheckButton::Ptr itemBeforeCheck;
+    bl::gui::CheckButton::Ptr itemAfterCheck;
     bl::gui::Box::Ptr itemRow;
-    void onItemChange(core::item::Id item);
+    void onItemChange();
 
     bl::gui::Box::Ptr moneyRow;
     bl::gui::TextEntry::Ptr moneyEntry;
