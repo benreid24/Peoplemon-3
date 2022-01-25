@@ -81,10 +81,9 @@ void World::observe(const event::GameLoading& load) {
         load.failMessage = "Failed to load map: " + currentMapFile;
         return;
     }
-    if (!currentMap->enter(owner, 0, prevMapFile, playerPos)) {
-        load.failMessage = "Failed to enter map";
-    }
 }
+
+bool World::finishLoad() { return currentMap->enter(owner, 0, prevMapFile, playerPos); }
 
 } // namespace system
 } // namespace core

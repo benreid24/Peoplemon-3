@@ -10,5 +10,6 @@ target_sources(Core PUBLIC
     Spawn.hpp
     Tile.hpp
     Tileset.hpp
+    Town.hpp
     Weather.hpp
 )

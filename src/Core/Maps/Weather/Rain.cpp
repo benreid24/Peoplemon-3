@@ -40,10 +40,8 @@ Rain::Rain(bool hard, bool canThunder)
     splash2.setTexture(*splash2Txtr, true);
     splash2.setOrigin(splash2Txtr->getSize().x / 2, splash2Txtr->getSize().y);
 
-    rainSound = bl::engine::Resources::sounds()
-                    .load(hard ? Properties::HardRainSoundFile() : Properties::LightRainSoundFile())
-                    .data;
-    rainSoundHandle = bl::audio::AudioSystem::InvalidHandle;
+    rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
+        hard ? Properties::HardRainSoundFile() : Properties::LightRainSoundFile());
 
     rain.setReplaceDestroyed(true);
 }
@@ -54,10 +52,12 @@ Weather::Type Rain::type() const { return _type; }
 
 void Rain::start(const sf::FloatRect& a) {
     area = a;
-    if (rainSoundHandle != bl::audio::AudioSystem::InvalidHandle) {
-        bl::audio::AudioSystem::stopSound(rainSoundHandle);
+    if (!bl::audio::AudioSystem::playSound(rainSoundHandle, true)) {
+        rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
+            splash1.getRotation() > 20.f ? Properties::HardRainSoundFile() :
+                                           Properties::LightRainSoundFile());
+        bl::audio::AudioSystem::playSound(rainSoundHandle, true);
     }
-    rainSoundHandle = bl::audio::AudioSystem::playSound(rainSound, true);
 }
 
 void Rain::stop() {

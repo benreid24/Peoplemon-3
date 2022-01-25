@@ -49,6 +49,13 @@ public:
     bool switchMaps(const std::string& newMap, int spawnId);
 
     /**
+     * @brief Actually enters the map and completes the save load process
+     *
+     * @return True on success, false on error
+     */
+    bool finishLoad();
+
+    /**
      * @brief Returns a reference to the active map
      *
      */

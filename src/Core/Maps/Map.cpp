@@ -160,7 +160,7 @@ public:
             if (!input.read(item.mapId)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
-            item.position = sf::Vector2i(x / 32, y / 32); // TODO - add/sub 1?
+            item.position = sf::Vector2i(x / 32 - 1, y / 32 - 1);
             if (item.id > 500) {
                 item.id      = item.id - 500;
                 item.visible = false;
@@ -459,7 +459,12 @@ bool Map::load(const std::string& file) {
         return false;
     }
     bl::serial::binary::InputFile input(path);
-    return VersionedSerializer::read(input, *this);
+    if (!VersionedSerializer::read(input, *this)) return false;
+
+    defaultTown.name     = nameField;
+    defaultTown.playlist = playlistField;
+    defaultTown.weather  = weatherField;
+    return true;
 }
 
 bool Map::save(const std::string& file) {

@@ -60,8 +60,7 @@ private:
     const float maxInterval;
     float timeSinceLastThunder;
     mutable sf::RectangleShape lightning;
-    bl::resource::Resource<sf::SoundBuffer>::Ref sound;
-    bl::audio::AudioSystem::Handle soundHandle;
+    bl::audio::AudioSystem::Handle sound;
     bool stopping;
 };
 

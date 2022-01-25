@@ -11,6 +11,7 @@
 #include <Core/Maps/LightingSystem.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
+#include <Core/Maps/Town.hpp>
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Entities.hpp>
@@ -243,8 +244,10 @@ protected:
     LightingSystem lighting;
     std::vector<CatchRegion> catchRegionsField;
     bl::container::Vector2D<LevelTransition> transitionField;
+    std::vector<Town> towns;
 
     system::Systems* systems;
+    Town defaultTown;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
     Weather weather;
@@ -291,6 +294,7 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
     SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
+    SerializableField<16, M, std::vector<core::map::Town>> townsField;
 
     SerializableObject()
     : nameField(*this, &M::nameField)
@@ -306,7 +310,8 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     , eventsField(*this, &M::eventsField)
     , lighting(*this, &M::lighting)
     , transitionField(*this, &M::transitionField)
-    , catchRegionsField(*this, &M::catchRegionsField) {}
+    , catchRegionsField(*this, &M::catchRegionsField)
+    , townsField(*this, &M::towns) {}
 };
 
 } // namespace binary
