@@ -32,9 +32,9 @@ void Position::update() {
         static_cast<unsigned int>(std::max(area.top / Properties::PixelsPerTile(), 0.f)));
     const sf::Vector2u size(
         std::min(static_cast<unsigned int>(std::ceil(area.width / Properties::PixelsPerTile())),
-                 entityMap.front().getWidth() - corner.x - 1),
+                 entityMap.front().getWidth() - corner.x),
         std::min(static_cast<unsigned int>(std::ceil(area.height / Properties::PixelsPerTile())),
-                 entityMap.front().getHeight() - corner.y - 1));
+                 entityMap.front().getHeight() - corner.y));
 
     toUpdate.clear();
     toUpdate.reserve(entityMap.size() * size.x * size.y / 4);
@@ -51,8 +51,12 @@ void Position::update() {
 const std::vector<bl::entity::Entity>& Position::updateRangeEntities() const { return toUpdate; }
 
 bool Position::spaceFree(const component::Position& position) const {
-    const bl::entity::Entity e =
-        entityMap.at(position.level)(position.positionTiles().x, position.positionTiles().y);
+    if (position.level >= entityMap.size()) return false;
+    const auto& level = entityMap[position.level];
+    if (static_cast<unsigned>(position.positionTiles().x) >= level.getWidth()) return false;
+    if (static_cast<unsigned>(position.positionTiles().y) >= level.getHeight()) return false;
+
+    const bl::entity::Entity e = level(position.positionTiles().x, position.positionTiles().y);
     return e == bl::entity::InvalidEntity ||
            !owner.engine().entities().hasComponent<component::Collision>(e);
 }

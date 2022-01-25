@@ -32,9 +32,10 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
         if (!it->second.get<component::Movable>()->moving()) {
             component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
-                pos.direction = npos.direction; // TODO - send event on rotate?
+                pos.direction = npos.direction;
                 return true;
             }
+            if (!owner.world().activeMap().contains(npos)) return false;
             if (!owner.position().spaceFree(npos)) return false;
             if (!owner.world().activeMap().movePossible(pos, dir)) return false;
 

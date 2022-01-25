@@ -70,6 +70,9 @@ void Movable::update(float dt) {
             break;
 
         default:
+            BL_LOG_WARN << "Invalid move dir: " << static_cast<int>(moveDir);
+            position.get().setTiles(position.get().positionTiles());
+            isMoving = false;
             break;
         }
     }

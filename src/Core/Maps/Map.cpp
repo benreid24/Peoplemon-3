@@ -631,19 +631,16 @@ void Map::observe(const event::EntityMoved& movedEvent) {
 }
 
 void Map::triggerAnimation(const component::Position& pos) {
-    if (pos.level < levels.size()) {
-        LayerSet& level = levels[pos.level];
-        if (pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
-            pos.positionTiles().x < sizeTiles().x && pos.positionTiles().y < sizeTiles().y) {
-            for (auto& layer : level.bottomLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
-            for (auto& layer : level.ysortLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
-            for (auto& layer : level.topLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
+    if (contains(pos)) {
+        auto& level = levels[pos.level];
+        for (auto& layer : level.bottomLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+        }
+        for (auto& layer : level.ysortLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+        }
+        for (auto& layer : level.topLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
         }
     }
 }
