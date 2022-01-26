@@ -9,6 +9,8 @@ namespace file
 {
 namespace
 {
+constexpr unsigned int EndNode = 9999999;
+
 void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
     const auto updateJump = [&nodes, i](std::uint32_t& jump) {
         const auto isSimpleNext = [&nodes](unsigned int i) {
@@ -32,7 +34,7 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
                 jump                  = j > i ? j - 1 : j;
             }
             else {
-                jump = 9999999;
+                jump = EndNode;
             }
         }
         else if (jump > i)
@@ -100,7 +102,7 @@ struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<C
                 std::uint16_t choiceCount;
                 if (!input.read(node.message())) return false;
                 if (!input.read(choiceCount)) return false;
-                node.choices().resize(choiceCount, std::make_pair("", 9999999));
+                node.choices().resize(choiceCount, std::make_pair("", EndNode));
                 for (std::uint16_t j = 0; j < choiceCount; ++j) {
                     std::string jump;
                     if (!input.read(node.choices()[j].first)) return false;
@@ -202,13 +204,18 @@ struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<C
         // Resolve named jumps
         for (auto& pair : namedJumps) {
             auto it = labelPoints.find(pair.first);
-            if (it != labelPoints.end()) { *pair.second = it->second; }
+            if (it != labelPoints.end()) {
+                if (tolower(pair.first) == "end") { *pair.second = EndNode; }
+                else {
+                    *pair.second = it->second;
+                }
+            }
             else {
                 if (tolower(pair.first) != "end") {
                     BL_LOG_WARN << "Invalid jump '" << pair.first << "' in conversation '"
                                 << "', jumping to end";
                 }
-                *pair.second = 9999999;
+                *pair.second = EndNode;
             }
         }
 
