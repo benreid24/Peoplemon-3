@@ -77,6 +77,7 @@ void HUD::update(float dt) {
 }
 
 void HUD::render(sf::RenderTarget& target, float lag) {
+    entryCard.render(target);
     if (state == Hidden) return;
 
     const sf::View oldView = target.getView();
@@ -100,7 +101,6 @@ void HUD::render(sf::RenderTarget& target, float lag) {
     }
 
     target.setView(oldView);
-    entryCard.render(target);
 }
 
 void HUD::displayMessage(const std::string& msg, const Callback& cb) {
@@ -280,8 +280,8 @@ HUD::EntryCard::EntryCard() {
 }
 
 void HUD::EntryCard::update(float dt) {
-    constexpr float MoveSpeed = 100.f;
-    constexpr float HoldTime  = 3.f;
+    constexpr float MoveSpeed = 150.f;
+    constexpr float HoldTime  = 2.5f;
 
     switch (state) {
     case Dropping:
@@ -332,6 +332,7 @@ void HUD::EntryCard::render(sf::RenderTarget& target) const {
 
     sf::RenderStates states;
     if (state == Dropping || state == Rising) { states.transform.translate(0.f, -stateVar); }
+    states.transform.translate(40.f, 0.f);
 
     const sf::View oldView = target.getView();
     sf::View view          = oldView;
