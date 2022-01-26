@@ -1,5 +1,6 @@
 #include <Core/Maps/Map.hpp>
 
+#include <BLIB/Media/Audio.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
@@ -275,8 +276,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
             static_cast<int>(levels.front().bottomLayers().front().height())};
     game.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
-    // TODO - load and push playlist
-
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
     component::Position spawnPos = prevPlayerPos;
@@ -293,6 +292,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         return false;
     }
     game.cameras().clearAndReplace(system::camera::Follow::create(game, game.player().player()));
+    currentTown = getTown(spawnPos.positionTiles());
+    enterTown(currentTown);
 
     // Activate camera and weather
     game.cameras().update(0.f);
@@ -373,7 +374,6 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
     onExitScript->run(&game.engine().scriptManager());
 
-    // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
 
     BL_LOG_INFO << "Exited map: " << nameField;
@@ -464,6 +464,12 @@ bool Map::load(const std::string& file) {
     defaultTown.name     = nameField;
     defaultTown.playlist = playlistField;
     defaultTown.weather  = weatherField;
+    if (townTiles.getWidth() != levels.front().bottomLayers().front().width() ||
+        townTiles.getHeight() != levels.front().bottomLayers().front().height()) {
+        townTiles.setSize(levels.front().bottomLayers().front().width(),
+                          levels.front().bottomLayers().front().height(),
+                          0);
+    }
     return true;
 }
 
@@ -628,6 +634,12 @@ void Map::observe(const event::EntityMoved& movedEvent) {
             break;
         }
     }
+
+    Town* newTown = getTown(movedEvent.position.positionTiles());
+    if (newTown != currentTown) {
+        currentTown = newTown;
+        enterTown(currentTown);
+    }
 }
 
 void Map::triggerAnimation(const component::Position& pos) {
@@ -699,6 +711,26 @@ void Map::refreshRenderRange(const sf::View& view) const {
     if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
     if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
     renderRange = {corner, wsize};
+}
+
+Town* Map::getTown(const sf::Vector2i& pos) {
+    if (pos.x < 0 || pos.y < 0 || pos.x >= size.x || pos.y >= size.y) { return &defaultTown; }
+    const std::uint8_t i = townTiles(pos.x, pos.y);
+    if (i == 0) return &defaultTown;
+    if (static_cast<std::uint8_t>(i - 1) >= towns.size()) return &defaultTown;
+    return &towns[i - 1];
+}
+
+void Map::enterTown(Town* town) {
+    using bl::audio::AudioSystem;
+    using bl::util::FileUtil;
+
+    systems->hud().displayEntryCard(town->name);
+    weatherSystem().set(town->weather);
+
+    const AudioSystem::Handle plst = AudioSystem::getOrLoadPlaylist(
+        FileUtil::joinPath(Properties::PlaylistPath(), town->playlist));
+    if (plst != AudioSystem::InvalidHandle) { AudioSystem::replacePlaylist(plst, 1.5f, 1.5f); }
 }
 
 } // namespace map

@@ -91,6 +91,13 @@ public:
     void getInputString(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
                         const Callback& cb);
 
+    /**
+     * @brief Displays a card to indicate entering a new town, route, or map
+     *
+     * @param name The name to display inside the card
+     */
+    void displayEntryCard(const std::string& name);
+
 private:
     enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard };
 
@@ -129,6 +136,22 @@ private:
         HUD& owner;
     };
 
+    class EntryCard {
+    public:
+        EntryCard();
+        void display(const std::string& text);
+        void update(float dt);
+        void render(sf::RenderTarget& target) const;
+
+    private:
+        bl::resource::Resource<sf::Texture>::Ref txtr;
+        sf::Sprite card;
+        sf::Text text;
+
+        enum State { Hidden, Dropping, Holding, Rising } state;
+        float stateVar;
+    };
+
     Systems& owner;
     State state;
 
@@ -136,6 +159,7 @@ private:
     std::queue<Item> queuedOutput;
     bl::interface::GhostWriter currentMessage;
     hud::ScreenKeyboard screenKeyboard;
+    EntryCard entryCard;
 
     bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
     const sf::Vector2f viewSize;
