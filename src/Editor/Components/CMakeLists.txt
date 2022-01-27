@@ -19,6 +19,7 @@ target_sources(PeoplemonEditor PRIVATE
     MoveSelector.cpp
     NewMapDialog.cpp
     NPCEditorWindow.cpp
+    PlaylistEditorWindow.cpp
     ScriptSelector.cpp
     StatBox.cpp
     TrainerEditorWindow.cpp

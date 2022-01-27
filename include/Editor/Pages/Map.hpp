@@ -7,6 +7,7 @@
 #include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
+#include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
@@ -50,7 +51,7 @@ private:
     bl::gui::ComboBox::Ptr levelSelect;
 
     bl::gui::TextEntry::Ptr nameEntry;
-    bl::gui::ComboBox::Ptr weatherEntry;
+    component::WeatherSelect::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr saveMapBut;
 
@@ -86,7 +87,7 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
-    bl::gui::ComboBox::Ptr tempWeatherEntry;
+    component::WeatherSelect::Ptr tempWeatherEntry;
     bl::gui::ComboBox::Ptr timeSetEntry;
 
     MapArea mapArea;

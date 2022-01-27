@@ -1,0 +1,158 @@
+#include <Editor/Components/PlaylistEditorWindow.hpp>
+
+#include <BLIB/Media/Audio.hpp>
+#include <Core/Properties.hpp>
+
+namespace editor
+{
+namespace component
+{
+using namespace bl::gui;
+
+PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& onSelect, const CancelCb& onCancel)
+: songPicker(core::Properties::MusicPath(), {"ogg", "wav"},
+             std::bind(&PlaylistEditorWindow::onSongPick, this, std::placeholders::_1),
+             std::bind(&PlaylistEditorWindow::closePickers, this))
+, plistPicker(core::Properties::PlaylistPath(), {"plst"},
+              std::bind(&PlaylistEditorWindow::onPlaylistPick, this, std::placeholders::_1),
+              std::bind(&PlaylistEditorWindow::closePickers, this)) {
+    window = Window::create(LinePacker::create(LinePacker::Vertical, 4.f), "Playlist Editor");
+    window->getSignal(Event::Closed).willAlwaysCall(std::bind(&PlaylistEditorWindow::close, this));
+
+    Box::Ptr row    = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    Button::Ptr but = Button::create("New");
+    but->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&PlaylistEditorWindow::makeNew, this));
+    row->pack(but, false, true);
+    but = Button::create("Open");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        settingFile = false;
+        window->setForceFocus(false);
+        plistPicker.open(FilePicker::PickExisting, "Open Playlist", gui);
+    });
+    row->pack(but, false, true);
+    but = Button::create("Set file");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        settingFile = true;
+        window->setForceFocus(false);
+        plistPicker.open(FilePicker::CreateOrPick, "Set Playlist File", gui);
+    });
+    row->pack(but, false, true);
+    saveBut = Button::create("Save");
+    saveBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&PlaylistEditorWindow::save, this));
+    row->pack(saveBut, false, true);
+    fileLabel = Label::create("");
+    fileLabel->setColor(sf::Color(20, 230, 245), sf::Color::Transparent);
+    window->pack(row);
+
+    row      = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    songList = SelectBox::create();
+    songList->setRequisition({400.f, 350.f});
+    songList->setMaxSize({400.f, 400.f});
+    row->pack(songList, true, true);
+
+    Box::Ptr column =
+        Box::create(LinePacker::create(LinePacker::Vertical, 6.f, LinePacker::Uniform));
+    but = Button::create("Add Song");
+    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        window->setForceFocus(false);
+        songPicker.open(FilePicker::PickExisting, "Add Song", gui);
+    });
+    column->pack(but, true, false);
+
+    shuffleBut = CheckButton::create("Shuffle");
+    column->pack(shuffleBut);
+    loopShuffleBut = CheckButton::create("Reshuffle on loop");
+    column->pack(loopShuffleBut);
+
+    but = Button::create("Remove");
+    but->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&PlaylistEditorWindow::removeSong, this));
+    but->setColor(sf::Color(170, 0, 0), sf::Color::Black);
+    column->pack(but);
+    row->pack(column, false, true);
+    window->pack(row, true, true);
+
+    markClean();
+}
+
+void PlaylistEditorWindow::onSongPick(const std::string& song) {
+    songPicker.close();
+    window->setForceFocus(true);
+    songList->addOption(song);
+    markDirty();
+}
+
+void PlaylistEditorWindow::onPlaylistPick(const std::string& p) {
+    if (settingFile) {
+        fileLabel->setText(p);
+        markDirty();
+    }
+    else {
+        load(p);
+    }
+}
+
+void PlaylistEditorWindow::makeNew() {
+    songList->clearOptions();
+    fileLabel->setText("<set a file>");
+    shuffleBut->setValue(true);
+    loopShuffleBut->setValue(false);
+    markClean();
+}
+
+void PlaylistEditorWindow::markDirty() { saveBut->setColor(sf::Color::Red, sf::Color::Black); }
+
+void PlaylistEditorWindow::markClean() { saveBut->setColor(sf::Color::Red, sf::Color::Black); }
+
+void PlaylistEditorWindow::removeSong() {
+    const auto o = songList->getSelectedOption();
+    if (o.has_value()) { songList->removeOption(o.value()); }
+}
+
+void PlaylistEditorWindow::save() {
+    bl::audio::Playlist plst;
+    plst.setShuffle(shuffleBut->getValue());
+    plst.setShuffleOnLoop(loopShuffleBut->getValue());
+
+    std::vector<std::string> songs;
+    songList->getAllOptions(songs);
+    for (const auto& song : songs) { plst.addSong(song); }
+
+    if (plst.save(
+            bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), fileLabel->getText()))) {
+        markClean();
+    }
+    else {
+        bl::dialog::tinyfd_messageBox("Error", "Failed to save playlist", "ok", "error", 1);
+    }
+}
+
+void PlaylistEditorWindow::load(const std::string& file) {
+    bl::audio::Playlist plst;
+    if (!plst.load(bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), file))) {
+        bl::dialog::tinyfd_messageBox("Error", "Failed to load playlist", "ok", "error", 1);
+        return;
+    }
+
+    songList->clearOptions();
+    for (const auto& song : plst.getSongList()) { songList->addOption(song); }
+    shuffleBut->setValue(plst.shuffling());
+    loopShuffleBut->setValue(plst.shufflingOnLoop());
+    markClean();
+}
+
+void PlaylistEditorWindow::close() {
+    closePickers();
+    window->setForceFocus(false);
+    window->remove();
+}
+
+void PlaylistEditorWindow::closePickers() {
+    songPicker.close();
+    plistPicker.close();
+}
+
+} // namespace component
+} // namespace editor

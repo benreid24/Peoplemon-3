@@ -199,30 +199,10 @@ Map::Map(core::system::Systems& s)
 
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     row->pack(Label::create("Weather:"));
-    weatherEntry = ComboBox::create();
+    weatherEntry = component::WeatherSelect::create();
     weatherEntry->setTooltip("Set the weather for the entire map");
-    weatherEntry->addOption("None");
-    weatherEntry->addOption("AllRandom");
-    weatherEntry->addOption("LightRain");
-    weatherEntry->addOption("LightRainThunder");
-    weatherEntry->addOption("HardRain");
-    weatherEntry->addOption("HardRainThunder");
-    weatherEntry->addOption("LightSnow");
-    weatherEntry->addOption("LightSnowThunder");
-    weatherEntry->addOption("HardSnow");
-    weatherEntry->addOption("HardSnowThunder");
-    weatherEntry->addOption("ThinFog");
-    weatherEntry->addOption("ThickFog");
-    weatherEntry->addOption("Sunny");
-    weatherEntry->addOption("SandStorm");
-    weatherEntry->addOption("WaterRandom");
-    weatherEntry->addOption("SnowRandom");
-    weatherEntry->addOption("DesertRandom");
-    weatherEntry->setSelectedOption(0);
-    weatherEntry->setMaxHeight(300);
     weatherEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = weatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().setWeather(type);
         }
@@ -232,31 +212,11 @@ Map::Map(core::system::Systems& s)
 
     box              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    tempWeatherEntry = ComboBox::create();
-    tempWeatherEntry->addOption("None");
-    tempWeatherEntry->addOption("AllRandom");
-    tempWeatherEntry->addOption("LightRain");
-    tempWeatherEntry->addOption("LightRainThunder");
-    tempWeatherEntry->addOption("HardRain");
-    tempWeatherEntry->addOption("HardRainThunder");
-    tempWeatherEntry->addOption("LightSnow");
-    tempWeatherEntry->addOption("LightSnowThunder");
-    tempWeatherEntry->addOption("HardSnow");
-    tempWeatherEntry->addOption("HardSnowThunder");
-    tempWeatherEntry->addOption("ThinFog");
-    tempWeatherEntry->addOption("ThickFog");
-    tempWeatherEntry->addOption("Sunny");
-    tempWeatherEntry->addOption("SandStorm");
-    tempWeatherEntry->addOption("WaterRandom");
-    tempWeatherEntry->addOption("SnowRandom");
-    tempWeatherEntry->addOption("DesertRandom");
-    tempWeatherEntry->setSelectedOption(0);
-    tempWeatherEntry->setMaxHeight(300);
-    Button::Ptr but = Button::create("Set Weather");
+    tempWeatherEntry = component::WeatherSelect::create();
+    Button::Ptr but  = Button::create("Set Weather");
     but->setTooltip("Sets the current weather. Does not save weather to map file");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(tempWeatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = tempWeatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().weatherSystem().set(type);
         }

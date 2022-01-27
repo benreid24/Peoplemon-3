@@ -4,5 +4,6 @@ target_sources(PeoplemonEditor PRIVATE
     Layers.cpp
     Levels.cpp
     MapArea.cpp
+    Towns.cpp
     Tileset.cpp
 )
