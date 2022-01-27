@@ -767,5 +767,13 @@ void EditMap::setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sun) 
     addAction(SetAmbientLightAction::create(sun, upper, lower, lightingSystem()));
 }
 
+void EditMap::addTown() { addAction(AddTownAction::create()); }
+
+void EditMap::editTown(std::uint8_t i, const core::map::Town& town) {
+    addAction(EditTownAction::create(i, towns[i], town));
+}
+
+void EditMap::removeTown(std::uint8_t i) { addAction(RemoveTownAction::create(i, towns[i])); }
+
 } // namespace component
 } // namespace editor

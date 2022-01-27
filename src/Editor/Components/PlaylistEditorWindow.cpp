@@ -44,8 +44,9 @@ PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& oscb, const CancelC
     saveBut->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&PlaylistEditorWindow::save, this));
     row->pack(saveBut, false, true);
-    fileLabel = Label::create("");
+    fileLabel = Label::create("<set a file>");
     fileLabel->setColor(sf::Color(20, 230, 245), sf::Color::Transparent);
+    row->pack(fileLabel, true, true);
     window->pack(row);
 
     row      = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
@@ -54,9 +55,8 @@ PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& oscb, const CancelC
     songList->setMaxSize({400.f, 400.f});
     row->pack(songList, true, true);
 
-    Box::Ptr column =
-        Box::create(LinePacker::create(LinePacker::Vertical, 6.f, LinePacker::Uniform));
-    but = Button::create("Add Song");
+    Box::Ptr column = Box::create(LinePacker::create(LinePacker::Vertical, 6.f));
+    but             = Button::create("Add Song");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         window->setForceFocus(false);
         songPicker.open(FilePicker::PickExisting, "Add Song", gui);
@@ -103,13 +103,15 @@ void PlaylistEditorWindow::onSongPick(const std::string& song) {
 }
 
 void PlaylistEditorWindow::onPlaylistPick(const std::string& p) {
+    const std::string plst = bl::util::FileUtil::getExtension(p) == "plst" ? p : p + ".plst";
     if (settingFile) {
-        fileLabel->setText(p);
+        fileLabel->setText(plst);
         markDirty();
     }
     else {
-        load(p);
+        load(plst);
     }
+    closePickers();
 }
 
 void PlaylistEditorWindow::makeNew() {
@@ -202,6 +204,7 @@ void PlaylistEditorWindow::select() {
 void PlaylistEditorWindow::closePickers() {
     songPicker.close();
     plistPicker.close();
+    window->setForceFocus(true);
 }
 
 bool PlaylistEditorWindow::confirmUnsaved() {

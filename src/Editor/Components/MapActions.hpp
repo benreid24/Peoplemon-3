@@ -587,6 +587,54 @@ private:
                           const core::map::LightingSystem& lighting);
 };
 
+class EditMap::AddTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create();
+
+    virtual ~AddTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    AddTownAction() = default;
+};
+
+class EditMap::EditTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t i, const core::map::Town& orig,
+                              const core::map::Town& town);
+
+    virtual ~EditTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t i;
+    const core::map::Town orig;
+    const core::map::Town val;
+
+    EditTownAction(std::uint8_t i, const core::map::Town& orig, const core::map::Town& town);
+};
+
+class EditMap::RemoveTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t i, const core::map::Town& orig);
+
+    virtual ~RemoveTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t i;
+    const core::map::Town orig;
+    std::vector<sf::Vector2i> tiles;
+
+    RemoveTownAction(std::uint8_t i, const core::map::Town& orig);
+};
+
 } // namespace component
 } // namespace editor
 

@@ -32,8 +32,8 @@ Towns::Towns(component::EditMap& m)
     scrollRegion->setOutlineThickness(1.5f);
     content->pack(scrollRegion, true, true);
 
-    window = Window::create(LinePacker::create(LinePacker::Vertical, 4.f));
-    window->getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Towns::closeWindow, this));
+    window = Window::create(LinePacker::create(LinePacker::Vertical, 4.f), "Edit Town");
+    window->getSignal(Event::Closed).willAlwaysCall(std::bind(&Towns::closeWindow, this));
 
     row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     nameEntry = TextEntry::create();
@@ -43,9 +43,11 @@ Towns::Towns(component::EditMap& m)
     window->pack(row, true, false);
 
     playlistLabel = Label::create("");
-    row           = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    but           = Button::create("Pick Playlist");
+    playlistLabel->setColor(sf::Color(20, 230, 255), sf::Color::Transparent);
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    but = Button::create("Pick Playlist");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        window->setForceFocus(false);
         playlistWindow.open(gui, playlistLabel->getText());
     });
     row->pack(but, false, true);
@@ -57,11 +59,17 @@ Towns::Towns(component::EditMap& m)
     row->pack(Label::create("Weather:"));
     row->pack(weatherSelect);
     window->pack(row, true, false);
+
+    but = Button::create("Save");
+    but->getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Towns::onTownEdit, this));
+    window->pack(but);
 }
 
 Element::Ptr Towns::getContent() { return content; }
 
 std::uint8_t Towns::selected() const { return active; }
+
+void Towns::setGUI(const GUI::Ptr& g) { gui = g; }
 
 sf::Color Towns::getColor(std::uint8_t i) { return Catchables::getColor(i); }
 
@@ -75,7 +83,10 @@ void Towns::refresh() {
     }
 }
 
-void Towns::onPlaylistPick(const std::string& p) { playlistLabel->setText(p); }
+void Towns::onPlaylistPick(const std::string& p) {
+    playlistLabel->setText(p);
+    window->setForceFocus(true);
+}
 
 void Towns::takeFocus() { window->setForceFocus(true); }
 
@@ -84,9 +95,7 @@ void Towns::closeWindow() {
     window->remove();
 }
 
-void Towns::newTown() {
-    // TODO - new town action
-}
+void Towns::newTown() { map.addTown(); }
 
 void Towns::editTown(std::uint8_t i) {
     editing = i;
@@ -97,18 +106,21 @@ void Towns::editTown(std::uint8_t i) {
     window->setForceFocus(true);
 }
 
-void Towns::removeTown(std::uint8_t) {
-    // TODO - remove town action
-}
+void Towns::removeTown(std::uint8_t i) { map.removeTown(i); }
 
 void Towns::onTownEdit() {
-    // TODO - edit town action
+    core::map::Town t;
+    t.name     = nameEntry->getInput();
+    t.playlist = playlistLabel->getText();
+    t.weather  = weatherSelect->selectedWeather();
+    map.editTown(editing, t);
+    closeWindow();
 }
 
 Box::Ptr Towns::makeRow(std::uint8_t i, const std::string& name) {
     Box::Ptr row = Box::create(LinePacker::create(
         LinePacker::Horizontal, 4.f, LinePacker::Compact, LinePacker::RightAlign));
-    row->setColor(getColor(i), sf::Color::Black);
+    row->setColor(getColor(i + 1), sf::Color::Black);
 
     RadioButton::Ptr but = RadioButton::create(name, name, noTownBut->getRadioGroup());
     but->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {

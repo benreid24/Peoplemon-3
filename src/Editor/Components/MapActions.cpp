@@ -1243,5 +1243,86 @@ bool EditMap::SetAmbientLightAction::undo(EditMap& map) {
 
 const char* EditMap::SetAmbientLightAction::description() const { return "set lighting"; }
 
+EditMap::Action::Ptr EditMap::AddTownAction::create() { return Ptr(new AddTownAction()); }
+
+bool EditMap::AddTownAction::apply(EditMap& map) {
+    core::map::Town t;
+    t.name    = "New Town";
+    t.weather = core::map::Weather::None;
+    map.towns.emplace_back(std::move(t));
+    return true;
+}
+
+bool EditMap::AddTownAction::undo(EditMap& map) {
+    map.towns.pop_back();
+    return true;
+}
+
+const char* EditMap::AddTownAction::description() const { return "add town"; }
+
+EditMap::Action::Ptr EditMap::EditTownAction::create(std::uint8_t i, const core::map::Town& orig,
+                                                     const core::map::Town& val) {
+    return Ptr(new EditTownAction(i, orig, val));
+}
+
+EditMap::EditTownAction::EditTownAction(std::uint8_t i, const core::map::Town& orig,
+                                        const core::map::Town& val)
+: i(i)
+, orig(orig)
+, val(val) {}
+
+bool EditMap::EditTownAction::apply(EditMap& map) {
+    map.towns[i] = val;
+    return val.name != orig.name;
+}
+
+bool EditMap::EditTownAction::undo(EditMap& map) {
+    map.towns[i] = orig;
+    return val.name != orig.name;
+}
+
+const char* EditMap::EditTownAction::description() const { return "edit town"; }
+
+EditMap::Action::Ptr EditMap::RemoveTownAction::create(std::uint8_t i,
+                                                       const core::map::Town& orig) {
+    return Ptr(new RemoveTownAction(i, orig));
+}
+
+EditMap::RemoveTownAction::RemoveTownAction(std::uint8_t i, const core::map::Town& t)
+: i(i)
+, orig(t) {}
+
+bool EditMap::RemoveTownAction::apply(EditMap& map) {
+    map.towns.erase(map.towns.begin() + i);
+    const bool add = tiles.empty();
+    for (int x = 0; x < map.sizeTiles().x; ++x) {
+        for (int y = 0; y < map.sizeTiles().y; ++y) {
+            if (map.townTiles(x, y) == i && add) {
+                tiles.emplace_back(x, y);
+                map.townTiles(x, y) = 0;
+            }
+            else if (map.townTiles(x, y) > i) {
+                map.townTiles(x, y) += 1;
+            }
+        }
+    }
+    return true;
+}
+
+bool EditMap::RemoveTownAction::undo(EditMap& map) {
+    map.towns.insert(map.towns.begin() + i, orig);
+
+    for (int x = 0; x < map.sizeTiles().x; ++x) {
+        for (int y = 0; y < map.sizeTiles().y; ++y) {
+            if (map.townTiles(x, y) >= i) { map.townTiles(x, y) += 1; }
+        }
+    }
+    for (const auto& pos : tiles) { map.townTiles(pos.x, pos.y) = i; }
+
+    return true;
+}
+
+const char* EditMap::RemoveTownAction::description() const { return "remove town"; }
+
 } // namespace component
 } // namespace editor

@@ -539,6 +539,27 @@ public:
      */
     void removeCatchRegion(std::uint8_t index);
 
+    /**
+     * @brief Adds a town
+     *
+     */
+    void addTown();
+
+    /**
+     * @brief Modifies an existing town
+     *
+     * @param i Index of the town to modify
+     * @param town The new town value
+     */
+    void editTown(std::uint8_t i, const core::map::Town& town);
+
+    /**
+     * @brief Removes a town
+     *
+     * @param i Index of the town to remove
+     */
+    void removeTown(std::uint8_t i);
+
 private:
     struct Action {
         using Ptr = std::shared_ptr<Action>;
@@ -634,6 +655,9 @@ private:
     class AddCatchRegionAction;
     class EditCatchRegionAction;
     class RemoveCatchRegionAction;
+    class AddTownAction;
+    class EditTownAction;
+    class RemoveTownAction;
 };
 
 } // namespace component

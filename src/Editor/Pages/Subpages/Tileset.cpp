@@ -167,7 +167,10 @@ Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
     loadTileset("Worldtileset.tlst");
 }
 
-void Tileset::setGUI(const GUI::Ptr& gui) { catchables.setGUI(gui); }
+void Tileset::setGUI(const GUI::Ptr& gui) {
+    catchables.setGUI(gui);
+    towns.setGUI(gui);
+}
 
 Element::Ptr Tileset::getContent() { return content; }
 
@@ -239,7 +242,10 @@ bool Tileset::unsavedChanges() const { return dirty; }
 
 void Tileset::markSaved() { dirty = false; }
 
-void Tileset::refresh() { catchables.refresh(); }
+void Tileset::refresh() {
+    catchables.refresh();
+    towns.refresh();
+}
 
 } // namespace page
 } // namespace editor

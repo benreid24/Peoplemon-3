@@ -37,7 +37,7 @@ public:
      *
      * @param gui The primary GUI object
      */
-    void setGUI(const bl::gui::GUI::Ptr* gui);
+    void setGUI(const bl::gui::GUI::Ptr& gui);
 
     /**
      * @brief Returns the currently selected town index
