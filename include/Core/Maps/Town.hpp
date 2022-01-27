@@ -23,7 +23,6 @@ struct Town {
     std::string name;
     std::string playlist;
     Weather::Type weather;
-    std::vector<pplmn::WildPeoplemon> peoplemon;
 };
 
 } // namespace map
@@ -44,13 +43,11 @@ struct SerializableObject<core::map::Town> : public SerializableObjectBase {
     SerializableField<1, Town, std::string> name;
     SerializableField<2, Town, std::string> playlist;
     SerializableField<3, Town, Weather::Type> weather;
-    SerializableField<4, Town, std::vector<Wild>> peoplemon;
 
     SerializableObject()
     : name(*this, &Town::name)
     , playlist(*this, &Town::playlist)
-    , weather(*this, &Town::weather)
-    , peoplemon(*this, &Town::peoplemon) {}
+    , weather(*this, &Town::weather) {}
 };
 } // namespace binary
 } // namespace serial

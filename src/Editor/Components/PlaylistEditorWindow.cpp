@@ -9,8 +9,10 @@ namespace component
 {
 using namespace bl::gui;
 
-PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& onSelect, const CancelCb& onCancel)
-: songPicker(core::Properties::MusicPath(), {"ogg", "wav"},
+PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& oscb, const CancelCb& occb)
+: onSelect(oscb)
+, onCancel(occb)
+, songPicker(core::Properties::MusicPath(), {"ogg", "wav"},
              std::bind(&PlaylistEditorWindow::onSongPick, this, std::placeholders::_1),
              std::bind(&PlaylistEditorWindow::closePickers, this))
 , plistPicker(core::Properties::PlaylistPath(), {"plst"},
@@ -74,7 +76,23 @@ PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& onSelect, const Can
     row->pack(column, false, true);
     window->pack(row, true, true);
 
+    but = Button::create("Use Playlist");
+    but->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&PlaylistEditorWindow::select, this));
+    but->setColor(sf::Color(20, 230, 255), sf::Color::Black);
+    window->pack(but);
+
     markClean();
+}
+
+void PlaylistEditorWindow::open(const GUI::Ptr& g, const std::string& p) {
+    gui = g;
+    if (!p.empty()) { load(p); }
+    else {
+        makeNew();
+    }
+    gui->pack(window);
+    window->setForceFocus(true);
 }
 
 void PlaylistEditorWindow::onSongPick(const std::string& song) {
@@ -95,6 +113,8 @@ void PlaylistEditorWindow::onPlaylistPick(const std::string& p) {
 }
 
 void PlaylistEditorWindow::makeNew() {
+    if (!confirmUnsaved()) return;
+
     songList->clearOptions();
     fileLabel->setText("<set a file>");
     shuffleBut->setValue(true);
@@ -102,9 +122,15 @@ void PlaylistEditorWindow::makeNew() {
     markClean();
 }
 
-void PlaylistEditorWindow::markDirty() { saveBut->setColor(sf::Color::Red, sf::Color::Black); }
+void PlaylistEditorWindow::markDirty() {
+    saveBut->setColor(sf::Color::Red, sf::Color::Black);
+    dirty = true;
+}
 
-void PlaylistEditorWindow::markClean() { saveBut->setColor(sf::Color::Red, sf::Color::Black); }
+void PlaylistEditorWindow::markClean() {
+    saveBut->setColor(sf::Color::Red, sf::Color::Black);
+    dirty = false;
+}
 
 void PlaylistEditorWindow::removeSong() {
     const auto o = songList->getSelectedOption();
@@ -130,6 +156,8 @@ void PlaylistEditorWindow::save() {
 }
 
 void PlaylistEditorWindow::load(const std::string& file) {
+    if (!confirmUnsaved()) return;
+
     bl::audio::Playlist plst;
     if (!plst.load(bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), file))) {
         bl::dialog::tinyfd_messageBox("Error", "Failed to load playlist", "ok", "error", 1);
@@ -147,11 +175,41 @@ void PlaylistEditorWindow::close() {
     closePickers();
     window->setForceFocus(false);
     window->remove();
+    onCancel();
+}
+
+void PlaylistEditorWindow::select() {
+    if (!confirmUnsaved()) return;
+
+    if (!bl::util::FileUtil::exists(
+            bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), fileLabel->getText()))) {
+        bl::dialog::tinyfd_messageBox("Error", "Please select a playlist", "ok", "error", 1);
+        return;
+    }
+
+    std::vector<std::string> songs;
+    songList->getAllOptions(songs);
+    if (songs.empty()) {
+        bl::dialog::tinyfd_messageBox(
+            "Error", "Please add at least one song mate", "ok", "error", 1);
+        return;
+    }
+
+    close();
+    onSelect(fileLabel->getText());
 }
 
 void PlaylistEditorWindow::closePickers() {
     songPicker.close();
     plistPicker.close();
+}
+
+bool PlaylistEditorWindow::confirmUnsaved() {
+    if (dirty) {
+        return 1 == bl::dialog::tinyfd_messageBox(
+                        "Warning", "Discard unsaved changes", "yesno", "warning", 0);
+    }
+    return true;
 }
 
 } // namespace component

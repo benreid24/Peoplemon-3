@@ -6,6 +6,7 @@
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
+#include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
 {
@@ -574,6 +575,21 @@ void EditMap::render(sf::RenderTarget& target, float residual,
             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
                 ct.setFillColor(
                     page::Catchables::getColor(levels[overlayLevel].catchLayer().get(x, y)));
+                ct.setPosition(x * core::Properties::PixelsPerTile(),
+                               y * core::Properties::PixelsPerTile());
+                target.draw(ct);
+            }
+        }
+    } break;
+
+    case RenderOverlay::Towns: {
+        const float p = core::Properties::PixelsPerTile();
+        sf::RectangleShape ct(sf::Vector2f(p, p));
+        ct.setOutlineThickness(-0.5f);
+        ct.setOutlineColor(sf::Color::Black);
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                ct.setFillColor(page::Towns::getColor(townTiles(x, y)));
                 ct.setPosition(x * core::Properties::PixelsPerTile(),
                                y * core::Properties::PixelsPerTile());
                 target.draw(ct);

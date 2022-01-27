@@ -6,6 +6,7 @@
 #include <Core/Maps/Tileset.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
+#include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
 {
@@ -24,7 +25,7 @@ namespace page
  */
 class Tileset {
 public:
-    enum Active { Tiles, Animations, CollisionTiles, CatchTiles };
+    enum Active { Tiles, Animations, CollisionTiles, TownTiles, CatchTiles };
     using DeleteCb = std::function<void(core::map::Tile::IdType, bool)>;
 
     /**
@@ -46,7 +47,7 @@ public:
 
     /**
      * @brief Sets the parent GUI object
-     * 
+     *
      */
     void setGUI(const bl::gui::GUI::Ptr& gui);
 
@@ -114,6 +115,7 @@ private:
 
     Collisions collisions;
     Catchables catchables;
+    Towns towns;
 
     Active tool;
     core::map::Tile::IdType activeTile;

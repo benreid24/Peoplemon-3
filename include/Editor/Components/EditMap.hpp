@@ -12,7 +12,8 @@ namespace editor
 namespace page
 {
 class Map;
-}
+class Towns;
+} // namespace page
 
 namespace component
 {
@@ -48,6 +49,9 @@ public:
 
         /// Renders catch tiles for the current level
         CatchTiles,
+
+        /// Renders colored tiles to indicate towns/routes
+        Towns,
 
         /// Renders events in the map
         Events,
@@ -593,6 +597,7 @@ private:
                         const core::map::Map::EntityRenderCallback& entityCb) const override;
 
     friend class page::Map;
+    friend class page::Towns;
 
     class SetNameAction;
     class SetPlaylistAction;

@@ -493,6 +493,10 @@ void Map::update(float) {
                                            levelSelect->getSelectedOption());
         break;
 
+    case Tileset::TownTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
+        break;
+
     default:
         switch (activeTool) {
         case Tool::Events:

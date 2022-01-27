@@ -35,6 +35,8 @@ public:
     void open(const bl::gui::GUI::Ptr& gui, const std::string& plist);
 
 private:
+    const SelectedCb onSelect;
+    const CancelCb onCancel;
     bl::gui::GUI::Ptr gui;
     bl::gui::Window::Ptr window;
     bl::gui::SelectBox::Ptr songList;
@@ -42,6 +44,7 @@ private:
     bl::gui::CheckButton::Ptr loopShuffleBut;
     bl::gui::Label::Ptr fileLabel;
     bl::gui::Button::Ptr saveBut;
+    bool dirty;
 
     bl::gui::FilePicker songPicker;
     void onSongPick(const std::string& song);
@@ -55,8 +58,12 @@ private:
     void markClean();
     void removeSong();
 
+    bool confirmUnsaved();
+    void select();
+    
     void save();
     void load(const std::string& file);
+    
     void close();
     void closePickers();
 };

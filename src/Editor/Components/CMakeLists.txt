@@ -23,6 +23,7 @@ target_sources(PeoplemonEditor PRIVATE
     ScriptSelector.cpp
     StatBox.cpp
     TrainerEditorWindow.cpp
+    WeatherSelect.cpp
 )
 
 add_subdirectory(Helpers)
