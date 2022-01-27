@@ -17,7 +17,6 @@ MainEditor::MainEditor(core::system::Systems& s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
-, playlistsPage(s)
 , creditsPage(s)
 , currentPage(&mapPage) {
     gui = bl::gui::GUI::create(
@@ -36,7 +35,6 @@ MainEditor::MainEditor(core::system::Systems& s)
     peoplemonPage.registerGui(gui);
     movesPage.registerGui(gui);
     itemsPage.registerGui(gui);
-    playlistsPage.registerGui(gui);
     creditsPage.registerGui(gui);
 
     notebook = bl::gui::Notebook::create();
@@ -57,9 +55,6 @@ MainEditor::MainEditor(core::system::Systems& s)
         "moves", "Move DB", movesPage.getContent(), [this]() { currentPage = &movesPage; });
     notebook->addPage(
         "items", "Item DB", itemsPage.getContent(), [this]() { currentPage = &itemsPage; });
-    notebook->addPage("playlists", "Playlists", playlistsPage.getContent(), [this]() {
-        currentPage = &playlistsPage;
-    });
     notebook->addPage(
         "credits", "Credits", creditsPage.getContent(), [this]() { currentPage = &creditsPage; });
 

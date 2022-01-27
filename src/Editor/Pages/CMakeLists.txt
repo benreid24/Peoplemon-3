@@ -5,7 +5,6 @@ target_sources(PeoplemonEditor PRIVATE
     Moves.cpp
     Page.cpp
     Peoplemon.cpp
-    Playlists.cpp
     Scripts.cpp
     Testing.cpp
     VariousEditors.cpp

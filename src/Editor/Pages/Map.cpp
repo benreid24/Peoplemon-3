@@ -48,9 +48,7 @@ Map::Map(core::system::Systems& s)
             [this]() { mapPicker.close(); })
 , newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
-, playlistPicker(core::Properties::PlaylistPath(), {"plst"},
-                 std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
-                 [this]() { playlistPicker.close(); })
+, playlistEditor(std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1), [this]() {})
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
@@ -190,7 +188,7 @@ Map::Map(core::system::Systems& s)
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
-        playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
+        playlistEditor.open(parent, playlistLabel->getText());
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
@@ -805,7 +803,6 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
 void Map::onChoosePlaylist(const std::string& file) {
     mapArea.editMap().setPlaylist(file);
     playlistLabel->setText(file);
-    playlistPicker.close();
 }
 
 bool Map::checkUnsaved() {

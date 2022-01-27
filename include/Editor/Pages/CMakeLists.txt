@@ -5,7 +5,6 @@ target_sources(PeoplemonEditor PUBLIC
     Moves.hpp
     Page.hpp
     Peoplemon.hpp
-    Playlists.hpp
     Scripts.hpp
     Testing.hpp
     VariousEditors.hpp

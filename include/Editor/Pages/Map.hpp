@@ -6,6 +6,7 @@
 #include <Editor/Components/ItemSelector.hpp>
 #include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
+#include <Editor/Components/PlaylistEditorWindow.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -118,7 +119,7 @@ private:
     void makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
                     unsigned int w, unsigned int h);
 
-    bl::gui::FilePicker playlistPicker;
+    component::PlaylistEditorWindow playlistEditor;
     void onChoosePlaylist(const std::string& file);
 
     void syncLighting();

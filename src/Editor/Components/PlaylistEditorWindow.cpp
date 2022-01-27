@@ -166,6 +166,7 @@ void PlaylistEditorWindow::load(const std::string& file) {
         return;
     }
 
+    fileLabel->setText(file);
     songList->clearOptions();
     for (const auto& song : plst.getSongList()) { songList->addOption(song); }
     shuffleBut->setValue(plst.shuffling());
