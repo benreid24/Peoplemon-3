@@ -1,0 +1,6 @@
+mom = getSaveEntry("momID");
+entityToPosition(mom, 0, 7, 12, true);
+rotateEntity(mom, "down");
+removeEntity(mom);
+setEntityLock(getPlayer(), false);
+addSaveEntry("plot0", true);

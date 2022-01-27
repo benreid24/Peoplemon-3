@@ -1,0 +1,43 @@
+//--------HOMETOWN BLOCKERS-----------------------
+//----MIDDLE: Spawning Officer----
+
+//if (getSaveEntry("ReturntoProf")!=1){
+spawnCharacter("Hometown/officer1.npc", 0, 343, 260, "up");
+setCollisions(343,261,3,1,1);
+//	}
+/* 	
+if (getSaveEntry("ReturntoProf")==1 && getSaveEntry("professorDead") != 1)
+	spawnNPC("Hometown/officerHometown.npc",343,281,1);
+	
+if (getSaveEntry("professorDead") == 1 && getSaveEntry("boatGuy1") != 1) 
+	 spawnNPC("Hometown/officer2.npc",338,234,0);
+
+if (getSaveEntry("boatGuy1")==1 && getSaveEntry("MarsalatoTown")!=1 && getSaveEntry("TalkedBoatGuy")!=1)
+	 spawnNPC("CurveForest/Officer3.npc",317,195,3,0);
+*/
+
+//----NORTH: Curvelinear Forest Blocker---- 
+//if (getSaveEntry("professorDead")!=1)
+spawnCharacter("CurveForest/curveForestBlocker1.npc", 0, 338, 217, "down");
+/*
+if (getSaveEntry("thugsRunAway")==1 && getSaveEntry("boatGuy1")!=1)
+	spawnNPC("CurveForest/curveForestBlocker2.npc",347,193,1,0);
+
+if (getSaveEntry("boatGuy1")==1 && getSaveEntry("Blocker4Talked")!=1)
+	spawnNPC("CurveForest/curveForestBlocker3.npc",337,219,2,0);
+	
+if (getSaveEntry("Blocker4Talked")==1)
+	spawnNPC("Hometown/Blocker4.npc",346,256,2,0);
+*/
+
+//----WEST: Piper cave Jake Blocker/Anim----
+/*
+if (getSaveEntry("JakeUnblocked")!=1) {
+	 setCollisions(315,275,1,1,0);
+	}
+
+spawnNPC("JakeBlocker.npc",316,275,0,0);
+
+if (getSaveEntry("___")==1) #Add save entry here
+	editTile(316,275,5,0);
+*/
