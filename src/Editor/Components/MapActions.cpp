@@ -279,6 +279,71 @@ bool EditMap::SetTileAreaAction::undo(EditMap& map) {
 
 const char* EditMap::SetTileAreaAction::description() const { return "set tile area"; }
 
+EditMap::Action::Ptr EditMap::FillTileAction::create(unsigned int level, unsigned int layer,
+                                                     const sf::Vector2i& pos,
+                                                     core::map::Tile::IdType id, bool isAnim,
+                                                     EditMap& map) {
+    const core::map::Tile& tile = getTile(map.levels, level, layer, pos);
+    const unsigned int estSize  = map.sizeTiles().x * map.sizeTiles().y / 8;
+
+    bl::container::Vector2D<std::uint8_t> visited;
+    visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
+    visited(pos.x, pos.y) = 1;
+
+    std::vector<sf::Vector2i> toVisit;
+    toVisit.reserve(estSize);
+    toVisit.emplace_back(pos);
+
+    std::vector<FillTile> set;
+    set.reserve(estSize);
+
+    while (!toVisit.empty()) {
+        const sf::Vector2i p = toVisit.back();
+        toVisit.pop_back();
+        set.emplace_back(p, getTile(map.levels, level, layer, p));
+
+        for (int x = -1; x <= 1; x += 2) {
+            for (int y = -1; y <= 1; y += 2) {
+                const sf::Vector2i np(p.x + x, p.y + y);
+                if (visited(np.x, np.y) == 0) {
+                    visited(np.x, np.y) = 1;
+                    const auto& t       = getTile(map.levels, level, layer, np);
+                    if (t.id() == tile.id() && t.isAnimation() == tile.isAnimation()) {
+                        toVisit.emplace_back(np);
+                    }
+                }
+            }
+        }
+    }
+
+    return Ptr(new FillTileAction(level, layer, id, isAnim, std::move(set)));
+}
+
+EditMap::FillTileAction::FillTileAction(unsigned int level, unsigned int layer,
+                                        core::map::Tile::IdType id, bool isAnim,
+                                        std::vector<FillTile>&& set)
+: level(level)
+, layer(layer)
+, id(id)
+, isAnim(isAnim)
+, set(set) {}
+
+bool EditMap::FillTileAction::apply(EditMap& map) {
+    for (const auto& p : set) {
+        setSingleTile(map.levels, *map.tileset, level, layer, p.position, id, isAnim);
+    }
+    return false;
+}
+
+bool EditMap::FillTileAction::undo(EditMap& map) {
+    for (const auto& p : set) {
+        setSingleTile(map.levels, *map.tileset, level, layer, p.position, p.id, p.isAnim);
+    }
+    return false;
+}
+
+const char* EditMap::FillTileAction::description() const { return "fill tiles"; }
+
 EditMap::Action::Ptr EditMap::SetCollisionAction::create(unsigned int level,
                                                          const sf::Vector2i& pos,
                                                          core::map::Collision value,
@@ -349,6 +414,64 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
 
 const char* EditMap::SetCollisionAreaAction::description() const { return "set col area"; }
 
+EditMap::Action::Ptr EditMap::FillCollisionAction::create(unsigned int level,
+                                                          const sf::Vector2i& pos,
+                                                          core::map::Collision col, EditMap& map) {
+    const core::map::Collision oc = map.levels[level].collisionLayer().get(pos.x, pos.y);
+    const unsigned int estSize    = map.sizeTiles().x * map.sizeTiles().y / 8;
+
+    bl::container::Vector2D<std::uint8_t> visited;
+    visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
+    visited(pos.x, pos.y) = 1;
+
+    std::vector<sf::Vector2i> toVisit;
+    toVisit.reserve(estSize);
+    toVisit.emplace_back(pos);
+
+    std::vector<std::pair<sf::Vector2i, core::map::Collision>> set;
+    set.reserve(estSize);
+
+    while (!toVisit.empty()) {
+        const auto p = toVisit.back();
+        toVisit.pop_back();
+        set.emplace_back(p, map.levels[level].collisionLayer().get(p.x, p.y));
+
+        for (int x = -1; x <= 1; x += 2) {
+            for (int y = -1; y <= 1; y += 2) {
+                const sf::Vector2i np(p.x + x, p.y + y);
+                if (map.levels[level].collisionLayer().get(np.x, np.y) == oc &&
+                    visited(np.x, np.y) == 0) {
+                    visited(np.x, np.y) = 1;
+                    toVisit.emplace_back(np);
+                }
+            }
+        }
+    }
+
+    return Ptr(new FillCollisionAction(level, col, std::move(set)));
+}
+
+EditMap::FillCollisionAction::FillCollisionAction(
+    unsigned int level, core::map::Collision col,
+    std::vector<std::pair<sf::Vector2i, core::map::Collision>>&& set)
+: level(level)
+, col(col)
+, set(set) {}
+
+bool EditMap::FillCollisionAction::apply(EditMap& map) {
+    for (const auto& p : set) { map.levels[level].collisionLayer().set(p.first.x, p.first.y, col); }
+    return false;
+}
+
+bool EditMap::FillCollisionAction::undo(EditMap& map) {
+    for (const auto& p : set) {
+        map.levels[level].collisionLayer().set(p.first.x, p.first.y, p.second);
+    }
+    return false;
+}
+
+const char* EditMap::FillCollisionAction::description() const { return "fill collisions"; }
+
 EditMap::Action::Ptr EditMap::SetCatchAction::create(unsigned int level, const sf::Vector2i& pos,
                                                      std::uint8_t value, const EditMap& map) {
     return Ptr(
@@ -414,6 +537,62 @@ bool EditMap::SetCatchAreaAction::undo(EditMap& map) {
 }
 
 const char* EditMap::SetCatchAreaAction::description() const { return "set catch area"; }
+
+EditMap::Action::Ptr EditMap::FillCatchAction::create(unsigned int level, const sf::Vector2i& pos,
+                                                      std::uint8_t id, EditMap& map) {
+    const std::uint8_t og      = map.levels[level].catchLayer().get(pos.x, pos.y);
+    const unsigned int estSize = map.sizeTiles().x * map.sizeTiles().y / 8;
+
+    bl::container::Vector2D<std::uint8_t> visited;
+    visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
+    visited(pos.x, pos.y) = 1;
+
+    std::vector<sf::Vector2i> toVisit;
+    toVisit.reserve(estSize);
+    toVisit.emplace_back(pos);
+
+    std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
+    set.reserve(estSize);
+
+    while (!toVisit.empty()) {
+        const sf::Vector2i p = toVisit.back();
+        toVisit.pop_back();
+        set.emplace_back(p, map.levels[level].catchLayer().get(p.x, p.y));
+
+        for (int x = -1; x <= 1; x += 2) {
+            for (int y = -1; y <= 1; y += 2) {
+                const sf::Vector2i np(p.x + x, p.y + y);
+                if (visited(np.x, np.y) == 0 &&
+                    map.levels[level].catchLayer().get(np.x, np.y) == og) {
+                    visited(np.x, np.y) = 1;
+                    toVisit.emplace_back(np);
+                }
+            }
+        }
+    }
+
+    return Ptr(new FillCatchAction(level, id, std::move(set)));
+}
+
+EditMap::FillCatchAction::FillCatchAction(unsigned int level, std::uint8_t id,
+                                          std::vector<std::pair<sf::Vector2i, std::uint8_t>>&& set)
+: level(level)
+, id(id)
+, set(set) {}
+
+bool EditMap::FillCatchAction::apply(EditMap& map) {
+    for (const auto& p : set) { map.levels[level].catchLayer().set(p.first.x, p.first.y, id); }
+    return false;
+}
+
+bool EditMap::FillCatchAction::undo(EditMap& map) {
+    for (const auto& p : set) {
+        map.levels[level].catchLayer().set(p.first.x, p.first.y, p.second);
+    }
+    return false;
+}
+
+const char* EditMap::FillCatchAction::description() const { return "fill catch tiles"; }
 
 EditMap::Action::Ptr EditMap::SetPlaylistAction::create(const std::string& playlist,
                                                         const EditMap& map) {
@@ -1323,6 +1502,117 @@ bool EditMap::RemoveTownAction::undo(EditMap& map) {
 }
 
 const char* EditMap::RemoveTownAction::description() const { return "remove town"; }
+
+EditMap::Action::Ptr EditMap::SetTownTileAction::create(const sf::Vector2i& pos, std::uint8_t id,
+                                                        std::uint8_t orig) {
+    return Ptr(new SetTownTileAction(pos, id, orig));
+}
+
+EditMap::SetTownTileAction::SetTownTileAction(const sf::Vector2i& pos, std::uint8_t id,
+                                              std::uint8_t orig)
+: pos(pos)
+, id(id)
+, orig(orig) {}
+
+bool EditMap::SetTownTileAction::apply(EditMap& map) {
+    map.townTiles(pos.x, pos.y) = id;
+    return false;
+}
+
+bool EditMap::SetTownTileAction::undo(EditMap& map) {
+    map.townTiles(pos.x, pos.y) = orig;
+    return false;
+}
+
+const char* EditMap::SetTownTileAction::description() const { return "set town tile"; }
+
+EditMap::Action::Ptr EditMap::SetTownTileAreaAction::create(const sf::IntRect& area,
+                                                            std::uint8_t id, EditMap& map) {
+    bl::container::Vector2D<std::uint8_t> set;
+    set.setSize(area.width, area.height, 0);
+    for (int x = 0; x < area.width; ++x) {
+        for (int y = 0; y < area.height; ++y) {
+            set(x, y) = map.townTiles(area.left + x, area.top + y);
+        }
+    }
+    return Ptr(new SetTownTileAreaAction(area, id, std::move(set)));
+}
+
+EditMap::SetTownTileAreaAction::SetTownTileAreaAction(const sf::IntRect& area, std::uint8_t id,
+                                                      bl::container::Vector2D<std::uint8_t>&& set)
+: area(area)
+, id(id)
+, orig(set) {}
+
+bool EditMap::SetTownTileAreaAction::apply(EditMap& map) {
+    for (int x = 0; x < area.width; ++x) {
+        for (int y = 0; y < area.height; ++y) { map.townTiles(area.left + x, area.top + y) = id; }
+    }
+    return false;
+}
+
+bool EditMap::SetTownTileAreaAction::undo(EditMap& map) {
+    for (int x = 0; x < area.width; ++x) {
+        for (int y = 0; y < area.height; ++y) {
+            map.townTiles(area.left + x, area.top + y) = orig(x, y);
+        }
+    }
+    return false;
+}
+
+const char* EditMap::SetTownTileAreaAction::description() const { return "set town selection"; }
+
+EditMap::Action::Ptr EditMap::FillTownTileAction::create(const sf::Vector2i& pos, std::uint8_t fill,
+                                                         EditMap& map) {
+    const std::uint8_t val     = map.townTiles(pos.x, pos.y);
+    const unsigned int estSize = map.sizeTiles().x * map.sizeTiles().y / 8;
+
+    bl::container::Vector2D<std::uint8_t> visited;
+    visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
+    visited(pos.x, pos.y) = 1;
+
+    std::vector<sf::Vector2i> toVisit;
+    toVisit.reserve(estSize);
+    toVisit.emplace_back(pos);
+
+    std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
+    set.reserve(estSize);
+
+    while (!toVisit.empty()) {
+        const sf::Vector2i p = toVisit.back();
+        toVisit.pop_back();
+        set.emplace_back(p, map.townTiles(p.x, p.y));
+
+        for (int x = -1; x <= 1; x += 2) {
+            for (int y = -1; y <= 1; y += 2) {
+                const sf::Vector2i np(p.x + x, p.y + y);
+                if (map.townTiles(np.x, np.y) == val && visited(np.x, np.y) == 0) {
+                    toVisit.emplace_back(np);
+                    visited(np.x, np.y) = 1;
+                }
+            }
+        }
+    }
+
+    return Ptr(new FillTownTileAction(fill, std::move(set)));
+}
+
+EditMap::FillTownTileAction::FillTownTileAction(
+    std::uint8_t fill, std::vector<std::pair<sf::Vector2i, std::uint8_t>>&& set)
+: set(set)
+, id(fill) {}
+
+bool EditMap::FillTownTileAction::apply(EditMap& map) {
+    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = id; }
+    return false;
+}
+
+bool EditMap::FillTownTileAction::undo(EditMap& map) {
+    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = p.second; }
+    return false;
+}
+
+const char* EditMap::FillTownTileAction::description() const { return "fill town tiles"; }
 
 } // namespace component
 } // namespace editor

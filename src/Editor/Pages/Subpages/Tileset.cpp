@@ -184,6 +184,8 @@ core::map::Collision Tileset::getActiveCollision() const { return collisions.sel
 
 std::uint8_t Tileset::getActiveCatch() const { return catchables.selected(); }
 
+std::uint8_t Tileset::getActiveTown() const { return towns.selected(); }
+
 bool Tileset::loadTileset(const std::string& file) {
     auto newTileset = core::Resources::tilesets().load(file).data;
     if (!newTileset) return false;

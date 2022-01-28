@@ -17,26 +17,30 @@ VariousEditors::VariousEditors(core::system::Systems& s)
 , npcEditor(std::bind(&ignore), std::bind(&ignore))
 , trainerEditor(std::bind(&ignore), std::bind(&ignore))
 , playlistEditor(std::bind(&ignore), std::bind(&ignore)) {
-    content          = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
+    content = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));
+
+    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 6.f));
     Button::Ptr open = Button::create("Conversation Editor");
     open->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&VariousEditors::openConvEditor, this));
-    content->pack(open);
+    row->pack(open, false, true);
 
     open = Button::create("NPC Editor");
     open->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&VariousEditors::openNpcEditor, this));
-    content->pack(open);
+    row->pack(open, false, true);
 
     open = Button::create("Trainer Editor");
     open->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&VariousEditors::openTrainerEditor, this));
-    content->pack(open);
+    row->pack(open, false, true);
 
     open = Button::create("Playlist Editor");
     open->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&VariousEditors::openPlaylistEditor, this));
-    content->pack(open);
+    row->pack(open, false, true);
+
+    content->pack(row, true, false);
 }
 
 void VariousEditors::update(float) {}

@@ -139,6 +139,10 @@ Map::Map(core::system::Systems& s)
     tileSetBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Set;
     });
+    RadioButton::Ptr fillBut = RadioButton::create("Fill", "fill", tileSetBut->getRadioGroup());
+    fillBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        activeSubtool = Subtool::Fill;
+    });
     RadioButton::Ptr tileClearBut =
         RadioButton::create("Clear", "clear", tileSetBut->getRadioGroup());
     tileClearBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
@@ -160,6 +164,7 @@ Map::Map(core::system::Systems& s)
         selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
     });
     box->pack(tileSetBut, true, true);
+    box->pack(fillBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
     box->pack(selectAllBut, true, true);
@@ -395,17 +400,6 @@ Map::Map(core::system::Systems& s)
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
-    Box::Ptr peoplemonBox       = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone", "create");
-    RadioButton::Ptr editZone =
-        RadioButton::create("Edit Catch Zone", "edit", createZone->getRadioGroup());
-    label = Label::create("Delete Catch Zone");
-    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr deleteZone = RadioButton::create(label, "delete", createZone->getRadioGroup());
-    peoplemonBox->pack(createZone);
-    peoplemonBox->pack(editZone);
-    peoplemonBox->pack(deleteZone);
-
     const auto editClosed = [this]() {
         layerPage.unpack();
         levelPage.unpack();
@@ -457,8 +451,6 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
-    controlBook->addPage(
-        "ppl", "Peoplemon", peoplemonBox, [this]() { activeTool = Tool::Peoplemon; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
@@ -607,6 +599,46 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                         levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
                 }
                 break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, tileset.getActiveTown());
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Fill:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           false);
+                break;
+            case Tileset::Animations:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           true);
+                break;
+            case Tileset::CollisionTiles:
+                mapArea.editMap().fillCollision(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCollision());
+                break;
+            case Tileset::TownTiles:
+                mapArea.editMap().fillTownTiles(tiles, tileset.getActiveTown());
+                break;
+            case Tileset::CatchTiles:
+                mapArea.editMap().fillCatch(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
+                break;
             default:
                 break;
             }
@@ -647,6 +679,14 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 }
                 else {
                     mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
+                }
+                break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, 0);
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, 0);
                 }
                 break;
             default:
@@ -793,7 +833,6 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
         }
         break;
 
-    case Tool::Peoplemon:
     case Tool::Metadata:
     default:
         break;

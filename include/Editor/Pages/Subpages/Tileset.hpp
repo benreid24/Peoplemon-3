@@ -88,6 +88,12 @@ public:
     std::uint8_t getActiveCatch() const;
 
     /**
+     * @brief Returns the currently selected town
+     *
+     */
+    std::uint8_t getActiveTown() const;
+
+    /**
      * @brief Returns whether or not the tileset is in a dirty state
      *
      */

@@ -96,17 +96,8 @@ private:
     Levels levelPage;
     Layers layerPage;
 
-    enum struct Tool {
-        Metadata,
-        MapEdit,
-        Events,
-        Spawns,
-        NPCs,
-        Items,
-        Lights,
-        Peoplemon
-    } activeTool;
-    enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
+    enum struct Tool { Metadata, MapEdit, Events, Spawns, NPCs, Items, Lights } activeTool;
+    enum struct Subtool { Set, Fill, Select, Clear, Add, Edit, Remove, None } activeSubtool;
 
     sf::IntRect selection;
     enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;

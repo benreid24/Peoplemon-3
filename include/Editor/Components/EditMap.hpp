@@ -336,6 +336,18 @@ public:
                      core::map::Tile::IdType id, bool isAnim);
 
     /**
+     * @brief Performs a bucket fill of tiles starting from the given position
+     *
+     * @param level The level to fill on
+     * @param layer The layer to fill on
+     * @param position The position to fill from
+     * @param id The tile to fill with
+     * @param isAnim True to fill with animations, false with sprites
+     */
+    void fillTile(unsigned int level, unsigned int layer, const sf::Vector2i& position,
+                  core::map::Tile::IdType id, bool isAnim);
+
+    /**
      * @brief Sets a single collision tile
      *
      * @param level The level to modify
@@ -354,6 +366,15 @@ public:
     void setCollisionArea(unsigned int level, const sf::IntRect& area, core::map::Collision id);
 
     /**
+     * @brief Performs a bucket fill of collisions from the given starting position
+     *
+     * @param level The level to fill on
+     * @param position The position to fill from
+     * @param id The collision to fill with
+     */
+    void fillCollision(unsigned int level, const sf::Vector2i& position, core::map::Collision id);
+
+    /**
      * @brief Sets a single catch tile
      *
      * @param level The level to modify
@@ -370,6 +391,15 @@ public:
      * @param id The value to set all tiles to
      */
     void setCatchArea(unsigned int level, const sf::IntRect& area, std::uint8_t id);
+
+    /**
+     * @brief Performs a bucket fill of catch tiles from the given position
+     *
+     * @param level The level to fill
+     * @param position The position to fill from
+     * @param id The id to fill with
+     */
+    void fillCatch(unsigned int level, const sf::Vector2i& position, std::uint8_t id);
 
     /**
      * @brief Tells whether or not the given id is in use
@@ -560,6 +590,30 @@ public:
      */
     void removeTown(std::uint8_t i);
 
+    /**
+     * @brief Sets the town tile at the given position
+     *
+     * @param position The position of the tile to set
+     * @param id The id of the town to set to
+     */
+    void setTownTile(const sf::Vector2i& position, std::uint8_t id);
+
+    /**
+     * @brief Sets a region of town tiles to the given town
+     *
+     * @param area The region to fill
+     * @param id The town to fill with
+     */
+    void setTownTileArea(const sf::IntRect& area, std::uint8_t id);
+
+    /**
+     * @brief Performs a bucket fill of town tiles from the given position
+     *
+     * @param position The position to fill from
+     * @param id The town to fill with
+     */
+    void fillTownTiles(const sf::Vector2i& position, std::uint8_t id);
+
 private:
     struct Action {
         using Ptr = std::shared_ptr<Action>;
@@ -635,10 +689,13 @@ private:
     class RemoveLayerAction;
     class SetTileAction;
     class SetTileAreaAction;
+    class FillTileAction;
     class SetCollisionAction;
     class SetCollisionAreaAction;
+    class FillCollisionAction;
     class SetCatchAction;
     class SetCatchAreaAction;
+    class FillCatchAction;
     class AddSpawnAction;
     class RotateSpawnAction;
     class RemoveSpawnAction;
@@ -658,6 +715,9 @@ private:
     class AddTownAction;
     class EditTownAction;
     class RemoveTownAction;
+    class SetTownTileAction;
+    class SetTownTileAreaAction;
+    class FillTownTileAction;
 };
 
 } // namespace component
