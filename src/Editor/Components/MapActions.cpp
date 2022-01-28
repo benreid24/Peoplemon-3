@@ -136,6 +136,13 @@ void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& 
     levels[i - 1].activate(ts);
 }
 
+void setNeighbors(const sf::Vector2i& pos, sf::Vector2i* neighbors) {
+    neighbors[0] = {pos.x - 1, pos.y};
+    neighbors[1] = {pos.x, pos.y - 1};
+    neighbors[2] = {pos.x + 1, pos.y};
+    neighbors[3] = {pos.x, pos.y + 1};
+}
+
 } // namespace
 
 EditMap::Action::Ptr EditMap::SetTileAction::create(unsigned int level, unsigned int layer,
@@ -302,15 +309,17 @@ EditMap::Action::Ptr EditMap::FillTileAction::create(unsigned int level, unsigne
         toVisit.pop_back();
         set.emplace_back(p, getTile(map.levels, level, layer, p));
 
-        for (int x = -1; x <= 1; x += 2) {
-            for (int y = -1; y <= 1; y += 2) {
-                const sf::Vector2i np(p.x + x, p.y + y);
-                if (visited(np.x, np.y) == 0) {
-                    visited(np.x, np.y) = 1;
-                    const auto& t       = getTile(map.levels, level, layer, np);
-                    if (t.id() == tile.id() && t.isAnimation() == tile.isAnimation()) {
-                        toVisit.emplace_back(np);
-                    }
+        sf::Vector2i nps[4];
+        setNeighbors(p, nps);
+        for (unsigned int i = 0; i < 4; ++i) {
+            const auto& np = nps[i];
+            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+
+            if (visited(np.x, np.y) == 0) {
+                visited(np.x, np.y) = 1;
+                const auto& t       = getTile(map.levels, level, layer, np);
+                if (t.id() == tile.id() && t.isAnimation() == tile.isAnimation()) {
+                    toVisit.emplace_back(np);
                 }
             }
         }
@@ -436,14 +445,16 @@ EditMap::Action::Ptr EditMap::FillCollisionAction::create(unsigned int level,
         toVisit.pop_back();
         set.emplace_back(p, map.levels[level].collisionLayer().get(p.x, p.y));
 
-        for (int x = -1; x <= 1; x += 2) {
-            for (int y = -1; y <= 1; y += 2) {
-                const sf::Vector2i np(p.x + x, p.y + y);
-                if (map.levels[level].collisionLayer().get(np.x, np.y) == oc &&
-                    visited(np.x, np.y) == 0) {
-                    visited(np.x, np.y) = 1;
-                    toVisit.emplace_back(np);
-                }
+        sf::Vector2i nps[4];
+        setNeighbors(p, nps);
+        for (unsigned int i = 0; i < 4; ++i) {
+            const auto& np = nps[i];
+            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+
+            if (map.levels[level].collisionLayer().get(np.x, np.y) == oc &&
+                visited(np.x, np.y) == 0) {
+                visited(np.x, np.y) = 1;
+                toVisit.emplace_back(np);
             }
         }
     }
@@ -559,14 +570,15 @@ EditMap::Action::Ptr EditMap::FillCatchAction::create(unsigned int level, const 
         toVisit.pop_back();
         set.emplace_back(p, map.levels[level].catchLayer().get(p.x, p.y));
 
-        for (int x = -1; x <= 1; x += 2) {
-            for (int y = -1; y <= 1; y += 2) {
-                const sf::Vector2i np(p.x + x, p.y + y);
-                if (visited(np.x, np.y) == 0 &&
-                    map.levels[level].catchLayer().get(np.x, np.y) == og) {
-                    visited(np.x, np.y) = 1;
-                    toVisit.emplace_back(np);
-                }
+        sf::Vector2i nps[4];
+        setNeighbors(p, nps);
+        for (unsigned int i = 0; i < 4; ++i) {
+            const auto& np = nps[i];
+            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+
+            if (visited(np.x, np.y) == 0 && map.levels[level].catchLayer().get(np.x, np.y) == og) {
+                visited(np.x, np.y) = 1;
+                toVisit.emplace_back(np);
             }
         }
     }
@@ -1473,15 +1485,16 @@ EditMap::RemoveTownAction::RemoveTownAction(std::uint8_t i, const core::map::Tow
 
 bool EditMap::RemoveTownAction::apply(EditMap& map) {
     map.towns.erase(map.towns.begin() + i);
-    const bool add = tiles.empty();
+    const bool add       = tiles.empty();
+    const std::uint8_t j = i + 1;
     for (int x = 0; x < map.sizeTiles().x; ++x) {
         for (int y = 0; y < map.sizeTiles().y; ++y) {
-            if (map.townTiles(x, y) == i && add) {
+            if (map.townTiles(x, y) == j && add) {
                 tiles.emplace_back(x, y);
                 map.townTiles(x, y) = 0;
             }
-            else if (map.townTiles(x, y) > i) {
-                map.townTiles(x, y) += 1;
+            else if (map.townTiles(x, y) > j) {
+                map.townTiles(x, y) -= 1;
             }
         }
     }
@@ -1490,13 +1503,14 @@ bool EditMap::RemoveTownAction::apply(EditMap& map) {
 
 bool EditMap::RemoveTownAction::undo(EditMap& map) {
     map.towns.insert(map.towns.begin() + i, orig);
+    const std::uint8_t j = i + 1;
 
     for (int x = 0; x < map.sizeTiles().x; ++x) {
         for (int y = 0; y < map.sizeTiles().y; ++y) {
-            if (map.townTiles(x, y) >= i) { map.townTiles(x, y) += 1; }
+            if (map.townTiles(x, y) >= j) { map.townTiles(x, y) += 1; }
         }
     }
-    for (const auto& pos : tiles) { map.townTiles(pos.x, pos.y) = i; }
+    for (const auto& pos : tiles) { map.townTiles(pos.x, pos.y) = j; }
 
     return true;
 }
@@ -1583,13 +1597,14 @@ EditMap::Action::Ptr EditMap::FillTownTileAction::create(const sf::Vector2i& pos
         toVisit.pop_back();
         set.emplace_back(p, map.townTiles(p.x, p.y));
 
-        for (int x = -1; x <= 1; x += 2) {
-            for (int y = -1; y <= 1; y += 2) {
-                const sf::Vector2i np(p.x + x, p.y + y);
-                if (map.townTiles(np.x, np.y) == val && visited(np.x, np.y) == 0) {
-                    toVisit.emplace_back(np);
-                    visited(np.x, np.y) = 1;
-                }
+        sf::Vector2i nps[4];
+        setNeighbors(p, nps);
+        for (unsigned int i = 0; i < 4; ++i) {
+            if (!map.contains({0, nps[i], core::component::Direction::Up})) continue;
+
+            if (map.townTiles(nps[i].x, nps[i].y) == val && visited(nps[i].x, nps[i].y) == 0) {
+                toVisit.emplace_back(nps[i]);
+                visited(nps[i].x, nps[i].y) = 1;
             }
         }
     }

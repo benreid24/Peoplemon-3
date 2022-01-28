@@ -124,7 +124,7 @@ Box::Ptr Towns::makeRow(std::uint8_t i, const std::string& name) {
 
     RadioButton::Ptr but = RadioButton::create(name, name, noTownBut->getRadioGroup());
     but->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
-        active = i;
+        active = i+1;
     });
     but->setHorizontalAlignment(RenderSettings::Left);
 
