@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::GameSave Struct Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,238 +63,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00797.html">core</a></li><li class="navelem"><a class="el" href="a00807.html">file</a></li><li class="navelem"><a class="el" href="a01084.html">GameSave</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00816.html">bl</a></li><li class="navelem"><a class="el" href="a00817.html">serial</a></li><li class="navelem"><a class="el" href="a00818.html">binary</a></li><li class="navelem"><a class="el" href="a01087.html">SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a01081.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::GameSave Struct Reference<div class="ingroups"><a class="el" href="a00779.html">Core</a> &raquo; <a class="el" href="a00785.html">Files</a></div></div>  </div>
+<div class="title">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt; Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a game save and provides functionality to load and save.  
- <a href="a01084.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a02237_source.html">GameSave.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ade5805877e3c71671ce0fc57f193ca26"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#ade5805877e3c71671ce0fc57f193ca26">load</a> (bl::event::Dispatcher &amp;bus) const</td></tr>
-<tr class="memdesc:ade5805877e3c71671ce0fc57f193ca26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the save represented by this object and fires an event::GameSaveLoaded event to allow systems to populate their data.  <a href="#ade5805877e3c71671ce0fc57f193ca26">More...</a><br /></td></tr>
-<tr class="separator:ade5805877e3c71671ce0fc57f193ca26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1e8e37d576c38af9f4ac984360d7c44"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#ac1e8e37d576c38af9f4ac984360d7c44">remove</a> () const</td></tr>
-<tr class="memdesc:ac1e8e37d576c38af9f4ac984360d7c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the game save.  <a href="#ac1e8e37d576c38af9f4ac984360d7c44">More...</a><br /></td></tr>
-<tr class="separator:ac1e8e37d576c38af9f4ac984360d7c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aaa9b54b3821265cfe148034189a22429"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#aaa9b54b3821265cfe148034189a22429">listSaves</a> (std::vector&lt; <a class="el" href="a01084.html">GameSave</a> &gt; &amp;result)</td></tr>
-<tr class="memdesc:aaa9b54b3821265cfe148034189a22429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists all saves in the save directory.  <a href="#aaa9b54b3821265cfe148034189a22429">More...</a><br /></td></tr>
-<tr class="separator:aaa9b54b3821265cfe148034189a22429"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a265cad8bec71aaa058416f698fbed3a0"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#a265cad8bec71aaa058416f698fbed3a0">saveGame</a> (const std::string &amp;name, bl::event::Dispatcher &amp;bus)</td></tr>
-<tr class="memdesc:a265cad8bec71aaa058416f698fbed3a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the game. Fires an <a class="el" href="a00984.html" title="Fired when the game is saving. Allows arbitrary systems to add data to the save. ">event::GameSaving</a> event for systems to add their data to the save before it is written.  <a href="#a265cad8bec71aaa058416f698fbed3a0">More...</a><br /></td></tr>
-<tr class="separator:a265cad8bec71aaa058416f698fbed3a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a792c1608752e257000414b249db94a3f"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#a792c1608752e257000414b249db94a3f">saveTime</a></td></tr>
-<tr class="memdesc:a792c1608752e257000414b249db94a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local timestamp that the save was modified on.  <a href="#a792c1608752e257000414b249db94a3f">More...</a><br /></td></tr>
-<tr class="separator:a792c1608752e257000414b249db94a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad68c1f3d40204d7c30196eeaab189c01"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#ad68c1f3d40204d7c30196eeaab189c01">saveName</a></td></tr>
-<tr class="memdesc:ad68c1f3d40204d7c30196eeaab189c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the save.  <a href="#ad68c1f3d40204d7c30196eeaab189c01">More...</a><br /></td></tr>
-<tr class="separator:ad68c1f3d40204d7c30196eeaab189c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a game save and provides functionality to load and save. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00017">17</a> of file <a class="el" href="a02237_source.html">GameSave.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="aaa9b54b3821265cfe148034189a22429"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa9b54b3821265cfe148034189a22429">&#9670;&nbsp;</a></span>listSaves()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::file::GameSave::listSaves </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a01084.html">GameSave</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lists all saves in the save directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>Vector to populate with found saves </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00449_source.html#l00020">20</a> of file <a class="el" href="a00449_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ade5805877e3c71671ce0fc57f193ca26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade5805877e3c71671ce0fc57f193ca26">&#9670;&nbsp;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::load </td>
-          <td>(</td>
-          <td class="paramtype">bl::event::Dispatcher &amp;&#160;</td>
-          <td class="paramname"><em>bus</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the save represented by this object and fires an event::GameSaveLoaded event to allow systems to populate their data. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">bus</td><td>Event bus to fire the GameSaveLoaded event on </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00449_source.html#l00058">58</a> of file <a class="el" href="a00449_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac1e8e37d576c38af9f4ac984360d7c44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1e8e37d576c38af9f4ac984360d7c44">&#9670;&nbsp;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::remove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deletes the game save. </p>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00449_source.html#l00070">70</a> of file <a class="el" href="a00449_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a265cad8bec71aaa058416f698fbed3a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a265cad8bec71aaa058416f698fbed3a0">&#9670;&nbsp;</a></span>saveGame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::saveGame </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bl::event::Dispatcher &amp;&#160;</td>
-          <td class="paramname"><em>bus</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Saves the game. Fires an <a class="el" href="a00984.html" title="Fired when the game is saving. Allows arbitrary systems to add data to the save. ">event::GameSaving</a> event for systems to add their data to the save before it is written. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the player </td></tr>
-    <tr><td class="paramname">bus</td><td>Event bus to fire the GameSaving event on </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the game could be saved, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00449_source.html#l00042">42</a> of file <a class="el" href="a00449_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad68c1f3d40204d7c30196eeaab189c01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad68c1f3d40204d7c30196eeaab189c01">&#9670;&nbsp;</a></span>saveName</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string core::file::GameSave::saveName</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The name of the save. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00022">22</a> of file <a class="el" href="a02237_source.html">GameSave.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a792c1608752e257000414b249db94a3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a792c1608752e257000414b249db94a3f">&#9670;&nbsp;</a></span>saveTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned long long core::file::GameSave::saveTime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Local timestamp that the save was modified on. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02237_source.html#l00019">19</a> of file <a class="el" href="a02237_source.html">GameSave.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Files/<a class="el" href="a02237_source.html">GameSave.hpp</a></li>
-<li>src/Core/Files/<a class="el" href="a00449_source.html">GameSave.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01087.html#a6412b8a63f365f0cadbd394eade49519">afterPrompt</a></td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01087.html#af28838421f172e7c5430f6bf9d37627f">beforePrompt</a></td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01087.html#ae7b765dcf1408fe9cd368d57387548b9">Id</a> typedef</td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01087.html#a75639dc80187801ae8363b817e1aa272">id</a></td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01087.html#a80e0cbf3d0d53ae1abd3b4fe685c9463">Item</a> typedef</td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01087.html#a194792a5325ba407f6498a98bc3b1452">SerializableObject</a>()</td><td class="entry"><a class="el" href="a01087.html">bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node::Item &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 20:27:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 28 2022 18:39:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

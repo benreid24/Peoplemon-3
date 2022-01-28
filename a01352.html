@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::script::BaseFunctions Struct Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,130 +63,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00797.html">core</a></li><li class="navelem"><a class="el" href="a00818.html">script</a></li><li class="navelem"><a class="el" href="a01352.html">BaseFunctions</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00812.html">core</a></li><li class="navelem"><a class="el" href="a00830.html">player</a></li><li class="navelem"><a class="el" href="a00831.html">input</a></li><li class="navelem"><a class="el" href="a01355.html">Listener</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="a01349.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::script::BaseFunctions Struct Reference<div class="ingroups"><a class="el" href="a00779.html">Core</a> &raquo; <a class="el" href="a00790.html">Scripts</a></div></div>  </div>
+<div class="title">core::player::input::Listener Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Adds the built-in default functions to all Peoplemon scripts.  
- <a href="a01352.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00203_source.html">BaseFunctions.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ab82e28a7c9987d205a5c929e04bcdfee"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01352.html#ab82e28a7c9987d205a5c929e04bcdfee">addDefaults</a> (bl::script::SymbolTable &amp;table, <a class="el" href="a01460.html">system::Systems</a> &amp;systems)</td></tr>
-<tr class="memdesc:ab82e28a7c9987d205a5c929e04bcdfee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the universal built-in functions to the given symbol table.  <a href="#ab82e28a7c9987d205a5c929e04bcdfee">More...</a><br /></td></tr>
-<tr class="separator:ab82e28a7c9987d205a5c929e04bcdfee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a116257b1cf22c3336a2bb60ec93fae5c"><td class="memItemLeft" align="right" valign="top">static bl::script::Value&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01352.html#a116257b1cf22c3336a2bb60ec93fae5c">makePosition</a> (const <a class="el" href="a00924.html">component::Position</a> &amp;pos)</td></tr>
-<tr class="memdesc:a116257b1cf22c3336a2bb60ec93fae5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function for other script functions to make script position values from the position component.  <a href="#a116257b1cf22c3336a2bb60ec93fae5c">More...</a><br /></td></tr>
-<tr class="separator:a116257b1cf22c3336a2bb60ec93fae5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Adds the built-in default functions to all Peoplemon scripts. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00203_source.html#l00030">30</a> of file <a class="el" href="a00203_source.html">BaseFunctions.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab82e28a7c9987d205a5c929e04bcdfee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab82e28a7c9987d205a5c929e04bcdfee">&#9670;&nbsp;</a></span>addDefaults()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::script::BaseFunctions::addDefaults </td>
-          <td>(</td>
-          <td class="paramtype">bl::script::SymbolTable &amp;&#160;</td>
-          <td class="paramname"><em>table</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01460.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Adds the universal built-in functions to the given symbol table. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">table</td><td>The table to add the functions to </td></tr>
-    <tr><td class="paramname">systems</td><td>The primary systems objects </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00569_source.html#l00133">133</a> of file <a class="el" href="a00569_source.html">BaseFunctions.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a116257b1cf22c3336a2bb60ec93fae5c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a116257b1cf22c3336a2bb60ec93fae5c">&#9670;&nbsp;</a></span>makePosition()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Value core::script::BaseFunctions::makePosition </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a00924.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Helper function for other script functions to make script position values from the position component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position to convert </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Value A value containing the properties of the position </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00569_source.html#l00192">192</a> of file <a class="el" href="a00569_source.html">BaseFunctions.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Scripts/<a class="el" href="a00203_source.html">BaseFunctions.hpp</a></li>
-<li>src/Core/Scripts/<a class="el" href="a00569_source.html">BaseFunctions.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01355.html">core::player::input::Listener</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01355.html#aa2bbdcb41488da37bb883ebeedc82f3b">::core::player::Input</a> class</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01355.html#aeffd124ef155fca87d6670f47b001718">Listener</a>()</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01355.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a>(const Listener &amp;copy)</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01355.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a>(Listener &amp;&amp;copy)</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01355.html#aac6a335ce53e00aa2f19da5b20caa296">process</a>(component::Command control)=0</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01355.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a>()</td><td class="entry"><a class="el" href="a01355.html">core::player::input::Listener</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 19 2022 20:27:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 28 2022 18:39:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
