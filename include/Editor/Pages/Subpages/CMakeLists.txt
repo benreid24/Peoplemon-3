@@ -5,4 +5,5 @@ target_sources(PeoplemonEditor PUBLIC
     Levels.hpp
     MapArea.hpp
     Tileset.hpp
+    Towns.hpp
 )

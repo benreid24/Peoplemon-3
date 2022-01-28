@@ -22,7 +22,7 @@ public:
     using NotifyCb = std::function<void()>;
 
     /// Called when a new node should be created
-    using CreateNode = std::function<unsigned int()>;
+    using CreateNode = std::function<unsigned int(unsigned int)>;
 
     /// Called when a node is jumped to
     using SelectCb = std::function<void(unsigned int)>;

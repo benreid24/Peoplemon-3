@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Editor/Components/ConversationWindow.hpp>
 #include <Editor/Components/NPCEditorWindow.hpp>
+#include <Editor/Components/PlaylistEditorWindow.hpp>
 #include <Editor/Components/TrainerEditorWindow.hpp>
 #include <Editor/Pages/Page.hpp>
 
@@ -42,10 +43,12 @@ private:
     component::ConversationWindow conversationEditor;
     component::NpcEditorWindow npcEditor;
     component::TrainerEditorWindow trainerEditor;
+    component::PlaylistEditorWindow playlistEditor;
 
     void openConvEditor();
     void openNpcEditor();
     void openTrainerEditor();
+    void openPlaylistEditor();
 };
 
 } // namespace page

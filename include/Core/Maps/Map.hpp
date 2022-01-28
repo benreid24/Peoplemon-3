@@ -11,6 +11,7 @@
 #include <Core/Maps/LightingSystem.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
+#include <Core/Maps/Town.hpp>
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Entities.hpp>
@@ -243,8 +244,12 @@ protected:
     LightingSystem lighting;
     std::vector<CatchRegion> catchRegionsField;
     bl::container::Vector2D<LevelTransition> transitionField;
+    std::vector<Town> towns;
+    bl::container::Vector2D<std::uint8_t> townTiles;
 
     system::Systems* systems;
+    Town defaultTown;
+    Town* currentTown;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
     Weather weather;
@@ -259,6 +264,8 @@ protected:
     void clear();
     void triggerAnimation(const component::Position& position);
     void refreshRenderRange(const sf::View& view) const;
+    Town* getTown(const sf::Vector2i& pos);
+    void enterTown(Town* town);
 
     friend class loaders::LegacyMapLoader;
     friend class bl::serial::binary::SerializableObject<Map>;
@@ -291,6 +298,8 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
     SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
+    SerializableField<16, M, std::vector<core::map::Town>> townsField;
+    SerializableField<17, M, bl::container::Vector2D<std::uint8_t>> townTiles;
 
     SerializableObject()
     : nameField(*this, &M::nameField)
@@ -306,7 +315,9 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     , eventsField(*this, &M::eventsField)
     , lighting(*this, &M::lighting)
     , transitionField(*this, &M::transitionField)
-    , catchRegionsField(*this, &M::catchRegionsField) {}
+    , catchRegionsField(*this, &M::catchRegionsField)
+    , townsField(*this, &M::towns)
+    , townTiles(*this, &M::townTiles ) {}
 };
 
 } // namespace binary

@@ -60,6 +60,38 @@ private:
                       core::map::Tile::IdType value, bool isAnim, int w, int h);
 };
 
+class EditMap::FillTileAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int level, unsigned int layer, const sf::Vector2i& pos,
+                              core::map::Tile::IdType id, bool isAnim, EditMap& map);
+
+    virtual ~FillTileAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    struct FillTile {
+        sf::Vector2i position;
+        core::map::Tile::IdType id;
+        bool isAnim;
+
+        FillTile(const sf::Vector2i& pos, const core::map::Tile& tile)
+        : position(pos)
+        , id(tile.id())
+        , isAnim(tile.isAnimation()) {}
+    };
+
+    const unsigned int level;
+    const unsigned int layer;
+    const core::map::Tile::IdType id;
+    const bool isAnim;
+    const std::vector<FillTile> set;
+
+    FillTileAction(unsigned int level, unsigned int layer, core::map::Tile::IdType id, bool isAnim,
+                   std::vector<FillTile>&& set);
+};
+
 class EditMap::SetCollisionAction : public EditMap::Action {
 public:
     static EditMap::Action::Ptr create(unsigned int level, const sf::Vector2i& pos,
@@ -78,6 +110,25 @@ private:
 
     SetCollisionAction(unsigned int level, const sf::Vector2i& pos, core::map::Collision value,
                        core::map::Collision ogVal);
+};
+
+class EditMap::FillCollisionAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int level, const sf::Vector2i& pos, core::map::Collision col,
+                              EditMap& map);
+
+    virtual ~FillCollisionAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const core::map::Collision col;
+    const std::vector<std::pair<sf::Vector2i, core::map::Collision>> set;
+
+    FillCollisionAction(unsigned int level, core::map::Collision col,
+                        std::vector<std::pair<sf::Vector2i, core::map::Collision>>&& set);
 };
 
 class EditMap::SetCollisionAreaAction : public EditMap::Action {
@@ -138,6 +189,25 @@ private:
 
     SetCatchAreaAction(unsigned int level, const sf::IntRect& area, std::uint8_t value,
                        bl::container::Vector2D<std::uint8_t>&& ogcols);
+};
+
+class EditMap::FillCatchAction : public EditMap::Action {
+public:
+    static Action::Ptr create(unsigned int level, const sf::Vector2i& pos, std::uint8_t id,
+                              EditMap& map);
+
+    virtual ~FillCatchAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const unsigned int level;
+    const std::uint8_t id;
+    const std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
+
+    FillCatchAction(unsigned int level, std::uint8_t id,
+                    std::vector<std::pair<sf::Vector2i, std::uint8_t>>&& set);
 };
 
 class EditMap::SetPlaylistAction : public EditMap::Action {
@@ -585,6 +655,105 @@ private:
 
     SetAmbientLightAction(bool sun, std::uint8_t upper, std::uint8_t lower,
                           const core::map::LightingSystem& lighting);
+};
+
+class EditMap::AddTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create();
+
+    virtual ~AddTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    AddTownAction() = default;
+};
+
+class EditMap::EditTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t i, const core::map::Town& orig,
+                              const core::map::Town& town);
+
+    virtual ~EditTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t i;
+    const core::map::Town orig;
+    const core::map::Town val;
+
+    EditTownAction(std::uint8_t i, const core::map::Town& orig, const core::map::Town& town);
+};
+
+class EditMap::RemoveTownAction : public EditMap::Action {
+public:
+    static Action::Ptr create(std::uint8_t i, const core::map::Town& orig);
+
+    virtual ~RemoveTownAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::uint8_t i;
+    const core::map::Town orig;
+    std::vector<sf::Vector2i> tiles;
+
+    RemoveTownAction(std::uint8_t i, const core::map::Town& orig);
+};
+
+class EditMap::SetTownTileAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const sf::Vector2i& pos, std::uint8_t id, std::uint8_t orig);
+
+    virtual ~SetTownTileAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const sf::Vector2i pos;
+    const std::uint8_t id;
+    const std::uint8_t orig;
+
+    SetTownTileAction(const sf::Vector2i& pos, std::uint8_t id, std::uint8_t orig);
+};
+
+class EditMap::SetTownTileAreaAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const sf::IntRect& area, std::uint8_t id, EditMap& map);
+
+    virtual ~SetTownTileAreaAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const sf::IntRect area;
+    const std::uint8_t id;
+    const bl::container::Vector2D<std::uint8_t> orig;
+
+    SetTownTileAreaAction(const sf::IntRect& area, std::uint8_t id,
+                          bl::container::Vector2D<std::uint8_t>&& orig);
+};
+
+class EditMap::FillTownTileAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const sf::Vector2i& pos, std::uint8_t id, EditMap& map);
+
+    virtual ~FillTownTileAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
+    const std::uint8_t id;
+
+    FillTownTileAction(std::uint8_t id, std::vector<std::pair<sf::Vector2i, std::uint8_t>>&& set);
 };
 
 } // namespace component

@@ -48,9 +48,7 @@ Map::Map(core::system::Systems& s)
             [this]() { mapPicker.close(); })
 , newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
-, playlistPicker(core::Properties::PlaylistPath(), {"plst"},
-                 std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
-                 [this]() { playlistPicker.close(); })
+, playlistEditor(std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1), [this]() {})
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
@@ -141,6 +139,10 @@ Map::Map(core::system::Systems& s)
     tileSetBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Set;
     });
+    RadioButton::Ptr fillBut = RadioButton::create("Fill", "fill", tileSetBut->getRadioGroup());
+    fillBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        activeSubtool = Subtool::Fill;
+    });
     RadioButton::Ptr tileClearBut =
         RadioButton::create("Clear", "clear", tileSetBut->getRadioGroup());
     tileClearBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
@@ -162,6 +164,7 @@ Map::Map(core::system::Systems& s)
         selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
     });
     box->pack(tileSetBut, true, true);
+    box->pack(fillBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
     box->pack(selectAllBut, true, true);
@@ -190,7 +193,7 @@ Map::Map(core::system::Systems& s)
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
-        playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
+        playlistEditor.open(parent, playlistLabel->getText());
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
@@ -199,30 +202,10 @@ Map::Map(core::system::Systems& s)
 
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     row->pack(Label::create("Weather:"));
-    weatherEntry = ComboBox::create();
+    weatherEntry = component::WeatherSelect::create();
     weatherEntry->setTooltip("Set the weather for the entire map");
-    weatherEntry->addOption("None");
-    weatherEntry->addOption("AllRandom");
-    weatherEntry->addOption("LightRain");
-    weatherEntry->addOption("LightRainThunder");
-    weatherEntry->addOption("HardRain");
-    weatherEntry->addOption("HardRainThunder");
-    weatherEntry->addOption("LightSnow");
-    weatherEntry->addOption("LightSnowThunder");
-    weatherEntry->addOption("HardSnow");
-    weatherEntry->addOption("HardSnowThunder");
-    weatherEntry->addOption("ThinFog");
-    weatherEntry->addOption("ThickFog");
-    weatherEntry->addOption("Sunny");
-    weatherEntry->addOption("SandStorm");
-    weatherEntry->addOption("WaterRandom");
-    weatherEntry->addOption("SnowRandom");
-    weatherEntry->addOption("DesertRandom");
-    weatherEntry->setSelectedOption(0);
-    weatherEntry->setMaxHeight(300);
     weatherEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = weatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().setWeather(type);
         }
@@ -232,31 +215,11 @@ Map::Map(core::system::Systems& s)
 
     box              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    tempWeatherEntry = ComboBox::create();
-    tempWeatherEntry->addOption("None");
-    tempWeatherEntry->addOption("AllRandom");
-    tempWeatherEntry->addOption("LightRain");
-    tempWeatherEntry->addOption("LightRainThunder");
-    tempWeatherEntry->addOption("HardRain");
-    tempWeatherEntry->addOption("HardRainThunder");
-    tempWeatherEntry->addOption("LightSnow");
-    tempWeatherEntry->addOption("LightSnowThunder");
-    tempWeatherEntry->addOption("HardSnow");
-    tempWeatherEntry->addOption("HardSnowThunder");
-    tempWeatherEntry->addOption("ThinFog");
-    tempWeatherEntry->addOption("ThickFog");
-    tempWeatherEntry->addOption("Sunny");
-    tempWeatherEntry->addOption("SandStorm");
-    tempWeatherEntry->addOption("WaterRandom");
-    tempWeatherEntry->addOption("SnowRandom");
-    tempWeatherEntry->addOption("DesertRandom");
-    tempWeatherEntry->setSelectedOption(0);
-    tempWeatherEntry->setMaxHeight(300);
-    Button::Ptr but = Button::create("Set Weather");
+    tempWeatherEntry = component::WeatherSelect::create();
+    Button::Ptr but  = Button::create("Set Weather");
     but->setTooltip("Sets the current weather. Does not save weather to map file");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(tempWeatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = tempWeatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().weatherSystem().set(type);
         }
@@ -437,17 +400,6 @@ Map::Map(core::system::Systems& s)
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
-    Box::Ptr peoplemonBox       = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone", "create");
-    RadioButton::Ptr editZone =
-        RadioButton::create("Edit Catch Zone", "edit", createZone->getRadioGroup());
-    label = Label::create("Delete Catch Zone");
-    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr deleteZone = RadioButton::create(label, "delete", createZone->getRadioGroup());
-    peoplemonBox->pack(createZone);
-    peoplemonBox->pack(editZone);
-    peoplemonBox->pack(deleteZone);
-
     const auto editClosed = [this]() {
         layerPage.unpack();
         levelPage.unpack();
@@ -499,8 +451,6 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
-    controlBook->addPage(
-        "ppl", "Peoplemon", peoplemonBox, [this]() { activeTool = Tool::Peoplemon; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
@@ -531,6 +481,10 @@ void Map::update(float) {
     case Tileset::CatchTiles:
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::CatchTiles,
                                            levelSelect->getSelectedOption());
+        break;
+
+    case Tileset::TownTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
         break;
 
     default:
@@ -645,6 +599,46 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                         levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
                 }
                 break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, tileset.getActiveTown());
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Fill:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           false);
+                break;
+            case Tileset::Animations:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           true);
+                break;
+            case Tileset::CollisionTiles:
+                mapArea.editMap().fillCollision(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCollision());
+                break;
+            case Tileset::TownTiles:
+                mapArea.editMap().fillTownTiles(tiles, tileset.getActiveTown());
+                break;
+            case Tileset::CatchTiles:
+                mapArea.editMap().fillCatch(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
+                break;
             default:
                 break;
             }
@@ -685,6 +679,14 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 }
                 else {
                     mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
+                }
+                break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, 0);
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, 0);
                 }
                 break;
             default:
@@ -831,7 +833,6 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
         }
         break;
 
-    case Tool::Peoplemon:
     case Tool::Metadata:
     default:
         break;
@@ -841,7 +842,6 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
 void Map::onChoosePlaylist(const std::string& file) {
     mapArea.editMap().setPlaylist(file);
     playlistLabel->setText(file);
-    playlistPicker.close();
 }
 
 bool Map::checkUnsaved() {

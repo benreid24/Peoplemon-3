@@ -394,7 +394,7 @@ ConversationNode::NodeConnector::NodeConnector(
     cb->getSignal(Event::LeftClicked)
         .willAlwaysCall(
             [this, createNode, regenTree, syncJumpCb, changeCb](const Event&, Element*) {
-                const unsigned int nn = createNode();
+                const unsigned int nn = createNode(getSelected());
                 syncJumpCb();
                 setSelected(nn);
                 changeCb(nn);

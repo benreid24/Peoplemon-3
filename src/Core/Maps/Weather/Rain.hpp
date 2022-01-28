@@ -96,7 +96,6 @@ private:
     bl::resource::Resource<sf::Texture>::Ref splash2Txtr;
     mutable sf::Sprite splash2;
 
-    bl::resource::Resource<sf::SoundBuffer>::Ref rainSound;
     bl::audio::AudioSystem::Handle rainSoundHandle;
 
     Thunder thunder;

@@ -11,7 +11,6 @@
 #include <Editor/Pages/Map.hpp>
 #include <Editor/Pages/Moves.hpp>
 #include <Editor/Pages/Peoplemon.hpp>
-#include <Editor/Pages/Playlists.hpp>
 #include <Editor/Pages/Scripts.hpp>
 #include <Editor/Pages/Testing.hpp>
 #include <Editor/Pages/VariousEditors.hpp>
@@ -93,7 +92,6 @@ private:
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;
     page::Items itemsPage;
-    page::Playlists playlistsPage;
     page::Credits creditsPage;
     page::Page* currentPage;
 

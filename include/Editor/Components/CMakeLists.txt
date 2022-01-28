@@ -16,7 +16,9 @@ target_sources(PeoplemonEditor PUBLIC
     MoveSelector.hpp
     NewMapDialog.hpp
     NPCEditorWindow.hpp
+    PlaylistEditorWindow.hpp
     ScriptSelector.hpp
     StatBox.hpp
     TrainerEditorWindow.hpp
+    WeatherSelect.hpp
 )

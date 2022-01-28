@@ -16,7 +16,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Configure Build
-        run: cmake -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DEDITOR_RELEASE=1 -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
         run: cd build && make

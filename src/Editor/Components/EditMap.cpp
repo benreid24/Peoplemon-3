@@ -6,6 +6,7 @@
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
+#include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
 {
@@ -372,6 +373,11 @@ void EditMap::setTileArea(unsigned int level, unsigned int layer, const sf::IntR
     addAction(SetTileAreaAction::create(level, layer, area, isAnim, value, *this));
 }
 
+void EditMap::fillTile(unsigned int level, unsigned int layer, const sf::Vector2i& pos,
+                       core::map::Tile::IdType id, bool isAnim) {
+    addAction(FillTileAction::create(level, layer, pos, id, isAnim, *this));
+}
+
 void EditMap::setCollision(unsigned int level, const sf::Vector2i& pos, core::map::Collision val) {
     addAction(SetCollisionAction::create(level, pos, val, *this));
 }
@@ -381,12 +387,20 @@ void EditMap::setCollisionArea(unsigned int level, const sf::IntRect& area,
     addAction(SetCollisionAreaAction::create(level, area, val, *this));
 }
 
+void EditMap::fillCollision(unsigned int level, const sf::Vector2i& pos, core::map::Collision col) {
+    addAction(FillCollisionAction::create(level, pos, col, *this));
+}
+
 void EditMap::setCatch(unsigned int level, const sf::Vector2i& pos, std::uint8_t value) {
     addAction(SetCatchAction::create(level, pos, value, *this));
 }
 
 void EditMap::setCatchArea(unsigned int level, const sf::IntRect& area, std::uint8_t value) {
     addAction(SetCatchAreaAction::create(level, area, value, *this));
+}
+
+void EditMap::fillCatch(unsigned int level, const sf::Vector2i& pos, std::uint8_t id) {
+    addAction(FillCatchAction::create(level, pos, id, *this));
 }
 
 void EditMap::appendBottomLayer(unsigned int level) {
@@ -581,6 +595,21 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         }
     } break;
 
+    case RenderOverlay::Towns: {
+        const float p = core::Properties::PixelsPerTile();
+        sf::RectangleShape ct(sf::Vector2f(p, p));
+        ct.setOutlineThickness(-0.5f);
+        ct.setOutlineColor(sf::Color::Black);
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                ct.setFillColor(page::Towns::getColor(townTiles(x, y)));
+                ct.setPosition(x * core::Properties::PixelsPerTile(),
+                               y * core::Properties::PixelsPerTile());
+                target.draw(ct);
+            }
+        }
+    } break;
+
     case RenderOverlay::Events: {
         static sf::Clock timer;
         sf::RectangleShape area;
@@ -749,6 +778,26 @@ void EditMap::removeCatchRegion(std::uint8_t index) {
 
 void EditMap::setAmbientLight(std::uint8_t lower, std::uint8_t upper, bool sun) {
     addAction(SetAmbientLightAction::create(sun, upper, lower, lightingSystem()));
+}
+
+void EditMap::addTown() { addAction(AddTownAction::create()); }
+
+void EditMap::editTown(std::uint8_t i, const core::map::Town& town) {
+    addAction(EditTownAction::create(i, towns[i], town));
+}
+
+void EditMap::removeTown(std::uint8_t i) { addAction(RemoveTownAction::create(i, towns[i])); }
+
+void EditMap::setTownTile(const sf::Vector2i& pos, std::uint8_t id) {
+    addAction(SetTownTileAction::create(pos, id, townTiles(pos.x, pos.y)));
+}
+
+void EditMap::setTownTileArea(const sf::IntRect& area, std::uint8_t id) {
+    addAction(SetTownTileAreaAction::create(area, id, *this));
+}
+
+void EditMap::fillTownTiles(const sf::Vector2i& pos, std::uint8_t id) {
+    addAction(FillTownTileAction::create(pos, id, *this));
 }
 
 } // namespace component

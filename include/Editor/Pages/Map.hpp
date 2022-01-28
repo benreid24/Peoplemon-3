@@ -6,7 +6,9 @@
 #include <Editor/Components/ItemSelector.hpp>
 #include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
+#include <Editor/Components/PlaylistEditorWindow.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
+#include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
@@ -50,7 +52,7 @@ private:
     bl::gui::ComboBox::Ptr levelSelect;
 
     bl::gui::TextEntry::Ptr nameEntry;
-    bl::gui::ComboBox::Ptr weatherEntry;
+    component::WeatherSelect::Ptr weatherEntry;
     bl::gui::Label::Ptr playlistLabel;
     bl::gui::Button::Ptr saveMapBut;
 
@@ -86,7 +88,7 @@ private:
     bl::gui::Label::Ptr onEnterLabel;
     bl::gui::Label::Ptr onExitLabel;
 
-    bl::gui::ComboBox::Ptr tempWeatherEntry;
+    component::WeatherSelect::Ptr tempWeatherEntry;
     bl::gui::ComboBox::Ptr timeSetEntry;
 
     MapArea mapArea;
@@ -94,17 +96,8 @@ private:
     Levels levelPage;
     Layers layerPage;
 
-    enum struct Tool {
-        Metadata,
-        MapEdit,
-        Events,
-        Spawns,
-        NPCs,
-        Items,
-        Lights,
-        Peoplemon
-    } activeTool;
-    enum struct Subtool { Set, Select, Clear, Add, Edit, Remove, None } activeSubtool;
+    enum struct Tool { Metadata, MapEdit, Events, Spawns, NPCs, Items, Lights } activeTool;
+    enum struct Subtool { Set, Fill, Select, Clear, Add, Edit, Remove, None } activeSubtool;
 
     sf::IntRect selection;
     enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;
@@ -117,7 +110,7 @@ private:
     void makeNewMap(const std::string& file, const std::string& name, const std::string& tileset,
                     unsigned int w, unsigned int h);
 
-    bl::gui::FilePicker playlistPicker;
+    component::PlaylistEditorWindow playlistEditor;
     void onChoosePlaylist(const std::string& file);
 
     void syncLighting();

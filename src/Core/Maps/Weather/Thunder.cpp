@@ -33,10 +33,10 @@ Thunder::Thunder(bool e, bool f)
 , timeSinceLastThunder(0.f)
 , stopping(false) {
     lightning.setFillColor(sf::Color::Transparent);
-    if (e) { sound = bl::engine::Resources::sounds().load(Properties::ThunderSoundFile()).data; }
+    if (e) { sound = bl::audio::AudioSystem::getOrLoadSound(Properties::ThunderSoundFile()); }
 }
 
-Thunder::~Thunder() { bl::audio::AudioSystem::stopSound(soundHandle, 0.5f); }
+Thunder::~Thunder() { bl::audio::AudioSystem::stopSound(sound, 0.5f); }
 
 void Thunder::stop() { stopping = true; }
 
@@ -53,7 +53,8 @@ void Thunder::update(float dt) {
         else if (!stopping) {
             if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
                 timeSinceLastThunder = 0.f;
-                soundHandle          = bl::audio::AudioSystem::playSound(sound);
+                sound = bl::audio::AudioSystem::getOrLoadSound(Properties::ThunderSoundFile());
+                bl::audio::AudioSystem::playSound(sound, false);
                 lightning.setFillColor(sf::Color(255, 255, 255, computeAlpha(0.f)));
             }
         }
