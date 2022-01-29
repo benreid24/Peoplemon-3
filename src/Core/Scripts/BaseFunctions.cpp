@@ -125,6 +125,8 @@ void makeRandomDesert(system::Systems& systems, SymbolTable& table, const std::v
                       Value& result);
 void makeRandomWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                        Value& result);
+void getCurrentWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                       Value& result);
 
 Value bind(system::Systems& systems, Builtin func) {
     return {Function([&systems, func](SymbolTable& table,
@@ -191,6 +193,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(makeRandomSnow);
     BUILTIN(makeRandomDesert);
     BUILTIN(makeRandomWeather);
+    BUILTIN(getCurrentWeather);
 
 #undef BUILTIN
 }
@@ -904,6 +907,39 @@ void makeRandomDesert(system::Systems& systems, SymbolTable&, const std::vector<
 
 void makeRandomWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::AllRandom);
+}
+
+void getCurrentWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
+                       Value& result) {
+    using T = map::Weather::Type;
+
+    switch (systems.world().activeMap().weatherSystem().getType()) {
+    case T::LightRain:
+    case T::LightRainThunder:
+    case T::HardRain:
+    case T::HardRainThunder:
+        result = "rain";
+        break;
+    case T::LightSnow:
+    case T::LightSnowThunder:
+    case T::HardSnow:
+    case T::HardSnowThunder:
+        result = "snow";
+        break;
+    case T::ThinFog:
+    case T::ThickFog:
+        result = "fog";
+        break;
+    case T::Sunny:
+        result = "sunny";
+        break;
+    case T::SandStorm:
+        result = "sandstorm";
+        break;
+    default:
+        result = "none";
+        break;
+    }
 }
 
 } // namespace
