@@ -95,13 +95,14 @@ void Conversation::followNodes() {
             break;
 
         case E::SetSaveFlag:
-            // TODO - set save flag in gamesave
+            systems.interaction().setFlag(nodes->at(current).saveFlag());
             current = nodes->at(current).next();
             break;
 
         case E::CheckSaveFlag:
-            // TODO - check save flag in gamesave
-            current = nodes->at(current).nextOnReject();
+            current = systems.interaction().flagSet(nodes->at(current).saveFlag()) ?
+                          nodes->at(current).nextOnPass() :
+                          nodes->at(current).nextOnReject();
             break;
 
         case E::RunScript: {

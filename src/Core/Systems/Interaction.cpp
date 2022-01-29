@@ -236,6 +236,10 @@ bool Interaction::trainerTalkedto(const std::string& name) const {
     return wit->second.find("tnr:" + name) != wit->second.end();
 }
 
+bool Interaction::flagSet(const std::string& name) const { return flags.find(name) != flags.end(); }
+
+void Interaction::setFlag(const std::string& name) { flags.emplace(name); }
+
 void Interaction::observe(const event::GameSaving& save) {
     bl::serial::json::Serializer<Interaction>::serializeInto(save.saveData, "interaction", *this);
 }

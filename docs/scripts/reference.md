@@ -79,6 +79,8 @@ Includes NPC's, trainers, and the player.
 | addSaveEntry    | `key`: String, `value`: Any | N/A    | Saves the given value under the given key. Saved values are persisted in the game save |
 | getSaveEntry    | `key`: String               | Any    | Retrieves the saved value with the given key. Returns `false` if not found             |
 | removeSaveEntry | `key`: String               | N/A    | Deletes the given key from the persistent data                                         |
+| checkConvFlag   | `key`: String               | Bool   | Checks if the given conversation flag has been set or not                              |
+| setConvFlag     | `key`: String               | N/A    | Sets the given conversation flag                                                       |
 
 
 ## Maps
@@ -89,7 +91,7 @@ Includes NPC's, trainers, and the player.
 | setAmbientLight | `low`: Numeric, `high`: Numeric, `sunlightAdjust`: Bool   | N/A     | Overrides the ambient light level. 0 is full dark, 255 is full light. Sunlight causes the ambient to move between the low and high based on time. If no sunlight the high level is used as a constant light level |
 | createLight     | `x`: Numeric, `y`: Numeric, `radius`: Numeric                | Numeric | Creates a light at the given position and radius. All parameters are in pixels. Returns the unique id of the new light                     |
 | updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | N/A     | Updates the light with the given `id` to the new position and radius.                                                                      |
-| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`                                                                                                      |
+| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`   |
 
 ## Weather
 
@@ -105,6 +107,7 @@ Includes NPC's, trainers, and the player.
 | makeRandomSnow    | N/A                              | N/A    | The game will cycle through different varieties of snow    |
 | makeRandomDesert  | N/A                              | N/A    | The game will cycle between sandstorm and sunny            |
 | makeRandomWeather | N/A                              | N/A    | The game will cycle between all different kinds of weather |
+| getCurrentWeather | N/A                              | String | Returns the weather, one of `"rain"`, `"snow"`, `"fog"`, `"sandstorm"`, `"sunny"`, `"none"` |
 
 ## Basic Example
 

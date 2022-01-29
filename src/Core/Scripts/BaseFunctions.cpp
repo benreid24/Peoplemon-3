@@ -89,6 +89,10 @@ void addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vecto
                   Value& result);
 void getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
+void checkConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void setConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
 
 void loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
              Value& result);
@@ -168,6 +172,8 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
     BUILTIN(addSaveEntry);
     BUILTIN(getSaveEntry);
+    BUILTIN(checkConvFlag);
+    BUILTIN(setConvFlag);
 
     BUILTIN(loadMap);
     BUILTIN(setAmbientLight);
@@ -739,6 +745,17 @@ void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& a
     Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
         {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
+}
+
+void checkConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TString>("checkConvFlag", args);
+    result = systems.interaction().flagSet(args[0].value().getAsString());
+}
+
+void setConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TString>("setConvFlag", args);
+    systems.interaction().setFlag(args[0].value().getAsString());
 }
 
 void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
