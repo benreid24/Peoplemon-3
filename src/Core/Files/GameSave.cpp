@@ -15,6 +15,12 @@ std::string nameToFile(const std::string& name) {
     return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "." +
            Properties::SaveExtension();
 }
+
+std::string tolower(const std::string& s) {
+    std::string r(s);
+    for (auto& c : r) { c = std::tolower(c); }
+    return r;
+}
 } // namespace
 
 void GameSave::listSaves(std::vector<GameSave>& result) {
@@ -37,6 +43,8 @@ void GameSave::listSaves(std::vector<GameSave>& result) {
         }
         result.emplace_back(std::move(save));
     }
+
+    std::sort(result.begin(), result.end());
 }
 
 bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
@@ -70,6 +78,11 @@ bool GameSave::load(bl::event::Dispatcher& bus) const {
 bool GameSave::remove() const {
     const std::string file = nameToFile(saveName);
     return bl::util::FileUtil::deleteFile(file);
+}
+
+bool GameSave::operator<(const GameSave& rhs) const {
+    if (saveTime < rhs.saveTime) return true;
+    return !(tolower(saveName) < tolower(rhs.saveName));
 }
 
 } // namespace file

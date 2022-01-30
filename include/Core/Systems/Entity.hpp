@@ -42,7 +42,17 @@ public:
      */
     bool spawnItem(const map::Item& item);
 
-    // TODO - methods for player
+    /**
+     * @brief Spawns a generic entity with some basic components
+     *
+     * @param position The position to spawn at
+     * @param collidable True to add a collidable component, false to not
+     * @param gfx Path to image or animation for graphic component
+     * @param size Size in tiles of the collidable error
+     * @return True if the entity was spawned, false on error
+     */
+    bool spawnGeneric(const component::Position& position, bool collidable, const std::string& gfx,
+                      const sf::Vector2i& size);
 
 private:
     Systems& owner;

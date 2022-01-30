@@ -218,6 +218,7 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
     if (pos) { return BaseFunctions::makePosition(*pos); }
+    BL_LOG_WARN << "Entity " << e << " has no position";
     return {};
 }
 
@@ -235,7 +236,7 @@ void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&
     auto& bag = player.getProperty("bag", false).deref().value().getAsArray();
     bag.reserve(items.size());
     for (const player::Bag::Item& item : items) {
-        bag.emplace_back(new Value(item.id));
+        bag.emplace_back(item.id);
         bag.back().setProperty("id", {item.id});
         bag.back().setProperty("name", {item::Item::getName(item.id)});
         bag.back().setProperty("qty", {item.qty});
