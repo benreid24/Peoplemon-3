@@ -5,6 +5,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -386,13 +387,49 @@ void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
     }
 }
 
-void givePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
-    // TODO - track and give peoplemon
+void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("givePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = "fail";
+        return;
+    }
+
+    if (systems.player().team().size() < 6) {
+        systems.player().team().emplace_back(id, args[1].value().getAsInt());
+        result = "party";
+    }
+    else {
+        // TODO - implement peoplemon storage system
+        result = "storage";
+    }
+
     result = false;
 }
 
-void takePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
-    // TODO - track and take peoplemon
+void takePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("takePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = false;
+        return;
+    }
+
+    const unsigned int level = args[1].value().getAsInt();
+    for (auto it = systems.player().team().begin(); it != systems.player().team().end(); ++it) {
+        if (it->id() == id && it->currentLevel() >= level) {
+            result = true;
+            systems.player().team().erase(it);
+            return;
+        }
+    }
+
     result = false;
 }
 
@@ -670,7 +707,8 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
                         PrimitiveValue::TBool>("spawnAnimation", args);
 
     component::Position pos;
-    pos.setTiles({args[0].value().getAsInt(), args[1].value().getAsInt()});
+    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
+                  static_cast<int>(args[1].value().getAsInt())});
     pos.setPixels({args[2].value().getNumAsFloat(), args[3].value().getNumAsFloat()});
     result = systems.entity().spawnAnimation(
         pos, args[4].value().getAsString(), args[5].value().getAsBool());
@@ -684,7 +722,8 @@ void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vecto
                         PrimitiveValue::TBool>("spawnGenericEntity", args);
 
     component::Position pos;
-    pos.setTiles({args[0].value().getAsInt(), args[1].value().getAsInt()});
+    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
+                  static_cast<int>(args[1].value().getAsInt())});
     result = systems.entity().spawnGeneric(
         pos, args[3].value().getAsBool(), args[2].value().getAsString());
 }
