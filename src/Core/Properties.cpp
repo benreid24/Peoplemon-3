@@ -23,11 +23,13 @@ constexpr int ExtraRenderTiles = 10;
 constexpr int LightingWidth    = 25;
 constexpr int LightingHeight   = 19;
 
-const std::string MenuImagePath   = "Resources/Images/Menus";
-const std::string SpritesheetPath = "Resources/Images/Spritesheets";
-const std::string MusicPath       = "Resources/Audio/Music";
-const std::string PlaylistPath    = "Resources/Audio/Playlists";
-const std::string MenuFont        = "Resources/Fonts/Menu.ttf";
+const std::string ImagePath            = "Resources/Images";
+const std::string MenuImagePath        = "Resources/Images/Menus";
+const std::string SpritesheetPath      = "Resources/Images/Spritesheets";
+const std::string MusicPath            = "Resources/Audio/Music";
+const std::string PlaylistPath         = "Resources/Audio/Playlists";
+const std::string MenuFont             = "Resources/Fonts/Menu.ttf";
+const std::string GenericAnimationPath = "Resources/Animations";
 
 const std::string MapPath          = "Resources/Maps/Maps";
 const std::string TilesetPath      = "Resources/Maps/Tilesets";
@@ -128,6 +130,8 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.menu.primary_font", defaults::MenuFont);
     bl::engine::Configuration::set("core.music.path", defaults::MusicPath);
     bl::engine::Configuration::set("core.music.playlist_path", defaults::PlaylistPath);
+    bl::engine::Configuration::set("core.anims.path", defaults::GenericAnimationPath);
+    bl::engine::Configuration::set("core.imgs.path", defaults::ImagePath);
 
     bl::engine::Configuration::set("core.map.path", defaults::MapPath);
     bl::engine::Configuration::set("core.map.tileset_path", defaults::TilesetPath);
@@ -308,6 +312,18 @@ const std::string& Properties::MusicPath() {
 const std::string& Properties::PlaylistPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.music.playlist_path", defaults::PlaylistPath);
+    return val;
+}
+
+const std::string& Properties::GenericAnimationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.anims.path", defaults::GenericAnimationPath);
+    return val;
+}
+
+const std::string& Properties::ImagePath() {
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.imgs.path", defaults::ImagePath);
     return val;
 }
 

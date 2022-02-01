@@ -61,6 +61,13 @@ void loadCharacter(system::Systems& systems, SymbolTable& table, const std::vect
 void spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                     Value& result);
 
+void spawnGenericEntity(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args, Value& result);
+void spawnAnimation(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void triggerEntityAnimation(system::Systems& systems, SymbolTable& table,
+                            const std::vector<Value>& args, Value& result);
+
 void moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                 Value& result);
 void rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -166,6 +173,9 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(entityInteract);
     BUILTIN(setEntityLock);
     BUILTIN(resetEntityLock);
+    BUILTIN(spawnGenericEntity);
+    BUILTIN(spawnAnimation);
+    BUILTIN(triggerEntityAnimation);
 
     BUILTIN(makeTime);
     BUILTIN(getClock);
@@ -648,6 +658,55 @@ void resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<V
 
     const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     systems.controllable().resetEntityLock(entity);
+}
+
+void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                    Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TString,
+                        PrimitiveValue::TBool>("spawnAnimation", args);
+
+    component::Position pos;
+    pos.setTiles({args[0].value().getAsInt(), args[1].value().getAsInt()});
+    pos.setPixels({args[2].value().getNumAsFloat(), args[3].value().getNumAsFloat()});
+    result = systems.entity().spawnAnimation(
+        pos, args[4].value().getAsString(), args[5].value().getAsBool());
+}
+
+void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                        Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TString,
+                        PrimitiveValue::TBool>("spawnGenericEntity", args);
+
+    component::Position pos;
+    pos.setTiles({args[0].value().getAsInt(), args[1].value().getAsInt()});
+    result = systems.entity().spawnGeneric(
+        pos, args[3].value().getAsBool(), args[2].value().getAsString());
+}
+
+void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                            Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
+        "triggerEntityAnimation", args);
+
+    const bl::entity::Entity e = args[0].value().getAsInt();
+    component::Renderable* r   = systems.engine().entities().getComponent<component::Renderable>(e);
+
+    if (!r) {
+        BL_LOG_WARN << "Could not trigger animation for invalid entity: " << e;
+        result = false;
+        return;
+    }
+
+    const bool loop = args[1].value().getAsBool();
+    r->triggerAnim(loop);
+    if (args[2].value().getAsBool() && !loop) { sf::sleep(sf::seconds(r->animLength())); }
+    result = true;
 }
 
 void getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& clock) {
