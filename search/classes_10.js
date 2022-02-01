@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['useresult',['UseResult',['../a01151.html',1,'core::item']]]
+  ['useresult',['UseResult',['../a01156.html',1,'core::item']]]
 ];

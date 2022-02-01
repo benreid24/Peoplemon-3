@@ -5,7 +5,7 @@ var searchData=
   ['component',['component',['../a00815.html',1,'core']]],
   ['controls',['Controls',['../a00832.html',1,'core::player::input']]],
   ['core',['core',['../a00812.html',1,'']]],
-  ['defaults',['defaults',['../a00866.html',1,'core']]],
+  ['defaults',['defaults',['../a00867.html',1,'core']]],
   ['event',['event',['../a00820.html',1,'core']]],
   ['file',['file',['../a00822.html',1,'core']]],
   ['hud',['hud',['../a00835.html',1,'core::system']]],
