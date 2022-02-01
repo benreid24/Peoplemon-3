@@ -54,6 +54,14 @@ struct GameSave {
      *
      */
     bool remove() const;
+
+    /**
+     * @brief For sorting
+     *
+     * @param rhs The save to compare to
+     * @return True if should come first, false if not
+     */
+    bool operator<(const GameSave& rhs) const;
 };
 
 } // namespace file

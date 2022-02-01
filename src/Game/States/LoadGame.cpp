@@ -142,12 +142,13 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
     }
 }
 
-void LoadGame::render(bl::engine::Engine& engine, float) {
+void LoadGame::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
 
     engine.window().draw(background);
     if (state != SelectingSave) { actionMenu.render(engine.window()); }
     saveMenu.render(engine.window());
+    if (state == Error) { systems.hud().render(engine.window(), lag); }
     if (state == Fading) { engine.window().draw(cover); }
 
     engine.window().display();

@@ -60,11 +60,27 @@ public:
      */
     bool trainerTalkedto(const std::string& name) const;
 
+    /**
+     * @brief Checks if the given conversation flag has been set
+     * 
+     * @param flag The name of the flag to check
+     * @return True if the flag is set, false otherwise
+     */
+    bool flagSet(const std::string& flag) const;
+
+    /**
+     * @brief Sets the conversation flag
+     * 
+     * @param flag The name of the flag to set
+     */
+    void setFlag(const std::string& flag);
+
 private:
     Systems& owner;
     bl::entity::Entity interactingEntity;
     ai::Conversation currentConversation;
     std::unordered_map<std::string, std::unordered_set<std::string>> talkedTo;
+    std::unordered_set<std::string> flags;
     // TODO - data for battle transition if talking to fightable trainer?
 
     void processConversationNode();
@@ -96,11 +112,14 @@ template<>
 struct SerializableObject<core::system::Interaction> : public SerializableObjectBase {
     using I = core::system::Interaction;
     using M = std::unordered_map<std::string, std::unordered_set<std::string>>;
+    using F = std::unordered_set<std::string>;
 
     SerializableField<I, M> talkedTo;
+    SerializableField<I, F> flags;
 
     SerializableObject()
-    : talkedTo("talked", *this, &I::talkedTo) {}
+    : talkedTo("talked", *this, &I::talkedTo)
+    , flags("flags", *this, &I::flags) {}
 };
 
 } // namespace json

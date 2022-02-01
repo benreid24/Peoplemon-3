@@ -5,6 +5,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -61,6 +62,13 @@ void loadCharacter(system::Systems& systems, SymbolTable& table, const std::vect
 void spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                     Value& result);
 
+void spawnGenericEntity(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args, Value& result);
+void spawnAnimation(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void triggerEntityAnimation(system::Systems& systems, SymbolTable& table,
+                            const std::vector<Value>& args, Value& result);
+
 void moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                 Value& result);
 void rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -89,6 +97,10 @@ void addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vecto
                   Value& result);
 void getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
+void checkConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void setConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
 
 void loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
              Value& result);
@@ -120,6 +132,8 @@ void makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vec
 void makeRandomDesert(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                       Value& result);
 void makeRandomWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                       Value& result);
+void getCurrentWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                        Value& result);
 
 Value bind(system::Systems& systems, Builtin func) {
@@ -160,6 +174,9 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(entityInteract);
     BUILTIN(setEntityLock);
     BUILTIN(resetEntityLock);
+    BUILTIN(spawnGenericEntity);
+    BUILTIN(spawnAnimation);
+    BUILTIN(triggerEntityAnimation);
 
     BUILTIN(makeTime);
     BUILTIN(getClock);
@@ -168,6 +185,8 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
     BUILTIN(addSaveEntry);
     BUILTIN(getSaveEntry);
+    BUILTIN(checkConvFlag);
+    BUILTIN(setConvFlag);
 
     BUILTIN(loadMap);
     BUILTIN(setAmbientLight);
@@ -185,6 +204,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(makeRandomSnow);
     BUILTIN(makeRandomDesert);
     BUILTIN(makeRandomWeather);
+    BUILTIN(getCurrentWeather);
 
 #undef BUILTIN
 }
@@ -209,6 +229,7 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
     if (pos) { return BaseFunctions::makePosition(*pos); }
+    BL_LOG_WARN << "Entity " << e << " has no position";
     return {};
 }
 
@@ -226,7 +247,7 @@ void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&
     auto& bag = player.getProperty("bag", false).deref().value().getAsArray();
     bag.reserve(items.size());
     for (const player::Bag::Item& item : items) {
-        bag.emplace_back(new Value(item.id));
+        bag.emplace_back(item.id);
         bag.back().setProperty("id", {item.id});
         bag.back().setProperty("name", {item::Item::getName(item.id)});
         bag.back().setProperty("qty", {item.qty});
@@ -366,13 +387,49 @@ void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
     }
 }
 
-void givePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
-    // TODO - track and give peoplemon
+void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("givePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = "fail";
+        return;
+    }
+
+    if (systems.player().team().size() < 6) {
+        systems.player().team().emplace_back(id, args[1].value().getAsInt());
+        result = "party";
+    }
+    else {
+        // TODO - implement peoplemon storage system
+        result = "storage";
+    }
+
     result = false;
 }
 
-void takePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
-    // TODO - track and take peoplemon
+void takePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("takePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = false;
+        return;
+    }
+
+    const unsigned int level = args[1].value().getAsInt();
+    for (auto it = systems.player().team().begin(); it != systems.player().team().end(); ++it) {
+        if (it->id() == id && it->currentLevel() >= level) {
+            result = true;
+            systems.player().team().erase(it);
+            return;
+        }
+    }
+
     result = false;
 }
 
@@ -640,6 +697,57 @@ void resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<V
     systems.controllable().resetEntityLock(entity);
 }
 
+void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                    Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TString,
+                        PrimitiveValue::TBool>("spawnAnimation", args);
+
+    component::Position pos;
+    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
+                  static_cast<int>(args[1].value().getAsInt())});
+    pos.setPixels({args[2].value().getNumAsFloat(), args[3].value().getNumAsFloat()});
+    result = systems.entity().spawnAnimation(
+        pos, args[4].value().getAsString(), args[5].value().getAsBool());
+}
+
+void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                        Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TString,
+                        PrimitiveValue::TBool>("spawnGenericEntity", args);
+
+    component::Position pos;
+    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
+                  static_cast<int>(args[1].value().getAsInt())});
+    result = systems.entity().spawnGeneric(
+        pos, args[3].value().getAsBool(), args[2].value().getAsString());
+}
+
+void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                            Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
+        "triggerEntityAnimation", args);
+
+    const bl::entity::Entity e = args[0].value().getAsInt();
+    component::Renderable* r   = systems.engine().entities().getComponent<component::Renderable>(e);
+
+    if (!r) {
+        BL_LOG_WARN << "Could not trigger animation for invalid entity: " << e;
+        result = false;
+        return;
+    }
+
+    const bool loop = args[1].value().getAsBool();
+    r->triggerAnim(loop);
+    if (args[2].value().getAsBool() && !loop) { sf::sleep(sf::seconds(r->animLength())); }
+    result = true;
+}
+
 void getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& clock) {
     const system::Clock::Time now = systems.clock().now();
     clock                         = now.hour * 60 + now.minute;
@@ -739,6 +847,17 @@ void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& a
     Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
         {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
+}
+
+void checkConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TString>("checkConvFlag", args);
+    result = systems.interaction().flagSet(args[0].value().getAsString());
+}
+
+void setConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TString>("setConvFlag", args);
+    systems.interaction().setFlag(args[0].value().getAsString());
 }
 
 void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -887,6 +1006,39 @@ void makeRandomDesert(system::Systems& systems, SymbolTable&, const std::vector<
 
 void makeRandomWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::AllRandom);
+}
+
+void getCurrentWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
+                       Value& result) {
+    using T = map::Weather::Type;
+
+    switch (systems.world().activeMap().weatherSystem().getType()) {
+    case T::LightRain:
+    case T::LightRainThunder:
+    case T::HardRain:
+    case T::HardRainThunder:
+        result = "rain";
+        break;
+    case T::LightSnow:
+    case T::LightSnowThunder:
+    case T::HardSnow:
+    case T::HardSnowThunder:
+        result = "snow";
+        break;
+    case T::ThinFog:
+    case T::ThickFog:
+        result = "fog";
+        break;
+    case T::Sunny:
+        result = "sunny";
+        break;
+    case T::SandStorm:
+        result = "sandstorm";
+        break;
+    default:
+        result = "none";
+        break;
+    }
 }
 
 } // namespace
