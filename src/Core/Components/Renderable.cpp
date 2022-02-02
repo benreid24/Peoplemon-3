@@ -218,7 +218,7 @@ Renderable::OneAnimation::OneAnimation(const std::string& path, bool center) {
 
     anim.setData(*src);
     anim.setIsCentered(center);
-    offset = anim.getData().frameCount() > 0 || !center ? anim.getData().getFrameSize(0) :
+    offset = anim.getData().frameCount() > 0 && !center ? anim.getData().getFrameSize(0) :
                                                           sf::Vector2f(0.f, 0.f);
 }
 
