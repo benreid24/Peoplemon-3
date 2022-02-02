@@ -701,31 +701,35 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
                     Value& result) {
     Value::validateArgs<PrimitiveValue::TInteger,
                         PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
                         PrimitiveValue::TNumeric,
                         PrimitiveValue::TNumeric,
                         PrimitiveValue::TString,
                         PrimitiveValue::TBool>("spawnAnimation", args);
 
     component::Position pos;
-    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
-                  static_cast<int>(args[1].value().getAsInt())});
-    pos.setPixels({args[2].value().getNumAsFloat(), args[3].value().getNumAsFloat()});
+    pos.level = args[0].value().getAsInt();
+    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
+                  static_cast<int>(args[2].value().getAsInt())});
+    pos.setPixels({args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()});
     result = systems.entity().spawnAnimation(
-        pos, args[4].value().getAsString(), args[5].value().getAsBool());
+        pos, args[5].value().getAsString(), args[6].value().getAsBool());
 }
 
 void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                         Value& result) {
     Value::validateArgs<PrimitiveValue::TInteger,
                         PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
                         PrimitiveValue::TString,
                         PrimitiveValue::TBool>("spawnGenericEntity", args);
 
     component::Position pos;
-    pos.setTiles({static_cast<int>(args[0].value().getAsInt()),
-                  static_cast<int>(args[1].value().getAsInt())});
+    pos.level = args[0].value().getAsInt();
+    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
+                  static_cast<int>(args[2].value().getAsInt())});
     result = systems.entity().spawnGeneric(
-        pos, args[3].value().getAsBool(), args[2].value().getAsString());
+        pos, args[4].value().getAsBool(), args[3].value().getAsString());
 }
 
 void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

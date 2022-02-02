@@ -1,13 +1,32 @@
 #include <Game/States/MainGame.hpp>
 
 #include <Core/Properties.hpp>
+#include <Core/Scripts/DebugScriptContext.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
+#include <iostream>
 
 namespace game
 {
 namespace state
 {
+namespace
+{
+void runDebugScript(core::system::Systems& systems, std::atomic_bool& rflag) {
+    std::cout << "Enter script: ";
+    std::string cmd;
+    std::getline(std::cin, cmd);
+
+    bl::script::Script script(cmd);
+    if (script.valid()) {
+        script.resetContext(core::script::DebugScriptContext(systems));
+        script.run(&systems.engine().scriptManager());
+    }
+
+    rflag = false;
+}
+} // namespace
+
 MainGame::Ptr MainGame::create(core::system::Systems& systems) {
     return Ptr(new MainGame(systems));
 }
@@ -99,8 +118,17 @@ void MainGame::observe(const core::event::StateChange& event) {
 void MainGame::observe(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
 #ifdef PEOPLEMON_DEBUG
+        static std::atomic_bool running = false;
+
         if (event.key.code == sf::Keyboard::F1) {
             systems.engine().pushState(MapExplorer::create(systems));
+        }
+        if (event.key.code == sf::Keyboard::Tilde) {
+            if (!running) {
+                running = true;
+                std::thread t(&runDebugScript, std::ref(systems), std::ref(running));
+                t.detach();
+            }
         }
 #endif
     }

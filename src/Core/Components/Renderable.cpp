@@ -17,7 +17,6 @@ Renderable Renderable::fromSprite(const PositionHandle& pos, const std::string& 
     Renderable rc(pos);
     rc.data.emplace<StaticSprite>();
     StaticSprite& spr = *std::get_if<StaticSprite>(&rc.data);
-    rc.cur            = &spr;
 
     spr.texture = bl::engine::Resources::textures().load(file).data;
     spr.sprite.setTexture(*spr.texture, true);
@@ -33,7 +32,6 @@ Renderable Renderable::fromMoveAnims(
     Renderable rc(pos);
     rc.data.emplace<MoveAnims>(movable);
     MoveAnims& mv = *std::get_if<MoveAnims>(&rc.data);
-    rc.cur        = &mv;
 
     mv.data[0] = bl::engine::Resources::animations()
                      .load(bl::util::FileUtil::joinPath(path, "up.anim"))
@@ -62,7 +60,6 @@ Renderable Renderable::fromFastMoveAnims(
     Renderable rc(pos);
     rc.data.emplace<FastMoveAnims>(movable);
     FastMoveAnims& mv = *std::get_if<FastMoveAnims>(&rc.data);
-    rc.cur            = &mv;
 
     const std::string walkPath = bl::util::FileUtil::joinPath(path, "Walk");
     const std::string runPath  = bl::util::FileUtil::joinPath(path, "Run");
@@ -104,26 +101,43 @@ Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::strin
                                      bool center) {
     Renderable rc(pos);
     rc.data.emplace<OneAnimation>(path, center);
-    rc.cur = std::get_if<OneAnimation>(&rc.data);
     return rc;
 }
 
 Renderable::Renderable(const PositionHandle& pos)
 : position(pos) {}
 
-void Renderable::update(float dt) { cur->update(dt, position); }
+void Renderable::update(float dt) { cur()->update(dt, position); }
 
 void Renderable::render(sf::RenderTarget& target, float lag) const {
     // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
     static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
                                      static_cast<float>(Properties::PixelsPerTile()));
     const sf::Vector2f pos(position.get().positionPixels() + offset);
-    cur->render(target, lag, pos);
+    cur()->render(target, lag, pos);
 }
 
-float Renderable::animLength() const { return cur->length(); }
+Renderable::Base* Renderable::cur() {
+    switch (data.index()) {
+    case 0:
+        return std::get_if<StaticSprite>(&data);
+    case 1:
+        return std::get_if<MoveAnims>(&data);
+    case 2:
+        return std::get_if<FastMoveAnims>(&data);
+    case 3:
+        return std::get_if<OneAnimation>(&data);
+    default:
+        BL_LOG_CRITICAL << "Invalid Renderable index: " << data.index();
+        return nullptr;
+    }
+}
 
-void Renderable::triggerAnim(bool loop) { cur->trigger(loop); }
+Renderable::Base* Renderable::cur() const { return const_cast<Renderable*>(this)->cur(); }
+
+float Renderable::animLength() const { return cur()->length(); }
+
+void Renderable::triggerAnim(bool loop) { cur()->trigger(loop); }
 
 void Renderable::StaticSprite::render(sf::RenderTarget& target, float, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
@@ -204,13 +218,15 @@ Renderable::OneAnimation::OneAnimation(const std::string& path, bool center) {
 
     anim.setData(*src);
     anim.setIsCentered(center);
+    offset = anim.getData().frameCount() > 0 || !center ? anim.getData().getFrameSize(0) :
+                                                          sf::Vector2f(0.f, 0.f);
 }
 
 void Renderable::OneAnimation::update(float dt, const PositionHandle&) { anim.update(dt); }
 
 void Renderable::OneAnimation::render(sf::RenderTarget& target, float lag,
                                       const sf::Vector2f& pos) {
-    anim.setPosition(pos);
+    anim.setPosition(pos - offset);
     anim.render(target, lag);
 }
 
