@@ -156,6 +156,7 @@ private:
     struct OneAnimation : public Base {
         bl::resource::Resource<bl::gfx::AnimationData>::Ref src;
         bl::gfx::Animation anim;
+        sf::Vector2f offset;
 
         OneAnimation(const std::string& path, bool center);
         virtual ~OneAnimation() = default;
@@ -169,7 +170,9 @@ private:
 
     bl::entity::Registry::ComponentHandle<component::Position> position;
     std::variant<StaticSprite, MoveAnims, FastMoveAnims, OneAnimation> data;
-    Base* cur;
+
+    Base* cur();
+    Base* cur() const;
 
     Renderable(const bl::entity::Registry::ComponentHandle<component::Position>& pos);
 };

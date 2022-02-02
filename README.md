@@ -20,13 +20,15 @@ points for getting to work.
 
 ### Documentation
 
+- [Editor Documentation](docs/editor/reference.md)
 - [Peoplemon **bScript** Reference](docs/scripts/reference.md)
 - [C++ Source Documentation](https://benreid24.github.io/Peoplemon-3/modules.html)
 - [BLIB Engine Source Documentation](https://benreid24.github.io/BLIB/modules.html)
 
 ### Editor Setup
 
-**TODO**: Build editor in CI and outline setup here
+The Peoplemon editor may be used with the release build of Peoplemon, or may be used with the cloned source as well. Those
+wishing to make changes should follow the below instructions to [clone the repository](#clone-peoplemon). Editor binaries may be downloaded from the [releases page](https://github.com/benreid24/Peoplemon-3/releases/latest). Presently the binaries are only available for Windows. Once downloaded simply extract all the files and folders directly into the Peoplemon folder. More about the editor can be [read here](docs/editor/reference.md).
 
 ### Building From Source
 
