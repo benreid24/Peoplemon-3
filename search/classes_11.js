@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['variouseditors',['VariousEditors',['../a01700.html',1,'editor::page']]]
+  ['useresult',['UseResult',['../a01163.html',1,'core::item']]]
 ];

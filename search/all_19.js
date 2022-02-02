@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['xp',['xp',['../a01296.html#add974c34fad16b8417bf55bdbce5a331',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::xp()'],['../a01300.html#ae7d57727d044df06202027ac98b9f675',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::xp()']]],
-  ['xpgroups',['xpGroups',['../a01136.html#a92357ab32f5f3f0bd7596fbdbd7d732d',1,'core::file::PeoplemonDB::xpGroups()'],['../a01140.html#aaf65ca9c1e53926663dab327304545e3',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpGroups()']]],
-  ['xpmults',['xpMults',['../a01136.html#a697048ac89879380c41a57933d0c813d',1,'core::file::PeoplemonDB::xpMults()'],['../a01140.html#ae6ae3c0dc86c559b1889fafbab994a8d',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpMults()']]],
-  ['xpyieldmultiplier',['xpYieldMultiplier',['../a01304.html#a51166a756fa3991293f127ba795a925a',1,'core::pplmn::Peoplemon']]]
+  ['xp',['xp',['../a01303.html#add974c34fad16b8417bf55bdbce5a331',1,'bl::serial::binary::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::xp()'],['../a01307.html#ae7d57727d044df06202027ac98b9f675',1,'bl::serial::json::SerializableObject&lt; core::pplmn::OwnedPeoplemon &gt;::xp()']]],
+  ['xpgroups',['xpGroups',['../a01143.html#a92357ab32f5f3f0bd7596fbdbd7d732d',1,'core::file::PeoplemonDB::xpGroups()'],['../a01147.html#aaf65ca9c1e53926663dab327304545e3',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpGroups()']]],
+  ['xpmults',['xpMults',['../a01143.html#a697048ac89879380c41a57933d0c813d',1,'core::file::PeoplemonDB::xpMults()'],['../a01147.html#ae6ae3c0dc86c559b1889fafbab994a8d',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::xpMults()']]],
+  ['xpyieldmultiplier',['xpYieldMultiplier',['../a01311.html#a51166a756fa3991293f127ba795a925a',1,'core::pplmn::Peoplemon']]]
 ];
