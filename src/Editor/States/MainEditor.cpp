@@ -13,7 +13,6 @@ MainEditor::MainEditor(core::system::Systems& s)
 , mapPage(s)
 , variousEditorsPage(s)
 , scriptPage(s)
-, testingPage(s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
@@ -31,7 +30,6 @@ MainEditor::MainEditor(core::system::Systems& s)
     mapPage.registerGui(gui);
     variousEditorsPage.registerGui(gui);
     scriptPage.registerGui(gui);
-    testingPage.registerGui(gui);
     peoplemonPage.registerGui(gui);
     movesPage.registerGui(gui);
     itemsPage.registerGui(gui);
@@ -46,8 +44,6 @@ MainEditor::MainEditor(core::system::Systems& s)
     });
     notebook->addPage(
         "script", "Scripts", scriptPage.getContent(), [this]() { currentPage = &scriptPage; });
-    notebook->addPage(
-        "test", "Game Testing", testingPage.getContent(), [this]() { currentPage = &testingPage; });
     notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent(), [this]() {
         currentPage = &peoplemonPage;
     });

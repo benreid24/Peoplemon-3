@@ -12,7 +12,6 @@
 #include <Editor/Pages/Moves.hpp>
 #include <Editor/Pages/Peoplemon.hpp>
 #include <Editor/Pages/Scripts.hpp>
-#include <Editor/Pages/Testing.hpp>
 #include <Editor/Pages/VariousEditors.hpp>
 
 /**
@@ -88,7 +87,6 @@ private:
     page::Map mapPage;
     page::VariousEditors variousEditorsPage;
     page::Scripts scriptPage;
-    page::Testing testingPage;
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;
     page::Items itemsPage;

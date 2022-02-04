@@ -451,6 +451,8 @@ Map::Map(core::system::Systems& s)
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
+    controlBook->addPage(
+        "testing", "Testing", testingTab.getContent(), [this]() { activeTool = Tool::Testing; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);

@@ -1,4 +1,6 @@
 #include <Core/Systems/Scripts.hpp>
+
+#include <Core/Files/GameSave.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -19,15 +21,8 @@ void Scripts::setEntry(const std::string& name, const bl::script::Value& val) {
     entries.emplace(name, val);
 }
 
-void Scripts::observe(const event::GameSaving& save) {
-    bl::serial::json::Serializer<Scripts>::serializeInto(save.saveData, "scripting", *this);
-}
-
-void Scripts::observe(const event::GameLoading& save) {
-    if (!bl::serial::json::Serializer<Scripts>::deserializeFrom(
-            save.saveData, "scripting", *this)) {
-        save.failMessage = "Failed to load script data";
-    }
+void Scripts::observe(const event::GameSaveInitializing& save) {
+    save.gameSave.scripts.entries = &entries;
 }
 
 } // namespace system

@@ -19,7 +19,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Scripts : public bl::event::Listener<event::GameSaving, event::GameLoading> {
+class Scripts : public bl::event::Listener<event::GameSaveInitializing> {
 public:
     /**
      * @brief Initializes the scripting system
@@ -54,34 +54,12 @@ private:
     Systems& owner;
     std::unordered_map<std::string, bl::script::Value> entries;
 
-    virtual void observe(const event::GameLoading& save) override;
-    virtual void observe(const event::GameSaving& save) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
 
     friend class bl::serial::json::SerializableObject<Scripts>;
 };
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::Scripts> : public SerializableObjectBase {
-    using S = core::system::Scripts;
-    using M = std::unordered_map<std::string, bl::script::Value>;
-
-    SerializableField<S, M> entries;
-
-    SerializableObject()
-    : entries("saveEntries", *this, &S::entries) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

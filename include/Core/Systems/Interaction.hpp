@@ -21,7 +21,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Interaction : public bl::event::Listener<event::GameLoading, event::GameSaving> {
+class Interaction : public bl::event::Listener<event::GameSaveInitializing> {
 public:
     /**
      * @brief Construct a new Interaction system
@@ -62,7 +62,7 @@ public:
 
     /**
      * @brief Checks if the given conversation flag has been set
-     * 
+     *
      * @param flag The name of the flag to check
      * @return True if the flag is set, false otherwise
      */
@@ -70,7 +70,7 @@ public:
 
     /**
      * @brief Sets the conversation flag
-     * 
+     *
      * @param flag The name of the flag to set
      */
     void setFlag(const std::string& flag);
@@ -92,8 +92,7 @@ private:
     void giveItemDecided(const std::string& choice);
     void giveMoneyDecided(const std::string& choice);
 
-    virtual void observe(const event::GameSaving& save) override;
-    virtual void observe(const event::GameLoading& save) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
     void setTalked(const std::string& name);
 
     friend struct bl::serial::json::SerializableObject<Interaction>;
@@ -101,29 +100,5 @@ private:
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::Interaction> : public SerializableObjectBase {
-    using I = core::system::Interaction;
-    using M = std::unordered_map<std::string, std::unordered_set<std::string>>;
-    using F = std::unordered_set<std::string>;
-
-    SerializableField<I, M> talkedTo;
-    SerializableField<I, F> flags;
-
-    SerializableObject()
-    : talkedTo("talked", *this, &I::talkedTo)
-    , flags("flags", *this, &I::flags) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

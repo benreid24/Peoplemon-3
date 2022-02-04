@@ -8,6 +8,7 @@ target_sources(PeoplemonEditor PRIVATE
     ConversationWindow.cpp
     EditMap.cpp
     EventEditor.cpp
+    GameTestingWindow.cpp
     HighlightRadioButton.cpp
     ItemSelector.cpp
     LightPreview.cpp
