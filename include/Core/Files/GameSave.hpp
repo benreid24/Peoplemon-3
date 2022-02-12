@@ -86,6 +86,12 @@ struct GameSave {
     bool load(bl::event::Dispatcher* bus);
 
     /**
+     * @brief Saves the data back to the file it was loaded from
+     *
+     */
+    void editorSave();
+
+    /**
      * @brief Deletes the game save
      *
      * @return True on success, false on error

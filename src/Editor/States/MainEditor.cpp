@@ -35,6 +35,8 @@ MainEditor::MainEditor(core::system::Systems& s)
     itemsPage.registerGui(gui);
     creditsPage.registerGui(gui);
 
+    mapPage.syncGui();
+
     notebook = bl::gui::Notebook::create();
     notebook->setOutlineThickness(0.f);
 

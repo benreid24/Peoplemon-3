@@ -48,6 +48,12 @@ public:
      */
     virtual void update(float dt) override;
 
+    /**
+     * @brief Updates the GUI elements to sync with the data
+     *
+     */
+    void syncGui();
+
 private:
     bl::gui::ComboBox::Ptr layerSelect;
     bl::gui::ComboBox::Ptr levelSelect;
@@ -137,7 +143,6 @@ private:
                          const core::map::CharacterSpawn& spawn);
 
     bool checkUnsaved();
-    void syncGui();
 };
 
 } // namespace page

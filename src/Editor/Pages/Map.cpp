@@ -462,7 +462,6 @@ Map::Map(core::system::Systems& s)
     content->pack(mapArea.getContent(), true, true);
 
     mapArea.editMap().editorLoad("WorldMap.map");
-    syncGui();
 }
 
 void Map::update(float) {
@@ -835,6 +834,11 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
         }
         break;
 
+    case Tool::Testing:
+        testingTab.notifyClick(
+            mapArea.editMap().currentFile(), levelSelect->getSelectedOption(), tiles);
+        break;
+
     case Tool::Metadata:
     default:
         break;
@@ -863,6 +867,7 @@ void Map::syncGui() {
     tileset.loadTileset(mapArea.editMap().tilesetField);
     tileset.refresh();
     tileset.setGUI(parent);
+    testingTab.registerGUI(parent);
     levelSelect->clearOptions();
     for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
         levelSelect->addOption("Level " + std::to_string(i));

@@ -2,6 +2,8 @@
 #define EDITOR_COMPONENTS_GAMETESTINGWINDOW_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Files/GameSave.hpp>
+#include <Editor/Components/ItemSelector.hpp>
 
 namespace editor
 {
@@ -9,15 +11,36 @@ namespace component
 {
 class GameTestingWindow {
 public:
-    GameTestingWindow();
+    using ActionCb = std::function<void()>;
 
-    void open(const bl::gui::GUI::Ptr& gui);
+    GameTestingWindow(const ActionCb& onSave);
+
+    void open(const bl::gui::GUI::Ptr& gui, core::file::GameSave& save);
 
 private:
+    core::file::GameSave* activeSave;
+    const ActionCb onSave;
+
     bl::gui::GUI::Ptr gui;
     bl::gui::Window::Ptr window;
 
-    // TODO - data and gui elements for save editing
+    bl::gui::TextEntry::Ptr nameEntry;
+    bl::gui::TextEntry::Ptr moneyEntry;
+
+    bl::gui::SelectBox::Ptr itemBox;
+    component::ItemSelector::Ptr itemSelect;
+
+    bl::gui::TextEntry::Ptr flagEntry;
+    bl::gui::SelectBox::Ptr flagBox;
+
+    void addItem();
+    void rmItem();
+
+    void addFlag();
+    void rmFlag();
+
+    void doSave();
+    void cancel();
 };
 
 } // namespace component

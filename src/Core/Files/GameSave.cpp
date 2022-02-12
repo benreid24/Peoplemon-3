@@ -82,6 +82,13 @@ bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
     return true; // TODO - modify above to return boolean
 }
 
+void GameSave::editorSave() {
+    const std::string file           = getSaveName(*player.playerName, saveTime);
+    bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(*this);
+    bl::serial::json::Group& allData = *data.getAsGroup();
+    bl::serial::json::saveToFile(file, allData);
+}
+
 bool GameSave::load(bl::event::Dispatcher* bus) {
     const bl::serial::json::Group data = bl::serial::json::loadFromFile(sourceFile);
     if (bus) { bus->dispatch<event::GameSaveInitializing>({*this, false}); }
