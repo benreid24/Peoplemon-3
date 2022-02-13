@@ -77,6 +77,15 @@ struct GameSave {
     static bool saveGame(const std::string& name, bl::event::Dispatcher& bus);
 
     /**
+     * @brief Loads the game from the given save file
+     *
+     * @param sourceFile The file to load from
+     * @param bus The event bus to use when loading
+     * @return True on success, false on error
+     */
+    static bool loadFromFile(const std::string& sourceFile, bl::event::Dispatcher& bus);
+
+    /**
      * @brief Loads the save represented by this object and fires an event::GameSaveLoaded event to
      *        allow systems to populate their data
      *
@@ -113,6 +122,15 @@ struct GameSave {
      *
      */
     void useLocalData();
+
+    /**
+     * @brief Returns the filename for the given save name
+     *
+     * @param saveName The name of the player in the save
+     * @return The filename to load or save from
+     *
+     */
+    static std::string filename(const std::string& saveName);
 
 private:
     struct Data {

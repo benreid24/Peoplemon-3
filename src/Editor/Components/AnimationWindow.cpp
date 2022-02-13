@@ -96,7 +96,6 @@ void AnimationWindow::packAnim(const std::string& f) {
     animSrc = bl::engine::Resources::animations().load(bl::util::FileUtil::joinPath(path, vf)).data;
     BL_LOG_INFO << bl::util::FileUtil::joinPath(path, vf);
     if (animSrc) {
-        BL_LOG_INFO << "loaded";
         sf::Vector2f size = animSrc->getMaxSize();
         if (size.x > 400.f) {
             size.y *= 400.f / size.x;

@@ -65,9 +65,7 @@ GameTesting::GameTesting()
     content->pack(row, true, false);
 
     but = Button::create("Launch Game");
-    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        // TODO - launch game with save argument
-    });
+    but->getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&GameTesting::launchGame, this));
     but->setColor(sf::Color(30, 230, 40), sf::Color::Black);
     content->pack(but);
     sync();
@@ -103,6 +101,33 @@ void GameTesting::updatePosLabel(unsigned int level, const sf::Vector2i& pos) {
     std::stringstream ss;
     ss << "Lvl: " << level << ". Tile: (" << pos.x << ", " << pos.y << ")";
     posLabel->setText(ss.str());
+}
+
+void GameTesting::launchGame() {
+    static const std::string Path = "PeoplemonDebug.exe";
+    if (bl::util::FileUtil::exists(Path)) {
+        if (saveSelector->getSelectedOption() >= 0) {
+            auto& save = saves[saveSelector->getSelectedOption()];
+            save.useLocalData();
+            if (save.load(nullptr)) {
+                const std::string cmd =
+                    Path + " \"" + core::file::GameSave::filename(*save.player.playerName) + "\"";
+                BL_LOG_INFO << "Launching game: '" << cmd << "'";
+                std::system(cmd.c_str());
+            }
+            else {
+                bl::dialog::tinyfd_messageBox(
+                    "Invalid Save", "Failed to load save", "ok", "error", 1);
+            }
+        }
+        else {
+            bl::dialog::tinyfd_messageBox("Invalid Save", "Please select a save", "ok", "error", 1);
+        }
+    }
+    else {
+        bl::dialog::tinyfd_messageBox(
+            "Game not found", "PeoplemonDebug.exe not found", "ok", "error", 1);
+    }
 }
 
 } // namespace page

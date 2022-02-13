@@ -11,15 +11,6 @@ namespace file
 {
 namespace
 {
-std::string getSaveName(const std::string& name, long) {
-    return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "." +
-           Properties::SaveExtension();
-    // TODO - revert this
-    /*
-    return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "_" +
-           std::to_string(time) + "." + Properties::SaveExtension();*/
-}
-
 bool parseSaveName(const std::string& path, std::string& name, long& time) {
     std::string base = bl::util::FileUtil::getBaseName(path);
     name             = base;
@@ -74,7 +65,7 @@ bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
     save.saveTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
     bus.dispatch<event::GameSaveInitializing>({save, true});
 
-    const std::string file           = getSaveName(save.saveName, save.saveTime);
+    const std::string file           = filename(name);
     bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(save);
     bl::serial::json::Group& allData = *data.getAsGroup();
     bl::serial::json::saveToFile(file, allData);
@@ -82,11 +73,16 @@ bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
     return true; // TODO - modify above to return boolean
 }
 
+bool GameSave::loadFromFile(const std::string& file, bl::event::Dispatcher& bus) {
+    GameSave save;
+    save.sourceFile = file;
+    return save.load(&bus);
+}
+
 void GameSave::editorSave() {
-    const std::string file           = getSaveName(*player.playerName, saveTime);
     bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(*this);
     bl::serial::json::Group& allData = *data.getAsGroup();
-    bl::serial::json::saveToFile(file, allData);
+    bl::serial::json::saveToFile(filename(saveName), allData);
 }
 
 bool GameSave::load(bl::event::Dispatcher* bus) {
@@ -151,5 +147,14 @@ GameSave::GameSave() {
     world.prevPlayerPos = nullptr;
 }
 
-} // namespace file
-} // namespace core
+std::string GameSave::filename(const std::string& name) {
+    return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "." +
+           Properties::SaveExtension();
+
+    // TODO - revert this
+    /*
+    return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "_" +
+           std::to_string(time) + "." + Properties::SaveExtension();*/ }
+
+    } // namespace file
+    } // namespace core

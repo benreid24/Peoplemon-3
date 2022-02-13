@@ -57,6 +57,7 @@ private:
 
     void sync();
     void updatePosLabel(unsigned int level, const sf::Vector2i& pos);
+    void launchGame();
 };
 
 } // namespace page
