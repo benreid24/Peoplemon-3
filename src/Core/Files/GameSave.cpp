@@ -82,7 +82,7 @@ bool GameSave::loadFromFile(const std::string& file, bl::event::Dispatcher& bus)
 void GameSave::editorSave() {
     bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(*this);
     bl::serial::json::Group& allData = *data.getAsGroup();
-    bl::serial::json::saveToFile(filename(saveName), allData);
+    bl::serial::json::saveToFile(filename(*player.playerName), allData);
 }
 
 bool GameSave::load(bl::event::Dispatcher* bus) {
@@ -128,6 +128,8 @@ void GameSave::useLocalData() {
     world.playerPos     = &d.playerPos;
     world.prevMap       = &d.prevMap;
     world.prevPlayerPos = &d.prevPlayerPos;
+
+    clock.time = &d.clockTime;
 }
 
 GameSave::GameSave() {
@@ -145,13 +147,15 @@ GameSave::GameSave() {
     world.playerPos     = nullptr;
     world.prevMap       = nullptr;
     world.prevPlayerPos = nullptr;
+
+    clock.time = nullptr;
 }
 
 std::string GameSave::filename(const std::string& name) {
     return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "." +
            Properties::SaveExtension();
 
-    // TODO - revert this
+// TODO - revert this
     /*
     return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "_" +
            std::to_string(time) + "." + Properties::SaveExtension();*/ }

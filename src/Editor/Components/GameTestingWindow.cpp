@@ -9,6 +9,19 @@ namespace component
 using namespace bl::gui;
 namespace
 {
+constexpr float HourMinutes = 60.f;
+constexpr float DayMinutes  = 24.f * HourMinutes;
+
+float timeToFloat(const core::system::Clock::Time& time) {
+    const float sum = static_cast<float>(time.hour) * HourMinutes + static_cast<float>(time.minute);
+    return sum / DayMinutes;
+}
+
+core::system::Clock::Time floatToTime(float t) {
+    const unsigned int sum = t * DayMinutes;
+    return {sum / 60, sum % 60};
+}
+
 std::string itemString(core::item::Id item, unsigned int qty) {
     return std::to_string(static_cast<unsigned int>(item)) + ":" + core::item::Item::getName(item) +
            ":" + std::to_string(qty);
@@ -33,6 +46,18 @@ GameTestingWindow::GameTestingWindow(const ActionCb& scb)
     moneyEntry = TextEntry::create();
     moneyEntry->setMode(TextEntry::Mode::Integer | TextEntry::Mode::Unsigned);
     row->pack(moneyEntry, true, true);
+    window->pack(row, true, false);
+
+    row = Box::create(packer);
+    row->pack(Label::create("Time:"), false, true);
+    timeSlider = Slider::create(Slider::Direction::Horizontal);
+    timeSlider->setRequisition({100.f, 10.f});
+    timeSlider->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
+        updateTimeLabel(floatToTime(timeSlider->getValue()));
+    });
+    row->pack(timeSlider, true, true);
+    timeLabel = Label::create("00:00");
+    row->pack(timeLabel, false, true);
     window->pack(row, true, false);
 
     Label::Ptr section = Label::create("Items");
@@ -111,6 +136,8 @@ void GameTestingWindow::open(const GUI::Ptr& gui, core::file::GameSave& save) {
     nameEntry->setInput(*save.player.playerName);
     moneyEntry->setInput(std::to_string(*save.player.monei));
 
+    timeSlider->setValue(timeToFloat(*save.clock.time));
+
     itemBox->clearOptions();
     std::vector<core::player::Bag::Item> items;
     save.player.inventory->getAll(items);
@@ -171,9 +198,11 @@ void GameTestingWindow::doSave() {
     }
 
     *activeSave->player.playerName = nameEntry->getInput();
+    activeSave->saveName           = *activeSave->player.playerName;
     *activeSave->player.monei      = std::atol(moneyEntry->getInput().c_str());
     *activeSave->player.sex        = bl::util::Random::get<core::player::Gender>(
         core::player::Gender::Boy, core::player::Gender::Girl);
+    *activeSave->clock.time = floatToTime(timeSlider->getValue());
 
     activeSave->player.inventory->clear();
     std::vector<std::string> vec;
@@ -197,6 +226,12 @@ void GameTestingWindow::doSave() {
     activeSave->editorSave();
     onSave();
     cancel();
+}
+
+void GameTestingWindow::updateTimeLabel(const core::system::Clock::Time& time) {
+    std::string minute = std::to_string(time.minute);
+    if (minute.size() == 1) minute.insert(0, "0");
+    timeLabel->setText(std::to_string(time.hour) + ":" + minute);
 }
 
 } // namespace component

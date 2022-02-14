@@ -27,11 +27,16 @@ private:
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::TextEntry::Ptr moneyEntry;
 
+    bl::gui::Slider::Ptr timeSlider;
+    bl::gui::Label::Ptr timeLabel;
+
     bl::gui::SelectBox::Ptr itemBox;
     component::ItemSelector::Ptr itemSelect;
 
     bl::gui::TextEntry::Ptr flagEntry;
     bl::gui::SelectBox::Ptr flagBox;
+
+    void updateTimeLabel(const core::system::Clock::Time& time);
 
     void addItem();
     void rmItem();

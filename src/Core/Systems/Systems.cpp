@@ -28,6 +28,7 @@ Systems::Systems(bl::engine::Engine& engine)
     _ai.init();
     _interaction.init();
     _scripts.init();
+    _clock.init();
 }
 
 void Systems::update(float dt, bool ent) {

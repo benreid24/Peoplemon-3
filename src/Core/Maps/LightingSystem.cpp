@@ -123,6 +123,7 @@ void LightingSystem::activate(const sf::Vector2i& mapSize) {
                          Properties::LightingHeightTiles() * Properties::PixelsPerTile());
     sprite.setTexture(renderSurface.getTexture(), true);
     sprite.setScale(1.f, -1.f);
+    levelRange = maxLevel - minLevel;
 }
 
 void LightingSystem::subscribe(bl::event::Dispatcher& bus) { eventGuard.subscribe(bus); }

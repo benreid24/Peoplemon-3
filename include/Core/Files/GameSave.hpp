@@ -7,6 +7,7 @@
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
+#include <Core/Systems/Clock.hpp>
 
 namespace core
 {
@@ -22,7 +23,7 @@ struct GameSave {
     /// Local timestamp that the save was modified on
     unsigned long long saveTime;
 
-    /// The name of the save
+    /// Same as the player name but always valid
     std::string saveName;
 
     /// Stores pointers to the actual data to save/load from
@@ -52,6 +53,11 @@ struct GameSave {
     struct ScriptDataPointers {
         std::unordered_map<std::string, bl::script::Value>* entries;
     } scripts;
+
+    /// Stores the date in game
+    struct ClockPointers {
+        system::Clock::Time* time;
+    } clock;
 
     /**
      * @brief Initializes all pointers to the local members
@@ -146,6 +152,7 @@ private:
         component::Position playerPos;
         component::Position prevPlayerPos;
         std::unordered_map<std::string, bl::script::Value> entries;
+        system::Clock::Time clockTime;
     };
 
     std::optional<Data> localData;
@@ -225,22 +232,33 @@ struct SerializableObject<core::file::GameSave::ScriptDataPointers>
 };
 
 template<>
+struct SerializableObject<core::file::GameSave::ClockPointers> : public SerializableObjectBase {
+    using C = core::file::GameSave::ClockPointers;
+    using T = core::system::Clock::Time;
+
+    SerializableField<C, T*> time;
+
+    SerializableObject()
+    : time("time", *this, &C::time) {}
+};
+
+template<>
 struct SerializableObject<core::file::GameSave> : public SerializableObjectBase {
     using GS = core::file::GameSave;
     SerializableField<GS, unsigned long long> saveTime;
-    SerializableField<GS, std::string> saveName;
     SerializableField<GS, GS::PlayerDataPointers> player;
     SerializableField<GS, GS::InteractDataPointers> interaction;
     SerializableField<GS, GS::WorldDataPointers> world;
     SerializableField<GS, GS::ScriptDataPointers> script;
+    SerializableField<GS, GS::ClockPointers> clock;
 
     SerializableObject()
     : saveTime("saveTime", *this, &GS::saveTime)
-    , saveName("name", *this, &GS::saveName)
     , player("player", *this, &GS::player)
     , interaction("interaction", *this, &GS::interaction)
     , world("world", *this, &GS::world)
-    , script("script", *this, &GS::scripts) {}
+    , script("script", *this, &GS::scripts)
+    , clock("clock", *this, &GS::clock) {}
 };
 
 } // namespace json
