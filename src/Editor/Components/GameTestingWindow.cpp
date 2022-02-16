@@ -1,6 +1,7 @@
 #include <Editor/Components/GameTestingWindow.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace editor
 {
@@ -26,6 +27,24 @@ std::string itemString(core::item::Id item, unsigned int qty) {
     return std::to_string(static_cast<unsigned int>(item)) + ":" + core::item::Item::getName(item) +
            ":" + std::to_string(qty);
 }
+
+std::string pplString(core::pplmn::Id id, unsigned int level) {
+    std::stringstream ss;
+    ss << static_cast<unsigned int>(id) << ":" << core::pplmn::Peoplemon::name(id)
+       << " Lvl: " << level;
+    return ss.str();
+}
+
+void parsePeoplemon(const std::string& s, core::pplmn::Id& id, unsigned int& level) {
+    std::string rd;
+    std::stringstream ss(s);
+    std::getline(ss, rd, ':');
+    id = core::pplmn::Peoplemon::cast(std::atoi(rd.c_str()));
+    std::getline(ss, rd, ':');
+    std::getline(ss, rd);
+    level = std::atoi(rd.c_str());
+}
+
 } // namespace
 
 GameTestingWindow::GameTestingWindow(const ActionCb& scb)
@@ -114,6 +133,44 @@ GameTestingWindow::GameTestingWindow(const ActionCb& scb)
     row->pack(column, true, true);
     window->pack(row, true, false);
 
+    section = Label::create("Peoplemon");
+    section->setCharacterSize(24);
+    window->pack(section, true, false);
+    row    = Box::create(packer);
+    pplBox = SelectBox::create();
+    pplBox->setRequisition({250.f, 150.f});
+    pplBox->setMaxSize({400.f, 150.f});
+    row->pack(pplBox, true, true);
+    column = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    subrow = Box::create(packer);
+    subrow->pack(Label::create("Level"), false, true);
+    levelSelect = ComboBox::create();
+    levelSelect->setMaxHeight(200.f);
+    for (int i = 5; i <= 100; i += 5) { levelSelect->addOption(std::to_string(i)); }
+    levelSelect->setSelectedOption(9);
+    subrow->pack(levelSelect, true, true);
+    column->pack(subrow, true, false);
+    subrow = Box::create(packer);
+    subrow->pack(Label::create("Species"), false, true);
+    pplSelect = component::PeoplemonSelector::create();
+    pplSelect->setMaxHeight(300.f);
+    subrow->pack(pplSelect, true, true);
+    column->pack(subrow, true, false);
+    subrow = Box::create(packer);
+    but    = Button::create("Add");
+    but->setColor(sf::Color::Green, sf::Color::Black);
+    but->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&GameTestingWindow::addPeoplemon, this));
+    subrow->pack(but, false, true);
+    but = Button::create("Remove");
+    but->setColor(sf::Color::Red, sf::Color::Black);
+    but->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&GameTestingWindow::rmPeoplemon, this));
+    subrow->pack(but, false, true);
+    column->pack(subrow, true, false);
+    row->pack(column, true, true);
+    window->pack(row, true, false);
+
     row                 = Box::create(packer);
     Button::Ptr saveBut = Button::create("Save");
     saveBut->getSignal(Event::LeftClicked)
@@ -145,6 +202,11 @@ void GameTestingWindow::open(const GUI::Ptr& gui, core::file::GameSave& save) {
 
     flagBox->clearOptions();
     for (const auto& flag : *save.interaction.convFlags) { flagBox->addOption(flag); }
+
+    pplBox->clearOptions();
+    for (const auto& ppl : *activeSave->player.peoplemon) {
+        pplBox->addOption(pplString(ppl.id(), ppl.currentLevel()));
+    }
 }
 
 void GameTestingWindow::cancel() {
@@ -223,6 +285,14 @@ void GameTestingWindow::doSave() {
     activeSave->interaction.convFlags->clear();
     for (const auto& s : vec) { activeSave->interaction.convFlags->emplace(s); }
 
+    activeSave->player.peoplemon->clear();
+    for (unsigned int i = 0; i < pplBox->optionCount(); ++i) {
+        core::pplmn::Id id;
+        unsigned int lvl;
+        parsePeoplemon(pplBox->getOption(i), id, lvl);
+        activeSave->player.peoplemon->emplace_back(id, lvl);
+    }
+
     activeSave->editorSave();
     onSave();
     cancel();
@@ -232,6 +302,18 @@ void GameTestingWindow::updateTimeLabel(const core::system::Clock::Time& time) {
     std::string minute = std::to_string(time.minute);
     if (minute.size() == 1) minute.insert(0, "0");
     timeLabel->setText(std::to_string(time.hour) + ":" + minute);
+}
+
+void GameTestingWindow::addPeoplemon() {
+    if (pplBox->optionCount() < 6 && pplSelect->currentPeoplemon() != core::pplmn::Id::Unknown) {
+        pplBox->addOption(
+            pplString(pplSelect->currentPeoplemon(), levelSelect->getSelectedOption() * 5 + 5));
+    }
+}
+
+void GameTestingWindow::rmPeoplemon() {
+    const auto i = pplBox->getSelectedOption();
+    if (i.has_value()) { pplBox->removeOption(i.value()); }
 }
 
 } // namespace component

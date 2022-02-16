@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Editor/Components/ItemSelector.hpp>
+#include <Editor/Components/PeoplemonSelector.hpp>
 
 namespace editor
 {
@@ -36,6 +37,10 @@ private:
     bl::gui::TextEntry::Ptr flagEntry;
     bl::gui::SelectBox::Ptr flagBox;
 
+    bl::gui::SelectBox::Ptr pplBox;
+    component::PeoplemonSelector::Ptr pplSelect;
+    bl::gui::ComboBox::Ptr levelSelect;
+
     void updateTimeLabel(const core::system::Clock::Time& time);
 
     void addItem();
@@ -43,6 +48,9 @@ private:
 
     void addFlag();
     void rmFlag();
+
+    void addPeoplemon();
+    void rmPeoplemon();
 
     void doSave();
     void cancel();
