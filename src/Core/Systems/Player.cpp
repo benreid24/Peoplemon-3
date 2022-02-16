@@ -148,14 +148,12 @@ void Player::init() {
 
 void Player::update() { input.update(); }
 
-void Player::observe(const event::GameSaving& save) {
-    Serializer::serializeInto(save.saveData, "player", *this);
-}
-
-void Player::observe(const event::GameLoading& load) {
-    if (!Serializer::deserializeFrom(load.saveData, "player", *this)) {
-        load.failMessage = "Failed to load player data from save";
-    }
+void Player::observe(const event::GameSaveInitializing& save) {
+    save.gameSave.player.inventory  = &inventory;
+    save.gameSave.player.monei      = &monei;
+    save.gameSave.player.peoplemon  = &peoplemon;
+    save.gameSave.player.playerName = &playerName;
+    save.gameSave.player.sex        = &sex;
 }
 
 } // namespace system

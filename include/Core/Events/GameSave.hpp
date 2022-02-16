@@ -6,29 +6,44 @@
 
 namespace core
 {
+namespace file
+{
+struct GameSave;
+}
+
 namespace event
 {
 /**
- * @brief Fired when the game is saving. Allows arbitrary systems to add data to the save
+ * @brief Fired when the game is saving or loading. Allows systems to hook in their data
  *
  * @ingroup Events
  *
  */
-struct GameSaving {
-    /// Top level game save data object
-    bl::serial::json::Group& saveData;
+struct GameSaveInitializing {
+    /// Game save being initialized
+    file::GameSave& gameSave;
+
+    /// True when saving, false when loading
+    bool saving;
+
+    /**
+     * @brief Construct a new Game Save Initializing object
+     *
+     * @param sv The game save to init
+     * @param s True when saving, false when loading
+     */
+    GameSaveInitializing(file::GameSave& sv, bool s)
+    : gameSave(sv)
+    , saving(s) {}
 };
 
 /**
- * @brief Fired when a game save is loaded. Allows arbitrary systems to pull from the save
+ * @brief Fired when a game save is loaded. Fired after the load is complete
  *
  * @ingroup Events
  *
  */
-struct GameLoading {
-    /// The top level data in the game save
-    const bl::serial::json::Group& saveData;
-
+struct GameSaveLoaded {
     /// Modules can set this if they encounter a failure that should fail the entire load
     mutable std::string failMessage;
 };

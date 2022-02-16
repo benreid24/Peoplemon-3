@@ -103,7 +103,7 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
         break;
 
     case SaveLoaded:
-        if (saves[selectedSave].load(engine.eventBus()) && systems.world().finishLoad()) {
+        if (saves[selectedSave].load(&engine.eventBus())) {
             fadeTime = 0.f;
             state    = Fading;
         }

@@ -6,7 +6,6 @@ target_sources(PeoplemonEditor PUBLIC
     Page.hpp
     Peoplemon.hpp
     Scripts.hpp
-    Testing.hpp
     VariousEditors.hpp
 )
 

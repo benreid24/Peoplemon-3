@@ -15,7 +15,7 @@
 
 #include <iostream>
 
-int main() {
+int main(int, char**) {
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
     bl::logging::Config::addFileOutput("editor.log", bl::logging::Config::Debug);
 

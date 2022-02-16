@@ -18,7 +18,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class World : public bl::event::Listener<event::GameSaving, event::GameLoading> {
+class World : public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
 public:
     /**
      * @brief Creates the world system
@@ -49,13 +49,6 @@ public:
     bool switchMaps(const std::string& newMap, int spawnId);
 
     /**
-     * @brief Actually enters the map and completes the save load process
-     *
-     * @return True on success, false on error
-     */
-    bool finishLoad();
-
-    /**
      * @brief Returns a reference to the active map
      *
      */
@@ -78,13 +71,13 @@ public:
      * @brief Adds saved world data to the save file
      *
      */
-    virtual void observe(const event::GameSaving& save) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
 
     /**
      * @brief Initializes world state from the loading game save
      *
      */
-    virtual void observe(const event::GameLoading& load) override;
+    virtual void observe(const event::GameSaveLoaded& load) override;
 
 private:
     Systems& owner;
@@ -95,38 +88,9 @@ private:
     std::string prevMapFile;
     component::Position playerPos;
     component::Position prevPlayerPos;
-
-    friend class bl::serial::json::SerializableObject<World>;
 };
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::World> : SerializableObjectBase {
-    using World = core::system::World;
-    using Pos   = core::component::Position;
-
-    SerializableField<World, std::string> currentMap;
-    SerializableField<World, std::string> prevMap;
-    SerializableField<World, Pos> playerPos;
-    SerializableField<World, Pos> prevPlayerPos;
-
-    SerializableObject()
-    : currentMap("current", *this, &World::currentMapFile)
-    , prevMap("previous", *this, &World::prevMapFile)
-    , playerPos("position", *this, &World::playerPos)
-    , prevPlayerPos("prevPos", *this, &World::prevPlayerPos) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

@@ -50,12 +50,15 @@ public:
     void disableControls();
 
 private:
+    const component::EditMap::PositionCb onClick;
     bl::gui::Box::Ptr content;
     bl::gui::Label::Ptr positionLabel;
     bl::gui::Button::Ptr undoBut;
     bl::gui::Button::Ptr redoBut;
     bl::gui::CheckButton::Ptr enableBut;
+    bl::gui::CheckButton::Ptr dragBut;
     component::EditMap::Ptr map;
+    sf::Vector2i lastDragTile;
 
     void refreshButtons();
     void onMouseOver(const sf::Vector2f& pixels, const sf::Vector2i& tiles);

@@ -8,9 +8,11 @@ using namespace bl::gui;
 
 MapArea::MapArea(const component::EditMap::PositionCb& cb,
                  const component::EditMap::ActionCb& syncCb, core::system::Systems& s)
-: map(component::EditMap::create(
+: onClick(cb)
+, map(component::EditMap::create(
       cb, std::bind(&MapArea::onMouseOver, this, std::placeholders::_1, std::placeholders::_2),
-      std::bind(&MapArea::refreshButtons, this), syncCb, s)) {
+      std::bind(&MapArea::refreshButtons, this), syncCb, s))
+, lastDragTile(-1, -1) {
     content = Box::create(LinePacker::create(LinePacker::Vertical, 0));
     content->setOutlineThickness(0.f);
 
@@ -43,8 +45,10 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     enableBut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& a, Element*) {
         map->setControlsEnabled(a.toggleValue());
     });
+    dragBut       = CheckButton::create("Enable drag");
     positionLabel = Label::create("Tile: ()");
     rightSide->pack(enableBut, false, true);
+    rightSide->pack(dragBut, false, true);
     rightSide->pack(positionLabel, false, true);
 
     controlRow->pack(leftSide, true, false);
@@ -79,9 +83,15 @@ void MapArea::refreshButtons() {
     }
 }
 
-void MapArea::onMouseOver(const sf::Vector2f&, const sf::Vector2i& tiles) {
+void MapArea::onMouseOver(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
     positionLabel->setText("Tile: (" + std::to_string(tiles.x) + ", " + std::to_string(tiles.y) +
                            ")");
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && dragBut->getValue()) {
+        if (lastDragTile != tiles) {
+            lastDragTile = tiles;
+            onClick(pixels, tiles);
+            }
+    }
 }
 
 void MapArea::enableControls() {

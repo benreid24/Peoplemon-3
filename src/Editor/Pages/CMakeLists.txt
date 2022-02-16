@@ -6,7 +6,6 @@ target_sources(PeoplemonEditor PRIVATE
     Page.cpp
     Peoplemon.cpp
     Scripts.cpp
-    Testing.cpp
     VariousEditors.cpp
 )
 

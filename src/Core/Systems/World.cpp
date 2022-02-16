@@ -1,5 +1,6 @@
 #include <Core/Systems/World.hpp>
 
+#include <Core/Files/GameSave.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -65,25 +66,24 @@ const map::Map& World::activeMap() const { return *currentMap; }
 
 void World::update(float dt) { currentMap->update(owner, dt); }
 
-void World::observe(const event::GameSaving& save) {
-    playerPos = owner.player().position();
-    Serializer::serializeInto(save.saveData, "world", *this);
+void World::observe(const event::GameSaveInitializing& save) {
+    if (save.saving) { playerPos = owner.player().position(); }
+    save.gameSave.world.currentMap    = &currentMapFile;
+    save.gameSave.world.prevMap       = &prevMapFile;
+    save.gameSave.world.playerPos     = &playerPos;
+    save.gameSave.world.prevPlayerPos = &prevPlayerPos;
 }
 
-void World::observe(const event::GameLoading& load) {
-    if (!Serializer::deserializeFrom(load.saveData, "world", *this)) {
-        load.failMessage = "Failed to load world data from save";
-        return;
-    }
-
+void World::observe(const event::GameSaveLoaded& load) {
     currentMap = Resources::maps().load(currentMapFile).data;
     if (!currentMap) {
         load.failMessage = "Failed to load map: " + currentMapFile;
         return;
     }
+    if (!currentMap->enter(owner, 0, prevMapFile, playerPos)) {
+        load.failMessage = "Failed to enter map: " + currentMapFile;
+    }
 }
-
-bool World::finishLoad() { return currentMap->enter(owner, 0, prevMapFile, playerPos); }
 
 } // namespace system
 } // namespace core

@@ -7,6 +7,7 @@ target_sources(PeoplemonEditor PUBLIC
     ConversationWindow.hpp
     EditMap.hpp
     EventEditor.hpp
+    GameTestingWindow.hpp
     HighlightRadioButton.hpp
     ItemSelector.hpp
     LightPreview.hpp

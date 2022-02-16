@@ -23,7 +23,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player : public bl::event::Listener<event::GameSaving, event::GameLoading> {
+class Player : public bl::event::Listener<event::GameSaveInitializing> {
 public:
     /**
      * @brief Construct a new Player system
@@ -162,41 +162,12 @@ private:
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     component::Position savePos;
 
-    virtual void observe(const event::GameSaving& save) override;
-    virtual void observe(const event::GameLoading& load) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
 
     friend class bl::serial::json::SerializableObject<Player>;
 };
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::Player> : public SerializableObjectBase {
-    using Player = core::system::Player;
-
-    SerializableField<Player, std::string> name;
-    SerializableField<Player, core::player::Gender> gender;
-    SerializableField<Player, core::player::Bag> bag;
-    SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>> peoplemon;
-    SerializableField<Player, long> money;
-
-    SerializableObject()
-    : name("name", *this, &Player::playerName)
-    , gender("gender", *this, &Player::sex)
-    , bag("bag", *this, &Player::inventory)
-    , peoplemon("peoplemon", *this, &Player::peoplemon)
-    , money("money", *this, &Player::monei) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

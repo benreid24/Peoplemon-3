@@ -1,6 +1,7 @@
 #include <Core/Systems/Clock.hpp>
 
 #include <Core/Events/TimeChange.hpp>
+#include <Core/Files/GameSave.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
 
@@ -26,6 +27,11 @@ void Clock::update(float dt) {
 }
 
 void Clock::set(const Time& n) { currentTime = n; }
+
+Clock::Time::Time()
+: day(0)
+, hour(12)
+, minute(0) {}
 
 Clock::Time::Time(unsigned int h, unsigned int m, unsigned int d)
 : day(d)
@@ -73,6 +79,19 @@ bool Clock::Time::operator>(const Time& right) const {
     else if (hour == right.hour)
         return minute > right.minute;
     return false;
+}
+
+void Clock::observe(const event::GameSaveInitializing& save) {
+    save.gameSave.clock.time = &currentTime;
+}
+
+void Clock::observe(const event::GameSaveLoaded&) {
+    owner.engine().eventBus().dispatch<event::TimeChange>({currentTime});
+}
+
+void Clock::init() {
+    owner.engine().eventBus().subscribe(this);
+    currentTime = {};
 }
 
 } // namespace system

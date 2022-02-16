@@ -89,6 +89,12 @@ public:
     bool unsavedChanges() const;
 
     /**
+     * @brief Returns the current file the map is saving to
+     *
+     */
+    const std::string& currentFile() const;
+
+    /**
      * @brief Clears the current map and creates a new map with the given parameters
      *
      * @param filename The file to save the map into

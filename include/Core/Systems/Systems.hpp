@@ -18,7 +18,7 @@
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
-int main();
+int main(int, char**);
 
 namespace tests
 {
@@ -220,7 +220,7 @@ private:
      */
     Systems(bl::engine::Engine& engine);
 
-    friend int ::main();
+    friend int ::main(int, char**);
     friend class ::tests::SystemsHelper;
 };
 

@@ -107,6 +107,8 @@ bool EditMap::editorSave() {
     return false;
 }
 
+const std::string& EditMap::currentFile() const { return savefile; }
+
 void EditMap::newMap(const std::string& filename, const std::string& name,
                      const std::string& tileset, unsigned int width, unsigned int height) {
     clear();

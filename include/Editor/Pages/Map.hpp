@@ -10,6 +10,7 @@
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
+#include <Editor/Pages/Subpages/GameTesting.hpp>
 #include <Editor/Pages/Subpages/Layers.hpp>
 #include <Editor/Pages/Subpages/Levels.hpp>
 #include <Editor/Pages/Subpages/MapArea.hpp>
@@ -46,6 +47,12 @@ public:
      * @param dt Time elapsed in seconds
      */
     virtual void update(float dt) override;
+
+    /**
+     * @brief Updates the GUI elements to sync with the data
+     *
+     */
+    void syncGui();
 
 private:
     bl::gui::ComboBox::Ptr layerSelect;
@@ -96,7 +103,9 @@ private:
     Levels levelPage;
     Layers layerPage;
 
-    enum struct Tool { Metadata, MapEdit, Events, Spawns, NPCs, Items, Lights } activeTool;
+    page::GameTesting testingTab;
+
+    enum struct Tool { Metadata, MapEdit, Events, Spawns, NPCs, Items, Lights, Testing } activeTool;
     enum struct Subtool { Set, Fill, Select, Clear, Add, Edit, Remove, None } activeSubtool;
 
     sf::IntRect selection;
@@ -134,7 +143,6 @@ private:
                          const core::map::CharacterSpawn& spawn);
 
     bool checkUnsaved();
-    void syncGui();
 };
 
 } // namespace page

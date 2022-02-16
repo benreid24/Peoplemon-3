@@ -5,6 +5,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Item.hpp>
+#include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -240,15 +241,9 @@ bool Interaction::flagSet(const std::string& name) const { return flags.find(nam
 
 void Interaction::setFlag(const std::string& name) { flags.emplace(name); }
 
-void Interaction::observe(const event::GameSaving& save) {
-    bl::serial::json::Serializer<Interaction>::serializeInto(save.saveData, "interaction", *this);
-}
-
-void Interaction::observe(const event::GameLoading& save) {
-    if (!bl::serial::json::Serializer<Interaction>::deserializeFrom(
-            save.saveData, "interaction", *this)) {
-        save.failMessage = "Failed to load interaction system data";
-    }
+void Interaction::observe(const event::GameSaveInitializing& save) {
+    save.gameSave.interaction.convFlags = &flags;
+    save.gameSave.interaction.talkedto  = &talkedTo;
 }
 
 void Interaction::setTalked(const std::string& name) {

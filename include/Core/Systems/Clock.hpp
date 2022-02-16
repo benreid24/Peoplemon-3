@@ -1,7 +1,9 @@
 #ifndef CORE_SYSTEMS_CLOCK_HPP
 #define CORE_SYSTEMS_CLOCK_HPP
 
+#include <BLIB/Serialization/JSON.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <Core/Events/GameSave.hpp>
 #include <iomanip>
 #include <ostream>
 
@@ -17,7 +19,9 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Clock : private bl::util::NonCopyable {
+class Clock
+: private bl::util::NonCopyable
+, public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
 public:
     /**
      * @brief Simple struct repsenting a point in time
@@ -34,6 +38,12 @@ public:
 
         /// Current minute of the hour. In range [0, 59]
         unsigned int minute;
+
+        /**
+         * @brief Construct a new Time at noon of day 0
+         *
+         */
+        Time();
 
         /**
          * @brief Creates a new time
@@ -99,6 +109,12 @@ public:
     const Time& now() const;
 
     /**
+     * @brief Performs one time setup of the clock system
+     *
+     */
+    void init();
+
+    /**
      * @brief Tracks elapsed time and progresses the in game time
      *
      * @param dt Real elapsed time to scale in game time by
@@ -112,7 +128,17 @@ public:
      */
     void set(const Time& time);
 
-    // TODO - saving/loading from game save
+    /**
+     * @brief Adds saved clock data to the save file
+     *
+     */
+    virtual void observe(const event::GameSaveInitializing& save) override;
+
+    /**
+     * @brief Initializes clock state from the loading game save
+     *
+     */
+    virtual void observe(const event::GameSaveLoaded& load) override;
 
 private:
     Systems& owner;
@@ -132,5 +158,28 @@ private:
 
 } // namespace system
 } // namespace core
+
+namespace bl
+{
+namespace serial
+{
+namespace json
+{
+template<>
+struct SerializableObject<core::system::Clock::Time> : public SerializableObjectBase {
+    using T = core::system::Clock::Time;
+
+    SerializableField<T, unsigned int> day;
+    SerializableField<T, unsigned int> hour;
+    SerializableField<T, unsigned int> minute;
+
+    SerializableObject()
+    : day("day", *this, &T::day)
+    , hour("hour", *this, &T::hour)
+    , minute("minute", *this, &T::minute) {}
+};
+} // namespace json
+} // namespace serial
+} // namespace bl
 
 #endif
