@@ -72,7 +72,9 @@ private:
     bl::gui::Label::Ptr playlistLabel;
     component::PlaylistEditorWindow playlistWindow;
     component::WeatherSelect::Ptr weatherSelect;
+    bl::gui::ComboBox::Ptr spawnSelect;
 
+    void refreshSpawns(std::uint16_t spawn);
     void onPlaylistPick(const std::string& plst);
     void takeFocus();
     void closeWindow();

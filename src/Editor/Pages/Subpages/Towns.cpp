@@ -6,6 +6,10 @@ namespace editor
 {
 namespace page
 {
+namespace
+{
+constexpr std::uint16_t NoSpawn = std::numeric_limits<std::uint16_t>::max();
+}
 using namespace bl::gui;
 
 Towns::Towns(component::EditMap& m)
@@ -60,6 +64,13 @@ Towns::Towns(component::EditMap& m)
     row->pack(weatherSelect);
     window->pack(row, true, false);
 
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    row->pack(Label::create("PC Spawn:"), false, true);
+    spawnSelect = ComboBox::create();
+    spawnSelect->setMaxHeight(150.f);
+    row->pack(spawnSelect, false, true);
+    window->pack(row, true, false);
+
     but = Button::create("Save");
     but->getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Towns::onTownEdit, this));
     window->pack(but);
@@ -81,6 +92,25 @@ void Towns::refresh() {
     for (unsigned int i = 0; i < map.towns.size(); ++i) {
         scrollRegion->pack(makeRow(i, map.towns[i].name), true, false);
     }
+
+    refreshSpawns(NoSpawn);
+}
+
+void Towns::refreshSpawns(std::uint16_t s) {
+    spawnSelect->clearOptions();
+    spawnSelect->addOption("None");
+
+    std::vector<std::uint16_t> spawns;
+    spawns.reserve(map.spawns.size());
+    for (const auto& spawn : map.spawns) { spawns.emplace_back(spawn.first); }
+    std::sort(spawns.begin(), spawns.end());
+
+    int opt = 0;
+    for (unsigned int i = 0; i < spawns.size(); ++i) {
+        spawnSelect->addOption(std::to_string(spawns[i]));
+        if (spawns[i] == s) { opt = i + 1; }
+    }
+    spawnSelect->setSelectedOption(opt);
 }
 
 void Towns::onPlaylistPick(const std::string& p) {
@@ -102,6 +132,7 @@ void Towns::editTown(std::uint8_t i) {
     nameEntry->setInput(map.towns[i].name);
     playlistLabel->setText(map.towns[i].playlist);
     weatherSelect->setSelectedWeather(map.towns[i].weather);
+    refreshSpawns(map.towns[i].pcSpawn);
     gui->pack(window);
     window->setForceFocus(true);
 }
@@ -113,6 +144,10 @@ void Towns::onTownEdit() {
     t.name     = nameEntry->getInput();
     t.playlist = playlistLabel->getText();
     t.weather  = weatherSelect->selectedWeather();
+    if (spawnSelect->getSelectedOptionText() == "None") { t.pcSpawn = NoSpawn; }
+    else {
+        t.pcSpawn = std::atoi(spawnSelect->getSelectedOptionText().c_str());
+    }
     map.editTown(editing, t);
     closeWindow();
 }
@@ -124,7 +159,7 @@ Box::Ptr Towns::makeRow(std::uint8_t i, const std::string& name) {
 
     RadioButton::Ptr but = RadioButton::create(name, name, noTownBut->getRadioGroup());
     but->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element*) {
-        active = i+1;
+        active = i + 1;
     });
     but->setHorizontalAlignment(RenderSettings::Left);
 
