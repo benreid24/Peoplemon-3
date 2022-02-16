@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::CharacterSpawnWindow Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,154 +63,26 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00834.html">editor</a></li><li class="navelem"><a class="el" href="a00835.html">component</a></li><li class="navelem"><a class="el" href="a01535.html">CharacterSpawnWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00824.html">core</a></li><li class="navelem"><a class="el" href="a00825.html">system</a></li><li class="navelem"><a class="el" href="a01538.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01532.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::CharacterSpawnWindow Class Reference</div>  </div>
+<div class="title">core::system::Render Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Editing window for character spawns. Manages NPCs and trainers.  
- <a href="a01535.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00278_source.html">CharacterSpawnWindow.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> = std::function&lt; void(const <a class="el" href="a01175.html">core::map::CharacterSpawn</a> *, const <a class="el" href="a01175.html">core::map::CharacterSpawn</a> &amp;)&gt;</td></tr>
-<tr class="memdesc:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when spawns are created or edited.  <a href="#aa46cdd85beb497a70d861e2dbbe64dc2">More...</a><br /></td></tr>
-<tr class="separator:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1d95659288c6bff0f0c4d02a6921923f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a1d95659288c6bff0f0c4d02a6921923f">CharacterSpawnWindow</a> (const <a class="el" href="a01535.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> &amp;onEdit)</td></tr>
-<tr class="memdesc:a1d95659288c6bff0f0c4d02a6921923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a01535.html" title="Editing window for character spawns. Manages NPCs and trainers. ">CharacterSpawnWindow</a>.  <a href="#a1d95659288c6bff0f0c4d02a6921923f">More...</a><br /></td></tr>
-<tr class="separator:a1d95659288c6bff0f0c4d02a6921923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a443d30b9ce7bc8e542ef1b9f41d87888"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01535.html#a443d30b9ce7bc8e542ef1b9f41d87888">open</a> (const bl::gui::GUI::Ptr &amp;parent, unsigned int level, const sf::Vector2i &amp;pos, const <a class="el" href="a01175.html">core::map::CharacterSpawn</a> *orig)</td></tr>
-<tr class="memdesc:a443d30b9ce7bc8e542ef1b9f41d87888"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the spawn editing window.  <a href="#a443d30b9ce7bc8e542ef1b9f41d87888">More...</a><br /></td></tr>
-<tr class="separator:a443d30b9ce7bc8e542ef1b9f41d87888"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Editing window for character spawns. Manages NPCs and trainers. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00019">19</a> of file <a class="el" href="a00278_source.html">CharacterSpawnWindow.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aa46cdd85beb497a70d861e2dbbe64dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa46cdd85beb497a70d861e2dbbe64dc2">&#9670;&nbsp;</a></span>OnEdit</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01535.html#aa46cdd85beb497a70d861e2dbbe64dc2">editor::component::CharacterSpawnWindow::OnEdit</a> =  std::function&lt;void(const <a class="el" href="a01175.html">core::map::CharacterSpawn</a>*, const <a class="el" href="a01175.html">core::map::CharacterSpawn</a>&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback for when spawns are created or edited. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00023">23</a> of file <a class="el" href="a00278_source.html">CharacterSpawnWindow.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1d95659288c6bff0f0c4d02a6921923f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d95659288c6bff0f0c4d02a6921923f">&#9670;&nbsp;</a></span>CharacterSpawnWindow()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">editor::component::CharacterSpawnWindow::CharacterSpawnWindow </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01535.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> &amp;&#160;</td>
-          <td class="paramname"><em>onEdit</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Creates a new <a class="el" href="a01535.html" title="Editing window for character spawns. Manages NPCs and trainers. ">CharacterSpawnWindow</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">onEdit</td><td>Callback for when spawns are edited </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00650_source.html#l00035">35</a> of file <a class="el" href="a00650_source.html">CharacterSpawnWindow.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a443d30b9ce7bc8e542ef1b9f41d87888"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a443d30b9ce7bc8e542ef1b9f41d87888">&#9670;&nbsp;</a></span>open()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::CharacterSpawnWindow::open </td>
-          <td>(</td>
-          <td class="paramtype">const bl::gui::GUI::Ptr &amp;&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01175.html">core::map::CharacterSpawn</a> *&#160;</td>
-          <td class="paramname"><em>orig</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Opens the spawn editing window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
-    <tr><td class="paramname">level</td><td>The level the spawn is on </td></tr>
-    <tr><td class="paramname">pos</td><td>The position the spawn is at </td></tr>
-    <tr><td class="paramname">orig</td><td>The spawn currently in that spot. Nullptr if none </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00650_source.html#l00146">146</a> of file <a class="el" href="a00650_source.html">CharacterSpawnWindow.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00278_source.html">CharacterSpawnWindow.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00650_source.html">CharacterSpawnWindow.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01538.html">core::system::Render</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#aee01f818a3650a6742f7b040e1f6d058">init</a>()</td><td class="entry"><a class="el" href="a01538.html">core::system::Render</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a8c87dc749a341b304146ecc62351d10f">render</a>(sf::RenderTarget &amp;target, const map::Map &amp;map, float lag)</td><td class="entry"><a class="el" href="a01538.html">core::system::Render</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#a5b9e572a572fd49f01cf4bf8fbc091fd">Render</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01538.html">core::system::Render</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#aface2e395fe421286bdbfc80a5da0460">update</a>(float dt)</td><td class="entry"><a class="el" href="a01538.html">core::system::Render</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 2 2022 15:34:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 16 2022 02:09:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

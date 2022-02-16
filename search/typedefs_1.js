@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['b',['B',['../a01083.html#a82e2e1f3afe5459595067634a43eee15',1,'bl::serial::binary::Serializer&lt; core::file::Behavior &gt;']]],
-  ['bag',['Bag',['../a01351.html#ac373db9131d7698083cf0a955ea05bdc',1,'bl::serial::json::SerializableObject&lt; core::player::Bag &gt;']]]
+  ['b',['B',['../a01090.html#a82e2e1f3afe5459595067634a43eee15',1,'bl::serial::binary::Serializer&lt; core::file::Behavior &gt;']]],
+  ['bag',['Bag',['../a01402.html#ac373db9131d7698083cf0a955ea05bdc',1,'bl::serial::json::SerializableObject&lt; core::player::Bag &gt;']]]
 ];

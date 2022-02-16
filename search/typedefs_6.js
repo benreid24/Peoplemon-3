@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['handle',['Handle',['../a01223.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
-  ['heighttransitionlayer',['HeightTransitionLayer',['../a00808.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
+  ['gs',['GS',['../a01166.html#a652cf38821b3668863bc8d5d85874f31',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave &gt;']]]
 ];
