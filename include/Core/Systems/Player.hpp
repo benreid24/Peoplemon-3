@@ -148,6 +148,20 @@ public:
      */
     void update();
 
+    /**
+     * @brief Heals all Peoplemon and respawns at the last PC center
+     *
+     */
+    void whiteout();
+
+    /**
+     * @brief Sets the map and spawn to whiteout to
+     * 
+     * @param map The file of the map to respawn in
+     * @param spawn The spawn to respawn at
+     */
+    void setWhiteoutMap(const std::string& map, unsigned int spawn);
+
 private:
     Systems& owner;
     bl::entity::Entity playerId;
@@ -161,6 +175,8 @@ private:
     long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     component::Position savePos;
+    std::string whiteoutMap;
+    unsigned int whiteoutSpawn;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
 

@@ -146,14 +146,29 @@ void Player::init() {
     owner.engine().eventBus().subscribe(this);
 }
 
+void Player::whiteout() {
+    for (auto& ppl : peoplemon) { ppl.heal(); }
+    if (!owner.world().whiteout(whiteoutMap, whiteoutSpawn)) {
+        BL_LOG_CRITICAL << "Failed to whiteout";
+        owner.engine().flags().set(bl::engine::Flags::Terminate);
+    }
+}
+
+void Player::setWhiteoutMap(const std::string& map, unsigned int spawn) {
+    whiteoutMap   = map;
+    whiteoutSpawn = spawn;
+}
+
 void Player::update() { input.update(); }
 
 void Player::observe(const event::GameSaveInitializing& save) {
-    save.gameSave.player.inventory  = &inventory;
-    save.gameSave.player.monei      = &monei;
-    save.gameSave.player.peoplemon  = &peoplemon;
-    save.gameSave.player.playerName = &playerName;
-    save.gameSave.player.sex        = &sex;
+    save.gameSave.player.inventory     = &inventory;
+    save.gameSave.player.monei         = &monei;
+    save.gameSave.player.peoplemon     = &peoplemon;
+    save.gameSave.player.playerName    = &playerName;
+    save.gameSave.player.sex           = &sex;
+    save.gameSave.player.whiteoutMap   = &whiteoutMap;
+    save.gameSave.player.whiteoutSpawn = &whiteoutSpawn;
 }
 
 } // namespace system
