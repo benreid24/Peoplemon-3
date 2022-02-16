@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: bl::serial::binary::Serializer&lt; core::file::Behavior &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,171 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00824.html">core</a></li><li class="navelem"><a class="el" href="a00833.html">file</a></li><li class="navelem"><a class="el" href="a01094.html">Conversation</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00828.html">bl</a></li><li class="navelem"><a class="el" href="a00829.html">serial</a></li><li class="navelem"><a class="el" href="a00830.html">binary</a></li><li class="navelem"><a class="el" href="a01091.html">Serializer&lt; core::file::Behavior &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01088.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::Conversation Member List</div>  </div>
+<div class="title">bl::serial::binary::Serializer&lt; core::file::Behavior &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01094.html">core::file::Conversation</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#addec79f31516d231332b99eeb0c44d57">appendNode</a>(const Node &amp;node)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a835c8f83b16bae46980bb0b071213a69">bl::serial::binary::SerializableObject&lt; Conversation &gt;</a> class</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#af496c18644abeed581a2e936f438f08a">Conversation</a>()=default</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a66f845b272eb21ec8283529181234de6">deleteNode</a>(unsigned int i)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#a48621fdaafeaed405fa84149a4f3f8e5">getNextJumps</a>(const Node &amp;node, std::vector&lt; unsigned int &gt; &amp;jumps)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a58289112f105ce81d15f3bb8ff205ba6">load</a>(const std::string &amp;file)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#ad21138b88436c907887e0b450a6889aa">loader::ConversationLoader</a> class</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a184e87582d39859c87e5a72f1b1a69ca">loader::LegacyConversationLoader</a> class</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#adcb20abe541cd3e9058d390e7cf6462a">makeLoadError</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a966ec1403830724de5d2ce2dfc6631bc">nodes</a>() const</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01094.html#ad8bdca4cee63f78ace5d8912450060fd">save</a>(const std::string &amp;file) const</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01094.html#a78b0703b2677db7f6dd1538d5bb55cd0">setNode</a>(unsigned int i, const Node &amp;node)</td><td class="entry"><a class="el" href="a01094.html">core::file::Conversation</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00071_source.html">Behavior.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a82e2e1f3afe5459595067634a43eee15"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> = <a class="el" href="a01063.html">core::file::Behavior</a></td></tr>
+<tr class="separator:a82e2e1f3afe5459595067634a43eee15"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae158d0bb04601462fa13b626c94a629d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html#ae158d0bb04601462fa13b626c94a629d">deserialize</a> (InputStream &amp;in, <a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;b)</td></tr>
+<tr class="separator:ae158d0bb04601462fa13b626c94a629d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a801273aa7c31d9e911c73e7d35085181"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html#a801273aa7c31d9e911c73e7d35085181">serialize</a> (OutputStream &amp;out, const <a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;b)</td></tr>
+<tr class="separator:a801273aa7c31d9e911c73e7d35085181"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76867662f2e68dc97903bfa3e9020ff4"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html#a76867662f2e68dc97903bfa3e9020ff4">size</a> (const <a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;b)</td></tr>
+<tr class="separator:a76867662f2e68dc97903bfa3e9020ff4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><h3>template&lt;&gt;<br />
+struct bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</h3>
+
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00212">212</a> of file <a class="el" href="a00071_source.html">Behavior.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a82e2e1f3afe5459595067634a43eee15"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82e2e1f3afe5459595067634a43eee15">&#9670;&nbsp;</a></span>B</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using bl::serial::binary::Serializer&lt; <a class="el" href="a01063.html">core::file::Behavior</a> &gt;::<a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> =  <a class="el" href="a01063.html">core::file::Behavior</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00213">213</a> of file <a class="el" href="a00071_source.html">Behavior.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae158d0bb04601462fa13b626c94a629d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae158d0bb04601462fa13b626c94a629d">&#9670;&nbsp;</a></span>deserialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool bl::serial::binary::Serializer&lt; <a class="el" href="a01063.html">core::file::Behavior</a> &gt;::deserialize </td>
+          <td>(</td>
+          <td class="paramtype">InputStream &amp;&#160;</td>
+          <td class="paramname"><em>in</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00215">215</a> of file <a class="el" href="a00071_source.html">Behavior.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a801273aa7c31d9e911c73e7d35085181"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a801273aa7c31d9e911c73e7d35085181">&#9670;&nbsp;</a></span>serialize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool bl::serial::binary::Serializer&lt; <a class="el" href="a01063.html">core::file::Behavior</a> &gt;::serialize </td>
+          <td>(</td>
+          <td class="paramtype">OutputStream &amp;&#160;</td>
+          <td class="paramname"><em>out</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00252">252</a> of file <a class="el" href="a00071_source.html">Behavior.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a76867662f2e68dc97903bfa3e9020ff4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76867662f2e68dc97903bfa3e9020ff4">&#9670;&nbsp;</a></span>size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static std::size_t bl::serial::binary::Serializer&lt; <a class="el" href="a01063.html">core::file::Behavior</a> &gt;::size </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01091.html#a82e2e1f3afe5459595067634a43eee15">B</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00278">278</a> of file <a class="el" href="a00071_source.html">Behavior.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Files/<a class="el" href="a00071_source.html">Behavior.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 16 2022 02:09:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 16 2022 15:50:46 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['key',['Key',['../a01406.html#a1a06551f514c41b7ebb7fc9366c3bb11a22bd488aab13a6562ef5c4a851cdbb31',1,'core::player::input::Control::Key()'],['../a01406.html#acee67a633130ac87a7c9fd7f372024eb',1,'core::player::input::Control::key()'],['../a00813.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba',1,'core::item::Key()']]],
+  ['key',['key',['../a01407.html#acee67a633130ac87a7c9fd7f372024eb',1,'core::player::input::Control::key()'],['../a01407.html#a1a06551f514c41b7ebb7fc9366c3bb11a22bd488aab13a6562ef5c4a851cdbb31',1,'core::player::input::Control::Key()'],['../a00813.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba',1,'core::item::Key()']]],
   ['keyitem',['KeyItem',['../a00813.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d',1,'core::item']]],
   ['kick',['Kick',['../a00815.html#ggab39f21e54ca605725b382bd7848530b3a3e07960fcc45408894cf1402257bd9fd',1,'core::pplmn']]],
   ['klutz',['Klutz',['../a00815.html#ggae0a3870bdfdee167eb5686dda0f03885ac44f15d0bafdc0241242bc7cb624ff64',1,'core::pplmn']]],
-  ['knownmoves',['knownMoves',['../a01350.html#ac6aa013d73d67cffbc25c8f353239028',1,'core::pplmn::OwnedPeoplemon']]],
-  ['knowsmove',['knowsMove',['../a01350.html#a9c8990d7b5e797279e72f7c74825bb22',1,'core::pplmn::OwnedPeoplemon']]],
+  ['knownmoves',['knownMoves',['../a01351.html#ac6aa013d73d67cffbc25c8f353239028',1,'core::pplmn::OwnedPeoplemon']]],
+  ['knowsmove',['knowsMove',['../a01351.html#a9c8990d7b5e797279e72f7c74825bb22',1,'core::pplmn::OwnedPeoplemon']]],
   ['kristina',['Kristina',['../a00815.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ac92b57f3272dbb49fe74b7304bc20fde',1,'core::pplmn']]],
   ['krulla',['KrullA',['../a00815.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a3a81859f543b3659b0de5bc682b3cffd',1,'core::pplmn']]],
   ['krullb',['KrullB',['../a00815.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8ab666e400b463026e0da91e5f661409e8',1,'core::pplmn']]],

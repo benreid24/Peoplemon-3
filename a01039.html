@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event::MapExited Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,25 +63,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00824.html">core</a></li><li class="navelem"><a class="el" href="a00832.html">event</a></li><li class="navelem"><a class="el" href="a01042.html">SwitchMapTriggered</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00824.html">core</a></li><li class="navelem"><a class="el" href="a00832.html">event</a></li><li class="navelem"><a class="el" href="a01039.html">MapExited</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01036.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::SwitchMapTriggered Member List</div>  </div>
+<div class="title">core::event::MapExited Struct Reference<div class="ingroups"><a class="el" href="a00806.html">Core</a> &raquo; <a class="el" href="a00811.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01042.html">core::event::SwitchMapTriggered</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01042.html#a00ff75fa358f180551ec141cabe054cb">newMap</a></td><td class="entry"><a class="el" href="a01042.html">core::event::SwitchMapTriggered</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01042.html#a21a77ef99757ce3ea0e92d355136d787">spawn</a></td><td class="entry"><a class="el" href="a01042.html">core::event::SwitchMapTriggered</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01042.html#ae2cee84e6ff4ace69c39c00cbf2c46d3">SwitchMapTriggered</a>(const std::string &amp;newMap, int spawn)</td><td class="entry"><a class="el" href="a01042.html">core::event::SwitchMapTriggered</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Fired when a map is exited.  
+ <a href="a01039.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00059_source.html">Maps.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ae4feeec150e1479e33ed080dd12c61df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01039.html#ae4feeec150e1479e33ed080dd12c61df">MapExited</a> (const <a class="el" href="a01283.html">map::Map</a> &amp;<a class="el" href="a01039.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a>)</td></tr>
+<tr class="memdesc:ae4feeec150e1479e33ed080dd12c61df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01039.html" title="Fired when a map is exited. ">MapExited</a> event.  <a href="#ae4feeec150e1479e33ed080dd12c61df">More...</a><br /></td></tr>
+<tr class="separator:ae4feeec150e1479e33ed080dd12c61df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01283.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01039.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a></td></tr>
+<tr class="memdesc:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the map that was just exited.  <a href="#a61fb2a7377d2165b3c714ec0ff88c72d">More...</a><br /></td></tr>
+<tr class="separator:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired when a map is exited. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00060">60</a> of file <a class="el" href="a00059_source.html">Maps.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae4feeec150e1479e33ed080dd12c61df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4feeec150e1479e33ed080dd12c61df">&#9670;&nbsp;</a></span>MapExited()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::event::MapExited::MapExited </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01283.html">map::Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01039.html" title="Fired when a map is exited. ">MapExited</a> event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>The map that was exited </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00066">66</a> of file <a class="el" href="a00059_source.html">Maps.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a61fb2a7377d2165b3c714ec0ff88c72d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61fb2a7377d2165b3c714ec0ff88c72d">&#9670;&nbsp;</a></span>map</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01283.html">map::Map</a>&amp; core::event::MapExited::map</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A reference to the map that was just exited. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00059_source.html#l00070">70</a> of file <a class="el" href="a00059_source.html">Maps.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a00059_source.html">Maps.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 16 2022 02:09:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Feb 16 2022 15:50:46 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
