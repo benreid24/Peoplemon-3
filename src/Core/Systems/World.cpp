@@ -60,6 +60,19 @@ bool World::switchMaps(const std::string& file, int spawn) {
     return true;
 }
 
+bool World::whiteout(const std::string& map, int spawn) {
+    if (switchMaps(map, spawn)) {
+        previousMap.reset();
+        prevMapFile.clear();
+        return true;
+    }
+    return false;
+}
+
+void World::setWhiteoutMap(unsigned int spawn) {
+    owner.player().setWhiteoutMap(currentMapFile, spawn);
+}
+
 map::Map& World::activeMap() { return *currentMap; }
 
 const map::Map& World::activeMap() const { return *currentMap; }

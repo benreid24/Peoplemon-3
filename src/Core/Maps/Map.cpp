@@ -731,6 +731,10 @@ void Map::enterTown(Town* town) {
     const AudioSystem::Handle plst = AudioSystem::getOrLoadPlaylist(
         FileUtil::joinPath(Properties::PlaylistPath(), town->playlist));
     if (plst != AudioSystem::InvalidHandle) { AudioSystem::replacePlaylist(plst, 1.5f, 1.5f); }
+
+    if (spawns.find(town->pcSpawn) != spawns.end()) {
+        systems->world().setWhiteoutMap(town->pcSpawn);
+    }
 }
 
 } // namespace map

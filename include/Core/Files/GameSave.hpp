@@ -39,6 +39,8 @@ struct GameSave {
         player::Bag* inventory;
         long* monei;
         std::vector<pplmn::OwnedPeoplemon>* peoplemon;
+        std::string* whiteoutMap;
+        unsigned int* whiteoutSpawn;
     } player;
 
     /// Stores pointers to the actual data to save/load from
@@ -147,6 +149,8 @@ private:
         player::Bag inventory;
         long monei;
         std::vector<pplmn::OwnedPeoplemon> peoplemon;
+        std::string whiteoutMap;
+        unsigned int whiteoutSpawn;
         std::string currentMap;
         std::string prevMap;
         component::Position playerPos;
@@ -210,13 +214,17 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     SerializableField<Player, core::player::Bag*> bag;
     SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>*> peoplemon;
     SerializableField<Player, long*> money;
+    SerializableField<Player, std::string*> whiteoutMap;
+    SerializableField<Player, unsigned int*> whiteoutSpawn;
 
     SerializableObject()
     : name("name", *this, &Player::playerName)
     , gender("gender", *this, &Player::sex)
     , bag("bag", *this, &Player::inventory)
     , peoplemon("peoplemon", *this, &Player::peoplemon)
-    , money("money", *this, &Player::monei) {}
+    , money("money", *this, &Player::monei)
+    , whiteoutMap("whiteoutMap", *this, &Player::whiteoutMap)
+    , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn) {}
 };
 
 template<>

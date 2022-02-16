@@ -49,6 +49,15 @@ public:
     bool switchMaps(const std::string& newMap, int spawnId);
 
     /**
+     * @brief Switches to the new map and resets the last map to empty
+     *
+     * @param newMap The map to whiteout into
+     * @param spawnId Where to spawn
+     * @return True on success, false on error
+     */
+    bool whiteout(const std::string& newMap, int spawnId);
+
+    /**
      * @brief Returns a reference to the active map
      *
      */
@@ -78,6 +87,13 @@ public:
      *
      */
     virtual void observe(const event::GameSaveLoaded& load) override;
+
+    /**
+     * @brief Sets the respawn point to the given spawn in the current map
+     *
+     * @param spawn The spawn to respawn at
+     */
+    void setWhiteoutMap(unsigned int spawn);
 
 private:
     Systems& owner;

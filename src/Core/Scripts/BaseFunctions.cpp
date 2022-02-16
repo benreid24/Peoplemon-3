@@ -433,9 +433,9 @@ void takePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Val
     result = false;
 }
 
-void whiteout(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
-    // TODO - implement whiting out
-    result = false;
+void whiteout(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& result) {
+    systems.player().whiteout();
+    result = true;
 }
 
 void restorePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
