@@ -10,7 +10,7 @@ namespace game
 namespace battle
 {
 /**
- * @brief Base class for battlers in the game. This provides storage for peoplemon and turn choices 
+ * @brief Base class for battlers in the game. This provides storage for peoplemon and turn choices
  *
  * @ingroup Battles
  *
@@ -127,13 +127,13 @@ protected:
     void chooseItem(core::item::Id item);
 
 private:
-    std::vector<core::pplmn::BattlePeoplemon> peoplemon;
+    std::vector<core::pplmn::BattlePeoplemon> team;
     unsigned int currentPeoplemon;
 
     TurnAction action;
     core::item::Id useItem;
     unsigned int switchIndex;
-    bool actionSelected;
+    bool actionChoosed;
     bool subActionPicked;
 };
 

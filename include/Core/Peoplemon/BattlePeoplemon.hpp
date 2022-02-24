@@ -125,12 +125,12 @@ public:
 private:
     OwnedPeoplemon* ppl;
     Stats cached;
-    BattleStats battleStats;
+    BattleStats _battleStats;
     PassiveAilment ailments;
     SpecialAbility ability;
-    std::uint16_t turnsWithAilment;
-    std::uint16_t turnsConfused;
-    std::uint16_t turnsUntilAwake;
+    std::uint16_t _turnsWithAilment;
+    std::uint16_t _turnsConfused;
+    std::uint16_t _turnsUntilAwake;
     MoveId lastSuperEffectiveTaken;
 };
 
