@@ -65,7 +65,7 @@ public:
      * @param ail The ailment to give
      * @param sleepTurns Optionally limit turns asleep for the sleep ailment
      */
-    void giveAilment(PassiveAilment ail, unsigned int sleepTurns = 1000);
+    void giveAilment(PassiveAilment ail, std::uint16_t sleepTurns = 1000);
 
     /**
      * @brief Clear the given passive ailment
@@ -95,19 +95,19 @@ public:
      * @brief Returns how many turns have passed with an ailment
      *
      */
-    unsigned int turnsWithAilment() const;
+    std::uint16_t turnsWithAilment() const;
 
     /**
      * @brief Returns how many turns this peoplemon has been confused for
      *
      */
-    unsigned int turnsConfused();
+    std::uint16_t turnsConfused();
 
     /**
      * @brief Returns turns left for Sleep
      *
      */
-    unsigned int turnsUntilAwake();
+    std::uint16_t turnsUntilAwake();
 
     /**
      * @brief Notify of a turn passing to update internal state
@@ -128,9 +128,9 @@ private:
     BattleStats battleStats;
     PassiveAilment ailments;
     SpecialAbility ability;
-    unsigned int turnsWithAilment;
-    unsigned int turnsConfused;
-    unsigned int turnsUntilAwake;
+    std::uint16_t turnsWithAilment;
+    std::uint16_t turnsConfused;
+    std::uint16_t turnsUntilAwake;
     MoveId lastSuperEffectiveTaken;
 };
 
