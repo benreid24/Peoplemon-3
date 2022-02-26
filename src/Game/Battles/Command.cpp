@@ -1,4 +1,4 @@
-#include <Game/Battles/Command.hpp>
+#include <Game/Battles/Messages/Command.hpp>
 
 namespace game
 {

@@ -3,12 +3,14 @@
 
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
-#include <Game/Battles/TurnAction.hpp>
+#include <Game/Battles/Messages/TurnAction.hpp>
 
 namespace game
 {
 namespace battle
 {
+class BattlerController;
+
 /**
  * @brief Base class for battlers in the game. This provides storage for peoplemon and turn choices
  *
@@ -17,6 +19,21 @@ namespace battle
  */
 class Battler {
 public:
+    /**
+     * @brief Creates an uninitialized battler
+     *
+     */
+    Battler();
+
+    /**
+     * @brief Initializes the battler with a team and a controller
+     *
+     * @param team The team of peoplemon to use
+     * @param controller The controller to make decisions
+     */
+    void init(std::vector<core::pplmn::BattlePeoplemon>& team,
+              std::unique_ptr<BattlerController>&& controller);
+
     /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
      *
@@ -57,7 +74,7 @@ public:
      * @brief Returns the peoplemon the battler is switching to this turn
      *
      */
-    unsigned int chosenPeoplemon() const;
+    std::uint8_t chosenPeoplemon() const;
 
     /**
      * @brief Returns all the peoplemon held by this battler
@@ -77,64 +94,10 @@ public:
      */
     bool canFight() const;
 
-protected:
-    /**
-     * @brief Initializes the battler with the peoplemon available to it
-     *
-     * @param peoplemon The peoplemon to use in battle
-     */
-    Battler(std::vector<core::pplmn::OwnedPeoplemon>& peoplemon);
-
-    /**
-     * @brief Base classes may override this to perform specific logic to occur when a turn is made
-     *
-     */
-    virtual void startChooseAction() = 0;
-
-    /**
-     * @brief Base classes may override this to perform specific logic when a peoplemon must be
-     *        picked
-     *
-     */
-    virtual void startChoosePeoplemon() = 0;
-
-    /**
-     * @brief Selects the action to take on this turn
-     *
-     * @param action The action to store and report to the battle
-     */
-    void chooseAction(TurnAction action);
-
-    /**
-     * @brief Selects the move to use this turn when fighting
-     *
-     * @param move The move to use
-     */
-    void chooseMove(core::pplmn::MoveId move);
-
-    /**
-     * @brief Selects the peoplemon to switch to
-     *
-     * @param i Index of the peoplemon to switch to
-     */
-    void choosePeoplemon(unsigned int i);
-
-    /**
-     * @brief Selects the item to use
-     *
-     * @param item The item to use
-     */
-    void chooseItem(core::item::Id item);
-
 private:
+    std::unique_ptr<BattlerController> controller;
     std::vector<core::pplmn::BattlePeoplemon> team;
-    unsigned int currentPeoplemon;
-
-    TurnAction action;
-    core::item::Id useItem;
-    unsigned int switchIndex;
-    bool actionChoosed;
-    bool subActionPicked;
+    std::uint8_t currentPeoplemon;
 };
 
 } // namespace battle

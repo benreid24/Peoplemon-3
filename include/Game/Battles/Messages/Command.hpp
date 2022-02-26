@@ -1,7 +1,7 @@
-#ifndef GAME_BATTLES_COMMAND_HPP
-#define GAME_BATTLES_COMMAND_HPP
+#ifndef GAME_BATTLES_MESSAGES_COMMAND_HPP
+#define GAME_BATTLES_MESSAGES_COMMAND_HPP
 
-#include <Game/Battles/Animation.hpp>
+#include <Game/Battles/Messages/Animation.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>

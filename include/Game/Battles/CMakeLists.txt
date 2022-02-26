@@ -1,8 +1,9 @@
 target_sources(Peoplemon PUBLIC
-    Animation.hpp
+    Battle.hpp
     Battler.hpp
     BattleState.hpp
-    BattleStateLocal.hpp
-    Command.hpp
-    TurnAction.hpp
 )
+
+add_subdirectory(BattleControllers)
+add_subdirectory(BattlerControllers)
+add_subdirectory(Messages)

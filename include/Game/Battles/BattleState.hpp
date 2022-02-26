@@ -2,8 +2,6 @@
 #define GAME_BATTLES_BATTLESTATE_HPP
 
 #include <Game/Battles/Battler.hpp>
-#include <Game/Battles/Command.hpp>
-#include <queue>
 
 namespace game
 {
@@ -26,19 +24,6 @@ public:
     BattleState();
 
     /**
-     * @brief Updates the state and performs transitions based on battle logic and time elapsed
-     *
-     */
-    virtual void update() = 0;
-
-    /**
-     * @brief Consumes a command emitted from the BattleFSM
-     *
-     * @param command The command to consume
-     */
-    virtual void consumeCommand(Command&& command);
-
-    /**
      * @brief Returns the local player Battler
      *
      */
@@ -50,24 +35,9 @@ public:
      */
     Battler& enemy();
 
-protected:
-    enum struct SubState : std::uint8_t {
-        WaitingText = 1,
-        WaitingAnim = 2,
-        WaitingBars = 3,
-        Done        = 4
-    };
-
-    // locally managed state
-    std::queue<Command> commandQueue;
-    SubState subState;
-
-    // State synced with remote
-    Battler* player;
-    Battler* opponent;
-
-    void processCommand(Command&& command);
-    bool updateCommandQueue();
+private:
+    Battler player;
+    Battler opponent;
 };
 
 } // namespace battle
