@@ -1,7 +1,7 @@
 #ifndef GAME_BATTLES_BATTLECONTROLLER_HPP
 #define GAME_BATTLES_BATTLECONTROLLER_HPP
 
-#include <Game/Battles/Messages/Command.hpp>
+#include <Game/Battles/Commands/Command.hpp>
 #include <cstdint>
 #include <queue>
 
@@ -26,6 +26,12 @@ public:
      *
      */
     BattleController();
+
+    /**
+     * @brief Destroy the Battle Controller object
+     *
+     */
+    virtual ~BattleController() = default;
 
     /**
      * @brief Sets internal references to the view and state of the battle
@@ -58,7 +64,7 @@ protected:
      *
      * @param cmd The command that was just enqueued
      */
-    virtual void onCommandQueue(const Command& cmd);
+    virtual void onCommandQueued(const Command& cmd);
 
     /**
      * @brief This is called after a command is processed. Derived classes may perform specific
@@ -75,17 +81,11 @@ protected:
     virtual void onUpdate() = 0;
 
 private:
-    enum struct SubState : std::uint8_t {
-        WaitingText = 1,
-        WaitingAnim = 2,
-        WaitingBars = 3,
-        Done        = 4
-    };
+    enum struct SubState : std::uint8_t { WaitingView = 1, Done = 2 };
 
     std::queue<Command> commandQueue;
     SubState subState;
 
-    void processCommand(const Command& cmd);
     bool updateCommandQueue();
 };
 } // namespace battle

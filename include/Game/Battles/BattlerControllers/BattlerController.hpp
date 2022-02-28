@@ -3,7 +3,7 @@
 
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
-#include <Game/Battles/Messages/TurnAction.hpp>
+#include <Game/Battles/Commands/TurnAction.hpp>
 
 namespace game
 {
@@ -17,6 +17,12 @@ namespace battle
  */
 class BattlerController {
 public:
+    /**
+     * @brief Destroy the Battler Controller object
+     *
+     */
+    virtual ~BattlerController() = default;
+
     /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
      *
@@ -112,6 +118,7 @@ private:
     TurnAction action;
     core::item::Id useItem;
     std::uint8_t switchIndex;
+    core::pplmn::MoveId move;
     bool actionChoosed;
     bool subActionPicked;
 };

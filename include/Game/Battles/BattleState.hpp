@@ -18,6 +18,40 @@ namespace battle
 class BattleState {
 public:
     /**
+     * @brief Represents all possible states in a battle
+     *
+     */
+    enum struct Stage : std::uint8_t {
+        Intro = 0,
+
+        WaitingChoices,
+
+        UsingItem,
+
+        BeforeSwitch,
+        Switching,
+        AfterSwitch,
+
+        BeforeRun,
+        Running,
+
+        BeforeAttack,
+        Attacking,
+        AfterAttack,
+
+        BeforeFaint,
+        Fainting,
+        XpAwarding,
+        LevelingUp,
+        BeforeFaintSwitch,
+        FaintSwitching,
+        AfterFaintSwitch,
+        Victory,
+
+        NetworkDisconnect
+    };
+
+    /**
      * @brief Creates a new BattleState
      *
      */
@@ -35,9 +69,23 @@ public:
      */
     Battler& enemy();
 
+    /**
+     * @brief Returns the battler that is current resolving their turn
+     *
+     */
+    Battler& activeBattler();
+
+    /**
+     * @brief Returns the current stage the battle is in
+     *
+     */
+    Stage currentStage() const;
+
 private:
+    Stage stage;
     Battler player;
-    Battler opponent;
+    Battler opponent; // TODO - some way to swap for network client?
+    std::uint8_t currentMover;
 };
 
 } // namespace battle

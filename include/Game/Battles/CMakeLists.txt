@@ -6,4 +6,4 @@ target_sources(Peoplemon PUBLIC
 
 add_subdirectory(BattleControllers)
 add_subdirectory(BattlerControllers)
-add_subdirectory(Messages)
+add_subdirectory(Commands)

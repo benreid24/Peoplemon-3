@@ -1,7 +1,8 @@
 #ifndef GAME_BATTLES_MESSAGES_COMMAND_HPP
 #define GAME_BATTLES_MESSAGES_COMMAND_HPP
 
-#include <Game/Battles/Messages/Animation.hpp>
+#include <Game/Battles/Commands/Animation.hpp>
+#include <Game/Battles/Commands/Message.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -27,7 +28,7 @@ public:
     enum struct Type : std::uint8_t {
         DisplayMessage = 0,
         PlayAnimation  = 1,
-        SyncState      = 2 // for network
+        SyncState      = 2 // sync with view. also for network sync
         // TODO - others? maybe use commands for battler choices for easy networking?
     };
 
@@ -49,18 +50,36 @@ public:
      *
      * @param message The message to display
      */
-    Command(const std::string& message);
+    Command(Message&& message);
 
     /**
      * @brief Creates a new PlayAnimation command
      *
      * @param anim The animation descriptor to play
      */
-    Command(const Animation& anim);
+    Command(Animation&& anim);
+
+    /**
+     * @brief Returns the type of this command
+     *
+     */
+    Type getType() const;
+
+    /**
+     * @brief Returns the message if this command is a message
+     *
+     */
+    const Message& getMessage() const;
+
+    /**
+     * @brief Returns the animation if this command is an animation
+     *
+     */
+    const Animation& getAnimation() const;
 
 private:
     const Type type;
-    std::variant<std::string, Animation, SyncState> data;
+    std::variant<Message, Animation, SyncState> data;
 };
 
 } // namespace battle

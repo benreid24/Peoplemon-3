@@ -1,6 +1,7 @@
 #ifndef GAME_BATTLES_MESSAGES_ANIMATION_HPP
 #define GAME_BATTLES_MESSAGES_ANIMATION_HPP
 
+#include <Core/Peoplemon/MoveId.hpp>
 #include <cstdint>
 
 namespace game
@@ -19,18 +20,25 @@ struct Animation {
      *        peoplemon using the move
      *
      */
-    enum struct Target : std::uint8_t { Player = 0, Opponent = 1 };
+    enum struct Target : std::uint8_t {
+        /// The target is the battler who is current resolving their turn
+        User = 0,
+
+        /// The target is the battler who is not currently resolving their turn
+        Other = 1
+    };
 
     /**
      * @brief The type of animation to play
      *
      */
     enum struct Type : std::uint8_t {
-        ShakeAndFlash = 0,
-        SlideDown     = 1,
-        ComeBack      = 2,
-        SendOut       = 3,
-        Attack        = 4
+        _ERROR        = 0,
+        ShakeAndFlash = 1,
+        SlideDown,
+        ComeBack,
+        SendOut,
+        UseMove
     };
 
     /**
@@ -39,24 +47,19 @@ struct Animation {
      * @param target The peoplemon to play the animation on
      * @param type The type of animation to play
      */
-    Animation(Target target, Type type)
-    : target(target)
-    , type(type) {}
+    Animation(Target target, Type type);
 
     /**
      * @brief Construct a new Animation for the attack animation
-     * 
+     *
      * @param target The peoplemon using the attack
      * @param moveIndex Which move is being used [0, 3]
      */
-    Animation(Target target, std::uint8_t moveIndex)
-    : target(target)
-    , type(Type::Attack)
-    , moveIndex(moveIndex) {}
+    Animation(Target target, core::pplmn::MoveId move);
 
-    Target target;
-    Type type;
-    std::uint8_t moveIndex;
+    const Target target;
+    const Type type;
+    const core::pplmn::MoveId move;
 };
 
 } // namespace battle

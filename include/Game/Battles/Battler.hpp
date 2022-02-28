@@ -3,12 +3,14 @@
 
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
-#include <Game/Battles/Messages/TurnAction.hpp>
+#include <Game/Battles/BattlerControllers/BattlerController.hpp>
+#include <Game/Battles/Commands/TurnAction.hpp>
 
 namespace game
 {
 namespace battle
 {
+class BattleState;
 class BattlerController;
 
 /**
@@ -23,7 +25,7 @@ public:
      * @brief Creates an uninitialized battler
      *
      */
-    Battler();
+    Battler(BattleState& state);
 
     /**
      * @brief Initializes the battler with a team and a controller
@@ -31,8 +33,8 @@ public:
      * @param team The team of peoplemon to use
      * @param controller The controller to make decisions
      */
-    void init(std::vector<core::pplmn::BattlePeoplemon>& team,
-              std::unique_ptr<BattlerController>&& controller);
+    void init(std::vector<core::pplmn::BattlePeoplemon>&& team,
+              std::unique_ptr<BattlerController>& controller);
 
     /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
@@ -95,6 +97,7 @@ public:
     bool canFight() const;
 
 private:
+    BattleState& state;
     std::unique_ptr<BattlerController> controller;
     std::vector<core::pplmn::BattlePeoplemon> team;
     std::uint8_t currentPeoplemon;
