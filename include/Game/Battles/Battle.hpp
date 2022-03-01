@@ -4,6 +4,7 @@
 #include <Core/Systems/Player.hpp>
 #include <Game/Battles/BattleControllers/BattleController.hpp>
 #include <Game/Battles/BattleState.hpp>
+#include <Game/Battles/BattleView.hpp>
 #include <memory>
 
 namespace game
@@ -36,7 +37,7 @@ struct Battle {
 
     BattleState state;
     std::unique_ptr<BattleController> controller;
-    // TODO - view
+    BattleView view;
 
 private:
     Battle();

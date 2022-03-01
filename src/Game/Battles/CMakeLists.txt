@@ -2,6 +2,7 @@ target_sources(Peoplemon PRIVATE
     Battle.cpp
     Battler.cpp
     BattleState.cpp
+    BattleView.cpp
 )
 
 add_subdirectory(BattleControllers)

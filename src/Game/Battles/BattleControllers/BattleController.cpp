@@ -1,6 +1,7 @@
 #include <Game/Battles/BattleControllers/BattleController.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <Game/Battles/BattleView.hpp>
 
 namespace game
 {
@@ -19,8 +20,13 @@ void BattleController::init(BattleView& v, BattleState& s) {
 void BattleController::update() {
     switch (subState) {
     case SubState::WaitingView:
-        // TODO - query view and update if done
-        break;
+        if (view->actionsCompleted()) {
+            subState = SubState::Done;
+            [[fallthrough]];
+        }
+        else {
+            break;
+        }
 
     case SubState::Done:
         if (!commandQueue.empty()) {
