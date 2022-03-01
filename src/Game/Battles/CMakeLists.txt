@@ -5,4 +5,5 @@ target_sources(Peoplemon PRIVATE
 )
 
 add_subdirectory(BattleControllers)
+add_subdirectory(BattlerControllers)
 add_subdirectory(Commands)

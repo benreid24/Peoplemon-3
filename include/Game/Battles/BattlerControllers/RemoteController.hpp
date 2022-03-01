@@ -13,9 +13,15 @@ namespace battle
  * @ingroup Battles
  *
  */
-class PlayerController : public BattlerController {
+class RemoteController : public BattlerController {
 public:
     // TODO - how to interface with menus in the view?
+
+    /**
+     * @brief Destroy the Remote Controller object
+     * 
+     */
+    virtual ~RemoteController() = default;
 
 private:
     virtual void startChooseAction() override;

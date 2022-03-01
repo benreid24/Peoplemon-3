@@ -64,7 +64,7 @@ protected:
      *
      * @param cmd The command that was just enqueued
      */
-    virtual void onCommandQueued(const Command& cmd);
+    virtual void onCommandQueued(const Command& cmd) = 0;
 
     /**
      * @brief This is called after a command is processed. Derived classes may perform specific

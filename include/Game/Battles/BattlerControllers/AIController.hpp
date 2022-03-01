@@ -17,6 +17,12 @@ class AIController : public BattlerController {
 public:
     // TODO - different personalities and whatnot
 
+    /**
+     * @brief Destroy the AIController object
+     *
+     */
+    virtual ~AIController() = default;
+
 private:
     std::vector<core::item::Id> items; // TODO - copy items here from the trainer
 

@@ -17,6 +17,12 @@ class PlayerController : public BattlerController {
 public:
     // TODO - how to interface with menus in the view? dont forget to remove items from the bag
 
+    /**
+     * @brief Destroy the Player Controller object
+     *
+     */
+    virtual ~PlayerController() = default;
+
 private:
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon() override;
