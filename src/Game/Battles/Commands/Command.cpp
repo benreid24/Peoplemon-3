@@ -4,17 +4,20 @@ namespace game
 {
 namespace battle
 {
-Command::Command(SyncState&& s)
+Command::Command(SyncState&& s, bool w)
 : type(Type::SyncState)
-, data(std::forward<SyncState>(s)) {}
+, data(std::forward<SyncState>(s))
+, wait(w) {}
 
-Command::Command(Message&& s)
+Command::Command(Message&& s, bool w)
 : type(Type::DisplayMessage)
-, data(std::forward<Message>(s)) {}
+, data(std::forward<Message>(s))
+, wait(w) {}
 
-Command::Command(Animation&& a)
+Command::Command(Animation&& a, bool w)
 : type(Type::PlayAnimation)
-, data(std::forward<Animation>(a)) {}
+, data(std::forward<Animation>(a))
+, wait(w) {}
 
 Command::Type Command::getType() const { return type; }
 
@@ -29,6 +32,8 @@ const Animation& Command::getAnimation() const {
     const Animation* a = std::get_if<Animation>(&data);
     return a ? *a : empty;
 }
+
+bool Command::waitForView() const { return wait; }
 
 } // namespace battle
 } // namespace game

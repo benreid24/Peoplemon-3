@@ -36,6 +36,7 @@ void BattleController::update() {
 
     default:
         BL_LOG_WARN << "Unknown substate: " << subState;
+        subState = SubState::Done;
         break;
     }
 
@@ -51,25 +52,21 @@ bool BattleController::updateCommandQueue() {
     if (commandQueue.empty()) return false;
 
     const Command& cmd = commandQueue.front();
-    bool result        = false;
 
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
-        // TODO - send to view
+        view->queueMessage(cmd.getMessage());
         subState = SubState::WaitingView;
-        result   = true; // we can queue up view actions
         break;
 
     case Command::Type::PlayAnimation:
-        // TODO - send to view
+        view->playAnimation(cmd.getAnimation());
         subState = SubState::WaitingView;
-        result   = true; // we can queue up view actions
         break;
 
     case Command::Type::SyncState:
-        // TODO - update view state
-        subState = SubState::WaitingView; // wait for bars
-        result   = true;                  // we can queue up view actions
+        view->syncDisplay(*state);
+        subState = SubState::WaitingView;
         break;
 
     default:
@@ -78,9 +75,10 @@ bool BattleController::updateCommandQueue() {
         return true;
     }
 
+    const bool wait = cmd.waitForView();
     onCommandProcessed(cmd);
     commandQueue.pop();
-    return result;
+    return !wait;
 }
 
 } // namespace battle

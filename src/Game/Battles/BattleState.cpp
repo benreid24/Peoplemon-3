@@ -4,8 +4,8 @@ namespace game
 {
 namespace battle
 {
-BattleState::BattleState()
-: stage(Stage::Intro)
+BattleState::BattleState(Stage state)
+: stage(state)
 , player(*this)
 , opponent(*this)
 , currentMover(0) {}

@@ -20,13 +20,17 @@ namespace battle
  *
  */
 struct Battle {
+    /// Represents the different types of battles. Affects only the intro
+    enum struct Type { WildPeoplemon, Trainer, Online };
+
     /**
      * @brief Creates the battle struct and initializes the player battler
      *
      * @param player The player data
+     * @param type The type of battle this is
      * @return std::unique_ptr<Battle> The new battle struct
      */
-    static std::unique_ptr<Battle> create(core::system::Player& player);
+    static std::unique_ptr<Battle> create(core::system::Player& player, Type type);
 
     /**
      * @brief Sets and initializes the controller to use in battle
@@ -40,7 +44,7 @@ struct Battle {
     BattleView view;
 
 private:
-    Battle();
+    Battle(Type type);
 };
 
 } // namespace battle

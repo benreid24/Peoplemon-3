@@ -6,12 +6,30 @@ namespace game
 {
 namespace battle
 {
-Battle::Battle() {
+namespace
+{
+BattleState::Stage typeToStage(Battle::Type type) {
+    switch (type) {
+    case Battle::Type::WildPeoplemon:
+        return BattleState::Stage::WildIntro;
+    case Battle::Type::Trainer:
+        return BattleState::Stage::TrainerIntro;
+    case Battle::Type::Online:
+        return BattleState::Stage::NetworkIntro;
+    default:
+        BL_LOG_ERROR << "Unknown battle type: " << type;
+        return BattleState::Stage::IntroSendInSelf; // try to recover
+    }
+}
+} // namespace
+
+Battle::Battle(Type type)
+: state(typeToStage(type)) {
     // custom init?
 }
 
-std::unique_ptr<Battle> Battle::create(core::system::Player& player) {
-    std::unique_ptr<Battle> b(new Battle());
+std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) {
+    std::unique_ptr<Battle> b(new Battle(type));
 
     std::unique_ptr<BattlerController> c = std::make_unique<PlayerController>();
     std::vector<core::pplmn::BattlePeoplemon> team;

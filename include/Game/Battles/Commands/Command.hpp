@@ -43,21 +43,21 @@ public:
      *        needs to be sent over the network
      *
      */
-    Command(SyncState&& unused);
+    Command(SyncState&& unused, bool waitView);
 
     /**
      * @brief Creates a new DisplayMessage command
      *
      * @param message The message to display
      */
-    Command(Message&& message);
+    Command(Message&& message, bool waitView);
 
     /**
      * @brief Creates a new PlayAnimation command
      *
      * @param anim The animation descriptor to play
      */
-    Command(Animation&& anim);
+    Command(Animation&& anim, bool waitView);
 
     /**
      * @brief Returns the type of this command
@@ -77,9 +77,17 @@ public:
      */
     const Animation& getAnimation() const;
 
+    /**
+     * @brief True if the battle controller should wait for the view or false to continue to process
+     *        commands
+     *
+     */
+    bool waitForView() const;
+
 private:
     const Type type;
-    std::variant<Message, Animation, SyncState> data;
+    const std::variant<Message, Animation, SyncState> data;
+    const bool wait;
 };
 
 } // namespace battle

@@ -22,23 +22,34 @@ public:
      *
      */
     enum struct Stage : std::uint8_t {
-        Intro = 0,
+        // Battle intro
+        WildIntro = 0,
+        TrainerIntro,
+        NetworkIntro,
+        IntroSendInSelf,
+        IntroSendInOpponent,
 
+        // Turn start
         WaitingChoices,
 
+        // Use item
         UsingItem,
 
+        // Switch out
         BeforeSwitch,
         Switching,
         AfterSwitch,
 
+        // Run
         BeforeRun,
         Running,
 
+        // Fight
         BeforeAttack,
         Attacking,
         AfterAttack,
 
+        // Peoplemon defeated
         BeforeFaint,
         Fainting,
         XpAwarding,
@@ -48,14 +59,17 @@ public:
         AfterFaintSwitch,
         Victory,
 
+        // Errors
         NetworkDisconnect
     };
 
     /**
      * @brief Creates a new BattleState
      *
+     * @param initialState The initial stage to start with. Must be an intro stage
+     *
      */
-    BattleState();
+    BattleState(Stage initialState);
 
     /**
      * @brief Returns the local player Battler
