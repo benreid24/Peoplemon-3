@@ -40,7 +40,10 @@ std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) 
     return b;
 }
 
-void Battle::setController(std::unique_ptr<BattleController>& c) { controller.swap(c); }
+void Battle::setController(std::unique_ptr<BattleController>& c) {
+    controller.swap(c);
+    controller->init(view, state);
+}
 
 } // namespace battle
 } // namespace game
