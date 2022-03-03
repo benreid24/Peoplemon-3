@@ -34,6 +34,12 @@ public:
     OwnedPeoplemon& base();
 
     /**
+     * @brief Returns the wrapped peoplemon
+     *
+     */
+    const OwnedPeoplemon& base() const;
+
+    /**
      * @brief Returns the current stats of the peoplemon, including changes
      *
      */
@@ -60,12 +66,36 @@ public:
     bool hasAilment() const;
 
     /**
-     * @brief Gives the peoplemon a passive ailment. Use base() for active ailment
+     * @brief Returns true if the peoplemon has the specific ailment
+     *
+     * @param ail The ailment to check for
+     * @return True if the peoplemon has it, false otherwise
+     */
+    bool hasAilment(PassiveAilment ail) const;
+
+    /**
+     * @brief Returns true if the peoplemon has the specific ailment
+     *
+     * @param ail The ailment to check for
+     * @return True if the peoplemon has it, false otherwise
+     */
+    bool hasAilment(Ailment ail) const;
+
+    /**
+     * @brief Gives the peoplemon a passive ailment
+     *
+     * @param ail The ailment to give
+     */
+    void giveAilment(PassiveAilment ail);
+
+    /**
+     * @brief Gives the peoplemon an ailment
      *
      * @param ail The ailment to give
      * @param sleepTurns Optionally limit turns asleep for the sleep ailment
+     * @return True if the ailment was given, false if an ailment is already present
      */
-    void giveAilment(PassiveAilment ail, unsigned int sleepTurns = 1000);
+    bool giveAilment(Ailment ail, std::uint16_t sleepTurns = 1000);
 
     /**
      * @brief Clear the given passive ailment
@@ -95,19 +125,19 @@ public:
      * @brief Returns how many turns have passed with an ailment
      *
      */
-    unsigned int turnsWithAilment() const;
+    std::uint16_t turnsWithAilment() const;
 
     /**
      * @brief Returns how many turns this peoplemon has been confused for
      *
      */
-    unsigned int turnsConfused();
+    std::uint16_t turnsConfused() const;
 
     /**
      * @brief Returns turns left for Sleep
      *
      */
-    unsigned int turnsUntilAwake();
+    std::uint16_t turnsUntilAwake() const;
 
     /**
      * @brief Notify of a turn passing to update internal state
@@ -122,16 +152,26 @@ public:
      */
     void notifySuperEffectiveHit(MoveId move);
 
+    /**
+     * @brief Returns the id of the last move used against this peoplemon that was super effective
+     *
+     */
+    MoveId mostRecentSuperEffectiveHit() const;
+
 private:
     OwnedPeoplemon* ppl;
     Stats cached;
-    BattleStats battleStats;
+    Stats stages;
+    BattleStats cachedBattle;
+    BattleStats battleStages;
     PassiveAilment ailments;
     SpecialAbility ability;
-    unsigned int turnsWithAilment;
-    unsigned int turnsConfused;
-    unsigned int turnsUntilAwake;
+    std::uint16_t _turnsWithAilment;
+    std::uint16_t _turnsConfused;
+    std::uint16_t _turnsUntilAwake;
     MoveId lastSuperEffectiveTaken;
+
+    void refreshStats();
 };
 
 } // namespace pplmn

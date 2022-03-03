@@ -1,0 +1,93 @@
+#ifndef GAME_BATTLES_BATTLEVIEW_HPP
+#define GAME_BATTLES_BATTLEVIEW_HPP
+
+#include <Game/Battles/Commands/Animation.hpp>
+#include <Game/Battles/Commands/Message.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
+namespace game
+{
+namespace battle
+{
+class BattleState;
+
+/**
+ * @brief This is the top level class for rendering battles. It takes commands and state from a
+ *        BattleController and updates itself independently of battle logic
+ *
+ * @ingroup Battles
+ *
+ */
+class BattleView {
+public:
+    /**
+     * @brief Construct a new Battle View
+     *
+     */
+    BattleView();
+
+    /**
+     * @brief Returns true if the view is done going through the queued commands and all components
+     *        are synchronised with the desired state. Returns false if the view is still changing,
+     *        playing animations, or printing messages
+     *
+     */
+    bool actionsCompleted() const;
+
+    /**
+     * @brief Queues a message to be displayed
+     *
+     * @param message The message to display
+     */
+    void queueMessage(const Message& message);
+
+    /**
+     * @brief Begins playing the given animation
+     *
+     * @param animation The animation to play
+     */
+    void playAnimation(const Animation& animation);
+
+    /**
+     * @brief Synchronises the display with the battle state. This updates health bars, XP bar,
+     *        ailments, and peoplemon graphics
+     *
+     * @param state The current state of the battle
+     */
+    void syncDisplay(const BattleState& state);
+
+    /**
+     * @brief Updates the view, including contained animations and printing text
+     *
+     * @param dt Time elapsed in seconds
+     */
+    void update(float dt);
+
+    /**
+     * @brief Renders the view to the given target. The target's camera must have the correct size
+     *        from Properties and be centered properly.
+     *
+     * @param target The target to render to
+     * @param lag Time elapsed in seconds since update()
+     */
+    void render(sf::RenderTarget& target, float lag) const;
+
+private:
+    // TODO - implement the view
+
+    /*
+    For switches thinking of a multistep approach of
+      1. Play recall anim
+      2. Sync state
+      3. Play send-out anim
+
+      Peoplemon animations when created, or when peoplemon change, start in a hidden state and only
+      go the regular state when a send-out anim is triggered. This makes switching and battle intro
+      easier to do with the current command model
+    */
+};
+
+} // namespace battle
+} // namespace game
+
+#endif
