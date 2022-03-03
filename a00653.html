@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Components/CharacterSpawnWindow.cpp File Reference</title>
+<title>Peoplemon: src/Core/Systems/Entity.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">CharacterSpawnWindow.cpp File Reference</div>  </div>
+<div class="title">Entity.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00278_source.html">Editor/Components/CharacterSpawnWindow.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00239_source.html">Core/Systems/Entity.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Util/FileUtil.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02477_source.html">Core/Components/Collision.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02489_source.html">Core/Components/Controllable.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02495_source.html">Core/Components/Item.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02507_source.html">Core/Components/NPC.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02519_source.html">Core/Components/Trainer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02474_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02510_source.html">Core/Files/NPC.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02522_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02501_source.html">Core/Items/Item.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00200_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00263_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00653_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00840"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00840.html">editor</a></td></tr>
-<tr class="memdesc:a00840"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a00896"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">core</a></td></tr>
+<tr class="memdesc:a00896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00841"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00841.html">editor::component</a></td></tr>
+<tr class="memitem:a00897"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00897.html">core::system</a></td></tr>
+<tr class="memdesc:a00897"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Feb 16 2022 15:50:46 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 3 2022 01:56:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
