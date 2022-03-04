@@ -66,10 +66,13 @@ bl::entity::Entity Position::search(const component::Position& start, component:
     component::Position spos = start;
     spos.direction           = dir;
     for (unsigned int i = 0; i < range; ++i) {
-        if (!owner.world().activeMap().movePossible(spos, dir)) break;
+        const auto oldPos          = spos;
         spos                       = owner.world().activeMap().adjacentTile(spos, dir);
         const bl::entity::Entity e = get(spos);
         if (e != bl::entity::InvalidEntity) return e;
+
+        // break after check to allow entity on collision to be found
+        if (!owner.world().activeMap().movePossible(oldPos, dir)) break;
     }
 
     return bl::entity::InvalidEntity;
