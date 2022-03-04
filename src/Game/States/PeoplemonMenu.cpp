@@ -127,7 +127,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     for (unsigned int i = 0; i < col2N; ++i) {
         buttons[i * 2 + 1] = menu::PeoplemonButton::create(team[i * 2 + 1]);
     }
-    for (unsigned int i = 0; i < 6; ++i) {
+    for (unsigned int i = 0; i < team.size(); ++i) {
         if (team[i].currentHp() == 0) {
             buttons[i]->setHighlightColor(sf::Color(200, 10, 10));
             if (context == Context::BattleFaint || context == Context::BattleSwitch) {
