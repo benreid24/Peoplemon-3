@@ -164,6 +164,7 @@ void HUD::printDoneStateTransition() {
             mitem->getSignal(bl::menu::Item::Activated)
                 .willAlwaysCall(std::bind(&HUD::choiceMade, this, i));
             choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);
+            prev = mitem.get();
         }
         const sf::FloatRect bounds = choiceMenu.getBounds();
         const float y              = viewSize.y - bounds.height - 18.f;
