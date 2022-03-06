@@ -24,7 +24,8 @@ std::string npcName(const std::string& n) { return "npc:" + n; }
 Interaction::Interaction(Systems& owner)
 : owner(owner)
 , interactingEntity(bl::entity::InvalidEntity)
-, currentConversation(owner) {}
+, currentConversation(owner)
+, interactingTrainer(nullptr) {}
 
 void Interaction::init() { owner.engine().eventBus().subscribe(this); }
 
@@ -58,14 +59,14 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             return true;
         }
         else {
-            const component::Trainer* trainer =
+            const component::Trainer* const trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
                 setTalked(trainerName(trainer->name()));
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
-                // TODO - handle battle
+                interactingTrainer = trainer;
                 currentConversation.setConversation(trainer->beforeBattleConversation(),
                                                     nonplayer,
                                                     trainerTalkedto(trainer->name()));
@@ -99,7 +100,10 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 void Interaction::processConversationNode() {
     if (interactingEntity == bl::entity::InvalidEntity) return;
     if (currentConversation.finished()) {
-        owner.controllable().resetEntityLock(interactingEntity);
+        if (interactingTrainer) { startBattle(); }
+        else {
+            owner.controllable().resetEntityLock(interactingEntity);
+        }
         return;
     }
 
@@ -246,12 +250,26 @@ void Interaction::observe(const event::GameSaveInitializing& save) {
     save.gameSave.interaction.talkedto  = &talkedTo;
 }
 
+void Interaction::observe(const event::BattleCompleted& battle) {
+    if (interactingTrainer && battle.type == event::BattleCompleted::Trainer) {
+        currentConversation.setConversation(interactingTrainer->afterBattleConversation(),
+                                            interactingEntity,
+                                            trainerTalkedto(interactingTrainer->name()));
+        processConversationNode();
+        interactingTrainer = nullptr;
+    }
+}
+
 void Interaction::setTalked(const std::string& name) {
     auto wit = talkedTo.find(owner.world().activeMap().name());
     if (wit == talkedTo.end()) {
         wit = talkedTo.try_emplace(owner.world().activeMap().name()).first;
     }
     wit->second.emplace(name);
+}
+
+void Interaction::startBattle() {
+    // TODO - how???
 }
 
 } // namespace system

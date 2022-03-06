@@ -24,7 +24,8 @@ BattleState::Stage typeToStage(Battle::Type type) {
 } // namespace
 
 Battle::Battle(Type type)
-: state(typeToStage(type)) {
+: type(type)
+, state(typeToStage(type)) {
     // custom init?
 }
 

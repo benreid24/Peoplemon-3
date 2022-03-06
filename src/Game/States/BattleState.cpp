@@ -1,11 +1,27 @@
 #include <Game/States/BattleState.hpp>
 
+#include <Core/Events/Battle.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
 {
 namespace state
 {
+namespace
+{
+core::event::BattleCompleted::Type cast(battle::Battle::Type bt) {
+    switch (bt) {
+    case battle::Battle::Type::Trainer:
+        return core::event::BattleCompleted::Trainer;
+    case battle::Battle::Type::WildPeoplemon:
+        return core::event::BattleCompleted::WildPeoplemon;
+    case battle::Battle::Type::Online:
+    default:
+        return core::event::BattleCompleted::Network;
+    }
+}
+} // namespace
+
 bl::engine::State::Ptr BattleState::create(core::system::Systems& systems,
                                            std::unique_ptr<battle::Battle>&& battle) {
     return bl::engine::State::Ptr(
@@ -31,6 +47,8 @@ void BattleState::activate(bl::engine::Engine& engine) {
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
+
+    engine.eventBus().dispatch<core::event::BattleCompleted>({cast(battle->type)});
 
     // TODO - stop battle music?
 }

@@ -39,6 +39,7 @@ struct Battle {
      */
     void setController(std::unique_ptr<BattleController>& controller);
 
+    const Type type;
     BattleState state;
     std::unique_ptr<BattleController> controller;
     BattleView view;
