@@ -9,13 +9,13 @@ namespace state
 {
 namespace
 {
-core::event::BattleCompleted::Type cast(battle::Battle::Type bt) {
+core::event::BattleCompleted::Type cast(core::battle::Battle::Type bt) {
     switch (bt) {
-    case battle::Battle::Type::Trainer:
+    case core::battle::Battle::Type::Trainer:
         return core::event::BattleCompleted::Trainer;
-    case battle::Battle::Type::WildPeoplemon:
+    case core::battle::Battle::Type::WildPeoplemon:
         return core::event::BattleCompleted::WildPeoplemon;
-    case battle::Battle::Type::Online:
+    case core::battle::Battle::Type::Online:
     default:
         return core::event::BattleCompleted::Network;
     }
@@ -23,14 +23,15 @@ core::event::BattleCompleted::Type cast(battle::Battle::Type bt) {
 } // namespace
 
 bl::engine::State::Ptr BattleState::create(core::system::Systems& systems,
-                                           std::unique_ptr<battle::Battle>&& battle) {
+                                           std::unique_ptr<core::battle::Battle>&& battle) {
     return bl::engine::State::Ptr(
-        new BattleState(systems, std::forward<std::unique_ptr<battle::Battle>>(battle)));
+        new BattleState(systems, std::forward<std::unique_ptr<core::battle::Battle>>(battle)));
 }
 
-BattleState::BattleState(core::system::Systems& systems, std::unique_ptr<battle::Battle>&& battle)
+BattleState::BattleState(core::system::Systems& systems,
+                         std::unique_ptr<core::battle::Battle>&& battle)
 : State(systems)
-, battle(std::forward<std::unique_ptr<battle::Battle>>(battle)) {}
+, battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {}
 
 const char* BattleState::name() const { return "BattleState"; }
 
@@ -56,7 +57,7 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
 void BattleState::update(bl::engine::Engine& engine, float dt) {
     battle->controller->update();
     battle->view.update(dt);
-    if (battle->state.currentStage() == battle::BattleState::Stage::Completed) {
+    if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
         engine.popState();
     }
 }

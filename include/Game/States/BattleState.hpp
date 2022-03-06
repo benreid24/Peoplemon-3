@@ -1,8 +1,8 @@
 #ifndef GAME_STATES_BATTLESTATE_HPP
 #define GAME_STATES_BATTLESTATE_HPP
 
+#include <Core/Battles/Battle.hpp>
 #include <Core/Systems/Systems.hpp>
-#include <Game/Battles/Battle.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -26,7 +26,7 @@ public:
      * @return bl::engine::State::Ptr The new game state
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems,
-                                         std::unique_ptr<battle::Battle>&& battle);
+                                         std::unique_ptr<core::battle::Battle>&& battle);
 
     /**
      * @brief Destroy the Battle State object
@@ -67,10 +67,10 @@ public:
     virtual void render(bl::engine::Engine&, float lag) override;
 
 private:
-    std::unique_ptr<battle::Battle> battle;
+    std::unique_ptr<core::battle::Battle> battle;
     sf::View oldView;
 
-    BattleState(core::system::Systems& systems, std::unique_ptr<battle::Battle>&& battle);
+    BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
 };
 
 } // namespace state
