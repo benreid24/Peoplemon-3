@@ -57,7 +57,12 @@ public:
         BeforeFaintSwitch,
         FaintSwitching,
         AfterFaintSwitch,
+
+        // Battle end
         Victory,
+        Lost,
+        TrainerDefeated, // after Victory
+        Completed,
 
         // Errors
         NetworkDisconnect

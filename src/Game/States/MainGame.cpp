@@ -116,8 +116,8 @@ void MainGame::observe(const core::event::StateChange& event) {
 }
 
 void MainGame::observe(const sf::Event& event) {
-    if (event.type == sf::Event::KeyPressed) {
 #ifdef PEOPLEMON_DEBUG
+    if (event.type == sf::Event::KeyPressed) {
         static std::atomic_bool running = false;
 
         if (event.key.code == sf::Keyboard::F1) {
@@ -130,8 +130,8 @@ void MainGame::observe(const sf::Event& event) {
                 t.detach();
             }
         }
-#endif
     }
+#endif
 }
 
 void MainGame::observe(const core::event::SwitchMapTriggered& event) {

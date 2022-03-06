@@ -1,6 +1,7 @@
 target_sources(Peoplemon PUBLIC
     Battle.hpp
     Battler.hpp
+    BattleSkipper.hpp
     BattleState.hpp
     BattleView.hpp
 )
