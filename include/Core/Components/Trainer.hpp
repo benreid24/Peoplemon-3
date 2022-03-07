@@ -51,13 +51,34 @@ public:
      */
     const std::string& loseBattleDialog() const;
 
-    // TODO - expose peoplemon, items, battle ai
+    /**
+     * @brief Returns how far the trainer can see in tiles
+     *
+     */
+    std::uint8_t range() const;
+
+    /**
+     * @brief Returns the team of peoplemon the trainer has
+     *
+     */
+    const std::vector<pplmn::OwnedPeoplemon>& team() const;
+
+    /**
+     * @brief Returns the items the trainer has
+     *
+     */
+    const std::vector<item::Id>& items() const;
+
+    // TODO - expose battle ai
 
 private:
     const std::string _name;
     file::Conversation beforeBattle;
     file::Conversation afterBattle;
     const std::string loseDialog;
+    std::uint8_t visionRange;
+    std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    std::vector<item::Id> _items;
 };
 
 } // namespace component

@@ -11,7 +11,7 @@ Battler::Battler(BattleState& state)
 , currentPeoplemon(0) {}
 
 void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
-                   std::unique_ptr<BattlerController>& c) {
+                   std::unique_ptr<BattlerController>&& c) {
     team = t;
     controller.swap(c);
 }

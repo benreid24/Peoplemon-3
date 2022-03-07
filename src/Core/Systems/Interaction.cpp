@@ -1,6 +1,7 @@
 #include <Core/Systems/Interaction.hpp>
 
 #include <BLIB/Serialization/JSON.hpp>
+#include <Core/Battles/BattlerControllers/AIController.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
@@ -251,7 +252,7 @@ void Interaction::observe(const event::GameSaveInitializing& save) {
 }
 
 void Interaction::observe(const event::BattleCompleted& battle) {
-    if (interactingTrainer && battle.type == event::BattleCompleted::Trainer) {
+    if (interactingTrainer && battle.type == battle::Battle::Type::Trainer) {
         currentConversation.setConversation(interactingTrainer->afterBattleConversation(),
                                             interactingEntity,
                                             trainerTalkedto(interactingTrainer->name()));
@@ -269,7 +270,19 @@ void Interaction::setTalked(const std::string& name) {
 }
 
 void Interaction::startBattle() {
-    // TODO - how???
+    std::unique_ptr<battle::Battle> battle =
+        battle::Battle::create(owner.player(), battle::Battle::Type::Trainer);
+
+    std::vector<pplmn::BattlePeoplemon> team;
+    team.reserve(interactingTrainer->team().size());
+    for (const auto& ppl : interactingTrainer->team()) {
+        team.emplace_back(const_cast<pplmn::OwnedPeoplemon*>(&ppl));
+    }
+    battle->state.enemy().init(std::move(team),
+                               std::make_unique<battle::AIController>(interactingTrainer->items()));
+    // TODO - set battle controller to local when created
+
+    owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
 }
 
 } // namespace system

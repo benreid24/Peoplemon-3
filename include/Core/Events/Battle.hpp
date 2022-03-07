@@ -1,10 +1,32 @@
 #ifndef CORE_EVENTS_BATTLE_HPP
 #define CORE_EVENTS_BATTLE_HPP
 
+#include <Core/Battles/Battle.hpp>
+
 namespace core
 {
 namespace event
 {
+/**
+ * @brief Fired when a battle should start. This does not actually start a battle, but communicates
+ *        to the current game state that a battle should begin
+ *
+ * @ingroup Events
+ *
+ */
+struct BattleStarted {
+    /// The battle to start
+    std::unique_ptr<battle::Battle> battle;
+
+    /**
+     * @brief Construct a new Battle Started event
+     *
+     * @param battle The battle to start
+     */
+    BattleStarted(std::unique_ptr<battle::Battle>&& battle)
+    : battle(std::forward<std::unique_ptr<battle::Battle>>(battle)) {}
+};
+
 /**
  * @brief Fired when a battle finishes
  *
@@ -12,19 +34,16 @@ namespace event
  *
  */
 struct BattleCompleted {
-    /// The type of battle that was completed
-    enum Type { WildPeoplemon, Trainer, Network };
-
     /**
      * @brief Construct a new Battle Completed event
      *
      * @param type The type of battle that was completed
      */
-    BattleCompleted(Type type)
+    BattleCompleted(battle::Battle::Type type)
     : type(type) {}
 
     /// The type of battle that was completed
-    const Type type;
+    const battle::Battle::Type type;
 };
 
 } // namespace event

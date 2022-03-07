@@ -18,13 +18,26 @@ public:
     // TODO - different personalities and whatnot
 
     /**
+     * @brief Construct a new AIController with no items
+     *
+     */
+    AIController() = default;
+
+    /**
+     * @brief Construct a new AIController with the given items
+     *
+     * @param items The items that may be used in battle
+     */
+    AIController(const std::vector<item::Id>& items);
+
+    /**
      * @brief Destroy the AIController object
      *
      */
     virtual ~AIController() = default;
 
 private:
-    std::vector<core::item::Id> items; // TODO - copy items here from the trainer
+    std::vector<item::Id> items; // TODO - copy items here from the trainer
 
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon() override;

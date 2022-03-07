@@ -34,7 +34,7 @@ public:
      * @param controller The controller to make decisions
      */
     void init(std::vector<core::pplmn::BattlePeoplemon>&& team,
-              std::unique_ptr<BattlerController>& controller);
+              std::unique_ptr<BattlerController>&& controller);
 
     /**
      * @brief Returns whether or not the battler has chosen what to do on this turn

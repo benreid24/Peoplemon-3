@@ -1,4 +1,4 @@
-target_sources(Peoplemon PRIVATE
+target_sources(Core PRIVATE
     Battle.cpp
     Battler.cpp
     BattleState.cpp

@@ -4,6 +4,9 @@ namespace core
 {
 namespace battle
 {
+AIController::AIController(const std::vector<item::Id>& items)
+: items(items) {}
+
 void AIController::startChooseAction() {
     // TODO - battle ai
 }

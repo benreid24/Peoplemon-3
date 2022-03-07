@@ -32,11 +32,10 @@ Battle::Battle(Type type)
 std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) {
     std::unique_ptr<Battle> b(new Battle(type));
 
-    std::unique_ptr<BattlerController> c = std::make_unique<PlayerController>();
     std::vector<core::pplmn::BattlePeoplemon> team;
     team.reserve(player.team().size());
     for (auto& ppl : player.team()) { team.emplace_back(&ppl); }
-    b->state.localPlayer().init(std::move(team), c);
+    b->state.localPlayer().init(std::move(team), std::make_unique<PlayerController>());
 
     return b;
 }

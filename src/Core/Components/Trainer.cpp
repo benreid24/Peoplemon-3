@@ -31,5 +31,11 @@ const file::Conversation& Trainer::afterBattleConversation() const { return afte
 
 const std::string& Trainer::loseBattleDialog() const { return loseDialog; }
 
+std::uint8_t Trainer::range() const { return visionRange; }
+
+const std::vector<pplmn::OwnedPeoplemon>& Trainer::team() const { return peoplemon; }
+
+const std::vector<item::Id>& Trainer::items() const { return _items; }
+
 } // namespace component
 } // namespace core
