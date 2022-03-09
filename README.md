@@ -21,6 +21,7 @@ points for getting to work.
 ### Documentation
 
 - [Editor Documentation](docs/editor/reference.md)
+- [Game Debugging](docs/debugging.md)
 - [Peoplemon **bScript** Reference](docs/scripts/reference.md)
 - [C++ Source Documentation](https://benreid24.github.io/Peoplemon-3/modules.html)
 - [BLIB Engine Source Documentation](https://benreid24.github.io/BLIB/modules.html)
