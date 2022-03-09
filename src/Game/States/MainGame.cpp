@@ -64,7 +64,7 @@ void MainGame::update(bl::engine::Engine&, float dt) {
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }
 
-        systems.update(dt, false);
+        systems.update(dt, true);
         break;
 
     case MapFadein:
