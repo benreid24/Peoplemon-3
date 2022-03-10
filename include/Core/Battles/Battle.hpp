@@ -43,6 +43,7 @@ struct Battle {
     BattleState state;
     std::unique_ptr<BattleController> controller;
     BattleView view;
+    bool localPlayerWon; // set by controller
 
 private:
     Battle(Type type);

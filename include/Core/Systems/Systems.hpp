@@ -13,6 +13,7 @@
 #include <Core/Systems/Position.hpp>
 #include <Core/Systems/Render.hpp>
 #include <Core/Systems/Scripts.hpp>
+#include <Core/Systems/Trainers.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
@@ -197,6 +198,18 @@ public:
      */
     const Scripts& scripts() const;
 
+    /**
+     * @brief Returns the trainer system
+     *
+     */
+    Trainers& trainers();
+
+    /**
+     * @brief Returns the trainer system
+     *
+     */
+    const Trainers& trainers() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -212,6 +225,7 @@ private:
     Interaction _interaction;
     HUD _hud;
     Scripts _scripts;
+    Trainers _trainers;
 
     /**
      * @brief Creates the core game object and associates it with the engine

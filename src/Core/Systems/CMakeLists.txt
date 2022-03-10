@@ -12,6 +12,7 @@ target_sources(Core PRIVATE
     Render.cpp
     Scripts.cpp
     Systems.cpp
+    Trainers.cpp
     World.cpp
 )
 

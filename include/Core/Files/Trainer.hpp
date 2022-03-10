@@ -45,6 +45,8 @@ public:
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     std::vector<item::Id> items;
     // TODO - determine how to store battle music/background
+
+    std::string sourceFile;
 };
 
 } // namespace file

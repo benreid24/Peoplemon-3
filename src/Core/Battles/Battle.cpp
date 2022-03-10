@@ -25,7 +25,8 @@ BattleState::Stage typeToStage(Battle::Type type) {
 
 Battle::Battle(Type type)
 : type(type)
-, state(typeToStage(type)) {
+, state(typeToStage(type))
+, localPlayerWon(false) {
     // custom init?
 }
 

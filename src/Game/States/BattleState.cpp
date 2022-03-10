@@ -34,7 +34,8 @@ void BattleState::activate(bl::engine::Engine& engine) {
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
 
-    engine.eventBus().dispatch<core::event::BattleCompleted>({battle->type});
+    engine.eventBus().dispatch<core::event::BattleCompleted>(
+        {battle->type, battle->localPlayerWon});
 
     // TODO - stop battle music?
 }

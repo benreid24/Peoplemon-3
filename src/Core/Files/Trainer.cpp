@@ -86,6 +86,7 @@ bool Trainer::load(const std::string& file, component::Direction spawnDir) {
     bl::serial::binary::InputFile input(file);
     if (VersionedLoader::read(input, *this)) {
         if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
+        sourceFile = file;
         return true;
     }
     return false;

@@ -8,6 +8,7 @@
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
 #include <Core/Systems/Clock.hpp>
+#include <Core/Systems/Trainers.hpp>
 
 namespace core
 {
@@ -60,6 +61,11 @@ struct GameSave {
     struct ClockPointers {
         system::Clock::Time* time;
     } clock;
+
+    /// Stores defeated trainer information
+    struct TrainerPointers {
+        std::unordered_set<std::string>* defeated;
+    } trainers;
 
     /**
      * @brief Initializes all pointers to the local members
@@ -157,6 +163,7 @@ private:
         component::Position prevPlayerPos;
         std::unordered_map<std::string, bl::script::Value> entries;
         system::Clock::Time clockTime;
+        std::unordered_set<std::string> defeatedTrainers;
     };
 
     std::optional<Data> localData;
@@ -248,6 +255,17 @@ struct SerializableObject<core::file::GameSave::ClockPointers> : public Serializ
 
     SerializableObject()
     : time("time", *this, &C::time) {}
+};
+
+template<>
+struct SerializableObject<core::file::GameSave::TrainerPointers> : public SerializableObjectBase {
+    using T = core::file::GameSave::TrainerPointers;
+    using D = std::unordered_set<std::string>;
+
+    SerializableField<T, D*> defeated;
+
+    SerializableObject()
+    : defeated("defeated", *this, &T::defeated) {}
 };
 
 template<>

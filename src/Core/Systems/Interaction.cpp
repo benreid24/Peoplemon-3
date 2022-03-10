@@ -67,10 +67,17 @@ bool Interaction::interact(bl::entity::Entity interactor) {
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
-                interactingTrainer = trainer;
-                currentConversation.setConversation(trainer->beforeBattleConversation(),
-                                                    nonplayer,
-                                                    trainerTalkedto(trainer->name()));
+                if (!trainer->defeated()) {
+                    interactingTrainer = trainer;
+                    currentConversation.setConversation(trainer->beforeBattleConversation(),
+                                                        nonplayer,
+                                                        trainerTalkedto(trainer->name()));
+                }
+                else {
+                    currentConversation.setConversation(trainer->afterBattleConversation(),
+                                                        nonplayer,
+                                                        trainerTalkedto(trainer->name()));
+                }
                 interactingEntity = nonplayer;
                 processConversationNode();
                 return true;

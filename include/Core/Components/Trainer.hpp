@@ -28,6 +28,12 @@ public:
     Trainer(const file::Trainer& trainer);
 
     /**
+     * @brief Returns the file the trainer was spawned from
+     *
+     */
+    const std::string& file() const;
+
+    /**
      * @brief The name of the NPC
      *
      */
@@ -69,9 +75,22 @@ public:
      */
     const std::vector<item::Id>& items() const;
 
+    /**
+     * @brief Returns whether or not this trainer was defeated
+     *
+     */
+    bool defeated() const;
+
+    /**
+     * @brief Marks this trainer as defeated
+     *
+     */
+    void setDefeated();
+
     // TODO - expose battle ai
 
 private:
+    const std::string sourceFile;
     const std::string _name;
     file::Conversation beforeBattle;
     file::Conversation afterBattle;
@@ -79,6 +98,7 @@ private:
     std::uint8_t visionRange;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     std::vector<item::Id> _items;
+    bool beat;
 };
 
 } // namespace component
