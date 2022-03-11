@@ -125,5 +125,12 @@ bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {
     return true;
 }
 
+void AI::removeAi(bl::entity::Entity ent) {
+    if (owner.engine().entities().removeComponent<component::StandingBehavior>(ent)) return;
+    if (owner.engine().entities().removeComponent<component::SpinBehavior>(ent)) return;
+    if (owner.engine().entities().removeComponent<component::FixedPathBehavior>(ent)) return;
+    owner.engine().entities().removeComponent<component::WanderBehavior>(ent);
+}
+
 } // namespace system
 } // namespace core

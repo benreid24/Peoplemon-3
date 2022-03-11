@@ -7,6 +7,7 @@
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Battle.hpp>
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
 
 namespace core
@@ -23,8 +24,8 @@ class Systems;
  */
 class Trainers
 : bl::event::Listener<event::GameSaveInitializing,
-                      bl::entity::event::ComponentAdded<component::Trainer>,
-                      event::BattleCompleted> {
+                      bl::entity::event::ComponentAdded<component::Trainer>, event::BattleCompleted,
+                      event::EntityMoved, event::EntityRotated> {
 public:
     /**
      * @brief Construct a new Trainers system
@@ -54,15 +55,21 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Registry::View<component::Trainer, component::Position, component::Movable>::Ptr
-        trainers;
     bl::entity::Entity walkingTrainer;
+    component::Trainer* trainerComponent;
+    const component::Position* trainerPos;
+    component::Movable* trainerMove;
 
     std::unordered_set<std::string> defeated;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
     virtual void observe(const bl::entity::event::ComponentAdded<component::Trainer>& tc) override;
     virtual void observe(const event::BattleCompleted& event) override;
+    virtual void observe(const event::EntityMoved& moved) override;
+    virtual void observe(const event::EntityRotated& rotated) override;
+
+    void checkTrainer(bl::entity::Entity ent);
+    void cleanup();
 };
 
 } // namespace system

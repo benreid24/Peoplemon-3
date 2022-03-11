@@ -101,6 +101,13 @@ public:
     bool moveToPosition(bl::entity::Entity entity, const component::Position& pos,
                         component::Direction finalDir);
 
+    /**
+     * @brief Removes any ai behavior from the given entity
+     *
+     * @param ent The entity to remove behavior from
+     */
+    void removeAi(bl::entity::Entity ent);
+
 private:
     Systems& owner;
     bl::entity::Registry::View<component::StandingBehavior, component::Position,
