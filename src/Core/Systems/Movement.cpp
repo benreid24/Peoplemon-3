@@ -1,5 +1,6 @@
 #include <Core/Systems/Movement.hpp>
 
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -32,7 +33,9 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
         if (!it->second.get<component::Movable>()->moving()) {
             component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
+                const event::EntityRotated event(e, npos.direction, pos.direction);
                 pos.direction = npos.direction;
+                owner.engine().eventBus().dispatch<event::EntityRotated>(event);
                 return true;
             }
             if (!owner.world().activeMap().contains(npos)) return false;
