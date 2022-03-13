@@ -54,7 +54,9 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
 void Movement::update(float dt) {
     for (const bl::entity::Entity e : owner.position().updateRangeEntities()) {
         auto it = entities->results().find(e);
-        if (it != entities->results().end()) { it->second.get<component::Movable>()->update(dt); }
+        if (it != entities->results().end()) {
+            it->second.get<component::Movable>()->update(e, owner.engine().eventBus(), dt);
+        }
     }
 }
 

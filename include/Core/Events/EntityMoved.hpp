@@ -40,6 +40,30 @@ struct EntityMoved {
 };
 
 /**
+ * @brief Fired when an entity completes a move from one tile to another
+ *
+ * @ingroup Events
+ *
+ */
+struct EntityMoveFinished {
+    /// The entity that moved
+    const bl::entity::Entity entity;
+
+    /// The current position of the entity
+    const component::Position& position;
+
+    /**
+     * @brief Construct a new Entity Move Finished event
+     *
+     * @param entity The entity that completed moving
+     * @param position The position the entity is at
+     */
+    EntityMoveFinished(bl::entity::Entity entity, const component::Position& position)
+    : entity(entity)
+    , position(position) {}
+};
+
+/**
  * @brief Fired when an entity rotates without moving
  *
  * @ingroup Events

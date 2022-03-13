@@ -22,6 +22,10 @@ void Trainers::update() {
                                  << " was unable to interact with player, aborting";
                     cleanup();
                 }
+                else {
+                    // prevent interact spam
+                    walkingTrainer = bl::entity::InvalidEntity;
+                }
             }
             else {
                 if (!owner.movement().moveEntity(walkingTrainer, trainerPos->direction, false)) {
@@ -57,10 +61,12 @@ void Trainers::observe(const event::BattleCompleted& b) {
 }
 
 void Trainers::observe(const event::EntityRotated& rot) {
+    BL_LOG_INFO << "entity rotated";
     if (walkingTrainer == bl::entity::InvalidEntity) checkTrainer(rot.entity);
 }
 
-void Trainers::observe(const event::EntityMoved& moved) {
+void Trainers::observe(const event::EntityMoveFinished& moved) {
+    BL_LOG_INFO << "Entity moved";
     if (walkingTrainer != bl::entity::InvalidEntity) return;
 
     if (moved.entity == owner.player().player()) {
@@ -76,6 +82,7 @@ void Trainers::observe(const event::EntityMoved& moved) {
 void Trainers::checkTrainer(bl::entity::Entity ent) {
     component::Trainer* trainer = owner.engine().entities().getComponent<component::Trainer>(ent);
     if (!trainer) return;
+    BL_LOG_INFO << "Checking trainer: " << trainer->name();
     const component::Position* pos =
         owner.engine().entities().getComponent<component::Position>(ent);
     if (!pos) {

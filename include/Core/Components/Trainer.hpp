@@ -95,9 +95,9 @@ private:
     file::Conversation beforeBattle;
     file::Conversation afterBattle;
     const std::string loseDialog;
-    std::uint8_t visionRange;
-    std::vector<pplmn::OwnedPeoplemon> peoplemon;
-    std::vector<item::Id> _items;
+    const std::uint8_t visionRange;
+    const std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    const std::vector<item::Id> _items;
     bool beat;
 };
 

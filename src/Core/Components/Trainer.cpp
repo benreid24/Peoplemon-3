@@ -8,6 +8,9 @@ Trainer::Trainer(const file::Trainer& data)
 : sourceFile(data.sourceFile)
 , _name(data.name)
 , loseDialog(data.lostBattleLine)
+, visionRange(data.visionRange)
+, peoplemon(data.peoplemon)
+, _items(data.items)
 , beat(false) {
     if (!beforeBattle.load(data.prebattleConversation)) {
         BL_LOG_ERROR << "Failed to load trainer before battle conversation: "

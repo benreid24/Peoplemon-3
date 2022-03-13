@@ -25,7 +25,7 @@ class Systems;
 class Trainers
 : bl::event::Listener<event::GameSaveInitializing,
                       bl::entity::event::ComponentAdded<component::Trainer>, event::BattleCompleted,
-                      event::EntityMoved, event::EntityRotated> {
+                      event::EntityMoveFinished, event::EntityRotated> {
 public:
     /**
      * @brief Construct a new Trainers system
@@ -65,7 +65,7 @@ private:
     virtual void observe(const event::GameSaveInitializing& save) override;
     virtual void observe(const bl::entity::event::ComponentAdded<component::Trainer>& tc) override;
     virtual void observe(const event::BattleCompleted& event) override;
-    virtual void observe(const event::EntityMoved& moved) override;
+    virtual void observe(const event::EntityMoveFinished& moved) override;
     virtual void observe(const event::EntityRotated& rotated) override;
 
     void checkTrainer(bl::entity::Entity ent);
