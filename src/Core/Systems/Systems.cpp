@@ -40,7 +40,7 @@ void Systems::update(float dt, bool ent) {
         _ai.update(dt);
         _player.update();
         _movement.update(dt);
-        _trainers.update();
+        _trainers.update(dt);
     }
     _position.update();
     _cameras.update(dt);

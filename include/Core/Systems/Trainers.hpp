@@ -3,12 +3,14 @@
 
 #include <BLIB/Entities.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Battle.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace core
 {
@@ -43,8 +45,18 @@ public:
     /**
      * @brief Performs per-frame trainer logic
      *
+     * @param dt Time elapsed in seconds
+     *
      */
-    void update();
+    void update(float dt);
+
+    /**
+     * @brief Renders the trainer exclaim if necessary
+     *
+     * @param target The target to render to
+     *
+     */
+    void render(sf::RenderTarget& target);
 
     /**
      * @brief Returns the trainer currently approaching the player
@@ -54,7 +66,14 @@ public:
     bl::entity::Entity approachingTrainer() const;
 
 private:
+    enum struct State { Searching, PoppingUp, Holding, Walking, Battling };
+
     Systems& owner;
+    bl::resource::Resource<sf::Texture>::Ref txtr;
+    sf::Sprite exclaim;
+    float height;
+
+    State state;
     bl::entity::Entity walkingTrainer;
     component::Trainer* trainerComponent;
     const component::Position* trainerPos;

@@ -105,6 +105,9 @@ const std::string MoveDBFile      = "Resources/Config/moves.db";
 
 const std::string PeoplemonImageFolder = "Resources/Images/Peoplemon";
 
+const std::string TrainerExclaimSound = "Resources/Audio/Sounds/trainer.ogg";
+const std::string TrainerExclaimImage = "Resources/Images/trainer.png";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -214,6 +217,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.moves.dbfile", defaults::MoveDBFile);
 
     bl::engine::Configuration::set("core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
+
+    bl::engine::Configuration::set("core.trainer.img", defaults::TrainerExclaimImage);
+    bl::engine::Configuration::set("core.trainer.sfx", defaults::TrainerExclaimSound);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -640,6 +646,18 @@ sf::Color Properties::HPBarColor(unsigned int hp, unsigned int maxHp) {
 const std::string& Properties::PeoplemonImageFolder() {
     static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
         "core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
+    return f;
+}
+
+const std::string& Properties::TrainerExclaimImage() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.img", defaults::TrainerExclaimImage);
+    return f;
+}
+
+const std::string& Properties::TrainerExclaimSound() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.sfx", defaults::TrainerExclaimSound);
     return f;
 }
 

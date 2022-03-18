@@ -1,20 +1,67 @@
 #include <Core/Systems/Trainers.hpp>
 
+#include <BLIB/Engine/Resources.hpp>
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Files/GameSave.hpp>
+#include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
 {
 namespace system
 {
+namespace
+{
+constexpr float RevealRate = 60.f;
+}
+
 Trainers::Trainers(Systems& o)
 : owner(o)
-, walkingTrainer(bl::entity::InvalidEntity) {}
+, state(State::Searching)
+, walkingTrainer(bl::entity::InvalidEntity) {
+    txtr = bl::engine::Resources::textures().load(Properties::TrainerExclaimImage()).data;
+    exclaim.setTexture(*txtr, true);
+}
 
 void Trainers::init() { owner.engine().eventBus().subscribe(this); }
 
-void Trainers::update() {
-    if (walkingTrainer != bl::entity::InvalidEntity) {
+void Trainers::update(float dt) {
+    static const sf::Vector2i es(txtr->getSize());
+    static const auto updateRect = [this](int h) {
+        exclaim.setTextureRect({0, es.y - h, es.x, h});
+    };
+
+    switch (state) {
+    case State::PoppingUp:
+        height += dt * RevealRate;
+        if (height >= txtr->getSize().y) {
+            updateRect(txtr->getSize().y);
+            state  = State::Holding;
+            height = 0.f;
+        }
+        else {
+            updateRect(height);
+        }
+        break;
+
+    case State::Holding:
+        height += dt;
+        if (height >= 0.75f) {
+            height = txtr->getSize().y;
+            state  = State::Walking;
+        }
+        else {
+            break;
+        }
+        [[fallthrough]];
+
+    case State::Walking:
+        height -= dt * RevealRate;
+        if (height > 0.f) { updateRect(height); }
+        else {
+            updateRect(0);
+        }
+
         if (!trainerMove->moving()) {
             if (component::Position::adjacent(*trainerPos, owner.player().position())) {
                 if (!owner.interaction().interact(walkingTrainer)) {
@@ -36,6 +83,24 @@ void Trainers::update() {
                 }
             }
         }
+        break;
+
+    case State::Searching:
+    case State::Battling:
+    default:
+        break;
+    }
+}
+
+void Trainers::render(sf::RenderTarget& target) {
+    switch (state) {
+    case State::PoppingUp:
+    case State::Holding:
+    case State::Walking:
+        target.draw(exclaim);
+        break;
+    default:
+        break;
     }
 }
 
@@ -61,12 +126,10 @@ void Trainers::observe(const event::BattleCompleted& b) {
 }
 
 void Trainers::observe(const event::EntityRotated& rot) {
-    BL_LOG_INFO << "entity rotated";
     if (walkingTrainer == bl::entity::InvalidEntity) checkTrainer(rot.entity);
 }
 
 void Trainers::observe(const event::EntityMoveFinished& moved) {
-    BL_LOG_INFO << "Entity moved";
     if (walkingTrainer != bl::entity::InvalidEntity) return;
 
     if (moved.entity == owner.player().player()) {
@@ -82,7 +145,6 @@ void Trainers::observe(const event::EntityMoveFinished& moved) {
 void Trainers::checkTrainer(bl::entity::Entity ent) {
     component::Trainer* trainer = owner.engine().entities().getComponent<component::Trainer>(ent);
     if (!trainer) return;
-    BL_LOG_INFO << "Checking trainer: " << trainer->name();
     const component::Position* pos =
         owner.engine().entities().getComponent<component::Position>(ent);
     if (!pos) {
@@ -105,11 +167,23 @@ void Trainers::checkTrainer(bl::entity::Entity ent) {
         trainerPos       = pos;
         trainerMove      = move;
         owner.controllable().setEntityLocked(owner.player().player(), true);
-        // TODO - play sound and add visual indicator to trainer
+
+        auto sfx = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
+        bl::audio::AudioSystem::playSound(sfx);
+        state  = State::PoppingUp;
+        height = 0.f;
+        const sf::Vector2i s(txtr->getSize());
+        exclaim.setTextureRect({0, s.y, s.x, 0});
+        static const float xoff =
+            static_cast<float>(Properties::PixelsPerTile()) * 0.5f - static_cast<float>(s.x) * 0.5f;
+        exclaim.setPosition(trainerPos->positionPixels().x + xoff,
+                            trainerPos->positionPixels().y -
+                                static_cast<float>(Properties::PixelsPerTile()));
     }
 }
 
 void Trainers::cleanup() {
+    state            = State::Searching;
     walkingTrainer   = bl::entity::InvalidEntity;
     trainerComponent = nullptr;
     trainerMove      = nullptr;
