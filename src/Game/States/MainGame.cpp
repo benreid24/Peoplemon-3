@@ -3,6 +3,7 @@
 #include <Core/Battles/BattleSkipper.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Scripts/DebugScriptContext.hpp>
+#include <Game/States/BattleState.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
 #include <iostream>
@@ -202,6 +203,13 @@ void MainGame::observe(const core::event::SwitchMapTriggered& event) {
     spawnId        = event.spawn;
     state          = SwitchMapFadeout;
     systems.controllable().setAllLocks(true, false);
+}
+
+void MainGame::observe(const core::event::BattleStarted& event) {
+    std::unique_ptr<core::battle::Battle>& battle =
+        const_cast<std::unique_ptr<core::battle::Battle>&>(event.battle);
+    systems.engine().pushState(BattleState::create(systems, std::move(battle)));
+    // TODO - battle intro state
 }
 
 } // namespace state

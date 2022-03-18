@@ -1,6 +1,7 @@
 #include <Core/Battles/BattleControllers/BattleController.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <Core/Battles/Battle.hpp>
 #include <Core/Battles/BattleView.hpp>
 
 namespace core
@@ -12,9 +13,10 @@ BattleController::BattleController()
 , state(nullptr)
 , subState(SubState::Done) {}
 
-void BattleController::init(BattleView& v, BattleState& s) {
-    view  = &v;
-    state = &s;
+void BattleController::init(Battle& b, BattleView& v, BattleState& s) {
+    battle = &b;
+    view   = &v;
+    state  = &s;
 }
 
 void BattleController::update() {

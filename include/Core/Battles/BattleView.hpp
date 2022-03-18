@@ -4,6 +4,7 @@
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Battles/Commands/Message.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace core
 {
@@ -73,6 +74,8 @@ public:
     void render(sf::RenderTarget& target, float lag) const;
 
 private:
+    sf::Text temp;
+
     // TODO - implement the view
 
     /*

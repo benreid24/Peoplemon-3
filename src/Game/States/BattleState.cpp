@@ -7,6 +7,32 @@ namespace game
 {
 namespace state
 {
+namespace
+{
+sf::Clock timer;
+class DummyController : public core::battle::BattleController {
+public:
+    DummyController()
+    : time(0.f) {
+        timer.restart();
+    }
+
+    virtual ~DummyController() = default;
+
+private:
+    float time;
+
+    virtual void onCommandQueued(const core::battle::Command&) override {}
+    virtual void onCommandProcessed(const core::battle::Command&) override {}
+    virtual void onUpdate() override {
+        time += timer.getElapsedTime().asSeconds();
+        timer.restart();
+        if (time >= 3.f) { state->setStage(core::battle::BattleState::Stage::Completed); }
+    }
+};
+
+} // namespace
+
 bl::engine::State::Ptr BattleState::create(core::system::Systems& systems,
                                            std::unique_ptr<core::battle::Battle>&& battle) {
     return bl::engine::State::Ptr(
@@ -16,7 +42,12 @@ bl::engine::State::Ptr BattleState::create(core::system::Systems& systems,
 BattleState::BattleState(core::system::Systems& systems,
                          std::unique_ptr<core::battle::Battle>&& battle)
 : State(systems)
-, battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {}
+, battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {
+    if (!this->battle->controller) {
+        BL_LOG_WARN << "Invalid battle controller, using dummy";
+        this->battle->setController(std::move(std::make_unique<DummyController>()));
+    }
+}
 
 const char* BattleState::name() const { return "BattleState"; }
 
@@ -50,6 +81,7 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
 
 void BattleState::render(bl::engine::Engine& engine, float lag) {
     battle->view.render(engine.window(), lag);
+    engine.window().display();
 }
 
 } // namespace state

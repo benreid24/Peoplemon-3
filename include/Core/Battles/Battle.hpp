@@ -37,7 +37,7 @@ struct Battle {
      *
      * @param controller The battle controller to use
      */
-    void setController(std::unique_ptr<BattleController>& controller);
+    void setController(std::unique_ptr<BattleController>&& controller);
 
     const Type type;
     BattleState state;

@@ -144,7 +144,7 @@ void Trainers::observe(const event::EntityMoveFinished& moved) {
 
 void Trainers::checkTrainer(bl::entity::Entity ent) {
     component::Trainer* trainer = owner.engine().entities().getComponent<component::Trainer>(ent);
-    if (!trainer) return;
+    if (!trainer || trainer->defeated()) return;
     const component::Position* pos =
         owner.engine().entities().getComponent<component::Position>(ent);
     if (!pos) {

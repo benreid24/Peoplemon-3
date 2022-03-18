@@ -9,6 +9,7 @@ namespace core
 {
 namespace battle
 {
+class Battle;
 class BattleView;
 class BattleState;
 
@@ -36,10 +37,11 @@ public:
     /**
      * @brief Sets internal references to the view and state of the battle
      *
+     * @param battle The battle itself
      * @param view The view of the battle
      * @param state The state of the battle
      */
-    void init(BattleView& view, BattleState& state);
+    void init(Battle& battle, BattleView& view, BattleState& state);
 
     /**
      * @brief Updates the processing of the command queue
@@ -55,6 +57,7 @@ public:
     void queueCommand(Command&& command);
 
 protected:
+    Battle* battle;
     BattleView* view;
     BattleState* state;
 

@@ -24,5 +24,10 @@ Battler& BattleState::activeBattler() { return currentMover == 0 ? player : oppo
 
 BattleState::Stage BattleState::currentStage() const { return stage; }
 
+void BattleState::setStage(Stage s) {
+    stage = s;
+    // TODO - send sync event?
+}
+
 } // namespace battle
 } // namespace core

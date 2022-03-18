@@ -84,7 +84,7 @@ private:
     ai::Conversation currentConversation;
     std::unordered_map<std::string, std::unordered_set<std::string>> talkedTo;
     std::unordered_set<std::string> flags;
-    component::Trainer const* interactingTrainer;
+    component::Trainer* interactingTrainer;
 
     void processConversationNode();
     void faceEntity(bl::entity::Entity toRotate, bl::entity::Entity toFace);

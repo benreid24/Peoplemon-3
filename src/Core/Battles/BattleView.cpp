@@ -1,11 +1,19 @@
 #include <Core/Battles/BattleView.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace core
 {
 namespace battle
 {
 BattleView::BattleView() {
     // TODO - init implementation details
+
+    temp.setFont(Properties::MenuFont());
+    temp.setCharacterSize(32);
+    temp.setFillColor(sf::Color::Green);
+    temp.setPosition({300.f, 300.f});
+    temp.setString("Battle here");
 }
 
 bool BattleView::actionsCompleted() const {
@@ -29,8 +37,11 @@ void BattleView::update(float) {
     // TODO - update animations
 }
 
-void BattleView::render(sf::RenderTarget&, float) const {
+void BattleView::render(sf::RenderTarget& target, float) const {
     // TODO - render the view
+
+    target.clear();
+    target.draw(temp);
 }
 
 } // namespace battle

@@ -41,9 +41,9 @@ std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) 
     return b;
 }
 
-void Battle::setController(std::unique_ptr<BattleController>& c) {
+void Battle::setController(std::unique_ptr<BattleController>&& c) {
     controller.swap(c);
-    controller->init(view, state);
+    controller->init(*this, view, state);
 }
 
 } // namespace battle

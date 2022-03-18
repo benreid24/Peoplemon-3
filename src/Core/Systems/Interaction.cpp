@@ -60,7 +60,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
             return true;
         }
         else {
-            const component::Trainer* const trainer =
+            component::Trainer* trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
                 setTalked(trainerName(trainer->name()));
@@ -264,8 +264,10 @@ void Interaction::observe(const event::BattleCompleted& battle) {
                                             interactingEntity,
                                             trainerTalkedto(interactingTrainer->name()));
         processConversationNode();
+        interactingTrainer->setDefeated();
         interactingTrainer = nullptr;
     }
+    owner.controllable().resetEntityLock(owner.player().player());
 }
 
 void Interaction::setTalked(const std::string& name) {

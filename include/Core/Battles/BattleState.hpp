@@ -100,6 +100,13 @@ public:
      */
     Stage currentStage() const;
 
+    /**
+     * @brief Sets the current stage of the battle
+     *
+     * @param stage The new battle stage
+     */
+    void setStage(Stage stage);
+
 private:
     Stage stage;
     Battler player;
