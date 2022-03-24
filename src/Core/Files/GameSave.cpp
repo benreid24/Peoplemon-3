@@ -132,6 +132,8 @@ void GameSave::useLocalData() {
     world.prevPlayerPos = &d.prevPlayerPos;
 
     clock.time = &d.clockTime;
+
+    trainers.defeated = &d.defeatedTrainers;
 }
 
 GameSave::GameSave() {
@@ -153,6 +155,8 @@ GameSave::GameSave() {
     world.prevPlayerPos = nullptr;
 
     clock.time = nullptr;
+
+    trainers.defeated = nullptr;
 }
 
 std::string GameSave::filename(const std::string& name) {

@@ -28,6 +28,12 @@ public:
     Trainer(const file::Trainer& trainer);
 
     /**
+     * @brief Returns the file the trainer was spawned from
+     *
+     */
+    const std::string& file() const;
+
+    /**
      * @brief The name of the NPC
      *
      */
@@ -51,13 +57,48 @@ public:
      */
     const std::string& loseBattleDialog() const;
 
-    // TODO - expose peoplemon, items, battle ai
+    /**
+     * @brief Returns how far the trainer can see in tiles
+     *
+     */
+    std::uint8_t range() const;
+
+    /**
+     * @brief Returns the team of peoplemon the trainer has
+     *
+     */
+    const std::vector<pplmn::OwnedPeoplemon>& team() const;
+
+    /**
+     * @brief Returns the items the trainer has
+     *
+     */
+    const std::vector<item::Id>& items() const;
+
+    /**
+     * @brief Returns whether or not this trainer was defeated
+     *
+     */
+    bool defeated() const;
+
+    /**
+     * @brief Marks this trainer as defeated
+     *
+     */
+    void setDefeated();
+
+    // TODO - expose battle ai
 
 private:
+    const std::string sourceFile;
     const std::string _name;
     file::Conversation beforeBattle;
     file::Conversation afterBattle;
     const std::string loseDialog;
+    const std::uint8_t visionRange;
+    const std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    const std::vector<item::Id> _items;
+    bool beat;
 };
 
 } // namespace component

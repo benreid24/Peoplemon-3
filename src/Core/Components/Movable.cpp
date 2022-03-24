@@ -1,5 +1,6 @@
 #include <Core/Components/Movable.hpp>
 
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -24,7 +25,7 @@ void Movable::move(Direction dir, bool fast) {
     movingFast = fast;
 }
 
-void Movable::update(float dt) {
+void Movable::update(bl::entity::Entity owner, bl::event::Dispatcher& bus, float dt) {
     if (isMoving) {
         const float speed        = movingFast ? fastMovementSpeed : movementSpeed;
         const float displacement = dt * speed;
@@ -39,6 +40,7 @@ void Movable::update(float dt) {
             if (position.get().positionPixels().y <= yTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
+                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
             }
             break;
 
@@ -48,6 +50,7 @@ void Movable::update(float dt) {
             if (position.get().positionPixels().x >= xTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
+                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
             }
             break;
 
@@ -57,6 +60,7 @@ void Movable::update(float dt) {
             if (position.get().positionPixels().y >= yTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
+                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
             }
             break;
 
@@ -66,6 +70,7 @@ void Movable::update(float dt) {
             if (position.get().positionPixels().x <= xTile) {
                 position.get().setTiles(position.get().positionTiles());
                 isMoving = false;
+                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
             }
             break;
 

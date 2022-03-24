@@ -73,5 +73,11 @@ Direction Position::facePosition(const Position& from, const Position& to) {
     return Direction::Down;
 }
 
+bool Position::adjacent(const Position& l, const Position& r) {
+    if (std::abs(l.level - r.level) > 1) return false;
+    const int d = std::abs(r.position.x - l.position.x) + std::abs(r.position.y - l.position.y);
+    return d == 1;
+}
+
 } // namespace component
 } // namespace core

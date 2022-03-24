@@ -47,6 +47,7 @@ void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
 
     map.render(target, lag, entityRender);
     owner.hud().render(target, lag);
+    owner.trainers().render(target);
 
     target.setView(oldView);
 }

@@ -1,5 +1,6 @@
 target_sources(Peoplemon PUBLIC
     BagMenu.hpp
+    BattleState.hpp
     LoadGame.hpp
     MainGame.hpp
     MainMenu.hpp

@@ -77,6 +77,8 @@ void HUD::update(float dt) {
 }
 
 void HUD::render(sf::RenderTarget& target, float lag) {
+    if (core::Properties::InEditor()) return;
+
     entryCard.render(target);
     if (state == Hidden) return;
 

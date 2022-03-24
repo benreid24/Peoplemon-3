@@ -4,6 +4,8 @@
 #include <BLIB/Entities.hpp>
 #include <BLIB/Events.hpp>
 #include <Core/AI/Conversation.hpp>
+#include <Core/Components/Trainer.hpp>
+#include <Core/Events/Battle.hpp>
 #include <Core/Events/GameSave.hpp>
 #include <unordered_map>
 #include <unordered_set>
@@ -21,7 +23,8 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Interaction : public bl::event::Listener<event::GameSaveInitializing> {
+class Interaction
+: public bl::event::Listener<event::GameSaveInitializing, event::BattleCompleted> {
 public:
     /**
      * @brief Construct a new Interaction system
@@ -81,7 +84,7 @@ private:
     ai::Conversation currentConversation;
     std::unordered_map<std::string, std::unordered_set<std::string>> talkedTo;
     std::unordered_set<std::string> flags;
-    // TODO - data for battle transition if talking to fightable trainer?
+    component::Trainer* interactingTrainer;
 
     void processConversationNode();
     void faceEntity(bl::entity::Entity toRotate, bl::entity::Entity toFace);
@@ -93,7 +96,10 @@ private:
     void giveMoneyDecided(const std::string& choice);
 
     virtual void observe(const event::GameSaveInitializing& save) override;
+    virtual void observe(const event::BattleCompleted& battle) override;
     void setTalked(const std::string& name);
+
+    void startBattle();
 
     friend struct bl::serial::json::SerializableObject<Interaction>;
 };

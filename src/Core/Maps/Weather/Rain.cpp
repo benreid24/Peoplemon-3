@@ -52,11 +52,11 @@ Weather::Type Rain::type() const { return _type; }
 
 void Rain::start(const sf::FloatRect& a) {
     area = a;
-    if (!bl::audio::AudioSystem::playSound(rainSoundHandle, true)) {
+    if (!bl::audio::AudioSystem::playSound(rainSoundHandle, 1.5f, true)) {
         rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
             splash1.getRotation() > 20.f ? Properties::HardRainSoundFile() :
                                            Properties::LightRainSoundFile());
-        bl::audio::AudioSystem::playSound(rainSoundHandle, true);
+        bl::audio::AudioSystem::playSound(rainSoundHandle, 1.5f, true);
     }
 }
 

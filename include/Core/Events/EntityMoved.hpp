@@ -39,6 +39,59 @@ struct EntityMoved {
     , position(pos) {}
 };
 
+/**
+ * @brief Fired when an entity completes a move from one tile to another
+ *
+ * @ingroup Events
+ *
+ */
+struct EntityMoveFinished {
+    /// The entity that moved
+    const bl::entity::Entity entity;
+
+    /// The current position of the entity
+    const component::Position& position;
+
+    /**
+     * @brief Construct a new Entity Move Finished event
+     *
+     * @param entity The entity that completed moving
+     * @param position The position the entity is at
+     */
+    EntityMoveFinished(bl::entity::Entity entity, const component::Position& position)
+    : entity(entity)
+    , position(position) {}
+};
+
+/**
+ * @brief Fired when an entity rotates without moving
+ *
+ * @ingroup Events
+ *
+ */
+struct EntityRotated {
+    /// The entity that rotated
+    const bl::entity::Entity entity;
+
+    /// The direction the entity is now facing
+    const component::Direction faceDir;
+
+    /// The direction the entity was facing
+    const component::Direction origDir;
+
+    /**
+     * @brief Construct a new Entity Rotated event
+     *
+     * @param e The entity that rotated
+     * @param dir The direction it is now facing
+     * @param og The original direction it was facing
+     */
+    EntityRotated(bl::entity::Entity e, component::Direction dir, component::Direction og)
+    : entity(e)
+    , faceDir(dir)
+    , origDir(og) {}
+};
+
 } // namespace event
 } // namespace core
 

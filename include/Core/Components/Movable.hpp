@@ -3,6 +3,7 @@
 
 #include <BLIB/Entities.hpp>
 #include <BLIB/Entities/Component.hpp>
+#include <BLIB/Events.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/System/Vector2.hpp>
 
@@ -56,9 +57,11 @@ public:
     /**
      * @brief Updates the interpolation of the entity if moving
      *
+     * @param owner The owning entity of this component
+     * @param bus Event bus to fire finished events on
      * @param dt Time elapsed in seconds since last call to update
      */
-    void update(float dt);
+    void update(bl::entity::Entity owner, bl::event::Dispatcher& bus, float dt);
 
 private:
     bl::entity::Registry::ComponentHandle<component::Position> position;
