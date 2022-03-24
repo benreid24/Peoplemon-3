@@ -66,7 +66,7 @@ public:
     bl::entity::Entity approachingTrainer() const;
 
 private:
-    enum struct State { Searching, PoppingUp, Holding, Walking, Battling };
+    enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
 
     Systems& owner;
     bl::resource::Resource<sf::Texture>::Ref txtr;

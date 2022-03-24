@@ -12,8 +12,10 @@ namespace system
 {
 namespace
 {
+constexpr float HoldTime   = 0.75f;
 constexpr float RevealRate = 60.f;
-}
+constexpr float HideRate   = RevealRate * 2.f;
+} // namespace
 
 Trainers::Trainers(Systems& o)
 : owner(o)
@@ -46,22 +48,22 @@ void Trainers::update(float dt) {
 
     case State::Holding:
         height += dt;
-        if (height >= 0.75f) {
+        if (height >= HoldTime) {
             height = txtr->getSize().y;
-            state  = State::Walking;
+            state  = State::Rising;
         }
-        else {
-            break;
-        }
-        [[fallthrough]];
+        break;
 
-    case State::Walking:
+    case State::Rising:
         height -= dt * RevealRate;
         if (height > 0.f) { updateRect(height); }
         else {
             updateRect(0);
+            state = State::Walking;
         }
+        break;
 
+    case State::Walking:
         if (!trainerMove->moving()) {
             if (component::Position::adjacent(*trainerPos, owner.player().position())) {
                 if (!owner.interaction().interact(walkingTrainer)) {
@@ -96,7 +98,7 @@ void Trainers::render(sf::RenderTarget& target) {
     switch (state) {
     case State::PoppingUp:
     case State::Holding:
-    case State::Walking:
+    case State::Rising:
         target.draw(exclaim);
         break;
     default:
