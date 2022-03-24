@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Properties.cpp File Reference</title>
+<title>Peoplemon: src/Core/Maps/Weather.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,37 +63,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Properties.cpp File Reference</div>  </div>
+<div class="title">Weather.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00200_source.html">Core/Properties.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Engine/Configuration.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Engine/Resources.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Util/FileUtil.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a02597_source.html">Core/Maps/Weather.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Util/Random.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02594_source.html">Core/Events/Weather.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00302_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="a00578_source.html">Weather/Base.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00584_source.html">Weather/Fog.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00590_source.html">Weather/Rain.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00596_source.html">Weather/Sandstorm.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00602_source.html">Weather/Snow.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00608_source.html">Weather/Sunny.hpp</a>&quot;</code><br />
 </div>
 <p><a href="a00617_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00896"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">core</a></td></tr>
-<tr class="memdesc:a00896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
+<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00952"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00952.html">core::defaults</a></td></tr>
+<tr class="memitem:a00916"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html">core::map</a></td></tr>
+<tr class="memdesc:a00916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::item Namespace Reference</title>
+<title>Peoplemon: core::battle Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00896.html">core</a></li><li class="navelem"><a class="el" href="a00908.html">item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00905.html">core</a></li><li class="navelem"><a class="el" href="a00908.html">battle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,66 +71,105 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">core::item Namespace Reference</div>  </div>
+<div class="title">core::battle Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of enums and classes for managing and using items.  
+<p>Collection of classes used for peoplemon battling.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01285.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of static methods centered around items.  <a href="a01285.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01024.html">AIController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller allows an AI to battle.  <a href="a01024.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01289.html">UseResult</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct to store the result of using an item.  <a href="a01289.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html">Animation</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a type of animation that can be played in battle.  <a href="a01052.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01012.html">Battle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience struct that owns all the components required for a battle and resolves some boilerplate setup. This is the top level object.  <a href="a01012.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01016.html">BattleController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for battle controllers. <a class="el" href="a01012.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles.  <a href="a01016.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01020.html">Battler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for battlers in the game. This provides storage for peoplemon and turn choices.  <a href="a01020.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01028.html">BattlerController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for battlers in the game. This provides storage for peoplemon and turn choices.  <a href="a01028.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01040.html">BattleSkipper</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A debug-only utility for skipping battles when testing.  <a href="a01040.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01044.html">BattleState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores and represents the current state of a battle. This is the base class for local and remote battle states and provides the data storage as well as the local command queue resolution.  <a href="a01044.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01048.html">BattleView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the top level class for rendering battles. It takes commands and state from a <a class="el" href="a01016.html" title="Interface for battle controllers. Battle controllers manage the flow of state and interaction for bat...">BattleController</a> and updates itself independently of battle logic.  <a href="a01048.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">Command</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted by the BattleFSM. All UI is handled via a queue of commands. Commands are resolved in the order they are received. Commands are sent over the network and each player individually resolves them.  <a href="a01056.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01064.html">Message</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a message to be displayed. The actual message text is generated by the battle controller.  <a href="a01064.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01032.html">PlayerController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller allows the player to control a battler.  <a href="a01032.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01036.html">RemoteController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller receives player commands from over the network.  <a href="a01036.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00885.html#gac5b9981750f250d2d6aa8682b2a10b71">Category</a> : std::uint8_t { <a class="el" href="a00885.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">Category::Unknown</a>, 
-<a class="el" href="a00885.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">Category::Regular</a>, 
-<a class="el" href="a00885.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">Category::Key</a>, 
-<a class="el" href="a00885.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">Category::TM</a>
- }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a00885.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
+<tr class="memitem:a9f4dbdd126a3cad461c287d3626e196a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a> : std::uint8_t { <a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784">TurnAction::Fight</a> = 0, 
+<a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b">TurnAction::Switch</a> = 1, 
+<a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">TurnAction::Item</a> = 2, 
+<a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d">TurnAction::Run</a> = 3
+ }<tr class="memdesc:a9f4dbdd126a3cad461c287d3626e196a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an action that a battler may take on their turn.  <a href="a00908.html#a9f4dbdd126a3cad461c287d3626e196a">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00885.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00885.html#ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e">Id::Unknown</a> = 0, 
-<a class="el" href="a00885.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">Id::None</a> = Unknown, 
-<a class="el" href="a00885.html#ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16">Id::Potion</a> = 1, 
-<a class="el" href="a00885.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531">Id::SuperPotion</a> = 2, 
-<br />
-&#160;&#160;<a class="el" href="a00885.html#ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016">Id::ID_COUNT</a>
-<br />
- }<tr class="memdesc:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item in its simplist form.  <a href="a00885.html#gaf2565ceb5b45ea8af94be0067e7474ca">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00885.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Type</a> : std::uint16_t { <br />
-&#160;&#160;<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">Type::Unknown</a> = 0, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">Type::TargetPeoplemon</a> = 1, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">Type::Peopleball</a>, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">Type::EvolveStone</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">Type::PlayerModifier</a>, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">Type::Useless</a>, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">Type::HoldItem</a>, 
-<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">Type::KeyItem</a>, 
-<br />
-&#160;&#160;<a class="el" href="a00885.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">Type::TM</a>
-<br />
- }<tr class="memdesc:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type classification of an item. This is used to determine when an item may be used and how to use it.  <a href="a00885.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a9f4dbdd126a3cad461c287d3626e196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of enums and classes for managing and using items. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Collection of classes used for peoplemon battling. </p>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a9f4dbdd126a3cad461c287d3626e196a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f4dbdd126a3cad461c287d3626e196a">&#9670;&nbsp;</a></span>TurnAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a00908.html#a9f4dbdd126a3cad461c287d3626e196a">core::battle::TurnAction</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Represents an action that a battler may take on their turn. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784"></a>Fight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b"></a>Switch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679"></a>Item&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00047_source.html#l00016">16</a> of file <a class="el" href="a00047_source.html">TurnAction.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

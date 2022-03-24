@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['queuecommand',['queueCommand',['../a01841.html#aaabfb5e32e4678b3c88e3179ab9a0ae0',1,'game::battle::BattleController']]],
-  ['queuemessage',['queueMessage',['../a01869.html#a3d8d53dac66fbea3861ca0fc5bc13da0',1,'game::battle::BattleView']]]
+  ['queuecommand',['queueCommand',['../a01016.html#ab3728873702bc6f3aac39aa73219941b',1,'core::battle::BattleController']]],
+  ['queuemessage',['queueMessage',['../a01048.html#aa9a158d96850a11d8776f223f88cf572',1,'core::battle::BattleView']]]
 ];

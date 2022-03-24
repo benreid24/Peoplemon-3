@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Components/Direction.hpp File Reference</title>
+<title>Peoplemon: include/Core/Battles/BattlerControllers/AIController.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,65 +63,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_b572e9e567c53bf52c1d322a7f434893.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_fc360690779c97403f0388105f2724c7.html">Battles</a></li><li class="navelem"><a class="el" href="dir_93dedafd26bcf2f31cb6046be4a92074.html">BattlerControllers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Direction.hpp File Reference</div>  </div>
+<div class="title">AIController.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00020_source.html">Core/Battles/BattlerControllers/BattlerController.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00017_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01024.html">core::battle::AIController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller allows an AI to battle.  <a href="a01024.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00896"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">core</a></td></tr>
-<tr class="memdesc:a00896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
+<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00899"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00899.html">core::component</a></td></tr>
-<tr class="memdesc:a00899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
+<tr class="memitem:a00908"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00908.html">core::battle</a></td></tr>
+<tr class="memdesc:a00908"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a> : std::uint8_t { <a class="el" href="a00882.html#gga0192bf5ba1eccc191c8ef1187ce66d69a258f49887ef8d14ac268c92b02503aaa">core::component::Direction::Up</a> = 0, 
-<a class="el" href="a00882.html#gga0192bf5ba1eccc191c8ef1187ce66d69a92b09c7c48c520c3c55e497875da437c">core::component::Direction::Right</a> = 1, 
-<a class="el" href="a00882.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">core::component::Direction::Down</a> = 2, 
-<a class="el" href="a00882.html#gga0192bf5ba1eccc191c8ef1187ce66d69a945d5e233cf7d6240f6b783b36a374ff">core::component::Direction::Left</a> = 3
- }<tr class="memdesc:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing.  <a href="a00882.html#ga0192bf5ba1eccc191c8ef1187ce66d69">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">core::component::oppositeDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Direction that is opposite of the given direction.  <a href="a00882.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">More...</a><br /></td></tr>
-<tr class="separator:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#gae7dd07040e91c8b3e983b231c87be2b5">core::component::nextClockwiseDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:gae7dd07040e91c8b3e983b231c87be2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next clockwise direction from the given current direction.  <a href="a00882.html#gae7dd07040e91c8b3e983b231c87be2b5">More...</a><br /></td></tr>
-<tr class="separator:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#ga842aa40eaf7b83009f90dc2f80cc2486">core::component::nextCounterClockwiseDirection</a> (Direction dir)</td></tr>
-<tr class="memdesc:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next counterclockwise direction from the given current direction.  <a href="a00882.html#ga842aa40eaf7b83009f90dc2f80cc2486">More...</a><br /></td></tr>
-<tr class="separator:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memItemLeft" align="right" valign="top">Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#gab533b7d6c089ccc767c2400dac3a3fd0">core::component::directionFromString</a> (const std::string &amp;dir)</td></tr>
-<tr class="memdesc:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given string into a direction.  <a href="a00882.html#gab533b7d6c089ccc767c2400dac3a3fd0">More...</a><br /></td></tr>
-<tr class="separator:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00882.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">core::component::directionToString</a> (Direction dir)</td></tr>
-<tr class="memdesc:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to a string.  <a href="a00882.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">More...</a><br /></td></tr>
-<tr class="separator:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::BehaviorEditor Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,253 +63,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00912.html">editor</a></li><li class="navelem"><a class="el" href="a00913.html">component</a></li><li class="navelem"><a class="el" href="a01633.html">BehaviorEditor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00905.html">core</a></li><li class="navelem"><a class="el" href="a00906.html">system</a></li><li class="navelem"><a class="el" href="a00928.html">camera</a></li><li class="navelem"><a class="el" href="a01636.html">Follow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="a01630.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::BehaviorEditor Class Reference</div>  </div>
+<div class="title">core::system::camera::Follow Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Inline GUI elements with openable window for editing behaviors.  
- <a href="a01633.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00272_source.html">BehaviorEditor.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a5069acfe3fe2f7f3d4c0a57bab9f1f8f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">OnSetCb</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="separator:a5069acfe3fe2f7f3d4c0a57bab9f1f8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae1f0ed110c26dd0d4f0ceb6c86646cde"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="separator:ae1f0ed110c26dd0d4f0ceb6c86646cde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8175ec4cd2d1d574b3e3fb0556eecb71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a8175ec4cd2d1d574b3e3fb0556eecb71">BehaviorEditor</a> (const <a class="el" href="a01633.html#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">OnSetCb</a> &amp;cb, const <a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> &amp;onOpen, const <a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> &amp;onClose)</td></tr>
-<tr class="memdesc:a8175ec4cd2d1d574b3e3fb0556eecb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Behavior Editor.  <a href="#a8175ec4cd2d1d574b3e3fb0556eecb71">More...</a><br /></td></tr>
-<tr class="separator:a8175ec4cd2d1d574b3e3fb0556eecb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36e750b9f804885d6f368a90e9bde5e2"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01137.html">core::file::Behavior</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a36e750b9f804885d6f368a90e9bde5e2">getValue</a> () const</td></tr>
-<tr class="memdesc:a36e750b9f804885d6f368a90e9bde5e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the behavior value.  <a href="#a36e750b9f804885d6f368a90e9bde5e2">More...</a><br /></td></tr>
-<tr class="separator:a36e750b9f804885d6f368a90e9bde5e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04c6fd7046015b869dd743055388a47c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a04c6fd7046015b869dd743055388a47c">pack</a> (bl::gui::Box::Ptr parent)</td></tr>
-<tr class="memdesc:a04c6fd7046015b869dd743055388a47c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs the GUI elements for the editor into the given container.  <a href="#a04c6fd7046015b869dd743055388a47c">More...</a><br /></td></tr>
-<tr class="separator:a04c6fd7046015b869dd743055388a47c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afac6108792cee955a5089842471eac45"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#afac6108792cee955a5089842471eac45">configure</a> (bl::gui::GUI::Ptr parent, const <a class="el" href="a01137.html">core::file::Behavior</a> &amp;behavior)</td></tr>
-<tr class="memdesc:afac6108792cee955a5089842471eac45"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent GUI object and current value. Call before using.  <a href="#afac6108792cee955a5089842471eac45">More...</a><br /></td></tr>
-<tr class="separator:afac6108792cee955a5089842471eac45"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d181f0bcd3fa7173f67a3a82e803837"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a9d181f0bcd3fa7173f67a3a82e803837">hide</a> ()</td></tr>
-<tr class="memdesc:a9d181f0bcd3fa7173f67a3a82e803837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the editor window if opened.  <a href="#a9d181f0bcd3fa7173f67a3a82e803837">More...</a><br /></td></tr>
-<tr class="separator:a9d181f0bcd3fa7173f67a3a82e803837"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Inline GUI elements with openable window for editing behaviors. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00272_source.html#l00017">17</a> of file <a class="el" href="a00272_source.html">BehaviorEditor.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ae1f0ed110c26dd0d4f0ceb6c86646cde"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1f0ed110c26dd0d4f0ceb6c86646cde">&#9670;&nbsp;</a></span>NotifyWindowCb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">editor::component::BehaviorEditor::NotifyWindowCb</a> =  std::function&lt;void()&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00272_source.html#l00020">20</a> of file <a class="el" href="a00272_source.html">BehaviorEditor.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5069acfe3fe2f7f3d4c0a57bab9f1f8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">&#9670;&nbsp;</a></span>OnSetCb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01633.html#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">editor::component::BehaviorEditor::OnSetCb</a> =  std::function&lt;void()&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00272_source.html#l00019">19</a> of file <a class="el" href="a00272_source.html">BehaviorEditor.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8175ec4cd2d1d574b3e3fb0556eecb71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8175ec4cd2d1d574b3e3fb0556eecb71">&#9670;&nbsp;</a></span>BehaviorEditor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">editor::component::BehaviorEditor::BehaviorEditor </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01633.html#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">OnSetCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onOpen</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01633.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onClose</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Behavior Editor. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cb</td><td>Callback for when the behavior is modified </td></tr>
-    <tr><td class="paramname">onOpen</td><td>Called when the window is opened </td></tr>
-    <tr><td class="paramname">onClose</td><td>Called when the window is closed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00046">46</a> of file <a class="el" href="a00686_source.html">BehaviorEditor.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="afac6108792cee955a5089842471eac45"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afac6108792cee955a5089842471eac45">&#9670;&nbsp;</a></span>configure()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::BehaviorEditor::configure </td>
-          <td>(</td>
-          <td class="paramtype">bl::gui::GUI::Ptr&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01137.html">core::file::Behavior</a> &amp;&#160;</td>
-          <td class="paramname"><em>behavior</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the parent GUI object and current value. Call before using. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
-    <tr><td class="paramname">behavior</td><td>The behavior value to init with </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00160">160</a> of file <a class="el" href="a00686_source.html">BehaviorEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a36e750b9f804885d6f368a90e9bde5e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36e750b9f804885d6f368a90e9bde5e2">&#9670;&nbsp;</a></span>getValue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01137.html">core::file::Behavior</a> &amp; editor::component::BehaviorEditor::getValue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the behavior value. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00196">196</a> of file <a class="el" href="a00686_source.html">BehaviorEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9d181f0bcd3fa7173f67a3a82e803837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d181f0bcd3fa7173f67a3a82e803837">&#9670;&nbsp;</a></span>hide()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::BehaviorEditor::hide </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hides the editor window if opened. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00190">190</a> of file <a class="el" href="a00686_source.html">BehaviorEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a04c6fd7046015b869dd743055388a47c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04c6fd7046015b869dd743055388a47c">&#9670;&nbsp;</a></span>pack()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::BehaviorEditor::pack </td>
-          <td>(</td>
-          <td class="paramtype">bl::gui::Box::Ptr&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Packs the GUI elements for the editor into the given container. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The box to pack in </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00686_source.html#l00148">148</a> of file <a class="el" href="a00686_source.html">BehaviorEditor.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00272_source.html">BehaviorEditor.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00686_source.html">BehaviorEditor.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01636.html">core::system::camera::Follow</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01632.html#ab45e67f235c3a742ca252bf2f5b49a9b">Camera</a>()</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01632.html#a0fae3a508d68fc556b9e22c107da0f22">Camera</a>(const sf::Vector2f &amp;position, float size)</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a3baf661f6695c380b359731d3cb29561">configureView</a>(sf::View &amp;view, const sf::Vector2f &amp;renderArea)</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01636.html#a6847c4b410b3808c8986e83a2f52da00">create</a>(Systems &amp;systems, bl::entity::Entity toFollow)</td><td class="entry"><a class="el" href="a01636.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a4023ca80f5e908e2487a32b9e753eeaa">getPosition</a>() const</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01632.html#a80d66dcbfa2d6885abad20f450f47c8e">getSize</a>() const</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a82c6b4d08847e094c08722f4e1f8abfc">position</a></td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01632.html#aa01fbd0679d46f65be2168fe269d9c81">Ptr</a> typedef</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01632.html#a57bf801c937bdcc46e3d63a6eebdf9ef">size</a></td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01636.html#ac3b36bc02c29ac1374834d1343047fb6">update</a>(Systems &amp;systems, float dt) override</td><td class="entry"><a class="el" href="a01636.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01636.html#a4f0aa847ae8941c668b992d04a9227e4">valid</a>() const override</td><td class="entry"><a class="el" href="a01636.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01632.html#a7ce84fcc1bf22b5f1a235f2eca7794e7">~Camera</a>()=default</td><td class="entry"><a class="el" href="a01632.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01636.html#a6805a4d3432606b0914d01c1a2d51642">~Follow</a>()=default</td><td class="entry"><a class="el" href="a01636.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

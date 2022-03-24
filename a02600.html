@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Components/NPC.cpp File Reference</title>
+<title>Peoplemon: include/Core/Items/Id.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,49 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_b0c5c39bafac57735243a2df46d7e52b.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_d0817f30fd8c8c383703ce347219b18e.html">Items</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">NPC.cpp File Reference</div>  </div>
+<div class="title">Id.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a02507_source.html">Core/Components/NPC.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a02600_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00896"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">core</a></td></tr>
-<tr class="memdesc:a00896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
+<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00899"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00899.html">core::component</a></td></tr>
-<tr class="memdesc:a00899"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
+<tr class="memitem:a00918"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00918.html">core::item</a></td></tr>
+<tr class="memdesc:a00918"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00894.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> : std::uint16_t { <br />
+&#160;&#160;<a class="el" href="a00894.html#ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Id::Unknown</a> = 0, 
+<a class="el" href="a00894.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a> = Unknown, 
+<a class="el" href="a00894.html#ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16">core::item::Id::Potion</a> = 1, 
+<a class="el" href="a00894.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531">core::item::Id::SuperPotion</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="a00894.html#ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016">core::item::Id::ID_COUNT</a>
+<br />
+ }<tr class="memdesc:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item in its simplist form.  <a href="a00894.html#gaf2565ceb5b45ea8af94be0067e7474ca">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

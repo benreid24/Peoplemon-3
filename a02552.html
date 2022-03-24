@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Pages/Map.hpp File Reference</title>
+<title>Peoplemon: include/Core/Components/Controllable.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_b572e9e567c53bf52c1d322a7f434893.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,46 +71,38 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Map.hpp File Reference</div>  </div>
+<div class="title">Controllable.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00278_source.html">Editor/Components/CharacterSpawnWindow.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00293_source.html">Editor/Components/EventEditor.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00302_source.html">Editor/Components/ItemSelector.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00308_source.html">Editor/Components/LightSlider.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00314_source.html">Editor/Components/NewMapDialog.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00326_source.html">Editor/Components/PlaylistEditorWindow.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00329_source.html">Editor/Components/ScriptSelector.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00338_source.html">Editor/Components/WeatherSelect.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00350_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00359_source.html">Editor/Pages/Subpages/GameTesting.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00362_source.html">Editor/Pages/Subpages/Layers.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00365_source.html">Editor/Pages/Subpages/Levels.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00368_source.html">Editor/Pages/Subpages/MapArea.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02558_source.html">Editor/Pages/Subpages/Tileset.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02543_source.html">Core/Components/Command.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00065_source.html">Core/Components/Movable.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a02552_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01761.html">editor::page::Map</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01769.html" title="Base class for all editor pages. ">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything.  <a href="a01761.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01072.html">core::component::Controllable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity allows it to be controlled.  <a href="a01072.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00912"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00912.html">editor</a></td></tr>
-<tr class="memdesc:a00912"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
+<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00921"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00921.html">editor::page</a></td></tr>
-<tr class="memdesc:a00921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
+<tr class="memitem:a00906"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00906.html">core::system</a></td></tr>
+<tr class="memdesc:a00906"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00909"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00909.html">core::component</a></td></tr>
+<tr class="memdesc:a00909"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of components for in game entities. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

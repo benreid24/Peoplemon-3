@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Resources.hpp File Reference</title>
+<title>Peoplemon: include/Core/Peoplemon/SpecialAbility.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,40 +63,95 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7c3823283bbfff1894463e96029f8928.html">Peoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">Resources.hpp File Reference</div>  </div>
+<div class="title">SpecialAbility.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02549_source.html">Core/Maps/Map.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02555_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00203_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01509.html">core::Resources</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of resource manager singletons for Peoplemon specific resources.  <a href="a01509.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00896"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html">core</a></td></tr>
-<tr class="memdesc:a00896"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
+<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00921"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00921.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a00921"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01528.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gae0a3870bdfdee167eb5686dda0f03885"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00896.html#gae0a3870bdfdee167eb5686dda0f03885">core::pplmn::SpecialAbility</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a6adf97f83acf6453d4a6a4b1070f3754">core::pplmn::SpecialAbility::None</a> = 0, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a5195ef9886884988e63b179880a55691">core::pplmn::SpecialAbility::BoardGameMaster</a> = 1, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885aab839f824a591f352661ee0f10d45c43">core::pplmn::SpecialAbility::Chillaxed</a> = 2, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a23ef3b0426abb176548f8ec07e73f2ef">core::pplmn::SpecialAbility::Classy</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ab4ab3c7dab3279fc438a244aa74d1583">core::pplmn::SpecialAbility::Goon</a> = 4, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a997b227c6f447653b40d646752c4792d">core::pplmn::SpecialAbility::QuickDraw</a> = 5, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a524d99cf2d7a7e81209e6b140023c7c1">core::pplmn::SpecialAbility::AlwaysFriendly</a> = 6, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ae60e12aac4a60c6cc3128fb92ca5ab22">core::pplmn::SpecialAbility::ImpulseBuy</a> = 8, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a3458023b7fd22a703b1813dc01637629">core::pplmn::SpecialAbility::RunAway</a> = 9, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ac82d3534895ad84a1a1209bc6419d5d0">core::pplmn::SpecialAbility::MrExtra</a> = 10, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a4d7edb76940296b14940ac3027680cf4">core::pplmn::SpecialAbility::BeefedUp</a> = 11, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a942d4e37dd5607ab68e54755540d4a47">core::pplmn::SpecialAbility::Reserved</a> = 12, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ad3c3766bf9e5c3ac656db30b0155138a">core::pplmn::SpecialAbility::DukeOfJokes</a> = 13, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a89a4b95127236e39f428c2e02920596c">core::pplmn::SpecialAbility::Engaging</a> = 14, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ad10b46bbcce89cc3b74f5afa9b06c424">core::pplmn::SpecialAbility::SnackShare</a> = 15, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885aca64fe292cba29dff693e16b21ad8e03">core::pplmn::SpecialAbility::DerpDerp</a> = 16, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ac44f15d0bafdc0241242bc7cb624ff64">core::pplmn::SpecialAbility::Klutz</a> = 17, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a3a6ac9718e295069809653ed332b0c97">core::pplmn::SpecialAbility::GenderBend</a> = 18, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a8c97626c3bda0721059f5eddbd2d255d">core::pplmn::SpecialAbility::Garbage</a> = 19, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ab9eb80e243c4a15627af1bb185c29ddf">core::pplmn::SpecialAbility::BikeMechanic</a> = 20, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a375340ea54edc27bf03f72271851d1a4">core::pplmn::SpecialAbility::SidetrackTeach</a> = 21, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a17f5a2f02db4b6edf538e4ea886955e7">core::pplmn::SpecialAbility::NoJokeTeach</a> = 22, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a3469f168f4c9c94ea7ecc73f90f2ba32">core::pplmn::SpecialAbility::FieryTeach</a> = 23, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ac42185dfee5363bf21807b9fbeae1126">core::pplmn::SpecialAbility::ExperiencedTeach</a> = 24, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885aeb80322a4dfe0bf711c74643e3751f46">core::pplmn::SpecialAbility::NewTeach</a> = 25, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a19f11baa8e271539fefdaa82e9c1402e">core::pplmn::SpecialAbility::DozeOff</a> = 26, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a14ecefb73093e874cccc5cdc6c0a51b6">core::pplmn::SpecialAbility::DouseFlames</a> = 27, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a33cdc33a7ea3ebf0252e9a31a87457ba">core::pplmn::SpecialAbility::Flirty</a> = 28, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a225fb24ecfc764ef0a9011bdbbaab2c5">core::pplmn::SpecialAbility::UndyingFaith</a> = 29, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a05e5bf21790de536177ecc11b05bd114">core::pplmn::SpecialAbility::TooCool</a> = 30, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a0163fb2b93edbb95a2897440b0a1b658">core::pplmn::SpecialAbility::FakeStudy</a> = 31, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885addba056d49bec02a57126aeb918df09c">core::pplmn::SpecialAbility::Alcoholic</a> = 32, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ae3e4b87c1fa7b7975dfabc1a52fb07fe">core::pplmn::SpecialAbility::TotalBro</a> = 33, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a1e8c096db61b3b3c9f76c5bcb2d80b00">core::pplmn::SpecialAbility::TotalMom</a> = 34, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a962b10aab57b825769b5ec9784655375">core::pplmn::SpecialAbility::CantSwim</a> = 35, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ab7f0296999ff8c5d8b430fe408854c65">core::pplmn::SpecialAbility::AllNighter</a> = 36, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885aa50a4195b45849e39ff86a2d66e0e3a0">core::pplmn::SpecialAbility::AilmentSaturated</a> = 37, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885aa1254a092c7f93d5f055a7068a0722d7">core::pplmn::SpecialAbility::Adament</a> = 38, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885afecbdc10bcafbe180dad3e46c7739585">core::pplmn::SpecialAbility::AbsolutePitch</a> = 39, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885a63068f05f113db92971603707d628ad6">core::pplmn::SpecialAbility::GamemakerVirus</a> = 40, 
+<br />
+&#160;&#160;<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885ad4e2713d1b1725a1592f9268589f990d">core::pplmn::SpecialAbility::Snapshot</a> = 41, 
+<a class="el" href="a00896.html#ggae0a3870bdfdee167eb5686dda0f03885afa244159a77d0d93f1dc8ec1c3936eea">core::pplmn::SpecialAbility::GetBaked</a> = 42
+<br />
+ }<tr class="memdesc:gae0a3870bdfdee167eb5686dda0f03885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a special ability that a Peoplemon may have.  <a href="a00896.html#gae0a3870bdfdee167eb5686dda0f03885">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gae0a3870bdfdee167eb5686dda0f03885"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Mar 4 2022 22:35:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
