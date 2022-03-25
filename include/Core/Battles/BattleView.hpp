@@ -3,8 +3,14 @@
 
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Battles/Commands/Message.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <Core/Battles/View/MessagePrinter.hpp>
+#include <Core/Battles/View/MoveAnimation.hpp>
+#include <Core/Battles/View/PeoplemonAnimation.hpp>
+#include <Core/Battles/View/PlayerMenu.hpp>
+#include <Core/Battles/View/StatBoxes.hpp>
+#include <Core/Player/Input/Listener.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
 
 namespace core
 {
@@ -19,7 +25,7 @@ class BattleState;
  * @ingroup Battles
  *
  */
-class BattleView {
+class BattleView : public player::input::Listener {
 public:
     /**
      * @brief Construct a new Battle View
@@ -76,7 +82,14 @@ public:
 private:
     sf::Text temp;
 
-    // TODO - implement the view
+    view::PlayerMenu playerMenu;
+    view::StatBoxes statBoxes;
+    view::MessagePrinter printer;
+    view::PeoplemonAnimation localPeoplemon;
+    view::PeoplemonAnimation opponentPeoplemon;
+    view::MoveAnimation moveAnimation;
+
+    virtual void process(component::Command control) override;
 
     /*
     For switches thinking of a multistep approach of

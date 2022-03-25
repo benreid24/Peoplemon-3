@@ -6,7 +6,9 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView() {
+BattleView::BattleView()
+: localPeoplemon(view::PeoplemonAnimation::Player)
+, opponentPeoplemon(view::PeoplemonAnimation::Opponent) {
     // TODO - init implementation details
 
     temp.setFont(Properties::MenuFont());
