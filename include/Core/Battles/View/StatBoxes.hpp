@@ -93,6 +93,7 @@ private:
     sf::RectangleShape lpXpBar;
     float lpXpBarTarget;
     sf::Text lpName;
+    sf::Text lpHp;
     sf::Text lpLevel;
     sf::Sprite lpAil;
 };

@@ -5,6 +5,7 @@
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
+#include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
@@ -28,6 +29,12 @@ public:
      *
      */
     PlayerMenu();
+
+    /**
+     * @brief Updates the menu for the given peoplemon
+     *
+     */
+    void setPeoplemon(const pplmn::BattlePeoplemon& ppl);
 
     /**
      * @brief Resets the menu to the turn start state
@@ -60,16 +67,22 @@ public:
     bool subActionSelected() const;
 
     /**
-     * @brief Returns the selected move
+     * @brief Returns the selected move index
      *
      */
-    pplmn::MoveId selectedMove() const;
+    int selectedMove() const;
 
     /**
      * @brief Returns the selected item
      *
      */
     item::Id selectedItem() const;
+
+    /**
+     * @brief Returns the selected peoplemon index
+     *
+     */
+    int selectedPeoplemon() const;
 
     /**
      * @brief Processes player input to update the menu state

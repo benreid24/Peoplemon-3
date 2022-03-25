@@ -64,6 +64,7 @@ private:
     bl::interface::GhostWriter writer;
     bl::shapes::Triangle triangle;
     bl::gfx::Flashing flasher;
+    bool acked;
 };
 
 } // namespace view

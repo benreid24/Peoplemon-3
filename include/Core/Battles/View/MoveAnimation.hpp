@@ -37,7 +37,7 @@ public:
      *
      * @param ppl The peoplemon to load for
      */
-    void ensureLoaded(const core::pplmn::BattlePeoplemon& ppl);
+    void ensureLoaded(const pplmn::BattlePeoplemon& ppl);
 
     /**
      * @brief Begins playing the given move animation
@@ -66,7 +66,7 @@ public:
      * @param target The target to render to
      * @param lag Time elapsed not accounted for in update
      */
-    void render(sf::RenderTarget& target, float lag) const;
+    void render(sf::RenderTarget& target, float lag);
 
 private:
     bl::resource::Resource<bl::gfx::AnimationData>::Ref playingSrc;

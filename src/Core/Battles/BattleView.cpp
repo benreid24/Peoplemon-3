@@ -46,5 +46,9 @@ void BattleView::render(sf::RenderTarget& target, float) const {
     target.draw(temp);
 }
 
+void BattleView::process(component::Command) {
+    // TODO
+}
+
 } // namespace battle
 } // namespace core

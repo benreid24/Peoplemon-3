@@ -8,3 +8,4 @@ target_sources(Core PRIVATE
 add_subdirectory(BattleControllers)
 add_subdirectory(BattlerControllers)
 add_subdirectory(Commands)
+add_subdirectory(View)

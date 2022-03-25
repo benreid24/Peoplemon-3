@@ -71,6 +71,7 @@ public:
 private:
     enum struct State { Hidden, Static, Playing };
 
+    const Position position;
     State state;
     Animation::Type type;
     float slideAmount;
