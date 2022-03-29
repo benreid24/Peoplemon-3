@@ -54,13 +54,14 @@ void BattleView::update(float dt) {
 
 void BattleView::render(sf::RenderTarget& target, float lag) const {
     target.clear();
-    
+
     // TODO - render background
 
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
     moveAnimation.render(target, lag);
-    if (battleState.currentStage() == BattleState::Stage::WaitingChoices && !playerMenu.subActionSelected()) {
+    if (battleState.currentStage() == BattleState::Stage::WaitingChoices &&
+        !playerMenu.subActionSelected()) {
         playerMenu.render(target);
     }
     printer.render(target);
@@ -104,6 +105,11 @@ bool BattleView::processQueue() {
                                         cmd.getAnimation().move);
             state = State::WaitingMove;
             break;
+
+        default:
+            BL_LOG_ERROR << "Unknown animation type: " << cmd.getAnimation().type;
+            commandQueue.pop();
+            return true;
         }
     } break;
 
@@ -119,7 +125,7 @@ bool BattleView::processQueue() {
     default:
         BL_LOG_ERROR << "Unknown command type: " << cmd.getType();
         commandQueue.pop();
-        break;
+        return true;
     }
 
     const bool wait = cmd.waitForView();
