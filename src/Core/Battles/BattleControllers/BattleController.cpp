@@ -54,20 +54,11 @@ bool BattleController::updateCommandQueue() {
     if (commandQueue.empty()) return false;
 
     const Command& cmd = commandQueue.front();
-
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
-        view->queueMessage(cmd.getMessage());
-        subState = SubState::WaitingView;
-        break;
-
     case Command::Type::PlayAnimation:
-        view->playAnimation(cmd.getAnimation());
-        subState = SubState::WaitingView;
-        break;
-
     case Command::Type::SyncState:
-        view->syncDisplay(*state);
+        view->processCommand(cmd);
         subState = SubState::WaitingView;
         break;
 

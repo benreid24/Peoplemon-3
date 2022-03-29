@@ -2,6 +2,7 @@
 #define GAME_BATTLES_BATTLEVIEW_HPP
 
 #include <Core/Battles/Commands/Animation.hpp>
+#include <Core/Battles/Commands/Command.hpp>
 #include <Core/Battles/Commands/Message.hpp>
 #include <Core/Battles/View/MessagePrinter.hpp>
 #include <Core/Battles/View/MoveAnimation.hpp>
@@ -11,6 +12,7 @@
 #include <Core/Player/Input/Listener.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <queue>
 
 namespace core
 {
@@ -30,8 +32,10 @@ public:
     /**
      * @brief Construct a new Battle View
      *
+     * @param state The current state of the battle
+     *
      */
-    BattleView();
+    BattleView(BattleState& state);
 
     /**
      * @brief Returns true if the view is done going through the queued commands and all components
@@ -42,26 +46,11 @@ public:
     bool actionsCompleted() const;
 
     /**
-     * @brief Queues a message to be displayed
+     * @brief Processes a command and updates the view
      *
-     * @param message The message to display
+     * @param command The command to process
      */
-    void queueMessage(const Message& message);
-
-    /**
-     * @brief Begins playing the given animation
-     *
-     * @param animation The animation to play
-     */
-    void playAnimation(const Animation& animation);
-
-    /**
-     * @brief Synchronises the display with the battle state. This updates health bars, XP bar,
-     *        ailments, and peoplemon graphics
-     *
-     * @param state The current state of the battle
-     */
-    void syncDisplay(const BattleState& state);
+    void processCommand(const Command& command);
 
     /**
      * @brief Updates the view, including contained animations and printing text
@@ -80,8 +69,11 @@ public:
     void render(sf::RenderTarget& target, float lag) const;
 
 private:
-    sf::Text temp;
+    enum struct State { Done, WaitingMessage, WaitingMove, WaitingPeoplemon, WaitingBars };
 
+    BattleState& battleState;
+    State state;
+    std::queue<Command> commandQueue;
     view::PlayerMenu playerMenu;
     view::StatBoxes statBoxes;
     view::MessagePrinter printer;
@@ -89,6 +81,7 @@ private:
     view::PeoplemonAnimation opponentPeoplemon;
     view::MoveAnimation moveAnimation;
 
+    bool processQueue();
     virtual void process(component::Command control) override;
 
     /*

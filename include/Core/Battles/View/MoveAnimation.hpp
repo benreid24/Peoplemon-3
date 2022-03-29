@@ -35,9 +35,10 @@ public:
     /**
      * @brief Loads the move animations into the resource manager for the given peoplemon
      *
-     * @param ppl The peoplemon to load for
+     * @param p1 One of the peoplemon that is out
+     * @param p2 The other peoplemon that is out
      */
-    void ensureLoaded(const pplmn::BattlePeoplemon& ppl);
+    void ensureLoaded(const pplmn::BattlePeoplemon& p1, const pplmn::BattlePeoplemon& p2);
 
     /**
      * @brief Begins playing the given move animation
@@ -66,7 +67,7 @@ public:
      * @param target The target to render to
      * @param lag Time elapsed not accounted for in update
      */
-    void render(sf::RenderTarget& target, float lag);
+    void render(sf::RenderTarget& target, float lag) const;
 
 private:
     bl::resource::Resource<bl::gfx::AnimationData>::Ref playingSrc;

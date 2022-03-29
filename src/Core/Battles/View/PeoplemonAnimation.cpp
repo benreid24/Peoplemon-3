@@ -28,7 +28,7 @@ void PeoplemonAnimation::update(float) {
     // TODO
 }
 
-void PeoplemonAnimation::render(sf::RenderTarget&, float) {
+void PeoplemonAnimation::render(sf::RenderTarget&, float) const {
     // TODO
 }
 

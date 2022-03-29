@@ -95,7 +95,7 @@ public:
      *
      * @param target The target to render to
      */
-    void render(sf::RenderTarget& target);
+    void render(sf::RenderTarget& target) const;
 
 private:
     player::input::MenuDriver menuDriver;

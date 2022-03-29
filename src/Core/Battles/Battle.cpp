@@ -26,6 +26,7 @@ BattleState::Stage typeToStage(Battle::Type type) {
 Battle::Battle(Type type)
 : type(type)
 , state(typeToStage(type))
+, view(state)
 , localPlayerWon(false) {
     // custom init?
 }

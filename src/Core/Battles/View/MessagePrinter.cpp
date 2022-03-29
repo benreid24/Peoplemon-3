@@ -13,7 +13,7 @@ MessagePrinter::MessagePrinter()
     // TODO - init text
 }
 
-void MessagePrinter::setMessage(const std::string&) {
+void MessagePrinter::setMessage(const Message&) {
     // TODO
 }
 

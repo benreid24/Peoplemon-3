@@ -66,7 +66,7 @@ public:
      * @param target The target to render to
      * @param lag Time elapsed not accounted for in update
      */
-    void render(sf::RenderTarget& target, float lag);
+    void render(sf::RenderTarget& target, float lag) const;
 
 private:
     enum struct State { Hidden, Static, Playing };

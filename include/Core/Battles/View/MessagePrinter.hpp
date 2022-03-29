@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/Utilities/GhostWriter.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes/Triangle.hpp>
+#include <Core/Battles/Commands/Message.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core
@@ -31,7 +32,7 @@ public:
      *
      * @param message The message to display
      */
-    void setMessage(const std::string& message);
+    void setMessage(const Message& message);
 
     /**
      * @brief Displays the full message. Call when user presses the continue button

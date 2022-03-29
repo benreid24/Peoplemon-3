@@ -12,7 +12,7 @@ MoveAnimation::MoveAnimation() {
     // anything here?
 }
 
-void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon&) {
+void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon&, const pplmn::BattlePeoplemon&) {
     // TODO - add animation files to move db or gen from id
 }
 
@@ -24,8 +24,9 @@ bool MoveAnimation::completed() const { return playing.finished(); }
 
 void MoveAnimation::update(float dt) { playing.update(dt); }
 
-void MoveAnimation::render(sf::RenderTarget& target, float lag) {
-    if (!playing.finished()) playing.render(target, lag);
+void MoveAnimation::render(sf::RenderTarget& target, float lag) const {
+    bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(playing);
+    if (!anim.finished()) anim.render(target, lag);
 }
 
 } // namespace view

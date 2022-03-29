@@ -58,7 +58,7 @@ void PlayerMenu::handleInput(component::Command) {
     // TODO
 }
 
-void PlayerMenu::render(sf::RenderTarget&) {
+void PlayerMenu::render(sf::RenderTarget&) const {
     // TODO
 }
 
