@@ -13,7 +13,11 @@ BattleView::BattleView(BattleState& s)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent) {}
 
-bool BattleView::actionsCompleted() const { return state == State::Done; }
+bool BattleView::actionsCompleted() const {
+    return state == State::Done && commandQueue.empty() && statBoxes.synced() &&
+           localPeoplemon.completed() && opponentPeoplemon.completed() &&
+           moveAnimation.completed() && printer.messageDone();
+}
 
 void BattleView::processCommand(const Command& cmd) { commandQueue.emplace(cmd); }
 
