@@ -70,6 +70,7 @@ private:
     pplmn::BattlePeoplemon* localPlayer;
     pplmn::BattlePeoplemon* opponent;
 
+    sf::Texture blank;
     bl::resource::Resource<sf::Texture>::Ref annoyTxtr;
     bl::resource::Resource<sf::Texture>::Ref frustTxtr;
     bl::resource::Resource<sf::Texture>::Ref stickyTxtr;
@@ -96,6 +97,8 @@ private:
     sf::Text lpHp;
     sf::Text lpLevel;
     sf::Sprite lpAil;
+
+    const sf::Texture& ailmentTexture(pplmn::Ailment ailment) const;
 };
 
 } // namespace view
