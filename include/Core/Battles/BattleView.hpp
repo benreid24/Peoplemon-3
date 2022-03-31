@@ -81,6 +81,9 @@ private:
     view::PeoplemonAnimation opponentPeoplemon;
     view::MoveAnimation moveAnimation;
 
+    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    sf::Sprite background;
+
     bool processQueue();
     virtual void process(component::Command control) override;
 

@@ -11,6 +11,8 @@ namespace core
 {
 namespace battle
 {
+class BattleState;
+
 namespace view
 {
 /**
@@ -30,9 +32,10 @@ public:
     /**
      * @brief Set the message to be printed
      *
+     * @param state The current state of the battle
      * @param message The message to display
      */
-    void setMessage(const Message& message);
+    void setMessage(BattleState& state, const Message& message);
 
     /**
      * @brief Displays the full message. Call when user presses the continue button

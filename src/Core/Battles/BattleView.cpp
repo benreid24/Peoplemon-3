@@ -1,5 +1,6 @@
 #include <Core/Battles/BattleView.hpp>
 
+#include <BLIB/Engine/Resources.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Properties.hpp>
 
@@ -11,7 +12,13 @@ BattleView::BattleView(BattleState& s)
 : battleState(s)
 , state(State::Done)
 , localPeoplemon(view::PeoplemonAnimation::Player)
-, opponentPeoplemon(view::PeoplemonAnimation::Opponent) {}
+, opponentPeoplemon(view::PeoplemonAnimation::Opponent) {
+    bgndTxtr =
+        bl::engine::Resources::textures()
+            .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/battleBgnd.png"))
+            .data;
+    background.setTexture(*bgndTxtr, true);
+}
 
 bool BattleView::actionsCompleted() const {
     return state == State::Done && commandQueue.empty() && statBoxes.synced() &&
@@ -59,8 +66,7 @@ void BattleView::update(float dt) {
 void BattleView::render(sf::RenderTarget& target, float lag) const {
     target.clear();
 
-    // TODO - render background
-
+    target.draw(background);
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
     moveAnimation.render(target, lag);
@@ -72,8 +78,17 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     statBoxes.render(target);
 }
 
-void BattleView::process(component::Command) {
-    // TODO
+void BattleView::process(component::Command cmd) {
+    if ((battleState.currentStage() == BattleState::Stage::FaintSwitching ||
+         battleState.currentStage() == BattleState::Stage::WaitingChoices) &&
+        !playerMenu.subActionSelected()) {
+        playerMenu.handleInput(cmd);
+    }
+    else {
+        if (cmd == component::Command::Interact || cmd == component::Command::Back) {
+            printer.finishPrint();
+        }
+    }
 }
 
 bool BattleView::processQueue() {
@@ -84,7 +99,7 @@ bool BattleView::processQueue() {
 
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
-        printer.setMessage(cmd.getMessage());
+        printer.setMessage(battleState, cmd.getMessage());
         state = State::WaitingMessage;
         break;
 
