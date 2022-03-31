@@ -29,6 +29,13 @@ const sf::Vector2f LpBarPos(149.f, 54.f);
 constexpr float NameSize  = 14.f;
 constexpr float LevelSize = 12.f;
 const sf::Color LevelColor(20.f, 20.f, 140.f);
+
+std::string makeHpStr(unsigned int cur, unsigned int max) {
+    std::stringstream ss;
+    ss << cur << "/" << max;
+    return ss.str();
+}
+
 } // namespace
 
 StatBoxes::StatBoxes()
@@ -94,7 +101,41 @@ void StatBoxes::setPlayer(pplmn::BattlePeoplemon* ppl) {
 }
 
 void StatBoxes::sync() {
-    // TODO - sync
+    // TODO - add immediate sync for switches?
+
+    if (localPlayer) {
+        lpName.setString(localPlayer->base().name());
+        lpLevel.setString(std::to_string(localPlayer->base().currentLevel()));
+        lpHp.setString(
+            makeHpStr(localPlayer->base().currentHp(), localPlayer->base().currentStats().hp));
+        lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()), true);
+        lpHpBarTarget = (static_cast<float>(localPlayer->base().currentHp()) /
+                         static_cast<float>(localPlayer->currentStats().hp)) *
+                        BarSize.x;
+        lpXpBarTarget = (static_cast<float>(localPlayer->base().currentXP()) /
+                         static_cast<float>(localPlayer->base().nextLevelXP())) *
+                        XpBarSize.x;
+    }
+    else {
+        BL_LOG_WARN << "sync() called with null player peoplemon";
+        lpHpBarTarget = 0.f;
+        lpXpBarTarget = 0.f;
+        lpName.setString("<ERROR>");
+    }
+
+    if (opponent) {
+        opName.setString(opponent->base().name());
+        opLevel.setString(std::to_string(opponent->base().currentLevel()));
+        opAil.setTexture(ailmentTexture(opponent->base().currentAilment()), true);
+        opHpBarTarget = (static_cast<float>(opponent->base().currentHp()) /
+                         static_cast<float>(opponent->currentStats().hp)) *
+                        BarSize.x;
+    }
+    else {
+        BL_LOG_WARN << "sync() called with null opponent peoplemon";
+        opHpBarTarget = 0.f;
+        opName.setString("<ERROR>");
+    }
 }
 
 void StatBoxes::update(float dt) {
@@ -153,8 +194,8 @@ void StatBoxes::update(float dt) {
 }
 
 bool StatBoxes::synced() const {
-    // TODO
-    return false;
+    return opHpBar.getSize().x == opHpBarTarget && lpHpBar.getSize().x == lpHpBarTarget &&
+           lpXpBar.getSize().x == lpXpBarTarget;
 }
 
 void StatBoxes::render(sf::RenderTarget& target) const {

@@ -112,6 +112,8 @@ unsigned int OwnedPeoplemon::currentLevel() const { return level; }
 
 unsigned int OwnedPeoplemon::currentXP() const { return xp; }
 
+unsigned int OwnedPeoplemon::nextLevelXP() const { return Peoplemon::levelUpXp(_id, level); }
+
 unsigned int OwnedPeoplemon::awardXP(unsigned int award) {
     if (level >= 100) {
         xp = 0;

@@ -96,6 +96,12 @@ public:
     unsigned int currentXP() const;
 
     /**
+     * @brief Returns the xp required to level up
+     *
+     */
+    unsigned int nextLevelXP() const;
+
+    /**
      * @brief Award XP to this peoplemon. Level's up the peoplemon if applicable. Returns the number
      *        of XP left over after a level up. A return of 0 indicates that all XP has been awarded
      *
