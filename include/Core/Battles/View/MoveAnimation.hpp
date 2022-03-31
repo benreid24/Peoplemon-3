@@ -35,10 +35,10 @@ public:
     /**
      * @brief Loads the move animations into the resource manager for the given peoplemon
      *
-     * @param p1 One of the peoplemon that is out
-     * @param p2 The other peoplemon that is out
+     * @param player The player's peoplemon that is out
+     * @param opponent The other peoplemon that is out
      */
-    void ensureLoaded(const pplmn::BattlePeoplemon& p1, const pplmn::BattlePeoplemon& p2);
+    void ensureLoaded(const pplmn::BattlePeoplemon& player, const pplmn::BattlePeoplemon& opponent);
 
     /**
      * @brief Begins playing the given move animation
@@ -62,16 +62,26 @@ public:
     void update(float dt);
 
     /**
-     * @brief Renders the move animation
+     * @brief Renders the move animation background
      *
      * @param target The target to render to
      * @param lag Time elapsed not accounted for in update
      */
-    void render(sf::RenderTarget& target, float lag) const;
+    void renderBackground(sf::RenderTarget& target, float lag) const;
+
+    /**
+     * @brief Renders the move animation foreground
+     *
+     * @param target The target to render to
+     * @param lag Time elapsed not accounted for in update
+     */
+    void renderForeground(sf::RenderTarget& target, float lag) const;
 
 private:
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref playingSrc;
-    bl::gfx::Animation playing;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref bgSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref fgSrc;
+    bl::gfx::Animation background;
+    bl::gfx::Animation foreground;
 };
 
 } // namespace view

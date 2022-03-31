@@ -209,7 +209,7 @@ void Renderable::FastMoveAnims::trigger(bool loop) {
 
 Renderable::OneAnimation::OneAnimation(const std::string& path, bool center) {
     src = bl::engine::Resources::animations()
-              .load(bl::util::FileUtil::joinPath(Properties::GenericAnimationPath(), path))
+              .load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path))
               .data;
     if (!src) {
         BL_LOG_WARN << "Failed to load animation: " << path;

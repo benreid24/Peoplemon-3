@@ -119,7 +119,38 @@ public:
      *
      */
     static bool effectsUser(MoveId move);
-    // TODO - maybe refactor to allow arbitrary target? (double battles!)
+
+    /**
+     * @brief Returns the path to the animation for when the local player uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string playerAnimationBackground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the local player uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string playerAnimationForeground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the opponent uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string opponentAnimationBackground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the opponent uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string opponentAnimationForeground(MoveId move);
 
 private:
     static std::unordered_map<MoveId, std::string>* names;

@@ -67,9 +67,10 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     target.clear();
 
     target.draw(background);
+    moveAnimation.renderBackground(target, lag);
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
-    moveAnimation.render(target, lag);
+    moveAnimation.renderForeground(target, lag);
     if (battleState.currentStage() == BattleState::Stage::WaitingChoices &&
         !playerMenu.subActionSelected()) {
         playerMenu.render(target);
