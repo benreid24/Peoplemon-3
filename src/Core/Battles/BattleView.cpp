@@ -20,6 +20,11 @@ BattleView::BattleView(BattleState& s)
     background.setTexture(*bgndTxtr, true);
 }
 
+void BattleView::configureView(const sf::View& pv) {
+    localPeoplemon.configureView(pv);
+    opponentPeoplemon.configureView(pv);
+}
+
 bool BattleView::actionsCompleted() const {
     return state == State::Done && commandQueue.empty() && statBoxes.synced() &&
            localPeoplemon.completed() && opponentPeoplemon.completed() &&

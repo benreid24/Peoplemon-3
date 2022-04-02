@@ -33,9 +33,15 @@ public:
      * @brief Construct a new Battle View
      *
      * @param state The current state of the battle
-     *
      */
     BattleView(BattleState& state);
+
+    /**
+     * @brief Sets up the subviews from the view used during battle
+     *
+     * @param parentView The view to be used
+     */
+    void configureView(const sf::View& parentView);
 
     /**
      * @brief Returns true if the view is done going through the queued commands and all components

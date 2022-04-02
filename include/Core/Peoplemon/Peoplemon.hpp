@@ -171,6 +171,22 @@ public:
      */
     static std::string thumbnailImage(Id id);
 
+    /**
+     * @brief Returns the full path to the image to use in battle for the player peoplemon
+     *
+     * @param id The id of the peoplemon to get the image for
+     * @return std::string The image file to use
+     */
+    static std::string playerImage(Id id);
+
+    /**
+     * @brief Returns the full path to the image to use in battle for the opponent peoplemon
+     *
+     * @param id The id of the peoplemon to get the image for
+     * @return std::string The image file to use
+     */
+    static std::string opponentImage(Id id);
+
 private:
     static std::unordered_map<Id, std::string>* names;
     static std::unordered_map<Id, std::string>* descriptions;

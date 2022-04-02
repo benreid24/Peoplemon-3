@@ -58,6 +58,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
     battleView.setSize(ws);
     battleView.setCenter(ws * 0.5f);
     engine.window().setView(battleView);
+    battle->view.configureView(battleView);
 
     // TODO - music here or in intro state?
 }

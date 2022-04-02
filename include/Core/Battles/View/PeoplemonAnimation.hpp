@@ -34,6 +34,13 @@ public:
     PeoplemonAnimation(Position position);
 
     /**
+     * @brief Sets up the subviews from the view used during battle
+     *
+     * @param parentView The view to be used
+     */
+    void configureView(const sf::View& parentView);
+
+    /**
      * @brief Sets the specific peoplemon graphic and resets to hidden state
      *
      * @param ppl The peoplemon to render
@@ -72,10 +79,14 @@ private:
     enum struct State { Hidden, Static, Playing };
 
     const Position position;
+    sf::View view;
     State state;
     Animation::Type type;
     float slideAmount;
     sf::Vector2f shakeOff;
+
+    bl::resource::Resource<sf::Texture>::Ref txtr;
+    mutable sf::Sprite peoplemon;
     // TODO - stuff for flashes etc
 };
 
