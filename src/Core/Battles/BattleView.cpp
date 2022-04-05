@@ -8,9 +8,10 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView(BattleState& s)
+BattleView::BattleView(BattleState& s, bool canRun)
 : battleState(s)
 , state(State::Done)
+, playerMenu(canRun)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent) {
     bgndTxtr =
@@ -76,8 +77,7 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
     moveAnimation.renderForeground(target, lag);
-    if (battleState.currentStage() == BattleState::Stage::WaitingChoices &&
-        !playerMenu.subActionSelected()) {
+    if (battleState.currentStage() == BattleState::Stage::WaitingChoices && !playerMenu.ready()) {
         playerMenu.render(target);
     }
     printer.render(target);
@@ -87,7 +87,7 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
 void BattleView::process(component::Command cmd) {
     if ((battleState.currentStage() == BattleState::Stage::FaintSwitching ||
          battleState.currentStage() == BattleState::Stage::WaitingChoices) &&
-        !playerMenu.subActionSelected()) {
+        !playerMenu.ready()) {
         playerMenu.handleInput(cmd);
     }
     else {

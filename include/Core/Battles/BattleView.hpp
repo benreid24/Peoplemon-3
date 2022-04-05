@@ -33,8 +33,9 @@ public:
      * @brief Construct a new Battle View
      *
      * @param state The current state of the battle
+     * @param canRun Whether or not the player menu should allow running
      */
-    BattleView(BattleState& state);
+    BattleView(BattleState& state, bool canRun);
 
     /**
      * @brief Sets up the subviews from the view used during battle

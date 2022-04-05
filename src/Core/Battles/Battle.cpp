@@ -26,7 +26,7 @@ BattleState::Stage typeToStage(Battle::Type type) {
 Battle::Battle(Type type)
 : type(type)
 , state(typeToStage(type))
-, view(state)
+, view(state, type == Type::WildPeoplemon)
 , localPlayerWon(false) {
     // custom init?
 }

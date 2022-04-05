@@ -27,8 +27,10 @@ public:
     /**
      * @brief Construct a new Player Menu
      *
+     * @param canRun Whether or not to allow running
+     *
      */
-    PlayerMenu();
+    PlayerMenu(bool canRun);
 
     /**
      * @brief Updates the menu for the given peoplemon
@@ -49,22 +51,16 @@ public:
     void chooseFaintReplacement();
 
     /**
-     * @brief Returns whether or not the action has been selected
+     * @brief Returns true when the player's choice has been made
      *
      */
-    bool turnActionSelected() const;
+    bool ready() const;
 
     /**
      * @brief The selected turn action
      *
      */
     TurnAction selectedAction() const;
-
-    /**
-     * @brief Returns whether or not the sub action has been selected
-     *
-     */
-    bool subActionSelected() const;
 
     /**
      * @brief Returns the selected move index
@@ -98,15 +94,37 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
-    player::input::MenuDriver menuDriver;
-    bl::menu::Menu actionMenu;
-    bl::menu::Menu moveMenu;
+    enum struct State { Hidden, PickingAction, PickingMove, PickingItem, PickingPeoplemon };
 
-    bl::resource::Resource<sf::Texture>::Ref moveBoxTxtr;
+    State state;
+    player::input::MenuDriver menuDriver;
+    TurnAction chosenAction;
+    union {
+        int chosenMoveOrPeoplemon;
+        item::Id chosenItem;
+    };
+
+    bl::menu::Menu actionMenu;
+    bl::menu::TextItem::Ptr fightItem;
+    bl::menu::TextItem::Ptr switchItem;
+    bl::menu::TextItem::Ptr bagItem;
+    bl::menu::TextItem::Ptr runItem;
+
+    bl::menu::Menu moveMenu;
+    bl::menu::TextItem::Ptr moveItems[4];
+    pplmn::MoveId moves[4];
+
+    bl::resource::Resource<sf::Texture>::Ref moveTxtr;
     sf::Sprite moveBox;
     sf::Text movePP;
     sf::Text movePwr;
     sf::Text moveAcc;
+
+    void fightChosen();
+    void switchChosen();
+    void itemChosen();
+    void runChosen();
+    void moveChosen(int i);
 };
 
 } // namespace view
