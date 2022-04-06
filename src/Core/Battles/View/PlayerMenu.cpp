@@ -1,5 +1,6 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
+#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -8,6 +9,11 @@ namespace battle
 {
 namespace view
 {
+namespace
+{
+const sf::Vector2f MoveBoxPos(499.f, 463.f);
+}
+
 PlayerMenu::PlayerMenu(bool canRun)
 : state(State::Hidden)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
@@ -42,7 +48,27 @@ PlayerMenu::PlayerMenu(bool canRun)
             .willAlwaysCall(std::bind(&PlayerMenu::moveChosen, this, i));
     }
 
-    // TODO - init move stat stuff
+    moveTxtr =
+        bl::engine::Resources::textures()
+            .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"))
+            .data;
+    moveBox.setTexture(*moveTxtr, true);
+    moveBox.setPosition(MoveBoxPos);
+
+    movePwr.setFillColor(sf::Color::Black);
+    movePwr.setFont(Properties::MenuFont());
+    movePwr.setCharacterSize(25);
+    movePwr.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
+
+    moveAcc.setFillColor(sf::Color::Black);
+    moveAcc.setFont(Properties::MenuFont());
+    moveAcc.setCharacterSize(25);
+    moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
+
+    movePP.setFillColor(sf::Color::Black);
+    movePP.setFont(Properties::MenuFont());
+    movePP.setCharacterSize(25);
+    movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 88.f));
 }
 
 void PlayerMenu::setPeoplemon(const pplmn::BattlePeoplemon&) {
