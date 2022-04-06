@@ -1,6 +1,7 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -17,7 +18,8 @@ const sf::Vector2f MoveBoxPos(499.f, 463.f);
 PlayerMenu::PlayerMenu(bool canRun)
 : state(State::Hidden)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
-, moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black)) {
+, moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
+, moves(nullptr) {
     using namespace bl::menu;
 
     fightItem = TextItem::create("Fight", Properties::MenuFont(), sf::Color::Black, 30);
@@ -40,13 +42,8 @@ PlayerMenu::PlayerMenu(bool canRun)
     actionMenu.setPosition({513.f, 476.f});
     actionMenu.setPadding({12.f, 12.f});
 
-    for (int i = 0; i < 4; ++i) {
-        moves[i]     = pplmn::MoveId::Unknown;
-        moveItems[i] = TextItem::create("<UNSET>", Properties::MenuFont(), sf::Color::Black, 30);
-        moveItems[i]
-            ->getSignal(Item::Activated)
-            .willAlwaysCall(std::bind(&PlayerMenu::moveChosen, this, i));
-    }
+    moveMenu.setPosition({16.f, 477.f});
+    moveMenu.setPadding({12.f, 12.f});
 
     moveTxtr =
         bl::engine::Resources::textures()
@@ -71,8 +68,35 @@ PlayerMenu::PlayerMenu(bool canRun)
     movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 88.f));
 }
 
-void PlayerMenu::setPeoplemon(const pplmn::BattlePeoplemon&) {
-    // TODO - sync moves to menu
+void PlayerMenu::setPeoplemon(const pplmn::BattlePeoplemon& ppl) {
+    using namespace bl::menu;
+
+    moves = ppl.base().knownMoves();
+    for (int i = 0; i < 4; ++i) { moveItems[i].reset(); }
+
+    for (int i = 0; i < 4; ++i) {
+        if (ppl.base().knownMoves()[i].id == pplmn::MoveId::Unknown) break;
+        moveItems[i] = TextItem::create(
+            pplmn::Move::name(moves[i].id), Properties::MenuFont(), sf::Color::Black, 30);
+        moveItems[i]
+            ->getSignal(Item::Activated)
+            .willAlwaysCall(std::bind(&PlayerMenu::moveChosen, this, i));
+        moveItems[i]
+            ->getSignal(Item::Selected)
+            .willAlwaysCall(std::bind(&PlayerMenu::syncMove, this, i));
+    }
+
+    moveMenu.setRootItem(moveItems[0]);
+    if (moveItems[1]) {
+        moveMenu.addItem(moveItems[1], moveItems[0].get(), Item::Right);
+        if (moveItems[2]) {
+            moveMenu.addItem(moveItems[2], moveItems[0].get(), Item::Bottom);
+            if (moveItems[3]) {
+                moveMenu.addItem(moveItems[3], moveItems[1].get(), Item::Bottom);
+                moveMenu.attachExisting(moveItems[3].get(), moveItems[2].get(), Item::Right);
+            }
+        }
+    }
 }
 
 void PlayerMenu::beginTurn() {
@@ -99,6 +123,7 @@ void PlayerMenu::handleInput(component::Command cmd) {
     menuDriver.process(cmd);
     if (state == State::PickingMove && cmd == component::Command::Back) {
         state = State::PickingAction;
+        menuDriver.drive(&actionMenu);
     }
 }
 
@@ -116,6 +141,13 @@ void PlayerMenu::render(sf::RenderTarget& target) const {
 void PlayerMenu::fightChosen() {
     state        = State::PickingMove;
     chosenAction = TurnAction::Fight;
+    menuDriver.drive(&moveMenu);
+    for (int i = 0; i < 4; ++i) {
+        if (moveMenu.getSelectedItem() == moveItems[i].get()) {
+            syncMove(i);
+            break;
+        }
+    }
 }
 
 void PlayerMenu::switchChosen() {
@@ -138,6 +170,12 @@ void PlayerMenu::runChosen() {
 void PlayerMenu::moveChosen(int i) {
     chosenMoveOrPeoplemon = i;
     state                 = State::Hidden;
+}
+
+void PlayerMenu::syncMove(int i) {
+    movePP.setString(std::to_string(moves[i].curPP) + "/" + std::to_string(moves[i].maxPP));
+    movePwr.setString(std::to_string(pplmn::Move::damage(moves[i].id)));
+    moveAcc.setString(std::to_string(pplmn::Move::accuracy(moves[i].id)));
 }
 
 } // namespace view

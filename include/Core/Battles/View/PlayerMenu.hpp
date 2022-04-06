@@ -7,6 +7,7 @@
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/OwnedMove.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -112,7 +113,7 @@ private:
 
     bl::menu::Menu moveMenu;
     bl::menu::TextItem::Ptr moveItems[4];
-    pplmn::MoveId moves[4];
+    const pplmn::OwnedMove* moves;
 
     bl::resource::Resource<sf::Texture>::Ref moveTxtr;
     sf::Sprite moveBox;
@@ -125,6 +126,7 @@ private:
     void itemChosen();
     void runChosen();
     void moveChosen(int i);
+    void syncMove(int i);
 };
 
 } // namespace view
