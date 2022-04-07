@@ -12,14 +12,16 @@ namespace
 constexpr float MoveTime = 0.55f;
 }
 
-bl::engine::State::Ptr PeoplemonMenu::create(core::system::Systems& s, Context c, ContextData* d) {
-    return Ptr(new PeoplemonMenu(s, c, d));
+bl::engine::State::Ptr PeoplemonMenu::create(core::system::Systems& s, Context c, int outNow,
+                                             int* chosen) {
+    return Ptr(new PeoplemonMenu(s, c, outNow, chosen));
 }
 
-PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, ContextData* d)
+PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* sp)
 : State(s)
 , context(c)
-, data(d)
+, outNow(on)
+, chosenPeoplemon(sp)
 , state(Browsing)
 , menu(bl::menu::NoSelector::create())
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
@@ -134,7 +136,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
                 buttons[i]->setSelectable(false);
             }
         }
-        else if (data && data->outNow == i) {
+        else if (outNow >= 0 && static_cast<unsigned int>(outNow) == i) {
             if (context == Context::BattleSwitch) {
                 buttons[i]->setHighlightColor(sf::Color(90, 110, 250));
                 buttons[i]->setSelectable(false);
@@ -174,7 +176,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     actionOpen = false;
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
-    if (data) data->chosen = -1;
+    if (chosenPeoplemon) *chosenPeoplemon = -1;
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
@@ -387,7 +389,7 @@ void PeoplemonMenu::chosen() {
         break;
     }
 
-    if (data) data->chosen = mover1;
+    if (chosenPeoplemon) *chosenPeoplemon = mover1;
     systems.engine().popState();
 }
 
