@@ -20,10 +20,10 @@ const sf::Vector2f XpBarSize(192.f, 4.f);
 constexpr float GreenThresh  = 0.55f;
 constexpr float YellowThresh = 0.25f;
 
-const sf::Vector2f OpBoxPos(10.f, 45.f);
+const sf::Vector2f OpBoxPos(0.f, 0.f);
 const sf::Vector2f OpBarPos(100.f, 50.f);
 
-const sf::Vector2f LpBoxPos(485.f, 325.f);
+const sf::Vector2f LpBoxPos(540.f, 357.f);
 const sf::Vector2f LpBarPos(149.f, 54.f);
 
 constexpr float NameSize  = 14.f;

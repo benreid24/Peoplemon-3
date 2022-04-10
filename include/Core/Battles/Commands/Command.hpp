@@ -28,7 +28,12 @@ public:
     enum struct Type : std::uint8_t {
         DisplayMessage = 0,
         PlayAnimation  = 1,
-        SyncState      = 2 // sync with view. also for network sync
+
+        // sync with view. also for network sync
+        SyncStateNoSwitch       = 2,
+        SyncStatePlayerSwitch   = 3,
+        SyncStateOpponentSwitch = 4
+
         // TODO - others? maybe use commands for battler choices for easy networking?
     };
 
@@ -36,14 +41,40 @@ public:
      * @brief Empty struct to create sync commands
      *
      */
-    struct SyncState {};
+    struct SyncStateNoSwitch {};
+
+    /**
+     * @brief Empty struct to create sync commands
+     *
+     */
+    struct SyncStatePlayerSwitch {};
+
+    /**
+     * @brief Empty struct to create sync commands
+     *
+     */
+    struct SyncStateOpponentSwitch {};
 
     /**
      * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
      *        needs to be sent over the network
      *
      */
-    Command(SyncState&& unused, bool waitView);
+    Command(SyncStateNoSwitch&& unused, bool waitView);
+
+    /**
+     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
+     *        needs to be sent over the network
+     *
+     */
+    Command(SyncStatePlayerSwitch&& unused, bool waitView);
+
+    /**
+     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
+     *        needs to be sent over the network
+     *
+     */
+    Command(SyncStateOpponentSwitch&& unused, bool waitView);
 
     /**
      * @brief Creates a new DisplayMessage command
@@ -86,7 +117,9 @@ public:
 
 private:
     const Type type;
-    const std::variant<Message, Animation, SyncState> data;
+    const std::variant<Message, Animation, SyncStateNoSwitch, SyncStatePlayerSwitch,
+                       SyncStateOpponentSwitch>
+        data;
     const bool wait;
 };
 

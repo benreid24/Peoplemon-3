@@ -1,6 +1,7 @@
 #include <Core/Systems/Interaction.hpp>
 
 #include <BLIB/Serialization/JSON.hpp>
+#include <Core/Battles/BattleControllers/LocalBattleController.hpp>
 #include <Core/Battles/BattlerControllers/AIController.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
@@ -290,7 +291,7 @@ void Interaction::startBattle() {
     }
     battle->state.enemy().init(std::move(team),
                                std::make_unique<battle::AIController>(interactingTrainer->items()));
-    // TODO - set battle controller to local when created
+    battle->controller = std::make_unique<battle::LocalBattleController>();
 
     owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
 }

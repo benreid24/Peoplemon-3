@@ -27,9 +27,8 @@ void BattleView::configureView(const sf::View& pv) {
 }
 
 bool BattleView::actionsCompleted() const {
-    return state == State::Done && commandQueue.empty() && statBoxes.synced() &&
-           localPeoplemon.completed() && opponentPeoplemon.completed() &&
-           moveAnimation.completed() && printer.messageDone();
+    return state == State::Done && commandQueue.empty() && localPeoplemon.completed() &&
+           opponentPeoplemon.completed() && moveAnimation.completed() && printer.messageDone();
 }
 
 void BattleView::processCommand(const Command& cmd) { commandQueue.emplace(cmd); }
@@ -138,13 +137,27 @@ bool BattleView::processQueue() {
         }
     } break;
 
-    case Command::Type::SyncState:
+    case Command::Type::SyncStateNoSwitch:
+        statBoxes.sync();
+        state = State::WaitingBars;
+        break;
+
+    case Command::Type::SyncStatePlayerSwitch:
+        statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
         statBoxes.sync();
         localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
+        moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
+                                   battleState.enemy().activePeoplemon());
+        state = State::Done; // we do not wait for bars. anim starts in hidden state
+        break;
+
+    case Command::Type::SyncStateOpponentSwitch:
+        statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
+        statBoxes.sync();
         opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
         moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
                                    battleState.enemy().activePeoplemon());
-        state = State::WaitingBars;
+        state = State::Done; // we do not wait for bars. anim starts in hidden state
         break;
 
     default:

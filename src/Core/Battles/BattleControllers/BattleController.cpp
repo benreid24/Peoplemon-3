@@ -42,7 +42,7 @@ void BattleController::update() {
         break;
     }
 
-    onUpdate();
+    onUpdate(subState == SubState::Done, commandQueue.empty());
 }
 
 void BattleController::queueCommand(Command&& cmd) {
@@ -57,7 +57,9 @@ bool BattleController::updateCommandQueue() {
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
     case Command::Type::PlayAnimation:
-    case Command::Type::SyncState:
+    case Command::Type::SyncStateNoSwitch:
+    case Command::Type::SyncStatePlayerSwitch:
+    case Command::Type::SyncStateOpponentSwitch:
         view->processCommand(cmd);
         subState = SubState::WaitingView;
         break;

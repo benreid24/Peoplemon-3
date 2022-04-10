@@ -4,9 +4,19 @@ namespace core
 {
 namespace battle
 {
-Command::Command(SyncState&& s, bool w)
-: type(Type::SyncState)
-, data(std::forward<SyncState>(s))
+Command::Command(SyncStateNoSwitch&& s, bool w)
+: type(Type::SyncStateNoSwitch)
+, data(std::forward<SyncStateNoSwitch>(s))
+, wait(w) {}
+
+Command::Command(SyncStatePlayerSwitch&& s, bool w)
+: type(Type::SyncStateNoSwitch)
+, data(std::forward<SyncStatePlayerSwitch>(s))
+, wait(w) {}
+
+Command::Command(SyncStateOpponentSwitch&& s, bool w)
+: type(Type::SyncStateNoSwitch)
+, data(std::forward<SyncStateOpponentSwitch>(s))
 , wait(w) {}
 
 Command::Command(Message&& s, bool w)

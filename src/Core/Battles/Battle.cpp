@@ -1,5 +1,6 @@
 #include <Core/Battles/Battle.hpp>
 
+#include <Core/Battles/BattleSkipper.hpp>
 #include <Core/Battles/BattlerControllers/PlayerController.hpp>
 
 namespace core
@@ -9,11 +10,17 @@ namespace battle
 namespace
 {
 BattleState::Stage typeToStage(Battle::Type type) {
+#ifdef PEOPLEMON_DEBUG
+    const bool skip = BattleSkipper::skipBattles();
+#else
+    const bool skip = false;
+#endif
+
     switch (type) {
     case Battle::Type::WildPeoplemon:
-        return BattleState::Stage::WildIntro;
+        return skip ? BattleState::Stage::Completed : BattleState::Stage::WildIntro;
     case Battle::Type::Trainer:
-        return BattleState::Stage::TrainerIntro;
+        return skip ? BattleState::Stage::TrainerDefeated : BattleState::Stage::TrainerIntro;
     case Battle::Type::Online:
         return BattleState::Stage::NetworkIntro;
     default:

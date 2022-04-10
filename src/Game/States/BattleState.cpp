@@ -24,7 +24,7 @@ private:
 
     virtual void onCommandQueued(const core::battle::Command&) override {}
     virtual void onCommandProcessed(const core::battle::Command&) override {}
-    virtual void onUpdate() override {
+    virtual void onUpdate(bool, bool) override {
         time += timer.getElapsedTime().asSeconds();
         timer.restart();
         if (time >= 3.f) { state->setStage(core::battle::BattleState::Stage::Completed); }
@@ -77,6 +77,7 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
     battle->view.update(dt);
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
         engine.popState();
+        // TODO - handle whiteout/healing here
     }
 }
 

@@ -1,7 +1,5 @@
 #include <Core/Battles/BattleState.hpp>
 
-#include <Core/Battles/BattleSkipper.hpp>
-
 namespace core
 {
 namespace battle
@@ -10,11 +8,8 @@ BattleState::BattleState(Stage state)
 : stage(state)
 , player(*this)
 , opponent(*this)
-, currentMover(0) {
-#ifdef PEOPLEMON_DEBUG
-    if (BattleSkipper::skipBattles()) { stage = Stage::Victory; }
-#endif
-}
+, currentMover(0)
+, firstMover(0) {}
 
 Battler& BattleState::localPlayer() { return player; }
 
