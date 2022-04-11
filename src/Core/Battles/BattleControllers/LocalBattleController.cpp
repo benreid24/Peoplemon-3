@@ -175,7 +175,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
     // TODO - some stages may end up with different transition conditions
     if (viewSynced && queueEmpty) {
-        BATTLE_LOG << "Detected stage transition: " << state->currentStage();
+        BATTLE_LOG << "Detected end of stage " << state->currentStage();
 
         switch (state->currentStage()) {
         case Stage::WildIntro:
@@ -332,11 +332,12 @@ void LocalBattleController::setBattleState(BattleState::Stage ns) {
 
     Stage nns = getNextStage(ns);
     while (nns != ns) {
+        BATTLE_LOG << "Immediate stage switch: " << ns << " -> " << nns;
         ns  = nns;
         nns = getNextStage(nns);
     }
 
-    BATTLE_LOG << "Stage transition: " << state->currentStage() << " -> " << ns;
+    BATTLE_LOG << "Final stage transition: " << state->currentStage() << " -> " << ns;
 
     state->setStage(ns);
     currentStageInitialized = false;
