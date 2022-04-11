@@ -317,28 +317,37 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 void LocalBattleController::setBattleState(BattleState::Stage ns) {
     using Stage = BattleState::Stage;
 
-    switch (ns) {
-    case Stage::NextBattler:
-        // TODO - do next battler logic and update ns
-        break;
-
-    case Stage::HandleFaint:
-        // TODO - determine if victory or switch
-        ns = Stage::BeforeFaintSwitch;
-        break;
-
-    case Stage::WaitingChoices:
-        // TODO - start getting choices
-        break;
-
-        // TODO - other special cases?
-
-    default:
-        break;
+    Stage nns = getNextStage(ns);
+    while (nns != ns) {
+        ns  = nns;
+        nns = getNextStage(nns);
     }
 
     state->setStage(ns);
     currentStageInitialized = false;
+}
+
+BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
+    using Stage = BattleState::Stage;
+
+    switch (ns) {
+    case Stage::NextBattler:
+        queueCommand({Command::SyncStateNoSwitch(), false});
+        return state->nextTurn();
+
+    case Stage::HandleFaint:
+        // TODO - determine if victory or switch
+        return Stage::BeforeFaintSwitch;
+
+    case Stage::WaitingChoices:
+        // TODO - start getting choices and determine what type of turn it is
+        return Stage::BeforeAttack;
+
+        // TODO - other special cases?
+
+    default:
+        return ns;
+    }
 }
 
 void LocalBattleController::onCommandQueued(const Command&) {

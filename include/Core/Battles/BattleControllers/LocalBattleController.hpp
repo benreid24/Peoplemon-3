@@ -47,6 +47,7 @@ private:
     void setBattleState(BattleState::Stage nextState);
     void initCurrentStage();
     void checkCurrentStage(bool viewSynced, bool queueEmpty);
+    BattleState::Stage getNextStage(BattleState::Stage ns);
 };
 
 } // namespace battle
