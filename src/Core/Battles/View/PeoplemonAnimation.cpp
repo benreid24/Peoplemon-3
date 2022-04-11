@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
+#include <Core/Properties.hpp>
 
 namespace core
 {
@@ -21,10 +22,14 @@ constexpr float SlideRate = 285.f;
 } // namespace
 
 PeoplemonAnimation::PeoplemonAnimation(Position pos)
-: position(pos) {}
+: position(pos) {
+    placeholder.setFillColor(sf::Color::Red);
+    placeholder.setFont(Properties::MenuFont());
+    placeholder.setCharacterSize(14);
+}
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
-    bl::interface::ViewUtil::computeSubView(
+    view = bl::interface::ViewUtil::computeSubView(
         sf::FloatRect(position == Position::Player ? PlayerPos : OpponentPos, ViewSize), pv);
 }
 
@@ -45,18 +50,22 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     switch (anim) {
     case Animation::Type::ComeBack:
+        placeholder.setString("ComeBack");
         slideAmount = 255.f; // just a basic fadeout
         break;
 
     case Animation::Type::SendOut:
+        placeholder.setString("SendOut");
         slideAmount = 0.f; // just a basic fade in
         break;
 
     case Animation::Type::ShakeAndFlash:
+        placeholder.setString("ShakeAndFlash");
         // TODO
         break;
 
     case Animation::Type::SlideDown:
+        placeholder.setString("SlideDown");
         slideAmount = 0.f;
         break;
 
@@ -65,6 +74,10 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         state = State::Static;
         break;
     }
+
+    const sf::FloatRect bounds = placeholder.getGlobalBounds();
+    const sf::Vector2f size(bounds.width, bounds.height);
+    placeholder.setPosition(ViewSize * 0.5f - size * 0.5f);
 }
 
 bool PeoplemonAnimation::completed() const { return state == State::Static; }
@@ -120,17 +133,13 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         switch (type) {
         case Animation::Type::ComeBack:
             useMe -= lag * FadeRate;
-            if (useMe <= 0.f) {
-                useMe = 0.f;
-            }
+            if (useMe <= 0.f) { useMe = 0.f; }
             peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(useMe)));
             break;
 
         case Animation::Type::SendOut:
             useMe += lag * FadeRate;
-            if (slideAmount >= 255.f) {
-                useMe = 255.f;
-            }
+            if (slideAmount >= 255.f) { useMe = 255.f; }
             peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(useMe)));
             break;
 
@@ -148,6 +157,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         }
     }
     target.draw(peoplemon, states);
+    if (state == State::Playing) { target.draw(placeholder); }
 
     target.setView(oldView);
 }

@@ -84,6 +84,7 @@ private:
     Animation::Type type;
     float slideAmount;
     sf::Vector2f shakeOff;
+    sf::Text placeholder;
 
     bl::resource::Resource<sf::Texture>::Ref txtr;
     mutable sf::Sprite peoplemon;
