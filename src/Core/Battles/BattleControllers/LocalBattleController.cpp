@@ -4,6 +4,13 @@
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
 
+#ifdef PEOPLEMON_DEBUG
+#define BATTLE_LOG BL_LOG_INFO
+#else
+#define BATTLE_LOG \
+    if constexpr (false) BL_LOG_INFO
+#endif
+
 namespace core
 {
 namespace battle
@@ -23,6 +30,8 @@ void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) 
 
 void LocalBattleController::initCurrentStage() {
     using Stage = BattleState::Stage;
+
+    BATTLE_LOG << "Initializing battle stage: " << state->currentStage();
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
@@ -166,6 +175,8 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
     // TODO - some stages may end up with different transition conditions
     if (viewSynced && queueEmpty) {
+        BATTLE_LOG << "Detected stage transition: " << state->currentStage();
+
         switch (state->currentStage()) {
         case Stage::WildIntro:
             setBattleState(Stage::IntroSendInSelf);
@@ -317,11 +328,15 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 void LocalBattleController::setBattleState(BattleState::Stage ns) {
     using Stage = BattleState::Stage;
 
+    BATTLE_LOG << "Switching to stage: " << ns;
+
     Stage nns = getNextStage(ns);
     while (nns != ns) {
         ns  = nns;
         nns = getNextStage(nns);
     }
+
+    BATTLE_LOG << "Stage transition: " << state->currentStage() << " -> " << ns;
 
     state->setStage(ns);
     currentStageInitialized = false;
