@@ -18,17 +18,26 @@ public:
     // TODO - different personalities and whatnot
 
     /**
-     * @brief Construct a new AIController with no items
+     * @brief Construct a new AIController for a wild peoplemon
+     *
+     * @param wildId The id of the wild peoplemon
      *
      */
-    AIController() = default;
+    AIController(pplmn::Id wildId);
 
     /**
      * @brief Construct a new AIController with the given items
      *
+     * @param trainerName The name of the trainer being controlled
      * @param items The items that may be used in battle
      */
-    AIController(const std::vector<item::Id>& items);
+    AIController(const std::string& trainerName, const std::vector<item::Id>& items);
+
+    /**
+     * @brief Returns the name of the battler
+     *
+     */
+    virtual const std::string& name() const override;
 
     /**
      * @brief Destroy the AIController object
@@ -37,6 +46,7 @@ public:
     virtual ~AIController() = default;
 
 private:
+    const std::string _name;
     std::vector<item::Id> items; // TODO - copy items here from the trainer
 
     virtual void startChooseAction() override;

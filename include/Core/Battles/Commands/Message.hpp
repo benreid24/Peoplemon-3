@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <string>
+#include <variant>
 
 namespace core
 {
@@ -27,6 +28,9 @@ public:
         SuperEffective,
         Callback,
         SendOut,
+        TrainerIntro,
+        WildIntro,
+        NetworkIntro
     };
 
     /**
@@ -37,14 +41,30 @@ public:
     Message(Type type);
 
     /**
+     * @brief Construct a new Message from a string
+     *
+     * @param type The type of message
+     * @param str Data to help construct the message
+     */
+    Message(Type type, const std::string& str);
+
+    /**
      * @brief Returns the type of message this is
      *
      */
     Type getType() const;
 
+    /**
+     * @brief Returns the string data of the message
+     *
+     */
+    const std::string& getString() const;
+
 private:
+    struct Empty {};
+
     const Type type;
-    // TODO - other data for message generation
+    const std::variant<Empty, std::string> data;
 };
 
 } // namespace battle

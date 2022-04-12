@@ -24,6 +24,12 @@ public:
     virtual ~BattlerController() = default;
 
     /**
+     * @brief Returns the name of the battler
+     *
+     */
+    virtual const std::string& name() const = 0;
+
+    /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
      *
      */

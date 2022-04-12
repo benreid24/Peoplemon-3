@@ -290,7 +290,8 @@ void Interaction::startBattle() {
         team.emplace_back(const_cast<pplmn::OwnedPeoplemon*>(&ppl));
     }
     battle->state.enemy().init(std::move(team),
-                               std::make_unique<battle::AIController>(interactingTrainer->items()));
+                               std::make_unique<battle::AIController>(interactingTrainer->name(),
+                                                                      interactingTrainer->items()));
     battle->setController(std::make_unique<battle::LocalBattleController>());
 
     owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});

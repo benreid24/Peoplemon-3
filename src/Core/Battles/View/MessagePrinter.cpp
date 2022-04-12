@@ -15,6 +15,7 @@ namespace
 const sf::Vector2f TextPos(12.f, 473.f);
 constexpr float TextWidth = 470.f;
 const sf::Vector2f ArrowPos(468.f, 573.f);
+const sf::Vector2f FlasherPos(476.f, 575.f);
 } // namespace
 
 MessagePrinter::MessagePrinter()
@@ -23,8 +24,10 @@ MessagePrinter::MessagePrinter()
 , acked(false) {
     text.setFillColor(sf::Color::Black);
     text.setFont(Properties::MenuFont());
-    text.setCharacterSize(13.f);
+    text.setCharacterSize(18.f);
     text.setPosition(TextPos);
+    triangle.setPosition(ArrowPos);
+    triangle.setFillColor(sf::Color(242, 186, 17));
 }
 
 void MessagePrinter::setMessage(BattleState&, const Message& msg) {
@@ -51,6 +54,18 @@ void MessagePrinter::setMessage(BattleState&, const Message& msg) {
         dispText = "A move was super effective";
         break;
 
+    case Message::Type::NetworkIntro:
+        dispText = "Your friend " + msg.getString() + " wants to fight!";
+        break;
+
+    case Message::Type::TrainerIntro:
+        dispText = msg.getString() + " wants to battle!";
+        break;
+
+    case Message::Type::WildIntro:
+        dispText = "A wild " + msg.getString() + " attacked!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
@@ -67,6 +82,7 @@ void MessagePrinter::finishPrint() {
     if (!writer.finished()) { writer.showAll(); }
     else {
         acked = true;
+        text.setString("");
     }
 }
 
@@ -83,7 +99,10 @@ void MessagePrinter::update(float dt) {
 
 void MessagePrinter::render(sf::RenderTarget& target) const {
     target.draw(text);
-    flasher.render(target, {}, 0.f);
+    if (writer.finished() && !acked) {
+        sf::RenderStates states;
+        flasher.render(target, {}, 0.f);
+    }
 }
 
 } // namespace view

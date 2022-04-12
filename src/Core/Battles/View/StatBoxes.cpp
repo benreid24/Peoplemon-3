@@ -11,7 +11,7 @@ namespace view
 {
 namespace
 {
-constexpr float BarRate = 0.25f; // 25% of total width
+constexpr float BarRate = 0.45f; // 45% of total width per second
 const sf::Vector2f BarSize(96.f, 6.f);
 
 const sf::Vector2f XpBarPos(52.f, 88.f);
@@ -26,8 +26,8 @@ const sf::Vector2f OpBarPos(100.f, 50.f);
 const sf::Vector2f LpBoxPos(540.f, 357.f);
 const sf::Vector2f LpBarPos(149.f, 54.f);
 
-constexpr float NameSize  = 14.f;
-constexpr float LevelSize = 12.f;
+constexpr float NameSize  = 18.f;
+constexpr float LevelSize = 15.f;
 const sf::Color LevelColor(20.f, 20.f, 140.f);
 
 std::string makeHpStr(unsigned int cur, unsigned int max) {
@@ -68,26 +68,31 @@ StatBoxes::StatBoxes()
 
     opAil.setPosition(OpBoxPos + sf::Vector2f(10.f, 46.f));
     opName.setPosition(OpBoxPos + sf::Vector2f(5.f, 18.f));
-    opLevel.setPosition(OpBoxPos + sf::Vector2f(168.f, 24.f));
+    opLevel.setPosition(OpBoxPos + sf::Vector2f(168.f, 21.f));
     opName.setFont(Properties::MenuFont());
     opName.setFillColor(sf::Color::Black);
     opName.setCharacterSize(NameSize);
+    opName.setStyle(sf::Text::Bold);
     opLevel.setFont(Properties::MenuFont());
     opLevel.setFillColor(LevelColor);
     opLevel.setCharacterSize(LevelSize);
+    opLevel.setStyle(sf::Text::Bold);
 
     lpAil.setPosition(LpBoxPos + sf::Vector2f(33.f, 61.f));
     lpName.setPosition(LpBoxPos + sf::Vector2f(41.f, 22.f));
-    lpLevel.setPosition(LpBoxPos + sf::Vector2f(218.f, 27.f));
+    lpLevel.setPosition(LpBoxPos + sf::Vector2f(218.f, 24.f));
     lpName.setFont(Properties::MenuFont());
     lpName.setFillColor(sf::Color::Black);
     lpName.setCharacterSize(NameSize);
+    lpName.setStyle(sf::Text::Bold);
     lpLevel.setFont(Properties::MenuFont());
     lpLevel.setFillColor(LevelColor);
     lpLevel.setCharacterSize(LevelSize);
+    lpLevel.setStyle(sf::Text::Bold);
     lpHp.setFont(Properties::MenuFont());
     lpHp.setPosition(LpBoxPos + sf::Vector2f(131.f, 68.f));
-    lpHp.setCharacterSize(12.f);
+    lpHp.setCharacterSize(14.f);
+    lpHp.setFillColor(sf::Color::Black);
 }
 
 void StatBoxes::setOpponent(pplmn::BattlePeoplemon* ppl) {

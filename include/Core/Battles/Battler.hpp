@@ -96,6 +96,12 @@ public:
      */
     bool canFight() const;
 
+    /**
+     * @brief Returns the name of the battler
+     *
+     */
+    const std::string& name() const;
+
 private:
     BattleState& state;
     std::unique_ptr<BattlerController> controller;

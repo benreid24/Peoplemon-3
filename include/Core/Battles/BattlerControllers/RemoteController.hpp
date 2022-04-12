@@ -23,6 +23,12 @@ public:
      */
     virtual ~RemoteController() = default;
 
+    /**
+     * @brief Returns the name of the battler
+     *
+     */
+    virtual const std::string& name() const override;
+
 private:
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon() override;

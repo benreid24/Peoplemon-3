@@ -34,6 +34,8 @@ std::vector<core::pplmn::BattlePeoplemon>& Battler::peoplemon() { return team; }
 
 core::pplmn::BattlePeoplemon& Battler::activePeoplemon() { return team[currentPeoplemon]; }
 
+const std::string& Battler::name() const { return controller->name(); }
+
 bool Battler::canFight() const {
     for (const auto& ppl : team) {
         if (ppl.base().currentHp() > 0) return true;

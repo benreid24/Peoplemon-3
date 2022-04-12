@@ -24,12 +24,18 @@ BattleView::BattleView(BattleState& s, bool canRun)
 void BattleView::configureView(const sf::View& pv) {
     localPeoplemon.configureView(pv);
     opponentPeoplemon.configureView(pv);
+
+    // first time init of view components
+    statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
+    statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
+    statBoxes.sync();
+    localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
+    opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
+    moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
+                               battleState.enemy().activePeoplemon());
 }
 
-bool BattleView::actionsCompleted() const {
-    return state == State::Done && commandQueue.empty() && localPeoplemon.completed() &&
-           opponentPeoplemon.completed() && moveAnimation.completed() && printer.messageDone();
-}
+bool BattleView::actionsCompleted() const { return state == State::Done; }
 
 void BattleView::processCommand(const Command& cmd) { commandQueue.emplace(cmd); }
 
@@ -52,7 +58,10 @@ void BattleView::update(float dt) {
         break;
 
     case State::WaitingMessage:
-        if (printer.messageDone()) { state = State::Done; }
+        if (printer.messageDone()) {
+            state = State::Done;
+            BL_LOG_INFO << "message done";
+        }
         break;
 
     default:
@@ -167,7 +176,7 @@ bool BattleView::processQueue() {
     }
 
     const bool wait = cmd.waitForView();
-    if (!wait) { commandQueue.pop(); }
+    commandQueue.pop();
     return !wait;
 }
 

@@ -35,15 +35,21 @@ void LocalBattleController::initCurrentStage() {
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
-        // TODO - play anim and print message
+        // TODO - play anim
+        queueCommand({Command::SyncStateNoSwitch(), false});
+        queueCommand({Message(Message::Type::WildIntro, state->enemy().name()), true});
         break;
 
     case Stage::TrainerIntro:
-        // TODO - show image and say message
+        // TODO - show image somehow
+        queueCommand({Command::SyncStateNoSwitch(), false});
+        queueCommand({Message(Message::Type::TrainerIntro, state->enemy().name()), true});
         break;
 
     case Stage::NetworkIntro:
-        // TODO - say message
+        // TODO - show image?
+        queueCommand({Command::SyncStateNoSwitch(), false});
+        queueCommand({Message(Message::Type::NetworkIntro, state->enemy().name()), true});
         break;
 
     case Stage::IntroSendInSelf:
