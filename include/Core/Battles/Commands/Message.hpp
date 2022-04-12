@@ -30,7 +30,9 @@ public:
         SendOut,
         TrainerIntro,
         WildIntro,
-        NetworkIntro
+        NetworkIntro,
+        OpponentFirstSendout,
+        PlayerFirstSendout
     };
 
     /**

@@ -30,7 +30,7 @@ MessagePrinter::MessagePrinter()
     triangle.setFillColor(sf::Color(242, 186, 17));
 }
 
-void MessagePrinter::setMessage(BattleState&, const Message& msg) {
+void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     std::string dispText;
 
     switch (msg.getType()) {
@@ -64,6 +64,15 @@ void MessagePrinter::setMessage(BattleState&, const Message& msg) {
 
     case Message::Type::WildIntro:
         dispText = "A wild " + msg.getString() + " attacked!";
+        break;
+
+    case Message::Type::PlayerFirstSendout:
+        dispText = "Go " + state.localPlayer().activePeoplemon().base().name() + "!";
+        break;
+
+    case Message::Type::OpponentFirstSendout:
+        dispText =
+            state.enemy().name() + " used " + state.enemy().activePeoplemon().base().name() + "!";
         break;
 
     default:

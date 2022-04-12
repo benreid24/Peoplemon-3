@@ -38,7 +38,9 @@ struct Animation {
         SlideDown,
         ComeBack,
         SendOut,
-        UseMove
+        UseMove,
+        PlayerFirstSendout,
+        OpponentFirstSendout
     };
 
     /**

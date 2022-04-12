@@ -53,15 +53,19 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::IntroSendInSelf:
-        // TODO - play animation
+        queueCommand({Message(Message::Type::PlayerFirstSendout), false});
+        queueCommand(
+            {Animation(Animation::Target::User, Animation::Type::PlayerFirstSendout), true});
         break;
 
     case Stage::IntroSendInOpponent:
-        // TODO - play animation
+        queueCommand({Message(Message::Type::OpponentFirstSendout), false});
+        queueCommand(
+            {Animation(Animation::Target::User, Animation::Type::OpponentFirstSendout), true});
         break;
 
     case Stage::WaitingChoices:
-        // TODO - get choices and progress
+        // TODO - get choices and progress. command to start get choices?
         break;
 
     case Stage::PreUseItem:
@@ -185,28 +189,23 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         switch (state->currentStage()) {
         case Stage::WildIntro:
-            setBattleState(Stage::IntroSendInSelf);
+            setBattleState(Stage::IntroSendInOpponent);
             break;
 
         case Stage::TrainerIntro:
-            setBattleState(Stage::IntroSendInSelf);
+            setBattleState(Stage::IntroSendInOpponent);
             break;
 
         case Stage::NetworkIntro:
-            setBattleState(Stage::IntroSendInSelf);
+            setBattleState(Stage::IntroSendInOpponent);
             break;
 
         case Stage::IntroSendInSelf:
-            if (battle->type == Battle::Type::WildPeoplemon) {
-                setBattleState(Stage::WaitingChoices);
-            }
-            else {
-                setBattleState(Stage::IntroSendInOpponent);
-            }
+            setBattleState(Stage::WaitingChoices);
             break;
 
         case Stage::IntroSendInOpponent:
-            setBattleState(Stage::WaitingChoices);
+            setBattleState(Stage::IntroSendInSelf);
             break;
 
         case Stage::WaitingChoices:

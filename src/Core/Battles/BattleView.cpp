@@ -139,6 +139,16 @@ bool BattleView::processQueue() {
             state = State::WaitingMove;
             break;
 
+        case Animation::Type::PlayerFirstSendout:
+            localPeoplemon.triggerAnimation(Animation::Type::SendOut);
+            state = State::WaitingPeoplemon;
+            break;
+
+        case Animation::Type::OpponentFirstSendout:
+            opponentPeoplemon.triggerAnimation(Animation::Type::SendOut);
+            state = State::WaitingPeoplemon;
+            break;
+
         default:
             BL_LOG_ERROR << "Unknown animation type: " << cmd.getAnimation().type;
             commandQueue.pop();
