@@ -3,7 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Battles/Commands/TurnAction.hpp>
+#include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>

@@ -1,5 +1,5 @@
-#ifndef GAME_BATTLES_MESSAGES_ANIMATION_HPP
-#define GAME_BATTLES_MESSAGES_ANIMATION_HPP
+#ifndef GAME_BATTLES_COMMANDS_ANIMATION_HPP
+#define GAME_BATTLES_COMMANDS_ANIMATION_HPP
 
 #include <Core/Peoplemon/MoveId.hpp>
 #include <cstdint>
@@ -7,6 +7,9 @@
 namespace core
 {
 namespace battle
+{
+/// Collection of data classes for battle commands
+namespace cmd
 {
 /**
  * @brief Represents a type of animation that can be played in battle
@@ -64,6 +67,7 @@ struct Animation {
     const core::pplmn::MoveId move;
 };
 
+} // namespace cmd
 } // namespace battle
 } // namespace core
 

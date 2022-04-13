@@ -4,6 +4,8 @@ namespace core
 {
 namespace battle
 {
+namespace cmd
+{
 Animation::Animation(Target targ, Type tp)
 : target(targ)
 , type(tp)
@@ -14,5 +16,6 @@ Animation::Animation(Target targ, core::pplmn::MoveId m)
 , type(Type::UseMove)
 , move(m) {}
 
+} // namespace cmd
 } // namespace battle
 } // namespace core

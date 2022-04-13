@@ -16,6 +16,8 @@ const sf::Vector2f TextPos(12.f, 473.f);
 constexpr float TextWidth = 470.f;
 const sf::Vector2f ArrowPos(468.f, 573.f);
 const sf::Vector2f FlasherPos(476.f, 575.f);
+
+using Message = cmd::Message;
 } // namespace
 
 MessagePrinter::MessagePrinter()

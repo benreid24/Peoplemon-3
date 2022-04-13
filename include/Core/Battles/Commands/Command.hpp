@@ -1,5 +1,5 @@
-#ifndef GAME_BATTLES_MESSAGES_COMMAND_HPP
-#define GAME_BATTLES_MESSAGES_COMMAND_HPP
+#ifndef GAME_BATTLES_COMMANDS_COMMAND_HPP
+#define GAME_BATTLES_COMMANDS_COMMAND_HPP
 
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Battles/Commands/Message.hpp>
@@ -25,70 +25,40 @@ public:
      * @brief The type the command is
      *
      */
-    enum struct Type : std::uint8_t {
+    enum Type : std::uint8_t {
         DisplayMessage = 0,
         PlayAnimation  = 1,
 
         // sync with view. also for network sync
         SyncStateNoSwitch       = 2,
         SyncStatePlayerSwitch   = 3,
-        SyncStateOpponentSwitch = 4
+        SyncStateOpponentSwitch = 4,
+        WaitForView             = 5,
 
-        // TODO - others? maybe use commands for battler choices for easy networking?
+        GetBattlerChoices = 6,
+        GetFaintSwitch    = 7
     };
 
     /**
-     * @brief Empty struct to create sync commands
+     * @brief Creates a new command of the given type with no data
      *
+     * @param type The command type to create
      */
-    struct SyncStateNoSwitch {};
-
-    /**
-     * @brief Empty struct to create sync commands
-     *
-     */
-    struct SyncStatePlayerSwitch {};
-
-    /**
-     * @brief Empty struct to create sync commands
-     *
-     */
-    struct SyncStateOpponentSwitch {};
-
-    /**
-     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
-     *        needs to be sent over the network
-     *
-     */
-    Command(SyncStateNoSwitch&& unused, bool waitView);
-
-    /**
-     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
-     *        needs to be sent over the network
-     *
-     */
-    Command(SyncStatePlayerSwitch&& unused, bool waitView);
-
-    /**
-     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
-     *        needs to be sent over the network
-     *
-     */
-    Command(SyncStateOpponentSwitch&& unused, bool waitView);
+    Command(Type type);
 
     /**
      * @brief Creates a new DisplayMessage command
      *
      * @param message The message to display
      */
-    Command(Message&& message, bool waitView);
+    Command(cmd::Message&& message);
 
     /**
      * @brief Creates a new PlayAnimation command
      *
      * @param anim The animation descriptor to play
      */
-    Command(Animation&& anim, bool waitView);
+    Command(cmd::Animation&& anim);
 
     /**
      * @brief Returns the type of this command
@@ -100,27 +70,19 @@ public:
      * @brief Returns the message if this command is a message
      *
      */
-    const Message& getMessage() const;
+    const cmd::Message& getMessage() const;
 
     /**
      * @brief Returns the animation if this command is an animation
      *
      */
-    const Animation& getAnimation() const;
-
-    /**
-     * @brief True if the battle controller should wait for the view or false to continue to process
-     *        commands
-     *
-     */
-    bool waitForView() const;
+    const cmd::Animation& getAnimation() const;
 
 private:
+    struct Empty {};
+
     const Type type;
-    const std::variant<Message, Animation, SyncStateNoSwitch, SyncStatePlayerSwitch,
-                       SyncStateOpponentSwitch>
-        data;
-    const bool wait;
+    const std::variant<Empty, cmd::Message, cmd::Animation> data;
 };
 
 } // namespace battle

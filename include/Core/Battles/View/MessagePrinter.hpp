@@ -35,7 +35,7 @@ public:
      * @param state The current state of the battle
      * @param message The message to display
      */
-    void setMessage(BattleState& state, const Message& message);
+    void setMessage(BattleState& state, const cmd::Message& message);
 
     /**
      * @brief Displays the full message. Call when user presses the continue button

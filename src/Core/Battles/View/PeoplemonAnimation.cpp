@@ -19,6 +19,8 @@ const sf::Vector2f ViewSize(200.f, 200.f);
 const sf::Vector2f PeoplemonPos(ViewSize.x * 0.5f, ViewSize.y);
 constexpr float FadeRate  = 120.f;
 constexpr float SlideRate = 285.f;
+
+using Animation = cmd::Animation;
 } // namespace
 
 PeoplemonAnimation::PeoplemonAnimation(Position pos)

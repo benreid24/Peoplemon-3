@@ -76,11 +76,7 @@ public:
     void render(sf::RenderTarget& target, float lag) const;
 
 private:
-    enum struct State { Done, WaitingMessage, WaitingMove, WaitingPeoplemon, WaitingBars };
-
     BattleState& battleState;
-    State state;
-    std::queue<Command> commandQueue;
     view::PlayerMenu playerMenu;
     view::StatBoxes statBoxes;
     view::MessagePrinter printer;
@@ -91,7 +87,6 @@ private:
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 
-    bool processQueue();
     virtual void process(component::Command control) override;
 
     /*

@@ -1,7 +1,7 @@
 #ifndef GAME_BATTLES_BATTLERCONTROLLERS_BATTLERCONTROLLER_HPP
 #define GAME_BATTLES_BATTLERCONTROLLERS_BATTLERCONTROLLER_HPP
 
-#include <Core/Battles/Commands/TurnAction.hpp>
+#include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 

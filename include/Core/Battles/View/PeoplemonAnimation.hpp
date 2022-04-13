@@ -52,7 +52,7 @@ public:
      *
      * @param type The animation to play
      */
-    void triggerAnimation(Animation::Type type);
+    void triggerAnimation(cmd::Animation::Type type);
 
     /**
      * @brief Returns true if the animation has completed, false if in progress
@@ -81,7 +81,7 @@ private:
     const Position position;
     sf::View view;
     State state;
-    Animation::Type type;
+    cmd::Animation::Type type;
     float slideAmount;
     sf::Vector2f shakeOff;
     sf::Text placeholder;

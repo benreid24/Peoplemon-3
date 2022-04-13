@@ -2,7 +2,7 @@
 #define GAME_BATTLES_BATTLER_HPP
 
 #include <Core/Battles/BattlerControllers/BattlerController.hpp>
-#include <Core/Battles/Commands/TurnAction.hpp>
+#include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 

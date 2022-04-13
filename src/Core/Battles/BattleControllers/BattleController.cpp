@@ -61,19 +61,21 @@ bool BattleController::updateCommandQueue() {
     case Command::Type::SyncStatePlayerSwitch:
     case Command::Type::SyncStateOpponentSwitch:
         view->processCommand(cmd);
+        onCommandProcessed(cmd);
+        commandQueue.pop();
+        return true;
+
+    case Command::Type::WaitForView:
         subState = SubState::WaitingView;
-        break;
+        onCommandProcessed(cmd);
+        commandQueue.pop();
+        return false;
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();
         commandQueue.pop();
         return true;
     }
-
-    const bool wait = cmd.waitForView();
-    onCommandProcessed(cmd);
-    commandQueue.pop();
-    return !wait;
 }
 
 } // namespace battle

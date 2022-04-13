@@ -36,32 +36,37 @@ void LocalBattleController::initCurrentStage() {
     switch (state->currentStage()) {
     case Stage::WildIntro:
         // TODO - play anim
-        queueCommand({Command::SyncStateNoSwitch(), false});
-        queueCommand({Message(Message::Type::WildIntro, state->enemy().name()), true});
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::WildIntro, state->enemy().name())});
+        queueCommand({Command::WaitForView});
         break;
 
     case Stage::TrainerIntro:
         // TODO - show image somehow
-        queueCommand({Command::SyncStateNoSwitch(), false});
-        queueCommand({Message(Message::Type::TrainerIntro, state->enemy().name()), true});
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro, state->enemy().name())});
+        queueCommand({Command::WaitForView});
         break;
 
     case Stage::NetworkIntro:
         // TODO - show image?
-        queueCommand({Command::SyncStateNoSwitch(), false});
-        queueCommand({Message(Message::Type::NetworkIntro, state->enemy().name()), true});
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro, state->enemy().name())});
+        queueCommand({Command::WaitForView});
         break;
 
     case Stage::IntroSendInSelf:
-        queueCommand({Message(Message::Type::PlayerFirstSendout), false});
-        queueCommand(
-            {Animation(Animation::Target::User, Animation::Type::PlayerFirstSendout), true});
+        queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
+        queueCommand({cmd::Animation(cmd::Animation::Target::User,
+                                     cmd::Animation::Type::PlayerFirstSendout)});
+        queueCommand({Command::WaitForView});
         break;
 
     case Stage::IntroSendInOpponent:
-        queueCommand({Message(Message::Type::OpponentFirstSendout), false});
-        queueCommand(
-            {Animation(Animation::Target::User, Animation::Type::OpponentFirstSendout), true});
+        queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
+        queueCommand({cmd::Animation(cmd::Animation::Target::User,
+                                     cmd::Animation::Type::OpponentFirstSendout)});
+        queueCommand({Command::WaitForView});
         break;
 
     case Stage::WaitingChoices:
@@ -353,7 +358,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
 
     switch (ns) {
     case Stage::NextBattler:
-        queueCommand({Command::SyncStateNoSwitch(), false});
+        queueCommand({Command::SyncStateNoSwitch});
         return state->nextTurn();
 
     case Stage::HandleFaint:

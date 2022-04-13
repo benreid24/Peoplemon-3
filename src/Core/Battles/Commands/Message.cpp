@@ -4,6 +4,8 @@ namespace core
 {
 namespace battle
 {
+namespace cmd
+{
 Message::Message(Type tp)
 : type(tp)
 , data(Empty()) {}
@@ -19,5 +21,6 @@ const std::string& Message::getString() const {
     return data.index() == 1 ? *std::get_if<std::string>(&data) : err;
 }
 
+} // namespace cmd
 } // namespace battle
 } // namespace core

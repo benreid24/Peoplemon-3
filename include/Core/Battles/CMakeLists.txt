@@ -4,6 +4,7 @@ target_sources(Peoplemon PUBLIC
     BattleSkipper.hpp
     BattleState.hpp
     BattleView.hpp
+    TurnAction.hpp
 )
 
 add_subdirectory(BattleControllers)
