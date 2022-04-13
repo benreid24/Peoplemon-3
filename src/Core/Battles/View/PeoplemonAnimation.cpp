@@ -25,24 +25,28 @@ using Animation = cmd::Animation;
 
 PeoplemonAnimation::PeoplemonAnimation(Position pos)
 : position(pos) {
+    peoplemon.setPosition(ViewSize * 0.5f);
     placeholder.setFillColor(sf::Color::Red);
     placeholder.setFont(Properties::MenuFont());
-    placeholder.setCharacterSize(14);
+    placeholder.setCharacterSize(26);
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
     view = bl::interface::ViewUtil::computeSubView(
         sf::FloatRect(position == Position::Player ? PlayerPos : OpponentPos, ViewSize), pv);
+    view.setCenter(ViewSize * 0.5f);
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
     const auto path = position == Position::Player ? pplmn::Peoplemon::playerImage :
                                                      pplmn::Peoplemon::opponentImage;
     txtr            = bl::engine::Resources::textures().load(path(ppl)).data;
+
+    const sf::Vector2f ts(txtr->getSize());
     peoplemon.setTexture(*txtr, true);
-    peoplemon.setOrigin(static_cast<float>(txtr->getSize().x) * 0.5f,
-                        static_cast<float>(txtr->getSize().y));
+    peoplemon.setOrigin(ts * 0.5f);
     peoplemon.setColor(sf::Color::White);
+    peoplemon.setScale(ViewSize.x / ts.x, ViewSize.y / ts.y);
     state = State::Hidden;
 }
 
@@ -82,7 +86,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
     placeholder.setPosition(ViewSize * 0.5f - size * 0.5f);
 }
 
-bool PeoplemonAnimation::completed() const { return state == State::Static; }
+bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
     if (state == State::Playing) {

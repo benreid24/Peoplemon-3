@@ -87,6 +87,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     bl::interface::wordWrap(text, TextWidth);
     writer.setContent(text.getString().toAnsiString());
     text.setString("");
+    acked = false;
 }
 
 void MessagePrinter::finishPrint() {

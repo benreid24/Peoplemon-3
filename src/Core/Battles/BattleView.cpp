@@ -41,7 +41,6 @@ bool BattleView::actionsCompleted() const {
 
 void BattleView::processCommand(const Command& cmd) {
     using Animation = cmd::Animation;
-    using Message   = cmd::Message;
 
     const bool currentIsPlayer = &battleState.activeBattler() == &battleState.localPlayer();
 
@@ -56,14 +55,6 @@ void BattleView::processCommand(const Command& cmd) {
              (cmd.getAnimation().target == Animation::Target::Other && !currentIsPlayer));
 
         switch (cmd.getAnimation().type) {
-        case Animation::Type::ComeBack:
-        case Animation::Type::SendOut:
-        case Animation::Type::ShakeAndFlash:
-        case Animation::Type::SlideDown: {
-            auto& anim = userIsPlayer ? localPeoplemon : opponentPeoplemon;
-            anim.triggerAnimation(cmd.getAnimation().type);
-        } break;
-
         case Animation::Type::UseMove:
             moveAnimation.playAnimation(userIsPlayer ? view::MoveAnimation::Player :
                                                        view::MoveAnimation::Opponent,
@@ -78,9 +69,10 @@ void BattleView::processCommand(const Command& cmd) {
             opponentPeoplemon.triggerAnimation(Animation::Type::SendOut);
             break;
 
-        default:
-            BL_LOG_ERROR << "Unknown animation type: " << cmd.getAnimation().type;
-            break;
+        default: {
+            auto& anim = userIsPlayer ? localPeoplemon : opponentPeoplemon;
+            anim.triggerAnimation(cmd.getAnimation().type);
+        } break;
         }
     } break;
 

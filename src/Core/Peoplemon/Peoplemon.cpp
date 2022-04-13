@@ -159,7 +159,7 @@ std::string Peoplemon::playerImage(Id id) {
 
 std::string Peoplemon::opponentImage(Id id) {
     static const std::string rd =
-        bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/Peoplemon/Player");
+        bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/Peoplemon/Opponent");
     static const std::string missingno = bl::util::FileUtil::joinPath(rd, "0.png");
     const std::string img =
         bl::util::FileUtil::joinPath(rd, std::to_string(static_cast<unsigned int>(id)) + ".png");

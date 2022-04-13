@@ -23,6 +23,7 @@ void BattleController::update() {
     switch (subState) {
     case SubState::WaitingView:
         if (view->actionsCompleted()) {
+            BL_LOG_INFO << "view done";
             subState = SubState::Done;
             [[fallthrough]];
         }
