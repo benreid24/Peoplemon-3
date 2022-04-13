@@ -44,7 +44,8 @@ std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) 
     std::vector<core::pplmn::BattlePeoplemon> team;
     team.reserve(player.team().size());
     for (auto& ppl : player.team()) { team.emplace_back(&ppl); }
-    b->state.localPlayer().init(std::move(team), std::make_unique<PlayerController>());
+    b->state.localPlayer().init(std::move(team),
+                                std::make_unique<PlayerController>(b->view.menu()));
 
     return b;
 }

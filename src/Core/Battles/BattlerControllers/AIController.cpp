@@ -15,6 +15,8 @@ AIController::AIController(const std::string& tn, const std::vector<item::Id>& i
 
 const std::string& AIController::name() const { return _name; }
 
+void AIController::refresh() {}
+
 void AIController::startChooseAction() {
     // TODO - battle ai
 }

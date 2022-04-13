@@ -23,7 +23,6 @@ void BattleController::update() {
     switch (subState) {
     case SubState::WaitingView:
         if (view->actionsCompleted()) {
-            BL_LOG_INFO << "view done";
             subState = SubState::Done;
             [[fallthrough]];
         }
@@ -54,7 +53,10 @@ void BattleController::queueCommand(Command&& cmd) {
 bool BattleController::updateCommandQueue() {
     if (commandQueue.empty()) return false;
 
-    const Command& cmd = commandQueue.front();
+    const Command cmd = std::move(commandQueue.front());
+    commandQueue.pop();
+    onCommandProcessed(cmd);
+
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
     case Command::Type::PlayAnimation:
@@ -62,19 +64,20 @@ bool BattleController::updateCommandQueue() {
     case Command::Type::SyncStatePlayerSwitch:
     case Command::Type::SyncStateOpponentSwitch:
         view->processCommand(cmd);
-        onCommandProcessed(cmd);
-        commandQueue.pop();
         return true;
 
     case Command::Type::WaitForView:
         subState = SubState::WaitingView;
-        onCommandProcessed(cmd);
-        commandQueue.pop();
         return false;
+
+    case Command::Type::GetBattlerChoices:
+        subState = SubState::WaitingView;
+        state->localPlayer().pickAction();
+        state->enemy().pickAction();
+        return true;
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();
-        commandQueue.pop();
         return true;
     }
 }

@@ -68,10 +68,11 @@ PlayerMenu::PlayerMenu(bool canRun)
     movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 88.f));
 }
 
-void PlayerMenu::setPeoplemon(const pplmn::BattlePeoplemon& ppl) {
+void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
     using namespace bl::menu;
 
-    moves = ppl.base().knownMoves();
+    currentPeoplemon = i;
+    moves            = ppl.base().knownMoves();
     for (int i = 0; i < 4; ++i) { moveItems[i].reset(); }
 
     for (int i = 0; i < 4; ++i) {
@@ -96,6 +97,25 @@ void PlayerMenu::setPeoplemon(const pplmn::BattlePeoplemon& ppl) {
                 moveMenu.attachExisting(moveItems[3].get(), moveItems[2].get(), Item::Right);
             }
         }
+    }
+}
+
+void PlayerMenu::refresh() {
+    switch (state) {
+    case State::PickingItem:
+        if (chosenItem != item::Id::None)
+            state = State::Hidden;
+        else
+            state = State::PickingAction;
+        break;
+    case State::PickingPeoplemon:
+        if (chosenMoveOrPeoplemon != -1)
+            state = State::Hidden;
+        else
+            state = State::PickingAction;
+        break;
+    default:
+        break;
     }
 }
 

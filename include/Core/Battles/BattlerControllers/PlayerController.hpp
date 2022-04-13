@@ -7,6 +7,11 @@ namespace core
 {
 namespace battle
 {
+namespace view
+{
+class PlayerMenu;
+}
+
 /**
  * @brief This controller allows the player to control a battler
  *
@@ -15,7 +20,12 @@ namespace battle
  */
 class PlayerController : public BattlerController {
 public:
-    // TODO - how to interface with menus in the view? dont forget to remove items from the bag
+    /**
+     * @brief Construct a new Player Controller
+     *
+     * @param menu The menu to get player choices from
+     */
+    PlayerController(view::PlayerMenu& menu);
 
     /**
      * @brief Destroy the Player Controller object
@@ -29,7 +39,18 @@ public:
      */
     virtual const std::string& name() const override;
 
+    /**
+     * @brief Checks the menu state
+     *
+     */
+    virtual void refresh() override;
+
 private:
+    enum struct State { Waiting, PickingTurn, PickingFaintReplacement };
+
+    State state;
+    view::PlayerMenu& menu;
+
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon() override;
 };

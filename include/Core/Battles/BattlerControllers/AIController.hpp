@@ -34,6 +34,12 @@ public:
     AIController(const std::string& trainerName, const std::vector<item::Id>& items);
 
     /**
+     * @brief Does nothing
+     *
+     */
+    virtual void refresh() override;
+
+    /**
      * @brief Returns the name of the battler
      *
      */

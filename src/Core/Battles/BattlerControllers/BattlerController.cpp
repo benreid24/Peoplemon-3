@@ -8,7 +8,7 @@ BattlerController::BattlerController()
 : action(TurnAction::Fight)
 , useItem(core::item::Id::None)
 , switchIndex(0)
-, move(core::pplmn::MoveId::Unknown)
+, move(-1)
 , actionChoosed(false)
 , subActionPicked(false) {}
 
@@ -28,7 +28,7 @@ void BattlerController::pickPeoplemon() {
 
 TurnAction BattlerController::chosenAction() const { return action; }
 
-core::pplmn::MoveId BattlerController::chosenMove() const { return move; }
+int BattlerController::chosenMove() const { return move; }
 
 core::item::Id BattlerController::chosenItem() const { return useItem; }
 
@@ -39,7 +39,7 @@ void BattlerController::chooseAction(TurnAction a) {
     action        = a;
 }
 
-void BattlerController::chooseMove(core::pplmn::MoveId m) {
+void BattlerController::chooseMove(int m) {
     subActionPicked = true;
     move            = m;
 }

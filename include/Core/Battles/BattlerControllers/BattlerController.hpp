@@ -30,6 +30,12 @@ public:
     virtual const std::string& name() const = 0;
 
     /**
+     * @brief Method that allows controllers to poll status from non-callback based sources
+     *
+     */
+    virtual void refresh() = 0;
+
+    /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
      *
      */
@@ -57,7 +63,7 @@ public:
      * @brief Returns the move the battler is using this turn
      *
      */
-    core::pplmn::MoveId chosenMove() const;
+    int chosenMove() const;
 
     /**
      * @brief Returns the item the battler is using this turn
@@ -102,9 +108,9 @@ protected:
     /**
      * @brief Selects the move to use this turn when fighting
      *
-     * @param move The move to use
+     * @param move The index of the move to use
      */
-    void chooseMove(core::pplmn::MoveId move);
+    void chooseMove(int move);
 
     /**
      * @brief Selects the peoplemon to switch to
@@ -124,7 +130,7 @@ private:
     TurnAction action;
     core::item::Id useItem;
     std::uint8_t switchIndex;
-    core::pplmn::MoveId move;
+    int move;
     bool actionChoosed;
     bool subActionPicked;
 };

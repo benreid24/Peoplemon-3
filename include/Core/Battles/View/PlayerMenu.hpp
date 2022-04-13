@@ -34,10 +34,19 @@ public:
     PlayerMenu(bool canRun);
 
     /**
-     * @brief Updates the menu for the given peoplemon
+     * @brief Polls state from opened peoplemon or bag menu
      *
      */
-    void setPeoplemon(const pplmn::BattlePeoplemon& ppl);
+    void refresh();
+
+    /**
+     * @brief Updates the menu for the given peoplemon
+     *
+     * @param i The index of the peoplemon in the team
+     * @param ppl The peoplemon itself
+     *
+     */
+    void setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl);
 
     /**
      * @brief Resets the menu to the turn start state
@@ -104,6 +113,7 @@ private:
         int chosenMoveOrPeoplemon;
         item::Id chosenItem;
     };
+    int currentPeoplemon;
 
     bl::menu::Menu actionMenu;
     bl::menu::TextItem::Ptr fightItem;

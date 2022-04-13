@@ -29,6 +29,12 @@ public:
      */
     virtual const std::string& name() const override;
 
+    /**
+     * @brief Does nothing
+     *
+     */
+    virtual void refresh() override;
+
 private:
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon() override;

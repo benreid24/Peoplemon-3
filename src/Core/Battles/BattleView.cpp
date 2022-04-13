@@ -25,6 +25,8 @@ void BattleView::configureView(const sf::View& pv) {
     opponentPeoplemon.configureView(pv);
 
     // first time init of view components
+    playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                            battleState.localPlayer().activePeoplemon());
     statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
     statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
     statBoxes.sync();
@@ -78,10 +80,14 @@ void BattleView::processCommand(const Command& cmd) {
 
     case Command::Type::SyncStateNoSwitch:
         statBoxes.sync();
+        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                                battleState.localPlayer().activePeoplemon());
         break;
 
     case Command::Type::SyncStatePlayerSwitch:
         statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
+        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                                battleState.localPlayer().activePeoplemon());
         statBoxes.sync();
         localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
@@ -91,6 +97,8 @@ void BattleView::processCommand(const Command& cmd) {
     case Command::Type::SyncStateOpponentSwitch:
         statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
         statBoxes.sync();
+        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                                battleState.localPlayer().activePeoplemon());
         opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
         moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
                                    battleState.enemy().activePeoplemon());
@@ -102,12 +110,15 @@ void BattleView::processCommand(const Command& cmd) {
     }
 }
 
+view::PlayerMenu& BattleView::menu() { return playerMenu; }
+
 void BattleView::update(float dt) {
     statBoxes.update(dt);
     printer.update(dt);
     localPeoplemon.update(dt);
     opponentPeoplemon.update(dt);
     moveAnimation.update(dt);
+    playerMenu.refresh();
 }
 
 void BattleView::render(sf::RenderTarget& target, float lag) const {

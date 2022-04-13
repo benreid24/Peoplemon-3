@@ -24,7 +24,7 @@ void Battler::pickPeoplemon() { controller->pickPeoplemon(); }
 
 TurnAction Battler::chosenAction() const { return controller->chosenAction(); }
 
-core::pplmn::MoveId Battler::chosenMove() const { return controller->chosenMove(); }
+int Battler::chosenMove() const { return controller->chosenMove(); }
 
 core::item::Id Battler::chosenItem() const { return controller->chosenItem(); }
 

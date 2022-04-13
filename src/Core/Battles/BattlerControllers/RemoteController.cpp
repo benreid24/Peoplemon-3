@@ -9,6 +9,8 @@ const std::string& RemoteController::name() const {
     return n;
 }
 
+void RemoteController::refresh() {}
+
 void RemoteController::startChooseAction() {
     // TODO - get from network
 }

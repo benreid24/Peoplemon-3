@@ -37,6 +37,12 @@ public:
               std::unique_ptr<BattlerController>&& controller);
 
     /**
+     * @brief Calls refresh on the controller. Should be called every update
+     *
+     */
+    void refresh();
+
+    /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
      *
      */
@@ -64,7 +70,7 @@ public:
      * @brief Returns the move the battler is using this turn
      *
      */
-    core::pplmn::MoveId chosenMove() const;
+    int chosenMove() const;
 
     /**
      * @brief Returns the item the battler is using this turn

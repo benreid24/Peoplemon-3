@@ -70,7 +70,7 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::WaitingChoices:
-        // TODO - get choices and progress. command to start get choices?
+        queueCommand({Command::GetBattlerChoices});
         break;
 
     case Stage::PreUseItem:
