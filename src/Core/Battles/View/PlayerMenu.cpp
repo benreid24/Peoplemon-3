@@ -39,11 +39,15 @@ PlayerMenu::PlayerMenu(bool canRun)
         actionMenu.addItem(runItem, bagItem.get(), Item::Bottom);
         actionMenu.attachExisting(runItem.get(), switchItem.get(), Item::Right);
     }
+    else {
+        actionMenu.attachExisting(switchItem.get(), bagItem.get(), Item::Bottom, false);
+        actionMenu.attachExisting(bagItem.get(), switchItem.get(), Item::Right, false);
+    }
     actionMenu.setPosition({513.f, 476.f});
-    actionMenu.setPadding({12.f, 12.f});
+    actionMenu.setPadding({40.f, 17.f});
 
     moveMenu.setPosition({16.f, 477.f});
-    moveMenu.setPadding({12.f, 12.f});
+    moveMenu.setPadding({25.f, 20.f});
 
     moveTxtr =
         bl::engine::Resources::textures()
@@ -60,12 +64,12 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveAcc.setFillColor(sf::Color::Black);
     moveAcc.setFont(Properties::MenuFont());
     moveAcc.setCharacterSize(25);
-    moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
+    moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 53.f));
 
     movePP.setFillColor(sf::Color::Black);
     movePP.setFont(Properties::MenuFont());
     movePP.setCharacterSize(25);
-    movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 88.f));
+    movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 87.f));
 }
 
 void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
@@ -78,13 +82,14 @@ void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
     for (int i = 0; i < 4; ++i) {
         if (ppl.base().knownMoves()[i].id == pplmn::MoveId::Unknown) break;
         moveItems[i] = TextItem::create(
-            pplmn::Move::name(moves[i].id), Properties::MenuFont(), sf::Color::Black, 30);
+            pplmn::Move::name(moves[i].id), Properties::MenuFont(), sf::Color::Black, 24);
         moveItems[i]
             ->getSignal(Item::Activated)
             .willAlwaysCall(std::bind(&PlayerMenu::moveChosen, this, i));
         moveItems[i]
             ->getSignal(Item::Selected)
             .willAlwaysCall(std::bind(&PlayerMenu::syncMove, this, i));
+        if (i == 1) { moveItems[i]->overridePosition({240.f, 0.f}); }
     }
 
     moveMenu.setRootItem(moveItems[0]);
@@ -95,6 +100,11 @@ void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
             if (moveItems[3]) {
                 moveMenu.addItem(moveItems[3], moveItems[1].get(), Item::Bottom);
                 moveMenu.attachExisting(moveItems[3].get(), moveItems[2].get(), Item::Right);
+            }
+            else {
+                moveMenu.attachExisting(
+                    moveItems[2].get(), moveItems[1].get(), Item::Bottom, false);
+                moveMenu.attachExisting(moveItems[1].get(), moveItems[2].get(), Item::Right, false);
             }
         }
     }
@@ -161,6 +171,8 @@ void PlayerMenu::render(sf::RenderTarget& target) const {
 void PlayerMenu::fightChosen() {
     state        = State::PickingMove;
     chosenAction = TurnAction::Fight;
+    // TODO - check if no pp then flail. or maybe just return 0 to flail and battle controller
+    // resolves?
     menuDriver.drive(&moveMenu);
     for (int i = 0; i < 4; ++i) {
         if (moveMenu.getSelectedItem() == moveItems[i].get()) {

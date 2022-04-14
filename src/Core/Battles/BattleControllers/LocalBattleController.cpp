@@ -175,6 +175,7 @@ void LocalBattleController::initCurrentStage() {
     case Stage::Completed:
     case Stage::TurnStart:
     case Stage::HandleFaint:
+    case Stage::RoundStart:
         // do nothing, these are intermediate states
         break;
 
@@ -214,10 +215,8 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::WaitingChoices:
-            // TODO - this may have to go outside of the top conditional
             if (state->localPlayer().actionSelected() && state->enemy().actionSelected()) {
-                // TODO - determine order and set in state. sync over network?
-                setBattleState(Stage::TurnStart);
+                setBattleState(Stage::RoundStart);
             }
             break;
 
@@ -324,6 +323,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::NextBattler:
         case Stage::Completed:
         case Stage::HandleFaint:
+        case Stage::RoundStart:
             // do nothing, these are intermediate states
             break;
 
@@ -365,11 +365,15 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         // TODO - determine if victory or switch
         return Stage::BeforeFaintSwitch;
 
-    case Stage::WaitingChoices:
-        // TODO - start getting choices and determine what type of turn it is
+    case Stage::TurnStart:
+        // TODO - determine what type of turn it is
         return Stage::BeforeAttack;
 
-        // TODO - other special cases?
+    case Stage::RoundStart:
+        // TODO - determine order and set in state. sync over network?
+        return Stage::TurnStart;
+
+        // TODO - other special cases
 
     default:
         return ns;

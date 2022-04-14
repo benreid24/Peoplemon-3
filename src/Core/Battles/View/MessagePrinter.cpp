@@ -91,7 +91,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 }
 
 void MessagePrinter::finishPrint() {
-    if (!writer.finished()) { writer.showAll(); }
+    if (!writer.finished()) {
+        writer.showAll();
+        text.setString(std::string(writer.getVisible()));
+    }
     else {
         acked = true;
         text.setString("");

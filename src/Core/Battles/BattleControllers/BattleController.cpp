@@ -74,7 +74,7 @@ bool BattleController::updateCommandQueue() {
         subState = SubState::WaitingView;
         state->localPlayer().pickAction();
         state->enemy().pickAction();
-        return true;
+        return false;
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();

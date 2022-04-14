@@ -75,6 +75,7 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {
+    systems.player().inputSystem().update();
     battle->controller->update();
     battle->view.update(dt);
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {

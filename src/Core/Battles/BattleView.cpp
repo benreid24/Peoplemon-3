@@ -38,7 +38,7 @@ void BattleView::configureView(const sf::View& pv) {
 
 bool BattleView::actionsCompleted() const {
     return statBoxes.synced() && moveAnimation.completed() && localPeoplemon.completed() &&
-           opponentPeoplemon.completed() && printer.messageDone();
+           opponentPeoplemon.completed() && printer.messageDone() && playerMenu.ready();
 }
 
 void BattleView::processCommand(const Command& cmd) {

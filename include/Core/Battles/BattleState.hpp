@@ -31,6 +31,7 @@ public:
 
         // Turn start
         WaitingChoices,
+        RoundStart,
         TurnStart,
         NextBattler,
 
