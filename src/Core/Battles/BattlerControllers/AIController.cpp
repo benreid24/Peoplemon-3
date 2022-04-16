@@ -1,5 +1,6 @@
 #include <Core/Battles/BattlerControllers/AIController.hpp>
 
+#include <Core/Battles/Battler.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace core
@@ -19,10 +20,18 @@ void AIController::refresh() {}
 
 void AIController::startChooseAction() {
     // TODO - battle ai
+    chooseMove(0);
 }
 
 void AIController::startChoosePeoplemon() {
     // TODO - battle ai
+    for (unsigned int i = 0; i < owner->peoplemon().size(); ++i) {
+        if (owner->peoplemon()[i].base().currentHp() > 0) {
+            choosePeoplemon(i);
+            break;
+        }
+    }
+    choosePeoplemon(-1);
 }
 
 } // namespace battle

@@ -9,6 +9,8 @@ namespace core
 {
 namespace battle
 {
+class Battler;
+
 /**
  * @brief Base class for battlers in the game. This provides storage for peoplemon and turn choices
  *
@@ -22,6 +24,13 @@ public:
      *
      */
     virtual ~BattlerController() = default;
+
+    /**
+     * @brief Sets the owner of this controller
+     *
+     * @param owner The battler using this controller
+     */
+    void setOwner(Battler& owner);
 
     /**
      * @brief Returns the name of the battler
@@ -78,6 +87,8 @@ public:
     std::uint8_t chosenPeoplemon() const;
 
 protected:
+    Battler* owner;
+
     /**
      * @brief Initializes the battler with the peoplemon available to it
      *
@@ -97,13 +108,6 @@ protected:
      *
      */
     virtual void startChoosePeoplemon() = 0;
-
-    /**
-     * @brief Selects the action to take on this turn
-     *
-     * @param action The action to store and report to the battle
-     */
-    void chooseAction(TurnAction action);
 
     /**
      * @brief Selects the move to use this turn when fighting
@@ -126,12 +130,19 @@ protected:
      */
     void chooseItem(core::item::Id item);
 
+    /**
+     * @brief Chooses to run away
+     *
+     */
+    void chooseRun();
+
 private:
     TurnAction action;
-    core::item::Id useItem;
-    std::uint8_t switchIndex;
-    int move;
-    bool actionChoosed;
+    union {
+        core::item::Id useItem;
+        std::uint8_t switchIndex;
+        int move;
+    };
     bool subActionPicked;
 };
 

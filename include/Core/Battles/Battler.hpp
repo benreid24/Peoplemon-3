@@ -108,6 +108,14 @@ public:
      */
     const std::string& name() const;
 
+    /**
+     * @brief Returns the priority of the battler's action. Fight returns the move priority and
+     *        other choices return 1000. Player goes first in case of tie
+     *
+     * @return unsigned int The priority of the battler's turn
+     */
+    unsigned int getPriority() const;
+
 private:
     BattleState& state;
     std::unique_ptr<BattlerController> controller;

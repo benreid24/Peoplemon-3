@@ -20,7 +20,6 @@ void PlayerController::refresh() {
     case State::PickingTurn:
         if (menu.ready()) {
             state = State::Waiting;
-            chooseAction(menu.selectedAction());
             switch (menu.selectedAction()) {
             case TurnAction::Fight:
                 chooseMove(menu.selectedMove());
@@ -32,6 +31,8 @@ void PlayerController::refresh() {
                 choosePeoplemon(menu.selectedPeoplemon());
                 break;
             case TurnAction::Run:
+                chooseRun();
+                break;
             default:
                 break;
             }

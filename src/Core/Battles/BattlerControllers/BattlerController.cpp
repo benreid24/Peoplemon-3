@@ -7,21 +7,18 @@ namespace battle
 BattlerController::BattlerController()
 : action(TurnAction::Fight)
 , useItem(core::item::Id::None)
-, switchIndex(0)
-, move(-1)
-, actionChoosed(false)
 , subActionPicked(false) {}
 
-bool BattlerController::actionSelected() const { return actionChoosed; }
+void BattlerController::setOwner(Battler& o) { owner = &o; }
+
+bool BattlerController::actionSelected() const { return subActionPicked; }
 
 void BattlerController::pickAction() {
-    actionChoosed   = false;
     subActionPicked = false;
     startChooseAction();
 }
 
 void BattlerController::pickPeoplemon() {
-    actionChoosed   = false;
     subActionPicked = false;
     startChoosePeoplemon();
 }
@@ -34,24 +31,27 @@ core::item::Id BattlerController::chosenItem() const { return useItem; }
 
 std::uint8_t BattlerController::chosenPeoplemon() const { return switchIndex; }
 
-void BattlerController::chooseAction(TurnAction a) {
-    actionChoosed = true;
-    action        = a;
-}
-
 void BattlerController::chooseMove(int m) {
     subActionPicked = true;
     move            = m;
+    action          = TurnAction::Fight;
 }
 
 void BattlerController::choosePeoplemon(std::uint8_t i) {
     subActionPicked = true;
     switchIndex     = i;
+    action          = TurnAction::Switch;
 }
 
 void BattlerController::chooseItem(core::item::Id it) {
     subActionPicked = true;
     useItem         = it;
+    action          = TurnAction::Item;
+}
+
+void BattlerController::chooseRun() {
+    action          = TurnAction::Run;
+    subActionPicked = true;
 }
 
 } // namespace battle

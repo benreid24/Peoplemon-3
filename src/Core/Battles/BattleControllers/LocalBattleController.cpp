@@ -117,9 +117,11 @@ void LocalBattleController::initCurrentStage() {
                                       .knownMoves()[state->activeBattler().chosenMove()]
                                       .id;
         queueCommand({cmd::Message(cmd::Message(mid))});
+        queueCommand({Command::WaitForView});
         queueCommand({cmd::Animation(cmd::Animation::Target::Other, mid)});
         queueCommand({Command::WaitForView});
         queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)});
+        queueCommand({Command::WaitForView});
         // TODO - do we need 3 separate attack phases?
     } break;
 
@@ -199,7 +201,6 @@ void LocalBattleController::initCurrentStage() {
 void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) {
     using Stage = BattleState::Stage;
 
-    // TODO - some stages may end up with different transition conditions
     if (viewSynced && queueEmpty) {
         BATTLE_LOG << "Detected end of stage " << state->currentStage();
 
@@ -367,20 +368,34 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     using Stage = BattleState::Stage;
 
     switch (ns) {
-    case Stage::NextBattler:
+    case Stage::NextBattler: {
+        const BattleState::Stage next = state->nextTurn();
         queueCommand({Command::SyncStateNoSwitch});
-        return state->nextTurn();
+        return next;
+    }
 
     case Stage::HandleFaint:
         // TODO - determine if victory or switch
         return Stage::BeforeFaintSwitch;
 
     case Stage::TurnStart:
-        // TODO - determine what type of turn it is
-        return Stage::BeforeAttack;
+        switch (state->activeBattler().chosenAction()) {
+        case TurnAction::Fight:
+            return Stage::BeforeAttack;
+        case TurnAction::Item:
+            return Stage::PreUseItem;
+        case TurnAction::Run:
+            return Stage::BeforeRun;
+        case TurnAction::Switch:
+            return Stage::BeforeSwitch;
+        default:
+            BL_LOG_ERROR << "Unknown turn action: " << state->activeBattler().chosenAction();
+            return Stage::Completed;
+        }
 
     case Stage::RoundStart:
-        // TODO - determine order and set in state. sync over network?
+        state->beginRound(state->localPlayer().getPriority() >= state->enemy().getPriority());
+        queueCommand({Command::SyncStateNoSwitch});
         return Stage::TurnStart;
 
         // TODO - other special cases

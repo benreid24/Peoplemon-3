@@ -78,6 +78,8 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
     systems.player().inputSystem().update();
     battle->controller->update();
     battle->view.update(dt);
+    battle->state.localPlayer().refresh();
+    battle->state.enemy().refresh();
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
         engine.popState();
         // TODO - handle whiteout/healing here
