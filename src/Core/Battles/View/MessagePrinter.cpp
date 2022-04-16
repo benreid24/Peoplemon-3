@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/WordWrap.hpp>
 #include <Core/Battles/BattleState.hpp>
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -37,8 +38,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     switch (msg.getType()) {
     case Message::Type::Attack:
-        // TODO - generate actual message
-        dispText = "An attack was used";
+        dispText = state.activeBattler().activePeoplemon().base().name() + "used " +
+                   core::pplmn::Move::name(msg.getMoveId()) + "!";
         break;
 
     case Message::Type::Callback:
@@ -52,8 +53,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::SuperEffective:
-        // TODO - generate actual message
-        dispText = "A move was super effective";
+        dispText = "It was super effective!";
         break;
 
     case Message::Type::NetworkIntro:

@@ -1,6 +1,7 @@
 #ifndef GAME_BATTLES_COMMANDS_MESSAGE_HPP
 #define GAME_BATTLES_COMMANDS_MESSAGE_HPP
 
+#include <Core/Peoplemon/MoveId.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -53,6 +54,13 @@ public:
     Message(Type type, const std::string& str);
 
     /**
+     * @brief Construct a new Message of the Attack type
+     *
+     * @param move The move being used
+     */
+    Message(pplmn::MoveId move);
+
+    /**
      * @brief Returns the type of message this is
      *
      */
@@ -64,11 +72,17 @@ public:
      */
     const std::string& getString() const;
 
+    /**
+     * @brief Returns the move id of the message
+     *
+     */
+    pplmn::MoveId getMoveId() const;
+
 private:
     struct Empty {};
 
     const Type type;
-    const std::variant<Empty, std::string> data;
+    const std::variant<Empty, std::string, pplmn::MoveId> data;
 };
 
 } // namespace cmd

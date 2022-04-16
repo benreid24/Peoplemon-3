@@ -109,9 +109,19 @@ void LocalBattleController::initCurrentStage() {
         // TODO - display message
         break;
 
-    case Stage::BeforeAttack:
+    case Stage::BeforeAttack: {
         // TODO - check abilities etc, show message
-        break;
+        const pplmn::MoveId mid = state->activeBattler()
+                                      .activePeoplemon()
+                                      .base()
+                                      .knownMoves()[state->activeBattler().chosenMove()]
+                                      .id;
+        queueCommand({cmd::Message(cmd::Message(mid))});
+        queueCommand({cmd::Animation(cmd::Animation::Target::Other, mid)});
+        queueCommand({Command::WaitForView});
+        queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)});
+        // TODO - do we need 3 separate attack phases?
+    } break;
 
     case Stage::Attacking:
         // TODO - play animations and apply move
