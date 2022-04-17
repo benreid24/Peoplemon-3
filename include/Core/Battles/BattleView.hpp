@@ -59,6 +59,12 @@ public:
     bool actionsCompleted() const;
 
     /**
+     * @brief Hides the battle text when the view is synced
+     *
+     */
+    void hideText();
+
+    /**
      * @brief Processes a command and updates the view
      *
      * @param command The command to process

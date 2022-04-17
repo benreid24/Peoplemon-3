@@ -41,6 +41,8 @@ bool BattleView::actionsCompleted() const {
            opponentPeoplemon.completed() && printer.messageDone() && playerMenu.ready();
 }
 
+void BattleView::hideText() { printer.hide(); }
+
 void BattleView::processCommand(const Command& cmd) {
     using Animation = cmd::Animation;
 

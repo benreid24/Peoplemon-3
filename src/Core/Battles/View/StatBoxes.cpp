@@ -24,7 +24,7 @@ const sf::Vector2f OpBoxPos(0.f, 0.f);
 const sf::Vector2f OpBarPos(100.f, 50.f);
 
 const sf::Vector2f LpBoxPos(540.f, 357.f);
-const sf::Vector2f LpBarPos(149.f, 54.f);
+const sf::Vector2f LpBarPos(148.f, 54.f);
 
 constexpr float NameSize  = 18.f;
 constexpr float LevelSize = 15.f;
@@ -111,8 +111,7 @@ void StatBoxes::sync() {
     if (localPlayer) {
         lpName.setString(localPlayer->base().name());
         lpLevel.setString(std::to_string(localPlayer->base().currentLevel()));
-        lpHp.setString(
-            makeHpStr(localPlayer->base().currentHp(), localPlayer->base().currentStats().hp));
+        lpHp.setString(makeHpStr(localPlayer->base().currentHp(), localPlayer->currentStats().hp));
         lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()), true);
         lpHpBarTarget = (static_cast<float>(localPlayer->base().currentHp()) /
                          static_cast<float>(localPlayer->currentStats().hp)) *
@@ -120,6 +119,7 @@ void StatBoxes::sync() {
         lpXpBarTarget = (static_cast<float>(localPlayer->base().currentXP()) /
                          static_cast<float>(localPlayer->base().nextLevelXP())) *
                         XpBarSize.x;
+        BL_LOG_INFO << lpHpBarTarget;
     }
     else {
         BL_LOG_WARN << "sync() called with null player peoplemon";

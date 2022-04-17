@@ -24,7 +24,8 @@ using Message = cmd::Message;
 MessagePrinter::MessagePrinter()
 : triangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
 , flasher(triangle, 0.75f, 0.65f)
-, acked(false) {
+, acked(false)
+, visible(false) {
     text.setFillColor(sf::Color::Black);
     text.setFont(Properties::MenuFont());
     text.setCharacterSize(18.f);
@@ -38,7 +39,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     switch (msg.getType()) {
     case Message::Type::Attack:
-        dispText = state.activeBattler().activePeoplemon().base().name() + "used " +
+        dispText = state.activeBattler().activePeoplemon().base().name() + " used " +
                    core::pplmn::Move::name(msg.getMoveId()) + "!";
         break;
 
@@ -87,7 +88,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     bl::interface::wordWrap(text, TextWidth);
     writer.setContent(text.getString().toAnsiString());
     text.setString("");
-    acked = false;
+    acked   = false;
+    visible = true;
 }
 
 void MessagePrinter::finishPrint() {
@@ -97,9 +99,10 @@ void MessagePrinter::finishPrint() {
     }
     else {
         acked = true;
-        text.setString("");
     }
 }
+
+void MessagePrinter::hide() { visible = false; }
 
 bool MessagePrinter::messageDone() const { return acked; }
 
@@ -113,10 +116,12 @@ void MessagePrinter::update(float dt) {
 }
 
 void MessagePrinter::render(sf::RenderTarget& target) const {
-    target.draw(text);
-    if (writer.finished() && !acked) {
-        sf::RenderStates states;
-        flasher.render(target, {}, 0.f);
+    if (visible) {
+        target.draw(text);
+        if (writer.finished() && !acked) {
+            sf::RenderStates states;
+            flasher.render(target, {}, 0.f);
+        }
     }
 }
 

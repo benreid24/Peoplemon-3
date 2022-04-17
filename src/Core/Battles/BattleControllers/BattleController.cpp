@@ -24,6 +24,7 @@ void BattleController::update() {
     case SubState::WaitingView:
         if (view->actionsCompleted()) {
             subState = SubState::Done;
+            view->hideText();
             [[fallthrough]];
         }
         else {

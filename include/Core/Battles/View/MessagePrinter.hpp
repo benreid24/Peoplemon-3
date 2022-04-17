@@ -50,6 +50,12 @@ public:
     bool messageDone() const;
 
     /**
+     * @brief Hides the text once the view is fully synced
+     *
+     */
+    void hide();
+
+    /**
      * @brief Updates the ghost writer
      *
      * @param dt Time elapsed in seconds
@@ -69,6 +75,7 @@ private:
     bl::shapes::Triangle triangle;
     bl::gfx::Flashing flasher;
     bool acked;
+    bool visible;
 };
 
 } // namespace view
