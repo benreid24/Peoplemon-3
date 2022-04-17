@@ -42,10 +42,15 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
                                            pplmn::Move::opponentAnimationBackground;
     fgSrc         = bl::engine::Resources::animations().load(fg(move)).data;
     bgSrc         = bl::engine::Resources::animations().load(bg(move)).data;
-    foreground.setData(*fgSrc);
-    background.setData(*bgSrc);
-    foreground.play(true);
-    background.play(true);
+    if (fgSrc && bgSrc) {
+        foreground.setData(*fgSrc);
+        background.setData(*bgSrc);
+        foreground.play(true);
+        background.play(true);
+    }
+    else {
+        BL_LOG_ERROR << "Missing animation for move " << move;
+    }
 }
 
 bool MoveAnimation::completed() const { return background.finished() && foreground.finished(); }

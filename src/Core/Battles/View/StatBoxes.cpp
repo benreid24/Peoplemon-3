@@ -119,7 +119,6 @@ void StatBoxes::sync() {
         lpXpBarTarget = (static_cast<float>(localPlayer->base().currentXP()) /
                          static_cast<float>(localPlayer->base().nextLevelXP())) *
                         XpBarSize.x;
-        BL_LOG_INFO << lpHpBarTarget;
     }
     else {
         BL_LOG_WARN << "sync() called with null player peoplemon";
