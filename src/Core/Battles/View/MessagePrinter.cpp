@@ -78,6 +78,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
             state.enemy().name() + " used " + state.enemy().activePeoplemon().base().name() + "!";
         break;
 
+    case Message::Type::AttackMissed:
+        dispText = "But it missed!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

@@ -48,6 +48,8 @@ private:
     void initCurrentStage();
     void checkCurrentStage(bool viewSynced, bool queueEmpty);
     BattleState::Stage getNextStage(BattleState::Stage ns);
+
+    void startUseMove(Battler& user, int index);
 };
 
 } // namespace battle

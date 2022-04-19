@@ -80,7 +80,8 @@ void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
     for (int i = 0; i < 4; ++i) { moveItems[i].reset(); }
 
     for (int i = 0; i < 4; ++i) {
-        if (ppl.base().knownMoves()[i].id == pplmn::MoveId::Unknown) break;
+        if (moves[i].id == pplmn::MoveId::Unknown) break;
+
         moveItems[i] = TextItem::create(
             pplmn::Move::name(moves[i].id), Properties::MenuFont(), sf::Color::Black, 24);
         moveItems[i]
@@ -171,13 +172,25 @@ void PlayerMenu::render(sf::RenderTarget& target) const {
 void PlayerMenu::fightChosen() {
     state        = State::PickingMove;
     chosenAction = TurnAction::Fight;
-    // TODO - check if no pp then flail. or maybe just return 0 to flail and battle controller
-    // resolves?
-    menuDriver.drive(&moveMenu);
+
+    bool useFlail = true;
     for (int i = 0; i < 4; ++i) {
-        if (moveMenu.getSelectedItem() == moveItems[i].get()) {
-            syncMove(i);
+        if (moves[i].id != pplmn::MoveId::Unknown && moves[i].curPP > 0) {
+            useFlail = false;
             break;
+        }
+    }
+    if (useFlail) {
+        state                 = State::Hidden;
+        chosenMoveOrPeoplemon = -1;
+    }
+    else {
+        menuDriver.drive(&moveMenu);
+        for (int i = 0; i < 4; ++i) {
+            if (moveMenu.getSelectedItem() == moveItems[i].get()) {
+                syncMove(i);
+                break;
+            }
         }
     }
 }

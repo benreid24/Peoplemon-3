@@ -35,7 +35,8 @@ public:
         WildIntro,
         NetworkIntro,
         OpponentFirstSendout,
-        PlayerFirstSendout
+        PlayerFirstSendout,
+        AttackMissed
     };
 
     /**

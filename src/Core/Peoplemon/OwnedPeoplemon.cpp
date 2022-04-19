@@ -164,6 +164,8 @@ bool OwnedPeoplemon::knowsMove(MoveId m) const {
 
 const OwnedMove* OwnedPeoplemon::knownMoves() const { return moves; }
 
+OwnedMove* OwnedPeoplemon::knownMoves() { return moves; }
+
 void OwnedPeoplemon::learnMove(MoveId m, unsigned int i) { moves[i] = OwnedMove(m); }
 
 void OwnedPeoplemon::heal() {

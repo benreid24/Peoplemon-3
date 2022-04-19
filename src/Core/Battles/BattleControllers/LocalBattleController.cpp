@@ -1,9 +1,9 @@
 #include <Core/Battles/BattleControllers/LocalBattleController.hpp>
 
+#include <BLIB/Util/Random.hpp>
 #include <Core/Battles/Battle.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
-
 #include <Core/Peoplemon/Move.hpp>
 
 #ifdef PEOPLEMON_DEBUG
@@ -416,6 +416,34 @@ void LocalBattleController::onCommandProcessed(const Command&) {
 }
 
 void LocalBattleController::onUpdate(bool vs, bool qe) { updateBattleState(vs, qe); }
+
+void LocalBattleController::startUseMove(Battler& user, int index) {
+    static pplmn::OwnedMove flail(pplmn::MoveId::SuperTrustFall); // TODO - replace with correct id
+
+    Battler& victim = &user == &state->localPlayer() ? state->enemy() : state->localPlayer();
+    pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
+    pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
+
+    pplmn::OwnedMove& move = index >= 0 ? user.activePeoplemon().base().knownMoves()[index] : flail;
+    move.curPP -= 1;
+
+    // determine if hit
+    const int acc = pplmn::Move::accuracy(move.id);
+    const int pacc = attacker.battleStats().acc;
+    const int evd = defender.battleStats().evade;
+    const int hitChance = acc * pacc / evd;
+    if (bl::util::Random::get<int>(0, 100) > hitChance && acc != 0) {
+        queueCommand({cmd::Message::Type::AttackMissed});
+        queueCommand({Command::WaitForView});
+        setBattleState(BattleState::Stage::AfterAttack);
+        return;
+    }
+
+    // determine damage
+    const bool special = pplmn::Move::isSpecial(move.id);
+    float atk      = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
+    float def      = special ? defender.currentStats().spdef : defender.currentStats().def;
+}
 
 } // namespace battle
 } // namespace core

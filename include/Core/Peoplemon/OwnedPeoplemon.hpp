@@ -179,6 +179,12 @@ public:
     const OwnedMove* knownMoves() const;
 
     /**
+     * @brief Returns the moves known by this Peoplemon
+     *
+     */
+    OwnedMove* knownMoves();
+
+    /**
      * @brief Returns whether or not this peoplemon knows the given move
      *
      * @param move The move to check for

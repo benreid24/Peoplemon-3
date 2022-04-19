@@ -6,4 +6,5 @@ target_sources(Core PRIVATE
     OwnedPeoplemon.cpp
     Peoplemon.cpp
     Stats.cpp
+    Type.cpp
 )
