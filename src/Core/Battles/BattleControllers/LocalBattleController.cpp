@@ -4,6 +4,8 @@
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
 
+#include <Core/Peoplemon/Move.hpp>
+
 #ifdef PEOPLEMON_DEBUG
 #define BATTLE_LOG BL_LOG_INFO
 #else
