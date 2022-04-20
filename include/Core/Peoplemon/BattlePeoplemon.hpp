@@ -52,6 +52,13 @@ public:
     const BattleStats& battleStats() const;
 
     /**
+     * @brief Applies damage to the peoplemon. Ensures that the hp does not go negative
+     *
+     * @param dmg The amount of hp to reduce
+     */
+    void applyDamage(int dmg);
+
+    /**
      * @brief Apply a stage change to the given stat
      *
      * @param stat The stat to change

@@ -106,6 +106,8 @@ const std::string& OwnedPeoplemon::name() const {
     return customName.empty() ? Peoplemon::name(_id) : customName;
 }
 
+Type OwnedPeoplemon::type() const { return Peoplemon::type(_id); }
+
 void OwnedPeoplemon::setCustomName(const std::string& n) { customName = n; }
 
 unsigned int OwnedPeoplemon::currentLevel() const { return level; }

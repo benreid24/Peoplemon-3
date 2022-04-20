@@ -53,8 +53,9 @@ public:
      * @brief Enqueues a command to manipulate battle state or the view
      *
      * @param command The command to enqueue
+     * @param addWait True to add a waitView command after the given command
      */
-    void queueCommand(Command&& command);
+    void queueCommand(Command&& command, bool addWait = false);
 
 protected:
     Battle* battle;

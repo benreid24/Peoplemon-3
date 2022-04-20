@@ -57,6 +57,24 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "It was super effective!";
         break;
 
+    case Message::Type::NotEffective:
+        dispText = "It was not very effective";
+        break;
+
+    case Message::Type::IsNotAffected:
+        dispText = state.inactiveBattler().activePeoplemon().base().name() +
+                   " is not affected by " +
+                   pplmn::Move::name(state.activeBattler()
+                                         .activePeoplemon()
+                                         .base()
+                                         .knownMoves()[state.activeBattler().chosenMove()]
+                                         .id);
+        break;
+
+    case Message::Type::CriticalHit:
+        dispText = "It was a critical hit!";
+        break;
+
     case Message::Type::NetworkIntro:
         dispText = "Your friend " + msg.getString() + " wants to fight!";
         break;

@@ -26,6 +26,12 @@ const Stats& BattlePeoplemon::currentStats() const { return cached; }
 
 const BattleStats& BattlePeoplemon::battleStats() const { return cachedBattle; }
 
+void BattlePeoplemon::applyDamage(int dmg) {
+    std::uint16_t udmg = dmg;
+    udmg               = std::min(udmg, ppl->hp);
+    ppl->hp -= udmg;
+}
+
 void BattlePeoplemon::statChange(Stat stat, int diff) {
     int* val = nullptr;
     switch (stat) {

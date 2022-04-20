@@ -17,6 +17,22 @@ namespace core
 {
 namespace battle
 {
+namespace
+{
+int critChance(int stage) {
+    switch (stage) {
+    case 0:
+        return 7;
+    case 1:
+        return 13;
+    case 2:
+        return 50;
+    default:
+        return 100; // this seems wrong
+    }
+}
+} // namespace
+
 LocalBattleController::LocalBattleController()
 : currentStageInitialized(false) {}
 
@@ -39,36 +55,33 @@ void LocalBattleController::initCurrentStage() {
     case Stage::WildIntro:
         // TODO - play anim
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::WildIntro, state->enemy().name())});
-        queueCommand({Command::WaitForView});
+        queueCommand({cmd::Message(cmd::Message::Type::WildIntro, state->enemy().name())}, true);
         break;
 
     case Stage::TrainerIntro:
         // TODO - show image somehow
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro, state->enemy().name())});
-        queueCommand({Command::WaitForView});
+        queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro, state->enemy().name())}, true);
         break;
 
     case Stage::NetworkIntro:
         // TODO - show image?
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro, state->enemy().name())});
-        queueCommand({Command::WaitForView});
+        queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro, state->enemy().name())}, true);
         break;
 
     case Stage::IntroSendInSelf:
         queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Target::User,
-                                     cmd::Animation::Type::PlayerFirstSendout)});
-        queueCommand({Command::WaitForView});
+                                     cmd::Animation::Type::PlayerFirstSendout)},
+                     true);
         break;
 
     case Stage::IntroSendInOpponent:
         queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Target::User,
-                                     cmd::Animation::Type::OpponentFirstSendout)});
-        queueCommand({Command::WaitForView});
+                                     cmd::Animation::Type::OpponentFirstSendout)},
+                     true);
         break;
 
     case Stage::WaitingChoices:
@@ -111,28 +124,8 @@ void LocalBattleController::initCurrentStage() {
         // TODO - display message
         break;
 
-    case Stage::BeforeAttack: {
-        // TODO - check abilities etc, show message
-        const pplmn::MoveId mid = state->activeBattler()
-                                      .activePeoplemon()
-                                      .base()
-                                      .knownMoves()[state->activeBattler().chosenMove()]
-                                      .id;
-        queueCommand({cmd::Message(cmd::Message(mid))});
-        queueCommand({Command::WaitForView});
-        queueCommand({cmd::Animation(cmd::Animation::Target::Other, mid)});
-        queueCommand({Command::WaitForView});
-        queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)});
-        queueCommand({Command::WaitForView});
-        // TODO - do we need 3 separate attack phases?
-    } break;
-
     case Stage::Attacking:
-        // TODO - play animations and apply move
-        break;
-
-    case Stage::AfterAttack:
-        // TODO - sync bars, check abilities, do stat mods and anims
+        startUseMove(state->activeBattler(), state->activeBattler().chosenMove());
         break;
 
     case Stage::BeforeFaint:
@@ -270,15 +263,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::NextBattler);
             break;
 
-        case Stage::BeforeAttack:
-            setBattleState(Stage::Attacking);
-            break;
-
         case Stage::Attacking:
-            setBattleState(Stage::AfterAttack);
-            break;
-
-        case Stage::AfterAttack:
             if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0) {
                 setBattleState(Stage::BeforeFaint);
             }
@@ -383,7 +368,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     case Stage::TurnStart:
         switch (state->activeBattler().chosenAction()) {
         case TurnAction::Fight:
-            return Stage::BeforeAttack;
+            return Stage::Attacking;
         case TurnAction::Item:
             return Stage::PreUseItem;
         case TurnAction::Run:
@@ -427,22 +412,63 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     pplmn::OwnedMove& move = index >= 0 ? user.activePeoplemon().base().knownMoves()[index] : flail;
     move.curPP -= 1;
 
+    queueCommand({cmd::Message(cmd::Message(move.id))}, true);
+
     // determine if hit
-    const int acc = pplmn::Move::accuracy(move.id);
-    const int pacc = attacker.battleStats().acc;
-    const int evd = defender.battleStats().evade;
+    const int acc       = pplmn::Move::accuracy(move.id);
+    const int pacc      = attacker.battleStats().acc;
+    const int evd       = defender.battleStats().evade;
     const int hitChance = acc * pacc / evd;
     if (bl::util::Random::get<int>(0, 100) > hitChance && acc != 0) {
-        queueCommand({cmd::Message::Type::AttackMissed});
-        queueCommand({Command::WaitForView});
-        setBattleState(BattleState::Stage::AfterAttack);
+        queueCommand({cmd::Message::Type::AttackMissed}, true);
         return;
     }
 
-    // determine damage
-    const bool special = pplmn::Move::isSpecial(move.id);
-    float atk      = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
-    float def      = special ? defender.currentStats().spdef : defender.currentStats().def;
+    // move has hit
+    // TODO - will have to move these in event that move gets canceled
+    queueCommand({cmd::Animation(cmd::Animation::Target::Other, move.id)}, true);
+
+    // determine if attacking move
+    const pplmn::Type moveType = pplmn::Move::type(move.id);
+    const bool special         = pplmn::Move::isSpecial(move.id);
+    int pwr                    = pplmn::Move::damage(move.id);
+
+    // move does damage
+    if (pwr > 0) {
+        // TODO - move may not hit based on abilities and prior moves, may need to move these
+        queueCommand(
+            {cmd::Animation(cmd::Animation::Target::Other, cmd::Animation::Type::ShakeAndFlash)});
+        queueCommand({Command::SyncStateNoSwitch}, true);
+
+        int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
+        int def          = special ? defender.currentStats().spdef : defender.currentStats().def;
+        const float stab = pplmn::TypeUtil::getStab(moveType, attacker.base().type());
+        const float effective  = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
+        const float multiplier = bl::util::Random::get<float>(0.85f, 1.f);
+        const bool crit =
+            bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStats().crit);
+        int damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
+        damage *= stab * multiplier * effective * (crit ? 2.f : 1.f);
+
+        BATTLE_LOG << pplmn::Move::name(move.id) << " did " << damage << " damage to "
+                   << defender.base().name();
+        defender.applyDamage(damage);
+
+        if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
+        if (effective > 1.1f) {
+            defender.notifySuperEffectiveHit(move.id);
+            queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)}, true);
+        }
+        else if (effective < 0.1f) {
+            queueCommand({cmd::Message(cmd::Message::Type::IsNotAffected)}, true);
+            return;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::NotEffective)}, true);
+        }
+    }
+
+    // TODO - resolve move effects
 }
 
 } // namespace battle

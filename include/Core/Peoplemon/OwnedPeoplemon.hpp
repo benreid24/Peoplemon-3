@@ -7,6 +7,7 @@
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/OwnedMove.hpp>
 #include <Core/Peoplemon/Stats.hpp>
+#include <Core/Peoplemon/Type.hpp>
 #include <string>
 
 namespace editor
@@ -82,6 +83,12 @@ public:
      * @param name The name. Pass empty to reset to default
      */
     void setCustomName(const std::string& name);
+
+    /**
+     * @brief Returns the type of the peoplemon
+     *
+     */
+    Type type() const;
 
     /**
      * @brief Returns the current level of this peoplemon

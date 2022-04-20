@@ -46,9 +46,13 @@ void BattleController::update() {
     onUpdate(subState == SubState::Done, commandQueue.empty());
 }
 
-void BattleController::queueCommand(Command&& cmd) {
+void BattleController::queueCommand(Command&& cmd, bool addWait) {
     commandQueue.emplace(std::forward<Command>(cmd));
     onCommandQueued(commandQueue.back());
+    if (addWait) {
+        commandQueue.emplace(Command::WaitForView);
+        onCommandQueued(commandQueue.back());
+    }
 }
 
 bool BattleController::updateCommandQueue() {

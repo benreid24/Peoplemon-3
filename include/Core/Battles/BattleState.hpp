@@ -53,9 +53,7 @@ public:
         RunFailed,
 
         // Fight
-        BeforeAttack,
         Attacking,
-        AfterAttack,
 
         // Peoplemon defeated
         BeforeFaint,
