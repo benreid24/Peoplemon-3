@@ -23,9 +23,7 @@ float compareSingleEffective(Type move, Type ppl) {
     case Type::Funny:
         switch (ppl) {
         case Type::Intelligent:
-        case Type::PartyAnimal:
             return 2.f;
-        case Type::Athletic:
         case Type::Awkward:
         case Type::Quiet:
             return 0.5f;
@@ -36,28 +34,23 @@ float compareSingleEffective(Type move, Type ppl) {
     case Type::Athletic:
         switch (ppl) {
         case Type::Normal:
-        case Type::Funny:
             return 2.f;
         case Type::Intelligent:
-            return 0.5f;
         case Type::Awkward:
-            return 0.f;
+            return 0.5f;
         default:
             return 1.f;
         }
 
     case Type::Quiet:
-        if (ppl == Type::Awkward) return 2.f;
-        if (ppl == Type::PartyAnimal) return 0.5f;
+        if (ppl == Type::PartyAnimal) return 2.f;
         break;
 
     case Type::Awkward:
         switch (ppl) {
         case Type::Normal:
-        case Type::Athletic:
-            return 0.f;
         case Type::Quiet:
-            return 0.5f;
+            return 0.f;
         case Type::Funny:
         case Type::Awkward:
             return 2.f;
@@ -67,11 +60,10 @@ float compareSingleEffective(Type move, Type ppl) {
 
     case Type::PartyAnimal:
         switch (ppl) {
-        case Type::Funny:
-            return 0.5f;
-        case Type::Athletic:
-        case Type::Quiet:
+        case Type::Awkward:
             return 2.f;
+        case Type::Quiet:
+            return 0.5f;
         default:
             return 1.f;
         }
