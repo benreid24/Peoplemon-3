@@ -100,6 +100,12 @@ public:
     Stage nextTurn();
 
     /**
+     * @brief Returns whether the current mover is the first peoplemon to go this round
+     *
+     */
+    bool isFirstMover() const;
+
+    /**
      * @brief Returns the local player Battler
      *
      */

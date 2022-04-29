@@ -36,6 +36,12 @@ MessagePrinter::MessagePrinter()
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     std::string dispText;
+    const std::string& ppl   = msg.forActiveBattler() ?
+                                   state.activeBattler().activePeoplemon().base().name() :
+                                   state.inactiveBattler().activePeoplemon().base().name();
+    const std::string& other = msg.forActiveBattler() ?
+                                   state.inactiveBattler().activePeoplemon().base().name() :
+                                   state.activeBattler().activePeoplemon().base().name();
 
     switch (msg.getType()) {
     case Message::Type::Attack:
@@ -98,6 +104,106 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::AttackMissed:
         dispText = "But it missed!";
+        break;
+
+    case Message::Type::AttackRestoredHp:
+        dispText = ppl + " had it's HP restored!";
+        break;
+
+    case Message::Type::GainedAilment:
+        switch (msg.getAilment()) {
+        case pplmn::Ailment::Annoyed:
+            dispText = ppl + " became Annoyed!";
+            break;
+        case pplmn::Ailment::Frozen:
+            dispText = ppl + " was Frozen!";
+            break;
+        case pplmn::Ailment::Frustrated:
+            dispText = ppl + " became Frustrated!";
+            break;
+        case pplmn::Ailment::Guarded:
+            dispText = ppl + " is Guarded!";
+            break;
+        case pplmn::Ailment::Sleep:
+            dispText = ppl + " was afflicted by Sleep!";
+            break;
+        case pplmn::Ailment::Sticky:
+            dispText = ppl + " became Sticky!";
+            break;
+        case pplmn::Ailment::None:
+        default:
+            dispText = "<ERROR: Invalid ailment specified in ailment message>";
+            break;
+        }
+        break;
+
+    case Message::Type::AilmentGiveFail:
+        switch (msg.getAilment()) {
+        case pplmn::Ailment::Annoyed:
+            dispText = other + " tried to Annoy " + ppl + " but it failed!";
+            break;
+        case pplmn::Ailment::Frozen:
+            dispText = other + " tried to Freeze " + ppl + " but it failed!";
+            break;
+        case pplmn::Ailment::Frustrated:
+            dispText = other + " tried to Frustrate " + ppl + " but it failed!";
+            break;
+        case pplmn::Ailment::Guarded:
+            dispText = other + " tried to Guard " + ppl + " but it failed!";
+            break;
+        case pplmn::Ailment::Sleep:
+            dispText = other + " tried to make " + ppl + " fall asleep, but it failed!";
+            break;
+        case pplmn::Ailment::Sticky:
+            dispText = other + " tried to make " + ppl + " Sticky, but it failed!";
+            break;
+        case pplmn::Ailment::None:
+        default:
+            dispText = "<ERROR: Invalid ailment specified in ailment message>";
+            break;
+        }
+        break;
+
+    case Message::Type::GainedPassiveAilment:
+        switch (msg.getPassiveAilment()) {
+        case pplmn::PassiveAilment::Confused:
+            dispText = ppl + " became Confused!";
+            break;
+        case pplmn::PassiveAilment::Distracted:
+            dispText = ppl + " is now Distracted!";
+            break;
+        case pplmn::PassiveAilment::Stolen:
+            dispText = ppl + " was Jumped!";
+            break;
+        case pplmn::PassiveAilment::Trapped:
+            dispText = ppl + " became Trapped!";
+            break;
+        case pplmn::PassiveAilment::None:
+        default:
+            dispText = "<ERROR: Invalid passive ailment specified in ailment message>";
+            break;
+        }
+        break;
+
+    case Message::Type::PassiveAilmentGiveFail:
+        switch (msg.getPassiveAilment()) {
+        case pplmn::PassiveAilment::Confused:
+            dispText = other + " tried to Confuse " + ppl + " but it failed!";
+            break;
+        case pplmn::PassiveAilment::Distracted:
+            dispText = other + " tried to Distract " + ppl + " but it failed!";
+            break;
+        case pplmn::PassiveAilment::Stolen:
+            dispText = other + " tried to Jump " + ppl + " but it failed!";
+            break;
+        case pplmn::PassiveAilment::Trapped:
+            dispText = other + " tried to Trap " + ppl + " but it failed!";
+            break;
+        case pplmn::PassiveAilment::None:
+        default:
+            dispText = "<ERROR: Invalid passive ailment specified in ailment message>";
+            break;
+        }
         break;
 
     default:

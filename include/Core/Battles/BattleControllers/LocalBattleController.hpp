@@ -50,6 +50,8 @@ private:
     BattleState::Stage getNextStage(BattleState::Stage ns);
 
     void startUseMove(Battler& user, int index);
+    void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::Ailment ailment);
+    void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::PassiveAilment ailment);
 };
 
 } // namespace battle

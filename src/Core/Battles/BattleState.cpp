@@ -34,10 +34,9 @@ Battler& BattleState::inactiveBattler() { return currentMover == 1 ? player : op
 
 BattleState::Stage BattleState::currentStage() const { return stage; }
 
-void BattleState::setStage(Stage s) {
-    stage = s;
-    // TODO - send sync event?
-}
+void BattleState::setStage(Stage s) { stage = s; }
+
+bool BattleState::isFirstMover() const { return currentMover == firstMover; }
 
 } // namespace battle
 } // namespace core

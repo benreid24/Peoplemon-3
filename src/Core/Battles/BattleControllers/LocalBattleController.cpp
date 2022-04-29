@@ -478,142 +478,252 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const int intensity              = pplmn::Move::effectIntensity(move.id);
 
         switch (effect) {
-        case pplmn::MoveEffect::Heal: {
-            //
-        } break;
+        case pplmn::MoveEffect::Heal:
+            affected.base().currentHp() += affected.currentStats().hp * intensity / 100;
+            queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, affectsSelf)});
+            break;
+
         case pplmn::MoveEffect::Poison:
+            applyAilmentFromMove(affected, pplmn::Ailment::Sticky);
             break;
+
         case pplmn::MoveEffect::Burn:
+            applyAilmentFromMove(affected, pplmn::Ailment::Frustrated);
             break;
+
         case pplmn::MoveEffect::Paralyze:
+            applyAilmentFromMove(affected, pplmn::Ailment::Annoyed);
             break;
+
         case pplmn::MoveEffect::Freeze:
+            applyAilmentFromMove(affected, pplmn::Ailment::Frozen);
             break;
+
         case pplmn::MoveEffect::Confuse:
+            applyAilmentFromMove(affected, pplmn::PassiveAilment::Confused);
             break;
+
         case pplmn::MoveEffect::LeechSeed:
+            applyAilmentFromMove(affected, pplmn::PassiveAilment::Stolen);
             break;
+
         case pplmn::MoveEffect::Flinch:
+            if (state->isFirstMover()) {
+                affected.giveAilment(pplmn::PassiveAilment::Distracted);
+                queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
+                                           pplmn::PassiveAilment::Distracted,
+                                           affectsSelf)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::PassiveAilmentGiveFail,
+                                           pplmn::PassiveAilment::Distracted,
+                                           affectsSelf)});
+            }
             break;
+
         case pplmn::MoveEffect::Trap:
             break;
+
         case pplmn::MoveEffect::Sleep:
             break;
+
         case pplmn::MoveEffect::Protection:
             break;
+
         case pplmn::MoveEffect::Safegaurd:
             break;
+
         case pplmn::MoveEffect::Substitute:
             break;
+
         case pplmn::MoveEffect::HealBell:
             break;
+
         case pplmn::MoveEffect::CritUp:
             break;
+
         case pplmn::MoveEffect::AtkUp:
             break;
+
         case pplmn::MoveEffect::DefUp:
             break;
+
         case pplmn::MoveEffect::AccUp:
             break;
+
         case pplmn::MoveEffect::EvdUp:
             break;
+
         case pplmn::MoveEffect::SpdUp:
             break;
+
         case pplmn::MoveEffect::SpAtkUp:
             break;
+
         case pplmn::MoveEffect::SpDefUp:
             break;
+
         case pplmn::MoveEffect::CritDown:
             break;
+
         case pplmn::MoveEffect::AtkDown:
             break;
+
         case pplmn::MoveEffect::DefDown:
             break;
+
         case pplmn::MoveEffect::AccDown:
             break;
+
         case pplmn::MoveEffect::EvdDown:
             break;
+
         case pplmn::MoveEffect::SpdDown:
             break;
+
         case pplmn::MoveEffect::SpAtkDown:
             break;
+
         case pplmn::MoveEffect::SpDefDown:
             break;
+
         case pplmn::MoveEffect::Recoil:
             break;
+
         case pplmn::MoveEffect::Charge:
             break;
+
         case pplmn::MoveEffect::Suicide:
             break;
+
         case pplmn::MoveEffect::Counter:
             break;
+
         case pplmn::MoveEffect::MirrorCoat:
             break;
+
         case pplmn::MoveEffect::OnlySleeping:
             break;
+
         case pplmn::MoveEffect::Peanut:
             break;
+
         case pplmn::MoveEffect::SetBall:
             break;
+
         case pplmn::MoveEffect::WakeBoth:
             break;
+
         case pplmn::MoveEffect::HealPercent:
             break;
+
         case pplmn::MoveEffect::Encore:
             break;
+
         case pplmn::MoveEffect::RandomMove:
             break;
+
         case pplmn::MoveEffect::BatonPass:
             break;
+
         case pplmn::MoveEffect::DieIn3Turns:
             break;
+
         case pplmn::MoveEffect::CritEvdUp:
             break;
+
         case pplmn::MoveEffect::BumpBall:
             break;
+
         case pplmn::MoveEffect::SpikeBall:
             break;
+
         case pplmn::MoveEffect::DeathSwap:
             break;
+
         case pplmn::MoveEffect::Gamble:
             break;
+
         case pplmn::MoveEffect::StayAlive:
             break;
+
         case pplmn::MoveEffect::MaxAtkMinAcc:
             break;
+
         case pplmn::MoveEffect::FrustConfuse:
             break;
+
         case pplmn::MoveEffect::Spikes:
             break;
+
         case pplmn::MoveEffect::DoubleFamily:
             break;
+
         case pplmn::MoveEffect::EnemyPPDown:
             break;
+
         case pplmn::MoveEffect::HealNext:
             break;
+
         case pplmn::MoveEffect::Roar:
             break;
+
         case pplmn::MoveEffect::FailOnMove64:
             break;
+
         case pplmn::MoveEffect::SleepHeal:
             break;
+
         case pplmn::MoveEffect::SpdAtkUp:
             break;
+
         case pplmn::MoveEffect::StealStats:
             break;
+
         case pplmn::MoveEffect::BlockBall:
             break;
+
         case pplmn::MoveEffect::SwipeBall:
             break;
+
         case pplmn::MoveEffect::DamageThenSwitch:
             break;
+
         case pplmn::MoveEffect::RoarCancelBallSpikes:
             break;
+
         default:
             BATTLE_LOG << "Unknown move effect: " << effect;
             break;
         }
     }
+
+    // ensure that everything is reflected and wait for the view
+    queueCommand({Command::SyncStateNoSwitch}, true);
+}
+
+void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,
+                                                 pplmn::Ailment ail) {
+    const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
+
+    // TODO - handle abilities and whatnot
+
+    if (victim.giveAilment(ail)) {
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, selfGive)});
+    }
+    else {
+        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, selfGive)});
+    }
+}
+
+void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,
+                                                 pplmn::PassiveAilment ail) {
+    const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
+
+    // TODO - handle abilities and whatnot. not all ailments are gained unconditionally
+
+    victim.giveAilment(ail);
+    queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)});
 }
 
 } // namespace battle

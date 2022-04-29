@@ -1,7 +1,9 @@
 #ifndef GAME_BATTLES_COMMANDS_MESSAGE_HPP
 #define GAME_BATTLES_COMMANDS_MESSAGE_HPP
 
+#include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/PassiveAilment.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -39,7 +41,12 @@ public:
         NetworkIntro,
         OpponentFirstSendout,
         PlayerFirstSendout,
-        AttackMissed
+        AttackMissed,
+        AttackRestoredHp,
+        GainedAilment,
+        GainedPassiveAilment,
+        AilmentGiveFail,
+        PassiveAilmentGiveFail
     };
 
     /**
@@ -57,6 +64,32 @@ public:
     Message(pplmn::MoveId move);
 
     /**
+     * @brief Construct a new Message with an extra boolean value
+     *
+     * @param type The type of message to create
+     * @param bval The boolean value to store
+     */
+    Message(Type type, bool bval);
+
+    /**
+     * @brief Construct a new Message with an ailment
+     *
+     * @param type The type of message to create
+     * @param ailment The ailment to create it with
+     * @param forActiveBattler True if the message is for the active battler, false for the inactive
+     */
+    Message(Type type, pplmn::Ailment ailment, bool forActiveBattler);
+
+    /**
+     * @brief Construct a new Message with a passive ailment
+     *
+     * @param type The type of message to create
+     * @param ailment The ailment to create it with
+     * @param forActiveBattler True if the message is for the active battler, false for the inactive
+     */
+    Message(Type type, pplmn::PassiveAilment ailment, bool forActiveBattler);
+
+    /**
      * @brief Returns the type of message this is
      *
      */
@@ -68,11 +101,30 @@ public:
      */
     pplmn::MoveId getMoveId() const;
 
+    /**
+     * @brief Returns whether or not this message is for the active battler or not
+     *
+     */
+    bool forActiveBattler() const;
+
+    /**
+     * @brief Returns the ailment for this message
+     *
+     */
+    pplmn::Ailment getAilment() const;
+
+    /**
+     * @brief Returns the passive ailment for this message
+     *
+     */
+    pplmn::PassiveAilment getPassiveAilment() const;
+
 private:
     struct Empty {};
 
-    const Type type;
-    const std::variant<Empty, pplmn::MoveId> data;
+    Type type;
+    std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId> data;
+    std::uint8_t boolVal;
 };
 
 } // namespace cmd
