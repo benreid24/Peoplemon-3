@@ -55,19 +55,19 @@ void LocalBattleController::initCurrentStage() {
     case Stage::WildIntro:
         // TODO - play anim
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::WildIntro, state->enemy().name())}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::WildIntro)}, true);
         break;
 
     case Stage::TrainerIntro:
         // TODO - show image somehow
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro, state->enemy().name())}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro)}, true);
         break;
 
     case Stage::NetworkIntro:
         // TODO - show image?
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro, state->enemy().name())}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro)}, true);
         break;
 
     case Stage::IntroSendInSelf:
@@ -478,8 +478,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const int intensity              = pplmn::Move::effectIntensity(move.id);
 
         switch (effect) {
-        case pplmn::MoveEffect::Heal:
-            break;
+        case pplmn::MoveEffect::Heal: {
+            //
+        } break;
         case pplmn::MoveEffect::Poison:
             break;
         case pplmn::MoveEffect::Burn:

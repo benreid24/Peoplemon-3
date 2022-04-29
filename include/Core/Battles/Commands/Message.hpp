@@ -50,14 +50,6 @@ public:
     Message(Type type);
 
     /**
-     * @brief Construct a new Message from a string
-     *
-     * @param type The type of message
-     * @param str Data to help construct the message
-     */
-    Message(Type type, const std::string& str);
-
-    /**
      * @brief Construct a new Message of the Attack type
      *
      * @param move The move being used
@@ -71,12 +63,6 @@ public:
     Type getType() const;
 
     /**
-     * @brief Returns the string data of the message
-     *
-     */
-    const std::string& getString() const;
-
-    /**
      * @brief Returns the move id of the message
      *
      */
@@ -86,7 +72,7 @@ private:
     struct Empty {};
 
     const Type type;
-    const std::variant<Empty, std::string, pplmn::MoveId> data;
+    const std::variant<Empty, pplmn::MoveId> data;
 };
 
 } // namespace cmd

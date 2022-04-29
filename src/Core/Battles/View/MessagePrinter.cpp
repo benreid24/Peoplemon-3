@@ -76,15 +76,15 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::NetworkIntro:
-        dispText = "Your friend " + msg.getString() + " wants to fight!";
+        dispText = "Your friend " + state.enemy().name() + " wants to fight!";
         break;
 
     case Message::Type::TrainerIntro:
-        dispText = msg.getString() + " wants to battle!";
+        dispText = state.enemy().name() + " wants to battle!";
         break;
 
     case Message::Type::WildIntro:
-        dispText = "A wild " + msg.getString() + " attacked!";
+        dispText = "A wild " + state.enemy().name() + " attacked!";
         break;
 
     case Message::Type::PlayerFirstSendout:
