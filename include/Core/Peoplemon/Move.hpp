@@ -118,7 +118,7 @@ public:
      * @brief Returns whether or not the given move affects the user or the opponent
      *
      */
-    static bool effectsUser(MoveId move);
+    static bool affectsUser(MoveId move);
 
     /**
      * @brief Returns the path to the animation for when the local player uses the move

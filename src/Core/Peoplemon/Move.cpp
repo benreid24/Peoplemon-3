@@ -119,7 +119,7 @@ int Move::effectIntensity(MoveId id) {
     return it != effectIntensities->end() ? it->second : 0;
 }
 
-bool Move::effectsUser(MoveId id) {
+bool Move::affectsUser(MoveId id) {
     const auto it = effectSelves->find(id);
     return it != effectSelves->end() ? it->second : false;
 }

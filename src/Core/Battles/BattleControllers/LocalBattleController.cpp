@@ -468,7 +468,151 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
-    // TODO - resolve move effects
+    // resolve move effect if any
+    const pplmn::MoveEffect effect = pplmn::Move::effect(move.id);
+    const int chance               = pplmn::Move::effectChance(move.id);
+    if (effect != pplmn::MoveEffect::None &&
+        (chance < 0 || bl::util::Random::get<int>(0, 100) < chance)) {
+        const bool affectsSelf           = pplmn::Move::affectsUser(move.id);
+        pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
+        const int intensity              = pplmn::Move::effectIntensity(move.id);
+
+        switch (effect) {
+        case pplmn::MoveEffect::Heal:
+            break;
+        case pplmn::MoveEffect::Poison:
+            break;
+        case pplmn::MoveEffect::Burn:
+            break;
+        case pplmn::MoveEffect::Paralyze:
+            break;
+        case pplmn::MoveEffect::Freeze:
+            break;
+        case pplmn::MoveEffect::Confuse:
+            break;
+        case pplmn::MoveEffect::LeechSeed:
+            break;
+        case pplmn::MoveEffect::Flinch:
+            break;
+        case pplmn::MoveEffect::Trap:
+            break;
+        case pplmn::MoveEffect::Sleep:
+            break;
+        case pplmn::MoveEffect::Protection:
+            break;
+        case pplmn::MoveEffect::Safegaurd:
+            break;
+        case pplmn::MoveEffect::Substitute:
+            break;
+        case pplmn::MoveEffect::HealBell:
+            break;
+        case pplmn::MoveEffect::CritUp:
+            break;
+        case pplmn::MoveEffect::AtkUp:
+            break;
+        case pplmn::MoveEffect::DefUp:
+            break;
+        case pplmn::MoveEffect::AccUp:
+            break;
+        case pplmn::MoveEffect::EvdUp:
+            break;
+        case pplmn::MoveEffect::SpdUp:
+            break;
+        case pplmn::MoveEffect::SpAtkUp:
+            break;
+        case pplmn::MoveEffect::SpDefUp:
+            break;
+        case pplmn::MoveEffect::CritDown:
+            break;
+        case pplmn::MoveEffect::AtkDown:
+            break;
+        case pplmn::MoveEffect::DefDown:
+            break;
+        case pplmn::MoveEffect::AccDown:
+            break;
+        case pplmn::MoveEffect::EvdDown:
+            break;
+        case pplmn::MoveEffect::SpdDown:
+            break;
+        case pplmn::MoveEffect::SpAtkDown:
+            break;
+        case pplmn::MoveEffect::SpDefDown:
+            break;
+        case pplmn::MoveEffect::Recoil:
+            break;
+        case pplmn::MoveEffect::Charge:
+            break;
+        case pplmn::MoveEffect::Suicide:
+            break;
+        case pplmn::MoveEffect::Counter:
+            break;
+        case pplmn::MoveEffect::MirrorCoat:
+            break;
+        case pplmn::MoveEffect::OnlySleeping:
+            break;
+        case pplmn::MoveEffect::Peanut:
+            break;
+        case pplmn::MoveEffect::SetBall:
+            break;
+        case pplmn::MoveEffect::WakeBoth:
+            break;
+        case pplmn::MoveEffect::HealPercent:
+            break;
+        case pplmn::MoveEffect::Encore:
+            break;
+        case pplmn::MoveEffect::RandomMove:
+            break;
+        case pplmn::MoveEffect::BatonPass:
+            break;
+        case pplmn::MoveEffect::DieIn3Turns:
+            break;
+        case pplmn::MoveEffect::CritEvdUp:
+            break;
+        case pplmn::MoveEffect::BumpBall:
+            break;
+        case pplmn::MoveEffect::SpikeBall:
+            break;
+        case pplmn::MoveEffect::DeathSwap:
+            break;
+        case pplmn::MoveEffect::Gamble:
+            break;
+        case pplmn::MoveEffect::StayAlive:
+            break;
+        case pplmn::MoveEffect::MaxAtkMinAcc:
+            break;
+        case pplmn::MoveEffect::FrustConfuse:
+            break;
+        case pplmn::MoveEffect::Spikes:
+            break;
+        case pplmn::MoveEffect::DoubleFamily:
+            break;
+        case pplmn::MoveEffect::EnemyPPDown:
+            break;
+        case pplmn::MoveEffect::HealNext:
+            break;
+        case pplmn::MoveEffect::Roar:
+            break;
+        case pplmn::MoveEffect::FailOnMove64:
+            break;
+        case pplmn::MoveEffect::SleepHeal:
+            break;
+        case pplmn::MoveEffect::SpdAtkUp:
+            break;
+        case pplmn::MoveEffect::StealStats:
+            break;
+        case pplmn::MoveEffect::BlockBall:
+            break;
+        case pplmn::MoveEffect::SwipeBall:
+            break;
+        case pplmn::MoveEffect::DamageThenSwitch:
+            break;
+        case pplmn::MoveEffect::RoarCancelBallSpikes:
+            break;
+        default:
+            BATTLE_LOG << "Unknown move effect: " << effect;
+            break;
+        }
+    }
 }
 
 } // namespace battle
