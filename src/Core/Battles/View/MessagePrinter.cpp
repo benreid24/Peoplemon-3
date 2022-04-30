@@ -206,6 +206,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         }
         break;
 
+    case Message::Type::GenericMoveFailed:
+        dispText = "But it failed!";
+        break;
+
+    case Message::Type::WasProtected:
+        dispText = "But " + ppl + " Protected itself!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

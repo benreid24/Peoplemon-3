@@ -2,6 +2,7 @@
 #define GAME_BATTLES_BATTLER_HPP
 
 #include <Core/Battles/BattlerControllers/BattlerController.hpp>
+#include <Core/Battles/BattlerSubstate.hpp>
 #include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
@@ -116,8 +117,21 @@ public:
      */
     unsigned int getPriority() const;
 
+    /**
+     * @brief Returns the state of this battler
+     *
+     */
+    BattlerSubstate& getSubstate();
+
+    /**
+     * @brief Notifies the battler that a turn has elapsed
+     *
+     */
+    void notifyTurn();
+
 private:
     BattleState& state;
+    BattlerSubstate substate;
     std::unique_ptr<BattlerController> controller;
     std::vector<core::pplmn::BattlePeoplemon> team;
     std::uint8_t currentPeoplemon;

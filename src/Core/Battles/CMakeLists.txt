@@ -2,6 +2,7 @@ target_sources(Core PRIVATE
     Battle.cpp
     Battler.cpp
     BattleState.cpp
+    BattlerSubstate.cpp
     BattleView.cpp
 )
 

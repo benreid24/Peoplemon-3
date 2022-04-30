@@ -18,6 +18,11 @@ void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
     controller->setOwner(*this);
 }
 
+void Battler::notifyTurn() {
+    activePeoplemon().notifyTurn(); // TODO - call for entire team? maybe pass outNow flag
+    substate.notifyTurn(chosenAction());
+}
+
 bool Battler::actionSelected() const { return controller->actionSelected(); }
 
 void Battler::pickAction() { controller->pickAction(); }
@@ -61,6 +66,8 @@ bool Battler::canFight() const {
 }
 
 void Battler::refresh() { controller->refresh(); }
+
+BattlerSubstate& Battler::getSubstate() { return substate; }
 
 } // namespace battle
 } // namespace core

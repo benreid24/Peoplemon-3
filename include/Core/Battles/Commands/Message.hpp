@@ -46,7 +46,9 @@ public:
         GainedAilment,
         GainedPassiveAilment,
         AilmentGiveFail,
-        PassiveAilmentGiveFail
+        PassiveAilmentGiveFail,
+        GenericMoveFailed,
+        WasProtected
     };
 
     /**
@@ -124,7 +126,7 @@ private:
 
     Type type;
     std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId> data;
-    std::uint8_t boolVal;
+    bool forActive;
 };
 
 } // namespace cmd

@@ -9,27 +9,27 @@ namespace cmd
 Message::Message(Type tp)
 : type(tp)
 , data(Empty())
-, boolVal(1) {}
+, forActive(true) {}
 
 Message::Message(pplmn::MoveId mid)
 : type(Type::Attack)
 , data(mid)
-, boolVal(1) {}
+, forActive(true) {}
 
 Message::Message(Type tp, bool b)
 : type(tp)
 , data(Empty())
-, boolVal(b ? 1 : 0) {}
+, forActive(b) {}
 
 Message::Message(Type tp, pplmn::Ailment ail, bool a)
 : type(tp)
 , data(ail)
-, boolVal(a ? 1 : 0) {}
+, forActive(a) {}
 
 Message::Message(Type tp, pplmn::PassiveAilment ail, bool a)
 : type(tp)
 , data(ail)
-, boolVal(a ? 1 : 0) {}
+, forActive(a) {}
 
 Message::Type Message::getType() const { return type; }
 
@@ -38,7 +38,7 @@ pplmn::MoveId Message::getMoveId() const {
     return mid ? *mid : pplmn::MoveId::Unknown;
 }
 
-bool Message::forActiveBattler() const { return boolVal == 1; }
+bool Message::forActiveBattler() const { return forActive; }
 
 pplmn::Ailment Message::getAilment() const {
     const pplmn::Ailment* a = std::get_if<pplmn::Ailment>(&data);

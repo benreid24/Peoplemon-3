@@ -31,6 +31,20 @@ int critChance(int stage) {
         return 100; // this seems wrong
     }
 }
+
+class MoveSetter {
+public:
+    MoveSetter(Battler& b, pplmn::MoveId move)
+    : battler(b)
+    , move(move) {}
+
+    ~MoveSetter() { battler.getSubstate().lastMoveUsed = move; }
+
+private:
+    Battler& battler;
+    const pplmn::MoveId move;
+};
+
 } // namespace
 
 LocalBattleController::LocalBattleController()
@@ -412,6 +426,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     pplmn::OwnedMove& move = index >= 0 ? user.activePeoplemon().base().knownMoves()[index] : flail;
     move.curPP -= 1;
 
+    MoveSetter _setter(user, move.id);
+
     queueCommand({cmd::Message(cmd::Message(move.id))}, true);
 
     // determine if hit
@@ -424,14 +440,16 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         return;
     }
 
-    // move has hit
-    // TODO - will have to move these in event that move gets canceled
-    queueCommand({cmd::Animation(cmd::Animation::Target::Other, move.id)}, true);
-
     // determine if attacking move
     const pplmn::Type moveType = pplmn::Move::type(move.id);
     const bool special         = pplmn::Move::isSpecial(move.id);
     int pwr                    = pplmn::Move::damage(move.id);
+
+    // check if abilities or substate canceles the move
+    if (checkMoveCancelled(user, victim, move.id, pwr, moveType)) return;
+
+    // move has hit
+    queueCommand({cmd::Animation(cmd::Animation::Target::Other, move.id)}, true);
 
     // move does damage
     if (pwr > 0) {
@@ -459,14 +477,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             defender.notifySuperEffectiveHit(move.id);
             queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)}, true);
         }
-        else if (effective < 0.1f) {
-            queueCommand({cmd::Message(cmd::Message::Type::IsNotAffected)}, true);
-            return;
-        }
-        else {
+        else if (effective < 0.9f) {
             queueCommand({cmd::Message(cmd::Message::Type::NotEffective)}, true);
         }
     }
+
+    // do not resolve effects if the peoplemon died
+    if (defender.base().currentHp() == 0) return; // TODO - may still need to handle abilities?
 
     // resolve move effect if any
     const pplmn::MoveEffect effect = pplmn::Move::effect(move.id);
@@ -522,12 +539,20 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::Trap:
+            applyAilmentFromMove(affected, pplmn::PassiveAilment::Trapped);
             break;
 
         case pplmn::MoveEffect::Sleep:
+            applyAilmentFromMove(affected, pplmn::Ailment::Sleep);
             break;
 
         case pplmn::MoveEffect::Protection:
+            if (state->isFirstMover() && user.getSubstate().lastMoveUsed != move.id) {
+                user.getSubstate().isProtected = true;
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed)});
+            }
             break;
 
         case pplmn::MoveEffect::Safegaurd:
@@ -700,6 +725,33 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // ensure that everything is reflected and wait for the view
     queueCommand({Command::SyncStateNoSwitch}, true);
+}
+
+bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move,
+                                               int pwr, pplmn::Type moveType) {
+    const bool targetsVictim = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
+                                           pplmn::Move::effect(move) != pplmn::MoveEffect::None);
+
+    // check if move does not affect the victim
+    if (targetsVictim) {
+        const float effective =
+            pplmn::TypeUtil::getSuperMult(moveType, victim.activePeoplemon().base().type());
+        if (effective < 0.1f) {
+            queueCommand({cmd::Message(cmd::Message::Type::IsNotAffected)}, true);
+            return true;
+        }
+    }
+
+    // check if victim is protected
+    if (targetsVictim && victim.getSubstate().isProtected) {
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::WasProtected, &victim == &state->activeBattler())},
+            true);
+        return true;
+    }
+
+    // move goes ahead normally
+    return false;
 }
 
 void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,

@@ -3,6 +3,7 @@ target_sources(Peoplemon PUBLIC
     Battler.hpp
     BattleSkipper.hpp
     BattleState.hpp
+    BattlerSubstate.hpp
     BattleView.hpp
     TurnAction.hpp
 )

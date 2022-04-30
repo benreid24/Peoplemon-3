@@ -14,9 +14,8 @@ BattleState::BattleState(Stage state)
 void BattleState::beginRound(bool pf) {
     currentMover = pf ? 0 : 1;
     firstMover   = currentMover;
-    player.activePeoplemon().notifyTurn();
-    opponent.activePeoplemon().notifyTurn();
-    // TODO - do we need to call on entire team?
+    player.notifyTurn();
+    opponent.notifyTurn();
 }
 
 BattleState::Stage BattleState::nextTurn() {
