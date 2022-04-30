@@ -333,6 +333,26 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " unleashed power!";
         break;
 
+    case Message::Type::SuicideEffect:
+        dispText = ppl + " killed itself!";
+        break;
+
+    case Message::Type::CounterEffect:
+        dispText = ppl + " was hurt by Counter!";
+        break;
+
+    case Message::Type::OnlySleepAffected:
+        dispText = "It had no effect because " + other + " is not sleeping!";
+        break;
+
+    case Message::Type::PeanutAllergic:
+        dispText = ppl + " had an allergic reaction and died!";
+        break;
+
+    case Message::Type::PeanutAte:
+        dispText = ppl + " ate the peanut and gained HP!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

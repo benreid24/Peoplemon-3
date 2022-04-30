@@ -32,6 +32,26 @@ int critChance(int stage) {
     }
 }
 
+bool isPeanutAllergic(pplmn::Id ppl) {
+    using Id = pplmn::Id;
+    switch (ppl) {
+    case Id::EmanualA:
+    case Id::EmanualB:
+    case Id::EmanualC:
+    case Id::QuinnA:
+    case Id::QuinnB:
+    case Id::QuinnC:
+    case Id::MattA:
+    case Id::MattB:
+    case Id::MattC:
+    case Id::JudasA:
+    case Id::JudasB:
+        return true;
+    default:
+        return false;
+    }
+}
+
 class BattlerAttackFinalizer {
 public:
     BattlerAttackFinalizer(Battler& b, pplmn::MoveId move)
@@ -688,23 +708,37 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forActive)});
             break;
 
-        case pplmn::MoveEffect::Charge:
-            // handled in checkMoveCancelled
-            break;
-
         case pplmn::MoveEffect::Suicide:
+            affected.base().currentHp() = 0;
+            queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forActive)});
             break;
 
         case pplmn::MoveEffect::Counter:
+            // TODO -this doesn't seem quite right
+            if (!special) {
+                affected.applyDamage(damage * 2);
+                queueCommand({cmd::Message(cmd::Message::Type::CounterEffect, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::MirrorCoat:
-            break;
-
-        case pplmn::MoveEffect::OnlySleeping:
+            // TODO -this doesn't seem quite right
+            if (special) {
+                affected.applyDamage(damage * 2);
+                queueCommand({cmd::Message(cmd::Message::Type::MirrorCoatEffect, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::Peanut:
+            if (isPeanutAllergic(affected.base().id())) {
+                affected.base().currentHp() = 0;
+                queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forActive)});
+            }
+            else {
+                affected.base().currentHp() =
+                    std::min(affected.base().currentHp() + 1, affected.currentStats().hp);
+                queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::SetBall:
@@ -785,6 +819,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::RoarCancelBallSpikes:
             break;
 
+        case pplmn::MoveEffect::OnlySleeping:
+        case pplmn::MoveEffect::Charge:
+            // handled in checkMoveCancelled
+            break;
+
         default:
             BATTLE_LOG << "Unknown move effect: " << effect;
             break;
@@ -798,8 +837,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, int i,
                                                pplmn::MoveId move, int pwr, pplmn::Type moveType,
                                                pplmn::MoveEffect effect, bool isChargeSecondTurn) {
-    const bool targetsVictim = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
+    const bool targetsVictim  = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
                                            pplmn::Move::effect(move) != pplmn::MoveEffect::None);
+    const bool userIsActive   = &user == &state->activeBattler();
+    const bool victimIsActive = !userIsActive;
 
     // check if move does not affect the victim
     if (targetsVictim) {
@@ -813,18 +854,21 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
 
     // check if victim is protected
     if (targetsVictim && victim.getSubstate().isProtected) {
-        queueCommand(
-            {cmd::Message(cmd::Message::Type::WasProtected, &victim == &state->activeBattler())},
-            true);
+        queueCommand({cmd::Message(cmd::Message::Type::WasProtected, victimIsActive)}, true);
         return true;
     }
 
     // stop here if this is first move of a charging move
     if (effect == pplmn::MoveEffect::Charge && !isChargeSecondTurn) {
         user.getSubstate().chargingMove = i;
-        queueCommand(
-            {cmd::Message(cmd::Message::Type::ChargeStarted, &user == &state->activeBattler())},
-            true);
+        queueCommand({cmd::Message(cmd::Message::Type::ChargeStarted, userIsActive)}, true);
+        return true;
+    }
+
+    // check OnlySleeping effect
+    if (effect == pplmn::MoveEffect::OnlySleeping &&
+        victim.activePeoplemon().base().currentAilment() != pplmn::Ailment::Sleep) {
+        queueCommand({cmd::Message(cmd::Message::Type::OnlySleepAffected, userIsActive)}, true);
         return true;
     }
 

@@ -57,6 +57,10 @@ public:
 
         WasProtected,
         RecoilDamage,
+        SuicideEffect,
+        CounterEffect,
+        MirrorCoatEffect,
+        OnlySleepAffected,
 
         Guarded,
         GuardFailed,
@@ -82,7 +86,10 @@ public:
         StatDecreaseFailed,
 
         ChargeStarted,
-        ChargeUnleashed
+        ChargeUnleashed,
+
+        PeanutAllergic,
+        PeanutAte
     };
 
     /**
