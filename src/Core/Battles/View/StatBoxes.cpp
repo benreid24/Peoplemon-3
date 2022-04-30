@@ -53,7 +53,6 @@ StatBoxes::StatBoxes()
     stickyTxtr = textures.load(join(ImgPath, "Battle/sticky.png")).data;
     slpTxtr    = textures.load(join(ImgPath, "Battle/sleep.png")).data;
     frzTxtr    = textures.load(join(ImgPath, "Battle/frozen.png")).data;
-    grdTxtr    = textures.load(join(ImgPath, "Battle/guarded.png")).data;
 
     opBoxTxtr = textures.load(join(ImgPath, "Battle/opBox.png")).data;
     opBox.setTexture(*opBoxTxtr, true);
@@ -228,8 +227,6 @@ const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) const {
         return *frzTxtr;
     case Ailment::Frustrated:
         return *frustTxtr;
-    case Ailment::Guarded:
-        return *grdTxtr;
     case Ailment::Sleep:
         return *slpTxtr;
     case Ailment::Sticky:

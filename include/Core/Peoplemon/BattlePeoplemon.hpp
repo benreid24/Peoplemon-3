@@ -63,8 +63,9 @@ public:
      *
      * @param stat The stat to change
      * @param diff The number of stages to change by (negative to reduce)
+     * @return True if the stat could be changed, false if not
      */
-    void statChange(Stat stat, int diff);
+    bool statChange(Stat stat, int diff);
 
     /**
      * @brief Returns whether or not the peoplemon has an ailment of any kind
@@ -117,7 +118,7 @@ public:
      * @return True if any ailments were cleared, false if not
      *
      */
-    bool clearAilments(bool includeActive = true);
+    bool clearAilments(bool includeActive);
 
     /**
      * @brief Returns the current ability of this peoplemon

@@ -50,6 +50,13 @@ public:
     /**
      * @brief Begins playing the given animation
      *
+     * @param anim The animation to play
+     */
+    void triggerAnimation(const cmd::Animation& anim);
+
+    /**
+     * @brief Begins playing the given animation by type only
+     *
      * @param type The animation to play
      */
     void triggerAnimation(cmd::Animation::Type type);

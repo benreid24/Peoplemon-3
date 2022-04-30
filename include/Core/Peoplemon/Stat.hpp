@@ -1,6 +1,8 @@
 #ifndef CORE_PEOPLEMON_STAT_HPP
 #define CORE_PEOPLEMON_STAT_HPP
 
+#include <cstdint>
+
 namespace core
 {
 namespace pplmn
@@ -11,7 +13,7 @@ namespace pplmn
  * @ingroup Peoplemon
  *
  */
-enum struct Stat : unsigned int {
+enum struct Stat : std::uint8_t {
     HP             = 0,
     Attack         = 1,
     Defense        = 2,

@@ -19,6 +19,46 @@ const sf::Vector2f ArrowPos(468.f, 573.f);
 const sf::Vector2f FlasherPos(476.f, 575.f);
 
 using Message = cmd::Message;
+
+std::string ailmentBlockedSuffix(Message::Type tp) {
+    switch (tp) {
+    case Message::Type::SubstituteAilmentBlocked:
+    case Message::Type::SubstitutePassiveAilmentBlocked:
+        return " but it's Substitute blocks ailments!";
+    case Message::Type::GuardBlockedAilment:
+    case Message::Type::GuardBlockedPassiveAilment:
+        return " but it is Guarded!";
+    case Message::Type::PassiveAilmentGiveFail:
+    case Message::Type::AilmentGiveFail:
+    default:
+        return " but it failed!";
+    }
+}
+
+std::string statString(pplmn::Stat stat) {
+    switch (stat) {
+    case pplmn::Stat::Accuracy:
+        return "ACC";
+    case pplmn::Stat::Attack:
+        return "ATK";
+    case pplmn::Stat::Critical:
+        return "CRIT";
+    case pplmn::Stat::Defense:
+        return "DEF";
+    case pplmn::Stat::Evasion:
+        return "EVD";
+    case pplmn::Stat::HP:
+        return "HP";
+    case pplmn::Stat::SpecialAttack:
+        return "SPATK";
+    case pplmn::Stat::SpecialDefense:
+        return "SPDEF";
+    case pplmn::Stat::Speed:
+        return "SPD";
+    default:
+        return "<ERR>";
+    }
+}
 } // namespace
 
 MessagePrinter::MessagePrinter()
@@ -121,9 +161,6 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         case pplmn::Ailment::Frustrated:
             dispText = ppl + " became Frustrated!";
             break;
-        case pplmn::Ailment::Guarded:
-            dispText = ppl + " is Guarded!";
-            break;
         case pplmn::Ailment::Sleep:
             dispText = ppl + " was afflicted by Sleep!";
             break;
@@ -138,24 +175,25 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::AilmentGiveFail:
+    case Message::Type::SubstituteAilmentBlocked:
+    case Message::Type::GuardBlockedAilment:
         switch (msg.getAilment()) {
         case pplmn::Ailment::Annoyed:
-            dispText = other + " tried to Annoy " + ppl + " but it failed!";
+            dispText = other + " tried to Annoy " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Frozen:
-            dispText = other + " tried to Freeze " + ppl + " but it failed!";
+            dispText = other + " tried to Freeze " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Frustrated:
-            dispText = other + " tried to Frustrate " + ppl + " but it failed!";
-            break;
-        case pplmn::Ailment::Guarded:
-            dispText = other + " tried to Guard " + ppl + " but it failed!";
+            dispText = other + " tried to Frustrate " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Sleep:
-            dispText = other + " tried to make " + ppl + " fall asleep, but it failed!";
+            dispText = other + " tried to make " + ppl + " fall asleep," +
+                       ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Sticky:
-            dispText = other + " tried to make " + ppl + " Sticky, but it failed!";
+            dispText =
+                other + " tried to make " + ppl + " Sticky," + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::None:
         default:
@@ -186,18 +224,20 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::PassiveAilmentGiveFail:
+    case Message::Type::SubstitutePassiveAilmentBlocked:
+    case Message::Type::GuardBlockedPassiveAilment:
         switch (msg.getPassiveAilment()) {
         case pplmn::PassiveAilment::Confused:
-            dispText = other + " tried to Confuse " + ppl + " but it failed!";
+            dispText = other + " tried to Confuse " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::PassiveAilment::Distracted:
-            dispText = other + " tried to Distract " + ppl + " but it failed!";
+            dispText = other + " tried to Distract " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::PassiveAilment::Stolen:
-            dispText = other + " tried to Jump " + ppl + " but it failed!";
+            dispText = other + " tried to Jump " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::PassiveAilment::Trapped:
-            dispText = other + " tried to Trap " + ppl + " but it failed!";
+            dispText = other + " tried to Trap " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::PassiveAilment::None:
         default:
@@ -214,12 +254,12 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "But " + ppl + " Protected itself!";
         break;
 
-    case Message::Type::TeamGuarded:
-        dispText = ppl + " Guarded their entire team!";
+    case Message::Type::Guarded:
+        dispText = ppl + " became Guarded!";
         break;
 
-    case Message::Type::TeamGuardFailed:
-        dispText = ppl + " tried to Guard their team but it failed!";
+    case Message::Type::GuardFailed:
+        dispText = ppl + " tried to Guard themselves it failed!";
         break;
 
     case Message::Type::SubstituteSuicide:
@@ -249,6 +289,30 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     case Message::Type::HealBellAlreadyHealthy:
         dispText = ppl + " tried to use their Heal Bell to make their party healthy but everyone "
                          "is already healthy!";
+        break;
+
+    case Message::Type::StatIncreased:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " increased!";
+        break;
+
+    case Message::Type::StatIncreasedSharply:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " rose sharply!";
+        break;
+
+    case Message::Type::StatIncreaseFailed:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any higher!";
+        break;
+
+    case Message::Type::StatDecreased:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " decreased!";
+        break;
+
+    case Message::Type::StatDecreasedSharply:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " fell sharply!";
+        break;
+
+    case Message::Type::StatDecreaseFailed:
+        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any lower!";
         break;
 
     default:

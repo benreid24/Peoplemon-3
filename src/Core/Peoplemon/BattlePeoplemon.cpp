@@ -32,7 +32,7 @@ void BattlePeoplemon::applyDamage(int dmg) {
     ppl->hp -= udmg;
 }
 
-void BattlePeoplemon::statChange(Stat stat, int diff) {
+bool BattlePeoplemon::statChange(Stat stat, int diff) {
     int* val = nullptr;
     switch (stat) {
     case Stat::Evasion:
@@ -48,10 +48,12 @@ void BattlePeoplemon::statChange(Stat stat, int diff) {
         val = &stages.get(stat);
         break;
     }
+    if (*val == -6 || *val == 6) return false;
     *val += diff;
     if (*val > 6) *val = 6;
     if (*val < -6) *val = -6;
     refreshStats();
+    return true;
 }
 
 bool BattlePeoplemon::hasAilment() const {
@@ -87,8 +89,10 @@ bool BattlePeoplemon::clearAilments(bool a) {
     bool ret = ailments != PassiveAilment::None;
     ailments = PassiveAilment::None;
     if (a) {
-        ret                   = ret || ppl->currentAilment() != Ailment::None;
-        ppl->currentAilment() = Ailment::None; // TODO - should HealBell clear Guarded from here?
+        if (ppl->currentAilment() != Ailment::None) {
+            ppl->currentAilment() = Ailment::None;
+            ret                   = true;
+        }
     }
     return ret;
 }

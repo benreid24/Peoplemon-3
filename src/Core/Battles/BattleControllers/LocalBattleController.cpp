@@ -86,16 +86,12 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::IntroSendInSelf:
         queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
-        queueCommand({cmd::Animation(cmd::Animation::Target::User,
-                                     cmd::Animation::Type::PlayerFirstSendout)},
-                     true);
+        queueCommand({cmd::Animation(cmd::Animation::Type::PlayerFirstSendout)}, true);
         break;
 
     case Stage::IntroSendInOpponent:
         queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
-        queueCommand({cmd::Animation(cmd::Animation::Target::User,
-                                     cmd::Animation::Type::OpponentFirstSendout)},
-                     true);
+        queueCommand({cmd::Animation(cmd::Animation::Type::OpponentFirstSendout)}, true);
         break;
 
     case Stage::WaitingChoices:
@@ -453,13 +449,12 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     if (checkMoveCancelled(user, victim, move.id, pwr, moveType)) return;
 
     // move has hit
-    queueCommand({cmd::Animation(cmd::Animation::Target::Other, move.id)}, true);
+    queueCommand({cmd::Animation(false, move.id)}, true);
 
     // move does damage
     if (pwr > 0) {
         // TODO - move may not hit based on abilities and prior moves, may need to move these
-        queueCommand(
-            {cmd::Animation(cmd::Animation::Target::Other, cmd::Animation::Type::ShakeAndFlash)});
+        queueCommand({cmd::Animation(false, cmd::Animation::Type::ShakeAndFlash)});
         queueCommand({Command::SyncStateNoSwitch}, true);
 
         int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
@@ -506,27 +501,27 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::Poison:
-            applyAilmentFromMove(affected, pplmn::Ailment::Sticky);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sticky);
             break;
 
         case pplmn::MoveEffect::Burn:
-            applyAilmentFromMove(affected, pplmn::Ailment::Frustrated);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
             break;
 
         case pplmn::MoveEffect::Paralyze:
-            applyAilmentFromMove(affected, pplmn::Ailment::Annoyed);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Annoyed);
             break;
 
         case pplmn::MoveEffect::Freeze:
-            applyAilmentFromMove(affected, pplmn::Ailment::Frozen);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frozen);
             break;
 
         case pplmn::MoveEffect::Confuse:
-            applyAilmentFromMove(affected, pplmn::PassiveAilment::Confused);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
             break;
 
         case pplmn::MoveEffect::LeechSeed:
-            applyAilmentFromMove(affected, pplmn::PassiveAilment::Stolen);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Stolen);
             break;
 
         case pplmn::MoveEffect::Flinch:
@@ -544,11 +539,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::Trap:
-            applyAilmentFromMove(affected, pplmn::PassiveAilment::Trapped);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Trapped);
             break;
 
         case pplmn::MoveEffect::Sleep:
-            applyAilmentFromMove(affected, pplmn::Ailment::Sleep);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sleep);
             break;
 
         case pplmn::MoveEffect::Protection:
@@ -560,19 +555,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::Safegaurd: {
-            Battler& recv = affectsSelf ? user : victim;
-            bool gave     = false;
-            for (pplmn::BattlePeoplemon& ppl : recv.peoplemon()) {
-                if (ppl.giveAilment(pplmn::Ailment::Guarded)) gave = true;
-            }
-            if (gave) {
-                queueCommand({cmd::Message(cmd::Message::Type::TeamGuarded, affectsSelf)});
+        case pplmn::MoveEffect::Safegaurd:
+            if (affectedOwner.getSubstate().turnsGuarded == 0) {
+                affectedOwner.getSubstate().turnsGuarded = 5; // TODO - maybe this is just a bool?
+                queueCommand({cmd::Message(cmd::Message::Type::Guarded, affectsSelf)});
             }
             else {
-                queueCommand({cmd::Message(cmd::Message::Type::TeamGuardFailed, affectsSelf)});
+                queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, affectsSelf)});
             }
-        } break;
+            break;
 
         case pplmn::MoveEffect::Substitute:
             affected.applyDamage(affected.currentStats().hp / 4);
@@ -604,51 +595,81 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         } break;
 
         case pplmn::MoveEffect::CritUp:
+            doStatChange(affected, pplmn::Stat::Critical, intensity);
             break;
 
         case pplmn::MoveEffect::AtkUp:
+            doStatChange(affected, pplmn::Stat::Attack, intensity);
             break;
 
         case pplmn::MoveEffect::DefUp:
+            doStatChange(affected, pplmn::Stat::Defense, intensity);
             break;
 
         case pplmn::MoveEffect::AccUp:
+            doStatChange(affected, pplmn::Stat::Accuracy, intensity);
             break;
 
         case pplmn::MoveEffect::EvdUp:
+            doStatChange(affected, pplmn::Stat::Evasion, intensity);
             break;
 
         case pplmn::MoveEffect::SpdUp:
+            doStatChange(affected, pplmn::Stat::Speed, intensity);
             break;
 
         case pplmn::MoveEffect::SpAtkUp:
+            doStatChange(affected, pplmn::Stat::SpecialAttack, intensity);
             break;
 
         case pplmn::MoveEffect::SpDefUp:
+            doStatChange(affected, pplmn::Stat::SpecialDefense, intensity);
             break;
 
         case pplmn::MoveEffect::CritDown:
+            doStatChange(affected, pplmn::Stat::Critical, -intensity);
             break;
 
         case pplmn::MoveEffect::AtkDown:
+            doStatChange(affected, pplmn::Stat::Attack, -intensity);
             break;
 
         case pplmn::MoveEffect::DefDown:
+            doStatChange(affected, pplmn::Stat::Defense, -intensity);
             break;
 
         case pplmn::MoveEffect::AccDown:
+            doStatChange(affected, pplmn::Stat::Accuracy, -intensity);
             break;
 
         case pplmn::MoveEffect::EvdDown:
+            doStatChange(affected, pplmn::Stat::Evasion, -intensity);
             break;
 
         case pplmn::MoveEffect::SpdDown:
+            doStatChange(affected, pplmn::Stat::Speed, -intensity);
             break;
 
         case pplmn::MoveEffect::SpAtkDown:
+            doStatChange(affected, pplmn::Stat::SpecialAttack, -intensity);
             break;
 
         case pplmn::MoveEffect::SpDefDown:
+            doStatChange(affected, pplmn::Stat::SpecialDefense, -intensity);
+            break;
+
+        case pplmn::MoveEffect::CritEvdUp:
+            queueCommand({cmd::Animation(affectsSelf, cmd::Animation::Type::MultipleStateIncrease)},
+                         true);
+            doStatChange(affected, pplmn::Stat::Evasion, intensity, false);
+            doStatChange(affected, pplmn::Stat::Critical, intensity, false);
+            break;
+
+        case pplmn::MoveEffect::SpdAtkUp:
+            queueCommand({cmd::Animation(affectsSelf, cmd::Animation::Type::MultipleStateIncrease)},
+                         true);
+            doStatChange(affected, pplmn::Stat::Attack, intensity, false);
+            doStatChange(affected, pplmn::Stat::Speed, intensity, false);
             break;
 
         case pplmn::MoveEffect::Recoil:
@@ -693,9 +714,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::DieIn3Turns:
             break;
 
-        case pplmn::MoveEffect::CritEvdUp:
-            break;
-
         case pplmn::MoveEffect::BumpBall:
             break;
 
@@ -736,9 +754,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::SleepHeal:
-            break;
-
-        case pplmn::MoveEffect::SpdAtkUp:
             break;
 
         case pplmn::MoveEffect::StealStats:
@@ -800,23 +815,34 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
     // check if victim has a Substitute
     if (victim.getSubstate().substituteHp > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::SubstituteTookDamage, isActive)}, true);
-        const int subhp = victim.getSubstate().substituteHp;
         victim.getSubstate().substituteHp -= dmg;
         if (victim.getSubstate().substituteHp <= 0) {
             queueCommand({cmd::Message(cmd::Message::Type::SubstituteDied, isActive)}, true);
-            dmg -= subhp; // reduce damage by what sub took
             victim.getSubstate().substituteHp = 0;
         }
+        return; // no damage is dealt
     }
 
     ppl.applyDamage(dmg);
 }
 
-void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,
+void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::Ailment ail) {
     const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
 
-    // TODO - handle abilities and whatnot
+    // TODO - handle abilities and whatnot.
+
+    // Substitute blocks ailments
+    if (owner.getSubstate().substituteHp > 0) {
+        queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, selfGive)});
+        return;
+    }
+
+    // Guard blocks ailments
+    if (owner.getSubstate().turnsGuarded > 0) {
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, selfGive)});
+        return;
+    }
 
     if (victim.giveAilment(ail)) {
         queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, selfGive)});
@@ -826,14 +852,59 @@ void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,
     }
 }
 
-void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,
+void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::PassiveAilment ail) {
     const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
 
     // TODO - handle abilities and whatnot. not all ailments are gained unconditionally
 
+    // Substitute blocks ailments
+    if (owner.getSubstate().substituteHp > 0) {
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::SubstitutePassiveAilmentBlocked, ail, selfGive)});
+        return;
+    }
+
+    // Guard blocks ailments
+    if (owner.getSubstate().turnsGuarded > 0) {
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedPassiveAilment, ail, selfGive)});
+        return;
+    }
+
     victim.giveAilment(ail);
     queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)});
+}
+
+void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Stat stat, int amt,
+                                         bool anim) {
+    const bool active = &ppl == &state->activeBattler().activePeoplemon();
+    if (ppl.statChange(stat, amt)) {
+        if (anim) {
+            const auto at =
+                amt > 0 ? cmd::Animation::Type::StatIncrease : cmd::Animation::Type::StatDecrease;
+            queueCommand({cmd::Animation(active, at, stat)}, true);
+        }
+        if (amt > 1) {
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, active)});
+        }
+        else if (amt > 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreased, stat, active)});
+        }
+        else if (amt > -2) {
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreased, stat, active)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreasedSharply, stat, active)});
+        }
+    }
+    else {
+        if (amt > 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreaseFailed, stat, active)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, active)});
+        }
+    }
 }
 
 } // namespace battle

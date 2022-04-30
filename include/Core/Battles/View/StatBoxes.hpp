@@ -76,7 +76,6 @@ private:
     bl::resource::Resource<sf::Texture>::Ref stickyTxtr;
     bl::resource::Resource<sf::Texture>::Ref slpTxtr;
     bl::resource::Resource<sf::Texture>::Ref frzTxtr;
-    bl::resource::Resource<sf::Texture>::Ref grdTxtr;
 
     bl::resource::Resource<sf::Texture>::Ref opBoxTxtr;
     bl::resource::Resource<sf::Texture>::Ref lpBoxTxtr;

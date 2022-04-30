@@ -6,15 +6,39 @@ namespace battle
 {
 namespace cmd
 {
-Animation::Animation(Target targ, Type tp)
-: target(targ)
+Animation::Animation(Type tp)
+: forActive(true)
 , type(tp)
-, move(core::pplmn::MoveId::Unknown) {}
+, data(Empty()) {}
 
-Animation::Animation(Target targ, core::pplmn::MoveId m)
-: target(targ)
+Animation::Animation(bool fa, Type tp)
+: forActive(fa)
+, type(tp)
+, data(Empty()) {}
+
+Animation::Animation(bool fa, core::pplmn::MoveId m)
+: forActive(fa)
 , type(Type::UseMove)
-, move(m) {}
+, data(m) {}
+
+Animation::Animation(bool fa, Type tp, pplmn::Stat stat)
+: forActive(fa)
+, type(tp)
+, data(stat) {}
+
+bool Animation::forActiveBattler() const { return forActive; }
+
+Animation::Type Animation::getType() const { return type; }
+
+pplmn::MoveId Animation::getMove() const {
+    const pplmn::MoveId* m = std::get_if<pplmn::MoveId>(&data);
+    return m ? *m : pplmn::MoveId::Unknown;
+}
+
+pplmn::Stat Animation::getStat() const {
+    const pplmn::Stat* s = std::get_if<pplmn::Stat>(&data);
+    return s ? *s : pplmn::Stat::Attack;
+}
 
 } // namespace cmd
 } // namespace battle

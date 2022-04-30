@@ -54,15 +54,13 @@ void BattleView::processCommand(const Command& cmd) {
         break;
 
     case Command::Type::PlayAnimation: {
-        const bool userIsPlayer =
-            ((cmd.getAnimation().target == Animation::Target::User && currentIsPlayer) ||
-             (cmd.getAnimation().target == Animation::Target::Other && !currentIsPlayer));
+        const bool userIsPlayer = cmd.getAnimation().forActiveBattler() == currentIsPlayer;
 
-        switch (cmd.getAnimation().type) {
+        switch (cmd.getAnimation().getType()) {
         case Animation::Type::UseMove:
             moveAnimation.playAnimation(userIsPlayer ? view::MoveAnimation::Player :
                                                        view::MoveAnimation::Opponent,
-                                        cmd.getAnimation().move);
+                                        cmd.getAnimation().getMove());
             break;
 
         case Animation::Type::PlayerFirstSendout:
@@ -75,7 +73,7 @@ void BattleView::processCommand(const Command& cmd) {
 
         default: {
             auto& anim = userIsPlayer ? localPeoplemon : opponentPeoplemon;
-            anim.triggerAnimation(cmd.getAnimation().type);
+            anim.triggerAnimation(cmd.getAnimation());
         } break;
         }
     } break;

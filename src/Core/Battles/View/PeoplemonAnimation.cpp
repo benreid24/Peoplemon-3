@@ -86,6 +86,11 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
     placeholder.setPosition(ViewSize * 0.5f - size * 0.5f);
 }
 
+void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
+    // TODO - init stuff based on stat change or other params
+    triggerAnimation(anim.getType());
+}
+
 bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {

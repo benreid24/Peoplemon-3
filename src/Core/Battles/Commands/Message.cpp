@@ -31,6 +31,11 @@ Message::Message(Type tp, pplmn::PassiveAilment ail, bool a)
 , data(ail)
 , forActive(a) {}
 
+Message::Message(Type tp, pplmn::Stat stat, bool a)
+: type(tp)
+, data(stat)
+, forActive(a) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {
@@ -48,6 +53,11 @@ pplmn::Ailment Message::getAilment() const {
 pplmn::PassiveAilment Message::getPassiveAilment() const {
     const pplmn::PassiveAilment* a = std::get_if<pplmn::PassiveAilment>(&data);
     return a ? *a : pplmn::PassiveAilment::None;
+}
+
+pplmn::Stat Message::getStat() const {
+    const pplmn::Stat* s = std::get_if<pplmn::Stat>(&data);
+    return s ? *s : pplmn::Stat::Attack;
 }
 
 } // namespace cmd

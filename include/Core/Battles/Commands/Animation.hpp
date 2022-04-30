@@ -2,7 +2,9 @@
 #define GAME_BATTLES_COMMANDS_ANIMATION_HPP
 
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/Stat.hpp>
 #include <cstdint>
+#include <variant>
 
 namespace core
 {
@@ -19,19 +21,6 @@ namespace cmd
  */
 struct Animation {
     /**
-     * @brief Which Peoplemon the animation should be played on. For moves the target should be the
-     *        peoplemon using the move
-     *
-     */
-    enum struct Target : std::uint8_t {
-        /// The target is the battler who is current resolving their turn
-        User = 0,
-
-        /// The target is the battler who is not currently resolving their turn
-        Other = 1
-    };
-
-    /**
      * @brief The type of animation to play
      *
      */
@@ -43,28 +32,75 @@ struct Animation {
         SendOut,
         UseMove,
         PlayerFirstSendout,
-        OpponentFirstSendout
+        OpponentFirstSendout,
+        StatIncrease,
+        MultipleStateIncrease,
+        StatDecrease,
+        MultipleStateDecrease
     };
+
+    /**
+     * @brief For animations that are not specific to either battler
+     *
+     * @param type The type of animation to play
+     */
+    Animation(Type type);
 
     /**
      * @brief Construct a new Animation for a non-move effect
      *
-     * @param target The peoplemon to play the animation on
+     * @param forActiveBattler True to play on the active battler, false on inactive
      * @param type The type of animation to play
      */
-    Animation(Target target, Type type);
+    Animation(bool forActiveBattler, Type type);
 
     /**
      * @brief Construct a new Animation for the attack animation
      *
-     * @param target The peoplemon using the attack
+     * @param forActiveBattler True to play on the active battler, false on inactive
      * @param moveIndex Which move is being used [0, 3]
      */
-    Animation(Target target, core::pplmn::MoveId move);
+    Animation(bool forActiveBattler, core::pplmn::MoveId move);
 
-    const Target target;
-    const Type type;
-    const core::pplmn::MoveId move;
+    /**
+     * @brief Construct a new Animation for a stat increase or decrease
+     *
+     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param type Which type of stat change
+     * @param stat The stat being changed
+     */
+    Animation(bool forActiveBattler, Type type, pplmn::Stat stat);
+
+    /**
+     * @brief Returns whether or not this animation is for the active peoplemon or inactive
+     *
+     */
+    bool forActiveBattler() const;
+
+    /**
+     * @brief Returns the type of animation to play
+     *
+     */
+    Type getType() const;
+
+    /**
+     * @brief Returns the move for this animation
+     *
+     */
+    pplmn::MoveId getMove() const;
+
+    /**
+     * @brief Returns the stat for this animation
+     *
+     */
+    pplmn::Stat getStat() const;
+
+private:
+    struct Empty {};
+
+    bool forActive;
+    Type type;
+    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat> data;
 };
 
 } // namespace cmd

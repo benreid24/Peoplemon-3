@@ -53,8 +53,12 @@ private:
     bool checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move, int pwr,
                             pplmn::Type moveType);
     void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, int dmg);
-    void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::Ailment ailment);
-    void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::PassiveAilment ailment);
+    void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
+                              pplmn::Ailment ailment);
+    void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
+                              pplmn::PassiveAilment ailment);
+    void doStatChange(pplmn::BattlePeoplemon& recv, pplmn::Stat stat, int amt,
+                      bool playAnim = true);
 };
 
 } // namespace battle

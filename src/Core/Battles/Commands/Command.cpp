@@ -25,7 +25,7 @@ const cmd::Message& Command::getMessage() const {
 }
 
 const cmd::Animation& Command::getAnimation() const {
-    static const cmd::Animation empty(cmd::Animation::Target::User, cmd::Animation::Type::_ERROR);
+    static const cmd::Animation empty(cmd::Animation::Type::_ERROR);
     const cmd::Animation* a = std::get_if<cmd::Animation>(&data);
     return a ? *a : empty;
 }

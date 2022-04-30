@@ -4,6 +4,7 @@
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/PassiveAilment.hpp>
+#include <Core/Peoplemon/Stat.hpp>
 #include <cstdint>
 #include <string>
 #include <variant>
@@ -29,35 +30,55 @@ public:
      */
     enum struct Type : std::uint8_t {
         _ERROR = 0,
+
         Attack = 1,
         SuperEffective,
         NotEffective,
         IsNotAffected,
         CriticalHit,
+        AttackMissed,
+
         Callback,
         SendOut,
+
         TrainerIntro,
         WildIntro,
         NetworkIntro,
+
         OpponentFirstSendout,
         PlayerFirstSendout,
-        AttackMissed,
+
         AttackRestoredHp,
         GainedAilment,
         GainedPassiveAilment,
         AilmentGiveFail,
         PassiveAilmentGiveFail,
         GenericMoveFailed,
+
         WasProtected,
-        TeamGuarded,
-        TeamGuardFailed,
+
+        Guarded,
+        GuardFailed,
+        GuardBlockedAilment,
+        GuardBlockedPassiveAilment,
+
         SubstituteSuicide,
         SubstituteCreated,
         SubstituteAlreadyExists,
         SubstituteTookDamage,
         SubstituteDied,
+        SubstituteAilmentBlocked,
+        SubstitutePassiveAilmentBlocked,
+
         HealBellHealed,
-        HealBellAlreadyHealthy
+        HealBellAlreadyHealthy,
+
+        StatIncreased,
+        StatIncreasedSharply,
+        StatIncreaseFailed,
+        StatDecreased,
+        StatDecreasedSharply,
+        StatDecreaseFailed
     };
 
     /**
@@ -78,9 +99,9 @@ public:
      * @brief Construct a new Message with an extra boolean value
      *
      * @param type The type of message to create
-     * @param bval The boolean value to store
+     * @param forActive True if the message is for the active battler, false for inactive
      */
-    Message(Type type, bool bval);
+    Message(Type type, bool forActive);
 
     /**
      * @brief Construct a new Message with an ailment
@@ -99,6 +120,15 @@ public:
      * @param forActiveBattler True if the message is for the active battler, false for the inactive
      */
     Message(Type type, pplmn::PassiveAilment ailment, bool forActiveBattler);
+
+    /**
+     * @brief Construct a new Message for stat increases and decreases
+     * 
+     * @param type 
+     * @param stat 
+     * @param forActiveBattler 
+     */
+    Message(Type type, pplmn::Stat stat, bool forActiveBattler);
 
     /**
      * @brief Returns the type of message this is
@@ -130,11 +160,17 @@ public:
      */
     pplmn::PassiveAilment getPassiveAilment() const;
 
+    /**
+     * @brief Returns the stat for this message
+     *
+     */
+    pplmn::Stat getStat() const;
+
 private:
     struct Empty {};
 
     Type type;
-    std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId> data;
+    std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat> data;
     bool forActive;
 };
 
