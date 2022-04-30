@@ -76,6 +76,8 @@ MessagePrinter::MessagePrinter()
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     std::string dispText;
+    const bool forPlayer =
+        msg.forActiveBattler() == (&state.activeBattler() == &state.localPlayer());
     const std::string& ppl   = msg.forActiveBattler() ?
                                    state.activeBattler().activePeoplemon().base().name() :
                                    state.inactiveBattler().activePeoplemon().base().name();
@@ -90,13 +92,17 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::Callback:
-        // TODO - generate actual message
-        dispText = "A peoplemon is being called back";
+        if (forPlayer) { dispText = "Come back " + ppl + "!"; }
+        else {
+            dispText = state.enemy().name() + " called back " + ppl + "!";
+        }
         break;
 
     case Message::Type::SendOut:
-        // TODO - generate actual message
-        dispText = "A peoplemon is being sent out";
+        if (forPlayer) { dispText = "Go " + ppl + "!"; }
+        else {
+            dispText = state.enemy().name() + " sent out " + ppl + "!";
+        }
         break;
 
     case Message::Type::SuperEffective:
@@ -313,6 +319,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::StatDecreaseFailed:
         dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any lower!";
+        break;
+
+    case Message::Type::RecoilDamage:
+        dispText = ppl + " was hurt by Recoil!";
         break;
 
     default:

@@ -452,6 +452,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     queueCommand({cmd::Animation(false, move.id)}, true);
 
     // move does damage
+    int damage = 0;
     if (pwr > 0) {
         // TODO - move may not hit based on abilities and prior moves, may need to move these
         queueCommand({cmd::Animation(false, cmd::Animation::Type::ShakeAndFlash)});
@@ -464,7 +465,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const float multiplier = bl::util::Random::get<float>(0.85f, 1.f);
         const bool crit =
             bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStats().crit);
-        int damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
+        damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
         damage *= stab * multiplier * effective * (crit ? 2.f : 1.f);
 
         BATTLE_LOG << pplmn::Move::name(move.id) << " did " << damage << " damage to "
@@ -493,11 +494,12 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
         Battler& affectedOwner           = affectsSelf ? user : victim;
         const int intensity              = pplmn::Move::effectIntensity(move.id);
+        const bool forActive             = &affectedOwner == &state->activeBattler();
 
         switch (effect) {
         case pplmn::MoveEffect::Heal:
             affected.base().currentHp() += affected.currentStats().hp * intensity / 100;
-            queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, affectsSelf)});
+            queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
             break;
 
         case pplmn::MoveEffect::Poison:
@@ -529,12 +531,12 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 affected.giveAilment(pplmn::PassiveAilment::Distracted);
                 queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
                                            pplmn::PassiveAilment::Distracted,
-                                           affectsSelf)});
+                                           forActive)});
             }
             else {
                 queueCommand({cmd::Message(cmd::Message::Type::PassiveAilmentGiveFail,
                                            pplmn::PassiveAilment::Distracted,
-                                           affectsSelf)});
+                                           forActive)});
             }
             break;
 
@@ -557,26 +559,26 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::Safegaurd:
             if (affectedOwner.getSubstate().turnsGuarded == 0) {
-                affectedOwner.getSubstate().turnsGuarded = 5; // TODO - maybe this is just a bool?
-                queueCommand({cmd::Message(cmd::Message::Type::Guarded, affectsSelf)});
+                affectedOwner.getSubstate().turnsGuarded = 5;
+                queueCommand({cmd::Message(cmd::Message::Type::Guarded, forActive)});
             }
             else {
-                queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, affectsSelf)});
+                queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, forActive)});
             }
             break;
 
         case pplmn::MoveEffect::Substitute:
             affected.applyDamage(affected.currentStats().hp / 4);
             if (affected.base().currentHp() == 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, affectsSelf)});
+                queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, forActive)});
             }
             else if (affectedOwner.getSubstate().substituteHp > 0) {
                 queueCommand(
-                    {cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, affectsSelf)});
+                    {cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, forActive)});
             }
             else {
                 affectedOwner.getSubstate().substituteHp = affected.currentStats().hp / 4;
-                queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, affectsSelf)});
+                queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, forActive)});
             }
             break;
 
@@ -586,11 +588,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 if (ppl.clearAilments(true)) { healed = true; }
             }
             if (healed) {
-                queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, affectsSelf)});
+                queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)});
             }
             else {
                 queueCommand(
-                    {cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, affectsSelf)});
+                    {cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
             }
         } break;
 
@@ -659,20 +661,22 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::CritEvdUp:
-            queueCommand({cmd::Animation(affectsSelf, cmd::Animation::Type::MultipleStateIncrease)},
+            queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
                          true);
             doStatChange(affected, pplmn::Stat::Evasion, intensity, false);
             doStatChange(affected, pplmn::Stat::Critical, intensity, false);
             break;
 
         case pplmn::MoveEffect::SpdAtkUp:
-            queueCommand({cmd::Animation(affectsSelf, cmd::Animation::Type::MultipleStateIncrease)},
+            queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
                          true);
             doStatChange(affected, pplmn::Stat::Attack, intensity, false);
             doStatChange(affected, pplmn::Stat::Speed, intensity, false);
             break;
 
         case pplmn::MoveEffect::Recoil:
+            affected.applyDamage(damage * intensity / 100);
+            queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forActive)});
             break;
 
         case pplmn::MoveEffect::Charge:
@@ -861,18 +865,20 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand(
-            {cmd::Message(cmd::Message::Type::SubstitutePassiveAilmentBlocked, ail, selfGive)});
+            {cmd::Message(cmd::Message::Type::SubstitutePassiveAilmentBlocked, ail, selfGive)},
+            true);
         return;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedPassiveAilment, ail, selfGive)});
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedPassiveAilment, ail, selfGive)},
+                     true);
         return;
     }
 
     victim.giveAilment(ail);
-    queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)});
+    queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)}, true);
 }
 
 void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Stat stat, int amt,
@@ -885,24 +891,28 @@ void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Sta
             queueCommand({cmd::Animation(active, at, stat)}, true);
         }
         if (amt > 1) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, active)},
+                         true);
         }
         else if (amt > 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreased, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreased, stat, active)}, true);
         }
         else if (amt > -2) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreased, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreased, stat, active)}, true);
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreasedSharply, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreasedSharply, stat, active)},
+                         true);
         }
     }
     else {
         if (amt > 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreaseFailed, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreaseFailed, stat, active)},
+                         true);
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, active)});
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, active)},
+                         true);
         }
     }
 }

@@ -56,6 +56,7 @@ public:
         GenericMoveFailed,
 
         WasProtected,
+        RecoilDamage,
 
         Guarded,
         GuardFailed,
