@@ -6,7 +6,8 @@ namespace battle
 {
 BattlerSubstate::BattlerSubstate()
 : lastMoveUsed(pplmn::MoveId::Unknown)
-, isProtected(false) {}
+, isProtected(false)
+, substituteHp(0) {}
 
 void BattlerSubstate::notifyTurn(TurnAction action) {
     isProtected = false;

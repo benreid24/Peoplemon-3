@@ -83,9 +83,14 @@ void BattlePeoplemon::clearAilment(PassiveAilment ail) {
     ailments    = static_cast<PassiveAilment>(static_cast<T>(ailments) & neg);
 }
 
-void BattlePeoplemon::clearAilments(bool a) {
+bool BattlePeoplemon::clearAilments(bool a) {
+    bool ret = ailments != PassiveAilment::None;
     ailments = PassiveAilment::None;
-    if (a) ppl->currentAilment() = Ailment::None;
+    if (a) {
+        ret                   = ret || ppl->currentAilment() != Ailment::None;
+        ppl->currentAilment() = Ailment::None; // TODO - should HealBell clear Guarded from here?
+    }
+    return ret;
 }
 
 SpecialAbility BattlePeoplemon::currentAbility() const { return ability; }

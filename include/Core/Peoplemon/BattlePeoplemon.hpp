@@ -113,8 +113,11 @@ public:
     /**
      * @brief Clears all ailments and optionally the active ailment as well
      *
+     * @param includeActive True to clear the active ailment as well, false for passive only
+     * @return True if any ailments were cleared, false if not
+     *
      */
-    void clearAilments(bool includeActive = true);
+    bool clearAilments(bool includeActive = true);
 
     /**
      * @brief Returns the current ability of this peoplemon

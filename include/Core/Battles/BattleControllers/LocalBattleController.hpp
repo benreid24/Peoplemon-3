@@ -50,7 +50,9 @@ private:
     BattleState::Stage getNextStage(BattleState::Stage ns);
 
     void startUseMove(Battler& user, int index);
-    bool checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move, int pwr, pplmn::Type moveType);
+    bool checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move, int pwr,
+                            pplmn::Type moveType);
+    void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, int dmg);
     void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::Ailment ailment);
     void applyAilmentFromMove(pplmn::BattlePeoplemon& victim, pplmn::PassiveAilment ailment);
 };

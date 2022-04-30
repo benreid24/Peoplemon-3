@@ -18,6 +18,7 @@ namespace battle
 struct BattlerSubstate {
     pplmn::MoveId lastMoveUsed;
     bool isProtected;
+    std::int16_t substituteHp;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

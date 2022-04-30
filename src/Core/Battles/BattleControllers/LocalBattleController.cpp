@@ -278,7 +278,8 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::Attacking:
-            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0) {
+            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
+                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
                 setBattleState(Stage::BeforeFaint);
             }
             else {
@@ -292,7 +293,8 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::Fainting:
             if (&state->activeBattler() == &state->localPlayer() &&
-                battle->type != Battle::Type::Online) {
+                battle->type != Battle::Type::Online &&
+                state->localPlayer().activePeoplemon().base().currentHp() > 0) {
                 setBattleState(Stage::XpAwarding);
             }
             else {
@@ -377,6 +379,8 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
 
     case Stage::HandleFaint:
         // TODO - determine if victory or switch
+        // TODO - always resolve inactive battler first, then active. all faint methods need to grab
+        // correct battler
         return Stage::BeforeFaintSwitch;
 
     case Stage::TurnStart:
@@ -470,7 +474,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         BATTLE_LOG << pplmn::Move::name(move.id) << " did " << damage << " damage to "
                    << defender.base().name();
-        defender.applyDamage(damage);
+        applyDamageWithChecks(victim, defender, damage);
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
         if (effective > 1.1f) {
@@ -492,6 +496,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         (chance < 0 || bl::util::Random::get<int>(0, 100) < chance)) {
         const bool affectsSelf           = pplmn::Move::affectsUser(move.id);
         pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
+        Battler& affectedOwner           = affectsSelf ? user : victim;
         const int intensity              = pplmn::Move::effectIntensity(move.id);
 
         switch (effect) {
@@ -555,14 +560,48 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::Safegaurd:
-            break;
+        case pplmn::MoveEffect::Safegaurd: {
+            Battler& recv = affectsSelf ? user : victim;
+            bool gave     = false;
+            for (pplmn::BattlePeoplemon& ppl : recv.peoplemon()) {
+                if (ppl.giveAilment(pplmn::Ailment::Guarded)) gave = true;
+            }
+            if (gave) {
+                queueCommand({cmd::Message(cmd::Message::Type::TeamGuarded, affectsSelf)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::TeamGuardFailed, affectsSelf)});
+            }
+        } break;
 
         case pplmn::MoveEffect::Substitute:
+            affected.applyDamage(affected.currentStats().hp / 4);
+            if (affected.base().currentHp() == 0) {
+                queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, affectsSelf)});
+            }
+            else if (affectedOwner.getSubstate().substituteHp > 0) {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, affectsSelf)});
+            }
+            else {
+                affectedOwner.getSubstate().substituteHp = affected.currentStats().hp / 4;
+                queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, affectsSelf)});
+            }
             break;
 
-        case pplmn::MoveEffect::HealBell:
-            break;
+        case pplmn::MoveEffect::HealBell: {
+            bool healed = false;
+            for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
+                if (ppl.clearAilments(true)) { healed = true; }
+            }
+            if (healed) {
+                queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, affectsSelf)});
+            }
+            else {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, affectsSelf)});
+            }
+        } break;
 
         case pplmn::MoveEffect::CritUp:
             break;
@@ -752,6 +791,25 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, p
 
     // move goes ahead normally
     return false;
+}
+
+void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::BattlePeoplemon& ppl,
+                                                  int dmg) {
+    const bool isActive = &victim == &state->activeBattler();
+
+    // check if victim has a Substitute
+    if (victim.getSubstate().substituteHp > 0) {
+        queueCommand({cmd::Message(cmd::Message::Type::SubstituteTookDamage, isActive)}, true);
+        const int subhp = victim.getSubstate().substituteHp;
+        victim.getSubstate().substituteHp -= dmg;
+        if (victim.getSubstate().substituteHp <= 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteDied, isActive)}, true);
+            dmg -= subhp; // reduce damage by what sub took
+            victim.getSubstate().substituteHp = 0;
+        }
+    }
+
+    ppl.applyDamage(dmg);
 }
 
 void LocalBattleController::applyAilmentFromMove(pplmn::BattlePeoplemon& victim,

@@ -48,7 +48,16 @@ public:
         AilmentGiveFail,
         PassiveAilmentGiveFail,
         GenericMoveFailed,
-        WasProtected
+        WasProtected,
+        TeamGuarded,
+        TeamGuardFailed,
+        SubstituteSuicide,
+        SubstituteCreated,
+        SubstituteAlreadyExists,
+        SubstituteTookDamage,
+        SubstituteDied,
+        HealBellHealed,
+        HealBellAlreadyHealthy
     };
 
     /**

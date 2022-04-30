@@ -214,6 +214,43 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "But " + ppl + " Protected itself!";
         break;
 
+    case Message::Type::TeamGuarded:
+        dispText = ppl + " Guarded their entire team!";
+        break;
+
+    case Message::Type::TeamGuardFailed:
+        dispText = ppl + " tried to Guard their team but it failed!";
+        break;
+
+    case Message::Type::SubstituteSuicide:
+        dispText = ppl + " tried to create a Substitute but killed themself instead!";
+        break;
+
+    case Message::Type::SubstituteAlreadyExists:
+        dispText = ppl + " tried to create a Substitute but they already have one!";
+        break;
+
+    case Message::Type::SubstituteCreated:
+        dispText = ppl + " created a Substitute!";
+        break;
+
+    case Message::Type::SubstituteTookDamage:
+        dispText = ppl + "'s Substitute took damage in their place!";
+        break;
+
+    case Message::Type::SubstituteDied:
+        dispText = ppl + "'s Substitute was killed!";
+        break;
+
+    case Message::Type::HealBellHealed:
+        dispText = ppl + "'s Heal Bell made their entire party healthy!";
+        break;
+
+    case Message::Type::HealBellAlreadyHealthy:
+        dispText = ppl + " tried to use their Heal Bell to make their party healthy but everyone "
+                         "is already healthy!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
