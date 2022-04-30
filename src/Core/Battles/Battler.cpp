@@ -23,15 +23,23 @@ void Battler::notifyTurn() {
     substate.notifyTurn(chosenAction());
 }
 
-bool Battler::actionSelected() const { return controller->actionSelected(); }
+bool Battler::actionSelected() const {
+    return substate.chargingMove >= 0 || controller->actionSelected();
+}
 
-void Battler::pickAction() { controller->pickAction(); }
+void Battler::pickAction() {
+    if (substate.chargingMove < 0) { controller->pickAction(); }
+}
 
 void Battler::pickPeoplemon() { controller->pickPeoplemon(); }
 
-TurnAction Battler::chosenAction() const { return controller->chosenAction(); }
+TurnAction Battler::chosenAction() const {
+    return substate.chargingMove < 0 ? controller->chosenAction() : TurnAction::Fight;
+}
 
-int Battler::chosenMove() const { return controller->chosenMove(); }
+int Battler::chosenMove() const {
+    return substate.chargingMove < 0 ? controller->chosenMove() : substate.chargingMove;
+}
 
 core::item::Id Battler::chosenItem() const { return controller->chosenItem(); }
 

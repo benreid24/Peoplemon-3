@@ -8,7 +8,8 @@ BattlerSubstate::BattlerSubstate()
 : lastMoveUsed(pplmn::MoveId::Unknown)
 , isProtected(false)
 , substituteHp(0)
-, turnsGuarded(0) {}
+, turnsGuarded(0)
+, chargingMove(-1) {}
 
 void BattlerSubstate::notifyTurn(TurnAction action) {
     isProtected = false;
@@ -18,7 +19,8 @@ void BattlerSubstate::notifyTurn(TurnAction action) {
 
 void BattlerSubstate::notifySwitch(bool fainted) {
     substituteHp = 0;
-    // TODO - reset more things
+    chargingMove = -1;
+    lastMoveUsed = pplmn::MoveId::Unknown;
 }
 
 } // namespace battle

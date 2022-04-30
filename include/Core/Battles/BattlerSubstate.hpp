@@ -20,6 +20,7 @@ struct BattlerSubstate {
     bool isProtected;
     std::int16_t substituteHp;
     std::uint8_t turnsGuarded;
+    std::int8_t chargingMove;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

@@ -79,7 +79,10 @@ public:
         StatIncreaseFailed,
         StatDecreased,
         StatDecreasedSharply,
-        StatDecreaseFailed
+        StatDecreaseFailed,
+
+        ChargeStarted,
+        ChargeUnleashed
     };
 
     /**
@@ -124,10 +127,10 @@ public:
 
     /**
      * @brief Construct a new Message for stat increases and decreases
-     * 
-     * @param type 
-     * @param stat 
-     * @param forActiveBattler 
+     *
+     * @param type
+     * @param stat
+     * @param forActiveBattler
      */
     Message(Type type, pplmn::Stat stat, bool forActiveBattler);
 

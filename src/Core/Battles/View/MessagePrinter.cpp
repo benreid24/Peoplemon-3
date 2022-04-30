@@ -325,6 +325,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " was hurt by Recoil!";
         break;
 
+    case Message::Type::ChargeStarted:
+        dispText = ppl + " began charging power!";
+        break;
+
+    case Message::Type::ChargeUnleashed:
+        dispText = ppl + " unleashed power!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

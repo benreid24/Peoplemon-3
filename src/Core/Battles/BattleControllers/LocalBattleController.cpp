@@ -32,13 +32,13 @@ int critChance(int stage) {
     }
 }
 
-class MoveSetter {
+class BattlerAttackFinalizer {
 public:
-    MoveSetter(Battler& b, pplmn::MoveId move)
+    BattlerAttackFinalizer(Battler& b, pplmn::MoveId move)
     : battler(b)
     , move(move) {}
 
-    ~MoveSetter() { battler.getSubstate().lastMoveUsed = move; }
+    ~BattlerAttackFinalizer() { battler.getSubstate().lastMoveUsed = move; }
 
 private:
     Battler& battler;
@@ -422,13 +422,20 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     Battler& victim = &user == &state->localPlayer() ? state->enemy() : state->localPlayer();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
+    const bool userIsActive          = &user == &state->activeBattler();
 
     pplmn::OwnedMove& move = index >= 0 ? user.activePeoplemon().base().knownMoves()[index] : flail;
-    move.curPP -= 1;
+    const bool isChargeSecondTurn = user.getSubstate().chargingMove >= 0;
+    if (!isChargeSecondTurn) {
+        move.curPP -= 1;
+        queueCommand({cmd::Message(cmd::Message(move.id))}, true);
+    }
+    else {
+        user.getSubstate().chargingMove = -1;
+        queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsActive)}, true);
+    }
 
-    MoveSetter _setter(user, move.id);
-
-    queueCommand({cmd::Message(cmd::Message(move.id))}, true);
+    BattlerAttackFinalizer _finalizer(user, move.id);
 
     // determine if hit
     const int acc       = pplmn::Move::accuracy(move.id);
@@ -441,21 +448,25 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // determine if attacking move
-    const pplmn::Type moveType = pplmn::Move::type(move.id);
-    const bool special         = pplmn::Move::isSpecial(move.id);
-    int pwr                    = pplmn::Move::damage(move.id);
+    const pplmn::Type moveType     = pplmn::Move::type(move.id);
+    const pplmn::MoveEffect effect = pplmn::Move::effect(move.id);
+    const bool special             = pplmn::Move::isSpecial(move.id);
+    int pwr                        = pplmn::Move::damage(move.id);
 
     // check if abilities or substate canceles the move
-    if (checkMoveCancelled(user, victim, move.id, pwr, moveType)) return;
+    if (checkMoveCancelled(
+            user, victim, index, move.id, pwr, moveType, effect, isChargeSecondTurn)) {
+        return;
+    }
 
     // move has hit
-    queueCommand({cmd::Animation(false, move.id)}, true);
+    queueCommand({cmd::Animation(!userIsActive, move.id)}, true);
 
     // move does damage
     int damage = 0;
     if (pwr > 0) {
         // TODO - move may not hit based on abilities and prior moves, may need to move these
-        queueCommand({cmd::Animation(false, cmd::Animation::Type::ShakeAndFlash)});
+        queueCommand({cmd::Animation(!userIsActive, cmd::Animation::Type::ShakeAndFlash)});
         queueCommand({Command::SyncStateNoSwitch}, true);
 
         int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
@@ -486,8 +497,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     if (defender.base().currentHp() == 0) return; // TODO - may still need to handle abilities?
 
     // resolve move effect if any
-    const pplmn::MoveEffect effect = pplmn::Move::effect(move.id);
-    const int chance               = pplmn::Move::effectChance(move.id);
+    const int chance = pplmn::Move::effectChance(move.id);
     if (effect != pplmn::MoveEffect::None &&
         (chance < 0 || bl::util::Random::get<int>(0, 100) < chance)) {
         const bool affectsSelf           = pplmn::Move::affectsUser(move.id);
@@ -591,8 +601,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)});
             }
             else {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
+                queueCommand({cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
             }
         } break;
 
@@ -680,6 +689,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::Charge:
+            // handled in checkMoveCancelled
             break;
 
         case pplmn::MoveEffect::Suicide:
@@ -785,8 +795,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     queueCommand({Command::SyncStateNoSwitch}, true);
 }
 
-bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move,
-                                               int pwr, pplmn::Type moveType) {
+bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, int i,
+                                               pplmn::MoveId move, int pwr, pplmn::Type moveType,
+                                               pplmn::MoveEffect effect, bool isChargeSecondTurn) {
     const bool targetsVictim = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
                                            pplmn::Move::effect(move) != pplmn::MoveEffect::None);
 
@@ -804,6 +815,15 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, p
     if (targetsVictim && victim.getSubstate().isProtected) {
         queueCommand(
             {cmd::Message(cmd::Message::Type::WasProtected, &victim == &state->activeBattler())},
+            true);
+        return true;
+    }
+
+    // stop here if this is first move of a charging move
+    if (effect == pplmn::MoveEffect::Charge && !isChargeSecondTurn) {
+        user.getSubstate().chargingMove = i;
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::ChargeStarted, &user == &state->activeBattler())},
             true);
         return true;
     }

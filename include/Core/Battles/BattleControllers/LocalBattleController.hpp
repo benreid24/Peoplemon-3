@@ -3,6 +3,7 @@
 
 #include <Core/Battles/BattleControllers/BattleController.hpp>
 #include <Core/Battles/BattleState.hpp>
+#include <Core/Peoplemon/MoveEffect.hpp>
 
 namespace core
 {
@@ -50,8 +51,9 @@ private:
     BattleState::Stage getNextStage(BattleState::Stage ns);
 
     void startUseMove(Battler& user, int index);
-    bool checkMoveCancelled(Battler& user, Battler& victim, pplmn::MoveId move, int pwr,
-                            pplmn::Type moveType);
+    bool checkMoveCancelled(Battler& user, Battler& victim, int i, pplmn::MoveId move, int pwr,
+                            pplmn::Type moveType, pplmn::MoveEffect effect,
+                            bool isChargeSecondTurn);
     void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, int dmg);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::Ailment ailment);
