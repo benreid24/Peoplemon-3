@@ -1,6 +1,7 @@
 #include <Core/Peoplemon/Move.hpp>
 
 #include <BLIB/Util/FileUtil.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 
 namespace core
@@ -146,6 +147,14 @@ std::string Move::opponentAnimationForeground(MoveId move) {
     const std::string f1 = bl::util::FileUtil::joinPath(Properties::AnimationPath(), "Moves");
     const std::string f2 = bl::util::FileUtil::joinPath(f1, name(move));
     return bl::util::FileUtil::joinPath(f2, "Back/Foreground.anim");
+}
+
+MoveId Move::getRandomMove(bool ir) {
+    MoveId ret;
+    do {
+        ret = allIds[bl::util::Random::get<std::size_t>(0, allIds.size() - 1)];
+    } while (!ir && (effect(ret) == MoveEffect::RandomMove || effect(ret) == MoveEffect::Charge));
+    return ret;
 }
 
 } // namespace pplmn

@@ -152,6 +152,14 @@ public:
      */
     static std::string opponentAnimationForeground(MoveId move);
 
+    /**
+     * @brief Returns a random, valid move. Optionally filters moves that have the Random effect
+     *
+     * @param allowRandomEffect True to filter randoms, false for all moves
+     * @return MoveId A random move
+     */
+    static MoveId getRandomMove(bool allowRandomEffect = false);
+
 private:
     static std::unordered_map<MoveId, std::string>* names;
     static std::unordered_map<MoveId, std::string>* descriptions;

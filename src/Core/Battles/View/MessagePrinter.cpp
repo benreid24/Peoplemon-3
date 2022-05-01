@@ -366,6 +366,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " cannot do an Encore now!";
         break;
 
+    case Message::Type::RandomMove:
+        dispText = pplmn::Move::name(msg.getOriginalMove()) + " turned into " +
+                   pplmn::Move::name(msg.getNewMove()) + "!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

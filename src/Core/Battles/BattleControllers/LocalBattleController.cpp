@@ -444,6 +444,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
     const bool userIsActive          = &user == &state->activeBattler();
 
+    // get move, handle charge, and deduct pp
     pplmn::OwnedMove& move =
         index >= 0 && user.activePeoplemon().base().knownMoves()[index].curPP > 0 ?
             user.activePeoplemon().base().knownMoves()[index] :
@@ -458,10 +459,18 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsActive)}, true);
     }
 
-    BattlerAttackFinalizer _finalizer(user, move.id);
+    // determine actual move to use based on effects
+    pplmn::MoveId usedMove            = move.id;
+    const pplmn::MoveEffect preEffect = pplmn::Move::effect(move.id);
+    if (preEffect == pplmn::MoveEffect::RandomMove) {
+        usedMove = pplmn::Move::getRandomMove(false);
+        queueCommand({cmd::Message(cmd::Message::Type::RandomMove, move.id, usedMove)}, true);
+    }
+
+    BattlerAttackFinalizer _finalizer(user, usedMove);
 
     // determine if hit
-    const int acc       = pplmn::Move::accuracy(move.id);
+    const int acc       = pplmn::Move::accuracy(usedMove);
     const int pacc      = attacker.battleStats().acc;
     const int evd       = defender.battleStats().evade;
     const int hitChance = acc * pacc / evd;
@@ -471,24 +480,23 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // determine if attacking move
-    const pplmn::Type moveType     = pplmn::Move::type(move.id);
-    const pplmn::MoveEffect effect = pplmn::Move::effect(move.id);
-    const bool special             = pplmn::Move::isSpecial(move.id);
-    int pwr                        = pplmn::Move::damage(move.id);
+    const pplmn::Type moveType     = pplmn::Move::type(usedMove);
+    const pplmn::MoveEffect effect = pplmn::Move::effect(usedMove);
+    const bool special             = pplmn::Move::isSpecial(usedMove);
+    int pwr                        = pplmn::Move::damage(usedMove);
 
     // check if abilities or substate canceles the move
     if (checkMoveCancelled(
-            user, victim, index, move.id, pwr, moveType, effect, isChargeSecondTurn)) {
+            user, victim, index, usedMove, pwr, moveType, effect, isChargeSecondTurn)) {
         return;
     }
 
     // move has hit
-    queueCommand({cmd::Animation(!userIsActive, move.id)}, true);
+    queueCommand({cmd::Animation(!userIsActive, usedMove)}, true);
 
     // move does damage
     int damage = 0;
     if (pwr > 0) {
-        // TODO - move may not hit based on abilities and prior moves, may need to move these
         queueCommand({cmd::Animation(!userIsActive, cmd::Animation::Type::ShakeAndFlash)});
         queueCommand({Command::SyncStateNoSwitch}, true);
 
@@ -508,7 +516,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
         if (effective > 1.1f) {
-            defender.notifySuperEffectiveHit(move.id);
+            defender.notifySuperEffectiveHit(usedMove);
             queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)}, true);
         }
         else if (effective < 0.9f) {
@@ -522,13 +530,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     // some effects (ie WakeBoth) don't apply to any peoplemon, maybe do those too
 
     // resolve move effect if any
-    const int chance = pplmn::Move::effectChance(move.id);
+    const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
         (chance < 0 || bl::util::Random::get<int>(0, 100) < chance)) {
-        const bool affectsSelf           = pplmn::Move::affectsUser(move.id);
+        const bool affectsSelf           = pplmn::Move::affectsUser(usedMove);
         pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
         Battler& affectedOwner           = affectsSelf ? user : victim;
-        const int intensity              = pplmn::Move::effectIntensity(move.id);
+        const int intensity              = pplmn::Move::effectIntensity(usedMove);
         const bool forActive             = &affectedOwner == &state->activeBattler();
 
         switch (effect) {
@@ -588,7 +596,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::Protection:
-            if (state->isFirstMover() && user.getSubstate().lastMoveUsed != move.id) {
+            if (state->isFirstMover() && user.getSubstate().lastMoveUsed != usedMove) {
                 user.getSubstate().isProtected = true;
             }
             else {
@@ -775,9 +783,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::RandomMove:
-            break;
-
         case pplmn::MoveEffect::BatonPass:
             break;
 
@@ -847,6 +852,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::OnlySleeping:
         case pplmn::MoveEffect::Charge:
             // handled in checkMoveCancelled
+            break;
+
+        case pplmn::MoveEffect::RandomMove:
+            // handled up top
             break;
 
         default:

@@ -62,6 +62,7 @@ public:
         MirrorCoatEffect,
         OnlySleepAffected,
         EveryoneWokenUp,
+        RandomMove,
 
         Guarded,
         GuardFailed,
@@ -109,6 +110,15 @@ public:
      * @param move The move being used
      */
     Message(pplmn::MoveId move);
+
+    /**
+     * @brief Construct a new Message for when moves change
+     *
+     * @param type The type of message
+     * @param oldMove The original move
+     * @param newMove The move it turned into
+     */
+    Message(Type type, pplmn::MoveId oldMove, pplmn::MoveId newMove);
 
     /**
      * @brief Construct a new Message with an extra boolean value
@@ -181,11 +191,25 @@ public:
      */
     pplmn::Stat getStat() const;
 
+    /**
+     * @brief Returns the original move for the message
+     *
+     */
+    pplmn::MoveId getOriginalMove() const;
+
+    /**
+     * @brief Returns the new move for the message
+     *
+     */
+    pplmn::MoveId getNewMove() const;
+
 private:
     struct Empty {};
 
     Type type;
-    std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat> data;
+    std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat,
+                 std::pair<pplmn::MoveId, pplmn::MoveId>>
+        data;
     bool forActive;
 };
 

@@ -6,6 +6,8 @@ namespace battle
 {
 namespace cmd
 {
+using MovePair = std::pair<pplmn::MoveId, pplmn::MoveId>;
+
 Message::Message(Type tp)
 : type(tp)
 , data(Empty())
@@ -36,6 +38,11 @@ Message::Message(Type tp, pplmn::Stat stat, bool a)
 , data(stat)
 , forActive(a) {}
 
+Message::Message(Type tp, pplmn::MoveId og, pplmn::MoveId nm)
+: type(tp)
+, data(std::make_pair(og, nm))
+, forActive(true) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {
@@ -58,6 +65,16 @@ pplmn::PassiveAilment Message::getPassiveAilment() const {
 pplmn::Stat Message::getStat() const {
     const pplmn::Stat* s = std::get_if<pplmn::Stat>(&data);
     return s ? *s : pplmn::Stat::Attack;
+}
+
+pplmn::MoveId Message::getOriginalMove() const {
+    const MovePair* mp = std::get_if<MovePair>(&data);
+    return mp ? mp->first : pplmn::MoveId::Unknown;
+}
+
+pplmn::MoveId Message::getNewMove() const {
+    const MovePair* mp = std::get_if<MovePair>(&data);
+    return mp ? mp->second : pplmn::MoveId::Unknown;
 }
 
 } // namespace cmd
