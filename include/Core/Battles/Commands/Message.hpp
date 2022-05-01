@@ -101,7 +101,11 @@ public:
 
         DeathCountDown,
         DeathFromCountdown,
-        DeathCountDownFailed
+        DeathCountDownFailed,
+
+        GambleOne,
+        GambleTwenty,
+        GambleMiddle
     };
 
     /**
@@ -156,11 +160,20 @@ public:
     /**
      * @brief Construct a new Message for stat increases and decreases
      *
-     * @param type
-     * @param stat
-     * @param forActiveBattler
+     * @param type The type of message to create
+     * @param stat The stat the message is for
+     * @param forActiveBattler If the message is for the active battler or not
      */
     Message(Type type, pplmn::Stat stat, bool forActiveBattler);
+
+    /**
+     * @brief Construct a new Message for some integer type
+     *
+     * @param type The type of message
+     * @param ival The integer type to have in the message
+     * @param forActiveBattler If the message is for the active battler or not
+     */
+    Message(Type type, std::int16_t ival, bool forActiveBattler);
 
     /**
      * @brief Returns the type of message this is
@@ -210,12 +223,18 @@ public:
      */
     pplmn::MoveId getNewMove() const;
 
+    /**
+     * @brief Returns the integer bundled with this message
+     *
+     */
+    std::int16_t getInt() const;
+
 private:
     struct Empty {};
 
     Type type;
     std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat,
-                 std::pair<pplmn::MoveId, pplmn::MoveId>>
+                 std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t>
         data;
     bool forActive;
 };

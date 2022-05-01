@@ -559,6 +559,23 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         return;
     }
 
+    // check if move has Gamble
+    if (effect == pplmn::MoveEffect::Gamble) {
+        const std::int16_t r = bl::util::Random::get<std::int16_t>(1, 20);
+        if (r == 1) {
+            user.activePeoplemon().base().currentHp() = 1;
+            queueCommand({cmd::Message(cmd::Message::Type::GambleOne, userIsActive)}, true);
+        }
+        else if (r == 20) {
+            pwr = 200;
+            queueCommand({cmd::Message(cmd::Message::Type::GambleTwenty, userIsActive)}, true);
+        }
+        else {
+            pwr = r * 5;
+            queueCommand({cmd::Message(cmd::Message::Type::GambleMiddle, r, userIsActive)}, true);
+        }
+    }
+
     // move has hit
     queueCommand({cmd::Animation(!userIsActive, usedMove)}, true);
 
@@ -898,9 +915,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::DeathSwap:
             break;
 
-        case pplmn::MoveEffect::Gamble:
-            break;
-
         case pplmn::MoveEffect::StayAlive:
             break;
 
@@ -951,6 +965,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             // handled in checkMoveCancelled
             break;
 
+        case pplmn::MoveEffect::Gamble:
         case pplmn::MoveEffect::RandomMove:
             // handled up top
             break;

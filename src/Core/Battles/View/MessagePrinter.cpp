@@ -393,6 +393,19 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " for death but they are both already doomed!";
         break;
 
+    case Message::Type::GambleOne:
+        dispText = ppl + " rolled a 1 and was reduced to 1 HP!";
+        break;
+
+    case Message::Type::GambleTwenty:
+        dispText = ppl + " rolled a 20!! Attack power is increased to 200!";
+        break;
+
+    case Message::Type::GambleMiddle:
+        dispText = ppl + " rolled a " + std::to_string(msg.getInt()) + "! Attack power is " +
+                   std::to_string(msg.getInt() * 5) + "!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

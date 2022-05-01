@@ -43,6 +43,11 @@ Message::Message(Type tp, pplmn::MoveId og, pplmn::MoveId nm)
 , data(std::make_pair(og, nm))
 , forActive(true) {}
 
+Message::Message(Type tp, std::int16_t ival, bool a)
+: type(tp)
+, data(ival)
+, forActive(a) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {
@@ -75,6 +80,11 @@ pplmn::MoveId Message::getOriginalMove() const {
 pplmn::MoveId Message::getNewMove() const {
     const MovePair* mp = std::get_if<MovePair>(&data);
     return mp ? mp->second : pplmn::MoveId::Unknown;
+}
+
+std::int16_t Message::getInt() const {
+    const std::int16_t* i = std::get_if<std::int16_t>(&data);
+    return i ? *i : 1;
 }
 
 } // namespace cmd
