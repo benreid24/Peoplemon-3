@@ -203,6 +203,24 @@ void LocalBattleController::initCurrentStage() {
         // TODO - sync boxes
         break;
 
+    case Stage::RoundEnd:
+        // check for death counter (DieIn3Turns)
+        if (state->localPlayer().getSubstate().deathCounter == 0) {
+            state->localPlayer().activePeoplemon().base().currentHp() = 0;
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown,
+                                       &state->localPlayer() == &state->activeBattler())},
+                         true);
+        }
+        else if (state->enemy().getSubstate().deathCounter == 0) {
+            state->enemy().activePeoplemon().base().currentHp() = 0;
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown,
+                                       &state->enemy() == &state->activeBattler())},
+                         true);
+        }
+        break;
+
     case Stage::TrainerDefeated:
         // TODO - show message. give money
         break;
@@ -343,6 +361,16 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             }
             break;
 
+        case Stage::RoundEnd:
+            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
+                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
+                setBattleState(Stage::BeforeFaint);
+            }
+            else {
+                setBattleState(Stage::WaitingChoices);
+            }
+            break;
+
         case Stage::BeforeFaint:
             setBattleState(Stage::Fainting);
             break;
@@ -378,7 +406,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::AfterFaintSwitch:
-            setBattleState(Stage::WaitingChoices);
+            setBattleState(Stage::RoundEnd);
             break;
 
         case Stage::TrainerDefeated:
@@ -840,8 +868,23 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
         } break;
 
-        case pplmn::MoveEffect::DieIn3Turns:
-            break;
+        case pplmn::MoveEffect::DieIn3Turns: {
+            bool marked = false;
+            if (state->activeBattler().getSubstate().deathCounter < 0) {
+                queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, true)}, true);
+                state->activeBattler().getSubstate().deathCounter = 3;
+                marked                                            = true;
+            }
+            if (state->inactiveBattler().getSubstate().deathCounter < 0) {
+                queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, false)}, true);
+                state->inactiveBattler().getSubstate().deathCounter = 3;
+                marked                                              = true;
+            }
+            if (!marked) {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::DeathCountDownFailed, userIsActive)});
+            }
+        } break;
 
         case pplmn::MoveEffect::SetBall:
             break;

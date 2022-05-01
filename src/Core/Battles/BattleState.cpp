@@ -20,7 +20,7 @@ void BattleState::beginRound(bool pf) {
 
 BattleState::Stage BattleState::nextTurn() {
     currentMover = (currentMover + 1) % 2;
-    return currentMover == firstMover ? Stage::WaitingChoices : Stage::TurnStart;
+    return currentMover == firstMover ? Stage::RoundEnd : Stage::TurnStart;
 }
 
 Battler& BattleState::localPlayer() { return player; }

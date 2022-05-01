@@ -379,6 +379,20 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Baton Pass lets them switch out!";
         break;
 
+    case Message::Type::DeathCountDown:
+        dispText = ppl + " has been Marked for Death! They better get out of here!";
+        break;
+
+    case Message::Type::DeathFromCountdown:
+        dispText = ppl + " died from their Mark of Death! Should have gotten out of here when they "
+                         "had the chance.";
+        break;
+
+    case Message::Type::DeathCountDownFailed:
+        dispText = ppl + " tried to mark themself and " + other +
+                   " for death but they are both already doomed!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

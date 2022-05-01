@@ -29,11 +29,12 @@ public:
         IntroSendInSelf,
         IntroSendInOpponent,
 
-        // Turn start
+        // Turn and round flow
         WaitingChoices,
         RoundStart,
         TurnStart,
         NextBattler,
+        RoundEnd,
 
         // Use item
         PreUseItem,

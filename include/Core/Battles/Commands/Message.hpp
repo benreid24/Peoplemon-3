@@ -97,7 +97,11 @@ public:
         EncoreFailed,
 
         BatonPassFailed,
-        BatonPassStart
+        BatonPassStart,
+
+        DeathCountDown,
+        DeathFromCountdown,
+        DeathCountDownFailed
     };
 
     /**

@@ -11,7 +11,8 @@ BattlerSubstate::BattlerSubstate()
 , turnsGuarded(0)
 , chargingMove(-1)
 , encoreMove(-1)
-, encoreTurnsLeft(0) {}
+, encoreTurnsLeft(0)
+, deathCounter(-1) {}
 
 void BattlerSubstate::notifyTurn(TurnAction action) {
     isProtected = false;
@@ -21,6 +22,7 @@ void BattlerSubstate::notifyTurn(TurnAction action) {
         encoreTurnsLeft -= 1;
         if (encoreTurnsLeft == 0) { encoreMove = -1; }
     }
+    if (deathCounter > 0) { deathCounter -= 1; }
 }
 
 void BattlerSubstate::notifySwitch(bool fainted) {
@@ -29,6 +31,7 @@ void BattlerSubstate::notifySwitch(bool fainted) {
     lastMoveUsed    = pplmn::MoveId::Unknown;
     encoreTurnsLeft = 0;
     encoreMove      = -1;
+    deathCounter    = -1;
 }
 
 } // namespace battle

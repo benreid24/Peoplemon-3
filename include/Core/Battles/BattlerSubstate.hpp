@@ -23,6 +23,7 @@ struct BattlerSubstate {
     std::int8_t chargingMove;
     std::int8_t encoreMove;
     std::uint8_t encoreTurnsLeft;
+    std::int8_t deathCounter;
 
     /**
      * @brief Construct a new Battler State object with proper defaults
