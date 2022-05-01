@@ -14,8 +14,8 @@ BattleState::BattleState(Stage state)
 void BattleState::beginRound(bool pf) {
     currentMover = pf ? 0 : 1;
     firstMover   = currentMover;
-    player.notifyTurn();
-    opponent.notifyTurn();
+    player.notifyTurnBegin();
+    opponent.notifyTurnBegin();
 }
 
 BattleState::Stage BattleState::nextTurn() {

@@ -34,6 +34,7 @@ public:
         RoundStart,
         TurnStart,
         NextBattler,
+        RoundFinalEffects,
         RoundEnd,
 
         // Use item
@@ -55,10 +56,10 @@ public:
 
         // Fight
         Attacking,
-        WaitingBatonPass,
-        BeforeBatonSwitch,
-        BatonSwitching,
-        AfterBatonSwitch,
+        WaitingMidTurnSwitch,
+        BeforeMidTurnSwitch,
+        MidTurnSwitching,
+        AfterMidTurnSwitch,
 
         // Peoplemon defeated
         BeforeFaint,

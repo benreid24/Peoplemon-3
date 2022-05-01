@@ -18,10 +18,14 @@ void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
     controller->setOwner(*this);
 }
 
-void Battler::notifyTurn() {
+void Battler::notifyTurnBegin() { substate.notifyTurnBegin(); }
+
+void Battler::notifyTurnEnd() {
     activePeoplemon().notifyTurn(); // TODO - call for entire team? maybe pass outNow flag
-    substate.notifyTurn(chosenAction());
+    substate.notifyTurnEnd(chosenAction());
 }
+
+void Battler::notifySwitch(bool ff) { substate.notifySwitch(ff); }
 
 bool Battler::actionSelected() const {
     if (substate.chargingMove >= 0) return true;
@@ -76,6 +80,13 @@ unsigned int Battler::getPriority() const {
 bool Battler::canFight() const {
     for (const auto& ppl : team) {
         if (ppl.base().currentHp() > 0) return true;
+    }
+    return false;
+}
+
+bool Battler::canSwitch() const {
+    for (const auto& ppl : team) {
+        if (ppl.base().currentHp() > 0 && &ppl != &team[currentPeoplemon]) return true;
     }
     return false;
 }

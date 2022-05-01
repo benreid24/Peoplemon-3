@@ -55,7 +55,7 @@ enum struct MoveEffect : std::uint8_t {
     Peanut               = 37,
     SetBall              = 38,
     WakeBoth             = 39,
-    HealPercent          = 40,
+    Absorb               = 40,
     Encore               = 41,
     RandomMove           = 42,
     BatonPass            = 43,

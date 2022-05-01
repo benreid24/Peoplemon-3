@@ -25,6 +25,14 @@ struct BattlerSubstate {
     std::uint8_t encoreTurnsLeft;
     std::int8_t deathCounter;
 
+    bool ballBlocked;
+    bool ballBumped;
+    bool ballSet;
+    bool ballSpiked;
+    bool ballSwiped;
+    bool noOneToGetBall;
+    std::int8_t ballUpTurns;
+
     /**
      * @brief Construct a new Battler State object with proper defaults
      *
@@ -36,7 +44,15 @@ struct BattlerSubstate {
      *
      * @param action The action the battler did on the last turn
      */
-    void notifyTurn(TurnAction action);
+    void notifyTurnBegin();
+
+    /**
+     * @brief Resets and updates part of the state that depend on turns elapsing
+     *
+     * @param action The action the battler did on the last turn
+     *
+     */
+    void notifyTurnEnd(TurnAction action);
 
     /**
      * @brief Updates state that is unique to the currently out Peoplemon

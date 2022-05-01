@@ -40,6 +40,7 @@ protected:
 
 private:
     bool currentStageInitialized;
+    bool finalEffectsApplied;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;
@@ -61,6 +62,8 @@ private:
                               pplmn::PassiveAilment ailment);
     void doStatChange(pplmn::BattlePeoplemon& recv, pplmn::Stat stat, int amt,
                       bool playAnim = true);
+
+    void handleBattlerRoundEnd(Battler& battler);
 };
 
 } // namespace battle

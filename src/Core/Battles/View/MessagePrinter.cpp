@@ -406,6 +406,82 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    std::to_string(msg.getInt() * 5) + "!";
         break;
 
+    case Message::Type::Absorb:
+        dispText = ppl + " absorbed HP from " + other + "!";
+        break;
+
+    case Message::Type::NoPPDeath:
+        dispText = ppl + " has no PP and died of shame!";
+        break;
+
+    case Message::Type::BallServed:
+        dispText = ppl + " Served a volleyball out of nowhere! Better watch out.";
+        break;
+
+    case Message::Type::BallBumped:
+        dispText = ppl + " Bumped the volleyball!";
+        break;
+
+    case Message::Type::BallSet:
+        dispText = ppl + " Set the volleyball!";
+        break;
+
+    case Message::Type::BallSetFail:
+        dispText = ppl + " tried to Set a volleyball but there isn't one in play!";
+        break;
+
+    case Message::Type::BallSpiked:
+        dispText = ppl + " Spiked the volleyball!";
+        break;
+
+    case Message::Type::BallSpikeFail:
+        dispText = ppl + " tried to Spike a volleyball but there isn't one in play!";
+        break;
+
+    case Message::Type::BallSwiped:
+        dispText = ppl + " Swiped the volleyball!";
+        break;
+
+    case Message::Type::BallSwipeFail:
+        dispText = ppl + " tried to Swipe a volleyball but there isn't one in play!";
+        break;
+
+    case Message::Type::BallBlocked:
+        dispText = ppl + " is preparing to Block a Spike!";
+        break;
+
+    case Message::Type::BallBlockFail:
+        dispText = ppl + " got ready to Block a Spike, but no one has a ball!";
+        break;
+
+    case Message::Type::BallSpikeBlocked:
+        dispText = ppl + "'s Spike was Blocked by " + other + " and they died of shame!";
+        break;
+
+    case Message::Type::BallSwipeBlocked:
+        dispText = other + " did not Block so " + ppl + "'s Swipe didn't work! They died of shame.";
+        break;
+
+    case Message::Type::BallKillSelf:
+        dispText = ppl + " forgot to keep the volleyball in the air and died of shame!";
+        break;
+
+    case Message::Type::BallKillSpike:
+        dispText = ppl + " was killed by " + other + "'s Spike!";
+        break;
+
+    case Message::Type::BallKillSwipe:
+        dispText = ppl + " was killed by " + other + "'s Swipe!";
+        break;
+
+    case Message::Type::BallKillTimeout:
+        dispText = ppl + " had the volleyball on their side too long and died of shame!";
+        break;
+
+    case Message::Type::BallNoSwitchSuicide:
+        dispText = ppl + " has no one else on their team to hit the ball and died of shame!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

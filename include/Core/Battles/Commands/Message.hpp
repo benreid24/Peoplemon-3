@@ -63,6 +63,8 @@ public:
         OnlySleepAffected,
         EveryoneWokenUp,
         RandomMove,
+        Absorb,
+        NoPPDeath,
 
         Guarded,
         GuardFailed,
@@ -105,7 +107,25 @@ public:
 
         GambleOne,
         GambleTwenty,
-        GambleMiddle
+        GambleMiddle,
+
+        BallServed,
+        BallBumped,
+        BallSet,
+        BallSetFail,
+        BallSpiked,
+        BallSpikeFail,
+        BallSwiped,
+        BallSwipeFail,
+        BallBlocked,
+        BallBlockFail,
+        BallSpikeBlocked,
+        BallSwipeBlocked,
+        BallKillSelf,
+        BallKillSpike,
+        BallKillSwipe,
+        BallKillTimeout,
+        BallNoSwitchSuicide
     };
 
     /**

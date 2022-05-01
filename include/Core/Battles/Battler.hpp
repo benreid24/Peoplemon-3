@@ -106,6 +106,12 @@ public:
     bool canFight() const;
 
     /**
+     * @brief Returns whether or not the battler has another peoplemon besides the active one
+     *
+     */
+    bool canSwitch() const;
+
+    /**
      * @brief Returns the name of the battler
      *
      */
@@ -126,10 +132,24 @@ public:
     BattlerSubstate& getSubstate();
 
     /**
-     * @brief Notifies the battler that a turn has elapsed
+     * @brief Notifies the battler that a turn has began
      *
      */
-    void notifyTurn();
+    void notifyTurnBegin();
+
+    /**
+     * @brief Notifies the battler that a turn has ended
+     *
+     */
+    void notifyTurnEnd();
+
+    /**
+     * @brief Notifies the battler that a switch occured for them
+     *
+     * @param fromFaint True for if the switch is from a faint, false otherwise
+     *
+     */
+    void notifySwitch(bool fromFaint);
 
 private:
     BattleState& state;

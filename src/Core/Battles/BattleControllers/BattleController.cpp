@@ -81,7 +81,7 @@ bool BattleController::updateCommandQueue() {
         state->enemy().pickAction();
         return false;
 
-    case Command::Type::GetBatonSwitch:
+    case Command::Type::GetMidTurnSwitch:
     case Command::Type::GetFaintSwitch:
         subState = SubState::WaitingView;
         state->activeBattler().pickPeoplemon(cmd.getType() == Command::GetFaintSwitch);

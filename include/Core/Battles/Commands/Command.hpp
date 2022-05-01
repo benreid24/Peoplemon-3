@@ -37,7 +37,7 @@ public:
 
         GetBattlerChoices = 6,
         GetFaintSwitch    = 7,
-        GetBatonSwitch    = 8
+        GetMidTurnSwitch    = 8
     };
 
     /**
