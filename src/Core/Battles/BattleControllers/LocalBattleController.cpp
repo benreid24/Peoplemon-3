@@ -444,7 +444,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
     const bool userIsActive          = &user == &state->activeBattler();
 
-    pplmn::OwnedMove& move = index >= 0 ? user.activePeoplemon().base().knownMoves()[index] : flail;
+    pplmn::OwnedMove& move =
+        index >= 0 && user.activePeoplemon().base().knownMoves()[index].curPP > 0 ?
+            user.activePeoplemon().base().knownMoves()[index] :
+            flail;
     const bool isChargeSecondTurn = user.getSubstate().chargingMove >= 0;
     if (!isChargeSecondTurn) {
         move.curPP -= 1;
@@ -515,6 +518,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // do not resolve effects if the peoplemon died
     if (defender.base().currentHp() == 0) return; // TODO - may still need to handle abilities?
+    // TODO - maybe only bail early if the one affected by the move effect is dead
+    // some effects (ie WakeBoth) don't apply to any peoplemon, maybe do those too
 
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(move.id);
@@ -528,9 +533,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         switch (effect) {
         case pplmn::MoveEffect::Heal:
-            affected.base().currentHp() += affected.currentStats().hp * intensity / 100;
+        case pplmn::MoveEffect::HealPercent: {
+            // TODO - are these effects supposed to be the same?
+            const int hp = affected.currentStats().hp * intensity / 100;
+            affected.base().currentHp() =
+                std::min(affected.currentStats().hp, affected.base().currentHp() + hp);
             queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
-            break;
+        } break;
 
         case pplmn::MoveEffect::Poison:
             applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sticky);
@@ -741,16 +750,29 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::SetBall:
-            break;
-
         case pplmn::MoveEffect::WakeBoth:
-            break;
-
-        case pplmn::MoveEffect::HealPercent:
+            for (pplmn::BattlePeoplemon& ppl : state->localPlayer().peoplemon()) {
+                if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+                    ppl.base().currentAilment() = pplmn::Ailment::None;
+                }
+            }
+            for (pplmn::BattlePeoplemon& ppl : state->enemy().peoplemon()) {
+                if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+                    ppl.base().currentAilment() = pplmn::Ailment::None;
+                }
+            }
+            queueCommand({cmd::Message(cmd::Message::Type::EveryoneWokenUp)});
             break;
 
         case pplmn::MoveEffect::Encore:
+            queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forActive)}, true);
+            if (affectedOwner.chosenAction() == TurnAction::Fight) {
+                affectedOwner.getSubstate().encoreTurnsLeft = 5;
+                affectedOwner.getSubstate().encoreMove      = affectedOwner.chosenMove();
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forActive)}, true);
+            }
             break;
 
         case pplmn::MoveEffect::RandomMove:
@@ -760,6 +782,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::DieIn3Turns:
+            break;
+
+        case pplmn::MoveEffect::SetBall:
             break;
 
         case pplmn::MoveEffect::BumpBall:

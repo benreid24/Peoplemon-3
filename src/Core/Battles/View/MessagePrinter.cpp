@@ -353,6 +353,19 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " ate the peanut and gained HP!";
         break;
 
+    case Message::Type::EveryoneWokenUp:
+        dispText = "It is physically impossible for anyone in a 15 mile radius to still be asleep "
+                   "after that";
+        break;
+
+    case Message::Type::EncoreStart:
+        dispText = other + " is trying to make " + ppl + " do an Encore!";
+        break;
+
+    case Message::Type::EncoreFailed:
+        dispText = ppl + " cannot do an Encore now!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

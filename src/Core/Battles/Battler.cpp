@@ -24,21 +24,29 @@ void Battler::notifyTurn() {
 }
 
 bool Battler::actionSelected() const {
-    return substate.chargingMove >= 0 || controller->actionSelected();
+    if (substate.chargingMove >= 0) return true;
+    if (substate.encoreTurnsLeft > 0) return true;
+    return controller->actionSelected();
 }
 
 void Battler::pickAction() {
-    if (substate.chargingMove < 0) { controller->pickAction(); }
+    if (substate.chargingMove >= 0) return;
+    if (substate.encoreTurnsLeft > 0) return;
+    controller->pickAction();
 }
 
 void Battler::pickPeoplemon() { controller->pickPeoplemon(); }
 
 TurnAction Battler::chosenAction() const {
-    return substate.chargingMove < 0 ? controller->chosenAction() : TurnAction::Fight;
+    if (substate.chargingMove >= 0) { return TurnAction::Fight; }
+    if (substate.encoreTurnsLeft > 0) { return TurnAction::Fight; }
+    return controller->chosenAction();
 }
 
 int Battler::chosenMove() const {
-    return substate.chargingMove < 0 ? controller->chosenMove() : substate.chargingMove;
+    if (substate.chargingMove >= 0) return substate.chargingMove;
+    if (substate.encoreMove >= 0) return substate.encoreMove;
+    return controller->chosenMove();
 }
 
 core::item::Id Battler::chosenItem() const { return controller->chosenItem(); }
@@ -52,16 +60,15 @@ core::pplmn::BattlePeoplemon& Battler::activePeoplemon() { return team[currentPe
 const std::string& Battler::name() const { return controller->name(); }
 
 unsigned int Battler::getPriority() const {
-    switch (controller->chosenAction()) {
+    switch (chosenAction()) {
     case TurnAction::Fight:
-        return pplmn::Move::priority(
-            team[currentPeoplemon].base().knownMoves()[controller->chosenMove()].id);
+        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id);
     case TurnAction::Item:
     case TurnAction::Run:
     case TurnAction::Switch:
         return 1000;
     default:
-        BL_LOG_ERROR << "Unknown turn action: " << controller->chosenAction();
+        BL_LOG_ERROR << "Unknown turn action: " << chosenAction();
         return 0;
     }
 }

@@ -61,6 +61,7 @@ public:
         CounterEffect,
         MirrorCoatEffect,
         OnlySleepAffected,
+        EveryoneWokenUp,
 
         Guarded,
         GuardFailed,
@@ -89,7 +90,10 @@ public:
         ChargeUnleashed,
 
         PeanutAllergic,
-        PeanutAte
+        PeanutAte,
+
+        EncoreStart,
+        EncoreFailed
     };
 
     /**

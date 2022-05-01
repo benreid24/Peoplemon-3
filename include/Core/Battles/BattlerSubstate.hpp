@@ -21,6 +21,8 @@ struct BattlerSubstate {
     std::int16_t substituteHp;
     std::uint8_t turnsGuarded;
     std::int8_t chargingMove;
+    std::int8_t encoreMove;
+    std::uint8_t encoreTurnsLeft;
 
     /**
      * @brief Construct a new Battler State object with proper defaults
