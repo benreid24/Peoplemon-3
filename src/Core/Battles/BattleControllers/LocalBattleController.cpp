@@ -52,6 +52,16 @@ bool isPeanutAllergic(pplmn::Id ppl) {
     }
 }
 
+bool doEvenIfDead(pplmn::MoveEffect effect) {
+    using E = pplmn::MoveEffect;
+
+    switch (effect) {
+    case E::WakeBoth: // TODO - any others?
+        return true;
+    }
+    return false;
+}
+
 class BattlerAttackFinalizer {
 public:
     BattlerAttackFinalizer(Battler& b, pplmn::MoveId move)
@@ -609,11 +619,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
-    // do not resolve effects if the peoplemon died
-    if (defender.base().currentHp() == 0) return; // TODO - may still need to handle abilities?
-    // TODO - maybe only bail early if the one affected by the move effect is dead
-    // some effects (ie WakeBoth) don't apply to any peoplemon, maybe do those too
-
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
@@ -623,6 +628,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         Battler& affectedOwner           = affectsSelf ? user : victim;
         const int intensity              = pplmn::Move::effectIntensity(usedMove);
         const bool forActive             = &affectedOwner == &state->activeBattler();
+
+        // bail early if dead and the effect doesn't always apply
+        if (affected.base().currentHp() == 0 && !doEvenIfDead(effect)) return;
 
         switch (effect) {
         case pplmn::MoveEffect::Heal:
