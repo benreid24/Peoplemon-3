@@ -81,6 +81,12 @@ bool BattleController::updateCommandQueue() {
         state->enemy().pickAction();
         return false;
 
+    case Command::Type::GetBatonSwitch:
+    case Command::Type::GetFaintSwitch:
+        subState = SubState::WaitingView;
+        state->activeBattler().pickPeoplemon(cmd.getType() == Command::GetFaintSwitch);
+        return false;
+
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();
         return true;

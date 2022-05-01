@@ -31,12 +31,13 @@ public:
 
         // sync with view. also for network sync
         SyncStateNoSwitch       = 2,
-        SyncStatePlayerSwitch   = 3,
+        SyncStatePlayerSwitch   = 3, // TODO - consider making active/inactive
         SyncStateOpponentSwitch = 4,
         WaitForView             = 5,
 
         GetBattlerChoices = 6,
-        GetFaintSwitch    = 7
+        GetFaintSwitch    = 7,
+        GetBatonSwitch    = 8
     };
 
     /**

@@ -158,6 +158,22 @@ void LocalBattleController::initCurrentStage() {
         startUseMove(state->activeBattler(), state->activeBattler().chosenMove());
         break;
 
+    case Stage::WaitingBatonPass:
+        queueCommand({Command::GetBatonSwitch});
+        break;
+
+    case Stage::BeforeBatonSwitch:
+        // TODO
+        break;
+
+    case Stage::BatonSwitching:
+        // TODO
+        break;
+
+    case Stage::AfterBatonSwitch:
+        // TODO
+        break;
+
     case Stage::BeforeFaint:
         // TODO - display message
         break;
@@ -294,6 +310,30 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::Attacking:
+            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
+                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
+                setBattleState(Stage::BeforeFaint);
+            }
+            else {
+                setBattleState(Stage::NextBattler);
+            }
+            break;
+
+        case Stage::WaitingBatonPass:
+            if (state->activeBattler().actionSelected()) {
+                setBattleState(Stage::BeforeBatonSwitch);
+            }
+            break;
+
+        case Stage::BeforeBatonSwitch:
+            setBattleState(Stage::BatonSwitching);
+            break;
+
+        case Stage::BatonSwitching:
+            setBattleState(Stage::AfterBatonSwitch);
+            break;
+
+        case Stage::AfterBatonSwitch:
             if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
                 state->activeBattler().activePeoplemon().base().currentHp() == 0) {
                 setBattleState(Stage::BeforeFaint);
@@ -783,8 +823,22 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::BatonPass:
-            break;
+        case pplmn::MoveEffect::BatonPass: {
+            bool canSwitch = false;
+            for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
+                if (ppl.base().currentHp() > 0 && &ppl != &affected) {
+                    canSwitch = true;
+                    break;
+                }
+            }
+            if (canSwitch) {
+                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)});
+                setBattleState(BattleState::Stage::WaitingBatonPass);
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forActive)});
+            }
+        } break;
 
         case pplmn::MoveEffect::DieIn3Turns:
             break;

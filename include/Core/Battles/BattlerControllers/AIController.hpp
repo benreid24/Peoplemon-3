@@ -56,7 +56,7 @@ private:
     std::vector<item::Id> items; // TODO - copy items here from the trainer
 
     virtual void startChooseAction() override;
-    virtual void startChoosePeoplemon() override;
+    virtual void startChoosePeoplemon(bool fromFaint) override;
 };
 
 } // namespace battle

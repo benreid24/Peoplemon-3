@@ -54,6 +54,10 @@ public:
 
         // Fight
         Attacking,
+        WaitingBatonPass,
+        BeforeBatonSwitch,
+        BatonSwitching,
+        AfterBatonSwitch,
 
         // Peoplemon defeated
         BeforeFaint,

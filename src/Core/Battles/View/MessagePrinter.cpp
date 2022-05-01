@@ -371,6 +371,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    pplmn::Move::name(msg.getNewMove()) + "!";
         break;
 
+    case Message::Type::BatonPassFailed:
+        dispText = ppl + " tried to use Baton Pass to switch out but no one is there to help!";
+        break;
+
+    case Message::Type::BatonPassStart:
+        dispText = ppl + "'s Baton Pass lets them switch out!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

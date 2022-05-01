@@ -23,7 +23,7 @@ void AIController::startChooseAction() {
     chooseMove(0);
 }
 
-void AIController::startChoosePeoplemon() {
+void AIController::startChoosePeoplemon(bool) {
     // TODO - battle ai
     for (unsigned int i = 0; i < owner->peoplemon().size(); ++i) {
         if (owner->peoplemon()[i].base().currentHp() > 0) {

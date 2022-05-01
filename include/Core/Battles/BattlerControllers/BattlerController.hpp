@@ -59,8 +59,10 @@ public:
     /**
      * @brief Initiates the process of selecting a replacement peoplemon if the current one faints
      *
+     * @param fromFaint True if the current has fainted, false if the switch is for another reason
+     *
      */
-    void pickPeoplemon();
+    void pickPeoplemon(bool fromFaint);
 
     /**
      * @brief Returns the action the battler is using this turn
@@ -106,8 +108,10 @@ protected:
      * @brief Base classes may override this to perform specific logic when a peoplemon must be
      *        picked
      *
+     * @param fromFaint True if the current has fainted, false if the switch is for another reason
+     *
      */
-    virtual void startChoosePeoplemon() = 0;
+    virtual void startChoosePeoplemon(bool fromFaint) = 0;
 
     /**
      * @brief Selects the move to use this turn when fighting

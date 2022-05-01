@@ -52,7 +52,7 @@ private:
     view::PlayerMenu& menu;
 
     virtual void startChooseAction() override;
-    virtual void startChoosePeoplemon() override;
+    virtual void startChoosePeoplemon(bool fromFaint) override;
 };
 
 } // namespace battle

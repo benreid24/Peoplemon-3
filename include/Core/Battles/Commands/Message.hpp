@@ -94,7 +94,10 @@ public:
         PeanutAte,
 
         EncoreStart,
-        EncoreFailed
+        EncoreFailed,
+
+        BatonPassFailed,
+        BatonPassStart
     };
 
     /**

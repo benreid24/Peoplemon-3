@@ -56,7 +56,8 @@ void PlayerController::startChooseAction() {
     menu.beginTurn();
 }
 
-void PlayerController::startChoosePeoplemon() {
+void PlayerController::startChoosePeoplemon(bool) {
+    // TODO - add different switch context to menu
     state = State::PickingFaintReplacement;
     menu.chooseFaintReplacement();
 }
