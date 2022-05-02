@@ -169,6 +169,19 @@ public:
      */
     MoveId mostRecentSuperEffectiveHit() const;
 
+    /**
+     * @brief Copies the stat stages from the other peoplemon
+     *
+     * @param other The peoplemon to copy from
+     */
+    void copyStages(const BattlePeoplemon& other);
+
+    /**
+     * @brief Resets all stat stages
+     *
+     */
+    void resetStages();
+
 private:
     OwnedPeoplemon* ppl;
     Stats cached;

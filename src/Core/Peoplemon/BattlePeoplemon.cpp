@@ -134,5 +134,24 @@ void BattlePeoplemon::refreshStats() {
                                  stages);
 }
 
+void BattlePeoplemon::copyStages(const BattlePeoplemon& o) {
+    stages       = o.stages;
+    battleStages = o.battleStages;
+    refreshStats();
+}
+
+void BattlePeoplemon::resetStages() {
+    stages.atk         = 0;
+    stages.def         = 0;
+    stages.hp          = 0;
+    stages.spatk       = 0;
+    stages.spdef       = 0;
+    stages.spd         = 0;
+    battleStages.acc   = 0;
+    battleStages.crit  = 0;
+    battleStages.evade = 0;
+    refreshStats();
+}
+
 } // namespace pplmn
 } // namespace core

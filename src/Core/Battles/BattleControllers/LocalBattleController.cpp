@@ -131,6 +131,10 @@ void LocalBattleController::initCurrentStage() {
         queueCommand({Command::GetBattlerChoices});
         break;
 
+    case Stage::TurnStart:
+        // TODO - check if awake and other ailment ends. maybe some move effect carryover too
+        break;
+
     case Stage::PreUseItem:
         // TODO - display message
         break;
@@ -169,10 +173,6 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::Attacking:
         startUseMove(state->activeBattler(), state->activeBattler().chosenMove());
-        break;
-
-    case Stage::WaitingMidTurnSwitch:
-        queueCommand({Command::GetMidTurnSwitch});
         break;
 
     case Stage::BeforeMidTurnSwitch:
@@ -250,9 +250,9 @@ void LocalBattleController::initCurrentStage() {
     case Stage::NetworkDisconnect:
     case Stage::NextBattler:
     case Stage::Completed:
-    case Stage::TurnStart:
     case Stage::HandleFaint:
     case Stage::RoundStart:
+    case Stage::WaitingMidTurnSwitch:
         // do nothing, these are intermediate states
         break;
 
@@ -293,6 +293,27 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::WaitingChoices:
             if (state->localPlayer().actionSelected() && state->enemy().actionSelected()) {
                 setBattleState(Stage::RoundStart);
+            }
+            break;
+
+        case Stage::TurnStart:
+            switch (state->activeBattler().chosenAction()) {
+            case TurnAction::Fight:
+                setBattleState(Stage::Attacking);
+                break;
+            case TurnAction::Item:
+                setBattleState(Stage::PreUseItem);
+                break;
+            case TurnAction::Run:
+                setBattleState(Stage::BeforeRun);
+                break;
+            case TurnAction::Switch:
+                setBattleState(Stage::BeforeSwitch);
+                break;
+            default:
+                BL_LOG_ERROR << "Unknown turn action: " << state->activeBattler().chosenAction();
+                setBattleState(Stage::Completed);
+                break;
             }
             break;
 
@@ -478,21 +499,6 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         // correct battler
         return Stage::BeforeFaintSwitch;
 
-    case Stage::TurnStart:
-        switch (state->activeBattler().chosenAction()) {
-        case TurnAction::Fight:
-            return Stage::Attacking;
-        case TurnAction::Item:
-            return Stage::PreUseItem;
-        case TurnAction::Run:
-            return Stage::BeforeRun;
-        case TurnAction::Switch:
-            return Stage::BeforeSwitch;
-        default:
-            BL_LOG_ERROR << "Unknown turn action: " << state->activeBattler().chosenAction();
-            return Stage::Completed;
-        }
-
     case Stage::RoundStart:
         state->beginRound(state->localPlayer().getPriority() >= state->enemy().getPriority());
         queueCommand({Command::SyncStateNoSwitch});
@@ -520,6 +526,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
     const bool userIsActive          = &user == &state->activeBattler();
+    user.getSubstate().lastMoveIndex = index;
 
     // check if enough pp
     if (index < 0 || user.activePeoplemon().base().knownMoves()[index].curPP == 0) {
@@ -571,6 +578,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         return;
     }
 
+    // mark this move as hitting
+    if (usedMove == pplmn::MoveId::Kick) { victim.getSubstate().move64Hit = true; }
+
     // determine if attacking move
     const pplmn::Type moveType = pplmn::Move::type(usedMove);
     const bool special         = pplmn::Move::isSpecial(usedMove);
@@ -597,6 +607,12 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             pwr = r * 5;
             queueCommand({cmd::Message(cmd::Message::Type::GambleMiddle, r, userIsActive)}, true);
         }
+    }
+
+    // check if move has DoubleFamily
+    if (effect == pplmn::MoveEffect::DoubleFamily) {
+        pwr *= 2;
+        queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, userIsActive)}, true);
     }
 
     // finally play the animation
@@ -886,9 +902,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::Encore:
             queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forActive)}, true);
-            if (affectedOwner.chosenAction() == TurnAction::Fight) {
+            if (affectedOwner.getSubstate().lastMoveIndex >= 0) {
                 affectedOwner.getSubstate().encoreTurnsLeft = 5;
-                affectedOwner.getSubstate().encoreMove      = affectedOwner.chosenMove();
+                affectedOwner.getSubstate().encoreMove = affectedOwner.getSubstate().lastMoveIndex;
             }
             else {
                 queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forActive)}, true);
@@ -897,8 +913,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::BatonPass:
             if (affectedOwner.canSwitch()) {
-                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)});
+                affectedOwner.getSubstate().copyStatsFrom = affectedOwner.outNowIndex();
+                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)}, true);
+                queueCommand({Command::GetMidTurnSwitch, forActive});
                 setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+                return;
             }
             else {
                 queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forActive)});
@@ -925,10 +944,12 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::SetBall:
             if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)});
+                queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)}, true);
                 affectedOwner.getSubstate().ballSet = true;
                 if (affectedOwner.canSwitch()) {
+                    queueCommand({Command::GetMidTurnSwitch, forActive});
                     setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+                    return;
                 }
                 else {
                     affectedOwner.getSubstate().noOneToGetBall = true;
@@ -941,15 +962,16 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::BumpBall:
             if (affectedOwner.getSubstate().ballUpTurns < 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallServed, forActive)});
+                queueCommand({cmd::Message(cmd::Message::Type::BallServed, forActive)}, true);
                 affectedOwner.getSubstate().ballUpTurns = 0;
                 affectedOwner.getSubstate().ballBumped  = true;
             }
             else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forActive)});
+                queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forActive)}, true);
                 affectedOwner.getSubstate().ballBumped = true;
             }
             if (affectedOwner.canSwitch()) {
+                queueCommand({Command::GetMidTurnSwitch, forActive});
                 setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
             }
             else {
@@ -988,54 +1010,106 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::DeathSwap:
+            // TODO - death swap
             break;
 
         case pplmn::MoveEffect::StayAlive:
+            if (!affectedOwner.getSubstate().enduredLastTurn) {
+                affectedOwner.getSubstate().enduringThisTurn = true;
+                queueCommand({cmd::Message(cmd::Message::Type::EndureStart, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::EndureFail, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::MaxAtkMinAcc:
+            affected.statChange(pplmn::Stat::Attack, 12);
+            affected.statChange(pplmn::Stat::Accuracy, -12);
+            queueCommand({cmd::Message(cmd::Message::Type::MaxAtkMinAcc, forActive)});
             break;
 
         case pplmn::MoveEffect::FrustConfuse:
+            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
+            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
             break;
 
         case pplmn::MoveEffect::Spikes:
-            break;
-
-        case pplmn::MoveEffect::DoubleFamily:
+            if (affectedOwner.getSubstate().spikesOut < 3) {
+                affectedOwner.getSubstate().spikesOut += 1;
+                queueCommand({cmd::Message(cmd::Message::Type::SpikesApplied, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::SpikesFailed, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::EnemyPPDown:
+            if (!state->isFirstMover() && other.getSubstate().lastMoveIndex >= 0) {
+                auto& move =
+                    other.activePeoplemon().base().knownMoves()[other.getSubstate().lastMoveIndex];
+                move.curPP =
+                    std::max(0, static_cast<int>(move.curPP) - bl::util::Random::get<int>(2, 5));
+                queueCommand({cmd::Message(cmd::Message::Type::PPLowered, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::PPLowerFail, forActive)}, true);
+            }
             break;
 
         case pplmn::MoveEffect::HealNext:
+            if (affectedOwner.getSubstate().healNext < 0) {
+                affectedOwner.getSubstate().healNext = 0;
+                queueCommand({cmd::Message(cmd::Message::Type::HealNextStart, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::HealNextFail, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::Roar:
-            break;
-
-        case pplmn::MoveEffect::FailOnMove64:
-            break;
-
-        case pplmn::MoveEffect::SleepHeal:
-            break;
-
-        case pplmn::MoveEffect::StealStats:
-            break;
-
-        case pplmn::MoveEffect::DamageThenSwitch:
+            doRoar(affectedOwner);
             break;
 
         case pplmn::MoveEffect::RoarCancelBallSpikes:
+            queueCommand({cmd::Message(cmd::Message::Type::RoarClearedArea, !forActive)}, true);
+            other.getSubstate().spikesOut           = 0;
+            affectedOwner.getSubstate().ballUpTurns = -1;
+            doRoar(affectedOwner);
+            break;
+
+        case pplmn::MoveEffect::SleepHeal:
+            // TODO - sleep and ailment stuff
+            break;
+
+        case pplmn::MoveEffect::StealStats:
+            affected.copyStages(other.activePeoplemon());
+            other.activePeoplemon().resetStages();
+            queueCommand({cmd::Message(cmd::Message::Type::StatsStolen, forActive)});
+            break;
+
+        case pplmn::MoveEffect::DamageThenSwitch:
+            if (affectedOwner.canSwitch()) {
+                queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forActive)},
+                             true);
+                queueCommand({Command::GetMidTurnSwitch, forActive});
+                setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+                return;
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::AttackSwitchFailed, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::OnlySleeping:
         case pplmn::MoveEffect::Charge:
+        case pplmn::MoveEffect::FailOnMove64:
             // handled in checkMoveCancelled
             break;
 
         case pplmn::MoveEffect::Gamble:
         case pplmn::MoveEffect::RandomMove:
+        case pplmn::MoveEffect::DoubleFamily:
             // handled up top
             break;
 
@@ -1087,6 +1161,12 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
         return true;
     }
 
+    // fail on 64
+    if (effect == pplmn::MoveEffect::FailOnMove64 && user.getSubstate().move64Hit) {
+        queueCommand({cmd::Message(cmd::Message::Type::Move64Cancel, move, userIsActive)}, true);
+        return true;
+    }
+
     // move goes ahead normally
     return false;
 }
@@ -1107,6 +1187,12 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
     }
 
     ppl.applyDamage(dmg);
+
+    // check if we Endure
+    if (victim.getSubstate().enduringThisTurn && ppl.base().currentHp() == 0) {
+        ppl.base().currentHp() = 1;
+        queueCommand({cmd::Message(cmd::Message::Type::Endured, isActive)}, true);
+    }
 }
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
@@ -1197,8 +1283,9 @@ void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Sta
 }
 
 void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
-    const bool isActive = &battler == &state->activeBattler();
-    Battler& other      = isActive ? state->inactiveBattler() : state->activeBattler();
+    const bool isActive         = &battler == &state->activeBattler();
+    Battler& other              = isActive ? state->inactiveBattler() : state->activeBattler();
+    pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
     battler.notifyTurnEnd();
 
     // check volleyball stuff
@@ -1255,11 +1342,19 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         queueCommand({cmd::Message(cmd::Message::Type::BallSwipeBlocked, isActive)}, true);
         return;
     }
-
     battler.getSubstate().ballBlocked = false;
     battler.getSubstate().ballSet     = false;
     battler.getSubstate().ballSpiked  = false;
     battler.getSubstate().ballSwiped  = false;
+
+    // check for HealNext
+    if (battler.getSubstate().healNext >= 2) {
+        const int hp           = ppl.currentStats().hp / 2;
+        ppl.base().currentHp() = std::min(ppl.currentStats().hp, ppl.base().currentHp() + hp);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::HealNextHealed, isActive)}, true);
+        battler.getSubstate().healNext = -1;
+    }
 
     // TODO - ailments
 
@@ -1269,6 +1364,19 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown, isActive)}, true);
     }
+}
+
+void LocalBattleController::doRoar(Battler& victim) {
+    const bool isActive = &victim == &state->activeBattler();
+
+    if (!victim.canSwitch()) {
+        queueCommand({cmd::Message(cmd::Message::Type::RoarFailedNoSwitch, isActive)}, true);
+        return;
+    }
+
+    queueCommand({cmd::Message(cmd::Message::Type::Roar, isActive)}, true);
+    queueCommand({Command::GetMidTurnSwitch, isActive});
+    setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
 }
 
 } // namespace battle

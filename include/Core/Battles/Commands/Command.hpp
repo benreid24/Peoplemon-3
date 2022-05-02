@@ -37,7 +37,7 @@ public:
 
         GetBattlerChoices = 6,
         GetFaintSwitch    = 7,
-        GetMidTurnSwitch    = 8
+        GetMidTurnSwitch  = 8
     };
 
     /**
@@ -46,6 +46,14 @@ public:
      * @param type The command type to create
      */
     Command(Type type);
+
+    /**
+     * @brief Creates a new command of the given type and a bool to indicate which battler it is for
+     *
+     * @param type The command type to create
+     * @param forActiveBattler True if cmd is for active battler, false for inactive
+     */
+    Command(Type type, bool forActiveBattler);
 
     /**
      * @brief Creates a new DisplayMessage command
@@ -79,11 +87,17 @@ public:
      */
     const cmd::Animation& getAnimation() const;
 
+    /**
+     * @brief Returns whether or not this command is for the active battler
+     *
+     */
+    bool forActiveBattler() const;
+
 private:
     struct Empty {};
 
-    const Type type;
-    const std::variant<Empty, cmd::Message, cmd::Animation> data;
+    Type type;
+    std::variant<Empty, cmd::Message, cmd::Animation, bool> data;
 };
 
 } // namespace battle

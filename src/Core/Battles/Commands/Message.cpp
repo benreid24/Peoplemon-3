@@ -48,6 +48,11 @@ Message::Message(Type tp, std::int16_t ival, bool a)
 , data(ival)
 , forActive(a) {}
 
+Message::Message(Type tp, pplmn::MoveId move, bool a)
+: type(tp)
+, data(move)
+, forActive(a) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {

@@ -16,6 +16,7 @@ namespace battle
  *
  */
 struct BattlerSubstate {
+    std::int8_t lastMoveIndex;
     pplmn::MoveId lastMoveUsed;
     bool isProtected;
     std::int16_t substituteHp;
@@ -24,7 +25,6 @@ struct BattlerSubstate {
     std::int8_t encoreMove;
     std::uint8_t encoreTurnsLeft;
     std::int8_t deathCounter;
-
     bool ballBlocked;
     bool ballBumped;
     bool ballSet;
@@ -32,6 +32,12 @@ struct BattlerSubstate {
     bool ballSwiped;
     bool noOneToGetBall;
     std::int8_t ballUpTurns;
+    bool enduringThisTurn;
+    bool enduredLastTurn;
+    std::uint8_t spikesOut;
+    std::int8_t healNext;
+    bool move64Hit;
+    std::int8_t copyStatsFrom;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

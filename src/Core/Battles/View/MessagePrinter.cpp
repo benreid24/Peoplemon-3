@@ -78,6 +78,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     std::string dispText;
     const bool forPlayer =
         msg.forActiveBattler() == (&state.activeBattler() == &state.localPlayer());
+    Battler& battler = msg.forActiveBattler() ? state.activeBattler() : state.inactiveBattler();
     const std::string& ppl   = msg.forActiveBattler() ?
                                    state.activeBattler().activePeoplemon().base().name() :
                                    state.inactiveBattler().activePeoplemon().base().name();
@@ -480,6 +481,97 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::BallNoSwitchSuicide:
         dispText = ppl + " has no one else on their team to hit the ball and died of shame!";
+        break;
+
+    case Message::Type::MaxAtkMinAcc:
+        dispText = ppl + "'s ATK was maxed but their ACC is trashed!";
+        break;
+
+    case Message::Type::PPLowered:
+        dispText = ppl + " lowered " + other + "'s PP";
+        break;
+
+    case Message::Type::PPLowerFail:
+        dispText = ppl + " tried to lower " + other + "'s PP but they were able to keep it up!";
+        break;
+
+    case Message::Type::EndureStart:
+        dispText = ppl + " is doing their best to Endure and not die!";
+        break;
+
+    case Message::Type::Endured:
+        dispText = ppl + " was able to Endure and survive!";
+        break;
+
+    case Message::Type::EndureFail:
+        dispText = ppl + " tried to Endure but failed and is just as mortal as the rest of us!";
+        break;
+
+    case Message::Type::SpikesApplied:
+        dispText = ppl + " threw a bunch of Spikes around " + other +
+                   "! They better not move around too much.";
+        break;
+
+    case Message::Type::SpikesDamage:
+        dispText = ppl + " took damage from stepping on the Spikes around them!";
+        break;
+
+    case Message::Type::SpikesFailed:
+        dispText = ppl + " tried to throw more Spikes around " + other +
+                   " but it's too messy so they gave up!";
+        break;
+
+    case Message::Type::DoubleBroPower:
+        dispText = ppl + "'s Bro Power doubled attack power!";
+        break;
+
+    case Message::Type::HealNextStart:
+        dispText =
+            ppl + " threw some weird powder into the air that will take exactly one turn to fall!";
+        break;
+
+    case Message::Type::HealNextHealed:
+        dispText = ppl + " was healed by the falling powder!";
+        break;
+
+    case Message::Type::HealNextFail:
+        dispText = ppl + " tried to throw powder in the air again but the powder already there got "
+                         "in their eyes!";
+        break;
+
+    case Message::Type::Move64Cancel:
+        dispText = ppl + " was unabled to use " + pplmn::Move::name(msg.getMoveId()) +
+                   " due to trauma from being Kicked!";
+        break;
+
+    case Message::Type::Roar:
+        dispText = ppl + " ran away in fear!";
+        break;
+
+    case Message::Type::RoarFailedNoSwitch:
+        dispText = ppl + " wants to cower in fear but there is no one to take their place!";
+        break;
+
+    case Message::Type::RoarClearedArea:
+        dispText =
+            ppl + "'s Roar was so strong that all the spikes and volleyballs got blown away!";
+        break;
+
+    case Message::Type::StatsStolen:
+        dispText = ppl + " stole all of " + other + "'s stat changes!";
+        break;
+
+    case Message::Type::AttackThenSwitched:
+        dispText = ppl + " is able to return to their ball!";
+        break;
+
+    case Message::Type::AttackSwitchFailed:
+        if (battler.peoplemon().size() > 1) {
+            dispText = ppl + " tried to retreat but all of their friends are dead!";
+        }
+        else {
+            dispText = ppl + " tried to retreat but they don't have any friends!";
+        }
         break;
 
     default:

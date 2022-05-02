@@ -62,6 +62,7 @@ private:
                               pplmn::PassiveAilment ailment);
     void doStatChange(pplmn::BattlePeoplemon& recv, pplmn::Stat stat, int amt,
                       bool playAnim = true);
+    void doRoar(Battler& victim);
 
     void handleBattlerRoundEnd(Battler& battler);
 };

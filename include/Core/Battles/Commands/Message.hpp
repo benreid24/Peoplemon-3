@@ -65,6 +65,10 @@ public:
         RandomMove,
         Absorb,
         NoPPDeath,
+        MaxAtkMinAcc,
+        DoubleBroPower,
+        Move64Cancel,
+        StatsStolen,
 
         Guarded,
         GuardFailed,
@@ -125,7 +129,29 @@ public:
         BallKillSpike,
         BallKillSwipe,
         BallKillTimeout,
-        BallNoSwitchSuicide
+        BallNoSwitchSuicide,
+
+        PPLowered,
+        PPLowerFail,
+
+        EndureStart,
+        Endured,
+        EndureFail,
+
+        SpikesApplied,
+        SpikesFailed,
+        SpikesDamage,
+
+        HealNextStart,
+        HealNextHealed,
+        HealNextFail,
+
+        Roar,
+        RoarFailedNoSwitch,
+        RoarClearedArea,
+
+        AttackThenSwitched,
+        AttackSwitchFailed
     };
 
     /**
@@ -194,6 +220,15 @@ public:
      * @param forActiveBattler If the message is for the active battler or not
      */
     Message(Type type, std::int16_t ival, bool forActiveBattler);
+
+    /**
+     * @brief Construct a new Message for some integer type
+     *
+     * @param type The type of message
+     * @param move The move to have in the message
+     * @param forActiveBattler If the message is for the active battler or not
+     */
+    Message(Type type, pplmn::MoveId move, bool forActiveBattler);
 
     /**
      * @brief Returns the type of message this is

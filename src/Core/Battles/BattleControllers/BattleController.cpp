@@ -82,10 +82,12 @@ bool BattleController::updateCommandQueue() {
         return false;
 
     case Command::Type::GetMidTurnSwitch:
-    case Command::Type::GetFaintSwitch:
-        subState = SubState::WaitingView;
-        state->activeBattler().pickPeoplemon(cmd.getType() == Command::GetFaintSwitch);
+    case Command::Type::GetFaintSwitch: {
+        Battler& b = cmd.forActiveBattler() ? state->activeBattler() : state->inactiveBattler();
+        subState   = SubState::WaitingView;
+        b.pickPeoplemon(cmd.getType() == Command::GetFaintSwitch);
         return false;
+    }
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();

@@ -100,6 +100,12 @@ public:
     core::pplmn::BattlePeoplemon& activePeoplemon();
 
     /**
+     * @brief Returns the index of the peoplemon that is out now
+     * 
+     */
+    unsigned int outNowIndex() const;
+
+    /**
      * @brief Returns true if the battler has at least one non-fainted peoplemon
      *
      */
