@@ -2,8 +2,8 @@
 #define CORE_BATTLES_BATTLERSUBSTATE_HPP
 
 #include <Core/Battles/TurnAction.hpp>
-#include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
+#include <Core/Peoplemon/MoveId.hpp>
 
 namespace core
 {
@@ -42,6 +42,7 @@ struct BattlerSubstate {
     std::uint8_t turnsWithAilment;
     std::uint8_t turnsConfused;
     std::int8_t turnsUntilAwake;
+    std::int16_t koReviveHp;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

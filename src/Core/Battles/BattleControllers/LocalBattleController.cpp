@@ -497,6 +497,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         // TODO - determine if victory or switch
         // TODO - always resolve inactive battler first, then active. all faint methods need to grab
         // correct battler
+        // TODO - dont forget death swap effect
         return Stage::BeforeFaintSwitch;
 
     case Stage::RoundStart:
@@ -1010,7 +1011,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::DeathSwap:
-            // TODO - death swap
+            affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
+            affected.base().currentHp()            = 0;
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
             break;
 
         case pplmn::MoveEffect::StayAlive:

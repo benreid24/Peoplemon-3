@@ -69,6 +69,7 @@ public:
         DoubleBroPower,
         Move64Cancel,
         StatsStolen,
+        DeathSwapSac,
 
         Guarded,
         GuardFailed,

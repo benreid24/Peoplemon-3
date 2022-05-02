@@ -578,6 +578,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " woke up!";
         break;
 
+    case Message::Type::DeathSwapSac:
+        dispText = ppl + " sacrificed themselves to revive a teammate!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

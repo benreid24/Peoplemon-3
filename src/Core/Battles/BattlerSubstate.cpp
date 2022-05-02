@@ -29,7 +29,8 @@ BattlerSubstate::BattlerSubstate()
 , copyStatsFrom(-1)
 , turnsWithAilment(0)
 , turnsConfused(0)
-, turnsUntilAwake(-1) {}
+, turnsUntilAwake(-1)
+, koReviveHp(-1) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected    = false;
