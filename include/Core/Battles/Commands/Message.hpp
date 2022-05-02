@@ -151,7 +151,13 @@ public:
         RoarClearedArea,
 
         AttackThenSwitched,
-        AttackSwitchFailed
+        AttackSwitchFailed,
+
+        SleepHealed,
+        SleepHealFailed,
+
+        WokeUp,
+        // TODO - other ailment ends
     };
 
     /**

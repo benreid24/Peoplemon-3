@@ -132,7 +132,7 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::TurnStart:
-        // TODO - check if awake and other ailment ends. maybe some move effect carryover too
+        handleBattlerTurnStart(state->activeBattler());
         break;
 
     case Stage::PreUseItem:
@@ -1079,7 +1079,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         case pplmn::MoveEffect::SleepHeal:
-            // TODO - sleep and ailment stuff
+            if (affected.base().currentAilment() == pplmn::Ailment::None) {
+                affected.base().currentAilment() = pplmn::Ailment::Sleep;
+                affected.clearAilments(false);
+                affected.base().currentHp() = affected.currentStats().hp;
+                queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::SleepHealFailed, forActive)});
+            }
             break;
 
         case pplmn::MoveEffect::StealStats:
@@ -1278,6 +1286,22 @@ void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Sta
         else {
             queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, active)},
                          true);
+        }
+    }
+}
+
+void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
+    const bool isActive         = &battler == &state->activeBattler();
+    pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
+
+    // TODO - check if awake and other ailment ends. maybe some move effect carryover too
+
+    // check if Rest done
+    if (battler.getSubstate().turnsUntilAwake == 0) {
+        if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+            ppl.base().currentAilment() = pplmn::Ailment::None;
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::WokeUp, isActive)}, true);
         }
     }
 }

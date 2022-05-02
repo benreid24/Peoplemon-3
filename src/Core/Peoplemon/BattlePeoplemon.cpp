@@ -13,9 +13,6 @@ BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 , battleStages(true)
 , ailments(PassiveAilment::None)
 , ability(Peoplemon::specialAbility(p->id()))
-, _turnsWithAilment(0)
-, _turnsConfused(0)
-, _turnsUntilAwake(0)
 , lastSuperEffectiveTaken(MoveId::Unknown) {}
 
 OwnedPeoplemon& BattlePeoplemon::base() { return *ppl; }
@@ -72,10 +69,9 @@ void BattlePeoplemon::giveAilment(PassiveAilment ail) {
     ailments = static_cast<PassiveAilment>(static_cast<T>(ail) | static_cast<T>(ailments));
 }
 
-bool BattlePeoplemon::giveAilment(Ailment a, std::uint16_t st) {
+bool BattlePeoplemon::giveAilment(Ailment a) {
     if (ppl->currentAilment() != Ailment::None) return false;
     ppl->currentAilment() = a;
-    _turnsUntilAwake      = st;
     return true;
 }
 
@@ -100,26 +96,6 @@ bool BattlePeoplemon::clearAilments(bool a) {
 SpecialAbility BattlePeoplemon::currentAbility() const { return ability; }
 
 void BattlePeoplemon::setCurrentAbility(SpecialAbility a) { ability = a; }
-
-std::uint16_t BattlePeoplemon::turnsWithAilment() const { return _turnsWithAilment; }
-
-std::uint16_t BattlePeoplemon::turnsConfused() const { return _turnsConfused; }
-
-std::uint16_t BattlePeoplemon::turnsUntilAwake() const { return _turnsUntilAwake; }
-
-void BattlePeoplemon::notifyTurn() {
-    if (hasAilment()) { ++_turnsWithAilment; }
-    else {
-        _turnsWithAilment = 0;
-    }
-
-    if (hasAilment(PassiveAilment::Confused)) { ++_turnsConfused; }
-    else {
-        _turnsConfused = 0;
-    }
-
-    if (_turnsUntilAwake > 0) { --_turnsUntilAwake; }
-}
 
 void BattlePeoplemon::notifySuperEffectiveHit(MoveId m) { lastSuperEffectiveTaken = m; }
 

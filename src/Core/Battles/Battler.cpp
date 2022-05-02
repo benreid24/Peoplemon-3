@@ -20,10 +20,7 @@ void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
 
 void Battler::notifyTurnBegin() { substate.notifyTurnBegin(); }
 
-void Battler::notifyTurnEnd() {
-    activePeoplemon().notifyTurn(); // TODO - call for entire team? maybe pass outNow flag
-    substate.notifyTurnEnd(chosenAction());
-}
+void Battler::notifyTurnEnd() { substate.notifyTurnEnd(chosenAction(), activePeoplemon()); }
 
 void Battler::notifySwitch(bool ff) { substate.notifySwitch(ff); }
 
@@ -60,6 +57,8 @@ std::uint8_t Battler::chosenPeoplemon() const { return controller->chosenPeoplem
 std::vector<core::pplmn::BattlePeoplemon>& Battler::peoplemon() { return team; }
 
 core::pplmn::BattlePeoplemon& Battler::activePeoplemon() { return team[currentPeoplemon]; }
+
+unsigned int Battler::outNowIndex() const { return currentPeoplemon; }
 
 const std::string& Battler::name() const { return controller->name(); }
 

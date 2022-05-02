@@ -26,7 +26,10 @@ BattlerSubstate::BattlerSubstate()
 , spikesOut(0)
 , healNext(-1)
 , move64Hit(false)
-, copyStatsFrom(-1) {}
+, copyStatsFrom(-1)
+, turnsWithAilment(0)
+, turnsConfused(0)
+, turnsUntilAwake(-1) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected    = false;
@@ -34,7 +37,7 @@ void BattlerSubstate::notifyTurnBegin() {
     move64Hit      = false;
 }
 
-void BattlerSubstate::notifyTurnEnd(TurnAction action) {
+void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& ppl) {
     if (action != TurnAction::Fight) { lastMoveUsed = pplmn::MoveId::Unknown; }
     if (turnsGuarded > 0) { turnsGuarded -= 1; }
     if (encoreTurnsLeft > 0) {
@@ -46,6 +49,16 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action) {
     enduredLastTurn  = enduringThisTurn;
     enduringThisTurn = false;
     if (healNext >= 0) { healNext += 1; }
+
+    if (ppl.base().currentAilment() != pplmn::Ailment::None) { turnsWithAilment += 1; }
+    else {
+        turnsWithAilment = 0;
+    }
+    if (ppl.hasAilment(pplmn::PassiveAilment::Confused)) { turnsConfused += 1; }
+    else {
+        turnsConfused = 0;
+    }
+    if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
 }
 
 void BattlerSubstate::notifySwitch(bool fainted) {

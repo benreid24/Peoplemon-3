@@ -3,6 +3,7 @@
 
 #include <Core/Battles/TurnAction.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/BattlePeoplemon.hpp>
 
 namespace core
 {
@@ -38,6 +39,9 @@ struct BattlerSubstate {
     std::int8_t healNext;
     bool move64Hit;
     std::int8_t copyStatsFrom;
+    std::uint8_t turnsWithAilment;
+    std::uint8_t turnsConfused;
+    std::int8_t turnsUntilAwake;
 
     /**
      * @brief Construct a new Battler State object with proper defaults
@@ -56,9 +60,10 @@ struct BattlerSubstate {
      * @brief Resets and updates part of the state that depend on turns elapsing
      *
      * @param action The action the battler did on the last turn
+     * @param outNow The peoplemon that is out now
      *
      */
-    void notifyTurnEnd(TurnAction action);
+    void notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& outNow);
 
     /**
      * @brief Updates state that is unique to the currently out Peoplemon

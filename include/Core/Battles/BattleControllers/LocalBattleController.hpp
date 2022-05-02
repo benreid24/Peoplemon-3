@@ -64,6 +64,7 @@ private:
                       bool playAnim = true);
     void doRoar(Battler& victim);
 
+    void handleBattlerTurnStart(Battler& battler);
     void handleBattlerRoundEnd(Battler& battler);
 };
 

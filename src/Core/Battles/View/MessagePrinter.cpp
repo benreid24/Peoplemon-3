@@ -574,6 +574,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         }
         break;
 
+    case Message::Type::WokeUp:
+        dispText = ppl + " woke up!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
