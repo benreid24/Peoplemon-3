@@ -61,6 +61,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
     engine.window().setView(battleView);
     battle->view.configureView(battleView);
     systems.player().inputSystem().addListener(battle->view);
+    engine.eventBus().subscribe(this);
 
     // TODO - music here or in intro state?
 }
@@ -69,6 +70,7 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
     systems.player().inputSystem().removeListener(battle->view);
 
+    engine.eventBus().unsubscribe(this);
     engine.eventBus().dispatch<core::event::BattleCompleted>(
         {battle->type, battle->localPlayerWon});
 

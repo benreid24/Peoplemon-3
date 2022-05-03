@@ -116,16 +116,19 @@ void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
 void PlayerMenu::refresh() {
     switch (state) {
     case State::PickingItem:
-        if (chosenItem != item::Id::None)
-            state = State::Hidden;
-        else
+        if (chosenItem != item::Id::None) { state = State::Hidden; }
+        else {
             state = State::PickingAction;
+        }
         break;
     case State::PickingPeoplemon:
-        if (chosenMoveOrPeoplemon != -1)
+        if (chosenMoveOrPeoplemon != -1 && chosenMoveOrPeoplemon != currentPeoplemon) {
             state = State::Hidden;
-        else
-            state = State::PickingAction;
+        }
+        else {
+            state                 = State::PickingAction;
+            chosenMoveOrPeoplemon = -1;
+        }
         break;
     default:
         break;
@@ -138,7 +141,8 @@ void PlayerMenu::beginTurn() {
 }
 
 void PlayerMenu::choosePeoplemonMidTurn(bool fromFaint, bool fromRevive) {
-    state = State::PickingPeoplemon;
+    state                 = State::PickingPeoplemon;
+    chosenMoveOrPeoplemon = -1;
     if (fromFaint) {
         eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleFaint,
                                                      currentPeoplemon,
