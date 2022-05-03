@@ -97,6 +97,8 @@ private:
     PeoplemonMenu(core::system::Systems& systems, Context ctx, int outNow, int* chosen);
 
     void connectButtons();
+    bool canCancel() const;
+    void setSelectable(unsigned int i);
 
     void selected(menu::PeoplemonButton* but);
 

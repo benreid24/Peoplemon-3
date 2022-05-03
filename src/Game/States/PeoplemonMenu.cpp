@@ -130,21 +130,14 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
         buttons[i * 2 + 1] = menu::PeoplemonButton::create(team[i * 2 + 1]);
     }
     for (unsigned int i = 0; i < team.size(); ++i) {
-        if (team[i].currentHp() == 0) {
-            buttons[i]->setHighlightColor(sf::Color(200, 10, 10));
-            if (context == Context::BattleFaint || context == Context::BattleSwitch) {
-                buttons[i]->setSelectable(false);
-            }
-        }
+        if (team[i].currentHp() == 0) { buttons[i]->setHighlightColor(sf::Color(200, 10, 10)); }
         else if (outNow >= 0 && static_cast<unsigned int>(outNow) == i) {
-            if (context == Context::BattleSwitch) {
-                buttons[i]->setHighlightColor(sf::Color(90, 110, 250));
-                buttons[i]->setSelectable(false);
-            }
-        }
-        if (context == Context::GiveItem && team[i].holdItem() != core::item::Id::None) {
+            // outNow should only be positive in battle so no need to check context
+            buttons[i]->setHighlightColor(sf::Color(90, 110, 250));
             buttons[i]->setSelectable(false);
         }
+
+        setSelectable(i);
         buttons[i]
             ->getSignal(bl::menu::Item::Activated)
             .willAlwaysCall(std::bind(&PeoplemonMenu::selected, this, buttons[i].get()));
@@ -160,7 +153,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
                 buttons[i * 2 + 1].get(), buttons[(i - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
         }
     }
-    if (context != Context::BattleFaint) {
+    if (canCancel()) {
         if (col2N > 0) {
             menu.addItem(backBut, buttons[(col1N - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
             menu.attachExisting(
@@ -170,7 +163,14 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
             menu.addItem(backBut, buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom);
         }
     }
+
     menu.setSelectedItem(buttons[0].get());
+    for (unsigned int i = 1; i < team.size(); ++i) {
+        if (buttons[i]->isSelectable()) {
+            menu.setSelectedItem(buttons[i].get());
+            break;
+        }
+    }
 
     state      = MenuState::Browsing;
     actionOpen = false;
@@ -183,6 +183,37 @@ void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
     inputDriver.drive(nullptr);
     systems.player().inputSystem().removeListener(inputDriver);
     engine.window().setView(oldView);
+}
+
+bool PeoplemonMenu::canCancel() const {
+    switch (context) {
+    case Context::BattleFaint:
+    case Context::BattleMustSwitch:
+    case Context::BattleReviveSwitch:
+        return false;
+    default:
+        return true;
+    }
+}
+
+void PeoplemonMenu::setSelectable(unsigned int i) {
+    const auto& team = systems.player().team();
+    switch (context) {
+    case Context::BattleFaint:
+    case Context::BattleMustSwitch:
+    case Context::BattleSwitch:
+        buttons[i]->setSelectable(team[i].currentHp() > 0);
+        break;
+    case Context::BattleReviveSwitch:
+        buttons[i]->setSelectable(team[i].currentHp() == 0);
+        break;
+    case Context::GiveItem:
+        buttons[i]->setSelectable(team[i].holdItem() == core::item::Id::None);
+        break;
+    default:
+        buttons[i]->setSelectable(true);
+        break;
+    }
 }
 
 void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
@@ -349,7 +380,7 @@ void PeoplemonMenu::connectButtons() {
         }
     }
 
-    if (context != Context::BattleFaint) {
+    if (canCancel()) {
         if (mr >= 0) {
             menu.attachExisting(backBut.get(), buttons[mr].get(), bl::menu::Item::Bottom);
             menu.attachExisting(backBut.get(), buttons[ml].get(), bl::menu::Item::Bottom, false);
@@ -364,12 +395,25 @@ void PeoplemonMenu::chosen() {
     switch (context) {
     case Context::BattleFaint:
     case Context::BattleSwitch:
+    case Context::BattleMustSwitch:
         if (systems.player().team()[mover1].currentHp() == 0) {
             resetAction();
             state = MenuState::ShowingMessage;
             inputDriver.drive(nullptr);
             systems.hud().displayMessage("Unconscious Peoplemon can't fight!",
                                          std::bind(&PeoplemonMenu::messageDone, this));
+            return;
+        }
+        break;
+
+    case Context::BattleReviveSwitch:
+        if (systems.player().team()[mover1].currentHp() != 0) {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage(
+                "Choose a dead Peoplemon so the sacrifice was not in vain!",
+                std::bind(&PeoplemonMenu::messageDone, this));
             return;
         }
         break;
