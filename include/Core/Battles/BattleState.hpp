@@ -56,10 +56,15 @@ public:
 
         // Fight
         Attacking,
+
+        // Various switch states
         WaitingMidTurnSwitch,
         BeforeMidTurnSwitch,
         MidTurnSwitching,
         AfterMidTurnSwitch,
+        BeforeRoarSwitching,
+        RoarSwitching,
+        AfterRoarSwitch,
 
         // Peoplemon defeated
         BeforeFaint,

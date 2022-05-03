@@ -187,6 +187,18 @@ void LocalBattleController::initCurrentStage() {
         // TODO
         break;
 
+    case Stage::BeforeRoarSwitching:
+        // TODO - display message and play roar out anim
+        break;
+
+    case Stage::RoarSwitching:
+        // TODO - select new peoplemon and sync state with it, play sendout anim
+        break;
+
+    case Stage::AfterRoarSwitch:
+        // TODO - anything?
+        break;
+
     case Stage::BeforeFaint:
         // TODO - display message
         break;
@@ -355,13 +367,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::Attacking:
-            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
-                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
-                setBattleState(Stage::BeforeFaint);
-            }
-            else {
-                setBattleState(Stage::NextBattler);
-            }
+            setBattleState(Stage::NextBattler);
             break;
 
         case Stage::WaitingMidTurnSwitch:
@@ -379,13 +385,19 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::AfterMidTurnSwitch:
-            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
-                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
-                setBattleState(Stage::BeforeFaint);
-            }
-            else {
-                setBattleState(Stage::NextBattler);
-            }
+            setBattleState(Stage::NextBattler);
+            break;
+
+        case Stage::BeforeRoarSwitching:
+            setBattleState(Stage::RoarSwitching);
+            break;
+
+        case Stage::RoarSwitching:
+            setBattleState(Stage::AfterRoarSwitch);
+            break;
+
+        case Stage::AfterRoarSwitch:
+            setBattleState(Stage::NextBattler);
             break;
 
         case Stage::RoundFinalEffects:
@@ -487,11 +499,16 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     using Stage = BattleState::Stage;
 
     switch (ns) {
-    case Stage::NextBattler: {
-        const BattleState::Stage next = state->nextTurn();
-        queueCommand({Command::SyncStateNoSwitch});
-        return next;
-    }
+    case Stage::NextBattler:
+        if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
+            state->activeBattler().activePeoplemon().base().currentHp() == 0) {
+            return Stage::BeforeFaint;
+        }
+        else {
+            const BattleState::Stage next = state->nextTurn();
+            queueCommand({Command::SyncStateNoSwitch});
+            return next;
+        }
 
     case Stage::HandleFaint:
         // TODO - determine if victory or switch
@@ -1414,8 +1431,7 @@ void LocalBattleController::doRoar(Battler& victim) {
     }
 
     queueCommand({cmd::Message(cmd::Message::Type::Roar, isActive)}, true);
-    queueCommand({Command::GetMidTurnSwitch, isActive});
-    setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+    setBattleState(BattleState::Stage::BeforeRoarSwitching);
 }
 
 } // namespace battle
