@@ -18,9 +18,9 @@ void BattlerController::pickAction() {
     startChooseAction();
 }
 
-void BattlerController::pickPeoplemon(bool ff) {
+void BattlerController::pickPeoplemon(bool ff, bool ro) {
     subActionPicked = false;
-    startChoosePeoplemon(ff);
+    startChoosePeoplemon(ff, ro);
 }
 
 TurnAction BattlerController::chosenAction() const { return action; }

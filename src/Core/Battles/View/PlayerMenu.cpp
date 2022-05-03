@@ -1,6 +1,7 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 
@@ -15,8 +16,9 @@ namespace
 const sf::Vector2f MoveBoxPos(499.f, 463.f);
 }
 
-PlayerMenu::PlayerMenu(bool canRun)
+PlayerMenu::PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus)
 : state(State::Hidden)
+, eventBus(eventBus)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moves(nullptr) {
@@ -135,9 +137,25 @@ void PlayerMenu::beginTurn() {
     menuDriver.drive(&actionMenu);
 }
 
-void PlayerMenu::chooseFaintReplacement() {
+void PlayerMenu::choosePeoplemonMidTurn(bool fromFaint, bool fromRevive) {
     state = State::PickingPeoplemon;
-    // TODO - open peoplemon menu
+    if (fromFaint) {
+        eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleFaint,
+                                                     currentPeoplemon,
+                                                     &chosenMoveOrPeoplemon});
+    }
+    else if (fromRevive) {
+        eventBus.dispatch<event::OpenPeoplemonMenu>(
+            {event::OpenPeoplemonMenu::Context::BattleReviveSwitch,
+             currentPeoplemon,
+             &chosenMoveOrPeoplemon});
+    }
+    else {
+        eventBus.dispatch<event::OpenPeoplemonMenu>(
+            {event::OpenPeoplemonMenu::Context::BattleMustSwitch,
+             currentPeoplemon,
+             &chosenMoveOrPeoplemon});
+    }
 }
 
 bool PlayerMenu::ready() const { return state == State::Hidden; }
@@ -198,7 +216,9 @@ void PlayerMenu::fightChosen() {
 void PlayerMenu::switchChosen() {
     state        = State::PickingPeoplemon;
     chosenAction = TurnAction::Switch;
-    // TODO - open menu
+    eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleSwitch,
+                                                 currentPeoplemon,
+                                                 &chosenMoveOrPeoplemon});
 }
 
 void PlayerMenu::itemChosen() {

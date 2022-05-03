@@ -15,7 +15,7 @@ void RemoteController::startChooseAction() {
     // TODO - get from network
 }
 
-void RemoteController::startChoosePeoplemon(bool) {
+void RemoteController::startChoosePeoplemon(bool, bool) {
     // TODO - get from network
 }
 

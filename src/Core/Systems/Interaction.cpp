@@ -281,8 +281,8 @@ void Interaction::setTalked(const std::string& name) {
 
 void Interaction::startBattle() {
     BL_LOG_INFO << "Starting trainer battle";
-    std::unique_ptr<battle::Battle> battle =
-        battle::Battle::create(owner.player(), battle::Battle::Type::Trainer);
+    std::unique_ptr<battle::Battle> battle = battle::Battle::create(
+        owner.player(), battle::Battle::Type::Trainer, owner.engine().eventBus());
 
     std::vector<pplmn::BattlePeoplemon> team;
     team.reserve(interactingTrainer->team().size());

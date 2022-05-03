@@ -56,10 +56,9 @@ void PlayerController::startChooseAction() {
     menu.beginTurn();
 }
 
-void PlayerController::startChoosePeoplemon(bool) {
-    // TODO - add different switch context to menu
+void PlayerController::startChoosePeoplemon(bool fromFaint, bool reviveOnly) {
     state = State::PickingFaintReplacement;
-    menu.chooseFaintReplacement();
+    menu.choosePeoplemonMidTurn(fromFaint, reviveOnly);
 }
 
 } // namespace battle

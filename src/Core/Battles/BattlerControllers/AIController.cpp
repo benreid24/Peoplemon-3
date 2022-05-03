@@ -23,12 +23,16 @@ void AIController::startChooseAction() {
     chooseMove(0);
 }
 
-void AIController::startChoosePeoplemon(bool) {
+void AIController::startChoosePeoplemon(bool, bool reviveOnly) {
     // TODO - battle ai
     for (unsigned int i = 0; i < owner->peoplemon().size(); ++i) {
-        if (owner->peoplemon()[i].base().currentHp() > 0) {
+        if (owner->peoplemon()[i].base().currentHp() > 0 && !reviveOnly) {
             choosePeoplemon(i);
-            break;
+            return;
+        }
+        else if (owner->peoplemon()[i].base().currentHp() == 0 && reviveOnly) {
+            choosePeoplemon(i);
+            return;
         }
     }
     choosePeoplemon(-1);

@@ -1010,11 +1010,23 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             }
             break;
 
-        case pplmn::MoveEffect::DeathSwap:
-            affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
-            affected.base().currentHp()            = 0;
-            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
-            break;
+        case pplmn::MoveEffect::DeathSwap: {
+            bool oneDead = false;
+            for (const pplmn::BattlePeoplemon& p : affectedOwner.peoplemon()) {
+                if (p.base().currentHp() == 0 && &p != &affected) {
+                    oneDead = true;
+                    break;
+                }
+            }
+            if (oneDead) {
+                affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
+                affected.base().currentHp()            = 0;
+                queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::DeathSwapFailed, forActive)});
+            }
+        } break;
 
         case pplmn::MoveEffect::StayAlive:
             if (!affectedOwner.getSubstate().enduredLastTurn) {

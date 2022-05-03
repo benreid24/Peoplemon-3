@@ -85,7 +85,7 @@ bool BattleController::updateCommandQueue() {
     case Command::Type::GetFaintSwitch: {
         Battler& b = cmd.forActiveBattler() ? state->activeBattler() : state->inactiveBattler();
         subState   = SubState::WaitingView;
-        b.pickPeoplemon(cmd.getType() == Command::GetFaintSwitch);
+        b.pickPeoplemon(cmd.getType() == Command::GetFaintSwitch, b.getSubstate().koReviveHp > 0);
         return false;
     }
 

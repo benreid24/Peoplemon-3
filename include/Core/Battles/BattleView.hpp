@@ -34,8 +34,9 @@ public:
      *
      * @param state The current state of the battle
      * @param canRun Whether or not the player menu should allow running
+     * @param eventBus The event bus to use
      */
-    BattleView(BattleState& state, bool canRun);
+    BattleView(BattleState& state, bool canRun, bl::event::Dispatcher& eventBus);
 
     /**
      * @brief Sets up the subviews from the view used during battle

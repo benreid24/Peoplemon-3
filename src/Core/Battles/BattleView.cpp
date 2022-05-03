@@ -8,9 +8,9 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView(BattleState& s, bool canRun)
+BattleView::BattleView(BattleState& s, bool canRun, bl::event::Dispatcher& eb)
 : battleState(s)
-, playerMenu(canRun)
+, playerMenu(canRun, eb)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent) {
     bgndTxtr =

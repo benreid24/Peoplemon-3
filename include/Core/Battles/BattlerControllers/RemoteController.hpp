@@ -37,7 +37,7 @@ public:
 
 private:
     virtual void startChooseAction() override;
-    virtual void startChoosePeoplemon(bool fromFaint) override;
+    virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;
 };
 
 } // namespace battle

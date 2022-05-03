@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <Game/Menus/PeoplemonButton.hpp>
 #include <Game/States/State.hpp>
@@ -19,11 +20,7 @@ namespace state
  */
 class PeoplemonMenu : public State {
 public:
-    /**
-     * @brief Represents where the menu is being opened from
-     *
-     */
-    enum struct Context { BattleSwitch, BattleFaint, StorageSelect, PauseMenu, GiveItem };
+    using Context = core::event::OpenPeoplemonMenu::Context;
 
     /**
      * @brief Creates a new PeoplemonMenu state

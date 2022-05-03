@@ -36,7 +36,7 @@ void Battler::pickAction() {
     controller->pickAction();
 }
 
-void Battler::pickPeoplemon(bool ff) { controller->pickPeoplemon(ff); }
+void Battler::pickPeoplemon(bool ff, bool ro) { controller->pickPeoplemon(ff, ro); }
 
 TurnAction Battler::chosenAction() const {
     if (substate.chargingMove >= 0) { return TurnAction::Fight; }

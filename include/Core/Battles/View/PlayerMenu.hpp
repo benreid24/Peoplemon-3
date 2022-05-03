@@ -1,8 +1,10 @@
 #ifndef CORE_BATTLES_VIEW_PLAYERMENU_HPP
 #define CORE_BATTLES_VIEW_PLAYERMENU_HPP
 
+#include <BLIB/Events.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Battles/Battler.hpp>
 #include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
@@ -29,9 +31,10 @@ public:
      * @brief Construct a new Player Menu
      *
      * @param canRun Whether or not to allow running
+     * @param eventBus The event bus to use
      *
      */
-    PlayerMenu(bool canRun);
+    PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus);
 
     /**
      * @brief Polls state from opened peoplemon or bag menu
@@ -57,8 +60,11 @@ public:
     /**
      * @brief Opens the menu to select a peoplemon to send out
      *
+     * @param fromFaint True if the current peoplemon has fainted
+     * @param fromRevive True if the eligible peoplemon must be fainted
+     *
      */
-    void chooseFaintReplacement();
+    void choosePeoplemonMidTurn(bool fromFaint, bool fromRevive);
 
     /**
      * @brief Returns true when the player's choice has been made
@@ -107,6 +113,7 @@ private:
     enum struct State { Hidden, PickingAction, PickingMove, PickingItem, PickingPeoplemon };
 
     State state;
+    bl::event::Dispatcher& eventBus;
     player::input::MenuDriver menuDriver;
     TurnAction chosenAction;
     union {

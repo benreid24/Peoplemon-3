@@ -2,6 +2,7 @@
 
 #include <Core/Events/Battle.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/PeoplemonMenu.hpp>
 
 namespace game
 {
@@ -89,6 +90,11 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
 void BattleState::render(bl::engine::Engine& engine, float lag) {
     battle->view.render(engine.window(), lag);
     engine.window().display();
+}
+
+void BattleState::observe(const core::event::OpenPeoplemonMenu& event) {
+    systems.engine().pushState(
+        PeoplemonMenu::create(systems, event.context, event.outNow, event.chosen));
 }
 
 } // namespace state

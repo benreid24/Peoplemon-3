@@ -30,16 +30,17 @@ BattleState::Stage typeToStage(Battle::Type type) {
 }
 } // namespace
 
-Battle::Battle(Type type)
+Battle::Battle(Type type, bl::event::Dispatcher& eb)
 : type(type)
 , state(typeToStage(type))
-, view(state, type == Type::WildPeoplemon)
+, view(state, type == Type::WildPeoplemon, eb)
 , localPlayerWon(false) {
     // custom init?
 }
 
-std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) {
-    std::unique_ptr<Battle> b(new Battle(type));
+std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type,
+                                       bl::event::Dispatcher& eb) {
+    std::unique_ptr<Battle> b(new Battle(type, eb));
 
     std::vector<core::pplmn::BattlePeoplemon> team;
     team.reserve(player.team().size());

@@ -59,9 +59,10 @@ public:
      * @brief Initiates the process of selecting a replacement peoplemon if the current one faints
      *
      * @param fromFaint True if the current has fainted, false if the switch is for another reason
+     * @param reviveOnly True if fainted peoplemon must be selected
      *
      */
-    void pickPeoplemon(bool fromFaint);
+    void pickPeoplemon(bool fromFaint, bool reviveOnly);
 
     /**
      * @brief Returns the action the battler is using this turn
@@ -101,7 +102,7 @@ public:
 
     /**
      * @brief Returns the index of the peoplemon that is out now
-     * 
+     *
      */
     unsigned int outNowIndex() const;
 

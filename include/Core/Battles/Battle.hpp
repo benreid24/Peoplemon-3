@@ -28,9 +28,11 @@ struct Battle {
      *
      * @param player The player data
      * @param type The type of battle this is
+     * @param eventBus The event bus to use
      * @return std::unique_ptr<Battle> The new battle struct
      */
-    static std::unique_ptr<Battle> create(core::system::Player& player, Type type);
+    static std::unique_ptr<Battle> create(core::system::Player& player, Type type,
+                                          bl::event::Dispatcher& eventBus);
 
     /**
      * @brief Sets and initializes the controller to use in battle
@@ -46,7 +48,7 @@ struct Battle {
     bool localPlayerWon; // set by controller
 
 private:
-    Battle(Type type);
+    Battle(Type type, bl::event::Dispatcher& eventBus);
 };
 
 } // namespace battle
