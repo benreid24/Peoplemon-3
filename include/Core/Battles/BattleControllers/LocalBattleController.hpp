@@ -55,7 +55,7 @@ private:
     bool checkMoveCancelled(Battler& user, Battler& victim, int i, pplmn::MoveId move, int pwr,
                             pplmn::Type moveType, pplmn::MoveEffect effect,
                             bool isChargeSecondTurn);
-    void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, int dmg);
+    void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, pplmn::MoveId move, int dmg);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::Ailment ailment);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,

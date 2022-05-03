@@ -43,6 +43,8 @@ struct BattlerSubstate {
     std::uint8_t turnsConfused;
     std::int8_t turnsUntilAwake;
     std::int16_t koReviveHp;
+    pplmn::MoveId lastMoveHitWith;
+    std::uint16_t lastDamageTaken;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

@@ -633,11 +633,36 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, userIsActive)}, true);
     }
 
+    // begin determining how much damage to deal
+    int damage = 0;
+
+    // check counter and mirror coat
+    if (effect == pplmn::MoveEffect::Counter) {
+        if (!pplmn::Move::isSpecial(user.getSubstate().lastMoveHitWith) &&
+            user.getSubstate().lastDamageTaken > 0) {
+            damage = user.getSubstate().lastDamageTaken * 2;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsActive)}, true);
+            return;
+        }
+    }
+    if (effect == pplmn::MoveEffect::MirrorCoat) {
+        if (pplmn::Move::isSpecial(user.getSubstate().lastMoveHitWith) &&
+            user.getSubstate().lastDamageTaken > 0) {
+            damage = user.getSubstate().lastDamageTaken * 2;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsActive)}, true);
+            return;
+        }
+    }
+
     // finally play the animation
     queueCommand({cmd::Animation(!userIsActive, usedMove)}, true);
+    // TODO - play peoplemon animation for attacker?
 
     // move does damage
-    int damage = 0;
     if (pwr > 0) {
         queueCommand({cmd::Animation(!userIsActive, cmd::Animation::Type::ShakeAndFlash)});
         queueCommand({Command::SyncStateNoSwitch}, true);
@@ -649,12 +674,14 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const float multiplier = bl::util::Random::get<float>(0.85f, 1.f);
         const bool crit =
             bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStats().crit);
-        damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
-        damage *= stab * multiplier * effective * (crit ? 2.f : 1.f);
+        if (damage == 0) {
+            damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
+            damage *= stab * multiplier * effective * (crit ? 2.f : 1.f);
+        }
 
         BATTLE_LOG << pplmn::Move::name(move.id) << " did " << damage << " damage to "
                    << defender.base().name();
-        applyDamageWithChecks(victim, defender, damage);
+        applyDamageWithChecks(victim, defender, usedMove, damage);
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
         if (effective > 1.1f) {
@@ -874,22 +901,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::Suicide:
             affected.base().currentHp() = 0;
             queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forActive)});
-            break;
-
-        case pplmn::MoveEffect::Counter:
-            // TODO -this doesn't seem quite right
-            if (!special) {
-                affected.applyDamage(damage * 2);
-                queueCommand({cmd::Message(cmd::Message::Type::CounterEffect, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::MirrorCoat:
-            // TODO -this doesn't seem quite right
-            if (special) {
-                affected.applyDamage(damage * 2);
-                queueCommand({cmd::Message(cmd::Message::Type::MirrorCoatEffect, forActive)});
-            }
             break;
 
         case pplmn::MoveEffect::Peanut:
@@ -1150,6 +1161,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::Gamble:
         case pplmn::MoveEffect::RandomMove:
         case pplmn::MoveEffect::DoubleFamily:
+        case pplmn::MoveEffect::Counter:
+        case pplmn::MoveEffect::MirrorCoat:
             // handled up top
             break;
 
@@ -1212,7 +1225,7 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
 }
 
 void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::BattlePeoplemon& ppl,
-                                                  int dmg) {
+                                                  pplmn::MoveId move, int dmg) {
     const bool isActive = &victim == &state->activeBattler();
 
     // check if victim has a Substitute
@@ -1227,6 +1240,8 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
     }
 
     ppl.applyDamage(dmg);
+    victim.getSubstate().lastMoveHitWith = move;
+    victim.getSubstate().lastDamageTaken = dmg;
 
     // check if we Endure
     if (victim.getSubstate().enduringThisTurn && ppl.base().currentHp() == 0) {

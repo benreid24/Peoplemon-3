@@ -30,12 +30,16 @@ BattlerSubstate::BattlerSubstate()
 , turnsWithAilment(0)
 , turnsConfused(0)
 , turnsUntilAwake(-1)
-, koReviveHp(-1) {}
+, koReviveHp(-1)
+, lastMoveHitWith(pplmn::MoveId::Unknown)
+, lastDamageTaken(0) {}
 
 void BattlerSubstate::notifyTurnBegin() {
-    isProtected    = false;
-    noOneToGetBall = false;
-    move64Hit      = false;
+    isProtected     = false;
+    noOneToGetBall  = false;
+    move64Hit       = false;
+    lastMoveHitWith = pplmn::MoveId::Unknown;
+    lastDamageTaken = 0;
 }
 
 void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& ppl) {
@@ -72,6 +76,8 @@ void BattlerSubstate::notifySwitch(bool fainted) {
     deathCounter     = -1;
     enduringThisTurn = false;
     enduredLastTurn  = false;
+    lastMoveHitWith  = pplmn::MoveId::Unknown;
+    lastDamageTaken  = 0;
 }
 
 } // namespace battle
