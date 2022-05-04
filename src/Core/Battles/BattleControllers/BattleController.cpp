@@ -66,8 +66,7 @@ bool BattleController::updateCommandQueue() {
     case Command::Type::DisplayMessage:
     case Command::Type::PlayAnimation:
     case Command::Type::SyncStateNoSwitch:
-    case Command::Type::SyncStatePlayerSwitch:
-    case Command::Type::SyncStateOpponentSwitch:
+    case Command::Type::SyncStateSwitch:
         view->processCommand(cmd);
         return true;
 

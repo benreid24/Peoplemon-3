@@ -22,8 +22,6 @@ void Battler::notifyTurnBegin() { substate.notifyTurnBegin(); }
 
 void Battler::notifyTurnEnd() { substate.notifyTurnEnd(chosenAction(), activePeoplemon()); }
 
-void Battler::notifySwitch(bool ff) { substate.notifySwitch(ff); }
-
 bool Battler::actionSelected() const {
     if (substate.chargingMove >= 0) return true;
     if (substate.encoreTurnsLeft > 0) return true;
@@ -57,6 +55,11 @@ std::uint8_t Battler::chosenPeoplemon() const { return controller->chosenPeoplem
 std::vector<core::pplmn::BattlePeoplemon>& Battler::peoplemon() { return team; }
 
 core::pplmn::BattlePeoplemon& Battler::activePeoplemon() { return team[currentPeoplemon]; }
+
+void Battler::setActivePeoplemon(unsigned int i) {
+    currentPeoplemon = i;
+    substate.notifySwitch();
+}
 
 unsigned int Battler::outNowIndex() const { return currentPeoplemon; }
 

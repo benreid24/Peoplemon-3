@@ -148,11 +148,15 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::BeforeSwitch:
-        // TODO - display message
+        queueCommand({cmd::Message(cmd::Message::Type::Callback, true)});
+        queueCommand({cmd::Animation(true, cmd::Animation::Type::ComeBack)}, true);
         break;
 
     case Stage::Switching:
-        // TODO - play anim sequence
+        state->activeBattler().setActivePeoplemon(state->activeBattler().chosenPeoplemon());
+        queueCommand({cmd::Message(cmd::Message::Type::SendOut, true)}, true);
+        queueCommand({Command::SyncStateSwitch, true});
+        queueCommand({cmd::Animation(true, cmd::Animation::Type::SendOut)}, true);
         break;
 
     case Stage::AfterSwitch:
@@ -691,6 +695,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         else if (effective < 0.9f) {
             queueCommand({cmd::Message(cmd::Message::Type::NotEffective)}, true);
         }
+
+        queueCommand({Command::SyncStateNoSwitch}, true);
     }
 
     // resolve move effect if any

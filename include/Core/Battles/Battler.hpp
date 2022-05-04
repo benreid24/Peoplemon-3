@@ -101,6 +101,13 @@ public:
     core::pplmn::BattlePeoplemon& activePeoplemon();
 
     /**
+     * @brief Sets the Peoplemon that is out now
+     *
+     * @param index The index of the peoplemon that is out now
+     */
+    void setActivePeoplemon(unsigned int index);
+
+    /**
      * @brief Returns the index of the peoplemon that is out now
      *
      */
@@ -149,14 +156,6 @@ public:
      *
      */
     void notifyTurnEnd();
-
-    /**
-     * @brief Notifies the battler that a switch occured for them
-     *
-     * @param fromFaint True for if the switch is from a faint, false otherwise
-     *
-     */
-    void notifySwitch(bool fromFaint);
 
 private:
     BattleState& state;

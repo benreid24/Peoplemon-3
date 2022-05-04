@@ -96,17 +96,18 @@ StatBoxes::StatBoxes()
 
 void StatBoxes::setOpponent(pplmn::BattlePeoplemon* ppl) {
     opponent = ppl;
+    opHpBar.setSize({0.f, BarSize.y});
     sync();
 }
 
 void StatBoxes::setPlayer(pplmn::BattlePeoplemon* ppl) {
     localPlayer = ppl;
+    lpHpBar.setSize({0.f, BarSize.y});
+    lpXpBar.setSize({0.f, XpBarSize.y});
     sync();
 }
 
 void StatBoxes::sync() {
-    // TODO - add immediate sync for switches?
-
     if (localPlayer) {
         lpName.setString(localPlayer->base().name());
         lpLevel.setString(std::to_string(localPlayer->base().currentLevel()));

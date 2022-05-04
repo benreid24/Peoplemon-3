@@ -66,7 +66,7 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeople
     if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
 }
 
-void BattlerSubstate::notifySwitch(bool fainted) {
+void BattlerSubstate::notifySwitch() {
     lastMoveIndex    = -1;
     substituteHp     = 0;
     chargingMove     = -1;

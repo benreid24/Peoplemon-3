@@ -165,7 +165,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     }
 
     menu.setSelectedItem(buttons[0].get());
-    for (unsigned int i = 1; i < team.size(); ++i) {
+    for (unsigned int i = 0; i < team.size(); ++i) {
         if (buttons[i]->isSelectable()) {
             menu.setSelectedItem(buttons[i].get());
             break;
@@ -200,12 +200,14 @@ void PeoplemonMenu::setSelectable(unsigned int i) {
     const auto& team = systems.player().team();
     switch (context) {
     case Context::BattleFaint:
-    case Context::BattleMustSwitch:
     case Context::BattleSwitch:
         buttons[i]->setSelectable(team[i].currentHp() > 0);
         break;
+    case Context::BattleMustSwitch:
+        buttons[i]->setSelectable(team[i].currentHp() > 0 && static_cast<int>(i) != outNow);
+        break;
     case Context::BattleReviveSwitch:
-        buttons[i]->setSelectable(team[i].currentHp() == 0);
+        buttons[i]->setSelectable(team[i].currentHp() == 0 && static_cast<int>(i) != outNow);
         break;
     case Context::GiveItem:
         buttons[i]->setSelectable(team[i].holdItem() == core::item::Id::None);

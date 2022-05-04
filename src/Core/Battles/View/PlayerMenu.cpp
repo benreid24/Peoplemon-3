@@ -18,6 +18,7 @@ const sf::Vector2f MoveBoxPos(499.f, 463.f);
 
 PlayerMenu::PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus)
 : state(State::Hidden)
+, stateLoopGuard(false)
 , eventBus(eventBus)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
@@ -117,6 +118,9 @@ void PlayerMenu::refresh() {
     switch (state) {
     case State::PickingItem:
         if (chosenItem != item::Id::None) { state = State::Hidden; }
+        else if (stateLoopGuard) {
+            stateLoopGuard = false;
+        }
         else {
             state = State::PickingAction;
         }
@@ -124,6 +128,9 @@ void PlayerMenu::refresh() {
     case State::PickingPeoplemon:
         if (chosenMoveOrPeoplemon != -1 && chosenMoveOrPeoplemon != currentPeoplemon) {
             state = State::Hidden;
+        }
+        else if (stateLoopGuard) {
+            stateLoopGuard = false;
         }
         else {
             state                 = State::PickingAction;
@@ -143,6 +150,7 @@ void PlayerMenu::beginTurn() {
 void PlayerMenu::choosePeoplemonMidTurn(bool fromFaint, bool fromRevive) {
     state                 = State::PickingPeoplemon;
     chosenMoveOrPeoplemon = -1;
+    stateLoopGuard        = true;
     if (fromFaint) {
         eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleFaint,
                                                      currentPeoplemon,
@@ -218,8 +226,10 @@ void PlayerMenu::fightChosen() {
 }
 
 void PlayerMenu::switchChosen() {
-    state        = State::PickingPeoplemon;
-    chosenAction = TurnAction::Switch;
+    state                 = State::PickingPeoplemon;
+    chosenAction          = TurnAction::Switch;
+    chosenMoveOrPeoplemon = -1;
+    stateLoopGuard        = true;
     eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleSwitch,
                                                  currentPeoplemon,
                                                  &chosenMoveOrPeoplemon});

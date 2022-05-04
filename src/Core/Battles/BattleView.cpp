@@ -12,7 +12,8 @@ BattleView::BattleView(BattleState& s, bool canRun, bl::event::Dispatcher& eb)
 : battleState(s)
 , playerMenu(canRun, eb)
 , localPeoplemon(view::PeoplemonAnimation::Player)
-, opponentPeoplemon(view::PeoplemonAnimation::Opponent) {
+, opponentPeoplemon(view::PeoplemonAnimation::Opponent)
+, inited(false) {
     bgndTxtr =
         bl::engine::Resources::textures()
             .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/battleBgnd.png"))
@@ -21,19 +22,22 @@ BattleView::BattleView(BattleState& s, bool canRun, bl::event::Dispatcher& eb)
 }
 
 void BattleView::configureView(const sf::View& pv) {
-    localPeoplemon.configureView(pv);
-    opponentPeoplemon.configureView(pv);
-
     // first time init of view components
-    playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
-                            battleState.localPlayer().activePeoplemon());
-    statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
-    statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
-    statBoxes.sync();
-    localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
-    opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
-    moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
-                               battleState.enemy().activePeoplemon());
+    if (!inited) {
+        inited = true;
+        localPeoplemon.configureView(pv);
+        opponentPeoplemon.configureView(pv);
+
+        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                                battleState.localPlayer().activePeoplemon());
+        statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
+        statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
+        statBoxes.sync();
+        localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
+        opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
+        moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
+                                   battleState.enemy().activePeoplemon());
+    }
 }
 
 bool BattleView::actionsCompleted() const {
@@ -80,29 +84,26 @@ void BattleView::processCommand(const Command& cmd) {
 
     case Command::Type::SyncStateNoSwitch:
         statBoxes.sync();
-        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
-                                battleState.localPlayer().activePeoplemon());
         break;
 
-    case Command::Type::SyncStatePlayerSwitch:
-        statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
-        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
-                                battleState.localPlayer().activePeoplemon());
-        statBoxes.sync();
-        localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
-        moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
-                                   battleState.enemy().activePeoplemon());
-        break;
+    case Command::Type::SyncStateSwitch: {
+        Battler& b =
+            cmd.forActiveBattler() ? battleState.activeBattler() : battleState.inactiveBattler();
+        const bool isPlayer = &b == &battleState.localPlayer();
 
-    case Command::Type::SyncStateOpponentSwitch:
-        statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
-        statBoxes.sync();
-        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
-                                battleState.localPlayer().activePeoplemon());
-        opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
+        if (isPlayer) {
+            statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
+            playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+                                    battleState.localPlayer().activePeoplemon());
+            localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
+        }
+        else {
+            statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
+            opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
+        }
         moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
                                    battleState.enemy().activePeoplemon());
-        break;
+    } break;
 
     default:
         BL_LOG_ERROR << "Unknown command type: " << cmd.getType();

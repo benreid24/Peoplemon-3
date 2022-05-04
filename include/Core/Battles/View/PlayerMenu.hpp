@@ -113,6 +113,7 @@ private:
     enum struct State { Hidden, PickingAction, PickingMove, PickingItem, PickingPeoplemon };
 
     State state;
+    bool stateLoopGuard;
     bl::event::Dispatcher& eventBus;
     player::input::MenuDriver menuDriver;
     TurnAction chosenAction;

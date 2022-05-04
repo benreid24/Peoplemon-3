@@ -30,14 +30,13 @@ public:
         PlayAnimation  = 1,
 
         // sync with view. also for network sync
-        SyncStateNoSwitch       = 2,
-        SyncStatePlayerSwitch   = 3, // TODO - consider making active/inactive
-        SyncStateOpponentSwitch = 4,
-        WaitForView             = 5,
+        SyncStateNoSwitch = 2,
+        SyncStateSwitch   = 3,
+        WaitForView       = 4,
 
-        GetBattlerChoices = 6,
-        GetFaintSwitch    = 7,
-        GetMidTurnSwitch  = 8
+        GetBattlerChoices = 5,
+        GetFaintSwitch    = 6,
+        GetMidTurnSwitch  = 7
     };
 
     /**

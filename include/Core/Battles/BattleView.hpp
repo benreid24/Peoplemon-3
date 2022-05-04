@@ -96,6 +96,7 @@ private:
     view::PeoplemonAnimation localPeoplemon;
     view::PeoplemonAnimation opponentPeoplemon;
     view::MoveAnimation moveAnimation;
+    bool inited;
 
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;

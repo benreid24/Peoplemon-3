@@ -71,10 +71,8 @@ struct BattlerSubstate {
     /**
      * @brief Updates state that is unique to the currently out Peoplemon
      *
-     * @param fromFaint True if the switch is from fainting, false for regular
-     *
      */
-    void notifySwitch(bool fromFaint);
+    void notifySwitch();
 };
 } // namespace battle
 } // namespace core
