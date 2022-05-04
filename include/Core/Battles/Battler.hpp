@@ -157,6 +157,12 @@ public:
      */
     void notifyTurnEnd();
 
+    /**
+     * @brief Returns the index of a random, living Peoplemon that is not currently out
+     *
+     */
+    unsigned int selectRandomPeoplemon() const;
+
 private:
     BattleState& state;
     BattlerSubstate substate;

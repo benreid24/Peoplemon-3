@@ -1,5 +1,6 @@
 #include <Core/Battles/Battle.hpp>
 
+#include <BLIB/Util/Random.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Peoplemon/Move.hpp>
 
@@ -96,6 +97,16 @@ bool Battler::canSwitch() const {
 void Battler::refresh() { controller->refresh(); }
 
 BattlerSubstate& Battler::getSubstate() { return substate; }
+
+unsigned int Battler::selectRandomPeoplemon() const {
+    if (!canSwitch()) return currentPeoplemon;
+
+    unsigned int r = 0;
+    do {
+        r = bl::util::Random::get<unsigned int>(0, team.size());
+    } while (team[r].base().currentHp() == 0 || r == currentPeoplemon);
+    return r;
+}
 
 } // namespace battle
 } // namespace core

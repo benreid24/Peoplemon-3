@@ -36,7 +36,8 @@ struct Animation {
         StatIncrease,
         MultipleStateIncrease,
         StatDecrease,
-        MultipleStateDecrease
+        MultipleStateDecrease,
+        SlideOut
     };
 
     /**

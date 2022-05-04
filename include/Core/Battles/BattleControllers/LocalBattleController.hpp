@@ -66,6 +66,10 @@ private:
 
     void handleBattlerTurnStart(Battler& battler);
     void handleBattlerRoundEnd(Battler& battler);
+
+    void startSwitch(Battler& battler);
+    void doSwitch(Battler& battler, unsigned int newPP);
+    void postSwitch(Battler& battler);
 };
 
 } // namespace battle

@@ -148,19 +148,15 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::BeforeSwitch:
-        queueCommand({cmd::Message(cmd::Message::Type::Callback, true)});
-        queueCommand({cmd::Animation(true, cmd::Animation::Type::ComeBack)}, true);
+        startSwitch(state->activeBattler());
         break;
 
     case Stage::Switching:
-        state->activeBattler().setActivePeoplemon(state->activeBattler().chosenPeoplemon());
-        queueCommand({cmd::Message(cmd::Message::Type::SendOut, true)}, true);
-        queueCommand({Command::SyncStateSwitch, true});
-        queueCommand({cmd::Animation(true, cmd::Animation::Type::SendOut)}, true);
+        doSwitch(state->activeBattler(), state->activeBattler().chosenPeoplemon());
         break;
 
     case Stage::AfterSwitch:
-        // TODO - check abilities and stuff
+        postSwitch(state->activeBattler());
         break;
 
     case Stage::BeforeRun:
@@ -180,27 +176,24 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::BeforeMidTurnSwitch:
-        // TODO
+        startSwitch(state->activeBattler());
         break;
 
     case Stage::MidTurnSwitching:
-        // TODO
+        doSwitch(state->activeBattler(), state->activeBattler().chosenPeoplemon());
         break;
 
     case Stage::AfterMidTurnSwitch:
-        // TODO
-        break;
-
-    case Stage::BeforeRoarSwitching:
-        // TODO - display message and play roar out anim
+        postSwitch(state->activeBattler());
         break;
 
     case Stage::RoarSwitching:
-        // TODO - select new peoplemon and sync state with it, play sendout anim
+        // assume that roar is only used by active battler
+        doSwitch(state->inactiveBattler(), state->inactiveBattler().selectRandomPeoplemon());
         break;
 
     case Stage::AfterRoarSwitch:
-        // TODO - anything?
+        postSwitch(state->inactiveBattler());
         break;
 
     case Stage::BeforeFaint:
@@ -390,10 +383,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::AfterMidTurnSwitch:
             setBattleState(Stage::NextBattler);
-            break;
-
-        case Stage::BeforeRoarSwitching:
-            setBattleState(Stage::RoarSwitching);
             break;
 
         case Stage::RoarSwitching:
@@ -1451,8 +1440,27 @@ void LocalBattleController::doRoar(Battler& victim) {
         return;
     }
 
-    queueCommand({cmd::Message(cmd::Message::Type::Roar, isActive)}, true);
-    setBattleState(BattleState::Stage::BeforeRoarSwitching);
+    queueCommand({cmd::Message(cmd::Message::Type::Roar, isActive)});
+    queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideOut)}, true);
+    setBattleState(BattleState::Stage::RoarSwitching);
+}
+
+void LocalBattleController::startSwitch(Battler& battler) {
+    const bool forActive = &battler == &state->activeBattler();
+    queueCommand({cmd::Message(cmd::Message::Type::Callback, forActive)});
+    queueCommand({cmd::Animation(forActive, cmd::Animation::Type::ComeBack)}, true);
+}
+
+void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
+    const bool forActive = &battler == &state->activeBattler();
+    battler.setActivePeoplemon(newPP);
+    queueCommand({cmd::Message(cmd::Message::Type::SendOut, forActive)}, true);
+    queueCommand({Command::SyncStateSwitch, forActive});
+    queueCommand({cmd::Animation(forActive, cmd::Animation::Type::SendOut)}, true);
+}
+
+void LocalBattleController::postSwitch(Battler&) {
+    // TODO - check abilities and stuff. maybe koRevive?
 }
 
 } // namespace battle

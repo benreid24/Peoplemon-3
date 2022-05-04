@@ -62,7 +62,6 @@ public:
         BeforeMidTurnSwitch,
         MidTurnSwitching,
         AfterMidTurnSwitch,
-        BeforeRoarSwitching,
         RoarSwitching,
         AfterRoarSwitch,
 
