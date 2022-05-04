@@ -51,8 +51,9 @@ void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
 }
 
 void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
-    state = State::Playing;
-    type  = anim;
+    state       = State::Playing;
+    type        = anim;
+    slideAmount = 0.f;
 
     switch (anim) {
     case Animation::Type::ComeBack:
@@ -75,6 +76,11 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         slideAmount = 0.f;
         break;
 
+    case Animation::Type::SlideOut:
+        placeholder.setString("SlideOut");
+        // TODO
+        break;
+
     default:
         BL_LOG_ERROR << "Invalid animation type for peoplemon: " << anim;
         state = State::Static;
@@ -94,6 +100,14 @@ void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
 bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
+    const auto timedOnly = [this, dt]() {
+        slideAmount += dt;
+        if (slideAmount > 2.f) {
+            slideAmount = 0.f;
+            state       = State::Static;
+        }
+    };
+
     if (state == State::Playing) {
         switch (type) {
         case Animation::Type::ComeBack:
@@ -116,6 +130,12 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::ShakeAndFlash:
             // TODO
+            timedOnly();
+            break;
+
+        case Animation::Type::SlideOut:
+            // TODO
+            timedOnly();
             break;
 
         case Animation::Type::SlideDown:

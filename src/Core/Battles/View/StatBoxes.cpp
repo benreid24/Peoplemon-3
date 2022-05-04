@@ -150,7 +150,7 @@ void StatBoxes::update(float dt) {
         const float nw = std::min(opHpBarTarget, opHpBar.getSize().x + change);
         opHpBar.setSize({nw, BarSize.y});
     }
-    else if (opHpBar.getSize().y > opHpBarTarget) {
+    else if (opHpBar.getSize().x > opHpBarTarget) {
         const float nw = std::max(opHpBarTarget, opHpBar.getSize().x - change);
         opHpBar.setSize({nw, BarSize.y});
     }
@@ -160,7 +160,7 @@ void StatBoxes::update(float dt) {
         const float nw = std::min(lpHpBarTarget, lpHpBar.getSize().x + change);
         lpHpBar.setSize({nw, BarSize.y});
     }
-    else if (lpHpBar.getSize().y > lpHpBarTarget) {
+    else if (lpHpBar.getSize().x > lpHpBarTarget) {
         const float nw = std::max(lpHpBarTarget, lpHpBar.getSize().x - change);
         lpHpBar.setSize({nw, BarSize.y});
     }

@@ -26,9 +26,11 @@ int critChance(int stage) {
     case 1:
         return 13;
     case 2:
-        return 50;
+        return 25;
+    case 3:
+        return 33;
     default:
-        return 100; // this seems wrong
+        return 50;
     }
 }
 
@@ -574,7 +576,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     const int pacc                 = attacker.battleStats().acc;
     const int evd                  = defender.battleStats().evade;
     const int hitChance            = acc * pacc / evd;
-    bool hit                       = bl::util::Random::get<int>(0, 100) > hitChance && acc != 0;
+    bool hit                       = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
     const pplmn::MoveEffect effect = pplmn::Move::effect(usedMove);
 
     // volleyball moves guaranteed to hit if ball is set
@@ -668,12 +670,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const bool crit =
             bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStats().crit);
         if (damage == 0) {
-            damage = ((2 * attacker.base().currentLevel() + 10) / 250) * (atk / def) * pwr + 2;
-            damage *= stab * multiplier * effective * (crit ? 2.f : 1.f);
+            damage = ((2 * attacker.base().currentLevel() / 5 + 2) * (atk / def) * pwr) / 50 + 2;
+            damage = static_cast<int>(static_cast<float>(damage) * stab * multiplier * effective *
+                                      (crit ? 2.f : 1.f));
         }
 
-        BATTLE_LOG << pplmn::Move::name(move.id) << " did " << damage << " damage to "
-                   << defender.base().name();
+        BATTLE_LOG << pplmn::Move::name(move.id) << " (pwr " << pwr << ") did " << damage
+                   << " damage to " << defender.base().name();
         applyDamageWithChecks(victim, defender, usedMove, damage);
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
