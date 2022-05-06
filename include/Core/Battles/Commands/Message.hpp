@@ -72,6 +72,7 @@ public:
 
         DeathSwapSac,
         DeathSwapFailed,
+        DeathSwapRevived,
 
         Guarded,
         GuardFailed,
@@ -161,6 +162,14 @@ public:
 
         WokeUp,
         // TODO - other ailment ends
+
+        Fainted,
+        TrainerLost,
+        WonMoney,
+        GotMoney,
+        WhiteoutA,
+        WhiteoutB,
+        NetworkWinLose
     };
 
     /**

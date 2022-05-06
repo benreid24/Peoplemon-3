@@ -6,13 +6,11 @@ namespace core
 {
 namespace battle
 {
-const std::string& PlayerController::name() const {
-    static const std::string n = "<PLAYER>";
-    return n;
-}
+const std::string& PlayerController::name() const { return player.name(); }
 
-PlayerController::PlayerController(view::PlayerMenu& menu)
+PlayerController::PlayerController(system::Player& p, view::PlayerMenu& menu)
 : state(State::Waiting)
+, player(p)
 , menu(menu) {}
 
 void PlayerController::refresh() {
@@ -59,6 +57,11 @@ void PlayerController::startChooseAction() {
 void PlayerController::startChoosePeoplemon(bool fromFaint, bool reviveOnly) {
     state = State::PickingFaintReplacement;
     menu.choosePeoplemonMidTurn(fromFaint, reviveOnly);
+}
+
+void PlayerController::startChooseToContinue() {
+    // TODO - get choice from UI
+    chooseGiveUp(false);
 }
 
 } // namespace battle

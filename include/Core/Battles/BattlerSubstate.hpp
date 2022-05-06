@@ -4,6 +4,7 @@
 #include <Core/Battles/TurnAction.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Components/Trainer.hpp>
 
 namespace core
 {
@@ -45,6 +46,8 @@ struct BattlerSubstate {
     std::int16_t koReviveHp;
     pplmn::MoveId lastMoveHitWith;
     std::uint16_t lastDamageTaken;
+    bool faintHandled;
+    component::Trainer* trainer;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

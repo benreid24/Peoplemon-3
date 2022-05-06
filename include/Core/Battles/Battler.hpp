@@ -163,6 +163,24 @@ public:
      */
     unsigned int selectRandomPeoplemon() const;
 
+    /**
+     * @brief Returns whether or not the player has chosen to continue
+     *
+     */
+    bool shouldContinue() const;
+
+    /**
+     * @brief Begins to decide whether or not to continue
+     *
+     */
+    void startChooseToContinue();
+
+    /**
+     * @brief Returns the amount of prize money awarded for defeating this battler
+     *
+     */
+    int prizeMoney() const;
+
 private:
     BattleState& state;
     BattlerSubstate substate;

@@ -34,9 +34,8 @@ public:
         SyncStateSwitch   = 3,
         WaitForView       = 4,
 
-        GetBattlerChoices = 5,
-        GetFaintSwitch    = 6,
-        GetMidTurnSwitch  = 7
+        // For network client only
+        NotifyBattleWinner = 5
     };
 
     /**

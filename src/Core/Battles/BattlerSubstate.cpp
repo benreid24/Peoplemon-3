@@ -32,7 +32,9 @@ BattlerSubstate::BattlerSubstate()
 , turnsUntilAwake(-1)
 , koReviveHp(-1)
 , lastMoveHitWith(pplmn::MoveId::Unknown)
-, lastDamageTaken(0) {}
+, lastDamageTaken(0)
+, faintHandled(false)
+, trainer(nullptr) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected     = false;
@@ -40,6 +42,7 @@ void BattlerSubstate::notifyTurnBegin() {
     move64Hit       = false;
     lastMoveHitWith = pplmn::MoveId::Unknown;
     lastDamageTaken = 0;
+    faintHandled    = false;
 }
 
 void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& ppl) {

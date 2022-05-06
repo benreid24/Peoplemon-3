@@ -19,5 +19,7 @@ void RemoteController::startChoosePeoplemon(bool, bool) {
     // TODO - get from network
 }
 
+void RemoteController::startChooseToContinue() { chooseGiveUp(false); }
+
 } // namespace battle
 } // namespace core

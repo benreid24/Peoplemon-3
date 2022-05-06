@@ -41,6 +41,7 @@ protected:
 private:
     bool currentStageInitialized;
     bool finalEffectsApplied;
+    Battler* currentFainter;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;
@@ -55,7 +56,8 @@ private:
     bool checkMoveCancelled(Battler& user, Battler& victim, int i, pplmn::MoveId move, int pwr,
                             pplmn::Type moveType, pplmn::MoveEffect effect,
                             bool isChargeSecondTurn);
-    void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, pplmn::MoveId move, int dmg);
+    void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, pplmn::MoveId move,
+                               int dmg);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::Ailment ailment);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
@@ -70,6 +72,9 @@ private:
     void startSwitch(Battler& battler);
     void doSwitch(Battler& battler, unsigned int newPP);
     void postSwitch(Battler& battler);
+
+    bool isFainter(Battler& battler) const;
+    void preFaint(Battler& fainter);
 };
 
 } // namespace battle

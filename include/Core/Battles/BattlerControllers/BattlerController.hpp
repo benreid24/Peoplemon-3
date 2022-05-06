@@ -89,6 +89,18 @@ public:
      */
     std::uint8_t chosenPeoplemon() const;
 
+    /**
+     * @brief Returns whether or not the player has chosen to continue
+     *
+     */
+    bool shouldContinue() const;
+
+    /**
+     * @brief Prompts the player to continue or not
+     *
+     */
+    void chooseToContinue();
+
 protected:
     Battler* owner;
 
@@ -114,6 +126,12 @@ protected:
      *
      */
     virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) = 0;
+
+    /**
+     * @brief Prompts the player to continue or not
+     *
+     */
+    virtual void startChooseToContinue() = 0;
 
     /**
      * @brief Selects the move to use this turn when fighting
@@ -142,12 +160,20 @@ protected:
      */
     void chooseRun();
 
+    /**
+     * @brief Choose whether to give up or not
+     *
+     * @param yes True to give up, false to continue
+     */
+    void chooseGiveUp(bool yes);
+
 private:
     TurnAction action;
     union {
         core::item::Id useItem;
         std::uint8_t switchIndex;
         int move;
+        bool dontGiveUp;
     };
     bool subActionPicked;
 };

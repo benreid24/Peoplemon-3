@@ -77,6 +77,9 @@ using VersionedLoader =
 
 } // namespace
 
+Trainer::Trainer()
+: payout(0) {}
+
 bool Trainer::save(const std::string& file) const {
     bl::serial::binary::OutputFile output(file);
     return VersionedLoader::write(output, *this);
@@ -87,6 +90,7 @@ bool Trainer::load(const std::string& file, component::Direction spawnDir) {
     if (VersionedLoader::read(input, *this)) {
         if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
         sourceFile = file;
+        if (payout == 0) { payout = 40; }
         return true;
     }
     return false;

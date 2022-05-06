@@ -108,5 +108,14 @@ unsigned int Battler::selectRandomPeoplemon() const {
     return r;
 }
 
+bool Battler::shouldContinue() const { return controller->shouldContinue(); }
+
+void Battler::startChooseToContinue() { controller->chooseToContinue(); }
+
+int Battler::prizeMoney() const {
+    const int base = substate.trainer ? substate.trainer->basePayout() : 40;
+    return base * team.back().base().currentLevel();
+}
+
 } // namespace battle
 } // namespace core

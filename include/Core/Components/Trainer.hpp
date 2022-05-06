@@ -87,6 +87,12 @@ public:
      */
     void setDefeated();
 
+    /**
+     * @brief Returns the base payout of the trainer
+     *
+     */
+    std::uint8_t basePayout() const;
+
     // TODO - expose battle ai
 
 private:
@@ -98,6 +104,7 @@ private:
     const std::uint8_t visionRange;
     const std::vector<pplmn::OwnedPeoplemon> peoplemon;
     const std::vector<item::Id> _items;
+    std::uint8_t payout;
     bool beat;
 };
 

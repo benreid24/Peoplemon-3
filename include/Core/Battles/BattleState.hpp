@@ -66,21 +66,22 @@ public:
         AfterRoarSwitch,
 
         // Peoplemon defeated
-        BeforeFaint,
         Fainting,
         XpAwarding,
         LevelingUp,
-        HandleFaint,
-        BeforeFaintSwitch,
+        CheckPlayerContinue,
+        WaitingPlayerContinue,
+        CheckFaint,
+        WaitingFaintSwitch,
         FaintSwitching,
         AfterFaintSwitch,
 
         // Battle end
         NetworkDefeated,
         NetworkLost,
-        LocalLost,
         TrainerDefeated,
         PeoplemonCaught,
+        Whiteout,
 
         // Final states
         Completed,

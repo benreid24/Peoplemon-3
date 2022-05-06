@@ -74,19 +74,9 @@ bool BattleController::updateCommandQueue() {
         subState = SubState::WaitingView;
         return false;
 
-    case Command::Type::GetBattlerChoices:
-        subState = SubState::WaitingView;
-        state->localPlayer().pickAction();
-        state->enemy().pickAction();
-        return false;
-
-    case Command::Type::GetMidTurnSwitch:
-    case Command::Type::GetFaintSwitch: {
-        Battler& b = cmd.forActiveBattler() ? state->activeBattler() : state->inactiveBattler();
-        subState   = SubState::WaitingView;
-        b.pickPeoplemon(cmd.getType() == Command::GetFaintSwitch, b.getSubstate().koReviveHp > 0);
-        return false;
-    }
+    case Command::Type::NotifyBattleWinner:
+        // do nothing here
+        return true;
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();

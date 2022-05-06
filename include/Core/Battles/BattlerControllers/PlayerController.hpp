@@ -2,6 +2,7 @@
 #define GAME_BATTLES_BATTLECONTROLLERS_PLAYERCONTROLLER_HPP
 
 #include <Core/Battles/BattlerControllers/BattlerController.hpp>
+#include <Core/Systems/Player.hpp>
 
 namespace core
 {
@@ -23,9 +24,10 @@ public:
     /**
      * @brief Construct a new Player Controller
      *
+     * @param player The player system
      * @param menu The menu to get player choices from
      */
-    PlayerController(view::PlayerMenu& menu);
+    PlayerController(system::Player& player, view::PlayerMenu& menu);
 
     /**
      * @brief Destroy the Player Controller object
@@ -49,10 +51,12 @@ private:
     enum struct State { Waiting, PickingTurn, PickingFaintReplacement };
 
     State state;
+    system::Player& player;
     view::PlayerMenu& menu;
 
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;
+    virtual void startChooseToContinue() override;
 };
 
 } // namespace battle

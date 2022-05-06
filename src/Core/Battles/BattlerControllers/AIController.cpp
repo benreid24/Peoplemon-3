@@ -38,5 +38,7 @@ void AIController::startChoosePeoplemon(bool, bool reviveOnly) {
     choosePeoplemon(-1);
 }
 
+void AIController::startChooseToContinue() { chooseGiveUp(false); }
+
 } // namespace battle
 } // namespace core

@@ -6,13 +6,6 @@
 #include <Core/Battles/BattleView.hpp>
 #include <Core/Peoplemon/Move.hpp>
 
-#ifdef PEOPLEMON_DEBUG
-#define BATTLE_LOG BL_LOG_INFO
-#else
-#define BATTLE_LOG \
-    if constexpr (false) BL_LOG_INFO
-#endif
-
 namespace core
 {
 namespace battle
@@ -82,7 +75,8 @@ private:
 
 LocalBattleController::LocalBattleController()
 : currentStageInitialized(false)
-, finalEffectsApplied(false) {}
+, finalEffectsApplied(false)
+, currentFainter(nullptr) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
@@ -96,8 +90,6 @@ void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) 
 
 void LocalBattleController::initCurrentStage() {
     using Stage = BattleState::Stage;
-
-    BATTLE_LOG << "Initializing battle stage: " << state->currentStage();
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
@@ -130,7 +122,8 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::WaitingChoices:
         finalEffectsApplied = false;
-        queueCommand({Command::GetBattlerChoices});
+        state->localPlayer().pickAction();
+        state->enemy().pickAction();
         break;
 
     case Stage::TurnStart:
@@ -198,12 +191,19 @@ void LocalBattleController::initCurrentStage() {
         postSwitch(state->inactiveBattler());
         break;
 
-    case Stage::BeforeFaint:
-        // TODO - display message
-        break;
-
     case Stage::Fainting:
-        // TODO - play anim
+        if (isFainter(state->inactiveBattler())) { currentFainter = &state->inactiveBattler(); }
+        else if (isFainter(state->activeBattler())) {
+            currentFainter = &state->activeBattler();
+        }
+        else {
+            BL_LOG_CRITICAL << "In faint state but neither battler has fainted";
+            setBattleState(Stage::Completed);
+        }
+        if (currentFainter != nullptr) {
+            currentFainter->getSubstate().faintHandled = true;
+            preFaint(*currentFainter);
+        }
         break;
 
     case Stage::XpAwarding:
@@ -215,16 +215,28 @@ void LocalBattleController::initCurrentStage() {
         // TODO - determine best way to defer evolution to after battle
         break;
 
-    case Stage::BeforeFaintSwitch:
-        // TODO - ask to continue if wild peoplemon
+    case Stage::WaitingFaintSwitch:
+        currentFainter->pickPeoplemon(true, currentFainter->getSubstate().koReviveHp > 0);
         break;
 
     case Stage::FaintSwitching:
-        // TODO - display animation
+        // check DeathSwap
+        if (currentFainter->getSubstate().koReviveHp > 0) {
+            pplmn::BattlePeoplemon& ppl =
+                currentFainter->peoplemon()[currentFainter->chosenPeoplemon()];
+            ppl.base().currentHp() = std::min(
+                ppl.currentStats().hp, static_cast<int>(currentFainter->getSubstate().koReviveHp));
+            currentFainter->getSubstate().koReviveHp = -1;
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapRevived,
+                                       currentFainter == &state->activeBattler())},
+                         true);
+        }
+        doSwitch(*currentFainter, currentFainter->chosenPeoplemon());
         break;
 
     case Stage::AfterFaintSwitch:
-        // TODO - sync boxes
+        postSwitch(*currentFainter);
+        currentFainter = nullptr;
         break;
 
     case Stage::RoundEnd:
@@ -239,31 +251,40 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::TrainerDefeated:
-        // TODO - show message. give money
+        battle->localPlayerWon = true;
+        battle->player.money() += state->enemy().prizeMoney();
+        queueCommand({cmd::Message(cmd::Message::Type::TrainerLost)}, true);
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::WonMoney, state->enemy().prizeMoney(), false)}, true);
         break;
 
     case Stage::PeoplemonCaught:
+        battle->localPlayerWon = true;
         // TODO - display message, give peoplemon
+        // TODO - maybe show peopledex
         break;
 
     case Stage::NetworkDefeated:
-        // TODO - display message
-        break;
+        battle->localPlayerWon = true;
+        [[fallthrough]];
 
     case Stage::NetworkLost:
-        // TODO - display message
+        queueCommand({cmd::Message(cmd::Message::Type::NetworkWinLose)}, true);
         break;
 
-    case Stage::LocalLost:
-        // TODO - show message
+    case Stage::Whiteout:
+        queueCommand({cmd::Message(cmd::Message::Type::WhiteoutA)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::WhiteoutB)}, true);
         break;
 
     case Stage::NetworkDisconnect:
     case Stage::NextBattler:
     case Stage::Completed:
-    case Stage::HandleFaint:
     case Stage::RoundStart:
     case Stage::WaitingMidTurnSwitch:
+    case Stage::CheckPlayerContinue:
+    case Stage::WaitingPlayerContinue:
+    case Stage::CheckFaint:
         // do nothing, these are intermediate states
         break;
 
@@ -278,8 +299,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
     using Stage = BattleState::Stage;
 
     if (viewSynced && queueEmpty) {
-        BATTLE_LOG << "Detected end of stage " << state->currentStage();
-
         switch (state->currentStage()) {
         case Stage::WildIntro:
             setBattleState(Stage::IntroSendInOpponent);
@@ -402,7 +421,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::RoundEnd:
             if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
                 state->activeBattler().activePeoplemon().base().currentHp() == 0) {
-                setBattleState(Stage::BeforeFaint);
+                setBattleState(Stage::Fainting);
             }
             else {
                 queueCommand({Command::SyncStateNoSwitch});
@@ -410,34 +429,36 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             }
             break;
 
-        case Stage::BeforeFaint:
-            setBattleState(Stage::Fainting);
-            break;
-
         case Stage::Fainting:
-            if (&state->activeBattler() == &state->localPlayer() &&
-                battle->type != Battle::Type::Online &&
+            if (currentFainter != &state->localPlayer() && battle->type != Battle::Type::Online &&
                 state->localPlayer().activePeoplemon().base().currentHp() > 0) {
                 setBattleState(Stage::XpAwarding);
             }
             else {
-                setBattleState(Stage::HandleFaint);
+                setBattleState(Stage::CheckPlayerContinue);
             }
             break;
 
         case Stage::XpAwarding:
             // TODO - determine how xp is carried over and leveling is done
-            setBattleState(Stage::HandleFaint);
+            setBattleState(Stage::CheckFaint);
             break;
 
         case Stage::LevelingUp:
             setBattleState(Stage::XpAwarding);
             break;
 
-        case Stage::BeforeFaintSwitch:
-            if (state->inactiveBattler().actionSelected()) {
-                setBattleState(Stage::FaintSwitching);
+        case Stage::WaitingPlayerContinue:
+            if (state->localPlayer().actionSelected()) {
+                if (state->localPlayer().shouldContinue()) { setBattleState(Stage::CheckFaint); }
+                else {
+                    setBattleState(Stage::Completed);
+                }
             }
+            break;
+
+        case Stage::WaitingFaintSwitch:
+            if (currentFainter->actionSelected()) { setBattleState(Stage::FaintSwitching); }
             break;
 
         case Stage::FaintSwitching:
@@ -451,7 +472,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::TrainerDefeated:
         case Stage::NetworkDefeated:
         case Stage::NetworkLost:
-        case Stage::LocalLost:
+        case Stage::Whiteout:
         case Stage::PeoplemonCaught:
             setBattleState(Stage::Completed);
             break;
@@ -459,8 +480,9 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::NetworkDisconnect:
         case Stage::NextBattler:
         case Stage::Completed:
-        case Stage::HandleFaint:
         case Stage::RoundStart:
+        case Stage::CheckPlayerContinue:
+        case Stage::CheckFaint:
             // do nothing, these are intermediate states
             break;
 
@@ -475,16 +497,11 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 void LocalBattleController::setBattleState(BattleState::Stage ns) {
     using Stage = BattleState::Stage;
 
-    BATTLE_LOG << "Switching to stage: " << ns;
-
     Stage nns = getNextStage(ns);
     while (nns != ns) {
-        BATTLE_LOG << "Immediate stage switch: " << ns << " -> " << nns;
         ns  = nns;
         nns = getNextStage(nns);
     }
-
-    BATTLE_LOG << "Final stage transition: " << state->currentStage() << " -> " << ns;
 
     state->setStage(ns);
     currentStageInitialized = false;
@@ -497,7 +514,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     case Stage::NextBattler:
         if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
             state->activeBattler().activePeoplemon().base().currentHp() == 0) {
-            return Stage::BeforeFaint;
+            return Stage::Fainting;
         }
         else {
             const BattleState::Stage next = state->nextTurn();
@@ -505,19 +522,42 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
             return next;
         }
 
-    case Stage::HandleFaint:
-        // TODO - determine if victory or switch
-        // TODO - always resolve inactive battler first, then active. all faint methods need to grab
-        // correct battler
-        // TODO - dont forget death swap effect
-        return Stage::BeforeFaintSwitch;
-
     case Stage::RoundStart:
         state->beginRound(state->localPlayer().getPriority() >= state->enemy().getPriority());
         queueCommand({Command::SyncStateNoSwitch});
         return Stage::TurnStart;
 
-        // TODO - other special cases
+    case Stage::CheckPlayerContinue:
+        if (currentFainter == &state->localPlayer() &&
+            battle->type == Battle::Type::WildPeoplemon) {
+            state->localPlayer().startChooseToContinue();
+            return Stage::WaitingPlayerContinue;
+        }
+        return Stage::CheckFaint;
+
+    case Stage::CheckFaint:
+        // TODO - maybe determine if the other battler wants to switch out
+        if (currentFainter->canFight()) { return Stage::WaitingFaintSwitch; }
+        else {
+            const bool playerActive = &state->localPlayer() == &state->activeBattler();
+            if (!state->enemy().canFight() && state->localPlayer().canFight()) { // player won
+                queueCommand({Command::NotifyBattleWinner, playerActive});
+                switch (battle->type) {
+                case Battle::Type::Trainer:
+                    return Stage::TrainerDefeated;
+                case Battle::Type::Online:
+                    return Stage::NetworkDefeated;
+                case Battle::Type::WildPeoplemon:
+                default:
+                    return Stage::Completed;
+                }
+            }
+            else { // player lost
+                queueCommand({Command::NotifyBattleWinner, !playerActive});
+                return Stage::Whiteout;
+            }
+        }
+        break;
 
     default:
         return ns;
@@ -675,8 +715,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                                       (crit ? 2.f : 1.f));
         }
 
-        BATTLE_LOG << pplmn::Move::name(move.id) << " (pwr " << pwr << ") did " << damage
-                   << " damage to " << defender.base().name();
+        BL_LOG_INFO << pplmn::Move::name(move.id) << " (pwr " << pwr << ") did " << damage
+                    << " damage to " << defender.base().name();
         applyDamageWithChecks(victim, defender, usedMove, damage);
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
@@ -942,7 +982,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             if (affectedOwner.canSwitch()) {
                 affectedOwner.getSubstate().copyStatsFrom = affectedOwner.outNowIndex();
                 queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)}, true);
-                queueCommand({Command::GetMidTurnSwitch, forActive});
+                affectedOwner.pickPeoplemon(false, false);
                 setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
                 return;
             }
@@ -974,7 +1014,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)}, true);
                 affectedOwner.getSubstate().ballSet = true;
                 if (affectedOwner.canSwitch()) {
-                    queueCommand({Command::GetMidTurnSwitch, forActive});
+                    affectedOwner.pickPeoplemon(false, false);
                     setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
                     return;
                 }
@@ -998,7 +1038,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 affectedOwner.getSubstate().ballBumped = true;
             }
             if (affectedOwner.canSwitch()) {
-                queueCommand({Command::GetMidTurnSwitch, forActive});
+                affectedOwner.pickPeoplemon(false, false);
                 setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
             }
             else {
@@ -1141,7 +1181,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             if (affectedOwner.canSwitch()) {
                 queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forActive)},
                              true);
-                queueCommand({Command::GetMidTurnSwitch, forActive});
+                affectedOwner.pickPeoplemon(false, false);
                 setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
                 return;
             }
@@ -1165,7 +1205,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             break;
 
         default:
-            BATTLE_LOG << "Unknown move effect: " << effect;
+            BL_LOG_ERROR << "Unknown move effect: " << effect;
             break;
         }
     }
@@ -1464,6 +1504,21 @@ void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
 
 void LocalBattleController::postSwitch(Battler&) {
     // TODO - check abilities and stuff. maybe koRevive?
+}
+
+bool LocalBattleController::isFainter(Battler& b) const {
+    if (b.activePeoplemon().base().currentHp() == 0) {
+        return b.canFight() || !b.getSubstate().faintHandled;
+    }
+    return false;
+}
+
+void LocalBattleController::preFaint(Battler& b) {
+    const bool isActive = &b == &state->activeBattler();
+
+    queueCommand({cmd::Message(cmd::Message::Type::Fainted, isActive)}, true);
+    queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideDown)}, true);
+    b.pickPeoplemon(true, false);
 }
 
 } // namespace battle

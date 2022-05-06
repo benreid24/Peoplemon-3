@@ -586,6 +586,43 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " tried to sacrifice themselves but can't even get that right!";
         break;
 
+    case Message::Type::DeathSwapRevived:
+        dispText = ppl + "'s Sacrifice revived " +
+                   battler.peoplemon()[battler.chosenPeoplemon()].base().name() + "!";
+
+        break;
+
+    case Message::Type::Fainted:
+        dispText = ppl + " \"fainted\" from terrible physical trauma!";
+        break;
+
+    case Message::Type::TrainerLost:
+        dispText =
+            state.enemy().name() + ": " + state.enemy().getSubstate().trainer->loseBattleDialog();
+        break;
+
+    case Message::Type::WonMoney:
+        dispText = state.localPlayer().name() + " won " + std::to_string(msg.getInt()) + " monies!";
+        break;
+
+    case Message::Type::WhiteoutA:
+        dispText = state.localPlayer().name() + " is all out of friends!";
+        break;
+
+    case Message::Type::WhiteoutB:
+        dispText = state.localPlayer().name() + " oranged out!";
+        break;
+
+    case Message::Type::NetworkWinLose:
+        if (state.localPlayer().canFight()) {
+            dispText = "You have beaten your acquaintance " + state.enemy().name() +
+                       " at the most advanced fighting game!";
+        }
+        else {
+            dispText = "A person you know named " + state.enemy().name() + " has shamed you!";
+        }
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

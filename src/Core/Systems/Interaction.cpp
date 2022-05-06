@@ -293,6 +293,7 @@ void Interaction::startBattle() {
                                std::make_unique<battle::AIController>(interactingTrainer->name(),
                                                                       interactingTrainer->items()));
     battle->setController(std::make_unique<battle::LocalBattleController>());
+    battle->state.enemy().getSubstate().trainer = interactingTrainer;
 
     owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
 }

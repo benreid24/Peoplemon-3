@@ -23,6 +23,13 @@ void BattlerController::pickPeoplemon(bool ff, bool ro) {
     startChoosePeoplemon(ff, ro);
 }
 
+void BattlerController::chooseToContinue() {
+    subActionPicked = false;
+    startChooseToContinue();
+}
+
+bool BattlerController::shouldContinue() const { return dontGiveUp; }
+
 TurnAction BattlerController::chosenAction() const { return action; }
 
 int BattlerController::chosenMove() const { return move; }
@@ -30,6 +37,11 @@ int BattlerController::chosenMove() const { return move; }
 core::item::Id BattlerController::chosenItem() const { return useItem; }
 
 std::uint8_t BattlerController::chosenPeoplemon() const { return switchIndex; }
+
+void BattlerController::chooseGiveUp(bool g) {
+    dontGiveUp      = !g;
+    subActionPicked = true;
+}
 
 void BattlerController::chooseMove(int m) {
     subActionPicked = true;

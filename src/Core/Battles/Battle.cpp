@@ -2,6 +2,7 @@
 
 #include <Core/Battles/BattleSkipper.hpp>
 #include <Core/Battles/BattlerControllers/PlayerController.hpp>
+#include <Core/Systems/Systems.hpp>
 
 namespace core
 {
@@ -30,23 +31,24 @@ BattleState::Stage typeToStage(Battle::Type type) {
 }
 } // namespace
 
-Battle::Battle(Type type, bl::event::Dispatcher& eb)
-: type(type)
+Battle::Battle(system::Player& player, Type type, bl::event::Dispatcher& eb)
+: player(player)
+, type(type)
 , state(typeToStage(type))
 , view(state, type == Type::WildPeoplemon, eb)
 , localPlayerWon(false) {
     // custom init?
 }
 
-std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type,
+std::unique_ptr<Battle> Battle::create(system::Player& player, Type type,
                                        bl::event::Dispatcher& eb) {
-    std::unique_ptr<Battle> b(new Battle(type, eb));
+    std::unique_ptr<Battle> b(new Battle(player, type, eb));
 
-    std::vector<core::pplmn::BattlePeoplemon> team;
+    std::vector<pplmn::BattlePeoplemon> team;
     team.reserve(player.team().size());
     for (auto& ppl : player.team()) { team.emplace_back(&ppl); }
     b->state.localPlayer().init(std::move(team),
-                                std::make_unique<PlayerController>(b->view.menu()));
+                                std::make_unique<PlayerController>(player, b->view.menu()));
 
     return b;
 }
