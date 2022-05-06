@@ -67,14 +67,19 @@ public:
 
         // Peoplemon defeated
         Fainting,
-        XpAwarding,
-        LevelingUp,
         CheckPlayerContinue,
         WaitingPlayerContinue,
         CheckFaint,
         WaitingFaintSwitch,
         FaintSwitching,
         AfterFaintSwitch,
+
+        // XP and level up
+        XpAwardBegin,
+        XpAwardPeoplemonBegin,
+        XpAwarding,
+        LevelingUp,
+        WaitingLearnMoveChoice,
 
         // Battle end
         NetworkDefeated,

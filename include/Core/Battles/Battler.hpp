@@ -181,6 +181,32 @@ public:
      */
     int prizeMoney() const;
 
+    /**
+     * @brief Returns how many of the current peoplemon should earn exp
+     *
+     */
+    int xpEarnerCount() const;
+
+    /**
+     * @brief Resets who earns XP
+     *
+     */
+    void resetXpEarners();
+
+    /**
+     * @brief Returns the index of the first peoplemon that should earn XP
+     *
+     */
+    int getFirstXpEarner() const;
+
+    /**
+     * @brief Returns the index of the next peoplemon that should earn XP
+     *
+     * @param ci The current index XP earner
+     * @return int The next index, or -1 when done
+     */
+    int getNextXpEarnerIndex(int ci);
+
 private:
     BattleState& state;
     BattlerSubstate substate;

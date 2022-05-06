@@ -117,5 +117,36 @@ int Battler::prizeMoney() const {
     return base * team.back().base().currentLevel();
 }
 
+int Battler::xpEarnerCount() const {
+    int c = 0;
+    for (const auto& ppl : team) {
+        if (ppl.hasSeenBattle()) ++c;
+        if (ppl.base().hasExpShare()) ++c;
+    }
+    return c;
+}
+
+void Battler::resetXpEarners() {
+    for (auto& ppl : team) { ppl.resetSawBattle(); }
+}
+
+int Battler::getFirstXpEarner() const {
+    int i = 0;
+    for (const auto& ppl : team) {
+        if (ppl.hasSeenBattle()) return i;
+        ++i;
+    }
+    return -1;
+}
+
+int Battler::getNextXpEarnerIndex(int ci) {
+    const unsigned int bi = ci;
+    if (bi >= team.size() - 1) return -1;
+    for (unsigned int i = bi + 1; i < team.size(); ++i) {
+        if (team[i].hasSeenBattle() && team[i].base().currentLevel() < 100) return i;
+    }
+    return -1;
+}
+
 } // namespace battle
 } // namespace core

@@ -36,7 +36,7 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
     if (!input.read<std::uint16_t>(u16)) return false;
     _id = Peoplemon::cast(u16);
     if (_id == Id::Unknown) {
-        BL_LOG_ERROR << "Bad peoplemon _id " << u16 << " in " << f;
+        BL_LOG_ERROR << "Bad peoplemon id " << u16 << " in " << f;
         return false;
     }
 
@@ -55,7 +55,7 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
     if (!input.read<std::uint16_t>(u16)) return false;
     item = item::Item::cast(u16);
     if (item == item::Id::None) {
-        BL_LOG_ERROR << "Bad item _id " << u16 << " in " << f;
+        BL_LOG_ERROR << "Bad item id " << u16 << " in " << f;
         return false;
     }
 
@@ -126,7 +126,6 @@ unsigned int OwnedPeoplemon::awardXP(unsigned int award) {
     if (xp + award >= req) {
         const unsigned int aa = req - xp;
         xp                    = 0;
-        level += 1;
         return award - aa;
     }
     else {
@@ -170,9 +169,39 @@ OwnedMove* OwnedPeoplemon::knownMoves() { return moves; }
 
 void OwnedPeoplemon::learnMove(MoveId m, unsigned int i) { moves[i] = OwnedMove(m); }
 
+bool OwnedPeoplemon::gainMove(MoveId m) {
+    for (int i = 0; i < 4; ++i) {
+        if (moves[i].id == MoveId::Unknown) {
+            moves[i] = OwnedMove(m);
+            return true;
+        }
+    }
+    return false;
+}
+
 void OwnedPeoplemon::heal() {
     ailment = Ailment::None;
     hp      = currentStats().hp;
+}
+
+bool OwnedPeoplemon::hasExpShare() const {
+    // TODO - check hold item
+    return false;
+}
+
+unsigned int OwnedPeoplemon::xpYield(bool trainer) const {
+    unsigned int xp = level;
+    if (trainer) { xp = xp * 3 / 2; }
+    xp *= Peoplemon::xpYieldMultiplier(_id);
+    return xp / 7;
+}
+
+MoveId OwnedPeoplemon::levelUp() {
+    if (level < 100) {
+        level += 1;
+        return Peoplemon::moveLearnedAtLevel(_id, level);
+    }
+    return MoveId::Unknown;
 }
 
 } // namespace pplmn

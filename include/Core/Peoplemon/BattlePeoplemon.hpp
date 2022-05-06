@@ -157,6 +157,24 @@ public:
      */
     void resetStages();
 
+    /**
+     * @brief Lets the peoplemon know that they have seen battle
+     *
+     */
+    void notifyInBattle();
+
+    /**
+     * @brief Resets that this peoplemon has seen battle
+     *
+     */
+    void resetSawBattle();
+
+    /**
+     * @brief Returns whether or not this peoplemon has seen battle (for exp gain)
+     *
+     */
+    bool hasSeenBattle() const;
+
 private:
     OwnedPeoplemon* ppl;
     Stats cached;
@@ -166,6 +184,7 @@ private:
     PassiveAilment ailments;
     SpecialAbility ability;
     MoveId lastSuperEffectiveTaken;
+    bool sawBattle;
 
     void refreshStats();
 };

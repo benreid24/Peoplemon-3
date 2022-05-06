@@ -623,6 +623,18 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         }
         break;
 
+    case Message::Type::AwardedXp:
+        dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() + " gained " +
+                   std::to_string(msg.getUnsigned()) + " XP!";
+        break;
+
+    case Message::Type::LevelUp:
+        dispText =
+            state.localPlayer().peoplemon()[msg.forIndex()].base().name() + " grew to level " +
+            std::to_string(state.localPlayer().peoplemon()[msg.forIndex()].base().currentLevel()) +
+            "!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

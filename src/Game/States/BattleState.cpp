@@ -75,6 +75,7 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
         {battle->type, battle->localPlayerWon});
 
     // TODO - stop battle music?
+    // TODO - handle whiteout and evolve
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {

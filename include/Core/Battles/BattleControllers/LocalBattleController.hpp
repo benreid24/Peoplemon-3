@@ -42,6 +42,10 @@ private:
     bool currentStageInitialized;
     bool finalEffectsApplied;
     Battler* currentFainter;
+    unsigned int xpAward;
+    unsigned int xpAwardRemaining;
+    int xpAwardIndex;
+    pplmn::MoveId learnMove;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;

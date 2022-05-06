@@ -109,13 +109,20 @@ public:
     unsigned int nextLevelXP() const;
 
     /**
-     * @brief Award XP to this peoplemon. Level's up the peoplemon if applicable. Returns the number
-     *        of XP left over after a level up. A return of 0 indicates that all XP has been awarded
+     * @brief Award XP to this peoplemon. A return of 0 indicates that all XP has been awarded. Non
+     *        zero indicates that the peoplemon should level up
      *
      * @param xp The XP to award
      * @return The number of unused XP (overflow from a level up)
      */
     unsigned int awardXP(unsigned int xp);
+
+    /**
+     * @brief Levels up the peoplemon
+     *
+     * @return MoveId The move to learn, if any
+     */
+    MoveId levelUp();
 
     /**
      * @brief Returns the computed stats for the peoplemon. Does not take into account changes
@@ -208,10 +215,32 @@ public:
     void learnMove(MoveId move, unsigned int i);
 
     /**
+     * @brief Attempts to learn the given move if there is an open slot
+     *
+     * @param move The move to learn
+     * @return True if learned, false if all moves full
+     */
+    bool gainMove(MoveId move);
+
+    /**
      * @brief Restores HP and removes ailments
      *
      */
     void heal();
+
+    /**
+     * @brief Returns whether or not this peoplemon has an EXP share
+     *
+     */
+    bool hasExpShare() const;
+
+    /**
+     * @brief Returns the XP awarded by defeating this peoplemon
+     *
+     * @param isTrainer True if commanded by a trainer, false otherwise
+     * @return unsigned int The XP to award
+     */
+    unsigned int xpYield(bool isTrainer) const;
 
 private:
     Id _id;

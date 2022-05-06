@@ -13,7 +13,8 @@ BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 , battleStages(true)
 , ailments(PassiveAilment::None)
 , ability(Peoplemon::specialAbility(p->id()))
-, lastSuperEffectiveTaken(MoveId::Unknown) {}
+, lastSuperEffectiveTaken(MoveId::Unknown)
+, sawBattle(false) {}
 
 OwnedPeoplemon& BattlePeoplemon::base() { return *ppl; }
 
@@ -128,6 +129,12 @@ void BattlePeoplemon::resetStages() {
     battleStages.evade = 0;
     refreshStats();
 }
+
+void BattlePeoplemon::notifyInBattle() { sawBattle = true; }
+
+void BattlePeoplemon::resetSawBattle() { sawBattle = false; }
+
+bool BattlePeoplemon::hasSeenBattle() const { return sawBattle || base().hasExpShare(); }
 
 } // namespace pplmn
 } // namespace core

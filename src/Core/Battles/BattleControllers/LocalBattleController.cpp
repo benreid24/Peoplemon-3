@@ -206,13 +206,29 @@ void LocalBattleController::initCurrentStage() {
         }
         break;
 
+    case Stage::XpAwardPeoplemonBegin:
+        state->localPlayer().peoplemon()[xpAwardIndex].base().awardEVs(
+            pplmn::Peoplemon::evAward(currentFainter->activePeoplemon().base().id()));
+        queueCommand({cmd::Message(cmd::Message::Type::AwardedXp, xpAwardIndex, xpAwardRemaining)},
+                     true);
+        break;
+
     case Stage::XpAwarding:
-        // TODO - add xp and sync bars
+        xpAwardRemaining =
+            state->localPlayer().peoplemon()[xpAwardIndex].base().awardXP(xpAwardRemaining);
+        queueCommand({Command::SyncStateNoSwitch}, true);
         break;
 
     case Stage::LevelingUp:
-        // TODO - increase level, show level up box
         // TODO - determine best way to defer evolution to after battle
+        learnMove = state->localPlayer().peoplemon()[xpAwardIndex].base().levelUp();
+        queueCommand({cmd::Message(cmd::Message::Type::LevelUp, xpAwardIndex)}, true);
+        queueCommand({Command::SyncStateNoSwitch}, true);
+        // TODO - do we want to show stat increase box?
+        break;
+
+    case Stage::WaitingLearnMoveChoice:
+        // TODO - prompt user for move
         break;
 
     case Stage::WaitingFaintSwitch:
@@ -285,6 +301,7 @@ void LocalBattleController::initCurrentStage() {
     case Stage::CheckPlayerContinue:
     case Stage::WaitingPlayerContinue:
     case Stage::CheckFaint:
+    case Stage::XpAwardBegin:
         // do nothing, these are intermediate states
         break;
 
@@ -432,19 +449,52 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::Fainting:
             if (currentFainter != &state->localPlayer() && battle->type != Battle::Type::Online &&
                 state->localPlayer().activePeoplemon().base().currentHp() > 0) {
-                setBattleState(Stage::XpAwarding);
+                setBattleState(Stage::XpAwardBegin);
             }
             else {
                 setBattleState(Stage::CheckPlayerContinue);
             }
             break;
 
+        case Stage::XpAwardPeoplemonBegin:
+            setBattleState(Stage::XpAwarding);
+            break;
+
         case Stage::XpAwarding:
-            // TODO - determine how xp is carried over and leveling is done
-            setBattleState(Stage::CheckFaint);
+            if (xpAwardRemaining > 0) { setBattleState(Stage::LevelingUp); }
+            else {
+                xpAwardIndex = state->localPlayer().getNextXpEarnerIndex(xpAwardIndex);
+                if (xpAwardIndex >= 0) {
+                    xpAwardRemaining = xpAward;
+                    if (state->localPlayer().peoplemon()[xpAwardIndex].base().hasExpShare()) {
+                        xpAwardRemaining *= 2;
+                    }
+                    setBattleState(Stage::XpAwardPeoplemonBegin);
+                }
+                else {
+                    setBattleState(Stage::CheckFaint);
+                }
+            }
             break;
 
         case Stage::LevelingUp:
+            if (learnMove != pplmn::MoveId::Unknown) {
+                if (state->localPlayer().peoplemon()[xpAwardIndex].base().gainMove(learnMove)) {
+                    // TODO - gain message
+                    setBattleState(Stage::XpAwarding);
+                }
+                else {
+                    // TODO - prompt
+                    setBattleState(Stage::WaitingLearnMoveChoice);
+                }
+            }
+            else {
+                setBattleState(Stage::XpAwarding);
+            }
+            break;
+
+        case Stage::WaitingLearnMoveChoice:
+            // TODO - check result and learn move if chosen
             setBattleState(Stage::XpAwarding);
             break;
 
@@ -483,6 +533,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::RoundStart:
         case Stage::CheckPlayerContinue:
         case Stage::CheckFaint:
+        case Stage::XpAwardBegin:
             // do nothing, these are intermediate states
             break;
 
@@ -525,6 +576,8 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     case Stage::RoundStart:
         state->beginRound(state->localPlayer().getPriority() >= state->enemy().getPriority());
         queueCommand({Command::SyncStateNoSwitch});
+        state->localPlayer().activePeoplemon().notifyInBattle();
+        state->enemy().activePeoplemon().notifyInBattle();
         return Stage::TurnStart;
 
     case Stage::CheckPlayerContinue:
@@ -559,18 +612,22 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         }
         break;
 
+    case Stage::XpAwardBegin:
+        xpAward =
+            currentFainter->activePeoplemon().base().xpYield(battle->type == Battle::Type::Trainer);
+        xpAward /= state->localPlayer().xpEarnerCount();
+        xpAwardRemaining = xpAward;
+        xpAwardIndex     = state->localPlayer().getFirstXpEarner();
+        return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
+
     default:
         return ns;
     }
 }
 
-void LocalBattleController::onCommandQueued(const Command&) {
-    // TODO - anything?
-}
+void LocalBattleController::onCommandQueued(const Command&) {}
 
-void LocalBattleController::onCommandProcessed(const Command&) {
-    // TODO - anything?
-}
+void LocalBattleController::onCommandProcessed(const Command&) {}
 
 void LocalBattleController::onUpdate(bool vs, bool qe) { updateBattleState(vs, qe); }
 
@@ -1500,6 +1557,9 @@ void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
     queueCommand({cmd::Message(cmd::Message::Type::SendOut, forActive)}, true);
     queueCommand({Command::SyncStateSwitch, forActive});
     queueCommand({cmd::Animation(forActive, cmd::Animation::Type::SendOut)}, true);
+
+    Battler& other = forActive ? state->inactiveBattler() : state->activeBattler();
+    other.resetXpEarners();
 }
 
 void LocalBattleController::postSwitch(Battler&) {

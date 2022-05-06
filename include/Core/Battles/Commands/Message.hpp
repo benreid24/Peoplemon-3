@@ -169,7 +169,10 @@ public:
         GotMoney,
         WhiteoutA,
         WhiteoutB,
-        NetworkWinLose
+        NetworkWinLose,
+
+        AwardedXp,
+        LevelUp
     };
 
     /**
@@ -249,6 +252,16 @@ public:
     Message(Type type, pplmn::MoveId move, bool forActiveBattler);
 
     /**
+     * @brief Creates a new Message for the given type, index, and int value. Index is for player
+     *        peoplemon only. Active battler field is used for this purpose
+     *
+     * @param type The type of message
+     * @param index The index of the peoplemon it is for
+     * @param ival The integer value to store
+     */
+    Message(Type type, std::uint8_t index, unsigned int ival);
+
+    /**
      * @brief Returns the type of message this is
      *
      */
@@ -265,6 +278,12 @@ public:
      *
      */
     bool forActiveBattler() const;
+
+    /**
+     * @brief Returns the peoplemon index the message is for
+     *
+     */
+    std::uint8_t forIndex() const;
 
     /**
      * @brief Returns the ailment for this message
@@ -302,14 +321,23 @@ public:
      */
     std::int16_t getInt() const;
 
+    /**
+     * @brief Returns the unsigned int value stored in this message
+     *
+     */
+    std::uint16_t getUnsigned() const;
+
 private:
     struct Empty {};
 
     Type type;
     std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat,
-                 std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t>
+                 std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t, std::uint16_t>
         data;
-    bool forActive;
+    union {
+        bool forActive;
+        std::uint8_t pplIndex;
+    };
 };
 
 } // namespace cmd

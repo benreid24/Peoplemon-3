@@ -53,6 +53,11 @@ Message::Message(Type tp, pplmn::MoveId move, bool a)
 , data(move)
 , forActive(a) {}
 
+Message::Message(Type tp, std::uint8_t i, unsigned int iv)
+: type(tp)
+, data(static_cast<std::uint16_t>(iv))
+, pplIndex(i) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {
@@ -61,6 +66,8 @@ pplmn::MoveId Message::getMoveId() const {
 }
 
 bool Message::forActiveBattler() const { return forActive; }
+
+std::uint8_t Message::forIndex() const { return pplIndex; }
 
 pplmn::Ailment Message::getAilment() const {
     const pplmn::Ailment* a = std::get_if<pplmn::Ailment>(&data);
@@ -90,6 +97,11 @@ pplmn::MoveId Message::getNewMove() const {
 std::int16_t Message::getInt() const {
     const std::int16_t* i = std::get_if<std::int16_t>(&data);
     return i ? *i : 1;
+}
+
+std::uint16_t Message::getUnsigned() const {
+    const std::uint16_t* i = std::get_if<std::uint16_t>(&data);
+    return i ? *i : 0;
 }
 
 } // namespace cmd
