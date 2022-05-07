@@ -616,6 +616,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         xpAward =
             currentFainter->activePeoplemon().base().xpYield(battle->type == Battle::Type::Trainer);
         xpAward /= state->localPlayer().xpEarnerCount();
+        xpAward          = 16000;
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
@@ -670,9 +671,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // determine if hit
     const int acc                  = pplmn::Move::accuracy(usedMove);
-    const int pacc                 = attacker.battleStats().acc;
-    const int evd                  = defender.battleStats().evade;
-    const int hitChance            = acc * pacc / evd;
+    const int accStage             = attacker.battleStages().acc;
+    const int evdStage             = defender.battleStages().evade;
+    const int stage                = std::max(std::min(accStage - evdStage, 6), -6);
+    const int hitChance            = acc * pplmn::BattleStats::getAccuracyMultiplier(stage);
     bool hit                       = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
     const pplmn::MoveEffect effect = pplmn::Move::effect(usedMove);
 
@@ -765,7 +767,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const float effective  = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
         const float multiplier = bl::util::Random::get<float>(0.85f, 1.f);
         const bool crit =
-            bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStats().crit);
+            bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStages().crit);
         if (damage == 0) {
             damage = ((2 * attacker.base().currentLevel() / 5 + 2) * (atk / def) * pwr) / 50 + 2;
             damage = static_cast<int>(static_cast<float>(damage) * stab * multiplier * effective *

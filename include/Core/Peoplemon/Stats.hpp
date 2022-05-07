@@ -67,9 +67,9 @@ struct Stats {
      * @brief Returns the multiplier for a given stat increase/decrease
      *
      * @param stage The current stat stage in range [-6, 6]
-     * @return int The multiplier to apply
+     * @return float The multiplier to apply
      */
-    static int stageMultiplier(int stage);
+    static float stageMultiplier(int stage);
 
     /**
      * @brief Helper method to compute a Peoplemon's current stats

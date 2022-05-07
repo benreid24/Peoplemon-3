@@ -9,8 +9,7 @@ namespace pplmn
 BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 : ppl(p)
 , cached(p->currentStats())
-, cachedBattle(false)
-, battleStages(true)
+, stageOnlys(true)
 , ailments(PassiveAilment::None)
 , ability(Peoplemon::specialAbility(p->id()))
 , lastSuperEffectiveTaken(MoveId::Unknown)
@@ -22,7 +21,7 @@ const OwnedPeoplemon& BattlePeoplemon::base() const { return *ppl; }
 
 const Stats& BattlePeoplemon::currentStats() const { return cached; }
 
-const BattleStats& BattlePeoplemon::battleStats() const { return cachedBattle; }
+const BattleStats& BattlePeoplemon::battleStages() const { return stageOnlys; }
 
 void BattlePeoplemon::applyDamage(int dmg) {
     std::uint16_t udmg = dmg;
@@ -34,13 +33,13 @@ bool BattlePeoplemon::statChange(Stat stat, int diff) {
     int* val = nullptr;
     switch (stat) {
     case Stat::Evasion:
-        val = &battleStages.evade;
+        val = &stageOnlys.evade;
         break;
     case Stat::Accuracy:
-        val = &battleStages.acc;
+        val = &stageOnlys.acc;
         break;
     case Stat::Critical:
-        val = &battleStages.crit;
+        val = &stageOnlys.crit;
         break;
     default:
         val = &stages.get(stat);
@@ -103,8 +102,7 @@ void BattlePeoplemon::notifySuperEffectiveHit(MoveId m) { lastSuperEffectiveTake
 MoveId BattlePeoplemon::mostRecentSuperEffectiveHit() const { return lastSuperEffectiveTaken; }
 
 void BattlePeoplemon::refreshStats() {
-    cachedBattle = BattleStats::computeStats({false}, battleStages);
-    cached       = Stats::computeStats(Peoplemon::baseStats(ppl->id()),
+    cached = Stats::computeStats(Peoplemon::baseStats(ppl->id()),
                                  ppl->currentEVs(),
                                  ppl->currentIVs(),
                                  ppl->currentLevel(),
@@ -112,21 +110,21 @@ void BattlePeoplemon::refreshStats() {
 }
 
 void BattlePeoplemon::copyStages(const BattlePeoplemon& o) {
-    stages       = o.stages;
-    battleStages = o.battleStages;
+    stages     = o.stages;
+    stageOnlys = o.stageOnlys;
     refreshStats();
 }
 
 void BattlePeoplemon::resetStages() {
-    stages.atk         = 0;
-    stages.def         = 0;
-    stages.hp          = 0;
-    stages.spatk       = 0;
-    stages.spdef       = 0;
-    stages.spd         = 0;
-    battleStages.acc   = 0;
-    battleStages.crit  = 0;
-    battleStages.evade = 0;
+    stages.atk       = 0;
+    stages.def       = 0;
+    stages.hp        = 0;
+    stages.spatk     = 0;
+    stages.spdef     = 0;
+    stages.spd       = 0;
+    stageOnlys.acc   = 0;
+    stageOnlys.crit  = 0;
+    stageOnlys.evade = 0;
     refreshStats();
 }
 

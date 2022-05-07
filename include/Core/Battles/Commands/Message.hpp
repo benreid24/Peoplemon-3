@@ -172,7 +172,11 @@ public:
         NetworkWinLose,
 
         AwardedXp,
-        LevelUp
+        LevelUp,
+        TryingToLearnMove,
+        CantLearnMove,
+        ForgotMove,
+        LearnedMove
     };
 
     /**

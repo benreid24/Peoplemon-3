@@ -48,17 +48,21 @@ Stats Stats::computeStats(const Stats& bases, const Stats& evs, const Stats& ivs
         const int base   = bases.get(stat);
         const int ev     = evs.get(stat);
         const int iv     = ivs.get(stat);
-        const int sm     = stageMultiplier(stages.get(stat));
-        result.get(stat) = ((base * 2 + iv + ev / 4) * (level / 100) + 5) * sm;
+        const float sm   = stageMultiplier(stages.get(stat));
+        const int inside = ((base * 2 + iv + ev / 4) * level) / 100;
+        if (stat == Stat::HP) { result.get(stat) = inside + level + 10; }
+        else {
+            result.get(stat) = static_cast<float>(inside + 5) * sm;
+        }
     }
     return result;
 }
 
-int Stats::stageMultiplier(int stage) {
+float Stats::stageMultiplier(int stage) {
     const float s = static_cast<float>(stage);
-    if (stage <= 0) { return 2.f / (2.f - s); }
+    if (stage <= 0) { return 2.f / (2.f - static_cast<float>(s)); }
     else {
-        return (2.f + s) / 2.f;
+        return (2.f + static_cast<float>(s)) / 2.f;
     }
 }
 

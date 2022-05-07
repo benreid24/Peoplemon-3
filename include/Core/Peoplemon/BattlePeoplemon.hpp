@@ -49,7 +49,7 @@ public:
      * @brief Returns the current battle-only stats of the peoplemon, including changes
      *
      */
-    const BattleStats& battleStats() const;
+    const BattleStats& battleStages() const;
 
     /**
      * @brief Applies damage to the peoplemon. Ensures that the hp does not go negative
@@ -179,8 +179,7 @@ private:
     OwnedPeoplemon* ppl;
     Stats cached;
     Stats stages;
-    BattleStats cachedBattle;
-    BattleStats battleStages;
+    BattleStats stageOnlys;
     PassiveAilment ailments;
     SpecialAbility ability;
     MoveId lastSuperEffectiveTaken;

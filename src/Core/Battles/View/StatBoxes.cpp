@@ -64,6 +64,7 @@ StatBoxes::StatBoxes()
     lpBox.setPosition(LpBoxPos);
     lpHpBar.setPosition(LpBoxPos + LpBarPos);
     lpXpBar.setPosition(LpBoxPos + XpBarPos);
+    lpXpBar.setFillColor(sf::Color::Blue);
 
     opAil.setPosition(OpBoxPos + sf::Vector2f(10.f, 46.f));
     opName.setPosition(OpBoxPos + sf::Vector2f(5.f, 18.f));

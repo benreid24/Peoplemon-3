@@ -1,4 +1,4 @@
-target_sources(Peoplemon PUBLIC
+target_sources(Core PUBLIC
     Battle.hpp
     Battler.hpp
     BattleSkipper.hpp
