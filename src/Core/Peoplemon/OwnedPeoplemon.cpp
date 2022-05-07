@@ -125,7 +125,7 @@ unsigned int OwnedPeoplemon::awardXP(unsigned int award) {
     const unsigned int req = Peoplemon::levelUpXp(_id, level);
     if (xp + award >= req) {
         const unsigned int aa = req - xp;
-        xp                    = 0;
+        xp                    = req;
         return award - aa;
     }
     else {
@@ -199,6 +199,7 @@ unsigned int OwnedPeoplemon::xpYield(bool trainer) const {
 MoveId OwnedPeoplemon::levelUp() {
     if (level < 100) {
         level += 1;
+        xp = 0;
         return Peoplemon::moveLearnedAtLevel(_id, level);
     }
     return MoveId::Unknown;

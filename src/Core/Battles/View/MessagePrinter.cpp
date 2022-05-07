@@ -74,12 +74,12 @@ MessagePrinter::MessagePrinter()
     triangle.setFillColor(sf::Color(242, 186, 17));
 
     inputDriver.drive(&menu);
-    yesItem = bl::menu::TextItem::create("Yes", Properties::MenuFont(), sf::Color::Black, 14);
-    auto no = bl::menu::TextItem::create("No", Properties::MenuFont(), sf::Color::Black, 14);
+    yesItem = bl::menu::TextItem::create("Yes", Properties::MenuFont(), sf::Color::Black, 16);
+    auto no = bl::menu::TextItem::create("No", Properties::MenuFont(), sf::Color::Black, 16);
     menu.setRootItem(yesItem);
     menu.addItem(no, yesItem.get(), bl::menu::Item::Bottom);
     menu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {14.f, 10.f, 0.f, 0.f});
-    menu.setPosition({500.f, 460.f - menu.getBounds().height});
+    menu.setPosition({490.f - menu.getBounds().width * 2.f, 450.f - menu.getBounds().height * 2.f});
 
     yesItem->getSignal(bl::menu::Item::Activated)
         .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, true));
@@ -666,7 +666,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::DidntLearnMove:
         dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() +
-                   " didn't learn " + pplmn::Move::name(msg.getMoveId()) + "!";
+                   " did not learn " + pplmn::Move::name(msg.getMoveId()) + "!";
         break;
 
     case Message::Type::AskForgetMove:

@@ -509,7 +509,9 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
                 setBattleState(Stage::WaitingForgetMoveChoice);
             }
             else {
-                queueCommand({cmd::Message(cmd::Message::Type::DidntLearnMove, learnMove)}, true);
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::DidntLearnMove, xpAwardIndex, learnMove)},
+                    true);
                 setBattleState(Stage::XpAwarding);
             }
             break;
