@@ -170,6 +170,11 @@ void PlayerMenu::choosePeoplemonMidTurn(bool fromFaint, bool fromRevive) {
     }
 }
 
+void PlayerMenu::chooseMoveToForget() {
+    state = State::ChoosingMoveToForget;
+    menuDriver.drive(&moveMenu);
+}
+
 bool PlayerMenu::ready() const { return state == State::Hidden; }
 
 TurnAction PlayerMenu::selectedAction() const { return chosenAction; }
@@ -182,15 +187,21 @@ int PlayerMenu::selectedPeoplemon() const { return chosenMoveOrPeoplemon; }
 
 void PlayerMenu::handleInput(component::Command cmd) {
     menuDriver.process(cmd);
-    if (state == State::PickingMove && cmd == component::Command::Back) {
-        state = State::PickingAction;
-        menuDriver.drive(&actionMenu);
+    if (cmd == component::Command::Back) {
+        if (state == State::PickingMove) {
+            state = State::PickingAction;
+            menuDriver.drive(&actionMenu);
+        }
+        else if (state == State::ChoosingMoveToForget) {
+            // TODO - maybe confirm here that player wants to not learn
+            moveChosen(-1);
+        }
     }
 }
 
 void PlayerMenu::render(sf::RenderTarget& target) const {
     if (state == State::PickingAction) { actionMenu.render(target); }
-    else if (state == State::PickingMove) {
+    else if (state == State::PickingMove || state == State::ChoosingMoveToForget) {
         moveMenu.render(target);
         target.draw(moveBox);
         target.draw(movePP);

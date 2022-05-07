@@ -30,9 +30,6 @@ void BattleView::configureView(const sf::View& pv) {
 
         playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
                                 battleState.localPlayer().activePeoplemon());
-        statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
-        statBoxes.setOpponent(&battleState.enemy().activePeoplemon());
-        statBoxes.sync();
         localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
         moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
@@ -113,6 +110,8 @@ void BattleView::processCommand(const Command& cmd) {
 
 view::PlayerMenu& BattleView::menu() { return playerMenu; }
 
+bool BattleView::playerChoseForgetMove() { return printer.choseToForget(); }
+
 void BattleView::update(float dt) {
     statBoxes.update(dt);
     printer.update(dt);
@@ -130,7 +129,9 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
     moveAnimation.renderForeground(target, lag);
-    if (battleState.currentStage() == BattleState::Stage::WaitingChoices && !playerMenu.ready()) {
+    if ((battleState.currentStage() == BattleState::Stage::WaitingChoices ||
+         battleState.currentStage() == BattleState::Stage::WaitingForgetMoveChoice) &&
+        !playerMenu.ready()) {
         playerMenu.render(target);
     }
     printer.render(target);
@@ -138,15 +139,13 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
 }
 
 void BattleView::process(component::Command cmd) {
-    if ((battleState.currentStage() == BattleState::Stage::FaintSwitching ||
+    if ((battleState.currentStage() == BattleState::Stage::WaitingForgetMoveChoice ||
          battleState.currentStage() == BattleState::Stage::WaitingChoices) &&
         !playerMenu.ready()) {
         playerMenu.handleInput(cmd);
     }
     else {
-        if (cmd == component::Command::Interact || cmd == component::Command::Back) {
-            printer.finishPrint();
-        }
+        printer.process(cmd);
     }
 }
 

@@ -80,8 +80,10 @@ LocalBattleController::LocalBattleController()
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
-        initCurrentStage();
-        currentStageInitialized = true;
+        if (viewSynced && queueEmpty) {
+            initCurrentStage();
+            currentStageInitialized = true;
+        }
     }
     else {
         checkCurrentStage(viewSynced, queueEmpty);
@@ -93,29 +95,29 @@ void LocalBattleController::initCurrentStage() {
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
-        // TODO - play anim
-        queueCommand({Command::SyncStateNoSwitch});
+        // TODO - play anim?
+        queueCommand({Command::SyncStateSwitch, &state->enemy() == &state->activeBattler()});
         queueCommand({cmd::Message(cmd::Message::Type::WildIntro)}, true);
         break;
 
     case Stage::TrainerIntro:
         // TODO - show image somehow
-        queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::TrainerIntro)}, true);
         break;
 
     case Stage::NetworkIntro:
         // TODO - show image?
-        queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::NetworkIntro)}, true);
         break;
 
     case Stage::IntroSendInSelf:
+        queueCommand({Command::SyncStateSwitch, &state->localPlayer() == &state->activeBattler()});
         queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::PlayerFirstSendout)}, true);
         break;
 
     case Stage::IntroSendInOpponent:
+        queueCommand({Command::SyncStateSwitch, &state->enemy() == &state->activeBattler()});
         queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::OpponentFirstSendout)}, true);
         break;
@@ -228,7 +230,11 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::WaitingLearnMoveChoice:
-        // TODO - prompt user for move
+        queueCommand({cmd::Message(cmd::Message::Type::AskForgetMove, learnMove)}, true);
+        break;
+
+    case Stage::WaitingForgetMoveChoice:
+        battle->view.menu().chooseMoveToForget();
         break;
 
     case Stage::WaitingFaintSwitch:
@@ -318,7 +324,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
     if (viewSynced && queueEmpty) {
         switch (state->currentStage()) {
         case Stage::WildIntro:
-            setBattleState(Stage::IntroSendInOpponent);
+            setBattleState(Stage::IntroSendInSelf);
             break;
 
         case Stage::TrainerIntro:
@@ -480,11 +486,16 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::LevelingUp:
             if (learnMove != pplmn::MoveId::Unknown) {
                 if (state->localPlayer().peoplemon()[xpAwardIndex].base().gainMove(learnMove)) {
-                    // TODO - gain message
+                    queueCommand(
+                        {cmd::Message(cmd::Message::Type::LearnedMove, xpAwardIndex, learnMove)},
+                        true);
                     setBattleState(Stage::XpAwarding);
                 }
                 else {
-                    // TODO - prompt
+                    queueCommand({cmd::Message(cmd::Message::Type::TryingToLearnMove,
+                                               xpAwardIndex,
+                                               learnMove)},
+                                 true);
                     setBattleState(Stage::WaitingLearnMoveChoice);
                 }
             }
@@ -494,7 +505,31 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::WaitingLearnMoveChoice:
-            // TODO - check result and learn move if chosen
+            if (battle->view.playerChoseForgetMove()) {
+                setBattleState(Stage::WaitingForgetMoveChoice);
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::DidntLearnMove, learnMove)}, true);
+                setBattleState(Stage::XpAwarding);
+            }
+            break;
+
+        case Stage::WaitingForgetMoveChoice:
+            if (battle->view.menu().selectedMove() >= 0) {
+                pplmn::BattlePeoplemon& ppl = state->localPlayer().peoplemon()[xpAwardIndex];
+                pplmn::OwnedMove& m = ppl.base().knownMoves()[battle->view.menu().selectedMove()];
+                queueCommand({cmd::Message(cmd::Message::Type::ForgotMove, xpAwardIndex, m.id)},
+                             true);
+                ppl.base().learnMove(learnMove, battle->view.menu().selectedMove());
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::LearnedMove, xpAwardIndex, learnMove)},
+                    false);
+            }
+            else {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::DidntLearnMove, xpAwardIndex, learnMove)},
+                    true);
+            }
             setBattleState(Stage::XpAwarding);
             break;
 
@@ -616,7 +651,6 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         xpAward =
             currentFainter->activePeoplemon().base().xpYield(battle->type == Battle::Type::Trainer);
         xpAward /= state->localPlayer().xpEarnerCount();
-        xpAward          = 16000;
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
@@ -1580,7 +1614,6 @@ void LocalBattleController::preFaint(Battler& b) {
 
     queueCommand({cmd::Message(cmd::Message::Type::Fainted, isActive)}, true);
     queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideDown)}, true);
-    b.pickPeoplemon(true, false);
 }
 
 } // namespace battle

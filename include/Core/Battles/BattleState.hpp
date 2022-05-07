@@ -80,6 +80,7 @@ public:
         XpAwarding,
         LevelingUp,
         WaitingLearnMoveChoice,
+        WaitingForgetMoveChoice,
 
         // Battle end
         NetworkDefeated,

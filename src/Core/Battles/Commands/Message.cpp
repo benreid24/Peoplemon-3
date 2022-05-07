@@ -58,6 +58,16 @@ Message::Message(Type tp, std::uint8_t i, unsigned int iv)
 , data(static_cast<std::uint16_t>(iv))
 , pplIndex(i) {}
 
+Message::Message(Type tp, std::uint8_t i, pplmn::MoveId m)
+: type(tp)
+, data(m)
+, pplIndex(i) {}
+
+Message::Message(Type tp, pplmn::MoveId m)
+: type(tp)
+, data(m)
+, forActive(true) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {

@@ -52,6 +52,12 @@ public:
     view::PlayerMenu& menu();
 
     /**
+     * @brief Returns whether or not the player chose to forget a move when prompted
+     *
+     */
+    bool playerChoseForgetMove();
+
+    /**
      * @brief Returns true if the view is done going through the queued commands and all components
      *        are synchronised with the desired state. Returns false if the view is still changing,
      *        playing animations, or printing messages

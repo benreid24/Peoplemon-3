@@ -62,16 +62,29 @@ std::string statString(pplmn::Stat stat) {
 } // namespace
 
 MessagePrinter::MessagePrinter()
-: triangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
+: state(State::Hidden)
+, triangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
 , flasher(triangle, 0.75f, 0.65f)
-, acked(false)
-, visible(false) {
+, menu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
     text.setFillColor(sf::Color::Black);
     text.setFont(Properties::MenuFont());
     text.setCharacterSize(18.f);
     text.setPosition(TextPos);
     triangle.setPosition(ArrowPos);
     triangle.setFillColor(sf::Color(242, 186, 17));
+
+    inputDriver.drive(&menu);
+    yesItem = bl::menu::TextItem::create("Yes", Properties::MenuFont(), sf::Color::Black, 14);
+    auto no = bl::menu::TextItem::create("No", Properties::MenuFont(), sf::Color::Black, 14);
+    menu.setRootItem(yesItem);
+    menu.addItem(no, yesItem.get(), bl::menu::Item::Bottom);
+    menu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {14.f, 10.f, 0.f, 0.f});
+    menu.setPosition({500.f, 460.f - menu.getBounds().height});
+
+    yesItem->getSignal(bl::menu::Item::Activated)
+        .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, true));
+    no->getSignal(bl::menu::Item::Activated)
+        .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, false));
 }
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
@@ -635,6 +648,31 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
             "!";
         break;
 
+    case Message::Type::TryingToLearnMove:
+        dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() +
+                   " is trying to learn the move " + pplmn::Move::name(msg.getMoveId()) +
+                   " but already knows 4 moves!";
+        break;
+
+    case Message::Type::ForgotMove:
+        dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() + " forgot " +
+                   pplmn::Move::name(msg.getMoveId()) + "!";
+        break;
+
+    case Message::Type::LearnedMove:
+        dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() + " learned " +
+                   pplmn::Move::name(msg.getMoveId()) + "!";
+        break;
+
+    case Message::Type::DidntLearnMove:
+        dispText = state.localPlayer().peoplemon()[msg.forIndex()].base().name() +
+                   " didn't learn " + pplmn::Move::name(msg.getMoveId()) + "!";
+        break;
+
+    case Message::Type::AskForgetMove:
+        dispText = "Forget a move to learn " + pplmn::Move::name(msg.getMoveId()) + "?";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
@@ -645,42 +683,94 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     bl::interface::wordWrap(text, TextWidth);
     writer.setContent(text.getString().toAnsiString());
     text.setString("");
-    acked   = false;
-    visible = true;
+    this->state =
+        msg.getType() == Message::Type::AskForgetMove ? State::PrintingMoveChoice : State::Printing;
+}
+
+void MessagePrinter::process(component::Command cmd) {
+    switch (state) {
+    case State::Printing:
+    case State::PrintingMoveChoice:
+    case State::ShowingNotAcked:
+        if (cmd == component::Command::Back || cmd == component::Command::Interact) {
+            finishPrint();
+        }
+        break;
+    case State::WaitingMoveChoice:
+        inputDriver.process(cmd);
+        break;
+    default:
+        break;
+    }
 }
 
 void MessagePrinter::finishPrint() {
-    if (!writer.finished()) {
+    switch (state) {
+    case State::PrintingMoveChoice:
+        state = State::WaitingMoveChoice;
+        [[fallthrough]];
+
+    case State::Printing:
         writer.showAll();
         text.setString(std::string(writer.getVisible()));
-    }
-    else {
-        acked = true;
+        if (state == State::Printing) { state = State::ShowingNotAcked; }
+        break;
+
+    case State::ShowingNotAcked:
+        state = State::ShowingAcked;
+        break;
+
+    default:
+        break;
     }
 }
 
-void MessagePrinter::hide() { visible = false; }
+void MessagePrinter::hide() { state = State::Hidden; }
 
-bool MessagePrinter::messageDone() const { return acked; }
+bool MessagePrinter::messageDone() const {
+    return state == State::ShowingAcked || state == State::Hidden;
+}
 
 void MessagePrinter::update(float dt) {
-    const std::size_t oldLen = writer.getVisible().size();
+    switch (state) {
+    case State::PrintingMoveChoice:
+    case State::Printing: {
+        const std::size_t oldLen = writer.getVisible().size();
+        writer.update(dt);
+        if (oldLen != writer.getVisible().size()) {
+            text.setString(std::string(writer.getVisible()));
+        }
+        if (writer.finished()) {
+            if (state == State::Printing) { state = State::ShowingNotAcked; }
+            else {
+                state = State::WaitingMoveChoice;
+            }
+        }
+    } break;
 
-    writer.update(dt);
-    flasher.update(dt);
+    case State::ShowingNotAcked:
+        flasher.update(dt);
+        break;
 
-    if (oldLen != writer.getVisible().size()) { text.setString(std::string(writer.getVisible())); }
+    default:
+        break;
+    }
 }
 
 void MessagePrinter::render(sf::RenderTarget& target) const {
-    if (visible) {
+    if (state != State::Hidden) {
         target.draw(text);
-        if (writer.finished() && !acked) {
-            sf::RenderStates states;
-            flasher.render(target, {}, 0.f);
-        }
+        if (state == State::ShowingNotAcked) { flasher.render(target, {}, 0.f); }
+        if (state == State::WaitingMoveChoice) { menu.render(target); }
     }
 }
+
+void MessagePrinter::makeChoice(bool f) {
+    forget = f;
+    state  = State::Hidden;
+}
+
+bool MessagePrinter::choseToForget() const { return forget; }
 
 } // namespace view
 } // namespace battle

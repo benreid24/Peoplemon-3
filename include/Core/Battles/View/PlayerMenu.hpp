@@ -67,6 +67,12 @@ public:
     void choosePeoplemonMidTurn(bool fromFaint, bool fromRevive);
 
     /**
+     * @brief Initiates the process of choosing the move to forget
+     *
+     */
+    void chooseMoveToForget();
+
+    /**
      * @brief Returns true when the player's choice has been made
      *
      */
@@ -110,7 +116,14 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
-    enum struct State { Hidden, PickingAction, PickingMove, PickingItem, PickingPeoplemon };
+    enum struct State {
+        Hidden,
+        PickingAction,
+        PickingMove,
+        PickingItem,
+        PickingPeoplemon,
+        ChoosingMoveToForget
+    };
 
     State state;
     bool stateLoopGuard;

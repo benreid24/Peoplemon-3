@@ -43,7 +43,7 @@ void BattleController::update() {
         break;
     }
 
-    onUpdate(subState == SubState::Done, commandQueue.empty());
+    onUpdate(view->actionsCompleted(), commandQueue.empty());
 }
 
 void BattleController::queueCommand(Command&& cmd, bool addWait) {

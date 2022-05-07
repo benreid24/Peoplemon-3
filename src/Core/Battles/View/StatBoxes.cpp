@@ -125,7 +125,7 @@ void StatBoxes::sync() {
         BL_LOG_WARN << "sync() called with null player peoplemon";
         lpHpBarTarget = 0.f;
         lpXpBarTarget = 0.f;
-        lpName.setString("<ERROR>");
+        lpName.setString("");
     }
 
     if (opponent) {
@@ -139,7 +139,7 @@ void StatBoxes::sync() {
     else {
         BL_LOG_WARN << "sync() called with null opponent peoplemon";
         opHpBarTarget = 0.f;
-        opName.setString("<ERROR>");
+        opName.setString("");
     }
 }
 

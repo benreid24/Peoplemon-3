@@ -174,9 +174,10 @@ public:
         AwardedXp,
         LevelUp,
         TryingToLearnMove,
-        CantLearnMove,
+        AskForgetMove,
         ForgotMove,
-        LearnedMove
+        LearnedMove,
+        DidntLearnMove
     };
 
     /**
@@ -264,6 +265,23 @@ public:
      * @param ival The integer value to store
      */
     Message(Type type, std::uint8_t index, unsigned int ival);
+
+    /**
+     * @brief Creates a message with an index and a move
+     *
+     * @param type The type of message
+     * @param index The index of the player peoplemon
+     * @param move The move for the message
+     */
+    Message(Type type, std::uint8_t index, pplmn::MoveId move);
+
+    /**
+     * @brief Creates a message with a move
+     *
+     * @param type The type of message
+     * @param move The move for the message
+     */
+    Message(Type type, pplmn::MoveId move);
 
     /**
      * @brief Returns the type of message this is
