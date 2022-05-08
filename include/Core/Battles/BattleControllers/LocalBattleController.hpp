@@ -42,6 +42,7 @@ private:
     bool currentStageInitialized;
     bool finalEffectsApplied;
     Battler* currentFainter;
+    Battler* midturnSwitcher;
     unsigned int xpAward;
     unsigned int xpAwardRemaining;
     int xpAwardIndex;
@@ -73,6 +74,7 @@ private:
     void handleBattlerTurnStart(Battler& battler);
     void handleBattlerRoundEnd(Battler& battler);
 
+    bool tryMidturnSwitch(Battler& battler);
     void startSwitch(Battler& battler);
     void doSwitch(Battler& battler, unsigned int newPP);
     void postSwitch(Battler& battler);

@@ -393,6 +393,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Baton Pass lets them switch out!";
         break;
 
+    case Message::Type::BatonPassStatsCopied:
+        dispText = ppl + " received " + battler.peoplemon()[msg.getInt()].base().name() +
+                   "'s stats via Baton Pass!";
+        break;
+
     case Message::Type::DeathCountDown:
         dispText = ppl + " has been Marked for Death! They better get out of here!";
         break;

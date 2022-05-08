@@ -108,6 +108,7 @@ public:
 
         BatonPassFailed,
         BatonPassStart,
+        BatonPassStatsCopied,
 
         DeathCountDown,
         DeathFromCountdown,
@@ -183,7 +184,8 @@ public:
         HurtConfusion,
         SnappedConfusion,
 
-        StolenAilment
+        StolenAilment,
+        TrappedAilment
     };
 
     /**

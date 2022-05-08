@@ -81,6 +81,8 @@ void BattlerSubstate::notifySwitch() {
     turnsConfused    = -1;
     ailments         = pplmn::PassiveAilment::None;
     turnsUntilAwake  = -1;
+    copyStatsFrom    = -1;
+    koReviveHp       = -1;
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {
