@@ -120,5 +120,10 @@ void BattlePeoplemon::resetSawBattle() { sawBattle = false; }
 
 bool BattlePeoplemon::hasSeenBattle() const { return sawBattle || base().hasExpShare(); }
 
+int BattlePeoplemon::getSpeed() const {
+    if (ppl->currentAilment() == Ailment::Annoyed) { return currentStats().spd / 4; }
+    return currentStats().spd;
+}
+
 } // namespace pplmn
 } // namespace core

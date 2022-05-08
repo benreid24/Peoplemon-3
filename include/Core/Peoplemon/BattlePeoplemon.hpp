@@ -56,6 +56,12 @@ public:
     const BattleStats& battleStages() const;
 
     /**
+     * @brief Returns the speed of this peoplemon, adjusted for ailments
+     *
+     */
+    int getSpeed() const;
+
+    /**
      * @brief Applies damage to the peoplemon. Ensures that the hp does not go negative
      *
      * @param dmg The amount of hp to reduce

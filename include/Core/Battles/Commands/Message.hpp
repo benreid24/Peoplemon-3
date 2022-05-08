@@ -186,7 +186,8 @@ public:
 
         StolenAilment,
         TrappedAilment,
-        DistractedAilment
+        DistractedAilment,
+        AnnoyAilment
     };
 
     /**

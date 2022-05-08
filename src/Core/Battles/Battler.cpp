@@ -69,11 +69,12 @@ const std::string& Battler::name() const { return controller->name(); }
 unsigned int Battler::getPriority() const {
     switch (chosenAction()) {
     case TurnAction::Fight:
-        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id);
+        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id) +
+               team[currentPeoplemon].getSpeed();
     case TurnAction::Item:
     case TurnAction::Run:
     case TurnAction::Switch:
-        return 1000;
+        return 10000000;
     default:
         BL_LOG_ERROR << "Unknown turn action: " << chosenAction();
         return 0;

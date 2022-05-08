@@ -1326,6 +1326,14 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
         }
     }
 
+    // Check if annoyed
+    if (user.activePeoplemon().hasAilment(pplmn::Ailment::Annoyed)) {
+        if (bl::util::Random::get<int>(0, 100) <= 25) {
+            queueCommand({cmd::Message(cmd::Message::Type::AnnoyAilment, userIsActive)}, true);
+            return true;
+        }
+    }
+
     // check if move does not affect the victim
     if (targetsVictim) {
         const float effective =
