@@ -706,6 +706,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " is physically hurt from pure Frustration!";
         break;
 
+    case Message::Type::StickyAilment:
+        dispText = ppl + " is getting really hurt from being so Sticky!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

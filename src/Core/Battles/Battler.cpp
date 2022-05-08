@@ -21,7 +21,7 @@ void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
 
 void Battler::notifyTurnBegin() { substate.notifyTurnBegin(); }
 
-void Battler::notifyTurnEnd() { substate.notifyTurnEnd(chosenAction()); }
+void Battler::notifyTurnEnd() { substate.notifyTurnEnd(chosenAction(), activePeoplemon()); }
 
 bool Battler::actionSelected() const {
     if (substate.chargingMove >= 0) return true;

@@ -188,7 +188,8 @@ public:
         TrappedAilment,
         DistractedAilment,
         AnnoyAilment,
-        FrustratedAilment
+        FrustratedAilment,
+        StickyAilment
     };
 
     /**

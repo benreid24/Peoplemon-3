@@ -1601,6 +1601,14 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         if (ppl.base().currentHp() == 0) { return; }
     }
 
+    // Check if sticky
+    if (ppl.hasAilment(pplmn::Ailment::Sticky)) {
+        ppl.applyDamage(ppl.currentStats().hp / 16 * battler.getSubstate().turnsSticky);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::StickyAilment, isActive)}, true);
+        if (ppl.base().currentHp() == 0) { return; }
+    }
+
     // check for death counter (DieIn3Turns)
     if (battler.getSubstate().deathCounter == 0) {
         battler.activePeoplemon().base().currentHp() = 0;

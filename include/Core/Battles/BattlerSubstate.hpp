@@ -49,6 +49,7 @@ struct BattlerSubstate {
     std::uint16_t lastDamageTaken;
     bool faintHandled;
     component::Trainer* trainer;
+    std::uint8_t turnsSticky;
 
     /**
      * @brief Construct a new Battler State object with proper defaults
@@ -67,9 +68,10 @@ struct BattlerSubstate {
      * @brief Resets and updates part of the state that depend on turns elapsing
      *
      * @param action The action the battler did on the last turn
+     * @param outNow The peoplemon that is currently out
      *
      */
-    void notifyTurnEnd(TurnAction action);
+    void notifyTurnEnd(TurnAction action, pplmn::BattlePeoplemon& outNow);
 
     /**
      * @brief Updates state that is unique to the currently out Peoplemon

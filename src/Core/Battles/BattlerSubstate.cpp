@@ -34,7 +34,8 @@ BattlerSubstate::BattlerSubstate()
 , lastMoveHitWith(pplmn::MoveId::Unknown)
 , lastDamageTaken(0)
 , faintHandled(false)
-, trainer(nullptr) {}
+, trainer(nullptr)
+, turnsSticky(0) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected     = false;
@@ -45,7 +46,7 @@ void BattlerSubstate::notifyTurnBegin() {
     faintHandled    = false;
 }
 
-void BattlerSubstate::notifyTurnEnd(TurnAction action) {
+void BattlerSubstate::notifyTurnEnd(TurnAction action, pplmn::BattlePeoplemon& outNow) {
     if (action != TurnAction::Fight) { lastMoveUsed = pplmn::MoveId::Unknown; }
     if (turnsGuarded > 0) { turnsGuarded -= 1; }
     if (encoreTurnsLeft > 0) {
@@ -64,6 +65,10 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action) {
     }
     if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
     clearAilment(pplmn::PassiveAilment::Distracted);
+    if (outNow.hasAilment(pplmn::Ailment::Sticky)) { turnsSticky += 1; }
+    else {
+        turnsSticky = 0;
+    }
 }
 
 void BattlerSubstate::notifySwitch() {
@@ -83,6 +88,7 @@ void BattlerSubstate::notifySwitch() {
     turnsUntilAwake  = -1;
     copyStatsFrom    = -1;
     koReviveHp       = -1;
+    turnsSticky      = 0; // TODO - maybe put this in battlepeoplemon instead
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {
