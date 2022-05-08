@@ -884,11 +884,20 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         queueCommand({Command::SyncStateNoSwitch}, true);
 
+        const bool contact = pplmn::Move::makesContact(usedMove);
+
         // check if defender has Goon ability
-        if (defender.currentAbility() == pplmn::SpecialAbility::Goon && !special) {
+        if (defender.currentAbility() == pplmn::SpecialAbility::Goon && contact) {
             attacker.applyDamage(damage / 16);
             queueCommand({Command::SyncStateNoSwitch});
             queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, userIsActive)}, true);
+        }
+
+        // check if defender has Sassy ability
+        if (defender.currentAbility() == pplmn::SpecialAbility::Sassy && !contact) {
+            attacker.applyDamage(damage / 16);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::SassyDamage, userIsActive)}, true);
         }
     }
 

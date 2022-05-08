@@ -199,7 +199,8 @@ public:
         ClassyFrustratedBlocked,
         GoonDamage,
         QuickDrawFirst,
-        FriendlyAilmentHeal
+        FriendlyAilmentHeal,
+        SassyDamage
     };
 
     /**

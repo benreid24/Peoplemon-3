@@ -21,6 +21,7 @@ enum struct SpecialAbility : std::uint8_t {
     Goon             = 4,
     QuickDraw        = 5,
     AlwaysFriendly   = 6,
+    Sassy            = 7,
     ImpulseBuy       = 8,
     RunAway          = 9,
     MrExtra          = 10,

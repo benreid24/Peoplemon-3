@@ -748,6 +748,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " had their ailment healed because they are Always Friendly!";
         break;
 
+    case Message::Type::SassyDamage:
+        dispText = ppl + " took some damage from " + other + "'s Sassiness!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
