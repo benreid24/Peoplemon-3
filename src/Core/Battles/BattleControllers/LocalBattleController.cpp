@@ -806,6 +806,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             if (crit) { damage *= 2; }
         }
 
+        // reduce damage if Frustrated
+        if (attacker.hasAilment(pplmn::Ailment::Frustrated) && !special) { damage /= 2; }
+
         BL_LOG_INFO << pplmn::Move::name(move.id) << " (pwr " << pwr << ") did " << damage
                     << " damage to " << defender.base().name();
         applyDamageWithChecks(victim, defender, usedMove, damage);
@@ -1587,6 +1590,14 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         ppl.applyDamage(dmg);
         queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::StolenAilment, isActive)}, true);
+        if (ppl.base().currentHp() == 0) { return; }
+    }
+
+    // check Frustrated ailment
+    if (ppl.hasAilment(pplmn::Ailment::Frustrated)) {
+        ppl.applyDamage(ppl.currentStats().hp / 16);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::FrustratedAilment, isActive)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
 

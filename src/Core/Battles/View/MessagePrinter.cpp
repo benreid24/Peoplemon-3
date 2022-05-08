@@ -698,6 +698,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " was too Distracted to do anything!";
         break;
 
+    case Message::Type::AnnoyAilment:
+        dispText = ppl + " was too Annoyed to move!";
+        break;
+
+    case Message::Type::FrustratedAilment:
+        dispText = ppl + " is physically hurt from pure Frustration!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
