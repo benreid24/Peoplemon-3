@@ -1303,6 +1303,13 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     const bool userIsActive   = &user == &state->activeBattler();
     const bool victimIsActive = !userIsActive;
 
+    // Check if sleeping
+    if (user.activePeoplemon().hasAilment(pplmn::Ailment::Sleep)) {
+        // waking up is handled at turn start
+        queueCommand({cmd::Message(cmd::Message::Type::SleepingAilment, userIsActive)}, true);
+        return true;
+    }
+
     // Check if distracted
     if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Distracted)) {
         queueCommand({cmd::Message(cmd::Message::Type::DistractedAilment, userIsActive)}, true);
@@ -1423,6 +1430,10 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
 
     if (victim.giveAilment(ail)) {
         queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, selfGive)});
+
+        if (ail == pplmn::Ailment::Sleep) {
+            owner.getSubstate().turnsUntilAwake = bl::util::Random::get<std::int8_t>(1, 4);
+        }
     }
     else {
         queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, selfGive)});

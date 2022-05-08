@@ -162,7 +162,7 @@ public:
         SleepHealFailed,
 
         WokeUp,
-        // TODO - other ailment ends
+        SleepingAilment,
 
         Fainted,
         TrainerLost,
