@@ -673,6 +673,18 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "Forget a move to learn " + pplmn::Move::name(msg.getMoveId()) + "?";
         break;
 
+    case Message::Type::IsConfused:
+        dispText = ppl + " is Confused!";
+        break;
+
+    case Message::Type::HurtConfusion:
+        dispText = ppl + " hurt themselves in Confusion!";
+        break;
+
+    case Message::Type::SnappedConfusion:
+        dispText = ppl + " snapped out of Confusion!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

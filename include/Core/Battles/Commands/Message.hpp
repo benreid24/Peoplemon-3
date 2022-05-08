@@ -177,7 +177,11 @@ public:
         AskForgetMove,
         ForgotMove,
         LearnedMove,
-        DidntLearnMove
+        DidntLearnMove,
+
+        IsConfused,
+        HurtConfusion,
+        SnappedConfusion
     };
 
     /**

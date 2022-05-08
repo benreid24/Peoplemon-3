@@ -9,6 +9,10 @@
 
 namespace core
 {
+namespace battle
+{
+struct BattlerSubstate;
+}
 namespace pplmn
 {
 /**
@@ -70,16 +74,10 @@ public:
     /**
      * @brief Returns whether or not the peoplemon has an ailment of any kind
      *
-     */
-    bool hasAilment() const;
-
-    /**
-     * @brief Returns true if the peoplemon has the specific ailment
+     * @param state The state of the battler the peoplemon belongs to
      *
-     * @param ail The ailment to check for
-     * @return True if the peoplemon has it, false otherwise
      */
-    bool hasAilment(PassiveAilment ail) const;
+    bool hasAilment(const battle::BattlerSubstate& state) const;
 
     /**
      * @brief Returns true if the peoplemon has the specific ailment
@@ -90,13 +88,6 @@ public:
     bool hasAilment(Ailment ail) const;
 
     /**
-     * @brief Gives the peoplemon a passive ailment
-     *
-     * @param ail The ailment to give
-     */
-    void giveAilment(PassiveAilment ail);
-
-    /**
      * @brief Gives the peoplemon an ailment
      *
      * @param ail The ailment to give
@@ -105,19 +96,12 @@ public:
     bool giveAilment(Ailment ail);
 
     /**
-     * @brief Clear the given passive ailment
+     * @brief Clears all ailments the peoplemon has, including passive ailments if passed in
      *
+     * @param state Optional battler state
+     * @return True if any ailments were cleared, false if already healthy
      */
-    void clearAilment(PassiveAilment ail);
-
-    /**
-     * @brief Clears all ailments and optionally the active ailment as well
-     *
-     * @param includeActive True to clear the active ailment as well, false for passive only
-     * @return True if any ailments were cleared, false if not
-     *
-     */
-    bool clearAilments(bool includeActive);
+    bool clearAilments(battle::BattlerSubstate* state);
 
     /**
      * @brief Returns the current ability of this peoplemon
@@ -180,7 +164,6 @@ private:
     Stats cached;
     Stats stages;
     BattleStats stageOnlys;
-    PassiveAilment ailments;
     SpecialAbility ability;
     MoveId lastSuperEffectiveTaken;
     bool sawBattle;

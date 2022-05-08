@@ -27,8 +27,9 @@ BattlerSubstate::BattlerSubstate()
 , healNext(-1)
 , move64Hit(false)
 , copyStatsFrom(-1)
+, ailments(pplmn::PassiveAilment::None)
 , turnsWithAilment(0)
-, turnsConfused(0)
+, turnsConfused(-1)
 , turnsUntilAwake(-1)
 , koReviveHp(-1)
 , lastMoveHitWith(pplmn::MoveId::Unknown)
@@ -62,9 +63,9 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeople
     else {
         turnsWithAilment = 0;
     }
-    if (ppl.hasAilment(pplmn::PassiveAilment::Confused)) { turnsConfused += 1; }
+    if (hasAilment(pplmn::PassiveAilment::Confused)) { turnsConfused -= 1; }
     else {
-        turnsConfused = 0;
+        turnsConfused = -1;
     }
     if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
 }
@@ -81,6 +82,26 @@ void BattlerSubstate::notifySwitch() {
     enduredLastTurn  = false;
     lastMoveHitWith  = pplmn::MoveId::Unknown;
     lastDamageTaken  = 0;
+    turnsConfused    = -1;
+    ailments         = pplmn::PassiveAilment::None;
+    turnsUntilAwake  = -1;
+    turnsWithAilment = 0;
+}
+
+void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {
+    using T  = std::underlying_type_t<pplmn::PassiveAilment>;
+    ailments = static_cast<pplmn::PassiveAilment>(static_cast<T>(ail) | static_cast<T>(ailments));
+}
+
+bool BattlerSubstate::hasAilment(pplmn::PassiveAilment ail) const {
+    using T = std::underlying_type_t<pplmn::PassiveAilment>;
+    return (static_cast<T>(ailments) & static_cast<T>(ail)) != 0;
+}
+
+void BattlerSubstate::clearAilment(pplmn::PassiveAilment ail) {
+    using T     = std::underlying_type_t<pplmn::PassiveAilment>;
+    const T neg = ~static_cast<T>(ail);
+    ailments    = static_cast<pplmn::PassiveAilment>(static_cast<T>(ailments) & neg);
 }
 
 } // namespace battle

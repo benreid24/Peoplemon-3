@@ -2,9 +2,10 @@
 #define CORE_BATTLES_BATTLERSUBSTATE_HPP
 
 #include <Core/Battles/TurnAction.hpp>
+#include <Core/Components/Trainer.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
-#include <Core/Components/Trainer.hpp>
+#include <Core/Peoplemon/PassiveAilment.hpp>
 
 namespace core
 {
@@ -40,8 +41,9 @@ struct BattlerSubstate {
     std::int8_t healNext;
     bool move64Hit;
     std::int8_t copyStatsFrom;
+    pplmn::PassiveAilment ailments;
     std::uint8_t turnsWithAilment;
-    std::uint8_t turnsConfused;
+    std::int8_t turnsConfused;
     std::int8_t turnsUntilAwake;
     std::int16_t koReviveHp;
     pplmn::MoveId lastMoveHitWith;
@@ -76,6 +78,27 @@ struct BattlerSubstate {
      *
      */
     void notifySwitch();
+
+    /**
+     * @brief Gives the peoplemon a passive ailment
+     *
+     * @param ail The ailment to give
+     */
+    void giveAilment(pplmn::PassiveAilment ail);
+
+    /**
+     * @brief Clear the given passive ailment
+     *
+     */
+    void clearAilment(pplmn::PassiveAilment ail);
+
+    /**
+     * @brief Returns true if the peoplemon has the specific ailment
+     *
+     * @param ail The ailment to check for
+     * @return True if the peoplemon has it, false otherwise
+     */
+    bool hasAilment(pplmn::PassiveAilment ail) const;
 };
 } // namespace battle
 } // namespace core

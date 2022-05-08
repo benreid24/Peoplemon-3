@@ -1,5 +1,6 @@
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 
+#include <Core/Battles/BattlerSubstate.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace core
@@ -10,7 +11,6 @@ BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 : ppl(p)
 , cached(p->currentStats())
 , stageOnlys(true)
-, ailments(PassiveAilment::None)
 , ability(Peoplemon::specialAbility(p->id()))
 , lastSuperEffectiveTaken(MoveId::Unknown)
 , sawBattle(false) {}
@@ -53,21 +53,11 @@ bool BattlePeoplemon::statChange(Stat stat, int diff) {
     return true;
 }
 
-bool BattlePeoplemon::hasAilment() const {
-    return ppl->currentAilment() != Ailment::None || ailments != PassiveAilment::None;
-}
-
-bool BattlePeoplemon::hasAilment(PassiveAilment ail) const {
-    using T = std::underlying_type_t<PassiveAilment>;
-    return (static_cast<T>(ailments) & static_cast<T>(ail)) != 0;
+bool BattlePeoplemon::hasAilment(const battle::BattlerSubstate& state) const {
+    return ppl->currentAilment() != Ailment::None || state.ailments != PassiveAilment::None;
 }
 
 bool BattlePeoplemon::hasAilment(Ailment ail) const { return ppl->currentAilment() == ail; }
-
-void BattlePeoplemon::giveAilment(PassiveAilment ail) {
-    using T  = std::underlying_type_t<PassiveAilment>;
-    ailments = static_cast<PassiveAilment>(static_cast<T>(ail) | static_cast<T>(ailments));
-}
 
 bool BattlePeoplemon::giveAilment(Ailment a) {
     if (ppl->currentAilment() != Ailment::None) return false;
@@ -75,20 +65,14 @@ bool BattlePeoplemon::giveAilment(Ailment a) {
     return true;
 }
 
-void BattlePeoplemon::clearAilment(PassiveAilment ail) {
-    using T     = std::underlying_type_t<PassiveAilment>;
-    const T neg = ~static_cast<T>(ail);
-    ailments    = static_cast<PassiveAilment>(static_cast<T>(ailments) & neg);
-}
-
-bool BattlePeoplemon::clearAilments(bool a) {
-    bool ret = ailments != PassiveAilment::None;
-    ailments = PassiveAilment::None;
-    if (a) {
-        if (ppl->currentAilment() != Ailment::None) {
-            ppl->currentAilment() = Ailment::None;
-            ret                   = true;
-        }
+bool BattlePeoplemon::clearAilments(battle::BattlerSubstate* state) {
+    bool ret = false;
+    if (state && state->ailments != PassiveAilment::None) {
+        state->ailments = PassiveAilment::None;
+    }
+    if (ppl->currentAilment() != Ailment::None) {
+        ppl->currentAilment() = Ailment::None;
+        ret                   = true;
     }
     return ret;
 }

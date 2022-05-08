@@ -58,6 +58,12 @@ bool doEvenIfDead(pplmn::MoveEffect effect) {
     }
 }
 
+int computeDamage(int pwr, int atk, int def, int userLevel) {
+    const int base = ((2 * userLevel / 5 + 2) * (atk / def) * pwr) / 50 + 2;
+    const float m  = bl::util::Random::get<float>(0.85f, 1.f);
+    return static_cast<int>(static_cast<float>(base) * m);
+}
+
 class BattlerAttackFinalizer {
 public:
     BattlerAttackFinalizer(Battler& b, pplmn::MoveId move)
@@ -800,14 +806,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
         int def          = special ? defender.currentStats().spdef : defender.currentStats().def;
         const float stab = pplmn::TypeUtil::getStab(moveType, attacker.base().type());
-        const float effective  = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
-        const float multiplier = bl::util::Random::get<float>(0.85f, 1.f);
+        const float effective = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
         const bool crit =
             bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStages().crit);
         if (damage == 0) {
-            damage = ((2 * attacker.base().currentLevel() / 5 + 2) * (atk / def) * pwr) / 50 + 2;
-            damage = static_cast<int>(static_cast<float>(damage) * stab * multiplier * effective *
-                                      (crit ? 2.f : 1.f));
+            damage = computeDamage(pwr, atk, def, attacker.base().currentLevel());
+            damage = static_cast<int>(static_cast<float>(damage) * stab * effective);
+            if (crit) { damage *= 2; }
         }
 
         BL_LOG_INFO << pplmn::Move::name(move.id) << " (pwr " << pwr << ") did " << damage
@@ -881,7 +886,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         case pplmn::MoveEffect::Flinch:
             if (state->isFirstMover()) {
-                affected.giveAilment(pplmn::PassiveAilment::Distracted);
+                affectedOwner.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
                 queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
                                            pplmn::PassiveAilment::Distracted,
                                            forActive)});
@@ -938,7 +943,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::HealBell: {
             bool healed = false;
             for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
-                if (ppl.clearAilments(true)) { healed = true; }
+                if (ppl.clearAilments(&affectedOwner.getSubstate())) { healed = true; }
             }
             if (healed) {
                 queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)});
@@ -1257,7 +1262,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         case pplmn::MoveEffect::SleepHeal:
             if (affected.base().currentAilment() == pplmn::Ailment::None) {
                 affected.base().currentAilment() = pplmn::Ailment::Sleep;
-                affected.clearAilments(false);
+                affected.clearAilments(&affectedOwner.getSubstate());
                 affected.base().currentHp() = affected.currentStats().hp;
                 queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forActive)});
             }
@@ -1316,6 +1321,26 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
                                            pplmn::Move::effect(move) != pplmn::MoveEffect::None);
     const bool userIsActive   = &user == &state->activeBattler();
     const bool victimIsActive = !userIsActive;
+
+    // Check if confused
+    if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
+        if (user.getSubstate().turnsConfused <= 0) {
+            user.getSubstate().clearAilment(pplmn::PassiveAilment::Confused);
+            queueCommand({cmd::Message(cmd::Message::Type::SnappedConfusion, userIsActive)}, true);
+        }
+        else {
+            if (bl::util::Random::get<int>(0, 100) <= 50) {
+                const int atk = user.activePeoplemon().currentStats().atk;
+                const int def = user.activePeoplemon().currentStats().def;
+                const int lvl = user.activePeoplemon().base().currentLevel();
+                const int dmg = computeDamage(40, atk, def, lvl);
+                user.activePeoplemon().applyDamage(dmg);
+                queueCommand({Command::SyncStateNoSwitch});
+                queueCommand({cmd::Message(cmd::Message::Type::HurtConfusion, userIsActive)}, true);
+                return true;
+            }
+        }
+    }
 
     // check if move does not affect the victim
     if (targetsVictim) {
@@ -1430,8 +1455,12 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
         return;
     }
 
-    victim.giveAilment(ail);
+    owner.getSubstate().giveAilment(ail);
     queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)}, true);
+
+    if (ail == pplmn::PassiveAilment::Confused) {
+        owner.getSubstate().turnsConfused = bl::util::Random::get<int>(2, 4);
+    }
 }
 
 void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Stat stat, int amt,
@@ -1591,7 +1620,9 @@ void LocalBattleController::startSwitch(Battler& battler) {
 
 void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
     const bool forActive = &battler == &state->activeBattler();
+    // TODO - consider moving passive ail to substate
     battler.setActivePeoplemon(newPP);
+    battler.getSubstate().notifySwitch();
     queueCommand({cmd::Message(cmd::Message::Type::SendOut, forActive)}, true);
     queueCommand({Command::SyncStateSwitch, forActive});
     queueCommand({cmd::Animation(forActive, cmd::Animation::Type::SendOut)}, true);
