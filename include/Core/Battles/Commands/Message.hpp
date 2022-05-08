@@ -192,7 +192,9 @@ public:
         StickyAilment,
 
         FrozenAilment,
-        ThawedOut
+        ThawedOut,
+
+        BoardGameSwitchBlocked
     };
 
     /**

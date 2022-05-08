@@ -722,6 +722,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " thawed out and is no longer Frozen!";
         break;
 
+    case Message::Type::BoardGameSwitchBlocked:
+        dispText = other + "'s Board Game Master abilities prevents " + ppl + " from leaving!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

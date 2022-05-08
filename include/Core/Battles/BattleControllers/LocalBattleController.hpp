@@ -74,6 +74,7 @@ private:
     void handleBattlerTurnStart(Battler& battler);
     void handleBattlerRoundEnd(Battler& battler);
 
+    bool canSwitch(Battler& battler);
     bool tryMidturnSwitch(Battler& battler);
     void startSwitch(Battler& battler);
     void doSwitch(Battler& battler, unsigned int newPP);

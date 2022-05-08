@@ -151,7 +151,10 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::BeforeSwitch:
-        startSwitch(state->activeBattler());
+        if (canSwitch(state->activeBattler())) { startSwitch(state->activeBattler()); }
+        else {
+            setBattleState(Stage::NextBattler);
+        }
         break;
 
     case Stage::Switching:
@@ -1714,7 +1717,16 @@ void LocalBattleController::preFaint(Battler& b) {
 }
 
 bool LocalBattleController::tryMidturnSwitch(Battler& switcher) {
+    if (!canSwitch(switcher)) { return false; }
+
+    midturnSwitcher = &switcher;
+    setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+    return true;
+}
+
+bool LocalBattleController::canSwitch(Battler& switcher) {
     const bool isActive = &switcher == &state->activeBattler();
+    Battler& other      = isActive ? state->inactiveBattler() : state->activeBattler();
 
     // check trapped ailment
     if (switcher.getSubstate().hasAilment(pplmn::PassiveAilment::Trapped)) {
@@ -1722,10 +1734,12 @@ bool LocalBattleController::tryMidturnSwitch(Battler& switcher) {
         return false;
     }
 
-    // TODO - abilties that block
+    // check for board game master ability
+    if (other.activePeoplemon().currentAbility() == pplmn::SpecialAbility::BoardGameMaster) {
+        queueCommand({cmd::Message(cmd::Message::Type::BoardGameSwitchBlocked, isActive)}, true);
+        return false;
+    }
 
-    midturnSwitcher = &switcher;
-    setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
     return true;
 }
 
