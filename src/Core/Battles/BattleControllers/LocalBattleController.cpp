@@ -82,7 +82,13 @@ private:
 LocalBattleController::LocalBattleController()
 : currentStageInitialized(false)
 , finalEffectsApplied(false)
-, currentFainter(nullptr) {}
+, currentFainter(nullptr)
+, midturnSwitcher(nullptr)
+, xpAward(0)
+, xpAwardRemaining(0)
+, xpAwardIndex(-1)
+, learnMove(pplmn::MoveId::Unknown)
+, firstTurn(true) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
@@ -610,12 +616,44 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
             return next;
         }
 
-    case Stage::RoundStart:
-        state->beginRound(state->localPlayer().getPriority() >= state->enemy().getPriority());
+    case Stage::RoundStart: {
+        queueCommand({Command::SyncStateNoSwitch});
+        int pp = state->localPlayer().getPriority();
+        int op = state->enemy().getPriority();
+
+        // Check quick draw ability
+        if (firstTurn) {
+            firstTurn = false;
+            if (state->localPlayer().activePeoplemon().currentAbility() ==
+                    pplmn::SpecialAbility::QuickDraw &&
+                state->localPlayer().chosenAction() == TurnAction::Fight) {
+                pp = 10000000; // TODO - should this be higher than switch priority?
+                queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst,
+                                           &state->localPlayer() == &state->activeBattler())},
+                             true);
+            }
+            else if (state->enemy().activePeoplemon().currentAbility() ==
+                         pplmn::SpecialAbility::QuickDraw &&
+                     state->enemy().chosenAction() == TurnAction::Fight) {
+                op = 10000000; // TODO - should this be higher than switch priority?
+                queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst,
+                                           &state->enemy() == &state->activeBattler())},
+                             true);
+            }
+        }
+
+        bool pfirst = true;
+        if (pp < op) { pfirst = false; }
+        else if (pp == op && state->localPlayer().chosenAction() == TurnAction::Fight) {
+            pfirst = bl::util::Random::get<int>(0, 100) <= 50;
+        }
+
+        state->beginRound(pfirst);
         queueCommand({Command::SyncStateNoSwitch});
         state->localPlayer().activePeoplemon().notifyInBattle();
         state->enemy().activePeoplemon().notifyInBattle();
         return Stage::TurnStart;
+    }
 
     case Stage::CheckPlayerContinue:
         if (currentFainter == &state->localPlayer() &&

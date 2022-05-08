@@ -47,6 +47,7 @@ private:
     unsigned int xpAwardRemaining;
     int xpAwardIndex;
     pplmn::MoveId learnMove;
+    bool firstTurn;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;

@@ -739,6 +739,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " got roughed up a bit because " + other + " is a Goon!";
         break;
 
+    case Message::Type::QuickDrawFirst:
+        dispText = ppl + "'s Quick Draw lets them move first!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
