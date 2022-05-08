@@ -735,6 +735,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " is too Classy to be Frustrated so easily!";
         break;
 
+    case Message::Type::GoonDamage:
+        dispText = ppl + " got roughed up a bit because " + other + " is a Goon!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

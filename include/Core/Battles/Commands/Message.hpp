@@ -196,7 +196,8 @@ public:
 
         BoardGameSwitchBlocked,
         ChillaxCritBlocked,
-        ClassyFrustratedBlocked
+        ClassyFrustratedBlocked,
+        GoonDamage
     };
 
     /**

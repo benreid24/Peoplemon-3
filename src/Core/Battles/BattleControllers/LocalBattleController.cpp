@@ -845,6 +845,13 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
 
         queueCommand({Command::SyncStateNoSwitch}, true);
+
+        // check if defender has Goon ability
+        if (defender.currentAbility() == pplmn::SpecialAbility::Goon && !special) {
+            attacker.applyDamage(damage / 16);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, userIsActive)}, true);
+        }
     }
 
     // resolve move effect if any
