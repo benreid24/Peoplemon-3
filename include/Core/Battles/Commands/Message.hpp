@@ -185,7 +185,8 @@ public:
         SnappedConfusion,
 
         StolenAilment,
-        TrappedAilment
+        TrappedAilment,
+        DistractedAilment
     };
 
     /**

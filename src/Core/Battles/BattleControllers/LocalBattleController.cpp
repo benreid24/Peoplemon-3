@@ -1300,6 +1300,12 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     const bool userIsActive   = &user == &state->activeBattler();
     const bool victimIsActive = !userIsActive;
 
+    // Check if distracted
+    if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Distracted)) {
+        queueCommand({cmd::Message(cmd::Message::Type::DistractedAilment, userIsActive)}, true);
+        return true;
+    }
+
     // Check if confused
     if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
         if (user.getSubstate().turnsConfused <= 0) {
