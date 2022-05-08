@@ -198,7 +198,8 @@ public:
         ChillaxCritBlocked,
         ClassyFrustratedBlocked,
         GoonDamage,
-        QuickDrawFirst
+        QuickDrawFirst,
+        FriendlyAilmentHeal
     };
 
     /**

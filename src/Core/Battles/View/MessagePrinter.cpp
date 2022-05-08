@@ -743,6 +743,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Quick Draw lets them move first!";
         break;
 
+    case Message::Type::FriendlyAilmentHeal:
+        dispText = battler.peoplemon()[msg.getInt()].base().name() +
+                   " had their ailment healed because they are Always Friendly!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

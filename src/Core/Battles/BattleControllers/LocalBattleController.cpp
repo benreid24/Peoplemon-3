@@ -1723,15 +1723,26 @@ void LocalBattleController::startSwitch(Battler& battler) {
 }
 
 void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
-    const bool forActive = &battler == &state->activeBattler();
-    battler.setActivePeoplemon(newPP);
+    const bool forActive           = &battler == &state->activeBattler();
+    pplmn::BattlePeoplemon& oldPpl = battler.activePeoplemon();
+    const std::int16_t oldIndex    = battler.outNowIndex();
 
+    battler.setActivePeoplemon(newPP);
     queueCommand({cmd::Message(cmd::Message::Type::SendOut, forActive)}, true);
     queueCommand({Command::SyncStateSwitch, forActive});
     queueCommand({cmd::Animation(forActive, cmd::Animation::Type::SendOut)}, true);
 
     Battler& other = forActive ? state->inactiveBattler() : state->activeBattler();
     other.resetXpEarners();
+
+    // check always friendly ability
+    if (oldPpl.base().currentHp() > 0 &&
+        oldPpl.currentAbility() == pplmn::SpecialAbility::AlwaysFriendly &&
+        oldPpl.base().currentAilment() != pplmn::Ailment::None) {
+        oldPpl.base().currentAilment() = pplmn::Ailment::None;
+        queueCommand({cmd::Message(cmd::Message::Type::FriendlyAilmentHeal, oldIndex, forActive)},
+                     true);
+    }
 }
 
 void LocalBattleController::postSwitch(Battler& battler) {
