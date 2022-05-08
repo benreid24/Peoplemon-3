@@ -672,6 +672,19 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     const bool userIsActive          = &user == &state->activeBattler();
     user.getSubstate().lastMoveIndex = index;
 
+    // check if frozen
+    if (attacker.hasAilment(pplmn::Ailment::Frozen)) {
+        if (bl::util::Random::get<int>(0, 100) <= 20) {
+            attacker.clearAilments(nullptr);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::ThawedOut, userIsActive)}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::FrozenAilment, userIsActive)}, true);
+            return;
+        }
+    }
+
     // check if enough pp
     if (index < 0 || user.activePeoplemon().base().knownMoves()[index].curPP == 0) {
         user.activePeoplemon().base().currentHp() = 0;

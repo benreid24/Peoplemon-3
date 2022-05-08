@@ -189,7 +189,10 @@ public:
         DistractedAilment,
         AnnoyAilment,
         FrustratedAilment,
-        StickyAilment
+        StickyAilment,
+
+        FrozenAilment,
+        ThawedOut
     };
 
     /**

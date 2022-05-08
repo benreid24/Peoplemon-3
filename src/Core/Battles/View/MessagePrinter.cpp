@@ -714,6 +714,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " is Sleeping on the job!";
         break;
 
+    case Message::Type::FrozenAilment:
+        dispText = ppl + " is Frozen and cannot move!";
+        break;
+
+    case Message::Type::ThawedOut:
+        dispText = ppl + " thawed out and is no longer Frozen!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
