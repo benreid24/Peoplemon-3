@@ -63,6 +63,13 @@ public:
     void applyDamage(int dmg);
 
     /**
+     * @brief Restores HP and ensures it does not go over max HP
+     *
+     * @param hp The amount of hp to restore
+     */
+    void giveHealth(int hp);
+
+    /**
      * @brief Apply a stage change to the given stat
      *
      * @param stat The stat to change

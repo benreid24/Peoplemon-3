@@ -42,7 +42,6 @@ struct BattlerSubstate {
     bool move64Hit;
     std::int8_t copyStatsFrom;
     pplmn::PassiveAilment ailments;
-    std::uint8_t turnsWithAilment;
     std::int8_t turnsConfused;
     std::int8_t turnsUntilAwake;
     std::int16_t koReviveHp;
@@ -68,10 +67,9 @@ struct BattlerSubstate {
      * @brief Resets and updates part of the state that depend on turns elapsing
      *
      * @param action The action the battler did on the last turn
-     * @param outNow The peoplemon that is out now
      *
      */
-    void notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& outNow);
+    void notifyTurnEnd(TurnAction action);
 
     /**
      * @brief Updates state that is unique to the currently out Peoplemon

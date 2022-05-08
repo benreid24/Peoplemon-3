@@ -181,7 +181,9 @@ public:
 
         IsConfused,
         HurtConfusion,
-        SnappedConfusion
+        SnappedConfusion,
+
+        StolenAilment
     };
 
     /**

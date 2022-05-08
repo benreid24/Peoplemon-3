@@ -28,7 +28,6 @@ BattlerSubstate::BattlerSubstate()
 , move64Hit(false)
 , copyStatsFrom(-1)
 , ailments(pplmn::PassiveAilment::None)
-, turnsWithAilment(0)
 , turnsConfused(-1)
 , turnsUntilAwake(-1)
 , koReviveHp(-1)
@@ -46,7 +45,7 @@ void BattlerSubstate::notifyTurnBegin() {
     faintHandled    = false;
 }
 
-void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeoplemon& ppl) {
+void BattlerSubstate::notifyTurnEnd(TurnAction action) {
     if (action != TurnAction::Fight) { lastMoveUsed = pplmn::MoveId::Unknown; }
     if (turnsGuarded > 0) { turnsGuarded -= 1; }
     if (encoreTurnsLeft > 0) {
@@ -59,15 +58,12 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, const pplmn::BattlePeople
     enduringThisTurn = false;
     if (healNext >= 0) { healNext += 1; }
 
-    if (ppl.base().currentAilment() != pplmn::Ailment::None) { turnsWithAilment += 1; }
-    else {
-        turnsWithAilment = 0;
-    }
     if (hasAilment(pplmn::PassiveAilment::Confused)) { turnsConfused -= 1; }
     else {
         turnsConfused = -1;
     }
     if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
+    clearAilment(pplmn::PassiveAilment::Distracted);
 }
 
 void BattlerSubstate::notifySwitch() {
@@ -85,7 +81,6 @@ void BattlerSubstate::notifySwitch() {
     turnsConfused    = -1;
     ailments         = pplmn::PassiveAilment::None;
     turnsUntilAwake  = -1;
-    turnsWithAilment = 0;
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {

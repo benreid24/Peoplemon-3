@@ -29,6 +29,8 @@ void BattlePeoplemon::applyDamage(int dmg) {
     ppl->hp -= udmg;
 }
 
+void BattlePeoplemon::giveHealth(int hp) { ppl->hp = std::min(ppl->hp + hp, currentStats().hp); }
+
 bool BattlePeoplemon::statChange(Stat stat, int diff) {
     int* val = nullptr;
     switch (stat) {

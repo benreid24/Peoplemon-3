@@ -252,8 +252,7 @@ void LocalBattleController::initCurrentStage() {
         if (currentFainter->getSubstate().koReviveHp > 0) {
             pplmn::BattlePeoplemon& ppl =
                 currentFainter->peoplemon()[currentFainter->chosenPeoplemon()];
-            ppl.base().currentHp() = std::min(
-                ppl.currentStats().hp, static_cast<int>(currentFainter->getSubstate().koReviveHp));
+            ppl.giveHealth(currentFainter->getSubstate().koReviveHp);
             currentFainter->getSubstate().koReviveHp = -1;
             queueCommand({cmd::Message(cmd::Message::Type::DeathSwapRevived,
                                        currentFainter == &state->activeBattler())},
@@ -846,19 +845,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         if (affected.base().currentHp() == 0 && !doEvenIfDead(effect)) return;
 
         switch (effect) {
-        case pplmn::MoveEffect::Heal: {
-            const int hp = affected.currentStats().hp * intensity / 100;
-            affected.base().currentHp() =
-                std::min(affected.currentStats().hp, affected.base().currentHp() + hp);
+        case pplmn::MoveEffect::Heal:
+            affected.giveHealth(affected.currentStats().hp * intensity / 100);
             queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
-        } break;
+            break;
 
-        case pplmn::MoveEffect::Absorb: {
-            const int hp = damage * intensity / 100;
-            affected.base().currentHp() =
-                std::min(affected.currentStats().hp, affected.base().currentHp() + hp);
+        case pplmn::MoveEffect::Absorb:
+            affected.giveHealth(damage * intensity / 100);
             queueCommand({cmd::Message(cmd::Message::Type::Absorb, forActive)});
-        } break;
+            break;
 
         case pplmn::MoveEffect::Poison:
             applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sticky);
@@ -1047,8 +1042,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forActive)});
             }
             else {
-                affected.base().currentHp() =
-                    std::min(affected.base().currentHp() + 1, affected.currentStats().hp);
+                affected.giveHealth(1);
                 queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forActive)});
             }
             break;
@@ -1582,14 +1576,21 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
 
     // check for HealNext
     if (battler.getSubstate().healNext >= 2) {
-        const int hp           = ppl.currentStats().hp / 2;
-        ppl.base().currentHp() = std::min(ppl.currentStats().hp, ppl.base().currentHp() + hp);
+        ppl.giveHealth(ppl.currentStats().hp / 2);
         queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::HealNextHealed, isActive)}, true);
         battler.getSubstate().healNext = -1;
     }
 
-    // TODO - ailments
+    // check Stolen ailment
+    if (battler.getSubstate().hasAilment(pplmn::PassiveAilment::Stolen)) {
+        const int dmg = battler.activePeoplemon().currentStats().hp / 16;
+        other.activePeoplemon().giveHealth(dmg);
+        ppl.applyDamage(dmg);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::StolenAilment, isActive)}, true);
+        if (ppl.base().currentHp() == 0) { return; }
+    }
 
     // check for death counter (DieIn3Turns)
     if (battler.getSubstate().deathCounter == 0) {

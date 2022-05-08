@@ -685,6 +685,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " snapped out of Confusion!";
         break;
 
+    case Message::Type::StolenAilment:
+        dispText = ppl + " had it's HP Stolen by " + other + "!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
