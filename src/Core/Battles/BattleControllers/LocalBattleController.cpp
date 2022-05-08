@@ -1434,31 +1434,38 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::Ailment ail) {
-    const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
+    const bool isActive = &victim == &state->activeBattler().activePeoplemon();
 
     // TODO - handle abilities and whatnot.
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, selfGive)});
+        queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isActive)});
         return;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, selfGive)});
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, isActive)});
+        return;
+    }
+
+    // Classy blocks frustrated
+    if (ail == pplmn::Ailment::Frustrated &&
+        owner.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Classy) {
+        queueCommand({cmd::Message(cmd::Message::Type::ClassyFrustratedBlocked, isActive)}, true);
         return;
     }
 
     if (victim.giveAilment(ail)) {
-        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, selfGive)});
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
 
         if (ail == pplmn::Ailment::Sleep) {
             owner.getSubstate().turnsUntilAwake = bl::util::Random::get<std::int8_t>(1, 4);
         }
     }
     else {
-        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, selfGive)});
+        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)});
     }
 }
 

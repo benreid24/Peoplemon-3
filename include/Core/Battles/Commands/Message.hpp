@@ -195,7 +195,8 @@ public:
         ThawedOut,
 
         BoardGameSwitchBlocked,
-        ChillaxCritBlocked
+        ChillaxCritBlocked,
+        ClassyFrustratedBlocked
     };
 
     /**

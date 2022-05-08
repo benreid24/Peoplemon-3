@@ -730,6 +730,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " is too Chillaxed to receive critical hits!";
         break;
 
+    case Message::Type::ClassyFrustratedBlocked:
+        dispText = other + " tried to Frustrate " + ppl + " but " + ppl +
+                   " is too Classy to be Frustrated so easily!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
