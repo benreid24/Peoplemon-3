@@ -726,6 +726,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = other + "'s Board Game Master abilities prevents " + ppl + " from leaving!";
         break;
 
+    case Message::Type::ChillaxCritBlocked:
+        dispText = ppl + " is too Chillaxed to receive critical hits!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

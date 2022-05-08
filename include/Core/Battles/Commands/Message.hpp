@@ -194,7 +194,8 @@ public:
         FrozenAilment,
         ThawedOut,
 
-        BoardGameSwitchBlocked
+        BoardGameSwitchBlocked,
+        ChillaxCritBlocked
     };
 
     /**

@@ -814,9 +814,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         int def          = special ? defender.currentStats().spdef : defender.currentStats().def;
         const float stab = pplmn::TypeUtil::getStab(moveType, attacker.base().type());
         const float effective = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
-        const bool crit =
-            bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStages().crit);
+        bool crit = bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStages().crit);
         if (damage == 0) {
+            // Check chillaxed ability
+            if (crit && defender.currentAbility() == pplmn::SpecialAbility::Chillaxed) {
+                crit = false;
+                queueCommand({cmd::Message(cmd::Message::Type::ChillaxCritBlocked, userIsActive)},
+                             true);
+            }
+
             damage = computeDamage(pwr, atk, def, attacker.base().currentLevel());
             damage = static_cast<int>(static_cast<float>(damage) * stab * effective);
             if (crit) { damage *= 2; }
