@@ -12,7 +12,6 @@ BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 , cached(p->currentStats())
 , stageOnlys(true)
 , ability(Peoplemon::specialAbility(p->id()))
-, lastSuperEffectiveTaken(MoveId::Unknown)
 , sawBattle(false) {}
 
 OwnedPeoplemon& BattlePeoplemon::base() { return *ppl; }
@@ -82,10 +81,6 @@ bool BattlePeoplemon::clearAilments(battle::BattlerSubstate* state) {
 SpecialAbility BattlePeoplemon::currentAbility() const { return ability; }
 
 void BattlePeoplemon::setCurrentAbility(SpecialAbility a) { ability = a; }
-
-void BattlePeoplemon::notifySuperEffectiveHit(MoveId m) { lastSuperEffectiveTaken = m; }
-
-MoveId BattlePeoplemon::mostRecentSuperEffectiveHit() const { return lastSuperEffectiveTaken; }
 
 void BattlePeoplemon::refreshStats() {
     cached = Stats::computeStats(Peoplemon::baseStats(ppl->id()),

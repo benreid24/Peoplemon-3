@@ -50,6 +50,8 @@ struct BattlerSubstate {
     bool faintHandled;
     component::Trainer* trainer;
     std::uint8_t turnsSticky;
+    pplmn::MoveId lastMoveSuperEffective;
+    bool preserveLastSuper;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

@@ -35,7 +35,9 @@ BattlerSubstate::BattlerSubstate()
 , lastDamageTaken(0)
 , faintHandled(false)
 , trainer(nullptr)
-, turnsSticky(0) {}
+, turnsSticky(0)
+, lastMoveSuperEffective(pplmn::MoveId::Unknown)
+, preserveLastSuper(true) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected     = false;
@@ -69,26 +71,32 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, pplmn::BattlePeoplemon& o
     else {
         turnsSticky = 0;
     }
+    if (preserveLastSuper) { preserveLastSuper = false; }
+    else {
+        lastMoveSuperEffective = pplmn::MoveId::Unknown;
+    }
 }
 
 void BattlerSubstate::notifySwitch() {
-    lastMoveIndex    = -1;
-    substituteHp     = 0;
-    chargingMove     = -1;
-    lastMoveUsed     = pplmn::MoveId::Unknown;
-    encoreTurnsLeft  = 0;
-    encoreMove       = -1;
-    deathCounter     = -1;
-    enduringThisTurn = false;
-    enduredLastTurn  = false;
-    lastMoveHitWith  = pplmn::MoveId::Unknown;
-    lastDamageTaken  = 0;
-    turnsConfused    = -1;
-    ailments         = pplmn::PassiveAilment::None;
-    turnsUntilAwake  = -1;
-    copyStatsFrom    = -1;
-    koReviveHp       = -1;
-    turnsSticky      = 0; // TODO - maybe put this in battlepeoplemon instead
+    lastMoveIndex          = -1;
+    substituteHp           = 0;
+    chargingMove           = -1;
+    lastMoveUsed           = pplmn::MoveId::Unknown;
+    encoreTurnsLeft        = 0;
+    encoreMove             = -1;
+    deathCounter           = -1;
+    enduringThisTurn       = false;
+    enduredLastTurn        = false;
+    lastMoveHitWith        = pplmn::MoveId::Unknown;
+    lastDamageTaken        = 0;
+    turnsConfused          = -1;
+    ailments               = pplmn::PassiveAilment::None;
+    turnsUntilAwake        = -1;
+    copyStatsFrom          = -1;
+    koReviveHp             = -1;
+    turnsSticky            = 0;
+    lastMoveSuperEffective = pplmn::MoveId::Unknown;
+    preserveLastSuper      = false;
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {

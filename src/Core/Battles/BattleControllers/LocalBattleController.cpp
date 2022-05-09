@@ -899,7 +899,8 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         if (crit) { queueCommand({cmd::Message(cmd::Message::Type::CriticalHit)}, true); }
         if (effective > 1.1f) {
-            defender.notifySuperEffectiveHit(usedMove);
+            victim.getSubstate().lastMoveSuperEffective = usedMove;
+            victim.getSubstate().preserveLastSuper      = true;
             queueCommand({cmd::Message(cmd::Message::Type::SuperEffective)}, true);
         }
         else if (effective < 0.9f) {

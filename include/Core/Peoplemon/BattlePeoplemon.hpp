@@ -129,19 +129,6 @@ public:
     void setCurrentAbility(SpecialAbility ability);
 
     /**
-     * @brief Notify that a super effective move was just used
-     *
-     * @param move The super effective move to hit(?) this peoplemon
-     */
-    void notifySuperEffectiveHit(MoveId move);
-
-    /**
-     * @brief Returns the id of the last move used against this peoplemon that was super effective
-     *
-     */
-    MoveId mostRecentSuperEffectiveHit() const;
-
-    /**
      * @brief Copies the stat stages from the other peoplemon
      *
      * @param other The peoplemon to copy from
@@ -178,7 +165,6 @@ private:
     Stats stages;
     BattleStats stageOnlys;
     SpecialAbility ability;
-    MoveId lastSuperEffectiveTaken;
     bool sawBattle;
 
     void refreshStats();
