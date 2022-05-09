@@ -59,12 +59,16 @@ private:
     BattleState::Stage getNextStage(BattleState::Stage ns);
 
     void startUseMove(Battler& user, int index);
+    float getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
+                                     pplmn::BattlePeoplemon& defender, pplmn::MoveId move, pplmn::Type moveType);
     bool checkMoveCancelled(Battler& user, Battler& victim, int i, pplmn::MoveId move, int pwr,
                             pplmn::Type moveType, pplmn::MoveEffect effect,
                             bool isChargeSecondTurn);
     void applyDamageWithChecks(Battler& owner, pplmn::BattlePeoplemon& victim, pplmn::MoveId move,
                                int dmg);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
+                              pplmn::Ailment ailment);
+    bool tryGiveAilment(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::Ailment ailment);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::PassiveAilment ailment);

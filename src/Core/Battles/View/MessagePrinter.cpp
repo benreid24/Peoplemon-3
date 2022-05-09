@@ -35,6 +35,16 @@ std::string ailmentBlockedSuffix(Message::Type tp) {
     }
 }
 
+std::string snackShareSuffix(Message::Type type, const std::string& other) {
+    switch (type) {
+    case Message::Type::GainedAilmentSnackshare:
+        return " because of " + other + "'s Snack Share!";
+    case Message::Type::GainedAilment:
+    default:
+        return "!";
+    }
+}
+
 std::string statString(pplmn::Stat stat) {
     switch (stat) {
     case pplmn::Stat::Accuracy:
@@ -171,21 +181,22 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::GainedAilment:
+    case Message::Type::GainedAilmentSnackshare:
         switch (msg.getAilment()) {
         case pplmn::Ailment::Annoyed:
-            dispText = ppl + " became Annoyed!";
+            dispText = ppl + " became Annoyed" + snackShareSuffix(msg.getType(), other);
             break;
         case pplmn::Ailment::Frozen:
-            dispText = ppl + " was Frozen!";
+            dispText = ppl + " was Frozen" + snackShareSuffix(msg.getType(), other);
             break;
         case pplmn::Ailment::Frustrated:
-            dispText = ppl + " became Frustrated!";
+            dispText = ppl + " became Frustrated" + snackShareSuffix(msg.getType(), other);
             break;
         case pplmn::Ailment::Sleep:
-            dispText = ppl + " was afflicted by Sleep!";
+            dispText = ppl + " was afflicted by Sleep" + snackShareSuffix(msg.getType(), other);
             break;
         case pplmn::Ailment::Sticky:
-            dispText = ppl + " became Sticky!";
+            dispText = ppl + " became Sticky" + snackShareSuffix(msg.getType(), other);
             break;
         case pplmn::Ailment::None:
         default:
@@ -208,12 +219,12 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
             dispText = other + " tried to Frustrate " + ppl + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Sleep:
-            dispText = other + " tried to make " + ppl + " fall asleep," +
+            dispText = other + " tried to make " + ppl + " fall asleep" +
                        ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::Sticky:
             dispText =
-                other + " tried to make " + ppl + " Sticky," + ailmentBlockedSuffix(msg.getType());
+                other + " tried to make " + ppl + " Sticky" + ailmentBlockedSuffix(msg.getType());
             break;
         case pplmn::Ailment::None:
         default:
@@ -750,6 +761,23 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::SassyDamage:
         dispText = ppl + " took some damage from " + other + "'s Sassiness!";
+        break;
+
+    case Message::Type::BeefyPower:
+        dispText = ppl + " Beefed Up their Athletic attack out of desparation!";
+        break;
+
+    case Message::Type::ReservedQuietPower:
+        dispText = ppl + "'s Quiet move is powered up because they are Reserved and almost dead!";
+        break;
+
+    case Message::Type::DukeOfJokes:
+        dispText = ppl + " powers up Jokes because they are the Duke of Jokes!";
+        break;
+
+    case Message::Type::EngagingAbility:
+        dispText = pplmn::Move::name(msg.getMoveId()) + " normally doesn't affect " + other +
+                   " but " + ppl + " is so Engaging that it's not very effective instead!";
         break;
 
     default:

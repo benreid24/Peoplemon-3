@@ -173,6 +173,7 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::BeforeRun:
         // TODO - show message and determine result
+        // TODO - take RunAway ability into account
         break;
 
     case Stage::Running:
@@ -814,6 +815,29 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, userIsActive)}, true);
     }
 
+    // check if user has BeefedUp or Reserved abilities
+    if (attacker.base().currentHp() <= attacker.currentStats().hp / 4 && pwr > 0) {
+        if (attacker.currentAbility() == pplmn::SpecialAbility::BeefedUp &&
+            moveType == pplmn::Type::Athletic) {
+            pwr = pwr * 5 / 4;
+            queueCommand({cmd::Message(cmd::Message::Type::BeefyPower, userIsActive)}, true);
+        }
+        if (attacker.currentAbility() == pplmn::SpecialAbility::Reserved &&
+            moveType == pplmn::Type::Quiet) {
+            pwr = pwr * 5 / 4;
+            queueCommand({cmd::Message(cmd::Message::Type::ReservedQuietPower, userIsActive)},
+                         true);
+        }
+    }
+
+    // Check DukeOfJokes ability
+    if (attacker.currentAbility() == pplmn::SpecialAbility::DukeOfJokes &&
+        moveType == pplmn::Type::Funny) {
+        // TODO - funny type or something else?
+        pwr = pwr * 3 / 2;
+        queueCommand({cmd::Message(cmd::Message::Type::DukeOfJokes, userIsActive)}, true);
+    }
+
     // begin determining how much damage to deal
     int damage = 0;
 
@@ -851,7 +875,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
         int def          = special ? defender.currentStats().spdef : defender.currentStats().def;
         const float stab = pplmn::TypeUtil::getStab(moveType, attacker.base().type());
-        const float effective = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
+        float effective  = getEffectivenessMultiplier(attacker, defender, usedMove, moveType);
         bool crit = bl::util::Random::get<int>(0, 100) <= critChance(attacker.battleStages().crit);
         if (damage == 0) {
             // Check chillaxed ability
@@ -1490,37 +1514,53 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
                                                  pplmn::Ailment ail) {
     const bool isActive = &victim == &state->activeBattler().activePeoplemon();
 
-    // TODO - handle abilities and whatnot.
+    if (tryGiveAilment(owner, victim, ail)) {
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
+
+        // Check SnackShare ailment give back ability
+        if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
+            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
+            if (tryGiveAilment(other, other.activePeoplemon(), ail)) {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
+                    true);
+            }
+        }
+    }
+}
+
+bool LocalBattleController::tryGiveAilment(Battler& owner, pplmn::BattlePeoplemon& victim,
+                                           pplmn::Ailment ail) {
+    const bool isActive = &victim == &state->activeBattler().activePeoplemon();
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isActive)});
-        return;
+        return false;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, isActive)});
-        return;
+        return false;
     }
 
     // Classy blocks frustrated
     if (ail == pplmn::Ailment::Frustrated &&
         owner.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Classy) {
         queueCommand({cmd::Message(cmd::Message::Type::ClassyFrustratedBlocked, isActive)}, true);
-        return;
+        return false;
     }
 
     if (victim.giveAilment(ail)) {
-        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
-
         if (ail == pplmn::Ailment::Sleep) {
             owner.getSubstate().turnsUntilAwake = bl::util::Random::get<std::int8_t>(1, 4);
         }
+        return true;
     }
-    else {
-        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)});
-    }
+
+    queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)});
+    return false;
 }
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
@@ -1819,6 +1859,22 @@ bool LocalBattleController::canSwitch(Battler& switcher) {
     }
 
     return true;
+}
+
+float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
+                                                        pplmn::BattlePeoplemon& defender,
+                                                        pplmn::MoveId move, pplmn::Type moveType) {
+    const bool isActive = &attacker == &state->activeBattler().activePeoplemon();
+
+    float e = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
+
+    // check engaging ability
+    if (e < 0.1f && attacker.currentAbility() == pplmn::SpecialAbility::Engaging) {
+        e = 0.5f;
+        queueCommand({cmd::Message(cmd::Message::Type::EngagingAbility, move, isActive)}, true);
+    }
+
+    return e;
 }
 
 } // namespace battle

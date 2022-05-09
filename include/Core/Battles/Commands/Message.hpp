@@ -50,6 +50,7 @@ public:
 
         AttackRestoredHp,
         GainedAilment,
+        GainedAilmentSnackshare,
         GainedPassiveAilment,
         AilmentGiveFail,
         PassiveAilmentGiveFail,
@@ -200,7 +201,11 @@ public:
         GoonDamage,
         QuickDrawFirst,
         FriendlyAilmentHeal,
-        SassyDamage
+        SassyDamage,
+        BeefyPower,
+        ReservedQuietPower,
+        DukeOfJokes,
+        EngagingAbility
     };
 
     /**
