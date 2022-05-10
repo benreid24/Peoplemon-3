@@ -126,12 +126,14 @@ void LocalBattleController::initCurrentStage() {
         queueCommand({Command::SyncStateSwitch, &state->localPlayer() == &state->activeBattler()});
         queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::PlayerFirstSendout)}, true);
+        checkKlutz(state->localPlayer());
         break;
 
     case Stage::IntroSendInOpponent:
         queueCommand({Command::SyncStateSwitch, &state->enemy() == &state->activeBattler()});
         queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::OpponentFirstSendout)}, true);
+        checkKlutz(state->enemy());
         break;
 
     case Stage::WaitingChoices:
@@ -1826,6 +1828,8 @@ void LocalBattleController::postSwitch(Battler& battler) {
                      true);
     }
 
+    checkKlutz(battler);
+
     battler.getSubstate().notifySwitch();
 }
 
@@ -1884,6 +1888,21 @@ float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& 
     }
 
     return e;
+}
+
+void LocalBattleController::checkKlutz(Battler& battler) {
+    const bool isActive         = &battler == &state->activeBattler();
+    pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
+
+    if (ppl.currentAbility() == pplmn::SpecialAbility::Klutz) {
+        if (bl::util::Random::get<int>(0, 100) <= 33) {
+            const item::Id item   = ppl.base().holdItem();
+            ppl.base().holdItem() = item::Id::None;
+            // TODO - how to restore items to network player?
+            if (&battler == &state->localPlayer()) { battle->player.bag().addItem(item); }
+            queueCommand({cmd::Message(cmd::Message::Type::KlutzDrop, item, isActive)}, true);
+        }
+    }
 }
 
 } // namespace battle

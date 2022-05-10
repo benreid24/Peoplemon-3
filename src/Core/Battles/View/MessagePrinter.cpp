@@ -2,6 +2,7 @@
 
 #include <BLIB/Interfaces/Utilities/WordWrap.hpp>
 #include <Core/Battles/BattleState.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 
@@ -782,6 +783,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::DerpDerpConfuse:
         dispText = ppl + " was Confused by " + other + "'s Derpiness!";
+        break;
+
+    case Message::Type::KlutzDrop:
+        dispText = ppl + " dropped their " + item::Item::getName(msg.getItem()) +
+                   " because they are a Klutz!";
         break;
 
     default:

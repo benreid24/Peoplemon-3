@@ -68,6 +68,11 @@ Message::Message(Type tp, pplmn::MoveId m)
 , data(m)
 , forActive(true) {}
 
+Message::Message(Type tp, item::Id item, bool a)
+: type(tp)
+, data(item)
+, forActive(a) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {
@@ -112,6 +117,11 @@ std::int16_t Message::getInt() const {
 std::uint16_t Message::getUnsigned() const {
     const std::uint16_t* i = std::get_if<std::uint16_t>(&data);
     return i ? *i : 0;
+}
+
+item::Id Message::getItem() const {
+    const item::Id* i = std::get_if<item::Id>(&data);
+    return i ? *i : item::Id::None;
 }
 
 } // namespace cmd

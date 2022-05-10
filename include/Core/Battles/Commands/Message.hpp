@@ -1,6 +1,7 @@
 #ifndef GAME_BATTLES_COMMANDS_MESSAGE_HPP
 #define GAME_BATTLES_COMMANDS_MESSAGE_HPP
 
+#include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/PassiveAilment.hpp>
@@ -206,7 +207,8 @@ public:
         ReservedQuietPower,
         DukeOfJokes,
         EngagingAbility,
-        DerpDerpConfuse
+        DerpDerpConfuse,
+        KlutzDrop
     };
 
     /**
@@ -313,6 +315,15 @@ public:
     Message(Type type, pplmn::MoveId move);
 
     /**
+     * @brief Construct a new Message for items
+     *
+     * @param type The type of message
+     * @param item The item the message is for
+     * @param forActive Whether or not the message is for the active battler
+     */
+    Message(Type type, item::Id item, bool forActive);
+
+    /**
      * @brief Returns the type of message this is
      *
      */
@@ -378,12 +389,18 @@ public:
      */
     std::uint16_t getUnsigned() const;
 
+    /**
+     * @brief Returns the item for this message
+     *
+     */
+    item::Id getItem() const;
+
 private:
     struct Empty {};
 
     Type type;
     std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat,
-                 std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t, std::uint16_t>
+                 std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t, std::uint16_t, item::Id>
         data;
     union {
         bool forActive;

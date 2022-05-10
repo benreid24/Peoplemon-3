@@ -85,6 +85,8 @@ private:
 
     bool isFainter(Battler& battler) const;
     void preFaint(Battler& fainter);
+
+    void checkKlutz(Battler& battler);
 };
 
 } // namespace battle
