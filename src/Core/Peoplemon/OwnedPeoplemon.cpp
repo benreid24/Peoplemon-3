@@ -205,5 +205,12 @@ MoveId OwnedPeoplemon::levelUp() {
     return MoveId::Unknown;
 }
 
+OwnedMove* OwnedPeoplemon::findMove(MoveId id) {
+    for (int i = 0; i < 4; ++i) {
+        if (moves[i].id == id) return &moves[i];
+    }
+    return nullptr;
+}
+
 } // namespace pplmn
 } // namespace core

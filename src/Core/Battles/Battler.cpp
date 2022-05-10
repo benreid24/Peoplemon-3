@@ -40,12 +40,14 @@ void Battler::pickPeoplemon(bool ff, bool ro) { controller->pickPeoplemon(ff, ro
 TurnAction Battler::chosenAction() const {
     if (substate.chargingMove >= 0) { return TurnAction::Fight; }
     if (substate.encoreTurnsLeft > 0) { return TurnAction::Fight; }
+    if (substate.gotBaked) { return TurnAction::Fight; }
     return controller->chosenAction();
 }
 
 int Battler::chosenMove() const {
     if (substate.chargingMove >= 0) return substate.chargingMove;
     if (substate.encoreMove >= 0) return substate.encoreMove;
+    if (substate.gotBaked) { return -1; }
     return controller->chosenMove();
 }
 

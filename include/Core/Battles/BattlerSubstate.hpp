@@ -53,6 +53,7 @@ struct BattlerSubstate {
     pplmn::MoveId lastMoveSuperEffective;
     bool preserveLastSuper;
     std::int8_t totalMomIndex;
+    bool gotBaked;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

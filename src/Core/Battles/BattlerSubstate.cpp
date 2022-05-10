@@ -37,7 +37,8 @@ BattlerSubstate::BattlerSubstate()
 , turnsSticky(0)
 , lastMoveSuperEffective(pplmn::MoveId::Unknown)
 , preserveLastSuper(true)
-, totalMomIndex(-1) {}
+, totalMomIndex(-1)
+, gotBaked(false) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected     = false;
@@ -75,6 +76,7 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, pplmn::BattlePeoplemon& o
     else {
         lastMoveSuperEffective = pplmn::MoveId::Unknown;
     }
+    gotBaked = false;
 }
 
 void BattlerSubstate::notifySwitch() {
@@ -97,6 +99,7 @@ void BattlerSubstate::notifySwitch() {
     lastMoveSuperEffective = pplmn::MoveId::Unknown;
     preserveLastSuper      = false;
     totalMomIndex          = -1;
+    gotBaked               = false;
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {

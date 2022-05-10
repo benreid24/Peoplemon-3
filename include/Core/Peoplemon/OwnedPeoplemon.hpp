@@ -242,6 +242,14 @@ public:
      */
     unsigned int xpYield(bool isTrainer) const;
 
+    /**
+     * @brief Returns the OwnedMove for the given move
+     *
+     * @param id The move id to find
+     * @return OwnedMove* The move itself, or nullptr if not found
+     */
+    OwnedMove* findMove(MoveId id);
+
 private:
     Id _id;
     std::string customName;

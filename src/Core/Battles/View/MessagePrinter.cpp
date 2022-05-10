@@ -863,6 +863,27 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
             other + " tried to get " + ppl + " to leave, but " + ppl + " is Adament on staying!";
         break;
 
+    case Message::Type::AbsPitchNotEffective:
+        dispText = ppl + "'s Absolute Pitch weakens ineffective moves even more!";
+        break;
+
+    case Message::Type::AbsPitchSuperEffective:
+        dispText = ppl + "'s Absolute Pitch strengthens effective moves even more!";
+        break;
+
+    case Message::Type::GameMakerVirusAbility:
+        dispText = ppl + " had it's PP lowered by " + other + "'s GameMaker Virus!";
+        break;
+
+    case Message::Type::SnapshotAbility:
+        dispText =
+            ppl + "'s Snapshot prevents the same move from being super effective twice in a row!";
+        break;
+
+    case Message::Type::GetBakedAbility:
+        dispText = ppl + " is Getting Baked instead of listening!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

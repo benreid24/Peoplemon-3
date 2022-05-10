@@ -225,7 +225,12 @@ public:
         TotalMomAbility,
         CantSwimAbility,
         AllNighterAbility,
-        AdamentAbility
+        AdamentAbility,
+        AbsPitchNotEffective,
+        AbsPitchSuperEffective,
+        GameMakerVirusAbility,
+        SnapshotAbility,
+        GetBakedAbility
     };
 
     /**

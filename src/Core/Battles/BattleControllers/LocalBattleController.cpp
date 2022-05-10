@@ -213,11 +213,11 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::ResolveAfterAttackAbilities:
-        // TODO - call method
+        checkAbilitiesAfterMove(state->activeBattler());
         break;
 
     case Stage::ResolveAttackEffect:
-        // TODO - call method
+        handleMoveEffect(state->activeBattler());
         break;
 
     case Stage::WaitingMidTurnSwitch:
@@ -728,6 +728,8 @@ void LocalBattleController::onCommandProcessed(const Command&) {}
 void LocalBattleController::onUpdate(bool vs, bool qe) { updateBattleState(vs, qe); }
 
 void LocalBattleController::startUseMove(Battler& user, int index) {
+    static pplmn::OwnedMove skimpOut(pplmn::MoveId::SkimpOut);
+
     Battler& victim = &user == &state->localPlayer() ? state->enemy() : state->localPlayer();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
@@ -748,15 +750,18 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // check if enough pp
-    if (index < 0 || user.activePeoplemon().base().knownMoves()[index].curPP == 0) {
-        user.activePeoplemon().base().currentHp() = 0;
-        queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::NoPPDeath, userIsActive)}, true);
-        return;
+    if (!user.getSubstate().gotBaked) {
+        if (index < 0 || user.activePeoplemon().base().knownMoves()[index].curPP == 0) {
+            user.activePeoplemon().base().currentHp() = 0;
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::NoPPDeath, userIsActive)}, true);
+            return;
+        }
     }
 
     // get move, handle charge, and deduct pp
-    pplmn::OwnedMove& move        = user.activePeoplemon().base().knownMoves()[index];
+    pplmn::OwnedMove& move =
+        !user.getSubstate().gotBaked ? user.activePeoplemon().base().knownMoves()[index] : skimpOut;
     const bool isChargeSecondTurn = user.getSubstate().chargingMove >= 0;
     if (!isChargeSecondTurn) { move.curPP -= 1; }
     else {
@@ -1508,6 +1513,28 @@ float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& 
         queueCommand({cmd::Message(cmd::Message::Type::EngagingAbility, move, isActive)}, true);
     }
 
+    // check snapshot ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::Snapshot) {
+        Battler& victim = isActive ? state->inactiveBattler() : state->activeBattler();
+        if (victim.getSubstate().lastMoveSuperEffective == move && e > 1.1f) {
+            e = 1.f;
+            queueCommand({cmd::Message(cmd::Message::Type::SnapshotAbility, !isActive)}, true);
+        }
+    }
+
+    // check absolute pitch ability
+    if (attacker.currentAbility() == pplmn::SpecialAbility::AbsolutePitch) {
+        if (e < 0.9f && e > 0.1f) {
+            e *= 0.85f;
+            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchNotEffective, isActive)}, true);
+        }
+        else if (e > 1.1f) {
+            e *= 1.15f;
+            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchSuperEffective, isActive)},
+                         true);
+        }
+    }
+
     return e;
 }
 
@@ -1533,7 +1560,17 @@ bool LocalBattleController::teachThisTurn(Battler& battler) {
 
 int LocalBattleController::getPriority(Battler& battler) {
     const bool isActive = &battler == &state->activeBattler();
-    int base            = battler.getPriority();
+
+    // check get baked ability
+    if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::GetBaked &&
+        battler.activePeoplemon().base().currentHp() <=
+            battler.activePeoplemon().currentStats().hp / 5) {
+        battler.getSubstate().gotBaked = true;
+        queueCommand({cmd::Message(cmd::Message::Type::GetBakedAbility, isActive)}, true);
+        return pplmn::Move::priority(pplmn::MoveId::SkimpOut);
+    }
+
+    int base = battler.getPriority();
 
     if (firstTurn) {
         // Check quick draw ability
@@ -1617,6 +1654,17 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
         if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 15) {
             queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, userIsActive)}, true);
             doStatChange(attacker, pplmn::Stat::Accuracy, -1);
+        }
+        break;
+
+    case pplmn::SpecialAbility::GamemakerVirus:
+        if (damage > 0) {
+            pplmn::OwnedMove* move = attacker.base().findMove(usedMove);
+            if (move) {
+                move->curPP = (move->curPP) / 2 + (move->curPP % 2);
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::GameMakerVirusAbility, userIsActive)}, true);
+            }
         }
         break;
 
