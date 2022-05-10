@@ -212,6 +212,14 @@ void LocalBattleController::initCurrentStage() {
         startUseMove(state->activeBattler(), state->activeBattler().chosenMove());
         break;
 
+    case Stage::ResolveAfterAttackAbilities:
+        // TODO - call method
+        break;
+
+    case Stage::ResolveAttackEffect:
+        // TODO - call method
+        break;
+
     case Stage::WaitingMidTurnSwitch:
         midturnSwitcher->pickPeoplemon(false, false);
         break;
@@ -439,6 +447,14 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::Attacking:
+            setBattleState(Stage::ResolveAfterAttackAbilities);
+            break;
+
+        case Stage::ResolveAfterAttackAbilities:
+            setBattleState(Stage::ResolveAttackEffect);
+            break;
+
+        case Stage::ResolveAttackEffect:
             setBattleState(Stage::NextBattler);
             break;
 
@@ -748,7 +764,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // determine actual move to use based on effects
-    pplmn::MoveId usedMove            = move.id;
+    usedMove                          = move.id;
     const pplmn::MoveEffect preEffect = pplmn::Move::effect(move.id);
     if (preEffect == pplmn::MoveEffect::RandomMove) {
         usedMove = pplmn::Move::getRandomMove(false);
@@ -757,15 +773,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     BattlerAttackFinalizer _finalizer(user, usedMove);
 
     // determine if hit
-    const int acc                  = pplmn::Move::accuracy(usedMove);
-    const int accStage             = attacker.battleStages().acc;
-    const int evdStage             = defender.battleStages().evade;
-    const int stage                = std::max(std::min(accStage - evdStage, 6), -6);
-    const int hitChance            = acc * pplmn::BattleStats::getAccuracyMultiplier(stage);
-    bool hit                       = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
-    const pplmn::MoveEffect effect = pplmn::Move::effect(usedMove);
+    const int acc       = pplmn::Move::accuracy(usedMove);
+    const int accStage  = attacker.battleStages().acc;
+    const int evdStage  = defender.battleStages().evade;
+    const int stage     = std::max(std::min(accStage - evdStage, 6), -6);
+    const int hitChance = acc * pplmn::BattleStats::getAccuracyMultiplier(stage);
+    bool hit            = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
+    effect              = pplmn::Move::effect(usedMove);
 
-    const auto printAttackPrequel = [this, &move, usedMove, isChargeSecondTurn, userIsActive]() {
+    const auto printAttackPrequel = [this, &move, isChargeSecondTurn, userIsActive]() {
         // print used move
         if (!isChargeSecondTurn) { queueCommand({cmd::Message(cmd::Message(move.id))}, true); }
         else {
@@ -857,7 +873,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // begin determining how much damage to deal
-    int damage = 0;
+    damage = 0;
 
     // check counter and mirror coat
     if (effect == pplmn::MoveEffect::Counter) {
@@ -929,10 +945,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // TODO - maybe we move this and effects into separate states for more smooth view updat
-    checkAbilitiesAfterMove(user, usedMove, damage, special);
+    checkAbilitiesAfterMove(user);
 
     // resolve move effect if any
-    handleMoveEffect(user, usedMove, effect, damage);
+    handleMoveEffect(user);
 
     // ensure that everything is reflected and wait for the view
     queueCommand({Command::SyncStateNoSwitch}, true);
@@ -1519,13 +1535,13 @@ int LocalBattleController::getPriority(Battler& battler) {
     return base;
 }
 
-void LocalBattleController::checkAbilitiesAfterMove(Battler& user, pplmn::MoveId usedMove,
-                                                    int damage, bool special) {
+void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
     const bool userIsActive = &user == &state->activeBattler();
     Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
     const bool contact               = pplmn::Move::makesContact(usedMove);
+    const bool special               = pplmn::Move::isSpecial(usedMove);
 
     switch (defender.currentAbility()) {
     case pplmn::SpecialAbility::Goon:
@@ -1606,8 +1622,7 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user, pplmn::MoveId
     }
 }
 
-void LocalBattleController::handleMoveEffect(Battler& user, pplmn::MoveId usedMove,
-                                             pplmn::MoveEffect effect, int damage) {
+void LocalBattleController::handleMoveEffect(Battler& user) {
     const bool userIsActive = &user == &state->activeBattler();
     Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();

@@ -49,6 +49,11 @@ private:
     pplmn::MoveId learnMove;
     bool firstTurn;
 
+    // for attack phases
+    pplmn::MoveId usedMove;
+    pplmn::MoveEffect effect;
+    int damage;
+
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;
     virtual void onUpdate(bool viewSynced, bool queueEmpty) override;
@@ -60,9 +65,8 @@ private:
     int getPriority(Battler& battler);
 
     void startUseMove(Battler& user, int index);
-    void checkAbilitiesAfterMove(Battler& user, pplmn::MoveId move, int dmg, bool special);
-    void handleMoveEffect(Battler& user, pplmn::MoveId usedMove, pplmn::MoveEffect effect,
-                          int damage);
+    void checkAbilitiesAfterMove(Battler& user);
+    void handleMoveEffect(Battler& user);
     float getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
                                      pplmn::BattlePeoplemon& defender, pplmn::MoveId move,
                                      pplmn::Type moveType);

@@ -56,6 +56,8 @@ public:
 
         // Fight
         Attacking,
+        ResolveAfterAttackAbilities,
+        ResolveAttackEffect,
 
         // Various switch states
         WaitingMidTurnSwitch,
