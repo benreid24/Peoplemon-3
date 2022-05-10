@@ -844,6 +844,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " had some PP restored by " + mom + " because " + mom + " is a Total Mom!";
     } break;
 
+    case Message::Type::CantSwimAbility:
+        dispText = ppl + "'s Accuracy is reduced because " + other + " Can't Swim!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

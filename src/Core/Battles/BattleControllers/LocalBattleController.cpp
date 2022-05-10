@@ -995,6 +995,14 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
+    // cant swim ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::CantSwim && damage > 0) {
+        if (bl::util::Random::get<int>(0, 100) <= 15) {
+            queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::Accuracy, -1);
+        }
+    }
+
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
