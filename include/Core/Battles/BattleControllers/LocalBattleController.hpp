@@ -87,6 +87,7 @@ private:
     void preFaint(Battler& fainter);
 
     void checkKlutz(Battler& battler);
+    static bool teachThisTurn(Battler& battler);
 };
 
 } // namespace battle

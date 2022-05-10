@@ -1465,9 +1465,7 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
 
     // Check if no joke teach ability
     if (victim.activePeoplemon().currentAbility() == pplmn::SpecialAbility::NoJokeTeach) {
-        if (isJokeMove(move) && victim.chosenAction() == TurnAction::Fight &&
-            victim.chosenMove() >= 0 &&
-            isTeachMove(victim.activePeoplemon().base().knownMoves()[victim.chosenMove()].id)) {
+        if (isJokeMove(move) && teachThisTurn(victim)) {
             queueCommand({cmd::Message(cmd::Message::Type::NoJokeTeachAbility, userIsActive)},
                          true);
             return true;
@@ -1555,6 +1553,12 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
             victim.getSubstate().substituteHp = 0;
         }
         return; // no damage is dealt
+    }
+
+    // check Experienced Teacher ability
+    if (teachThisTurn(victim) && ppl.base().currentHp() > 1 && dmg >= ppl.base().currentHp()) {
+        dmg = ppl.base().currentHp() - 1;
+        queueCommand({cmd::Message(cmd::Message::Type::ExperiencedTeachAbility, isActive)}, true);
     }
 
     ppl.applyDamage(dmg);
@@ -1950,6 +1954,11 @@ void LocalBattleController::checkKlutz(Battler& battler) {
             queueCommand({cmd::Message(cmd::Message::Type::KlutzDrop, item, isActive)}, true);
         }
     }
+}
+
+bool LocalBattleController::teachThisTurn(Battler& battler) {
+    return battler.chosenAction() == TurnAction::Fight && battler.chosenMove() >= 0 &&
+           isTeachMove(battler.activePeoplemon().base().knownMoves()[battler.chosenMove()].id);
 }
 
 } // namespace battle

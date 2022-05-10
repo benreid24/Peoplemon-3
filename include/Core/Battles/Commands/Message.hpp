@@ -211,7 +211,8 @@ public:
         KlutzDrop,
         SidetrackDistract,
         NoJokeTeachAbility,
-        FieryTeachAbility
+        FieryTeachAbility,
+        ExperiencedTeachAbility
     };
 
     /**
