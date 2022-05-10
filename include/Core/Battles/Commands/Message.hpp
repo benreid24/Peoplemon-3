@@ -88,6 +88,7 @@ public:
         SubstituteDied,
         SubstituteAilmentBlocked,
         SubstitutePassiveAilmentBlocked,
+        AilmentSatPassiveAilmentBlocked,
 
         HealBellHealed,
         HealBellAlreadyHealthy,
@@ -223,7 +224,8 @@ public:
         AlcoholicAbility,
         TotalMomAbility,
         CantSwimAbility,
-        AllNighterAbility
+        AllNighterAbility,
+        AdamentAbility
     };
 
     /**

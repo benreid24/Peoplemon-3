@@ -21,8 +21,10 @@ const sf::Vector2f FlasherPos(476.f, 575.f);
 
 using Message = cmd::Message;
 
-std::string ailmentBlockedSuffix(Message::Type tp) {
+std::string ailmentBlockedSuffix(Message::Type tp, const std::string& ppl) {
     switch (tp) {
+    case Message::Type::AilmentSatPassiveAilmentBlocked:
+        return " but " + ppl + " is Ailment Saturated!";
     case Message::Type::SubstituteAilmentBlocked:
     case Message::Type::SubstitutePassiveAilmentBlocked:
         return " but it's Substitute blocks ailments!";
@@ -211,21 +213,22 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     case Message::Type::GuardBlockedAilment:
         switch (msg.getAilment()) {
         case pplmn::Ailment::Annoyed:
-            dispText = other + " tried to Annoy " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText = other + " tried to Annoy " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::Ailment::Frozen:
-            dispText = other + " tried to Freeze " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText = other + " tried to Freeze " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::Ailment::Frustrated:
-            dispText = other + " tried to Frustrate " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText =
+                other + " tried to Frustrate " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::Ailment::Sleep:
             dispText = other + " tried to make " + ppl + " fall asleep" +
-                       ailmentBlockedSuffix(msg.getType());
+                       ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::Ailment::Sticky:
-            dispText =
-                other + " tried to make " + ppl + " Sticky" + ailmentBlockedSuffix(msg.getType());
+            dispText = other + " tried to make " + ppl + " Sticky" +
+                       ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::Ailment::None:
         default:
@@ -258,18 +261,21 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     case Message::Type::PassiveAilmentGiveFail:
     case Message::Type::SubstitutePassiveAilmentBlocked:
     case Message::Type::GuardBlockedPassiveAilment:
+    case Message::Type::AilmentSatPassiveAilmentBlocked:
         switch (msg.getPassiveAilment()) {
         case pplmn::PassiveAilment::Confused:
-            dispText = other + " tried to Confuse " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText =
+                other + " tried to Confuse " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::PassiveAilment::Distracted:
-            dispText = other + " tried to Distract " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText =
+                other + " tried to Distract " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::PassiveAilment::Stolen:
-            dispText = other + " tried to Jump " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText = other + " tried to Jump " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::PassiveAilment::Trapped:
-            dispText = other + " tried to Trap " + ppl + ailmentBlockedSuffix(msg.getType());
+            dispText = other + " tried to Trap " + ppl + ailmentBlockedSuffix(msg.getType(), ppl);
             break;
         case pplmn::PassiveAilment::None:
         default:
@@ -850,6 +856,11 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::AllNighterAbility:
         dispText = ppl + " has pulled too many All Nighters to Sleep now!";
+        break;
+
+    case Message::Type::AdamentAbility:
+        dispText =
+            other + " tried to get " + ppl + " to leave, but " + ppl + " is Adament on staying!";
         break;
 
     default:

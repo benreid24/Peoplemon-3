@@ -1164,6 +1164,15 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
                                                  pplmn::PassiveAilment ail) {
     const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
 
+    // prevent more than one ailment if ailment saturated
+    if (victim.currentAbility() == pplmn::SpecialAbility::AilmentSaturated &&
+        owner.getSubstate().ailments != pplmn::PassiveAilment::None) {
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AilmentSatPassiveAilmentBlocked, ail, selfGive)},
+            true);
+        return;
+    }
+
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand(
@@ -1355,6 +1364,12 @@ void LocalBattleController::doRoar(Battler& victim) {
 
     if (!victim.canSwitch()) {
         queueCommand({cmd::Message(cmd::Message::Type::RoarFailedNoSwitch, isActive)}, true);
+        return;
+    }
+
+    // adament prevents roar
+    if (victim.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Adament) {
+        queueCommand({cmd::Message(cmd::Message::Type::AdamentAbility, isActive)}, true);
         return;
     }
 
