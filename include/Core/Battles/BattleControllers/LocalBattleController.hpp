@@ -60,6 +60,7 @@ private:
     int getPriority(Battler& battler);
 
     void startUseMove(Battler& user, int index);
+    void checkAbilitiesAfterMove(Battler& user, pplmn::MoveId move, int dmg,bool special);
     float getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
                                      pplmn::BattlePeoplemon& defender, pplmn::MoveId move, pplmn::Type moveType);
     bool checkMoveCancelled(Battler& user, Battler& victim, int i, pplmn::MoveId move, int pwr,

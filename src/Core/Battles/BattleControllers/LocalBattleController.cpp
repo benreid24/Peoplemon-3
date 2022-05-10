@@ -831,7 +831,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     // check if move has DoubleFamily
     if (effect == pplmn::MoveEffect::DoubleFamily) {
         const int bc = user.getBroCount();
-        pwr = static_cast<float>(pwr) * (static_cast<float>(bc) * 1.5f);
+        pwr          = static_cast<float>(pwr) * (static_cast<float>(bc) * 1.5f);
         queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, bc, userIsActive)}, true);
     }
 
@@ -926,82 +926,10 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
 
         queueCommand({Command::SyncStateNoSwitch}, true);
-
-        const bool contact = pplmn::Move::makesContact(usedMove);
-
-        // check if defender has Goon ability
-        if (defender.currentAbility() == pplmn::SpecialAbility::Goon && contact) {
-            attacker.applyDamage(damage / 16);
-            queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, userIsActive)}, true);
-        }
-
-        // check if defender has Sassy ability
-        if (defender.currentAbility() == pplmn::SpecialAbility::Sassy && !contact) {
-            attacker.applyDamage(damage / 16);
-            queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::SassyDamage, userIsActive)}, true);
-        }
     }
 
-    // check derp derp ability
-    if (defender.currentAbility() == pplmn::SpecialAbility::DerpDerp && damage > 0) {
-        if (bl::util::Random::get<int>(0, 100) <= 10) {
-            user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
-            queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
-        }
-    }
-
-    // sidetrack teach ability
-    if (attacker.currentAbility() == pplmn::SpecialAbility::SidetrackTeach) {
-        if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 15) {
-            victim.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
-            queueCommand({cmd::Message(cmd::Message::Type::SidetrackDistract, userIsActive)}, true);
-        }
-    }
-
-    // fiery teach ability
-    if (attacker.currentAbility() == pplmn::SpecialAbility::FieryTeach && isTeachMove(usedMove)) {
-        if (bl::util::Random::get<int>(0, 100) <= 33) {
-            queueCommand({cmd::Message(cmd::Message::Type::FieryTeachAbility, userIsActive)}, true);
-            doStatChange(attacker, pplmn::Stat::SpecialAttack, 1);
-        }
-    }
-
-    // doze off ability
-    if (defender.currentAbility() == pplmn::SpecialAbility::DozeOff && isTeachMove(usedMove)) {
-        if (bl::util::Random::get<int>(0, 100) <= 10) {
-            if (defender.giveAilment(pplmn::Ailment::Sleep)) {
-                queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, userIsActive)},
-                             true);
-            }
-        }
-    }
-
-    // douse flames ability
-    if (defender.currentAbility() == pplmn::SpecialAbility::DouseFlames && !special && damage > 0) {
-        if (bl::util::Random::get<int>(0, 100) <= 20) {
-            queueCommand({cmd::Message(cmd::Message::Type::DouseFlamesAbility, userIsActive)},
-                         true);
-            doStatChange(attacker, pplmn::Stat::Attack, -1);
-        }
-    }
-
-    // flirty ability
-    if (defender.currentAbility() == pplmn::SpecialAbility::Flirty && special && damage > 0) {
-        if (bl::util::Random::get<int>(0, 100) <= 20) {
-            queueCommand({cmd::Message(cmd::Message::Type::FlirtyAbility, userIsActive)}, true);
-            doStatChange(attacker, pplmn::Stat::SpecialAttack, -1);
-        }
-    }
-
-    // cant swim ability
-    if (defender.currentAbility() == pplmn::SpecialAbility::CantSwim && damage > 0) {
-        if (bl::util::Random::get<int>(0, 100) <= 15) {
-            queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, userIsActive)}, true);
-            doStatChange(attacker, pplmn::Stat::Accuracy, -1);
-        }
-    }
+    // TODO - maybe we move this and effects into separate states for more smooth view updat
+    checkAbilitiesAfterMove(user, usedMove, damage, special);
 
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
@@ -2052,6 +1980,93 @@ int LocalBattleController::getPriority(Battler& battler) {
     }
 
     return base;
+}
+
+void LocalBattleController::checkAbilitiesAfterMove(Battler& user, pplmn::MoveId usedMove,
+                                                    int damage, bool special) {
+    const bool userIsActive = &user == &state->activeBattler();
+    Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
+    pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
+    pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
+    const bool contact               = pplmn::Move::makesContact(usedMove);
+
+    switch (defender.currentAbility()) {
+    case pplmn::SpecialAbility::Goon:
+        if (contact && damage > 0) {
+            attacker.applyDamage(damage / 16);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, userIsActive)}, true);
+        }
+        break;
+
+    case pplmn::SpecialAbility::Sassy:
+        if (!contact && damage > 0) {
+            attacker.applyDamage(damage / 16);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::SassyDamage, userIsActive)}, true);
+        }
+        break;
+
+    case pplmn::SpecialAbility::DerpDerp:
+        if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 10) {
+            user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
+            queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
+        }
+        break;
+
+    case pplmn::SpecialAbility::DozeOff:
+        if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 10) {
+            if (defender.giveAilment(pplmn::Ailment::Sleep)) {
+                queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, userIsActive)},
+                             true);
+            }
+        }
+        break;
+
+    case pplmn::SpecialAbility::DouseFlames:
+        if (!special && damage > 0 && bl::util::Random::get<int>(0, 100) <= 20) {
+            queueCommand({cmd::Message(cmd::Message::Type::DouseFlamesAbility, userIsActive)},
+                         true);
+            doStatChange(attacker, pplmn::Stat::Attack, -1);
+        }
+        break;
+
+    case pplmn::SpecialAbility::Flirty:
+        if (special && damage > 0 && bl::util::Random::get<int>(0, 100) <= 20) {
+            queueCommand({cmd::Message(cmd::Message::Type::FlirtyAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::SpecialAttack, -1);
+        }
+        break;
+
+    case pplmn::SpecialAbility::CantSwim:
+        if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 15) {
+            queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::Accuracy, -1);
+        }
+        break;
+
+    default:
+        break;
+    }
+
+    switch (attacker.currentAbility()) {
+    case pplmn::SpecialAbility::SidetrackTeach:
+        if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 15) {
+            victim.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
+            queueCommand({cmd::Message(cmd::Message::Type::SidetrackDistract, userIsActive)}, true);
+        }
+        break;
+
+    case pplmn::SpecialAbility::FieryTeach:
+        if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 33) {
+            queueCommand({cmd::Message(cmd::Message::Type::FieryTeachAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::SpecialAttack, 1);
+        }
+        break;
+
+    default:
+        break;
+    }
 }
 
 } // namespace battle
