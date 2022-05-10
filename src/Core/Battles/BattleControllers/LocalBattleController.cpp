@@ -962,6 +962,23 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
+    // douse flames ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::DouseFlames && !special && damage > 0) {
+        if (bl::util::Random::get<int>(0, 100) <= 20) {
+            queueCommand({cmd::Message(cmd::Message::Type::DouseFlamesAbility, userIsActive)},
+                         true);
+            doStatChange(attacker, pplmn::Stat::Attack, -1);
+        }
+    }
+
+    // flirty ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::Flirty && special && damage > 0) {
+        if (bl::util::Random::get<int>(0, 100) <= 20) {
+            queueCommand({cmd::Message(cmd::Message::Type::FlirtyAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::SpecialAttack, -1);
+        }
+    }
+
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&

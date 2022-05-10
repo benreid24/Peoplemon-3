@@ -214,7 +214,9 @@ public:
         FieryTeachAbility,
         ExperiencedTeachAbility,
         NewTeachAbility,
-        DozeOffAbility
+        DozeOffAbility,
+        DouseFlamesAbility,
+        FlirtyAbility
     };
 
     /**

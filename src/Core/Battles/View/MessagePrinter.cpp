@@ -814,6 +814,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Teaching made " + other + " Doze Off!";
         break;
 
+    case Message::Type::DouseFlamesAbility:
+        dispText = other + " Doused the Flames of " + ppl + "'s attack!";
+        break;
+
+    case Message::Type::FlirtyAbility:
+        dispText = other + "'s Flirtyness is disarming " + ppl + "!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
