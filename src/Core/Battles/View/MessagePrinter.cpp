@@ -780,6 +780,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " but " + ppl + " is so Engaging that it's not very effective instead!";
         break;
 
+    case Message::Type::DerpDerpConfuse:
+        dispText = ppl + " was Confused by " + other + "'s Derpiness!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

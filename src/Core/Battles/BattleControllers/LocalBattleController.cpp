@@ -926,6 +926,14 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
+    // Check derp derp ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::DerpDerp && damage > 0) {
+        if (bl::util::Random::get<int>(0, 100) <= 10) {
+            user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
+            queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
+        }
+    }
+
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
@@ -1515,53 +1523,53 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
                                                  pplmn::Ailment ail) {
     const bool isActive = &victim == &state->activeBattler().activePeoplemon();
 
-    if (tryGiveAilment(owner, victim, ail)) {
-        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
-
-        // Check SnackShare ailment give back ability
-        if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
-            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
-            if (tryGiveAilment(other, other.activePeoplemon(), ail)) {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
-                    true);
-            }
-        }
-    }
-}
-
-bool LocalBattleController::tryGiveAilment(Battler& owner, pplmn::BattlePeoplemon& victim,
-                                           pplmn::Ailment ail) {
-    const bool isActive = &victim == &state->activeBattler().activePeoplemon();
-
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isActive)});
-        return false;
+        return;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, isActive)});
-        return false;
+        return;
     }
 
     // Classy blocks frustrated
     if (ail == pplmn::Ailment::Frustrated &&
         owner.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Classy) {
         queueCommand({cmd::Message(cmd::Message::Type::ClassyFrustratedBlocked, isActive)}, true);
-        return false;
+        return;
     }
 
     if (victim.giveAilment(ail)) {
-        if (ail == pplmn::Ailment::Sleep) {
-            owner.getSubstate().turnsUntilAwake = bl::util::Random::get<std::int8_t>(1, 4);
-        }
-        return true;
-    }
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
 
-    queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)});
-    return false;
+        if (ail == pplmn::Ailment::Sleep) {
+            victim.turnsUntilAwake() = bl::util::Random::get<std::int8_t>(1, 4);
+        }
+
+        // Check SnackShare ailment give back ability
+        if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
+            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
+            if (other.activePeoplemon().giveAilment(ail)) {
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
+                    true);
+                if (ail == pplmn::Ailment::Sleep) {
+                    other.activePeoplemon().turnsUntilAwake() =
+                        bl::util::Random::get<std::int8_t>(1, 4);
+                }
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isActive)},
+                             true);
+            }
+        }
+    }
+    else {
+        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)}, true);
+    }
 }
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
@@ -1635,8 +1643,8 @@ void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
 
     // TODO - check if awake and other ailment ends. maybe some move effect carryover too
 
-    // check if Rest done
-    if (battler.getSubstate().turnsUntilAwake == 0) {
+    // check if Sleep is done
+    if (battler.activePeoplemon().turnsUntilAwake() <= 0) {
         if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
             ppl.base().currentAilment() = pplmn::Ailment::None;
             queueCommand({Command::SyncStateNoSwitch});

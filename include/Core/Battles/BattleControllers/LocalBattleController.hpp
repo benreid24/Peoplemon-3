@@ -68,8 +68,6 @@ private:
                                int dmg);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::Ailment ailment);
-    bool tryGiveAilment(Battler& owner, pplmn::BattlePeoplemon& victim,
-                              pplmn::Ailment ailment);
     void applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                               pplmn::PassiveAilment ailment);
     void doStatChange(pplmn::BattlePeoplemon& recv, pplmn::Stat stat, int amt,

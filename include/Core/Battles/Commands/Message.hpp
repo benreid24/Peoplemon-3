@@ -205,7 +205,8 @@ public:
         BeefyPower,
         ReservedQuietPower,
         DukeOfJokes,
-        EngagingAbility
+        EngagingAbility,
+        DerpDerpConfuse
     };
 
     /**

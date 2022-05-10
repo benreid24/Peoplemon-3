@@ -6,6 +6,7 @@
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/PassiveAilment.hpp>
+#include <cstdint>
 
 namespace core
 {
@@ -43,7 +44,6 @@ struct BattlerSubstate {
     std::int8_t copyStatsFrom;
     pplmn::PassiveAilment ailments;
     std::int8_t turnsConfused;
-    std::int8_t turnsUntilAwake;
     std::int16_t koReviveHp;
     pplmn::MoveId lastMoveHitWith;
     std::uint16_t lastDamageTaken;

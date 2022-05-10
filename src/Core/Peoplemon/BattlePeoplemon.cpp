@@ -12,7 +12,8 @@ BattlePeoplemon::BattlePeoplemon(OwnedPeoplemon* p)
 , cached(p->currentStats())
 , stageOnlys(true)
 , ability(Peoplemon::specialAbility(p->id()))
-, sawBattle(false) {}
+, sawBattle(false)
+, _turnsUntilAwake(-1) {}
 
 OwnedPeoplemon& BattlePeoplemon::base() { return *ppl; }
 
@@ -119,6 +120,8 @@ int BattlePeoplemon::getSpeed() const {
     if (ppl->currentAilment() == Ailment::Annoyed) { return currentStats().spd / 4; }
     return currentStats().spd;
 }
+
+std::int8_t& BattlePeoplemon::turnsUntilAwake() { return _turnsUntilAwake; }
 
 } // namespace pplmn
 } // namespace core

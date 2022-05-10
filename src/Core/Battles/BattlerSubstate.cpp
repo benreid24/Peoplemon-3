@@ -29,7 +29,6 @@ BattlerSubstate::BattlerSubstate()
 , copyStatsFrom(-1)
 , ailments(pplmn::PassiveAilment::None)
 , turnsConfused(-1)
-, turnsUntilAwake(-1)
 , koReviveHp(-1)
 , lastMoveHitWith(pplmn::MoveId::Unknown)
 , lastDamageTaken(0)
@@ -65,7 +64,7 @@ void BattlerSubstate::notifyTurnEnd(TurnAction action, pplmn::BattlePeoplemon& o
     else {
         turnsConfused = -1;
     }
-    if (turnsUntilAwake > 0) { turnsUntilAwake -= 1; }
+    if (outNow.turnsUntilAwake() > 0) { outNow.turnsUntilAwake() -= 1; }
     clearAilment(pplmn::PassiveAilment::Distracted);
     if (outNow.hasAilment(pplmn::Ailment::Sticky)) { turnsSticky += 1; }
     else {
@@ -91,7 +90,6 @@ void BattlerSubstate::notifySwitch() {
     lastDamageTaken        = 0;
     turnsConfused          = -1;
     ailments               = pplmn::PassiveAilment::None;
-    turnsUntilAwake        = -1;
     copyStatsFrom          = -1;
     koReviveHp             = -1;
     turnsSticky            = 0;

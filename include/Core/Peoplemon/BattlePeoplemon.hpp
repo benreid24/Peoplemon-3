@@ -159,6 +159,13 @@ public:
      */
     bool hasSeenBattle() const;
 
+    /**
+     * @brief The number of turns until the peoplemon wakes up
+     *
+     * @return std::int8_t&
+     */
+    std::int8_t& turnsUntilAwake();
+
 private:
     OwnedPeoplemon* ppl;
     Stats cached;
@@ -166,6 +173,7 @@ private:
     BattleStats stageOnlys;
     SpecialAbility ability;
     bool sawBattle;
+    std::int8_t _turnsUntilAwake;
 
     void refreshStats();
 };
