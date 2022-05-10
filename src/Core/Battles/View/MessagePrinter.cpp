@@ -834,7 +834,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::TooCoolAbility:
-        dispText = other + " tried to Frustrate " + ppl + " but " + ppl + " is Too Cool for that!";
+        dispText = other + " tried to Annoy " + ppl + " but " + ppl + " is Too Cool for that!";
         break;
 
     case Message::Type::FakeStudyAbility:

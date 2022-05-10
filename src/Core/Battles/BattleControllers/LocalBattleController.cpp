@@ -1104,7 +1104,7 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
 
     // check too cool ability
     if (victim.currentAbility() == pplmn::SpecialAbility::TooCool &&
-        ail == pplmn::Ailment::Frustrated) {
+        ail == pplmn::Ailment::Annoyed) {
         queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, isActive)}, true);
         return;
     }
@@ -1148,7 +1148,7 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
             }
             else {
                 // determine if blocked by too cool
-                if (ail == pplmn::Ailment::Frustrated &&
+                if (ail == pplmn::Ailment::Annoyed &&
                     other.activePeoplemon().currentAbility() == pplmn::SpecialAbility::TooCool) {
                     queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, !isActive)},
                                  true);
