@@ -1,15 +1,67 @@
 #include <Core/Battles/BattlerControllers/PlayerController.hpp>
 
+#include <Core/Battles/View/PlayerMenu.hpp>
+
 namespace core
 {
 namespace battle
 {
-void PlayerController::startChooseAction() {
-    // TODO - interface with ui
+const std::string& PlayerController::name() const { return player.name(); }
+
+PlayerController::PlayerController(system::Player& p, view::PlayerMenu& menu)
+: state(State::Waiting)
+, player(p)
+, menu(menu) {}
+
+void PlayerController::refresh() {
+    switch (state) {
+    case State::PickingTurn:
+        if (menu.ready()) {
+            state = State::Waiting;
+            switch (menu.selectedAction()) {
+            case TurnAction::Fight:
+                chooseMove(menu.selectedMove());
+                break;
+            case TurnAction::Item:
+                chooseItem(menu.selectedItem());
+                break;
+            case TurnAction::Switch:
+                choosePeoplemon(menu.selectedPeoplemon());
+                break;
+            case TurnAction::Run:
+                chooseRun();
+                break;
+            default:
+                break;
+            }
+        }
+        break;
+
+    case State::PickingFaintReplacement:
+        if (menu.ready()) {
+            state = State::Waiting;
+            choosePeoplemon(menu.selectedPeoplemon());
+        }
+        break;
+
+    default:
+        break;
+    }
 }
 
-void PlayerController::startChoosePeoplemon() {
-    // TODO - interface with ui
+void PlayerController::startChooseAction() {
+    state = State::PickingTurn;
+    menu.beginTurn();
+}
+
+void PlayerController::startChoosePeoplemon(bool fromFaint, bool reviveOnly) {
+    state = State::PickingFaintReplacement;
+    menu.choosePeoplemonMidTurn(fromFaint, reviveOnly);
+}
+
+void PlayerController::startChooseToContinue() {
+    // TODO - get choice from UI
+    chooseGiveUp(false);
 }
 
 } // namespace battle

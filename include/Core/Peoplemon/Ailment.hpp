@@ -19,8 +19,7 @@ enum struct Ailment : std::uint8_t {
     Frustrated = 3,
     Sticky     = 5,
     Sleep      = 6,
-    Frozen     = 7,
-    Guarded    = 10
+    Frozen     = 7
 };
 
 } // namespace pplmn

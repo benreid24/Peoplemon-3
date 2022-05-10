@@ -24,6 +24,7 @@ void BattleController::update() {
     case SubState::WaitingView:
         if (view->actionsCompleted()) {
             subState = SubState::Done;
+            view->hideText();
             [[fallthrough]];
         }
         else {
@@ -42,45 +43,45 @@ void BattleController::update() {
         break;
     }
 
-    onUpdate();
+    onUpdate(view->actionsCompleted(), commandQueue.empty());
 }
 
-void BattleController::queueCommand(Command&& cmd) {
+void BattleController::queueCommand(Command&& cmd, bool addWait) {
     commandQueue.emplace(std::forward<Command>(cmd));
     onCommandQueued(commandQueue.back());
+    if (addWait) {
+        commandQueue.emplace(Command::WaitForView);
+        onCommandQueued(commandQueue.back());
+    }
 }
 
 bool BattleController::updateCommandQueue() {
     if (commandQueue.empty()) return false;
 
-    const Command& cmd = commandQueue.front();
+    const Command cmd = std::move(commandQueue.front());
+    commandQueue.pop();
+    onCommandProcessed(cmd);
 
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
-        view->queueMessage(cmd.getMessage());
-        subState = SubState::WaitingView;
-        break;
-
     case Command::Type::PlayAnimation:
-        view->playAnimation(cmd.getAnimation());
-        subState = SubState::WaitingView;
-        break;
+    case Command::Type::SyncStateNoSwitch:
+    case Command::Type::SyncStateSwitch:
+        view->processCommand(cmd);
+        return true;
 
-    case Command::Type::SyncState:
-        view->syncDisplay(*state);
+    case Command::Type::WaitForView:
         subState = SubState::WaitingView;
-        break;
+        return false;
+
+    case Command::Type::NotifyBattleWinner:
+        // do nothing here
+        return true;
 
     default:
         BL_LOG_WARN << "Unknown command type: " << cmd.getType();
-        commandQueue.pop();
         return true;
     }
-
-    const bool wait = cmd.waitForView();
-    onCommandProcessed(cmd);
-    commandQueue.pop();
-    return !wait;
 }
 
 } // namespace battle

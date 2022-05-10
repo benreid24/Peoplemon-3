@@ -2,6 +2,7 @@
 #define GAME_STATES_BATTLESTATE_HPP
 
 #include <Core/Battles/Battle.hpp>
+#include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Game/States/State.hpp>
 
@@ -16,7 +17,9 @@ namespace state
  * @ingroup States
  *
  */
-class BattleState : public State {
+class BattleState
+: public State
+, public bl::event::Listener<core::event::OpenPeoplemonMenu> {
 public:
     /**
      * @brief Creates a new BattleState
@@ -71,6 +74,8 @@ private:
     sf::View oldView;
 
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
+
+    virtual void observe(const core::event::OpenPeoplemonMenu& event) override;
 };
 
 } // namespace state

@@ -4,13 +4,22 @@ namespace core
 {
 namespace battle
 {
+const std::string& RemoteController::name() const {
+    static const std::string n = "<NETWORK>";
+    return n;
+}
+
+void RemoteController::refresh() {}
+
 void RemoteController::startChooseAction() {
     // TODO - get from network
 }
 
-void RemoteController::startChoosePeoplemon() {
+void RemoteController::startChoosePeoplemon(bool, bool) {
     // TODO - get from network
 }
+
+void RemoteController::startChooseToContinue() { chooseGiveUp(false); }
 
 } // namespace battle
 } // namespace core

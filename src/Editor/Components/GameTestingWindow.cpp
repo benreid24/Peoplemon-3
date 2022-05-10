@@ -1,6 +1,7 @@
 #include <Editor/Components/GameTestingWindow.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 namespace editor
@@ -291,6 +292,16 @@ void GameTestingWindow::doSave() {
         unsigned int lvl;
         parsePeoplemon(pplBox->getOption(i), id, lvl);
         activeSave->player.peoplemon->emplace_back(id, lvl);
+        for (int j = 0; j < 4; ++j) {
+            using MoveId = core::pplmn::MoveId;
+
+            MoveId mid = MoveId::_INVALID_2;
+            while (core::pplmn::Move::cast(static_cast<unsigned int>(mid)) == MoveId::Unknown) {
+                mid = bl::util::Random::get<MoveId>(MoveId::Absent, MoveId::_NUM_MOVES);
+            }
+
+            activeSave->player.peoplemon->back().learnMove(mid, j);
+        }
     }
 
     activeSave->editorSave();

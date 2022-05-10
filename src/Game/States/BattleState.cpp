@@ -2,6 +2,7 @@
 
 #include <Core/Events/Battle.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/PeoplemonMenu.hpp>
 
 namespace game
 {
@@ -24,7 +25,7 @@ private:
 
     virtual void onCommandQueued(const core::battle::Command&) override {}
     virtual void onCommandProcessed(const core::battle::Command&) override {}
-    virtual void onUpdate() override {
+    virtual void onUpdate(bool, bool) override {
         time += timer.getElapsedTime().asSeconds();
         timer.restart();
         if (time >= 3.f) { state->setStage(core::battle::BattleState::Stage::Completed); }
@@ -58,30 +59,45 @@ void BattleState::activate(bl::engine::Engine& engine) {
     battleView.setSize(ws);
     battleView.setCenter(ws * 0.5f);
     engine.window().setView(battleView);
+    battle->view.configureView(battleView);
+    systems.player().inputSystem().addListener(battle->view);
+    engine.eventBus().subscribe(this);
 
     // TODO - music here or in intro state?
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
+    systems.player().inputSystem().removeListener(battle->view);
 
+    engine.eventBus().unsubscribe(this);
     engine.eventBus().dispatch<core::event::BattleCompleted>(
         {battle->type, battle->localPlayerWon});
 
     // TODO - stop battle music?
+    // TODO - handle whiteout and evolve
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {
+    systems.player().inputSystem().update();
     battle->controller->update();
     battle->view.update(dt);
+    battle->state.localPlayer().refresh();
+    battle->state.enemy().refresh();
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
         engine.popState();
+        // TODO - handle whiteout/healing here
     }
 }
 
 void BattleState::render(bl::engine::Engine& engine, float lag) {
     battle->view.render(engine.window(), lag);
     engine.window().display();
+}
+
+void BattleState::observe(const core::event::OpenPeoplemonMenu& event) {
+    systems.engine().pushState(
+        PeoplemonMenu::create(systems, event.context, event.outNow, event.chosen));
 }
 
 } // namespace state

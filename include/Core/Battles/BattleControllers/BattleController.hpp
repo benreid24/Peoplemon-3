@@ -53,8 +53,9 @@ public:
      * @brief Enqueues a command to manipulate battle state or the view
      *
      * @param command The command to enqueue
+     * @param addWait True to add a waitView command after the given command
      */
-    void queueCommand(Command&& command);
+    void queueCommand(Command&& command, bool addWait = false);
 
 protected:
     Battle* battle;
@@ -80,8 +81,11 @@ protected:
     /**
      * @brief Derived controllers may use this method for update logic every frame
      *
+     * @param viewSynced Whether or not the view is fully up to date and static
+     * @param queueEmpty Whether or not the command queue has been fully drained
+     *
      */
-    virtual void onUpdate() = 0;
+    virtual void onUpdate(bool viewSynced, bool queueEmpty) = 0;
 
 private:
     enum struct SubState : std::uint8_t { WaitingView = 1, Done = 2 };

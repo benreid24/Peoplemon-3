@@ -2,9 +2,17 @@
 #define GAME_BATTLES_BATTLEVIEW_HPP
 
 #include <Core/Battles/Commands/Animation.hpp>
+#include <Core/Battles/Commands/Command.hpp>
 #include <Core/Battles/Commands/Message.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
+#include <Core/Battles/View/MessagePrinter.hpp>
+#include <Core/Battles/View/MoveAnimation.hpp>
+#include <Core/Battles/View/PeoplemonAnimation.hpp>
+#include <Core/Battles/View/PlayerMenu.hpp>
+#include <Core/Battles/View/StatBoxes.hpp>
+#include <Core/Player/Input/Listener.hpp>
 #include <SFML/Graphics.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <queue>
 
 namespace core
 {
@@ -19,13 +27,35 @@ class BattleState;
  * @ingroup Battles
  *
  */
-class BattleView {
+class BattleView : public player::input::Listener {
 public:
     /**
      * @brief Construct a new Battle View
      *
+     * @param state The current state of the battle
+     * @param canRun Whether or not the player menu should allow running
+     * @param eventBus The event bus to use
      */
-    BattleView();
+    BattleView(BattleState& state, bool canRun, bl::event::Dispatcher& eventBus);
+
+    /**
+     * @brief Sets up the subviews from the view used during battle
+     *
+     * @param parentView The view to be used
+     */
+    void configureView(const sf::View& parentView);
+
+    /**
+     * @brief Access the player's menu
+     *
+     */
+    view::PlayerMenu& menu();
+
+    /**
+     * @brief Returns whether or not the player chose to forget a move when prompted
+     *
+     */
+    bool playerChoseForgetMove();
 
     /**
      * @brief Returns true if the view is done going through the queued commands and all components
@@ -36,26 +66,17 @@ public:
     bool actionsCompleted() const;
 
     /**
-     * @brief Queues a message to be displayed
+     * @brief Hides the battle text when the view is synced
      *
-     * @param message The message to display
      */
-    void queueMessage(const Message& message);
+    void hideText();
 
     /**
-     * @brief Begins playing the given animation
+     * @brief Processes a command and updates the view
      *
-     * @param animation The animation to play
+     * @param command The command to process
      */
-    void playAnimation(const Animation& animation);
-
-    /**
-     * @brief Synchronises the display with the battle state. This updates health bars, XP bar,
-     *        ailments, and peoplemon graphics
-     *
-     * @param state The current state of the battle
-     */
-    void syncDisplay(const BattleState& state);
+    void processCommand(const Command& command);
 
     /**
      * @brief Updates the view, including contained animations and printing text
@@ -74,9 +95,19 @@ public:
     void render(sf::RenderTarget& target, float lag) const;
 
 private:
-    sf::Text temp;
+    BattleState& battleState;
+    view::PlayerMenu playerMenu;
+    view::StatBoxes statBoxes;
+    view::MessagePrinter printer;
+    view::PeoplemonAnimation localPeoplemon;
+    view::PeoplemonAnimation opponentPeoplemon;
+    view::MoveAnimation moveAnimation;
+    bool inited;
 
-    // TODO - implement the view
+    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    sf::Sprite background;
+
+    virtual void process(component::Command control) override;
 
     /*
     For switches thinking of a multistep approach of

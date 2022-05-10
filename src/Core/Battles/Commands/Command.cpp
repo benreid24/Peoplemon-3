@@ -4,36 +4,40 @@ namespace core
 {
 namespace battle
 {
-Command::Command(SyncState&& s, bool w)
-: type(Type::SyncState)
-, data(std::forward<SyncState>(s))
-, wait(w) {}
+Command::Command(Type t)
+: type(t)
+, data(Empty()) {}
 
-Command::Command(Message&& s, bool w)
+Command::Command(Type t, bool b)
+: type(t)
+, data(b) {}
+
+Command::Command(cmd::Message&& s)
 : type(Type::DisplayMessage)
-, data(std::forward<Message>(s))
-, wait(w) {}
+, data(std::forward<cmd::Message>(s)) {}
 
-Command::Command(Animation&& a, bool w)
+Command::Command(cmd::Animation&& a)
 : type(Type::PlayAnimation)
-, data(std::forward<Animation>(a))
-, wait(w) {}
+, data(std::forward<cmd::Animation>(a)) {}
 
 Command::Type Command::getType() const { return type; }
 
-const Message& Command::getMessage() const {
-    static const Message empty(Message::Type::_ERROR);
-    const Message* m = std::get_if<Message>(&data);
+const cmd::Message& Command::getMessage() const {
+    static const cmd::Message empty(cmd::Message::Type::_ERROR);
+    const cmd::Message* m = std::get_if<cmd::Message>(&data);
     return m ? *m : empty;
 }
 
-const Animation& Command::getAnimation() const {
-    static const Animation empty(Animation::Target::User, Animation::Type::_ERROR);
-    const Animation* a = std::get_if<Animation>(&data);
+const cmd::Animation& Command::getAnimation() const {
+    static const cmd::Animation empty(cmd::Animation::Type::_ERROR);
+    const cmd::Animation* a = std::get_if<cmd::Animation>(&data);
     return a ? *a : empty;
 }
 
-bool Command::waitForView() const { return wait; }
+bool Command::forActiveBattler() const {
+    const bool* b = std::get_if<bool>(&data);
+    return b ? *b : true;
+}
 
 } // namespace battle
 } // namespace core

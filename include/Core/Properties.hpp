@@ -41,11 +41,11 @@ public:
     static const sf::Font& MenuFont();
     static const std::string& MenuImagePath();
     static const std::string& ImagePath();
+    static const std::string& AnimationPath();
 
     static const std::string& SpritesheetPath();
     static const std::string& MusicPath();
     static const std::string& PlaylistPath();
-    static const std::string& GenericAnimationPath();
 
     static const std::string& MapPath();
     static const std::string& TilesetPath();

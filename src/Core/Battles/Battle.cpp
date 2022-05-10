@@ -1,6 +1,8 @@
 #include <Core/Battles/Battle.hpp>
 
+#include <Core/Battles/BattleSkipper.hpp>
 #include <Core/Battles/BattlerControllers/PlayerController.hpp>
+#include <Core/Systems/Systems.hpp>
 
 namespace core
 {
@@ -9,11 +11,17 @@ namespace battle
 namespace
 {
 BattleState::Stage typeToStage(Battle::Type type) {
+#ifdef PEOPLEMON_DEBUG
+    const bool skip = BattleSkipper::skipBattles();
+#else
+    const bool skip = false;
+#endif
+
     switch (type) {
     case Battle::Type::WildPeoplemon:
-        return BattleState::Stage::WildIntro;
+        return skip ? BattleState::Stage::Completed : BattleState::Stage::WildIntro;
     case Battle::Type::Trainer:
-        return BattleState::Stage::TrainerIntro;
+        return skip ? BattleState::Stage::TrainerDefeated : BattleState::Stage::TrainerIntro;
     case Battle::Type::Online:
         return BattleState::Stage::NetworkIntro;
     default:
@@ -23,20 +31,24 @@ BattleState::Stage typeToStage(Battle::Type type) {
 }
 } // namespace
 
-Battle::Battle(Type type)
-: type(type)
+Battle::Battle(system::Player& player, Type type, bl::event::Dispatcher& eb)
+: player(player)
+, type(type)
 , state(typeToStage(type))
+, view(state, type == Type::WildPeoplemon, eb)
 , localPlayerWon(false) {
     // custom init?
 }
 
-std::unique_ptr<Battle> Battle::create(core::system::Player& player, Type type) {
-    std::unique_ptr<Battle> b(new Battle(type));
+std::unique_ptr<Battle> Battle::create(system::Player& player, Type type,
+                                       bl::event::Dispatcher& eb) {
+    std::unique_ptr<Battle> b(new Battle(player, type, eb));
 
-    std::vector<core::pplmn::BattlePeoplemon> team;
+    std::vector<pplmn::BattlePeoplemon> team;
     team.reserve(player.team().size());
     for (auto& ppl : player.team()) { team.emplace_back(&ppl); }
-    b->state.localPlayer().init(std::move(team), std::make_unique<PlayerController>());
+    b->state.localPlayer().init(std::move(team),
+                                std::make_unique<PlayerController>(player, b->view.menu()));
 
     return b;
 }

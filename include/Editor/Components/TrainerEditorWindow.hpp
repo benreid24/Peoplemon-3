@@ -64,6 +64,7 @@ private:
     bl::gui::Label::Ptr abLabel;
     bl::gui::TextEntry::Ptr loseLineEntry;
     bl::gui::ComboBox::Ptr visionRangeEntry;
+    bl::gui::TextEntry::Ptr payoutEntry;
 
     core::item::Id curItem;
     bl::gui::SelectBox::Ptr itemSelectBox;

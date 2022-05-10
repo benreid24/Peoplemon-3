@@ -66,14 +66,14 @@ void Trainers::update(float dt) {
     case State::Walking:
         if (!trainerMove->moving()) {
             if (component::Position::adjacent(*trainerPos, owner.player().position())) {
+                BL_LOG_INFO << "try interact";
                 if (!owner.interaction().interact(walkingTrainer)) {
                     BL_LOG_ERROR << "Trainer " << walkingTrainer
                                  << " was unable to interact with player, aborting";
                     cleanup();
                 }
                 else {
-                    // prevent interact spam
-                    walkingTrainer = bl::entity::InvalidEntity;
+                    state = State::Battling;
                 }
             }
             else {

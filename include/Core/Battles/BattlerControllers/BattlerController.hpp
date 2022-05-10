@@ -1,7 +1,7 @@
 #ifndef GAME_BATTLES_BATTLERCONTROLLERS_BATTLERCONTROLLER_HPP
 #define GAME_BATTLES_BATTLERCONTROLLERS_BATTLERCONTROLLER_HPP
 
-#include <Core/Battles/Commands/TurnAction.hpp>
+#include <Core/Battles/TurnAction.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 
@@ -9,6 +9,8 @@ namespace core
 {
 namespace battle
 {
+class Battler;
+
 /**
  * @brief Base class for battlers in the game. This provides storage for peoplemon and turn choices
  *
@@ -22,6 +24,25 @@ public:
      *
      */
     virtual ~BattlerController() = default;
+
+    /**
+     * @brief Sets the owner of this controller
+     *
+     * @param owner The battler using this controller
+     */
+    void setOwner(Battler& owner);
+
+    /**
+     * @brief Returns the name of the battler
+     *
+     */
+    virtual const std::string& name() const = 0;
+
+    /**
+     * @brief Method that allows controllers to poll status from non-callback based sources
+     *
+     */
+    virtual void refresh() = 0;
 
     /**
      * @brief Returns whether or not the battler has chosen what to do on this turn
@@ -38,8 +59,11 @@ public:
     /**
      * @brief Initiates the process of selecting a replacement peoplemon if the current one faints
      *
+     * @param fromFaint True if the current has fainted, false if the switch is for another reason
+     * @param reviveOnly True if fainted peoplemon must be selected
+     *
      */
-    void pickPeoplemon();
+    void pickPeoplemon(bool fromFaint, bool reviveOnly);
 
     /**
      * @brief Returns the action the battler is using this turn
@@ -51,7 +75,7 @@ public:
      * @brief Returns the move the battler is using this turn
      *
      */
-    core::pplmn::MoveId chosenMove() const;
+    int chosenMove() const;
 
     /**
      * @brief Returns the item the battler is using this turn
@@ -65,7 +89,21 @@ public:
      */
     std::uint8_t chosenPeoplemon() const;
 
+    /**
+     * @brief Returns whether or not the player has chosen to continue
+     *
+     */
+    bool shouldContinue() const;
+
+    /**
+     * @brief Prompts the player to continue or not
+     *
+     */
+    void chooseToContinue();
+
 protected:
+    Battler* owner;
+
     /**
      * @brief Initializes the battler with the peoplemon available to it
      *
@@ -83,22 +121,24 @@ protected:
      * @brief Base classes may override this to perform specific logic when a peoplemon must be
      *        picked
      *
+     * @param fromFaint True if the current has fainted, false if the switch is for another reason
+     * @param reviveOnly True if fainted peoplemon must be selected
+     *
      */
-    virtual void startChoosePeoplemon() = 0;
+    virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) = 0;
 
     /**
-     * @brief Selects the action to take on this turn
+     * @brief Prompts the player to continue or not
      *
-     * @param action The action to store and report to the battle
      */
-    void chooseAction(TurnAction action);
+    virtual void startChooseToContinue() = 0;
 
     /**
      * @brief Selects the move to use this turn when fighting
      *
-     * @param move The move to use
+     * @param move The index of the move to use
      */
-    void chooseMove(core::pplmn::MoveId move);
+    void chooseMove(int move);
 
     /**
      * @brief Selects the peoplemon to switch to
@@ -114,12 +154,27 @@ protected:
      */
     void chooseItem(core::item::Id item);
 
+    /**
+     * @brief Chooses to run away
+     *
+     */
+    void chooseRun();
+
+    /**
+     * @brief Choose whether to give up or not
+     *
+     * @param yes True to give up, false to continue
+     */
+    void chooseGiveUp(bool yes);
+
 private:
     TurnAction action;
-    core::item::Id useItem;
-    std::uint8_t switchIndex;
-    core::pplmn::MoveId move;
-    bool actionChoosed;
+    union {
+        core::item::Id useItem;
+        std::uint8_t switchIndex;
+        int move;
+        bool dontGiveUp;
+    };
     bool subActionPicked;
 };
 

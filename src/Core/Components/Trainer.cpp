@@ -11,6 +11,7 @@ Trainer::Trainer(const file::Trainer& data)
 , visionRange(data.visionRange)
 , peoplemon(data.peoplemon)
 , _items(data.items)
+, payout(data.payout)
 , beat(false) {
     if (!beforeBattle.load(data.prebattleConversation)) {
         BL_LOG_ERROR << "Failed to load trainer before battle conversation: "
@@ -47,6 +48,8 @@ const std::vector<item::Id>& Trainer::items() const { return _items; }
 bool Trainer::defeated() const { return beat; }
 
 void Trainer::setDefeated() { beat = true; }
+
+std::uint8_t Trainer::basePayout() const { return payout; }
 
 } // namespace component
 } // namespace core

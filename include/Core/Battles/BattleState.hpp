@@ -29,11 +29,20 @@ public:
         IntroSendInSelf,
         IntroSendInOpponent,
 
-        // Turn start
+        // Turn and round flow
         WaitingChoices,
+        RoundStart,
+        TurnStart,
+        NextBattler,
+        RoundFinalEffects,
+        RoundEnd,
 
         // Use item
+        PreUseItem,
         UsingItem,
+        PostUseItem,
+
+        // TODO - wild peoplemon ball states
 
         // Switch out
         BeforeSwitch,
@@ -43,28 +52,47 @@ public:
         // Run
         BeforeRun,
         Running,
+        RunFailed,
 
         // Fight
-        BeforeAttack,
         Attacking,
-        AfterAttack,
+        ResolveAfterAttackAbilities,
+        ResolveAttackEffect,
+
+        // Various switch states
+        WaitingMidTurnSwitch,
+        BeforeMidTurnSwitch,
+        MidTurnSwitching,
+        AfterMidTurnSwitch,
+        RoarSwitching,
+        AfterRoarSwitch,
 
         // Peoplemon defeated
-        BeforeFaint,
         Fainting,
-        XpAwarding,
-        LevelingUp,
-        BeforeFaintSwitch,
+        CheckPlayerContinue,
+        WaitingPlayerContinue,
+        CheckFaint,
+        WaitingFaintSwitch,
         FaintSwitching,
         AfterFaintSwitch,
 
-        // Battle end
-        Victory,
-        Lost,
-        TrainerDefeated, // after Victory
-        Completed,
+        // XP and level up
+        XpAwardBegin,
+        XpAwardPeoplemonBegin,
+        XpAwarding,
+        LevelingUp,
+        WaitingLearnMoveChoice,
+        WaitingForgetMoveChoice,
 
-        // Errors
+        // Battle end
+        NetworkDefeated,
+        NetworkLost,
+        TrainerDefeated,
+        PeoplemonCaught,
+        Whiteout,
+
+        // Final states
+        Completed,
         NetworkDisconnect
     };
 
@@ -75,6 +103,26 @@ public:
      *
      */
     BattleState(Stage initialState);
+
+    /**
+     * @brief Begins the next round of turns and sets the battler order
+     *
+     * @param playerIsFirst True if the local player goes first
+     */
+    void beginRound(bool playerIsFirst);
+
+    /**
+     * @brief Moves on to the next battler's turn. Returns the stage to transition to
+     *
+     * @return Stage Either WaitingChoices or TurnStart
+     */
+    Stage nextTurn();
+
+    /**
+     * @brief Returns whether the current mover is the first peoplemon to go this round
+     *
+     */
+    bool isFirstMover() const;
 
     /**
      * @brief Returns the local player Battler
@@ -95,6 +143,12 @@ public:
     Battler& activeBattler();
 
     /**
+     * @brief Returns the battler who is currently not resolving their turn
+     *
+     */
+    Battler& inactiveBattler();
+
+    /**
      * @brief Returns the current stage the battle is in
      *
      */
@@ -112,6 +166,7 @@ private:
     Battler player;
     Battler opponent; // TODO - some way to swap for network client?
     std::uint8_t currentMover;
+    std::uint8_t firstMover;
 };
 
 } // namespace battle

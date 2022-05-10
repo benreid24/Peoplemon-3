@@ -2,11 +2,17 @@
 #define GAME_BATTLES_BATTLECONTROLLERS_PLAYERCONTROLLER_HPP
 
 #include <Core/Battles/BattlerControllers/BattlerController.hpp>
+#include <Core/Systems/Player.hpp>
 
 namespace core
 {
 namespace battle
 {
+namespace view
+{
+class PlayerMenu;
+}
+
 /**
  * @brief This controller allows the player to control a battler
  *
@@ -15,7 +21,13 @@ namespace battle
  */
 class PlayerController : public BattlerController {
 public:
-    // TODO - how to interface with menus in the view? dont forget to remove items from the bag
+    /**
+     * @brief Construct a new Player Controller
+     *
+     * @param player The player system
+     * @param menu The menu to get player choices from
+     */
+    PlayerController(system::Player& player, view::PlayerMenu& menu);
 
     /**
      * @brief Destroy the Player Controller object
@@ -23,9 +35,28 @@ public:
      */
     virtual ~PlayerController() = default;
 
+    /**
+     * @brief Returns the name of the battler
+     *
+     */
+    virtual const std::string& name() const override;
+
+    /**
+     * @brief Checks the menu state
+     *
+     */
+    virtual void refresh() override;
+
 private:
+    enum struct State { Waiting, PickingTurn, PickingFaintReplacement };
+
+    State state;
+    system::Player& player;
+    view::PlayerMenu& menu;
+
     virtual void startChooseAction() override;
-    virtual void startChoosePeoplemon() override;
+    virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;
+    virtual void startChooseToContinue() override;
 };
 
 } // namespace battle

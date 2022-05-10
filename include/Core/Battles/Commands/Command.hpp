@@ -1,5 +1,5 @@
-#ifndef GAME_BATTLES_MESSAGES_COMMAND_HPP
-#define GAME_BATTLES_MESSAGES_COMMAND_HPP
+#ifndef GAME_BATTLES_COMMANDS_COMMAND_HPP
+#define GAME_BATTLES_COMMANDS_COMMAND_HPP
 
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Battles/Commands/Message.hpp>
@@ -25,39 +25,47 @@ public:
      * @brief The type the command is
      *
      */
-    enum struct Type : std::uint8_t {
+    enum Type : std::uint8_t {
         DisplayMessage = 0,
         PlayAnimation  = 1,
-        SyncState      = 2 // sync with view. also for network sync
-        // TODO - others? maybe use commands for battler choices for easy networking?
+
+        // sync with view. also for network sync
+        SyncStateNoSwitch = 2,
+        SyncStateSwitch   = 3,
+        WaitForView       = 4,
+
+        // For network client only
+        NotifyBattleWinner = 5
     };
 
     /**
-     * @brief Empty struct to create sync commands
+     * @brief Creates a new command of the given type with no data
      *
+     * @param type The command type to create
      */
-    struct SyncState {};
+    Command(Type type);
 
     /**
-     * @brief Creates a new sync command. This is emitted whenever the BattleState is modified and
-     *        needs to be sent over the network
+     * @brief Creates a new command of the given type and a bool to indicate which battler it is for
      *
+     * @param type The command type to create
+     * @param forActiveBattler True if cmd is for active battler, false for inactive
      */
-    Command(SyncState&& unused, bool waitView);
+    Command(Type type, bool forActiveBattler);
 
     /**
      * @brief Creates a new DisplayMessage command
      *
      * @param message The message to display
      */
-    Command(Message&& message, bool waitView);
+    Command(cmd::Message&& message);
 
     /**
      * @brief Creates a new PlayAnimation command
      *
      * @param anim The animation descriptor to play
      */
-    Command(Animation&& anim, bool waitView);
+    Command(cmd::Animation&& anim);
 
     /**
      * @brief Returns the type of this command
@@ -69,25 +77,25 @@ public:
      * @brief Returns the message if this command is a message
      *
      */
-    const Message& getMessage() const;
+    const cmd::Message& getMessage() const;
 
     /**
      * @brief Returns the animation if this command is an animation
      *
      */
-    const Animation& getAnimation() const;
+    const cmd::Animation& getAnimation() const;
 
     /**
-     * @brief True if the battle controller should wait for the view or false to continue to process
-     *        commands
+     * @brief Returns whether or not this command is for the active battler
      *
      */
-    bool waitForView() const;
+    bool forActiveBattler() const;
 
 private:
-    const Type type;
-    const std::variant<Message, Animation, SyncState> data;
-    const bool wait;
+    struct Empty {};
+
+    Type type;
+    std::variant<Empty, cmd::Message, cmd::Animation, bool> data;
 };
 
 } // namespace battle
