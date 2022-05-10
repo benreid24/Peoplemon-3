@@ -216,7 +216,9 @@ public:
         NewTeachAbility,
         DozeOffAbility,
         DouseFlamesAbility,
-        FlirtyAbility
+        FlirtyAbility,
+        UndyingFaithAbility,
+        TooCoolAbility
     };
 
     /**

@@ -1568,6 +1568,15 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
         queueCommand({cmd::Message(cmd::Message::Type::ExperiencedTeachAbility, isActive)}, true);
     }
 
+    // undying faith ability
+    if (ppl.currentAbility() == pplmn::SpecialAbility::UndyingFaith &&
+        dmg >= ppl.base().currentHp()) {
+        if (bl::util::Random::get<int>(0, 100) <= 10) {
+            dmg = ppl.base().currentHp() - 1;
+            queueCommand({cmd::Message(cmd::Message::Type::UndyingFaithAbility, isActive)}, true);
+        }
+    }
+
     ppl.applyDamage(dmg);
     victim.getSubstate().lastMoveHitWith = move;
     victim.getSubstate().lastDamageTaken = dmg;
@@ -1582,6 +1591,13 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::Ailment ail) {
     const bool isActive = &victim == &state->activeBattler().activePeoplemon();
+
+    // check too cool ability
+    if (victim.currentAbility() == pplmn::SpecialAbility::TooCool &&
+        ail == pplmn::Ailment::Frustrated) {
+        queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, isActive)}, true);
+        return;
+    }
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
@@ -1614,8 +1630,16 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
                     true);
             }
             else {
-                queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isActive)},
-                             true);
+                // determine if blocked by too cool
+                if (ail == pplmn::Ailment::Frustrated &&
+                    other.activePeoplemon().currentAbility() == pplmn::SpecialAbility::TooCool) {
+                    queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, !isActive)},
+                                 true);
+                }
+                else {
+                    queueCommand(
+                        {cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isActive)}, true);
+                }
             }
         }
     }
@@ -1627,8 +1651,6 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::PassiveAilment ail) {
     const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
-
-    // TODO - handle abilities and whatnot. not all ailments are gained unconditionally
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {

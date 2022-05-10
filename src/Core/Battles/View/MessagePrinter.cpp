@@ -822,6 +822,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = other + "'s Flirtyness is disarming " + ppl + "!";
         break;
 
+    case Message::Type::UndyingFaithAbility:
+        dispText = ppl + "'s Undying Faith saved them from death!";
+        break;
+
+    case Message::Type::TooCoolAbility:
+        dispText = other + " tried to Frustrate " + ppl + " but " + ppl + " is Too Cool for that!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
