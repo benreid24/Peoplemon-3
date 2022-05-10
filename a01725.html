@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::script::LegacyWarn Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,29 +63,78 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00922.html">editor</a></li><li class="navelem"><a class="el" href="a00923.html">component</a></li><li class="navelem"><a class="el" href="a01728.html">BehaviorEditor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00974.html">script</a></li><li class="navelem"><a class="el" href="a01725.html">LegacyWarn</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01722.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::BehaviorEditor Member List</div>  </div>
+<div class="title">core::script::LegacyWarn Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01728.html">editor::component::BehaviorEditor</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01728.html#a8175ec4cd2d1d574b3e3fb0556eecb71">BehaviorEditor</a>(const OnSetCb &amp;cb, const NotifyWindowCb &amp;onOpen, const NotifyWindowCb &amp;onClose)</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01728.html#afac6108792cee955a5089842471eac45">configure</a>(bl::gui::GUI::Ptr parent, const core::file::Behavior &amp;behavior)</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01728.html#a36e750b9f804885d6f368a90e9bde5e2">getValue</a>() const</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01728.html#a9d181f0bcd3fa7173f67a3a82e803837">hide</a>()</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01728.html#ae1f0ed110c26dd0d4f0ceb6c86646cde">NotifyWindowCb</a> typedef</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01728.html#a5069acfe3fe2f7f3d4c0a57bab9f1f8f">OnSetCb</a> typedef</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01728.html#a04c6fd7046015b869dd743055388a47c">pack</a>(bl::gui::Box::Ptr parent)</td><td class="entry"><a class="el" href="a01728.html">editor::component::BehaviorEditor</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper struct to warn when legacy scripts are attempted to load.  
+ <a href="a01725.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00278_source.html">LegacyWarn.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af1e1206fb0e640a241cce44950bebb1b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01725.html#af1e1206fb0e640a241cce44950bebb1b">warn</a> (const std::string &amp;script)</td></tr>
+<tr class="memdesc:af1e1206fb0e640a241cce44950bebb1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">In debug mode logs a warning if the given script is detected to be legacy.  <a href="#af1e1206fb0e640a241cce44950bebb1b">More...</a><br /></td></tr>
+<tr class="separator:af1e1206fb0e640a241cce44950bebb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper struct to warn when legacy scripts are attempted to load. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00017">17</a> of file <a class="el" href="a00278_source.html">LegacyWarn.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af1e1206fb0e640a241cce44950bebb1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1e1206fb0e640a241cce44950bebb1b">&#9670;&nbsp;</a></span>warn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::script::LegacyWarn::warn </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>script</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>In debug mode logs a warning if the given script is detected to be legacy. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">script</td><td>The script to check. Only works on files </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00278_source.html#l00026">26</a> of file <a class="el" href="a00278_source.html">LegacyWarn.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Scripts/<a class="el" href="a00278_source.html">LegacyWarn.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

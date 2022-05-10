@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event::BattleStarted Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,26 +63,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00905.html">core</a></li><li class="navelem"><a class="el" href="a00915.html">file</a></li><li class="navelem"><a class="el" href="a01252.html">Conversation</a></li><li class="navelem"><a class="el" href="a01256.html">Node</a></li><li class="navelem"><a class="el" href="a01260.html">Item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00961.html">event</a></li><li class="navelem"><a class="el" href="a01257.html">BattleStarted</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01254.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::Conversation::Node::Item Member List</div>  </div>
+<div class="title">core::event::BattleStarted Struct Reference<div class="ingroups"><a class="el" href="a00932.html">Core</a> &raquo; <a class="el" href="a00937.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01260.html">core::file::Conversation::Node::Item</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01260.html#a942790137a0357daee92c24a69bf5536">afterPrompt</a></td><td class="entry"><a class="el" href="a01260.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01260.html#a985461a55f6c7f9fe1fb38b84e528c84">beforePrompt</a></td><td class="entry"><a class="el" href="a01260.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01260.html#a4d4a3fd2573fe1ef6f5e9acb6a055350">id</a></td><td class="entry"><a class="el" href="a01260.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01260.html#ade19943b20180512c327fe5a64592441">Item</a>()</td><td class="entry"><a class="el" href="a01260.html">core::file::Conversation::Node::Item</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin.  
+ <a href="a01257.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a02646_source.html">Battle.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01257.html#ad383ca87cb6d0e838ffc86fb066b7a72">BattleStarted</a> (std::unique_ptr&lt; <a class="el" href="a01065.html">battle::Battle</a> &gt; &amp;&amp;<a class="el" href="a01257.html#a7441c17448e872495503eec88b334e5a">battle</a>)</td></tr>
+<tr class="memdesc:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Battle Started event.  <a href="#ad383ca87cb6d0e838ffc86fb066b7a72">More...</a><br /></td></tr>
+<tr class="separator:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a7441c17448e872495503eec88b334e5a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01065.html">battle::Battle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01257.html#a7441c17448e872495503eec88b334e5a">battle</a></td></tr>
+<tr class="memdesc:a7441c17448e872495503eec88b334e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The battle to start.  <a href="#a7441c17448e872495503eec88b334e5a">More...</a><br /></td></tr>
+<tr class="separator:a7441c17448e872495503eec88b334e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02646_source.html#l00017">17</a> of file <a class="el" href="a02646_source.html">Battle.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad383ca87cb6d0e838ffc86fb066b7a72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad383ca87cb6d0e838ffc86fb066b7a72">&#9670;&nbsp;</a></span>BattleStarted()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::event::BattleStarted::BattleStarted </td>
+          <td>(</td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a01065.html">battle::Battle</a> &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>battle</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new Battle Started event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">battle</td><td>The battle to start </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02646_source.html#l00026">26</a> of file <a class="el" href="a02646_source.html">Battle.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7441c17448e872495503eec88b334e5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7441c17448e872495503eec88b334e5a">&#9670;&nbsp;</a></span>battle</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01065.html">battle::Battle</a>&gt; core::event::BattleStarted::battle</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The battle to start. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02646_source.html#l00019">19</a> of file <a class="el" href="a02646_source.html">Battle.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a02646_source.html">Battle.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

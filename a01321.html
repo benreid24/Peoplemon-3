@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event::WeatherStopped Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,26 +63,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00910.html">bl</a></li><li class="navelem"><a class="el" href="a00911.html">serial</a></li><li class="navelem"><a class="el" href="a00913.html">json</a></li><li class="navelem"><a class="el" href="a01324.html">SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00961.html">event</a></li><li class="navelem"><a class="el" href="a01321.html">WeatherStopped</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01318.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt; Member List</div>  </div>
+<div class="title">core::event::WeatherStopped Struct Reference<div class="ingroups"><a class="el" href="a00932.html">Core</a> &raquo; <a class="el" href="a00937.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01324.html">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01324.html#ada11c7dda3f6c7b112746b705c7c8a70">C</a> typedef</td><td class="entry"><a class="el" href="a01324.html">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01324.html#af66d68dcfc41a88eebcb409c88697911">SerializableObject</a>()</td><td class="entry"><a class="el" href="a01324.html">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01324.html#a1e58cc69474e20c7e3cf41bb2382973b">T</a> typedef</td><td class="entry"><a class="el" href="a01324.html">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01324.html#a236d6989f6b92a2044f73c9f1c3b75cc">time</a></td><td class="entry"><a class="el" href="a01324.html">bl::serial::json::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Fired when weather stops.  
+ <a href="a01321.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a02715_source.html">Weather.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3b10536ac7042c02e5fa2563122042d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01321.html#a3b10536ac7042c02e5fa2563122042d7">WeatherStopped</a> (<a class="el" href="a01593.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> <a class="el" href="a01321.html#ab88bdc50383dc2b3e14fc4940462ec16">type</a>)</td></tr>
+<tr class="memdesc:a3b10536ac7042c02e5fa2563122042d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a weather stopped event.  <a href="#a3b10536ac7042c02e5fa2563122042d7">More...</a><br /></td></tr>
+<tr class="separator:a3b10536ac7042c02e5fa2563122042d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ab88bdc50383dc2b3e14fc4940462ec16"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01593.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01321.html#ab88bdc50383dc2b3e14fc4940462ec16">type</a></td></tr>
+<tr class="memdesc:ab88bdc50383dc2b3e14fc4940462ec16"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather that stopped.  <a href="#ab88bdc50383dc2b3e14fc4940462ec16">More...</a><br /></td></tr>
+<tr class="separator:ab88bdc50383dc2b3e14fc4940462ec16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired when weather stops. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02715_source.html#l00035">35</a> of file <a class="el" href="a02715_source.html">Weather.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3b10536ac7042c02e5fa2563122042d7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b10536ac7042c02e5fa2563122042d7">&#9670;&nbsp;</a></span>WeatherStopped()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::event::WeatherStopped::WeatherStopped </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01593.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a weather stopped event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of weather that stopped </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a02715_source.html#l00041">41</a> of file <a class="el" href="a02715_source.html">Weather.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab88bdc50383dc2b3e14fc4940462ec16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab88bdc50383dc2b3e14fc4940462ec16">&#9670;&nbsp;</a></span>type</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01593.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> core::event::WeatherStopped::type</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The type of weather that stopped. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02715_source.html#l00045">45</a> of file <a class="el" href="a02715_source.html">Weather.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a02715_source.html">Weather.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

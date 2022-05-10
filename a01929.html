@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::OwnedPeoplemonWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,29 +63,199 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00933.html">game</a></li><li class="navelem"><a class="el" href="a00934.html">menu</a></li><li class="navelem"><a class="el" href="a01932.html">BagItemButton</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00969.html">editor</a></li><li class="navelem"><a class="el" href="a00970.html">component</a></li><li class="navelem"><a class="el" href="a01929.html">OwnedPeoplemonWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01926.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::menu::BagItemButton Member List</div>  </div>
+<div class="title">editor::component::OwnedPeoplemonWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01932.html">game::menu::BagItemButton</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01932.html#a6bec2ab3f1796bb353f6e3095741c85d">create</a>(const core::player::Bag::Item &amp;item)</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01932.html#a1f0452a79b23fd0298fd2b66b34bb9de">getItem</a>() const</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01932.html#a289049624939c6b2c98bdb666d9639db">getSize</a>() const override</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01932.html#a647ce4c55ccdb5aaf3779e5fa2870698">Ptr</a> typedef</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01932.html#aa8ddc4c4307bfca2b93120e629840f05">render</a>(sf::RenderTarget &amp;target, sf::RenderStates states, const sf::Vector2f &amp;position) const override</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01932.html#a02ee0110be48a1e0f77368575fbbbcd6">update</a>(const core::player::Bag::Item &amp;item)</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01932.html#ac5f9e331c0c5fce45cade33cc71490f6">~BagItemButton</a>()=default</td><td class="entry"><a class="el" href="a01932.html">game::menu::BagItemButton</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Window for editing owned Peoplemon.  
+ <a href="a01929.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00386_source.html">OwnedPeoplemonWindow.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a134467f105cfced62d7d55e0b8d6d423"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">NotifyCB</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:a134467f105cfced62d7d55e0b8d6d423"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when the window is closed.  <a href="#a134467f105cfced62d7d55e0b8d6d423">More...</a><br /></td></tr>
+<tr class="separator:a134467f105cfced62d7d55e0b8d6d423"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a47915a8d5824f08b0c0e2c3ae2b3b865"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html#a47915a8d5824f08b0c0e2c3ae2b3b865">OwnedPeoplemonWindow</a> (const <a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">NotifyCB</a> &amp;onFinish, const <a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">NotifyCB</a> &amp;onCancel)</td></tr>
+<tr class="memdesc:a47915a8d5824f08b0c0e2c3ae2b3b865"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Owned Peoplemon Window.  <a href="#a47915a8d5824f08b0c0e2c3ae2b3b865">More...</a><br /></td></tr>
+<tr class="separator:a47915a8d5824f08b0c0e2c3ae2b3b865"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27b757f505a1f179dc63ea36c377b5b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html#a27b757f505a1f179dc63ea36c377b5b4">show</a> (const bl::gui::GUI::Ptr &amp;parent, const <a class="el" href="a01621.html">core::pplmn::OwnedPeoplemon</a> &amp;value={})</td></tr>
+<tr class="memdesc:a27b757f505a1f179dc63ea36c377b5b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shows the window.  <a href="#a27b757f505a1f179dc63ea36c377b5b4">More...</a><br /></td></tr>
+<tr class="separator:a27b757f505a1f179dc63ea36c377b5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacb998b39f276b1c64837337bba0ddba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html#aacb998b39f276b1c64837337bba0ddba">hide</a> ()</td></tr>
+<tr class="memdesc:aacb998b39f276b1c64837337bba0ddba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the window.  <a href="#aacb998b39f276b1c64837337bba0ddba">More...</a><br /></td></tr>
+<tr class="separator:aacb998b39f276b1c64837337bba0ddba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa86067ab2cd5e767bc44b3b5af7e09a1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01621.html">core::pplmn::OwnedPeoplemon</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01929.html#aa86067ab2cd5e767bc44b3b5af7e09a1">getValue</a> () const</td></tr>
+<tr class="memdesc:aa86067ab2cd5e767bc44b3b5af7e09a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the value of the Peoplemon entered.  <a href="#aa86067ab2cd5e767bc44b3b5af7e09a1">More...</a><br /></td></tr>
+<tr class="separator:aa86067ab2cd5e767bc44b3b5af7e09a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Window for editing owned Peoplemon. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00386_source.html#l00021">21</a> of file <a class="el" href="a00386_source.html">OwnedPeoplemonWindow.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a134467f105cfced62d7d55e0b8d6d423"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a134467f105cfced62d7d55e0b8d6d423">&#9670;&nbsp;</a></span>NotifyCB</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">editor::component::OwnedPeoplemonWindow::NotifyCB</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback for when the window is closed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00386_source.html#l00024">24</a> of file <a class="el" href="a00386_source.html">OwnedPeoplemonWindow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a47915a8d5824f08b0c0e2c3ae2b3b865"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47915a8d5824f08b0c0e2c3ae2b3b865">&#9670;&nbsp;</a></span>OwnedPeoplemonWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::OwnedPeoplemonWindow::OwnedPeoplemonWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">NotifyCB</a> &amp;&#160;</td>
+          <td class="paramname"><em>onFinish</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01929.html#a134467f105cfced62d7d55e0b8d6d423">NotifyCB</a> &amp;&#160;</td>
+          <td class="paramname"><em>onCancel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Owned Peoplemon Window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">onFinish</td><td>Called when the Peoplemon is finished </td></tr>
+    <tr><td class="paramname">onCancel</td><td>Called when the window is closed without using the peoplemon </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00833_source.html#l00012">12</a> of file <a class="el" href="a00833_source.html">OwnedPeoplemonWindow.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa86067ab2cd5e767bc44b3b5af7e09a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa86067ab2cd5e767bc44b3b5af7e09a1">&#9670;&nbsp;</a></span>getValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01621.html">core::pplmn::OwnedPeoplemon</a> editor::component::OwnedPeoplemonWindow::getValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the value of the Peoplemon entered. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00833_source.html#l00168">168</a> of file <a class="el" href="a00833_source.html">OwnedPeoplemonWindow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aacb998b39f276b1c64837337bba0ddba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacb998b39f276b1c64837337bba0ddba">&#9670;&nbsp;</a></span>hide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::OwnedPeoplemonWindow::hide </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Hides the window. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00833_source.html#l00163">163</a> of file <a class="el" href="a00833_source.html">OwnedPeoplemonWindow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a27b757f505a1f179dc63ea36c377b5b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27b757f505a1f179dc63ea36c377b5b4">&#9670;&nbsp;</a></span>show()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::OwnedPeoplemonWindow::show </td>
+          <td>(</td>
+          <td class="paramtype">const bl::gui::GUI::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01621.html">core::pplmn::OwnedPeoplemon</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Shows the window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
+    <tr><td class="paramname">value</td><td>The value to fill with </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00833_source.html#l00131">131</a> of file <a class="el" href="a00833_source.html">OwnedPeoplemonWindow.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00386_source.html">OwnedPeoplemonWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00833_source.html">OwnedPeoplemonWindow.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

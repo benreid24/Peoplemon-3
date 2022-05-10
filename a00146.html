@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/LayerSet.hpp File Reference</title>
+<title>Peoplemon: include/Core/Items/Category.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,70 +63,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_d0817f30fd8c8c383703ce347219b18e.html">Items</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">LayerSet.hpp File Reference</div>  </div>
+<div class="title">Category.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a02549_source.html">Core/Maps/Collision.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00143_source.html">Core/Maps/Layer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00164_source.html">Core/Maps/Tile.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00146_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01424.html">core::map::LayerSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates a set of layers for a given map height. Maps have one <a class="el" href="a01424.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a> per height level, as well as a TransitionLayer.  <a href="a01424.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01428.html">bl::serial::binary::SerializableObject&lt; core::map::LayerSet &gt;</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00905"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00905.html">core</a></td></tr>
-<tr class="memdesc:a00905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00950"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html">core</a></td></tr>
+<tr class="memdesc:a00950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00916"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00916.html">core::map</a></td></tr>
-<tr class="memdesc:a00916"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00910"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00910.html">bl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00911"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00911.html">bl::serial</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00912"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00912.html">bl::serial::binary</a></td></tr>
+<tr class="memitem:a00965"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00965.html">core::item</a></td></tr>
+<tr class="memdesc:a00965"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga66eea922eb1a848502083dd129b60e7f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00895.html#ga66eea922eb1a848502083dd129b60e7f">core::map::CollisionLayer</a> = Layer&lt; Collision &gt;</td></tr>
-<tr class="memdesc:ga66eea922eb1a848502083dd129b60e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01416.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for collisions.  <a href="a00895.html#ga66eea922eb1a848502083dd129b60e7f">More...</a><br /></td></tr>
-<tr class="separator:ga66eea922eb1a848502083dd129b60e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaebf97290ad4f85bdc69c37956e898f58"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00895.html#gaebf97290ad4f85bdc69c37956e898f58">core::map::CatchLayer</a> = Layer&lt; std::uint8_t &gt;</td></tr>
-<tr class="memdesc:gaebf97290ad4f85bdc69c37956e898f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01416.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for catch tiles.  <a href="a00895.html#gaebf97290ad4f85bdc69c37956e898f58">More...</a><br /></td></tr>
-<tr class="separator:gaebf97290ad4f85bdc69c37956e898f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00895.html#ga20b619b84a2c30417adb8107ad0b51a6">core::map::TileLayer</a> = Layer&lt; Tile &gt;</td></tr>
-<tr class="memdesc:ga20b619b84a2c30417adb8107ad0b51a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01416.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for tiles.  <a href="a00895.html#ga20b619b84a2c30417adb8107ad0b51a6">More...</a><br /></td></tr>
-<tr class="separator:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00895.html#ga6f70b9c1f8b3325b63baf210dd69e816">core::map::SortedLayer</a> = bl::container::Vector2D&lt; Tile * &gt;</td></tr>
-<tr class="memdesc:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special type of tile layer for y-sorted tiles. Used for rendering only.  <a href="a00895.html#ga6f70b9c1f8b3325b63baf210dd69e816">More...</a><br /></td></tr>
-<tr class="separator:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab98902d96935b8002b77c6739f0b18c5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00895.html#gab98902d96935b8002b77c6739f0b18c5">core::map::HeightTransitionLayer</a> = Layer&lt; std::uint8_t &gt;</td></tr>
-<tr class="memdesc:gab98902d96935b8002b77c6739f0b18c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01416.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for height transitions.  <a href="a00895.html#gab98902d96935b8002b77c6739f0b18c5">More...</a><br /></td></tr>
-<tr class="separator:gab98902d96935b8002b77c6739f0b18c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00939.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a> : std::uint8_t { <a class="el" href="a00939.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Category::Unknown</a>, 
+<a class="el" href="a00939.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">core::item::Category::Regular</a>, 
+<a class="el" href="a00939.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">core::item::Category::Key</a>, 
+<a class="el" href="a00939.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">core::item::Category::TM</a>
+ }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a00939.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

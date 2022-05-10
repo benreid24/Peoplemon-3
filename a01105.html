@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::battle::BattleSkipper Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,103 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00905.html">core</a></li><li class="navelem"><a class="el" href="a00909.html">component</a></li><li class="navelem"><a class="el" href="a01108.html">Renderable</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00953.html">battle</a></li><li class="navelem"><a class="el" href="a01105.html">BattleSkipper</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01102.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Renderable Member List</div>  </div>
+<div class="title">core::battle::BattleSkipper Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01108.html">core::component::Renderable</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01108.html#a7f7856b68cafa62da97aca51e6112ea8">animLength</a>() const</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01108.html#afbc35a80a860222628b2239ab693dade">ComponentId</a></td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01108.html#a1d742c4b940decd26bd769278829a222">fromAnimation</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const std::string &amp;path, bool center)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01108.html#a300fb0790c27a9a4a2d6bea0783c301a">fromFastMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;move, const std::string &amp;path)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01108.html#af852c36b8ce6f2794472eae9b59d5c21">fromMoveAnims</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const bl::entity::Registry::ComponentHandle&lt; component::Movable &gt; &amp;movable, const std::string &amp;path)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01108.html#a0cee571f9b7a800317e91eacf9f2847d">fromSprite</a>(const bl::entity::Registry::ComponentHandle&lt; component::Position &gt; &amp;pos, const std::string &amp;path)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01108.html#a3691814b322367e67aa8d3b6547bfdf4">render</a>(sf::RenderTarget &amp;target, float lag) const</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01108.html#ae02e608c464cc1dfcd9602619fc052cf">triggerAnim</a>(bool loop)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01108.html#ae5ee62852d8ec0ee85abaee830750d1d">update</a>(float dt)</td><td class="entry"><a class="el" href="a01108.html">core::component::Renderable</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A debug-only utility for skipping battles when testing.  
+ <a href="a01105.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00035_source.html">BattleSkipper.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:af5349e82bbdf164720965bcfe4d33b58"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01105.html#af5349e82bbdf164720965bcfe4d33b58">skipBattles</a> ()</td></tr>
+<tr class="memdesc:af5349e82bbdf164720965bcfe4d33b58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not battles should be skipped.  <a href="#af5349e82bbdf164720965bcfe4d33b58">More...</a><br /></td></tr>
+<tr class="separator:af5349e82bbdf164720965bcfe4d33b58"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c219cbee08f1d2b91d8c74f74f572fe"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01105.html#a7c219cbee08f1d2b91d8c74f74f572fe">toggleSkipBattles</a> ()</td></tr>
+<tr class="memdesc:a7c219cbee08f1d2b91d8c74f74f572fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Toggles the setting of skipping battles.  <a href="#a7c219cbee08f1d2b91d8c74f74f572fe">More...</a><br /></td></tr>
+<tr class="separator:a7c219cbee08f1d2b91d8c74f74f572fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A debug-only utility for skipping battles when testing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00014">14</a> of file <a class="el" href="a00035_source.html">BattleSkipper.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="af5349e82bbdf164720965bcfe4d33b58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5349e82bbdf164720965bcfe4d33b58">&#9670;&nbsp;</a></span>skipBattles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool core::battle::BattleSkipper::skipBattles </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns whether or not battles should be skipped. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00020">20</a> of file <a class="el" href="a00035_source.html">BattleSkipper.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7c219cbee08f1d2b91d8c74f74f572fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c219cbee08f1d2b91d8c74f74f572fe">&#9670;&nbsp;</a></span>toggleSkipBattles()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void core::battle::BattleSkipper::toggleSkipBattles </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Toggles the setting of skipping battles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00035_source.html#l00026">26</a> of file <a class="el" href="a00035_source.html">BattleSkipper.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/Core/Battles/<a class="el" href="a00035_source.html">BattleSkipper.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

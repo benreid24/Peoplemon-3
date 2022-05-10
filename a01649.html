@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::pplmn::StoredPeoplemon Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,27 +63,102 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00910.html">bl</a></li><li class="navelem"><a class="el" href="a00911.html">serial</a></li><li class="navelem"><a class="el" href="a00913.html">json</a></li><li class="navelem"><a class="el" href="a01652.html">SerializableObject&lt; core::system::Clock::Time &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00968.html">pplmn</a></li><li class="navelem"><a class="el" href="a01649.html">StoredPeoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01646.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt; Member List</div>  </div>
+<div class="title">core::pplmn::StoredPeoplemon Struct Reference<div class="ingroups"><a class="el" href="a00932.html">Core</a> &raquo; <a class="el" href="a00941.html">Peoplemon</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01652.html#aa5bb3f7997d19f7cac128397385f6284">day</a></td><td class="entry"><a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01652.html#adb07e88dc77fccf042db292cb325970e">hour</a></td><td class="entry"><a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01652.html#a110b3921b1b86134b2972dcf25520c5b">minute</a></td><td class="entry"><a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01652.html#a1c34aee43f10e5b29b8b0b0b502ef211">SerializableObject</a>()</td><td class="entry"><a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01652.html#a1cb2386ed0d63b8873c7336ff57b5dec">T</a> typedef</td><td class="entry"><a class="el" href="a01652.html">bl::serial::json::SerializableObject&lt; core::system::Clock::Time &gt;</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Represents a <a class="el" href="a01633.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> in storage.  
+ <a href="a01649.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01621.html">OwnedPeoplemon</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#a482cbc6f5acf9a7126f43f7259f4ba40">peoplemon</a></td></tr>
+<tr class="memdesc:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="mdescLeft">&#160;</td><td class="mdescRight">The peoplemon itself.  <a href="#a482cbc6f5acf9a7126f43f7259f4ba40">More...</a><br /></td></tr>
+<tr class="separator:a482cbc6f5acf9a7126f43f7259f4ba40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a552fd44bb4cc36562d64213713feed93"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#a552fd44bb4cc36562d64213713feed93">boxNumber</a></td></tr>
+<tr class="memdesc:a552fd44bb4cc36562d64213713feed93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which box the peoplemon is in.  <a href="#a552fd44bb4cc36562d64213713feed93">More...</a><br /></td></tr>
+<tr class="separator:a552fd44bb4cc36562d64213713feed93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82dec03ba3a2969b4d05efdc34de21f9"><td class="memItemLeft" align="right" valign="top">sf::Vector2i&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01649.html#a82dec03ba3a2969b4d05efdc34de21f9">position</a></td></tr>
+<tr class="memdesc:a82dec03ba3a2969b4d05efdc34de21f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">The position of the peoplemon in the box.  <a href="#a82dec03ba3a2969b4d05efdc34de21f9">More...</a><br /></td></tr>
+<tr class="separator:a82dec03ba3a2969b4d05efdc34de21f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a <a class="el" href="a01633.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> in storage. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00017">17</a> of file <a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a>.</p>
+</div><h2 class="groupheader">Member Data Documentation</h2>
+<a id="a552fd44bb4cc36562d64213713feed93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a552fd44bb4cc36562d64213713feed93">&#9670;&nbsp;</a></span>boxNumber</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::pplmn::StoredPeoplemon::boxNumber</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Which box the peoplemon is in. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00022">22</a> of file <a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a482cbc6f5acf9a7126f43f7259f4ba40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a482cbc6f5acf9a7126f43f7259f4ba40">&#9670;&nbsp;</a></span>peoplemon</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01621.html">OwnedPeoplemon</a> core::pplmn::StoredPeoplemon::peoplemon</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The peoplemon itself. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00019">19</a> of file <a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a82dec03ba3a2969b4d05efdc34de21f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82dec03ba3a2969b4d05efdc34de21f9">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2i core::pplmn::StoredPeoplemon::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The position of the peoplemon in the box. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00236_source.html#l00025">25</a> of file <a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Peoplemon/<a class="el" href="a00236_source.html">StoredPeoplemon.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

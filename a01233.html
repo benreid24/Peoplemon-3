@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::component::SpinBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,26 +63,155 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00905.html">core</a></li><li class="navelem"><a class="el" href="a00915.html">file</a></li><li class="navelem"><a class="el" href="a01220.html">Behavior</a></li><li class="navelem"><a class="el" href="a01232.html">Path</a></li><li class="navelem"><a class="el" href="a01236.html">Pace</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00950.html">core</a></li><li class="navelem"><a class="el" href="a00956.html">component</a></li><li class="navelem"><a class="el" href="a01233.html">SpinBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01230.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::Behavior::Path::Pace Member List</div>  </div>
+<div class="title">core::component::SpinBehavior Class Reference<div class="ingroups"><a class="el" href="a00932.html">Core</a> &raquo; <a class="el" href="a00936.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01236.html">core::file::Behavior::Path::Pace</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01236.html#a6199bd64c632c44d522681ca8ea8da23">direction</a></td><td class="entry"><a class="el" href="a01236.html">core::file::Behavior::Path::Pace</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01236.html#a5344324dfcad3f9743d280acabd539d3">Pace</a>(component::Direction dir, std::uint16_t steps)</td><td class="entry"><a class="el" href="a01236.html">core::file::Behavior::Path::Pace</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01236.html#aab09105c14f1631306798070768f747d">Pace</a>()</td><td class="entry"><a class="el" href="a01236.html">core::file::Behavior::Path::Pace</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01236.html#a61177dcaadc052f9a5fc3c953b8130cc">steps</a></td><td class="entry"><a class="el" href="a01236.html">core::file::Behavior::Path::Pace</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Add this to an entity to make it spin in place.  
+ <a href="a01233.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00101_source.html">SpinBehavior.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3278a050aad68a38f0340159e9af40df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01233.html#a3278a050aad68a38f0340159e9af40df">SpinBehavior</a> (<a class="el" href="a01333.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a> dir)</td></tr>
+<tr class="memdesc:a3278a050aad68a38f0340159e9af40df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Spin Behavior component.  <a href="#a3278a050aad68a38f0340159e9af40df">More...</a><br /></td></tr>
+<tr class="separator:a3278a050aad68a38f0340159e9af40df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01233.html#a425ec658a50bbae8bbf4ceb3b21d37da">update</a> (<a class="el" href="a01197.html">Position</a> &amp;position, <a class="el" href="a01173.html">Controllable</a> &amp;controller, float dt)</td></tr>
+<tr class="memdesc:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the behavior.  <a href="#a425ec658a50bbae8bbf4ceb3b21d37da">More...</a><br /></td></tr>
+<tr class="separator:a425ec658a50bbae8bbf4ceb3b21d37da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ae102083bd03ddfd3599ea1b8563663cc"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01233.html#ae102083bd03ddfd3599ea1b8563663cc">ComponentId</a> = 8</td></tr>
+<tr class="memdesc:ae102083bd03ddfd3599ea1b8563663cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#ae102083bd03ddfd3599ea1b8563663cc">More...</a><br /></td></tr>
+<tr class="separator:ae102083bd03ddfd3599ea1b8563663cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Add this to an entity to make it spin in place. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00101_source.html#l00018">18</a> of file <a class="el" href="a00101_source.html">SpinBehavior.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3278a050aad68a38f0340159e9af40df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3278a050aad68a38f0340159e9af40df">&#9670;&nbsp;</a></span>SpinBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::component::SpinBehavior::SpinBehavior </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01333.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Spin Behavior component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dir</td><td>The direction to spin in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00010">10</a> of file <a class="el" href="a00566_source.html">SpinBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a425ec658a50bbae8bbf4ceb3b21d37da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a425ec658a50bbae8bbf4ceb3b21d37da">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::SpinBehavior::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01197.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01173.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the behavior. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position component of the entity </td></tr>
+    <tr><td class="paramname">controller</td><td>The controllable component of the entity </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00566_source.html#l00014">14</a> of file <a class="el" href="a00566_source.html">SpinBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae102083bd03ddfd3599ea1b8563663cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae102083bd03ddfd3599ea1b8563663cc">&#9670;&nbsp;</a></span>ComponentId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::SpinBehavior::ComponentId = 8</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Required for BLIB ECS. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00101_source.html#l00021">21</a> of file <a class="el" href="a00101_source.html">SpinBehavior.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00101_source.html">SpinBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00566_source.html">SpinBehavior.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Mar 24 2022 21:19:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 10 2022 14:03:09 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
