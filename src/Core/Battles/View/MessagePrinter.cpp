@@ -830,6 +830,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = other + " tried to Frustrate " + ppl + " but " + ppl + " is Too Cool for that!";
         break;
 
+    case Message::Type::FakeStudyAbility:
+        dispText = ppl + " was too busy Fake Studying to attack!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

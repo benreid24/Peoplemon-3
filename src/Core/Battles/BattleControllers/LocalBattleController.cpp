@@ -742,13 +742,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     // get move, handle charge, and deduct pp
     pplmn::OwnedMove& move        = user.activePeoplemon().base().knownMoves()[index];
     const bool isChargeSecondTurn = user.getSubstate().chargingMove >= 0;
-    if (!isChargeSecondTurn) {
-        move.curPP -= 1;
-        queueCommand({cmd::Message(cmd::Message(move.id))}, true);
-    }
+    if (!isChargeSecondTurn) { move.curPP -= 1; }
     else {
         user.getSubstate().chargingMove = -1;
-        queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsActive)}, true);
     }
 
     // determine actual move to use based on effects
@@ -756,7 +752,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     const pplmn::MoveEffect preEffect = pplmn::Move::effect(move.id);
     if (preEffect == pplmn::MoveEffect::RandomMove) {
         usedMove = pplmn::Move::getRandomMove(false);
-        queueCommand({cmd::Message(cmd::Message::Type::RandomMove, move.id, usedMove)}, true);
     }
 
     BattlerAttackFinalizer _finalizer(user, usedMove);
@@ -770,6 +765,19 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     bool hit                       = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
     const pplmn::MoveEffect effect = pplmn::Move::effect(usedMove);
 
+    const auto printAttackPrequel = [this, &move, usedMove, isChargeSecondTurn, userIsActive]() {
+        // print used move
+        if (!isChargeSecondTurn) { queueCommand({cmd::Message(cmd::Message(move.id))}, true); }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsActive)}, true);
+        }
+
+        // random move
+        if (move.id != usedMove) {
+            queueCommand({cmd::Message(cmd::Message::Type::RandomMove, move.id, usedMove)}, true);
+        }
+    };
+
     // volleyball moves guaranteed to hit if ball is set
     if (user.getSubstate().ballSet &&
         (effect == pplmn::MoveEffect::SwipeBall || effect == pplmn::MoveEffect::SpikeBall)) {
@@ -778,9 +786,16 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // bail out if we missed
     if (!hit) {
-        queueCommand({cmd::Message::Type::AttackMissed}, true);
+        if (attacker.currentAbility() == pplmn::SpecialAbility::FakeStudy) {
+            queueCommand({cmd::Message(cmd::Message::Type::FakeStudyAbility, userIsActive)}, true);
+        }
+        else {
+            printAttackPrequel();
+            queueCommand({cmd::Message::Type::AttackMissed}, true);
+        }
         return;
     }
+    printAttackPrequel();
 
     // mark this move as hitting
     if (usedMove == pplmn::MoveId::Kick) { victim.getSubstate().move64Hit = true; }

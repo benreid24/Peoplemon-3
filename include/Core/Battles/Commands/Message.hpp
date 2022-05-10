@@ -218,7 +218,8 @@ public:
         DouseFlamesAbility,
         FlirtyAbility,
         UndyingFaithAbility,
-        TooCoolAbility
+        TooCoolAbility,
+        FakeStudyAbility
     };
 
     /**
