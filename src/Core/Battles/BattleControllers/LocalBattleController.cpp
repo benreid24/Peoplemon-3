@@ -830,8 +830,9 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // check if move has DoubleFamily
     if (effect == pplmn::MoveEffect::DoubleFamily) {
-        pwr *= 2;
-        queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, userIsActive)}, true);
+        const int bc = user.getBroCount();
+        pwr = static_cast<float>(pwr) * (static_cast<float>(bc) * 1.5f);
+        queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, bc, userIsActive)}, true);
     }
 
     // check if user has BeefedUp or Reserved abilities

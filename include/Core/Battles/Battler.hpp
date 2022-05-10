@@ -207,6 +207,12 @@ public:
      */
     int getNextXpEarnerIndex(int ci);
 
+    /**
+     * @brief Returns the number of total bros in the party, excluding the active peoplemon
+     *
+     */
+    int getBroCount() const;
+
 private:
     BattleState& state;
     BattlerSubstate substate;

@@ -149,5 +149,13 @@ int Battler::getNextXpEarnerIndex(int ci) {
     return -1;
 }
 
+int Battler::getBroCount() const {
+    int c = 0;
+    for (unsigned int i = 0; i < team.size(); ++i) {
+        if (team[i].currentAbility() == pplmn::SpecialAbility::TotalBro) { ++c; }
+    }
+    return c;
+}
+
 } // namespace battle
 } // namespace core

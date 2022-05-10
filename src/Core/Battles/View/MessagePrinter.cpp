@@ -552,7 +552,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::DoubleBroPower:
-        dispText = ppl + "'s Bro Power doubled attack power!";
+        dispText = ppl + "'s Bro Attack Power was increased by " + std::to_string(msg.getInt()) +
+                   " Total Bros in their party!";
         break;
 
     case Message::Type::HealNextStart:
