@@ -932,470 +932,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     checkAbilitiesAfterMove(user, usedMove, damage, special);
 
     // resolve move effect if any
-    const int chance = pplmn::Move::effectChance(usedMove);
-    if (effect != pplmn::MoveEffect::None &&
-        (chance < 0 || bl::util::Random::get<int>(0, 100) < chance)) {
-        const bool affectsSelf           = pplmn::Move::affectsUser(usedMove);
-        pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
-        Battler& affectedOwner           = affectsSelf ? user : victim;
-        Battler& other                   = affectsSelf ? victim : user;
-        const int intensity              = pplmn::Move::effectIntensity(usedMove);
-        const bool forActive             = &affectedOwner == &state->activeBattler();
-
-        // bail early if dead and the effect doesn't always apply
-        if (affected.base().currentHp() == 0 && !doEvenIfDead(effect)) return;
-
-        switch (effect) {
-        case pplmn::MoveEffect::Heal:
-            affected.giveHealth(affected.currentStats().hp * intensity / 100);
-            queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
-            break;
-
-        case pplmn::MoveEffect::Absorb:
-            affected.giveHealth(damage * intensity / 100);
-            queueCommand({cmd::Message(cmd::Message::Type::Absorb, forActive)});
-            break;
-
-        case pplmn::MoveEffect::Poison:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sticky);
-            break;
-
-        case pplmn::MoveEffect::Burn:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
-            break;
-
-        case pplmn::MoveEffect::Paralyze:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Annoyed);
-            break;
-
-        case pplmn::MoveEffect::Freeze:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frozen);
-            break;
-
-        case pplmn::MoveEffect::Confuse:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
-            break;
-
-        case pplmn::MoveEffect::LeechSeed:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Stolen);
-            break;
-
-        case pplmn::MoveEffect::Flinch:
-            if (state->isFirstMover()) {
-                affectedOwner.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
-                queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
-                                           pplmn::PassiveAilment::Distracted,
-                                           forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::PassiveAilmentGiveFail,
-                                           pplmn::PassiveAilment::Distracted,
-                                           forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::Trap:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Trapped);
-            break;
-
-        case pplmn::MoveEffect::Sleep:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sleep);
-            break;
-
-        case pplmn::MoveEffect::Protection:
-            if (state->isFirstMover() && user.getSubstate().lastMoveUsed != usedMove) {
-                user.getSubstate().isProtected = true;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed)});
-            }
-            break;
-
-        case pplmn::MoveEffect::Safegaurd:
-            if (affectedOwner.getSubstate().turnsGuarded == 0) {
-                affectedOwner.getSubstate().turnsGuarded = 5;
-                queueCommand({cmd::Message(cmd::Message::Type::Guarded, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::Substitute:
-            affected.applyDamage(affected.currentStats().hp / 4);
-            if (affected.base().currentHp() == 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, forActive)});
-            }
-            else if (affectedOwner.getSubstate().substituteHp > 0) {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, forActive)});
-            }
-            else {
-                affectedOwner.getSubstate().substituteHp = affected.currentStats().hp / 4;
-                queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::HealBell: {
-            bool healed = false;
-            for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
-                if (ppl.clearAilments(&affectedOwner.getSubstate())) { healed = true; }
-            }
-            if (healed) {
-                queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
-            }
-        } break;
-
-        case pplmn::MoveEffect::CritUp:
-            doStatChange(affected, pplmn::Stat::Critical, intensity);
-            break;
-
-        case pplmn::MoveEffect::AtkUp:
-            doStatChange(affected, pplmn::Stat::Attack, intensity);
-            break;
-
-        case pplmn::MoveEffect::DefUp:
-            doStatChange(affected, pplmn::Stat::Defense, intensity);
-            break;
-
-        case pplmn::MoveEffect::AccUp:
-            doStatChange(affected, pplmn::Stat::Accuracy, intensity);
-            break;
-
-        case pplmn::MoveEffect::EvdUp:
-            doStatChange(affected, pplmn::Stat::Evasion, intensity);
-            break;
-
-        case pplmn::MoveEffect::SpdUp:
-            doStatChange(affected, pplmn::Stat::Speed, intensity);
-            break;
-
-        case pplmn::MoveEffect::SpAtkUp:
-            doStatChange(affected, pplmn::Stat::SpecialAttack, intensity);
-            break;
-
-        case pplmn::MoveEffect::SpDefUp:
-            doStatChange(affected, pplmn::Stat::SpecialDefense, intensity);
-            break;
-
-        case pplmn::MoveEffect::CritDown:
-            doStatChange(affected, pplmn::Stat::Critical, -intensity);
-            break;
-
-        case pplmn::MoveEffect::AtkDown:
-            doStatChange(affected, pplmn::Stat::Attack, -intensity);
-            break;
-
-        case pplmn::MoveEffect::DefDown:
-            doStatChange(affected, pplmn::Stat::Defense, -intensity);
-            break;
-
-        case pplmn::MoveEffect::AccDown:
-            doStatChange(affected, pplmn::Stat::Accuracy, -intensity);
-            break;
-
-        case pplmn::MoveEffect::EvdDown:
-            doStatChange(affected, pplmn::Stat::Evasion, -intensity);
-            break;
-
-        case pplmn::MoveEffect::SpdDown:
-            doStatChange(affected, pplmn::Stat::Speed, -intensity);
-            break;
-
-        case pplmn::MoveEffect::SpAtkDown:
-            doStatChange(affected, pplmn::Stat::SpecialAttack, -intensity);
-            break;
-
-        case pplmn::MoveEffect::SpDefDown:
-            doStatChange(affected, pplmn::Stat::SpecialDefense, -intensity);
-            break;
-
-        case pplmn::MoveEffect::CritEvdUp:
-            queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
-                         true);
-            doStatChange(affected, pplmn::Stat::Evasion, intensity, false);
-            doStatChange(affected, pplmn::Stat::Critical, intensity, false);
-            break;
-
-        case pplmn::MoveEffect::SpdAtkUp:
-            queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
-                         true);
-            doStatChange(affected, pplmn::Stat::Attack, intensity, false);
-            doStatChange(affected, pplmn::Stat::Speed, intensity, false);
-            break;
-
-        case pplmn::MoveEffect::Recoil:
-            affected.applyDamage(damage * intensity / 100);
-            queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forActive)});
-            break;
-
-        case pplmn::MoveEffect::Suicide:
-            affected.base().currentHp() = 0;
-            queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forActive)});
-            break;
-
-        case pplmn::MoveEffect::Peanut:
-            if (isPeanutAllergic(affected.base().id())) {
-                affected.base().currentHp() = 0;
-                queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forActive)});
-            }
-            else {
-                affected.giveHealth(1);
-                queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::WakeBoth:
-            for (pplmn::BattlePeoplemon& ppl : state->localPlayer().peoplemon()) {
-                if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
-                    ppl.base().currentAilment() = pplmn::Ailment::None;
-                }
-            }
-            for (pplmn::BattlePeoplemon& ppl : state->enemy().peoplemon()) {
-                if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
-                    ppl.base().currentAilment() = pplmn::Ailment::None;
-                }
-            }
-            queueCommand({cmd::Message(cmd::Message::Type::EveryoneWokenUp)});
-            break;
-
-        case pplmn::MoveEffect::Encore:
-            queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forActive)}, true);
-            if (affectedOwner.getSubstate().lastMoveIndex >= 0) {
-                affectedOwner.getSubstate().encoreTurnsLeft = 5;
-                affectedOwner.getSubstate().encoreMove = affectedOwner.getSubstate().lastMoveIndex;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forActive)}, true);
-            }
-            break;
-
-        case pplmn::MoveEffect::BatonPass:
-            if (affectedOwner.canSwitch()) {
-                if (tryMidturnSwitch(affectedOwner)) {
-                    affectedOwner.getSubstate().copyStatsFrom = affectedOwner.outNowIndex();
-                    queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)},
-                                 true);
-                }
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::DieIn3Turns: {
-            bool marked = false;
-            if (state->activeBattler().getSubstate().deathCounter < 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, true)}, true);
-                state->activeBattler().getSubstate().deathCounter = 3;
-                marked                                            = true;
-            }
-            if (state->inactiveBattler().getSubstate().deathCounter < 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, false)}, true);
-                state->inactiveBattler().getSubstate().deathCounter = 3;
-                marked                                              = true;
-            }
-            if (!marked) {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::DeathCountDownFailed, userIsActive)});
-            }
-        } break;
-
-        case pplmn::MoveEffect::SetBall:
-            if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)}, true);
-                affectedOwner.getSubstate().ballSet = true;
-                if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
-                else {
-                    affectedOwner.getSubstate().noOneToGetBall = true;
-                }
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSetFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::BumpBall:
-            if (affectedOwner.getSubstate().ballUpTurns < 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallServed, forActive)}, true);
-                affectedOwner.getSubstate().ballUpTurns = 0;
-                affectedOwner.getSubstate().ballBumped  = true;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forActive)}, true);
-                affectedOwner.getSubstate().ballBumped = true;
-            }
-            if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
-            else {
-                affectedOwner.getSubstate().noOneToGetBall = true;
-            }
-            break;
-
-        case pplmn::MoveEffect::SpikeBall:
-            if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSpiked, forActive)});
-                affectedOwner.getSubstate().ballSpiked = true;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSpikeFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::BlockBall:
-            if (other.getSubstate().ballUpTurns >= 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallBlocked, forActive)});
-                other.getSubstate().ballBlocked = true;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallBlockFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::SwipeBall:
-            if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSwiped, forActive)});
-                affectedOwner.getSubstate().ballSwiped = true;
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::BallSwipeFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::DeathSwap: {
-            bool oneDead = false;
-            for (const pplmn::BattlePeoplemon& p : affectedOwner.peoplemon()) {
-                if (p.base().currentHp() == 0 && &p != &affected) {
-                    oneDead = true;
-                    break;
-                }
-            }
-            if (oneDead) {
-                affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
-                affected.base().currentHp()            = 0;
-                queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::DeathSwapFailed, forActive)});
-            }
-        } break;
-
-        case pplmn::MoveEffect::StayAlive:
-            if (!affectedOwner.getSubstate().enduredLastTurn) {
-                affectedOwner.getSubstate().enduringThisTurn = true;
-                queueCommand({cmd::Message(cmd::Message::Type::EndureStart, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::EndureFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::MaxAtkMinAcc:
-            affected.statChange(pplmn::Stat::Attack, 12);
-            affected.statChange(pplmn::Stat::Accuracy, -12);
-            queueCommand({cmd::Message(cmd::Message::Type::MaxAtkMinAcc, forActive)});
-            break;
-
-        case pplmn::MoveEffect::FrustConfuse:
-            applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
-            applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
-            break;
-
-        case pplmn::MoveEffect::Spikes:
-            if (affectedOwner.getSubstate().spikesOut < 3) {
-                affectedOwner.getSubstate().spikesOut += 1;
-                queueCommand({cmd::Message(cmd::Message::Type::SpikesApplied, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::SpikesFailed, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::EnemyPPDown:
-            if (!state->isFirstMover() && other.getSubstate().lastMoveIndex >= 0) {
-                auto& move =
-                    other.activePeoplemon().base().knownMoves()[other.getSubstate().lastMoveIndex];
-                move.curPP =
-                    std::max(0, static_cast<int>(move.curPP) - bl::util::Random::get<int>(2, 5));
-                queueCommand({cmd::Message(cmd::Message::Type::PPLowered, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::PPLowerFail, forActive)}, true);
-            }
-            break;
-
-        case pplmn::MoveEffect::HealNext:
-            if (affectedOwner.getSubstate().healNext < 0) {
-                affectedOwner.getSubstate().healNext = 0;
-                queueCommand({cmd::Message(cmd::Message::Type::HealNextStart, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::HealNextFail, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::Roar:
-            doRoar(affectedOwner);
-            break;
-
-        case pplmn::MoveEffect::RoarCancelBallSpikes:
-            queueCommand({cmd::Message(cmd::Message::Type::RoarClearedArea, !forActive)}, true);
-            other.getSubstate().spikesOut           = 0;
-            affectedOwner.getSubstate().ballUpTurns = -1;
-            doRoar(affectedOwner);
-            break;
-
-        case pplmn::MoveEffect::SleepHeal:
-            if (affected.base().currentAilment() == pplmn::Ailment::None) {
-                affected.base().currentAilment() = pplmn::Ailment::Sleep;
-                affected.clearAilments(&affectedOwner.getSubstate());
-                affected.base().currentHp() = affected.currentStats().hp;
-                queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forActive)});
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::SleepHealFailed, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::StealStats:
-            affected.copyStages(other.activePeoplemon());
-            other.activePeoplemon().resetStages();
-            queueCommand({cmd::Message(cmd::Message::Type::StatsStolen, forActive)});
-            break;
-
-        case pplmn::MoveEffect::DamageThenSwitch:
-            if (affectedOwner.canSwitch()) {
-                if (tryMidturnSwitch(affectedOwner)) {
-                    queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forActive)},
-                                 true);
-                }
-            }
-            else {
-                queueCommand({cmd::Message(cmd::Message::Type::AttackSwitchFailed, forActive)});
-            }
-            break;
-
-        case pplmn::MoveEffect::OnlySleeping:
-        case pplmn::MoveEffect::Charge:
-        case pplmn::MoveEffect::FailOnMove64:
-            // handled in checkMoveCancelled
-            break;
-
-        case pplmn::MoveEffect::Gamble:
-        case pplmn::MoveEffect::RandomMove:
-        case pplmn::MoveEffect::DoubleFamily:
-        case pplmn::MoveEffect::Counter:
-        case pplmn::MoveEffect::MirrorCoat:
-            // handled up top
-            break;
-
-        default:
-            BL_LOG_ERROR << "Unknown move effect: " << effect;
-            break;
-        }
-    }
+    handleMoveEffect(user, usedMove, effect, damage);
 
     // ensure that everything is reflected and wait for the view
     queueCommand({Command::SyncStateNoSwitch}, true);
@@ -2065,6 +1602,475 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user, pplmn::MoveId
         break;
 
     default:
+        break;
+    }
+}
+
+void LocalBattleController::handleMoveEffect(Battler& user, pplmn::MoveId usedMove,
+                                             pplmn::MoveEffect effect, int damage) {
+    const bool userIsActive = &user == &state->activeBattler();
+    Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
+    pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
+    pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
+
+    const int chance = pplmn::Move::effectChance(usedMove);
+    if (effect == pplmn::MoveEffect::None ||
+        (chance > 0 && bl::util::Random::get<int>(0, 100) > chance))
+        return;
+
+    const bool affectsSelf           = pplmn::Move::affectsUser(usedMove);
+    pplmn::BattlePeoplemon& affected = affectsSelf ? attacker : defender;
+    Battler& affectedOwner           = affectsSelf ? user : victim;
+    Battler& other                   = affectsSelf ? victim : user;
+    const int intensity              = pplmn::Move::effectIntensity(usedMove);
+    const bool forActive             = &affectedOwner == &state->activeBattler();
+
+    // bail early if dead and the effect doesn't always apply
+    if (affected.base().currentHp() == 0 && !doEvenIfDead(effect)) return;
+
+    switch (effect) {
+    case pplmn::MoveEffect::Heal:
+        affected.giveHealth(affected.currentStats().hp * intensity / 100);
+        queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
+        break;
+
+    case pplmn::MoveEffect::Absorb:
+        affected.giveHealth(damage * intensity / 100);
+        queueCommand({cmd::Message(cmd::Message::Type::Absorb, forActive)});
+        break;
+
+    case pplmn::MoveEffect::Poison:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sticky);
+        break;
+
+    case pplmn::MoveEffect::Burn:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
+        break;
+
+    case pplmn::MoveEffect::Paralyze:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Annoyed);
+        break;
+
+    case pplmn::MoveEffect::Freeze:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frozen);
+        break;
+
+    case pplmn::MoveEffect::Confuse:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
+        break;
+
+    case pplmn::MoveEffect::LeechSeed:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Stolen);
+        break;
+
+    case pplmn::MoveEffect::Flinch:
+        if (state->isFirstMover()) {
+            affectedOwner.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
+            queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
+                                       pplmn::PassiveAilment::Distracted,
+                                       forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::PassiveAilmentGiveFail,
+                                       pplmn::PassiveAilment::Distracted,
+                                       forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::Trap:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Trapped);
+        break;
+
+    case pplmn::MoveEffect::Sleep:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Sleep);
+        break;
+
+    case pplmn::MoveEffect::Protection:
+        if (state->isFirstMover() && user.getSubstate().lastMoveUsed != usedMove) {
+            user.getSubstate().isProtected = true;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed)});
+        }
+        break;
+
+    case pplmn::MoveEffect::Safegaurd:
+        if (affectedOwner.getSubstate().turnsGuarded == 0) {
+            affectedOwner.getSubstate().turnsGuarded = 5;
+            queueCommand({cmd::Message(cmd::Message::Type::Guarded, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::Substitute:
+        affected.applyDamage(affected.currentStats().hp / 4);
+        if (affected.base().currentHp() == 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, forActive)});
+        }
+        else if (affectedOwner.getSubstate().substituteHp > 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, forActive)});
+        }
+        else {
+            affectedOwner.getSubstate().substituteHp = affected.currentStats().hp / 4;
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::HealBell: {
+        bool healed = false;
+        for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
+            if (ppl.clearAilments(&affectedOwner.getSubstate())) { healed = true; }
+        }
+        if (healed) { queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)}); }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
+        }
+    } break;
+
+    case pplmn::MoveEffect::CritUp:
+        doStatChange(affected, pplmn::Stat::Critical, intensity);
+        break;
+
+    case pplmn::MoveEffect::AtkUp:
+        doStatChange(affected, pplmn::Stat::Attack, intensity);
+        break;
+
+    case pplmn::MoveEffect::DefUp:
+        doStatChange(affected, pplmn::Stat::Defense, intensity);
+        break;
+
+    case pplmn::MoveEffect::AccUp:
+        doStatChange(affected, pplmn::Stat::Accuracy, intensity);
+        break;
+
+    case pplmn::MoveEffect::EvdUp:
+        doStatChange(affected, pplmn::Stat::Evasion, intensity);
+        break;
+
+    case pplmn::MoveEffect::SpdUp:
+        doStatChange(affected, pplmn::Stat::Speed, intensity);
+        break;
+
+    case pplmn::MoveEffect::SpAtkUp:
+        doStatChange(affected, pplmn::Stat::SpecialAttack, intensity);
+        break;
+
+    case pplmn::MoveEffect::SpDefUp:
+        doStatChange(affected, pplmn::Stat::SpecialDefense, intensity);
+        break;
+
+    case pplmn::MoveEffect::CritDown:
+        doStatChange(affected, pplmn::Stat::Critical, -intensity);
+        break;
+
+    case pplmn::MoveEffect::AtkDown:
+        doStatChange(affected, pplmn::Stat::Attack, -intensity);
+        break;
+
+    case pplmn::MoveEffect::DefDown:
+        doStatChange(affected, pplmn::Stat::Defense, -intensity);
+        break;
+
+    case pplmn::MoveEffect::AccDown:
+        doStatChange(affected, pplmn::Stat::Accuracy, -intensity);
+        break;
+
+    case pplmn::MoveEffect::EvdDown:
+        doStatChange(affected, pplmn::Stat::Evasion, -intensity);
+        break;
+
+    case pplmn::MoveEffect::SpdDown:
+        doStatChange(affected, pplmn::Stat::Speed, -intensity);
+        break;
+
+    case pplmn::MoveEffect::SpAtkDown:
+        doStatChange(affected, pplmn::Stat::SpecialAttack, -intensity);
+        break;
+
+    case pplmn::MoveEffect::SpDefDown:
+        doStatChange(affected, pplmn::Stat::SpecialDefense, -intensity);
+        break;
+
+    case pplmn::MoveEffect::CritEvdUp:
+        queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
+                     true);
+        doStatChange(affected, pplmn::Stat::Evasion, intensity, false);
+        doStatChange(affected, pplmn::Stat::Critical, intensity, false);
+        break;
+
+    case pplmn::MoveEffect::SpdAtkUp:
+        queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
+                     true);
+        doStatChange(affected, pplmn::Stat::Attack, intensity, false);
+        doStatChange(affected, pplmn::Stat::Speed, intensity, false);
+        break;
+
+    case pplmn::MoveEffect::Recoil:
+        affected.applyDamage(damage * intensity / 100);
+        queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forActive)});
+        break;
+
+    case pplmn::MoveEffect::Suicide:
+        affected.base().currentHp() = 0;
+        queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forActive)});
+        break;
+
+    case pplmn::MoveEffect::Peanut:
+        if (isPeanutAllergic(affected.base().id())) {
+            affected.base().currentHp() = 0;
+            queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forActive)});
+        }
+        else {
+            affected.giveHealth(1);
+            queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::WakeBoth:
+        for (pplmn::BattlePeoplemon& ppl : state->localPlayer().peoplemon()) {
+            if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+                ppl.base().currentAilment() = pplmn::Ailment::None;
+            }
+        }
+        for (pplmn::BattlePeoplemon& ppl : state->enemy().peoplemon()) {
+            if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+                ppl.base().currentAilment() = pplmn::Ailment::None;
+            }
+        }
+        queueCommand({cmd::Message(cmd::Message::Type::EveryoneWokenUp)});
+        break;
+
+    case pplmn::MoveEffect::Encore:
+        queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forActive)}, true);
+        if (affectedOwner.getSubstate().lastMoveIndex >= 0) {
+            affectedOwner.getSubstate().encoreTurnsLeft = 5;
+            affectedOwner.getSubstate().encoreMove      = affectedOwner.getSubstate().lastMoveIndex;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forActive)}, true);
+        }
+        break;
+
+    case pplmn::MoveEffect::BatonPass:
+        if (affectedOwner.canSwitch()) {
+            if (tryMidturnSwitch(affectedOwner)) {
+                affectedOwner.getSubstate().copyStatsFrom = affectedOwner.outNowIndex();
+                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)}, true);
+            }
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::DieIn3Turns: {
+        bool marked = false;
+        if (state->activeBattler().getSubstate().deathCounter < 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, true)}, true);
+            state->activeBattler().getSubstate().deathCounter = 3;
+            marked                                            = true;
+        }
+        if (state->inactiveBattler().getSubstate().deathCounter < 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::DeathCountDown, false)}, true);
+            state->inactiveBattler().getSubstate().deathCounter = 3;
+            marked                                              = true;
+        }
+        if (!marked) {
+            queueCommand({cmd::Message(cmd::Message::Type::DeathCountDownFailed, userIsActive)});
+        }
+    } break;
+
+    case pplmn::MoveEffect::SetBall:
+        if (affectedOwner.getSubstate().ballUpTurns >= 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)}, true);
+            affectedOwner.getSubstate().ballSet = true;
+            if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
+            else {
+                affectedOwner.getSubstate().noOneToGetBall = true;
+            }
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSetFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::BumpBall:
+        if (affectedOwner.getSubstate().ballUpTurns < 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::BallServed, forActive)}, true);
+            affectedOwner.getSubstate().ballUpTurns = 0;
+            affectedOwner.getSubstate().ballBumped  = true;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forActive)}, true);
+            affectedOwner.getSubstate().ballBumped = true;
+        }
+        if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
+        else {
+            affectedOwner.getSubstate().noOneToGetBall = true;
+        }
+        break;
+
+    case pplmn::MoveEffect::SpikeBall:
+        if (affectedOwner.getSubstate().ballUpTurns >= 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSpiked, forActive)});
+            affectedOwner.getSubstate().ballSpiked = true;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSpikeFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::BlockBall:
+        if (other.getSubstate().ballUpTurns >= 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::BallBlocked, forActive)});
+            other.getSubstate().ballBlocked = true;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BallBlockFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::SwipeBall:
+        if (affectedOwner.getSubstate().ballUpTurns >= 0) {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSwiped, forActive)});
+            affectedOwner.getSubstate().ballSwiped = true;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::BallSwipeFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::DeathSwap: {
+        bool oneDead = false;
+        for (const pplmn::BattlePeoplemon& p : affectedOwner.peoplemon()) {
+            if (p.base().currentHp() == 0 && &p != &affected) {
+                oneDead = true;
+                break;
+            }
+        }
+        if (oneDead) {
+            affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
+            affected.base().currentHp()            = 0;
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapFailed, forActive)});
+        }
+    } break;
+
+    case pplmn::MoveEffect::StayAlive:
+        if (!affectedOwner.getSubstate().enduredLastTurn) {
+            affectedOwner.getSubstate().enduringThisTurn = true;
+            queueCommand({cmd::Message(cmd::Message::Type::EndureStart, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::EndureFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::MaxAtkMinAcc:
+        affected.statChange(pplmn::Stat::Attack, 12);
+        affected.statChange(pplmn::Stat::Accuracy, -12);
+        queueCommand({cmd::Message(cmd::Message::Type::MaxAtkMinAcc, forActive)});
+        break;
+
+    case pplmn::MoveEffect::FrustConfuse:
+        applyAilmentFromMove(affectedOwner, affected, pplmn::Ailment::Frustrated);
+        applyAilmentFromMove(affectedOwner, affected, pplmn::PassiveAilment::Confused);
+        break;
+
+    case pplmn::MoveEffect::Spikes:
+        if (affectedOwner.getSubstate().spikesOut < 3) {
+            affectedOwner.getSubstate().spikesOut += 1;
+            queueCommand({cmd::Message(cmd::Message::Type::SpikesApplied, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::SpikesFailed, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::EnemyPPDown:
+        if (!state->isFirstMover() && other.getSubstate().lastMoveIndex >= 0) {
+            auto& move =
+                other.activePeoplemon().base().knownMoves()[other.getSubstate().lastMoveIndex];
+            move.curPP =
+                std::max(0, static_cast<int>(move.curPP) - bl::util::Random::get<int>(2, 5));
+            queueCommand({cmd::Message(cmd::Message::Type::PPLowered, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::PPLowerFail, forActive)}, true);
+        }
+        break;
+
+    case pplmn::MoveEffect::HealNext:
+        if (affectedOwner.getSubstate().healNext < 0) {
+            affectedOwner.getSubstate().healNext = 0;
+            queueCommand({cmd::Message(cmd::Message::Type::HealNextStart, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::HealNextFail, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::Roar:
+        doRoar(affectedOwner);
+        break;
+
+    case pplmn::MoveEffect::RoarCancelBallSpikes:
+        queueCommand({cmd::Message(cmd::Message::Type::RoarClearedArea, !forActive)}, true);
+        other.getSubstate().spikesOut           = 0;
+        affectedOwner.getSubstate().ballUpTurns = -1;
+        doRoar(affectedOwner);
+        break;
+
+    case pplmn::MoveEffect::SleepHeal:
+        if (affected.base().currentAilment() == pplmn::Ailment::None) {
+            affected.base().currentAilment() = pplmn::Ailment::Sleep;
+            affected.clearAilments(&affectedOwner.getSubstate());
+            affected.base().currentHp() = affected.currentStats().hp;
+            queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forActive)});
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::SleepHealFailed, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::StealStats:
+        affected.copyStages(other.activePeoplemon());
+        other.activePeoplemon().resetStages();
+        queueCommand({cmd::Message(cmd::Message::Type::StatsStolen, forActive)});
+        break;
+
+    case pplmn::MoveEffect::DamageThenSwitch:
+        if (affectedOwner.canSwitch()) {
+            if (tryMidturnSwitch(affectedOwner)) {
+                queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forActive)},
+                             true);
+            }
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::AttackSwitchFailed, forActive)});
+        }
+        break;
+
+    case pplmn::MoveEffect::OnlySleeping:
+    case pplmn::MoveEffect::Charge:
+    case pplmn::MoveEffect::FailOnMove64:
+        // handled in checkMoveCancelled
+        break;
+
+    case pplmn::MoveEffect::Gamble:
+    case pplmn::MoveEffect::RandomMove:
+    case pplmn::MoveEffect::DoubleFamily:
+    case pplmn::MoveEffect::Counter:
+    case pplmn::MoveEffect::MirrorCoat:
+        // handled up top
+        break;
+
+    default:
+        BL_LOG_ERROR << "Unknown move effect: " << effect;
         break;
     }
 }
