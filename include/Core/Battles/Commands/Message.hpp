@@ -208,7 +208,9 @@ public:
         DukeOfJokes,
         EngagingAbility,
         DerpDerpConfuse,
-        KlutzDrop
+        KlutzDrop,
+        SidetrackDistract,
+        NoJokeTeachAbility
     };
 
     /**

@@ -790,6 +790,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " because they are a Klutz!";
         break;
 
+    case Message::Type::SidetrackDistract:
+        dispText = ppl + " went on a Sidetrack and Distracted " + other + "!";
+        break;
+
+    case Message::Type::NoJokeTeachAbility:
+        dispText = ppl + "'s Jokes will not work on " + other + " while they are Teaching!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

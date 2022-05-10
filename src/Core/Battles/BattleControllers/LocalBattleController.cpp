@@ -64,6 +64,28 @@ int computeDamage(int pwr, int atk, int def, int userLevel) {
     return static_cast<int>(static_cast<float>(base) * m);
 }
 
+bool isTeachMove(pplmn::MoveId move) {
+    switch (move) {
+    case pplmn::MoveId::Teach:
+    case pplmn::MoveId::MegaTeach:
+    case pplmn::MoveId::SuperTeach:
+    case pplmn::MoveId::ExtremeTeach:
+        return true;
+    default:
+        return false;
+    }
+}
+
+bool isJokeMove(pplmn::MoveId move) {
+    switch (move) {
+    case pplmn::MoveId::BadJoke:
+    case pplmn::MoveId::SubtleJoke:
+        return true;
+    default:
+        return false;
+    }
+}
+
 class BattlerAttackFinalizer {
 public:
     BattlerAttackFinalizer(Battler& b, pplmn::MoveId move)
@@ -833,9 +855,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     }
 
     // Check DukeOfJokes ability
-    if (attacker.currentAbility() == pplmn::SpecialAbility::DukeOfJokes &&
-        moveType == pplmn::Type::Funny) {
-        // TODO - funny type or something else?
+    if (attacker.currentAbility() == pplmn::SpecialAbility::DukeOfJokes && isJokeMove(usedMove)) {
         pwr = pwr * 3 / 2;
         queueCommand({cmd::Message(cmd::Message::Type::DukeOfJokes, userIsActive)}, true);
     }
@@ -928,11 +948,19 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
-    // Check derp derp ability
+    // check derp derp ability
     if (defender.currentAbility() == pplmn::SpecialAbility::DerpDerp && damage > 0) {
         if (bl::util::Random::get<int>(0, 100) <= 10) {
             user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
             queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
+        }
+    }
+
+    // sidetrack teach ability
+    if (attacker.currentAbility() == pplmn::SpecialAbility::SidetrackTeach) {
+        if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 15) {
+            victim.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
+            queueCommand({cmd::Message(cmd::Message::Type::SidetrackDistract, userIsActive)}, true);
         }
     }
 
@@ -1425,6 +1453,17 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Distracted)) {
         queueCommand({cmd::Message(cmd::Message::Type::DistractedAilment, userIsActive)}, true);
         return true;
+    }
+
+    // Check if no joke teach ability
+    if (victim.activePeoplemon().currentAbility() == pplmn::SpecialAbility::NoJokeTeach) {
+        if (isJokeMove(move) && victim.chosenAction() == TurnAction::Fight &&
+            victim.chosenMove() >= 0 &&
+            isTeachMove(victim.activePeoplemon().base().knownMoves()[victim.chosenMove()].id)) {
+            queueCommand({cmd::Message(cmd::Message::Type::NoJokeTeachAbility, userIsActive)},
+                         true);
+            return true;
+        }
     }
 
     // Check if confused
