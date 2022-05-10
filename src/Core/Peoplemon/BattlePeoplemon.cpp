@@ -1,5 +1,6 @@
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 
+#include <BLIB/Util/Random.hpp>
 #include <Core/Battles/BattlerSubstate.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
@@ -64,6 +65,7 @@ bool BattlePeoplemon::hasAilment(Ailment ail) const { return ppl->currentAilment
 bool BattlePeoplemon::giveAilment(Ailment a) {
     if (ppl->currentAilment() != Ailment::None) return false;
     ppl->currentAilment() = a;
+    if (a == Ailment::Sleep) { _turnsUntilAwake = bl::util::Random::get<int>(0, 4); }
     return true;
 }
 

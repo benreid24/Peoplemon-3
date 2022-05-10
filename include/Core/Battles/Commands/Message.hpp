@@ -213,7 +213,8 @@ public:
         NoJokeTeachAbility,
         FieryTeachAbility,
         ExperiencedTeachAbility,
-        NewTeachAbility
+        NewTeachAbility,
+        DozeOffAbility
     };
 
     /**

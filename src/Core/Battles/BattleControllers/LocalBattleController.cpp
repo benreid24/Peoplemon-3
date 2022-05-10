@@ -952,6 +952,16 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
+    // doze off ability
+    if (defender.currentAbility() == pplmn::SpecialAbility::DozeOff && isTeachMove(usedMove)) {
+        if (bl::util::Random::get<int>(0, 100) <= 10) {
+            if (defender.giveAilment(pplmn::Ailment::Sleep)) {
+                queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, userIsActive)},
+                             true);
+            }
+        }
+    }
+
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
@@ -1578,10 +1588,6 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
     if (victim.giveAilment(ail)) {
         queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
 
-        if (ail == pplmn::Ailment::Sleep) {
-            victim.turnsUntilAwake() = bl::util::Random::get<std::int8_t>(1, 4);
-        }
-
         // Check SnackShare ailment give back ability
         if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
             Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
@@ -1589,10 +1595,6 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
                 queueCommand(
                     {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
                     true);
-                if (ail == pplmn::Ailment::Sleep) {
-                    other.activePeoplemon().turnsUntilAwake() =
-                        bl::util::Random::get<std::int8_t>(1, 4);
-                }
             }
             else {
                 queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isActive)},
