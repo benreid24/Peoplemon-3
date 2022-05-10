@@ -219,7 +219,9 @@ public:
         FlirtyAbility,
         UndyingFaithAbility,
         TooCoolAbility,
-        FakeStudyAbility
+        FakeStudyAbility,
+        AlcoholicAbility,
+        TotalMomAbility
     };
 
     /**

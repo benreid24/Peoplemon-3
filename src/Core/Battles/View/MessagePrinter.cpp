@@ -834,6 +834,15 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " was too busy Fake Studying to attack!";
         break;
 
+    case Message::Type::AlcoholicAbility:
+        dispText = ppl + " drank some alcohol from the bag because they are an Alcoholic!";
+        break;
+
+    case Message::Type::TotalMomAbility: {
+        const std::string& mom = battler.peoplemon()[msg.getInt()].base().name();
+        dispText = ppl + " had some PP restored by " + mom + " because " + mom + " is a Total Mom!";
+    } break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

@@ -36,7 +36,8 @@ BattlerSubstate::BattlerSubstate()
 , trainer(nullptr)
 , turnsSticky(0)
 , lastMoveSuperEffective(pplmn::MoveId::Unknown)
-, preserveLastSuper(true) {}
+, preserveLastSuper(true)
+, totalMomIndex(-1) {}
 
 void BattlerSubstate::notifyTurnBegin() {
     isProtected     = false;
@@ -95,6 +96,7 @@ void BattlerSubstate::notifySwitch() {
     turnsSticky            = 0;
     lastMoveSuperEffective = pplmn::MoveId::Unknown;
     preserveLastSuper      = false;
+    totalMomIndex          = -1;
 }
 
 void BattlerSubstate::giveAilment(pplmn::PassiveAilment ail) {

@@ -15,5 +15,7 @@ OwnedMove::OwnedMove(MoveId id)
 , curPP(Move::pp(id))
 , maxPP(Move::pp(id)) {}
 
+void OwnedMove::restorePP(int pp) { curPP = std::min(curPP + pp, maxPP); }
+
 } // namespace pplmn
 } // namespace core

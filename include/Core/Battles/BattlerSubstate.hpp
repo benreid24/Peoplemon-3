@@ -52,6 +52,7 @@ struct BattlerSubstate {
     std::uint8_t turnsSticky;
     pplmn::MoveId lastMoveSuperEffective;
     bool preserveLastSuper;
+    std::int8_t totalMomIndex;
 
     /**
      * @brief Construct a new Battler State object with proper defaults

@@ -1730,7 +1730,11 @@ void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
     const bool isActive         = &battler == &state->activeBattler();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
 
-    // TODO - check if awake and other ailment ends. maybe some move effect carryover too
+    // alcoholic ability
+    if (ppl.currentAbility() == pplmn::SpecialAbility::Alcoholic) {
+        // TODO - check for alcohol in bag and consume
+        queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbility, isActive)}, true);
+    }
 
     // check if Sleep is done
     if (battler.activePeoplemon().turnsUntilAwake() <= 0) {
@@ -1915,7 +1919,20 @@ void LocalBattleController::postSwitch(Battler& battler) {
                      true);
     }
 
+    // check klutz ability
     checkKlutz(battler);
+
+    // check total mom ability
+    if (battler.getSubstate().totalMomIndex >= 0) {
+        auto* moves = battler.activePeoplemon().base().knownMoves();
+        for (int i = 0; i < 4; ++i) {
+            if (moves[i].id != pplmn::MoveId::Unknown) { moves[i].restorePP(3); }
+        }
+        queueCommand({cmd::Message(cmd::Message::Type::TotalMomAbility,
+                                   static_cast<std::int16_t>(battler.getSubstate().totalMomIndex),
+                                   forActive)},
+                     true);
+    }
 
     battler.getSubstate().notifySwitch();
 }
@@ -1932,6 +1949,11 @@ void LocalBattleController::preFaint(Battler& b) {
 
     queueCommand({cmd::Message(cmd::Message::Type::Fainted, isActive)}, true);
     queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideDown)}, true);
+
+    // total mom
+    if (b.activePeoplemon().currentAbility() == pplmn::SpecialAbility::TotalMom) {
+        b.getSubstate().totalMomIndex = b.outNowIndex();
+    }
 }
 
 bool LocalBattleController::tryMidturnSwitch(Battler& switcher) {
