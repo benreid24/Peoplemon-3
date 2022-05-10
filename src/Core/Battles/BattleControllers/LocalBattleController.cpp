@@ -1104,6 +1104,13 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
         return;
     }
 
+    // all nighter ability
+    if (victim.currentAbility() == pplmn::SpecialAbility::AllNighter &&
+        ail == pplmn::Ailment::Sleep) {
+        queueCommand({cmd::Message(cmd::Message::Type::AllNighterAbility, isActive)}, true);
+        return;
+    }
+
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isActive)});

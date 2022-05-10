@@ -848,6 +848,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Accuracy is reduced because " + other + " Can't Swim!";
         break;
 
+    case Message::Type::AllNighterAbility:
+        dispText = ppl + " has pulled too many All Nighters to Sleep now!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

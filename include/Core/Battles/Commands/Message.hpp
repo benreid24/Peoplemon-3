@@ -222,7 +222,8 @@ public:
         FakeStudyAbility,
         AlcoholicAbility,
         TotalMomAbility,
-        CantSwimAbility
+        CantSwimAbility,
+        AllNighterAbility
     };
 
     /**
