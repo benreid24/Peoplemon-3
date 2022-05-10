@@ -798,6 +798,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + "'s Jokes will not work on " + other + " while they are Teaching!";
         break;
 
+    case Message::Type::FieryTeachAbility:
+        dispText = ppl + " got Fired Up from Teaching!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

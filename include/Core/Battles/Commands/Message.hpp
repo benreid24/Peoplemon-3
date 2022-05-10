@@ -210,7 +210,8 @@ public:
         DerpDerpConfuse,
         KlutzDrop,
         SidetrackDistract,
-        NoJokeTeachAbility
+        NoJokeTeachAbility,
+        FieryTeachAbility
     };
 
     /**

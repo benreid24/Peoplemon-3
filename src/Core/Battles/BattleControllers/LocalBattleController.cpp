@@ -964,6 +964,14 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         }
     }
 
+    // fiery teach ability
+    if (attacker.currentAbility() == pplmn::SpecialAbility::FieryTeach && isTeachMove(usedMove)) {
+        if (bl::util::Random::get<int>(0, 100) <= 33) {
+            queueCommand({cmd::Message(cmd::Message::Type::FieryTeachAbility, userIsActive)}, true);
+            doStatChange(attacker, pplmn::Stat::SpecialAttack, 1);
+        }
+    }
+
     // resolve move effect if any
     const int chance = pplmn::Move::effectChance(usedMove);
     if (effect != pplmn::MoveEffect::None &&
