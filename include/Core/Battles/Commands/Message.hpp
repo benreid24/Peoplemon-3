@@ -212,7 +212,8 @@ public:
         SidetrackDistract,
         NoJokeTeachAbility,
         FieryTeachAbility,
-        ExperiencedTeachAbility
+        ExperiencedTeachAbility,
+        NewTeachAbility
     };
 
     /**

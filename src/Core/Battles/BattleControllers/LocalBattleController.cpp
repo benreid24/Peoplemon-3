@@ -643,29 +643,9 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
 
     case Stage::RoundStart: {
         queueCommand({Command::SyncStateNoSwitch});
-        int pp = state->localPlayer().getPriority();
-        int op = state->enemy().getPriority();
-
-        // Check quick draw ability
-        if (firstTurn) {
-            firstTurn = false;
-            if (state->localPlayer().activePeoplemon().currentAbility() ==
-                    pplmn::SpecialAbility::QuickDraw &&
-                state->localPlayer().chosenAction() == TurnAction::Fight) {
-                pp = 10000000; // TODO - should this be higher than switch priority?
-                queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst,
-                                           &state->localPlayer() == &state->activeBattler())},
-                             true);
-            }
-            else if (state->enemy().activePeoplemon().currentAbility() ==
-                         pplmn::SpecialAbility::QuickDraw &&
-                     state->enemy().chosenAction() == TurnAction::Fight) {
-                op = 10000000; // TODO - should this be higher than switch priority?
-                queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst,
-                                           &state->enemy() == &state->activeBattler())},
-                             true);
-            }
-        }
+        int pp    = getPriority(state->localPlayer());
+        int op    = getPriority(state->enemy());
+        firstTurn = false;
 
         bool pfirst = true;
         if (pp < op) { pfirst = false; }
@@ -1959,6 +1939,32 @@ void LocalBattleController::checkKlutz(Battler& battler) {
 bool LocalBattleController::teachThisTurn(Battler& battler) {
     return battler.chosenAction() == TurnAction::Fight && battler.chosenMove() >= 0 &&
            isTeachMove(battler.activePeoplemon().base().knownMoves()[battler.chosenMove()].id);
+}
+
+int LocalBattleController::getPriority(Battler& battler) {
+    const bool isActive = &battler == &state->activeBattler();
+    int base            = battler.getPriority();
+
+    if (firstTurn) {
+        // Check quick draw ability
+        if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::QuickDraw &&
+            battler.chosenAction() == TurnAction::Fight) {
+            queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst, isActive)}, true);
+            return 1000000;
+        }
+
+        // Check new teach ability
+        if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::NewTeach &&
+            teachThisTurn(battler)) {
+            ++base;
+            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
+            if (other.chosenAction() == TurnAction::Fight) {
+                queueCommand({cmd::Message(cmd::Message::Type::NewTeachAbility, isActive)}, true);
+            }
+        }
+    }
+
+    return base;
 }
 
 } // namespace battle

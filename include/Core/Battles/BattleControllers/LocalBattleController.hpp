@@ -57,6 +57,7 @@ private:
     void initCurrentStage();
     void checkCurrentStage(bool viewSynced, bool queueEmpty);
     BattleState::Stage getNextStage(BattleState::Stage ns);
+    int getPriority(Battler& battler);
 
     void startUseMove(Battler& user, int index);
     float getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
@@ -87,6 +88,7 @@ private:
     void preFaint(Battler& fainter);
 
     void checkKlutz(Battler& battler);
+
     static bool teachThisTurn(Battler& battler);
 };
 

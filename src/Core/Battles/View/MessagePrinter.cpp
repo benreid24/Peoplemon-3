@@ -806,6 +806,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " is too much of an Experienced Teacher to die while Teaching!";
         break;
 
+    case Message::Type::NewTeachAbility:
+        dispText = ppl + " is slightly faster this turn because they are a New Teacher!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
