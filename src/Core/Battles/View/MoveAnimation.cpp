@@ -10,10 +10,10 @@ namespace battle
 namespace view
 {
 MoveAnimation::MoveAnimation() {
-    foreground.setIsCentered(false);
     foreground.setIsLoop(false);
-    background.setIsCentered(false);
     background.setIsLoop(false);
+    background.setPosition({0.f, 0.f});
+    foreground.setPosition({0.f, 0.f});
 }
 
 void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon& lp,
@@ -50,6 +50,8 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
     }
     else {
         BL_LOG_ERROR << "Missing animation for move " << move;
+        foreground.stop();
+        background.stop();
     }
 }
 

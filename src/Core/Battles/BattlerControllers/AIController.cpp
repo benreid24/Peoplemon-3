@@ -1,5 +1,6 @@
 #include <Core/Battles/BattlerControllers/AIController.hpp>
 
+#include <BLIB/Util/Random.hpp>
 #include <Core/Battles/Battler.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 
@@ -20,7 +21,11 @@ void AIController::refresh() {}
 
 void AIController::startChooseAction() {
     // TODO - battle ai
-    chooseMove(0);
+    int i = 0;
+    do {
+        i = bl::util::Random::get<int>(0, 3);
+    } while (owner->activePeoplemon().base().knownMoves()[i].id == pplmn::MoveId::Unknown);
+    chooseMove(i);
 }
 
 void AIController::startChoosePeoplemon(bool, bool reviveOnly) {

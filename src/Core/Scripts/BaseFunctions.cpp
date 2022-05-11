@@ -704,16 +704,14 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
                         PrimitiveValue::TInteger,
                         PrimitiveValue::TNumeric,
                         PrimitiveValue::TNumeric,
-                        PrimitiveValue::TString,
-                        PrimitiveValue::TBool>("spawnAnimation", args);
+                        PrimitiveValue::TString>("spawnAnimation", args);
 
     component::Position pos;
     pos.level = args[0].value().getAsInt();
     pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
                   static_cast<int>(args[2].value().getAsInt())});
     pos.setPixels({args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()});
-    result = systems.entity().spawnAnimation(
-        pos, args[5].value().getAsString(), args[6].value().getAsBool());
+    result = systems.entity().spawnAnimation(pos, args[5].value().getAsString());
 }
 
 void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

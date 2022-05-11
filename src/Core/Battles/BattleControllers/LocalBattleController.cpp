@@ -949,12 +949,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         queueCommand({Command::SyncStateNoSwitch}, true);
     }
 
-    // TODO - maybe we move this and effects into separate states for more smooth view updat
-    checkAbilitiesAfterMove(user);
-
-    // resolve move effect if any
-    handleMoveEffect(user);
-
     // ensure that everything is reflected and wait for the view
     queueCommand({Command::SyncStateNoSwitch}, true);
 }

@@ -221,7 +221,7 @@ void Tileset::updateGui() {
     // animations
     group = nullptr;
     for (const auto& pair : tileset->getAnims()) {
-        Animation::Ptr anim = Animation::create(pair->second, false);
+        Animation::Ptr anim = Animation::create(pair->second);
         anim->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);

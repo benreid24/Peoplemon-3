@@ -297,7 +297,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::GuardFailed:
-        dispText = ppl + " tried to Guard themselves it failed!";
+        dispText = ppl + " tried to Guard themselves but they are already Guarded!";
         break;
 
     case Message::Type::SubstituteSuicide:
@@ -544,7 +544,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::SpikesApplied:
-        dispText = ppl + " threw a bunch of Spikes around " + other +
+        dispText = other + " threw a bunch of Spikes around " + ppl +
                    "! They better not move around too much.";
         break;
 
@@ -553,7 +553,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::SpikesFailed:
-        dispText = ppl + " tried to throw more Spikes around " + other +
+        dispText = other + " tried to throw more Spikes around " + ppl +
                    " but it's too messy so they gave up!";
         break;
 

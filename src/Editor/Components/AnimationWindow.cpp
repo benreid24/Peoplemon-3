@@ -53,7 +53,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     auto src = bl::engine::Resources::animations()
                    .load(bl::util::FileUtil::joinPath(path, "4/down.anim"))
                    .data;
-    animation = Animation::create(src, true);
+    animation = Animation::create(src);
     animation->setRequisition({32, 45});
     row->pack(animation, true, true);
     window->pack(row, true, true);
@@ -107,7 +107,7 @@ void AnimationWindow::packAnim(const std::string& f) {
             size.y = 400.f;
             animation->scaleToSize(size);
         }
-        animation->setAnimation(animSrc, true);
+        animation->setAnimation(animSrc);
     }
     if (filePicker.has_value()) {
         filePicker.value().close();

@@ -47,7 +47,6 @@ Renderable Renderable::fromMoveAnims(
                      .data;
 
     mv.anim.setData(*mv.data[0]);
-    mv.anim.setIsCentered(false);
     rc.update(0.f);
 
     return rc;
@@ -91,16 +90,14 @@ Renderable Renderable::fromFastMoveAnims(
                     .data;
 
     mv.anim.setData(*mv.walk[0]);
-    mv.anim.setIsCentered(false);
     rc.update(0.f);
 
     return rc;
 }
 
-Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::string& path,
-                                     bool center) {
+Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::string& path) {
     Renderable rc(pos);
-    rc.data.emplace<OneAnimation>(path, center);
+    rc.data.emplace<OneAnimation>(path);
     return rc;
 }
 
@@ -207,7 +204,7 @@ void Renderable::FastMoveAnims::trigger(bool loop) {
     anim.play();
 }
 
-Renderable::OneAnimation::OneAnimation(const std::string& path, bool center) {
+Renderable::OneAnimation::OneAnimation(const std::string& path) {
     src = bl::engine::Resources::animations()
               .load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path))
               .data;
@@ -217,9 +214,8 @@ Renderable::OneAnimation::OneAnimation(const std::string& path, bool center) {
     }
 
     anim.setData(*src);
-    anim.setIsCentered(center);
-    offset = anim.getData().frameCount() > 0 && !center ? anim.getData().getFrameSize(0) :
-                                                          sf::Vector2f(0.f, 0.f);
+    offset =
+        anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
 }
 
 void Renderable::OneAnimation::update(float dt, const PositionHandle&) { anim.update(dt); }
