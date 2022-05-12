@@ -14,7 +14,7 @@ project(Peoplemon C CXX)
 option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
-option(ON_CI "True when on CI, false when local" On)
+option(ON_CI "True when on CI, false when local" Off)
 option(EDITOR_RELEASE "Builds release mode editor with debug logging" Off)
 
 if (EDITOR_RELEASE)
