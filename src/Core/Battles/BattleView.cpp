@@ -125,6 +125,7 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     target.clear();
 
     target.draw(background);
+    statBoxes.render(target);
     moveAnimation.renderBackground(target, lag);
     localPeoplemon.render(target, lag);
     opponentPeoplemon.render(target, lag);
@@ -135,7 +136,6 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
         playerMenu.render(target);
     }
     printer.render(target);
-    statBoxes.render(target);
 }
 
 void BattleView::process(component::Command cmd) {
