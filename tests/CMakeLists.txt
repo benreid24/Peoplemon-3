@@ -20,7 +20,6 @@ target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/tests)
 target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/BLIB/lib/gtest/googletest/include)
 target_include_directories(Peoplemon.t PRIVATE ${PROJECT_SOURCE_DIR}/lib/BLIB/lib/gtest/googlemock/include)
 
-add_subdirectory(AI)
 add_subdirectory(Files)
 
 add_test(NAME UnitTests COMMAND Peoplemon.T)
