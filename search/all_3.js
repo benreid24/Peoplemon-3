@@ -27,7 +27,7 @@ var searchData=
   ['ballset',['BallSet',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8ac92fb1fb16fa2591c65a883e62bb1b2b',1,'core::battle::cmd::Message::BallSet()'],['../a01101.html#a2453c6ca4371589c8de053aa5145704c',1,'core::battle::BattlerSubstate::ballSet()']]],
   ['ballsetfail',['BallSetFail',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a3a52ee9674121660c6dba6bb594ec0b8',1,'core::battle::cmd::Message']]],
   ['ballspikeblocked',['BallSpikeBlocked',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8ad1271fd0d700553a2a7f41cf7e278cfe',1,'core::battle::cmd::Message']]],
-  ['ballspiked',['BallSpiked',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a66fc3acd2900ec6bcfd9eb46e75916c3',1,'core::battle::cmd::Message::BallSpiked()'],['../a01101.html#a2cf8ff9513bec50611128e34f4474cdd',1,'core::battle::BattlerSubstate::ballSpiked()']]],
+  ['ballspiked',['ballSpiked',['../a01101.html#a2cf8ff9513bec50611128e34f4474cdd',1,'core::battle::BattlerSubstate::ballSpiked()'],['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a66fc3acd2900ec6bcfd9eb46e75916c3',1,'core::battle::cmd::Message::BallSpiked()']]],
   ['ballspikefail',['BallSpikeFail',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a1f3e1ef879fbc3b0d6f55200dee57760',1,'core::battle::cmd::Message']]],
   ['ballswipeblocked',['BallSwipeBlocked',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a20c05211d10865761d3412a0a902bdfe',1,'core::battle::cmd::Message']]],
   ['ballswiped',['BallSwiped',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a4ae36d6e72bc454b1a9a8c72a8f97b85',1,'core::battle::cmd::Message::BallSwiped()'],['../a01101.html#abe054f6a067d9d67583fb9980c97f84e',1,'core::battle::BattlerSubstate::ballSwiped()']]],

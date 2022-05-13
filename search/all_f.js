@@ -42,7 +42,7 @@ var searchData=
   ['normal',['Normal',['../a00941.html#ggaa52c811bcb6c639158aff81bd4cfb39fa960b44c579bc2f6818d2daaf9e4c16f0',1,'core::pplmn']]],
   ['noteffective',['NotEffective',['../a01133.html#a106f02dc7e97fe58faa106402de4e9c8a1904215bf195fa2e87bfa8a05a5e33c6',1,'core::battle::cmd::Message']]],
   ['notifybattlewinner',['NotifyBattleWinner',['../a01125.html#a3c71671823951926934dc2759f0b7638ae5215e8e8537af68b4ce33dabd0bfcd3',1,'core::battle::Command']]],
-  ['notifycb',['NotifyCb',['../a01857.html#a973113f2e7ff0ac33e576514d15cafef',1,'editor::component::ConversationNode::NotifyCb()'],['../a01929.html#a134467f105cfced62d7d55e0b8d6d423',1,'editor::component::OwnedPeoplemonWindow::NotifyCB()']]],
+  ['notifycb',['NotifyCB',['../a01929.html#a134467f105cfced62d7d55e0b8d6d423',1,'editor::component::OwnedPeoplemonWindow::NotifyCB()'],['../a01857.html#a973113f2e7ff0ac33e576514d15cafef',1,'editor::component::ConversationNode::NotifyCb()']]],
   ['notifycheckfailed',['notifyCheckFailed',['../a01061.html#a69aa2e5032d179d992770a787183e61d',1,'core::ai::Conversation']]],
   ['notifycheckpassed',['notifyCheckPassed',['../a01061.html#a8e0a2f9daee0c2320b63c86512e2dc49',1,'core::ai::Conversation']]],
   ['notifychoicemade',['notifyChoiceMade',['../a01061.html#a9dbb8b01be97b67152554105faa29a97',1,'core::ai::Conversation']]],

@@ -26,7 +26,7 @@ var searchData=
   ['trainerexclaimsound',['TrainerExclaimSound',['../a01705.html#a769652783ab82057e415b2922942dcb4',1,'core::Properties']]],
   ['trainerfileextension',['TrainerFileExtension',['../a01705.html#aad3450dd41873996d02e57326a9e7e68',1,'core::Properties']]],
   ['trainerpath',['TrainerPath',['../a01705.html#a27bee2022820a2a3b1abd6ec05e60013',1,'core::Properties']]],
-  ['trainers',['Trainers',['../a01825.html#acc08fe54b119cd087630adfc53d4d091',1,'core::system::Trainers::Trainers()'],['../a01821.html#a83bb012e96b410774024149c3c5a1e90',1,'core::system::Systems::trainers()'],['../a01821.html#a65ca8a1d629e8bfb6f508f3968340831',1,'core::system::Systems::trainers() const']]],
+  ['trainers',['trainers',['../a01821.html#a83bb012e96b410774024149c3c5a1e90',1,'core::system::Systems::trainers()'],['../a01821.html#a65ca8a1d629e8bfb6f508f3968340831',1,'core::system::Systems::trainers() const'],['../a01825.html#acc08fe54b119cd087630adfc53d4d091',1,'core::system::Trainers::Trainers()']]],
   ['trainertalkedto',['trainerTalkedto',['../a01797.html#ae0bda4246e39dd2236fe04d7f3563328',1,'core::system::Interaction']]],
   ['triggeranim',['triggerAnim',['../a01209.html#ae02e608c464cc1dfcd9602619fc052cf',1,'core::component::Renderable']]],
   ['triggeranimation',['triggerAnimation',['../a01153.html#ac568d599f58fc7d2a6027bbaf8a6280a',1,'core::battle::view::PeoplemonAnimation::triggerAnimation(const cmd::Animation &amp;anim)'],['../a01153.html#a89019d28517365d205744cbe3ead406f',1,'core::battle::view::PeoplemonAnimation::triggerAnimation(cmd::Animation::Type type)'],['../a01553.html#a2ac4613a5c40778e3a1e369806b4e414',1,'core::map::Map::triggerAnimation()']]],

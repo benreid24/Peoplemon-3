@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['talkedto',['talkedto',['../a01385.html#a94b47cdfa7a78e4d6b162d39dbcf399c',1,'core::file::GameSave::InteractDataPointers::talkedto()'],['../a01413.html#aeb3d0e402d352e351cc1a2a20388312a',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave::InteractDataPointers &gt;::talkedTo()']]],
+  ['talkedto',['talkedTo',['../a01413.html#aeb3d0e402d352e351cc1a2a20388312a',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave::InteractDataPointers &gt;::talkedTo()'],['../a01385.html#a94b47cdfa7a78e4d6b162d39dbcf399c',1,'core::file::GameSave::InteractDataPointers::talkedto()']]],
   ['texturefiles',['textureFiles',['../a01581.html#ad936fac27653460d8bdb2151de404ac9',1,'bl::serial::binary::SerializableObject&lt; core::map::Tileset &gt;']]],
   ['tileset',['tileset',['../a01553.html#ac90f1b6379cde5d99141d59f1c5a4fe2',1,'core::map::Map']]],
   ['tilesetfield',['tilesetField',['../a01553.html#aa1551b4863b357d0a180d26a8f9b2a34',1,'core::map::Map::tilesetField()'],['../a01557.html#aa539a9afce388b8b5b19e8d05c13aa98',1,'bl::serial::binary::SerializableObject&lt; core::map::Map &gt;::tilesetField()']]],
