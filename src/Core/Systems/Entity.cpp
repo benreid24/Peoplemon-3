@@ -199,7 +199,7 @@ bl::entity::Entity Entity::spawnGeneric(const component::Position& position, boo
     const bool isAnim = bl::util::FileUtil::getExtension(gfx) == "anim";
     if (!owner.engine().entities().addComponent<component::Renderable>(
             entity,
-            isAnim ? component::Renderable::fromAnimation(posHandle, gfx, false) :
+            isAnim ? component::Renderable::fromAnimation(posHandle, gfx) :
                      component::Renderable::fromSprite(
                          posHandle, bl::util::FileUtil::joinPath(Properties::ImagePath(), gfx)))) {
         BL_LOG_ERROR << "Failed to add renderable component to entity: " << entity;
@@ -218,7 +218,7 @@ bl::entity::Entity Entity::spawnGeneric(const component::Position& position, boo
 }
 
 bl::entity::Entity Entity::spawnAnimation(const component::Position& position,
-                                          const std::string& gfx, bool center) {
+                                          const std::string& gfx) {
     bl::entity::Entity entity = owner.engine().entities().createEntity();
     bl::entity::Cleaner cleaner(owner.engine().entities(), entity);
     BL_LOG_DEBUG << "Created animation entity " << entity;
@@ -238,7 +238,7 @@ bl::entity::Entity Entity::spawnAnimation(const component::Position& position,
     posHandle.get().setPixels(tx * 32.f + posHandle.get().positionPixels());
 
     if (!owner.engine().entities().addComponent<component::Renderable>(
-            entity, component::Renderable::fromAnimation(posHandle, gfx, center))) {
+            entity, component::Renderable::fromAnimation(posHandle, gfx))) {
         BL_LOG_ERROR << "Failed to add renderable component to entity: " << entity;
         return bl::entity::InvalidEntity;
     }

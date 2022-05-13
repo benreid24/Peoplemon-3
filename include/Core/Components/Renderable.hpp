@@ -68,7 +68,7 @@ public:
      */
     static Renderable fromAnimation(
         const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-        const std::string& path, bool center);
+        const std::string& path);
 
     /**
      * @brief Updates contained animations
@@ -158,7 +158,7 @@ private:
         bl::gfx::Animation anim;
         sf::Vector2f offset;
 
-        OneAnimation(const std::string& path, bool center);
+        OneAnimation(const std::string& path);
         virtual ~OneAnimation() = default;
         virtual void update(
             float dt,

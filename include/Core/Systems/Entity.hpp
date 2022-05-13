@@ -59,11 +59,9 @@ public:
      *
      * @param position The position to spawn the entity at
      * @param gfx The path to the animation to render
-     * @param center True to center the animation, false for top left origin
      * @return The created entity id or InvalidEntity
      */
-    bl::entity::Entity spawnAnimation(const component::Position& position, const std::string& gfx,
-                                      bool center);
+    bl::entity::Entity spawnAnimation(const component::Position& position, const std::string& gfx);
 
 private:
     Systems& owner;

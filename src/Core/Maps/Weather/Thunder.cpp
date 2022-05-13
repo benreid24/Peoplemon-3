@@ -53,7 +53,6 @@ void Thunder::update(float dt) {
         else if (!stopping) {
             if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
                 timeSinceLastThunder = 0.f;
-                sound = bl::audio::AudioSystem::getOrLoadSound(Properties::ThunderSoundFile());
                 bl::audio::AudioSystem::playSound(sound);
                 lightning.setFillColor(sf::Color(255, 255, 255, computeAlpha(0.f)));
             }

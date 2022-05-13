@@ -451,10 +451,12 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::ResolveAfterAttackAbilities:
+            queueCommand({Command::SyncStateNoSwitch}, true);
             setBattleState(Stage::ResolveAttackEffect);
             break;
 
         case Stage::ResolveAttackEffect:
+            queueCommand({Command::SyncStateNoSwitch}, true);
             setBattleState(Stage::NextBattler);
             break;
 
@@ -814,6 +816,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             printAttackPrequel();
             queueCommand({cmd::Message::Type::AttackMissed}, true);
         }
+        setBattleState(BattleState::Stage::NextBattler);
         return;
     }
     printAttackPrequel();
@@ -948,12 +951,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
         queueCommand({Command::SyncStateNoSwitch}, true);
     }
-
-    // TODO - maybe we move this and effects into separate states for more smooth view updat
-    checkAbilitiesAfterMove(user);
-
-    // resolve move effect if any
-    handleMoveEffect(user);
 
     // ensure that everything is reflected and wait for the view
     queueCommand({Command::SyncStateNoSwitch}, true);
@@ -2158,6 +2155,8 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         BL_LOG_ERROR << "Unknown move effect: " << effect;
         break;
     }
+
+    queueCommand({Command::WaitForView});
 }
 
 } // namespace battle

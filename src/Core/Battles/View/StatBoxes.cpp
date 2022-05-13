@@ -11,7 +11,8 @@ namespace view
 {
 namespace
 {
-constexpr float BarRate = 0.45f; // 45% of total width per second
+constexpr float SlideSpeed = 400.f;
+constexpr float BarRate    = 0.45f; // 45% of total width per second
 const sf::Vector2f BarSize(96.f, 6.f);
 
 const sf::Vector2f XpBarPos(52.f, 88.f);
@@ -41,6 +42,8 @@ std::string makeHpStr(unsigned int cur, unsigned int max) {
 StatBoxes::StatBoxes()
 : localPlayer(nullptr)
 , opponent(nullptr)
+, pState(State::Hidden)
+, oState(State::Hidden)
 , opHpBarTarget(0.f)
 , lpHpBarTarget(0.f)
 , lpXpBarTarget(0.f) {
@@ -56,19 +59,13 @@ StatBoxes::StatBoxes()
 
     opBoxTxtr = textures.load(join(ImgPath, "Battle/opBox.png")).data;
     opBox.setTexture(*opBoxTxtr, true);
-    opBox.setPosition(OpBoxPos);
-    opHpBar.setPosition(OpBoxPos + OpBarPos);
+    opBox.setPosition(-opBox.getGlobalBounds().width, OpBoxPos.y);
 
     lpBoxTxtr = textures.load(join(ImgPath, "Battle/pBox.png")).data;
     lpBox.setTexture(*lpBoxTxtr, true);
-    lpBox.setPosition(LpBoxPos);
-    lpHpBar.setPosition(LpBoxPos + LpBarPos);
-    lpXpBar.setPosition(LpBoxPos + XpBarPos);
+    lpBox.setPosition(Properties::WindowWidth() + lpBox.getGlobalBounds().width, LpBoxPos.y);
     lpXpBar.setFillColor(sf::Color::Blue);
 
-    opAil.setPosition(OpBoxPos + sf::Vector2f(10.f, 46.f));
-    opName.setPosition(OpBoxPos + sf::Vector2f(5.f, 18.f));
-    opLevel.setPosition(OpBoxPos + sf::Vector2f(168.f, 21.f));
     opName.setFont(Properties::MenuFont());
     opName.setFillColor(sf::Color::Black);
     opName.setCharacterSize(NameSize);
@@ -78,9 +75,6 @@ StatBoxes::StatBoxes()
     opLevel.setCharacterSize(LevelSize);
     opLevel.setStyle(sf::Text::Bold);
 
-    lpAil.setPosition(LpBoxPos + sf::Vector2f(33.f, 61.f));
-    lpName.setPosition(LpBoxPos + sf::Vector2f(41.f, 22.f));
-    lpLevel.setPosition(LpBoxPos + sf::Vector2f(218.f, 24.f));
     lpName.setFont(Properties::MenuFont());
     lpName.setFillColor(sf::Color::Black);
     lpName.setCharacterSize(NameSize);
@@ -90,7 +84,6 @@ StatBoxes::StatBoxes()
     lpLevel.setCharacterSize(LevelSize);
     lpLevel.setStyle(sf::Text::Bold);
     lpHp.setFont(Properties::MenuFont());
-    lpHp.setPosition(LpBoxPos + sf::Vector2f(131.f, 68.f));
     lpHp.setCharacterSize(14.f);
     lpHp.setFillColor(sf::Color::Black);
 }
@@ -98,17 +91,19 @@ StatBoxes::StatBoxes()
 void StatBoxes::setOpponent(pplmn::BattlePeoplemon* ppl) {
     opponent = ppl;
     opHpBar.setSize({0.f, BarSize.y});
-    sync();
+    if (oState == State::Hidden) { oState = State::Sliding; }
+    sync(false);
 }
 
 void StatBoxes::setPlayer(pplmn::BattlePeoplemon* ppl) {
     localPlayer = ppl;
     lpHpBar.setSize({0.f, BarSize.y});
     lpXpBar.setSize({0.f, XpBarSize.y});
-    sync();
+    if (pState == State::Hidden) { pState = State::Sliding; }
+    sync(true);
 }
 
-void StatBoxes::sync() {
+void StatBoxes::sync(bool fromSwitch) {
     if (localPlayer) {
         lpName.setString(localPlayer->base().name());
         lpLevel.setString(std::to_string(localPlayer->base().currentLevel()));
@@ -120,6 +115,7 @@ void StatBoxes::sync() {
         lpXpBarTarget = (static_cast<float>(localPlayer->base().currentXP()) /
                          static_cast<float>(localPlayer->base().nextLevelXP())) *
                         XpBarSize.x;
+        if (fromSwitch) { lpXpBar.setSize({lpXpBarTarget, XpBarSize.y}); }
     }
     else {
         BL_LOG_WARN << "sync() called with null player peoplemon";
@@ -146,55 +142,87 @@ void StatBoxes::sync() {
 void StatBoxes::update(float dt) {
     const float change = dt * BarRate * BarSize.x;
 
-    // opponent bar size
-    if (opHpBar.getSize().x < opHpBarTarget) {
-        const float nw = std::min(opHpBarTarget, opHpBar.getSize().x + change);
-        opHpBar.setSize({nw, BarSize.y});
+    // opponent box slide
+    if (oState == State::Sliding) {
+        const float dx = SlideSpeed * dt;
+        opBox.move(dx, 0.f);
+        if (opBox.getPosition().x > OpBoxPos.x) {
+            opBox.setPosition(OpBoxPos);
+            oState = State::Showing;
+        }
+        opHpBar.setPosition(opBox.getPosition() + OpBarPos);
+        opAil.setPosition(opBox.getPosition() + sf::Vector2f(10.f, 46.f));
+        opName.setPosition(opBox.getPosition() + sf::Vector2f(5.f, 18.f));
+        opLevel.setPosition(opBox.getPosition() + sf::Vector2f(168.f, 21.f));
     }
-    else if (opHpBar.getSize().x > opHpBarTarget) {
-        const float nw = std::max(opHpBarTarget, opHpBar.getSize().x - change);
-        opHpBar.setSize({nw, BarSize.y});
+    else if (oState == State::Showing) {
+        // opponent bar size
+        if (opHpBar.getSize().x < opHpBarTarget) {
+            const float nw = std::min(opHpBarTarget, opHpBar.getSize().x + change);
+            opHpBar.setSize({nw, BarSize.y});
+        }
+        else if (opHpBar.getSize().x > opHpBarTarget) {
+            const float nw = std::max(opHpBarTarget, opHpBar.getSize().x - change);
+            opHpBar.setSize({nw, BarSize.y});
+        }
+
+        // opponent bar color
+        const float opHp = opHpBar.getSize().x / BarSize.x;
+        if (opHp >= GreenThresh) { opHpBar.setFillColor(sf::Color::Green); }
+        else if (opHp >= YellowThresh) {
+            opHpBar.setFillColor(sf::Color::Yellow);
+        }
+        else {
+            opHpBar.setFillColor(sf::Color::Red);
+        }
     }
 
-    // player bar size
-    if (lpHpBar.getSize().x < lpHpBarTarget) {
-        const float nw = std::min(lpHpBarTarget, lpHpBar.getSize().x + change);
-        lpHpBar.setSize({nw, BarSize.y});
+    // player box slide
+    if (pState == State::Sliding) {
+        const float dx = SlideSpeed * dt;
+        lpBox.move(-dx, 0.f);
+        if (lpBox.getPosition().x < LpBoxPos.x) {
+            lpBox.setPosition(LpBoxPos);
+            pState = State::Showing;
+        }
+        lpAil.setPosition(lpBox.getPosition() + sf::Vector2f(33.f, 61.f));
+        lpName.setPosition(lpBox.getPosition() + sf::Vector2f(41.f, 22.f));
+        lpLevel.setPosition(lpBox.getPosition() + sf::Vector2f(218.f, 24.f));
+        lpHp.setPosition(lpBox.getPosition() + sf::Vector2f(131.f, 68.f));
+        lpHpBar.setPosition(lpBox.getPosition() + LpBarPos);
+        lpXpBar.setPosition(lpBox.getPosition() + XpBarPos);
     }
-    else if (lpHpBar.getSize().x > lpHpBarTarget) {
-        const float nw = std::max(lpHpBarTarget, lpHpBar.getSize().x - change);
-        lpHpBar.setSize({nw, BarSize.y});
-    }
+    else if (pState == State::Showing) {
+        // player bar size
+        if (lpHpBar.getSize().x < lpHpBarTarget) {
+            const float nw = std::min(lpHpBarTarget, lpHpBar.getSize().x + change);
+            lpHpBar.setSize({nw, BarSize.y});
+        }
+        else if (lpHpBar.getSize().x > lpHpBarTarget) {
+            const float nw = std::max(lpHpBarTarget, lpHpBar.getSize().x - change);
+            lpHpBar.setSize({nw, BarSize.y});
+        }
 
-    // opponent bar color
-    const float opHp = opHpBar.getSize().x / BarSize.x;
-    if (opHp >= GreenThresh) { opHpBar.setFillColor(sf::Color::Green); }
-    else if (opHp >= YellowThresh) {
-        opHpBar.setFillColor(sf::Color::Yellow);
-    }
-    else {
-        opHpBar.setFillColor(sf::Color::Red);
-    }
+        // player bar color
+        const float lphp = lpHpBar.getSize().x / BarSize.x;
+        if (lphp >= GreenThresh) { lpHpBar.setFillColor(sf::Color::Green); }
+        else if (lphp >= YellowThresh) {
+            lpHpBar.setFillColor(sf::Color::Yellow);
+        }
+        else {
+            lpHpBar.setFillColor(sf::Color::Red);
+        }
 
-    // player bar color
-    const float lphp = lpHpBar.getSize().x / BarSize.x;
-    if (lphp >= GreenThresh) { lpHpBar.setFillColor(sf::Color::Green); }
-    else if (lphp >= YellowThresh) {
-        lpHpBar.setFillColor(sf::Color::Yellow);
-    }
-    else {
-        lpHpBar.setFillColor(sf::Color::Red);
-    }
-
-    // xp bar size
-    const float xpChange = dt * BarRate * XpBarSize.x;
-    if (lpXpBar.getSize().x < lpXpBarTarget) {
-        const float nw = std::min(lpXpBarTarget, lpXpBar.getSize().x + xpChange);
-        lpXpBar.setSize({nw, XpBarSize.y});
-    }
-    else if (lpXpBar.getSize().x > lpXpBarTarget) {
-        // no transition down
-        lpXpBar.setSize({lpXpBarTarget, XpBarSize.y});
+        // xp bar size
+        const float xpChange = dt * BarRate * XpBarSize.x;
+        if (lpXpBar.getSize().x < lpXpBarTarget) {
+            const float nw = std::min(lpXpBarTarget, lpXpBar.getSize().x + xpChange);
+            lpXpBar.setSize({nw, XpBarSize.y});
+        }
+        else if (lpXpBar.getSize().x > lpXpBarTarget) {
+            // no transition down
+            lpXpBar.setSize({lpXpBarTarget, XpBarSize.y});
+        }
     }
 }
 
@@ -204,19 +232,23 @@ bool StatBoxes::synced() const {
 }
 
 void StatBoxes::render(sf::RenderTarget& target) const {
-    target.draw(opHpBar);
-    target.draw(opBox);
-    target.draw(opName);
-    target.draw(opLevel);
-    target.draw(opAil);
+    if (oState != State::Hidden) {
+        target.draw(opHpBar);
+        target.draw(opBox);
+        target.draw(opName);
+        target.draw(opLevel);
+        target.draw(opAil);
+    }
 
-    target.draw(lpHpBar);
-    target.draw(lpXpBar);
-    target.draw(lpBox);
-    target.draw(lpName);
-    target.draw(lpHp);
-    target.draw(lpLevel);
-    target.draw(lpAil);
+    if (pState != State::Hidden) {
+        target.draw(lpHpBar);
+        target.draw(lpXpBar);
+        target.draw(lpBox);
+        target.draw(lpName);
+        target.draw(lpHp);
+        target.draw(lpLevel);
+        target.draw(lpAil);
+    }
 }
 
 const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) const {

@@ -3,6 +3,7 @@
 
 #include <BLIB/Entities.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
@@ -71,6 +72,7 @@ private:
     Systems& owner;
     bl::resource::Resource<sf::Texture>::Ref txtr;
     sf::Sprite exclaim;
+    bl::audio::AudioSystem::Handle exclaimSound;
     float height;
 
     State state;

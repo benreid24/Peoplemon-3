@@ -23,6 +23,7 @@ Trainers::Trainers(Systems& o)
 , walkingTrainer(bl::entity::InvalidEntity) {
     txtr = bl::engine::Resources::textures().load(Properties::TrainerExclaimImage()).data;
     exclaim.setTexture(*txtr, true);
+    exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
 }
 
 void Trainers::init() { owner.engine().eventBus().subscribe(this); }
@@ -66,7 +67,6 @@ void Trainers::update(float dt) {
     case State::Walking:
         if (!trainerMove->moving()) {
             if (component::Position::adjacent(*trainerPos, owner.player().position())) {
-                BL_LOG_INFO << "try interact";
                 if (!owner.interaction().interact(walkingTrainer)) {
                     BL_LOG_ERROR << "Trainer " << walkingTrainer
                                  << " was unable to interact with player, aborting";
@@ -170,8 +170,7 @@ void Trainers::checkTrainer(bl::entity::Entity ent) {
         trainerMove      = move;
         owner.controllable().setEntityLocked(owner.player().player(), true);
 
-        auto sfx = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
-        bl::audio::AudioSystem::playSound(sfx);
+        bl::audio::AudioSystem::playSound(exclaimSound);
         state  = State::PoppingUp;
         height = 0.f;
         const sf::Vector2i s(txtr->getSize());

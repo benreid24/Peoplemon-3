@@ -43,8 +43,10 @@ public:
     /**
      * @brief Updates the UI to reflect the current peoplemon state
      *
+     * @param fromSwitch True to sync from switch, false for regular sync
+     *
      */
-    void sync();
+    void sync(bool fromSwitch = false);
 
     /**
      * @brief Updates bar sizes if they need to change
@@ -67,8 +69,12 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
+    enum struct State { Hidden, Sliding, Showing };
+
     pplmn::BattlePeoplemon* localPlayer;
     pplmn::BattlePeoplemon* opponent;
+    State pState;
+    State oState;
 
     sf::Texture blank;
     bl::resource::Resource<sf::Texture>::Ref annoyTxtr;
