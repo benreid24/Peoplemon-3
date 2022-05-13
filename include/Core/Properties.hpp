@@ -42,6 +42,7 @@ public:
     static const std::string& MenuImagePath();
     static const std::string& ImagePath();
     static const std::string& AnimationPath();
+    static const std::string& SoundPath();
 
     static const std::string& SpritesheetPath();
     static const std::string& MusicPath();

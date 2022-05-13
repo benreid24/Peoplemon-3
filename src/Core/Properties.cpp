@@ -30,6 +30,7 @@ const std::string MusicPath       = "Resources/Audio/Music";
 const std::string PlaylistPath    = "Resources/Audio/Playlists";
 const std::string MenuFont        = "Resources/Fonts/Menu.ttf";
 const std::string AnimationPath   = "Resources/Animations";
+const std::string SoundPath       = "Resources/Audio/Sounds";
 
 const std::string MapPath          = "Resources/Maps/Maps";
 const std::string TilesetPath      = "Resources/Maps/Tilesets";
@@ -135,6 +136,7 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.music.playlist_path", defaults::PlaylistPath);
     bl::engine::Configuration::set("core.anims.path", defaults::AnimationPath);
     bl::engine::Configuration::set("core.imgs.path", defaults::ImagePath);
+    bl::engine::Configuration::set("core.audio.sound_path", defaults::SoundPath);
 
     bl::engine::Configuration::set("core.map.path", defaults::MapPath);
     bl::engine::Configuration::set("core.map.tileset_path", defaults::TilesetPath);
@@ -658,6 +660,12 @@ const std::string& Properties::TrainerExclaimImage() {
 const std::string& Properties::TrainerExclaimSound() {
     static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
         "core.trainer.sfx", defaults::TrainerExclaimSound);
+    return f;
+}
+
+const std::string& Properties::SoundPath() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.audio.sound_path", defaults::SoundPath);
     return f;
 }
 
