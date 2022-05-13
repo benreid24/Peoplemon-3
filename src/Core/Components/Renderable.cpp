@@ -177,16 +177,21 @@ Renderable::FastMoveAnims::FastMoveAnims(
 : movable(movable) {}
 
 void Renderable::FastMoveAnims::update(float dt, const PositionHandle& pos) {
-    anim.setData(*walk[static_cast<unsigned int>(pos.get().direction)]);
-    anim.update(dt);
     if (movable.get().moving()) {
         if (movable.get().goingFast()) {
-            anim.setData(*run[static_cast<unsigned int>(pos.get().direction)]);
+            auto& src = *run[static_cast<unsigned int>(pos.get().direction)];
+            anim.setData(src);
+        }
+        else {
+            auto& src = *walk[static_cast<unsigned int>(pos.get().direction)];
+            anim.setData(src);
         }
         anim.play(false);
     }
-    else
+    else {
         anim.stop();
+    }
+    anim.update(dt);
 }
 
 void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
