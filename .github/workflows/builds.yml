@@ -2,7 +2,7 @@ on:
   repository_dispatch:
     types: [builds]
 
-name: Build Binaries
+name: Build Game Binaries
 
 jobs:
   windows_build:
@@ -16,16 +16,10 @@ jobs:
           submodules: 'recursive'
 
       - name: Configure Build
-        run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
         run: cd build && make
-
-      - name: Download Animation Editor
-        run: |
-          curl -L -o AnimEditor.zip https://github.com/benreid24/Animation-Editor-2/releases/download/v1.1.2/Windows.zip
-          mkdir tools
-          Expand-Archive -Path ./AnimEditor.zip -DestinationPath ./tools
 
       - name: Package Project
         run: |
@@ -34,11 +28,6 @@ jobs:
           mv PeoplemonRelease.exe Peoplemon/Peoplemon.exe
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./Peoplemon
           Compress-Archive -Path Peoplemon -DestinationPath Windows.zip
-          
-          mv EditorResources Peoplemon
-          mv PeoplemonEditorRelease.exe Peoplemon/PeoplemonEditor.exe
-          mv tools Peoplemon
-          Compress-Archive -Path Peoplemon -DestinationPath WindowsEditor.zip
 
       - name: Upload Game Package
         id: upload-release-game 
@@ -49,17 +38,6 @@ jobs:
           upload_url: ${{ github.event.client_payload.release_url }}
           asset_path: ./Windows.zip
           asset_name: Windows.zip
-          asset_content_type: application/zip
-
-      - name: Upload Editor Package
-        id: upload-release-editor
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.release_url }}
-          asset_path: ./WindowsEditor.zip
-          asset_name: WindowsEditor.zip
           asset_content_type: application/zip
 
   linux_build:
@@ -78,7 +56,7 @@ jobs:
           sudo apt-get install --fix-missing libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
 
       - name: Configure Build
-        run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
         run: cd build && make
@@ -89,10 +67,6 @@ jobs:
           mv Resources Peoplemon
           mv PeoplemonRelease Peoplemon/Peoplemon
           zip -r Linux.zip Peoplemon
-          
-          mv EditorResources Peoplemon
-          mv PeoplemonEditorRelease Peoplemon/PeoplemonEditor
-          zip -r LinuxEditor.zip Peoplemon
 
       - name: Upload Game Package
         id: upload-release-game 
@@ -103,17 +77,6 @@ jobs:
           upload_url: ${{ github.event.client_payload.release_url }}
           asset_path: ./Linux.zip
           asset_name: Linux.zip
-          asset_content_type: application/zip
-
-      - name: Upload Editor Package
-        id: upload-release-editor
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.release_url }}
-          asset_path: ./LinuxEditor.zip
-          asset_name: LinuxEditor.zip
           asset_content_type: application/zip
 
   macos_build:
@@ -127,7 +90,7 @@ jobs:
           submodules: 'recursive'
 
       - name: Configure Build
-        run: cmake -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
         run: cd build && make
@@ -145,11 +108,6 @@ jobs:
           mv Resources Peoplemon.app/Contents/MacOS
           mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
           zip -vr MacOS.zip Peoplemon.app
-          
-          mv Peoplemon.app PeoplemonEditor.app
-          mv EditorResources PeoplemonEditor.app/Contents/MacOS
-          mv PeoplemonEditorRelease PeoplemonEditor.app/Contents/MacOS/Peoplemon
-          zip -vr MacOSEditor.zip PeoplemonEditor.app
 
       - name: Upload Game Package
         id: upload-release-game 
@@ -160,15 +118,4 @@ jobs:
           upload_url: ${{ github.event.client_payload.release_url }}
           asset_path: ./MacOS.zip
           asset_name: MacOS.zip
-          asset_content_type: application/zip
-
-      - name: Upload Editor Package
-        id: upload-release-editor
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ github.event.client_payload.release_url }}
-          asset_path: ./MacOSEditor.zip
-          asset_name: MacOSEditor.zip
           asset_content_type: application/zip

@@ -19,6 +19,14 @@ std::string pplToStr(const core::pplmn::OwnedPeoplemon& ppl) {
     return ss.str();
 }
 
+int parsePayout(const std::string& payout) {
+    for (char c : payout) {
+        if (c < '0' || c > '9') return -1;
+    }
+    const int p = std::atoi(payout.c_str());
+    return p <= 200 ? p : -1;
+}
+
 } // namespace
 
 using namespace bl::gui;
@@ -104,6 +112,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
             trainer.visionRange            = visionRangeEntry->getSelectedOption();
             trainer.items                  = items;
             trainer.peoplemon              = peoplemon;
+            trainer.payout                 = parsePayout(payoutEntry->getInput());
             if (!trainer.save(bl::util::FileUtil::joinPath(core::Properties::TrainerPath(),
                                                            fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save Trainer", "ok", "error", 1);
@@ -268,6 +277,14 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     row->pack(column, false, true);
     window->pack(row, true, false);
 
+    row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row->pack(Label::create("Battle Base Payout (0-200):"), false, true);
+    payoutEntry = TextEntry::create();
+    payoutEntry->setInput("40");
+    payoutEntry->setRequisition({60.f, 10.f});
+    row->pack(payoutEntry, false, true);
+    window->pack(row, true, false);
+
     row                   = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     Button::Ptr selectBut = Button::create("Use Trainer");
     selectBut->setTooltip("Use the current Trainer file");
@@ -342,6 +359,7 @@ void TrainerEditorWindow::reset() {
     itemSelectBox->clearOptions();
     pplBox->clearOptions();
     peoplemon.clear();
+    payoutEntry->setInput("40");
 }
 
 void TrainerEditorWindow::load(const std::string& file) {
@@ -358,6 +376,7 @@ void TrainerEditorWindow::load(const std::string& file) {
         for (const auto item : items) { itemSelectBox->addOption(core::item::Item::getName(item)); }
         peoplemon = trainer.peoplemon;
         for (const auto& ppl : peoplemon) { pplBox->addOption(pplToStr(ppl)); }
+        payoutEntry->setInput(std::to_string(trainer.payout));
     }
     else {
         bl::dialog::tinyfd_messageBox(
@@ -413,6 +432,11 @@ bool TrainerEditorWindow::validate(bool saving) const {
     }
     if (peoplemon.empty()) {
         bl::dialog::tinyfd_messageBox("Warning", "Trainer has no peoplemon", "ok", "warning", 1);
+        return false;
+    }
+    if (parsePayout(payoutEntry->getInput()) <= 0) {
+        bl::dialog::tinyfd_messageBox(
+            "Warning", "Payout must be number in range (0, 200]", "ok", "warning", 1);
         return false;
     }
     return true;

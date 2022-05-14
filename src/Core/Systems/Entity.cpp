@@ -82,9 +82,10 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation();
 
-        /*if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data)))
-        { BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity; return false;
-        }*/
+        if (!owner.engine().entities().addComponent<component::NPC>(entity, component::NPC(data))) {
+            BL_LOG_ERROR << "Failed to add NPC component to npc: " << entity;
+            return false;
+        }
     }
 
     // Trainer
@@ -107,11 +108,11 @@ bl::entity::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
 
         animation = data.animation;
 
-        /*if (!owner.engine().entities().addComponent<component::Trainer>(entity,
+        if (!owner.engine().entities().addComponent<component::Trainer>(entity,
                                                                         component::Trainer(data))) {
             BL_LOG_ERROR << "Failed to add trainer component to entity: " << entity;
             return false;
-        }*/
+        }
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file;
@@ -176,6 +177,74 @@ bool Entity::spawnItem(const map::Item& item) {
     }
 
     return true;
+}
+
+bl::entity::Entity Entity::spawnGeneric(const component::Position& position, bool collidable,
+                                        const std::string& gfx) {
+    bl::entity::Entity entity = owner.engine().entities().createEntity();
+    bl::entity::Cleaner cleaner(owner.engine().entities(), entity);
+    BL_LOG_DEBUG << "Created generic entity " << entity;
+
+    if (!owner.engine().entities().addComponent<component::Position>(entity, position)) {
+        BL_LOG_ERROR << "Failed to add position component to entity: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    auto posHandle = owner.engine().entities().getComponentHandle<component::Position>(entity);
+    if (!posHandle.hasValue()) {
+        BL_LOG_ERROR << "Failed to get position component handle for entity: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    const bool isAnim = bl::util::FileUtil::getExtension(gfx) == "anim";
+    if (!owner.engine().entities().addComponent<component::Renderable>(
+            entity,
+            isAnim ? component::Renderable::fromAnimation(posHandle, gfx) :
+                     component::Renderable::fromSprite(
+                         posHandle, bl::util::FileUtil::joinPath(Properties::ImagePath(), gfx)))) {
+        BL_LOG_ERROR << "Failed to add renderable component to entity: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    if (collidable) {
+        if (!owner.engine().entities().addComponent<component::Collision>(entity, {})) {
+            BL_LOG_ERROR << "Failed to add collision to generic entity: " << entity;
+            return bl::entity::InvalidEntity;
+        }
+    }
+
+    cleaner.disarm();
+    return entity;
+}
+
+bl::entity::Entity Entity::spawnAnimation(const component::Position& position,
+                                          const std::string& gfx) {
+    bl::entity::Entity entity = owner.engine().entities().createEntity();
+    bl::entity::Cleaner cleaner(owner.engine().entities(), entity);
+    BL_LOG_DEBUG << "Created animation entity " << entity;
+
+    if (!owner.engine().entities().addComponent<component::Position>(entity, position)) {
+        BL_LOG_ERROR << "Failed to add position component to animation: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    auto posHandle = owner.engine().entities().getComponentHandle<component::Position>(entity);
+    if (!posHandle.hasValue()) {
+        BL_LOG_ERROR << "Failed to get position component handle for entity: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    const sf::Vector2f tx(posHandle.get().positionTiles());
+    posHandle.get().setPixels(tx * 32.f + posHandle.get().positionPixels());
+
+    if (!owner.engine().entities().addComponent<component::Renderable>(
+            entity, component::Renderable::fromAnimation(posHandle, gfx))) {
+        BL_LOG_ERROR << "Failed to add renderable component to entity: " << entity;
+        return bl::entity::InvalidEntity;
+    }
+
+    cleaner.disarm();
+    return entity;
 }
 
 } // namespace system

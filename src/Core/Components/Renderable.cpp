@@ -8,12 +8,15 @@ namespace core
 {
 namespace component
 {
-Renderable Renderable::fromSprite(
-    const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-    const std::string& file) {
+namespace
+{
+using PositionHandle = bl::entity::Registry::ComponentHandle<component::Position>;
+}
+
+Renderable Renderable::fromSprite(const PositionHandle& pos, const std::string& file) {
     Renderable rc(pos);
-    StaticSprite& spr = *new StaticSprite();
-    rc.data.reset(&spr);
+    rc.data.emplace<StaticSprite>();
+    StaticSprite& spr = *std::get_if<StaticSprite>(&rc.data);
 
     spr.texture = bl::engine::Resources::textures().load(file).data;
     spr.sprite.setTexture(*spr.texture, true);
@@ -23,12 +26,12 @@ Renderable Renderable::fromSprite(
 }
 
 Renderable Renderable::fromMoveAnims(
-    const bl::entity::Registry::ComponentHandle<component::Position>& pos,
+    const PositionHandle& pos,
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable,
     const std::string& path) {
     Renderable rc(pos);
-    MoveAnims& mv = *new MoveAnims(movable);
-    rc.data.reset(&mv);
+    rc.data.emplace<MoveAnims>(movable);
+    MoveAnims& mv = *std::get_if<MoveAnims>(&rc.data);
 
     mv.data[0] = bl::engine::Resources::animations()
                      .load(bl::util::FileUtil::joinPath(path, "up.anim"))
@@ -44,19 +47,18 @@ Renderable Renderable::fromMoveAnims(
                      .data;
 
     mv.anim.setData(*mv.data[0]);
-    mv.anim.setIsCentered(false);
     rc.update(0.f);
 
     return rc;
 }
 
 Renderable Renderable::fromFastMoveAnims(
-    const bl::entity::Registry::ComponentHandle<component::Position>& pos,
+    const PositionHandle& pos,
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable,
     const std::string& path) {
     Renderable rc(pos);
-    FastMoveAnims& mv = *new FastMoveAnims(movable);
-    rc.data.reset(&mv);
+    rc.data.emplace<FastMoveAnims>(movable);
+    FastMoveAnims& mv = *std::get_if<FastMoveAnims>(&rc.data);
 
     const std::string walkPath = bl::util::FileUtil::joinPath(path, "Walk");
     const std::string runPath  = bl::util::FileUtil::joinPath(path, "Run");
@@ -88,36 +90,66 @@ Renderable Renderable::fromFastMoveAnims(
                     .data;
 
     mv.anim.setData(*mv.walk[0]);
-    mv.anim.setIsCentered(false);
     rc.update(0.f);
 
     return rc;
 }
 
-Renderable::Renderable(const bl::entity::Registry::ComponentHandle<component::Position>& pos)
+Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::string& path) {
+    Renderable rc(pos);
+    rc.data.emplace<OneAnimation>(path);
+    return rc;
+}
+
+Renderable::Renderable(const PositionHandle& pos)
 : position(pos) {}
 
-void Renderable::update(float dt) { data->update(dt, position); }
+void Renderable::update(float dt) { cur()->update(dt, position); }
 
 void Renderable::render(sf::RenderTarget& target, float lag) const {
     // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
-    const sf::Vector2f pos(position.get().positionPixels() +
-                           sf::Vector2f(static_cast<float>(Properties::PixelsPerTile()),
-                                        static_cast<float>(Properties::PixelsPerTile())));
-    data->render(target, lag, pos);
+    static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
+                                     static_cast<float>(Properties::PixelsPerTile()));
+    const sf::Vector2f pos(position.get().positionPixels() + offset);
+    cur()->render(target, lag, pos);
 }
+
+Renderable::Base* Renderable::cur() {
+    switch (data.index()) {
+    case 0:
+        return std::get_if<StaticSprite>(&data);
+    case 1:
+        return std::get_if<MoveAnims>(&data);
+    case 2:
+        return std::get_if<FastMoveAnims>(&data);
+    case 3:
+        return std::get_if<OneAnimation>(&data);
+    default:
+        BL_LOG_CRITICAL << "Invalid Renderable index: " << data.index();
+        return nullptr;
+    }
+}
+
+Renderable::Base* Renderable::cur() const { return const_cast<Renderable*>(this)->cur(); }
+
+float Renderable::animLength() const { return cur()->length(); }
+
+void Renderable::triggerAnim(bool loop) { cur()->trigger(loop); }
 
 void Renderable::StaticSprite::render(sf::RenderTarget& target, float, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     target.draw(sprite);
 }
 
+float Renderable::StaticSprite::length() const { return 0.f; }
+
+void Renderable::StaticSprite::trigger(bool) {}
+
 Renderable::MoveAnims::MoveAnims(
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
 : movable(movable) {}
 
-void Renderable::MoveAnims::update(
-    float dt, const bl::entity::Registry::ComponentHandle<component::Position>& pos) {
+void Renderable::MoveAnims::update(float dt, const PositionHandle& pos) {
     anim.setData(*data[static_cast<unsigned int>(pos.get().direction)]);
     anim.update(dt);
     if (movable.get().moving())
@@ -133,22 +165,33 @@ void Renderable::MoveAnims::render(sf::RenderTarget& target, float lag, const sf
     anim.render(target, lag);
 }
 
+float Renderable::MoveAnims::length() const { return anim.getData().getLength(); }
+
+void Renderable::MoveAnims::trigger(bool loop) {
+    anim.setIsLoop(loop);
+    anim.play();
+}
+
 Renderable::FastMoveAnims::FastMoveAnims(
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
 : movable(movable) {}
 
-void Renderable::FastMoveAnims::update(
-    float dt, const bl::entity::Registry::ComponentHandle<component::Position>& pos) {
-    anim.setData(*walk[static_cast<unsigned int>(pos.get().direction)]);
-    anim.update(dt);
+void Renderable::FastMoveAnims::update(float dt, const PositionHandle& pos) {
     if (movable.get().moving()) {
         if (movable.get().goingFast()) {
-            anim.setData(*run[static_cast<unsigned int>(pos.get().direction)]);
+            auto& src = *run[static_cast<unsigned int>(pos.get().direction)];
+            anim.setData(src);
+        }
+        else {
+            auto& src = *walk[static_cast<unsigned int>(pos.get().direction)];
+            anim.setData(src);
         }
         anim.play(false);
     }
-    else
+    else {
         anim.stop();
+    }
+    anim.update(dt);
 }
 
 void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
@@ -157,6 +200,42 @@ void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
     anim.setPosition(pos - offset);
     anim.render(target, lag);
+}
+
+float Renderable::FastMoveAnims::length() const { return anim.getData().getLength(); }
+
+void Renderable::FastMoveAnims::trigger(bool loop) {
+    anim.setIsLoop(loop);
+    anim.play();
+}
+
+Renderable::OneAnimation::OneAnimation(const std::string& path) {
+    src = bl::engine::Resources::animations()
+              .load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path))
+              .data;
+    if (!src) {
+        BL_LOG_WARN << "Failed to load animation: " << path;
+        return;
+    }
+
+    anim.setData(*src);
+    offset =
+        anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
+}
+
+void Renderable::OneAnimation::update(float dt, const PositionHandle&) { anim.update(dt); }
+
+void Renderable::OneAnimation::render(sf::RenderTarget& target, float lag,
+                                      const sf::Vector2f& pos) {
+    anim.setPosition(pos - offset);
+    anim.render(target, lag);
+}
+
+float Renderable::OneAnimation::length() const { return src->getLength(); }
+
+void Renderable::OneAnimation::trigger(bool loop) {
+    anim.setIsLoop(loop);
+    anim.play();
 }
 
 } // namespace component

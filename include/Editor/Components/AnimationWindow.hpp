@@ -1,10 +1,10 @@
 #ifndef EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP
 #define EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP
 
-#include <BLIB/Containers/ObjectWrapper.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Media.hpp>
 #include <functional>
+#include <optional>
 
 namespace editor
 {
@@ -58,7 +58,7 @@ private:
     bl::gui::Label::Ptr fileLabel;
     bl::gui::Animation::Ptr animation;
     bl::resource::Resource<bl::gfx::AnimationData>::Ref animSrc;
-    bl::container::ObjectWrapper<bl::gui::FilePicker> filePicker;
+    std::optional<bl::gui::FilePicker> filePicker;
 
     void packAnim(const std::string& f);
 };

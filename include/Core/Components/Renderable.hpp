@@ -60,11 +60,36 @@ public:
         const std::string& path);
 
     /**
+     * @brief Creates a renderable component from a single animation
+     *
+     * @param pos The position component to render at
+     * @param path The path of the animation
+     * @return Renderable The created component
+     */
+    static Renderable fromAnimation(
+        const bl::entity::Registry::ComponentHandle<component::Position>& pos,
+        const std::string& path);
+
+    /**
      * @brief Updates contained animations
      *
      * @param dt Time elapsed in seconds
      */
     void update(float dt);
+
+    /**
+     * @brief Returns the length of the contained animation, or 0.f if no animation
+     *
+     */
+    float animLength() const;
+
+    /**
+     * @brief Triggers the current animation if any
+     *
+     * @param loop True to loop, false to play once
+     *
+     */
+    void triggerAnim(bool loop);
 
     /**
      * @brief Renders the entity to the given target
@@ -81,6 +106,8 @@ private:
         virtual void update(
             float dt, const bl::entity::Registry::ComponentHandle<component::Position>& pos) = 0;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos)    = 0;
+        virtual float length() const                                                         = 0;
+        virtual void trigger(bool loop)                                                      = 0;
     };
 
     struct StaticSprite : public Base {
@@ -91,6 +118,8 @@ private:
         virtual void update(
             float, const bl::entity::Registry::ComponentHandle<component::Position>&) override {}
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
+        virtual float length() const override;
+        virtual void trigger(bool loop) override;
     };
 
     struct MoveAnims : public Base {
@@ -104,6 +133,8 @@ private:
             float dt,
             const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
+        virtual float length() const override;
+        virtual void trigger(bool loop) override;
     };
 
     struct FastMoveAnims : public Base {
@@ -118,10 +149,30 @@ private:
             float dt,
             const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
+        virtual float length() const override;
+        virtual void trigger(bool loop) override;
+    };
+
+    struct OneAnimation : public Base {
+        bl::resource::Resource<bl::gfx::AnimationData>::Ref src;
+        bl::gfx::Animation anim;
+        sf::Vector2f offset;
+
+        OneAnimation(const std::string& path);
+        virtual ~OneAnimation() = default;
+        virtual void update(
+            float dt,
+            const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
+        virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
+        virtual float length() const override;
+        virtual void trigger(bool loop) override;
     };
 
     bl::entity::Registry::ComponentHandle<component::Position> position;
-    std::shared_ptr<Base> data;
+    std::variant<StaticSprite, MoveAnims, FastMoveAnims, OneAnimation> data;
+
+    Base* cur();
+    Base* cur() const;
 
     Renderable(const bl::entity::Registry::ComponentHandle<component::Position>& pos);
 };

@@ -10,7 +10,7 @@ namespace map
 void LayerSet::init(unsigned int width, unsigned int height, unsigned int bottomCount,
                     unsigned int ysortLayerCount, unsigned int topLayerCount) {
     collisionLayer().create(width, height, Collision::Open);
-    catchLayer().create(width, height, Catch::NoEncounter);
+    catchLayer().create(width, height, 0);
 
     bottomLayers().resize(bottomCount);
     for (TileLayer& layer : bottomLayers()) { layer.create(width, height, {Tile::Blank}); }

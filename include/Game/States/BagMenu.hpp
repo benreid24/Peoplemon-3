@@ -97,7 +97,7 @@ private:
     sf::Text description;
     bool actionOpen;
     menu::BagItemButton* selectedItem;
-    PeoplemonMenu::ContextData pplContext;
+    int selectedPeoplemon;
 
     BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result);
 

@@ -61,7 +61,7 @@ ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
     for (char l = 'n'; l <= 'z'; ++l) { createKey(3, l); }
 
     Item* topRow[3] = {space.get(), del.get(), submit.get()};
-    keyboardMenu.setPosition({16.f, InputAreaHeight + 10.f});
+    keyboardMenu.setPosition({3.f, InputAreaHeight - 6.f});
     keyboardMenu.setMinWidth(28.f);
     keyboardMenu.setMinHeight(30.f);
     keyboardMenu.setPadding({18.f, 4.f});

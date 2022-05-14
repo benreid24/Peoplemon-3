@@ -12,12 +12,14 @@
 #include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
 #include <Core/Systems/Render.hpp>
+#include <Core/Systems/Scripts.hpp>
+#include <Core/Systems/Trainers.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 
-int main();
+int main(int, char**);
 
 namespace tests
 {
@@ -48,8 +50,9 @@ public:
      * @brief Helper function to update all game systems
      *
      * @param dt Elapsed time in seconds since last call to update()
+     * @param entities True to update player and ai, false to skip
      */
-    void update(float dt);
+    void update(float dt, bool entities);
 
     /**
      * @brief Const accessor for the Engine
@@ -183,6 +186,30 @@ public:
      */
     HUD& hud();
 
+    /**
+     * @brief Returns the scripting system
+     *
+     */
+    Scripts& scripts();
+
+    /**
+     * @brief Returns the scripting system
+     *
+     */
+    const Scripts& scripts() const;
+
+    /**
+     * @brief Returns the trainer system
+     *
+     */
+    Trainers& trainers();
+
+    /**
+     * @brief Returns the trainer system
+     *
+     */
+    const Trainers& trainers() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -197,6 +224,8 @@ private:
     Render _render;
     Interaction _interaction;
     HUD _hud;
+    Scripts _scripts;
+    Trainers _trainers;
 
     /**
      * @brief Creates the core game object and associates it with the engine
@@ -205,7 +234,7 @@ private:
      */
     Systems(bl::engine::Engine& engine);
 
-    friend int ::main();
+    friend int ::main(int, char**);
     friend class ::tests::SystemsHelper;
 };
 

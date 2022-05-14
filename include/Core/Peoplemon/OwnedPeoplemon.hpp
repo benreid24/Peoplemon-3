@@ -7,6 +7,7 @@
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/OwnedMove.hpp>
 #include <Core/Peoplemon/Stats.hpp>
+#include <Core/Peoplemon/Type.hpp>
 #include <string>
 
 namespace editor
@@ -84,6 +85,12 @@ public:
     void setCustomName(const std::string& name);
 
     /**
+     * @brief Returns the type of the peoplemon
+     *
+     */
+    Type type() const;
+
+    /**
      * @brief Returns the current level of this peoplemon
      *
      */
@@ -96,13 +103,26 @@ public:
     unsigned int currentXP() const;
 
     /**
-     * @brief Award XP to this peoplemon. Level's up the peoplemon if applicable. Returns the number
-     *        of XP left over after a level up. A return of 0 indicates that all XP has been awarded
+     * @brief Returns the xp required to level up
+     *
+     */
+    unsigned int nextLevelXP() const;
+
+    /**
+     * @brief Award XP to this peoplemon. A return of 0 indicates that all XP has been awarded. Non
+     *        zero indicates that the peoplemon should level up
      *
      * @param xp The XP to award
      * @return The number of unused XP (overflow from a level up)
      */
     unsigned int awardXP(unsigned int xp);
+
+    /**
+     * @brief Levels up the peoplemon
+     *
+     * @return MoveId The move to learn, if any
+     */
+    MoveId levelUp();
 
     /**
      * @brief Returns the computed stats for the peoplemon. Does not take into account changes
@@ -173,6 +193,12 @@ public:
     const OwnedMove* knownMoves() const;
 
     /**
+     * @brief Returns the moves known by this Peoplemon
+     *
+     */
+    OwnedMove* knownMoves();
+
+    /**
      * @brief Returns whether or not this peoplemon knows the given move
      *
      * @param move The move to check for
@@ -187,6 +213,42 @@ public:
      * @param i The index to place it, in range [0, 4)
      */
     void learnMove(MoveId move, unsigned int i);
+
+    /**
+     * @brief Attempts to learn the given move if there is an open slot
+     *
+     * @param move The move to learn
+     * @return True if learned, false if all moves full
+     */
+    bool gainMove(MoveId move);
+
+    /**
+     * @brief Restores HP and removes ailments
+     *
+     */
+    void heal();
+
+    /**
+     * @brief Returns whether or not this peoplemon has an EXP share
+     *
+     */
+    bool hasExpShare() const;
+
+    /**
+     * @brief Returns the XP awarded by defeating this peoplemon
+     *
+     * @param isTrainer True if commanded by a trainer, false otherwise
+     * @return unsigned int The XP to award
+     */
+    unsigned int xpYield(bool isTrainer) const;
+
+    /**
+     * @brief Returns the OwnedMove for the given move
+     *
+     * @param id The move id to find
+     * @return OwnedMove* The move itself, or nullptr if not found
+     */
+    OwnedMove* findMove(MoveId id);
 
 private:
     Id _id;

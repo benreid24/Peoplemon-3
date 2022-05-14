@@ -51,7 +51,7 @@ struct LegacyDBLoader : public bl::serial::binary::SerializerVersion<MoveDB> {
             db.pps[id] = u16;
 
             if (!input.read<std::uint8_t>(u8)) return false;
-            db.types[id] = legacyTypeToNew(u8);
+            db.types[id] = TypeUtil::legacyTypeToNew(u8);
 
             if (!input.read<std::uint8_t>(u8)) return false;
             db.effects[id] = static_cast<MoveEffect>(u8);

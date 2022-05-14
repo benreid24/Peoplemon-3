@@ -21,7 +21,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
         onCancel();
     });
 
-    idSelect = ComboBox::create();
+    idSelect = PeoplemonSelector::create();
     idSelect->setMaxHeight(400.f);
     idSelect->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         const auto ppl = getValue();
@@ -137,18 +137,7 @@ void OwnedPeoplemonWindow::show(const GUI::Ptr& p, const core::pplmn::OwnedPeopl
     }
 
     levelEntry->setInput(std::to_string(value.currentLevel()));
-
-    idSelect->clearOptions();
-    const std::vector<core::pplmn::Id>& validIds = core::pplmn::Peoplemon::validIds();
-    int toSelect                                 = -1;
-    for (unsigned int i = 0; i < validIds.size(); ++i) {
-        idSelect->addOption(std::to_string(static_cast<unsigned int>(validIds[i])) + ": " +
-                            core::pplmn::Peoplemon::name(validIds[i]));
-        idMap[i] = validIds[i];
-        if (validIds[i] == value.id()) toSelect = i;
-    }
-    idMap[-1] = core::pplmn::Id::Unknown;
-    idSelect->setSelectedOption(toSelect, false);
+    idSelect->setPeoplemon(value.id());
 
     evBox.update(value.currentEVs());
     ivBox.update(value.currentIVs());
@@ -177,8 +166,8 @@ void OwnedPeoplemonWindow::hide() {
 }
 
 core::pplmn::OwnedPeoplemon OwnedPeoplemonWindow::getValue() const {
-    const auto it = idMap.find(idSelect->getSelectedOption());
-    core::pplmn::OwnedPeoplemon val(it->second, std::atoi(levelEntry->getInput().c_str()));
+    core::pplmn::OwnedPeoplemon val(idSelect->currentPeoplemon(),
+                                    std::atoi(levelEntry->getInput().c_str()));
     val.ivs  = ivBox.currentValue();
     val.evs  = evBox.currentValue();
     val.item = itemSelector->currentItem();
@@ -202,8 +191,8 @@ bool OwnedPeoplemonWindow::validate() const {
         return false;
     }
 
-    const auto it = idMap.find(idSelect->getSelectedOption());
-    if (it == idMap.end() || it->second == core::pplmn::Id::Unknown) {
+    const core::pplmn::Id id = idSelect->currentPeoplemon();
+    if (id == core::pplmn::Id::Unknown) {
         bl::dialog::tinyfd_messageBox("Warning", "Please select a species", "ok", "warning", 1);
         return false;
     }

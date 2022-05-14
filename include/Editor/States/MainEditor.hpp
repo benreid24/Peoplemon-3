@@ -11,9 +11,8 @@
 #include <Editor/Pages/Map.hpp>
 #include <Editor/Pages/Moves.hpp>
 #include <Editor/Pages/Peoplemon.hpp>
-#include <Editor/Pages/Playlists.hpp>
-#include <Editor/Pages/Testing.hpp>
-#include <Editor/Pages/Todo.hpp>
+#include <Editor/Pages/Scripts.hpp>
+#include <Editor/Pages/VariousEditors.hpp>
 
 /**
  * @addtogroup States
@@ -86,13 +85,12 @@ private:
     core::system::Systems& systems;
 
     page::Map mapPage;
-    page::Testing testingPage;
+    page::VariousEditors variousEditorsPage;
+    page::Scripts scriptPage;
     page::Peoplemon peoplemonPage;
     page::Moves movesPage;
     page::Items itemsPage;
-    page::Playlists playlistsPage;
     page::Credits creditsPage;
-    page::Todo todoPage;
     page::Page* currentPage;
 
     bl::gui::GUI::Ptr gui;

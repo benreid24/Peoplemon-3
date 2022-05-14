@@ -16,7 +16,7 @@ jobs:
         submodules: 'recursive'
       
     - name: configure
-      run: cmake -G "Unix Makefiles" -S . -B ./build
+      run: cmake -DON_CI=On -G "Unix Makefiles" -S . -B ./build
       
     - name: make
       run: |

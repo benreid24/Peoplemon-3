@@ -18,7 +18,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class World : public bl::event::Listener<event::GameSaving, event::GameLoading> {
+class World : public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
 public:
     /**
      * @brief Creates the world system
@@ -49,6 +49,15 @@ public:
     bool switchMaps(const std::string& newMap, int spawnId);
 
     /**
+     * @brief Switches to the new map and resets the last map to empty
+     *
+     * @param newMap The map to whiteout into
+     * @param spawnId Where to spawn
+     * @return True on success, false on error
+     */
+    bool whiteout(const std::string& newMap, int spawnId);
+
+    /**
      * @brief Returns a reference to the active map
      *
      */
@@ -71,13 +80,20 @@ public:
      * @brief Adds saved world data to the save file
      *
      */
-    virtual void observe(const event::GameSaving& save) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
 
     /**
      * @brief Initializes world state from the loading game save
      *
      */
-    virtual void observe(const event::GameLoading& load) override;
+    virtual void observe(const event::GameSaveLoaded& load) override;
+
+    /**
+     * @brief Sets the respawn point to the given spawn in the current map
+     *
+     * @param spawn The spawn to respawn at
+     */
+    void setWhiteoutMap(unsigned int spawn);
 
 private:
     Systems& owner;
@@ -88,38 +104,9 @@ private:
     std::string prevMapFile;
     component::Position playerPos;
     component::Position prevPlayerPos;
-
-    friend class bl::serial::json::SerializableObject<World>;
 };
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::World> : SerializableObjectBase {
-    using World = core::system::World;
-    using Pos   = core::component::Position;
-
-    SerializableField<World, std::string> currentMap;
-    SerializableField<World, std::string> prevMap;
-    SerializableField<World, Pos> playerPos;
-    SerializableField<World, Pos> prevPlayerPos;
-
-    SerializableObject()
-    : currentMap("current", *this, &World::currentMapFile)
-    , prevMap("previous", *this, &World::prevMapFile)
-    , playerPos("position", *this, &World::playerPos)
-    , prevPlayerPos("prevPos", *this, &World::prevPlayerPos) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

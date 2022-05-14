@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_MAINGAME_HPP
 #define GAME_STATES_MAINGAME_HPP
 
+#include <Core/Events/Battle.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Events/StateChange.hpp>
 #include <Core/Maps/Map.hpp>
@@ -18,7 +19,8 @@ namespace state
  */
 class MainGame
 : public State
-, public bl::event::Listener<sf::Event, core::event::StateChange, core::event::SwitchMapTriggered> {
+, public bl::event::Listener<sf::Event, core::event::StateChange, core::event::SwitchMapTriggered,
+                             core::event::BattleStarted> {
 public:
     /**
      * @brief Creates the main game state. The game state must be initialized before invoking the
@@ -84,10 +86,9 @@ private:
     MainGame(core::system::Systems& systems);
 
     virtual void observe(const sf::Event& event) override;
-
     virtual void observe(const core::event::StateChange& event) override;
-
     virtual void observe(const core::event::SwitchMapTriggered& event) override;
+    virtual void observe(const core::event::BattleStarted& event) override;
 };
 
 } // namespace state

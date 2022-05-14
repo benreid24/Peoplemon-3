@@ -23,7 +23,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player : public bl::event::Listener<event::GameSaving, event::GameLoading> {
+class Player : public bl::event::Listener<event::GameSaveInitializing> {
 public:
     /**
      * @brief Construct a new Player system
@@ -89,6 +89,12 @@ public:
     const std::string& name() const;
 
     /**
+     * @brief Returns the gender of the player
+     *
+     */
+    player::Gender gender() const;
+
+    /**
      * @brief Returns the peoplemon owned by the player
      *
      */
@@ -99,6 +105,12 @@ public:
      *
      */
     std::vector<pplmn::OwnedPeoplemon>& team();
+
+    /**
+     * @brief Restores HP and removes all ailments
+     *
+     */
+    void healPeoplemon();
 
     /**
      * @brief Returns the player's bag
@@ -136,6 +148,20 @@ public:
      */
     void update();
 
+    /**
+     * @brief Heals all Peoplemon and respawns at the last PC center
+     *
+     */
+    void whiteout();
+
+    /**
+     * @brief Sets the map and spawn to whiteout to
+     * 
+     * @param map The file of the map to respawn in
+     * @param spawn The spawn to respawn at
+     */
+    void setWhiteoutMap(const std::string& map, unsigned int spawn);
+
 private:
     Systems& owner;
     bl::entity::Entity playerId;
@@ -144,47 +170,20 @@ private:
 
     player::Input input;
     std::string playerName;
-    player::Gender gender;
+    player::Gender sex;
     player::Bag inventory;
     long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     component::Position savePos;
+    std::string whiteoutMap;
+    unsigned int whiteoutSpawn;
 
-    virtual void observe(const event::GameSaving& save) override;
-    virtual void observe(const event::GameLoading& load) override;
+    virtual void observe(const event::GameSaveInitializing& save) override;
 
     friend class bl::serial::json::SerializableObject<Player>;
 };
 
 } // namespace system
 } // namespace core
-
-namespace bl
-{
-namespace serial
-{
-namespace json
-{
-template<>
-struct SerializableObject<core::system::Player> : public SerializableObjectBase {
-    using Player = core::system::Player;
-
-    SerializableField<Player, std::string> name;
-    SerializableField<Player, core::player::Gender> gender;
-    SerializableField<Player, core::player::Bag> bag;
-    SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>> peoplemon;
-    SerializableField<Player, long> money;
-
-    SerializableObject()
-    : name("name", *this, &Player::playerName)
-    , gender("gender", *this, &Player::gender)
-    , bag("bag", *this, &Player::inventory)
-    , peoplemon("peoplemon", *this, &Player::peoplemon)
-    , money("money", *this, &Player::monei) {}
-};
-
-} // namespace json
-} // namespace serial
-} // namespace bl
 
 #endif

@@ -3,6 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <Game/Menus/PeoplemonButton.hpp>
 #include <Game/States/State.hpp>
@@ -19,34 +20,19 @@ namespace state
  */
 class PeoplemonMenu : public State {
 public:
-    /**
-     * @brief Helper struct to ferry data between states utilizing this menu
-     *
-     */
-    struct ContextData {
-        /// The index of the peoplemon currently out
-        unsigned int outNow;
-
-        /// The index of the selected peoplemon. -1 means no selection
-        int chosen;
-    };
-
-    /**
-     * @brief Represents where the menu is being opened from
-     *
-     */
-    enum struct Context { BattleSwitch, BattleFaint, StorageSelect, PauseMenu, GiveItem };
+    using Context = core::event::OpenPeoplemonMenu::Context;
 
     /**
      * @brief Creates a new PeoplemonMenu state
      *
      * @param systems The main game systems
      * @param ctx The context the menu is being used in
-     * @param data Optional struct to place the selected peoplemon in
+     * @param outNow Optional index of the peoplemon that is currently out
+     * @param chosen Value to populate with the selected peoplemon's index
      *
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems, Context ctx,
-                                         ContextData* data = nullptr);
+                                         int outNow = -1, int* chosen = nullptr);
 
     /// Cleans up all resources
     virtual ~PeoplemonMenu() = default;
@@ -85,7 +71,8 @@ private:
     enum MenuState { Browsing, SelectingMove, Moving, ShowingMessage };
 
     const Context context;
-    ContextData* const data;
+    const int outNow;
+    int* chosenPeoplemon;
     sf::View oldView;
 
     MenuState state;
@@ -107,9 +94,11 @@ private:
     bl::menu::Item* actionRoot;
     bool actionOpen;
 
-    PeoplemonMenu(core::system::Systems& systems, Context ctx, ContextData* data);
+    PeoplemonMenu(core::system::Systems& systems, Context ctx, int outNow, int* chosen);
 
     void connectButtons();
+    bool canCancel() const;
+    void setSelectable(unsigned int i);
 
     void selected(menu::PeoplemonButton* but);
 

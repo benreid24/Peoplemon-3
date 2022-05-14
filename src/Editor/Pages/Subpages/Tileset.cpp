@@ -28,8 +28,10 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb)
+Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
 : deleteCb(dcb)
+, catchables(map)
+, towns(map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
@@ -154,6 +156,7 @@ Tileset::Tileset(const DeleteCb& dcb)
     content->setMaxTabWidth(250.f);
     content->addPage("tile", "Tiles", tilePage, [this]() { tool = Active::Tiles; });
     content->addPage("anim", "Animations", animPage, [this]() { tool = Active::Animations; });
+    content->addPage("towns", "Towns", towns.getContent(), [this]() { tool = Active::TownTiles; });
     content->addPage(
         "col", "Collisions", collisions.getContent(), [this]() { tool = Active::CollisionTiles; });
     content->addPage(
@@ -162,6 +165,11 @@ Tileset::Tileset(const DeleteCb& dcb)
     // TODO - create page for level transitions
 
     loadTileset("Worldtileset.tlst");
+}
+
+void Tileset::setGUI(const GUI::Ptr& gui) {
+    catchables.setGUI(gui);
+    towns.setGUI(gui);
 }
 
 Element::Ptr Tileset::getContent() { return content; }
@@ -174,7 +182,9 @@ core::map::Tile::IdType Tileset::getActiveAnim() const { return activeAnim; }
 
 core::map::Collision Tileset::getActiveCollision() const { return collisions.selected(); }
 
-core::map::Catch Tileset::getActiveCatch() const { return catchables.selected(); }
+std::uint8_t Tileset::getActiveCatch() const { return catchables.selected(); }
+
+std::uint8_t Tileset::getActiveTown() const { return towns.selected(); }
 
 bool Tileset::loadTileset(const std::string& file) {
     auto newTileset = core::Resources::tilesets().load(file).data;
@@ -211,7 +221,7 @@ void Tileset::updateGui() {
     // animations
     group = nullptr;
     for (const auto& pair : tileset->getAnims()) {
-        Animation::Ptr anim = Animation::create(pair->second, false);
+        Animation::Ptr anim = Animation::create(pair->second);
         anim->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);
@@ -225,11 +235,19 @@ void Tileset::updateGui() {
         group = button->getRadioGroup();
         animsBox->pack(button);
     }
+
+    catchables.refresh();
+    towns.refresh();
 }
 
 bool Tileset::unsavedChanges() const { return dirty; }
 
 void Tileset::markSaved() { dirty = false; }
+
+void Tileset::refresh() {
+    catchables.refresh();
+    towns.refresh();
+}
 
 } // namespace page
 } // namespace editor

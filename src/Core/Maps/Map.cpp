@@ -1,5 +1,6 @@
 #include <Core/Maps/Map.hpp>
 
+#include <BLIB/Media/Audio.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
@@ -62,15 +63,11 @@ public:
             if (!input.read(width)) return false;
             if (!input.read(height)) return false;
 
-            CatchZone zone;
-            zone.area = sf::IntRect(left, top, width, height);
-
             std::uint16_t pplCount;
+            std::string trash;
             if (!input.read(pplCount)) return false;
-            zone.peoplemon.reserve(pplCount);
             for (unsigned int j = 0; j < pplCount; ++j) {
-                zone.peoplemon.push_back({});
-                if (!input.read(zone.peoplemon.back())) return false;
+                if (!input.read(trash)) return false;
             }
         }
 
@@ -84,9 +81,9 @@ public:
 
         for (unsigned int x = 0; x < width; ++x) {
             for (unsigned int y = 0; y < height; ++y) {
-                std::uint8_t c = static_cast<std::uint8_t>(Catch::NoEncounter);
+                std::uint8_t c = 0;
                 if (!input.read(c)) return false;
-                result.levels.front().catchLayer().set(x, y, static_cast<Catch>(c));
+                result.levels.front().catchLayer().set(x, y, c);
             }
         }
 
@@ -164,7 +161,7 @@ public:
             if (!input.read(item.mapId)) return false;
             if (!input.read(x)) return false;
             if (!input.read(y)) return false;
-            item.position = sf::Vector2i(x / 32, y / 32); // TODO - add/sub 1?
+            item.position = sf::Vector2i(x / 32 - 1, y / 32 - 1);
             if (item.id > 500) {
                 item.id      = item.id - 500;
                 item.visible = false;
@@ -279,8 +276,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
             static_cast<int>(levels.front().bottomLayers().front().height())};
     game.engine().eventBus().dispatch<event::MapSwitch>({*this});
 
-    // TODO - load and push playlist
-
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
     component::Position spawnPos = prevPlayerPos;
@@ -297,6 +292,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         return false;
     }
     game.cameras().clearAndReplace(system::camera::Follow::create(game, game.player().player()));
+    currentTown = getTown(spawnPos.positionTiles());
+    enterTown(currentTown);
 
     // Activate camera and weather
     game.cameras().update(0.f);
@@ -316,7 +313,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         // Initialize weather, lighting, and wild peoplemon
         weather.set(weatherField);
         lighting.activate(size);
-        for (CatchZone& zone : catchZonesField) { zone.activate(); }
 
         // Load and parse scripts
         script::LegacyWarn::warn(loadScriptField);
@@ -378,7 +374,6 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
     onExitScript->run(&game.engine().scriptManager());
 
-    // TODO - pop/pause playlist (maybe make param?)
     // TODO - pause weather
 
     BL_LOG_INFO << "Exited map: " << nameField;
@@ -464,7 +459,18 @@ bool Map::load(const std::string& file) {
         return false;
     }
     bl::serial::binary::InputFile input(path);
-    return VersionedSerializer::read(input, *this);
+    if (!VersionedSerializer::read(input, *this)) return false;
+
+    defaultTown.name     = nameField;
+    defaultTown.playlist = playlistField;
+    defaultTown.weather  = weatherField;
+    if (townTiles.getWidth() != levels.front().bottomLayers().front().width() ||
+        townTiles.getHeight() != levels.front().bottomLayers().front().height()) {
+        townTiles.setSize(levels.front().bottomLayers().front().width(),
+                          levels.front().bottomLayers().front().height(),
+                          0);
+    }
+    return true;
 }
 
 bool Map::save(const std::string& file) {
@@ -587,6 +593,8 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 void Map::observe(const event::EntityMoved& movedEvent) {
     triggerAnimation(movedEvent.position);
 
+    if (movedEvent.entity != systems->player().player()) { return; }
+
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << movedEvent.entity << " triggered event at (" << event.position.x << ", "
@@ -626,22 +634,25 @@ void Map::observe(const event::EntityMoved& movedEvent) {
             break;
         }
     }
+
+    Town* newTown = getTown(movedEvent.position.positionTiles());
+    if (newTown != currentTown) {
+        currentTown = newTown;
+        enterTown(currentTown);
+    }
 }
 
 void Map::triggerAnimation(const component::Position& pos) {
-    if (pos.level < levels.size()) {
-        LayerSet& level = levels[pos.level];
-        if (pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
-            pos.positionTiles().x < sizeTiles().x && pos.positionTiles().y < sizeTiles().y) {
-            for (auto& layer : level.bottomLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
-            for (auto& layer : level.ysortLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
-            for (auto& layer : level.topLayers()) {
-                layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
-            }
+    if (contains(pos)) {
+        auto& level = levels[pos.level];
+        for (auto& layer : level.bottomLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+        }
+        for (auto& layer : level.ysortLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+        }
+        for (auto& layer : level.topLayers()) {
+            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
         }
     }
 }
@@ -677,7 +688,7 @@ void Map::clear() {
     itemsField.clear();
     eventsField.clear();
     lightingSystem().clear();
-    catchZonesField.clear();
+    catchRegionsField.clear();
     transitionField.clear();
     eventRegions.clear();
     weatherField = Weather::None;
@@ -700,6 +711,30 @@ void Map::refreshRenderRange(const sf::View& view) const {
     if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
     if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
     renderRange = {corner, wsize};
+}
+
+Town* Map::getTown(const sf::Vector2i& pos) {
+    if (pos.x < 0 || pos.y < 0 || pos.x >= size.x || pos.y >= size.y) { return &defaultTown; }
+    const std::uint8_t i = townTiles(pos.x, pos.y);
+    if (i == 0) return &defaultTown;
+    if (static_cast<std::uint8_t>(i - 1) >= towns.size()) return &defaultTown;
+    return &towns[i - 1];
+}
+
+void Map::enterTown(Town* town) {
+    using bl::audio::AudioSystem;
+    using bl::util::FileUtil;
+
+    systems->hud().displayEntryCard(town->name);
+    weatherSystem().set(town->weather);
+
+    const AudioSystem::Handle plst = AudioSystem::getOrLoadPlaylist(
+        FileUtil::joinPath(Properties::PlaylistPath(), town->playlist));
+    if (plst != AudioSystem::InvalidHandle) { AudioSystem::replacePlaylist(plst, 1.5f, 1.5f); }
+
+    if (spawns.find(town->pcSpawn) != spawns.end()) {
+        systems->world().setWhiteoutMap(town->pcSpawn);
+    }
 }
 
 } // namespace map

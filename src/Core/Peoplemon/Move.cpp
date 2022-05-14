@@ -1,5 +1,9 @@
 #include <Core/Peoplemon/Move.hpp>
 
+#include <BLIB/Util/FileUtil.hpp>
+#include <BLIB/Util/Random.hpp>
+#include <Core/Properties.hpp>
+
 namespace core
 {
 namespace pplmn
@@ -116,9 +120,41 @@ int Move::effectIntensity(MoveId id) {
     return it != effectIntensities->end() ? it->second : 0;
 }
 
-bool Move::effectsUser(MoveId id) {
+bool Move::affectsUser(MoveId id) {
     const auto it = effectSelves->find(id);
     return it != effectSelves->end() ? it->second : false;
+}
+
+std::string Move::playerAnimationBackground(MoveId move) {
+    const std::string f1 = bl::util::FileUtil::joinPath(Properties::AnimationPath(), "Moves");
+    const std::string f2 = bl::util::FileUtil::joinPath(f1, name(move));
+    return bl::util::FileUtil::joinPath(f2, "Front/Background.anim");
+}
+
+std::string Move::playerAnimationForeground(MoveId move) {
+    const std::string f1 = bl::util::FileUtil::joinPath(Properties::AnimationPath(), "Moves");
+    const std::string f2 = bl::util::FileUtil::joinPath(f1, name(move));
+    return bl::util::FileUtil::joinPath(f2, "Front/Foreground.anim");
+}
+
+std::string Move::opponentAnimationBackground(MoveId move) {
+    const std::string f1 = bl::util::FileUtil::joinPath(Properties::AnimationPath(), "Moves");
+    const std::string f2 = bl::util::FileUtil::joinPath(f1, name(move));
+    return bl::util::FileUtil::joinPath(f2, "Back/Background.anim");
+}
+
+std::string Move::opponentAnimationForeground(MoveId move) {
+    const std::string f1 = bl::util::FileUtil::joinPath(Properties::AnimationPath(), "Moves");
+    const std::string f2 = bl::util::FileUtil::joinPath(f1, name(move));
+    return bl::util::FileUtil::joinPath(f2, "Back/Foreground.anim");
+}
+
+MoveId Move::getRandomMove(bool ir) {
+    MoveId ret;
+    do {
+        ret = allIds[bl::util::Random::get<std::size_t>(0, allIds.size() - 1)];
+    } while (!ir && (effect(ret) == MoveEffect::RandomMove || effect(ret) == MoveEffect::Charge));
+    return ret;
 }
 
 } // namespace pplmn

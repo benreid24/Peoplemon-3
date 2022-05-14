@@ -72,6 +72,17 @@ public:
             _LEGACY_Jump
         };
 
+        struct Item {
+            item::Id id;
+            bool beforePrompt;
+            bool afterPrompt;
+
+            Item()
+            : id(item::Id::Unknown)
+            , beforePrompt(false)
+            , afterPrompt(false) {}
+        };
+
         /**
          * @brief Converts a node type to a human readable string
          *
@@ -134,13 +145,13 @@ public:
          * @brief Returns the money requested or given, undefined behavior if not a money node
          *
          */
-        unsigned int& money();
+        std::uint32_t& money();
 
         /**
          * @brief Returns the item to give or take. Undefined behavior if not an item node
          *
          */
-        item::Id& item();
+        Item& item();
 
         /**
          * @brief Returns the index of the next node in the case of a Talk, Give, and Script nodes
@@ -206,7 +217,7 @@ public:
          * @brief Returns the item to give or take. Undefined behavior if not an item node
          *
          */
-        item::Id item() const;
+        const Item& item() const;
 
         /**
          * @brief Returns the index of the next node in the case of a Talk, Give, and Script nodes
@@ -227,17 +238,16 @@ public:
         std::uint32_t nextOnReject() const;
 
     private:
+        using TData = std::variant<std::vector<std::pair<std::string, std::uint32_t>>, Item,
+                                   std::uint32_t, bool>;
+
         Type type;
         std::string prompt; // or script
-        std::variant<std::vector<std::pair<std::string, std::uint32_t>>, item::Id, unsigned int,
-                     bool>
-            data;
-        union {
-            std::uint32_t nextNode;
-            std::uint32_t condNodes[2];
-        } jumps;
+        TData data;
+        std::uint32_t jumps[2];
 
-        friend class bl::serial::binary::Serializer<Node, false>;
+        friend class bl::serial::binary::SerializableObject<Node>;
+        friend class bl::serial::binary::SerializableObject<core::file::Conversation::Node::Item>;
     };
 
     /**
@@ -325,81 +335,34 @@ namespace serial
 namespace binary
 {
 template<>
-struct Serializer<core::file::Conversation::Node, false> {
+struct SerializableObject<core::file::Conversation::Node::Item> : public SerializableObjectBase {
+    using Item = core::file::Conversation::Node::Item;
+    using Id   = core::item::Id;
+
+    SerializableField<1, Item, Id> id;
+    SerializableField<2, Item, bool> beforePrompt;
+    SerializableField<3, Item, bool> afterPrompt;
+
+    SerializableObject()
+    : id(*this, &Item::id)
+    , beforePrompt(*this, &Item::beforePrompt)
+    , afterPrompt(*this, &Item::afterPrompt) {}
+};
+
+template<>
+struct SerializableObject<core::file::Conversation::Node> : public SerializableObjectBase {
     using Node = core::file::Conversation::Node;
 
-    static bool serialize(OutputStream& output, const Node& node) {
-        if (!Serializer<Node::Type>::serialize(output, node.getType())) return false;
-        if (!output.write(node.prompt)) return false;
-        if (!output.write<std::uint32_t>(node.jumps.condNodes[0])) return false;
-        if (!output.write<std::uint32_t>(node.jumps.condNodes[1])) return false;
+    SerializableField<1, Node, Node::Type> type;
+    SerializableField<2, Node, std::string> prompt;
+    SerializableField<3, Node, Node::TData> data;
+    SerializableField<4, Node, std::uint32_t[2]> jumps;
 
-        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-            return Serializer<core::item::Id>::serialize(output,
-                                                         *std::get_if<core::item::Id>(&node.data));
-        }
-        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-            return output.write<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
-        }
-        else if (node.getType() == Node::Prompt) {
-            return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::serialize(
-                output,
-                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-        }
-        else if (node.getType() == Node::RunScript) {
-            return output.write<std::uint8_t>(node.runConcurrently());
-        }
-
-        return true;
-    }
-
-    static bool deserialize(InputStream& input, Node& node) {
-        Node::Type type;
-        if (!Serializer<Node::Type>::deserialize(input, type)) return false;
-        node.setType(type);
-
-        if (!input.read(node.prompt)) return false;
-        if (!input.read<std::uint32_t>(node.jumps.condNodes[0])) return false;
-        if (!input.read<std::uint32_t>(node.jumps.condNodes[1])) return false;
-
-        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-            return Serializer<core::item::Id>::deserialize(
-                input, *std::get_if<core::item::Id>(&node.data));
-        }
-        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-            return input.read<std::uint32_t>(*std::get_if<unsigned int>(&node.data));
-        }
-        else if (node.getType() == Node::Prompt) {
-            return Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::deserialize(
-                input,
-                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-        }
-        else if (node.getType() == Node::RunScript) {
-            std::uint8_t rc = 0;
-            if (!input.read<std::uint8_t>(rc)) return false;
-            node.runConcurrently() = rc;
-        }
-
-        return true;
-    }
-
-    static std::uint32_t size(const Node& node) {
-        std::uint32_t s = Serializer<Node::Type>::size(node.getType()) +
-                          Serializer<std::string>::size(node.prompt) + sizeof(std::uint32_t) * 2;
-
-        if (node.getType() == Node::GiveItem || node.getType() == Node::TakeItem) {
-            s += Serializer<core::item::Id>::size(core::item::Id::Unknown);
-        }
-        else if (node.getType() == Node::GiveMoney || node.getType() == Node::TakeMoney) {
-            s += sizeof(std::uint32_t);
-        }
-        else if (node.getType() == Node::Prompt) {
-            s += Serializer<std::vector<std::pair<std::string, std::uint32_t>>>::size(
-                *std::get_if<std::vector<std::pair<std::string, std::uint32_t>>>(&node.data));
-        }
-
-        return s;
-    }
+    SerializableObject()
+    : type(*this, &Node::type)
+    , prompt(*this, &Node::prompt)
+    , data(*this, &Node::data)
+    , jumps(*this, &Node::jumps) {}
 };
 
 template<>

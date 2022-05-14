@@ -91,6 +91,15 @@ public:
      */
     static Direction facePosition(const Position& from, const Position& to);
 
+    /**
+     * @brief Tests whether two positions are adjacent to one another and within one level
+     *
+     * @param left One position to test with
+     * @param right The other position to test with
+     * @return True if the positions are adjacent, false if not
+     */
+    static bool adjacent(const Position& left, const Position& right);
+
     /// The direction the entity is facing
     Direction direction;
 
@@ -165,5 +174,11 @@ struct SerializableObject<core::component::Position> : SerializableObjectBase {
 
 } // namespace serial
 } // namespace bl
+
+inline std::ostream& operator<<(std::ostream& os, const core::component::Position& pos) {
+    os << "(" << static_cast<unsigned>(pos.level) << ", [" << pos.positionTiles().x << ", "
+       << pos.positionTiles().y << "])";
+    return os;
+}
 
 #endif

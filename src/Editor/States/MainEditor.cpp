@@ -11,13 +11,12 @@ MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new Ma
 MainEditor::MainEditor(core::system::Systems& s)
 : systems(s)
 , mapPage(s)
-, testingPage(s)
+, variousEditorsPage(s)
+, scriptPage(s)
 , peoplemonPage(s)
 , movesPage(s)
 , itemsPage(s)
-, playlistsPage(s)
 , creditsPage(s)
-, todoPage(s)
 , currentPage(&mapPage) {
     gui = bl::gui::GUI::create(
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
@@ -29,20 +28,24 @@ MainEditor::MainEditor(core::system::Systems& s)
     gui->setRenderer(renderer);
 
     mapPage.registerGui(gui);
-    testingPage.registerGui(gui);
+    variousEditorsPage.registerGui(gui);
+    scriptPage.registerGui(gui);
     peoplemonPage.registerGui(gui);
     movesPage.registerGui(gui);
     itemsPage.registerGui(gui);
-    playlistsPage.registerGui(gui);
     creditsPage.registerGui(gui);
-    todoPage.registerGui(gui);
+
+    mapPage.syncGui();
 
     notebook = bl::gui::Notebook::create();
     notebook->setOutlineThickness(0.f);
 
     notebook->addPage("maps", "Maps", mapPage.getContent(), [this]() { currentPage = &mapPage; });
+    notebook->addPage("editors", "Various Editors", variousEditorsPage.getContent(), [this]() {
+        currentPage = &variousEditorsPage;
+    });
     notebook->addPage(
-        "test", "Game Testing", testingPage.getContent(), [this]() { currentPage = &testingPage; });
+        "script", "Scripts", scriptPage.getContent(), [this]() { currentPage = &scriptPage; });
     notebook->addPage("peoplemon", "Peoplemon DB", peoplemonPage.getContent(), [this]() {
         currentPage = &peoplemonPage;
     });
@@ -50,12 +53,8 @@ MainEditor::MainEditor(core::system::Systems& s)
         "moves", "Move DB", movesPage.getContent(), [this]() { currentPage = &movesPage; });
     notebook->addPage(
         "items", "Item DB", itemsPage.getContent(), [this]() { currentPage = &itemsPage; });
-    notebook->addPage("playlists", "Playlists", playlistsPage.getContent(), [this]() {
-        currentPage = &playlistsPage;
-    });
     notebook->addPage(
         "credits", "Credits", creditsPage.getContent(), [this]() { currentPage = &creditsPage; });
-    notebook->addPage("todo", "TODO", todoPage.getContent(), [this]() { currentPage = &todoPage; });
 
     gui->pack(notebook, true, true);
 }

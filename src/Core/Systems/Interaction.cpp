@@ -1,9 +1,13 @@
 #include <Core/Systems/Interaction.hpp>
 
+#include <BLIB/Serialization/JSON.hpp>
+#include <Core/Battles/BattleControllers/LocalBattleController.hpp>
+#include <Core/Battles/BattlerControllers/AIController.hpp>
 #include <Core/Components/Item.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Item.hpp>
+#include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -11,10 +15,21 @@ namespace core
 {
 namespace system
 {
+namespace
+{
+std::string trainerName(const std::string& n) { return "tnr:" + n; }
+
+std::string npcName(const std::string& n) { return "npc:" + n; }
+
+} // namespace
+
 Interaction::Interaction(Systems& owner)
 : owner(owner)
 , interactingEntity(bl::entity::InvalidEntity)
-, currentConversation(owner) {}
+, currentConversation(owner)
+, interactingTrainer(nullptr) {}
+
+void Interaction::init() { owner.engine().eventBus().subscribe(this); }
 
 bool Interaction::interact(bl::entity::Entity interactor) {
     const component::Position* pos =
@@ -35,23 +50,35 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         const component::NPC* npc =
             owner.engine().entities().getComponent<component::NPC>(nonplayer);
         if (npc) {
+            setTalked(npcName(npc->name()));
             owner.controllable().setEntityLocked(nonplayer, true);
             faceEntity(nonplayer, owner.player().player());
             faceEntity(owner.player().player(), nonplayer);
-            currentConversation.setConversation(npc->conversation(), nonplayer);
+            currentConversation.setConversation(
+                npc->conversation(), nonplayer, npcTalkedTo(npc->name()));
             interactingEntity = nonplayer;
             processConversationNode();
             return true;
         }
         else {
-            const component::Trainer* trainer =
+            component::Trainer* trainer =
                 owner.engine().entities().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
+                setTalked(trainerName(trainer->name()));
                 owner.controllable().setEntityLocked(nonplayer, true);
                 faceEntity(nonplayer, owner.player().player());
                 faceEntity(owner.player().player(), nonplayer);
-                // TODO - handle battle
-                currentConversation.setConversation(trainer->beforeBattleConversation(), nonplayer);
+                if (!trainer->defeated()) {
+                    interactingTrainer = trainer;
+                    currentConversation.setConversation(trainer->beforeBattleConversation(),
+                                                        nonplayer,
+                                                        trainerTalkedto(trainer->name()));
+                }
+                else {
+                    currentConversation.setConversation(trainer->afterBattleConversation(),
+                                                        nonplayer,
+                                                        trainerTalkedto(trainer->name()));
+                }
                 interactingEntity = nonplayer;
                 processConversationNode();
                 return true;
@@ -82,7 +109,10 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 void Interaction::processConversationNode() {
     if (interactingEntity == bl::entity::InvalidEntity) return;
     if (currentConversation.finished()) {
-        owner.controllable().resetEntityLock(interactingEntity);
+        if (interactingTrainer) { startBattle(); }
+        else {
+            owner.controllable().resetEntityLock(interactingEntity);
+        }
         return;
     }
 
@@ -103,17 +133,27 @@ void Interaction::processConversationNode() {
     } break;
 
     case E::GiveItem:
-        owner.player().bag().addItem(node.item());
-        // TODO - add prefix to item metadata for a/the use
-        owner.hud().displayMessage("Got a " + item::Item::getName(node.item()),
-                                   std::bind(&Interaction::continuePressed, this));
+        owner.player().bag().addItem(node.item().id);
+        if (node.item().afterPrompt) {
+            // TODO - add prefix to item metadata for a/the use
+            owner.hud().displayMessage("Got a " + item::Item::getName(node.item().id),
+                                       std::bind(&Interaction::continuePressed, this));
+        }
         break;
 
     case E::TakeItem:
-        owner.hud().promptUser(
-            "Hand over a " + item::Item::getName(node.item()),
-            {"Yes", "No"},
-            std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
+        if (node.item().beforePrompt) {
+            owner.hud().promptUser(
+                "Hand over a " + item::Item::getName(node.item().id),
+                {"Yes", "No"},
+                std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
+        }
+        else {
+            if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
+                currentConversation.notifyCheckPassed();
+                processConversationNode();
+            }
+        }
         break;
 
     case E::GiveMoney:
@@ -154,7 +194,7 @@ void Interaction::choiceMade(const std::string& c) {
 
 void Interaction::giveItemDecided(const std::string& c) {
     if (c == "Yes") {
-        if (owner.player().bag().removeItem(currentConversation.currentNode().item())) {
+        if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
             currentConversation.notifyCheckPassed();
             processConversationNode();
         }
@@ -196,6 +236,66 @@ void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
         mpos->direction                = dir;
     }
+}
+
+bool Interaction::npcTalkedTo(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("npc:" + name) != wit->second.end();
+}
+
+bool Interaction::trainerTalkedto(const std::string& name) const {
+    const auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) return false;
+    return wit->second.find("tnr:" + name) != wit->second.end();
+}
+
+bool Interaction::flagSet(const std::string& name) const { return flags.find(name) != flags.end(); }
+
+void Interaction::setFlag(const std::string& name) { flags.emplace(name); }
+
+void Interaction::observe(const event::GameSaveInitializing& save) {
+    save.gameSave.interaction.convFlags = &flags;
+    save.gameSave.interaction.talkedto  = &talkedTo;
+}
+
+void Interaction::observe(const event::BattleCompleted& battle) {
+    if (interactingTrainer && battle.type == battle::Battle::Type::Trainer) {
+        currentConversation.setConversation(interactingTrainer->afterBattleConversation(),
+                                            interactingEntity,
+                                            trainerTalkedto(interactingTrainer->name()));
+        processConversationNode();
+        interactingTrainer->setDefeated();
+        interactingTrainer = nullptr;
+    }
+    owner.controllable().resetEntityLock(owner.player().player());
+}
+
+void Interaction::setTalked(const std::string& name) {
+    auto wit = talkedTo.find(owner.world().activeMap().name());
+    if (wit == talkedTo.end()) {
+        wit = talkedTo.try_emplace(owner.world().activeMap().name()).first;
+    }
+    wit->second.emplace(name);
+}
+
+void Interaction::startBattle() {
+    BL_LOG_INFO << "Starting trainer battle";
+    std::unique_ptr<battle::Battle> battle = battle::Battle::create(
+        owner.player(), battle::Battle::Type::Trainer, owner.engine().eventBus());
+
+    std::vector<pplmn::BattlePeoplemon> team;
+    team.reserve(interactingTrainer->team().size());
+    for (const auto& ppl : interactingTrainer->team()) {
+        team.emplace_back(const_cast<pplmn::OwnedPeoplemon*>(&ppl));
+    }
+    battle->state.enemy().init(std::move(team),
+                               std::make_unique<battle::AIController>(interactingTrainer->name(),
+                                                                      interactingTrainer->items()));
+    battle->setController(std::make_unique<battle::LocalBattleController>());
+    battle->state.enemy().getSubstate().trainer = interactingTrainer;
+
+    owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
 }
 
 } // namespace system

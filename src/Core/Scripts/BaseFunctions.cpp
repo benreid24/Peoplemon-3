@@ -5,6 +5,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -14,74 +15,131 @@ namespace script
 {
 using bl::script::Error;
 using bl::script::Function;
+using bl::script::PrimitiveValue;
 using bl::script::SymbolTable;
 using bl::script::Value;
 
 namespace
 {
-typedef Value (*Builtin)(system::Systems& systems, SymbolTable& table,
-                         const std::vector<Value>& args);
+constexpr PrimitiveValue::Type EntryTypes =
+    static_cast<PrimitiveValue::Type>(0xFF ^ (PrimitiveValue::TFunction | PrimitiveValue::TVoid));
 
-Value getPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value givePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value takePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value whiteout(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value restorePeoplemon(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args);
+typedef void (*Builtin)(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args, Value& result);
 
-Value displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void getPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
+void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
+void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
+void givePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void takePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void whiteout(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void restorePeoplemon(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                      Value& result);
 
-Value getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value loadCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
 
-Value moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value entityToPosition(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args);
-Value entityInteract(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value resetEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+            Value& result);
+void getTrainer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                Value& result);
+void loadCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void spawnCharacter(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
 
-Value makeTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void spawnGenericEntity(system::Systems& systems, SymbolTable& table,
+                        const std::vector<Value>& args, Value& result);
+void spawnAnimation(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void triggerEntityAnimation(system::Systems& systems, SymbolTable& table,
+                            const std::vector<Value>& args, Value& result);
 
-Value addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                Value& result);
+void rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void entityToPosition(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                      Value& result);
+void entityInteract(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void setEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void resetEntityLock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                     Value& result);
 
-Value loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value setAmbientLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value createLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value updateLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
+void makeTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void getClock(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void runAtClockTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
 
-Value clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeSunny(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeSandstorm(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeRandomRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args);
-Value makeRandomDesert(system::Systems& systems, SymbolTable& table,
-                       const std::vector<Value>& args);
-Value makeRandomWeather(system::Systems& systems, SymbolTable& table,
-                        const std::vector<Value>& args);
+void addSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void getSaveEntry(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void checkConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void setConvFlag(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
+
+void loadMap(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+             Value& result);
+void setAmbientLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                     Value& result);
+void createLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
+void updateLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
+void removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
+
+void clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result);
+void makeRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void makeSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result);
+void makeSunny(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
+void makeSandstorm(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
+void makeFog(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+             Value& result);
+void makeRandomRain(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void makeRandomSnow(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value& result);
+void makeRandomDesert(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                      Value& result);
+void makeRandomWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                       Value& result);
+void getCurrentWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                       Value& result);
 
 Value bind(system::Systems& systems, Builtin func) {
-    return {Function([&systems, func](SymbolTable& table, const std::vector<Value>& args) {
-        return (*func)(systems, table, args);
-    })};
+    return {Function([&systems, func](SymbolTable& table,
+                                      const std::vector<Value>& args,
+                                      Value& result) { (*func)(systems, table, args, result); })};
 }
 
 } // namespace
@@ -116,6 +174,9 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(entityInteract);
     BUILTIN(setEntityLock);
     BUILTIN(resetEntityLock);
+    BUILTIN(spawnGenericEntity);
+    BUILTIN(spawnAnimation);
+    BUILTIN(triggerEntityAnimation);
 
     BUILTIN(makeTime);
     BUILTIN(getClock);
@@ -124,6 +185,8 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
     BUILTIN(addSaveEntry);
     BUILTIN(getSaveEntry);
+    BUILTIN(checkConvFlag);
+    BUILTIN(setConvFlag);
 
     BUILTIN(loadMap);
     BUILTIN(setAmbientLight);
@@ -141,6 +204,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(makeRandomSnow);
     BUILTIN(makeRandomDesert);
     BUILTIN(makeRandomWeather);
+    BUILTIN(getCurrentWeather);
 
 #undef BUILTIN
 }
@@ -148,75 +212,72 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 Value BaseFunctions::makePosition(const component::Position& pos) {
     Value value;
     Value coord;
-    coord.setProperty("x", {static_cast<float>(pos.positionTiles().x)});
-    coord.setProperty("y", {static_cast<float>(pos.positionTiles().y)});
+    coord.setProperty("x", {pos.positionTiles().x});
+    coord.setProperty("y", {pos.positionTiles().y});
     value.setProperty("tiles", coord);
     coord.setProperty("x", {pos.positionPixels().x});
     coord.setProperty("y", {pos.positionPixels().y});
     value.setProperty("pixels", coord);
-    value.setProperty("level", {static_cast<float>(pos.level)});
+    value.setProperty("level", {pos.level});
     value.setProperty("direction", {component::directionToString(pos.direction)});
     return value;
 }
 
 namespace
 {
-Value makeBool(bool b) {
-    Value v;
-    v.makeBool(b);
-    return v;
-}
-
 Value makePosition(system::Systems& systems, bl::entity::Entity e) {
     const component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(e);
     if (pos) { return BaseFunctions::makePosition(*pos); }
+    BL_LOG_WARN << "Entity " << e << " has no position";
     return {};
 }
 
-Value getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
-    Value player(static_cast<float>(systems.player().player()));
-    player.setProperty("name", {"player name"}); // TODO - store player name
-    player.setProperty("gender", {"?"});         // TODO - store player gender
-    player.setProperty("money", {100.f});        // TODO - track player money
+void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& player) {
+    player = systems.player().player();
+    player.setProperty("name", {systems.player().name()});
+    player.setProperty("gender",
+                       {systems.player().gender() == player::Gender::Boy ? "boy" : "girl"});
+    player.setProperty("money", {systems.player().money()});
     player.setProperty("position", makePosition(systems, systems.player().player()));
 
     std::vector<player::Bag::Item> items;
     systems.player().bag().getAll(items);
-    std::vector<Value::Ptr> bag;
+    player.setProperty("bag", {bl::script::ArrayValue{}});
+    auto& bag = player.getProperty("bag", false).deref().value().getAsArray();
     bag.reserve(items.size());
     for (const player::Bag::Item& item : items) {
-        bag.emplace_back(new Value(static_cast<float>(item.id)));
-        bag.back()->setProperty("id", {static_cast<float>(item.id)});
-        bag.back()->setProperty("name", {item::Item::getName(item.id)});
-        bag.back()->setProperty("qty", {static_cast<float>(item.qty)});
+        bag.emplace_back(item.id);
+        bag.back().setProperty("id", {item.id});
+        bag.back().setProperty("name", {item::Item::getName(item.id)});
+        bag.back().setProperty("qty", {item.qty});
     }
-    player.setProperty("bag", {bag});
-
-    return player;
 }
 
-Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool, Value::TBool>("giveItem",
-                                                                                         args);
+void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TBool,
+                        PrimitiveValue::TBool>("giveItem", args);
 
-    const unsigned int rawId = static_cast<unsigned int>(args[0].deref().getAsNum());
+    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsInt());
     const item::Id item      = item::Item::cast(rawId);
     if (item != item::Id::Unknown) {
-        const int qty = static_cast<int>(args[1].deref().getAsNum());
+        const long qty = args[1].value().getAsInt();
         if (qty > 0) {
             systems.player().bag().addItem(item, qty);
-            if (args[2].deref().getAsBool()) {
+            if (args[2].value().getAsBool()) {
                 bl::util::Waiter waiter;
                 system::HUD::Callback unlock = [](const std::string&) {};
-                if (args[3].deref().getAsBool())
+                if (args[3].value().getAsBool())
                     unlock = [&waiter](const std::string&) { waiter.unblock(); };
 
                 const std::string msg = qty > 1 ? ("Received " + std::to_string(qty) + " " +
                                                    item::Item::getName(item) + "s") :
                                                   ("Received a " + item::Item::getName(item));
                 systems.hud().displayMessage(msg, unlock);
-                if (args[3].deref().getAsBool()) table.waitOn(waiter);
+                if (args[3].value().getAsBool()) table.waitOn(waiter);
             }
         }
         else {
@@ -226,44 +287,46 @@ Value giveItem(system::Systems& systems, SymbolTable& table, const std::vector<V
     else {
         BL_LOG_WARN << "Unknown item id: " << rawId;
     }
-    return {};
 }
 
-Value giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TBool, Value::TBool>("giveMoney", args);
+void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
+        "giveMoney", args);
 
-    const int money = static_cast<unsigned int>(args[0].deref().getAsNum());
+    const long money = args[0].value().getAsInt();
     if (money > 0) {
-        // TODO - track and give player money
-        if (args[1].deref().getAsBool()) {
+        systems.player().money() += money;
+        if (args[1].value().getAsBool()) {
             bl::util::Waiter waiter;
             system::HUD::Callback unlock = [](const std::string&) {};
-            if (args[2].deref().getAsBool())
+            if (args[2].value().getAsBool())
                 unlock = [&waiter](const std::string&) { waiter.unblock(); };
 
             const std::string msg = "Received " + std::to_string(money) + " monies";
             systems.hud().displayMessage(msg, unlock);
-            if (args[2].deref().getAsBool()) table.waitOn(waiter);
+            if (args[2].value().getAsBool()) table.waitOn(waiter);
         }
     }
     else {
         BL_LOG_WARN << "qty must be a positive integer";
     }
-    return {};
 }
 
-Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("takeItem", args);
+void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+              Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger, PrimitiveValue::TBool>(
+        "takeItem", args);
 
-    const unsigned int rawId = static_cast<unsigned int>(args[0].deref().getAsNum());
+    const unsigned int rawId = static_cast<unsigned int>(args[0].value().getAsInt());
     const item::Id item      = item::Item::cast(rawId);
     if (item != item::Id::Unknown) {
-        const int qty = static_cast<int>(args[1].deref().getAsNum());
+        const long qty = args[1].value().getAsInt();
         if (qty > 0) {
-            if (args[2].deref().getAsBool()) {
+            if (args[2].value().getAsBool()) {
                 bl::util::Waiter waiter;
                 std::string choice;
-                system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+                system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                     choice = c;
                     waiter.unblock();
                 };
@@ -274,29 +337,33 @@ Value takeItem(system::Systems& systems, SymbolTable& table, const std::vector<V
                         ("Give the " + item::Item::getName(item) + "?");
                 systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
                 table.waitOn(waiter);
-                if (choice == "No") return makeBool(false);
+                if (choice == "No") { result = false; }
             }
-            return makeBool(systems.player().bag().removeItem(item, qty));
+            else {
+                result = systems.player().bag().removeItem(item, qty);
+            }
         }
         else {
             BL_LOG_WARN << "qty must be a positive integer";
+            result = false;
         }
     }
     else {
         BL_LOG_WARN << "Unknown item id: " << rawId;
+        result = false;
     }
-    return makeBool(false);
 }
 
-Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TBool>("takeMoney", args);
+void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool>("takeMoney", args);
 
-    const int qty = static_cast<int>(args[0].deref().getAsNum());
+    const long qty = args[0].value().getAsInt();
     if (qty > 0) {
-        if (args[1].deref().getAsBool()) {
+        if (args[1].value().getAsBool()) {
             bl::util::Waiter waiter;
             std::string choice;
-            system::HUD::Callback unlock = unlock = [&waiter, &choice](const std::string& c) {
+            system::HUD::Callback unlock = [&waiter, &choice](const std::string& c) {
                 choice = c;
                 waiter.unblock();
             };
@@ -304,59 +371,103 @@ Value takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<
             const std::string msg = "Give " + std::to_string(qty) + " monies?";
             systems.hud().promptUser(msg, {"Yes", "No"}, unlock);
             table.waitOn(waiter);
-            if (choice == "No") return makeBool(false);
+            if (choice == "No") { result = false; }
         }
-        return makeBool(false); // TODO - track and take player money
+        if (systems.player().money() >= qty) {
+            systems.player().money() -= qty;
+            result = true;
+        }
+        else {
+            result = false;
+        }
     }
     else {
         BL_LOG_WARN << "qty must be a positive integer";
+        result = false;
     }
-    return makeBool(false);
 }
 
-Value givePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - track and give peoplemon
-    return makeBool(false);
+void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("givePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = "fail";
+        return;
+    }
+
+    if (systems.player().team().size() < 6) {
+        systems.player().team().emplace_back(id, args[1].value().getAsInt());
+        result = "party";
+    }
+    else {
+        // TODO - implement peoplemon storage system
+        result = "storage";
+    }
+
+    result = false;
 }
 
-Value takePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - track and take peoplemon
-    return makeBool(false);
+void takePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("takePeoplemon", args);
+
+    const pplmn::Id id = pplmn::Peoplemon::cast(args[0].value().getAsInt());
+    if (id == pplmn::Id::Unknown) {
+        BL_LOG_ERROR << "Bad peoplemon id: " << args[0].value().getAsInt();
+        result = false;
+        return;
+    }
+
+    const unsigned int level = args[1].value().getAsInt();
+    for (auto it = systems.player().team().begin(); it != systems.player().team().end(); ++it) {
+        if (it->id() == id && it->currentLevel() >= level) {
+            result = true;
+            systems.player().team().erase(it);
+            return;
+        }
+    }
+
+    result = false;
 }
 
-Value whiteout(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - implement whiting out
-    return makeBool(false);
+void whiteout(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& result) {
+    systems.player().whiteout();
+    result = true;
 }
 
-Value restorePeoplemon(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - track and heal peoplemon
-    return makeBool(false);
+void restorePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
+                      Value& result) {
+    systems.player().healPeoplemon();
+    result = true;
 }
 
-Value displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString, Value::TBool>("displayMessage", args);
+void displayMessage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                    Value&) {
+    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TBool>("displayMessage", args);
 
     bl::util::Waiter waiter;
     system::HUD::Callback unlock = [](const std::string&) {};
-    if (args[1].deref().getAsBool()) unlock = [&waiter](const std::string&) { waiter.unblock(); };
+    if (args[1].value().getAsBool()) unlock = [&waiter](const std::string&) { waiter.unblock(); };
 
-    systems.hud().displayMessage(args[0].deref().getAsString(), unlock);
-    if (args[1].deref().getAsBool()) table.waitOn(waiter);
-    return {};
+    systems.hud().displayMessage(args[0].value().getAsString(), unlock);
+    if (args[1].value().getAsBool()) table.waitOn(waiter);
 }
 
-Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString, Value::TArray>("promptPlayer", args);
+void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                  Value& result) {
+    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TArray>("promptPlayer", args);
 
-    const auto rawChoices = args[1].deref().getAsArray();
+    const auto& rawChoices = args[1].value().getAsArray();
     std::vector<std::string> choices;
     choices.reserve(rawChoices.size());
-    for (const Value::Ptr& val : rawChoices) {
-        if (val->getType() != Value::TString) {
+    for (const Value& val : rawChoices) {
+        if (val.value().getType() != PrimitiveValue::TString) {
             throw Error("All choices in promptPlayer() must be String type");
         }
-        choices.emplace_back(val->getAsString());
+        choices.emplace_back(val.value().getAsString());
     }
 
     bl::util::Waiter waiter;
@@ -365,94 +476,98 @@ Value promptPlayer(system::Systems& systems, SymbolTable& table, const std::vect
         choice = c;
         waiter.unblock();
     };
-    systems.hud().promptUser(args[0].deref().getAsString(), choices, cb);
+    systems.hud().promptUser(args[0].value().getAsString(), choices, cb);
     table.waitOn(waiter);
 
-    return {choice};
+    result = choice;
 }
 
-Value rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&) {
+void rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
     // TODO - implement credits
-    return makeBool(false);
+    result = false;
 }
 
-Value getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString>("getNpc", args);
+void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value& npc) {
+    Value::validateArgs<PrimitiveValue::TString>("getNpc", args);
 
-    const std::string name = args[0].deref().getAsString();
+    const std::string name = args[0].value().getAsString();
     const auto npcMap      = systems.engine()
                             .entities()
                             .getEntitiesWithComponents<component::NPC, component::Position>()
                             ->results();
     for (const auto& pair : npcMap) {
         if (pair.second.get<component::NPC>()->name() == name) {
-            Value npc(static_cast<float>(pair.first));
+            npc = pair.first;
             npc.setProperty("name", {name});
-            npc.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-            npc.setProperty("defeated", makeBool(false));
+            npc.setProperty("talkedTo", {systems.interaction().npcTalkedTo(name)});
+            npc.setProperty("defeated", {false});
             npc.setProperty("position",
                             BaseFunctions::makePosition(*pair.second.get<component::Position>()));
-            return npc;
+            return;
         }
     }
 
-    return makeBool(false);
+    npc = false;
 }
 
-Value loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric>("loadCharacter", args);
+void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& character) {
+    Value::validateArgs<PrimitiveValue::TInteger>("loadCharacter", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     if (systems.engine().entities().entityExists(entity)) {
         const component::Position* pos =
             systems.engine().entities().getComponent<component::Position>(entity);
         if (pos) {
-            Value character(static_cast<float>(entity));
+            character = entity;
             character.setProperty("position", BaseFunctions::makePosition(*pos));
 
             const component::NPC* npc =
                 systems.engine().entities().getComponent<component::NPC>(entity);
             if (npc) {
                 character.setProperty("name", {npc->name()});
-                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-                character.setProperty("defeated", makeBool(false));
-                return character;
+                character.setProperty("talkedTo", {systems.interaction().npcTalkedTo(npc->name())});
+                character.setProperty("defeated", {false});
+                return;
             }
 
             const component::Trainer* trainer =
                 systems.engine().entities().getComponent<component::Trainer>(entity);
             if (trainer) {
                 character.setProperty("name", {trainer->name()});
-                character.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-                character.setProperty("defeated", makeBool(false));
-                return character;
+                character.setProperty("talkedTo",
+                                      {systems.interaction().trainerTalkedto(trainer->name())});
+                character.setProperty("defeated", {false}); // TODO - track defeated
+                return;
             }
         }
     }
 
-    return makeBool(false);
+    character = false;
 }
 
-Value spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString,
-                           Value::TNumeric,
-                           Value::TNumeric,
-                           Value::TNumeric,
-                           Value::TString>("spawnCharacter", args);
+void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                    Value& result) {
+    Value::validateArgs<PrimitiveValue::TString,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TString>("spawnCharacter", args);
 
     const map::CharacterSpawn spawn(
-        component::Position(static_cast<std::uint8_t>(args[1].deref().getAsNum()),
-                            {static_cast<int>(args[2].deref().getAsNum()),
-                             static_cast<int>(args[3].deref().getAsNum())},
-                            component::directionFromString(args[4].deref().getAsString())),
-        args[0].deref().getAsString());
-    return {static_cast<float>(systems.entity().spawnCharacter(spawn))};
+        component::Position(args[1].value().getAsInt(),
+                            {static_cast<int>(args[2].value().getAsInt()),
+                             static_cast<int>(args[3].value().getAsInt())},
+                            component::directionFromString(args[4].value().getAsString())),
+        args[0].value().getAsString());
+    result = systems.entity().spawnCharacter(spawn);
 }
 
-Value getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString>("getTrainer", args);
+void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                Value& trainer) {
+    Value::validateArgs<PrimitiveValue::TString>("getTrainer", args);
 
-    const std::string name = args[0].deref().getAsString();
+    const std::string name = args[0].value().getAsString();
     const auto trainerMap =
         systems.engine()
             .entities()
@@ -460,25 +575,27 @@ Value getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value
             ->results();
     for (const auto& pair : trainerMap) {
         if (pair.second.get<component::Trainer>()->name() == name) {
-            Value trainer(static_cast<float>(pair.first));
+            trainer = pair.first;
             trainer.setProperty("name", {name});
-            trainer.setProperty("talkedTo", makeBool(false)); // TODO - track who talked to
-            trainer.setProperty("defeated", makeBool(false)); // TODO - track who defeated
+            trainer.setProperty("talkedTo", {systems.interaction().trainerTalkedto(name)});
+            trainer.setProperty("defeated", {false}); // TODO - track who defeated
             trainer.setProperty(
                 "position", BaseFunctions::makePosition(*pair.second.get<component::Position>()));
-            return trainer;
+            return;
         }
     }
 
-    return makeBool(false);
+    trainer = false;
 }
 
-Value moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("moveEntity", args);
+void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                Value& res) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString, PrimitiveValue::TBool>(
+        "moveEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
-    const component::Direction dir  = component::directionFromString(args[1].deref().getAsString());
-    const bool block                = args[2].deref().getAsBool();
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
+    const bool block                = args[2].value().getAsBool();
     const bool result               = systems.movement().moveEntity(entity, dir, false);
 
     if (block && result) {
@@ -500,69 +617,145 @@ Value moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value
         }
     }
 
-    return makeBool(result);
+    res = result;
 }
 
-Value rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TString, Value::TBool>("rotateEntity", args);
+void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString>("rotateEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
-    const component::Direction dir  = component::directionFromString(args[1].deref().getAsString());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
     component::Position* pos =
         systems.engine().entities().getComponent<component::Position>(entity);
     if (pos && pos->direction != dir) pos->direction = dir;
-
-    return {};
 }
 
-Value removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric>("removeEntity", args);
+void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                  Value& res) {
+    Value::validateArgs<PrimitiveValue::TInteger>("removeEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     if (entity != systems.player().player()) {
         const bool result = systems.engine().entities().entityExists(entity);
         systems.engine().entities().destroyEntity(entity);
-        return makeBool(result);
+        res = result;
     }
-    return makeBool(false);
+    else {
+        res = false;
+    }
 }
 
-Value entityToPosition(system::Systems&, SymbolTable&, const std::vector<Value>&) {
+void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                      Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TBool>("entityToPosition", args);
+
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    component::Position* pos =
+        systems.engine().entities().getComponent<component::Position>(entity);
+    if (pos) {
+        BL_LOG_INFO << "moved entity";
+        const component::Position old = *pos;
+        component::Position np        = *pos;
+        np.setTiles(sf::Vector2i(args[2].value().getAsInt(), args[3].value().getAsInt()));
+        np.level = args[1].value().getAsInt();
+        *pos     = np;
+        systems.engine().eventBus().dispatch<event::EntityMoved>({entity, old, np});
+    }
+    else {
+        BL_LOG_ERROR << "Moving entity with no position component: " << entity;
+    }
+
     // TODO - implement path finder
-    return makeBool(false);
+    result = true;
 }
 
-Value entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric>("entityInteract", args);
+void entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                    Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger>("entityInteract", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
-    return makeBool(systems.interaction().interact(entity));
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    result                          = systems.interaction().interact(entity);
 }
 
-Value setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TBool>("setEntityLock", args);
+void setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool>("setEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
-    const bool lock                 = args[1].deref().getAsBool();
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    const bool lock                 = args[1].value().getAsBool();
     systems.controllable().setEntityLocked(entity, lock, true);
-    return {};
 }
 
-Value resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric>("resetEntityLock", args);
+void resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                     Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger>("resetEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].deref().getAsNum());
+    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
     systems.controllable().resetEntityLock(entity);
-    return {};
 }
 
-Value getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                    Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TString>("spawnAnimation", args);
+
+    component::Position pos;
+    pos.level = args[0].value().getAsInt();
+    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
+                  static_cast<int>(args[2].value().getAsInt())});
+    pos.setPixels({args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()});
+    result = systems.entity().spawnAnimation(pos, args[5].value().getAsString());
+}
+
+void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                        Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TString,
+                        PrimitiveValue::TBool>("spawnGenericEntity", args);
+
+    component::Position pos;
+    pos.level = args[0].value().getAsInt();
+    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
+                  static_cast<int>(args[2].value().getAsInt())});
+    result = systems.entity().spawnGeneric(
+        pos, args[4].value().getAsBool(), args[3].value().getAsString());
+}
+
+void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                            Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
+        "triggerEntityAnimation", args);
+
+    const bl::entity::Entity e = args[0].value().getAsInt();
+    component::Renderable* r   = systems.engine().entities().getComponent<component::Renderable>(e);
+
+    if (!r) {
+        BL_LOG_WARN << "Could not trigger animation for invalid entity: " << e;
+        result = false;
+        return;
+    }
+
+    const bool loop = args[1].value().getAsBool();
+    r->triggerAnim(loop);
+    if (args[2].value().getAsBool() && !loop) { sf::sleep(sf::seconds(r->animLength())); }
+    result = true;
+}
+
+void getClock(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& clock) {
     const system::Clock::Time now = systems.clock().now();
-    Value clock(static_cast<float>(now.hour * 60 + now.minute));
-    clock.setProperty("minute", {static_cast<float>(now.minute)});
-    clock.setProperty("hour", {static_cast<float>(now.hour)});
-    clock.setProperty("day", {static_cast<float>(now.day)});
-    return clock;
+    clock                         = now.hour * 60 + now.minute;
+    clock.setProperty("minute", {now.minute});
+    clock.setProperty("hour", {now.hour});
+    clock.setProperty("day", {now.day});
 }
 
 class ClockTrigger : public bl::event::Listener<event::TimeChange> {
@@ -581,43 +774,38 @@ private:
     const Callback cb;
 };
 
-system::Clock::Time parseTime(const Value& v) {
+system::Clock::Time parseTime(const Value& val) {
     system::Clock::Time t(12, 0, 0);
-    auto c = v.getProperty("hour");
-    if (c && c->getType() == Value::TNumeric) { // TODO - move deref into Value to allow references
-                                                // natively everywhere?
-        t.hour = static_cast<unsigned int>(c->getAsNum());
-    }
-    c = v.getProperty("minute");
-    if (c && c->getType() == Value::TNumeric) {
-        t.minute = static_cast<unsigned int>(c->getAsNum());
-    }
+    const PrimitiveValue& h = val.getProperty("hour", false).deref().value();
+    t.hour                  = static_cast<unsigned int>(h.getNumAsInt());
+    const PrimitiveValue& m = val.getProperty("minute", false).deref().value();
+    t.minute                = static_cast<unsigned int>(m.getNumAsInt());
     return t;
 }
 
-Value makeTime(system::Systems&, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric>("makeTime", args);
-    if (args[0].deref().getAsNum() < 0.f || args[0].deref().getAsNum() > 23.f)
+void makeTime(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value& time) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("makeTime", args);
+    if (args[0].value().getAsInt() < 0 || args[0].value().getAsInt() > 23)
         throw Error("hour must be in range [0, 23]");
-    if (args[1].deref().getAsNum() < 0.f || args[1].deref().getAsNum() > 59.f)
+    if (args[1].value().getAsInt() < 0 || args[1].value().getAsInt() > 59)
         throw Error("minute must be in range [0, 59]");
 
-    const unsigned int hour   = static_cast<unsigned int>(args[0].deref().getAsNum());
-    const unsigned int minute = static_cast<unsigned int>(args[1].deref().getAsNum());
-    Value time(static_cast<float>(hour * 60 + minute));
-    time.setProperty("hour", {static_cast<float>(hour)});
-    time.setProperty("minute", {static_cast<float>(minute)});
-    return time;
+    const unsigned int hour   = static_cast<unsigned int>(args[0].value().getAsInt());
+    const unsigned int minute = static_cast<unsigned int>(args[1].value().getAsInt());
+    time                      = hour * 60 + minute;
+    time.setProperty("hour", {hour});
+    time.setProperty("minute", {minute});
 }
 
-Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TBool>("waitUntilTime", args);
+void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value&) {
+    Value::validateArgs<PrimitiveValue::TAny, PrimitiveValue::TBool>("waitUntilTime", args);
 
     const system::Clock::Time now  = systems.clock().now();
     const system::Clock::Time then = parseTime(args[0]);
     const unsigned int nts         = now.hour * 60 + now.minute;
     const unsigned int ets         = then.hour * 60 + then.minute;
-    if (nts < ets || (nts != ets && args[1].deref().getAsBool())) {
+    if (nts < ets || (nts != ets && args[1].value().getAsBool())) {
         bl::util::Waiter waiter;
         const auto unlock = [&waiter]() { waiter.unblock(); };
         ClockTrigger trigger(unlock, then);
@@ -625,14 +813,12 @@ Value waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vec
         guard.subscribe(systems.engine().eventBus());
         table.waitOn(waiter);
     }
-
-    return {};
 }
 
-Value runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString, Value::TNumeric>("runAtClockTime", args);
+void runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TAny, PrimitiveValue::TInteger>("runAtClockTime", args);
 
-    const std::string source       = args[0].deref().getAsString();
+    const std::string source       = args[0].value().getAsString();
     const system::Clock::Time time = parseTime(args[1]);
 
     // trick to avoid having to create a thread here. hacky but cleaner
@@ -643,47 +829,62 @@ Value runAtClockTime(system::Systems&, SymbolTable& table, const std::vector<Val
     bl::script::Script script(program, table);
     if (!script.valid()) throw Error("Syntax error in script passed to runAtClockTime()");
     script.runBackground(table.manager());
-
-    return {};
 }
 
-Value addSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - add game save functionality
-    return makeBool(false);
+void addSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                  Value& result) {
+    Value::validateArgs<PrimitiveValue::TString, EntryTypes>("addSaveEntry", args);
+    systems.scripts().setEntry(args[0].value().getAsString(), args[1].value());
+    result = true;
 }
 
-Value getSaveEntry(system::Systems&, SymbolTable&, const std::vector<Value>&) {
-    // TODO - add game save functionality
-    return makeBool(false);
+void getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                  Value& result) {
+    Value::validateArgs<PrimitiveValue::TString>("getSaveEntry", args);
+    const Value* val = systems.scripts().getEntry(args[0].value().getAsString());
+    result           = val ? *val : false;
 }
 
-Value loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TString, Value::TNumeric>("loadMap", args);
+void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
     systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
-        {args[0].getAsString(), static_cast<int>(args[1].getAsNum())});
-    return {};
+        {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
 }
 
-Value setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TBool>("setAmbientLight", args);
-    if (args[0].getAsNum() < 0.f) { throw Error("Light level must be positive"); }
-    if (args[0].getAsNum() > 255.f) { throw Error("Light level must be under 255"); }
+void checkConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TString>("checkConvFlag", args);
+    result = systems.interaction().flagSet(args[0].value().getAsString());
+}
 
-    const std::uint8_t low  = static_cast<std::uint8_t>(args[0].getAsNum());
-    const std::uint8_t high = static_cast<std::uint8_t>(args[1].getAsNum());
-    const bool sunlight     = args[2].getAsBool();
+void setConvFlag(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TString>("setConvFlag", args);
+    systems.interaction().setFlag(args[0].value().getAsString());
+}
+
+void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                     Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger, PrimitiveValue::TBool>(
+        "setAmbientLight", args);
+    if (args[0].value().getAsInt() < 0) { throw Error("Light level must be positive"); }
+    if (args[0].value().getAsInt() > 255) { throw Error("Light level must be under 255"); }
+
+    const std::uint8_t low  = static_cast<std::uint8_t>(args[0].value().getAsInt());
+    const std::uint8_t high = static_cast<std::uint8_t>(args[1].value().getAsInt());
+    const bool sunlight     = args[2].value().getAsBool();
     systems.world().activeMap().lightingSystem().setAmbientLevel(low, high);
     systems.world().activeMap().lightingSystem().adjustForSunlight(sunlight);
-
-    return {};
 }
 
-Value createLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric>("createLight", args);
+void createLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                 Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger>("createLight", args);
 
-    const float x = args[0].getAsNum();
-    const float y = args[1].getAsNum();
-    const float r = args[2].getAsNum();
+    const float x = args[0].value().getAsInt();
+    const float y = args[1].value().getAsInt();
+    const float r = args[2].value().getAsInt();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -698,18 +899,20 @@ Value createLight(system::Systems& systems, SymbolTable&, const std::vector<Valu
     const map::LightingSystem::Handle handle =
         systems.world().activeMap().lightingSystem().addLight(light);
 
-    return {static_cast<float>(handle)};
+    result = handle;
 }
 
-Value updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric, Value::TNumeric, Value::TNumeric, Value::TNumeric>(
-        "updateLight", args);
+void updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger,
+                        PrimitiveValue::TInteger>("updateLight", args);
 
     const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].getAsNum());
-    const float x = args[1].getAsNum();
-    const float y = args[2].getAsNum();
-    const float r = args[3].getAsNum();
+        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
+    const float x = args[1].value().getAsInt();
+    const float y = args[2].value().getAsInt();
+    const float r = args[3].value().getAsInt();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -722,103 +925,122 @@ Value updateLight(system::Systems& systems, SymbolTable&, const std::vector<Valu
     const map::Light light(static_cast<std::uint16_t>(r),
                            {static_cast<int>(x), static_cast<int>(y)});
     systems.world().activeMap().lightingSystem().updateLight(handle, light);
-
-    return {};
 }
-Value removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TNumeric>("removeLight", args);
+
+void removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger>("removeLight", args);
     const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].getAsNum());
+        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
     systems.world().activeMap().lightingSystem().removeLight(handle);
-    return {};
 }
 
-Value clearWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void clearWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::None);
-    return {};
 }
-Value makeRain(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TBool, Value::TBool>("makeRain", args);
+
+void makeRain(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TBool, PrimitiveValue::TBool>("makeRain", args);
 
     map::Weather::Type t;
-    if (args[0].getAsBool()) {
-        if (args[1].getAsBool())
+    if (args[0].value().getAsBool()) {
+        if (args[1].value().getAsBool())
             t = map::Weather::LightRainThunder;
         else
             t = map::Weather::LightRain;
     }
     else {
-        if (args[1].getAsBool())
+        if (args[1].value().getAsBool())
             t = map::Weather::HardRainThunder;
         else
             t = map::Weather::HardRain;
     }
 
     systems.world().activeMap().weatherSystem().set(t);
-
-    return {};
 }
 
-Value makeSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TBool, Value::TBool>("makeSnow", args);
+void makeSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TBool, PrimitiveValue::TBool>("makeSnow", args);
 
     map::Weather::Type t;
-    if (args[0].getAsBool()) {
-        if (args[1].getAsBool())
+    if (args[0].value().getAsBool()) {
+        if (args[1].value().getAsBool())
             t = map::Weather::LightSnowThunder;
         else
             t = map::Weather::LightSnow;
     }
     else {
-        if (args[1].getAsBool())
+        if (args[1].value().getAsBool())
             t = map::Weather::HardSnowThunder;
         else
             t = map::Weather::HardSnow;
     }
 
     systems.world().activeMap().weatherSystem().set(t);
-
-    return {};
 }
 
-Value makeSunny(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeSunny(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::Sunny);
-    return {};
 }
 
-Value makeSandstorm(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeSandstorm(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::SandStorm);
-    return {};
 }
 
-Value makeFog(system::Systems& systems, SymbolTable&, const std::vector<Value>& args) {
-    Function::validateArgs<Value::TBool>("makeFog", args);
+void makeFog(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TBool>("makeFog", args);
 
     const map::Weather::Type t =
-        args[0].getAsBool() ? map::Weather::ThickFog : map::Weather::ThinFog;
+        args[0].value().getAsBool() ? map::Weather::ThickFog : map::Weather::ThinFog;
     systems.world().activeMap().weatherSystem().set(t);
-
-    return {};
 }
 
-Value makeRandomRain(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeRandomRain(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::WaterRandom);
-    return {};
 }
 
-Value makeRandomSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeRandomSnow(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::SnowRandom);
-    return {};
 }
 
-Value makeRandomDesert(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeRandomDesert(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::DesertRandom);
-    return {};
 }
 
-Value makeRandomWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&) {
+void makeRandomWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {
     systems.world().activeMap().weatherSystem().set(map::Weather::AllRandom);
-    return {};
+}
+
+void getCurrentWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
+                       Value& result) {
+    using T = map::Weather::Type;
+
+    switch (systems.world().activeMap().weatherSystem().getType()) {
+    case T::LightRain:
+    case T::LightRainThunder:
+    case T::HardRain:
+    case T::HardRainThunder:
+        result = "rain";
+        break;
+    case T::LightSnow:
+    case T::LightSnowThunder:
+    case T::HardSnow:
+    case T::HardSnowThunder:
+        result = "snow";
+        break;
+    case T::ThinFog:
+    case T::ThickFog:
+        result = "fog";
+        break;
+    case T::Sunny:
+        result = "sunny";
+        break;
+    case T::SandStorm:
+        result = "sandstorm";
+        break;
+    default:
+        result = "none";
+        break;
+    }
 }
 
 } // namespace

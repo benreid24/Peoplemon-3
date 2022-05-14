@@ -19,6 +19,12 @@ namespace file
 struct Trainer {
 public:
     /**
+     * @brief Gives sane defaults
+     * 
+     */
+    Trainer();
+
+    /**
      * @brief Saves the trainer data to the given file
      *
      * @param file The file to save to
@@ -44,7 +50,10 @@ public:
     Behavior behavior;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     std::vector<item::Id> items;
+    std::uint8_t payout;
     // TODO - determine how to store battle music/background
+
+    std::string sourceFile;
 };
 
 } // namespace file
@@ -70,6 +79,7 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     SerializableField<7, T, core::file::Behavior> behavior;
     SerializableField<8, T, std::vector<Ppl>> peoplemon;
     SerializableField<9, T, std::vector<core::item::Id>> items;
+    SerializableField<10, T, std::uint8_t> payout;
 
     SerializableObject()
     : name(*this, &T::name)
@@ -80,7 +90,8 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     , range(*this, &T::visionRange)
     , behavior(*this, &T::behavior)
     , peoplemon(*this, &T::peoplemon)
-    , items(*this, &T::items) {}
+    , items(*this, &T::items)
+    , payout(*this, &T::payout) {}
 };
 
 } // namespace binary

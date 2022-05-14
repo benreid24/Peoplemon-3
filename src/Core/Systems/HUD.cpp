@@ -46,7 +46,7 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 0.f, 4.f, 0.f});
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 8.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
 }
@@ -72,9 +72,14 @@ void HUD::update(float dt) {
     default:
         break;
     }
+
+    entryCard.update(dt);
 }
 
 void HUD::render(sf::RenderTarget& target, float lag) {
+    if (core::Properties::InEditor()) return;
+
+    entryCard.render(target);
     if (state == Hidden) return;
 
     const sf::View oldView = target.getView();
@@ -126,6 +131,8 @@ void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned in
     ensureActive();
 }
 
+void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
+
 void HUD::ensureActive() {
     if (state == Hidden && !queuedOutput.empty()) { startPrinting(); }
 }
@@ -159,6 +166,7 @@ void HUD::printDoneStateTransition() {
             mitem->getSignal(bl::menu::Item::Activated)
                 .willAlwaysCall(std::bind(&HUD::choiceMade, this, i));
             choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);
+            prev = mitem.get();
         }
         const sf::FloatRect bounds = choiceMenu.getBounds();
         const float y              = viewSize.y - bounds.height - 18.f;
@@ -263,6 +271,81 @@ unsigned int HUD::Item::maxInputLength() const {
 }
 
 const HUD::Callback& HUD::Item::getCallback() const { return cb; }
+
+HUD::EntryCard::EntryCard() {
+    txtr = bl::engine::Resources::textures()
+               .load(bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"))
+               .data;
+    card.setTexture(*txtr, true);
+    text.setFont(Properties::MenuFont());
+    text.setCharacterSize(20);
+    text.setFillColor(sf::Color(20, 200, 240));
+}
+
+void HUD::EntryCard::update(float dt) {
+    constexpr float MoveSpeed = 150.f;
+    constexpr float HoldTime  = 2.5f;
+
+    switch (state) {
+    case Dropping:
+        stateVar -= MoveSpeed * dt;
+        if (stateVar <= 0.f) {
+            stateVar = 0.f;
+            state    = Holding;
+        }
+        break;
+
+    case Rising:
+        stateVar += MoveSpeed * dt;
+        if (stateVar >= card.getGlobalBounds().height) { state = Hidden; }
+        break;
+
+    case Holding:
+        stateVar += dt;
+        if (stateVar >= HoldTime) {
+            state    = Rising;
+            stateVar = 0.f;
+        }
+        break;
+
+    case Hidden:
+    default:
+        break;
+    }
+}
+
+void HUD::EntryCard::display(const std::string& t) {
+    constexpr float Padding = 10.f;
+
+    text.setString(t);
+    bl::interface::wordWrap(text, card.getGlobalBounds().width - Padding * 2.f);
+    text.setPosition(card.getGlobalBounds().width * 0.5f - text.getGlobalBounds().width * 0.5f,
+                     card.getGlobalBounds().height * 0.5f - text.getGlobalBounds().height * 0.5f);
+
+    state    = Dropping;
+    stateVar = card.getGlobalBounds().height;
+}
+
+void HUD::EntryCard::render(sf::RenderTarget& target) const {
+    static const sf::Vector2f Size(core::Properties::WindowWidth(),
+                                   core::Properties::WindowHeight());
+    static const sf::Vector2f Center(Size * 0.5f);
+
+    if (state == Hidden) return;
+
+    sf::RenderStates states;
+    if (state == Dropping || state == Rising) { states.transform.translate(0.f, -stateVar); }
+    states.transform.translate(40.f, 0.f);
+
+    const sf::View oldView = target.getView();
+    sf::View view          = oldView;
+    view.setCenter(Center);
+    view.setSize(Size);
+    target.setView(view);
+    target.draw(card, states);
+    target.draw(text, states);
+    target.setView(oldView);
+}
 
 } // namespace system
 } // namespace core

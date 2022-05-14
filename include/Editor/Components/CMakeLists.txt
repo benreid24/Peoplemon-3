@@ -7,13 +7,19 @@ target_sources(PeoplemonEditor PUBLIC
     ConversationWindow.hpp
     EditMap.hpp
     EventEditor.hpp
+    GameTestingWindow.hpp
     HighlightRadioButton.hpp
     ItemSelector.hpp
+    LightPreview.hpp
+    LightSlider.hpp
     OwnedPeoplemonWindow.hpp
+    PeoplemonSelector.hpp
     MoveSelector.hpp
     NewMapDialog.hpp
     NPCEditorWindow.hpp
+    PlaylistEditorWindow.hpp
     ScriptSelector.hpp
     StatBox.hpp
     TrainerEditorWindow.hpp
+    WeatherSelect.hpp
 )

@@ -47,49 +47,47 @@ inline Type operator|(Type l, Type r) {
 }
 
 /**
- * @brief Checks whether the given type contains the type to check
+ * @brief Contains a collection of helper methods for types
  *
- * @param type The type being searched
- * @param check The type to check for
- * @return True if type contains the types in check, false otherwise
+ * @ingroup Peoplemon
+ *
  */
-inline bool isType(Type type, Type check) { return (type & check) == check; }
+struct TypeUtil {
+    /**
+     * @brief Returns the multiplier for if/when a move is super effective
+     *
+     * @param moveType The type of move being used
+     * @param defenderType The type the defender is
+     * @return float The multiplier for if the move is super effective
+     */
+    static float getSuperMult(Type moveType, Type defenderType);
 
-/**
- * @brief Helper method to convert old type ids to the new
- *
- * @param ogType The old type id
- * @return Type The corresponding new type value
- */
-inline Type legacyTypeToNew(unsigned int ogType) {
-    switch (ogType) {
-    case 8:
-        return Type::Funny | Type::PartyAnimal;
-    case 9:
-        return Type::Intelligent | Type::Athletic;
-    case 10:
-        return Type::Intelligent | Type::Normal;
-    case 11:
-        return Type::Normal | Type::Quiet;
-    case 12:
-        return Type::Awkward | Type::Funny;
-    case 13:
-        return Type::Intelligent | Type::Funny;
-    case 14:
-        return Type::Athletic | Type::Normal;
-    case 15:
-        return Type::Funny | Type::Normal;
-    case 16:
-        return Type::Normal | Type::Awkward;
-    case 17:
-        return Type::Quiet | Type::Athletic;
-    case 18:
-        return Type::Intelligent | Type::Awkward;
-    default:
-        if (ogType < 8) return static_cast<Type>(0x1 << ogType);
-        return Type::None;
-    }
-}
+    /**
+     * @brief Returns the STAB multiplier for a move
+     *
+     # @param moveType The type of move being used
+     * @param defenderType The type the attacker is
+     * @return float The multiplier for STAB
+     */
+    static float getStab(Type moveType, Type userType);
+
+    /**
+     * @brief Helper method to convert old type ids to the new
+     *
+     * @param ogType The old type id
+     * @return Type The corresponding new type value
+     */
+    static Type legacyTypeToNew(unsigned int ogType);
+
+    /**
+     * @brief Checks whether the given type contains the type to check
+     *
+     * @param type The type being searched
+     * @param check The type to check for
+     * @return True if type contains the types in check, false otherwise
+     */
+    static inline bool isType(Type type, Type check) { return (type & check) == check; }
+};
 
 } // namespace pplmn
 } // namespace core

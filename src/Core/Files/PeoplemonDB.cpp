@@ -41,7 +41,7 @@ struct LegacyDBLoader : public SerializerVersion<PeoplemonDB> {
 
             std::uint8_t u8;
             if (!input.read<std::uint8_t>(u8)) return false;
-            db.types[id] = pplmn::legacyTypeToNew(u8);
+            db.types[id] = pplmn::TypeUtil::legacyTypeToNew(u8);
             if (!input.read<std::uint8_t>(u8)) return false;
             db.abilities[id] = static_cast<pplmn::SpecialAbility>(u8);
 

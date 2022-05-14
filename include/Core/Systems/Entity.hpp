@@ -42,7 +42,26 @@ public:
      */
     bool spawnItem(const map::Item& item);
 
-    // TODO - methods for player
+    /**
+     * @brief Spawns a generic entity with some basic components
+     *
+     * @param position The position to spawn at
+     * @param collidable True to add a collidable component, false to not
+     * @param gfx Path to image or animation for graphic component
+     * @return The created entity id or InvalidEntity
+     */
+    bl::entity::Entity spawnGeneric(const component::Position& position, bool collidable,
+                                    const std::string& gfx);
+
+    /**
+     * @brief Spawns an animation-only entity at the given position. The animation is not played
+     *        until manually triggered
+     *
+     * @param position The position to spawn the entity at
+     * @param gfx The path to the animation to render
+     * @return The created entity id or InvalidEntity
+     */
+    bl::entity::Entity spawnAnimation(const component::Position& position, const std::string& gfx);
 
 private:
     Systems& owner;

@@ -27,8 +27,8 @@ The following functions are available in each type of Peoplemon script, in addit
 | giveMoney        | `qty`: Numeric, `showMessage`: Bool, `block`: Bool                | N/A    | Gives money to the player. Behaves the same as `giveItem`                                                                                                                                                |
 | takeItem         | `id`: Numeric, `qty`: Numeric, `prompt`: Bool                     | Bool   | Tries to take `qty` of the item from the player. If `prompt` is true then it will ask before trying to take. Returns true if the items were successfully taken. Always blocks                            |
 | takeMoney        | `qty`: Numeric, `prompt`: Bool                                    | Bool   | Tries to take `qty` money from the player. Behaves the same as `takeItem`                                                                                                                                |
-| givePeoplemon    | `file`: String, `showMessage`: Bool                               | N/A    | Gives the Peoplemon in the given file to the player. If `showMessage` is true the function blocks until the output is complete                                                                           |
-| takePeoplemon    | `id`: Numeric, `minLevel`: Numeric                                | Bool   | Tries to take the Peoplemon from the player. Always prompts and blocks on input. Specify `minLevel` as 0 to accept any level                                                                             |
+| givePeoplemon    | `id` Int, `level`: Int                                            | N/A    | Gives the Peoplemon in the given file to the player. Returns one of `"fail"`, `"party"`, or `"storage"` based on where the Peoplemon went. Does not show any message                                     |
+| takePeoplemon    | `id`: Numeric, `minLevel`: Numeric                                | Bool   | Tries to take the Peoplemon from the player. Does not prompt the player. Specify `minLevel` as 0 to accept any level. Returns true if the peoplemon was taken. Only works for peoplemon in the party     |
 | whiteout         | N/A                                                               | N/A    | Forces the player to respawn at the last PC Center they visited                                                                                                                                          |
 | restorePeoplemon | N/A                                                               | N/A    | Restores the player's Peoplemon to full health and status                                                                                                                                                |
 
@@ -61,7 +61,12 @@ Includes NPC's, trainers, and the player.
 | entityToPosition | `entity`: Numeric, `level`: Numeric, `x`: Numeric, `y`: Numeric, `block`: Bool | Bool   | Locks and pathfinds the entity to the given position (tiles). Optionally blocks until the entity is in place         |
 | entityInteract   | `entity`: Numeric                                                              | Bool   | Makes the entity perform an interaction. Returns true if an interaction occurred                                     |
 | setEntityLock    | `entity`: Numeric, `locked`: Bool                                              | N/A    | Locks or unlocks the given entity. Locking prevents AI or the player from giving input                               |
-| resetEntityLock  | `entity`: Numeric,                                                             | N/A    | Resets the given entity's lock state to what it was prior to `setEntityLock` being called                            |
+| resetEntityLock  | `entity`: Numeric                                                              | N/A    | Resets the given entity's lock state to what it was prior to `setEntityLock` being called                            |
+| spawnAnimation   | `level`: Int, `tileX`: Int, `tileY`: Int, `offsetX`: Numeric, `offsetY`: Numeric, `file`: String | Int | Spawns a non-collidable animation entity at the given position. Origin is either center or top left. Returns the id of the entity. Does not play the animation |
+| spawnGenericEntity | `level`: Int, `tileX`: Int, `tileY`: Int, `gfx`: String, `Collidable`: Bool  | Int    | Spawns an optionally collidable entity with the given sprite or animation. Returns the entity id                     |
+| triggerEntityAnimation | `entity`: Int, `loop`: Bool, `block`: Bool                               | Bool   | Triggers the animation of an entity. Optionally blocks for the duration of the animation if not looping              |
+
+**_Note_**: In the above methods animation paths are relative to `Resources/Animations` and sprite paths are relative to `Resources/Images`
 
 ### Game Time
 
@@ -79,6 +84,8 @@ Includes NPC's, trainers, and the player.
 | addSaveEntry    | `key`: String, `value`: Any | N/A    | Saves the given value under the given key. Saved values are persisted in the game save |
 | getSaveEntry    | `key`: String               | Any    | Retrieves the saved value with the given key. Returns `false` if not found             |
 | removeSaveEntry | `key`: String               | N/A    | Deletes the given key from the persistent data                                         |
+| checkConvFlag   | `key`: String               | Bool   | Checks if the given conversation flag has been set or not                              |
+| setConvFlag     | `key`: String               | N/A    | Sets the given conversation flag                                                       |
 
 
 ## Maps
@@ -89,7 +96,7 @@ Includes NPC's, trainers, and the player.
 | setAmbientLight | `low`: Numeric, `high`: Numeric, `sunlightAdjust`: Bool   | N/A     | Overrides the ambient light level. 0 is full dark, 255 is full light. Sunlight causes the ambient to move between the low and high based on time. If no sunlight the high level is used as a constant light level |
 | createLight     | `x`: Numeric, `y`: Numeric, `radius`: Numeric                | Numeric | Creates a light at the given position and radius. All parameters are in pixels. Returns the unique id of the new light                     |
 | updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | N/A     | Updates the light with the given `id` to the new position and radius.                                                                      |
-| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`                                                                                                      |
+| removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`   |
 
 ## Weather
 
@@ -105,6 +112,7 @@ Includes NPC's, trainers, and the player.
 | makeRandomSnow    | N/A                              | N/A    | The game will cycle through different varieties of snow    |
 | makeRandomDesert  | N/A                              | N/A    | The game will cycle between sandstorm and sunny            |
 | makeRandomWeather | N/A                              | N/A    | The game will cycle between all different kinds of weather |
+| getCurrentWeather | N/A                              | String | Returns the weather, one of `"rain"`, `"snow"`, `"fog"`, `"sandstorm"`, `"sunny"`, `"none"` |
 
 ## Basic Example
 

@@ -83,7 +83,7 @@ void MapExplorer::deactivate(bl::engine::Engine&) {
 }
 
 void MapExplorer::update(bl::engine::Engine&, float dt) {
-    systems.update(dt);
+    systems.update(dt, false);
 
     hintTime += dt;
     if (hintTime < 4.f && hintTime >= 2.f) {

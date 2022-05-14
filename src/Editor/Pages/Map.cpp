@@ -22,9 +22,9 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, tileset([this](core::map::Tile::IdType id, bool isAnim) {
-    mapArea.editMap().removeAllTiles(id, isAnim);
-})
+, tileset([this](core::map::Tile::IdType id,
+                 bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
+          mapArea.editMap())
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })
@@ -48,9 +48,7 @@ Map::Map(core::system::Systems& s)
             [this]() { mapPicker.close(); })
 , newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
-, playlistPicker(core::Properties::PlaylistPath(), {"plst"},
-                 std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1),
-                 [this]() { playlistPicker.close(); })
+, playlistEditor(std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1), [this]() {})
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
@@ -95,6 +93,33 @@ Map::Map(core::system::Systems& s)
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
 
+    const auto lightingChangeCb = std::bind(&Map::onLightingChange, this);
+    Box::Ptr lightingOuterBox   = Box::create(LinePacker::create());
+    Box::Ptr lightingBox        = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
+    Box::Ptr row                = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    Button::Ptr lightReset      = Button::create("Reset");
+    lightReset->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::onLightingReset, this));
+    Button::Ptr lightDefault = Button::create("Default");
+    lightDefault->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::setLightingDefault, this));
+    lightingSetBut = Button::create("Set");
+    lightingSetBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::onLightingSave, this));
+    row->pack(lightDefault);
+    row->pack(lightReset);
+    row->pack(lightingSetBut);
+    lightingBox->pack(row);
+    sunlightBut = CheckButton::create("Adjust for sunlight");
+    sunlightBut->getSignal(Event::LeftClicked).willAlwaysCall(lightingChangeCb);
+    row->pack(sunlightBut);
+    minLightSlider =
+        component::LightSlider::create("Min Light", std::bind(&Map::onLightingChange, this));
+    maxLightSlider =
+        component::LightSlider::create("Max Light", std::bind(&Map::onLightingChange, this));
+    lightingBox->pack(minLightSlider, true, false);
+    lightingBox->pack(maxLightSlider, true, false);
+
     Box::Ptr tileBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
     Box::Ptr box = Box::create(LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Uniform));
 
@@ -113,6 +138,10 @@ Map::Map(core::system::Systems& s)
     tileSetBut->setValue(true);
     tileSetBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         activeSubtool = Subtool::Set;
+    });
+    RadioButton::Ptr fillBut = RadioButton::create("Fill", "fill", tileSetBut->getRadioGroup());
+    fillBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+        activeSubtool = Subtool::Fill;
     });
     RadioButton::Ptr tileClearBut =
         RadioButton::create("Clear", "clear", tileSetBut->getRadioGroup());
@@ -135,6 +164,7 @@ Map::Map(core::system::Systems& s)
         selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
     });
     box->pack(tileSetBut, true, true);
+    box->pack(fillBut, true, true);
     box->pack(tileClearBut, true, true);
     box->pack(tileSelectBut, true, true);
     box->pack(selectAllBut, true, true);
@@ -142,7 +172,7 @@ Map::Map(core::system::Systems& s)
     tileBox->pack(box, true, false);
 
     Box::Ptr infoBox = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
 
     box       = Box::create(LinePacker::create(LinePacker::Horizontal));
     nameEntry = TextEntry::create(1);
@@ -163,7 +193,7 @@ Map::Map(core::system::Systems& s)
     Button::Ptr pickPlaylistBut = Button::create("Pick Playlist");
     pickPlaylistBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         mapArea.disableControls();
-        playlistPicker.open(FilePicker::PickExisting, "Select Playlist", parent);
+        playlistEditor.open(parent, playlistLabel->getText());
     });
     playlistLabel->setHorizontalAlignment(RenderSettings::Left);
     row->pack(pickPlaylistBut);
@@ -172,30 +202,10 @@ Map::Map(core::system::Systems& s)
 
     row = Box::create(LinePacker::create(LinePacker::Horizontal, 6));
     row->pack(Label::create("Weather:"));
-    weatherEntry = ComboBox::create();
+    weatherEntry = component::WeatherSelect::create();
     weatherEntry->setTooltip("Set the weather for the entire map");
-    weatherEntry->addOption("None");
-    weatherEntry->addOption("AllRandom");
-    weatherEntry->addOption("LightRain");
-    weatherEntry->addOption("LightRainThunder");
-    weatherEntry->addOption("HardRain");
-    weatherEntry->addOption("HardRainThunder");
-    weatherEntry->addOption("LightSnow");
-    weatherEntry->addOption("LightSnowThunder");
-    weatherEntry->addOption("HardSnow");
-    weatherEntry->addOption("HardSnowThunder");
-    weatherEntry->addOption("ThinFog");
-    weatherEntry->addOption("ThickFog");
-    weatherEntry->addOption("Sunny");
-    weatherEntry->addOption("SandStorm");
-    weatherEntry->addOption("WaterRandom");
-    weatherEntry->addOption("SnowRandom");
-    weatherEntry->addOption("DesertRandom");
-    weatherEntry->setSelectedOption(0);
-    weatherEntry->setMaxHeight(300);
     weatherEntry->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(weatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = weatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().setWeather(type);
         }
@@ -205,31 +215,11 @@ Map::Map(core::system::Systems& s)
 
     box              = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));
     row              = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
-    tempWeatherEntry = ComboBox::create();
-    tempWeatherEntry->addOption("None");
-    tempWeatherEntry->addOption("AllRandom");
-    tempWeatherEntry->addOption("LightRain");
-    tempWeatherEntry->addOption("LightRainThunder");
-    tempWeatherEntry->addOption("HardRain");
-    tempWeatherEntry->addOption("HardRainThunder");
-    tempWeatherEntry->addOption("LightSnow");
-    tempWeatherEntry->addOption("LightSnowThunder");
-    tempWeatherEntry->addOption("HardSnow");
-    tempWeatherEntry->addOption("HardSnowThunder");
-    tempWeatherEntry->addOption("ThinFog");
-    tempWeatherEntry->addOption("ThickFog");
-    tempWeatherEntry->addOption("Sunny");
-    tempWeatherEntry->addOption("SandStorm");
-    tempWeatherEntry->addOption("WaterRandom");
-    tempWeatherEntry->addOption("SnowRandom");
-    tempWeatherEntry->addOption("DesertRandom");
-    tempWeatherEntry->setSelectedOption(0);
-    tempWeatherEntry->setMaxHeight(300);
-    Button::Ptr but = Button::create("Set Weather");
+    tempWeatherEntry = component::WeatherSelect::create();
+    Button::Ptr but  = Button::create("Set Weather");
     but->setTooltip("Sets the current weather. Does not save weather to map file");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        const core::map::Weather::Type type =
-            static_cast<core::map::Weather::Type>(tempWeatherEntry->getSelectedOption());
+        const core::map::Weather::Type type = tempWeatherEntry->selectedWeather();
         if (mapArea.editMap().weatherSystem().getType() != type) {
             mapArea.editMap().weatherSystem().set(type);
         }
@@ -410,17 +400,6 @@ Map::Map(core::system::Systems& s)
     eventBox->pack(Separator::create(Separator::Vertical));
     eventBox->pack(box, false, true);
 
-    Box::Ptr peoplemonBox       = Box::create(LinePacker::create(LinePacker::Vertical, 4));
-    RadioButton::Ptr createZone = RadioButton::create("Create Catch Zone", "create");
-    RadioButton::Ptr editZone =
-        RadioButton::create("Edit Catch Zone", "edit", createZone->getRadioGroup());
-    label = Label::create("Delete Catch Zone");
-    label->setColor(sf::Color(200, 20, 20), sf::Color::Transparent);
-    RadioButton::Ptr deleteZone = RadioButton::create(label, "delete", createZone->getRadioGroup());
-    peoplemonBox->pack(createZone);
-    peoplemonBox->pack(editZone);
-    peoplemonBox->pack(deleteZone);
-
     const auto editClosed = [this]() {
         layerPage.unpack();
         levelPage.unpack();
@@ -463,11 +442,17 @@ Map::Map(core::system::Systems& s)
 
     Notebook::Ptr controlBook = Notebook::create();
     controlBook->addPage("map", "Props", infoBox, [this]() { activeTool = Tool::Metadata; });
+    controlBook->addPage(
+        "lighting",
+        "Lighting",
+        lightingOuterBox,
+        [lightingBox, lightingOuterBox]() { lightingOuterBox->pack(lightingBox, true, true); },
+        [lightingBox]() { lightingBox->remove(); });
     controlBook->addPage("edit", "Map", editBook, editOpened, editClosed);
     controlBook->addPage("obj", "Entities", objectBook, onObjectActive);
     controlBook->addPage("events", "Scripts", eventBox, [this]() { activeTool = Tool::Events; });
     controlBook->addPage(
-        "ppl", "Peoplemon", peoplemonBox, [this]() { activeTool = Tool::Peoplemon; });
+        "testing", "Testing", testingTab.getContent(), [this]() { activeTool = Tool::Testing; });
 
     controlPane->pack(mapCtrlBox, true, false);
     controlPane->pack(controlBook, true, false);
@@ -477,7 +462,6 @@ Map::Map(core::system::Systems& s)
     content->pack(mapArea.getContent(), true, true);
 
     mapArea.editMap().editorLoad("WorldMap.map");
-    syncGui();
 }
 
 void Map::update(float) {
@@ -498,6 +482,10 @@ void Map::update(float) {
     case Tileset::CatchTiles:
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::CatchTiles,
                                            levelSelect->getSelectedOption());
+        break;
+
+    case Tileset::TownTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
         break;
 
     default:
@@ -612,6 +600,46 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                         levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
                 }
                 break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, tileset.getActiveTown());
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
+                }
+                break;
+            default:
+                break;
+            }
+            break;
+
+        case Subtool::Fill:
+            switch (tileset.getActiveTool()) {
+            case Tileset::Tiles:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           false);
+                break;
+            case Tileset::Animations:
+                mapArea.editMap().fillTile(levelSelect->getSelectedOption(),
+                                           layerSelect->getSelectedOption(),
+                                           tiles,
+                                           tileset.getActiveTile(),
+                                           true);
+                break;
+            case Tileset::CollisionTiles:
+                mapArea.editMap().fillCollision(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCollision());
+                break;
+            case Tileset::TownTiles:
+                mapArea.editMap().fillTownTiles(tiles, tileset.getActiveTown());
+                break;
+            case Tileset::CatchTiles:
+                mapArea.editMap().fillCatch(
+                    levelSelect->getSelectedOption(), tiles, tileset.getActiveCatch());
+                break;
             default:
                 break;
             }
@@ -648,12 +676,18 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 break;
             case Tileset::CatchTiles:
                 if (selectionState == SelectionMade) {
-                    mapArea.editMap().setCatchArea(
-                        levelSelect->getSelectedOption(), selection, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatchArea(levelSelect->getSelectedOption(), selection, 0);
                 }
                 else {
-                    mapArea.editMap().setCatch(
-                        levelSelect->getSelectedOption(), tiles, core::map::Catch::NoEncounter);
+                    mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
+                }
+                break;
+            case Tileset::TownTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setTownTileArea(selection, 0);
+                }
+                else {
+                    mapArea.editMap().setTownTile(tiles, 0);
                 }
                 break;
             default:
@@ -800,7 +834,11 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
         }
         break;
 
-    case Tool::Peoplemon:
+    case Tool::Testing:
+        testingTab.notifyClick(
+            mapArea.editMap().currentFile(), levelSelect->getSelectedOption(), tiles);
+        break;
+
     case Tool::Metadata:
     default:
         break;
@@ -810,7 +848,6 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
 void Map::onChoosePlaylist(const std::string& file) {
     mapArea.editMap().setPlaylist(file);
     playlistLabel->setText(file);
-    playlistPicker.close();
 }
 
 bool Map::checkUnsaved() {
@@ -828,6 +865,9 @@ bool Map::checkUnsaved() {
 
 void Map::syncGui() {
     tileset.loadTileset(mapArea.editMap().tilesetField);
+    tileset.refresh();
+    tileset.setGUI(parent);
+    testingTab.registerGUI(parent);
     levelSelect->clearOptions();
     for (unsigned int i = 0; i < mapArea.editMap().levelCount(); ++i) {
         levelSelect->addOption("Level " + std::to_string(i));
@@ -843,6 +883,8 @@ void Map::syncGui() {
 
     onEnterLabel->setText(mapArea.editMap().getOnEnterScript());
     onExitLabel->setText(mapArea.editMap().getOnExitScript());
+
+    syncLighting();
 }
 
 void Map::onLevelChange(unsigned int l) {
@@ -892,6 +934,54 @@ void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
         mapArea.editMap().addNpcSpawn(spawn);
     }
     mapArea.enableControls();
+}
+
+void Map::onLightingChange() {
+    if (sunlightBut->getValue()) {
+        minLightSlider->setVisible(true);
+        maxLightSlider->setPrompt("Max Light");
+    }
+    else {
+        minLightSlider->setVisible(false);
+        maxLightSlider->setPrompt("Ambient Light");
+    }
+    lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
+}
+
+void Map::onLightingReset() {
+    syncLighting();
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::onLightingSave() {
+    mapArea.editMap().setAmbientLight(
+        minLightSlider->getLightLevel(), maxLightSlider->getLightLevel(), sunlightBut->getValue());
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::syncLighting() {
+    const auto& lighting = mapArea.editMap().lightingSystem();
+    const bool sunlight  = lighting.adjustsForSunlight();
+    sunlightBut->setValue(sunlight);
+    minLightSlider->setLightLevel(lighting.getMinLightLevel());
+    maxLightSlider->setLightLevel(lighting.getMaxLightLevel());
+
+    if (sunlight) {
+        minLightSlider->setVisible(true);
+        maxLightSlider->setPrompt("Max Light");
+    }
+    else {
+        minLightSlider->setVisible(false);
+        maxLightSlider->setPrompt("Ambient Light");
+    }
+
+    lightingSetBut->setColor(sf::Color::Green, sf::Color::Black);
+}
+
+void Map::setLightingDefault() {
+    minLightSlider->setLightLevel(75);
+    maxLightSlider->setLightLevel(255);
+    lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
 }
 
 } // namespace page

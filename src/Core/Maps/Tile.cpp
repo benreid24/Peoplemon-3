@@ -12,11 +12,6 @@ Tile::Tile()
 , tid(Blank)
 , anim(nullptr) {}
 
-Tile::Tile(const Tile& copy)
-: Tile() {
-    *this = copy;
-}
-
 Tile::Tile(IdType i, bool a)
 : Tile() {
     tid    = i;
@@ -44,10 +39,7 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
     sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
-    if (tid != Blank && isAnim) { anim->setIsCentered(false); }
-    else {
-        anim = nullptr;
-    }
+    if (tid == Blank || !isAnim) { anim = nullptr; }
 }
 
 void Tile::step() {

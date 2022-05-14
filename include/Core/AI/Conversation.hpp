@@ -41,8 +41,10 @@ public:
      *
      * @param conversation The conversation to wrap
      * @param entity The entity being conversed with
+     * @param talked Whether or not this entity has already been talked to
      */
-    void setConversation(const file::Conversation& conversation, bl::entity::Entity entity);
+    void setConversation(const file::Conversation& conversation, bl::entity::Entity entity,
+                         bool talked);
 
     /**
      * @brief Returns the current node
@@ -86,6 +88,7 @@ private:
     bl::entity::Entity entity;
     const std::vector<file::Conversation::Node>* nodes;
     unsigned int current;
+    bool alreadyTalked;
 
     void followNodes();
 };

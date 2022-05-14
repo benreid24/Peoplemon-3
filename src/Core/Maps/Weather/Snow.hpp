@@ -81,6 +81,7 @@ private:
         sf::Vector3f position;
         sf::Vector3f velocity;
 
+        Flake() = default;
         Flake(float x, float y, float z, float fallSpeed);
     };
 

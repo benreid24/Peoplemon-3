@@ -57,6 +57,12 @@ public:
      */
     void resetLock();
 
+    /**
+     * @brief Returns whether or not this component is locked
+     *
+     */
+    bool isLocked() const;
+
 private:
     bl::entity::Entity owner;
     system::Systems& systems;

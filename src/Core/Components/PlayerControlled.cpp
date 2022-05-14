@@ -27,6 +27,8 @@ void PlayerControlled::stop() {
 }
 
 void PlayerControlled::process(Command c) {
+    if (controllable.get().isLocked()) return;
+
     switch (c) {
     case Command::Pause:
         systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::GamePaused});

@@ -1,6 +1,5 @@
 target_sources(Core PUBLIC
-    Catch.hpp
-    CatchZone.hpp
+    CatchRegion.hpp
     Collision.hpp
     Event.hpp
     Item.hpp
@@ -11,5 +10,6 @@ target_sources(Core PUBLIC
     Spawn.hpp
     Tile.hpp
     Tileset.hpp
+    Town.hpp
     Weather.hpp
 )

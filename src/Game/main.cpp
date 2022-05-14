@@ -2,6 +2,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
+#include <Core/Files/GameSave.hpp>
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Files/MoveDB.hpp>
 #include <Core/Files/PeoplemonDB.hpp>
@@ -11,11 +12,13 @@
 
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <Game/States/MainGame.hpp>
 #include <Game/States/MainMenu.hpp>
 
+#include <BLIB/Entities.hpp>
 #include <iostream>
 
-int main() {
+int main(int argc, char** argv) {
     // TODO - make log roller
 #ifdef PEOPLEMON_DEBUG
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
@@ -30,6 +33,9 @@ int main() {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
+
+    // TODO - remove this when int/float are separated
+    bl::entity::IdGenerator::generateSequentialIds(true);
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";
@@ -71,8 +77,29 @@ int main() {
     core::system::Systems systems(engine);
     BL_LOG_INFO << "Core game systems initialized";
 
+    BL_LOG_INFO << "Configuring menu sounds";
+    auto moveSel = bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/move.wav"));
+    bl::menu::Menu::setDefaultMoveSound(moveSel);
+    bl::menu::Menu::setDefaultSelectSound(moveSel);
+    bl::menu::Menu::setDefaultMoveFailSound(bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/moveFail.wav")));
+
+    bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
+#ifdef PEOPLEMON_DEBUG
+    if (argc == 2) {
+        const std::string path = argv[1];
+        BL_LOG_INFO << "Loading save: " << path;
+        if (!core::file::GameSave::loadFromFile(path, engine.eventBus())) {
+            BL_LOG_CRITICAL << "Failed to load save";
+            return 1;
+        }
+        state = game::state::MainGame::create(systems);
+    }
+#endif
+
     BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(game::state::MainMenu::create(systems))) {
+    if (!engine.run(state)) {
         BL_LOG_ERROR << "Engine exited with error";
         bl::util::Waiter::unblockAll();
         return 1;

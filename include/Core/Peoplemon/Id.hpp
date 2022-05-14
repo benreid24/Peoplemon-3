@@ -141,6 +141,8 @@ enum struct Id : std::uint8_t {
     BenToo,
     Ben,
     RockManiac,
+    JudasA,
+    JudasB,
 
     _NUM_PEOPLEMON
 };

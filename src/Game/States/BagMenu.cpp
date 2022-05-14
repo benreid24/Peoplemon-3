@@ -167,7 +167,7 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         toDrive    = activeMenu;
     }
     else {
-        if (pplContext.chosen >= 0) {
+        if (selectedPeoplemon >= 0) {
             resetAction();
             core::player::Bag::Item it = selectedItem->getItem();
             it.qty -= 1;
@@ -175,7 +175,7 @@ void BagMenu::activate(bl::engine::Engine& engine) {
             else {
                 activeMenu->removeItem(selectedItem);
             }
-            systems.player().team()[pplContext.chosen].holdItem() = it.id;
+            systems.player().team()[selectedPeoplemon].holdItem() = it.id;
             toDrive                                               = activeMenu;
         }
         else {
@@ -300,7 +300,7 @@ void BagMenu::useItem() {
 void BagMenu::giveItem() {
     state = MenuState::ChoosingGive;
     systems.engine().pushState(
-        PeoplemonMenu::create(systems, PeoplemonMenu::Context::GiveItem, &pplContext));
+        PeoplemonMenu::create(systems, PeoplemonMenu::Context::GiveItem, -1, &selectedPeoplemon));
 }
 
 void BagMenu::dropItem() {

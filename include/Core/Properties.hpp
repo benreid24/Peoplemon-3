@@ -40,6 +40,9 @@ public:
 
     static const sf::Font& MenuFont();
     static const std::string& MenuImagePath();
+    static const std::string& ImagePath();
+    static const std::string& AnimationPath();
+    static const std::string& SoundPath();
 
     static const std::string& SpritesheetPath();
     static const std::string& MusicPath();
@@ -115,6 +118,9 @@ public:
 
     static sf::Color HPBarColor(unsigned int hp, unsigned int maxHp);
     static const std::string& PeoplemonImageFolder();
+
+    static const std::string& TrainerExclaimImage();
+    static const std::string& TrainerExclaimSound();
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

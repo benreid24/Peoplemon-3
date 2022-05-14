@@ -118,8 +118,47 @@ public:
      * @brief Returns whether or not the given move affects the user or the opponent
      *
      */
-    static bool effectsUser(MoveId move);
-    // TODO - maybe refactor to allow arbitrary target? (double battles!)
+    static bool affectsUser(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the local player uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string playerAnimationBackground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the local player uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string playerAnimationForeground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the opponent uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string opponentAnimationBackground(MoveId move);
+
+    /**
+     * @brief Returns the path to the animation for when the opponent uses the move
+     *
+     * @param move The move to get the animation for
+     * @return std::string The full path to the move animation
+     */
+    static std::string opponentAnimationForeground(MoveId move);
+
+    /**
+     * @brief Returns a random, valid move. Optionally filters moves that have the Random effect
+     *
+     * @param allowRandomEffect True to filter randoms, false for all moves
+     * @return MoveId A random move
+     */
+    static MoveId getRandomMove(bool allowRandomEffect = false);
 
 private:
     static std::unordered_map<MoveId, std::string>* names;

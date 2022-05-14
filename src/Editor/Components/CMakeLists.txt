@@ -1,23 +1,30 @@
 target_sources(PeoplemonEditor PRIVATE
     AnimationWindow.cpp
     BehaviorEditor.cpp
+    CatchRegionWindow.cpp
     CharacterSpawnWindow.cpp
     ConversationNode.cpp
     ConversationTree.cpp
     ConversationWindow.cpp
     EditMap.cpp
     EventEditor.cpp
+    GameTestingWindow.cpp
     HighlightRadioButton.cpp
     ItemSelector.cpp
+    LightPreview.cpp
+    LightSlider.cpp
     OwnedPeoplemonWindow.cpp
+    PeoplemonSelector.cpp
     MapActions.hpp
     MapActions.cpp
     MoveSelector.cpp
     NewMapDialog.cpp
     NPCEditorWindow.cpp
+    PlaylistEditorWindow.cpp
     ScriptSelector.cpp
     StatBox.cpp
     TrainerEditorWindow.cpp
+    WeatherSelect.cpp
 )
 
 add_subdirectory(Helpers)

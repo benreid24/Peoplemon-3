@@ -67,9 +67,9 @@ struct Stats {
      * @brief Returns the multiplier for a given stat increase/decrease
      *
      * @param stage The current stat stage in range [-6, 6]
-     * @return int The multiplier to apply
+     * @return float The multiplier to apply
      */
-    static int stageMultiplier(int stage);
+    static float stageMultiplier(int stage);
 
     /**
      * @brief Helper method to compute a Peoplemon's current stats
@@ -119,33 +119,33 @@ using core::pplmn::Stats;
 template<>
 struct Serializer<Stats> {
     static bool serialize(OutputStream& output, const Stats& v) {
-        if (!output.write<std::uint16_t>(v.hp)) return false;
-        if (!output.write<std::uint16_t>(v.atk)) return false;
-        if (!output.write<std::uint16_t>(v.def)) return false;
-        if (!output.write<std::uint16_t>(v.spatk)) return false;
-        if (!output.write<std::uint16_t>(v.spdef)) return false;
-        if (!output.write<std::uint16_t>(v.spd)) return false;
+        if (!output.write<std::int16_t>(v.hp)) return false;
+        if (!output.write<std::int16_t>(v.atk)) return false;
+        if (!output.write<std::int16_t>(v.def)) return false;
+        if (!output.write<std::int16_t>(v.spatk)) return false;
+        if (!output.write<std::int16_t>(v.spdef)) return false;
+        if (!output.write<std::int16_t>(v.spd)) return false;
         return true;
     }
 
     static bool deserialize(InputStream& input, Stats& v) {
-        std::uint16_t val = 0;
-        if (!input.read<std::uint16_t>(val)) return false;
+        std::int16_t val = 0;
+        if (!input.read<std::int16_t>(val)) return false;
         v.hp = val;
-        if (!input.read<std::uint16_t>(val)) return false;
+        if (!input.read<std::int16_t>(val)) return false;
         v.atk = val;
-        if (!input.read<std::uint16_t>(val)) return false;
+        if (!input.read<std::int16_t>(val)) return false;
         v.def = val;
-        if (!input.read<std::uint16_t>(val)) return false;
+        if (!input.read<std::int16_t>(val)) return false;
         v.spatk = val;
-        if (!input.read<std::uint16_t>(val)) return false;
+        if (!input.read<std::int16_t>(val)) return false;
         v.spdef = val;
-        if (!input.read<std::uint16_t>(val)) return false;
+        if (!input.read<std::int16_t>(val)) return false;
         v.spd = val;
         return true;
     }
 
-    static std::size_t size(const Stats&) { return sizeof(std::uint16_t) * 6; }
+    static std::size_t size(const Stats&) { return sizeof(std::int16_t) * 6; }
 };
 
 } // namespace binary

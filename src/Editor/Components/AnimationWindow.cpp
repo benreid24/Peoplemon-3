@@ -30,12 +30,12 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
                            std::vector<std::string>{"anim"},
                            std::bind(&AnimationWindow::packAnim, this, std::placeholders::_1),
                            [this]() {
-                               filePicker.get().close();
-                               filePicker.destroy();
+                               filePicker.value().close();
+                               filePicker.reset();
                                window->setForceFocus(true);
                            });
         window->setForceFocus(false);
-        filePicker.get().open(FilePicker::PickExisting, "Select Animation", parent);
+        filePicker.value().open(FilePicker::PickExisting, "Select Animation", parent);
     });
     fileLabel = Label::create("file here");
     fileLabel->setColor(sf::Color::Cyan, sf::Color::Transparent);
@@ -53,7 +53,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     auto src = bl::engine::Resources::animations()
                    .load(bl::util::FileUtil::joinPath(path, "4/down.anim"))
                    .data;
-    animation = Animation::create(src, true);
+    animation = Animation::create(src);
     animation->setRequisition({32, 45});
     row->pack(animation, true, true);
     window->pack(row, true, true);
@@ -96,7 +96,6 @@ void AnimationWindow::packAnim(const std::string& f) {
     animSrc = bl::engine::Resources::animations().load(bl::util::FileUtil::joinPath(path, vf)).data;
     BL_LOG_INFO << bl::util::FileUtil::joinPath(path, vf);
     if (animSrc) {
-        BL_LOG_INFO << "loaded";
         sf::Vector2f size = animSrc->getMaxSize();
         if (size.x > 400.f) {
             size.y *= 400.f / size.x;
@@ -108,11 +107,11 @@ void AnimationWindow::packAnim(const std::string& f) {
             size.y = 400.f;
             animation->scaleToSize(size);
         }
-        animation->setAnimation(animSrc, true);
+        animation->setAnimation(animSrc);
     }
-    if (filePicker.hasValue()) {
-        filePicker.get().close();
-        filePicker.destroy();
+    if (filePicker.has_value()) {
+        filePicker.value().close();
+        filePicker.reset();
         window->setForceFocus(true);
     }
 }
@@ -121,9 +120,9 @@ void AnimationWindow::hide() {
     window->remove();
     window->setForceFocus(false);
     closeCb();
-    if (filePicker.hasValue()) {
-        filePicker.get().close();
-        filePicker.destroy();
+    if (filePicker.has_value()) {
+        filePicker.value().close();
+        filePicker.reset();
     }
 }
 

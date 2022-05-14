@@ -23,11 +23,14 @@ constexpr int ExtraRenderTiles = 10;
 constexpr int LightingWidth    = 25;
 constexpr int LightingHeight   = 19;
 
+const std::string ImagePath       = "Resources/Images";
 const std::string MenuImagePath   = "Resources/Images/Menus";
 const std::string SpritesheetPath = "Resources/Images/Spritesheets";
 const std::string MusicPath       = "Resources/Audio/Music";
 const std::string PlaylistPath    = "Resources/Audio/Playlists";
 const std::string MenuFont        = "Resources/Fonts/Menu.ttf";
+const std::string AnimationPath   = "Resources/Animations";
+const std::string SoundPath       = "Resources/Audio/Sounds";
 
 const std::string MapPath          = "Resources/Maps/Maps";
 const std::string TilesetPath      = "Resources/Maps/Tilesets";
@@ -103,6 +106,9 @@ const std::string MoveDBFile      = "Resources/Config/moves.db";
 
 const std::string PeoplemonImageFolder = "Resources/Images/Peoplemon";
 
+const std::string TrainerExclaimSound = "Resources/Audio/Sounds/trainer.ogg";
+const std::string TrainerExclaimImage = "Resources/Images/trainer.png";
+
 } // namespace defaults
 
 bl::resource::Resource<sf::Font>::Ref menuFont;
@@ -128,6 +134,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.menu.primary_font", defaults::MenuFont);
     bl::engine::Configuration::set("core.music.path", defaults::MusicPath);
     bl::engine::Configuration::set("core.music.playlist_path", defaults::PlaylistPath);
+    bl::engine::Configuration::set("core.anims.path", defaults::AnimationPath);
+    bl::engine::Configuration::set("core.imgs.path", defaults::ImagePath);
+    bl::engine::Configuration::set("core.audio.sound_path", defaults::SoundPath);
 
     bl::engine::Configuration::set("core.map.path", defaults::MapPath);
     bl::engine::Configuration::set("core.map.tileset_path", defaults::TilesetPath);
@@ -210,6 +219,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::set("core.moves.dbfile", defaults::MoveDBFile);
 
     bl::engine::Configuration::set("core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
+
+    bl::engine::Configuration::set("core.trainer.img", defaults::TrainerExclaimImage);
+    bl::engine::Configuration::set("core.trainer.sfx", defaults::TrainerExclaimSound);
 
     if (!bl::engine::Configuration::load(ConfigFile)) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
@@ -308,6 +320,18 @@ const std::string& Properties::MusicPath() {
 const std::string& Properties::PlaylistPath() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
         "core.music.playlist_path", defaults::PlaylistPath);
+    return val;
+}
+
+const std::string& Properties::AnimationPath() {
+    static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.anims.path", defaults::AnimationPath);
+    return val;
+}
+
+const std::string& Properties::ImagePath() {
+    static const std::string val =
+        bl::engine::Configuration::getOrDefault<std::string>("core.imgs.path", defaults::ImagePath);
     return val;
 }
 
@@ -624,6 +648,24 @@ sf::Color Properties::HPBarColor(unsigned int hp, unsigned int maxHp) {
 const std::string& Properties::PeoplemonImageFolder() {
     static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
         "core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
+    return f;
+}
+
+const std::string& Properties::TrainerExclaimImage() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.img", defaults::TrainerExclaimImage);
+    return f;
+}
+
+const std::string& Properties::TrainerExclaimSound() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.trainer.sfx", defaults::TrainerExclaimSound);
+    return f;
+}
+
+const std::string& Properties::SoundPath() {
+    static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
+        "core.audio.sound_path", defaults::SoundPath);
     return f;
 }
 

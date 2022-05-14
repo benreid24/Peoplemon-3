@@ -36,6 +36,13 @@ struct OwnedMove {
      * @param id The move to set to
      */
     OwnedMove(MoveId id);
+
+    /**
+     * @brief Restores some pp to the move
+     *
+     * @param pp The amount to restore
+     */
+    void restorePP(int pp);
 };
 
 } // namespace pplmn

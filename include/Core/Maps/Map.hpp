@@ -2,7 +2,7 @@
 #define CORE_MAPS_MAP_HPP
 
 #include <Core/Events/EntityMoved.hpp>
-#include <Core/Maps/CatchZone.hpp>
+#include <Core/Maps/CatchRegion.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Event.hpp>
 #include <Core/Maps/Item.hpp>
@@ -11,6 +11,7 @@
 #include <Core/Maps/LightingSystem.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
+#include <Core/Maps/Town.hpp>
 #include <Core/Maps/Weather.hpp>
 
 #include <BLIB/Entities.hpp>
@@ -241,10 +242,14 @@ protected:
     std::vector<Item> itemsField;
     std::vector<Event> eventsField;
     LightingSystem lighting;
-    std::vector<CatchZone> catchZonesField;
+    std::vector<CatchRegion> catchRegionsField;
     bl::container::Vector2D<LevelTransition> transitionField;
+    std::vector<Town> towns;
+    bl::container::Vector2D<std::uint8_t> townTiles;
 
     system::Systems* systems;
+    Town defaultTown;
+    Town* currentTown;
     sf::Vector2i size;
     bl::resource::Resource<Tileset>::Ref tileset;
     Weather weather;
@@ -259,6 +264,8 @@ protected:
     void clear();
     void triggerAnimation(const component::Position& position);
     void refreshRenderRange(const sf::View& view) const;
+    Town* getTown(const sf::Vector2i& pos);
+    void enterTown(Town* town);
 
     friend class loaders::LegacyMapLoader;
     friend class bl::serial::binary::SerializableObject<Map>;
@@ -288,9 +295,11 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
     SerializableField<10, M, std::vector<core::map::Item>> itemsField;
     SerializableField<11, M, std::vector<core::map::Event>> eventsField;
-    SerializableField<12, M, core::map::LightingSystem> lighting;
-    SerializableField<13, M, std::vector<core::map::CatchZone>> catchZonesField;
+    SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
+    SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
+    SerializableField<16, M, std::vector<core::map::Town>> townsField;
+    SerializableField<17, M, bl::container::Vector2D<std::uint8_t>> townTiles;
 
     SerializableObject()
     : nameField(*this, &M::nameField)
@@ -305,8 +314,10 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     , itemsField(*this, &M::itemsField)
     , eventsField(*this, &M::eventsField)
     , lighting(*this, &M::lighting)
-    , catchZonesField(*this, &M::catchZonesField)
-    , transitionField(*this, &M::transitionField) {}
+    , transitionField(*this, &M::transitionField)
+    , catchRegionsField(*this, &M::catchRegionsField)
+    , townsField(*this, &M::towns)
+    , townTiles(*this, &M::townTiles ) {}
 };
 
 } // namespace binary

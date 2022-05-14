@@ -27,13 +27,12 @@ struct BattleStats {
     BattleStats(bool zero);
 
     /**
-     * @brief Computes the actual stat values
+     * @brief Returns the accuracy multiplier for a move hitting
      *
-     * @param stats The base battle stats
-     * @param stages Any stat changes that have been made
-     * @return BattleStats The actual stats to use in battle
+     * @param adjustedStage Users acc stage minus defenders evd stage, clamped to [-6, 6]
+     * @return float The multiplier to use
      */
-    static BattleStats computeStats(const BattleStats& stats, const BattleStats& stages);
+    static float getAccuracyMultiplier(int adjustedStage);
 };
 
 } // namespace pplmn
