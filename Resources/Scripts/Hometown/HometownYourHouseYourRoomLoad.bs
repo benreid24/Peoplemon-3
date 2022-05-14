@@ -1,5 +1,3 @@
-print("The value of the plot 0 is " + str(getSaveEntry("plot0")));
-
 if (not getSaveEntry("plot0"))
 {
 	player = getPlayer();

@@ -13,18 +13,6 @@ if (getSaveEntry("ThugSuit")==1 && getSaveEntry("AuspiciousDelivery")!=1) {
  spawnNPC("Hometown/Exchamp9.npc",346,174,2,0);
 }
 
-
-
-
-
-//--------------Spawning Sketchy Character (Hometown) ---------------------------
-
-if (getSaveEntry("professorDead")!= 1)
-	 spawnNPC("Hometown/sketchyCharacter1.npc",338,229,2,0);
-
-if (getSaveEntry("professorDead")==1 && getSaveEntry("boatGuy1")!= 1)
-	 spawnNPC("Hometown/sketchyCharacter2.npc",338,233,0,0);
-	
 //-----------Spawning Hometown Thugs & Curve Forest thugs-------------------
 if (getSaveEntry("professorDead")==1 && getSaveEntry("thugsRunAway")!=1) 
 	 spawnNPC("Hometown/hometownThug1.npc",369,246,2,0);

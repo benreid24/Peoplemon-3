@@ -1,0 +1,16 @@
+if (not getSaveEntry("pitched"))
+{
+    player = getPlayer();
+    setEntityLock(player, true);
+    sleep(600);
+    rwa = getNpc("Retail Worker Anna");
+    x_val = 2; //player.position.tiles.x - 1;
+    y_val = 3; //player.position.tiles.y - 1;
+    entityToPosition(rwa, 0, x_val, y_val, true);
+    rotateEntity(rwa, "down");
+    sleep(500);
+    entityInteract(rwa);
+    sleep(500);
+    setEntityLock(player, false);
+    addSaveEntry("pitched", true);
+}
