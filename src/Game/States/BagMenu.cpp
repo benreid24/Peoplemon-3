@@ -305,7 +305,18 @@ void BagMenu::chooseItem() {
 }
 
 void BagMenu::useItem() {
-    // TODO - item using
+    if (context == Context::BattleUse) {
+        if (!core::item::Item::canUseInBattle(selectedItem->getItem().id)) {
+            state = MenuState::ShowingMessage;
+            systems.hud().displayMessage("This item cannot be used in battle!",
+                                         std::bind(&BagMenu::messageDone, this));
+            return;
+        }
+    }
+
+    // TODO - determine if we need to choose peoplemon to use on
+
+    // TODO - use the item or return the result if in battle
 }
 
 void BagMenu::giveItem() {
@@ -362,6 +373,11 @@ void BagMenu::beginSlide(bool l) {
     if (l) slideVel = -slideVel;
     inputDriver.drive(nullptr);
     state = MenuState::Sliding;
+}
+
+void BagMenu::messageDone() {
+    state = MenuState::Browsing;
+    resetAction();
 }
 
 } // namespace state
