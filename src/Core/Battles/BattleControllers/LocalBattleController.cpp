@@ -314,7 +314,7 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::TrainerDefeated:
         battle->localPlayerWon = true;
-        battle->player.money() += state->enemy().prizeMoney();
+        battle->player.state().monei += state->enemy().prizeMoney();
         queueCommand({cmd::Message(cmd::Message::Type::TrainerLost)}, true);
         queueCommand(
             {cmd::Message(cmd::Message::Type::WonMoney, state->enemy().prizeMoney(), false)}, true);
@@ -1544,7 +1544,7 @@ void LocalBattleController::checkKlutz(Battler& battler) {
             const item::Id item   = ppl.base().holdItem();
             ppl.base().holdItem() = item::Id::None;
             // TODO - how to restore items to network player?
-            if (&battler == &state->localPlayer()) { battle->player.bag().addItem(item); }
+            if (&battler == &state->localPlayer()) { battle->player.state().bag.addItem(item); }
             queueCommand({cmd::Message(cmd::Message::Type::KlutzDrop, item, isActive)}, true);
         }
     }

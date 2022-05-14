@@ -121,6 +121,7 @@ void GameSave::useLocalData() {
     player.sex           = &d.sex;
     player.whiteoutMap   = &d.whiteoutMap;
     player.whiteoutSpawn = &d.whiteoutSpawn;
+    player.repelSteps    = &d.repelSteps;
 
     interaction.convFlags = &d.convFlags;
     interaction.talkedto  = &d.talkedto;
@@ -144,6 +145,7 @@ GameSave::GameSave() {
     player.sex           = nullptr;
     player.whiteoutMap   = nullptr;
     player.whiteoutSpawn = nullptr;
+    player.repelSteps    = nullptr;
 
     interaction.convFlags = nullptr;
     interaction.talkedto  = nullptr;

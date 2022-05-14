@@ -23,14 +23,11 @@ std::unordered_map<Id, int>* Item::values               = nullptr;
 Id Item::cast(unsigned int id) {
     const Id result = static_cast<Id>(id);
 
-    if (id >= 1 && id <= 44) return result;
-    if (id >= 50 && id <= 62) return result;
-
-    if (id >= 101 && id <= 138) return result;
-    if (id >= 200) return result;
-
-    BL_LOG_WARN << "Unknown item id: " << id;
-    return Id::Unknown;
+    if (names->find(result) != names->end()) { return result; }
+    else {
+        BL_LOG_WARN << "Unknown item id: " << id;
+        return Id::Unknown;
+    }
 }
 
 void Item::setDataSource(file::ItemDB& db) {
@@ -82,14 +79,6 @@ int Item::getValue(Id item) {
 }
 
 const std::vector<Id>& Item::validIds() { return ids; }
-
-UseResult Item::useOnPeoplemon(Id) { return {false, "Unimplemented useOnPeoplemon"}; }
-
-UseResult Item::evolvePeoplemon(Id) { return {false, "Unimplemented evolvePeoplemon"}; }
-
-UseResult Item::useOnPlayer(Id) { return {false, "Unimplemented useOnPlayer"}; }
-
-UseResult Item::useKeyItem(Id) { return {false, "Unimplemented useKeyItem"}; }
 
 } // namespace item
 } // namespace core

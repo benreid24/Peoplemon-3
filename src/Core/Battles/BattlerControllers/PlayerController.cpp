@@ -6,7 +6,7 @@ namespace core
 {
 namespace battle
 {
-const std::string& PlayerController::name() const { return player.name(); }
+const std::string& PlayerController::name() const { return player.state().name; }
 
 PlayerController::PlayerController(system::Player& p, view::PlayerMenu& menu)
 : state(State::Waiting)

@@ -61,7 +61,7 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 
     menu.setRootItem(resume);
     menu.addItem(ppldex, resume.get(), Item::Bottom);
-    if (!systems.player().team().empty()) {
+    if (!systems.player().state().peoplemon.empty()) {
         menu.addItem(pplmon, ppldex.get(), Item::Bottom);
         menu.addItem(bag, pplmon.get(), Item::Bottom);
     }

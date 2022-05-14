@@ -6,6 +6,8 @@
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
 #include <Core/Items/UseResult.hpp>
+#include <Core/Peoplemon/BattlePeoplemon.hpp>
+#include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <vector>
 
 namespace core
@@ -79,38 +81,6 @@ struct Item {
      *
      */
     static const std::vector<Id>& validIds();
-
-    /**
-     * @brief Uses the given item on the given peoplemon
-     *
-     * @param item The item to use
-     * @return UseResult The result of the use
-     */
-    static UseResult useOnPeoplemon(Id item); // TODO - peoplemon data
-
-    /**
-     * @brief Uses the given item to evolve the given peoplemon
-     *
-     * @param item The item to use
-     * @return UseResult The result of the use
-     */
-    static UseResult evolvePeoplemon(Id item); // TODO - peoplemon data
-
-    /**
-     * @brief Uses the given item on the player
-     *
-     * @param item The item to use
-     * @return UseResult The result of the use
-     */
-    static UseResult useOnPlayer(Id item); // TODO - player data
-
-    /**
-     * @brief Uses the given key item. Most are not usable
-     *
-     * @param item The item to use
-     * @return UseResult The result of the use
-     */
-    static UseResult useKeyItem(Id item); // TODO - player data
 
 private:
     static std::unordered_map<Id, std::string>* names;

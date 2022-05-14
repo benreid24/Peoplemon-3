@@ -33,7 +33,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
     background.setTexture(*backgroundTxtr, true);
 
     const sf::Vector2f MenuPosition(41.f, 5.f);
-    menu::PeoplemonButton::Ptr ppl = menu::PeoplemonButton::create(systems.player().team().front());
+    menu::PeoplemonButton::Ptr ppl =
+        menu::PeoplemonButton::create(systems.player().state().peoplemon.front());
     menu.setRootItem(ppl);
     menu.setPosition(MenuPosition);
     menu.configureBackground(
@@ -120,7 +121,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
 
     for (unsigned int i = 0; i < 6; ++i) { buttons[i].reset(); }
 
-    const auto& team         = systems.player().team();
+    const auto& team         = systems.player().state().peoplemon;
     const unsigned int col1N = team.size() / 2 + team.size() % 2;
     const unsigned int col2N = team.size() / 2;
     for (unsigned int i = 0; i < col1N; ++i) {
@@ -197,7 +198,7 @@ bool PeoplemonMenu::canCancel() const {
 }
 
 void PeoplemonMenu::setSelectable(unsigned int i) {
-    const auto& team = systems.player().team();
+    const auto& team = systems.player().state().peoplemon;
     switch (context) {
     case Context::BattleFaint:
     case Context::BattleSwitch:
@@ -296,7 +297,7 @@ void PeoplemonMenu::showInfo() {
 }
 
 void PeoplemonMenu::startMove() {
-    if (systems.player().team().size() > 1) {
+    if (systems.player().state().peoplemon.size() > 1) {
         state = MenuState::SelectingMove;
         inputDriver.drive(&menu);
         buttons[mover1]->setHighlightColor(sf::Color(40, 120, 230));
@@ -314,7 +315,7 @@ void PeoplemonMenu::startMove() {
 }
 
 void PeoplemonMenu::cleanupMove(bool c) {
-    buttons[mover1]->setHighlightColor(systems.player().team()[mover1].currentHp() > 0 ?
+    buttons[mover1]->setHighlightColor(systems.player().state().peoplemon[mover1].currentHp() > 0 ?
                                            sf::Color::White :
                                            sf::Color(200, 10, 10));
     state      = MenuState::Browsing;
@@ -328,7 +329,8 @@ void PeoplemonMenu::cleanupMove(bool c) {
         buttons[mover1]->overridePosition(mover1Dest);
         buttons[mover2]->overridePosition(mover2Dest);
         std::swap(buttons[mover1], buttons[mover2]);
-        std::swap(systems.player().team()[mover1], systems.player().team()[mover2]);
+        std::swap(systems.player().state().peoplemon[mover1],
+                  systems.player().state().peoplemon[mover2]);
         connectButtons();
         menu.setSelectedItem(buttons[mover2].get());
         inputDriver.drive(&menu);
@@ -336,10 +338,10 @@ void PeoplemonMenu::cleanupMove(bool c) {
 }
 
 void PeoplemonMenu::takeItem() {
-    auto& ppl              = systems.player().team()[mover1];
+    auto& ppl              = systems.player().state().peoplemon[mover1];
     const core::item::Id i = ppl.holdItem();
     if (i != core::item::Id::None) {
-        systems.player().bag().addItem(i);
+        systems.player().state().bag.addItem(i);
         ppl.holdItem() = core::item::Id::None;
         systems.hud().displayMessage(ppl.name() + " had its " + core::item::Item::getName(i) +
                                          " taken away",
@@ -361,7 +363,7 @@ void PeoplemonMenu::resetAction() {
 }
 
 void PeoplemonMenu::connectButtons() {
-    const unsigned int n = systems.player().team().size();
+    const unsigned int n = systems.player().state().peoplemon.size();
     int ml               = -1;
     int mr               = -1;
 
@@ -398,7 +400,7 @@ void PeoplemonMenu::chosen() {
     case Context::BattleFaint:
     case Context::BattleSwitch:
     case Context::BattleMustSwitch:
-        if (systems.player().team()[mover1].currentHp() == 0) {
+        if (systems.player().state().peoplemon[mover1].currentHp() == 0) {
             resetAction();
             state = MenuState::ShowingMessage;
             inputDriver.drive(nullptr);
@@ -409,7 +411,7 @@ void PeoplemonMenu::chosen() {
         break;
 
     case Context::BattleReviveSwitch:
-        if (systems.player().team()[mover1].currentHp() != 0) {
+        if (systems.player().state().peoplemon[mover1].currentHp() != 0) {
             resetAction();
             state = MenuState::ShowingMessage;
             inputDriver.drive(nullptr);
@@ -421,11 +423,11 @@ void PeoplemonMenu::chosen() {
         break;
 
     case Context::GiveItem:
-        if (systems.player().team()[mover1].holdItem() != core::item::Id::None) {
+        if (systems.player().state().peoplemon[mover1].holdItem() != core::item::Id::None) {
             resetAction();
             state = MenuState::ShowingMessage;
             inputDriver.drive(nullptr);
-            systems.hud().displayMessage(systems.player().team()[mover1].name() +
+            systems.hud().displayMessage(systems.player().state().peoplemon[mover1].name() +
                                              " is already holding something",
                                          std::bind(&PeoplemonMenu::messageDone, this));
             return;

@@ -142,19 +142,19 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (result) *result = core::item::Id::None;
 
         std::vector<core::player::Bag::Item> items;
-        systems.player().bag().getByCategory(core::item::Category::TM, items);
+        systems.player().state().bag.getByCategory(core::item::Category::TM, items);
         populateMenu(tmMenu,
                      items,
                      std::bind(&BagMenu::exitSelected, this),
                      std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
                      std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1));
-        systems.player().bag().getByCategory(core::item::Category::Key, items);
+        systems.player().state().bag.getByCategory(core::item::Category::Key, items);
         populateMenu(keyMenu,
                      items,
                      std::bind(&BagMenu::exitSelected, this),
                      std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
                      std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1));
-        systems.player().bag().getByCategory(core::item::Category::Regular, items);
+        systems.player().state().bag.getByCategory(core::item::Category::Regular, items);
         populateMenu(regularMenu,
                      items,
                      std::bind(&BagMenu::exitSelected, this),
@@ -175,8 +175,8 @@ void BagMenu::activate(bl::engine::Engine& engine) {
             else {
                 activeMenu->removeItem(selectedItem);
             }
-            systems.player().team()[selectedPeoplemon].holdItem() = it.id;
-            toDrive                                               = activeMenu;
+            systems.player().state().peoplemon[selectedPeoplemon].holdItem() = it.id;
+            toDrive                                                          = activeMenu;
         }
         else {
             toDrive = &actionMenu;
@@ -305,7 +305,8 @@ void BagMenu::giveItem() {
 
 void BagMenu::dropItem() {
     // TODO - confirm/get qty
-    systems.player().bag().removeItem(selectedItem->getItem().id, selectedItem->getItem().qty);
+    systems.player().state().bag.removeItem(selectedItem->getItem().id,
+                                            selectedItem->getItem().qty);
     activeMenu->removeItem(selectedItem);
     resetAction();
 }

@@ -70,7 +70,8 @@ bool World::whiteout(const std::string& map, int spawn) {
 }
 
 void World::setWhiteoutMap(unsigned int spawn) {
-    owner.player().setWhiteoutMap(currentMapFile, spawn);
+    owner.player().state().whiteoutMap   = currentMapFile;
+    owner.player().state().whiteoutSpawn = spawn;
 }
 
 map::Map& World::activeMap() { return *currentMap; }
