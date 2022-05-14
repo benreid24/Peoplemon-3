@@ -91,5 +91,147 @@ bool Item::canUseInBattle(Id id) {
     }
 }
 
+bool Item::hasEffectOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl) {
+    const auto checkStat = [&ppl](pplmn::Stat stat) -> bool {
+        return ppl.currentEVs().sum() < pplmn::Stats::MaxEVSum &&
+               ppl.currentEVs().get(stat) < pplmn::Stats::MaxEVStat;
+    };
+
+    switch (item) {
+    case Id::Potion:
+    case Id::SuperPotion:
+    case Id::MegaPotion:
+        return ppl.currentHp() < ppl.currentStats().hp;
+    case Id::SuperMegaUltraPotion:
+        return ppl.currentHp() < ppl.currentStats().hp ||
+               ppl.currentAilment() != pplmn::Ailment::None;
+
+    case Id::PpPack:
+    case Id::SuperPpPack:
+        for (int i = 0; i < 4; ++i) {
+            if (ppl.knownMoves()[i].id != pplmn::MoveId::Unknown &&
+                ppl.knownMoves()[i].curPP < ppl.knownMoves()[i].maxPP) {
+                return true;
+            }
+        }
+        return false;
+    case Id::Pp6Pack:
+    case Id::SuperPp6Pack:
+        return true; // just let them use it, dont check whole team
+
+    case Id::KegOfProtein:
+        return checkStat(pplmn::Stat::Attack);
+    case Id::SuperPowerJuice:
+        return checkStat(pplmn::Stat::SpecialAttack);
+    case Id::TubOfIcedCream:
+        return checkStat(pplmn::Stat::SpecialDefense);
+    case Id::JarOfEncouragement:
+        return checkStat(pplmn::Stat::Defense);
+    case Id::SuperSpeedJuice:
+        return checkStat(pplmn::Stat::Speed);
+    case Id::Compliments:
+        return checkStat(pplmn::Stat::HP);
+
+    case Id::UnAnnoyerSoda:
+        return ppl.currentAilment() == pplmn::Ailment::Annoyed;
+    case Id::UnFrustratorSoda:
+        return ppl.currentAilment() == pplmn::Ailment::Frustrated;
+    case Id::WakeUpSoda:
+        return ppl.currentAilment() == pplmn::Ailment::Sleep;
+    case Id::UnStickySoda:
+        return ppl.currentAilment() == pplmn::Ailment::Sticky;
+    case Id::UnFreezeSoda:
+        return ppl.currentAilment() == pplmn::Ailment::Frozen;
+
+    default:
+        return false;
+    }
+}
+
+bool Item::hasEffectOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler& battler) {
+    switch (item) {
+    case Id::SuperMegaUltraPotion:
+        if (battler.getSubstate().ailments != pplmn::PassiveAilment::None) return true;
+        break;
+    default:
+        break;
+    }
+    return hasEffectOnPeoplemon(item, ppl.base());
+}
+
+void Item::useOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl,
+                          std::vector<pplmn::OwnedPeoplemon>* team,
+                          std::vector<pplmn::BattlePeoplemon>* battleTeam) {
+    if (!hasEffectOnPeoplemon(item, ppl)) return;
+
+    const auto restorePP = [](pplmn::OwnedPeoplemon& ppl, int pp) {
+        for (int i = 0; i < 4; ++i) {
+            auto& m = ppl.knownMoves()[i];
+            m.curPP = std::min(m.curPP + pp, m.maxPP);
+        }
+    };
+
+    switch (item) {
+    case Id::Potion:
+        ppl.giveHealth(20);
+        break;
+    case Id::SuperPotion:
+        ppl.giveHealth(50);
+        break;
+    case Id::MegaPotion:
+        ppl.giveHealth(200);
+        break;
+    case Id::SuperMegaUltraPotion:
+        ppl.giveHealth(9001);
+        ppl.currentAilment() = pplmn::Ailment::None;
+        break;
+
+    case Id::PpPack:
+        restorePP(ppl, 10);
+        break;
+    case Id::SuperPpPack:
+        restorePP(ppl, 1000);
+        break;
+    case Id::Pp6Pack:
+    case Id::SuperPp6Pack: {
+        const int pp = item == Id::Pp6Pack ? 10 : 1000;
+        if (battleTeam) {
+            for (pplmn::BattlePeoplemon& p : *battleTeam) { restorePP(p.base(), pp); }
+        }
+        else if (team) {
+            for (pplmn::OwnedPeoplemon& p : *team) { restorePP(p, pp); }
+        }
+        else {
+            BL_LOG_ERROR << "Used PP 6 pack but not given team";
+        }
+        break;
+    }
+    case Id::UnAnnoyerSoda:
+    case Id::UnFreezeSoda:
+    case Id::UnFrustratorSoda:
+    case Id::WakeUpSoda:
+    case Id::UnStickySoda:
+        ppl.currentAilment() = pplmn::Ailment::None;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Item::useOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler& battler) {
+    if (!hasEffectOnPeoplemon(item, ppl, battler)) return;
+
+    useOnPeoplemon(item, ppl.base(), nullptr, &battler.peoplemon());
+
+    switch (item) {
+    case Id::SuperMegaUltraPotion:
+        battler.getSubstate().ailments = pplmn::PassiveAilment::None;
+        break;
+    default:
+        break;
+    }
+}
+
 } // namespace item
 } // namespace core

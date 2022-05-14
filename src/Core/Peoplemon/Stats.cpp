@@ -17,6 +17,11 @@ Stats::Stats()
 , spdef(0)
 , spd(0) {}
 
+Stats::Stats(Stat stat, int p)
+: Stats() {
+    get(stat) = p;
+}
+
 int Stats::sum() const { return hp + atk + def + spd + spatk + spdef; }
 
 void Stats::randomize() {

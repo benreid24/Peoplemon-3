@@ -144,6 +144,14 @@ const Stats& OwnedPeoplemon::currentIVs() const { return ivs; }
 
 std::uint16_t& OwnedPeoplemon::currentHp() { return hp; }
 
+void OwnedPeoplemon::applyDamage(int dmg) {
+    std::uint16_t udmg = dmg;
+    udmg               = std::min(udmg, hp);
+    hp -= udmg;
+}
+
+void OwnedPeoplemon::giveHealth(int p) { hp = std::min(hp + p, currentStats().hp); }
+
 std::uint16_t OwnedPeoplemon::currentHp() const { return hp; }
 
 void OwnedPeoplemon::awardEVs(const Stats& award) { evs.addEVs(award); }

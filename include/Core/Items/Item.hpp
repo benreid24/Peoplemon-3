@@ -1,6 +1,7 @@
 #ifndef CORE_ITEMS_ITEM_HPP
 #define CORE_ITEMS_ITEM_HPP
 
+#include <Core/Battles/Battler.hpp>
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
@@ -88,6 +89,56 @@ struct Item {
      * @return True if can be used, false if not
      */
     static bool canUseInBattle(Id item);
+
+    /**
+     * @brief Returns whether or not the given item will affect the peoplemon
+     *
+     * @param item The item to use
+     * @param ppl The peoplemon to check
+     * @return True if the item can be used, false if not
+     */
+    static bool hasEffectOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Returns whether or not the given item will affect the peoplemon in battle
+     *
+     * @param item The item to use
+     * @param ppl The peoplemon to check
+     * @param battler The battler using the item
+     * @return True if the item can be used, false if not
+     */
+    static bool hasEffectOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl,
+                                     battle::Battler& battler);
+
+    /**
+     * @brief Applies the given item to the peoplemon
+     *
+     * @param item The itemto use
+     * @param ppl The peoplemon to use it on
+     * @param team The peoplemon's team. Optional
+     * @param battleTeam The peoplemon's team when in battle. Optional
+     */
+    static void useOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl,
+                               std::vector<pplmn::OwnedPeoplemon>* team        = nullptr,
+                               std::vector<pplmn::BattlePeoplemon>* battleTeam = nullptr);
+
+    /**
+     * @brief Applies the given item to the peoplemon
+     *
+     * @param item The itemto use
+     * @param ppl The peoplemon to use it on
+     * @param battler The battler using the item
+     */
+    static void useOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler& battler);
+
+    /**
+     * @brief Returns the text to display when the item is used on the given peoplemon
+     *
+     * @param item The item that was used
+     * @param ppl The peoplemon that it was used on
+     * @return std::string The text to display
+     */
+    static std::string getUseLine(Id item, pplmn::OwnedPeoplemon& ppl);
 
 private:
     static std::unordered_map<Id, std::string>* names;

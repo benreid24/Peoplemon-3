@@ -156,6 +156,20 @@ public:
     std::uint16_t currentHp() const;
 
     /**
+     * @brief Applies damage to the peoplemon. Ensures that the hp does not go negative
+     *
+     * @param dmg The amount of hp to reduce
+     */
+    void applyDamage(int dmg);
+
+    /**
+     * @brief Restores HP and ensures it does not go over max HP
+     *
+     * @param hp The amount of hp to restore
+     */
+    void giveHealth(int hp);
+
+    /**
      * @brief Award EVs to this peoplemon
      *
      * @param evs The EVs to add
