@@ -72,7 +72,7 @@ public:
     virtual void render(bl::engine::Engine&, float) override;
 
 private:
-    enum struct MenuState { Browsing, Sliding, ChoosingGive };
+    enum struct MenuState { Browsing, Sliding, ChoosingGive, ShowingMessage };
 
     const Context context;
     core::item::Id* const result;
@@ -110,7 +110,10 @@ private:
     void useItem();
     void giveItem();
     void dropItem();
+    void doDrop(int qty);
     void resetAction();
+
+    void messageDone();
 };
 
 } // namespace state

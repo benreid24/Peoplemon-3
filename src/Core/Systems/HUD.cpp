@@ -49,6 +49,8 @@ HUD::HUD(Systems& owner)
     choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 8.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
+    qtyEntry.setPosition({textbox.getPosition().x + textbox.getGlobalBounds().width - 50.f,
+                          textbox.getPosition().y - 70.f});
 }
 
 void HUD::update(float dt) {
@@ -98,6 +100,9 @@ void HUD::render(sf::RenderTarget& target, float lag) {
     case WaitingKeyboard:
         target.draw(screenKeyboard);
         break;
+    case WaitingQty:
+        qtyEntry.render(target);
+        break;
     default:
         break;
     }
@@ -131,6 +136,14 @@ void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned in
     ensureActive();
 }
 
+void HUD::getQty(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb) {
+    sf::Text text = displayText;
+    text.setString(prompt);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
+    queuedOutput.emplace(text.getString().toAnsiString(), minQty, maxQty, cb);
+    ensureActive();
+}
+
 void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 
 void HUD::ensureActive() {
@@ -145,8 +158,12 @@ void HUD::startPrinting() {
 }
 
 void HUD::printDoneStateTransition() {
-    if (queuedOutput.front().getType() == Item::Message) { state = WaitingContinue; }
-    else if (queuedOutput.front().getType() == Item::Prompt) {
+    switch (queuedOutput.front().getType()) {
+    case Item::Message:
+        state = WaitingContinue;
+        break;
+
+    case Item::Prompt: {
         state                                   = WaitingPrompt;
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
 
@@ -172,17 +189,34 @@ void HUD::printDoneStateTransition() {
         const float y              = viewSize.y - bounds.height - 18.f;
         choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
         choiceDriver.drive(&choiceMenu);
-    }
-    else if (queuedOutput.front().getType() == Item::Keyboard) {
+    } break;
+
+    case Item::Keyboard:
         state = WaitingKeyboard;
         screenKeyboard.start(queuedOutput.front().minInputLength(),
                              queuedOutput.front().maxInputLength());
+        break;
+
+    case Item::Qty:
+        state = WaitingQty;
+        qtyEntry.configure(queuedOutput.front().getMinQty(), queuedOutput.front().getMaxQty(), 1);
+        break;
+
+    default:
+        state = Hidden;
+        next();
+        break;
     }
 }
 
 void HUD::choiceMade(unsigned int i) {
     queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);
     choiceDriver.drive(nullptr);
+    next();
+}
+
+void HUD::qtySelected(int qty) {
+    queuedOutput.front().getQtyCallback()(qty);
     next();
 }
 
@@ -229,6 +263,31 @@ void HUD::HudListener::process(component::Command cmd) {
         owner.screenKeyboard.process(cmd);
         break;
 
+    case WaitingQty:
+        switch (cmd) {
+        case component::Command::MoveDown:
+            owner.qtyEntry.down();
+            break;
+        case component::Command::MoveUp:
+            owner.qtyEntry.up();
+            break;
+        case component::Command::MoveRight:
+            owner.qtyEntry.up(10);
+            break;
+        case component::Command::MoveLeft:
+            owner.qtyEntry.down(10);
+            break;
+        case component::Command::Interact:
+            owner.qtySelected(owner.qtyEntry.curQty());
+            break;
+        case component::Command::Back:
+            owner.qtySelected(0);
+            break;
+        default:
+            break;
+        }
+        break;
+
     default:
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;
@@ -254,6 +313,12 @@ HUD::Item::Item(const std::string& prompt, unsigned int minLen, unsigned int max
 , message(prompt)
 , data(std::in_place_type_t<std::pair<unsigned int, unsigned int>>{}, minLen, maxLen) {}
 
+HUD::Item::Item(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb)
+: type(Qty)
+, cb(cb)
+, message(prompt)
+, data(std::in_place_type_t<std::pair<int, int>>{}, minQty, maxQty) {}
+
 HUD::Item::Type HUD::Item::getType() const { return type; }
 
 const std::string& HUD::Item::getMessage() const { return message; }
@@ -270,7 +335,13 @@ unsigned int HUD::Item::maxInputLength() const {
     return std::get_if<std::pair<unsigned int, unsigned int>>(&data)->second;
 }
 
-const HUD::Callback& HUD::Item::getCallback() const { return cb; }
+int HUD::Item::getMinQty() const { return std::get_if<std::pair<int, int>>(&data)->first; }
+
+int HUD::Item::getMaxQty() const { return std::get_if<std::pair<int, int>>(&data)->second; }
+
+const HUD::Callback& HUD::Item::getCallback() const { return *std::get_if<Callback>(&cb); }
+
+const HUD::QtyCallback& HUD::Item::getQtyCallback() const { return *std::get_if<QtyCallback>(&cb); }
 
 HUD::EntryCard::EntryCard() {
     txtr = bl::engine::Resources::textures()

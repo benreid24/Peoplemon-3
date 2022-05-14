@@ -80,5 +80,16 @@ int Item::getValue(Id item) {
 
 const std::vector<Id>& Item::validIds() { return ids; }
 
+bool Item::canUseInBattle(Id id) {
+    const Type t = getType(id);
+    switch (t) {
+    case Type::TargetPeoplemon:
+    case Type::Peopleball:
+        return true;
+    default:
+        return false;
+    }
+}
+
 } // namespace item
 } // namespace core

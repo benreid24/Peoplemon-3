@@ -196,7 +196,8 @@ void BagMenu::deactivate(bl::engine::Engine& engine) {
 void BagMenu::update(bl::engine::Engine& engine, float dt) {
     systems.player().update();
 
-    if (state == MenuState::Browsing) {
+    switch (state) {
+    case MenuState::Browsing: {
         const core::component::Command input = inputDriver.mostRecentInput();
 
         if (actionOpen) {
@@ -248,17 +249,26 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
                 break;
             }
         }
-    }
-    else if (state == MenuState::Sliding) {
+    } break;
+
+    case MenuState::Sliding:
         slideOff += slideVel * dt;
         if (std::abs(slideOff) >= activeMenu->getBounds().width) {
             state = MenuState::Browsing;
             inputDriver.drive(activeMenu);
         }
+        break;
+
+    case MenuState::ShowingMessage:
+        systems.hud().update(dt);
+        break;
+
+    default:
+        break;
     }
 }
 
-void BagMenu::render(bl::engine::Engine& engine, float) {
+void BagMenu::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
     engine.window().draw(background);
     if (state == MenuState::Sliding) {
@@ -277,6 +287,7 @@ void BagMenu::render(bl::engine::Engine& engine, float) {
     if (actionOpen) { actionMenu.render(engine.window()); }
     engine.window().draw(pocketLabel);
     engine.window().draw(description);
+    if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
     engine.window().display();
 }
 
@@ -304,10 +315,26 @@ void BagMenu::giveItem() {
 }
 
 void BagMenu::dropItem() {
-    // TODO - confirm/get qty
-    systems.player().state().bag.removeItem(selectedItem->getItem().id,
-                                            selectedItem->getItem().qty);
-    activeMenu->removeItem(selectedItem);
+    state = MenuState::ShowingMessage;
+    systems.hud().getQty("How many " + core::item::Item::getName(selectedItem->getItem().id) +
+                             "s should be dropped?",
+                         0,
+                         selectedItem->getItem().qty,
+                         std::bind(&BagMenu::doDrop, this, std::placeholders::_1));
+}
+
+void BagMenu::doDrop(int qty) {
+    if (qty > 0) {
+        systems.player().state().bag.removeItem(selectedItem->getItem().id, qty);
+        if (static_cast<unsigned int>(qty) >= selectedItem->getItem().qty) {
+            activeMenu->removeItem(selectedItem);
+        }
+        else {
+            core::player::Bag::Item t = selectedItem->getItem();
+            t.qty -= qty;
+            selectedItem->update(t);
+        }
+    }
     resetAction();
 }
 

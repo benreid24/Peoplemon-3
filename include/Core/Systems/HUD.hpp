@@ -8,6 +8,7 @@
 #include <BLIB/Resources.hpp>
 #include <Core/Player/Input/Listener.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Core/Systems/HUD/ScreenKeyboard.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
@@ -38,6 +39,14 @@ public:
      *
      */
     using Callback = std::function<void(const std::string& value)>;
+
+    /**
+     * @brief Called when a qty is entered
+     *
+     * @param qty The user selected qty
+     *
+     */
+    using QtyCallback = std::function<void(int qty)>;
 
     /**
      * @brief Construct a new HUD system
@@ -92,6 +101,16 @@ public:
                         const Callback& cb);
 
     /**
+     * @brief Gets a number from the player
+     *
+     * @param prompt Text to prompt the player with
+     * @param minQty The minimum number to accept
+     * @param maxQty The maximum number to accept
+     * @param cb Callback to call with the selected number
+     */
+    void getQty(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb);
+
+    /**
      * @brief Displays a card to indicate entering a new town, route, or map
      *
      * @param name The name to display inside the card
@@ -99,32 +118,37 @@ public:
     void displayEntryCard(const std::string& name);
 
 private:
-    enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard };
+    enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard, WaitingQty };
 
     class Item {
     public:
-        enum Type { Message, Prompt, Keyboard };
+        enum Type { Message, Prompt, Keyboard, Qty };
 
         Item(const std::string& message, const Callback& cb);
         Item(const std::string& prompt, const std::vector<std::string>& choices,
              const Callback& cb);
         Item(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
              const Callback& cb);
+        Item(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb);
 
         Type getType() const;
         const std::string& getMessage() const;
         const std::vector<std::string>& getChoices() const;
         const Callback& getCallback() const;
+        const QtyCallback& getQtyCallback() const;
         unsigned int minInputLength() const;
         unsigned int maxInputLength() const;
+        int getMinQty() const;
+        int getMaxQty() const;
 
     private:
         struct Empty {};
 
         const Type type;
-        const Callback cb;
+        const std::variant<Callback, QtyCallback> cb;
         const std::string message;
-        const std::variant<Empty, std::vector<std::string>, std::pair<unsigned int, unsigned int>>
+        const std::variant<Empty, std::vector<std::string>, std::pair<unsigned int, unsigned int>,
+                           std::pair<int, int>>
             data;
     };
 
@@ -167,6 +191,7 @@ private:
     sf::Text displayText;
     bl::shapes::Triangle promptTriangle;
     bl::gfx::Flashing flashingTriangle;
+    hud::QtyEntry qtyEntry;
 
     bl::menu::Menu choiceMenu;
     core::player::input::MenuDriver choiceDriver;
@@ -177,6 +202,7 @@ private:
     void printDoneStateTransition();
     void choiceMade(unsigned int i);
     void keyboardSubmit(const std::string& input);
+    void qtySelected(int qty);
     void next();
 };
 

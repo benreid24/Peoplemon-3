@@ -5,7 +5,6 @@
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
-#include <Core/Items/UseResult.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <vector>
@@ -81,6 +80,14 @@ struct Item {
      *
      */
     static const std::vector<Id>& validIds();
+
+    /**
+     * @brief Returns whether or not the item can be used in battle
+     *
+     * @param item The item to test
+     * @return True if can be used, false if not
+     */
+    static bool canUseInBattle(Id item);
 
 private:
     static std::unordered_map<Id, std::string>* names;
