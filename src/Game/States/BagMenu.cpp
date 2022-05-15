@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -33,16 +34,31 @@ void populateMenu(bl::menu::Menu& menu, const std::vector<core::player::Bag::Ite
     if (b != exit.get()) { menu.attachExisting(exit.get(), b, bl::menu::Item::Top); }
     menu.setSelectedItem(b);
 }
+
+bool needPickPeoplemon(core::item::Id item, core::item::Type type) {
+    switch (type) {
+    case core::item::Type::EvolveStone:
+    case core::item::Type::TM:
+        return true;
+    case core::item::Type::TargetPeoplemon:
+        return item != core::item::Id::Pp6Pack && item != core::item::Id::SuperPp6Pack;
+    default:
+        return false;
+    }
+}
 } // namespace
 
-bl::engine::State::Ptr BagMenu::create(core::system::Systems& s, Context c, core::item::Id* i) {
-    return bl::engine::State::Ptr(new BagMenu(s, c, i));
+bl::engine::State::Ptr BagMenu::create(core::system::Systems& s, Context c, core::item::Id* i,
+                                       int outNow, int* chosenPpl) {
+    return bl::engine::State::Ptr(new BagMenu(s, c, i, outNow, chosenPpl));
 }
 
-BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i)
+BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int outNow, int* chosenPpl)
 : State(s)
 , context(c)
+, outNow(outNow)
 , result(i)
+, itemPeoplemon(chosenPpl ? chosenPpl : &selectedPeoplemon)
 , state(MenuState::Browsing)
 , activeMenu(&regularMenu)
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
@@ -129,7 +145,37 @@ const char* BagMenu::name() const { return "BagMenu"; }
 void BagMenu::activate(bl::engine::Engine& engine) {
     bl::menu::Menu* toDrive = nullptr;
 
-    if (state != MenuState::ChoosingGive) {
+    if (state == MenuState::ChoosingGive) {
+        if (*itemPeoplemon >= 0) {
+            resetAction();
+            systems.player().state().peoplemon[*itemPeoplemon].holdItem() =
+                selectedItem->getItem().id;
+            removeAndUpdateItem(1);
+            toDrive = activeMenu;
+        }
+        else {
+            toDrive = &actionMenu;
+        }
+        state = MenuState::Browsing;
+    }
+    else if (state == MenuState::ChoosingItemPeoplemon) {
+        if (*itemPeoplemon >= 0) {
+            if (context == Context::BattleUse) {
+                // battle applies and removes the item
+                systems.engine().popState();
+            }
+            else {
+                resetAction();
+                removeAndUpdateItem(0); // item is removed in other menu
+            }
+            toDrive = activeMenu;
+        }
+        else {
+            toDrive = &actionMenu;
+        }
+        state = MenuState::Browsing;
+    }
+    else { // first time activation
         oldView = engine.window().getView();
         sf::View v(oldView);
         const sf::Vector2f size(background.getGlobalBounds().width,
@@ -165,23 +211,6 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         actionOpen = false;
         activeMenu = &regularMenu;
         toDrive    = activeMenu;
-    }
-    else {
-        if (selectedPeoplemon >= 0) {
-            resetAction();
-            core::player::Bag::Item it = selectedItem->getItem();
-            it.qty -= 1;
-            if (it.qty > 0) { selectedItem->update(it); }
-            else {
-                activeMenu->removeItem(selectedItem);
-            }
-            systems.player().state().peoplemon[selectedPeoplemon].holdItem() = it.id;
-            toDrive                                                          = activeMenu;
-        }
-        else {
-            toDrive = &actionMenu;
-        }
-        state = MenuState::Browsing;
     }
 
     systems.player().inputSystem().addListener(inputDriver);
@@ -299,11 +328,6 @@ void BagMenu::itemSelected(const menu::BagItemButton* but) {
 
 void BagMenu::exitSelected() { systems.engine().popState(); }
 
-void BagMenu::chooseItem() {
-    if (result) *result = selectedItem->getItem().id;
-    systems.engine().popState();
-}
-
 void BagMenu::useItem() {
     if (context == Context::BattleUse) {
         if (!core::item::Item::canUseInBattle(selectedItem->getItem().id)) {
@@ -314,15 +338,65 @@ void BagMenu::useItem() {
         }
     }
 
-    // TODO - determine if we need to choose peoplemon to use on
-
-    // TODO - use the item or return the result if in battle
+    const core::item::Type type = core::item::Item::getType(selectedItem->getItem().id);
+    if (needPickPeoplemon(selectedItem->getItem().id, type)) {
+        state = MenuState::ChoosingItemPeoplemon;
+        systems.engine().pushState(PeoplemonMenu::create(systems,
+                                                         context == Context::BattleUse ?
+                                                             PeoplemonMenu::Context::UseItemBattle :
+                                                             PeoplemonMenu::Context::UseItem,
+                                                         outNow,
+                                                         itemPeoplemon,
+                                                         selectedItem->getItem().id));
+    }
+    else {
+        if (context == Context::BattleUse) {
+            if (result) *result = selectedItem->getItem().id;
+            systems.engine().popState();
+        }
+        else {
+            switch (type) {
+            case core::item::Type::KeyItem:
+                // TODO - use key items
+                break;
+            case core::item::Type::PlayerModifier:
+                if (core::item::Item::hasEffectOnPlayer(selectedItem->getItem().id,
+                                                        systems.player().state())) {
+                    core::item::Item::useOnPlayer(selectedItem->getItem().id,
+                                                  systems.player().state());
+                    systems.hud().displayMessage(
+                        core::item::Item::getUseLine(selectedItem->getItem().id,
+                                                     systems.player().state()),
+                        std::bind(&BagMenu::messageDone, this));
+                }
+                else {
+                    systems.hud().displayMessage("It won't have any effect",
+                                                 std::bind(&BagMenu::messageDone, this));
+                }
+                state = MenuState::ShowingMessage;
+                break;
+            case core::item::Type::Useless:
+                systems.hud().displayMessage(
+                    "The Professor's voice echos in your head: \"That thing is completely useless! "
+                    "What are you expecting to happen?\"",
+                    std::bind(&BagMenu::messageDone, this));
+                state = MenuState::ShowingMessage;
+                break;
+            default:
+                systems.hud().displayMessage(
+                    "The Professor's voice echos in your head: \"You can't use that here bro\"",
+                    std::bind(&BagMenu::messageDone, this));
+                state = MenuState::ShowingMessage;
+                break;
+            }
+        }
+    }
 }
 
 void BagMenu::giveItem() {
     state = MenuState::ChoosingGive;
     systems.engine().pushState(
-        PeoplemonMenu::create(systems, PeoplemonMenu::Context::GiveItem, -1, &selectedPeoplemon));
+        PeoplemonMenu::create(systems, PeoplemonMenu::Context::GiveItem, -1, itemPeoplemon));
 }
 
 void BagMenu::dropItem() {
@@ -335,17 +409,7 @@ void BagMenu::dropItem() {
 }
 
 void BagMenu::doDrop(int qty) {
-    if (qty > 0) {
-        systems.player().state().bag.removeItem(selectedItem->getItem().id, qty);
-        if (static_cast<unsigned int>(qty) >= selectedItem->getItem().qty) {
-            activeMenu->removeItem(selectedItem);
-        }
-        else {
-            core::player::Bag::Item t = selectedItem->getItem();
-            t.qty -= qty;
-            selectedItem->update(t);
-        }
-    }
+    removeAndUpdateItem(qty);
     resetAction();
 }
 
@@ -378,6 +442,16 @@ void BagMenu::beginSlide(bool l) {
 void BagMenu::messageDone() {
     state = MenuState::Browsing;
     resetAction();
+}
+
+void BagMenu::removeAndUpdateItem(int qty) {
+    core::player::Bag::Item it = selectedItem->getItem();
+    systems.player().state().bag.removeItem(it.id, qty);
+    it.qty = systems.player().state().bag.itemCount(it.id);
+    if (it.qty <= 0) { activeMenu->removeItem(selectedItem); }
+    else {
+        selectedItem->update(it);
+    }
 }
 
 } // namespace state

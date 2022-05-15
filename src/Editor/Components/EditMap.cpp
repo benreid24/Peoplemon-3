@@ -2,6 +2,7 @@
 
 #include "MapActions.hpp"
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>

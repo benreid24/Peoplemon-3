@@ -1,6 +1,7 @@
 #include <Game/States/PeoplemonMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -10,18 +11,41 @@ namespace state
 namespace
 {
 constexpr float MoveTime = 0.55f;
+
+std::string getPickText(core::event::OpenPeoplemonMenu::Context ctx) {
+    using Ctx = core::event::OpenPeoplemonMenu::Context;
+
+    switch (ctx) {
+    case Ctx::GiveItem:
+        return "Give";
+    case Ctx::StorageSelect:
+        return "Store";
+    case Ctx::UseItem:
+    case Ctx::UseItemBattle:
+        return "Use";
+    case Ctx::BattleFaint:
+    case Ctx::BattleMustSwitch:
+    case Ctx::BattleReviveSwitch:
+    case Ctx::BattleSwitch:
+        return "Switch";
+    default:
+        return "ERROR";
+    }
 }
+} // namespace
 
 bl::engine::State::Ptr PeoplemonMenu::create(core::system::Systems& s, Context c, int outNow,
-                                             int* chosen) {
-    return Ptr(new PeoplemonMenu(s, c, outNow, chosen));
+                                             int* chosen, core::item::Id item) {
+    return Ptr(new PeoplemonMenu(s, c, outNow, chosen, item));
 }
 
-PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* sp)
+PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* sp,
+                             core::item::Id item)
 : State(s)
 , context(c)
 , outNow(on)
 , chosenPeoplemon(sp)
+, useItem(item)
 , state(Browsing)
 , menu(bl::menu::NoSelector::create())
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
@@ -85,13 +109,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
         actionRoot = info.get();
     }
     else {
-        bl::menu::TextItem::Ptr sel =
-            bl::menu::TextItem::create(context == Context::StorageSelect ? "Store" :
-                                       context == Context::GiveItem      ? "Give" :
-                                                                           "Switch",
-                                       core::Properties::MenuFont(),
-                                       sf::Color::Black,
-                                       26);
+        bl::menu::TextItem::Ptr sel = bl::menu::TextItem::create(
+            getPickText(context), core::Properties::MenuFont(), sf::Color::Black, 26);
         bl::menu::TextItem::Ptr back =
             bl::menu::TextItem::create("Back", core::Properties::MenuFont(), sf::Color::Black, 26);
 
@@ -396,6 +415,8 @@ void PeoplemonMenu::connectButtons() {
 }
 
 void PeoplemonMenu::chosen() {
+    bool closeMenu = true;
+
     switch (context) {
     case Context::BattleFaint:
     case Context::BattleSwitch:
@@ -433,12 +454,22 @@ void PeoplemonMenu::chosen() {
             return;
         }
         break;
+
+    case Context::UseItem:
+        // TODO - use the item, sync the display, print message, then exit. remove item here
+        closeMenu = false;
+        break;
+
+    case Context::UseItemBattle:
+        // no extra logic needed. if the item has no effect we just let them waste their turn
+        [[fallthrough]];
+
     default:
         break;
     }
 
     if (chosenPeoplemon) *chosenPeoplemon = mover1;
-    systems.engine().popState();
+    if (closeMenu) systems.engine().popState();
 }
 
 void PeoplemonMenu::messageDone() {

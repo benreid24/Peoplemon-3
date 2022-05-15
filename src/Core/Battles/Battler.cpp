@@ -101,6 +101,8 @@ void Battler::refresh() { controller->refresh(); }
 
 BattlerSubstate& Battler::getSubstate() { return substate; }
 
+const BattlerSubstate& Battler::getSubstate() const { return substate; }
+
 unsigned int Battler::selectRandomPeoplemon() const {
     if (!canSwitch()) return currentPeoplemon;
 

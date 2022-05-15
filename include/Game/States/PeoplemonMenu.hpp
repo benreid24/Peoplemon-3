@@ -29,10 +29,12 @@ public:
      * @param ctx The context the menu is being used in
      * @param outNow Optional index of the peoplemon that is currently out
      * @param chosen Value to populate with the selected peoplemon's index
+     * @param item The item to use (or being used in battle)
      *
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems, Context ctx,
-                                         int outNow = -1, int* chosen = nullptr);
+                                         int outNow = -1, int* chosen = nullptr,
+                                         core::item::Id item = core::item::Id::None);
 
     /// Cleans up all resources
     virtual ~PeoplemonMenu() = default;
@@ -73,6 +75,7 @@ private:
     const Context context;
     const int outNow;
     int* chosenPeoplemon;
+    const core::item::Id useItem;
     sf::View oldView;
 
     MenuState state;
@@ -94,7 +97,8 @@ private:
     bl::menu::Item* actionRoot;
     bool actionOpen;
 
-    PeoplemonMenu(core::system::Systems& systems, Context ctx, int outNow, int* chosen);
+    PeoplemonMenu(core::system::Systems& systems, Context ctx, int outNow, int* chosen,
+                  core::item::Id item);
 
     void connectButtons();
     bool canCancel() const;

@@ -8,6 +8,7 @@
 #include <Core/Items/Type.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
+#include <Core/Player/State.hpp>
 #include <vector>
 
 namespace core
@@ -97,7 +98,7 @@ struct Item {
      * @param ppl The peoplemon to check
      * @return True if the item can be used, false if not
      */
-    static bool hasEffectOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl);
+    static bool hasEffectOnPeoplemon(Id item, const pplmn::OwnedPeoplemon& ppl);
 
     /**
      * @brief Returns whether or not the given item will affect the peoplemon in battle
@@ -107,8 +108,8 @@ struct Item {
      * @param battler The battler using the item
      * @return True if the item can be used, false if not
      */
-    static bool hasEffectOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl,
-                                     battle::Battler& battler);
+    static bool hasEffectOnPeoplemon(Id item, const pplmn::BattlePeoplemon& ppl,
+                                     const battle::Battler& battler);
 
     /**
      * @brief Applies the given item to the peoplemon
@@ -138,7 +139,33 @@ struct Item {
      * @param ppl The peoplemon that it was used on
      * @return std::string The text to display
      */
-    static std::string getUseLine(Id item, pplmn::OwnedPeoplemon& ppl);
+    static std::string getUseLine(Id item, const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Returns whether or not the given item will affect the player
+     *
+     * @param item The item to use
+     * @param state The player's state
+     * @return True if the item may be used, false if not
+     */
+    static bool hasEffectOnPlayer(Id item, const player::State& state);
+
+    /**
+     * @brief Uses the given item on the player
+     *
+     * @param item The item to use
+     * @param state The player's state
+     */
+    static void useOnPlayer(Id item, player::State& state);
+
+    /**
+     * @brief Generates the text to print when the item is used on the player
+     *
+     * @param item The item being used
+     * @param state The player's state
+     * @return std::string The text to display
+     */
+    static std::string getUseLine(Id item, const player::State& state);
 
 private:
     static std::unordered_map<Id, std::string>* names;

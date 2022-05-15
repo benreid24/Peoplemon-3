@@ -1,6 +1,7 @@
 #include <Game/Menus/BagItemButton.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 
 namespace game

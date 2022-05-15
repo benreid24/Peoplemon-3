@@ -91,7 +91,7 @@ bool Item::canUseInBattle(Id id) {
     }
 }
 
-bool Item::hasEffectOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl) {
+bool Item::hasEffectOnPeoplemon(Id item, const pplmn::OwnedPeoplemon& ppl) {
     const auto checkStat = [&ppl](pplmn::Stat stat) -> bool {
         return ppl.currentEVs().sum() < pplmn::Stats::MaxEVSum &&
                ppl.currentEVs().get(stat) < pplmn::Stats::MaxEVStat;
@@ -148,7 +148,8 @@ bool Item::hasEffectOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl) {
     }
 }
 
-bool Item::hasEffectOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler& battler) {
+bool Item::hasEffectOnPeoplemon(Id item, const pplmn::BattlePeoplemon& ppl,
+                                const battle::Battler& battler) {
     switch (item) {
     case Id::SuperMegaUltraPotion:
         if (battler.getSubstate().ailments != pplmn::PassiveAilment::None) return true;
@@ -231,6 +232,20 @@ void Item::useOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler&
     default:
         break;
     }
+}
+
+bool Item::hasEffectOnPlayer(Id item, const player::State& state) {
+    // TODO
+    return false;
+}
+
+void Item::useOnPlayer(Id item, player::State& state) {
+    // TODO
+}
+
+std::string Item::getUseLine(Id item, const player::State& state) {
+    // TODO
+    return "The item did something";
 }
 
 } // namespace item

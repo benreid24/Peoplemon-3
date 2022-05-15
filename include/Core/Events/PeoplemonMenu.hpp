@@ -23,7 +23,9 @@ struct OpenPeoplemonMenu {
         BattleReviveSwitch,
         StorageSelect,
         PauseMenu,
-        GiveItem
+        GiveItem,
+        UseItem,
+        UseItemBattle
     };
 
     /**

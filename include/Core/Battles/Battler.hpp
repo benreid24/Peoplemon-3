@@ -146,6 +146,12 @@ public:
     BattlerSubstate& getSubstate();
 
     /**
+     * @brief Returns the state of this battler
+     *
+     */
+    const BattlerSubstate& getSubstate() const;
+
+    /**
      * @brief Notifies the battler that a turn has began
      *
      */
