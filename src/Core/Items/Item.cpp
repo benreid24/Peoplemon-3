@@ -215,6 +215,25 @@ void Item::useOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl,
         ppl.currentAilment() = pplmn::Ailment::None;
         break;
 
+    case Id::KegOfProtein:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::Attack, 10));
+        break;
+    case Id::SuperPowerJuice:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::SpecialAttack, 10));
+        break;
+    case Id::TubOfIcedCream:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::SpecialDefense, 10));
+        break;
+    case Id::JarOfEncouragement:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::Defense, 10));
+        break;
+    case Id::SuperSpeedJuice:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::Speed, 10));
+        break;
+    case Id::Compliments:
+        ppl.awardEVs(pplmn::Stats(pplmn::Stat::HP, 10));
+        break;
+
     default:
         break;
     }
@@ -234,18 +253,95 @@ void Item::useOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler&
     }
 }
 
+std::string Item::getUseLine(Id item, const pplmn::OwnedPeoplemon& ppl) {
+    switch (item) {
+    case Id::Potion:
+    case Id::SuperPotion:
+    case Id::MegaPotion:
+        return ppl.name() + " had it's HP restored.";
+    case Id::SuperMegaUltraPotion:
+        return ppl.name() + " was healed completely.";
+
+    case Id::PpPack:
+    case Id::SuperPpPack:
+        return ppl.name() + " had it's PP restored!";
+    case Id::Pp6Pack:
+    case Id::SuperPp6Pack:
+        return ppl.name() + " and all their friends had their PP restored.";
+    case Id::PpRaiser:
+        return ppl.name() + " had their PP raised.";
+
+    case Id::KegOfProtein:
+        return ppl.name() + " had their " + pplmn::Stats::statToString(pplmn::Stat::Attack) +
+               " increased";
+    case Id::SuperPowerJuice:
+        return ppl.name() + " had their " + pplmn::Stats::statToString(pplmn::Stat::SpecialAttack) +
+               " increased";
+    case Id::TubOfIcedCream:
+        return ppl.name() + " had their " +
+               pplmn::Stats::statToString(pplmn::Stat::SpecialDefense) + " increased";
+    case Id::JarOfEncouragement:
+        return ppl.name() + " had their " + pplmn::Stats::statToString(pplmn::Stat::Defense) +
+               " increased";
+    case Id::SuperSpeedJuice:
+        return ppl.name() + " had their " + pplmn::Stats::statToString(pplmn::Stat::Speed) +
+               " increased";
+    case Id::Compliments:
+        return ppl.name() + " had their " + pplmn::Stats::statToString(pplmn::Stat::HP) +
+               " increased";
+
+    case Id::UnAnnoyerSoda:
+        return ppl.name() + " is no longer Annoyed.";
+    case Id::UnFrustratorSoda:
+        return ppl.name() + " is no longer Frustrated.";
+    case Id::WakeUpSoda:
+        return ppl.name() + " is no longer Sleeping.";
+    case Id::UnStickySoda:
+        return ppl.name() + " is no longer Sticky.";
+    case Id::UnFreezeSoda:
+        return ppl.name() + " is no longer Frozen.";
+
+    default:
+        return "ERROR: " + getName(item) + " does not generate a useLine on a peoplemon.";
+    }
+}
+
 bool Item::hasEffectOnPlayer(Id item, const player::State& state) {
-    // TODO
-    return false;
+    switch (item) {
+    case Id::GoAwaySpray:
+    case Id::SuperGoAwaySpray:
+    case Id::NeverComeBackSpray:
+        return state.repelSteps == 0;
+    default:
+        return false;
+    }
 }
 
 void Item::useOnPlayer(Id item, player::State& state) {
-    // TODO
+    switch (item) {
+    case Id::GoAwaySpray:
+        state.repelSteps = 100;
+        break;
+    case Id::SuperGoAwaySpray:
+        state.repelSteps = 250;
+        break;
+    case Id::NeverComeBackSpray:
+        state.repelSteps = 2000;
+        break;
+    default:
+        break;
+    }
 }
 
-std::string Item::getUseLine(Id item, const player::State& state) {
-    // TODO
-    return "The item did something";
+std::string Item::getUseLine(Id item) {
+    switch (item) {
+    case Id::GoAwaySpray:
+    case Id::SuperGoAwaySpray:
+    case Id::NeverComeBackSpray:
+        return "Now you smell bad enough to keep Peoplemon away.";
+    default:
+        return "ERROR: " + getName(item) + " does not generate a useLine on the player.";
+    }
 }
 
 } // namespace item

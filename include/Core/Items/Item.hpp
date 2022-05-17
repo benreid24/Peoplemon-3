@@ -162,10 +162,9 @@ struct Item {
      * @brief Generates the text to print when the item is used on the player
      *
      * @param item The item being used
-     * @param state The player's state
      * @return std::string The text to display
      */
-    static std::string getUseLine(Id item, const player::State& state);
+    static std::string getUseLine(Id item);
 
 private:
     static std::unordered_map<Id, std::string>* names;

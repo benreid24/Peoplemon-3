@@ -47,31 +47,6 @@ std::string snackShareSuffix(Message::Type type, const std::string& other) {
         return "!";
     }
 }
-
-std::string statString(pplmn::Stat stat) {
-    switch (stat) {
-    case pplmn::Stat::Accuracy:
-        return "ACC";
-    case pplmn::Stat::Attack:
-        return "ATK";
-    case pplmn::Stat::Critical:
-        return "CRIT";
-    case pplmn::Stat::Defense:
-        return "DEF";
-    case pplmn::Stat::Evasion:
-        return "EVD";
-    case pplmn::Stat::HP:
-        return "HP";
-    case pplmn::Stat::SpecialAttack:
-        return "SPATK";
-    case pplmn::Stat::SpecialDefense:
-        return "SPDEF";
-    case pplmn::Stat::Speed:
-        return "SPD";
-    default:
-        return "<ERR>";
-    }
-}
 } // namespace
 
 MessagePrinter::MessagePrinter()
@@ -330,27 +305,27 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::StatIncreased:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " increased!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " increased!";
         break;
 
     case Message::Type::StatIncreasedSharply:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " rose sharply!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " rose sharply!";
         break;
 
     case Message::Type::StatIncreaseFailed:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any higher!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any higher!";
         break;
 
     case Message::Type::StatDecreased:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " decreased!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " decreased!";
         break;
 
     case Message::Type::StatDecreasedSharply:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " fell sharply!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " fell sharply!";
         break;
 
     case Message::Type::StatDecreaseFailed:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any lower!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any lower!";
         break;
 
     case Message::Type::RecoilDamage:
