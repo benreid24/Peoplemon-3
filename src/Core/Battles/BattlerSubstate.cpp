@@ -1,5 +1,7 @@
 #include <Core/Battles/BattlerSubstate.hpp>
 
+#include <BLIB/Util/Random.hpp>
+
 namespace core
 {
 namespace battle
@@ -116,6 +118,9 @@ void BattlerSubstate::clearAilment(pplmn::PassiveAilment ail) {
     using T     = std::underlying_type_t<pplmn::PassiveAilment>;
     const T neg = ~static_cast<T>(ail);
     ailments    = static_cast<pplmn::PassiveAilment>(static_cast<T>(ailments) & neg);
+    if (ail == pplmn::PassiveAilment::Confused) {
+        turnsConfused = bl::util::Random::get<int>(2, 4);
+    }
 }
 
 } // namespace battle

@@ -874,6 +874,59 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "It had no effect! What a waste of time.";
         break;
 
+    case Message::Type::BagOfGoldfish:
+        dispText = ppl + "'s ate from their Bag of Goldfish and regained HP!";
+        break;
+
+    case Message::Type::BackwardsHoodyStatDown:
+        dispText = ppl + "'s Backwards Hoodie makes their attacks more powerful!";
+        break;
+
+    case Message::Type::BackwordsHoodyConfuse:
+        dispText = ppl + " was Confused by " + other + "'s Backwards Hoodie!";
+        break;
+
+    case Message::Type::GlassesAcc:
+        dispText = ppl + "'s Glasses increase ACC!";
+        break;
+
+    case Message::Type::SlappingGloveDamage:
+        dispText = ppl + "'s ATK is increased by their Slapping Glove!";
+        break;
+
+    case Message::Type::SpoonDamage:
+        dispText = ppl + "'s SPATK is increased by their Spoon!";
+        break;
+
+    case Message::Type::SuperTinyMiniFridge:
+        dispText = ppl + "'s Super Tiny Mini Fridge exploded!";
+        break;
+
+    case Message::Type::SketchySack:
+        dispText =
+            ppl + " took damage from their Sketchy Sack that they are holding for some reason!";
+        break;
+
+    case Message::Type::GoldfishCracker:
+        dispText = ppl + " ate their abnormally large Goldfish Cracker and regained HP!";
+        break;
+
+    case Message::Type::WakeUpBelle:
+        dispText = ppl + " was woken up by their Wakeup Belle!";
+        break;
+
+    case Message::Type::PowerJuice:
+        dispText = ppl + " drank their Power Juice and increased attack power!";
+        break;
+
+    case Message::Type::IcedTea:
+        dispText = ppl + " drank their Iced Tea and increased defense!";
+        break;
+
+    case Message::Type::SpeedJuice:
+        dispText = ppl + " drank their Speed Juice and increased their speed!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

@@ -34,7 +34,8 @@ public:
         RoundStart,
         TurnStart,
         NextBattler,
-        RoundFinalEffects,
+        RoundFinalEffectsPlayer,
+        RoundFinalEffectsEnemy,
         RoundEnd,
 
         // Use item

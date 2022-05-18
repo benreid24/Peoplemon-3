@@ -63,6 +63,7 @@ private:
     void checkCurrentStage(bool viewSynced, bool queueEmpty);
     BattleState::Stage getNextStage(BattleState::Stage ns);
     int getPriority(Battler& battler);
+    int getSpeed(Battler& battler);
 
     void startUseMove(Battler& user, int index);
     void checkAbilitiesAfterMove(Battler& user);

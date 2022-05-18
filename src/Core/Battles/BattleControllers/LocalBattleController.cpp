@@ -317,10 +317,11 @@ void LocalBattleController::initCurrentStage() {
         currentFainter = nullptr;
         break;
 
-    case Stage::RoundFinalEffects:
-        if (finalEffectsApplied) break;
-        finalEffectsApplied = true;
+    case Stage::RoundFinalEffectsPlayer:
         handleBattlerRoundEnd(state->localPlayer());
+        break;
+
+    case Stage::RoundFinalEffectsEnemy:
         handleBattlerRoundEnd(state->enemy());
         break;
 
@@ -495,7 +496,11 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::NextBattler);
             break;
 
-        case Stage::RoundFinalEffects:
+        case Stage::RoundFinalEffectsPlayer:
+            setBattleState(Stage::RoundFinalEffectsEnemy);
+            break;
+
+        case Stage::RoundFinalEffectsEnemy:
             setBattleState(Stage::RoundEnd);
             break;
 
@@ -667,9 +672,15 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         bool pfirst = true;
         if (pp < op) { pfirst = false; }
         else if (pp == op && state->localPlayer().chosenAction() == TurnAction::Fight) {
-            pfirst = bl::util::Random::get<int>(0, 100) <= 50;
+            const int lps = getSpeed(state->localPlayer());
+            const int eps = getSpeed(state->enemy());
+            if (eps > lps) { pfirst = false; }
+            else if (lps == eps) {
+                pfirst = bl::util::Random::get<int>(0, 100) <= 50;
+            }
         }
 
+        // TODO - active battler may change here, invalidating messages
         state->beginRound(pfirst);
         queueCommand({Command::SyncStateNoSwitch});
         state->localPlayer().activePeoplemon().notifyInBattle();
@@ -789,7 +800,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     BattlerAttackFinalizer _finalizer(user, usedMove);
 
     // determine if hit
-    const int acc       = pplmn::Move::accuracy(usedMove);
+    int acc = pplmn::Move::accuracy(usedMove);
+    if (attacker.base().holdItem() == item::Id::Glasses) {
+        acc = acc * 11 / 10;
+        queueCommand({cmd::Message(cmd::Message::Type::GlassesAcc, userIsActive)}, true);
+    }
     const int accStage  = attacker.battleStages().acc;
     const int evdStage  = defender.battleStages().evade;
     const int stage     = std::max(std::min(accStage - evdStage, 6), -6);
@@ -934,6 +949,45 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 crit = false;
                 queueCommand({cmd::Message(cmd::Message::Type::ChillaxCritBlocked, userIsActive)},
                              true);
+            }
+
+            // check backwards hoody hold item
+            if (attacker.base().holdItem() == item::Id::BackwardsHoody) {
+                atk = atk * 3 / 2;
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::BackwardsHoodyStatDown, userIsActive)}, true);
+            }
+
+            // check spoon hold item
+            if (attacker.base().holdItem() == item::Id::Spoon && special) {
+                atk = atk * 11 / 10;
+                queueCommand({cmd::Message(cmd::Message::Type::SpoonDamage, userIsActive)}, true);
+            }
+
+            // check slapping glove hold item
+            if (attacker.base().holdItem() == item::Id::SlappingGlove && !special) {
+                atk = atk * 11 / 10;
+                queueCommand({cmd::Message(cmd::Message::Type::SlappingGloveDamage, userIsActive)},
+                             true);
+            }
+
+            // check power juice
+            if (attacker.base().currentHp() <= attacker.currentStats().hp / 4) {
+                if (attacker.base().holdItem() == item::Id::PowerJuice) {
+                    attacker.base().holdItem() = item::Id::None;
+                    atk                        = atk * 11 / 10;
+                    queueCommand({cmd::Message(cmd::Message::Type::PowerJuice, userIsActive)},
+                                 true);
+                }
+            }
+
+            // check iced tea hold item
+            if (defender.base().currentHp() <= defender.currentStats().hp / 4) {
+                if (defender.base().holdItem() == item::Id::IcedTea) {
+                    defender.base().holdItem() = item::Id::None;
+                    def                        = def * 11 / 10;
+                    queueCommand({cmd::Message(cmd::Message::Type::IcedTea, !userIsActive)}, true);
+                }
             }
 
             damage = computeDamage(pwr, atk, def, attacker.base().currentLevel());
@@ -1202,9 +1256,7 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
     owner.getSubstate().giveAilment(ail);
     queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)}, true);
 
-    if (ail == pplmn::PassiveAilment::Confused) {
-        owner.getSubstate().turnsConfused = bl::util::Random::get<int>(2, 4);
-    }
+    // TODO - reflect some passive ailments?
 }
 
 void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Stat stat, int amt,
@@ -1268,6 +1320,14 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     Battler& other              = isActive ? state->inactiveBattler() : state->activeBattler();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
     battler.notifyTurnEnd();
+
+    if (ppl.base().currentHp() == 0) {
+        battler.getSubstate().ballBlocked = false;
+        battler.getSubstate().ballSet     = false;
+        battler.getSubstate().ballSpiked  = false;
+        battler.getSubstate().ballSwiped  = false;
+        return;
+    }
 
     // check volleyball stuff
     // check if too many turns and we died
@@ -1367,6 +1427,54 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
         queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown, isActive)}, true);
+    }
+
+    // check bag of goldfish hold item
+    if (ppl.base().holdItem() == item::Id::BagOfGoldFish) {
+        if (ppl.base().currentHp() < ppl.currentStats().hp) {
+            ppl.giveHealth(ppl.currentStats().hp / 16);
+            queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Message(cmd::Message::Type::BagOfGoldfish, isActive)}, true);
+        }
+    }
+
+    // sketchy sack hold item
+    if (ppl.base().holdItem() == item::Id::SketchySack &&
+        ppl.base().currentHp() <= ppl.currentStats().hp / 2) {
+        ppl.base().holdItem() = item::Id::None;
+        ppl.applyDamage(ppl.currentStats().hp / 16);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::SketchySack, isActive)}, true);
+    }
+
+    // check goldfish cracker hold item
+    if (ppl.base().holdItem() == item::Id::GoldfishCracker &&
+        ppl.base().currentHp() <= ppl.currentStats().hp / 2) {
+        ppl.base().holdItem() = item::Id::None;
+        ppl.giveHealth(ppl.currentStats().hp / 8);
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::GoldfishCracker, isActive)}, true);
+    }
+
+    // check wakeupbelle hold item
+    if (ppl.base().holdItem() == item::Id::WakeUpBelle &&
+        ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
+        ppl.base().currentAilment() = pplmn::Ailment::None;
+        queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Message(cmd::Message::Type::WakeUpBelle, isActive)}, true);
+    }
+
+    // check super tiny mini fridge
+    if (ppl.base().holdItem() == item::Id::SuperTinyMiniFridge && ppl.base().currentHp() > 0) {
+        ppl.base().currentHp() = 0;
+        queueCommand({cmd::Message(cmd::Message::Type::SuperTinyMiniFridge, isActive)}, true);
+        // TODO - play explosion animation
+        other.activePeoplemon().applyDamage(
+            computeDamage(100,
+                          ppl.currentStats().atk,
+                          other.activePeoplemon().currentStats().def,
+                          ppl.base().currentLevel()));
+        queueCommand({Command::SyncStateNoSwitch}, true);
     }
 }
 
@@ -1600,6 +1708,22 @@ int LocalBattleController::getPriority(Battler& battler) {
     return base;
 }
 
+int LocalBattleController::getSpeed(Battler& battler) {
+    const bool isActive         = &battler == &state->activeBattler();
+    pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
+    int spd                     = ppl.getSpeed();
+
+    // check speed juice hold item
+    if (ppl.base().holdItem() == item::Id::SpeedJuice &&
+        ppl.base().currentHp() <= ppl.currentStats().hp / 4) {
+        ppl.base().holdItem() = item::Id::None;
+        spd                   = spd * 11 / 10;
+        queueCommand({cmd::Message(cmd::Message::Type::SpeedJuice, isActive)}, true);
+    }
+
+    return spd;
+}
+
 void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
     const bool userIsActive = &user == &state->activeBattler();
     Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
@@ -1695,6 +1819,17 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
 
     default:
         break;
+    }
+
+    // also check backwards hoodie confuse here
+    if (defender.base().holdItem() == item::Id::BackwardsHoody && damage > 0) {
+        if (bl::util::Random::get<int>(0, 100) <= 25) {
+            if (!user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
+                user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
+                queueCommand(
+                    {cmd::Message(cmd::Message::Type::BackwordsHoodyConfuse, userIsActive)}, true);
+            }
+        }
     }
 }
 

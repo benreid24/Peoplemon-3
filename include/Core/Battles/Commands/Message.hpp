@@ -234,7 +234,21 @@ public:
 
         PreUseItem,
         ItemUseResult,
-        ItemNoEffect
+        ItemNoEffect,
+
+        BagOfGoldfish,
+        BackwardsHoodyStatDown,
+        BackwordsHoodyConfuse,
+        GlassesAcc,
+        SpoonDamage,
+        SlappingGloveDamage,
+        SuperTinyMiniFridge,
+        SketchySack,
+        GoldfishCracker,
+        WakeUpBelle,
+        PowerJuice,
+        IcedTea,
+        SpeedJuice
     };
 
     /**

@@ -71,8 +71,7 @@ const std::string& Battler::name() const { return controller->name(); }
 unsigned int Battler::getPriority() const {
     switch (chosenAction()) {
     case TurnAction::Fight:
-        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id) +
-               team[currentPeoplemon].getSpeed();
+        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id);
     case TurnAction::Item:
     case TurnAction::Run:
     case TurnAction::Switch:
