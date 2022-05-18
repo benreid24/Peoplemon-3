@@ -51,12 +51,6 @@ StatBoxes::StatBoxes()
     constexpr auto join        = bl::util::FileUtil::joinPath;
     const std::string& ImgPath = Properties::ImagePath();
 
-    annoyTxtr  = textures.load(join(ImgPath, "Battle/annoy.png")).data;
-    frustTxtr  = textures.load(join(ImgPath, "Battle/frustrate.png")).data;
-    stickyTxtr = textures.load(join(ImgPath, "Battle/sticky.png")).data;
-    slpTxtr    = textures.load(join(ImgPath, "Battle/sleep.png")).data;
-    frzTxtr    = textures.load(join(ImgPath, "Battle/frozen.png")).data;
-
     opBoxTxtr = textures.load(join(ImgPath, "Battle/opBox.png")).data;
     opBox.setTexture(*opBoxTxtr, true);
     opBox.setPosition(-opBox.getGlobalBounds().width, OpBoxPos.y);
@@ -168,13 +162,7 @@ void StatBoxes::update(float dt) {
 
         // opponent bar color
         const float opHp = opHpBar.getSize().x / BarSize.x;
-        if (opHp >= GreenThresh) { opHpBar.setFillColor(sf::Color::Green); }
-        else if (opHp >= YellowThresh) {
-            opHpBar.setFillColor(sf::Color::Yellow);
-        }
-        else {
-            opHpBar.setFillColor(sf::Color::Red);
-        }
+        opHpBar.setFillColor(Properties::HPBarColor(opHp));
     }
 
     // player box slide
@@ -205,13 +193,7 @@ void StatBoxes::update(float dt) {
 
         // player bar color
         const float lphp = lpHpBar.getSize().x / BarSize.x;
-        if (lphp >= GreenThresh) { lpHpBar.setFillColor(sf::Color::Green); }
-        else if (lphp >= YellowThresh) {
-            lpHpBar.setFillColor(sf::Color::Yellow);
-        }
-        else {
-            lpHpBar.setFillColor(sf::Color::Red);
-        }
+        lpHpBar.setFillColor(Properties::HPBarColor(lphp));
 
         // xp bar size
         const float xpChange = dt * BarRate * XpBarSize.x;
@@ -251,24 +233,9 @@ void StatBoxes::render(sf::RenderTarget& target) const {
     }
 }
 
-const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) const {
-    using Ailment = pplmn::Ailment;
-
-    switch (ail) {
-    case Ailment::Annoyed:
-        return *annoyTxtr;
-    case Ailment::Frozen:
-        return *frzTxtr;
-    case Ailment::Frustrated:
-        return *frustTxtr;
-    case Ailment::Sleep:
-        return *slpTxtr;
-    case Ailment::Sticky:
-        return *stickyTxtr;
-    case Ailment::None:
-    default:
-        return blank;
-    }
+const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) {
+    ailTxtr = Properties::AilmentTexture(ail);
+    return ailTxtr ? *ailTxtr : blank;
 }
 
 } // namespace view

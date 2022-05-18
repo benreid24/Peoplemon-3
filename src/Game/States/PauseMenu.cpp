@@ -91,6 +91,9 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
     const sf::Vector2f size(core::Properties::WindowWidth(), core::Properties::WindowHeight());
     view.setCenter(size * 0.5f);
     view.setSize(size);
+    systems.hud().hideEntryCard();
+    // TODO - get sound specific to menu opening/closing
+    bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {

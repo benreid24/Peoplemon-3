@@ -1,6 +1,7 @@
 #include <Core/Items/Item.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 #include <unordered_map>
 
@@ -118,6 +119,14 @@ bool Item::hasEffectOnPeoplemon(Id item, const pplmn::OwnedPeoplemon& ppl) {
     case Id::Pp6Pack:
     case Id::SuperPp6Pack:
         return true; // just let them use it, dont check whole team
+    case Id::PpRaiser:
+        for (int i = 0; i < 4; ++i) {
+            const auto& m = ppl.knownMoves()[i];
+            if (m.id != pplmn::MoveId::Unknown) {
+                if (m.maxPP < pplmn::Move::pp(m.id) * 8 / 5) { return true; }
+            }
+        }
+        return false;
 
     case Id::KegOfProtein:
         return checkStat(pplmn::Stat::Attack);
@@ -207,6 +216,18 @@ void Item::useOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl,
         }
         break;
     }
+    case Id::PpRaiser:
+        for (int i = 0; i < 4; ++i) {
+            auto& m = ppl.knownMoves()[i];
+            if (m.id != pplmn::MoveId::Unknown) {
+                const int npp = std::min(m.maxPP + 1, pplmn::Move::pp(m.id) * 8 / 5);
+                const int ppp = npp - m.maxPP;
+                m.maxPP       = npp;
+                m.curPP += ppp;
+            }
+        }
+        break;
+
     case Id::UnAnnoyerSoda:
     case Id::UnFreezeSoda:
     case Id::UnFrustratorSoda:

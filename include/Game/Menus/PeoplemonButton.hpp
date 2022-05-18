@@ -38,11 +38,32 @@ public:
      */
     virtual sf::Vector2f getSize() const override;
 
+    /**
+     * @brief Syncs the HP bar and ailment texture with the peoplemon
+     *
+     * @param ppl The peoplemon to sync with
+     */
+    void sync(const core::pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Updates the HP bar
+     *
+     * @param dt Time elapsed in seconds
+     */
+    void update(float dt);
+
+    /**
+     * @brief Returns whether or not this button is synced
+     *
+     */
+    bool synced() const;
+
 private:
     sf::Color color;
     bool isSelected;
     bl::resource::Resource<sf::Texture>::Ref txtr;
     bl::resource::Resource<sf::Texture>::Ref faceTxtr;
+    bl::resource::Resource<sf::Texture>::Ref ailTxtr;
     sf::Sprite image;
     sf::Sprite face;
     sf::RectangleShape hpBar;
@@ -50,10 +71,14 @@ private:
     sf::Text level;
     sf::Text item;
     sf::Text hpText;
+    sf::Texture blank;
+    sf::Sprite ailment;
+    float hpBarTarget;
 
     PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl);
     virtual void render(sf::RenderTarget& target, sf::RenderStates states,
                         const sf::Vector2f& pos) const override;
+    sf::Texture& ailmentTexture(core::pplmn::Ailment ail);
 };
 
 } // namespace menu

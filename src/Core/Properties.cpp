@@ -640,9 +640,33 @@ const std::string& Properties::MoveDBFile() {
 
 sf::Color Properties::HPBarColor(unsigned int hp, unsigned int maxHp) {
     const float percent = static_cast<float>(hp) / static_cast<float>(maxHp);
+    return HPBarColor(percent);
+}
+
+sf::Color Properties::HPBarColor(float percent) {
     if (percent > 0.5f) return sf::Color(28, 201, 74);
     if (percent > 0.25f) return sf::Color(230, 222, 14);
     return sf::Color(235, 33, 33);
+}
+
+bl::resource::Resource<sf::Texture>::Ref Properties::AilmentTexture(pplmn::Ailment ail) {
+    auto& textures         = bl::engine::Resources::textures();
+    static const auto join = bl::util::FileUtil::joinPath;
+
+    switch (ail) {
+    case pplmn::Ailment::Annoyed:
+        return textures.load(join(ImagePath(), "Battle/annoy.png")).data;
+    case pplmn::Ailment::Frustrated:
+        return textures.load(join(ImagePath(), "Battle/frustrate.png")).data;
+    case pplmn::Ailment::Sticky:
+        return textures.load(join(ImagePath(), "Battle/sticky.png")).data;
+    case pplmn::Ailment::Sleep:
+        return textures.load(join(ImagePath(), "Battle/sleep.png")).data;
+    case pplmn::Ailment::Frozen:
+        return textures.load(join(ImagePath(), "Battle/frozen.png")).data;
+    default:
+        return {};
+    }
 }
 
 const std::string& Properties::PeoplemonImageFolder() {
@@ -667,6 +691,16 @@ const std::string& Properties::SoundPath() {
     static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
         "core.audio.sound_path", defaults::SoundPath);
     return f;
+}
+
+bl::audio::AudioSystem::Handle Properties::MenuMoveSound() {
+    return bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(SoundPath(), "Menu/move.wav"));
+}
+
+bl::audio::AudioSystem::Handle Properties::MenuMoveFailSound() {
+    return bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(SoundPath(), "Menu/moveFail.wav"));
 }
 
 } // namespace core

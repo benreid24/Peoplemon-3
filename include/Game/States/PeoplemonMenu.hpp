@@ -70,7 +70,15 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    enum MenuState { Browsing, SelectingMove, Moving, ShowingMessage };
+    enum MenuState {
+        Browsing,
+        SelectingMove,
+        Moving,
+        ShowingMessage,
+        UsingItem,
+        UsingItemWaitView,
+        UsingItemWaitMessage
+    };
 
     const Context context;
     const int outNow;

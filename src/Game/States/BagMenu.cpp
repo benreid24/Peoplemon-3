@@ -22,6 +22,7 @@ void populateMenu(bl::menu::Menu& menu, const std::vector<core::player::Bag::Ite
     exit->getSignal(bl::menu::Item::Activated).willAlwaysCall(ecb);
     exit->getSignal(bl::menu::Item::Selected).willAlwaysCall(std::bind(dcb, exit.get()));
     menu.setRootItem(exit);
+    menu.setMoveFailSound(bl::audio::AudioSystem::InvalidHandle);
 
     menu::BagItemButton* b = exit.get();
     for (auto rit = items.rbegin(); rit != items.rend(); ++rit) {
@@ -364,9 +365,9 @@ void BagMenu::useItem() {
                                                         systems.player().state())) {
                     core::item::Item::useOnPlayer(selectedItem->getItem().id,
                                                   systems.player().state());
+                    systems.player().state().bag.removeItem(selectedItem->getItem().id);
                     systems.hud().displayMessage(
-                        core::item::Item::getUseLine(selectedItem->getItem().id,
-                                                     systems.player().state()),
+                        core::item::Item::getUseLine(selectedItem->getItem().id),
                         std::bind(&BagMenu::messageDone, this));
                 }
                 else {
@@ -378,7 +379,7 @@ void BagMenu::useItem() {
             case core::item::Type::Useless:
                 systems.hud().displayMessage(
                     "The Professor's voice echos in your head: \"That thing is completely useless! "
-                    "What are you expecting to happen?\"",
+                    "What are you expecting to happen bro?\"",
                     std::bind(&BagMenu::messageDone, this));
                 state = MenuState::ShowingMessage;
                 break;

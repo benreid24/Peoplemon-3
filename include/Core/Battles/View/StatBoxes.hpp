@@ -76,12 +76,8 @@ private:
     State pState;
     State oState;
 
+    bl::resource::Resource<sf::Texture>::Ref ailTxtr;
     sf::Texture blank;
-    bl::resource::Resource<sf::Texture>::Ref annoyTxtr;
-    bl::resource::Resource<sf::Texture>::Ref frustTxtr;
-    bl::resource::Resource<sf::Texture>::Ref stickyTxtr;
-    bl::resource::Resource<sf::Texture>::Ref slpTxtr;
-    bl::resource::Resource<sf::Texture>::Ref frzTxtr;
 
     bl::resource::Resource<sf::Texture>::Ref opBoxTxtr;
     bl::resource::Resource<sf::Texture>::Ref lpBoxTxtr;
@@ -103,7 +99,7 @@ private:
     sf::Text lpLevel;
     sf::Sprite lpAil;
 
-    const sf::Texture& ailmentTexture(pplmn::Ailment ailment) const;
+    const sf::Texture& ailmentTexture(pplmn::Ailment ailment);
 };
 
 } // namespace view

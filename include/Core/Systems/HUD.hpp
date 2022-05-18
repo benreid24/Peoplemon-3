@@ -117,6 +117,12 @@ public:
      */
     void displayEntryCard(const std::string& name);
 
+    /**
+     * @brief Hides the entry card
+     *
+     */
+    void hideEntryCard();
+
 private:
     enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard, WaitingQty };
 
@@ -166,6 +172,7 @@ private:
         void display(const std::string& text);
         void update(float dt);
         void render(sf::RenderTarget& target) const;
+        void hide();
 
     private:
         bl::resource::Resource<sf::Texture>::Ref txtr;

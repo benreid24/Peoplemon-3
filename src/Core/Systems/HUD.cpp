@@ -146,6 +146,8 @@ void HUD::getQty(const std::string& prompt, int minQty, int maxQty, const QtyCal
 
 void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 
+void HUD::hideEntryCard() { entryCard.hide(); }
+
 void HUD::ensureActive() {
     if (state == Hidden && !queuedOutput.empty()) { startPrinting(); }
 }
@@ -417,6 +419,8 @@ void HUD::EntryCard::render(sf::RenderTarget& target) const {
     target.draw(text, states);
     target.setView(oldView);
 }
+
+void HUD::EntryCard::hide() { state = State::Hidden; }
 
 } // namespace system
 } // namespace core

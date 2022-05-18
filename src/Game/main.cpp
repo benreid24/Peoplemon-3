@@ -78,12 +78,9 @@ int main(int argc, char** argv) {
     BL_LOG_INFO << "Core game systems initialized";
 
     BL_LOG_INFO << "Configuring menu sounds";
-    auto moveSel = bl::audio::AudioSystem::getOrLoadSound(
-        bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/move.wav"));
-    bl::menu::Menu::setDefaultMoveSound(moveSel);
-    bl::menu::Menu::setDefaultSelectSound(moveSel);
-    bl::menu::Menu::setDefaultMoveFailSound(bl::audio::AudioSystem::getOrLoadSound(
-        bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/moveFail.wav")));
+    bl::menu::Menu::setDefaultMoveSound(core::Properties::MenuMoveSound());
+    bl::menu::Menu::setDefaultSelectSound(core::Properties::MenuMoveSound());
+    bl::menu::Menu::setDefaultMoveFailSound(core::Properties::MenuMoveFailSound());
 
     bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
 #ifdef PEOPLEMON_DEBUG

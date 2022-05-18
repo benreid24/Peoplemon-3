@@ -247,7 +247,20 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
         }
     }
 
-    if (state == MenuState::Moving) {
+    const auto updateItems = [this, dt]() {
+        for (int i = 0; i < 6; ++i) {
+            if (buttons[i]) { buttons[i]->update(dt); }
+        }
+    };
+    const auto buttonsSynced = [this]() -> bool {
+        for (int i = 0; i < 6; ++i) {
+            if (buttons[i] && !buttons[i]->synced()) return false;
+        }
+        return true;
+    };
+
+    switch (state) {
+    case MenuState::Moving: {
         const sf::Vector2f d = moveVel * dt;
         const float mx       = std::abs(std::max(d.x, 5.f));
         const float my       = std::abs(std::max(d.y, 5.f));
@@ -257,9 +270,26 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
             std::abs(buttons[mover1]->getPosition().y - mover1Dest.y) < my) {
             cleanupMove(true);
         }
-    }
-    else if (state == MenuState::ShowingMessage) {
+    } break;
+
+    case MenuState::UsingItem:
+        updateItems();
         systems.hud().update(dt);
+        if (buttonsSynced()) { state = MenuState::UsingItemWaitMessage; }
+        break;
+
+    case MenuState::UsingItemWaitView:
+        updateItems();
+        if (buttonsSynced()) { systems.engine().popState(); }
+        break;
+
+    case MenuState::UsingItemWaitMessage:
+    case MenuState::ShowingMessage:
+        systems.hud().update(dt);
+        break;
+
+    default:
+        break;
     }
 }
 
@@ -268,7 +298,16 @@ void PeoplemonMenu::render(bl::engine::Engine& engine, float lag) {
     engine.window().draw(background);
     menu.render(engine.window());
     if (actionOpen) { actionMenu.render(engine.window()); }
-    if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
+    switch (state) {
+    case MenuState::ShowingMessage:
+    case MenuState::UsingItem:
+    case MenuState::UsingItemWaitMessage:
+    case MenuState::UsingItemWaitView:
+        systems.hud().render(engine.window(), lag);
+        break;
+    default:
+        break;
+    }
     engine.window().display();
 }
 
@@ -456,8 +495,28 @@ void PeoplemonMenu::chosen() {
         break;
 
     case Context::UseItem:
-        // TODO - use the item, sync the display, print message, then exit. remove item here
-        closeMenu = false;
+        closeMenu  = false;
+        actionOpen = false;
+
+        if (core::item::Item::hasEffectOnPeoplemon(useItem,
+                                                   systems.player().state().peoplemon[mover1])) {
+            core::pplmn::OwnedPeoplemon& ppl = systems.player().state().peoplemon[mover1];
+            core::item::Item::useOnPeoplemon(useItem, ppl, &systems.player().state().peoplemon);
+            systems.player().state().bag.removeItem(useItem);
+            systems.hud().displayMessage(core::item::Item::getUseLine(useItem, ppl),
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+            buttons[mover1]->sync(ppl);
+            inputDriver.drive(nullptr);
+            state = MenuState::UsingItem;
+        }
+        else {
+            resetAction();
+            state = MenuState::ShowingMessage;
+            inputDriver.drive(nullptr);
+            systems.hud().displayMessage("It will not have any effect.",
+                                         std::bind(&PeoplemonMenu::messageDone, this));
+        }
+
         break;
 
     case Context::UseItemBattle:
@@ -473,8 +532,18 @@ void PeoplemonMenu::chosen() {
 }
 
 void PeoplemonMenu::messageDone() {
-    state = MenuState::Browsing;
-    inputDriver.drive(&menu);
+    switch (state) {
+    case MenuState::UsingItem:
+        state = MenuState::UsingItemWaitView;
+        break;
+    case MenuState::UsingItemWaitMessage:
+        systems.engine().popState();
+        break;
+    default:
+        state = MenuState::Browsing;
+        inputDriver.drive(&menu);
+        break;
+    }
 }
 
 } // namespace state

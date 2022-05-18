@@ -9,6 +9,12 @@ namespace game
 {
 namespace menu
 {
+namespace
+{
+constexpr float GrowRate   = 100.f;
+constexpr float HpBarWidth = 178.f;
+} // namespace
+
 PeoplemonButton::Ptr PeoplemonButton::create(const core::pplmn::OwnedPeoplemon& ppl) {
     return Ptr(new PeoplemonButton(ppl));
 }
@@ -34,13 +40,14 @@ PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl)
     const sf::Color hpColor  = core::Properties::HPBarColor(curHp, maxHp);
 
     hpBar.setPosition(164.f, 70.f);
-    hpBar.setSize({hpPercent * 178.f, 12.f});
+    hpBar.setSize({hpPercent * HpBarWidth, 12.f});
     hpBar.setFillColor(hpColor);
+    hpBarTarget = hpBar.getSize().x;
 
     hpText.setFont(core::Properties::MenuFont());
     hpText.setCharacterSize(18);
     hpText.setString(std::to_string(curHp) + " / " + std::to_string(maxHp));
-    hpText.setFillColor(hpColor);
+    hpText.setFillColor(sf::Color::Black);
     hpText.setPosition(342.f - hpText.getGlobalBounds().width - 8.f, 83.f);
 
     item.setFont(core::Properties::MenuFont());
@@ -57,6 +64,9 @@ PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl)
     level.setFillColor(sf::Color(50, 220, 250));
     level.setCharacterSize(16);
     level.setStyle(sf::Text::Bold);
+
+    ailment.setTexture(ailmentTexture(ppl.currentAilment()), true);
+    ailment.setPosition(135.f, 90.f);
 
     faceTxtr = bl::engine::Resources::textures()
                    .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
@@ -106,6 +116,37 @@ void PeoplemonButton::render(sf::RenderTarget& target, sf::RenderStates states,
     target.draw(level, states);
     target.draw(item, states);
     target.draw(hpText, states);
+    target.draw(ailment, states);
+}
+
+void PeoplemonButton::sync(const core::pplmn::OwnedPeoplemon& ppl) {
+    const unsigned int curHp = ppl.currentHp();
+    const unsigned int maxHp = ppl.currentStats().hp;
+    const float hpPercent    = static_cast<float>(curHp) / static_cast<float>(maxHp);
+    hpText.setString(std::to_string(curHp) + " / " + std::to_string(maxHp));
+    hpText.setPosition(342.f - hpText.getGlobalBounds().width - 8.f, 83.f);
+    hpBarTarget = hpPercent * HpBarWidth;
+    ailment.setTexture(ailmentTexture(ppl.currentAilment()), true);
+}
+
+bool PeoplemonButton::synced() const { return std::abs(hpBar.getSize().x - hpBarTarget) < 0.5f; }
+
+void PeoplemonButton::update(float dt) {
+    if (hpBar.getSize().x < hpBarTarget) {
+        const float nw = std::min(hpBarTarget, hpBar.getSize().x + GrowRate * dt);
+        hpBar.setSize({nw, hpBar.getSize().y});
+        hpBar.setFillColor(core::Properties::HPBarColor(nw / HpBarWidth));
+    }
+    else if (hpBar.getSize().x > hpBarTarget) {
+        const float nw = std::max(hpBarTarget, hpBar.getSize().x - GrowRate * dt);
+        hpBar.setSize({nw, hpBar.getSize().y});
+        hpBar.setFillColor(core::Properties::HPBarColor(nw / HpBarWidth));
+    }
+}
+
+sf::Texture& PeoplemonButton::ailmentTexture(core::pplmn::Ailment ail) {
+    ailTxtr = core::Properties::AilmentTexture(ail);
+    return ailTxtr ? *ailTxtr : blank;
 }
 
 } // namespace menu
