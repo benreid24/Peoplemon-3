@@ -51,9 +51,16 @@ public:
      */
     virtual ~AIController() = default;
 
+    /**
+     * @brief Removes the item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    virtual void removeItem(item::Id item) override;
+
 private:
     const std::string _name;
-    std::vector<item::Id> items; // TODO - copy items here from the trainer
+    std::vector<item::Id> items;
 
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;

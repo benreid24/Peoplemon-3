@@ -4,6 +4,7 @@
 #include <Core/Battles/Battle.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 
 namespace core
@@ -169,15 +170,30 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::PreUseItem:
-        // TODO - display message
+        queueCommand({cmd::Message(cmd::Message::Type::PreUseItem,
+                                   state->activeBattler().chosenItem(),
+                                   true)},
+                     true);
         break;
 
     case Stage::UsingItem:
-        // TODO - apply item and sync view
-        break;
-
-    case Stage::PostUseItem:
-        // TODO - display message of effect
+        if (item::Item::hasEffectOnPeoplemon(
+                state->activeBattler().chosenItem(),
+                state->activeBattler().peoplemon()[state->activeBattler().chosenPeoplemon()],
+                state->activeBattler())) {
+            queueCommand({cmd::Message(cmd::Message::Type::ItemUseResult,
+                                       state->activeBattler().chosenPeoplemon(),
+                                       state->activeBattler().chosenItem())});
+            item::Item::useOnPeoplemon(
+                state->activeBattler().chosenItem(),
+                state->activeBattler().peoplemon()[state->activeBattler().chosenPeoplemon()],
+                state->activeBattler());
+            state->activeBattler().removeItem(state->activeBattler().chosenItem());
+            queueCommand({Command::SyncStateNoSwitch}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::ItemNoEffect)}, true);
+        }
         break;
 
     case Stage::BeforeSwitch:
@@ -301,10 +317,6 @@ void LocalBattleController::initCurrentStage() {
         currentFainter = nullptr;
         break;
 
-    case Stage::RoundEnd:
-        // TODO - what do we do here? check faint and set stage?
-        break;
-
     case Stage::RoundFinalEffects:
         if (finalEffectsApplied) break;
         finalEffectsApplied = true;
@@ -347,6 +359,7 @@ void LocalBattleController::initCurrentStage() {
     case Stage::WaitingPlayerContinue:
     case Stage::CheckFaint:
     case Stage::XpAwardBegin:
+    case Stage::RoundEnd:
         // do nothing, these are intermediate states
         break;
 
@@ -414,10 +427,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::UsingItem:
-            setBattleState(Stage::PostUseItem);
-            break;
-
-        case Stage::PostUseItem:
             setBattleState(Stage::NextBattler);
             break;
 
@@ -488,17 +497,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::RoundFinalEffects:
             setBattleState(Stage::RoundEnd);
-            break;
-
-        case Stage::RoundEnd:
-            if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
-                state->activeBattler().activePeoplemon().base().currentHp() == 0) {
-                setBattleState(Stage::Fainting);
-            }
-            else {
-                queueCommand({Command::SyncStateNoSwitch});
-                setBattleState(Stage::WaitingChoices);
-            }
             break;
 
         case Stage::Fainting:
@@ -620,6 +618,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::CheckPlayerContinue:
         case Stage::CheckFaint:
         case Stage::XpAwardBegin:
+        case Stage::RoundEnd:
             // do nothing, these are intermediate states
             break;
 
@@ -677,6 +676,16 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         state->enemy().activePeoplemon().notifyInBattle();
         return Stage::TurnStart;
     }
+
+    case Stage::RoundEnd:
+        if (state->inactiveBattler().activePeoplemon().base().currentHp() == 0 ||
+            state->activeBattler().activePeoplemon().base().currentHp() == 0) {
+            return Stage::Fainting;
+        }
+        else {
+            queueCommand({Command::SyncStateNoSwitch});
+            return Stage::WaitingChoices;
+        }
 
     case Stage::CheckPlayerContinue:
         if (currentFainter == &state->localPlayer() &&

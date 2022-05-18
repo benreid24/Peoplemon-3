@@ -23,7 +23,7 @@ void PlayerController::refresh() {
                 chooseMove(menu.selectedMove());
                 break;
             case TurnAction::Item:
-                chooseItem(menu.selectedItem());
+                chooseItem(menu.selectedPeoplemon(), menu.selectedItem());
                 break;
             case TurnAction::Switch:
                 choosePeoplemon(menu.selectedPeoplemon());
@@ -63,6 +63,8 @@ void PlayerController::startChooseToContinue() {
     // TODO - get choice from UI
     chooseGiveUp(false);
 }
+
+void PlayerController::removeItem(item::Id item) { player.state().bag.removeItem(item); }
 
 } // namespace battle
 } // namespace core

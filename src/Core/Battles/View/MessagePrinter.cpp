@@ -313,7 +313,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::StatIncreaseFailed:
-        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any higher!";
+        dispText =
+            ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any higher!";
         break;
 
     case Message::Type::StatDecreased:
@@ -325,7 +326,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::StatDecreaseFailed:
-        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any lower!";
+        dispText =
+            ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any lower!";
         break;
 
     case Message::Type::RecoilDamage:
@@ -857,6 +859,19 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::GetBakedAbility:
         dispText = ppl + " is Getting Baked instead of listening!";
+        break;
+
+    case Message::Type::PreUseItem:
+        dispText = battler.name() + " used a " + item::Item::getName(msg.getItem()) + "!";
+        break;
+
+    case Message::Type::ItemUseResult:
+        dispText = item::Item::getUseLine(msg.getItem(),
+                                          state.activeBattler().peoplemon()[msg.forIndex()].base());
+        break;
+
+    case Message::Type::ItemNoEffect:
+        dispText = "It had no effect! What a waste of time.";
         break;
 
     default:

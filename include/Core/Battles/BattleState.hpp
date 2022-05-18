@@ -40,7 +40,6 @@ public:
         // Use item
         PreUseItem,
         UsingItem,
-        PostUseItem,
 
         // TODO - wild peoplemon ball states
 

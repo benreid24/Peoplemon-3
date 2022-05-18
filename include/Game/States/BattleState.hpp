@@ -2,6 +2,7 @@
 #define GAME_STATES_BATTLESTATE_HPP
 
 #include <Core/Battles/Battle.hpp>
+#include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Game/States/State.hpp>
@@ -19,7 +20,7 @@ namespace state
  */
 class BattleState
 : public State
-, public bl::event::Listener<core::event::OpenPeoplemonMenu> {
+, public bl::event::Listener<core::event::OpenPeoplemonMenu, core::event::OpenBagMenu> {
 public:
     /**
      * @brief Creates a new BattleState
@@ -76,6 +77,7 @@ private:
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
 
     virtual void observe(const core::event::OpenPeoplemonMenu& event) override;
+    virtual void observe(const core::event::OpenBagMenu& event) override;
 };
 
 } // namespace state

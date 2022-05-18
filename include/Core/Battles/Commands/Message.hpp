@@ -230,7 +230,11 @@ public:
         AbsPitchSuperEffective,
         GameMakerVirusAbility,
         SnapshotAbility,
-        GetBakedAbility
+        GetBakedAbility,
+
+        PreUseItem,
+        ItemUseResult,
+        ItemNoEffect
     };
 
     /**
@@ -344,6 +348,15 @@ public:
      * @param forActive Whether or not the message is for the active battler
      */
     Message(Type type, item::Id item, bool forActive);
+
+    /**
+     * @brief Construct a new Message for using an item on a peoplemon
+     *
+     * @param type The type of message
+     * @param index The index of the peoplemon having the item used on it
+     * @param item The item being used
+     */
+    Message(Type type, std::uint8_t index, item::Id item);
 
     /**
      * @brief Returns the type of message this is

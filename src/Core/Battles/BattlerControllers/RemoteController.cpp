@@ -21,5 +21,9 @@ void RemoteController::startChoosePeoplemon(bool, bool) {
 
 void RemoteController::startChooseToContinue() { chooseGiveUp(false); }
 
+void RemoteController::removeItem(item::Id) {
+    // TODO - send command over network
+}
+
 } // namespace battle
 } // namespace core

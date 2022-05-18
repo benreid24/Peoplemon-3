@@ -219,6 +219,13 @@ public:
      */
     int getBroCount() const;
 
+    /**
+     * @brief Removes the given item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    void removeItem(item::Id item);
+
 private:
     BattleState& state;
     BattlerSubstate substate;

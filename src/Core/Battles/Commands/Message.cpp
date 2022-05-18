@@ -73,6 +73,11 @@ Message::Message(Type tp, item::Id item, bool a)
 , data(item)
 , forActive(a) {}
 
+Message::Message(Type tp, std::uint8_t i, item::Id item)
+: type(tp)
+, data(item)
+, pplIndex(i) {}
+
 Message::Type Message::getType() const { return type; }
 
 pplmn::MoveId Message::getMoveId() const {

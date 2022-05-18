@@ -130,10 +130,8 @@ private:
     bl::event::Dispatcher& eventBus;
     player::input::MenuDriver menuDriver;
     TurnAction chosenAction;
-    union {
-        int chosenMoveOrPeoplemon;
-        item::Id chosenItem;
-    };
+    int chosenMoveOrPeoplemon;
+    item::Id chosenItem;
     int currentPeoplemon;
 
     bl::menu::Menu actionMenu;

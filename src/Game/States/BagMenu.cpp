@@ -163,18 +163,20 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (*itemPeoplemon >= 0) {
             if (context == Context::BattleUse) {
                 // battle applies and removes the item
-                systems.engine().popState();
+                if (result) *result = selectedItem->getItem().id;
+                state = MenuState::ImmediatelyPop;
             }
             else {
                 resetAction();
                 removeAndUpdateItem(0); // item is removed in other menu
+                state = MenuState::Browsing;
             }
             toDrive = activeMenu;
         }
         else {
             toDrive = &actionMenu;
+            state   = MenuState::Browsing;
         }
-        state = MenuState::Browsing;
     }
     else { // first time activation
         oldView = engine.window().getView();
@@ -293,6 +295,10 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
         systems.hud().update(dt);
         break;
 
+    case MenuState::ImmediatelyPop:
+        engine.popState();
+        break;
+
     default:
         break;
     }
@@ -300,6 +306,8 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
 
 void BagMenu::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
+    if (state == MenuState::ImmediatelyPop) return;
+
     engine.window().draw(background);
     if (state == MenuState::Sliding) {
         const sf::View oldView = engine.window().getView();

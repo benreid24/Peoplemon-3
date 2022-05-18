@@ -161,5 +161,7 @@ int Battler::getBroCount() const {
     return c;
 }
 
+void Battler::removeItem(item::Id item) { controller->removeItem(item); }
+
 } // namespace battle
 } // namespace core

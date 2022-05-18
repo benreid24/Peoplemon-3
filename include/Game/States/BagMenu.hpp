@@ -7,6 +7,7 @@
 #include <Game/Menus/BagItemButton.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/State.hpp>
+#include <Core/Events/BagMenu.hpp>
 
 namespace game
 {
@@ -21,7 +22,7 @@ namespace state
 class BagMenu : public State {
 public:
     /// Represents how the menu was opened and affects how it may be used
-    enum struct Context { BattleUse, PauseMenu };
+    using Context = core::event::OpenBagMenu::Context;
 
     /**
      * @brief Creates a new BagMenu
@@ -78,7 +79,8 @@ private:
         Sliding,
         ChoosingGive,
         ShowingMessage,
-        ChoosingItemPeoplemon
+        ChoosingItemPeoplemon,
+        ImmediatelyPop
     };
 
     const Context context;

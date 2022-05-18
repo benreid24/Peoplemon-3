@@ -1,4 +1,5 @@
 target_sources(Core PUBLIC
+    BagMenu.hpp
     Battle.hpp
     EntityMoved.hpp
     Item.hpp

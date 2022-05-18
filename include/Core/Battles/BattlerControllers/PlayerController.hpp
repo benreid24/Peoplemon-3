@@ -47,6 +47,13 @@ public:
      */
     virtual void refresh() override;
 
+    /**
+     * @brief Removes the item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    virtual void removeItem(item::Id item) override;
+
 private:
     enum struct State { Waiting, PickingTurn, PickingFaintReplacement };
 
