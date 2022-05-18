@@ -44,6 +44,7 @@ struct OpenPeoplemonMenu {
     const int outNow;
     int* chosen;
 };
+
 } // namespace event
 } // namespace core
 

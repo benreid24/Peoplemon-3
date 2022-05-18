@@ -77,7 +77,9 @@ private:
         ShowingMessage,
         UsingItem,
         UsingItemWaitView,
-        UsingItemWaitMessage
+        UsingItemWaitMessage,
+        WaitingForgetConfirm,
+        WaitingForgetChoice
     };
 
     const Context context;
@@ -121,6 +123,8 @@ private:
     void takeItem();
     void resetAction();
     void messageDone();
+    void confirmMoveDelete(const std::string& choice);
+    void delMove(const std::string& choice);
 };
 
 } // namespace state

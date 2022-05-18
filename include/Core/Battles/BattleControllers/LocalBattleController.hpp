@@ -53,6 +53,7 @@ private:
     pplmn::MoveId usedMove;
     pplmn::MoveEffect effect;
     int damage;
+    bool switchAfterMove;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;

@@ -70,10 +70,12 @@ void BattleState::activate(bl::engine::Engine& engine) {
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
     systems.player().inputSystem().removeListener(battle->view);
-
     engine.eventBus().unsubscribe(this);
-    engine.eventBus().dispatch<core::event::BattleCompleted>(
-        {battle->type, battle->localPlayerWon});
+
+    if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
+        engine.eventBus().dispatch<core::event::BattleCompleted>(
+            {battle->type, battle->localPlayerWon});
+    }
 
     // TODO - stop battle music?
     // TODO - handle whiteout and evolve

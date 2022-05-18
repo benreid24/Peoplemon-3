@@ -111,7 +111,8 @@ LocalBattleController::LocalBattleController()
 , xpAwardRemaining(0)
 , xpAwardIndex(-1)
 , learnMove(pplmn::MoveId::Unknown)
-, firstTurn(true) {}
+, firstTurn(true)
+, switchAfterMove(false) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
@@ -467,13 +468,14 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::ResolveAttackEffect:
             queueCommand({Command::SyncStateNoSwitch}, true);
-            setBattleState(Stage::NextBattler);
+            if (!switchAfterMove) { setBattleState(Stage::NextBattler); }
+            else {
+                setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+            }
             break;
 
         case Stage::WaitingMidTurnSwitch:
-            if (state->activeBattler().actionSelected()) {
-                setBattleState(Stage::BeforeMidTurnSwitch);
-            }
+            if (midturnSwitcher->actionSelected()) { setBattleState(Stage::BeforeMidTurnSwitch); }
             break;
 
         case Stage::BeforeMidTurnSwitch:
@@ -751,6 +753,7 @@ void LocalBattleController::onUpdate(bool vs, bool qe) { updateBattleState(vs, q
 
 void LocalBattleController::startUseMove(Battler& user, int index) {
     static pplmn::OwnedMove skimpOut(pplmn::MoveId::SkimpOut);
+    switchAfterMove = false;
 
     Battler& victim = &user == &state->localPlayer() ? state->enemy() : state->localPlayer();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
@@ -1591,7 +1594,7 @@ bool LocalBattleController::tryMidturnSwitch(Battler& switcher) {
     if (!canSwitch(switcher)) { return false; }
 
     midturnSwitcher = &switcher;
-    setBattleState(BattleState::Stage::WaitingMidTurnSwitch);
+    switchAfterMove = true;
     return true;
 }
 

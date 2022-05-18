@@ -7,6 +7,7 @@
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
+#include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/State.hpp>
 #include <vector>
@@ -165,6 +166,14 @@ struct Item {
      * @return std::string The text to display
      */
     static std::string getUseLine(Id item);
+
+    /**
+     * @brief Returns the move taught by the TM
+     *
+     * @param tm The TM to get the move for
+     * @return pplmn::MoveId The move to teach, or Unknown
+     */
+    static pplmn::MoveId getTmMove(Id tm);
 
 private:
     static std::unordered_map<Id, std::string>* names;

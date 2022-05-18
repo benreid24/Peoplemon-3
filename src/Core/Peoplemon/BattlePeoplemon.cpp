@@ -112,7 +112,9 @@ void BattlePeoplemon::notifyInBattle() { sawBattle = true; }
 
 void BattlePeoplemon::resetSawBattle() { sawBattle = false; }
 
-bool BattlePeoplemon::hasSeenBattle() const { return sawBattle || base().hasExpShare(); }
+bool BattlePeoplemon::hasSeenBattle() const {
+    return (sawBattle || base().hasExpShare()) && base().currentHp() > 0;
+}
 
 int BattlePeoplemon::getSpeed() const {
     if (ppl->currentAilment() == Ailment::Annoyed) { return currentStats().spd / 4; }

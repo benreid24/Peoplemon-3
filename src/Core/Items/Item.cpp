@@ -102,10 +102,11 @@ bool Item::hasEffectOnPeoplemon(Id item, const pplmn::OwnedPeoplemon& ppl) {
     case Id::Potion:
     case Id::SuperPotion:
     case Id::MegaPotion:
-        return ppl.currentHp() < ppl.currentStats().hp;
+        return ppl.currentHp() < ppl.currentStats().hp && ppl.currentHp() > 0;
     case Id::SuperMegaUltraPotion:
-        return ppl.currentHp() < ppl.currentStats().hp ||
-               ppl.currentAilment() != pplmn::Ailment::None;
+        return (ppl.currentHp() < ppl.currentStats().hp ||
+                ppl.currentAilment() != pplmn::Ailment::None) &&
+               ppl.currentHp() > 0;
 
     case Id::PpPack:
     case Id::SuperPpPack:
@@ -363,6 +364,13 @@ std::string Item::getUseLine(Id item) {
     default:
         return "ERROR: " + getName(item) + " does not generate a useLine on the player.";
     }
+}
+
+pplmn::MoveId Item::getTmMove(Id tm) {
+    using T     = std::underlying_type_t<Id>;
+    const T id  = static_cast<T>(tm);
+    const T mid = id - 200;
+    return pplmn::Move::cast(mid);
 }
 
 } // namespace item

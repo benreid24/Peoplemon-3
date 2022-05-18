@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
+#include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -184,12 +185,18 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
         }
     }
 
-    menu.setSelectedItem(buttons[0].get());
+    if (canCancel()) { menu.setSelectedItem(backBut.get()); }
+    else {
+        menu.setSelectedItem(buttons[0].get());
+    }
     for (unsigned int i = 0; i < team.size(); ++i) {
         if (buttons[i]->isSelectable()) {
             menu.setSelectedItem(buttons[i].get());
             break;
         }
+    }
+    if (!menu.getSelectedItem()->isSelectable()) {
+        BL_LOG_CRITICAL << "In menu that cannot be canceled with no selectable Peoplemon!";
     }
 
     state      = MenuState::Browsing;
@@ -231,6 +238,23 @@ void PeoplemonMenu::setSelectable(unsigned int i) {
         break;
     case Context::GiveItem:
         buttons[i]->setSelectable(team[i].holdItem() == core::item::Id::None);
+        break;
+    case Context::UseItem:
+        if (core::item::Item::getCategory(useItem) == core::item::Category::TM) {
+            const core::pplmn::MoveId mid = core::item::Item::getTmMove(useItem);
+            if (core::pplmn::Peoplemon::canLearnMove(team[i].id(), mid) &&
+                !team[i].knowsMove(mid)) {
+                buttons[i]->setSelectable(true);
+                buttons[i]->setHighlightColor(sf::Color(78, 191, 191));
+            }
+            else {
+                buttons[i]->setSelectable(false);
+                buttons[i]->setHighlightColor(sf::Color(242, 83, 51));
+            }
+        }
+        else {
+            buttons[i]->setSelectable(true);
+        }
         break;
     default:
         buttons[i]->setSelectable(true);
@@ -283,6 +307,8 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
         if (buttonsSynced()) { systems.engine().popState(); }
         break;
 
+    case MenuState::WaitingForgetConfirm:
+    case MenuState::WaitingForgetChoice:
     case MenuState::UsingItemWaitMessage:
     case MenuState::ShowingMessage:
         systems.hud().update(dt);
@@ -303,6 +329,8 @@ void PeoplemonMenu::render(bl::engine::Engine& engine, float lag) {
     case MenuState::UsingItem:
     case MenuState::UsingItemWaitMessage:
     case MenuState::UsingItemWaitView:
+    case MenuState::WaitingForgetConfirm:
+    case MenuState::WaitingForgetChoice:
         systems.hud().render(engine.window(), lag);
         break;
     default:
@@ -463,7 +491,6 @@ void PeoplemonMenu::chosen() {
         if (systems.player().state().peoplemon[mover1].currentHp() == 0) {
             resetAction();
             state = MenuState::ShowingMessage;
-            inputDriver.drive(nullptr);
             systems.hud().displayMessage("Unconscious Peoplemon can't fight!",
                                          std::bind(&PeoplemonMenu::messageDone, this));
             return;
@@ -474,7 +501,6 @@ void PeoplemonMenu::chosen() {
         if (systems.player().state().peoplemon[mover1].currentHp() != 0) {
             resetAction();
             state = MenuState::ShowingMessage;
-            inputDriver.drive(nullptr);
             systems.hud().displayMessage(
                 "Choose a dead Peoplemon so the sacrifice was not in vain!",
                 std::bind(&PeoplemonMenu::messageDone, this));
@@ -486,7 +512,6 @@ void PeoplemonMenu::chosen() {
         if (systems.player().state().peoplemon[mover1].holdItem() != core::item::Id::None) {
             resetAction();
             state = MenuState::ShowingMessage;
-            inputDriver.drive(nullptr);
             systems.hud().displayMessage(systems.player().state().peoplemon[mover1].name() +
                                              " is already holding something",
                                          std::bind(&PeoplemonMenu::messageDone, this));
@@ -506,13 +531,50 @@ void PeoplemonMenu::chosen() {
             systems.hud().displayMessage(core::item::Item::getUseLine(useItem, ppl),
                                          std::bind(&PeoplemonMenu::messageDone, this));
             buttons[mover1]->sync(ppl);
-            inputDriver.drive(nullptr);
             state = MenuState::UsingItem;
+        }
+        else if (core::item::Item::getCategory(useItem) == core::item::Category::TM) {
+            const core::pplmn::MoveId mid = core::item::Item::getTmMove(useItem);
+            if (mid != core::pplmn::MoveId::Unknown) {
+                core::pplmn::OwnedPeoplemon& ppl = systems.player().state().peoplemon[mover1];
+                const std::string move           = core::pplmn::Move::name(mid);
+
+                int i = -1;
+                for (int j = 0; j < 4; ++j) {
+                    if (ppl.knownMoves()[j].id == core::pplmn::MoveId::Unknown) {
+                        i = j;
+                        break;
+                    }
+                }
+
+                // already knows 4 moves
+                if (i < 0) {
+                    systems.hud().displayMessage(ppl.name() + " is trying to learn " + move +
+                                                 " but already knows 4 moves.");
+                    systems.hud().promptUser(
+                        "Should " + ppl.name() + " forget a move to learn " + move + "?",
+                        {"Yes", "No"},
+                        std::bind(&PeoplemonMenu::confirmMoveDelete, this, std::placeholders::_1));
+                    state = MenuState::WaitingForgetConfirm;
+                }
+                else {
+                    systems.player().state().bag.removeItem(useItem);
+                    ppl.knownMoves()[i] = core::pplmn::OwnedMove(mid);
+                    systems.hud().displayMessage(ppl.name() + " learned " + move + "!",
+                                                 std::bind(&PeoplemonMenu::messageDone, this));
+                    state = MenuState::UsingItemWaitMessage;
+                }
+            }
+            else {
+                BL_LOG_ERROR << "Invalid tm: " << useItem;
+                systems.hud().displayMessage("Sorry but this TM is bunk.",
+                                             std::bind(&PeoplemonMenu::messageDone, this));
+                state = MenuState::ShowingMessage;
+            }
         }
         else {
             resetAction();
             state = MenuState::ShowingMessage;
-            inputDriver.drive(nullptr);
             systems.hud().displayMessage("It will not have any effect.",
                                          std::bind(&PeoplemonMenu::messageDone, this));
         }
@@ -526,6 +588,8 @@ void PeoplemonMenu::chosen() {
     default:
         break;
     }
+
+    inputDriver.drive(nullptr);
 
     if (chosenPeoplemon) *chosenPeoplemon = mover1;
     if (closeMenu) systems.engine().popState();
@@ -543,6 +607,58 @@ void PeoplemonMenu::messageDone() {
         state = MenuState::Browsing;
         inputDriver.drive(&menu);
         break;
+    }
+}
+
+void PeoplemonMenu::confirmMoveDelete(const std::string& choice) {
+    auto& ppl = systems.player().state().peoplemon[mover1];
+    if (choice == "Yes") {
+        std::vector<std::string> moves;
+        moves.reserve(5);
+        for (int i = 0; i < 4; ++i) {
+            moves.emplace_back(core::pplmn::Move::name(ppl.knownMoves()[i].id));
+        }
+        moves.emplace_back("Cancel");
+
+        systems.hud().promptUser("Which move should be forgotten?",
+                                 moves,
+                                 std::bind(&PeoplemonMenu::delMove, this, std::placeholders::_1));
+        state = MenuState::WaitingForgetChoice;
+    }
+    else {
+        const auto mid = core::item::Item::getTmMove(useItem);
+        systems.hud().displayMessage(ppl.name() + " did not learn " + core::pplmn::Move::name(mid) +
+                                         ".",
+                                     std::bind(&PeoplemonMenu::messageDone, this));
+        state = MenuState::ShowingMessage;
+    }
+}
+
+void PeoplemonMenu::delMove(const std::string& mn) {
+    auto& ppl             = systems.player().state().peoplemon[mover1];
+    const auto mid        = core::item::Item::getTmMove(useItem);
+    const std::string nmn = core::pplmn::Move::name(mid);
+
+    int i = -1;
+    for (int j = 0; j < 4; ++j) {
+        if (core::pplmn::Move::name(ppl.knownMoves()[j].id) == mn) {
+            i = j;
+            break;
+        }
+    }
+
+    if (i >= 0) {
+        systems.player().state().bag.removeItem(useItem);
+        ppl.knownMoves()[i] = core::pplmn::OwnedMove(mid);
+        systems.hud().displayMessage("POOOOF! " + ppl.name() + " forgot " + mn + "!");
+        systems.hud().displayMessage(ppl.name() + " learned " + nmn + "!",
+                                     std::bind(&PeoplemonMenu::messageDone, this));
+        state = MenuState::UsingItemWaitMessage;
+    }
+    else {
+        systems.hud().displayMessage(ppl.name() + " did not learn " + nmn + ".",
+                                     std::bind(&PeoplemonMenu::messageDone, this));
+        state = MenuState::ShowingMessage;
     }
 }
 
