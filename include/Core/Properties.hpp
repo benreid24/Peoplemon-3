@@ -1,9 +1,13 @@
 #ifndef CORE_PROPERTIES_HPP
 #define CORE_PROPERTIES_HPP
 
+#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
+#include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Player/Gender.hpp>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 #include <string>
 
 /**
@@ -116,9 +120,13 @@ public:
     static const std::string& PeoplemonDBFile();
     static const std::string& MoveDBFile();
 
+    static sf::Color HPBarColor(float percent);
     static sf::Color HPBarColor(unsigned int hp, unsigned int maxHp);
+    static bl::resource::Resource<sf::Texture>::Ref AilmentTexture(pplmn::Ailment ailment);
     static const std::string& PeoplemonImageFolder();
 
+    static bl::audio::AudioSystem::Handle MenuMoveSound();
+    static bl::audio::AudioSystem::Handle MenuMoveFailSound();
     static const std::string& TrainerExclaimImage();
     static const std::string& TrainerExclaimSound();
 

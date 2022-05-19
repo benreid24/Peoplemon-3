@@ -10,6 +10,7 @@
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
 #include <Core/Player/Input.hpp>
+#include <Core/Player/State.hpp>
 
 namespace core
 {
@@ -83,60 +84,6 @@ public:
     void newGame(const std::string& name, player::Gender gender);
 
     /**
-     * @brief Returns the name of the player
-     *
-     */
-    const std::string& name() const;
-
-    /**
-     * @brief Returns the gender of the player
-     *
-     */
-    player::Gender gender() const;
-
-    /**
-     * @brief Returns the peoplemon owned by the player
-     *
-     */
-    const std::vector<pplmn::OwnedPeoplemon>& team() const;
-
-    /**
-     * @brief Returns the peoplemon owned by the player
-     *
-     */
-    std::vector<pplmn::OwnedPeoplemon>& team();
-
-    /**
-     * @brief Restores HP and removes all ailments
-     *
-     */
-    void healPeoplemon();
-
-    /**
-     * @brief Returns the player's bag
-     *
-     */
-    player::Bag& bag();
-
-    /**
-     * @brief Returns the player's bag
-     *
-     */
-    const player::Bag& bag() const;
-
-    /**
-     * @brief Returns the amount of money the player has
-     *
-     */
-    long money() const;
-
-    /**
-     * @brief Returns the amount of money the player has
-     *
-     */
-    long& money();
-
-    /**
      * @brief Subscribes the input system to the event bus
      *
      */
@@ -155,12 +102,16 @@ public:
     void whiteout();
 
     /**
-     * @brief Sets the map and spawn to whiteout to
-     * 
-     * @param map The file of the map to respawn in
-     * @param spawn The spawn to respawn at
+     * @brief Returns the state of the player
+     *
      */
-    void setWhiteoutMap(const std::string& map, unsigned int spawn);
+    player::State& state();
+
+    /**
+     * @brief Returns the state of the player
+     *
+     */
+    const player::State& state() const;
 
 private:
     Systems& owner;
@@ -169,14 +120,7 @@ private:
     bl::entity::Registry::ComponentHandle<component::Movable> movable;
 
     player::Input input;
-    std::string playerName;
-    player::Gender sex;
-    player::Bag inventory;
-    long monei;
-    std::vector<pplmn::OwnedPeoplemon> peoplemon;
-    component::Position savePos;
-    std::string whiteoutMap;
-    unsigned int whiteoutSpawn;
+    player::State data;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
 

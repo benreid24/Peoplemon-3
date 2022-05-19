@@ -93,7 +93,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
                 const std::string name = item::Item::getName(ic->id());
                 BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
                             << name << ")";
-                owner.player().bag().addItem(ic->id(), 1);
+                owner.player().state().bag.addItem(ic->id(), 1);
                 owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
                 owner.engine().entities().destroyEntity(interacted);
                 owner.hud().displayMessage("Picked up a " + name);
@@ -133,7 +133,7 @@ void Interaction::processConversationNode() {
     } break;
 
     case E::GiveItem:
-        owner.player().bag().addItem(node.item().id);
+        owner.player().state().bag.addItem(node.item().id);
         if (node.item().afterPrompt) {
             // TODO - add prefix to item metadata for a/the use
             owner.hud().displayMessage("Got a " + item::Item::getName(node.item().id),
@@ -149,7 +149,8 @@ void Interaction::processConversationNode() {
                 std::bind(&Interaction::giveItemDecided, this, std::placeholders::_1));
         }
         else {
-            if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
+            if (owner.player().state().bag.removeItem(
+                    currentConversation.currentNode().item().id)) {
                 currentConversation.notifyCheckPassed();
                 processConversationNode();
             }
@@ -157,7 +158,7 @@ void Interaction::processConversationNode() {
         break;
 
     case E::GiveMoney:
-        owner.player().money() += node.money();
+        owner.player().state().monei += node.money();
         owner.hud().displayMessage("Received " + std::to_string(node.money()) + " monies",
                                    std::bind(&Interaction::continuePressed, this));
         break;
@@ -194,7 +195,7 @@ void Interaction::choiceMade(const std::string& c) {
 
 void Interaction::giveItemDecided(const std::string& c) {
     if (c == "Yes") {
-        if (owner.player().bag().removeItem(currentConversation.currentNode().item().id)) {
+        if (owner.player().state().bag.removeItem(currentConversation.currentNode().item().id)) {
             currentConversation.notifyCheckPassed();
             processConversationNode();
         }
@@ -212,8 +213,8 @@ void Interaction::giveItemDecided(const std::string& c) {
 void Interaction::giveMoneyDecided(const std::string& c) {
     if (c == "Yes") {
         const long money = currentConversation.currentNode().money();
-        if (owner.player().money() >= money) {
-            owner.player().money() -= money;
+        if (owner.player().state().monei >= money) {
+            owner.player().state().monei -= money;
             currentConversation.notifyCheckPassed();
             processConversationNode();
         }

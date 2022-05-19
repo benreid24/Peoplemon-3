@@ -1,6 +1,7 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
@@ -247,9 +248,14 @@ void PlayerMenu::switchChosen() {
 }
 
 void PlayerMenu::itemChosen() {
-    state        = State::PickingItem;
-    chosenAction = TurnAction::Item;
-    // TODO - open menu
+    state          = State::PickingItem;
+    chosenAction   = TurnAction::Item;
+    stateLoopGuard = true;
+    chosenItem     = item::Id::None;
+    eventBus.dispatch<event::OpenBagMenu>({event::OpenBagMenu::Context::BattleUse,
+                                           &chosenItem,
+                                           currentPeoplemon,
+                                           &chosenMoveOrPeoplemon});
 }
 
 void PlayerMenu::runChosen() {

@@ -101,6 +101,13 @@ public:
      */
     void chooseToContinue();
 
+    /**
+     * @brief Removes the item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    virtual void removeItem(item::Id item) = 0;
+
 protected:
     Battler* owner;
 
@@ -150,9 +157,10 @@ protected:
     /**
      * @brief Selects the item to use
      *
+     * @param pplIndex Index of the peoplemon to use the item on
      * @param item The item to use
      */
-    void chooseItem(core::item::Id item);
+    void chooseItem(std::uint8_t pplIndex, core::item::Id item);
 
     /**
      * @brief Chooses to run away
@@ -171,10 +179,10 @@ private:
     TurnAction action;
     union {
         core::item::Id useItem;
-        std::uint8_t switchIndex;
         int move;
         bool dontGiveUp;
     };
+    std::uint8_t switchIndex;
     bool subActionPicked;
 };
 

@@ -5,6 +5,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -235,14 +236,14 @@ Value makePosition(system::Systems& systems, bl::entity::Entity e) {
 
 void getPlayer(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value& player) {
     player = systems.player().player();
-    player.setProperty("name", {systems.player().name()});
+    player.setProperty("name", {systems.player().state().name});
     player.setProperty("gender",
-                       {systems.player().gender() == player::Gender::Boy ? "boy" : "girl"});
-    player.setProperty("money", {systems.player().money()});
+                       {systems.player().state().sex == player::Gender::Boy ? "boy" : "girl"});
+    player.setProperty("money", {systems.player().state().monei});
     player.setProperty("position", makePosition(systems, systems.player().player()));
 
     std::vector<player::Bag::Item> items;
-    systems.player().bag().getAll(items);
+    systems.player().state().bag.getAll(items);
     player.setProperty("bag", {bl::script::ArrayValue{}});
     auto& bag = player.getProperty("bag", false).deref().value().getAsArray();
     bag.reserve(items.size());
@@ -266,7 +267,7 @@ void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
     if (item != item::Id::Unknown) {
         const long qty = args[1].value().getAsInt();
         if (qty > 0) {
-            systems.player().bag().addItem(item, qty);
+            systems.player().state().bag.addItem(item, qty);
             if (args[2].value().getAsBool()) {
                 bl::util::Waiter waiter;
                 system::HUD::Callback unlock = [](const std::string&) {};
@@ -296,7 +297,7 @@ void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
 
     const long money = args[0].value().getAsInt();
     if (money > 0) {
-        systems.player().money() += money;
+        systems.player().state().monei += money;
         if (args[1].value().getAsBool()) {
             bl::util::Waiter waiter;
             system::HUD::Callback unlock = [](const std::string&) {};
@@ -340,7 +341,7 @@ void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
                 if (choice == "No") { result = false; }
             }
             else {
-                result = systems.player().bag().removeItem(item, qty);
+                result = systems.player().state().bag.removeItem(item, qty);
             }
         }
         else {
@@ -373,8 +374,8 @@ void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
             table.waitOn(waiter);
             if (choice == "No") { result = false; }
         }
-        if (systems.player().money() >= qty) {
-            systems.player().money() -= qty;
+        if (systems.player().state().monei >= qty) {
+            systems.player().state().monei -= qty;
             result = true;
         }
         else {
@@ -398,8 +399,8 @@ void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Val
         return;
     }
 
-    if (systems.player().team().size() < 6) {
-        systems.player().team().emplace_back(id, args[1].value().getAsInt());
+    if (systems.player().state().peoplemon.size() < 6) {
+        systems.player().state().peoplemon.emplace_back(id, args[1].value().getAsInt());
         result = "party";
     }
     else {
@@ -422,10 +423,12 @@ void takePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Val
     }
 
     const unsigned int level = args[1].value().getAsInt();
-    for (auto it = systems.player().team().begin(); it != systems.player().team().end(); ++it) {
+    for (auto it = systems.player().state().peoplemon.begin();
+         it != systems.player().state().peoplemon.end();
+         ++it) {
         if (it->id() == id && it->currentLevel() >= level) {
             result = true;
-            systems.player().team().erase(it);
+            systems.player().state().peoplemon.erase(it);
             return;
         }
     }
@@ -440,7 +443,7 @@ void whiteout(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
 
 void restorePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Value>&,
                       Value& result) {
-    systems.player().healPeoplemon();
+    systems.player().state().healPeoplemon();
     result = true;
 }
 

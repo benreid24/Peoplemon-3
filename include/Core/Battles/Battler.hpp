@@ -146,6 +146,12 @@ public:
     BattlerSubstate& getSubstate();
 
     /**
+     * @brief Returns the state of this battler
+     *
+     */
+    const BattlerSubstate& getSubstate() const;
+
+    /**
      * @brief Notifies the battler that a turn has began
      *
      */
@@ -212,6 +218,13 @@ public:
      *
      */
     int getBroCount() const;
+
+    /**
+     * @brief Removes the given item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    void removeItem(item::Id item);
 
 private:
     BattleState& state;

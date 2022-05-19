@@ -71,8 +71,7 @@ const std::string& Battler::name() const { return controller->name(); }
 unsigned int Battler::getPriority() const {
     switch (chosenAction()) {
     case TurnAction::Fight:
-        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id) +
-               team[currentPeoplemon].getSpeed();
+        return pplmn::Move::priority(team[currentPeoplemon].base().knownMoves()[chosenMove()].id);
     case TurnAction::Item:
     case TurnAction::Run:
     case TurnAction::Switch:
@@ -100,6 +99,8 @@ bool Battler::canSwitch() const {
 void Battler::refresh() { controller->refresh(); }
 
 BattlerSubstate& Battler::getSubstate() { return substate; }
+
+const BattlerSubstate& Battler::getSubstate() const { return substate; }
 
 unsigned int Battler::selectRandomPeoplemon() const {
     if (!canSwitch()) return currentPeoplemon;
@@ -158,6 +159,8 @@ int Battler::getBroCount() const {
     }
     return c;
 }
+
+void Battler::removeItem(item::Id item) { controller->removeItem(item); }
 
 } // namespace battle
 } // namespace core

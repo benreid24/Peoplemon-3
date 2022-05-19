@@ -17,6 +17,11 @@ Stats::Stats()
 , spdef(0)
 , spd(0) {}
 
+Stats::Stats(Stat stat, int p)
+: Stats() {
+    get(stat) = p;
+}
+
 int Stats::sum() const { return hp + atk + def + spd + spatk + spdef; }
 
 void Stats::randomize() {
@@ -69,25 +74,25 @@ float Stats::stageMultiplier(int stage) {
 const char* Stats::statToString(Stat s) {
     switch (s) {
     case Stat::Attack:
-        return "atk";
+        return "ATK";
     case Stat::Defense:
-        return "def";
+        return "DEF";
     case Stat::HP:
-        return "hp";
+        return "HP";
     case Stat::SpecialAttack:
-        return "spatk";
+        return "SPATK";
     case Stat::SpecialDefense:
-        return "spdef";
+        return "SPDEF";
     case Stat::Speed:
-        return "spd";
+        return "SPD";
     case Stat::Accuracy:
-        return "acc";
+        return "ACC";
     case Stat::Critical:
-        return "crit";
+        return "CRIT";
     case Stat::Evasion:
-        return "evd";
+        return "EVD";
     default:
-        return "<?err?>";
+        return "<ERR>";
     }
 }
 

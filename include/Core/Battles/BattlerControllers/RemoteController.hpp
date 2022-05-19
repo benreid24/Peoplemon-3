@@ -35,6 +35,13 @@ public:
      */
     virtual void refresh() override;
 
+    /**
+     * @brief Removes the item from the battler's inventory
+     *
+     * @param item The item to remove
+     */
+    virtual void removeItem(item::Id item) override;
+
 private:
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;

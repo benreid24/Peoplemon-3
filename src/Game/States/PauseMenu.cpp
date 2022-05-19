@@ -61,7 +61,7 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 
     menu.setRootItem(resume);
     menu.addItem(ppldex, resume.get(), Item::Bottom);
-    if (!systems.player().team().empty()) {
+    if (!systems.player().state().peoplemon.empty()) {
         menu.addItem(pplmon, ppldex.get(), Item::Bottom);
         menu.addItem(bag, pplmon.get(), Item::Bottom);
     }
@@ -91,6 +91,9 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
     const sf::Vector2f size(core::Properties::WindowWidth(), core::Properties::WindowHeight());
     view.setCenter(size * 0.5f);
     view.setSize(size);
+    systems.hud().hideEntryCard();
+    // TODO - get sound specific to menu opening/closing
+    bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {

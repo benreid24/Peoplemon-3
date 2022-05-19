@@ -31,6 +31,14 @@ struct Stats {
     Stats();
 
     /**
+     * @brief Construct Stats with all zeros except the given stat
+     *
+     * @param stat The single stat to populate
+     * @param points The points to put in that stat
+     */
+    Stats(Stat stat, int points);
+
+    /**
      * @brief Returns the sum of the 6 stats that are used for EV calculations
      *
      * @return int The sum of each stat

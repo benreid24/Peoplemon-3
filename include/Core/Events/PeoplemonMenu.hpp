@@ -23,7 +23,9 @@ struct OpenPeoplemonMenu {
         BattleReviveSwitch,
         StorageSelect,
         PauseMenu,
-        GiveItem
+        GiveItem,
+        UseItem,
+        UseItemBattle
     };
 
     /**
@@ -42,6 +44,7 @@ struct OpenPeoplemonMenu {
     const int outNow;
     int* chosen;
 };
+
 } // namespace event
 } // namespace core
 

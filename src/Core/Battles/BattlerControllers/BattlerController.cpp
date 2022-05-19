@@ -55,9 +55,10 @@ void BattlerController::choosePeoplemon(std::uint8_t i) {
     action          = TurnAction::Switch;
 }
 
-void BattlerController::chooseItem(core::item::Id it) {
+void BattlerController::chooseItem(std::uint8_t i, core::item::Id it) {
     subActionPicked = true;
     useItem         = it;
+    switchIndex     = i;
     action          = TurnAction::Item;
 }
 

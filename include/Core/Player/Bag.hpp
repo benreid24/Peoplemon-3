@@ -2,7 +2,9 @@
 #define CORE_PLAYER_BAG_HPP
 
 #include <BLIB/Serialization/JSON.hpp>
-#include <Core/Items/Item.hpp>
+#include <Core/Items/Category.hpp>
+#include <Core/Items/Id.hpp>
+#include <Core/Items/Type.hpp>
 #include <vector>
 
 namespace core

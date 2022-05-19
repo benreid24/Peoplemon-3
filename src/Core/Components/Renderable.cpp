@@ -189,6 +189,8 @@ void Renderable::FastMoveAnims::update(float dt, const PositionHandle& pos) {
         anim.play(false);
     }
     else {
+        auto& src = *walk[static_cast<unsigned int>(pos.get().direction)];
+        anim.setData(src);
         anim.stop();
     }
     anim.update(dt);

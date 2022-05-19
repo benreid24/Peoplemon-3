@@ -15,9 +15,7 @@ namespace system
 using Serializer = bl::serial::json::Serializer<Player>;
 
 Player::Player(Systems& owner)
-: owner(owner)
-, sex(player::Gender::Boy)
-, monei(0) {}
+: owner(owner) {}
 
 bool Player::spawnPlayer(const component::Position& pos) {
     playerId = owner.engine().entities().createEntity();
@@ -63,7 +61,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
     if (!owner.engine().entities().addComponent<component::Renderable>(
             playerId,
             component::Renderable::fromFastMoveAnims(
-                _position, movable, Properties::PlayerAnimations(sex)))) {
+                _position, movable, Properties::PlayerAnimations(data.sex)))) {
         BL_LOG_ERROR << "Failed to add renderble component to player";
         return false;
     }
@@ -77,40 +75,21 @@ const component::Position& Player::position() const { return _position.get(); }
 
 player::Input& Player::inputSystem() { return input; }
 
-const std::string& Player::name() const { return playerName; }
-
-player::Gender Player::gender() const { return sex; }
-
-std::vector<pplmn::OwnedPeoplemon>& Player::team() { return peoplemon; }
-
-const std::vector<pplmn::OwnedPeoplemon>& Player::team() const { return peoplemon; }
-
-player::Bag& Player::bag() { return inventory; }
-
-const player::Bag& Player::bag() const { return inventory; }
-
-long Player::money() const { return monei; }
-
-long& Player::money() { return monei; }
-
 void Player::newGame(const std::string& n, player::Gender g) {
-    playerName = n;
-    sex        = g;
-    inventory.clear();
-    monei = 0;
-    peoplemon.clear();
+    data.name = n;
+    data.sex  = g;
+    data.bag.clear();
+    data.monei = 0;
+    data.peoplemon.clear();
+    // TODO - set
 
 #ifdef PEOPLEMON_DEBUG
-    peoplemon.emplace_back(pplmn::Id::AnnaA, 30);
-    peoplemon.back().learnMove(pplmn::MoveId::Awkwardness, 0);
-    peoplemon.back().learnMove(pplmn::MoveId::Confuse, 1);
-    peoplemon.back().learnMove(pplmn::MoveId::MedicalAttention, 2);
-    peoplemon.back().learnMove(pplmn::MoveId::Oblivious, 3);
+    data.peoplemon.emplace_back(pplmn::Id::AnnaA, 30);
+    data.peoplemon.back().learnMove(pplmn::MoveId::Awkwardness, 0);
+    data.peoplemon.back().learnMove(pplmn::MoveId::Confuse, 1);
+    data.peoplemon.back().learnMove(pplmn::MoveId::MedicalAttention, 2);
+    data.peoplemon.back().learnMove(pplmn::MoveId::Oblivious, 3);
 #endif
-}
-
-void Player::healPeoplemon() {
-    for (auto& ppl : peoplemon) { ppl.heal(); }
 }
 
 bool Player::makePlayerControlled(bl::entity::Entity entity) {
@@ -147,28 +126,28 @@ void Player::init() {
 }
 
 void Player::whiteout() {
-    for (auto& ppl : peoplemon) { ppl.heal(); }
-    if (!owner.world().whiteout(whiteoutMap, whiteoutSpawn)) {
+    for (auto& ppl : data.peoplemon) { ppl.heal(); }
+    if (!owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn)) {
         BL_LOG_CRITICAL << "Failed to whiteout";
         owner.engine().flags().set(bl::engine::Flags::Terminate);
     }
 }
 
-void Player::setWhiteoutMap(const std::string& map, unsigned int spawn) {
-    whiteoutMap   = map;
-    whiteoutSpawn = spawn;
-}
-
 void Player::update() { input.update(); }
 
+player::State& Player::state() { return data; }
+
+const player::State& Player::state() const { return data; }
+
 void Player::observe(const event::GameSaveInitializing& save) {
-    save.gameSave.player.inventory     = &inventory;
-    save.gameSave.player.monei         = &monei;
-    save.gameSave.player.peoplemon     = &peoplemon;
-    save.gameSave.player.playerName    = &playerName;
-    save.gameSave.player.sex           = &sex;
-    save.gameSave.player.whiteoutMap   = &whiteoutMap;
-    save.gameSave.player.whiteoutSpawn = &whiteoutSpawn;
+    save.gameSave.player.inventory     = &data.bag;
+    save.gameSave.player.monei         = &data.monei;
+    save.gameSave.player.peoplemon     = &data.peoplemon;
+    save.gameSave.player.playerName    = &data.name;
+    save.gameSave.player.sex           = &data.sex;
+    save.gameSave.player.whiteoutMap   = &data.whiteoutMap;
+    save.gameSave.player.whiteoutSpawn = &data.whiteoutSpawn;
+    save.gameSave.player.repelSteps    = &data.repelSteps;
 }
 
 } // namespace system

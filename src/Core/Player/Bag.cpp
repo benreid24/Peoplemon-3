@@ -1,5 +1,7 @@
 #include <Core/Player/Bag.hpp>
 
+#include <Core/Items/Item.hpp>
+
 namespace core
 {
 namespace player

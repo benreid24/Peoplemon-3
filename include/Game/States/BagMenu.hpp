@@ -7,6 +7,7 @@
 #include <Game/Menus/BagItemButton.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/State.hpp>
+#include <Core/Events/BagMenu.hpp>
 
 namespace game
 {
@@ -21,7 +22,7 @@ namespace state
 class BagMenu : public State {
 public:
     /// Represents how the menu was opened and affects how it may be used
-    enum struct Context { BattleUse, PauseMenu };
+    using Context = core::event::OpenBagMenu::Context;
 
     /**
      * @brief Creates a new BagMenu
@@ -29,10 +30,11 @@ public:
      * @param systems The main game systems
      * @param ctx Context the bag is being used from
      * @param result Optional item to populate with the chosen item
+     * @param outNow Index of the currently out Peoplemon if in battle
      * @return bl::engine::State::Ptr
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems, Context ctx,
-                                         core::item::Id* result = nullptr);
+                                         core::item::Id* result = nullptr, int outNow = -1, int* chosenPeoplemon = nullptr);
 
     /**
      * @brief Destroy the Bag Menu object
@@ -72,10 +74,19 @@ public:
     virtual void render(bl::engine::Engine&, float) override;
 
 private:
-    enum struct MenuState { Browsing, Sliding, ChoosingGive };
+    enum struct MenuState {
+        Browsing,
+        Sliding,
+        ChoosingGive,
+        ShowingMessage,
+        ChoosingItemPeoplemon,
+        ImmediatelyPop
+    };
 
     const Context context;
+    const int outNow;
     core::item::Id* const result;
+    int* itemPeoplemon;
 
     MenuState state;
     float slideAmount;
@@ -99,18 +110,21 @@ private:
     menu::BagItemButton* selectedItem;
     int selectedPeoplemon;
 
-    BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result);
+    BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result, int outNow, int* chosenPeoplemon);
 
     void itemHighlighted(const menu::BagItemButton* but);
     void itemSelected(const menu::BagItemButton* but);
     void exitSelected();
     void beginSlide(bool left);
+    void removeAndUpdateItem(int qty);
 
-    void chooseItem();
     void useItem();
     void giveItem();
     void dropItem();
+    void doDrop(int qty);
     void resetAction();
+
+    void messageDone();
 };
 
 } // namespace state

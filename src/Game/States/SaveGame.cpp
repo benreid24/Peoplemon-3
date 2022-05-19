@@ -32,8 +32,8 @@ void SaveGame::activate(bl::engine::Engine& engine) {
     view.setSize(size);
 
     const auto cb = std::bind(&SaveGame::onFinish, this);
-    if (core::file::GameSave::saveGame(systems.player().name(), engine.eventBus())) {
-        systems.hud().displayMessage(systems.player().name() + " saved the game!", cb);
+    if (core::file::GameSave::saveGame(systems.player().state().name, engine.eventBus())) {
+        systems.hud().displayMessage(systems.player().state().name + " saved the game!", cb);
     }
     else {
         systems.hud().displayMessage("Failed to save the game, goodluck", cb);

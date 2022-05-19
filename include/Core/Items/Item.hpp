@@ -1,11 +1,15 @@
 #ifndef CORE_ITEMS_ITEM_HPP
 #define CORE_ITEMS_ITEM_HPP
 
+#include <Core/Battles/Battler.hpp>
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
-#include <Core/Items/UseResult.hpp>
+#include <Core/Peoplemon/BattlePeoplemon.hpp>
+#include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/OwnedPeoplemon.hpp>
+#include <Core/Player/State.hpp>
 #include <vector>
 
 namespace core
@@ -81,36 +85,95 @@ struct Item {
     static const std::vector<Id>& validIds();
 
     /**
-     * @brief Uses the given item on the given peoplemon
+     * @brief Returns whether or not the item can be used in battle
      *
-     * @param item The item to use
-     * @return UseResult The result of the use
+     * @param item The item to test
+     * @return True if can be used, false if not
      */
-    static UseResult useOnPeoplemon(Id item); // TODO - peoplemon data
+    static bool canUseInBattle(Id item);
 
     /**
-     * @brief Uses the given item to evolve the given peoplemon
+     * @brief Returns whether or not the given item will affect the peoplemon
      *
      * @param item The item to use
-     * @return UseResult The result of the use
+     * @param ppl The peoplemon to check
+     * @return True if the item can be used, false if not
      */
-    static UseResult evolvePeoplemon(Id item); // TODO - peoplemon data
+    static bool hasEffectOnPeoplemon(Id item, const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Returns whether or not the given item will affect the peoplemon in battle
+     *
+     * @param item The item to use
+     * @param ppl The peoplemon to check
+     * @param battler The battler using the item
+     * @return True if the item can be used, false if not
+     */
+    static bool hasEffectOnPeoplemon(Id item, const pplmn::BattlePeoplemon& ppl,
+                                     const battle::Battler& battler);
+
+    /**
+     * @brief Applies the given item to the peoplemon
+     *
+     * @param item The itemto use
+     * @param ppl The peoplemon to use it on
+     * @param team The peoplemon's team. Optional
+     * @param battleTeam The peoplemon's team when in battle. Optional
+     */
+    static void useOnPeoplemon(Id item, pplmn::OwnedPeoplemon& ppl,
+                               std::vector<pplmn::OwnedPeoplemon>* team        = nullptr,
+                               std::vector<pplmn::BattlePeoplemon>* battleTeam = nullptr);
+
+    /**
+     * @brief Applies the given item to the peoplemon
+     *
+     * @param item The itemto use
+     * @param ppl The peoplemon to use it on
+     * @param battler The battler using the item
+     */
+    static void useOnPeoplemon(Id item, pplmn::BattlePeoplemon& ppl, battle::Battler& battler);
+
+    /**
+     * @brief Returns the text to display when the item is used on the given peoplemon
+     *
+     * @param item The item that was used
+     * @param ppl The peoplemon that it was used on
+     * @return std::string The text to display
+     */
+    static std::string getUseLine(Id item, const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Returns whether or not the given item will affect the player
+     *
+     * @param item The item to use
+     * @param state The player's state
+     * @return True if the item may be used, false if not
+     */
+    static bool hasEffectOnPlayer(Id item, const player::State& state);
 
     /**
      * @brief Uses the given item on the player
      *
      * @param item The item to use
-     * @return UseResult The result of the use
+     * @param state The player's state
      */
-    static UseResult useOnPlayer(Id item); // TODO - player data
+    static void useOnPlayer(Id item, player::State& state);
 
     /**
-     * @brief Uses the given key item. Most are not usable
+     * @brief Generates the text to print when the item is used on the player
      *
-     * @param item The item to use
-     * @return UseResult The result of the use
+     * @param item The item being used
+     * @return std::string The text to display
      */
-    static UseResult useKeyItem(Id item); // TODO - player data
+    static std::string getUseLine(Id item);
+
+    /**
+     * @brief Returns the move taught by the TM
+     *
+     * @param tm The TM to get the move for
+     * @return pplmn::MoveId The move to teach, or Unknown
+     */
+    static pplmn::MoveId getTmMove(Id tm);
 
 private:
     static std::unordered_map<Id, std::string>* names;

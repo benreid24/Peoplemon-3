@@ -47,31 +47,6 @@ std::string snackShareSuffix(Message::Type type, const std::string& other) {
         return "!";
     }
 }
-
-std::string statString(pplmn::Stat stat) {
-    switch (stat) {
-    case pplmn::Stat::Accuracy:
-        return "ACC";
-    case pplmn::Stat::Attack:
-        return "ATK";
-    case pplmn::Stat::Critical:
-        return "CRIT";
-    case pplmn::Stat::Defense:
-        return "DEF";
-    case pplmn::Stat::Evasion:
-        return "EVD";
-    case pplmn::Stat::HP:
-        return "HP";
-    case pplmn::Stat::SpecialAttack:
-        return "SPATK";
-    case pplmn::Stat::SpecialDefense:
-        return "SPDEF";
-    case pplmn::Stat::Speed:
-        return "SPD";
-    default:
-        return "<ERR>";
-    }
-}
 } // namespace
 
 MessagePrinter::MessagePrinter()
@@ -330,27 +305,29 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::StatIncreased:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " increased!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " increased!";
         break;
 
     case Message::Type::StatIncreasedSharply:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " rose sharply!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " rose sharply!";
         break;
 
     case Message::Type::StatIncreaseFailed:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any higher!";
+        dispText =
+            ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any higher!";
         break;
 
     case Message::Type::StatDecreased:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " decreased!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " decreased!";
         break;
 
     case Message::Type::StatDecreasedSharply:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " fell sharply!";
+        dispText = ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " fell sharply!";
         break;
 
     case Message::Type::StatDecreaseFailed:
-        dispText = ppl + "'s " + statString(msg.getStat()) + " cannot go any lower!";
+        dispText =
+            ppl + "'s " + pplmn::Stats::statToString(msg.getStat()) + " cannot go any lower!";
         break;
 
     case Message::Type::RecoilDamage:
@@ -882,6 +859,72 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::GetBakedAbility:
         dispText = ppl + " is Getting Baked instead of listening!";
+        break;
+
+    case Message::Type::PreUseItem:
+        dispText = battler.name() + " used a " + item::Item::getName(msg.getItem()) + "!";
+        break;
+
+    case Message::Type::ItemUseResult:
+        dispText = item::Item::getUseLine(msg.getItem(),
+                                          state.activeBattler().peoplemon()[msg.forIndex()].base());
+        break;
+
+    case Message::Type::ItemNoEffect:
+        dispText = "It had no effect! What a waste of time.";
+        break;
+
+    case Message::Type::BagOfGoldfish:
+        dispText = ppl + "'s ate from their Bag of Goldfish and regained HP!";
+        break;
+
+    case Message::Type::BackwardsHoodyStatDown:
+        dispText = ppl + "'s Backwards Hoodie makes their attacks more powerful!";
+        break;
+
+    case Message::Type::BackwordsHoodyConfuse:
+        dispText = ppl + " was Confused by " + other + "'s Backwards Hoodie!";
+        break;
+
+    case Message::Type::GlassesAcc:
+        dispText = ppl + "'s Glasses increase ACC!";
+        break;
+
+    case Message::Type::SlappingGloveDamage:
+        dispText = ppl + "'s ATK is increased by their Slapping Glove!";
+        break;
+
+    case Message::Type::SpoonDamage:
+        dispText = ppl + "'s SPATK is increased by their Spoon!";
+        break;
+
+    case Message::Type::SuperTinyMiniFridge:
+        dispText = ppl + "'s Super Tiny Mini Fridge exploded!";
+        break;
+
+    case Message::Type::SketchySack:
+        dispText =
+            ppl + " took damage from their Sketchy Sack that they are holding for some reason!";
+        break;
+
+    case Message::Type::GoldfishCracker:
+        dispText = ppl + " ate their abnormally large Goldfish Cracker and regained HP!";
+        break;
+
+    case Message::Type::WakeUpBelle:
+        dispText = ppl + " was woken up by their Wakeup Belle!";
+        break;
+
+    case Message::Type::PowerJuice:
+        dispText = ppl + " drank their Power Juice and increased attack power!";
+        break;
+
+    case Message::Type::IcedTea:
+        dispText = ppl + " drank their Iced Tea and increased defense!";
+        break;
+
+    case Message::Type::SpeedJuice:
+        dispText = ppl + " drank their Speed Juice and increased their speed!";
         break;
 
     default:

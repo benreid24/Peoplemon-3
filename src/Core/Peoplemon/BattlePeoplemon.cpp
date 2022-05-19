@@ -24,13 +24,9 @@ const Stats& BattlePeoplemon::currentStats() const { return cached; }
 
 const BattleStats& BattlePeoplemon::battleStages() const { return stageOnlys; }
 
-void BattlePeoplemon::applyDamage(int dmg) {
-    std::uint16_t udmg = dmg;
-    udmg               = std::min(udmg, ppl->hp);
-    ppl->hp -= udmg;
-}
+void BattlePeoplemon::applyDamage(int dmg) { ppl->applyDamage(dmg); }
 
-void BattlePeoplemon::giveHealth(int hp) { ppl->hp = std::min(ppl->hp + hp, currentStats().hp); }
+void BattlePeoplemon::giveHealth(int hp) { ppl->giveHealth(hp); }
 
 bool BattlePeoplemon::statChange(Stat stat, int diff) {
     int* val = nullptr;
@@ -116,7 +112,9 @@ void BattlePeoplemon::notifyInBattle() { sawBattle = true; }
 
 void BattlePeoplemon::resetSawBattle() { sawBattle = false; }
 
-bool BattlePeoplemon::hasSeenBattle() const { return sawBattle || base().hasExpShare(); }
+bool BattlePeoplemon::hasSeenBattle() const {
+    return (sawBattle || base().hasExpShare()) && base().currentHp() > 0;
+}
 
 int BattlePeoplemon::getSpeed() const {
     if (ppl->currentAilment() == Ailment::Annoyed) { return currentStats().spd / 4; }

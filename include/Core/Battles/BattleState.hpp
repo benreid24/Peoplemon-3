@@ -34,13 +34,13 @@ public:
         RoundStart,
         TurnStart,
         NextBattler,
-        RoundFinalEffects,
+        RoundFinalEffectsPlayer,
+        RoundFinalEffectsEnemy,
         RoundEnd,
 
         // Use item
         PreUseItem,
         UsingItem,
-        PostUseItem,
 
         // TODO - wild peoplemon ball states
 

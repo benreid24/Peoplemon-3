@@ -42,6 +42,7 @@ struct GameSave {
         std::vector<pplmn::OwnedPeoplemon>* peoplemon;
         std::string* whiteoutMap;
         unsigned int* whiteoutSpawn;
+        unsigned int* repelSteps;
     } player;
 
     /// Stores pointers to the actual data to save/load from
@@ -157,6 +158,7 @@ private:
         std::vector<pplmn::OwnedPeoplemon> peoplemon;
         std::string whiteoutMap;
         unsigned int whiteoutSpawn;
+        unsigned int repelSteps;
         std::string currentMap;
         std::string prevMap;
         component::Position playerPos;
@@ -223,6 +225,7 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     SerializableField<Player, long*> money;
     SerializableField<Player, std::string*> whiteoutMap;
     SerializableField<Player, unsigned int*> whiteoutSpawn;
+    SerializableField<Player, unsigned int*> repelSteps;
 
     SerializableObject()
     : name("name", *this, &Player::playerName)
@@ -231,7 +234,8 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     , peoplemon("peoplemon", *this, &Player::peoplemon)
     , money("money", *this, &Player::monei)
     , whiteoutMap("whiteoutMap", *this, &Player::whiteoutMap)
-    , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn) {}
+    , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn)
+    , repelSteps("repelSteps", *this, &Player::repelSteps) {}
 };
 
 template<>
