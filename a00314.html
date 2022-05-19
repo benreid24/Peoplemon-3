@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/Movement.hpp File Reference</title>
+<title>Peoplemon: include/Core/Systems/HUD.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,19 +71,31 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Movement.hpp File Reference</div>  </div>
+<div class="title">HUD.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00086_source.html">Core/Components/Movable.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02691_source.html">Core/Components/Position.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Interfaces/Menu.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces/Utilities.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Graphics/Flashing.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Shapes.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00254_source.html">Core/Player/Input/Listener.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00257_source.html">Core/Player/Input/MenuDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00308_source.html">Core/Systems/HUD/QtyEntry.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00311_source.html">Core/Systems/HUD/ScreenKeyboard.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;queue&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;variant&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a00314_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01801.html">core::system::Movement</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary System for managing entity movement and interpolation.  <a href="a01801.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01782.html">core::system::HUD</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary <a class="el" href="a01782.html" title="The primary HUD system for the player. Manages displaying messages and asking questions. A callback is issued when messages are complete or when choices are made. ">HUD</a> system for the player. Manages displaying messages and asking questions. A callback is issued when messages are complete or when choices are made.  <a href="a01782.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -99,7 +111,7 @@ Namespaces</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri May 13 2022 21:18:28 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu May 19 2022 00:34:00 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
