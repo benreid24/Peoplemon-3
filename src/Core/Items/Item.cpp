@@ -66,17 +66,36 @@ Type Item::getType(Id item) {
 
 const std::string& Item::getName(Id item) {
     const auto it = names->find(item);
-    return it == names->end() ? UnknownName : it->second;
+    if (it == names->end()) {
+        const pplmn::MoveId mid = getTmMove(item);
+        if (mid != pplmn::MoveId::Unknown) {
+            static std::string tmName;
+            tmName = "TM " + std::to_string(static_cast<int>(mid));
+            return tmName;
+        }
+        return UnknownName;
+    }
+    return it->second;
 }
 
 const std::string& Item::getDescription(Id item) {
     const auto it = descriptions->find(item);
-    return it == descriptions->end() ? UnknownDescription : it->second;
+    if (it == descriptions->end()) {
+        const pplmn::MoveId mid = getTmMove(item);
+        if (mid != pplmn::MoveId::Unknown) {
+            static std::string tmDesc;
+            tmDesc = "This TM teaches " + pplmn::Move::name(mid) + " to a Peoplemon";
+            return tmDesc;
+        }
+        return UnknownDescription;
+    }
+    return it->second;
 }
 
 int Item::getValue(Id item) {
     const auto it = values->find(item);
-    return it == values->end() ? 0 : it->second;
+    if (it == values->end()) { return getCategory(item) == Category::TM ? 2500 : 0; }
+    return it->second;
 }
 
 const std::vector<Id>& Item::validIds() { return ids; }
@@ -367,8 +386,9 @@ std::string Item::getUseLine(Id item) {
 }
 
 pplmn::MoveId Item::getTmMove(Id tm) {
-    using T     = std::underlying_type_t<Id>;
-    const T id  = static_cast<T>(tm);
+    using T    = std::underlying_type_t<Id>;
+    const T id = static_cast<T>(tm);
+    if (id < 200) return pplmn::MoveId::Unknown;
     const T mid = id - 200;
     return pplmn::Move::cast(mid);
 }
