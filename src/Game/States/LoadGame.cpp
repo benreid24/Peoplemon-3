@@ -38,7 +38,11 @@ LoadGame::LoadGame(core::system::Systems& s)
                    static_cast<float>(core::Properties::WindowHeight())});
 
     Item::Ptr load = TextItem::create("Load", core::Properties::MenuFont(), sf::Color::Black, 26);
-    load->getSignal(Item::Activated).willAlwaysCall([this]() { state = SaveLoaded; });
+    load->getSignal(Item::Activated).willAlwaysCall([this]() {
+        fadeTime = 0.f;
+        inputDriver.drive(nullptr);
+        state = Fading;
+    });
     Item::Ptr del = TextItem::create("Delete", core::Properties::MenuFont(), sf::Color::Black, 26);
     del->getSignal(Item::Activated).willAlwaysCall([this]() { state = SaveDeleted; });
     Item::Ptr back =
@@ -102,19 +106,6 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
         }
         break;
 
-    case SaveLoaded:
-        if (saves[selectedSave].load(&engine.eventBus())) {
-            fadeTime = 0.f;
-            state    = Fading;
-        }
-        else {
-            systems.hud().displayMessage("Failed to load game save",
-                                         std::bind(&LoadGame::errorDone, this));
-            inputDriver.drive(nullptr);
-            state = Error;
-        }
-        break;
-
     case SaveDeleted:
         if (saves[selectedSave].remove()) { activate(engine); }
         else {
@@ -128,7 +119,17 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
     case Fading:
         fadeTime += dt;
         cover.setFillColor(sf::Color(0, 0, 0, std::min(255.f, 255.f * (fadeTime / FadeTime))));
-        if (fadeTime >= FadeTime) { systems.engine().replaceState(MainGame::create(systems)); }
+        if (fadeTime >= FadeTime) {
+            if (saves[selectedSave].load(&engine.eventBus())) {
+                systems.engine().replaceState(MainGame::create(systems));
+            }
+            else {
+                systems.hud().displayMessage("Failed to load game save",
+                                             std::bind(&LoadGame::errorDone, this));
+                inputDriver.drive(nullptr);
+                state = Error;
+            }
+        }
         break;
 
     case Error:

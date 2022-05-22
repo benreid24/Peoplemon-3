@@ -1,6 +1,7 @@
 #ifndef CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 #define CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 
+#include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -89,13 +90,17 @@ private:
     sf::View view;
     State state;
     cmd::Animation::Type type;
-    float slideAmount;
+    union {
+        float slideAmount;
+        float alpha;
+        float shakeTime;
+    };
     sf::Vector2f shakeOff;
     sf::Text placeholder;
 
     bl::resource::Resource<sf::Texture>::Ref txtr;
     mutable sf::Sprite peoplemon;
-    // TODO - stuff for flashes etc
+    bl::gfx::Flashing flasher;
 };
 
 } // namespace view

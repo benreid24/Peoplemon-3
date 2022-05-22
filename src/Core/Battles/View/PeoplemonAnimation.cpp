@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
+#include <BLIB/Math/Trig.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 
@@ -17,14 +18,20 @@ const sf::Vector2f PlayerPos(88.f, 199.f);
 const sf::Vector2f OpponentPos(508.f, 2.f);
 const sf::Vector2f ViewSize(200.f, 200.f);
 const sf::Vector2f PeoplemonPos(ViewSize.x * 0.5f, ViewSize.y);
-constexpr float FadeRate  = 120.f;
-constexpr float SlideRate = 285.f;
+constexpr float FadeRate         = 120.f;
+constexpr float SlideRate        = 285.f;
+constexpr float ShakesPerSecond  = 18.f;
+constexpr float ShakeOffMultiple = ShakesPerSecond * 360.f;
+constexpr float ShakeXMag        = 10.f;
+constexpr float ShakeYMag        = 5.f;
+constexpr float ShakeTime        = 0.75f;
 
 using Animation = cmd::Animation;
 } // namespace
 
 PeoplemonAnimation::PeoplemonAnimation(Position pos)
-: position(pos) {
+: position(pos)
+, flasher(peoplemon, 0.08f, 0.05f) {
     peoplemon.setPosition(ViewSize * 0.5f);
     placeholder.setFillColor(sf::Color::Red);
     placeholder.setFont(Properties::MenuFont());
@@ -58,17 +65,18 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
     switch (anim) {
     case Animation::Type::ComeBack:
         placeholder.setString("ComeBack");
-        slideAmount = 255.f; // just a basic fadeout
+        alpha = 255.f; // just a basic fadeout
         break;
 
     case Animation::Type::SendOut:
         placeholder.setString("SendOut");
-        slideAmount = 0.f; // just a basic fade in
+        alpha = 0.f; // just a basic fade in
         break;
 
     case Animation::Type::ShakeAndFlash:
-        placeholder.setString("ShakeAndFlash");
-        // TODO
+        placeholder.setString("");
+        shakeTime = 0.f;
+        flasher.reset();
         break;
 
     case Animation::Type::SlideDown:
@@ -129,8 +137,9 @@ void PeoplemonAnimation::update(float dt) {
             break;
 
         case Animation::Type::ShakeAndFlash:
-            // TODO
-            timedOnly();
+            shakeTime += dt;
+            flasher.update(dt);
+            if (shakeTime >= ShakeTime) { state = State::Static; }
             break;
 
         case Animation::Type::SlideOut:
@@ -166,29 +175,39 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             useMe -= lag * FadeRate;
             if (useMe <= 0.f) { useMe = 0.f; }
             peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(useMe)));
+            target.draw(peoplemon, states);
             break;
 
         case Animation::Type::SendOut:
             useMe += lag * FadeRate;
             if (slideAmount >= 255.f) { useMe = 255.f; }
             peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(useMe)));
+            target.draw(peoplemon, states);
             break;
 
-        case Animation::Type::ShakeAndFlash:
-            // TODO
-            break;
+        case Animation::Type::ShakeAndFlash: {
+            const float t = (shakeTime + lag) * ShakeOffMultiple;
+            const float m = bl::math::sin(t / ShakeTime * 360.f);
+            states.transform.translate(m * ShakeXMag * bl::math::sin(t),
+                                       m * ShakeYMag * bl::math::cos(-t));
+            flasher.render(target, states, lag);
+        } break;
 
         case Animation::Type::SlideDown:
             useMe += SlideRate * lag;
             states.transform.translate(0.f, useMe);
+            target.draw(peoplemon, states);
             break;
 
         default:
             break;
         }
+
+        target.draw(placeholder);
     }
-    target.draw(peoplemon, states);
-    if (state == State::Playing) { target.draw(placeholder); }
+    else if (state == State::Static) {
+        target.draw(peoplemon, states);
+    }
 
     target.setView(oldView);
 }

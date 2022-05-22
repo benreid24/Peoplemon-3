@@ -68,7 +68,7 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    enum LoadState { SelectingSave, ChooseAction, SaveLoaded, SaveDeleted, Fading, Error } state;
+    enum LoadState { SelectingSave, ChooseAction, SaveDeleted, Fading, Error } state;
 
     std::vector<core::file::GameSave> saves;
     unsigned int selectedSave;
