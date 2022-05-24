@@ -2,6 +2,8 @@
 #define CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 
 #include <BLIB/Media/Graphics/Flashing.hpp>
+#include <BLIB/Media/Shapes/GradientCircle.hpp>
+#include <BLIB/Particles/System.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -86,7 +88,16 @@ public:
 private:
     enum struct State { Hidden, Static, Playing };
 
+    struct Spark {
+        sf::Vector2f position;
+        sf::Vector2f velocity;
+        float radius;
+        float time;
+        float lifetime;
+    };
+
     const Position position;
+    sf::Vector2f offset;
     sf::View view;
     State state;
     cmd::Animation::Type type;
@@ -94,13 +105,24 @@ private:
         float slideAmount;
         float alpha;
         float shakeTime;
+        float ballTime;
     };
     sf::Vector2f shakeOff;
     sf::Text placeholder;
 
+    bl::resource::Resource<sf::Texture>::Ref ballTxtr;
+    bl::resource::Resource<sf::Texture>::Ref ballOpenTxtr;
+    sf::Sprite ball;
+    bl::shapes::GradientCircle ballFlash;
+    bl::particle::System<Spark> sparks;
+    mutable bl::shapes::GradientCircle spark;
+
+    void spawnSpark(Spark* obj);
+
     bl::resource::Resource<sf::Texture>::Ref txtr;
     mutable sf::Sprite peoplemon;
     bl::gfx::Flashing flasher;
+    sf::Vector2f scale;
 };
 
 } // namespace view

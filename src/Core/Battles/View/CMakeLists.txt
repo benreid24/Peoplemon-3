@@ -1,4 +1,4 @@
-target_sources(Core PUBLIC
+target_sources(Core PRIVATE
     MessagePrinter.cpp
     MoveAnimation.cpp
     PeoplemonAnimation.cpp
