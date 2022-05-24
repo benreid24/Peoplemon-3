@@ -109,6 +109,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         ballTime = 0.f;
         peoplemon.setColor(sf::Color(255, 255, 255, 0));
         ball.setColor(sf::Color::White);
+        ball.setTexture(*ballTxtr, true);
         break;
 
     case Animation::Type::ShakeAndFlash:
@@ -174,8 +175,8 @@ void PeoplemonAnimation::update(float dt) {
                     ballFlash.setRadius(1.f);
                     ballFlash.setCenterColor(makeColor(255.f));
                     alpha = 0.f;
-                    sparks.setTargetCount(800);
-                    sparks.setCreateRate(2000.f);
+                    sparks.setTargetCount(50);
+                    sparks.setCreateRate(200.f);
                 }
             }
             // ball open and expanding ppl state
@@ -188,7 +189,7 @@ void PeoplemonAnimation::update(float dt) {
                     },
                     dt);
                 alpha += ExpandRate * dt;
-                if (alpha >= 255.f / ExpandRate * 0.75f) {
+                if (alpha > 180.f) {
                     sparks.setTargetCount(0);
                     sparks.setCreateRate(0.f);
                 }
@@ -202,7 +203,10 @@ void PeoplemonAnimation::update(float dt) {
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                 ballFlash.setCenterColor(makeColor(255.f - 255.f * p));
                 ballFlash.setRadius(BallFlashRadius * pss);
-                peoplemon.setColor(sf::Color(255, 255, 255, a));
+                if (a < 255) { peoplemon.setColor(sf::Color(122, 8, 128, a)); }
+                else {
+                    peoplemon.setColor(sf::Color::White);
+                }
                 peoplemon.setScale(ps * scale.x, ps * scale.y);
                 ball.setColor(sf::Color(255, 255, 255, 255 - a));
             }
@@ -314,7 +318,7 @@ void PeoplemonAnimation::spawnSpark(Spark* sp) {
     sp->velocity.x = v * c;
     sp->velocity.y = v * s;
     sp->time       = 0.f;
-    sp->lifetime   = bl::util::Random::get<float>(0.95f, 1.75f);
+    sp->lifetime   = bl::util::Random::get<float>(0.6, 1.1);
     sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
 }
 
