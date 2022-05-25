@@ -19,15 +19,16 @@ namespace
 const sf::Vector2f PlayerPos(88.f, 265.f);
 const sf::Vector2f OpponentPos(508.f, 25.f);
 const sf::Vector2f ViewSize(200.f, 200.f);
-constexpr float FadeRate         = 120.f;
-constexpr float SlideRate        = 285.f;
-constexpr float ShakesPerSecond  = 18.f;
-constexpr float ShakeOffMultiple = ShakesPerSecond * 360.f;
-constexpr float ShakeXMag        = 10.f;
-constexpr float ShakeYMag        = 5.f;
-constexpr float ShakeTime        = 0.75f;
-constexpr float ExpandRate       = 400.f;
-constexpr float BallFlashRadius  = 200.f;
+constexpr float FadeRate                = 120.f;
+constexpr float SlideRate               = 285.f;
+constexpr float ShakesPerSecond         = 18.f;
+constexpr float ShakeOffMultiple        = ShakesPerSecond * 360.f;
+constexpr float ShakeXMag               = 10.f;
+constexpr float ShakeYMag               = 5.f;
+constexpr float ShakeTime               = 0.75f;
+constexpr float ExpandRate              = 400.f;
+constexpr float BallFlashRadius         = 200.f;
+constexpr std::uint8_t ScreenFlashAlpha = 100;
 const sf::Color FlashColor(252, 230, 30);
 
 sf::Color makeColor(float alpha) {
@@ -73,6 +74,9 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
     const sf::Vector2f& pos = position == Position::Player ? PlayerPos : OpponentPos;
     view = bl::interface::ViewUtil::computeSubView(sf::FloatRect(pos, ViewSize), pv);
     view.setCenter(ViewSize * 0.5f);
+    screenFlash.setSize(pv.getSize());
+    screenFlash.setPosition(pv.getCenter());
+    screenFlash.setOrigin(screenFlash.getSize() * 0.5f);
     offset = pos;
 }
 
@@ -105,6 +109,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         peoplemon.setColor(sf::Color(255, 255, 255, 0));
         ball.setColor(sf::Color::White);
         ball.setTexture(*ballTxtr, true);
+        screenFlash.setFillColor(sf::Color::Transparent);
         break;
 
     case Animation::Type::ShakeAndFlash:
@@ -183,12 +188,23 @@ void PeoplemonAnimation::update(float dt) {
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                 ballFlash.setCenterColor(makeColor(255.f - 255.f * p));
                 ballFlash.setRadius(BallFlashRadius * pss);
-                if (a < 255) { peoplemon.setColor(sf::Color(122, 8, 128, a)); }
+                if (a < 255) {
+                    peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
+                }
                 else {
                     peoplemon.setColor(sf::Color::White);
                 }
                 peoplemon.setScale(ps * scale.x, ps * scale.y);
                 ball.setColor(sf::Color(255, 255, 255, 255 - a));
+                if (a <= ScreenFlashAlpha) {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, a));
+                }
+                else if (a >= 255 - ScreenFlashAlpha) {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
+                }
+                else {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
+                }
             }
             break;
 
@@ -249,8 +265,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             break;
 
         case Animation::Type::SendOut:
-            target.draw(ball, states);
-            target.draw(peoplemon, states);
+            //
             break;
 
         case Animation::Type::ShakeAndFlash: {
@@ -299,6 +314,9 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
 
         switch (type) {
         case Animation::Type::SendOut:
+            target.draw(ball, states);
+            target.draw(peoplemon, states);
+            target.draw(screenFlash);
             if (ball.getTexture() == ballOpenTxtr.get()) {
                 target.draw(ballFlash, states);
                 sparks.render([this, &target, &states](const Spark& s) {

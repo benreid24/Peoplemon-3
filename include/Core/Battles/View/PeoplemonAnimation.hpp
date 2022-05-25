@@ -115,6 +115,7 @@ private:
     bl::shapes::GradientCircle ballFlash;
     bl::particle::System<Spark> sparks;
     mutable bl::shapes::GradientCircle spark;
+    sf::RectangleShape screenFlash;
 
     void spawnSpark(Spark* obj);
 
