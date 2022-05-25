@@ -1,0 +1,34 @@
+//---------------------Spawning the Starters-------------------------------
+if (not getSaveEntry("plot6")){
+	if (not getSaveEntry("Joe")){
+		spawnCharacter("Hometown/joeball.npc", 0, 0, 3, "down");
+	}
+	if (not getSaveEntry("Nick")){
+		spawnCharacter("Hometown/nickball.npc", 0, 0, 4, "down");
+	}
+	if (not getSaveEntry("Vince")){
+		spawnCharacter("Hometown/vinceball.npc", 0, 0, 5, "down");
+	}
+}
+
+//----------------------Spawning the Professor---------------------------
+if (not getSaveEntry("plot3")){
+	spawnCharacter("Hometown/professor1.npc", 0, 8,4, "down");
+}
+
+//if (getSaveEntry("Delivered")==1 and getSaveEntry("aster1Done")!=1)
+//	 spawnNPC("Hometown/professor2.npc",8,4,2);
+
+//if (getSaveEntry("aster1Done")==1 and getSaveEntry("professorDead")!=1)
+//	{
+//	 spawnNPC("Hometown/professor3.npc",9,12,0);
+	 
+	//Professor Walks/Talks
+//	 setPlayerLock(1);
+//	 runScript("Hometown/professorsLabProfessorDies.psc",1);
+	
+//-------------------------Spawning the Fridge----------------------------
+//if (getSaveEntry("professorDead")==1)
+//	{
+//	 editTile(16,1,2,0);
+//	}

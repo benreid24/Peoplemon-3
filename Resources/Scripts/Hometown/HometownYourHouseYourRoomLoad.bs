@@ -1,0 +1,15 @@
+if (not getSaveEntry("plot0"))
+{
+	player = getPlayer();
+	setEntityLock(player, true);
+	sleep(600);
+	mom = spawnCharacter("Hometown/mom1.npc", 0, 6, 11, "up");
+	addSaveEntry("momID", mom);	
+	sleep(200);
+	entityToPosition(mom, 0, 3, 3, true);
+	rotateEntity(mom, "left");
+	rotateEntity(player, "right");
+	sleep(500);
+	entityInteract(player);
+	sleep(500);
+}

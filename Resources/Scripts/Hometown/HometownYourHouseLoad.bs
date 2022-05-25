@@ -1,0 +1,5 @@
+//if (getSaveEntry("professorDead")!=1)
+spawnCharacter("Hometown/mom2.npc", 0, 17, 16, "up");
+
+//if (getSaveEntry("professorDead")==1 && getSaveEntry("AllChampsBeaten")!=1)
+//spawnNPC("Hometown/mom3.npc",4,5,2);
