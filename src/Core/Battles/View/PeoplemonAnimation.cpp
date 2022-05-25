@@ -44,9 +44,6 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 , spark(4.f)
 , flasher(peoplemon, 0.08f, 0.05f) {
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
-    placeholder.setFillColor(sf::Color::Red);
-    placeholder.setFont(Properties::MenuFont());
-    placeholder.setCharacterSize(26);
 
     ballOpenTxtr = bl::engine::Resources::textures()
                        .load(bl::util::FileUtil::joinPath(Properties::ImagePath(),
@@ -100,12 +97,10 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     switch (anim) {
     case Animation::Type::ComeBack:
-        placeholder.setString("ComeBack");
         alpha = 255.f; // just a basic fadeout
         break;
 
     case Animation::Type::SendOut:
-        placeholder.setString("");
         ballTime = 0.f;
         peoplemon.setColor(sf::Color(255, 255, 255, 0));
         ball.setColor(sf::Color::White);
@@ -113,19 +108,16 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         break;
 
     case Animation::Type::ShakeAndFlash:
-        placeholder.setString("");
         shakeTime = 0.f;
         flasher.reset();
         break;
 
     case Animation::Type::SlideDown:
-        placeholder.setString("");
         slideAmount = 0.f;
         break;
 
     case Animation::Type::SlideOut:
-        placeholder.setString("SlideOut");
-        // TODO
+        slideAmount = 0.f;
         break;
 
     default:
@@ -133,10 +125,6 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         state = State::Static;
         break;
     }
-
-    const sf::FloatRect bounds = placeholder.getGlobalBounds();
-    const sf::Vector2f size(bounds.width, bounds.height);
-    placeholder.setPosition(ViewSize * 0.5f - size * 0.5f);
 }
 
 void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
@@ -147,14 +135,6 @@ void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
 bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
-    const auto timedOnly = [this, dt]() {
-        slideAmount += dt;
-        if (slideAmount > 2.f) {
-            slideAmount = 0.f;
-            state       = State::Static;
-        }
-    };
-
     if (state == State::Playing) {
         switch (type) {
         case Animation::Type::ComeBack:
@@ -219,8 +199,11 @@ void PeoplemonAnimation::update(float dt) {
             break;
 
         case Animation::Type::SlideOut:
-            // TODO
-            timedOnly();
+            slideAmount += SlideRate * dt;
+            if (slideAmount >= peoplemon.getGlobalBounds().width) {
+                state = State::Static;
+                peoplemon.setColor(sf::Color(255, 255, 255, 0)); // prevent showing
+            }
             break;
 
         case Animation::Type::SlideDown:
@@ -231,7 +214,18 @@ void PeoplemonAnimation::update(float dt) {
             }
             break;
 
-        default:
+        case Animation::Type::MultipleStateDecrease:
+        case Animation::Type::MultipleStateIncrease:
+        case Animation::Type::StatDecrease:
+        case Animation::Type::StatIncrease:
+            // TODO
+            break;
+
+        case Animation::Type::PlayerFirstSendout:
+        case Animation::Type::OpponentFirstSendout:
+        case Animation::Type::UseMove:
+        case Animation::Type::_ERROR:
+            // do nothing
             break;
         }
     }
@@ -268,16 +262,30 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         } break;
 
         case Animation::Type::SlideDown:
-            useMe += SlideRate * lag;
-            states.transform.translate(0.f, useMe);
+            states.transform.translate(0.f, (slideAmount + SlideRate * lag));
             target.draw(peoplemon, states);
             break;
 
-        default:
+        case Animation::Type::SlideOut:
+            states.transform.translate(
+                (slideAmount + SlideRate * lag) * (position == Position::Player ? -1.f : 1.f), 0.f);
+            target.draw(peoplemon, states);
+            break;
+
+        case Animation::Type::MultipleStateDecrease:
+        case Animation::Type::MultipleStateIncrease:
+        case Animation::Type::StatDecrease:
+        case Animation::Type::StatIncrease:
+            // TODO
+            break;
+
+        case Animation::Type::PlayerFirstSendout:
+        case Animation::Type::OpponentFirstSendout:
+        case Animation::Type::UseMove:
+        case Animation::Type::_ERROR:
+            // do nothing
             break;
         }
-
-        target.draw(placeholder);
     }
     else if (state == State::Static) {
         target.draw(peoplemon, states);
@@ -285,6 +293,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
 
     target.setView(oldView);
 
+    // perform rendering outside of view area, if any
     if (state == State::Playing) {
         states.transform.translate(offset);
 

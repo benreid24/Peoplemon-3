@@ -108,7 +108,6 @@ private:
         float ballTime;
     };
     sf::Vector2f shakeOff;
-    sf::Text placeholder;
 
     bl::resource::Resource<sf::Texture>::Ref ballTxtr;
     bl::resource::Resource<sf::Texture>::Ref ballOpenTxtr;
