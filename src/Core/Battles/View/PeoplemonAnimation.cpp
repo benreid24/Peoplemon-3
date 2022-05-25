@@ -27,6 +27,7 @@ constexpr float ShakeXMag               = 10.f;
 constexpr float ShakeYMag               = 5.f;
 constexpr float ShakeTime               = 0.75f;
 constexpr float ExpandRate              = 400.f;
+constexpr float ContractRate            = 225.f;
 constexpr float BallFlashRadius         = 200.f;
 constexpr std::uint8_t ScreenFlashAlpha = 100;
 const sf::Color FlashColor(252, 230, 30);
@@ -42,6 +43,7 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 : position(pos)
 , ballFlash(100.f)
 , sparks(std::bind(&PeoplemonAnimation::spawnSpark, this, std::placeholders::_1), 0, 0.f)
+, implosion(std::bind(&PeoplemonAnimation::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)
 , spark(4.f)
 , flasher(peoplemon, 0.08f, 0.05f) {
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
@@ -63,8 +65,8 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
                                                           "Battle/Balls/peopleball_player.png"))
                        .data;
     }
-    ball.setTexture(*ballTxtr, true);
-    ball.setPosition(ViewSize * 0.5f);
+    setBallTexture(*ballTxtr);
+    ball.setPosition(ViewSize.x * 0.5f, ViewSize.y * 0.75f);
     ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
     spark.setOuterColor(sf::Color::Transparent);
     ballFlash.setOuterColor(sf::Color::Transparent);
@@ -101,14 +103,18 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     switch (anim) {
     case Animation::Type::ComeBack:
-        alpha = 255.f; // just a basic fadeout
+        alpha = 255.f;
+        implosion.setTargetCount(50);
+        implosion.setCreateRate(200.f);
+        setBallTexture(*ballOpenTxtr);
+        ball.setColor(sf::Color::White);
         break;
 
     case Animation::Type::SendOut:
         ballTime = 0.f;
         peoplemon.setColor(sf::Color(255, 255, 255, 0));
         ball.setColor(sf::Color::White);
-        ball.setTexture(*ballTxtr, true);
+        setBallTexture(*ballTxtr);
         screenFlash.setFillColor(sf::Color::Transparent);
         break;
 
@@ -141,22 +147,54 @@ bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
     if (state == State::Playing) {
+        const auto updateSpark = [this, dt](Spark& sp) {
+            sp.time += dt;
+            sp.position += sp.velocity * dt;
+            return sp.time < sp.lifetime;
+        };
+
         switch (type) {
-        case Animation::Type::ComeBack:
-            slideAmount -= dt * FadeRate;
-            if (slideAmount <= 0.f) {
-                slideAmount = 0.f;
-                state       = State::Static;
+        case Animation::Type::ComeBack: {
+            // open ball state
+            if (ball.getTexture() == ballOpenTxtr.get()) {
+                alpha -= ContractRate * dt;
+                implosion.update(updateSpark, dt);
+                if (alpha <= 0.f) {
+                    ballTime = 0.f;
+                    setBallTexture(*ballTxtr);
+                }
+                else if (alpha <= 140.f) {
+                    implosion.setTargetCount(0);
+                    implosion.setCreateRate(0.f);
+                }
+                const std::uint8_t a = static_cast<std::uint8_t>(alpha);
+                const float p        = alpha / 255.f;
+                const float ps       = std::sqrt(p);
+                peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
+                peoplemon.setScale(ps * scale.x, ps * scale.y);
+                if (a <= ScreenFlashAlpha) {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, a));
+                }
+                else if (a >= 255 - ScreenFlashAlpha) {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
+                }
+                else {
+                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
+                }
             }
-            peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(slideAmount)));
-            break;
+            // closed ball state
+            else {
+                ballTime += dt;
+                if (ballTime >= 0.75f) { state = State::Static; }
+            }
+        } break;
 
         case Animation::Type::SendOut:
             // closed ball state
             if (ball.getTexture() == ballTxtr.get()) {
                 ballTime += dt;
                 if (ballTime >= 0.75f) {
-                    ball.setTexture(*ballOpenTxtr, true);
+                    setBallTexture(*ballOpenTxtr);
                     ballFlash.setRadius(1.f);
                     ballFlash.setCenterColor(makeColor(255.f));
                     alpha = 0.f;
@@ -166,13 +204,7 @@ void PeoplemonAnimation::update(float dt) {
             }
             // ball open and expanding ppl state
             else {
-                sparks.update(
-                    [this, dt](Spark& sp) {
-                        sp.time += dt;
-                        sp.position += sp.velocity * dt;
-                        return sp.time < sp.lifetime;
-                    },
-                    dt);
+                sparks.update(updateSpark, dt);
                 alpha += ExpandRate * dt;
                 if (alpha > 180.f) {
                     sparks.setTargetCount(0);
@@ -250,22 +282,37 @@ void PeoplemonAnimation::update(float dt) {
 void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
     if (state == State::Hidden) return;
 
-    const sf::View oldView = target.getView();
-    target.setView(view);
-
     sf::RenderStates states;
+    states.transform.translate(offset);
+
     if (state == State::Playing) {
-        float useMe = slideAmount;
         switch (type) {
         case Animation::Type::ComeBack:
-            useMe -= lag * FadeRate;
-            if (useMe <= 0.f) { useMe = 0.f; }
-            peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(useMe)));
             target.draw(peoplemon, states);
+            target.draw(ball, states);
+            target.draw(screenFlash);
+            implosion.render([this, &target, &states](const Spark& s) {
+                const float p = s.time / s.lifetime;
+                spark.setPosition(s.position);
+                spark.setCenterColor(makeColor(255.f - 150.f * p * p));
+                spark.setRadius(s.radius);
+                target.draw(spark, states);
+            });
             break;
 
         case Animation::Type::SendOut:
-            //
+            target.draw(ball, states);
+            target.draw(peoplemon, states);
+            target.draw(screenFlash);
+            if (ball.getTexture() == ballOpenTxtr.get()) {
+                target.draw(ballFlash, states);
+                sparks.render([this, &target, &states](const Spark& s) {
+                    spark.setPosition(s.position);
+                    spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
+                    spark.setRadius(s.radius);
+                    target.draw(spark, states);
+                });
+            }
             break;
 
         case Animation::Type::ShakeAndFlash: {
@@ -276,16 +323,22 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             flasher.render(target, states, lag);
         } break;
 
-        case Animation::Type::SlideDown:
+        case Animation::Type::SlideDown: {
+            const sf::View oldView = target.getView();
+            target.setView(view);
             states.transform.translate(0.f, (slideAmount + SlideRate * lag));
             target.draw(peoplemon, states);
-            break;
+            target.setView(oldView);
+        } break;
 
-        case Animation::Type::SlideOut:
+        case Animation::Type::SlideOut: {
+            const sf::View oldView = target.getView();
+            target.setView(view);
             states.transform.translate(
                 (slideAmount + SlideRate * lag) * (position == Position::Player ? -1.f : 1.f), 0.f);
             target.draw(peoplemon, states);
-            break;
+            target.setView(oldView);
+        } break;
 
         case Animation::Type::MultipleStateDecrease:
         case Animation::Type::MultipleStateIncrease:
@@ -305,33 +358,6 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
     else if (state == State::Static) {
         target.draw(peoplemon, states);
     }
-
-    target.setView(oldView);
-
-    // perform rendering outside of view area, if any
-    if (state == State::Playing) {
-        states.transform.translate(offset);
-
-        switch (type) {
-        case Animation::Type::SendOut:
-            target.draw(ball, states);
-            target.draw(peoplemon, states);
-            target.draw(screenFlash);
-            if (ball.getTexture() == ballOpenTxtr.get()) {
-                target.draw(ballFlash, states);
-                sparks.render([this, &target, &states](const Spark& s) {
-                    spark.setPosition(s.position);
-                    spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
-                    spark.setRadius(s.radius);
-                    target.draw(spark, states);
-                });
-            }
-            break;
-
-        default:
-            break;
-        }
-    }
 }
 
 void PeoplemonAnimation::spawnSpark(Spark* sp) {
@@ -347,6 +373,26 @@ void PeoplemonAnimation::spawnSpark(Spark* sp) {
     sp->time       = 0.f;
     sp->lifetime   = bl::util::Random::get<float>(0.6, 1.1);
     sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
+}
+
+void PeoplemonAnimation::spawnImplodeSpark(Spark* sp) {
+    const float a  = bl::util::Random::get<float>(0.f, 360.f);
+    const float d  = bl::util::Random::get<float>(190.f, 210.f);
+    const float v  = bl::util::Random::get<float>(450.f, 900.f);
+    const float c  = bl::math::cos(a);
+    const float s  = bl::math::sin(a);
+    sp->position.x = ViewSize.x * 0.5f + d * c;
+    sp->position.y = ViewSize.y * 0.5f + d * s;
+    sp->velocity.x = v * -c;
+    sp->velocity.y = v * -s;
+    sp->time       = 0.f;
+    sp->lifetime   = d / v;
+    sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
+}
+
+void PeoplemonAnimation::setBallTexture(sf::Texture& t) {
+    ball.setTexture(t, true);
+    ball.setOrigin(t.getSize().x / 2, t.getSize().y);
 }
 
 } // namespace view

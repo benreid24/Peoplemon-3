@@ -114,10 +114,13 @@ private:
     sf::Sprite ball;
     bl::shapes::GradientCircle ballFlash;
     bl::particle::System<Spark> sparks;
+    bl::particle::System<Spark> implosion;
     mutable bl::shapes::GradientCircle spark;
     sf::RectangleShape screenFlash;
 
+    void setBallTexture(sf::Texture& t);
     void spawnSpark(Spark* obj);
+    void spawnImplodeSpark(Spark* obj);
 
     bl::resource::Resource<sf::Texture>::Ref txtr;
     mutable sf::Sprite peoplemon;
