@@ -137,7 +137,7 @@ void Battler::resetXpEarners() {
 int Battler::getFirstXpEarner() const {
     int i = 0;
     for (const auto& ppl : team) {
-        if (ppl.hasSeenBattle()) return i;
+        if (ppl.hasSeenBattle() && ppl.base().currentLevel() < 100) return i;
         ++i;
     }
     return -1;

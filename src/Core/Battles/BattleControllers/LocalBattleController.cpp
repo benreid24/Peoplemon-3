@@ -1199,12 +1199,14 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
     }
 
     if (victim.giveAilment(ail)) {
-        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
+        queueCommand({cmd::Animation(isActive, ail)});
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)}, true);
 
         // Check SnackShare ailment give back ability
         if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
             Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
             if (other.activePeoplemon().giveAilment(ail)) {
+                queueCommand({cmd::Animation(!isActive, ail)});
                 queueCommand(
                     {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
                     true);
@@ -1257,6 +1259,7 @@ void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePe
     }
 
     owner.getSubstate().giveAilment(ail);
+    queueCommand({cmd::Animation(selfGive, ail)});
     queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)}, true);
 
     // TODO - reflect some passive ailments?
@@ -1755,6 +1758,7 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
     case pplmn::SpecialAbility::DerpDerp:
         if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 10) {
             user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
+            queueCommand({cmd::Animation(userIsActive, pplmn::PassiveAilment::Confused)});
             queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
         }
         break;
@@ -1762,6 +1766,7 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
     case pplmn::SpecialAbility::DozeOff:
         if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 10) {
             if (defender.giveAilment(pplmn::Ailment::Sleep)) {
+                queueCommand({cmd::Animation(!userIsActive, pplmn::Ailment::Sleep)});
                 queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, userIsActive)},
                              true);
             }
@@ -1829,6 +1834,7 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
         if (bl::util::Random::get<int>(0, 100) <= 25) {
             if (!user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
                 user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
+                queueCommand({cmd::Animation(userIsActive, pplmn::PassiveAilment::Confused)});
                 queueCommand(
                     {cmd::Message(cmd::Message::Type::BackwordsHoodyConfuse, userIsActive)}, true);
             }

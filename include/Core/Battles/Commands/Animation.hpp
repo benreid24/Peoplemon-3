@@ -1,7 +1,9 @@
 #ifndef GAME_BATTLES_COMMANDS_ANIMATION_HPP
 #define GAME_BATTLES_COMMANDS_ANIMATION_HPP
 
+#include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/PassiveAilment.hpp>
 #include <Core/Peoplemon/Stat.hpp>
 #include <cstdint>
 #include <variant>
@@ -37,7 +39,9 @@ struct Animation {
         MultipleStateIncrease,
         StatDecrease,
         MultipleStateDecrease,
-        SlideOut
+        SlideOut,
+        Ailment,
+        PassiveAilment
     };
 
     /**
@@ -73,6 +77,22 @@ struct Animation {
     Animation(bool forActiveBattler, Type type, pplmn::Stat stat);
 
     /**
+     * @brief Construct a new Animation for the given ailment
+     *
+     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param ailment The ailment animation to play
+     */
+    Animation(bool forActiveBattler, pplmn::Ailment ailment);
+
+    /**
+     * @brief Construct a new Animation for the given ailment
+     *
+     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param ailment The ailment animation to play
+     */
+    Animation(bool forActiveBattler, pplmn::PassiveAilment ailment);
+
+    /**
      * @brief Returns whether or not this animation is for the active peoplemon or inactive
      *
      */
@@ -96,12 +116,25 @@ struct Animation {
      */
     pplmn::Stat getStat() const;
 
+    /**
+     * @brief Get the ailment for this animation
+     *
+     */
+    pplmn::Ailment getAilment() const;
+
+    /**
+     * @brief Get the ailment for this animation
+     *
+     */
+    pplmn::PassiveAilment getPassiveAilment() const;
+
 private:
     struct Empty {};
 
     bool forActive;
     Type type;
-    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat> data;
+    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat, pplmn::Ailment, pplmn::PassiveAilment>
+        data;
 };
 
 } // namespace cmd

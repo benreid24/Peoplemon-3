@@ -50,6 +50,7 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 , spark(4.f)
 , flasher(peoplemon, 0.08f, 0.05f) {
     auto& textures  = bl::engine::Resources::textures();
+    auto& anims     = bl::engine::Resources::animations();
     const auto join = bl::util::FileUtil::joinPath;
 
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
@@ -75,6 +76,21 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     statArrow.setOrigin(statArrow.getGlobalBounds().width * 0.5f,
                         statArrow.getGlobalBounds().height * 0.5f);
     statArrow.setPosition(ViewSize.x, ViewSize.y * 0.5f);
+
+    annoySrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Annoyed.anim")).data;
+    confuseSrc =
+        anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Confusion.anim")).data;
+    frozenSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Frozen.anim")).data;
+    frustrationSrc =
+        anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Frustration.anim")).data;
+    sleepSrc   = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Sleep.anim")).data;
+    stickySrc  = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Sticky.anim")).data;
+    trappedSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim")).data;
+    // TODO - update to jumped anim when we have it
+    jumpedSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim")).data;
+    ailmentAnim.setIsLoop(false);
+    ailmentAnim.setPosition(ViewSize * 0.5f);
+    ailmentAnim.setData(*trappedSrc);
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
@@ -154,6 +170,11 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         statArrow.setScale(1.f, -1.f);
         break;
 
+    case Animation::Type::Ailment:
+    case Animation::Type::PassiveAilment:
+        ailmentAnim.play(true);
+        break;
+
     default:
         BL_LOG_ERROR << "Invalid animation type for peoplemon: " << anim;
         state = State::Static;
@@ -188,6 +209,14 @@ void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
             BL_LOG_ERROR << "Invalid stat for animation: " << anim.getStat();
             break;
         }
+        break;
+
+    case Animation::Type::Ailment:
+        updateAilmentAnimation(anim.getAilment());
+        break;
+
+    case Animation::Type::PassiveAilment:
+        updateAilmentAnimation(anim.getPassiveAilment());
         break;
 
     default:
@@ -329,6 +358,12 @@ void PeoplemonAnimation::update(float dt) {
             }
             break;
 
+        case Animation::Type::Ailment:
+        case Animation::Type::PassiveAilment:
+            ailmentAnim.update(dt);
+            if (ailmentAnim.finished()) { state = State::Static; }
+            break;
+
         case Animation::Type::PlayerFirstSendout:
         case Animation::Type::OpponentFirstSendout:
         case Animation::Type::UseMove:
@@ -411,6 +446,12 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             target.draw(statArrow, states);
             break;
 
+        case Animation::Type::Ailment:
+        case Animation::Type::PassiveAilment:
+            target.draw(peoplemon, states);
+            ailmentAnim.render(target, lag, states);
+            break;
+
         case Animation::Type::PlayerFirstSendout:
         case Animation::Type::OpponentFirstSendout:
         case Animation::Type::UseMove:
@@ -457,6 +498,46 @@ void PeoplemonAnimation::spawnImplodeSpark(Spark* sp) {
 void PeoplemonAnimation::setBallTexture(sf::Texture& t) {
     ball.setTexture(t, true);
     ball.setOrigin(t.getSize().x / 2, t.getSize().y);
+}
+
+void PeoplemonAnimation::updateAilmentAnimation(pplmn::Ailment ail) {
+    switch (ail) {
+    case pplmn::Ailment::Annoyed:
+        ailmentAnim.setData(*annoySrc);
+        break;
+    case pplmn::Ailment::Frozen:
+        ailmentAnim.setData(*frozenSrc);
+        break;
+    case pplmn::Ailment::Frustrated:
+        ailmentAnim.setData(*frustrationSrc);
+        break;
+    case pplmn::Ailment::Sleep:
+        ailmentAnim.setData(*sleepSrc);
+        break;
+    case pplmn::Ailment::Sticky:
+        ailmentAnim.setData(*stickySrc);
+        break;
+    default:
+        BL_LOG_WARN << "Invalid ailment: " << ail;
+        break;
+    }
+}
+
+void PeoplemonAnimation::updateAilmentAnimation(pplmn::PassiveAilment ail) {
+    switch (ail) {
+    case pplmn::PassiveAilment::Confused:
+        ailmentAnim.setData(*confuseSrc);
+        break;
+    case pplmn::PassiveAilment::Trapped:
+        ailmentAnim.setData(*trappedSrc);
+        break;
+    case pplmn::PassiveAilment::Stolen:
+        ailmentAnim.setData(*jumpedSrc);
+        break;
+    default:
+        BL_LOG_WARN << "Invalid ailment animation: " << ail;
+        break;
+    }
 }
 
 } // namespace view
