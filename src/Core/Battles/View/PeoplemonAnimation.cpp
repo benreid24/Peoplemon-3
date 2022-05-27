@@ -384,6 +384,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         } break;
 
         case Animation::Type::SlideDown: {
+            states.transform       = {};
             const sf::View oldView = target.getView();
             target.setView(view);
             states.transform.translate(0.f, (slideAmount + SlideRate * lag));
@@ -392,6 +393,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         } break;
 
         case Animation::Type::SlideOut: {
+            states.transform       = {};
             const sf::View oldView = target.getView();
             target.setView(view);
             states.transform.translate(
