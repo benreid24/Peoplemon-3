@@ -1269,7 +1269,7 @@ void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Sta
         if (anim) {
             const auto at =
                 amt > 0 ? cmd::Animation::Type::StatIncrease : cmd::Animation::Type::StatDecrease;
-            queueCommand({cmd::Animation(active, at, stat)}, true);
+            queueCommand({cmd::Animation(active, at, stat)});
         }
         if (amt > 1) {
             queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, active)},

@@ -28,7 +28,7 @@ void BattleView::configureView(const sf::View& pv) {
         localPeoplemon.configureView(pv);
         opponentPeoplemon.configureView(pv);
 
-        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+        playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
                                 battleState.localPlayer().activePeoplemon());
         localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
@@ -90,7 +90,7 @@ void BattleView::processCommand(const Command& cmd) {
 
         if (isPlayer) {
             statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
-            playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+            playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
                                     battleState.localPlayer().activePeoplemon());
             localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         }

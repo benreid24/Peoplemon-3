@@ -106,6 +106,7 @@ private:
         float alpha;
         float shakeTime;
         float ballTime;
+        float arrowTime;
     };
     sf::Vector2f shakeOff;
 
@@ -117,6 +118,9 @@ private:
     bl::particle::System<Spark> implosion;
     mutable bl::shapes::GradientCircle spark;
     sf::RectangleShape screenFlash;
+    bl::resource::Resource<sf::Texture>::Ref statTxtr;
+    sf::Sprite statArrow;
+    float arrowOffset;
 
     void setBallTexture(sf::Texture& t);
     void spawnSpark(Spark* obj);

@@ -29,6 +29,9 @@ constexpr float ShakeTime               = 0.75f;
 constexpr float ExpandRate              = 400.f;
 constexpr float ContractRate            = 225.f;
 constexpr float BallFlashRadius         = 200.f;
+constexpr float ArrowOscillations       = 4.f;
+constexpr float ArrowShowTime           = 2.5f;
+constexpr float ArrowShakeAmount        = 10.f;
 constexpr std::uint8_t ScreenFlashAlpha = 100;
 const sf::Color FlashColor(252, 230, 30);
 
@@ -46,30 +49,32 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 , implosion(std::bind(&PeoplemonAnimation::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)
 , spark(4.f)
 , flasher(peoplemon, 0.08f, 0.05f) {
+    auto& textures  = bl::engine::Resources::textures();
+    const auto join = bl::util::FileUtil::joinPath;
+
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
 
-    ballOpenTxtr = bl::engine::Resources::textures()
-                       .load(bl::util::FileUtil::joinPath(Properties::ImagePath(),
-                                                          "Battle/Balls/peopleball_open.png"))
-                       .data;
+    ballOpenTxtr =
+        textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png")).data;
     if (position == Position::Opponent) {
-        ballTxtr = bl::engine::Resources::textures()
-                       .load(bl::util::FileUtil::joinPath(Properties::ImagePath(),
-                                                          "Battle/Balls/peopleball.png"))
-                       .data;
+        ballTxtr = textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png")).data;
     }
     else {
         // TODO - consider using multiple graphics based on what ball it was caught in
-        ballTxtr = bl::engine::Resources::textures()
-                       .load(bl::util::FileUtil::joinPath(Properties::ImagePath(),
-                                                          "Battle/Balls/peopleball_player.png"))
-                       .data;
+        ballTxtr =
+            textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_player.png")).data;
     }
     setBallTexture(*ballTxtr);
     ball.setPosition(ViewSize.x * 0.5f, ViewSize.y * 0.75f);
     ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
     spark.setOuterColor(sf::Color::Transparent);
     ballFlash.setOuterColor(sf::Color::Transparent);
+
+    statTxtr = textures.load(join(Properties::ImagePath(), "Battle/statArrow.png")).data;
+    statArrow.setTexture(*statTxtr, true);
+    statArrow.setOrigin(statArrow.getGlobalBounds().width * 0.5f,
+                        statArrow.getGlobalBounds().height * 0.5f);
+    statArrow.setPosition(ViewSize.x, ViewSize.y * 0.5f);
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
@@ -131,6 +136,24 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         slideAmount = 0.f;
         break;
 
+    case Animation::Type::MultipleStateDecrease:
+        statArrow.setColor(sf::Color(70, 70, 70));
+        [[fallthrough]];
+
+    case Animation::Type::StatDecrease:
+        arrowTime = 0.f;
+        statArrow.setScale(1.f, 1.f);
+        break;
+
+    case Animation::Type::MultipleStateIncrease:
+        statArrow.setColor(sf::Color(70, 70, 70));
+        [[fallthrough]];
+
+    case Animation::Type::StatIncrease:
+        arrowTime = 0.f;
+        statArrow.setScale(1.f, -1.f);
+        break;
+
     default:
         BL_LOG_ERROR << "Invalid animation type for peoplemon: " << anim;
         state = State::Static;
@@ -139,7 +162,38 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 }
 
 void PeoplemonAnimation::triggerAnimation(const Animation& anim) {
-    // TODO - init stuff based on stat change or other params
+    switch (anim.getType()) {
+    case Animation::Type::StatDecrease:
+    case Animation::Type::StatIncrease:
+        switch (anim.getStat()) {
+        case pplmn::Stat::Accuracy:
+            statArrow.setColor(sf::Color(50, 50, 180));
+            break;
+        case pplmn::Stat::Attack:
+        case pplmn::Stat::SpecialAttack:
+            statArrow.setColor(sf::Color(180, 50, 50));
+            break;
+        case pplmn::Stat::SpecialDefense:
+        case pplmn::Stat::Defense:
+            statArrow.setColor(sf::Color(50, 180, 50));
+            break;
+        case pplmn::Stat::Speed:
+            statArrow.setColor(sf::Color(120, 120, 50));
+            break;
+        case pplmn::Stat::Critical:
+        case pplmn::Stat::Evasion:
+            statArrow.setColor(sf::Color(70, 70, 70));
+            break;
+        default:
+            BL_LOG_ERROR << "Invalid stat for animation: " << anim.getStat();
+            break;
+        }
+        break;
+
+    default:
+        break;
+    }
+
     triggerAnimation(anim.getType());
 }
 
@@ -266,7 +320,13 @@ void PeoplemonAnimation::update(float dt) {
         case Animation::Type::MultipleStateIncrease:
         case Animation::Type::StatDecrease:
         case Animation::Type::StatIncrease:
-            // TODO
+            arrowTime += dt;
+            arrowOffset = ArrowShakeAmount *
+                          bl::math::sin(arrowTime / ArrowShowTime * 360.f * ArrowOscillations);
+            if (arrowTime >= ArrowShowTime) {
+                arrowOffset = 0.f;
+                state       = State::Static;
+            }
             break;
 
         case Animation::Type::PlayerFirstSendout:
@@ -344,7 +404,9 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         case Animation::Type::MultipleStateIncrease:
         case Animation::Type::StatDecrease:
         case Animation::Type::StatIncrease:
-            // TODO
+            target.draw(peoplemon, states);
+            states.transform.translate(0.f, arrowOffset);
+            target.draw(statArrow, states);
             break;
 
         case Animation::Type::PlayerFirstSendout:

@@ -21,6 +21,7 @@ PlayerMenu::PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus)
 : state(State::Hidden)
 , stateLoopGuard(false)
 , eventBus(eventBus)
+, currentPeoplemon(0)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moves(nullptr) {
