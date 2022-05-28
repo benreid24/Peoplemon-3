@@ -766,6 +766,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         if (bl::util::Random::get<int>(0, 100) <= 20) {
             attacker.clearAilments(nullptr);
             queueCommand({Command::SyncStateNoSwitch});
+            queueCommand({cmd::Animation(userIsActive, pplmn::Ailment::Frozen)});
             queueCommand({cmd::Message(cmd::Message::Type::ThawedOut, userIsActive)}, true);
         }
         else {
@@ -1033,6 +1034,7 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     // Check if sleeping
     if (user.activePeoplemon().hasAilment(pplmn::Ailment::Sleep)) {
         // waking up is handled at turn start
+        queueCommand({cmd::Animation(userIsActive, pplmn::Ailment::Sleep)});
         queueCommand({cmd::Message(cmd::Message::Type::SleepingAilment, userIsActive)}, true);
         return true;
     }
@@ -1059,6 +1061,8 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
             queueCommand({cmd::Message(cmd::Message::Type::SnappedConfusion, userIsActive)}, true);
         }
         else {
+            queueCommand({cmd::Animation(userIsActive, pplmn::PassiveAilment::Confused)});
+            queueCommand({cmd::Message(cmd::Message::Type::IsConfused, userIsActive)}, true);
             if (bl::util::Random::get<int>(0, 100) <= 50) {
                 const int atk = user.activePeoplemon().currentStats().atk;
                 const int def = user.activePeoplemon().currentStats().def;
@@ -1075,6 +1079,7 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     // Check if annoyed
     if (user.activePeoplemon().hasAilment(pplmn::Ailment::Annoyed)) {
         if (bl::util::Random::get<int>(0, 100) <= 25) {
+            queueCommand({cmd::Animation(userIsActive, pplmn::Ailment::Annoyed)});
             queueCommand({cmd::Message(cmd::Message::Type::AnnoyAilment, userIsActive)}, true);
             return true;
         }
@@ -1416,6 +1421,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (ppl.hasAilment(pplmn::Ailment::Frustrated)) {
         ppl.applyDamage(ppl.currentStats().hp / 16);
         queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Animation(isActive, pplmn::Ailment::Frustrated)});
         queueCommand({cmd::Message(cmd::Message::Type::FrustratedAilment, isActive)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
@@ -1424,6 +1430,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (ppl.hasAilment(pplmn::Ailment::Sticky)) {
         ppl.applyDamage(ppl.currentStats().hp / 16 * battler.getSubstate().turnsSticky);
         queueCommand({Command::SyncStateNoSwitch});
+        queueCommand({cmd::Animation(isActive, pplmn::Ailment::Sticky)});
         queueCommand({cmd::Message(cmd::Message::Type::StickyAilment, isActive)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
@@ -2173,6 +2180,7 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
             affectedOwner.getSubstate().ballSwiped = true;
         }
         else {
+            // TODO - this message is printing wrong, move db error?
             queueCommand({cmd::Message(cmd::Message::Type::BallSwipeFail, forActive)});
         }
         break;
