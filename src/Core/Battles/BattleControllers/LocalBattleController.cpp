@@ -52,7 +52,7 @@ bool doEvenIfDead(pplmn::MoveEffect effect) {
     using E = pplmn::MoveEffect;
 
     switch (effect) {
-    case E::WakeBoth: // TODO - any others?
+    case E::WakeBoth:
         return true;
     default:
         return false;
@@ -703,7 +703,6 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
             }
         }
 
-        // TODO - active battler may change here, invalidating messages
         state->beginRound(pfirst);
         queueCommand({Command::SyncStateNoSwitch});
         state->localPlayer().activePeoplemon().notifyInBattle();
@@ -730,7 +729,6 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         return Stage::CheckFaint;
 
     case Stage::CheckFaint:
-        // TODO - maybe determine if the other battler wants to switch out
         if (currentFainter->canFight()) { return Stage::WaitingFaintSwitch; }
         else {
             if (!state->enemy().canFight() && state->localPlayer().canFight()) { // player won
@@ -755,7 +753,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     case Stage::XpAwardBegin:
         xpAward =
             currentFainter->activePeoplemon().base().xpYield(battle->type == Battle::Type::Trainer);
-        xpAward /= state->localPlayer().xpEarnerCount();
+        xpAward /= std::max(state->localPlayer().xpEarnerCount(), 1);
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
