@@ -58,6 +58,12 @@ public:
      */
     virtual void removeItem(item::Id item) override;
 
+    /**
+     * @brief Returns false
+     *
+     */
+    virtual bool isHost() const override;
+
 private:
     const std::string _name;
     std::vector<item::Id> items;

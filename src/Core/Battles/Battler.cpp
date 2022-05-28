@@ -162,5 +162,7 @@ int Battler::getBroCount() const {
 
 void Battler::removeItem(item::Id item) { controller->removeItem(item); }
 
+bool Battler::isHost() const { return controller->isHost(); }
+
 } // namespace battle
 } // namespace core

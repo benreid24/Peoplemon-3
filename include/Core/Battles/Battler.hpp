@@ -226,6 +226,12 @@ public:
      */
     void removeItem(item::Id item);
 
+    /**
+     * @brief Returns whether or not this battler is the host
+     *
+     */
+    bool isHost() const;
+
 private:
     BattleState& state;
     BattlerSubstate substate;

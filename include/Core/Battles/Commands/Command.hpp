@@ -51,7 +51,7 @@ public:
      * @param type The command type to create
      * @param forActiveBattler True if cmd is for active battler, false for inactive
      */
-    Command(Type type, bool forActiveBattler);
+    Command(Type type, bool forHost);
 
     /**
      * @brief Creates a new DisplayMessage command
@@ -89,7 +89,7 @@ public:
      * @brief Returns whether or not this command is for the active battler
      *
      */
-    bool forActiveBattler() const;
+    bool forHost() const;
 
 private:
     struct Empty {};

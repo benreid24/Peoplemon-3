@@ -11,71 +11,69 @@ using MovePair = std::pair<pplmn::MoveId, pplmn::MoveId>;
 Message::Message(Type tp)
 : type(tp)
 , data(Empty())
-, forActive(true) {}
+, forHost(true) {}
 
-Message::Message(pplmn::MoveId mid)
+Message::Message(pplmn::MoveId mid, bool fh)
 : type(Type::Attack)
 , data(mid)
-, forActive(true) {}
+, forHost(fh) {}
 
 Message::Message(Type tp, bool b)
 : type(tp)
 , data(Empty())
-, forActive(b) {}
+, forHost(b) {}
 
 Message::Message(Type tp, pplmn::Ailment ail, bool a)
 : type(tp)
 , data(ail)
-, forActive(a) {}
+, forHost(a) {}
 
 Message::Message(Type tp, pplmn::PassiveAilment ail, bool a)
 : type(tp)
 , data(ail)
-, forActive(a) {}
+, forHost(a) {}
 
 Message::Message(Type tp, pplmn::Stat stat, bool a)
 : type(tp)
 , data(stat)
-, forActive(a) {}
+, forHost(a) {}
 
 Message::Message(Type tp, pplmn::MoveId og, pplmn::MoveId nm)
 : type(tp)
 , data(std::make_pair(og, nm))
-, forActive(true) {}
+, forHost(true) {}
 
 Message::Message(Type tp, std::int16_t ival, bool a)
 : type(tp)
 , data(ival)
-, forActive(a) {}
+, forHost(a) {}
 
-Message::Message(Type tp, pplmn::MoveId move, bool a)
-: type(tp)
-, data(move)
-, forActive(a) {}
-
-Message::Message(Type tp, std::uint8_t i, unsigned int iv)
+Message::Message(Type tp, std::uint8_t i, unsigned int iv, bool fh)
 : type(tp)
 , data(static_cast<std::uint16_t>(iv))
+, forHost(fh)
 , pplIndex(i) {}
 
-Message::Message(Type tp, std::uint8_t i, pplmn::MoveId m)
+Message::Message(Type tp, std::uint8_t i, pplmn::MoveId m, bool fh)
 : type(tp)
 , data(m)
+, forHost(fh)
 , pplIndex(i) {}
 
-Message::Message(Type tp, pplmn::MoveId m)
+Message::Message(Type tp, pplmn::MoveId m, bool fh)
 : type(tp)
 , data(m)
-, forActive(true) {}
+, forHost(fh) {}
 
 Message::Message(Type tp, item::Id item, bool a)
 : type(tp)
 , data(item)
-, forActive(a) {}
+, forHost(a) {}
 
-Message::Message(Type tp, std::uint8_t i, item::Id item)
+Message::Message(Type tp, std::uint8_t i, item::Id item, bool fh)
 : type(tp)
 , data(item)
+, forHost(fh)
 , pplIndex(i) {}
 
 Message::Type Message::getType() const { return type; }
@@ -85,7 +83,7 @@ pplmn::MoveId Message::getMoveId() const {
     return mid ? *mid : pplmn::MoveId::Unknown;
 }
 
-bool Message::forActiveBattler() const { return forActive; }
+bool Message::forHostBattler() const { return forHost; }
 
 std::uint8_t Message::forIndex() const { return pplIndex; }
 

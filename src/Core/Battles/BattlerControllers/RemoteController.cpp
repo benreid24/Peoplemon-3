@@ -25,5 +25,7 @@ void RemoteController::removeItem(item::Id) {
     // TODO - send command over network
 }
 
+bool RemoteController::isHost() const { return false; }
+
 } // namespace battle
 } // namespace core

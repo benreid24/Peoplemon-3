@@ -54,5 +54,7 @@ void AIController::removeItem(item::Id item) {
     }
 }
 
+bool AIController::isHost() const { return false; }
+
 } // namespace battle
 } // namespace core

@@ -7,36 +7,36 @@ namespace battle
 namespace cmd
 {
 Animation::Animation(Type tp)
-: forActive(true)
+: forHost(true)
 , type(tp)
 , data(Empty()) {}
 
 Animation::Animation(bool fa, Type tp)
-: forActive(fa)
+: forHost(fa)
 , type(tp)
 , data(Empty()) {}
 
 Animation::Animation(bool fa, core::pplmn::MoveId m)
-: forActive(fa)
+: forHost(fa)
 , type(Type::UseMove)
 , data(m) {}
 
 Animation::Animation(bool fa, Type tp, pplmn::Stat stat)
-: forActive(fa)
+: forHost(fa)
 , type(tp)
 , data(stat) {}
 
 Animation::Animation(bool fa, pplmn::Ailment ail)
-: forActive(fa)
+: forHost(fa)
 , type(Type::Ailment)
 , data(ail) {}
 
 Animation::Animation(bool fa, pplmn::PassiveAilment ail)
-: forActive(fa)
+: forHost(fa)
 , type(Type::PassiveAilment)
 , data(ail) {}
 
-bool Animation::forActiveBattler() const { return forActive; }
+bool Animation::forHostBattler() const { return forHost; }
 
 Animation::Type Animation::getType() const { return type; }
 

@@ -54,6 +54,12 @@ public:
      */
     virtual void removeItem(item::Id item) override;
 
+    /**
+     * @brief Returns true
+     *
+     */
+    virtual bool isHost() const override;
+
 private:
     enum struct State { Waiting, PickingTurn, PickingFaintReplacement };
 

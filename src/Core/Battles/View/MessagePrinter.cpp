@@ -77,15 +77,12 @@ MessagePrinter::MessagePrinter()
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     std::string dispText;
-    const bool forPlayer =
-        msg.forActiveBattler() == (&state.activeBattler() == &state.localPlayer());
-    Battler& battler = msg.forActiveBattler() ? state.activeBattler() : state.inactiveBattler();
-    const std::string& ppl   = msg.forActiveBattler() ?
-                                   state.activeBattler().activePeoplemon().base().name() :
-                                   state.inactiveBattler().activePeoplemon().base().name();
-    const std::string& other = msg.forActiveBattler() ?
-                                   state.inactiveBattler().activePeoplemon().base().name() :
-                                   state.activeBattler().activePeoplemon().base().name();
+
+    const bool forPlayer     = msg.forHostBattler() == state.localPlayer().isHost();
+    Battler& battler         = forPlayer ? state.localPlayer() : state.enemy();
+    Battler& otherBattler    = forPlayer ? state.enemy() : state.localPlayer();
+    const std::string& ppl   = battler.activePeoplemon().base().name();
+    const std::string& other = otherBattler.activePeoplemon().base().name();
 
     switch (msg.getType()) {
     case Message::Type::Attack:
@@ -116,13 +113,9 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::IsNotAffected:
-        dispText = state.inactiveBattler().activePeoplemon().base().name() +
-                   " is not affected by " +
-                   pplmn::Move::name(state.activeBattler()
-                                         .activePeoplemon()
-                                         .base()
-                                         .knownMoves()[state.activeBattler().chosenMove()]
-                                         .id);
+        dispText = other + " is not affected by " +
+                   pplmn::Move::name(
+                       battler.activePeoplemon().base().knownMoves()[battler.chosenMove()].id);
         break;
 
     case Message::Type::CriticalHit:

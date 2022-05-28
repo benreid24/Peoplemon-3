@@ -34,7 +34,7 @@ const cmd::Animation& Command::getAnimation() const {
     return a ? *a : empty;
 }
 
-bool Command::forActiveBattler() const {
+bool Command::forHost() const {
     const bool* b = std::get_if<bool>(&data);
     return b ? *b : true;
 }

@@ -42,6 +42,12 @@ public:
      */
     virtual void removeItem(item::Id item) override;
 
+    /**
+     * @brief Returns false
+     *
+     */
+    virtual bool isHost() const override;
+
 private:
     virtual void startChooseAction() override;
     virtual void startChoosePeoplemon(bool fromFaint, bool reviveOnly) override;

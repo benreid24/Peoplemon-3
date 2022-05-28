@@ -108,6 +108,12 @@ public:
      */
     virtual void removeItem(item::Id item) = 0;
 
+    /**
+     * @brief Return whether or not the controlled battler is the host
+     *
+     */
+    virtual bool isHost() const = 0;
+
 protected:
     Battler* owner;
 

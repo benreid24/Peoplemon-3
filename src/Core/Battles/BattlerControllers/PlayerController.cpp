@@ -66,5 +66,7 @@ void PlayerController::startChooseToContinue() {
 
 void PlayerController::removeItem(item::Id item) { player.state().bag.removeItem(item); }
 
+bool PlayerController::isHost() const { return true; }
+
 } // namespace battle
 } // namespace core
