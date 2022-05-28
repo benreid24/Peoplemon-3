@@ -105,8 +105,9 @@ public:
      * @brief Removes the item from the battler's inventory
      *
      * @param item The item to remove
+     * @return True if the item was removed, false otherwise
      */
-    virtual void removeItem(item::Id item) = 0;
+    virtual bool removeItem(item::Id item) = 0;
 
     /**
      * @brief Return whether or not the controlled battler is the host

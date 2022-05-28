@@ -160,7 +160,7 @@ int Battler::getBroCount() const {
     return c;
 }
 
-void Battler::removeItem(item::Id item) { controller->removeItem(item); }
+bool Battler::removeItem(item::Id item) { return controller->removeItem(item); }
 
 bool Battler::isHost() const { return controller->isHost(); }
 

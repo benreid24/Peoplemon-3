@@ -222,6 +222,7 @@ public:
         TooCoolAbility,
         FakeStudyAbility,
         AlcoholicAbility,
+        AlcoholicAbilityFailed,
         TotalMomAbility,
         CantSwimAbility,
         AllNighterAbility,

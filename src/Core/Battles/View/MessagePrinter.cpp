@@ -815,6 +815,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " drank some alcohol from the bag because they are an Alcoholic!";
         break;
 
+    case Message::Type::AlcoholicAbilityFailed:
+        dispText = ppl + " tried to get some alcohol from the bag but there isn't any!";
+        break;
+
     case Message::Type::TotalMomAbility: {
         const std::string& mom = battler.peoplemon()[msg.getInt()].base().name();
         dispText = ppl + " had some PP restored by " + mom + " because " + mom + " is a Total Mom!";

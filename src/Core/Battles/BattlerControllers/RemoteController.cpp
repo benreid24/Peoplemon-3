@@ -21,8 +21,9 @@ void RemoteController::startChoosePeoplemon(bool, bool) {
 
 void RemoteController::startChooseToContinue() { chooseGiveUp(false); }
 
-void RemoteController::removeItem(item::Id) {
+bool RemoteController::removeItem(item::Id) {
     // TODO - send command over network
+    return false;
 }
 
 bool RemoteController::isHost() const { return false; }

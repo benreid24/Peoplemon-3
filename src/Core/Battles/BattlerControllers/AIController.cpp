@@ -45,13 +45,14 @@ void AIController::startChoosePeoplemon(bool, bool reviveOnly) {
 
 void AIController::startChooseToContinue() { chooseGiveUp(false); }
 
-void AIController::removeItem(item::Id item) {
+bool AIController::removeItem(item::Id item) {
     for (auto it = items.begin(); it != items.end(); ++it) {
         if (*it == item) {
             items.erase(it);
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 bool AIController::isHost() const { return false; }

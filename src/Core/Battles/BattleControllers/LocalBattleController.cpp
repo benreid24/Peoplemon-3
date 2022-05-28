@@ -1327,8 +1327,13 @@ void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
 
     // alcoholic ability
     if (ppl.currentAbility() == pplmn::SpecialAbility::Alcoholic) {
-        // TODO - check for alcohol in bag and consume
-        queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbility, isHost)}, true);
+        // TODO - replace with correct item id
+        if (battler.removeItem(item::Id::IcedTea)) {
+            queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbility, isHost)}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbilityFailed, isHost)}, true);
+        }
     }
 
     // check if Sleep is done

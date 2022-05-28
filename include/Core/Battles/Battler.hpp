@@ -223,8 +223,9 @@ public:
      * @brief Removes the given item from the battler's inventory
      *
      * @param item The item to remove
+     * @return True if the item was removed, false otherwise
      */
-    void removeItem(item::Id item);
+    bool removeItem(item::Id item);
 
     /**
      * @brief Returns whether or not this battler is the host
