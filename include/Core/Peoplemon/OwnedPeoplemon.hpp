@@ -350,7 +350,8 @@ struct SerializableObject<core::pplmn::OwnedPeoplemon> : public SerializableObje
     SerializableField<OP, Item> item;
 
     SerializableObject()
-    : id("id", *this, &OP::_id)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , id("id", *this, &OP::_id)
     , customName("name", *this, &OP::customName)
     , level("level", *this, &OP::level)
     , xp("xp", *this, &OP::xp)

@@ -192,7 +192,8 @@ struct SerializableObject<core::file::GameSave::InteractDataPointers>
     SerializableField<I, F*> flags;
 
     SerializableObject()
-    : talkedTo("talked", *this, &I::talkedto)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , talkedTo("talked", *this, &I::talkedto)
     , flags("flags", *this, &I::convFlags) {}
 };
 
@@ -207,7 +208,8 @@ struct SerializableObject<core::file::GameSave::WorldDataPointers> : Serializabl
     SerializableField<World, Pos*> prevPlayerPos;
 
     SerializableObject()
-    : currentMap("current", *this, &World::currentMap)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , currentMap("current", *this, &World::currentMap)
     , prevMap("previous", *this, &World::prevMap)
     , playerPos("position", *this, &World::playerPos)
     , prevPlayerPos("prevPos", *this, &World::prevPlayerPos) {}
@@ -228,7 +230,8 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     SerializableField<Player, unsigned int*> repelSteps;
 
     SerializableObject()
-    : name("name", *this, &Player::playerName)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , name("name", *this, &Player::playerName)
     , gender("gender", *this, &Player::sex)
     , bag("bag", *this, &Player::inventory)
     , peoplemon("peoplemon", *this, &Player::peoplemon)
@@ -247,7 +250,8 @@ struct SerializableObject<core::file::GameSave::ScriptDataPointers>
     SerializableField<S, M*> entries;
 
     SerializableObject()
-    : entries("saveEntries", *this, &S::entries) {}
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , entries("saveEntries", *this, &S::entries) {}
 };
 
 template<>
@@ -258,7 +262,8 @@ struct SerializableObject<core::file::GameSave::ClockPointers> : public Serializ
     SerializableField<C, T*> time;
 
     SerializableObject()
-    : time("time", *this, &C::time) {}
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , time("time", *this, &C::time) {}
 };
 
 template<>
@@ -269,7 +274,8 @@ struct SerializableObject<core::file::GameSave::TrainerPointers> : public Serial
     SerializableField<T, D*> defeated;
 
     SerializableObject()
-    : defeated("defeated", *this, &T::defeated) {}
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , defeated("defeated", *this, &T::defeated) {}
 };
 
 template<>
@@ -283,7 +289,8 @@ struct SerializableObject<core::file::GameSave> : public SerializableObjectBase 
     SerializableField<GS, GS::ClockPointers> clock;
 
     SerializableObject()
-    : saveTime("saveTime", *this, &GS::saveTime)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , saveTime("saveTime", *this, &GS::saveTime)
     , player("player", *this, &GS::player)
     , interaction("interaction", *this, &GS::interaction)
     , world("world", *this, &GS::world)

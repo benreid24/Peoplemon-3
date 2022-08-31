@@ -131,7 +131,8 @@ struct SerializableObject<core::player::Bag::Item> : public SerializableObjectBa
     SerializableField<Item, unsigned int> qty;
 
     SerializableObject()
-    : id("id", *this, &Item::id)
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , id("id", *this, &Item::id)
     , qty("qty", *this, &Item::qty) {}
 };
 
@@ -142,7 +143,8 @@ struct SerializableObject<core::player::Bag> : public SerializableObjectBase {
     SerializableField<Bag, std::vector<Bag::Item>> items;
 
     SerializableObject()
-    : items("items", *this, &Bag::items) {}
+    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
+    , items("items", *this, &Bag::items) {}
 };
 
 } // namespace json
