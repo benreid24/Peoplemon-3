@@ -233,7 +233,10 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
         const core::component::Command input = inputDriver.mostRecentInput();
 
         if (actionOpen) {
-            if (input == core::component::Command::Back) { resetAction(); }
+            if (input == core::component::Command::Back) {
+                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+                resetAction();
+            }
         }
         else {
             switch (input) {

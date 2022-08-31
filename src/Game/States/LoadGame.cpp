@@ -96,12 +96,16 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
     const core::component::Command input = inputDriver.mostRecentInput();
     switch (state) {
     case SelectingSave:
-        if (input == core::component::Command::Back) { engine.popState(); }
+        if (input == core::component::Command::Back) {
+            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+            engine.popState();
+        }
         break;
 
     case ChooseAction:
         if (input == core::component::Command::Back) {
             state = SelectingSave;
+            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
             inputDriver.drive(&saveMenu);
         }
         break;
