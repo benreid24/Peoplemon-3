@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_EVENT_HPP
 #define CORE_MAPS_EVENT_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <cstdint>
 #include <string>
@@ -65,8 +65,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::Event> : public SerializableObjectBase {
     using E = core::map::Event;
@@ -77,13 +75,12 @@ struct SerializableObject<core::map::Event> : public SerializableObjectBase {
     SerializableField<4, E, std::string> script;
 
     SerializableObject()
-    : trigger(*this, &E::trigger)
-    , position(*this, &E::position)
-    , areaSize(*this, &E::areaSize)
-    , script(*this, &E::script) {}
+    : trigger("trigger", *this, &E::trigger, SerializableFieldBase::Required{})
+    , position("position", *this, &E::position, SerializableFieldBase::Required{})
+    , areaSize("area", *this, &E::areaSize, SerializableFieldBase::Required{})
+    , script("script", *this, &E::script, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

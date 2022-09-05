@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_CLOCK_HPP
 #define CORE_SYSTEMS_CLOCK_HPP
 
-#include <BLIB/Serialization/JSON.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Events/GameSave.hpp>
 #include <iomanip>
@@ -163,23 +163,20 @@ namespace bl
 {
 namespace serial
 {
-namespace json
-{
 template<>
 struct SerializableObject<core::system::Clock::Time> : public SerializableObjectBase {
     using T = core::system::Clock::Time;
 
-    SerializableField<T, unsigned int> day;
-    SerializableField<T, unsigned int> hour;
-    SerializableField<T, unsigned int> minute;
+    SerializableField<1, T, unsigned int> day;
+    SerializableField<2, T, unsigned int> hour;
+    SerializableField<3, T, unsigned int> minute;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , day("day", *this, &T::day)
-    , hour("hour", *this, &T::hour)
-    , minute("minute", *this, &T::minute) {}
+    : day("day", *this, &T::day, SerializableFieldBase::Required{})
+    , hour("hour", *this, &T::hour, SerializableFieldBase::Required{})
+    , minute("minute", *this, &T::minute, SerializableFieldBase::Required{}) {}
 };
-} // namespace json
+
 } // namespace serial
 } // namespace bl
 

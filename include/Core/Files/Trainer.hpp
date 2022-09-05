@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_TRAINER_HPP
 #define CORE_FILES_TRAINER_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Files/Behavior.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
@@ -20,7 +20,7 @@ struct Trainer {
 public:
     /**
      * @brief Gives sane defaults
-     * 
+     *
      */
     Trainer();
 
@@ -63,8 +63,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     using T   = core::file::Trainer;
@@ -82,19 +80,18 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     SerializableField<10, T, std::uint8_t> payout;
 
     SerializableObject()
-    : name(*this, &T::name)
-    , anim(*this, &T::animation)
-    , preBattle(*this, &T::prebattleConversation)
-    , postBattle(*this, &T::postBattleConversation)
-    , loseBattleLine(*this, &T::lostBattleLine)
-    , range(*this, &T::visionRange)
-    , behavior(*this, &T::behavior)
-    , peoplemon(*this, &T::peoplemon)
-    , items(*this, &T::items)
-    , payout(*this, &T::payout) {}
+    : name("name", *this, &T::name, SerializableFieldBase::Required{})
+    , anim("anim", *this, &T::animation, SerializableFieldBase::Required{})
+    , preBattle("preBattle", *this, &T::prebattleConversation, SerializableFieldBase::Required{})
+    , postBattle("postBattle", *this, &T::postBattleConversation, SerializableFieldBase::Required{})
+    , loseBattleLine("loseLine", *this, &T::lostBattleLine, SerializableFieldBase::Required{})
+    , range("range", *this, &T::visionRange, SerializableFieldBase::Required{})
+    , behavior("behavior", *this, &T::behavior, SerializableFieldBase::Required{})
+    , peoplemon("peoplemon", *this, &T::peoplemon, SerializableFieldBase::Required{})
+    , items("items", *this, &T::items, SerializableFieldBase::Required{})
+    , payout("payout", *this, &T::payout, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

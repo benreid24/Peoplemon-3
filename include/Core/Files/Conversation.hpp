@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_CONVERSATION_HPP
 #define CORE_FILES_CONVERSATION_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Items/Id.hpp>
 #include <cstdint>
 #include <string>
@@ -246,8 +246,8 @@ public:
         TData data;
         std::uint32_t jumps[2];
 
-        friend class bl::serial::binary::SerializableObject<Node>;
-        friend class bl::serial::binary::SerializableObject<core::file::Conversation::Node::Item>;
+        friend class bl::serial::SerializableObject<Node>;
+        friend class bl::serial::SerializableObject<core::file::Conversation::Node::Item>;
     };
 
     /**
@@ -322,7 +322,7 @@ private:
 
     friend class loader::LegacyConversationLoader;
     friend class loader::ConversationLoader;
-    friend class bl::serial::binary::SerializableObject<Conversation>;
+    friend class bl::serial::SerializableObject<Conversation>;
 };
 
 } // namespace file
@@ -331,8 +331,6 @@ private:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::file::Conversation::Node::Item> : public SerializableObjectBase {
@@ -344,9 +342,9 @@ struct SerializableObject<core::file::Conversation::Node::Item> : public Seriali
     SerializableField<3, Item, bool> afterPrompt;
 
     SerializableObject()
-    : id(*this, &Item::id)
-    , beforePrompt(*this, &Item::beforePrompt)
-    , afterPrompt(*this, &Item::afterPrompt) {}
+    : id("id", *this, &Item::id, SerializableFieldBase::Required{})
+    , beforePrompt("beforePrompt", *this, &Item::beforePrompt, SerializableFieldBase::Required{})
+    , afterPrompt("afterPrompt", *this, &Item::afterPrompt, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -359,10 +357,10 @@ struct SerializableObject<core::file::Conversation::Node> : public SerializableO
     SerializableField<4, Node, std::uint32_t[2]> jumps;
 
     SerializableObject()
-    : type(*this, &Node::type)
-    , prompt(*this, &Node::prompt)
-    , data(*this, &Node::data)
-    , jumps(*this, &Node::jumps) {}
+    : type("type", *this, &Node::type, SerializableFieldBase::Required{})
+    , prompt("prompt", *this, &Node::prompt, SerializableFieldBase::Required{})
+    , data("data", *this, &Node::data, SerializableFieldBase::Required{})
+    , jumps("jumps", *this, &Node::jumps, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -373,10 +371,9 @@ struct SerializableObject<core::file::Conversation> : public SerializableObjectB
     SerializableField<1, Conversation, std::vector<Node>> nodes;
 
     SerializableObject()
-    : nodes(*this, &Conversation::cnodes) {}
+    : nodes("nodes", *this, &Conversation::cnodes, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

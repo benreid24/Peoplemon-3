@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_LIGHT_HPP
 #define CORE_MAPS_LIGHT_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 
 namespace core
 {
@@ -39,19 +39,16 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::Light> : public SerializableObjectBase {
     SerializableField<1, core::map::Light, std::uint16_t> radius;
     SerializableField<2, core::map::Light, sf::Vector2i> position;
 
     SerializableObject()
-    : radius(*this, &core::map::Light::radius)
-    , position(*this, &core::map::Light::position) {}
+    : radius("radius", *this, &core::map::Light::radius, SerializableFieldBase::Required{})
+    , position("position", *this, &core::map::Light::position, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

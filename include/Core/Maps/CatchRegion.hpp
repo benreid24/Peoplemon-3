@@ -24,8 +24,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::CatchRegion> : public SerializableObjectBase {
     using Region = core::map::CatchRegion;
@@ -35,10 +33,10 @@ struct SerializableObject<core::map::CatchRegion> : public SerializableObjectBas
     SerializableField<2, Region, std::vector<Wild>> wilds;
 
     SerializableObject()
-    : name(*this, &Region::name)
-    , wilds(*this, &Region::wilds) {}
+    : name("name", *this, &Region::name, SerializableFieldBase::Required{})
+    , wilds("wilds", *this, &Region::wilds, SerializableFieldBase::Required{}) {}
 };
-} // namespace binary
+
 } // namespace serial
 } // namespace bl
 

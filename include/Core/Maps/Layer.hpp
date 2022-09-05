@@ -2,7 +2,7 @@
 #define CORE_MAPS_LAYER_HPP
 
 #include <BLIB/Logging.hpp>
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 
 #include <cstdint>
 #include <vector>
@@ -79,7 +79,7 @@ private:
     std::uint32_t h;
     std::vector<T> data;
 
-    friend class bl::serial::binary::SerializableObject<Layer<T>>;
+    friend class bl::serial::SerializableObject<Layer<T>>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////
@@ -144,8 +144,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<typename T>
 struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
     using Layer = core::map::Layer<T>;
@@ -155,12 +153,11 @@ struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
     SerializableField<3, Layer, std::vector<T>> data;
 
     SerializableObject()
-    : w(*this, &Layer::w)
-    , h(*this, &Layer::h)
-    , data(*this, &Layer::data) {}
+    : w("w", *this, &Layer::w, SerializableFieldBase::Required{})
+    , h("h", *this, &Layer::h, SerializableFieldBase::Required{})
+    , data("data", *this, &Layer::data, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

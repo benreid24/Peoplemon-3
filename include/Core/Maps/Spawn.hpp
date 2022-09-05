@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_SPAWN_HPP
 #define CORE_MAPS_SPAWN_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
@@ -42,19 +42,16 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::Spawn> : public SerializableObjectBase {
     SerializableField<1, core::map::Spawn, std::uint16_t> id;
     SerializableField<2, core::map::Spawn, core::component::Position> position;
 
     SerializableObject()
-    : id(*this, &core::map::Spawn::id)
-    , position(*this, &core::map::Spawn::position) {}
+    : id("id", *this, &core::map::Spawn::id, SerializableFieldBase::Required{})
+    , position("position", *this, &core::map::Spawn::position, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

@@ -115,14 +115,23 @@ Behavior::Wander& Behavior::wander() { return std::get<Wander>(data); }
 
 const Behavior::Wander& Behavior::wander() const { return std::get<Wander>(data); }
 
+Behavior::Standing::Standing()
+: facedir(component::Direction::Down) {}
+
 Behavior::Standing::Standing(component::Direction d)
 : facedir(d) {}
+
+Behavior::Spinning::Spinning()
+: spinDir(Direction::Random) {}
 
 Behavior::Spinning::Spinning(Direction d)
 : spinDir(d) {}
 
 Behavior::Path::Path()
 : reverse(true) {}
+
+Behavior::Wander::Wander()
+: radius(10) {}
 
 Behavior::Wander::Wander(unsigned int r)
 : radius(r) {}

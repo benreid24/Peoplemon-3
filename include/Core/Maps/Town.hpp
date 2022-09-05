@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_TOWN_HPP
 #define CORE_MAPS_TOWN_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Maps/Weather.hpp>
 #include <Core/Peoplemon/WildPeoplemon.hpp>
 #include <string>
@@ -33,8 +33,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::Town> : public SerializableObjectBase {
     using Town    = core::map::Town;
@@ -47,12 +45,12 @@ struct SerializableObject<core::map::Town> : public SerializableObjectBase {
     SerializableField<4, Town, std::uint16_t> pcSpawn;
 
     SerializableObject()
-    : name(*this, &Town::name)
-    , playlist(*this, &Town::playlist)
-    , weather(*this, &Town::weather)
-    , pcSpawn(*this, &Town::pcSpawn) {}
+    : name("name", *this, &Town::name, SerializableFieldBase::Required{})
+    , playlist("playlist", *this, &Town::playlist, SerializableFieldBase::Required{})
+    , weather("weather", *this, &Town::weather, SerializableFieldBase::Required{})
+    , pcSpawn("pcSpawn", *this, &Town::pcSpawn, SerializableFieldBase::Required{}) {}
 };
-} // namespace binary
+
 } // namespace serial
 } // namespace bl
 

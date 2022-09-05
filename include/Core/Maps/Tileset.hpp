@@ -5,7 +5,7 @@
 
 #include <BLIB/Media/Graphics.hpp>
 #include <BLIB/Resources.hpp>
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
 
 #include <string>
@@ -168,7 +168,7 @@ private:
     friend class Tile;
     friend class loaders::LegacyTilesetLoader;
     friend class loaders::PrimaryTilesetLoader;
-    friend class bl::serial::binary::SerializableObject<Tileset>;
+    friend class bl::serial::SerializableObject<Tileset>;
 };
 
 } // namespace map
@@ -177,8 +177,6 @@ private:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
@@ -189,11 +187,10 @@ struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
     SerializableField<2, TS, std::unordered_map<T::IdType, std::string>> animFiles;
 
     SerializableObject()
-    : textureFiles(*this, &TS::textureFiles)
-    , animFiles(*this, &TS::animFiles) {}
+    : textureFiles("textures", *this, &TS::textureFiles, SerializableFieldBase::Required{})
+    , animFiles("anims", *this, &TS::animFiles, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

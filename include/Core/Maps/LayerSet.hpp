@@ -199,7 +199,7 @@ private:
 
     std::vector<SortedLayer> ysortedLayers;
 
-    friend class bl::serial::binary::SerializableObject<LayerSet>;
+    friend class bl::serial::SerializableObject<LayerSet>;
 };
 
 } // namespace map
@@ -208,8 +208,6 @@ private:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::map::LayerSet> : public SerializableObjectBase {
@@ -220,14 +218,13 @@ struct SerializableObject<core::map::LayerSet> : public SerializableObjectBase {
     SerializableField<5, core::map::LayerSet, std::vector<core::map::TileLayer>> top;
 
     SerializableObject()
-    : collisions(*this, &core::map::LayerSet::collisions)
-    , catches(*this, &core::map::LayerSet::catches)
-    , bottom(*this, &core::map::LayerSet::bottom)
-    , ysort(*this, &core::map::LayerSet::ysort)
-    , top(*this, &core::map::LayerSet::top) {}
+    : collisions("cols", *this, &core::map::LayerSet::collisions, SerializableFieldBase::Required{})
+    , catches("catches", *this, &core::map::LayerSet::catches, SerializableFieldBase::Required{})
+    , bottom("bottom", *this, &core::map::LayerSet::bottom, SerializableFieldBase::Required{})
+    , ysort("ysort", *this, &core::map::LayerSet::ysort, SerializableFieldBase::Required{})
+    , top("top", *this, &core::map::LayerSet::top, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

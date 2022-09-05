@@ -110,7 +110,7 @@ private:
     sf::Vector2i position;
     sf::Vector2f interpolatedPosition;
 
-    friend class bl::serial::json::SerializableObject<Position>;
+    friend class bl::serial::SerializableObject<Position>;
 };
 
 } // namespace component
@@ -151,27 +151,22 @@ struct Serializer<core::component::Position, false> {
 
 } // namespace binary
 
-namespace json
-{
 template<>
 struct SerializableObject<core::component::Position> : SerializableObjectBase {
     using Pos = core::component::Position;
     using Dir = core::component::Direction;
 
-    SerializableField<Pos, std::uint8_t> level;
-    SerializableField<Pos, Dir> direction;
-    SerializableField<Pos, sf::Vector2i> position;
-    SerializableField<Pos, sf::Vector2f> pixels;
+    SerializableField<1, Pos, std::uint8_t> level;
+    SerializableField<2, Pos, Dir> direction;
+    SerializableField<3, Pos, sf::Vector2i> position;
+    SerializableField<4, Pos, sf::Vector2f> pixels;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , level("level", *this, &Pos::level)
-    , direction("direction", *this, &Pos::direction)
-    , position("position", *this, &Pos::position)
-    , pixels("pixels", *this, &Pos::interpolatedPosition) {}
+    : level("level", *this, &Pos::level, SerializableFieldBase::Required{})
+    , direction("direction", *this, &Pos::direction, SerializableFieldBase::Required{})
+    , position("position", *this, &Pos::position, SerializableFieldBase::Required{})
+    , pixels("pixels", *this, &Pos::interpolatedPosition, SerializableFieldBase::Required{}) {}
 };
-
-} // namespace json
 
 } // namespace serial
 } // namespace bl

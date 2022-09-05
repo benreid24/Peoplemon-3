@@ -1,7 +1,7 @@
 #ifndef CORE_FILE_MOVEDB_HPP
 #define CORE_FILE_MOVEDB_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Peoplemon/MoveEffect.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
@@ -76,7 +76,7 @@ struct MoveDB : private bl::util::NonCopyable {
     */
 
     friend class MoveDBLoader;
-    friend class bl::serial::binary::SerializableObject<MoveDB>;
+    friend class bl::serial::SerializableObject<MoveDB>;
 };
 
 } // namespace file
@@ -85,8 +85,6 @@ struct MoveDB : private bl::util::NonCopyable {
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
@@ -109,23 +107,23 @@ struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
     SerializableField<14, DB, std::unordered_map<Id, bool>> effectSelves;
 
     SerializableObject()
-    : names(*this, &DB::names)
-    , descriptions(*this, &DB::descriptions)
-    , animationPaths(*this, &DB::animationPaths)
-    , types(*this, &DB::types)
-    , damages(*this, &DB::damages)
-    , accuracies(*this, &DB::accuracies)
-    , priorities(*this, &DB::priorities)
-    , pps(*this, &DB::pps)
-    , contactors(*this, &DB::contactors)
-    , specials(*this, &DB::specials)
-    , effects(*this, &DB::effects)
-    , effectChances(*this, &DB::effectChances)
-    , effectIntensities(*this, &DB::effectIntensities)
-    , effectSelves(*this, &DB::effectSelves) {}
+    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
+    , animationPaths("animPaths", *this, &DB::animationPaths, SerializableFieldBase::Required{})
+    , types("types", *this, &DB::types, SerializableFieldBase::Required{})
+    , damages("damages", *this, &DB::damages, SerializableFieldBase::Required{})
+    , accuracies("accs", *this, &DB::accuracies, SerializableFieldBase::Required{})
+    , priorities("prioties", *this, &DB::priorities, SerializableFieldBase::Required{})
+    , pps("pps", *this, &DB::pps, SerializableFieldBase::Required{})
+    , contactors("contactors", *this, &DB::contactors, SerializableFieldBase::Required{})
+    , specials("specials", *this, &DB::specials, SerializableFieldBase::Required{})
+    , effects("effects", *this, &DB::effects, SerializableFieldBase::Required{})
+    , effectChances("effectChances", *this, &DB::effectChances, SerializableFieldBase::Required{})
+    , effectIntensities("effectIntensities", *this, &DB::effectIntensities,
+                        SerializableFieldBase::Required{})
+    , effectSelves("effectSelves", *this, &DB::effectSelves, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

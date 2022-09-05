@@ -2,7 +2,7 @@
 #define CORE_MAPS_TILE_HPP
 
 #include <BLIB/Media/Graphics.hpp>
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
 
@@ -116,6 +116,7 @@ private:
     bl::gfx::Animation* anim;
 
     friend class Tileset;
+    friend class bl::serial::SerializableObject<Tile>;
 };
 
 } // namespace map
@@ -149,6 +150,17 @@ struct Serializer<core::map::Tile, false> {
     }
 };
 } // namespace binary
+
+template<>
+struct SerializableObject<core::map::Tile> : public SerializableObjectBase {
+    SerializableField<1, core::map::Tile, bool> anim;
+    SerializableField<2, core::map::Tile, core::map::Tile::IdType> id;
+
+    SerializableObject()
+    : anim("anim", *this, &core::map::Tile::isAnim, SerializableFieldBase::Required{})
+    , id("id", *this, &core::map::Tile::tid, SerializableFieldBase::Required{}) {}
+};
+
 } // namespace serial
 } // namespace bl
 

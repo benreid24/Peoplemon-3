@@ -179,8 +179,6 @@ namespace bl
 {
 namespace serial
 {
-namespace json
-{
 template<>
 struct SerializableObject<core::file::GameSave::InteractDataPointers>
 : public SerializableObjectBase {
@@ -188,13 +186,12 @@ struct SerializableObject<core::file::GameSave::InteractDataPointers>
     using M = std::unordered_map<std::string, std::unordered_set<std::string>>;
     using F = std::unordered_set<std::string>;
 
-    SerializableField<I, M*> talkedTo;
-    SerializableField<I, F*> flags;
+    SerializableField<1, I, M*> talkedTo;
+    SerializableField<2, I, F*> flags;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , talkedTo("talked", *this, &I::talkedto)
-    , flags("flags", *this, &I::convFlags) {}
+    : talkedTo("talked", *this, &I::talkedto, SerializableFieldBase::Required{})
+    , flags("flags", *this, &I::convFlags, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -202,17 +199,16 @@ struct SerializableObject<core::file::GameSave::WorldDataPointers> : Serializabl
     using World = core::file::GameSave::WorldDataPointers;
     using Pos   = core::component::Position;
 
-    SerializableField<World, std::string*> currentMap;
-    SerializableField<World, std::string*> prevMap;
-    SerializableField<World, Pos*> playerPos;
-    SerializableField<World, Pos*> prevPlayerPos;
+    SerializableField<1, World, std::string*> currentMap;
+    SerializableField<2, World, std::string*> prevMap;
+    SerializableField<3, World, Pos*> playerPos;
+    SerializableField<4, World, Pos*> prevPlayerPos;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , currentMap("current", *this, &World::currentMap)
-    , prevMap("previous", *this, &World::prevMap)
-    , playerPos("position", *this, &World::playerPos)
-    , prevPlayerPos("prevPos", *this, &World::prevPlayerPos) {}
+    : currentMap("current", *this, &World::currentMap, SerializableFieldBase::Required{})
+    , prevMap("previous", *this, &World::prevMap, SerializableFieldBase::Required{})
+    , playerPos("position", *this, &World::playerPos, SerializableFieldBase::Required{})
+    , prevPlayerPos("prevPos", *this, &World::prevPlayerPos, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -220,25 +216,25 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
 : public SerializableObjectBase {
     using Player = core::file::GameSave::PlayerDataPointers;
 
-    SerializableField<Player, std::string*> name;
-    SerializableField<Player, core::player::Gender*> gender;
-    SerializableField<Player, core::player::Bag*> bag;
-    SerializableField<Player, std::vector<core::pplmn::OwnedPeoplemon>*> peoplemon;
-    SerializableField<Player, long*> money;
-    SerializableField<Player, std::string*> whiteoutMap;
-    SerializableField<Player, unsigned int*> whiteoutSpawn;
-    SerializableField<Player, unsigned int*> repelSteps;
+    SerializableField<1, Player, std::string*> name;
+    SerializableField<2, Player, core::player::Gender*> gender;
+    SerializableField<3, Player, core::player::Bag*> bag;
+    SerializableField<4, Player, std::vector<core::pplmn::OwnedPeoplemon>*> peoplemon;
+    SerializableField<5, Player, long*> money;
+    SerializableField<6, Player, std::string*> whiteoutMap;
+    SerializableField<7, Player, unsigned int*> whiteoutSpawn;
+    SerializableField<8, Player, unsigned int*> repelSteps;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , name("name", *this, &Player::playerName)
-    , gender("gender", *this, &Player::sex)
-    , bag("bag", *this, &Player::inventory)
-    , peoplemon("peoplemon", *this, &Player::peoplemon)
-    , money("money", *this, &Player::monei)
-    , whiteoutMap("whiteoutMap", *this, &Player::whiteoutMap)
-    , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn)
-    , repelSteps("repelSteps", *this, &Player::repelSteps) {}
+    : name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
+    , gender("gender", *this, &Player::sex, SerializableFieldBase::Required{})
+    , bag("bag", *this, &Player::inventory, SerializableFieldBase::Required{})
+    , peoplemon("peoplemon", *this, &Player::peoplemon, SerializableFieldBase::Required{})
+    , money("money", *this, &Player::monei, SerializableFieldBase::Required{})
+    , whiteoutMap("whiteoutMap", *this, &Player::whiteoutMap, SerializableFieldBase::Required{})
+    , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn,
+                    SerializableFieldBase::Required{})
+    , repelSteps("repelSteps", *this, &Player::repelSteps, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -247,11 +243,10 @@ struct SerializableObject<core::file::GameSave::ScriptDataPointers>
     using S = core::file::GameSave::ScriptDataPointers;
     using M = std::unordered_map<std::string, bl::script::Value>;
 
-    SerializableField<S, M*> entries;
+    SerializableField<1, S, M*> entries;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , entries("saveEntries", *this, &S::entries) {}
+    : entries("saveEntries", *this, &S::entries, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -259,11 +254,10 @@ struct SerializableObject<core::file::GameSave::ClockPointers> : public Serializ
     using C = core::file::GameSave::ClockPointers;
     using T = core::system::Clock::Time;
 
-    SerializableField<C, T*> time;
+    SerializableField<1, C, T*> time;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , time("time", *this, &C::time) {}
+    : time("time", *this, &C::time, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -271,34 +265,31 @@ struct SerializableObject<core::file::GameSave::TrainerPointers> : public Serial
     using T = core::file::GameSave::TrainerPointers;
     using D = std::unordered_set<std::string>;
 
-    SerializableField<T, D*> defeated;
+    SerializableField<1, T, D*> defeated;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , defeated("defeated", *this, &T::defeated) {}
+    : defeated("defeated", *this, &T::defeated, SerializableFieldBase::Required{}) {}
 };
 
 template<>
 struct SerializableObject<core::file::GameSave> : public SerializableObjectBase {
     using GS = core::file::GameSave;
-    SerializableField<GS, unsigned long long> saveTime;
-    SerializableField<GS, GS::PlayerDataPointers> player;
-    SerializableField<GS, GS::InteractDataPointers> interaction;
-    SerializableField<GS, GS::WorldDataPointers> world;
-    SerializableField<GS, GS::ScriptDataPointers> script;
-    SerializableField<GS, GS::ClockPointers> clock;
+    SerializableField<1, GS, unsigned long long> saveTime;
+    SerializableField<2, GS, GS::PlayerDataPointers> player;
+    SerializableField<3, GS, GS::InteractDataPointers> interaction;
+    SerializableField<4, GS, GS::WorldDataPointers> world;
+    SerializableField<5, GS, GS::ScriptDataPointers> script;
+    SerializableField<6, GS, GS::ClockPointers> clock;
 
     SerializableObject()
-    : SerializableObjectBase(SerializableObjectBase::StrictMode{})
-    , saveTime("saveTime", *this, &GS::saveTime)
-    , player("player", *this, &GS::player)
-    , interaction("interaction", *this, &GS::interaction)
-    , world("world", *this, &GS::world)
-    , script("script", *this, &GS::scripts)
-    , clock("clock", *this, &GS::clock) {}
+    : saveTime("saveTime", *this, &GS::saveTime, SerializableFieldBase::Required{})
+    , player("player", *this, &GS::player, SerializableFieldBase::Required{})
+    , interaction("interaction", *this, &GS::interaction, SerializableFieldBase::Required{})
+    , world("world", *this, &GS::world, SerializableFieldBase::Required{})
+    , script("script", *this, &GS::scripts, SerializableFieldBase::Required{})
+    , clock("clock", *this, &GS::clock, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace json
 } // namespace serial
 } // namespace bl
 
