@@ -89,7 +89,9 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     , behavior("behavior", *this, &T::behavior, SerializableFieldBase::Required{})
     , peoplemon("peoplemon", *this, &T::peoplemon, SerializableFieldBase::Required{})
     , items("items", *this, &T::items, SerializableFieldBase::Required{})
-    , payout("payout", *this, &T::payout, SerializableFieldBase::Required{}) {}
+    , payout("payout", *this, &T::payout, SerializableFieldBase::Optional{}) {
+        payout.setDefault(40);
+    }
 };
 
 } // namespace serial
