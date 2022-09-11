@@ -64,7 +64,9 @@ void PlayerController::startChooseToContinue() {
     chooseGiveUp(false);
 }
 
-void PlayerController::removeItem(item::Id item) { player.state().bag.removeItem(item); }
+bool PlayerController::removeItem(item::Id item) { return player.state().bag.removeItem(item); }
+
+bool PlayerController::isHost() const { return true; }
 
 } // namespace battle
 } // namespace core

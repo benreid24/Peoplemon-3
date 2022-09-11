@@ -27,9 +27,17 @@ Battler& BattleState::localPlayer() { return player; }
 
 Battler& BattleState::enemy() { return opponent; }
 
-Battler& BattleState::activeBattler() { return currentMover == 0 ? player : opponent; }
+Battler& BattleState::activeBattler() {
+    return currentMover == 0 ? hostBattler() : nonHostBattler();
+}
 
-Battler& BattleState::inactiveBattler() { return currentMover == 1 ? player : opponent; }
+Battler& BattleState::inactiveBattler() {
+    return currentMover == 1 ? hostBattler() : nonHostBattler();
+}
+
+Battler& BattleState::hostBattler() { return player.isHost() ? player : opponent; }
+
+Battler& BattleState::nonHostBattler() { return player.isHost() ? opponent : player; }
 
 BattleState::Stage BattleState::currentStage() const { return stage; }
 

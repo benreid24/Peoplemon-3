@@ -56,8 +56,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBase {
     using DB = core::file::PeoplemonDB;
@@ -80,21 +78,20 @@ struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBa
     SerializableField<12, DB, std::unordered_map<Id, int>> xpMults;
 
     SerializableObject()
-    : names(*this, &DB::names)
-    , descriptions(*this, &DB::descriptions)
-    , types(*this, &DB::types)
-    , abilities(*this, &DB::abilities)
-    , stats(*this, &DB::stats)
-    , validMoves(*this, &DB::validMoves)
-    , learnedMoves(*this, &DB::learnedMoves)
-    , evolveLevels(*this, &DB::evolveLevels)
-    , evolveIds(*this, &DB::evolveIds)
-    , evAwards(*this, &DB::evAwards)
-    , xpGroups(*this, &DB::xpGroups)
-    , xpMults(*this, &DB::xpMults) {}
+    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    , descriptions("descs", *this, &DB::descriptions, SerializableFieldBase::Required{})
+    , types("types", *this, &DB::types, SerializableFieldBase::Required{})
+    , abilities("abilities", *this, &DB::abilities, SerializableFieldBase::Required{})
+    , stats("stats", *this, &DB::stats, SerializableFieldBase::Required{})
+    , validMoves("validMoves", *this, &DB::validMoves, SerializableFieldBase::Required{})
+    , learnedMoves("learnMoves", *this, &DB::learnedMoves, SerializableFieldBase::Required{})
+    , evolveLevels("evolveLevels", *this, &DB::evolveLevels, SerializableFieldBase::Required{})
+    , evolveIds("evolveIds", *this, &DB::evolveIds, SerializableFieldBase::Required{})
+    , evAwards("evAwards", *this, &DB::evAwards, SerializableFieldBase::Required{})
+    , xpGroups("xpGroups", *this, &DB::xpGroups, SerializableFieldBase::Required{})
+    , xpMults("xpMults", *this, &DB::xpMults, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

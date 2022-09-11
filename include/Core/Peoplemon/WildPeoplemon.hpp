@@ -1,7 +1,7 @@
 #ifndef CORE_PEOPLEMON_WILDPEOPLEMON_HPP
 #define CORE_PEOPLEMON_WILDPEOPLEMON_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <cstdint>
 
@@ -42,8 +42,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::pplmn::WildPeoplemon> : public SerializableObjectBase {
     using Wild = core::pplmn::WildPeoplemon;
@@ -53,11 +51,11 @@ struct SerializableObject<core::pplmn::WildPeoplemon> : public SerializableObjec
     SerializableField<3, Wild, std::uint16_t> freq;
 
     SerializableObject()
-    : minLevel(*this, &Wild::minLevel)
-    , maxLevel(*this, &Wild::maxLevel)
-    , freq(*this, &Wild::frequency) {}
+    : minLevel("minLevel", *this, &Wild::minLevel, SerializableFieldBase::Required{})
+    , maxLevel("maxLevel", *this, &Wild::maxLevel, SerializableFieldBase::Required{})
+    , freq("freq", *this, &Wild::frequency, SerializableFieldBase::Required{}) {}
 };
-} // namespace binary
+
 } // namespace serial
 } // namespace bl
 

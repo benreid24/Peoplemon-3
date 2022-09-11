@@ -101,7 +101,7 @@ private:
 
     void startBattle();
 
-    friend struct bl::serial::json::SerializableObject<Interaction>;
+    friend struct bl::serial::SerializableObject<Interaction>;
 };
 
 } // namespace system

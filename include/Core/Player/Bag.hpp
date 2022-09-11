@@ -1,7 +1,7 @@
 #ifndef CORE_PLAYER_BAG_HPP
 #define CORE_PLAYER_BAG_HPP
 
-#include <BLIB/Serialization/JSON.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
@@ -110,7 +110,7 @@ private:
 
     unsigned int find(item::Id id) const;
 
-    friend class bl::serial::json::SerializableObject<Bag>;
+    friend class bl::serial::SerializableObject<Bag>;
 };
 
 } // namespace player
@@ -120,32 +120,29 @@ namespace bl
 {
 namespace serial
 {
-namespace json
-{
 template<>
 struct SerializableObject<core::player::Bag::Item> : public SerializableObjectBase {
     using Item = core::player::Bag::Item;
     using Id   = core::item::Id;
 
-    SerializableField<Item, Id> id;
-    SerializableField<Item, unsigned int> qty;
+    SerializableField<1, Item, Id> id;
+    SerializableField<2, Item, unsigned int> qty;
 
     SerializableObject()
-    : id("id", *this, &Item::id)
-    , qty("qty", *this, &Item::qty) {}
+    : id("id", *this, &Item::id, SerializableFieldBase::Required{})
+    , qty("qty", *this, &Item::qty, SerializableFieldBase::Required{}) {}
 };
 
 template<>
 struct SerializableObject<core::player::Bag> : public SerializableObjectBase {
     using Bag = core::player::Bag;
 
-    SerializableField<Bag, std::vector<Bag::Item>> items;
+    SerializableField<1, Bag, std::vector<Bag::Item>> items;
 
     SerializableObject()
-    : items("items", *this, &Bag::items) {}
+    : items("items", *this, &Bag::items, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace json
 } // namespace serial
 } // namespace bl
 

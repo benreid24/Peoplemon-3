@@ -216,7 +216,7 @@ private:
     int targetWeatherModifier;
     float weatherResidual;
 
-    friend class bl::serial::binary::SerializableObject<LightingSystem>;
+    friend class bl::serial::SerializableObject<LightingSystem>;
 };
 
 } // namespace map
@@ -225,8 +225,6 @@ private:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::map::LightingSystem> : public SerializableObjectBase {
@@ -238,13 +236,12 @@ struct SerializableObject<core::map::LightingSystem> : public SerializableObject
     SerializableField<4, LS, std::uint8_t> sun;
 
     SerializableObject()
-    : lights(*this, &LS::rawLights)
-    , low(*this, &LS::minLevel)
-    , high(*this, &LS::maxLevel)
-    , sun(*this, &LS::sunlight) {}
+    : lights("lights", *this, &LS::rawLights, SerializableFieldBase::Required{})
+    , low("low", *this, &LS::minLevel, SerializableFieldBase::Required{})
+    , high("high", *this, &LS::maxLevel, SerializableFieldBase::Required{})
+    , sun("sun", *this, &LS::sunlight, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

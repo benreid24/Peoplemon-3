@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_NPC_HPP
 #define CORE_FILES_NPC_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Files/Behavior.hpp>
 
 /**
@@ -101,7 +101,7 @@ private:
     std::string conversationField;
     Behavior behaviorField;
 
-    friend class bl::serial::binary::SerializableObject<NPC>;
+    friend class bl::serial::SerializableObject<NPC>;
 };
 
 } // namespace file
@@ -110,8 +110,6 @@ private:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
@@ -123,13 +121,12 @@ struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
     SerializableField<4, N, core::file::Behavior> behaviorField;
 
     SerializableObject()
-    : nameField(*this, &N::nameField)
-    , animField(*this, &N::animField)
-    , conversationField(*this, &N::conversationField)
-    , behaviorField(*this, &N::behaviorField) {}
+    : nameField("name", *this, &N::nameField, SerializableFieldBase::Required{})
+    , animField("anim", *this, &N::animField, SerializableFieldBase::Required{})
+    , conversationField("conv", *this, &N::conversationField, SerializableFieldBase::Required{})
+    , behaviorField("behavior", *this, &N::behaviorField, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

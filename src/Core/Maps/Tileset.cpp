@@ -61,9 +61,6 @@ using VersionedSerializer =
                                             loaders::PrimaryTilesetLoader>;
 }
 
-// TODO - figure out if paths need to be prepended
-// TODO - ensure spritesheet found for animations brought in
-
 Tileset::Tileset()
 : nextTextureId(1)
 , nextAnimationId(1) {}

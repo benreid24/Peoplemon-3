@@ -127,6 +127,7 @@ public:
 
     static bl::audio::AudioSystem::Handle MenuMoveSound();
     static bl::audio::AudioSystem::Handle MenuMoveFailSound();
+    static bl::audio::AudioSystem::Handle MenuBackSound();
     static const std::string& TrainerExclaimImage();
     static const std::string& TrainerExclaimSound();
 

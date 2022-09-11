@@ -28,7 +28,7 @@ void BattleView::configureView(const sf::View& pv) {
         localPeoplemon.configureView(pv);
         opponentPeoplemon.configureView(pv);
 
-        playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+        playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
                                 battleState.localPlayer().activePeoplemon());
         localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
@@ -47,15 +47,14 @@ void BattleView::hideText() { printer.hide(); }
 void BattleView::processCommand(const Command& cmd) {
     using Animation = cmd::Animation;
 
-    const bool currentIsPlayer = &battleState.activeBattler() == &battleState.localPlayer();
-
     switch (cmd.getType()) {
     case Command::Type::DisplayMessage:
         printer.setMessage(battleState, cmd.getMessage());
         break;
 
     case Command::Type::PlayAnimation: {
-        const bool userIsPlayer = cmd.getAnimation().forActiveBattler() == currentIsPlayer;
+        const bool userIsPlayer =
+            cmd.getAnimation().forHostBattler() == battleState.localPlayer().isHost();
 
         switch (cmd.getAnimation().getType()) {
         case Animation::Type::UseMove:
@@ -84,13 +83,11 @@ void BattleView::processCommand(const Command& cmd) {
         break;
 
     case Command::Type::SyncStateSwitch: {
-        Battler& b =
-            cmd.forActiveBattler() ? battleState.activeBattler() : battleState.inactiveBattler();
-        const bool isPlayer = &b == &battleState.localPlayer();
+        const bool isPlayer = cmd.forHost() == battleState.localPlayer().isHost();
 
         if (isPlayer) {
             statBoxes.setPlayer(&battleState.localPlayer().activePeoplemon());
-            playerMenu.setPeoplemon(battleState.localPlayer().chosenPeoplemon(),
+            playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
                                     battleState.localPlayer().activePeoplemon());
             localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
         }

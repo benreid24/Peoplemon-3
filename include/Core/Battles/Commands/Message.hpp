@@ -222,6 +222,7 @@ public:
         TooCoolAbility,
         FakeStudyAbility,
         AlcoholicAbility,
+        AlcoholicAbilityFailed,
         TotalMomAbility,
         CantSwimAbility,
         AllNighterAbility,
@@ -262,8 +263,9 @@ public:
      * @brief Construct a new Message of the Attack type
      *
      * @param move The move being used
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(pplmn::MoveId move);
+    Message(pplmn::MoveId move, bool forHost);
 
     /**
      * @brief Construct a new Message for when moves change
@@ -278,54 +280,45 @@ public:
      * @brief Construct a new Message with an extra boolean value
      *
      * @param type The type of message to create
-     * @param forActive True if the message is for the active battler, false for inactive
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, bool forActive);
+    Message(Type type, bool forHost);
 
     /**
      * @brief Construct a new Message with an ailment
      *
      * @param type The type of message to create
      * @param ailment The ailment to create it with
-     * @param forActiveBattler True if the message is for the active battler, false for the inactive
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, pplmn::Ailment ailment, bool forActiveBattler);
+    Message(Type type, pplmn::Ailment ailment, bool forHost);
 
     /**
      * @brief Construct a new Message with a passive ailment
      *
      * @param type The type of message to create
      * @param ailment The ailment to create it with
-     * @param forActiveBattler True if the message is for the active battler, false for the inactive
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, pplmn::PassiveAilment ailment, bool forActiveBattler);
+    Message(Type type, pplmn::PassiveAilment ailment, bool forHost);
 
     /**
      * @brief Construct a new Message for stat increases and decreases
      *
      * @param type The type of message to create
      * @param stat The stat the message is for
-     * @param forActiveBattler If the message is for the active battler or not
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, pplmn::Stat stat, bool forActiveBattler);
+    Message(Type type, pplmn::Stat stat, bool forHost);
 
     /**
      * @brief Construct a new Message for some integer type
      *
      * @param type The type of message
      * @param ival The integer type to have in the message
-     * @param forActiveBattler If the message is for the active battler or not
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, std::int16_t ival, bool forActiveBattler);
-
-    /**
-     * @brief Construct a new Message for some integer type
-     *
-     * @param type The type of message
-     * @param move The move to have in the message
-     * @param forActiveBattler If the message is for the active battler or not
-     */
-    Message(Type type, pplmn::MoveId move, bool forActiveBattler);
+    Message(Type type, std::int16_t ival, bool forHost);
 
     /**
      * @brief Creates a new Message for the given type, index, and int value. Index is for player
@@ -334,8 +327,9 @@ public:
      * @param type The type of message
      * @param index The index of the peoplemon it is for
      * @param ival The integer value to store
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, std::uint8_t index, unsigned int ival);
+    Message(Type type, std::uint8_t index, unsigned int ival, bool forHost);
 
     /**
      * @brief Creates a message with an index and a move
@@ -343,25 +337,27 @@ public:
      * @param type The type of message
      * @param index The index of the player peoplemon
      * @param move The move for the message
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, std::uint8_t index, pplmn::MoveId move);
+    Message(Type type, std::uint8_t index, pplmn::MoveId move, bool forHost);
 
     /**
      * @brief Creates a message with a move
      *
      * @param type The type of message
      * @param move The move for the message
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, pplmn::MoveId move);
+    Message(Type type, pplmn::MoveId move, bool forHost);
 
     /**
      * @brief Construct a new Message for items
      *
      * @param type The type of message
      * @param item The item the message is for
-     * @param forActive Whether or not the message is for the active battler
+     * @param forHost Whether or not the message is for the active battler
      */
-    Message(Type type, item::Id item, bool forActive);
+    Message(Type type, item::Id item, bool forHost);
 
     /**
      * @brief Construct a new Message for using an item on a peoplemon
@@ -369,8 +365,9 @@ public:
      * @param type The type of message
      * @param index The index of the peoplemon having the item used on it
      * @param item The item being used
+     * @param forHost True if the message is for the host battler, false for the other
      */
-    Message(Type type, std::uint8_t index, item::Id item);
+    Message(Type type, std::uint8_t index, item::Id item, bool forHost);
 
     /**
      * @brief Returns the type of message this is
@@ -388,7 +385,7 @@ public:
      * @brief Returns whether or not this message is for the active battler or not
      *
      */
-    bool forActiveBattler() const;
+    bool forHostBattler() const;
 
     /**
      * @brief Returns the peoplemon index the message is for
@@ -451,10 +448,8 @@ private:
     std::variant<Empty, pplmn::Ailment, pplmn::PassiveAilment, pplmn::MoveId, pplmn::Stat,
                  std::pair<pplmn::MoveId, pplmn::MoveId>, std::int16_t, std::uint16_t, item::Id>
         data;
-    union {
-        bool forActive;
-        std::uint8_t pplIndex;
-    };
+    bool forHost;
+    std::uint8_t pplIndex;
 };
 
 } // namespace cmd

@@ -164,11 +164,6 @@ GameSave::GameSave() {
 std::string GameSave::filename(const std::string& name) {
     return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "." +
            Properties::SaveExtension();
-
-    // TODO - revert this
-    /*
-    return bl::util::FileUtil::joinPath(Properties::SaveDirectory(), name) + "_" +
-           std::to_string(time) + "." + Properties::SaveExtension();*/
 }
 
 } // namespace file

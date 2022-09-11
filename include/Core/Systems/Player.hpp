@@ -124,7 +124,7 @@ private:
 
     virtual void observe(const event::GameSaveInitializing& save) override;
 
-    friend class bl::serial::json::SerializableObject<Player>;
+    friend class bl::serial::SerializableObject<Player>;
 };
 
 } // namespace system

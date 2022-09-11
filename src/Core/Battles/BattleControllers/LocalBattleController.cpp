@@ -52,7 +52,7 @@ bool doEvenIfDead(pplmn::MoveEffect effect) {
     using E = pplmn::MoveEffect;
 
     switch (effect) {
-    case E::WakeBoth: // TODO - any others?
+    case E::WakeBoth:
         return true;
     default:
         return false;
@@ -132,7 +132,7 @@ void LocalBattleController::initCurrentStage() {
     switch (state->currentStage()) {
     case Stage::WildIntro:
         // TODO - play anim?
-        queueCommand({Command::SyncStateSwitch, &state->enemy() == &state->activeBattler()});
+        queueCommand({Command::SyncStateSwitch, state->enemy().isHost()});
         queueCommand({cmd::Message(cmd::Message::Type::WildIntro)}, true);
         break;
 
@@ -147,14 +147,14 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::IntroSendInSelf:
-        queueCommand({Command::SyncStateSwitch, &state->localPlayer() == &state->activeBattler()});
+        queueCommand({Command::SyncStateSwitch, state->localPlayer().isHost()});
         queueCommand({cmd::Message(cmd::Message::Type::PlayerFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::PlayerFirstSendout)}, true);
         checkKlutz(state->localPlayer());
         break;
 
     case Stage::IntroSendInOpponent:
-        queueCommand({Command::SyncStateSwitch, &state->enemy() == &state->activeBattler()});
+        queueCommand({Command::SyncStateSwitch, state->enemy().isHost()});
         queueCommand({cmd::Message(cmd::Message::Type::OpponentFirstSendout)});
         queueCommand({cmd::Animation(cmd::Animation::Type::OpponentFirstSendout)}, true);
         checkKlutz(state->enemy());
@@ -173,7 +173,7 @@ void LocalBattleController::initCurrentStage() {
     case Stage::PreUseItem:
         queueCommand({cmd::Message(cmd::Message::Type::PreUseItem,
                                    state->activeBattler().chosenItem(),
-                                   true)},
+                                   state->activeBattler().isHost())},
                      true);
         break;
 
@@ -184,7 +184,8 @@ void LocalBattleController::initCurrentStage() {
                 state->activeBattler())) {
             queueCommand({cmd::Message(cmd::Message::Type::ItemUseResult,
                                        state->activeBattler().chosenPeoplemon(),
-                                       state->activeBattler().chosenItem())});
+                                       state->activeBattler().chosenItem(),
+                                       state->activeBattler().isHost())});
             item::Item::useOnPeoplemon(
                 state->activeBattler().chosenItem(),
                 state->activeBattler().peoplemon()[state->activeBattler().chosenPeoplemon()],
@@ -279,7 +280,10 @@ void LocalBattleController::initCurrentStage() {
     case Stage::XpAwardPeoplemonBegin:
         state->localPlayer().peoplemon()[xpAwardIndex].base().awardEVs(
             pplmn::Peoplemon::evAward(currentFainter->activePeoplemon().base().id()));
-        queueCommand({cmd::Message(cmd::Message::Type::AwardedXp, xpAwardIndex, xpAwardRemaining)},
+        queueCommand({cmd::Message(cmd::Message::Type::AwardedXp,
+                                   xpAwardIndex,
+                                   xpAwardRemaining,
+                                   state->localPlayer().isHost())},
                      true);
         break;
 
@@ -292,13 +296,18 @@ void LocalBattleController::initCurrentStage() {
     case Stage::LevelingUp:
         // TODO - determine best way to defer evolution to after battle
         learnMove = state->localPlayer().peoplemon()[xpAwardIndex].base().levelUp();
-        queueCommand({cmd::Message(cmd::Message::Type::LevelUp, xpAwardIndex)}, true);
+        queueCommand({cmd::Message(
+                         cmd::Message::Type::LevelUp, xpAwardIndex, state->localPlayer().isHost())},
+                     true);
         queueCommand({Command::SyncStateNoSwitch}, true);
         // TODO - do we want to show stat increase box?
         break;
 
     case Stage::WaitingLearnMoveChoice:
-        queueCommand({cmd::Message(cmd::Message::Type::AskForgetMove, learnMove)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::AskForgetMove,
+                                   learnMove,
+                                   state->localPlayer().isHost())},
+                     true);
         break;
 
     case Stage::WaitingForgetMoveChoice:
@@ -540,15 +549,18 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::LevelingUp:
             if (learnMove != pplmn::MoveId::Unknown) {
                 if (state->localPlayer().peoplemon()[xpAwardIndex].base().gainMove(learnMove)) {
-                    queueCommand(
-                        {cmd::Message(cmd::Message::Type::LearnedMove, xpAwardIndex, learnMove)},
-                        true);
+                    queueCommand({cmd::Message(cmd::Message::Type::LearnedMove,
+                                               xpAwardIndex,
+                                               learnMove,
+                                               state->localPlayer().isHost())},
+                                 true);
                     setBattleState(Stage::XpAwarding);
                 }
                 else {
                     queueCommand({cmd::Message(cmd::Message::Type::TryingToLearnMove,
                                                xpAwardIndex,
-                                               learnMove)},
+                                               learnMove,
+                                               state->localPlayer().isHost())},
                                  true);
                     setBattleState(Stage::WaitingLearnMoveChoice);
                 }
@@ -563,9 +575,11 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
                 setBattleState(Stage::WaitingForgetMoveChoice);
             }
             else {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::DidntLearnMove, xpAwardIndex, learnMove)},
-                    true);
+                queueCommand({cmd::Message(cmd::Message::Type::DidntLearnMove,
+                                           xpAwardIndex,
+                                           learnMove,
+                                           state->localPlayer().isHost())},
+                             true);
                 setBattleState(Stage::XpAwarding);
             }
             break;
@@ -574,17 +588,24 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             if (battle->view.menu().selectedMove() >= 0) {
                 pplmn::BattlePeoplemon& ppl = state->localPlayer().peoplemon()[xpAwardIndex];
                 pplmn::OwnedMove& m = ppl.base().knownMoves()[battle->view.menu().selectedMove()];
-                queueCommand({cmd::Message(cmd::Message::Type::ForgotMove, xpAwardIndex, m.id)},
+                queueCommand({cmd::Message(cmd::Message::Type::ForgotMove,
+                                           xpAwardIndex,
+                                           m.id,
+                                           state->localPlayer().isHost())},
                              true);
                 ppl.base().learnMove(learnMove, battle->view.menu().selectedMove());
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::LearnedMove, xpAwardIndex, learnMove)},
-                    false);
+                queueCommand({cmd::Message(cmd::Message::Type::LearnedMove,
+                                           xpAwardIndex,
+                                           learnMove,
+                                           state->localPlayer().isHost())},
+                             false);
             }
             else {
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::DidntLearnMove, xpAwardIndex, learnMove)},
-                    true);
+                queueCommand({cmd::Message(cmd::Message::Type::DidntLearnMove,
+                                           xpAwardIndex,
+                                           learnMove,
+                                           state->localPlayer().isHost())},
+                             true);
             }
             setBattleState(Stage::XpAwarding);
             break;
@@ -682,7 +703,6 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
             }
         }
 
-        // TODO - active battler may change here, invalidating messages
         state->beginRound(pfirst);
         queueCommand({Command::SyncStateNoSwitch});
         state->localPlayer().activePeoplemon().notifyInBattle();
@@ -709,12 +729,10 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         return Stage::CheckFaint;
 
     case Stage::CheckFaint:
-        // TODO - maybe determine if the other battler wants to switch out
         if (currentFainter->canFight()) { return Stage::WaitingFaintSwitch; }
         else {
-            const bool playerActive = &state->localPlayer() == &state->activeBattler();
             if (!state->enemy().canFight() && state->localPlayer().canFight()) { // player won
-                queueCommand({Command::NotifyBattleWinner, playerActive});
+                queueCommand({Command::NotifyBattleWinner, state->localPlayer().isHost()});
                 switch (battle->type) {
                 case Battle::Type::Trainer:
                     return Stage::TrainerDefeated;
@@ -726,7 +744,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
                 }
             }
             else { // player lost
-                queueCommand({Command::NotifyBattleWinner, !playerActive});
+                queueCommand({Command::NotifyBattleWinner, state->enemy().isHost()});
                 return Stage::Whiteout;
             }
         }
@@ -735,7 +753,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
     case Stage::XpAwardBegin:
         xpAward =
             currentFainter->activePeoplemon().base().xpYield(battle->type == Battle::Type::Trainer);
-        xpAward /= state->localPlayer().xpEarnerCount();
+        xpAward /= std::max(state->localPlayer().xpEarnerCount(), 1);
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
@@ -758,7 +776,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     Battler& victim = &user == &state->localPlayer() ? state->enemy() : state->localPlayer();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
-    const bool userIsActive          = &user == &state->activeBattler();
+    const bool userIsHost            = state->activeBattler().isHost();
     user.getSubstate().lastMoveIndex = index;
 
     // check if frozen
@@ -766,10 +784,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         if (bl::util::Random::get<int>(0, 100) <= 20) {
             attacker.clearAilments(nullptr);
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::ThawedOut, userIsActive)}, true);
+            queueCommand({cmd::Animation(userIsHost, pplmn::Ailment::Frozen)});
+            queueCommand({cmd::Message(cmd::Message::Type::ThawedOut, userIsHost)}, true);
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::FrozenAilment, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::FrozenAilment, userIsHost)}, true);
             return;
         }
     }
@@ -779,7 +798,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         if (index < 0 || user.activePeoplemon().base().knownMoves()[index].curPP == 0) {
             user.activePeoplemon().base().currentHp() = 0;
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::NoPPDeath, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::NoPPDeath, userIsHost)}, true);
             return;
         }
     }
@@ -806,7 +825,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     int acc = pplmn::Move::accuracy(usedMove);
     if (attacker.base().holdItem() == item::Id::Glasses) {
         acc = acc * 11 / 10;
-        queueCommand({cmd::Message(cmd::Message::Type::GlassesAcc, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::GlassesAcc, userIsHost)}, true);
     }
     const int accStage  = attacker.battleStages().acc;
     const int evdStage  = defender.battleStages().evade;
@@ -815,11 +834,11 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     bool hit            = bl::util::Random::get<int>(0, 100) <= hitChance || acc == 0;
     effect              = pplmn::Move::effect(usedMove);
 
-    const auto printAttackPrequel = [this, &move, isChargeSecondTurn, userIsActive]() {
+    const auto printAttackPrequel = [this, &move, isChargeSecondTurn, userIsHost]() {
         // print used move
-        if (!isChargeSecondTurn) { queueCommand({cmd::Message(cmd::Message(move.id))}, true); }
+        if (!isChargeSecondTurn) { queueCommand({cmd::Message(move.id, userIsHost)}, true); }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::ChargeUnleashed, userIsHost)}, true);
         }
 
         // random move
@@ -837,7 +856,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     // bail out if we missed
     if (!hit) {
         if (attacker.currentAbility() == pplmn::SpecialAbility::FakeStudy) {
-            queueCommand({cmd::Message(cmd::Message::Type::FakeStudyAbility, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::FakeStudyAbility, userIsHost)}, true);
         }
         else {
             printAttackPrequel();
@@ -867,15 +886,15 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         const std::int16_t r = bl::util::Random::get<std::int16_t>(1, 20);
         if (r == 1) {
             user.activePeoplemon().base().currentHp() = 1;
-            queueCommand({cmd::Message(cmd::Message::Type::GambleOne, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GambleOne, userIsHost)}, true);
         }
         else if (r == 20) {
             pwr = 200;
-            queueCommand({cmd::Message(cmd::Message::Type::GambleTwenty, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GambleTwenty, userIsHost)}, true);
         }
         else {
             pwr = r * 5;
-            queueCommand({cmd::Message(cmd::Message::Type::GambleMiddle, r, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GambleMiddle, r, userIsHost)}, true);
         }
     }
 
@@ -883,7 +902,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
     if (effect == pplmn::MoveEffect::DoubleFamily) {
         const int bc = user.getBroCount();
         pwr          = static_cast<float>(pwr) * (static_cast<float>(bc) * 1.5f);
-        queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, bc, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::DoubleBroPower, bc, userIsHost)}, true);
     }
 
     // check if user has BeefedUp or Reserved abilities
@@ -891,20 +910,19 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
         if (attacker.currentAbility() == pplmn::SpecialAbility::BeefedUp &&
             moveType == pplmn::Type::Athletic) {
             pwr = pwr * 5 / 4;
-            queueCommand({cmd::Message(cmd::Message::Type::BeefyPower, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BeefyPower, userIsHost)}, true);
         }
         if (attacker.currentAbility() == pplmn::SpecialAbility::Reserved &&
             moveType == pplmn::Type::Quiet) {
             pwr = pwr * 5 / 4;
-            queueCommand({cmd::Message(cmd::Message::Type::ReservedQuietPower, userIsActive)},
-                         true);
+            queueCommand({cmd::Message(cmd::Message::Type::ReservedQuietPower, userIsHost)}, true);
         }
     }
 
     // Check DukeOfJokes ability
     if (attacker.currentAbility() == pplmn::SpecialAbility::DukeOfJokes && isJokeMove(usedMove)) {
         pwr = pwr * 3 / 2;
-        queueCommand({cmd::Message(cmd::Message::Type::DukeOfJokes, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::DukeOfJokes, userIsHost)}, true);
     }
 
     // begin determining how much damage to deal
@@ -917,7 +935,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             damage = user.getSubstate().lastDamageTaken * 2;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsHost)}, true);
             return;
         }
     }
@@ -927,18 +945,18 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             damage = user.getSubstate().lastDamageTaken * 2;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GenericMoveFailed, userIsHost)}, true);
             return;
         }
     }
 
     // finally play the animation
-    queueCommand({cmd::Animation(!userIsActive, usedMove)}, true);
+    queueCommand({cmd::Animation(!userIsHost, usedMove)}, true);
     // TODO - play peoplemon animation for attacker?
 
     // move does damage
     if (pwr > 0) {
-        queueCommand({cmd::Animation(!userIsActive, cmd::Animation::Type::ShakeAndFlash)});
+        queueCommand({cmd::Animation(!userIsHost, cmd::Animation::Type::ShakeAndFlash)});
         queueCommand({Command::SyncStateNoSwitch}, true);
 
         int atk          = special ? attacker.currentStats().spatk : attacker.currentStats().atk;
@@ -950,27 +968,27 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
             // Check chillaxed ability
             if (crit && defender.currentAbility() == pplmn::SpecialAbility::Chillaxed) {
                 crit = false;
-                queueCommand({cmd::Message(cmd::Message::Type::ChillaxCritBlocked, userIsActive)},
+                queueCommand({cmd::Message(cmd::Message::Type::ChillaxCritBlocked, userIsHost)},
                              true);
             }
 
             // check backwards hoody hold item
             if (attacker.base().holdItem() == item::Id::BackwardsHoody) {
                 atk = atk * 3 / 2;
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::BackwardsHoodyStatDown, userIsActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::BackwardsHoodyStatDown, userIsHost)},
+                             true);
             }
 
             // check spoon hold item
             if (attacker.base().holdItem() == item::Id::Spoon && special) {
                 atk = atk * 11 / 10;
-                queueCommand({cmd::Message(cmd::Message::Type::SpoonDamage, userIsActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::SpoonDamage, userIsHost)}, true);
             }
 
             // check slapping glove hold item
             if (attacker.base().holdItem() == item::Id::SlappingGlove && !special) {
                 atk = atk * 11 / 10;
-                queueCommand({cmd::Message(cmd::Message::Type::SlappingGloveDamage, userIsActive)},
+                queueCommand({cmd::Message(cmd::Message::Type::SlappingGloveDamage, userIsHost)},
                              true);
             }
 
@@ -979,8 +997,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 if (attacker.base().holdItem() == item::Id::PowerJuice) {
                     attacker.base().holdItem() = item::Id::None;
                     atk                        = atk * 11 / 10;
-                    queueCommand({cmd::Message(cmd::Message::Type::PowerJuice, userIsActive)},
-                                 true);
+                    queueCommand({cmd::Message(cmd::Message::Type::PowerJuice, userIsHost)}, true);
                 }
             }
 
@@ -989,7 +1006,7 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
                 if (defender.base().holdItem() == item::Id::IcedTea) {
                     defender.base().holdItem() = item::Id::None;
                     def                        = def * 11 / 10;
-                    queueCommand({cmd::Message(cmd::Message::Type::IcedTea, !userIsActive)}, true);
+                    queueCommand({cmd::Message(cmd::Message::Type::IcedTea, !userIsHost)}, true);
                 }
             }
 
@@ -1025,29 +1042,29 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, int i,
                                                pplmn::MoveId move, int pwr, pplmn::Type moveType,
                                                pplmn::MoveEffect effect, bool isChargeSecondTurn) {
-    const bool targetsVictim  = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
+    const bool targetsVictim = pwr > 0 || (!pplmn::Move::affectsUser(move) &&
                                            pplmn::Move::effect(move) != pplmn::MoveEffect::None);
-    const bool userIsActive   = &user == &state->activeBattler();
-    const bool victimIsActive = !userIsActive;
+    const bool userIsHost    = user.isHost();
+    const bool victimIsHost  = !userIsHost;
 
     // Check if sleeping
     if (user.activePeoplemon().hasAilment(pplmn::Ailment::Sleep)) {
         // waking up is handled at turn start
-        queueCommand({cmd::Message(cmd::Message::Type::SleepingAilment, userIsActive)}, true);
+        queueCommand({cmd::Animation(userIsHost, pplmn::Ailment::Sleep)});
+        queueCommand({cmd::Message(cmd::Message::Type::SleepingAilment, userIsHost)}, true);
         return true;
     }
 
     // Check if distracted
     if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Distracted)) {
-        queueCommand({cmd::Message(cmd::Message::Type::DistractedAilment, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::DistractedAilment, userIsHost)}, true);
         return true;
     }
 
     // Check if no joke teach ability
     if (victim.activePeoplemon().currentAbility() == pplmn::SpecialAbility::NoJokeTeach) {
         if (isJokeMove(move) && teachThisTurn(victim)) {
-            queueCommand({cmd::Message(cmd::Message::Type::NoJokeTeachAbility, userIsActive)},
-                         true);
+            queueCommand({cmd::Message(cmd::Message::Type::NoJokeTeachAbility, userIsHost)}, true);
             return true;
         }
     }
@@ -1056,9 +1073,11 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     if (user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
         if (user.getSubstate().turnsConfused <= 0) {
             user.getSubstate().clearAilment(pplmn::PassiveAilment::Confused);
-            queueCommand({cmd::Message(cmd::Message::Type::SnappedConfusion, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::SnappedConfusion, userIsHost)}, true);
         }
         else {
+            queueCommand({cmd::Animation(userIsHost, pplmn::PassiveAilment::Confused)});
+            queueCommand({cmd::Message(cmd::Message::Type::IsConfused, userIsHost)}, true);
             if (bl::util::Random::get<int>(0, 100) <= 50) {
                 const int atk = user.activePeoplemon().currentStats().atk;
                 const int def = user.activePeoplemon().currentStats().def;
@@ -1066,7 +1085,7 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
                 const int dmg = computeDamage(40, atk, def, lvl);
                 user.activePeoplemon().applyDamage(dmg);
                 queueCommand({Command::SyncStateNoSwitch});
-                queueCommand({cmd::Message(cmd::Message::Type::HurtConfusion, userIsActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::HurtConfusion, userIsHost)}, true);
                 return true;
             }
         }
@@ -1075,7 +1094,8 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
     // Check if annoyed
     if (user.activePeoplemon().hasAilment(pplmn::Ailment::Annoyed)) {
         if (bl::util::Random::get<int>(0, 100) <= 25) {
-            queueCommand({cmd::Message(cmd::Message::Type::AnnoyAilment, userIsActive)}, true);
+            queueCommand({cmd::Animation(userIsHost, pplmn::Ailment::Annoyed)});
+            queueCommand({cmd::Message(cmd::Message::Type::AnnoyAilment, userIsHost)}, true);
             return true;
         }
     }
@@ -1085,34 +1105,34 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
         const float effective =
             pplmn::TypeUtil::getSuperMult(moveType, victim.activePeoplemon().base().type());
         if (effective < 0.1f) {
-            queueCommand({cmd::Message(cmd::Message::Type::IsNotAffected)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::IsNotAffected, userIsHost)}, true);
             return true;
         }
     }
 
     // check if victim is protected
     if (targetsVictim && victim.getSubstate().isProtected) {
-        queueCommand({cmd::Message(cmd::Message::Type::WasProtected, victimIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::WasProtected, victimIsHost)}, true);
         return true;
     }
 
     // stop here if this is first move of a charging move
     if (effect == pplmn::MoveEffect::Charge && !isChargeSecondTurn) {
         user.getSubstate().chargingMove = i;
-        queueCommand({cmd::Message(cmd::Message::Type::ChargeStarted, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::ChargeStarted, userIsHost)}, true);
         return true;
     }
 
     // check OnlySleeping effect
     if (effect == pplmn::MoveEffect::OnlySleeping &&
         victim.activePeoplemon().base().currentAilment() != pplmn::Ailment::Sleep) {
-        queueCommand({cmd::Message(cmd::Message::Type::OnlySleepAffected, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::OnlySleepAffected, userIsHost)}, true);
         return true;
     }
 
     // fail on 64
     if (effect == pplmn::MoveEffect::FailOnMove64 && user.getSubstate().move64Hit) {
-        queueCommand({cmd::Message(cmd::Message::Type::Move64Cancel, move, userIsActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::Move64Cancel, move, userIsHost)}, true);
         return true;
     }
 
@@ -1122,14 +1142,14 @@ bool LocalBattleController::checkMoveCancelled(Battler& user, Battler& victim, i
 
 void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::BattlePeoplemon& ppl,
                                                   pplmn::MoveId move, int dmg) {
-    const bool isActive = &victim == &state->activeBattler();
+    const bool isHost = victim.isHost();
 
     // check if victim has a Substitute
     if (victim.getSubstate().substituteHp > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::SubstituteTookDamage, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::SubstituteTookDamage, isHost)}, true);
         victim.getSubstate().substituteHp -= dmg;
         if (victim.getSubstate().substituteHp <= 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::SubstituteDied, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteDied, isHost)}, true);
             victim.getSubstate().substituteHp = 0;
         }
         return; // no damage is dealt
@@ -1138,7 +1158,7 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
     // check Experienced Teacher ability
     if (teachThisTurn(victim) && ppl.base().currentHp() > 1 && dmg >= ppl.base().currentHp()) {
         dmg = ppl.base().currentHp() - 1;
-        queueCommand({cmd::Message(cmd::Message::Type::ExperiencedTeachAbility, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::ExperiencedTeachAbility, isHost)}, true);
     }
 
     // undying faith ability
@@ -1146,7 +1166,7 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
         dmg >= ppl.base().currentHp()) {
         if (bl::util::Random::get<int>(0, 100) <= 10) {
             dmg = ppl.base().currentHp() - 1;
-            queueCommand({cmd::Message(cmd::Message::Type::UndyingFaithAbility, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::UndyingFaithAbility, isHost)}, true);
         }
     }
 
@@ -1157,155 +1177,161 @@ void LocalBattleController::applyDamageWithChecks(Battler& victim, pplmn::Battle
     // check if we Endure
     if (victim.getSubstate().enduringThisTurn && ppl.base().currentHp() == 0) {
         ppl.base().currentHp() = 1;
-        queueCommand({cmd::Message(cmd::Message::Type::Endured, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::Endured, isHost)}, true);
     }
 }
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::Ailment ail) {
-    const bool isActive = &victim == &state->activeBattler().activePeoplemon();
+    const bool isHost = owner.isHost();
 
     // check too cool ability
     if (victim.currentAbility() == pplmn::SpecialAbility::TooCool &&
         ail == pplmn::Ailment::Annoyed) {
-        queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, isHost)}, true);
         return;
     }
 
     // all nighter ability
     if (victim.currentAbility() == pplmn::SpecialAbility::AllNighter &&
         ail == pplmn::Ailment::Sleep) {
-        queueCommand({cmd::Message(cmd::Message::Type::AllNighterAbility, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::AllNighterAbility, isHost)}, true);
         return;
     }
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::SubstituteAilmentBlocked, ail, isHost)});
         return;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, isActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedAilment, ail, isHost)});
         return;
     }
 
     // Classy blocks frustrated
     if (ail == pplmn::Ailment::Frustrated &&
         owner.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Classy) {
-        queueCommand({cmd::Message(cmd::Message::Type::ClassyFrustratedBlocked, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::ClassyFrustratedBlocked, isHost)}, true);
         return;
     }
 
     if (victim.giveAilment(ail)) {
-        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isActive)});
+        queueCommand({cmd::Animation(isHost, ail)});
+        queueCommand({cmd::Message(cmd::Message::Type::GainedAilment, ail, isHost)}, true);
 
         // Check SnackShare ailment give back ability
         if (victim.currentAbility() == pplmn::SpecialAbility::SnackShare) {
-            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
+            Battler& other = isHost ? state->nonHostBattler() : state->hostBattler();
             if (other.activePeoplemon().giveAilment(ail)) {
+                queueCommand({cmd::Animation(!isHost, ail)});
                 queueCommand(
-                    {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isActive)},
+                    {cmd::Message(cmd::Message::Type::GainedAilmentSnackshare, ail, !isHost)},
                     true);
             }
             else {
                 // determine if blocked by too cool
                 if (ail == pplmn::Ailment::Annoyed &&
                     other.activePeoplemon().currentAbility() == pplmn::SpecialAbility::TooCool) {
-                    queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, !isActive)},
-                                 true);
+                    queueCommand({cmd::Message(cmd::Message::Type::TooCoolAbility, !isHost)}, true);
                 }
                 else {
-                    queueCommand(
-                        {cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isActive)}, true);
+                    queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, !isHost)},
+                                 true);
                 }
             }
         }
     }
     else {
-        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::AilmentGiveFail, ail, isHost)}, true);
     }
 }
 
 void LocalBattleController::applyAilmentFromMove(Battler& owner, pplmn::BattlePeoplemon& victim,
                                                  pplmn::PassiveAilment ail) {
-    const bool selfGive = &victim == &state->activeBattler().activePeoplemon();
+    const bool isHost = owner.isHost();
 
     // prevent more than one ailment if ailment saturated
     if (victim.currentAbility() == pplmn::SpecialAbility::AilmentSaturated &&
         owner.getSubstate().ailments != pplmn::PassiveAilment::None) {
         queueCommand(
-            {cmd::Message(cmd::Message::Type::AilmentSatPassiveAilmentBlocked, ail, selfGive)},
-            true);
+            {cmd::Message(cmd::Message::Type::AilmentSatPassiveAilmentBlocked, ail, isHost)}, true);
         return;
     }
 
     // Substitute blocks ailments
     if (owner.getSubstate().substituteHp > 0) {
         queueCommand(
-            {cmd::Message(cmd::Message::Type::SubstitutePassiveAilmentBlocked, ail, selfGive)},
-            true);
+            {cmd::Message(cmd::Message::Type::SubstitutePassiveAilmentBlocked, ail, isHost)}, true);
         return;
     }
 
     // Guard blocks ailments
     if (owner.getSubstate().turnsGuarded > 0) {
-        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedPassiveAilment, ail, selfGive)},
+        queueCommand({cmd::Message(cmd::Message::Type::GuardBlockedPassiveAilment, ail, isHost)},
                      true);
         return;
     }
 
     owner.getSubstate().giveAilment(ail);
-    queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, selfGive)}, true);
+    queueCommand({cmd::Animation(isHost, ail)});
+    queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment, ail, isHost)}, true);
 
     // TODO - reflect some passive ailments?
 }
 
 void LocalBattleController::doStatChange(pplmn::BattlePeoplemon& ppl, pplmn::Stat stat, int amt,
                                          bool anim) {
-    const bool active = &ppl == &state->activeBattler().activePeoplemon();
+    const bool isHost = &ppl == &state->hostBattler().activePeoplemon();
+
     if (ppl.statChange(stat, amt)) {
         if (anim) {
             const auto at =
                 amt > 0 ? cmd::Animation::Type::StatIncrease : cmd::Animation::Type::StatDecrease;
-            queueCommand({cmd::Animation(active, at, stat)}, true);
+            queueCommand({cmd::Animation(isHost, at, stat)});
         }
         if (amt > 1) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, active)},
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreasedSharply, stat, isHost)},
                          true);
         }
         else if (amt > 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreased, stat, active)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreased, stat, isHost)}, true);
         }
         else if (amt > -2) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreased, stat, active)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreased, stat, isHost)}, true);
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreasedSharply, stat, active)},
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreasedSharply, stat, isHost)},
                          true);
         }
     }
     else {
         if (amt > 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::StatIncreaseFailed, stat, active)},
+            queueCommand({cmd::Message(cmd::Message::Type::StatIncreaseFailed, stat, isHost)},
                          true);
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, active)},
+            queueCommand({cmd::Message(cmd::Message::Type::StatDecreaseFailed, stat, isHost)},
                          true);
         }
     }
 }
 
 void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
-    const bool isActive         = &battler == &state->activeBattler();
+    const bool isHost           = battler.isHost();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
 
     // alcoholic ability
     if (ppl.currentAbility() == pplmn::SpecialAbility::Alcoholic) {
-        // TODO - check for alcohol in bag and consume
-        queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbility, isActive)}, true);
+        // TODO - replace with correct item id
+        if (battler.removeItem(item::Id::IcedTea)) {
+            queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbility, isHost)}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::AlcoholicAbilityFailed, isHost)}, true);
+        }
     }
 
     // check if Sleep is done
@@ -1313,14 +1339,14 @@ void LocalBattleController::handleBattlerTurnStart(Battler& battler) {
         if (ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
             ppl.base().currentAilment() = pplmn::Ailment::None;
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::WokeUp, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::WokeUp, isHost)}, true);
         }
     }
 }
 
 void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
-    const bool isActive         = &battler == &state->activeBattler();
-    Battler& other              = isActive ? state->inactiveBattler() : state->activeBattler();
+    const bool isHost           = battler.isHost();
+    Battler& other              = isHost ? state->nonHostBattler() : state->hostBattler();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
     battler.notifyTurnEnd();
 
@@ -1338,21 +1364,21 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (battler.getSubstate().ballUpTurns >= 0 && !ballHandled) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::BallKillSelf, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BallKillSelf, isHost)}, true);
         return;
     }
     // check if died from no switch
     if (battler.getSubstate().ballUpTurns >= 0 && battler.getSubstate().noOneToGetBall) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::BallNoSwitchSuicide, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BallNoSwitchSuicide, isHost)}, true);
         return;
     }
     // check if up too long
     if (battler.getSubstate().ballUpTurns >= 3) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::BallKillTimeout, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BallKillTimeout, isHost)}, true);
         return;
     }
     // check if killed by opponent
@@ -1361,14 +1387,14 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         if (other.getSubstate().ballSwiped && battler.getSubstate().ballBlocked) {
             battler.activePeoplemon().base().currentHp() = 0;
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::BallKillSwipe, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BallKillSwipe, isHost)}, true);
             return;
         }
         // check if killed by spike
         if (other.getSubstate().ballSpiked && !battler.getSubstate().ballBlocked) {
             battler.activePeoplemon().base().currentHp() = 0;
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::BallKillSpike, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BallKillSpike, isHost)}, true);
             return;
         }
     }
@@ -1376,14 +1402,14 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (battler.getSubstate().ballSpiked && other.getSubstate().ballBlocked) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::BallSpikeBlocked, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BallSpikeBlocked, isHost)}, true);
         return;
     }
     // check if killed by swipe no block
     if (battler.getSubstate().ballSwiped && !other.getSubstate().ballBlocked) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::BallSwipeBlocked, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BallSwipeBlocked, isHost)}, true);
         return;
     }
     battler.getSubstate().ballBlocked = false;
@@ -1395,7 +1421,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (battler.getSubstate().healNext >= 2) {
         ppl.giveHealth(ppl.currentStats().hp / 2);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::HealNextHealed, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::HealNextHealed, isHost)}, true);
         battler.getSubstate().healNext = -1;
     }
 
@@ -1405,7 +1431,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         other.activePeoplemon().giveHealth(dmg);
         ppl.applyDamage(dmg);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::StolenAilment, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::StolenAilment, isHost)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
 
@@ -1413,7 +1439,8 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (ppl.hasAilment(pplmn::Ailment::Frustrated)) {
         ppl.applyDamage(ppl.currentStats().hp / 16);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::FrustratedAilment, isActive)}, true);
+        queueCommand({cmd::Animation(isHost, pplmn::Ailment::Frustrated)});
+        queueCommand({cmd::Message(cmd::Message::Type::FrustratedAilment, isHost)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
 
@@ -1421,7 +1448,8 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (ppl.hasAilment(pplmn::Ailment::Sticky)) {
         ppl.applyDamage(ppl.currentStats().hp / 16 * battler.getSubstate().turnsSticky);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::StickyAilment, isActive)}, true);
+        queueCommand({cmd::Animation(isHost, pplmn::Ailment::Sticky)});
+        queueCommand({cmd::Message(cmd::Message::Type::StickyAilment, isHost)}, true);
         if (ppl.base().currentHp() == 0) { return; }
     }
 
@@ -1429,7 +1457,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
     if (battler.getSubstate().deathCounter == 0) {
         battler.activePeoplemon().base().currentHp() = 0;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::DeathFromCountdown, isHost)}, true);
     }
 
     // check bag of goldfish hold item
@@ -1437,7 +1465,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         if (ppl.base().currentHp() < ppl.currentStats().hp) {
             ppl.giveHealth(ppl.currentStats().hp / 16);
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::BagOfGoldfish, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BagOfGoldfish, isHost)}, true);
         }
     }
 
@@ -1447,7 +1475,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         ppl.base().holdItem() = item::Id::None;
         ppl.applyDamage(ppl.currentStats().hp / 16);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::SketchySack, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::SketchySack, isHost)}, true);
     }
 
     // check goldfish cracker hold item
@@ -1456,7 +1484,7 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         ppl.base().holdItem() = item::Id::None;
         ppl.giveHealth(ppl.currentStats().hp / 8);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::GoldfishCracker, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::GoldfishCracker, isHost)}, true);
     }
 
     // check wakeupbelle hold item
@@ -1464,13 +1492,13 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
         ppl.base().currentAilment() == pplmn::Ailment::Sleep) {
         ppl.base().currentAilment() = pplmn::Ailment::None;
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::WakeUpBelle, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::WakeUpBelle, isHost)}, true);
     }
 
     // check super tiny mini fridge
     if (ppl.base().holdItem() == item::Id::SuperTinyMiniFridge && ppl.base().currentHp() > 0) {
         ppl.base().currentHp() = 0;
-        queueCommand({cmd::Message(cmd::Message::Type::SuperTinyMiniFridge, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::SuperTinyMiniFridge, isHost)}, true);
         // TODO - play explosion animation
         other.activePeoplemon().applyDamage(
             computeDamage(100,
@@ -1482,42 +1510,44 @@ void LocalBattleController::handleBattlerRoundEnd(Battler& battler) {
 }
 
 void LocalBattleController::doRoar(Battler& victim) {
-    const bool isActive = &victim == &state->activeBattler();
+    const bool isHost = victim.isHost();
 
     if (!victim.canSwitch()) {
-        queueCommand({cmd::Message(cmd::Message::Type::RoarFailedNoSwitch, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::RoarFailedNoSwitch, isHost)}, true);
         return;
     }
 
     // adament prevents roar
     if (victim.activePeoplemon().currentAbility() == pplmn::SpecialAbility::Adament) {
-        queueCommand({cmd::Message(cmd::Message::Type::AdamentAbility, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::AdamentAbility, isHost)}, true);
         return;
     }
 
-    queueCommand({cmd::Message(cmd::Message::Type::Roar, isActive)});
-    queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideOut)}, true);
+    queueCommand({cmd::Message(cmd::Message::Type::Roar, isHost)});
+    queueCommand({cmd::Animation(isHost, cmd::Animation::Type::SlideOut)}, true);
     setBattleState(BattleState::Stage::RoarSwitching);
     midturnSwitcher = &victim;
 }
 
 void LocalBattleController::startSwitch(Battler& battler) {
-    const bool forActive = &battler == &state->activeBattler();
-    queueCommand({cmd::Message(cmd::Message::Type::Callback, forActive)});
-    queueCommand({cmd::Animation(forActive, cmd::Animation::Type::ComeBack)}, true);
+    const bool isHost = battler.isHost();
+
+    queueCommand({cmd::Message(cmd::Message::Type::Callback, isHost)});
+    queueCommand({cmd::Animation(isHost, cmd::Animation::Type::ComeBack)}, true);
 }
 
 void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
-    const bool forActive           = &battler == &state->activeBattler();
+    const bool isHost = battler.isHost();
+
     pplmn::BattlePeoplemon& oldPpl = battler.activePeoplemon();
     const std::int16_t oldIndex    = battler.outNowIndex();
 
     battler.setActivePeoplemon(newPP);
-    queueCommand({cmd::Message(cmd::Message::Type::SendOut, forActive)}, true);
-    queueCommand({Command::SyncStateSwitch, forActive});
-    queueCommand({cmd::Animation(forActive, cmd::Animation::Type::SendOut)}, true);
+    queueCommand({cmd::Message(cmd::Message::Type::SendOut, isHost)}, true);
+    queueCommand({Command::SyncStateSwitch, isHost});
+    queueCommand({cmd::Animation(isHost, cmd::Animation::Type::SendOut)}, true);
 
-    Battler& other = forActive ? state->inactiveBattler() : state->activeBattler();
+    Battler& other = isHost ? state->nonHostBattler() : state->hostBattler();
     other.resetXpEarners();
 
     // check always friendly ability
@@ -1525,21 +1555,19 @@ void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
         oldPpl.currentAbility() == pplmn::SpecialAbility::AlwaysFriendly &&
         oldPpl.base().currentAilment() != pplmn::Ailment::None) {
         oldPpl.base().currentAilment() = pplmn::Ailment::None;
-        queueCommand({cmd::Message(cmd::Message::Type::FriendlyAilmentHeal, oldIndex, forActive)},
+        queueCommand({cmd::Message(cmd::Message::Type::FriendlyAilmentHeal, oldIndex, isHost)},
                      true);
     }
 }
 
 void LocalBattleController::postSwitch(Battler& battler) {
-    const bool forActive = &battler == &state->activeBattler();
+    const bool isHost = battler.isHost();
 
     // check DeathSwap
     if (battler.getSubstate().koReviveHp > 0) {
         battler.activePeoplemon().giveHealth(battler.getSubstate().koReviveHp);
         queueCommand({Command::SyncStateNoSwitch});
-        queueCommand({cmd::Message(cmd::Message::Type::DeathSwapRevived,
-                                   &battler == &state->activeBattler())},
-                     true);
+        queueCommand({cmd::Message(cmd::Message::Type::DeathSwapRevived, isHost)}, true);
     }
 
     // Check baton pass stats
@@ -1549,7 +1577,7 @@ void LocalBattleController::postSwitch(Battler& battler) {
         battler.peoplemon()[battler.getSubstate().copyStatsFrom].resetStages();
         queueCommand({cmd::Message(cmd::Message::Type::BatonPassStatsCopied,
                                    battler.getSubstate().copyStatsFrom,
-                                   forActive)},
+                                   isHost)},
                      true);
     }
 
@@ -1564,7 +1592,7 @@ void LocalBattleController::postSwitch(Battler& battler) {
         }
         queueCommand({cmd::Message(cmd::Message::Type::TotalMomAbility,
                                    static_cast<std::int16_t>(battler.getSubstate().totalMomIndex),
-                                   forActive)},
+                                   isHost)},
                      true);
     }
 
@@ -1579,10 +1607,10 @@ bool LocalBattleController::isFainter(Battler& b) const {
 }
 
 void LocalBattleController::preFaint(Battler& b) {
-    const bool isActive = &b == &state->activeBattler();
+    const bool isHost = b.isHost();
 
-    queueCommand({cmd::Message(cmd::Message::Type::Fainted, isActive)}, true);
-    queueCommand({cmd::Animation(isActive, cmd::Animation::Type::SlideDown)}, true);
+    queueCommand({cmd::Message(cmd::Message::Type::Fainted, isHost)}, true);
+    queueCommand({cmd::Animation(isHost, cmd::Animation::Type::SlideDown)}, true);
 
     // total mom
     if (b.activePeoplemon().currentAbility() == pplmn::SpecialAbility::TotalMom) {
@@ -1599,18 +1627,18 @@ bool LocalBattleController::tryMidturnSwitch(Battler& switcher) {
 }
 
 bool LocalBattleController::canSwitch(Battler& switcher) {
-    const bool isActive = &switcher == &state->activeBattler();
-    Battler& other      = isActive ? state->inactiveBattler() : state->activeBattler();
+    const bool isHost = switcher.isHost();
+    Battler& other    = isHost ? state->nonHostBattler() : state->hostBattler();
 
     // check trapped ailment
     if (switcher.getSubstate().hasAilment(pplmn::PassiveAilment::Trapped)) {
-        queueCommand({cmd::Message(cmd::Message::Type::TrappedAilment, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::TrappedAilment, isHost)}, true);
         return false;
     }
 
     // check for board game master ability
     if (other.activePeoplemon().currentAbility() == pplmn::SpecialAbility::BoardGameMaster) {
-        queueCommand({cmd::Message(cmd::Message::Type::BoardGameSwitchBlocked, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::BoardGameSwitchBlocked, isHost)}, true);
         return false;
     }
 
@@ -1620,22 +1648,22 @@ bool LocalBattleController::canSwitch(Battler& switcher) {
 float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& attacker,
                                                         pplmn::BattlePeoplemon& defender,
                                                         pplmn::MoveId move, pplmn::Type moveType) {
-    const bool isActive = &attacker == &state->activeBattler().activePeoplemon();
+    const bool isHost = &attacker == &state->hostBattler().activePeoplemon();
 
     float e = pplmn::TypeUtil::getSuperMult(moveType, defender.base().type());
 
     // check engaging ability
     if (e < 0.1f && attacker.currentAbility() == pplmn::SpecialAbility::Engaging) {
         e = 0.5f;
-        queueCommand({cmd::Message(cmd::Message::Type::EngagingAbility, move, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::EngagingAbility, move, isHost)}, true);
     }
 
     // check snapshot ability
     if (defender.currentAbility() == pplmn::SpecialAbility::Snapshot) {
-        Battler& victim = isActive ? state->inactiveBattler() : state->activeBattler();
+        Battler& victim = isHost ? state->nonHostBattler() : state->hostBattler();
         if (victim.getSubstate().lastMoveSuperEffective == move && e > 1.1f) {
             e = 1.f;
-            queueCommand({cmd::Message(cmd::Message::Type::SnapshotAbility, !isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::SnapshotAbility, !isHost)}, true);
         }
     }
 
@@ -1643,12 +1671,11 @@ float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& 
     if (attacker.currentAbility() == pplmn::SpecialAbility::AbsolutePitch) {
         if (e < 0.9f && e > 0.1f) {
             e *= 0.85f;
-            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchNotEffective, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchNotEffective, isHost)}, true);
         }
         else if (e > 1.1f) {
             e *= 1.15f;
-            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchSuperEffective, isActive)},
-                         true);
+            queueCommand({cmd::Message(cmd::Message::Type::AbsPitchSuperEffective, isHost)}, true);
         }
     }
 
@@ -1656,7 +1683,6 @@ float LocalBattleController::getEffectivenessMultiplier(pplmn::BattlePeoplemon& 
 }
 
 void LocalBattleController::checkKlutz(Battler& battler) {
-    const bool isActive         = &battler == &state->activeBattler();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
 
     if (ppl.currentAbility() == pplmn::SpecialAbility::Klutz) {
@@ -1665,7 +1691,8 @@ void LocalBattleController::checkKlutz(Battler& battler) {
             ppl.base().holdItem() = item::Id::None;
             // TODO - how to restore items to network player?
             if (&battler == &state->localPlayer()) { battle->player.state().bag.addItem(item); }
-            queueCommand({cmd::Message(cmd::Message::Type::KlutzDrop, item, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::KlutzDrop, item, battler.isHost())},
+                         true);
         }
     }
 }
@@ -1676,14 +1703,14 @@ bool LocalBattleController::teachThisTurn(Battler& battler) {
 }
 
 int LocalBattleController::getPriority(Battler& battler) {
-    const bool isActive = &battler == &state->activeBattler();
+    const bool isHost = battler.isHost();
 
     // check get baked ability
     if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::GetBaked &&
         battler.activePeoplemon().base().currentHp() <=
             battler.activePeoplemon().currentStats().hp / 5) {
         battler.getSubstate().gotBaked = true;
-        queueCommand({cmd::Message(cmd::Message::Type::GetBakedAbility, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::GetBakedAbility, isHost)}, true);
         return pplmn::Move::priority(pplmn::MoveId::SkimpOut);
     }
 
@@ -1693,7 +1720,7 @@ int LocalBattleController::getPriority(Battler& battler) {
         // Check quick draw ability
         if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::QuickDraw &&
             battler.chosenAction() == TurnAction::Fight) {
-            queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst, isActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst, isHost)}, true);
             return 1000000;
         }
 
@@ -1701,9 +1728,9 @@ int LocalBattleController::getPriority(Battler& battler) {
         if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::NewTeach &&
             teachThisTurn(battler)) {
             ++base;
-            Battler& other = isActive ? state->inactiveBattler() : state->activeBattler();
+            Battler& other = isHost ? state->nonHostBattler() : state->hostBattler();
             if (other.chosenAction() == TurnAction::Fight) {
-                queueCommand({cmd::Message(cmd::Message::Type::NewTeachAbility, isActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::NewTeachAbility, isHost)}, true);
             }
         }
     }
@@ -1712,7 +1739,7 @@ int LocalBattleController::getPriority(Battler& battler) {
 }
 
 int LocalBattleController::getSpeed(Battler& battler) {
-    const bool isActive         = &battler == &state->activeBattler();
+    const bool isHost           = battler.isHost();
     pplmn::BattlePeoplemon& ppl = battler.activePeoplemon();
     int spd                     = ppl.getSpeed();
 
@@ -1721,15 +1748,15 @@ int LocalBattleController::getSpeed(Battler& battler) {
         ppl.base().currentHp() <= ppl.currentStats().hp / 4) {
         ppl.base().holdItem() = item::Id::None;
         spd                   = spd * 11 / 10;
-        queueCommand({cmd::Message(cmd::Message::Type::SpeedJuice, isActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::SpeedJuice, isHost)}, true);
     }
 
     return spd;
 }
 
 void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
-    const bool userIsActive = &user == &state->activeBattler();
-    Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
+    const bool isHost                = user.isHost();
+    Battler& victim                  = isHost ? state->nonHostBattler() : state->hostBattler();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
     const bool contact               = pplmn::Move::makesContact(usedMove);
@@ -1740,7 +1767,7 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
         if (contact && damage > 0) {
             attacker.applyDamage(damage / 16);
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::GoonDamage, isHost)}, true);
         }
         break;
 
@@ -1748,44 +1775,44 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
         if (!contact && damage > 0) {
             attacker.applyDamage(damage / 16);
             queueCommand({Command::SyncStateNoSwitch});
-            queueCommand({cmd::Message(cmd::Message::Type::SassyDamage, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::SassyDamage, isHost)}, true);
         }
         break;
 
     case pplmn::SpecialAbility::DerpDerp:
         if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 10) {
             user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
-            queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, userIsActive)}, true);
+            queueCommand({cmd::Animation(isHost, pplmn::PassiveAilment::Confused)});
+            queueCommand({cmd::Message(cmd::Message::Type::DerpDerpConfuse, isHost)}, true);
         }
         break;
 
     case pplmn::SpecialAbility::DozeOff:
         if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 10) {
             if (defender.giveAilment(pplmn::Ailment::Sleep)) {
-                queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, userIsActive)},
-                             true);
+                queueCommand({cmd::Animation(!isHost, pplmn::Ailment::Sleep)});
+                queueCommand({cmd::Message(cmd::Message::Type::DozeOffAbility, isHost)}, true);
             }
         }
         break;
 
     case pplmn::SpecialAbility::DouseFlames:
         if (!special && damage > 0 && bl::util::Random::get<int>(0, 100) <= 20) {
-            queueCommand({cmd::Message(cmd::Message::Type::DouseFlamesAbility, userIsActive)},
-                         true);
+            queueCommand({cmd::Message(cmd::Message::Type::DouseFlamesAbility, isHost)}, true);
             doStatChange(attacker, pplmn::Stat::Attack, -1);
         }
         break;
 
     case pplmn::SpecialAbility::Flirty:
         if (special && damage > 0 && bl::util::Random::get<int>(0, 100) <= 20) {
-            queueCommand({cmd::Message(cmd::Message::Type::FlirtyAbility, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::FlirtyAbility, isHost)}, true);
             doStatChange(attacker, pplmn::Stat::SpecialAttack, -1);
         }
         break;
 
     case pplmn::SpecialAbility::CantSwim:
         if (damage > 0 && bl::util::Random::get<int>(0, 100) <= 15) {
-            queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::CantSwimAbility, isHost)}, true);
             doStatChange(attacker, pplmn::Stat::Accuracy, -1);
         }
         break;
@@ -1795,8 +1822,8 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
             pplmn::OwnedMove* move = attacker.base().findMove(usedMove);
             if (move) {
                 move->curPP = (move->curPP) / 2 + (move->curPP % 2);
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::GameMakerVirusAbility, userIsActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::GameMakerVirusAbility, isHost)},
+                             true);
             }
         }
         break;
@@ -1809,13 +1836,13 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
     case pplmn::SpecialAbility::SidetrackTeach:
         if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 15) {
             victim.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
-            queueCommand({cmd::Message(cmd::Message::Type::SidetrackDistract, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::SidetrackDistract, isHost)}, true);
         }
         break;
 
     case pplmn::SpecialAbility::FieryTeach:
         if (isTeachMove(usedMove) && bl::util::Random::get<int>(0, 100) <= 33) {
-            queueCommand({cmd::Message(cmd::Message::Type::FieryTeachAbility, userIsActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::FieryTeachAbility, isHost)}, true);
             doStatChange(attacker, pplmn::Stat::SpecialAttack, 1);
         }
         break;
@@ -1829,16 +1856,17 @@ void LocalBattleController::checkAbilitiesAfterMove(Battler& user) {
         if (bl::util::Random::get<int>(0, 100) <= 25) {
             if (!user.getSubstate().hasAilment(pplmn::PassiveAilment::Confused)) {
                 user.getSubstate().giveAilment(pplmn::PassiveAilment::Confused);
-                queueCommand(
-                    {cmd::Message(cmd::Message::Type::BackwordsHoodyConfuse, userIsActive)}, true);
+                queueCommand({cmd::Animation(isHost, pplmn::PassiveAilment::Confused)});
+                queueCommand({cmd::Message(cmd::Message::Type::BackwordsHoodyConfuse, isHost)},
+                             true);
             }
         }
     }
 }
 
 void LocalBattleController::handleMoveEffect(Battler& user) {
-    const bool userIsActive = &user == &state->activeBattler();
-    Battler& victim         = userIsActive ? state->inactiveBattler() : state->activeBattler();
+    const bool isHost                = user.isHost();
+    Battler& victim                  = isHost ? state->nonHostBattler() : state->hostBattler();
     pplmn::BattlePeoplemon& attacker = user.activePeoplemon();
     pplmn::BattlePeoplemon& defender = victim.activePeoplemon();
 
@@ -1852,7 +1880,7 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
     Battler& affectedOwner           = affectsSelf ? user : victim;
     Battler& other                   = affectsSelf ? victim : user;
     const int intensity              = pplmn::Move::effectIntensity(usedMove);
-    const bool forActive             = &affectedOwner == &state->activeBattler();
+    const bool forHost               = affectedOwner.isHost();
 
     // bail early if dead and the effect doesn't always apply
     if (affected.base().currentHp() == 0 && !doEvenIfDead(effect)) return;
@@ -1860,12 +1888,12 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
     switch (effect) {
     case pplmn::MoveEffect::Heal:
         affected.giveHealth(affected.currentStats().hp * intensity / 100);
-        queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::AttackRestoredHp, forHost)});
         break;
 
     case pplmn::MoveEffect::Absorb:
         affected.giveHealth(damage * intensity / 100);
-        queueCommand({cmd::Message(cmd::Message::Type::Absorb, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::Absorb, forHost)});
         break;
 
     case pplmn::MoveEffect::Poison:
@@ -1897,12 +1925,12 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
             affectedOwner.getSubstate().giveAilment(pplmn::PassiveAilment::Distracted);
             queueCommand({cmd::Message(cmd::Message::Type::GainedPassiveAilment,
                                        pplmn::PassiveAilment::Distracted,
-                                       forActive)});
+                                       forHost)});
         }
         else {
             queueCommand({cmd::Message(cmd::Message::Type::PassiveAilmentGiveFail,
                                        pplmn::PassiveAilment::Distracted,
-                                       forActive)});
+                                       forHost)});
         }
         break;
 
@@ -1926,24 +1954,24 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
     case pplmn::MoveEffect::Safegaurd:
         if (affectedOwner.getSubstate().turnsGuarded == 0) {
             affectedOwner.getSubstate().turnsGuarded = 5;
-            queueCommand({cmd::Message(cmd::Message::Type::Guarded, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::Guarded, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::GuardFailed, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::Substitute:
         affected.applyDamage(affected.currentStats().hp / 4);
         if (affected.base().currentHp() == 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteSuicide, forHost)});
         }
         else if (affectedOwner.getSubstate().substituteHp > 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteAlreadyExists, forHost)});
         }
         else {
             affectedOwner.getSubstate().substituteHp = affected.currentStats().hp / 4;
-            queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SubstituteCreated, forHost)});
         }
         break;
 
@@ -1952,9 +1980,9 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         for (pplmn::BattlePeoplemon& ppl : affectedOwner.peoplemon()) {
             if (ppl.clearAilments(&affectedOwner.getSubstate())) { healed = true; }
         }
-        if (healed) { queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forActive)}); }
+        if (healed) { queueCommand({cmd::Message(cmd::Message::Type::HealBellHealed, forHost)}); }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::HealBellAlreadyHealthy, forHost)});
         }
     } break;
 
@@ -2023,37 +2051,35 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         break;
 
     case pplmn::MoveEffect::CritEvdUp:
-        queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
-                     true);
+        queueCommand({cmd::Animation(forHost, cmd::Animation::Type::MultipleStateIncrease)}, true);
         doStatChange(affected, pplmn::Stat::Evasion, intensity, false);
         doStatChange(affected, pplmn::Stat::Critical, intensity, false);
         break;
 
     case pplmn::MoveEffect::SpdAtkUp:
-        queueCommand({cmd::Animation(forActive, cmd::Animation::Type::MultipleStateIncrease)},
-                     true);
+        queueCommand({cmd::Animation(forHost, cmd::Animation::Type::MultipleStateIncrease)}, true);
         doStatChange(affected, pplmn::Stat::Attack, intensity, false);
         doStatChange(affected, pplmn::Stat::Speed, intensity, false);
         break;
 
     case pplmn::MoveEffect::Recoil:
         affected.applyDamage(damage * intensity / 100);
-        queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::RecoilDamage, forHost)});
         break;
 
     case pplmn::MoveEffect::Suicide:
         affected.base().currentHp() = 0;
-        queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::SuicideEffect, forHost)});
         break;
 
     case pplmn::MoveEffect::Peanut:
         if (isPeanutAllergic(affected.base().id())) {
             affected.base().currentHp() = 0;
-            queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::PeanutAllergic, forHost)});
         }
         else {
             affected.giveHealth(1);
-            queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::PeanutAte, forHost)});
         }
         break;
 
@@ -2072,13 +2098,13 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         break;
 
     case pplmn::MoveEffect::Encore:
-        queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::EncoreStart, forHost)}, true);
         if (affectedOwner.getSubstate().lastMoveIndex >= 0) {
             affectedOwner.getSubstate().encoreTurnsLeft = 5;
             affectedOwner.getSubstate().encoreMove      = affectedOwner.getSubstate().lastMoveIndex;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::EncoreFailed, forHost)}, true);
         }
         break;
 
@@ -2086,11 +2112,11 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         if (affectedOwner.canSwitch()) {
             if (tryMidturnSwitch(affectedOwner)) {
                 affectedOwner.getSubstate().copyStatsFrom = affectedOwner.outNowIndex();
-                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forActive)}, true);
+                queueCommand({cmd::Message(cmd::Message::Type::BatonPassStart, forHost)}, true);
             }
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BatonPassFailed, forHost)});
         }
         break;
 
@@ -2107,13 +2133,13 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
             marked                                              = true;
         }
         if (!marked) {
-            queueCommand({cmd::Message(cmd::Message::Type::DeathCountDownFailed, userIsActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::DeathCountDownFailed, isHost)});
         }
     } break;
 
     case pplmn::MoveEffect::SetBall:
         if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSet, forActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BallSet, forHost)}, true);
             affectedOwner.getSubstate().ballSet = true;
             if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
             else {
@@ -2121,18 +2147,18 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
             }
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSetFail, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallSetFail, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::BumpBall:
         if (affectedOwner.getSubstate().ballUpTurns < 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::BallServed, forActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BallServed, forHost)}, true);
             affectedOwner.getSubstate().ballUpTurns = 0;
             affectedOwner.getSubstate().ballBumped  = true;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::BallBumped, forHost)}, true);
             affectedOwner.getSubstate().ballBumped = true;
         }
         if (affectedOwner.canSwitch()) { tryMidturnSwitch(affectedOwner); }
@@ -2143,31 +2169,32 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
 
     case pplmn::MoveEffect::SpikeBall:
         if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSpiked, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallSpiked, forHost)});
             affectedOwner.getSubstate().ballSpiked = true;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSpikeFail, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallSpikeFail, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::BlockBall:
         if (other.getSubstate().ballUpTurns >= 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::BallBlocked, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallBlocked, forHost)});
             other.getSubstate().ballBlocked = true;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BallBlockFail, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallBlockFail, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::SwipeBall:
         if (affectedOwner.getSubstate().ballUpTurns >= 0) {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSwiped, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::BallSwiped, forHost)});
             affectedOwner.getSubstate().ballSwiped = true;
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::BallSwipeFail, forActive)});
+            // TODO - this message is printing wrong, move db error?
+            queueCommand({cmd::Message(cmd::Message::Type::BallSwipeFail, forHost)});
         }
         break;
 
@@ -2182,27 +2209,27 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         if (oneDead) {
             affectedOwner.getSubstate().koReviveHp = affected.base().currentHp();
             affected.base().currentHp()            = 0;
-            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapSac, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::DeathSwapFailed, forHost)});
         }
     } break;
 
     case pplmn::MoveEffect::StayAlive:
         if (!affectedOwner.getSubstate().enduredLastTurn) {
             affectedOwner.getSubstate().enduringThisTurn = true;
-            queueCommand({cmd::Message(cmd::Message::Type::EndureStart, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::EndureStart, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::EndureFail, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::EndureFail, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::MaxAtkMinAcc:
         affected.statChange(pplmn::Stat::Attack, 12);
         affected.statChange(pplmn::Stat::Accuracy, -12);
-        queueCommand({cmd::Message(cmd::Message::Type::MaxAtkMinAcc, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::MaxAtkMinAcc, forHost)});
         break;
 
     case pplmn::MoveEffect::FrustConfuse:
@@ -2213,10 +2240,10 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
     case pplmn::MoveEffect::Spikes:
         if (affectedOwner.getSubstate().spikesOut < 3) {
             affectedOwner.getSubstate().spikesOut += 1;
-            queueCommand({cmd::Message(cmd::Message::Type::SpikesApplied, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SpikesApplied, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::SpikesFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SpikesFailed, forHost)});
         }
         break;
 
@@ -2226,20 +2253,20 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
                 other.activePeoplemon().base().knownMoves()[other.getSubstate().lastMoveIndex];
             move.curPP =
                 std::max(0, static_cast<int>(move.curPP) - bl::util::Random::get<int>(2, 5));
-            queueCommand({cmd::Message(cmd::Message::Type::PPLowered, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::PPLowered, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::PPLowerFail, forActive)}, true);
+            queueCommand({cmd::Message(cmd::Message::Type::PPLowerFail, forHost)}, true);
         }
         break;
 
     case pplmn::MoveEffect::HealNext:
         if (affectedOwner.getSubstate().healNext < 0) {
             affectedOwner.getSubstate().healNext = 0;
-            queueCommand({cmd::Message(cmd::Message::Type::HealNextStart, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::HealNextStart, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::HealNextFail, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::HealNextFail, forHost)});
         }
         break;
 
@@ -2248,7 +2275,7 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         break;
 
     case pplmn::MoveEffect::RoarCancelBallSpikes:
-        queueCommand({cmd::Message(cmd::Message::Type::RoarClearedArea, !forActive)}, true);
+        queueCommand({cmd::Message(cmd::Message::Type::RoarClearedArea, !forHost)}, true);
         other.getSubstate().spikesOut           = 0;
         affectedOwner.getSubstate().ballUpTurns = -1;
         doRoar(affectedOwner);
@@ -2259,28 +2286,27 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
             affected.base().currentAilment() = pplmn::Ailment::Sleep;
             affected.clearAilments(&affectedOwner.getSubstate());
             affected.base().currentHp() = affected.currentStats().hp;
-            queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SleepHealed, forHost)});
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::SleepHealFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::SleepHealFailed, forHost)});
         }
         break;
 
     case pplmn::MoveEffect::StealStats:
         affected.copyStages(other.activePeoplemon());
         other.activePeoplemon().resetStages();
-        queueCommand({cmd::Message(cmd::Message::Type::StatsStolen, forActive)});
+        queueCommand({cmd::Message(cmd::Message::Type::StatsStolen, forHost)});
         break;
 
     case pplmn::MoveEffect::DamageThenSwitch:
         if (affectedOwner.canSwitch()) {
             if (tryMidturnSwitch(affectedOwner)) {
-                queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forActive)},
-                             true);
+                queueCommand({cmd::Message(cmd::Message::Type::AttackThenSwitched, forHost)}, true);
             }
         }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::AttackSwitchFailed, forActive)});
+            queueCommand({cmd::Message(cmd::Message::Type::AttackSwitchFailed, forHost)});
         }
         break;
 

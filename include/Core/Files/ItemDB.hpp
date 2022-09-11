@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_ITEMDB_HPP
 #define CORE_FILES_ITEMDB_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
@@ -50,8 +50,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
     using Id = core::item::Id;
@@ -62,12 +60,11 @@ struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
     SerializableField<3, DB, std::unordered_map<Id, int>> values;
 
     SerializableObject()
-    : names(*this, &DB::names)
-    , descriptions(*this, &DB::descriptions)
-    , values(*this, &DB::values) {}
+    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
+    , values("values", *this, &DB::values, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

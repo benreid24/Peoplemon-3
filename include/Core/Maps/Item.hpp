@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_ITEM_HPP
 #define CORE_MAPS_ITEM_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 
 namespace core
 {
@@ -46,8 +46,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::Item> : public SerializableObjectBase {
     using I = core::map::Item;
@@ -59,14 +57,13 @@ struct SerializableObject<core::map::Item> : public SerializableObjectBase {
     SerializableField<5, I, bool> visible;
 
     SerializableObject()
-    : id(*this, &I::id)
-    , mapId(*this, &I::mapId)
-    , position(*this, &I::position)
-    , level(*this, &I::level)
-    , visible(*this, &I::visible) {}
+    : id("id", *this, &I::id, SerializableFieldBase::Required{})
+    , mapId("mapid", *this, &I::mapId, SerializableFieldBase::Required{})
+    , position("position", *this, &I::position, SerializableFieldBase::Required{})
+    , level("level", *this, &I::level, SerializableFieldBase::Required{})
+    , visible("visible", *this, &I::visible, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

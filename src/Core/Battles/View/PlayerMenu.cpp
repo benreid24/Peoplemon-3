@@ -1,6 +1,7 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
 #include <BLIB/Engine/Resources.hpp>
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>
@@ -21,6 +22,7 @@ PlayerMenu::PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus)
 : state(State::Hidden)
 , stateLoopGuard(false)
 , eventBus(eventBus)
+, currentPeoplemon(0)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moves(nullptr) {
@@ -192,6 +194,7 @@ void PlayerMenu::handleInput(component::Command cmd) {
         if (state == State::PickingMove) {
             state = State::PickingAction;
             menuDriver.drive(&actionMenu);
+            bl::audio::AudioSystem::playOrRestartSound(Properties::MenuBackSound());
         }
         else if (state == State::ChoosingMoveToForget) {
             // TODO - maybe confirm here that player wants to not learn

@@ -106,6 +106,7 @@ void PauseMenu::update(bl::engine::Engine&, float dt) {
     systems.world().update(dt);
     const core::component::Command input = inputDriver.mostRecentInput();
     if (input == core::component::Command::Back || input == core::component::Command::Pause) {
+        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
         systems.engine().popState();
     }
 }

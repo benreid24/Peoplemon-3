@@ -1,7 +1,7 @@
 #ifndef CORE_FILES_BEHAVIOR_HPP
 #define CORE_FILES_BEHAVIOR_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Components/Direction.hpp>
 #include <cstdint>
 #include <variant>
@@ -40,6 +40,9 @@ public:
 
         /// Creates the data
         Standing(component::Direction d);
+
+        /// Stand facing down
+        Standing();
     };
 
     /// Contains data for when the behavior type is SpinInPlace
@@ -58,6 +61,9 @@ public:
 
         /// Creates the data
         Spinning(Direction dir);
+
+        /// Spin randomly
+        Spinning();
     };
 
     /// Contains data for when the behavior type is following a path
@@ -98,10 +104,13 @@ public:
     /// Contains data for when the behavior type is Wandering
     struct Wander {
         /// The radius to stay within, in tiles
-        unsigned int radius;
+        std::uint32_t radius;
 
         /// Creates the data
-        Wander(unsigned int r);
+        Wander(std::uint32_t r);
+
+        /// Wander in a 10 tile radius
+        Wander();
     };
 
     /**
@@ -185,6 +194,7 @@ private:
     std::variant<Standing, Spinning, Path, Wander> data;
 
     friend class bl::serial::binary::Serializer<Behavior>;
+    friend class bl::serial::SerializableObject<Behavior>;
 };
 
 } // namespace file
@@ -194,8 +204,6 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::file::Behavior::Path::Pace> : public SerializableObjectBase {
     using P = core::file::Behavior::Path::Pace;
@@ -204,10 +212,66 @@ struct SerializableObject<core::file::Behavior::Path::Pace> : public Serializabl
     SerializableField<2, P, std::uint16_t> steps;
 
     SerializableObject()
-    : direction(*this, &P::direction)
-    , steps(*this, &P::steps) {}
+    : direction("direction", *this, &P::direction, SerializableFieldBase::Required{})
+    , steps("steps", *this, &P::steps, SerializableFieldBase::Required{}) {}
 };
 
+template<>
+struct SerializableObject<core::file::Behavior::Path> : public SerializableObjectBase {
+    using P = core::file::Behavior::Path;
+
+    SerializableField<1, P, std::vector<P::Pace>> paces;
+    SerializableField<2, P, bool> reverse;
+
+    SerializableObject()
+    : paces("paces", *this, &P::paces, SerializableFieldBase::Required{})
+    , reverse("reverse", *this, &P::reverse, SerializableFieldBase::Required{}) {}
+};
+
+template<>
+struct SerializableObject<core::file::Behavior::Standing> : public SerializableObjectBase {
+    using S = core::file::Behavior::Standing;
+
+    SerializableField<1, S, core::component::Direction> direction;
+
+    SerializableObject()
+    : direction("direction", *this, &S::facedir, SerializableFieldBase::Required{}) {}
+};
+
+template<>
+struct SerializableObject<core::file::Behavior::Spinning> : public SerializableObjectBase {
+    using S = core::file::Behavior::Spinning;
+
+    SerializableField<1, S, S::Direction> direction;
+
+    SerializableObject()
+    : direction("direction", *this, &S::spinDir, SerializableFieldBase::Required{}) {}
+};
+
+template<>
+struct SerializableObject<core::file::Behavior::Wander> : public SerializableObjectBase {
+    using W = core::file::Behavior::Wander;
+
+    SerializableField<1, W, std::uint32_t> radius;
+
+    SerializableObject()
+    : radius("radius", *this, &W::radius, SerializableFieldBase::Required{}) {}
+};
+
+template<>
+struct SerializableObject<core::file::Behavior> : public SerializableObjectBase {
+    using B = core::file::Behavior;
+
+    SerializableField<1, B, B::Type> type;
+    SerializableField<2, B, decltype(B::data)> data;
+
+    SerializableObject()
+    : type("type", *this, &B::_type, SerializableFieldBase::Required{})
+    , data("data", *this, &B::data, SerializableFieldBase::Required{}) {}
+};
+
+namespace binary
+{
 template<>
 struct Serializer<core::file::Behavior> {
     using B = core::file::Behavior;

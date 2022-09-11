@@ -1,7 +1,9 @@
 #ifndef GAME_BATTLES_COMMANDS_ANIMATION_HPP
 #define GAME_BATTLES_COMMANDS_ANIMATION_HPP
 
+#include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
+#include <Core/Peoplemon/PassiveAilment.hpp>
 #include <Core/Peoplemon/Stat.hpp>
 #include <cstdint>
 #include <variant>
@@ -37,7 +39,9 @@ struct Animation {
         MultipleStateIncrease,
         StatDecrease,
         MultipleStateDecrease,
-        SlideOut
+        SlideOut,
+        Ailment,
+        PassiveAilment
     };
 
     /**
@@ -50,33 +54,49 @@ struct Animation {
     /**
      * @brief Construct a new Animation for a non-move effect
      *
-     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param forHost True to play on the host battler, false for other
      * @param type The type of animation to play
      */
-    Animation(bool forActiveBattler, Type type);
+    Animation(bool forHost, Type type);
 
     /**
      * @brief Construct a new Animation for the attack animation
      *
-     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param forHost True to play on the host battler, false for other
      * @param moveIndex Which move is being used [0, 3]
      */
-    Animation(bool forActiveBattler, core::pplmn::MoveId move);
+    Animation(bool forHost, core::pplmn::MoveId move);
 
     /**
      * @brief Construct a new Animation for a stat increase or decrease
      *
-     * @param forActiveBattler True to play on the active battler, false on inactive
+     * @param forHost True to play on the host battler, false for other
      * @param type Which type of stat change
      * @param stat The stat being changed
      */
-    Animation(bool forActiveBattler, Type type, pplmn::Stat stat);
+    Animation(bool forHost, Type type, pplmn::Stat stat);
 
     /**
-     * @brief Returns whether or not this animation is for the active peoplemon or inactive
+     * @brief Construct a new Animation for the given ailment
+     *
+     * @param forHost True to play on the host battler, false for other
+     * @param ailment The ailment animation to play
+     */
+    Animation(bool forHost, pplmn::Ailment ailment);
+
+    /**
+     * @brief Construct a new Animation for the given ailment
+     *
+     * @param forHost True to play on the host battler, false for other
+     * @param ailment The ailment animation to play
+     */
+    Animation(bool forHost, pplmn::PassiveAilment ailment);
+
+    /**
+     * @brief Returns whether or not this animation is for the host or not
      *
      */
-    bool forActiveBattler() const;
+    bool forHostBattler() const;
 
     /**
      * @brief Returns the type of animation to play
@@ -96,12 +116,25 @@ struct Animation {
      */
     pplmn::Stat getStat() const;
 
+    /**
+     * @brief Get the ailment for this animation
+     *
+     */
+    pplmn::Ailment getAilment() const;
+
+    /**
+     * @brief Get the ailment for this animation
+     *
+     */
+    pplmn::PassiveAilment getPassiveAilment() const;
+
 private:
     struct Empty {};
 
-    bool forActive;
+    bool forHost;
     Type type;
-    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat> data;
+    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat, pplmn::Ailment, pplmn::PassiveAilment>
+        data;
 };
 
 } // namespace cmd

@@ -703,4 +703,9 @@ bl::audio::AudioSystem::Handle Properties::MenuMoveFailSound() {
         bl::util::FileUtil::joinPath(SoundPath(), "Menu/moveFail.wav"));
 }
 
+bl::audio::AudioSystem::Handle Properties::MenuBackSound() {
+    return bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(SoundPath(), "Menu/back.wav"));
+}
+
 } // namespace core

@@ -51,8 +51,15 @@ public:
      * @brief Removes the item from the battler's inventory
      *
      * @param item The item to remove
+     * @return True if the item was removed, false otherwise
      */
-    virtual void removeItem(item::Id item) override;
+    virtual bool removeItem(item::Id item) override;
+
+    /**
+     * @brief Returns true
+     *
+     */
+    virtual bool isHost() const override;
 
 private:
     enum struct State { Waiting, PickingTurn, PickingFaintReplacement };

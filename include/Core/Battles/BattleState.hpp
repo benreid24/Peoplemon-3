@@ -149,6 +149,18 @@ public:
     Battler& inactiveBattler();
 
     /**
+     * @brief Returns the battler that is the host
+     *
+     */
+    Battler& hostBattler();
+
+    /**
+     * @brief Returns the battler who is not the host
+     *
+     */
+    Battler& nonHostBattler();
+
+    /**
      * @brief Returns the current stage the battle is in
      *
      */

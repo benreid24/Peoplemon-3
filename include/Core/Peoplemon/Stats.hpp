@@ -158,28 +158,26 @@ struct Serializer<Stats> {
 
 } // namespace binary
 
-namespace json
-{
 template<>
 struct SerializableObject<core::pplmn::Stats> : public SerializableObjectBase {
     using Stats = core::pplmn::Stats;
 
-    SerializableField<Stats, int> hp;
-    SerializableField<Stats, int> atk;
-    SerializableField<Stats, int> def;
-    SerializableField<Stats, int> spd;
-    SerializableField<Stats, int> spatk;
-    SerializableField<Stats, int> spdef;
+    SerializableField<1, Stats, int> hp;
+    SerializableField<2, Stats, int> atk;
+    SerializableField<3, Stats, int> def;
+    SerializableField<4, Stats, int> spd;
+    SerializableField<5, Stats, int> spatk;
+    SerializableField<6, Stats, int> spdef;
 
     SerializableObject()
-    : hp("hp", *this, &Stats::hp)
-    , atk("atk", *this, &Stats::atk)
-    , def("def", *this, &Stats::def)
-    , spd("spd", *this, &Stats::spd)
-    , spatk("spatk", *this, &Stats::spatk)
-    , spdef("spdef", *this, &Stats::spdef) {}
+    : hp("hp", *this, &Stats::hp, SerializableFieldBase::Required{})
+    , atk("atk", *this, &Stats::atk, SerializableFieldBase::Required{})
+    , def("def", *this, &Stats::def, SerializableFieldBase::Required{})
+    , spd("spd", *this, &Stats::spd, SerializableFieldBase::Required{})
+    , spatk("spatk", *this, &Stats::spatk, SerializableFieldBase::Required{})
+    , spdef("spdef", *this, &Stats::spdef, SerializableFieldBase::Required{}) {}
 };
-} // namespace json
+
 } // namespace serial
 } // namespace bl
 

@@ -18,7 +18,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts.hpp>
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <functional>
 #include <unordered_map>
 #include <vector>
@@ -268,7 +268,7 @@ protected:
     void enterTown(Town* town);
 
     friend class loaders::LegacyMapLoader;
-    friend class bl::serial::binary::SerializableObject<Map>;
+    friend class bl::serial::SerializableObject<Map>;
 };
 
 } // namespace map
@@ -277,8 +277,6 @@ protected:
 namespace bl
 {
 namespace serial
-{
-namespace binary
 {
 template<>
 struct SerializableObject<core::map::Map> : public SerializableObjectBase {
@@ -295,32 +293,33 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
     SerializableField<10, M, std::vector<core::map::Item>> itemsField;
     SerializableField<11, M, std::vector<core::map::Event>> eventsField;
-    SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
+    SerializableField<12, M, core::map::LightingSystem, false> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
     SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
     SerializableField<16, M, std::vector<core::map::Town>> townsField;
     SerializableField<17, M, bl::container::Vector2D<std::uint8_t>> townTiles;
 
     SerializableObject()
-    : nameField(*this, &M::nameField)
-    , loadScriptField(*this, &M::loadScriptField)
-    , unloadScriptField(*this, &M::unloadScriptField)
-    , playlistField(*this, &M::playlistField)
-    , weatherField(*this, &M::weatherField)
-    , levels(*this, &M::levels)
-    , tilesetField(*this, &M::tilesetField)
-    , spawnField(*this, &M::spawns)
-    , characterField(*this, &M::characterField)
-    , itemsField(*this, &M::itemsField)
-    , eventsField(*this, &M::eventsField)
-    , lighting(*this, &M::lighting)
-    , transitionField(*this, &M::transitionField)
-    , catchRegionsField(*this, &M::catchRegionsField)
-    , townsField(*this, &M::towns)
-    , townTiles(*this, &M::townTiles ) {}
+    : nameField("name", *this, &M::nameField, SerializableFieldBase::Required{})
+    , loadScriptField("loadScript", *this, &M::loadScriptField, SerializableFieldBase::Required{})
+    , unloadScriptField("unloadScript", *this, &M::unloadScriptField,
+                        SerializableFieldBase::Required{})
+    , playlistField("playlist", *this, &M::playlistField, SerializableFieldBase::Required{})
+    , weatherField("weather", *this, &M::weatherField, SerializableFieldBase::Required{})
+    , levels("levels", *this, &M::levels, SerializableFieldBase::Required{})
+    , tilesetField("tileset", *this, &M::tilesetField, SerializableFieldBase::Required{})
+    , spawnField("spawns", *this, &M::spawns, SerializableFieldBase::Required{})
+    , characterField("characters", *this, &M::characterField, SerializableFieldBase::Required{})
+    , itemsField("items", *this, &M::itemsField, SerializableFieldBase::Required{})
+    , eventsField("events", *this, &M::eventsField, SerializableFieldBase::Required{})
+    , lighting("lighting", *this, &M::lighting, SerializableFieldBase::Required{})
+    , transitionField("transitions", *this, &M::transitionField, SerializableFieldBase::Required{})
+    , catchRegionsField("catchZones", *this, &M::catchRegionsField,
+                        SerializableFieldBase::Required{})
+    , townsField("towns", *this, &M::towns, SerializableFieldBase::Required{})
+    , townTiles("townTiles", *this, &M::townTiles, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

@@ -137,7 +137,7 @@ void Battler::resetXpEarners() {
 int Battler::getFirstXpEarner() const {
     int i = 0;
     for (const auto& ppl : team) {
-        if (ppl.hasSeenBattle()) return i;
+        if (ppl.hasSeenBattle() && ppl.base().currentLevel() < 100) return i;
         ++i;
     }
     return -1;
@@ -160,7 +160,9 @@ int Battler::getBroCount() const {
     return c;
 }
 
-void Battler::removeItem(item::Id item) { controller->removeItem(item); }
+bool Battler::removeItem(item::Id item) { return controller->removeItem(item); }
+
+bool Battler::isHost() const { return controller->isHost(); }
 
 } // namespace battle
 } // namespace core

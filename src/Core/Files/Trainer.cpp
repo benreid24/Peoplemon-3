@@ -91,6 +91,7 @@ bool Trainer::load(const std::string& file, component::Direction spawnDir) {
         if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
         sourceFile = file;
         if (payout == 0) { payout = 40; }
+        for (auto& ppl : peoplemon) { ppl.heal(); }
         return true;
     }
     return false;

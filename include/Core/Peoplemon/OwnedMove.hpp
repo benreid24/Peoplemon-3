@@ -84,24 +84,21 @@ struct Serializer<OwnedMove> {
 
 } // namespace binary
 
-namespace json
-{
 template<>
 struct SerializableObject<core::pplmn::OwnedMove> : public SerializableObjectBase {
     using Id   = core::pplmn::MoveId;
     using Move = core::pplmn::OwnedMove;
 
-    SerializableField<Move, Id> id;
-    SerializableField<Move, unsigned int> curPP;
-    SerializableField<Move, unsigned int> maxPP;
+    SerializableField<1, Move, Id> id;
+    SerializableField<2, Move, unsigned int> curPP;
+    SerializableField<3, Move, unsigned int> maxPP;
 
     SerializableObject()
-    : id("id", *this, &Move::id)
-    , curPP("pp", *this, &Move::curPP)
-    , maxPP("maxPP", *this, &Move::maxPP) {}
+    : id("id", *this, &Move::id, SerializableFieldBase::Required{})
+    , curPP("pp", *this, &Move::curPP, SerializableFieldBase::Required{})
+    , maxPP("maxPP", *this, &Move::maxPP, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace json
 } // namespace serial
 } // namespace bl
 

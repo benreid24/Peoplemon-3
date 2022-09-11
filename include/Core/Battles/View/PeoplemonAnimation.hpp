@@ -1,6 +1,10 @@
 #ifndef CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 #define CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 
+#include <BLIB/Media/Graphics/Animation.hpp>
+#include <BLIB/Media/Graphics/Flashing.hpp>
+#include <BLIB/Media/Shapes/GradientCircle.hpp>
+#include <BLIB/Particles/System.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/Animation.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -85,17 +89,61 @@ public:
 private:
     enum struct State { Hidden, Static, Playing };
 
+    struct Spark {
+        sf::Vector2f position;
+        sf::Vector2f velocity;
+        float radius;
+        float time;
+        float lifetime;
+    };
+
     const Position position;
+    sf::Vector2f offset;
     sf::View view;
     State state;
     cmd::Animation::Type type;
-    float slideAmount;
+    union {
+        float slideAmount;
+        float alpha;
+        float shakeTime;
+        float ballTime;
+        float arrowTime;
+    };
     sf::Vector2f shakeOff;
-    sf::Text placeholder;
+
+    bl::resource::Resource<sf::Texture>::Ref ballTxtr;
+    bl::resource::Resource<sf::Texture>::Ref ballOpenTxtr;
+    sf::Sprite ball;
+    bl::shapes::GradientCircle ballFlash;
+    bl::particle::System<Spark> sparks;
+    bl::particle::System<Spark> implosion;
+    mutable bl::shapes::GradientCircle spark;
+    sf::RectangleShape screenFlash;
+    bl::resource::Resource<sf::Texture>::Ref statTxtr;
+    sf::Sprite statArrow;
+    float arrowOffset;
+
+    void setBallTexture(sf::Texture& t);
+    void spawnSpark(Spark* obj);
+    void spawnImplodeSpark(Spark* obj);
+
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref annoySrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref confuseSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref frozenSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref frustrationSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref sleepSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref stickySrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref trappedSrc;
+    bl::resource::Resource<bl::gfx::AnimationData>::Ref jumpedSrc;
+    bl::gfx::Animation ailmentAnim;
+
+    void updateAilmentAnimation(pplmn::Ailment ail);
+    void updateAilmentAnimation(pplmn::PassiveAilment ail);
 
     bl::resource::Resource<sf::Texture>::Ref txtr;
     mutable sf::Sprite peoplemon;
-    // TODO - stuff for flashes etc
+    bl::gfx::Flashing flasher;
+    sf::Vector2f scale;
 };
 
 } // namespace view

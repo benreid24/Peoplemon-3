@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_CHARACTERSPAWN_HPP
 #define CORE_MAPS_CHARACTERSPAWN_HPP
 
-#include <BLIB/Serialization/Binary.hpp>
+#include <BLIB/Serialization.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -44,19 +44,17 @@ namespace bl
 {
 namespace serial
 {
-namespace binary
-{
 template<>
 struct SerializableObject<core::map::CharacterSpawn> : public SerializableObjectBase {
     SerializableField<1, core::map::CharacterSpawn, core::component::Position> position;
     SerializableField<2, core::map::CharacterSpawn, std::string> file;
 
     SerializableObject()
-    : position(*this, &core::map::CharacterSpawn::position)
-    , file(*this, &core::map::CharacterSpawn::file) {}
+    : position("position", *this, &core::map::CharacterSpawn::position,
+               SerializableFieldBase::Required{})
+    , file("file", *this, &core::map::CharacterSpawn::file, SerializableFieldBase::Required{}) {}
 };
 
-} // namespace binary
 } // namespace serial
 } // namespace bl
 
