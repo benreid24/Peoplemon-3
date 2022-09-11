@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['d',['D',['../a01434.html#a9f684172bbd378caf90d8e49a172eab1',1,'bl::serial::json::SerializableObject&lt; core::file::GameSave::TrainerPointers &gt;']]],
-  ['db',['DB',['../a01446.html#ad0824eb134f5c84f4d3a05821f7939d4',1,'bl::serial::binary::SerializableObject&lt; core::file::ItemDB &gt;::DB()'],['../a01454.html#a49463f5ca81d89f32fcd0545b15830b3',1,'bl::serial::binary::SerializableObject&lt; core::file::MoveDB &gt;::DB()'],['../a01470.html#a7731a3a26160827d81853748cce190e9',1,'bl::serial::binary::SerializableObject&lt; core::file::PeoplemonDB &gt;::DB()']]],
-  ['deletecb',['DeleteCb',['../a02006.html#a301b76d43ec1fe2af5c19b71c9846b3c',1,'editor::page::Layers::DeleteCb()'],['../a02030.html#ac6a0e90609ab2788232413c564cb4685',1,'editor::page::Tileset::DeleteCb()']]],
-  ['dir',['Dir',['../a01202.html#a44a061142ddc544b0fd796ba6ce0be59',1,'bl::serial::json::SerializableObject&lt; core::component::Position &gt;']]]
+  ['d',['D',['../a01457.html#a5ec849a293d767f756d46363e5e887ae',1,'bl::serial::SerializableObject&lt; core::file::GameSave::TrainerPointers &gt;']]],
+  ['db',['DB',['../a01469.html#a412dcace33b4cf9a61c7865f3372335a',1,'bl::serial::SerializableObject&lt; core::file::ItemDB &gt;::DB()'],['../a01477.html#a102be656141963f63ac06eca7e669ff4',1,'bl::serial::SerializableObject&lt; core::file::MoveDB &gt;::DB()'],['../a01493.html#a0d2ffd9dfb415680a6200c27d2f2ec52',1,'bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;::DB()']]],
+  ['deletecb',['DeleteCb',['../a02029.html#a301b76d43ec1fe2af5c19b71c9846b3c',1,'editor::page::Layers::DeleteCb()'],['../a02053.html#ac6a0e90609ab2788232413c564cb4685',1,'editor::page::Tileset::DeleteCb()']]],
+  ['dir',['Dir',['../a01205.html#aafd15331bf4bb4d9e4adb0bb21f450dc',1,'bl::serial::SerializableObject&lt; core::component::Position &gt;']]]
 ];

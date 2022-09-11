@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['jumps',['jumps',['../a01374.html#a172782474d08185fb15732a5b706c00d',1,'bl::serial::binary::SerializableObject&lt; core::file::Conversation::Node &gt;']]]
+  ['jumps',['jumps',['../a01397.html#af134b0cea93c6a58b971ea3261f7931a',1,'bl::serial::SerializableObject&lt; core::file::Conversation::Node &gt;']]]
 ];
