@@ -932,6 +932,18 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = ppl + " drank their Speed Juice and increased their speed!";
         break;
 
+    case Message::Type::RunFailedNotWild:
+        dispText = "You can't run from this fight, coward!";
+        break;
+
+    case Message::Type::RunFailed:
+        dispText = "Tried to run away but " + ppl + " was too slow and now it's awkward!";
+        break;
+
+    case Message::Type::RunAway:
+        dispText = "Got away safely!";
+        break;
+
     default:
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";

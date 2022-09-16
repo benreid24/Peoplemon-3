@@ -249,7 +249,11 @@ public:
         WakeUpBelle,
         PowerJuice,
         IcedTea,
-        SpeedJuice
+        SpeedJuice,
+
+        RunFailedNotWild,
+        RunFailed,
+        RunAway
     };
 
     /**

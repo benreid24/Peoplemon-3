@@ -48,6 +48,7 @@ private:
     int xpAwardIndex;
     pplmn::MoveId learnMove;
     bool firstTurn;
+    int runCount;
 
     // for attack phases
     pplmn::MoveId usedMove;

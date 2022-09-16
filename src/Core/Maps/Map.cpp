@@ -740,8 +740,8 @@ void Map::enterTown(Town* town) {
 const CatchRegion* Map::getCatchRegion(const component::Position& pos) const {
     const auto& tiles = pos.positionTiles();
     if (pos.level >= levels.size() || tiles.x < 0 ||
-        tiles.x >= levels.front().catchLayer().width() || tiles.y < 0 ||
-        tiles.y >= levels.front().catchLayer().height()) {
+        static_cast<unsigned int>(tiles.x) >= levels.front().catchLayer().width() || tiles.y < 0 ||
+        static_cast<unsigned int>(tiles.y) >= levels.front().catchLayer().height()) {
         BL_LOG_ERROR << "Out of bounds position: " << pos;
         return nullptr;
     }

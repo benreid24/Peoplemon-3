@@ -112,6 +112,7 @@ LocalBattleController::LocalBattleController()
 , xpAwardIndex(-1)
 , learnMove(pplmn::MoveId::Unknown)
 , firstTurn(true)
+, runCount(0)
 , switchAfterMove(false) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
@@ -212,19 +213,6 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::AfterSwitch:
         postSwitch(state->activeBattler());
-        break;
-
-    case Stage::BeforeRun:
-        // TODO - show message and determine result
-        // TODO - take RunAway ability into account
-        break;
-
-    case Stage::Running:
-        // TODO - display message
-        break;
-
-    case Stage::RunFailed:
-        // TODO - display message
         break;
 
     case Stage::Attacking:
@@ -372,9 +360,9 @@ void LocalBattleController::initCurrentStage() {
     case Stage::CheckFaint:
     case Stage::XpAwardBegin:
     case Stage::RoundEnd:
-        // do nothing, these are intermediate states
-        break;
-
+    case Stage::BeforeRun:
+    case Stage::Running:
+    case Stage::RunFailed:
     default:
         BL_LOG_CRITICAL << "Invalid battle stage: " << state->currentStage();
         setBattleState(Stage::Completed);
@@ -452,11 +440,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::AfterSwitch:
             setBattleState(Stage::NextBattler);
-            break;
-
-        case Stage::BeforeRun:
-            // TODO - how to carry over the result of the run?
-            setBattleState(Stage::Running);
             break;
 
         case Stage::Running:
@@ -648,6 +631,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::CheckFaint:
         case Stage::XpAwardBegin:
         case Stage::RoundEnd:
+        case Stage::BeforeRun:
             // do nothing, these are intermediate states
             break;
 
@@ -758,6 +742,28 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
+
+    case Stage::BeforeRun: {
+        // TODO - should we allow "running" from online battles?
+        if (battle->type != Battle::Type::WildPeoplemon) {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailedNotWild)}, true);
+            return Stage::RunFailed;
+        }
+        ++runCount;
+        const int ps   = state->localPlayer().activePeoplemon().currentStats().spd;
+        const int os   = state->enemy().activePeoplemon().currentStats().spd;
+        const int odds = ((ps * 128 / os) + 30 * runCount) % 256;
+        if (bl::util::Random::get<int>(0, 255) < odds ||
+            state->localPlayer().activePeoplemon().currentAbility() ==
+                pplmn::SpecialAbility::RunAway) {
+            queueCommand({cmd::Message(cmd::Message::Type::RunAway)}, true);
+            return Stage::Running;
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailed)}, true);
+            return Stage::RunFailed;
+        }
+    } break;
 
     default:
         return ns;
@@ -1704,7 +1710,8 @@ bool LocalBattleController::teachThisTurn(Battler& battler) {
 }
 
 int LocalBattleController::getPriority(Battler& battler) {
-    const bool isHost = battler.isHost();
+    const bool isHost           = battler.isHost();
+    const Battler& otherBattler = isHost ? state->nonHostBattler() : state->hostBattler();
 
     // check get baked ability
     if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::GetBaked &&
@@ -1720,7 +1727,8 @@ int LocalBattleController::getPriority(Battler& battler) {
     if (firstTurn) {
         // Check quick draw ability
         if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::QuickDraw &&
-            battler.chosenAction() == TurnAction::Fight) {
+            battler.chosenAction() == TurnAction::Fight &&
+            otherBattler.chosenAction() == TurnAction::Fight) {
             queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst, isHost)}, true);
             return 1000000;
         }
