@@ -175,6 +175,10 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         ailmentAnim.play(true);
         break;
 
+    case Animation::Type::MakeWildVisible:
+        state = State::Static;
+        break;
+
     default:
         BL_LOG_ERROR << "Invalid animation type for peoplemon: " << anim;
         state = State::Static;

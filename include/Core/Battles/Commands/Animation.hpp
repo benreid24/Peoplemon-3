@@ -41,7 +41,8 @@ struct Animation {
         MultipleStateDecrease,
         SlideOut,
         Ailment,
-        PassiveAilment
+        PassiveAilment,
+        MakeWildVisible
     };
 
     /**

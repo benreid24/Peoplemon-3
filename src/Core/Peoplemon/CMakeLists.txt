@@ -7,4 +7,5 @@ target_sources(Core PRIVATE
     Peoplemon.cpp
     Stats.cpp
     Type.cpp
+    WildPeoplemon.cpp
 )

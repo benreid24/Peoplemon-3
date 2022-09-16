@@ -229,6 +229,14 @@ public:
      */
     bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
 
+    /**
+     * @brief Returns the catch region at the given position if the position is on a catch tile
+     *
+     * @param position The position to search
+     * @return CatchRegion* The catch region if on a catch tile and a region is there, or nullptr
+     */
+    const CatchRegion* getCatchRegion(const component::Position& position) const;
+
 protected:
     std::string nameField;
     std::string loadScriptField;

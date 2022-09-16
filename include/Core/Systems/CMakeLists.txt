@@ -13,6 +13,7 @@ target_sources(Core PUBLIC
     Scripts.hpp
     Systems.hpp
     Trainers.hpp
+    WildPeoplemon.hpp
     World.hpp
 )
 

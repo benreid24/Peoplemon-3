@@ -581,6 +581,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         }
         break;
 
+    case Message::Type::SleepHealed:
+        dispText = ppl + " went to Sleep to try and fix their problems!";
+        break;
+
+    case Message::Type::SleepHealFailed:
+        dispText = ppl + " tried to Sleep to ignore their problems but stayed wide awake!";
+        break;
+
     case Message::Type::WokeUp:
         dispText = ppl + " woke up!";
         break;

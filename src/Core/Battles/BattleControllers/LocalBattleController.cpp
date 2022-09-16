@@ -131,8 +131,9 @@ void LocalBattleController::initCurrentStage() {
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
-        // TODO - play anim?
         queueCommand({Command::SyncStateSwitch, state->enemy().isHost()});
+        queueCommand(
+            {cmd::Animation(state->enemy().isHost(), cmd::Animation::Type::MakeWildVisible)});
         queueCommand({cmd::Message(cmd::Message::Type::WildIntro)}, true);
         break;
 

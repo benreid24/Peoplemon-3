@@ -13,6 +13,7 @@ target_sources(Core PRIVATE
     Scripts.cpp
     Systems.cpp
     Trainers.cpp
+    WildPeoplemon.cpp
     World.cpp
 )
 
