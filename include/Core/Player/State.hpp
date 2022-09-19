@@ -3,8 +3,10 @@
 
 #include <Core/Components/Position.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
+#include <Core/Peoplemon/StoredPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
+#include <Core/Player/StorageSystem.hpp>
 
 namespace core
 {
@@ -34,6 +36,7 @@ struct State {
     player::Bag bag;
     long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
+    StorageSystem storage;
 
     component::Position savePos;
     std::string whiteoutMap;

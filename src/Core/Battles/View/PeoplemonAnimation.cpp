@@ -91,6 +91,14 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     ailmentAnim.setIsLoop(false);
     ailmentAnim.setPosition(ViewSize * 0.5f);
     ailmentAnim.setData(*trappedSrc);
+
+    standinText.setFont(Properties::MenuFont());
+    standinText.setFillColor(sf::Color::Black);
+    standinText.setOutlineColor(sf::Color::Red);
+    standinText.setOutlineThickness(2.f);
+    standinText.setCharacterSize(14);
+    standinText.setOrigin(standinText.getGlobalBounds().width * 0.5f,
+                          standinText.getGlobalBounds().height * 0.5f);
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
@@ -101,6 +109,8 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
     screenFlash.setPosition(pv.getCenter());
     screenFlash.setOrigin(screenFlash.getSize() * 0.5f);
     offset = pos;
+
+    standinText.setPosition(ViewSize * 0.5f);
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
@@ -177,6 +187,26 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     case Animation::Type::MakeWildVisible:
         state = State::Static;
+        break;
+
+    case Animation::Type::ThrowPeopleball:
+        standinText.setString("Throw ball");
+        arrowTime = 0.f;
+        break;
+
+    case Animation::Type::PeopleballShake:
+        standinText.setString("Ball shake");
+        arrowTime = 0.f;
+        break;
+
+    case Animation::Type::PeopleballCaught:
+        standinText.setString("Ball caught");
+        arrowTime = 0.f;
+        break;
+
+    case Animation::Type::PeopleballBrokeout:
+        standinText.setString("Ball broke");
+        arrowTime = 0.f;
         break;
 
     default:
@@ -368,9 +398,18 @@ void PeoplemonAnimation::update(float dt) {
             if (ailmentAnim.finished()) { state = State::Static; }
             break;
 
+        case Animation::Type::ThrowPeopleball:
+        case Animation::Type::PeopleballBrokeout:
+        case Animation::Type::PeopleballCaught:
+        case Animation::Type::PeopleballShake:
+            arrowTime += dt;
+            if (arrowTime >= 2.f) { state = State::Static; }
+            break;
+
         case Animation::Type::PlayerFirstSendout:
         case Animation::Type::OpponentFirstSendout:
         case Animation::Type::UseMove:
+        case Animation::Type::MakeWildVisible:
         case Animation::Type::_ERROR:
             // do nothing
             break;
@@ -456,9 +495,17 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             ailmentAnim.render(target, lag, states);
             break;
 
+        case Animation::Type::ThrowPeopleball:
+        case Animation::Type::PeopleballBrokeout:
+        case Animation::Type::PeopleballCaught:
+        case Animation::Type::PeopleballShake:
+            target.draw(standinText, states);
+            break;
+
         case Animation::Type::PlayerFirstSendout:
         case Animation::Type::OpponentFirstSendout:
         case Animation::Type::UseMove:
+        case Animation::Type::MakeWildVisible:
         case Animation::Type::_ERROR:
             // do nothing
             break;

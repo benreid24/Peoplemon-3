@@ -175,6 +175,17 @@ struct Item {
      */
     static pplmn::MoveId getTmMove(Id tm);
 
+    /**
+     * @brief Returns the catch rate for the given peopleball
+     *
+     * @param ball The peopleball to get the rate for
+     * @param ppl The peoplemon the ball is being used on
+     * @param turnNumber The current turn of the battle
+     * @param levelRatio Result of throwerLevel / wildLevel
+     * @return float The catch rate, or 1 if not a peopleball
+     */
+    static float getPeopleballRate(Id ball, pplmn::Id ppl, int turnNumber, float levelRatio);
+
 private:
     static std::unordered_map<Id, std::string>* names;
     static std::unordered_map<Id, std::string>* descriptions;

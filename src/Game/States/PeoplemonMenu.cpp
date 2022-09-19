@@ -176,7 +176,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     }
     if (canCancel()) {
         if (col2N > 0) {
-            menu.addItem(backBut, buttons[(col1N - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
+            menu.addItem(backBut, buttons[(col2N - 1) * 2 + 1].get(), bl::menu::Item::Bottom);
             menu.attachExisting(
                 backBut.get(), buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom, false);
         }

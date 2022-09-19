@@ -56,6 +56,10 @@ private:
     int damage;
     bool switchAfterMove;
 
+    // peopleballs
+    int turnCounter;
+    int curShake;
+
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;
     virtual void onUpdate(bool viewSynced, bool queueEmpty) override;

@@ -1,7 +1,6 @@
 target_sources(Core PUBLIC
     Battle.hpp
     Battler.hpp
-    BattleSkipper.hpp
     BattleState.hpp
     BattlerSubstate.hpp
     BattleView.hpp

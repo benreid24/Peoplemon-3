@@ -61,7 +61,6 @@ public:
         RecoilDamage,
         SuicideEffect,
         CounterEffect,
-        MirrorCoatEffect,
         OnlySleepAffected,
         EveryoneWokenUp,
         RandomMove,
@@ -170,7 +169,6 @@ public:
         Fainted,
         TrainerLost,
         WonMoney,
-        GotMoney,
         WhiteoutA,
         WhiteoutB,
         NetworkWinLose,
@@ -253,7 +251,15 @@ public:
 
         RunFailedNotWild,
         RunFailed,
-        RunAway
+        RunAway,
+
+        PeopleballNoSteal,
+        PeopleballBrokeout,
+        PeopleballCaught,
+        AskToSetNickname,
+        AskForNickname,
+        SentToStorage,
+        StorageFailed
     };
 
     /**

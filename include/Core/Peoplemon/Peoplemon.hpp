@@ -187,6 +187,14 @@ public:
      */
     static std::string opponentImage(Id id);
 
+    /**
+     * @brief Returns the base catch rate for the given peoplemon
+     *
+     * @param id The peoplemon to get the catch rate for
+     * @return float The base catch rate for the given peoplemon
+     */
+    static float catchRate(Id id);
+
 private:
     static std::unordered_map<Id, std::string>* names;
     static std::unordered_map<Id, std::string>* descriptions;
@@ -200,6 +208,7 @@ private:
     static std::unordered_map<Id, Stats>* evAwards;
     static std::unordered_map<Id, unsigned int>* xpGroups;
     static std::unordered_map<Id, int>* xpMults;
+    static std::unordered_map<Id, int>* catchRates;
 };
 
 } // namespace pplmn

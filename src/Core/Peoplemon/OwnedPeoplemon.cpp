@@ -1,14 +1,34 @@
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 
+#include <BLIB/Util/Random.hpp>
+#include <Core/Debug/DebugOverrides.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <cmath>
 
 namespace core
 {
 namespace pplmn
 {
+namespace
+{
+float statusBonus(Ailment ail) {
+    switch (ail) {
+    case Ailment::Sleep:
+    case Ailment::Frozen:
+        return 2.f;
+    case Ailment::Annoyed:
+    case Ailment::Frustrated:
+    case Ailment::Sticky:
+        return 1.5f;
+    default:
+        return 1.f;
+    }
+}
+} // namespace
+
 OwnedPeoplemon::OwnedPeoplemon()
 : _id(Id::Unknown)
 , level(1)
@@ -21,8 +41,8 @@ OwnedPeoplemon::OwnedPeoplemon(Id ppl, unsigned int l)
 : OwnedPeoplemon() {
     _id   = ppl;
     level = l;
-    hp    = currentStats().hp;
     ivs.randomize();
+    hp = currentStats().hp;
 }
 
 bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
@@ -218,6 +238,28 @@ OwnedMove* OwnedPeoplemon::findMove(MoveId id) {
         if (moves[i].id == id) return &moves[i];
     }
     return nullptr;
+}
+
+bool OwnedPeoplemon::shakePasses(item::Id ball, int turnNumber, unsigned int opLevel) {
+    // https://bulbapedia.bulbagarden.net/wiki/Catch_rate#Capture_method_.28Generation_III-IV.29
+
+#ifdef PEOPLEMON_DEBUG
+    if (debug::DebugOverrides::get().alwaysCatch) return true;
+#endif
+
+    const float chp2       = static_cast<float>(currentHp()) * 2.f;
+    const float mhp3       = static_cast<float>(currentStats().hp) * 3.f;
+    const float levelRatio = static_cast<float>(opLevel) / static_cast<float>(currentLevel());
+    const float br         = item::Item::getPeopleballRate(ball, _id, turnNumber, levelRatio);
+    const float ar         = statusBonus(currentAilment());
+    const float r          = Peoplemon::catchRate(_id);
+
+    const int a = (mhp3 - chp2) * r * br / mhp3 * ar;
+    const int b = 1048560 / static_cast<int>(std::sqrt(static_cast<int>(std::sqrt(16711680 / a))));
+    const bool passed = a < 255 ? bl::util::Random::get<int>(0, 65535) < b : true;
+    BL_LOG_INFO << "ModifiedCatchRate=" << a << " | ShakeProbability=" << b << " | "
+                << (passed ? "Passed" : "Failed");
+    return passed;
 }
 
 } // namespace pplmn

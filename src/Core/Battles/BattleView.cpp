@@ -107,7 +107,11 @@ void BattleView::processCommand(const Command& cmd) {
 
 view::PlayerMenu& BattleView::menu() { return playerMenu; }
 
-bool BattleView::playerChoseForgetMove() { return printer.choseToForget(); }
+bool BattleView::playerChoseForgetMove() const { return printer.choseToForget(); }
+
+bool BattleView::playerChoseToSetName() const { return printer.choseToSetName(); }
+
+const std::string& BattleView::chosenNickname() const { return printer.chosenNickname(); }
 
 void BattleView::update(float dt) {
     statBoxes.update(dt);

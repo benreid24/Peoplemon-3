@@ -1,6 +1,7 @@
 #include <Core/Battles/View/MessagePrinter.hpp>
 
 #include <BLIB/Interfaces/Utilities/WordWrap.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
@@ -53,7 +54,8 @@ MessagePrinter::MessagePrinter()
 : state(State::Hidden)
 , triangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
 , flasher(triangle, 0.75f, 0.65f)
-, menu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
+, menu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black))
+, keyboard(std::bind(&MessagePrinter::nameEntered, this)) {
     text.setFillColor(sf::Color::Black);
     text.setFont(Properties::MenuFont());
     text.setCharacterSize(18.f);
@@ -73,6 +75,7 @@ MessagePrinter::MessagePrinter()
         .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, true));
     no->getSignal(bl::menu::Item::Activated)
         .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, false));
+    keyboard.setPosition({TextPos.x, TextPos.y - keyboard.getSize().y - 12.f});
 }
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
@@ -83,6 +86,9 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     Battler& otherBattler    = forPlayer ? state.enemy() : state.localPlayer();
     const std::string& ppl   = battler.activePeoplemon().base().name();
     const std::string& other = otherBattler.activePeoplemon().base().name();
+    bool clear               = true;
+
+    this->state = State::Printing;
 
     switch (msg.getType()) {
     case Message::Type::Attack:
@@ -672,7 +678,8 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         break;
 
     case Message::Type::AskForgetMove:
-        dispText = "Forget a move to learn " + pplmn::Move::name(msg.getMoveId()) + "?";
+        this->state = State::PrintingYesNoChoice;
+        dispText    = "Forget a move to learn " + pplmn::Move::name(msg.getMoveId()) + "?";
         break;
 
     case Message::Type::IsConfused:
@@ -689,6 +696,10 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::StolenAilment:
         dispText = ppl + " had it's HP Stolen by " + other + "!";
+        break;
+
+    case Message::Type::TrappedAilment:
+        dispText = ppl + " was Trapped by " + other + "!";
         break;
 
     case Message::Type::DistractedAilment:
@@ -944,31 +955,82 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         dispText = "Got away safely!";
         break;
 
-    default:
+    case Message::Type::PeopleballNoSteal:
+        dispText = "You can't catch other people's Peoplemon! It's unethical!";
+        break;
+
+    case Message::Type::PeopleballBrokeout:
+        switch (bl::util::Random::get<int>(0, 3)) {
+        case 0:
+            dispText = ppl + " broke out!";
+            break;
+        case 1:
+            dispText = ppl + " is too squirmy!";
+            break;
+        case 2:
+            dispText = ppl + " doesn't want to go out with you!";
+            break;
+        case 3:
+            dispText = ppl + " is trying to get away and contact the police!";
+            break;
+        }
+        break;
+
+    case Message::Type::PeopleballCaught:
+        dispText = ppl + " was caught!";
+        break;
+
+    case Message::Type::AskToSetNickname:
+        this->state = State::PrintingYesNoChoice;
+        dispText    = "Give " + ppl + " a nickname?";
+        break;
+
+    case Message::Type::AskForNickname:
+        this->state = State::WaitingNameEntry;
+        dispText    = "What should " + ppl + " be called?";
+        keyboard.start(0, 32);
+        clear = false;
+        break;
+
+    case Message::Type::SentToStorage:
+        dispText = (keyboard.value().empty() ? ppl : keyboard.value()) + " was sent to Storage.";
+        break;
+
+    case Message::Type::StorageFailed:
+        dispText = "Your Peoplemon storage is full! " +
+                   (keyboard.value().empty() ? ppl : keyboard.value()) +
+                   " was released to avoid a wrongful death lawsuit.";
+        break;
+
+    case Message::Type::_ERROR:
+        break;
+    }
+
+    if (dispText.empty()) {
         BL_LOG_WARN << "Got bad message type: " << msg.getType();
         dispText = "<BAD MESSAGE TYPE>";
-        break;
     }
 
     text.setString(dispText);
     bl::interface::wordWrap(text, TextWidth);
     writer.setContent(text.getString().toAnsiString());
-    text.setString("");
-    this->state =
-        msg.getType() == Message::Type::AskForgetMove ? State::PrintingMoveChoice : State::Printing;
+    if (clear) text.setString("");
 }
 
 void MessagePrinter::process(component::Command cmd) {
     switch (state) {
     case State::Printing:
-    case State::PrintingMoveChoice:
+    case State::PrintingYesNoChoice:
     case State::ShowingNotAcked:
         if (cmd == component::Command::Back || cmd == component::Command::Interact) {
             finishPrint();
         }
         break;
-    case State::WaitingMoveChoice:
+    case State::WaitingYesNoChoice:
         inputDriver.process(cmd);
+        break;
+    case State::WaitingNameEntry:
+        keyboard.process(cmd);
         break;
     default:
         break;
@@ -977,8 +1039,8 @@ void MessagePrinter::process(component::Command cmd) {
 
 void MessagePrinter::finishPrint() {
     switch (state) {
-    case State::PrintingMoveChoice:
-        state = State::WaitingMoveChoice;
+    case State::PrintingYesNoChoice:
+        state = State::WaitingYesNoChoice;
         [[fallthrough]];
 
     case State::Printing:
@@ -1004,7 +1066,7 @@ bool MessagePrinter::messageDone() const {
 
 void MessagePrinter::update(float dt) {
     switch (state) {
-    case State::PrintingMoveChoice:
+    case State::PrintingYesNoChoice:
     case State::Printing: {
         const std::size_t oldLen = writer.getVisible().size();
         writer.update(dt);
@@ -1014,7 +1076,7 @@ void MessagePrinter::update(float dt) {
         if (writer.finished()) {
             if (state == State::Printing) { state = State::ShowingNotAcked; }
             else {
-                state = State::WaitingMoveChoice;
+                state = State::WaitingYesNoChoice;
             }
         }
     } break;
@@ -1031,17 +1093,35 @@ void MessagePrinter::update(float dt) {
 void MessagePrinter::render(sf::RenderTarget& target) const {
     if (state != State::Hidden) {
         target.draw(text);
-        if (state == State::ShowingNotAcked) { flasher.render(target, {}, 0.f); }
-        if (state == State::WaitingMoveChoice) { menu.render(target); }
+
+        switch (state) {
+        case State::ShowingNotAcked:
+            flasher.render(target, {}, 0.f);
+            break;
+        case State::WaitingYesNoChoice:
+            menu.render(target);
+            break;
+        case State::WaitingNameEntry:
+            target.draw(keyboard);
+            break;
+        default:
+            break;
+        }
     }
 }
 
 void MessagePrinter::makeChoice(bool f) {
-    forget = f;
-    state  = State::Hidden;
+    choseYes = f;
+    state    = State::Hidden;
 }
 
-bool MessagePrinter::choseToForget() const { return forget; }
+bool MessagePrinter::choseToForget() const { return choseYes; }
+
+bool MessagePrinter::choseToSetName() const { return choseYes; }
+
+void MessagePrinter::nameEntered() { state = State::Hidden; }
+
+const std::string& MessagePrinter::chosenNickname() const { return keyboard.value(); }
 
 } // namespace view
 } // namespace battle

@@ -6,6 +6,7 @@ target_sources(Core PUBLIC
 add_subdirectory(AI)
 add_subdirectory(Battles)
 add_subdirectory(Components)
+add_subdirectory(Debug)
 add_subdirectory(Files)
 add_subdirectory(Items)
 add_subdirectory(Maps)

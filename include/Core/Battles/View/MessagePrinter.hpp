@@ -9,6 +9,7 @@
 #include <Core/Battles/Commands/Message.hpp>
 #include <SFML/Graphics.hpp>
 #include <Core/Components/Command.hpp>
+#include <Core/Systems/HUD/ScreenKeyboard.hpp>
 
 namespace core
 {
@@ -59,6 +60,18 @@ public:
     bool choseToForget() const;
 
     /**
+     * @brief Whether or not the player chose to set a nickname
+     * 
+     */
+    bool choseToSetName() const;
+
+    /**
+     * @brief Returns the nickname chosen by the player
+     * 
+     */
+    const std::string& chosenNickname() const;
+
+    /**
      * @brief Hides the text once the view is fully synced
      *
      */
@@ -85,8 +98,9 @@ private:
         ShowingNotAcked,
         ShowingAcked,
 
-        PrintingMoveChoice,
-        WaitingMoveChoice
+        PrintingYesNoChoice,
+        WaitingYesNoChoice,
+        WaitingNameEntry
     };
 
     State state;
@@ -98,10 +112,12 @@ private:
     bl::menu::Menu menu;
     bl::menu::TextItem::Ptr yesItem;
     core::player::input::MenuDriver inputDriver;
-    bool forget;
+    bool choseYes;
+    system::hud::ScreenKeyboard keyboard;
 
     void finishPrint();
     void makeChoice(bool forget);
+    void nameEntered();
 };
 
 } // namespace view

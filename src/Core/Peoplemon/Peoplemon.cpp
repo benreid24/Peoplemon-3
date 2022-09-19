@@ -25,6 +25,7 @@ std::unordered_map<Id, Id>* Peoplemon::evolveIds                                
 std::unordered_map<Id, Stats>* Peoplemon::evAwards                                        = nullptr;
 std::unordered_map<Id, unsigned int>* Peoplemon::xpGroups                                 = nullptr;
 std::unordered_map<Id, int>* Peoplemon::xpMults                                           = nullptr;
+std::unordered_map<Id, int>* Peoplemon::catchRates                                        = nullptr;
 
 void Peoplemon::setDataSource(file::PeoplemonDB& db) {
     names        = &db.names;
@@ -39,6 +40,7 @@ void Peoplemon::setDataSource(file::PeoplemonDB& db) {
     evAwards     = &db.evAwards;
     xpGroups     = &db.xpGroups;
     xpMults      = &db.xpMults;
+    catchRates   = &db.catchRates;
 
     allIds.clear();
     allIds.reserve(names->size());
@@ -164,6 +166,11 @@ std::string Peoplemon::opponentImage(Id id) {
     const std::string img =
         bl::util::FileUtil::joinPath(rd, std::to_string(static_cast<unsigned int>(id)) + ".png");
     return bl::util::FileUtil::exists(img) ? img : missingno;
+}
+
+float Peoplemon::catchRate(Id id) {
+    const auto it = catchRates->find(id);
+    return it != catchRates->end() ? static_cast<float>(it->second) : 48.f;
 }
 
 } // namespace pplmn

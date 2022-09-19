@@ -4,6 +4,7 @@
 #include <Core/Battles/Battle.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
+#include <Core/Debug/DebugOverrides.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 
@@ -113,7 +114,9 @@ LocalBattleController::LocalBattleController()
 , learnMove(pplmn::MoveId::Unknown)
 , firstTurn(true)
 , runCount(0)
-, switchAfterMove(false) {}
+, switchAfterMove(false)
+, turnCounter(0)
+, curShake(0) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
@@ -169,6 +172,7 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::TurnStart:
+        ++turnCounter;
         handleBattlerTurnStart(state->activeBattler());
         break;
 
@@ -198,6 +202,31 @@ void LocalBattleController::initCurrentStage() {
         else {
             queueCommand({cmd::Message(cmd::Message::Type::ItemNoEffect)}, true);
         }
+        break;
+
+    case Stage::PeopleballThrown:
+        state->activeBattler().removeItem(state->activeBattler().chosenItem());
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::ThrowPeopleball,
+                                     state->activeBattler().chosenItem())},
+                     true);
+        break;
+
+    case Stage::PeopleballRocking:
+        curShake = 0;
+        break;
+
+    case Stage::PeopleballStealFailed:
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballNoSteal)}, true);
+        break;
+
+    case Stage::PeopleballBrokeout:
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::PeopleballBrokeout,
+                                     state->activeBattler().chosenItem())});
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballBrokeout,
+                                   !state->activeBattler().isHost())},
+                     true);
         break;
 
     case Stage::BeforeSwitch:
@@ -334,9 +363,43 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::PeoplemonCaught:
         battle->localPlayerWon = true;
-        // TODO - display message, give peoplemon
-        // TODO - maybe show peopledex
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballCaught,
+                                   state->inactiveBattler().isHost())});
+        queueCommand({cmd::Animation(state->inactiveBattler().isHost(),
+                                     cmd::Animation::Type::PeopleballCaught)},
+                     true);
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskToSetNickname, state->inactiveBattler().isHost())},
+            true);
         break;
+
+    case Stage::ChoosingNickname:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskForNickname, state->inactiveBattler().isHost())},
+            true);
+        break;
+
+    case Stage::SavingPeoplemon: {
+        pplmn::OwnedPeoplemon caught = state->inactiveBattler().activePeoplemon().base();
+        if (battle->view.playerChoseToSetName()) {
+            if (!battle->view.chosenNickname().empty()) {
+                caught.setCustomName(battle->view.chosenNickname());
+            }
+        }
+        if (battle->player.state().peoplemon.size() < 6) {
+            battle->player.state().peoplemon.emplace_back(std::move(caught));
+        }
+        else {
+            if (battle->player.state().storage.add(caught)) {
+                queueCommand({cmd::Message(cmd::Message::Type::SentToStorage,
+                                           state->inactiveBattler().isHost())},
+                             true);
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::StorageFailed)}, true);
+            }
+        }
+    } break;
 
     case Stage::NetworkDefeated:
         battle->localPlayerWon = true;
@@ -427,6 +490,34 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::UsingItem:
+            setBattleState(Stage::NextBattler);
+            break;
+
+        case Stage::PeopleballThrown:
+            setBattleState(Stage::PeopleballRocking);
+            break;
+
+        case Stage::PeopleballRocking:
+            if (curShake == 4) { setBattleState(Stage::PeoplemonCaught); }
+            else {
+                if (state->inactiveBattler().activePeoplemon().base().shakePasses(
+                        state->activeBattler().chosenItem(),
+                        turnCounter,
+                        state->activeBattler().activePeoplemon().base().currentLevel())) {
+                    ++curShake;
+                    queueCommand({cmd::Animation(state->inactiveBattler().isHost(),
+                                                 cmd::Animation::Type::PeopleballShake,
+                                                 state->activeBattler().chosenItem())},
+                                 true);
+                }
+                else {
+                    setBattleState(Stage::PeopleballBrokeout);
+                }
+            }
+            break;
+
+        case Stage::PeopleballBrokeout:
+        case Stage::PeopleballStealFailed:
             setBattleState(Stage::NextBattler);
             break;
 
@@ -615,11 +706,22 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::RoundEnd);
             break;
 
+        case Stage::PeoplemonCaught:
+            if (battle->view.playerChoseToSetName()) { setBattleState(Stage::ChoosingNickname); }
+            else {
+                setBattleState(Stage::SavingPeoplemon);
+            }
+            break;
+
+        case Stage::ChoosingNickname:
+            setBattleState(Stage::SavingPeoplemon);
+            break;
+
         case Stage::TrainerDefeated:
         case Stage::NetworkDefeated:
         case Stage::NetworkLost:
         case Stage::Whiteout:
-        case Stage::PeoplemonCaught:
+        case Stage::SavingPeoplemon:
             setBattleState(Stage::Completed);
             break;
 
@@ -753,9 +855,17 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         const int ps   = state->localPlayer().activePeoplemon().currentStats().spd;
         const int os   = state->enemy().activePeoplemon().currentStats().spd;
         const int odds = ((ps * 128 / os) + 30 * runCount) % 256;
-        if (bl::util::Random::get<int>(0, 255) < odds ||
-            state->localPlayer().activePeoplemon().currentAbility() ==
-                pplmn::SpecialAbility::RunAway) {
+
+#ifdef PEOPLEMON_DEBUG
+        const bool alwaysRun = debug::DebugOverrides::get().alwaysRun ||
+                               state->localPlayer().activePeoplemon().currentAbility() ==
+                                   pplmn::SpecialAbility::RunAway;
+#else
+        const bool alwaysRun = state->localPlayer().activePeoplemon().currentAbility() ==
+                               pplmn::SpecialAbility::RunAway;
+#endif
+
+        if (bl::util::Random::get<int>(0, 255) < odds || alwaysRun) {
             queueCommand({cmd::Message(cmd::Message::Type::RunAway)}, true);
             return Stage::Running;
         }
@@ -764,6 +874,16 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
             return Stage::RunFailed;
         }
     } break;
+
+    case Stage::UsingItem:
+        if (item::Item::getType(state->activeBattler().chosenItem()) == item::Type::Peopleball) {
+            if (battle->type == Battle::Type::WildPeoplemon) { return Stage::PeopleballThrown; }
+            else {
+                // TODO - handle clone ball
+                return Stage::PeopleballStealFailed;
+            }
+        }
+        return Stage::UsingItem;
 
     default:
         return ns;
@@ -2338,7 +2458,7 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         break;
     }
 
-    queueCommand({Command::WaitForView});
+    queueCommand({Command::SyncStateNoSwitch}, true);
 }
 
 } // namespace battle
