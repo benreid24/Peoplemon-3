@@ -108,6 +108,7 @@ private:
         float shakeTime;
         float ballTime;
         float arrowTime;
+        float throwX;
     };
     sf::Vector2f shakeOff;
 
@@ -122,6 +123,10 @@ private:
     bl::resource::Resource<sf::Texture>::Ref statTxtr;
     sf::Sprite statArrow;
     float arrowOffset;
+
+    enum struct BallThrowState {Arcing, Eating, Dropping, Bouncing} throwState;
+    sf::Sprite throwBall;
+    float bounceHeight;
 
     void setBallTexture(sf::Texture& t);
     void spawnSpark(Spark* obj);

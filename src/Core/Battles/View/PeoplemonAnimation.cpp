@@ -16,9 +16,14 @@ namespace view
 {
 namespace
 {
-const sf::Vector2f PlayerPos(88.f, 265.f);
-const sf::Vector2f OpponentPos(508.f, 25.f);
-const sf::Vector2f ViewSize(200.f, 200.f);
+constexpr float PlayerPosX   = 88.f;
+constexpr float PlayerPosY   = 265.f;
+constexpr float OpponentPosX = 508.f;
+constexpr float OpponentPosY = 25.f;
+constexpr float SquareSize   = 200.f;
+const sf::Vector2f PlayerPos(PlayerPosX, PlayerPosY);
+const sf::Vector2f OpponentPos(OpponentPosX, OpponentPosY);
+const sf::Vector2f ViewSize(SquareSize, SquareSize);
 constexpr float FadeRate                = 120.f;
 constexpr float SlideRate               = 285.f;
 constexpr float ShakesPerSecond         = 18.f;
@@ -34,6 +39,18 @@ constexpr float ArrowShowTime           = 2.5f;
 constexpr float ArrowShakeAmount        = 10.f;
 constexpr std::uint8_t ScreenFlashAlpha = 100;
 const sf::Color FlashColor(252, 230, 30);
+constexpr float ThrowStartX          = -25.f;
+constexpr float ThrowStartY          = PlayerPosY + SquareSize * 0.5f;
+constexpr float ThrowEndX            = OpponentPosX + SquareSize * 0.5f;
+constexpr float ThrowEndY            = OpponentPosY;
+constexpr float ThrowTime            = 1.f;
+constexpr float ThrowXVel            = (ThrowEndX - ThrowStartX) / ThrowTime;
+constexpr float ThrowMiddle          = ThrowStartX + (ThrowEndX - ThrowStartX) * 0.75f;
+constexpr float ThrowSecondHalfWidth = ThrowEndX - ThrowMiddle;
+constexpr float ThrowTop             = 10.f;
+constexpr float ThrowA     = (ThrowEndY - ThrowTop) / (ThrowSecondHalfWidth * ThrowSecondHalfWidth);
+constexpr float ThrowSpins = 3.f;
+constexpr float ThrowSpinRate = ThrowSpins / ThrowTime * 360.f;
 
 sf::Color makeColor(float alpha) {
     return sf::Color(FlashColor.r, FlashColor.g, FlashColor.b, static_cast<std::uint8_t>(alpha));
@@ -58,7 +75,8 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     ballOpenTxtr =
         textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png")).data;
     if (position == Position::Opponent) {
-        ballTxtr = textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png")).data;
+        ballTxtr =
+            textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_player.png")).data;
     }
     else {
         // TODO - consider using multiple graphics based on what ball it was caught in
@@ -92,11 +110,14 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     ailmentAnim.setPosition(ViewSize * 0.5f);
     ailmentAnim.setData(*trappedSrc);
 
+    throwBall.setTexture(*ballTxtr, true);
+    throwBall.setOrigin(ballTxtr->getSize().x / 2, ballTxtr->getSize().y / 2);
+
     standinText.setFont(Properties::MenuFont());
     standinText.setFillColor(sf::Color::Black);
     standinText.setOutlineColor(sf::Color::Red);
     standinText.setOutlineThickness(2.f);
-    standinText.setCharacterSize(14);
+    standinText.setCharacterSize(22);
     standinText.setOrigin(standinText.getGlobalBounds().width * 0.5f,
                           standinText.getGlobalBounds().height * 0.5f);
 }
@@ -190,8 +211,9 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         break;
 
     case Animation::Type::ThrowPeopleball:
-        standinText.setString("Throw ball");
-        arrowTime = 0.f;
+        throwX = ThrowStartX;
+        throwBall.setPosition(ThrowStartX, ThrowStartY);
+        throwBall.setRotation(0.f);
         break;
 
     case Animation::Type::PeopleballShake:
@@ -398,8 +420,17 @@ void PeoplemonAnimation::update(float dt) {
             if (ailmentAnim.finished()) { state = State::Static; }
             break;
 
-        case Animation::Type::ThrowPeopleball:
-        case Animation::Type::PeopleballBrokeout:
+        case Animation::Type::ThrowPeopleball: {
+            throwX += ThrowXVel * dt;
+            const float xp = throwX - ThrowMiddle;
+            throwBall.setPosition(throwX, ThrowA * xp * xp + ThrowTop);
+            throwBall.rotate(ThrowSpinRate * dt);
+            if (throwX >= ThrowEndX) {
+                state = State::Static; // TODO - suck up and hide
+            }
+        } break;
+
+        case Animation::Type::PeopleballBrokeout: // can just use sendout?
         case Animation::Type::PeopleballCaught:
         case Animation::Type::PeopleballShake:
             arrowTime += dt;
@@ -496,6 +527,11 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             break;
 
         case Animation::Type::ThrowPeopleball:
+            // TODO - other phases
+            target.draw(peoplemon, states);
+            target.draw(throwBall); // in global coords
+            break;
+
         case Animation::Type::PeopleballBrokeout:
         case Animation::Type::PeopleballCaught:
         case Animation::Type::PeopleballShake:
