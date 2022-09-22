@@ -46,8 +46,7 @@ struct Animation {
         MakeWildVisible,
         ThrowPeopleball,
         PeopleballShake,
-        PeopleballCaught,
-        PeopleballBrokeout
+        PeopleballCaught
     };
 
     /**

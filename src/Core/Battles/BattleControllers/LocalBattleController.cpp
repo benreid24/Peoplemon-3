@@ -222,7 +222,7 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::PeopleballBrokeout:
         queueCommand({cmd::Animation(!state->activeBattler().isHost(),
-                                     cmd::Animation::Type::PeopleballBrokeout,
+                                     cmd::Animation::Type::SendOut,
                                      state->activeBattler().chosenItem())});
         queueCommand({cmd::Message(cmd::Message::Type::PeopleballBrokeout,
                                    !state->activeBattler().isHost())},
