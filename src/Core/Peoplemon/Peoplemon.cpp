@@ -173,5 +173,7 @@ float Peoplemon::catchRate(Id id) {
     return it != catchRates->end() ? static_cast<float>(it->second) : 48.f;
 }
 
+bool Peoplemon::canClone(Id id) { return id != Id::Ben && id != Id::BenToo; }
+
 } // namespace pplmn
 } // namespace core

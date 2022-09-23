@@ -1002,6 +1002,14 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
                    " was released to avoid a wrongful death lawsuit.";
         break;
 
+    case Message::Type::PeoplemonCloned:
+        dispText = ppl + " was cloned! Holy shit!";
+        break;
+
+    case Message::Type::CloneFailed:
+        dispText = ppl + " could not be cloned!";
+        break;
+
     case Message::Type::_ERROR:
         break;
     }

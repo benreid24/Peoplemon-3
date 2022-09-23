@@ -44,7 +44,26 @@ void Item::setDataSource(file::ItemDB& db) {
 Category Item::getCategory(Id item) {
     const unsigned int id = static_cast<unsigned int>(item);
     if (item == Id::Unknown) return Category::Unknown;
-    if (id <= 100) return Category::Regular;
+    if (id <= 100) {
+        switch (item) {
+        case Id::Terriball:
+        case Id::Peopleball:
+        case Id::GreatPeopleball:
+        case Id::UltraPeopleball:
+        case Id::PairOfPeopleballs:
+        case Id::ClockPeopleball:
+        case Id::Intelligiball:
+        case Id::Gulliball:
+        case Id::QuistionableAbuseBall:
+        case Id::BullyBall:
+        case Id::CloneBall:
+        case Id::MasterPeopleball:
+        case Id::LegendBall:
+            return Category::Peopleball;
+        default:
+            return Category::Regular;
+        }
+    }
     if (id <= 200) return Category::Key;
     return Category::TM;
 }

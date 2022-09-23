@@ -14,26 +14,42 @@ namespace
 using ExitCb = std::function<void()>;
 using ItemCb = std::function<void(menu::BagItemButton*)>;
 
-constexpr float SlideTime = 0.5f;
+constexpr float SlideTime                   = 0.5f;
+int lastTab                                 = -1;
+int lastPosPerTab[4]                        = {0, 0, 0, 0};
+const core::item::Category tabCategories[4] = {core::item::Category::Regular,
+                                               core::item::Category::Peopleball,
+                                               core::item::Category::TM,
+                                               core::item::Category::Key};
+const char* tabTitles[4]                    = {"Regular Items", "Peopleballs", "TM's", "Key Items"};
 
 void populateMenu(bl::menu::Menu& menu, const std::vector<core::player::Bag::Item>& items,
-                  const ExitCb& ecb, const ItemCb& icb, const ItemCb& dcb) {
+                  const ExitCb& ecb, const ItemCb& icb, const ItemCb& dcb, int ti) {
     menu::BagItemButton::Ptr exit = menu::BagItemButton::create({core::item::Id::None, 0});
     exit->getSignal(bl::menu::Item::Activated).willAlwaysCall(ecb);
     exit->getSignal(bl::menu::Item::Selected).willAlwaysCall(std::bind(dcb, exit.get()));
     menu.setRootItem(exit);
     menu.setMoveFailSound(bl::audio::AudioSystem::InvalidHandle);
 
-    menu::BagItemButton* b = exit.get();
+    menu::BagItemButton* b        = exit.get();
+    menu::BagItemButton* selectMe = exit.get();
+    int i                         = items.size() - 1;
     for (auto rit = items.rbegin(); rit != items.rend(); ++rit) {
         menu::BagItemButton::Ptr nb = menu::BagItemButton::create(*rit);
         nb->getSignal(bl::menu::Item::Activated).willAlwaysCall(std::bind(icb, nb.get()));
         menu.addItem(nb, b, bl::menu::Item::Top);
-        nb->getSignal(bl::menu::Item::Selected).willAlwaysCall(std::bind(dcb, nb.get()));
+        auto* nbp = nb.get();
+        nb->getSignal(bl::menu::Item::Selected).willAlwaysCall([nbp, i, ti, dcb]() {
+            lastPosPerTab[ti] = i;
+            dcb(nbp);
+        });
+
         b = nb.get();
+        if (lastPosPerTab[ti] == i) { selectMe = nb.get(); }
+        --i;
     }
     if (b != exit.get()) { menu.attachExisting(exit.get(), b, bl::menu::Item::Top); }
-    menu.setSelectedItem(b);
+    menu.setSelectedItem(selectMe);
 }
 
 bool needPickPeoplemon(core::item::Id item, core::item::Type type) {
@@ -64,6 +80,7 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
 , activeMenu(&regularMenu)
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , regularMenu(bl::menu::NoSelector::create())
+, ballMenu(bl::menu::NoSelector::create())
 , keyMenu(bl::menu::NoSelector::create())
 , tmMenu(bl::menu::NoSelector::create())
 , actionOpen(false) {
@@ -116,7 +133,6 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 2.f, 2.f, 2.f});
     actionMenu.setPosition({252.f, 82.f});
 
-    pocketLabel.setString("Regular Items");
     pocketLabel.setFont(core::Properties::MenuFont());
     pocketLabel.setCharacterSize(30);
     pocketLabel.setFillColor(sf::Color(0, 20, 75));
@@ -127,18 +143,17 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     description.setFillColor(sf::Color::Black);
     description.setPosition({98.f, 473.f});
 
-    regularMenu.configureBackground(
-        sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
-    tmMenu.configureBackground(
-        sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
-    keyMenu.configureBackground(
-        sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
-    regularMenu.setPosition({365.f, 30.f});
-    keyMenu.setPosition({365.f, 30.f});
-    tmMenu.setPosition({365.f, 30.f});
-    regularMenu.setMaximumSize({-1.f, 385.f});
-    tmMenu.setMaximumSize({-1.f, 385.f});
-    keyMenu.setMaximumSize({-1.f, 385.f});
+    menuTabs[0] = &regularMenu;
+    menuTabs[1] = &ballMenu;
+    menuTabs[2] = &tmMenu;
+    menuTabs[3] = &keyMenu;
+
+    for (int i = 0; i < 4; ++i) {
+        menuTabs[i]->configureBackground(
+            sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
+        menuTabs[i]->setPosition({365.f, 30.f});
+        menuTabs[i]->setMaximumSize({-1.f, 385.f});
+    }
 }
 
 const char* BagMenu::name() const { return "BagMenu"; }
@@ -191,29 +206,22 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (result) *result = core::item::Id::None;
 
         std::vector<core::player::Bag::Item> items;
-        systems.player().state().bag.getByCategory(core::item::Category::TM, items);
-        populateMenu(tmMenu,
-                     items,
-                     std::bind(&BagMenu::exitSelected, this),
-                     std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
-                     std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1));
-        systems.player().state().bag.getByCategory(core::item::Category::Key, items);
-        populateMenu(keyMenu,
-                     items,
-                     std::bind(&BagMenu::exitSelected, this),
-                     std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
-                     std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1));
-        systems.player().state().bag.getByCategory(core::item::Category::Regular, items);
-        populateMenu(regularMenu,
-                     items,
-                     std::bind(&BagMenu::exitSelected, this),
-                     std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
-                     std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1));
+        for (int i = 0; i < 4; ++i) {
+            systems.player().state().bag.getByCategory(tabCategories[i], items);
+            populateMenu(*menuTabs[i],
+                         items,
+                         std::bind(&BagMenu::exitSelected, this),
+                         std::bind(&BagMenu::itemSelected, this, std::placeholders::_1),
+                         std::bind(&BagMenu::itemHighlighted, this, std::placeholders::_1),
+                         i);
+        }
 
         state      = MenuState::Browsing;
         actionOpen = false;
-        activeMenu = &regularMenu;
+        activeMenu = lastTab >= 0 ? menuTabs[lastTab] : &regularMenu;
         toDrive    = activeMenu;
+        pocketLabel.setString(tabTitles[lastTab >= 0 ? lastTab : 0]);
+        if (lastTab < 0) lastTab = 0;
     }
 
     systems.player().inputSystem().addListener(inputDriver);
@@ -246,36 +254,18 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
 
             case core::component::Command::MoveLeft:
                 beginSlide(true);
-                if (activeMenu == &regularMenu) {
-                    activeMenu = &keyMenu;
-                    pocketLabel.setString("Key Items");
-                }
-                else if (activeMenu == &keyMenu) {
-                    activeMenu = &tmMenu;
-                    pocketLabel.setString("TM's");
-                }
-                else {
-                    activeMenu = &regularMenu;
-                    pocketLabel.setString("Regular Items");
-                }
+                lastTab    = lastTab > 0 ? lastTab - 1 : 3;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
                 itemHighlighted(
                     dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
                 break;
 
             case core::component::Command::MoveRight:
                 beginSlide(false);
-                if (activeMenu == &regularMenu) {
-                    activeMenu = &tmMenu;
-                    pocketLabel.setString("TM's");
-                }
-                else if (activeMenu == &keyMenu) {
-                    activeMenu = &regularMenu;
-                    pocketLabel.setString("Regular Items");
-                }
-                else {
-                    activeMenu = &keyMenu;
-                    pocketLabel.setString("Key Items");
-                }
+                lastTab    = lastTab < 3 ? lastTab + 1 : 0;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
                 itemHighlighted(
                     dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
                 break;

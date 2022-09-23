@@ -127,9 +127,11 @@ private:
     sf::Vector2f implodeOrigin;
     bool renderBall;
 
-    enum struct BallThrowState {Arcing, Eating, Bouncing} throwState;
+    enum struct BallThrowState { Arcing, Eating, Bouncing, CloneFading } throwState;
     bl::resource::Resource<sf::Texture>::Ref throwBallTxtr;
     sf::Sprite throwBall;
+    sf::Sprite clone;
+    sf::Sprite* toEat;
 
     void setBallTexture(sf::Texture& t);
     void spawnSpark(Spark* obj);

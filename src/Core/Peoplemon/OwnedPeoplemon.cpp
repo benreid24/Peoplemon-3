@@ -262,5 +262,7 @@ bool OwnedPeoplemon::shakePasses(item::Id ball, int turnNumber, unsigned int opL
     return passed;
 }
 
+bool OwnedPeoplemon::canClone() const { return Peoplemon::canClone(_id); }
+
 } // namespace pplmn
 } // namespace core

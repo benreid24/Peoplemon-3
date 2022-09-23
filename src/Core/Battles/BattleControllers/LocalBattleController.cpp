@@ -212,12 +212,26 @@ void LocalBattleController::initCurrentStage() {
                      true);
         break;
 
+    case Stage::CloneBallThrown:
+        state->activeBattler().removeItem(state->activeBattler().chosenItem());
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::ThrowCloneBall,
+                                     state->activeBattler().chosenItem())},
+                     true);
+        break;
+
     case Stage::PeopleballRocking:
         curShake = 0;
         break;
 
     case Stage::PeopleballStealFailed:
         queueCommand({cmd::Message(cmd::Message::Type::PeopleballNoSteal)}, true);
+        break;
+
+    case Stage::CloneBallFailed:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::CloneFailed, state->inactiveBattler().isHost())},
+            true);
         break;
 
     case Stage::PeopleballBrokeout:
@@ -242,6 +256,19 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::AfterSwitch:
         postSwitch(state->activeBattler());
+        break;
+
+    case Stage::Running:
+        queueCommand({cmd::Message(cmd::Message::Type::RunAway)}, true);
+        break;
+
+    case Stage::RunFailed:
+        if (battle->type != Battle::Type::WildPeoplemon) {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailedNotWild)}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailed)}, true);
+        }
         break;
 
     case Stage::Attacking:
@@ -373,6 +400,15 @@ void LocalBattleController::initCurrentStage() {
             true);
         break;
 
+    case Stage::PeoplemonCloned:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::PeoplemonCloned, state->inactiveBattler().isHost())},
+            true);
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskToSetNickname, state->inactiveBattler().isHost())},
+            true);
+        break;
+
     case Stage::ChoosingNickname:
         queueCommand(
             {cmd::Message(cmd::Message::Type::AskForNickname, state->inactiveBattler().isHost())},
@@ -424,8 +460,6 @@ void LocalBattleController::initCurrentStage() {
     case Stage::XpAwardBegin:
     case Stage::RoundEnd:
     case Stage::BeforeRun:
-    case Stage::Running:
-    case Stage::RunFailed:
     default:
         BL_LOG_CRITICAL << "Invalid battle stage: " << state->currentStage();
         setBattleState(Stage::Completed);
@@ -516,8 +550,13 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             }
             break;
 
+        case Stage::CloneBallThrown:
+            setBattleState(Stage::PeoplemonCloned);
+            break;
+
         case Stage::PeopleballBrokeout:
         case Stage::PeopleballStealFailed:
+        case Stage::CloneBallFailed:
             setBattleState(Stage::NextBattler);
             break;
 
@@ -707,6 +746,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             break;
 
         case Stage::PeoplemonCaught:
+        case Stage::PeoplemonCloned:
             if (battle->view.playerChoseToSetName()) { setBattleState(Stage::ChoosingNickname); }
             else {
                 setBattleState(Stage::SavingPeoplemon);
@@ -717,11 +757,16 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::SavingPeoplemon);
             break;
 
+        case Stage::SavingPeoplemon:
+            setBattleState(state->activeBattler().chosenItem() != item::Id::CloneBall ?
+                               Stage::Completed :
+                               Stage::NextBattler);
+            break;
+
         case Stage::TrainerDefeated:
         case Stage::NetworkDefeated:
         case Stage::NetworkLost:
         case Stage::Whiteout:
-        case Stage::SavingPeoplemon:
             setBattleState(Stage::Completed);
             break;
 
@@ -847,10 +892,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
 
     case Stage::BeforeRun: {
         // TODO - should we allow "running" from online battles?
-        if (battle->type != Battle::Type::WildPeoplemon) {
-            queueCommand({cmd::Message(cmd::Message::Type::RunFailedNotWild)}, true);
-            return Stage::RunFailed;
-        }
+        if (battle->type != Battle::Type::WildPeoplemon) { return Stage::RunFailed; }
         ++runCount;
         const int ps   = state->localPlayer().activePeoplemon().currentStats().spd;
         const int os   = state->enemy().activePeoplemon().currentStats().spd;
@@ -865,21 +907,26 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
                                pplmn::SpecialAbility::RunAway;
 #endif
 
-        if (bl::util::Random::get<int>(0, 255) < odds || alwaysRun) {
-            queueCommand({cmd::Message(cmd::Message::Type::RunAway)}, true);
-            return Stage::Running;
-        }
+        if (bl::util::Random::get<int>(0, 255) < odds || alwaysRun) { return Stage::Running; }
         else {
-            queueCommand({cmd::Message(cmd::Message::Type::RunFailed)}, true);
             return Stage::RunFailed;
         }
     } break;
 
     case Stage::UsingItem:
         if (item::Item::getType(state->activeBattler().chosenItem()) == item::Type::Peopleball) {
+            if (state->activeBattler().chosenItem() == item::Id::CloneBall) {
+                if (battle->type != Battle::Type::WildPeoplemon &&
+                    state->inactiveBattler().activePeoplemon().base().canClone()) {
+                    return Stage::CloneBallThrown;
+                }
+                else {
+                    return Stage::CloneBallFailed;
+                }
+            }
+
             if (battle->type == Battle::Type::WildPeoplemon) { return Stage::PeopleballThrown; }
             else {
-                // TODO - handle clone ball
                 return Stage::PeopleballStealFailed;
             }
         }

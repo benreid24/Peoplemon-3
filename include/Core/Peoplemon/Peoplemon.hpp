@@ -195,6 +195,14 @@ public:
      */
     static float catchRate(Id id);
 
+    /**
+     * @brief Returns whether or not the given Peoplemon may be cloned
+     *
+     * @param id The peoplemon to check
+     * @return True if cloneable, false otherwise
+     */
+    static bool canClone(Id id);
+
 private:
     static std::unordered_map<Id, std::string>* names;
     static std::unordered_map<Id, std::string>* descriptions;

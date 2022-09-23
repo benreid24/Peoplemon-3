@@ -259,7 +259,9 @@ public:
         AskToSetNickname,
         AskForNickname,
         SentToStorage,
-        StorageFailed
+        StorageFailed,
+        PeoplemonCloned,
+        CloneFailed
     };
 
     /**

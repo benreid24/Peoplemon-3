@@ -274,6 +274,12 @@ public:
      */
     bool shakePasses(item::Id ball, int turnNumber, unsigned int opLevel);
 
+    /**
+     * @brief Returns whether or not this peoplemon can be cloned
+     *
+     */
+    bool canClone() const;
+
 private:
     Id _id;
     std::string customName;

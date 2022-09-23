@@ -45,6 +45,9 @@ public:
         PeopleballRocking,
         PeopleballBrokeout,
         PeopleballStealFailed,
+        CloneBallThrown,
+        CloneBallFailed,
+        PeoplemonCloned,
 
         // Switch out
         BeforeSwitch,

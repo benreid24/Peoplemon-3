@@ -207,6 +207,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         state = State::Static;
         break;
 
+    case Animation::Type::ThrowCloneBall:
     case Animation::Type::ThrowPeopleball:
         throwX     = ThrowStartX;
         throwState = BallThrowState::Arcing;
@@ -215,6 +216,11 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         throwBall.setRotation(0.f);
         throwBall.setColor(sf::Color::White);
         renderBall = true;
+        toEat      = &peoplemon;
+        if (anim == Animation::Type::ThrowCloneBall) {
+            clone = peoplemon;
+            toEat = &clone;
+        }
         break;
 
     case Animation::Type::PeopleballShake:
@@ -414,6 +420,7 @@ void PeoplemonAnimation::update(float dt) {
             if (ailmentAnim.finished()) { state = State::Static; }
             break;
 
+        case Animation::Type::ThrowCloneBall:
         case Animation::Type::ThrowPeopleball: {
             switch (throwState) {
             case BallThrowState::Arcing: {
@@ -429,6 +436,12 @@ void PeoplemonAnimation::update(float dt) {
                     implosion.setTargetCount(50);
                     implosion.setCreateRate(200.f);
                     implodeOrigin = {ThrowEndX, ThrowEndY};
+                    // move to global for render
+                    if (type == Animation::Type::ThrowCloneBall) {
+                        peoplemon.setPosition(OpponentPosX + SquareSize * 0.5f,
+                                              OpponentPosY + SquareSize);
+                        peoplemon.setColor(sf::Color(255, 255, 255, 128));
+                    }
                 }
             } break;
 
@@ -447,12 +460,12 @@ void PeoplemonAnimation::update(float dt) {
                     const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                     const float p        = alpha / 255.f;
                     const float ps       = std::sqrt(p);
-                    peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
-                    peoplemon.setScale(ps * scale.x, p * scale.y);
-                    peoplemon.setPosition(OpponentPosX + SquareSize * 0.5f,
-                                          OpponentPosY -
-                                              (BallBounceHeight + 35.f) * (255.f - alpha) / 255.f +
-                                              SquareSize);
+                    toEat->setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
+                    toEat->setScale(ps * scale.x, p * scale.y);
+                    toEat->setPosition(OpponentPosX + SquareSize * 0.5f,
+                                       OpponentPosY -
+                                           (BallBounceHeight + 35.f) * (255.f - alpha) / 255.f +
+                                           SquareSize);
                     if (a <= ScreenFlashAlpha) {
                         screenFlash.setFillColor(sf::Color(255, 255, 255, a));
                     }
@@ -466,9 +479,16 @@ void PeoplemonAnimation::update(float dt) {
                 else {
                     ballTime += dt;
                     if (ballTime >= 0.5f) {
-                        throwState = BallThrowState::Bouncing;
                         peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
-                        bounceTime = 0.f;
+                        if (type == Animation::Type::ThrowCloneBall) {
+                            throwState = BallThrowState::CloneFading;
+                            alpha      = 255.f;
+                            peoplemon.setColor(sf::Color::White);
+                        }
+                        else {
+                            throwState = BallThrowState::Bouncing;
+                            bounceTime = 0.f;
+                        }
                     }
                 }
                 break;
@@ -483,6 +503,15 @@ void PeoplemonAnimation::update(float dt) {
                 if (bounceTime >= BallBounceTime) {
                     throwBall.setPosition(BallFinalPos);
                     state = State::Static;
+                }
+                break;
+
+            case BallThrowState::CloneFading:
+                alpha = std::max(alpha - dt * GreenRate, 0.f);
+                throwBall.setColor(sf::Color(255, 255, 255, static_cast<int>(alpha)));
+                if (alpha <= 0.f) {
+                    renderBall = false;
+                    state      = State::Static;
                 }
                 break;
             }
@@ -598,8 +627,8 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             ailmentAnim.render(target, lag, states);
             break;
 
+        case Animation::Type::ThrowCloneBall:
         case Animation::Type::ThrowPeopleball:
-            // TODO - other phases
             switch (throwState) {
             case BallThrowState::Arcing:
                 target.draw(peoplemon, states);
@@ -608,6 +637,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
 
             case BallThrowState::Eating:
                 target.draw(peoplemon);
+                if (type == Animation::Type::ThrowCloneBall) { target.draw(clone); }
                 target.draw(throwBall); // in global coords
                 target.draw(screenFlash);
                 implosion.render([this, &target, &states](const Spark& s) {
@@ -618,6 +648,10 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
                     target.draw(spark); // in global coords
                 });
                 break;
+
+            case BallThrowState::CloneFading:
+                target.draw(peoplemon, states);
+                [[fallthrough]];
 
             case BallThrowState::Bouncing:
             default:
