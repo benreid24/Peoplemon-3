@@ -2,6 +2,7 @@
 
 #include <BLIB/Logging.hpp>
 #include <Core/Peoplemon/Move.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <unordered_map>
 
@@ -14,7 +15,6 @@ namespace
 std::vector<Id> ids;
 const std::string UnknownName        = "<Unknown Item>";
 const std::string UnknownDescription = "<This item is not known to Peoplemon>";
-
 } // namespace
 
 std::unordered_map<Id, std::string>* Item::names        = nullptr;
@@ -44,7 +44,26 @@ void Item::setDataSource(file::ItemDB& db) {
 Category Item::getCategory(Id item) {
     const unsigned int id = static_cast<unsigned int>(item);
     if (item == Id::Unknown) return Category::Unknown;
-    if (id <= 100) return Category::Regular;
+    if (id <= 100) {
+        switch (item) {
+        case Id::Terriball:
+        case Id::Peopleball:
+        case Id::GreatPeopleball:
+        case Id::UltraPeopleball:
+        case Id::PairOfPeopleballs:
+        case Id::ClockPeopleball:
+        case Id::Intelligiball:
+        case Id::Gulliball:
+        case Id::QuistionableAbuseBall:
+        case Id::BullyBall:
+        case Id::CloneBall:
+        case Id::MasterPeopleball:
+        case Id::LegendBall:
+            return Category::Peopleball;
+        default:
+            return Category::Regular;
+        }
+    }
     if (id <= 200) return Category::Key;
     return Category::TM;
 }
@@ -391,6 +410,45 @@ pplmn::MoveId Item::getTmMove(Id tm) {
     if (id < 200) return pplmn::MoveId::Unknown;
     const T mid = id - 200;
     return pplmn::Move::cast(mid);
+}
+
+float Item::getPeopleballRate(Id ball, pplmn::Id ppl, int turnNumber, float levelRatio) {
+    if (ppl == pplmn::Id::Ben || ppl == pplmn::Id::BenToo) {
+        if (ball != Id::LegendBall) { return 0.f; }
+    }
+
+    switch (ball) {
+    case Id::Terriball:
+        return 0.25f;
+    case Id::Peopleball:
+    case Id::QuistionableAbuseBall:
+        return 1.f;
+    case Id::GreatPeopleball:
+        return 1.5f;
+    case Id::UltraPeopleball:
+    case Id::PairOfPeopleballs:
+        return 2.f;
+    case Id::Gulliball:
+        return turnNumber == 1 ? 4.f : 1.f;
+    case Id::BullyBall:
+        if (levelRatio >= 4.f) return 8.f;
+        if (levelRatio >= 2.f) return 4.f;
+        if (levelRatio > 1.f) return 2.f;
+        return 1.f;
+    case Id::ClockPeopleball:
+        return (static_cast<float>(turnNumber) + 10.f) / 10.f;
+    case Id::Intelligiball:
+        return pplmn::Peoplemon::type(ppl) == pplmn::Type::Intelligent ? 2.5f : 1.f;
+    case Id::LegendBall:
+        return 5.f;
+    case Id::CloneBall:
+    case Id::MasterPeopleball:
+        BL_LOG_WARN << "Got a clone or masterball unexpectedly";
+        return 1.f;
+    default:
+        BL_LOG_ERROR << "Got a non-peopleball: " << ball;
+        return 1.f;
+    }
 }
 
 } // namespace item

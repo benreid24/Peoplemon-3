@@ -4,6 +4,7 @@
 #include <Core/Battles/Battle.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
+#include <Core/Debug/DebugOverrides.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 
@@ -112,7 +113,10 @@ LocalBattleController::LocalBattleController()
 , xpAwardIndex(-1)
 , learnMove(pplmn::MoveId::Unknown)
 , firstTurn(true)
-, switchAfterMove(false) {}
+, runCount(0)
+, switchAfterMove(false)
+, turnCounter(0)
+, curShake(0) {}
 
 void LocalBattleController::updateBattleState(bool viewSynced, bool queueEmpty) {
     if (!currentStageInitialized) {
@@ -131,8 +135,9 @@ void LocalBattleController::initCurrentStage() {
 
     switch (state->currentStage()) {
     case Stage::WildIntro:
-        // TODO - play anim?
         queueCommand({Command::SyncStateSwitch, state->enemy().isHost()});
+        queueCommand(
+            {cmd::Animation(state->enemy().isHost(), cmd::Animation::Type::MakeWildVisible)});
         queueCommand({cmd::Message(cmd::Message::Type::WildIntro)}, true);
         break;
 
@@ -167,6 +172,7 @@ void LocalBattleController::initCurrentStage() {
         break;
 
     case Stage::TurnStart:
+        ++turnCounter;
         handleBattlerTurnStart(state->activeBattler());
         break;
 
@@ -198,6 +204,45 @@ void LocalBattleController::initCurrentStage() {
         }
         break;
 
+    case Stage::PeopleballThrown:
+        state->activeBattler().removeItem(state->activeBattler().chosenItem());
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::ThrowPeopleball,
+                                     state->activeBattler().chosenItem())},
+                     true);
+        break;
+
+    case Stage::CloneBallThrown:
+        state->activeBattler().removeItem(state->activeBattler().chosenItem());
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::ThrowCloneBall,
+                                     state->activeBattler().chosenItem())},
+                     true);
+        break;
+
+    case Stage::PeopleballRocking:
+        curShake = 0;
+        break;
+
+    case Stage::PeopleballStealFailed:
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballNoSteal)}, true);
+        break;
+
+    case Stage::CloneBallFailed:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::CloneFailed, state->inactiveBattler().isHost())},
+            true);
+        break;
+
+    case Stage::PeopleballBrokeout:
+        queueCommand({cmd::Animation(!state->activeBattler().isHost(),
+                                     cmd::Animation::Type::SendOut,
+                                     state->activeBattler().chosenItem())});
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballBrokeout,
+                                   !state->activeBattler().isHost())},
+                     true);
+        break;
+
     case Stage::BeforeSwitch:
         if (canSwitch(state->activeBattler())) { startSwitch(state->activeBattler()); }
         else {
@@ -213,17 +258,17 @@ void LocalBattleController::initCurrentStage() {
         postSwitch(state->activeBattler());
         break;
 
-    case Stage::BeforeRun:
-        // TODO - show message and determine result
-        // TODO - take RunAway ability into account
-        break;
-
     case Stage::Running:
-        // TODO - display message
+        queueCommand({cmd::Message(cmd::Message::Type::RunAway)}, true);
         break;
 
     case Stage::RunFailed:
-        // TODO - display message
+        if (battle->type != Battle::Type::WildPeoplemon) {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailedNotWild)}, true);
+        }
+        else {
+            queueCommand({cmd::Message(cmd::Message::Type::RunFailed)}, true);
+        }
         break;
 
     case Stage::Attacking:
@@ -345,9 +390,52 @@ void LocalBattleController::initCurrentStage() {
 
     case Stage::PeoplemonCaught:
         battle->localPlayerWon = true;
-        // TODO - display message, give peoplemon
-        // TODO - maybe show peopledex
+        queueCommand({cmd::Message(cmd::Message::Type::PeopleballCaught,
+                                   state->inactiveBattler().isHost())});
+        queueCommand({cmd::Animation(state->inactiveBattler().isHost(),
+                                     cmd::Animation::Type::PeopleballCaught)},
+                     true);
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskToSetNickname, state->inactiveBattler().isHost())},
+            true);
         break;
+
+    case Stage::PeoplemonCloned:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::PeoplemonCloned, state->inactiveBattler().isHost())},
+            true);
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskToSetNickname, state->inactiveBattler().isHost())},
+            true);
+        break;
+
+    case Stage::ChoosingNickname:
+        queueCommand(
+            {cmd::Message(cmd::Message::Type::AskForNickname, state->inactiveBattler().isHost())},
+            true);
+        break;
+
+    case Stage::SavingPeoplemon: {
+        pplmn::OwnedPeoplemon caught = state->inactiveBattler().activePeoplemon().base();
+        if (battle->view.playerChoseToSetName()) {
+            if (!battle->view.chosenNickname().empty()) {
+                caught.setCustomName(battle->view.chosenNickname());
+            }
+        }
+        if (battle->player.state().peoplemon.size() < 6) {
+            battle->player.state().peoplemon.emplace_back(std::move(caught));
+        }
+        else {
+            if (battle->player.state().storage.add(caught)) {
+                queueCommand({cmd::Message(cmd::Message::Type::SentToStorage,
+                                           state->inactiveBattler().isHost())},
+                             true);
+            }
+            else {
+                queueCommand({cmd::Message(cmd::Message::Type::StorageFailed)}, true);
+            }
+        }
+    } break;
 
     case Stage::NetworkDefeated:
         battle->localPlayerWon = true;
@@ -371,9 +459,7 @@ void LocalBattleController::initCurrentStage() {
     case Stage::CheckFaint:
     case Stage::XpAwardBegin:
     case Stage::RoundEnd:
-        // do nothing, these are intermediate states
-        break;
-
+    case Stage::BeforeRun:
     default:
         BL_LOG_CRITICAL << "Invalid battle stage: " << state->currentStage();
         setBattleState(Stage::Completed);
@@ -441,6 +527,39 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::NextBattler);
             break;
 
+        case Stage::PeopleballThrown:
+            setBattleState(Stage::PeopleballRocking);
+            break;
+
+        case Stage::PeopleballRocking:
+            if (curShake == 4) { setBattleState(Stage::PeoplemonCaught); }
+            else {
+                if (state->inactiveBattler().activePeoplemon().base().shakePasses(
+                        state->activeBattler().chosenItem(),
+                        turnCounter,
+                        state->activeBattler().activePeoplemon().base().currentLevel())) {
+                    ++curShake;
+                    queueCommand({cmd::Animation(state->inactiveBattler().isHost(),
+                                                 cmd::Animation::Type::PeopleballShake,
+                                                 state->activeBattler().chosenItem())},
+                                 true);
+                }
+                else {
+                    setBattleState(Stage::PeopleballBrokeout);
+                }
+            }
+            break;
+
+        case Stage::CloneBallThrown:
+            setBattleState(Stage::PeoplemonCloned);
+            break;
+
+        case Stage::PeopleballBrokeout:
+        case Stage::PeopleballStealFailed:
+        case Stage::CloneBallFailed:
+            setBattleState(Stage::NextBattler);
+            break;
+
         case Stage::BeforeSwitch:
             setBattleState(Stage::Switching);
             break;
@@ -451,11 +570,6 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
 
         case Stage::AfterSwitch:
             setBattleState(Stage::NextBattler);
-            break;
-
-        case Stage::BeforeRun:
-            // TODO - how to carry over the result of the run?
-            setBattleState(Stage::Running);
             break;
 
         case Stage::Running:
@@ -631,11 +745,28 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
             setBattleState(Stage::RoundEnd);
             break;
 
+        case Stage::PeoplemonCaught:
+        case Stage::PeoplemonCloned:
+            if (battle->view.playerChoseToSetName()) { setBattleState(Stage::ChoosingNickname); }
+            else {
+                setBattleState(Stage::SavingPeoplemon);
+            }
+            break;
+
+        case Stage::ChoosingNickname:
+            setBattleState(Stage::SavingPeoplemon);
+            break;
+
+        case Stage::SavingPeoplemon:
+            setBattleState(state->activeBattler().chosenItem() != item::Id::CloneBall ?
+                               Stage::Completed :
+                               Stage::NextBattler);
+            break;
+
         case Stage::TrainerDefeated:
         case Stage::NetworkDefeated:
         case Stage::NetworkLost:
         case Stage::Whiteout:
-        case Stage::PeoplemonCaught:
             setBattleState(Stage::Completed);
             break;
 
@@ -647,6 +778,7 @@ void LocalBattleController::checkCurrentStage(bool viewSynced, bool queueEmpty) 
         case Stage::CheckFaint:
         case Stage::XpAwardBegin:
         case Stage::RoundEnd:
+        case Stage::BeforeRun:
             // do nothing, these are intermediate states
             break;
 
@@ -757,6 +889,48 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         xpAwardRemaining = xpAward;
         xpAwardIndex     = state->localPlayer().getFirstXpEarner();
         return xpAwardIndex >= 0 ? Stage::XpAwardPeoplemonBegin : Stage::CheckFaint;
+
+    case Stage::BeforeRun: {
+        // TODO - should we allow "running" from online battles?
+        if (battle->type != Battle::Type::WildPeoplemon) { return Stage::RunFailed; }
+        ++runCount;
+        const int ps   = state->localPlayer().activePeoplemon().currentStats().spd;
+        const int os   = state->enemy().activePeoplemon().currentStats().spd;
+        const int odds = ((ps * 128 / os) + 30 * runCount) % 256;
+
+#ifdef PEOPLEMON_DEBUG
+        const bool alwaysRun = debug::DebugOverrides::get().alwaysRun ||
+                               state->localPlayer().activePeoplemon().currentAbility() ==
+                                   pplmn::SpecialAbility::RunAway;
+#else
+        const bool alwaysRun = state->localPlayer().activePeoplemon().currentAbility() ==
+                               pplmn::SpecialAbility::RunAway;
+#endif
+
+        if (bl::util::Random::get<int>(0, 255) < odds || alwaysRun) { return Stage::Running; }
+        else {
+            return Stage::RunFailed;
+        }
+    } break;
+
+    case Stage::UsingItem:
+        if (item::Item::getType(state->activeBattler().chosenItem()) == item::Type::Peopleball) {
+            if (state->activeBattler().chosenItem() == item::Id::CloneBall) {
+                if (battle->type != Battle::Type::WildPeoplemon &&
+                    state->inactiveBattler().activePeoplemon().base().canClone()) {
+                    return Stage::CloneBallThrown;
+                }
+                else {
+                    return Stage::CloneBallFailed;
+                }
+            }
+
+            if (battle->type == Battle::Type::WildPeoplemon) { return Stage::PeopleballThrown; }
+            else {
+                return Stage::PeopleballStealFailed;
+            }
+        }
+        return Stage::UsingItem;
 
     default:
         return ns;
@@ -1703,7 +1877,8 @@ bool LocalBattleController::teachThisTurn(Battler& battler) {
 }
 
 int LocalBattleController::getPriority(Battler& battler) {
-    const bool isHost = battler.isHost();
+    const bool isHost           = battler.isHost();
+    const Battler& otherBattler = isHost ? state->nonHostBattler() : state->hostBattler();
 
     // check get baked ability
     if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::GetBaked &&
@@ -1719,7 +1894,8 @@ int LocalBattleController::getPriority(Battler& battler) {
     if (firstTurn) {
         // Check quick draw ability
         if (battler.activePeoplemon().currentAbility() == pplmn::SpecialAbility::QuickDraw &&
-            battler.chosenAction() == TurnAction::Fight) {
+            battler.chosenAction() == TurnAction::Fight &&
+            otherBattler.chosenAction() == TurnAction::Fight) {
             queueCommand({cmd::Message(cmd::Message::Type::QuickDrawFirst, isHost)}, true);
             return 1000000;
         }
@@ -2329,7 +2505,7 @@ void LocalBattleController::handleMoveEffect(Battler& user) {
         break;
     }
 
-    queueCommand({Command::WaitForView});
+    queueCommand({Command::SyncStateNoSwitch}, true);
 }
 
 } // namespace battle

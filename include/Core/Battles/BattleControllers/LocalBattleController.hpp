@@ -48,12 +48,17 @@ private:
     int xpAwardIndex;
     pplmn::MoveId learnMove;
     bool firstTurn;
+    int runCount;
 
     // for attack phases
     pplmn::MoveId usedMove;
     pplmn::MoveEffect effect;
     int damage;
     bool switchAfterMove;
+
+    // peopleballs
+    int turnCounter;
+    int curShake;
 
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;

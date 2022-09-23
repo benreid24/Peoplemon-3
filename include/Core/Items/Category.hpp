@@ -20,11 +20,14 @@ enum struct Category : std::uint8_t {
     /// Regular items. Covers ids [1, 100]
     Regular,
 
-    // Key items. Covers ids [101, 200]
+    /// Key items. Covers ids [101, 200]
     Key,
 
-    // TM's. Covers ids [201, 499]
-    TM
+    /// TM's. Covers ids [201, 499]
+    TM,
+
+    /// Peopleballs
+    Peopleball
 };
 
 } // namespace item

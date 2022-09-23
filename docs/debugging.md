@@ -16,6 +16,8 @@ The following utilities are available in the debug build of Peoplemon:
 
 1. **Map explorer**: Press `F1` to control a free camera and pan around the map. The camera controls are the same as the map editor. Press `ESC` to return to your character.
 2. **Battle skipping**: Battles may be skipped by pressing `F2`, which will toggle the setting. Press this before battles. When battles are off wild Peoplemon will not attack. Trainers will still enter battle, but the battle will skip ahead to the trainer being defeated.
+3. **Peoplemon catching**: All peopleballs can be given a catch rate of 100% by pressing `F3`. With this setting on Peoplemon will always be caught when a ball is used.
+4. **Run away**: Press `F4` to be able to always escape battle with wild Peoplemon
 
 ## Game Saves
 

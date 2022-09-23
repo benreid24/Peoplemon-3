@@ -108,6 +108,8 @@ private:
         float shakeTime;
         float ballTime;
         float arrowTime;
+        float throwX;
+        float bounceTime;
     };
     sf::Vector2f shakeOff;
 
@@ -122,10 +124,19 @@ private:
     bl::resource::Resource<sf::Texture>::Ref statTxtr;
     sf::Sprite statArrow;
     float arrowOffset;
+    sf::Vector2f implodeOrigin;
+    bool renderBall;
+
+    enum struct BallThrowState { Arcing, Eating, Bouncing, CloneFading } throwState;
+    bl::resource::Resource<sf::Texture>::Ref throwBallTxtr;
+    sf::Sprite throwBall;
+    sf::Sprite clone;
+    sf::Sprite* toEat;
 
     void setBallTexture(sf::Texture& t);
     void spawnSpark(Spark* obj);
     void spawnImplodeSpark(Spark* obj);
+    void setThrowBallTxtr(sf::Texture& t);
 
     bl::resource::Resource<bl::gfx::AnimationData>::Ref annoySrc;
     bl::resource::Resource<bl::gfx::AnimationData>::Ref confuseSrc;

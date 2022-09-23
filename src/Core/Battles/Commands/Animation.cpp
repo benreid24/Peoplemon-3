@@ -36,6 +36,11 @@ Animation::Animation(bool fa, pplmn::PassiveAilment ail)
 , type(Type::PassiveAilment)
 , data(ail) {}
 
+Animation::Animation(bool fa, Type tp, item::Id pb)
+: forHost(fa)
+, type(tp)
+, data(pb) {}
+
 bool Animation::forHostBattler() const { return forHost; }
 
 Animation::Type Animation::getType() const { return type; }
@@ -58,6 +63,11 @@ pplmn::Ailment Animation::getAilment() const {
 pplmn::PassiveAilment Animation::getPassiveAilment() const {
     const pplmn::PassiveAilment* a = std::get_if<pplmn::PassiveAilment>(&data);
     return a ? *a : pplmn::PassiveAilment::Confused;
+}
+
+item::Id Animation::getPeopleball() const {
+    const item::Id* i = std::get_if<item::Id>(&data);
+    return i ? *i : item::Id::Peopleball;
 }
 
 } // namespace cmd

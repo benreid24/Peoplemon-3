@@ -49,11 +49,13 @@ struct SerializableObject<core::pplmn::WildPeoplemon> : public SerializableObjec
     SerializableField<1, Wild, std::uint8_t> minLevel;
     SerializableField<2, Wild, std::uint8_t> maxLevel;
     SerializableField<3, Wild, std::uint16_t> freq;
+    SerializableField<4, Wild, core::pplmn::Id> id;
 
     SerializableObject()
     : minLevel("minLevel", *this, &Wild::minLevel, SerializableFieldBase::Required{})
     , maxLevel("maxLevel", *this, &Wild::maxLevel, SerializableFieldBase::Required{})
-    , freq("freq", *this, &Wild::frequency, SerializableFieldBase::Required{}) {}
+    , freq("freq", *this, &Wild::frequency, SerializableFieldBase::Required{})
+    , id("id", *this, &Wild::id, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

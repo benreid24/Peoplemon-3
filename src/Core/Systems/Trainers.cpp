@@ -120,7 +120,7 @@ void Trainers::observe(const bl::entity::event::ComponentAdded<component::Traine
 }
 
 void Trainers::observe(const event::BattleCompleted& b) {
-    if (b.playerWon) {
+    if (b.type == battle::Battle::Type::Trainer && b.playerWon) {
         trainerComponent->setDefeated();
         defeated.emplace(trainerComponent->file());
     }

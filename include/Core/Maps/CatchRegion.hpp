@@ -11,10 +11,21 @@ namespace map
 /**
  * @brief Represents a class of catchable peoplemon
  *
+ * @ingroup Maps
+ * @ingroup Peoplemon
+ *
  */
 struct CatchRegion {
     std::string name;
     std::vector<pplmn::WildPeoplemon> wilds;
+
+    /**
+     * @brief Selects a wild peoplemon from the set based on frequency, or returns a level 100 Ben
+     *        if the set is empty
+     *
+     * @return const pplmn::WildPeoplemon&
+     */
+    const pplmn::WildPeoplemon& selectWild() const;
 };
 
 } // namespace map

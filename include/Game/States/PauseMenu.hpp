@@ -68,6 +68,7 @@ private:
     bl::menu::Menu menu;
     core::player::input::MenuDriver inputDriver;
     sf::View view;
+    bool openedOnce;
 
     bl::menu::Item::Ptr resume;
     bl::menu::Item::Ptr ppldex;

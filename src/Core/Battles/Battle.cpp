@@ -1,7 +1,7 @@
 #include <Core/Battles/Battle.hpp>
 
-#include <Core/Battles/BattleSkipper.hpp>
 #include <Core/Battles/BattlerControllers/PlayerController.hpp>
+#include <Core/Debug/DebugOverrides.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -12,7 +12,7 @@ namespace
 {
 BattleState::Stage typeToStage(Battle::Type type) {
 #ifdef PEOPLEMON_DEBUG
-    const bool skip = BattleSkipper::skipBattles();
+    const bool skip = debug::DebugOverrides::get().skipBattles;
 #else
     const bool skip = false;
 #endif

@@ -3,4 +3,5 @@ target_sources(Core PUBLIC
     Gender.hpp
     Input.hpp
     State.hpp
+    StorageSystem.hpp
 )

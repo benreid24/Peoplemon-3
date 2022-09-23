@@ -102,8 +102,10 @@ private:
     core::player::input::MenuDriver inputDriver;
     bl::menu::Menu actionMenu;
     bl::menu::Menu regularMenu;
+    bl::menu::Menu ballMenu;
     bl::menu::Menu keyMenu;
     bl::menu::Menu tmMenu;
+    bl::menu::Menu* menuTabs[4];
     sf::Text pocketLabel;
     sf::Text description;
     bool actionOpen;

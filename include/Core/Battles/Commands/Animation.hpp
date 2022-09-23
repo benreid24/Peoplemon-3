@@ -1,6 +1,7 @@
 #ifndef GAME_BATTLES_COMMANDS_ANIMATION_HPP
 #define GAME_BATTLES_COMMANDS_ANIMATION_HPP
 
+#include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/PassiveAilment.hpp>
@@ -41,7 +42,12 @@ struct Animation {
         MultipleStateDecrease,
         SlideOut,
         Ailment,
-        PassiveAilment
+        PassiveAilment,
+        MakeWildVisible,
+        ThrowPeopleball,
+        PeopleballShake,
+        PeopleballCaught,
+        ThrowCloneBall
     };
 
     /**
@@ -93,6 +99,15 @@ struct Animation {
     Animation(bool forHost, pplmn::PassiveAilment ailment);
 
     /**
+     * @brief Construct a new Animation for a peopleball
+     *
+     * @param forHost True to play on the host battler, false for other
+     * @param type The type of animation to play
+     * @param peopleball The peopleball to display
+     */
+    Animation(bool forHost, Type type, item::Id peopleball);
+
+    /**
      * @brief Returns whether or not this animation is for the host or not
      *
      */
@@ -128,12 +143,19 @@ struct Animation {
      */
     pplmn::PassiveAilment getPassiveAilment() const;
 
+    /**
+     * @brief Get the Peopleball for this animation
+     *
+     */
+    item::Id getPeopleball() const;
+
 private:
     struct Empty {};
 
     bool forHost;
     Type type;
-    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat, pplmn::Ailment, pplmn::PassiveAilment>
+    std::variant<Empty, core::pplmn::MoveId, pplmn::Stat, pplmn::Ailment, pplmn::PassiveAilment,
+                 item::Id>
         data;
 };
 

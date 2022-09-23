@@ -33,7 +33,6 @@ public:
     /**
      * @brief Construct a new Screen Keyboard
      *
-     * @param bus The event bus to subscribe to when start() is called
      * @param onSubmit Callback to call when the input is submitted
      *
      */

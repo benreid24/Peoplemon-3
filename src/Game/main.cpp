@@ -2,6 +2,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
+#include <Core/Debug/DebugOverrides.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Files/MoveDB.hpp>
@@ -84,6 +85,8 @@ int main(int argc, char** argv) {
 
     bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
 #ifdef PEOPLEMON_DEBUG
+    core::debug::DebugOverrides::subscribe(engine.eventBus());
+
     if (argc == 2) {
         const std::string path = argv[1];
         BL_LOG_INFO << "Loading save: " << path;

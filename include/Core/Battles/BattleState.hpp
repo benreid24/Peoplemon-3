@@ -41,8 +41,13 @@ public:
         // Use item
         PreUseItem,
         UsingItem,
-
-        // TODO - wild peoplemon ball states
+        PeopleballThrown,
+        PeopleballRocking,
+        PeopleballBrokeout,
+        PeopleballStealFailed,
+        CloneBallThrown,
+        CloneBallFailed,
+        PeoplemonCloned,
 
         // Switch out
         BeforeSwitch,
@@ -90,6 +95,10 @@ public:
         TrainerDefeated,
         PeoplemonCaught,
         Whiteout,
+
+        // Post peoplemon caught
+        ChoosingNickname,
+        SavingPeoplemon,
 
         // Final states
         Completed,

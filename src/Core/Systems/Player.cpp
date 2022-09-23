@@ -148,6 +148,7 @@ void Player::observe(const event::GameSaveInitializing& save) {
     save.gameSave.player.whiteoutMap   = &data.whiteoutMap;
     save.gameSave.player.whiteoutSpawn = &data.whiteoutSpawn;
     save.gameSave.player.repelSteps    = &data.repelSteps;
+    save.gameSave.player.storage       = &data.storage.boxes;
 }
 
 } // namespace system

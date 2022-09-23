@@ -1,4 +1,5 @@
 target_sources(Core PRIVATE
+    CatchRegion.cpp
     Event.cpp
     Item.cpp
     LayerSet.cpp

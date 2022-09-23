@@ -1,5 +1,6 @@
 #include <Game/States/BattleState.hpp>
 
+#include <Core/Debug/DebugBanner.hpp>
 #include <Core/Events/Battle.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/BagMenu.hpp>
@@ -11,25 +12,20 @@ namespace state
 {
 namespace
 {
-sf::Clock timer;
 class DummyController : public core::battle::BattleController {
 public:
-    DummyController()
-    : time(0.f) {
-        timer.restart();
-    }
-
+    DummyController()          = default;
     virtual ~DummyController() = default;
 
 private:
-    float time;
+    sf::Clock timer;
 
     virtual void onCommandQueued(const core::battle::Command&) override {}
     virtual void onCommandProcessed(const core::battle::Command&) override {}
     virtual void onUpdate(bool, bool) override {
-        time += timer.getElapsedTime().asSeconds();
-        timer.restart();
-        if (time >= 3.f) { state->setStage(core::battle::BattleState::Stage::Completed); }
+        if (timer.getElapsedTime().asSeconds() >= 3.f) {
+            state->setStage(core::battle::BattleState::Stage::Completed);
+        }
     }
 };
 
@@ -95,6 +91,9 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
 
 void BattleState::render(bl::engine::Engine& engine, float lag) {
     battle->view.render(engine.window(), lag);
+#ifdef PEOPLEMON_DEBUG
+    core::debug::DebugBanner::render(engine.window());
+#endif
     engine.window().display();
 }
 

@@ -264,6 +264,22 @@ public:
      */
     OwnedMove* findMove(MoveId id);
 
+    /**
+     * @brief Performs the check that a shake would occur with the given peopleball
+     *
+     * @param ball The peopleball being used
+     * @param turnNumber The current turn of the battle
+     * @param opLevel The level of the peoplemon throwing the ball
+     * @return True if the ball should shake, false if the peoplemon should break out
+     */
+    bool shakePasses(item::Id ball, int turnNumber, unsigned int opLevel);
+
+    /**
+     * @brief Returns whether or not this peoplemon can be cloned
+     *
+     */
+    bool canClone() const;
+
 private:
     Id _id;
     std::string customName;

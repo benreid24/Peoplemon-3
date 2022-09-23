@@ -47,6 +47,7 @@ struct PeoplemonDB : private bl::util::NonCopyable {
     std::unordered_map<pplmn::Id, pplmn::Stats> evAwards;
     std::unordered_map<pplmn::Id, unsigned int> xpGroups;
     std::unordered_map<pplmn::Id, int> xpMults;
+    std::unordered_map<pplmn::Id, int> catchRates;
 };
 
 } // namespace file
@@ -76,6 +77,7 @@ struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBa
     SerializableField<10, DB, std::unordered_map<Id, core::pplmn::Stats>> evAwards;
     SerializableField<11, DB, std::unordered_map<Id, unsigned int>> xpGroups;
     SerializableField<12, DB, std::unordered_map<Id, int>> xpMults;
+    SerializableField<13, DB, std::unordered_map<Id, int>> catchRates;
 
     SerializableObject()
     : names("names", *this, &DB::names, SerializableFieldBase::Required{})
@@ -89,7 +91,8 @@ struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBa
     , evolveIds("evolveIds", *this, &DB::evolveIds, SerializableFieldBase::Required{})
     , evAwards("evAwards", *this, &DB::evAwards, SerializableFieldBase::Required{})
     , xpGroups("xpGroups", *this, &DB::xpGroups, SerializableFieldBase::Required{})
-    , xpMults("xpMults", *this, &DB::xpMults, SerializableFieldBase::Required{}) {}
+    , xpMults("xpMults", *this, &DB::xpMults, SerializableFieldBase::Required{})
+    , catchRates("catchRates", *this, &DB::catchRates, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

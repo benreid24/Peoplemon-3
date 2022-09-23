@@ -7,6 +7,7 @@
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
+#include <Core/Player/StorageSystem.hpp>
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Trainers.hpp>
 
@@ -43,6 +44,7 @@ struct GameSave {
         std::string* whiteoutMap;
         unsigned int* whiteoutSpawn;
         unsigned int* repelSteps;
+        std::array<std::vector<pplmn::StoredPeoplemon>, player::StorageSystem::BoxCount>* storage;
     } player;
 
     /// Stores pointers to the actual data to save/load from
@@ -224,6 +226,10 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     SerializableField<6, Player, std::string*> whiteoutMap;
     SerializableField<7, Player, unsigned int*> whiteoutSpawn;
     SerializableField<8, Player, unsigned int*> repelSteps;
+    SerializableField<9, Player,
+                      std::array<std::vector<core::pplmn::StoredPeoplemon>,
+                                 core::player::StorageSystem::BoxCount>*>
+        storage;
 
     SerializableObject()
     : name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
@@ -234,7 +240,8 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     , whiteoutMap("whiteoutMap", *this, &Player::whiteoutMap, SerializableFieldBase::Required{})
     , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn,
                     SerializableFieldBase::Required{})
-    , repelSteps("repelSteps", *this, &Player::repelSteps, SerializableFieldBase::Required{}) {}
+    , repelSteps("repelSteps", *this, &Player::repelSteps, SerializableFieldBase::Required{})
+    , storage("storage", *this, &Player::storage, SerializableFieldBase::Optional{}) {}
 };
 
 template<>

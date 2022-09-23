@@ -106,8 +106,9 @@ const std::string MoveDBFile      = "Resources/Config/moves.db";
 
 const std::string PeoplemonImageFolder = "Resources/Images/Peoplemon";
 
-const std::string TrainerExclaimSound = "Resources/Audio/Sounds/trainer.ogg";
-const std::string TrainerExclaimImage = "Resources/Images/trainer.png";
+constexpr unsigned int WildPeoplemonChance = 15;
+const std::string TrainerExclaimSound      = "Resources/Audio/Sounds/trainer.ogg";
+const std::string TrainerExclaimImage      = "Resources/Images/trainer.png";
 
 } // namespace defaults
 
@@ -220,6 +221,7 @@ bool Properties::load(bool ie) {
 
     bl::engine::Configuration::set("core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
 
+    bl::engine::Configuration::set("core.wild.chance", defaults::WildPeoplemonChance);
     bl::engine::Configuration::set("core.trainer.img", defaults::TrainerExclaimImage);
     bl::engine::Configuration::set("core.trainer.sfx", defaults::TrainerExclaimSound);
 
@@ -673,6 +675,12 @@ const std::string& Properties::PeoplemonImageFolder() {
     static const std::string f = bl::engine::Configuration::getOrDefault<std::string>(
         "core.peoplemon.image_dir", defaults::PeoplemonImageFolder);
     return f;
+}
+
+unsigned int Properties::WildPeoplemonChance() {
+    static const unsigned int c = bl::engine::Configuration::getOrDefault<unsigned int>(
+        "core.wild.chance", defaults::WildPeoplemonChance);
+    return c;
 }
 
 const std::string& Properties::TrainerExclaimImage() {

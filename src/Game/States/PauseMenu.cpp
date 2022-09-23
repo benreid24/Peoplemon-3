@@ -22,7 +22,8 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 
 PauseMenu::PauseMenu(core::system::Systems& s)
 : State(s)
-, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black)) {
+, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
+, openedOnce(false) {
     using bl::menu::Item;
     using bl::menu::TextItem;
 
@@ -93,7 +94,10 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
     view.setSize(size);
     systems.hud().hideEntryCard();
     // TODO - get sound specific to menu opening/closing
-    bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
+    if (!openedOnce) {
+        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
+        openedOnce = true;
+    }
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {

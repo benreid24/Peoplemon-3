@@ -55,7 +55,19 @@ public:
      * @brief Returns whether or not the player chose to forget a move when prompted
      *
      */
-    bool playerChoseForgetMove();
+    bool playerChoseForgetMove() const;
+
+    /**
+     * @brief Returns whether or not the player chose to set a nickname on a new Peoplemon
+     *
+     */
+    bool playerChoseToSetName() const;
+
+    /**
+     * @brief Returns the nickname the player entered
+     * 
+     */
+    const std::string& chosenNickname() const;
 
     /**
      * @brief Returns true if the view is done going through the queued commands and all components
@@ -108,17 +120,6 @@ private:
     sf::Sprite background;
 
     virtual void process(component::Command control) override;
-
-    /*
-    For switches thinking of a multistep approach of
-      1. Play recall anim
-      2. Sync state
-      3. Play send-out anim
-
-      Peoplemon animations when created, or when peoplemon change, start in a hidden state and only
-      go the regular state when a send-out anim is triggered. This makes switching and battle intro
-      easier to do with the current command model
-    */
 };
 
 } // namespace battle

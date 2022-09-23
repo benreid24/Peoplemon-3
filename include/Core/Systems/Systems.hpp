@@ -14,6 +14,7 @@
 #include <Core/Systems/Render.hpp>
 #include <Core/Systems/Scripts.hpp>
 #include <Core/Systems/Trainers.hpp>
+#include <Core/Systems/WildPeoplemon.hpp>
 #include <Core/Systems/World.hpp>
 
 #include <BLIB/Engine/Engine.hpp>
@@ -210,6 +211,18 @@ public:
      */
     const Trainers& trainers() const;
 
+    /**
+     * @brief Returns the wild peoplemon system
+     *
+     */
+    WildPeoplemon& wildPeoplemon();
+
+    /**
+     * @brief Returns the wild peoplemon system
+     *
+     */
+    const WildPeoplemon& wildPeoplemon() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -226,6 +239,7 @@ private:
     HUD _hud;
     Scripts _scripts;
     Trainers _trainers;
+    WildPeoplemon _wildPeoplemon;
 
     /**
      * @brief Creates the core game object and associates it with the engine
