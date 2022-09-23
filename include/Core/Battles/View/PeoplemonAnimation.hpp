@@ -153,8 +153,6 @@ private:
     mutable sf::Sprite peoplemon;
     bl::gfx::Flashing flasher;
     sf::Vector2f scale;
-
-    sf::Text standinText; // TODO - remove
 };
 
 } // namespace view

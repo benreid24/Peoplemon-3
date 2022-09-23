@@ -60,6 +60,7 @@ constexpr float ShakeXAmount  = 10.f;
 constexpr float ShakeYAmount  = 2.f;
 constexpr float ShakeCount    = 6.f;
 constexpr float ShakeSpeed    = 360.f * ShakeCount;
+constexpr float GreenRate     = 255.f / 0.5f;
 
 sf::Color makeColor(float alpha) {
     return sf::Color(FlashColor.r, FlashColor.g, FlashColor.b, static_cast<std::uint8_t>(alpha));
@@ -116,14 +117,6 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     throwBallTxtr =
         textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png")).data;
     setThrowBallTxtr(*throwBallTxtr);
-
-    standinText.setFont(Properties::MenuFont());
-    standinText.setFillColor(sf::Color::Black);
-    standinText.setOutlineColor(sf::Color::Red);
-    standinText.setOutlineThickness(2.f);
-    standinText.setCharacterSize(22);
-    standinText.setOrigin(standinText.getGlobalBounds().width * 0.5f,
-                          standinText.getGlobalBounds().height * 0.5f);
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
@@ -134,8 +127,6 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
     screenFlash.setPosition(pv.getCenter());
     screenFlash.setOrigin(screenFlash.getSize() * 0.5f);
     offset = pos;
-
-    standinText.setPosition(ViewSize * 0.5f);
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
@@ -231,9 +222,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
         break;
 
     case Animation::Type::PeopleballCaught:
-        standinText.setString("Ball caught");
-        arrowTime  = 0.f;
-        renderBall = false;
+        alpha = 0.f;
         break;
 
     default:
@@ -514,8 +503,10 @@ void PeoplemonAnimation::update(float dt) {
             break;
 
         case Animation::Type::PeopleballCaught:
-            arrowTime += dt;
-            if (arrowTime >= 2.f) { state = State::Static; }
+            alpha = std::min(alpha + dt * GreenRate, 255.f);
+            throwBall.setColor(
+                sf::Color(255 - static_cast<int>(alpha), static_cast<int>(alpha), 0));
+            if (alpha >= 255.f) { state = State::Static; }
             break;
 
         case Animation::Type::PlayerFirstSendout:
@@ -640,7 +631,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
             break;
 
         case Animation::Type::PeopleballCaught:
-            target.draw(standinText, states);
+            target.draw(throwBall); // in global coords
             break;
 
         case Animation::Type::PlayerFirstSendout:
