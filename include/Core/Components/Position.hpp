@@ -113,6 +113,12 @@ private:
     friend class bl::serial::SerializableObject<Position>;
 };
 
+inline std::ostream& operator<<(std::ostream& os, const core::component::Position& pos) {
+    os << "(" << static_cast<unsigned>(pos.level) << ", [" << pos.positionTiles().x << ", "
+       << pos.positionTiles().y << "])";
+    return os;
+}
+
 } // namespace component
 } // namespace core
 
