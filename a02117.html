@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::State Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,375 +63,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00979.html">game</a></li><li class="navelem"><a class="el" href="a00981.html">state</a></li><li class="navelem"><a class="el" href="a02117.html">State</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01000.html">game</a></li><li class="navelem"><a class="el" href="a01002.html">state</a></li><li class="navelem"><a class="el" href="a02120.html">MainGame</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="a02114.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::State Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00933.html">Editor</a> &#124; <a class="el" href="a00934.html">Game</a> &raquo; <a class="el" href="a00948.html">States</a></div></div>  </div>
+<div class="title">game::state::MainGame Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Parent to all game states. Provides some commonly required data like core game systems.  
- <a href="a02117.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a02788_source.html">State.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::State:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02117.png" usemap="#game::state::State_map" alt=""/>
-  <map id="game::state::State_map" name="game::state::State_map">
-<area href="a02077.html" title="State for displaying the player&#39;s inventory and selecting items. " alt="game::state::BagMenu" shape="rect" coords="184,112,358,136"/>
-<area href="a02081.html" title="This game state does all battling. When the battle is complete it will pop itself from the engine sta..." alt="game::state::BattleState" shape="rect" coords="184,168,358,192"/>
-<area href="a02085.html" title="Provides a menu to select a save and loads the selected save. " alt="game::state::LoadGame" shape="rect" coords="184,224,358,248"/>
-<area href="a02089.html" title="The big honcho. This is the primary state that runs a majority of the time. " alt="game::state::MainGame" shape="rect" coords="184,280,358,304"/>
-<area href="a02093.html" title="Provides the main menu as an engine state. " alt="game::state::MainMenu" shape="rect" coords="184,336,358,360"/>
-<area href="a02097.html" title="Debug only state that allows free roaming the map with a special camera. " alt="game::state::MapExplorer" shape="rect" coords="184,392,358,416"/>
-<area href="a02101.html" title="This state does the game intro, gets the player&#39;s name and gender, and triggers the main game state i..." alt="game::state::NewGame" shape="rect" coords="184,448,358,472"/>
-<area href="a02105.html" title="Game state for the pause menu. " alt="game::state::PauseMenu" shape="rect" coords="184,504,358,528"/>
-<area href="a02109.html" title="Provides the menu for viewing and selecting Peoplemon. " alt="game::state::PeoplemonMenu" shape="rect" coords="184,560,358,584"/>
-<area href="a02113.html" alt="game::state::SaveGame" shape="rect" coords="184,616,358,640"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f476c44d4104c353117a2e92742ec90"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#a8f476c44d4104c353117a2e92742ec90">~State</a> ()=default</td></tr>
-<tr class="memdesc:a8f476c44d4104c353117a2e92742ec90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02117.html" title="Parent to all game states. Provides some commonly required data like core game systems. ">State</a> object.  <a href="#a8f476c44d4104c353117a2e92742ec90">More...</a><br /></td></tr>
-<tr class="separator:a8f476c44d4104c353117a2e92742ec90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae62840bb33e67ff1b1ea7b6c9431d249"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#ae62840bb33e67ff1b1ea7b6c9431d249">name</a> () const override=0</td></tr>
-<tr class="memdesc:ae62840bb33e67ff1b1ea7b6c9431d249"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the name of the state.  <a href="#ae62840bb33e67ff1b1ea7b6c9431d249">More...</a><br /></td></tr>
-<tr class="separator:ae62840bb33e67ff1b1ea7b6c9431d249"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2245c2f3ab8cbd78e345b4b940ffa442"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#a2245c2f3ab8cbd78e345b4b940ffa442">activate</a> (bl::engine::Engine &amp;engine) override=0</td></tr>
-<tr class="memdesc:a2245c2f3ab8cbd78e345b4b940ffa442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the state active. This is called before <a class="el" href="a02117.html#af7fd85a21d6ff60886858d2676957991" title="Perform all update logic as required in here. ">update()</a> or <a class="el" href="a02117.html#a489c514e24d0a29a5e8bac1fc3cd7ba3" title="Render to the screen. ">render()</a> and called exactly once until <a class="el" href="a02117.html#a63ff495c10ee7d986be1750173d24c6b" title="The state is now not the current state. Called after activate() ">deactivate()</a> is called.  <a href="#a2245c2f3ab8cbd78e345b4b940ffa442">More...</a><br /></td></tr>
-<tr class="separator:a2245c2f3ab8cbd78e345b4b940ffa442"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63ff495c10ee7d986be1750173d24c6b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#a63ff495c10ee7d986be1750173d24c6b">deactivate</a> (bl::engine::Engine &amp;engine) override=0</td></tr>
-<tr class="memdesc:a63ff495c10ee7d986be1750173d24c6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The state is now not the current state. Called after <a class="el" href="a02117.html#a2245c2f3ab8cbd78e345b4b940ffa442" title="Make the state active. This is called before update() or render() and called exactly once until deact...">activate()</a>  <a href="#a63ff495c10ee7d986be1750173d24c6b">More...</a><br /></td></tr>
-<tr class="separator:a63ff495c10ee7d986be1750173d24c6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7fd85a21d6ff60886858d2676957991"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#af7fd85a21d6ff60886858d2676957991">update</a> (bl::engine::Engine &amp;engine, float dt) override=0</td></tr>
-<tr class="memdesc:af7fd85a21d6ff60886858d2676957991"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform all update logic as required in here.  <a href="#af7fd85a21d6ff60886858d2676957991">More...</a><br /></td></tr>
-<tr class="separator:af7fd85a21d6ff60886858d2676957991"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489c514e24d0a29a5e8bac1fc3cd7ba3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#a489c514e24d0a29a5e8bac1fc3cd7ba3">render</a> (bl::engine::Engine &amp;engine, float lag) override=0</td></tr>
-<tr class="memdesc:a489c514e24d0a29a5e8bac1fc3cd7ba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Render to the screen.  <a href="#a489c514e24d0a29a5e8bac1fc3cd7ba3">More...</a><br /></td></tr>
-<tr class="separator:a489c514e24d0a29a5e8bac1fc3cd7ba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a86449dde7c8422aa2557c4f6c77d7d82"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a> (<a class="el" href="a01849.html">core::system::Systems</a> &amp;<a class="el" href="a02117.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
-<tr class="memdesc:a86449dde7c8422aa2557c4f6c77d7d82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the state.  <a href="#a86449dde7c8422aa2557c4f6c77d7d82">More...</a><br /></td></tr>
-<tr class="separator:a86449dde7c8422aa2557c4f6c77d7d82"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01849.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02117.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
-<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Parent to all game states. Provides some commonly required data like core game systems. </p>
-
-<p class="definition">Definition at line <a class="el" href="a02788_source.html#l00032">32</a> of file <a class="el" href="a02788_source.html">State.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8f476c44d4104c353117a2e92742ec90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f476c44d4104c353117a2e92742ec90">&#9670;&nbsp;</a></span>~State()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual game::state::State::~State </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a02117.html" title="Parent to all game states. Provides some commonly required data like core game systems. ">State</a> object. </p>
-
-</div>
-</div>
-<a id="a86449dde7c8422aa2557c4f6c77d7d82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86449dde7c8422aa2557c4f6c77d7d82">&#9670;&nbsp;</a></span>State()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">game::state::State::State </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01849.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initialize the state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">systems</td><td>A reference to the core game systems </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a02869_source.html#l00007">7</a> of file <a class="el" href="a02869_source.html">State.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2245c2f3ab8cbd78e345b4b940ffa442"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2245c2f3ab8cbd78e345b4b940ffa442">&#9670;&nbsp;</a></span>activate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void game::state::State::activate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Make the state active. This is called before <a class="el" href="a02117.html#af7fd85a21d6ff60886858d2676957991" title="Perform all update logic as required in here. ">update()</a> or <a class="el" href="a02117.html#a489c514e24d0a29a5e8bac1fc3cd7ba3" title="Render to the screen. ">render()</a> and called exactly once until <a class="el" href="a02117.html#a63ff495c10ee7d986be1750173d24c6b" title="The state is now not the current state. Called after activate() ">deactivate()</a> is called. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The active engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a02077.html#a76ae8f0f65ec5366ca2c2f2b6e08006f">game::state::BagMenu</a>, <a class="el" href="a02109.html#a0417128978d6a9cc83c1aece588ea645">game::state::PeoplemonMenu</a>, <a class="el" href="a02081.html#ac69782ff4f2c8666907e5b05cb74832a">game::state::BattleState</a>, <a class="el" href="a02089.html#a5a1e06c32c343d46f42a47c3535e292c">game::state::MainGame</a>, <a class="el" href="a02097.html#ae53c68ffd2d70541f76dc9e671380762">game::state::MapExplorer</a>, <a class="el" href="a02085.html#a2b04b57de91e68168968a2f762161766">game::state::LoadGame</a>, <a class="el" href="a02101.html#a35f139b50b5b15e496ae36ccd3e0e9fc">game::state::NewGame</a>, <a class="el" href="a02105.html#aa73bb135e241e4a8c6d902ffe07143d0">game::state::PauseMenu</a>, <a class="el" href="a02093.html#aa7d2ec09d9167621ba8b66775fed3b52">game::state::MainMenu</a>, and <a class="el" href="a02113.html#a6cea776f0ed2c0e19511a449d688d320">game::state::SaveGame</a>.</p>
-
-</div>
-</div>
-<a id="a63ff495c10ee7d986be1750173d24c6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63ff495c10ee7d986be1750173d24c6b">&#9670;&nbsp;</a></span>deactivate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void game::state::State::deactivate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>The state is now not the current state. Called after <a class="el" href="a02117.html#a2245c2f3ab8cbd78e345b4b940ffa442" title="Make the state active. This is called before update() or render() and called exactly once until deact...">activate()</a> </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The active engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a02077.html#af1ad3b4caeada4056d033e6b99315860">game::state::BagMenu</a>, <a class="el" href="a02089.html#a5927fca05c0a0a8ef5e62f1057514cbc">game::state::MainGame</a>, <a class="el" href="a02109.html#ae4330f4c2b468c538b342661fe13dbc8">game::state::PeoplemonMenu</a>, <a class="el" href="a02081.html#ab95dba1cbd60568f78e439ca10dc0ebd">game::state::BattleState</a>, <a class="el" href="a02097.html#adca74eead404a4a1fd3582bb7e1960ec">game::state::MapExplorer</a>, <a class="el" href="a02085.html#abf6ca5c80e47f0c1f37aa609ad115ce5">game::state::LoadGame</a>, <a class="el" href="a02101.html#aae9ae100d1002573cf3c0cb038a05afe">game::state::NewGame</a>, <a class="el" href="a02105.html#a87e83a1eaa0229d77ec1b19e9baf6887">game::state::PauseMenu</a>, <a class="el" href="a02093.html#a0f3cf2b9e6902538562392f987f076f1">game::state::MainMenu</a>, and <a class="el" href="a02113.html#af40f2394e40db0d0063351e889e8ba86">game::state::SaveGame</a>.</p>
-
-</div>
-</div>
-<a id="ae62840bb33e67ff1b1ea7b6c9431d249"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae62840bb33e67ff1b1ea7b6c9431d249">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual const char* game::state::State::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Return the name of the state. </p>
-
-<p>Implemented in <a class="el" href="a02077.html#a9f3b38601508ee5d60ae2447440a84a8">game::state::BagMenu</a>, <a class="el" href="a02109.html#a1d55deb0256a0c8d65d276013a3875c9">game::state::PeoplemonMenu</a>, <a class="el" href="a02081.html#a9a1dca10c3b3db641c3d987b0bd42700">game::state::BattleState</a>, <a class="el" href="a02089.html#a0884a6523fd406e4e4488c6b1cb0cfdb">game::state::MainGame</a>, <a class="el" href="a02097.html#ac370eb1c45b531c4c15565f44d420873">game::state::MapExplorer</a>, <a class="el" href="a02105.html#ad306171de1cd78c01dd80e894515ac00">game::state::PauseMenu</a>, <a class="el" href="a02085.html#af38d459719db2113a0a16422b1f31aed">game::state::LoadGame</a>, <a class="el" href="a02101.html#a425868cb227f96f1c86b3024bc2a82ef">game::state::NewGame</a>, <a class="el" href="a02093.html#a996c83b8719897e862ea9051039284f2">game::state::MainMenu</a>, and <a class="el" href="a02113.html#a841f007cbe748753871c131b490c2917">game::state::SaveGame</a>.</p>
-
-</div>
-</div>
-<a id="a489c514e24d0a29a5e8bac1fc3cd7ba3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a489c514e24d0a29a5e8bac1fc3cd7ba3">&#9670;&nbsp;</a></span>render()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void game::state::State::render </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Render to the screen. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The active engine </td></tr>
-    <tr><td class="paramname">lag</td><td>The residual time not accounted for in <a class="el" href="a02117.html#af7fd85a21d6ff60886858d2676957991" title="Perform all update logic as required in here. ">update()</a> </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a02077.html#a4b6113f53987beb9e1bfd50317febece">game::state::BagMenu</a>, <a class="el" href="a02089.html#a0df6358eea5e232f2fc880c171e47707">game::state::MainGame</a>, <a class="el" href="a02081.html#ab745e2f185d5c89030d43d4756290e98">game::state::BattleState</a>, <a class="el" href="a02109.html#a21e6efa1fff62a65114bd4ff4c5e75c7">game::state::PeoplemonMenu</a>, <a class="el" href="a02097.html#a9af79a9cd6f8058c008ef552dc67f079">game::state::MapExplorer</a>, <a class="el" href="a02085.html#a20f1af0666be7c0b4c60086b269cbfd5">game::state::LoadGame</a>, <a class="el" href="a02101.html#a21fa013c10a6c23d2343230fb5591c38">game::state::NewGame</a>, <a class="el" href="a02105.html#a3406e519f646a493220da627e6d87475">game::state::PauseMenu</a>, <a class="el" href="a02113.html#ab041e578bd76d36f5f8b88a1ee48577b">game::state::SaveGame</a>, and <a class="el" href="a02093.html#a8bce4d09fecbd999495cf277a5fda306">game::state::MainMenu</a>.</p>
-
-</div>
-</div>
-<a id="af7fd85a21d6ff60886858d2676957991"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7fd85a21d6ff60886858d2676957991">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void game::state::State::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Perform all update logic as required in here. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The active engine </td></tr>
-    <tr><td class="paramname">dt</td><td>The elapsed time since the last call to update </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implemented in <a class="el" href="a02077.html#aa6eedd36418cc722842d56ecf75d0579">game::state::BagMenu</a>, <a class="el" href="a02089.html#a6429602648f3bbe302f807ea19d5a2fd">game::state::MainGame</a>, <a class="el" href="a02081.html#a9168cb592e7615f20647bc8d1b4fe4e1">game::state::BattleState</a>, <a class="el" href="a02109.html#ae0ca6d157959bc4c6a3384b848017bf6">game::state::PeoplemonMenu</a>, <a class="el" href="a02097.html#aae1e06679f80fb12d3ccbe5641e24702">game::state::MapExplorer</a>, <a class="el" href="a02085.html#a79005bd00feeab66ae995386ed9c9ace">game::state::LoadGame</a>, <a class="el" href="a02101.html#aa49c367318cd08dfd93d3a5332a7b65d">game::state::NewGame</a>, <a class="el" href="a02105.html#ac4204ac3d392b1ee39b7f0732c28c89e">game::state::PauseMenu</a>, <a class="el" href="a02093.html#a785e3dc903834fceb1701ae4bfeea02d">game::state::MainMenu</a>, and <a class="el" href="a02113.html#a8852be016e014cf3c24dff7fcf032a9a">game::state::SaveGame</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01849.html">core::system::Systems</a>&amp; game::state::State::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a02788_source.html#l00078">78</a> of file <a class="el" href="a02788_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a02788_source.html">State.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a02869_source.html">State.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02120.html">game::state::MainGame</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02120.html#a5a1e06c32c343d46f42a47c3535e292c">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02120.html#af52604a5df0abe639e62fbe0af65f557">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02120.html#a5927fca05c0a0a8ef5e62f1057514cbc">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02120.html#a0884a6523fd406e4e4488c6b1cb0cfdb">name</a>() const override</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02120.html#a0df6358eea5e232f2fc880c171e47707">render</a>(bl::engine::Engine &amp;engine, float lag) override</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02148.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a02148.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02148.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02148.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02120.html#a6429602648f3bbe302f807ea19d5a2fd">update</a>(bl::engine::Engine &amp;engine, float dt) override</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02120.html#a2b3735df6dcabcc9736290606cb3de6d">~MainGame</a>()=default</td><td class="entry"><a class="el" href="a02120.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02148.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02148.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 11 2022 19:21:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 23 2022 21:28:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

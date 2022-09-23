@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Battles/TurnAction.hpp File Reference</title>
+<title>Peoplemon: include/Core/Battles/View/MessagePrinter.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,45 +63,52 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_fc360690779c97403f0388105f2724c7.html">Battles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_fc360690779c97403f0388105f2724c7.html">Battles</a></li><li class="navelem"><a class="el" href="dir_1dc0d99622b65a4c9ff66ebf035fb842.html">View</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">TurnAction.hpp File Reference</div>  </div>
+<div class="title">MessagePrinter.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00260_source.html">Core/Player/Input/MenuDriver.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces/Menu.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces/Utilities/GhostWriter.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Graphics/Flashing.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Shapes/Triangle.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00047_source.html">Core/Battles/Commands/Message.hpp</a>&gt;</code><br />
+<code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02723_source.html">Core/Components/Command.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00317_source.html">Core/Systems/HUD/ScreenKeyboard.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00053_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00950"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00950.html">core</a></td></tr>
-<tr class="memdesc:a00950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00953"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00953.html">core::battle</a></td></tr>
-<tr class="memdesc:a00953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01160.html">core::battle::view::MessagePrinter</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper utility for printing battle messages.  <a href="a01160.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a9f4dbdd126a3cad461c287d3626e196a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00953.html#a9f4dbdd126a3cad461c287d3626e196a">core::battle::TurnAction</a> : std::uint8_t { <a class="el" href="a00953.html#a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784">core::battle::TurnAction::Fight</a> = 0, 
-<a class="el" href="a00953.html#a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b">core::battle::TurnAction::Switch</a> = 1, 
-<a class="el" href="a00953.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">core::battle::TurnAction::Item</a> = 2, 
-<a class="el" href="a00953.html#a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d">core::battle::TurnAction::Run</a> = 3
- }<tr class="memdesc:a9f4dbdd126a3cad461c287d3626e196a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an action that a battler may take on their turn.  <a href="a00953.html#a9f4dbdd126a3cad461c287d3626e196a">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:a9f4dbdd126a3cad461c287d3626e196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a00971"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00971.html">core</a></td></tr>
+<tr class="memdesc:a00971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00974"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00974.html">core::battle</a></td></tr>
+<tr class="memdesc:a00974"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00975"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00975.html">core::battle::view</a></td></tr>
+<tr class="memdesc:a00975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes that compose the <a class="el" href="a01132.html" title="This is the top level class for rendering battles. It takes commands and state from a BattleControlle...">BattleView</a>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 11 2022 19:21:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 23 2022 21:28:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
