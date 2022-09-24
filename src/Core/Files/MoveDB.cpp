@@ -32,8 +32,7 @@ struct LegacyDBLoader : public bl::serial::binary::SerializerVersion<MoveDB> {
 
             std::string str;
             if (!input.read(str)) return false;
-            db.names[id]          = str;
-            db.animationPaths[id] = str;
+            db.names[id] = str;
             if (!input.read(str)) return false;
             db.descriptions[id] = str;
 

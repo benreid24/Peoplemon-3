@@ -15,7 +15,6 @@ std::vector<MoveId> allIds;
 } // namespace
 std::unordered_map<MoveId, std::string>* Move::names          = nullptr;
 std::unordered_map<MoveId, std::string>* Move::descriptions   = nullptr;
-std::unordered_map<MoveId, std::string>* Move::animationPaths = nullptr;
 std::unordered_map<MoveId, Type>* Move::types                 = nullptr;
 std::unordered_map<MoveId, int>* Move::damages                = nullptr;
 std::unordered_map<MoveId, int>* Move::accuracies             = nullptr;
@@ -40,7 +39,6 @@ MoveId Move::cast(unsigned int id) {
 void Move::setDataSource(file::MoveDB& db) {
     names             = &db.names;
     descriptions      = &db.descriptions;
-    animationPaths    = &db.animationPaths;
     types             = &db.types;
     damages           = &db.damages;
     accuracies        = &db.accuracies;
