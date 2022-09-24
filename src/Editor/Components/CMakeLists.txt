@@ -14,6 +14,7 @@ target_sources(PeoplemonEditor PRIVATE
     LightPreview.cpp
     LightSlider.cpp
     OwnedPeoplemonWindow.cpp
+    MoveEditorWindow.cpp
     PeoplemonSelector.cpp
     MapActions.hpp
     MapActions.cpp
@@ -24,6 +25,7 @@ target_sources(PeoplemonEditor PRIVATE
     ScriptSelector.cpp
     StatBox.cpp
     TrainerEditorWindow.cpp
+    TypeSelector.cpp
     WeatherSelect.cpp
 )
 

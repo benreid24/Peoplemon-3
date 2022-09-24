@@ -13,6 +13,7 @@ target_sources(PeoplemonEditor PUBLIC
     LightPreview.hpp
     LightSlider.hpp
     OwnedPeoplemonWindow.hpp
+    MoveEditorWindow.hpp
     PeoplemonSelector.hpp
     MoveSelector.hpp
     NewMapDialog.hpp
@@ -21,5 +22,6 @@ target_sources(PeoplemonEditor PUBLIC
     ScriptSelector.hpp
     StatBox.hpp
     TrainerEditorWindow.hpp
+    TypeSelector.hpp
     WeatherSelect.hpp
 )

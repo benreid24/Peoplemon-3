@@ -3,6 +3,10 @@
 
 #include <Editor/Pages/Page.hpp>
 
+#include <BLIB/Interfaces/GUI.hpp>
+#include <Core/Files/MoveDB.hpp>
+#include <Editor/Components/MoveEditorWindow.hpp>
+
 namespace editor
 {
 namespace page
@@ -36,7 +40,19 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO
+    core::file::MoveDB moveDb;
+    component::MoveEditorWindow moveWindow;
+    bl::gui::Button::Ptr saveBut;
+    bl::gui::ScrollArea::Ptr rowArea;
+
+    void onChange();
+    void makeDirty();
+    void save();
+    void newMove();
+    void editMove(core::pplmn::MoveId move);
+    void deleteMove(core::pplmn::MoveId move);
+    void sync();
+    void reset();
 };
 
 } // namespace page
