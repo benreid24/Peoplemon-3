@@ -3,6 +3,9 @@
 
 #include <Editor/Pages/Page.hpp>
 
+#include <Core/Files/ItemDB.hpp>
+#include <Editor/Components/ItemEditorWindow.hpp>
+
 namespace editor
 {
 namespace page
@@ -36,7 +39,19 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO
+    core::file::ItemDB itemDb;
+    component::ItemEditorWindow itemWindow;
+    bl::gui::Button::Ptr saveBut;
+    bl::gui::ScrollArea::Ptr rowArea;
+
+    void onChange();
+    void makeDirty();
+    void save();
+    void newItem();
+    void editItem(core::item::Id move);
+    void deleteItem(core::item::Id move);
+    void sync();
+    void reset();
 };
 
 } // namespace page

@@ -6,6 +6,7 @@
 #include <Core/Items/Category.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Items/Type.hpp>
+#include <cstdint>
 #include <string>
 #include <unordered_map>
 
@@ -38,7 +39,7 @@ struct ItemDB : private bl::util::NonCopyable {
 
     std::unordered_map<item::Id, std::string> names;
     std::unordered_map<item::Id, std::string> descriptions;
-    std::unordered_map<item::Id, int> values;
+    std::unordered_map<item::Id, std::int32_t> values;
 
     friend class ItemDBLoader;
 };
@@ -57,7 +58,7 @@ struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
 
     SerializableField<1, DB, std::unordered_map<Id, std::string>> names;
     SerializableField<2, DB, std::unordered_map<Id, std::string>> descriptions;
-    SerializableField<3, DB, std::unordered_map<Id, int>> values;
+    SerializableField<3, DB, std::unordered_map<Id, std::int32_t>> values;
 
     SerializableObject()
     : names("names", *this, &DB::names, SerializableFieldBase::Required{})
