@@ -9,6 +9,7 @@ target_sources(PeoplemonEditor PUBLIC
     EventEditor.hpp
     GameTestingWindow.hpp
     HighlightRadioButton.hpp
+    ItemEditorWindow.hpp
     ItemSelector.hpp
     LightPreview.hpp
     LightSlider.hpp

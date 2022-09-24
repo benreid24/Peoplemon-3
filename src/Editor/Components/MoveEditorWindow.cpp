@@ -257,6 +257,10 @@ void MoveEditorWindow::onSave() {
     const int effectChance  = parseInput<int>(effectChanceEntry);
     const int effectIntense = parseInput<int>(effectIntenseEntry);
 
+    if (idEntry->getInput().empty()) {
+        error("Please enter an id");
+        return;
+    }
     if (openId != id && moveDb.names.find(id) != moveDb.names.end()) {
         if (1 != bl::dialog::tinyfd_messageBox(
                      "Warning", "Id already exists. Overwrite it?", "yesno", "warning", 0)) {
