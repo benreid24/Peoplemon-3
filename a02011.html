@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::PeoplemonSelector Class Reference</title>
+<title>Peoplemon: editor::component::NewMapDialog Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,158 +63,140 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01001.html">editor</a></li><li class="navelem"><a class="el" href="a01002.html">component</a></li><li class="navelem"><a class="el" href="a02011.html">PeoplemonSelector</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01007.html">editor</a></li><li class="navelem"><a class="el" href="a01008.html">component</a></li><li class="navelem"><a class="el" href="a02011.html">NewMapDialog</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a02008.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::PeoplemonSelector Class Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00969.html">Components</a></div></div>  </div>
+<div class="title">editor::component::NewMapDialog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special combobox for Peoplemon ids.  
+<p>Dialog for creating new maps.  
  <a href="a02011.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00404_source.html">PeoplemonSelector.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::PeoplemonSelector:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02011.png" usemap="#editor::component::PeoplemonSelector_map" alt=""/>
-  <map id="editor::component::PeoplemonSelector_map" name="editor::component::PeoplemonSelector_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00398_source.html">NewMapDialog.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6d76a002c49606003c5d23e108d5ac7c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#a6d76a002c49606003c5d23e108d5ac7c">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02011.html">PeoplemonSelector</a> &gt;</td></tr>
-<tr class="separator:a6d76a002c49606003c5d23e108d5ac7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3568964f069359943dfb668d5134364"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#ae3568964f069359943dfb668d5134364">CreateCb</a> = std::function&lt; void(const std::string &amp;file, const std::string &amp;name, const std::string &amp;tileset, unsigned int w, unsigned int h)&gt;</td></tr>
+<tr class="memdesc:ae3568964f069359943dfb668d5134364"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when maps are created.  <a href="#ae3568964f069359943dfb668d5134364">More...</a><br /></td></tr>
+<tr class="separator:ae3568964f069359943dfb668d5134364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a230ea0ca7aca96c1abdd6d0a1c4a7e58"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00974.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#a230ea0ca7aca96c1abdd6d0a1c4a7e58">currentPeoplemon</a> () const</td></tr>
-<tr class="memdesc:a230ea0ca7aca96c1abdd6d0a1c4a7e58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected peoplemon.  <a href="#a230ea0ca7aca96c1abdd6d0a1c4a7e58">More...</a><br /></td></tr>
-<tr class="separator:a230ea0ca7aca96c1abdd6d0a1c4a7e58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92de4ac2e8f18883e03ac25746d14494"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#a92de4ac2e8f18883e03ac25746d14494">setPeoplemon</a> (<a class="el" href="a00974.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> id)</td></tr>
-<tr class="memdesc:a92de4ac2e8f18883e03ac25746d14494"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the currently selected Peoplemon.  <a href="#a92de4ac2e8f18883e03ac25746d14494">More...</a><br /></td></tr>
-<tr class="separator:a92de4ac2e8f18883e03ac25746d14494"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aca98f97fa6364b68847f9bd4d89b0818"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02011.html#a6d76a002c49606003c5d23e108d5ac7c">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#aca98f97fa6364b68847f9bd4d89b0818">create</a> ()</td></tr>
-<tr class="memdesc:aca98f97fa6364b68847f9bd4d89b0818"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new peoplemon selector.  <a href="#aca98f97fa6364b68847f9bd4d89b0818">More...</a><br /></td></tr>
-<tr class="separator:aca98f97fa6364b68847f9bd4d89b0818"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80e9721eaac4f8da6254bb81b602545e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#a80e9721eaac4f8da6254bb81b602545e">NewMapDialog</a> (const <a class="el" href="a02011.html#ae3568964f069359943dfb668d5134364">CreateCb</a> &amp;createCb)</td></tr>
+<tr class="memdesc:a80e9721eaac4f8da6254bb81b602545e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new new-map dialoig.  <a href="#a80e9721eaac4f8da6254bb81b602545e">More...</a><br /></td></tr>
+<tr class="separator:a80e9721eaac4f8da6254bb81b602545e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a93ceba14f30b87bb8fc9510cb423f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02011.html#a3a93ceba14f30b87bb8fc9510cb423f1">show</a> (bl::gui::GUI::Ptr parent, const std::string &amp;file)</td></tr>
+<tr class="memdesc:a3a93ceba14f30b87bb8fc9510cb423f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the new map dialog.  <a href="#a3a93ceba14f30b87bb8fc9510cb423f1">More...</a><br /></td></tr>
+<tr class="separator:a3a93ceba14f30b87bb8fc9510cb423f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special combobox for Peoplemon ids. </p>
+<div class="textblock"><p>Dialog for creating new maps. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00404_source.html#l00017">17</a> of file <a class="el" href="a00404_source.html">PeoplemonSelector.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00016">16</a> of file <a class="el" href="a00398_source.html">NewMapDialog.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6d76a002c49606003c5d23e108d5ac7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d76a002c49606003c5d23e108d5ac7c">&#9670;&nbsp;</a></span>Ptr</h2>
+<a id="ae3568964f069359943dfb668d5134364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3568964f069359943dfb668d5134364">&#9670;&nbsp;</a></span>CreateCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02011.html#a6d76a002c49606003c5d23e108d5ac7c">editor::component::PeoplemonSelector::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02011.html">PeoplemonSelector</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a02011.html#ae3568964f069359943dfb668d5134364">editor::component::NewMapDialog::CreateCb</a> =  std::function&lt;void(const std::string&amp; file, const std::string&amp; name, const std::string&amp; tileset, unsigned int w, unsigned int h)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00404_source.html#l00019">19</a> of file <a class="el" href="a00404_source.html">PeoplemonSelector.hpp</a>.</p>
+<p>Callback for when maps are created. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00398_source.html#l00021">21</a> of file <a class="el" href="a00398_source.html">NewMapDialog.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a80e9721eaac4f8da6254bb81b602545e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80e9721eaac4f8da6254bb81b602545e">&#9670;&nbsp;</a></span>NewMapDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::NewMapDialog::NewMapDialog </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02011.html#ae3568964f069359943dfb668d5134364">CreateCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>createCb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates a new new-map dialoig. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">createCb</td><td>The callback to trigger when a new map should be created </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00021">21</a> of file <a class="el" href="a00866_source.html">NewMapDialog.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aca98f97fa6364b68847f9bd4d89b0818"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca98f97fa6364b68847f9bd4d89b0818">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a3a93ceba14f30b87bb8fc9510cb423f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a93ceba14f30b87bb8fc9510cb423f1">&#9670;&nbsp;</a></span>show()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02011.html#a6d76a002c49606003c5d23e108d5ac7c">PeoplemonSelector::Ptr</a> editor::component::PeoplemonSelector::create </td>
+          <td class="memname">void editor::component::NewMapDialog::show </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bl::gui::GUI::Ptr&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>file</em>&#160;</td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Creates a new peoplemon selector. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00008">8</a> of file <a class="el" href="a00869_source.html">PeoplemonSelector.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a230ea0ca7aca96c1abdd6d0a1c4a7e58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a230ea0ca7aca96c1abdd6d0a1c4a7e58">&#9670;&nbsp;</a></span>currentPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00974.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> editor::component::PeoplemonSelector::currentPeoplemon </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the currently selected peoplemon. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00017">17</a> of file <a class="el" href="a00869_source.html">PeoplemonSelector.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a92de4ac2e8f18883e03ac25746d14494"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92de4ac2e8f18883e03ac25746d14494">&#9670;&nbsp;</a></span>setPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::PeoplemonSelector::setPeoplemon </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00974.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a>&#160;</td>
-          <td class="paramname"><em>id</em></td><td>)</td>
           <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the currently selected Peoplemon. </p>
+<p>Opens the new map dialog. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent GUI element </td></tr>
+    <tr><td class="paramname">file</td><td>The map file to save to </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00022">22</a> of file <a class="el" href="a00869_source.html">PeoplemonSelector.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00866_source.html#l00112">112</a> of file <a class="el" href="a00866_source.html">NewMapDialog.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00404_source.html">PeoplemonSelector.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00869_source.html">PeoplemonSelector.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00398_source.html">NewMapDialog.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00866_source.html">NewMapDialog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

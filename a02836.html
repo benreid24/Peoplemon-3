@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Pages/Subpages/Tileset.hpp File Reference</title>
+<title>Peoplemon: include/Core/Peoplemon/Type.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,48 +63,69 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li><li class="navelem"><a class="el" href="dir_b6b01b8144a0efb3e8967a6211dc706f.html">Subpages</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7c3823283bbfff1894463e96029f8928.html">Peoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Tileset.hpp File Reference</div>  </div>
+<div class="title">Type.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Interfaces/GUI.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00161_source.html">Core/Maps/CatchRegion.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02833_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00437_source.html">Editor/Pages/Subpages/Catchables.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00440_source.html">Editor/Pages/Subpages/Collisions.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00455_source.html">Editor/Pages/Subpages/Towns.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a02836_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02107.html">editor::page::Tileset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subpage for tileset editing and use. Used by the map editor page.  <a href="a02107.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01719.html">core::pplmn::TypeUtil</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains a collection of helper methods for types.  <a href="a01719.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01001"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01001.html">editor</a></td></tr>
-<tr class="memdesc:a01001"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a00989"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00989.html">core</a></td></tr>
+<tr class="memdesc:a00989"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01002"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01002.html">editor::component</a></td></tr>
+<tr class="memitem:a01006"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01006.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a01006"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01695.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01010"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html">editor::page</a></td></tr>
-<tr class="memdesc:a01010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:gaa52c811bcb6c639158aff81bd4cfb39f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00980.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fa6adf97f83acf6453d4a6a4b1070f3754">core::pplmn::Type::None</a> = 0, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fa960b44c579bc2f6818d2daaf9e4c16f0">core::pplmn::Type::Normal</a> = 0x1 &lt;&lt; 0, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fa9b62305de14f24a0111b59ac6e687b80">core::pplmn::Type::Intelligent</a> = 0x1 &lt;&lt; 1, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39faf5c0d5ed7af24d3aa55b4666cc4596a7">core::pplmn::Type::Funny</a> = 0x1 &lt;&lt; 2, 
+<br />
+&#160;&#160;<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fa7ca39c3f33808763111948391e067f08">core::pplmn::Type::Athletic</a> = 0x1 &lt;&lt; 3, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fa098753f8980036f4b936e3d4b6997111">core::pplmn::Type::Quiet</a> = 0x1 &lt;&lt; 4, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fab3b7be90e0bf22b14494761a792ba54f">core::pplmn::Type::Awkward</a> = 0x1 &lt;&lt; 5, 
+<a class="el" href="a00980.html#ggaa52c811bcb6c639158aff81bd4cfb39fafe59e0771227c99e53654a7f9841f1fe">core::pplmn::Type::PartyAnimal</a> = 0x1 &lt;&lt; 6
+<br />
+ }<tr class="memdesc:gaa52c811bcb6c639158aff81bd4cfb39f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a type that a move or Peoplemon can be. Types may be combined.  <a href="a00980.html#gaa52c811bcb6c639158aff81bd4cfb39f">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaa52c811bcb6c639158aff81bd4cfb39f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab1774d7df38d9eb96277de5dcf6d450b"><td class="memItemLeft" align="right" valign="top">Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01006.html#ab1774d7df38d9eb96277de5dcf6d450b">core::pplmn::operator &amp;</a> (Type l, Type r)</td></tr>
+<tr class="memdesc:ab1774d7df38d9eb96277de5dcf6d450b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary AND for Type values.  <a href="a01006.html#ab1774d7df38d9eb96277de5dcf6d450b">More...</a><br /></td></tr>
+<tr class="separator:ab1774d7df38d9eb96277de5dcf6d450b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afdf0b8a108f8fa69de4d5c22962772d9"><td class="memItemLeft" align="right" valign="top">Type&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01006.html#afdf0b8a108f8fa69de4d5c22962772d9">core::pplmn::operator|</a> (Type l, Type r)</td></tr>
+<tr class="memdesc:afdf0b8a108f8fa69de4d5c22962772d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Binary OR for Type values.  <a href="a01006.html#afdf0b8a108f8fa69de4d5c22962772d9">More...</a><br /></td></tr>
+<tr class="separator:afdf0b8a108f8fa69de4d5c22962772d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

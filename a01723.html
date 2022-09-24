@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player::Bag Class Reference</title>
+<title>Peoplemon: core::pplmn::WildPeoplemon Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,366 +63,153 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a01003.html">player</a></li><li class="navelem"><a class="el" href="a01723.html">Bag</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01006.html">pplmn</a></li><li class="navelem"><a class="el" href="a01723.html">WildPeoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01720.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::player::Bag Class Reference</div>  </div>
+<div class="title">core::pplmn::WildPeoplemon Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00980.html">Peoplemon</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Basic inventory class for managing player items.  
+<p>Template struct to generate <a class="el" href="a01687.html" title="Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon...">OwnedPeoplemon</a> for random encounters.  
  <a href="a01723.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00245_source.html">Bag.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01727.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple struct representing a set of items in the bag.  <a href="a01727.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02246ed25034e0168588f6db4a56f048"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a02246ed25034e0168588f6db4a56f048">getByCategory</a> (<a class="el" href="a00972.html#gac5b9981750f250d2d6aa8682b2a10b71">item::Category</a> category, std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;result) const</td></tr>
-<tr class="memdesc:a02246ed25034e0168588f6db4a56f048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of owned items in the given category.  <a href="#a02246ed25034e0168588f6db4a56f048">More...</a><br /></td></tr>
-<tr class="separator:a02246ed25034e0168588f6db4a56f048"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97f34b53e1dfbe17592677bc8ad47919"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a97f34b53e1dfbe17592677bc8ad47919">getByType</a> (<a class="el" href="a00972.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">item::Type</a> type, std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;result) const</td></tr>
-<tr class="memdesc:a97f34b53e1dfbe17592677bc8ad47919"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the set of owned items of the given type.  <a href="#a97f34b53e1dfbe17592677bc8ad47919">More...</a><br /></td></tr>
-<tr class="separator:a97f34b53e1dfbe17592677bc8ad47919"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02137e1f1f3317b91c511b4f345f3117"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a02137e1f1f3317b91c511b4f345f3117">getAll</a> (std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;result) const</td></tr>
-<tr class="memdesc:a02137e1f1f3317b91c511b4f345f3117"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all owned items.  <a href="#a02137e1f1f3317b91c511b4f345f3117">More...</a><br /></td></tr>
-<tr class="separator:a02137e1f1f3317b91c511b4f345f3117"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f4c04917debacd6289fa77545edaf92"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a9f4c04917debacd6289fa77545edaf92">itemCount</a> (<a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item) const</td></tr>
-<tr class="memdesc:a9f4c04917debacd6289fa77545edaf92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the number of the given item owned.  <a href="#a9f4c04917debacd6289fa77545edaf92">More...</a><br /></td></tr>
-<tr class="separator:a9f4c04917debacd6289fa77545edaf92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff6f092cae2b946019f16268f434f3d2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#aff6f092cae2b946019f16268f434f3d2">hasItem</a> (<a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item) const</td></tr>
-<tr class="memdesc:aff6f092cae2b946019f16268f434f3d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if at least one of the given items is owned.  <a href="#aff6f092cae2b946019f16268f434f3d2">More...</a><br /></td></tr>
-<tr class="separator:aff6f092cae2b946019f16268f434f3d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a520d6a73f44ab8d8bd68bbc05db70957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a520d6a73f44ab8d8bd68bbc05db70957">addItem</a> (<a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item, unsigned int qty=1)</td></tr>
-<tr class="memdesc:a520d6a73f44ab8d8bd68bbc05db70957"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds the given item to the bag.  <a href="#a520d6a73f44ab8d8bd68bbc05db70957">More...</a><br /></td></tr>
-<tr class="separator:a520d6a73f44ab8d8bd68bbc05db70957"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0889148b02fd6dc5b65b1ccb02a28052"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a0889148b02fd6dc5b65b1ccb02a28052">removeItem</a> (<a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item, unsigned int qty=1)</td></tr>
-<tr class="memdesc:a0889148b02fd6dc5b65b1ccb02a28052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given item from the bag.  <a href="#a0889148b02fd6dc5b65b1ccb02a28052">More...</a><br /></td></tr>
-<tr class="separator:a0889148b02fd6dc5b65b1ccb02a28052"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9cd603aecc1d6480c4abdd2c3e99b0b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#ae9cd603aecc1d6480c4abdd2c3e99b0b">clear</a> ()</td></tr>
-<tr class="memdesc:ae9cd603aecc1d6480c4abdd2c3e99b0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all items.  <a href="#ae9cd603aecc1d6480c4abdd2c3e99b0b">More...</a><br /></td></tr>
-<tr class="separator:ae9cd603aecc1d6480c4abdd2c3e99b0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd7f616a2fc43c614e1e58054167a8e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01687.html">OwnedPeoplemon</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#afd7f616a2fc43c614e1e58054167a8e5">generate</a> () const</td></tr>
+<tr class="memdesc:afd7f616a2fc43c614e1e58054167a8e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate an <a class="el" href="a01687.html" title="Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon...">OwnedPeoplemon</a> from the template.  <a href="#afd7f616a2fc43c614e1e58054167a8e5">More...</a><br /></td></tr>
+<tr class="separator:afd7f616a2fc43c614e1e58054167a8e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:a301c8b17fbbb747b70ee667a442d5ec1"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a301c8b17fbbb747b70ee667a442d5ec1">bl::serial::SerializableObject&lt; Bag &gt;</a></td></tr>
-<tr class="separator:a301c8b17fbbb747b70ee667a442d5ec1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a11bb70fa5cfd71306283bb8a09d21d42"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00980.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a11bb70fa5cfd71306283bb8a09d21d42">id</a></td></tr>
+<tr class="memdesc:a11bb70fa5cfd71306283bb8a09d21d42"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of peoplemon to generate.  <a href="#a11bb70fa5cfd71306283bb8a09d21d42">More...</a><br /></td></tr>
+<tr class="separator:a11bb70fa5cfd71306283bb8a09d21d42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3bd0467c151fec11b848f119b4e0db17"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a3bd0467c151fec11b848f119b4e0db17">minLevel</a></td></tr>
+<tr class="memdesc:a3bd0467c151fec11b848f119b4e0db17"><td class="mdescLeft">&#160;</td><td class="mdescRight">The minimum level that may spawn, inclusive.  <a href="#a3bd0467c151fec11b848f119b4e0db17">More...</a><br /></td></tr>
+<tr class="separator:a3bd0467c151fec11b848f119b4e0db17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4455c1e1512329c24872cbda32895f17"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a4455c1e1512329c24872cbda32895f17">maxLevel</a></td></tr>
+<tr class="memdesc:a4455c1e1512329c24872cbda32895f17"><td class="mdescLeft">&#160;</td><td class="mdescRight">The maximum level that may spawn, inclusive.  <a href="#a4455c1e1512329c24872cbda32895f17">More...</a><br /></td></tr>
+<tr class="separator:a4455c1e1512329c24872cbda32895f17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5242a47f9f124e031cdcdddb5b96421c"><td class="memItemLeft" align="right" valign="top">std::uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01723.html#a5242a47f9f124e031cdcdddb5b96421c">frequency</a></td></tr>
+<tr class="memdesc:a5242a47f9f124e031cdcdddb5b96421c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Frequency of spawns relative to other wild peoplemon in the region.  <a href="#a5242a47f9f124e031cdcdddb5b96421c">More...</a><br /></td></tr>
+<tr class="separator:a5242a47f9f124e031cdcdddb5b96421c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Basic inventory class for managing player items. </p>
+<div class="textblock"><p>Template struct to generate <a class="el" href="a01687.html" title="Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon...">OwnedPeoplemon</a> for random encounters. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00018">18</a> of file <a class="el" href="a00245_source.html">Bag.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02857_source.html#l00018">18</a> of file <a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a520d6a73f44ab8d8bd68bbc05db70957"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a520d6a73f44ab8d8bd68bbc05db70957">&#9670;&nbsp;</a></span>addItem()</h2>
+<a id="afd7f616a2fc43c614e1e58054167a8e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd7f616a2fc43c614e1e58054167a8e5">&#9670;&nbsp;</a></span>generate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::player::Bag::addItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>qty</em> = <code>1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adds the given item to the bag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to add </td></tr>
-    <tr><td class="paramname">qty</td><td>How many to add </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00044">44</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae9cd603aecc1d6480c4abdd2c3e99b0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9cd603aecc1d6480c4abdd2c3e99b0b">&#9670;&nbsp;</a></span>clear()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::player::Bag::clear </td>
+          <td class="memname"><a class="el" href="a01687.html">OwnedPeoplemon</a> core::pplmn::WildPeoplemon::generate </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes all items. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00064">64</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a02137e1f1f3317b91c511b4f345f3117"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02137e1f1f3317b91c511b4f345f3117">&#9670;&nbsp;</a></span>getAll()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::player::Bag::getAll </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns all owned items. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>Populated with all owned items </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Generate an <a class="el" href="a01687.html" title="Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon...">OwnedPeoplemon</a> from the template. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00031">31</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02944_source.html#l00010">10</a> of file <a class="el" href="a02944_source.html">WildPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a02246ed25034e0168588f6db4a56f048"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02246ed25034e0168588f6db4a56f048">&#9670;&nbsp;</a></span>getByCategory()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a5242a47f9f124e031cdcdddb5b96421c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5242a47f9f124e031cdcdddb5b96421c">&#9670;&nbsp;</a></span>frequency</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::player::Bag::getByCategory </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gac5b9981750f250d2d6aa8682b2a10b71">item::Category</a>&#160;</td>
-          <td class="paramname"><em>category</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="memname">std::uint16_t core::pplmn::WildPeoplemon::frequency</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the set of owned items in the given category. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">category</td><td>The category to search for </td></tr>
-    <tr><td class="paramname">result</td><td>Vector to populate with results </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Frequency of spawns relative to other wild peoplemon in the region. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00017">17</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02857_source.html#l00029">29</a> of file <a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a97f34b53e1dfbe17592677bc8ad47919"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97f34b53e1dfbe17592677bc8ad47919">&#9670;&nbsp;</a></span>getByType()</h2>
+<a id="a11bb70fa5cfd71306283bb8a09d21d42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11bb70fa5cfd71306283bb8a09d21d42">&#9670;&nbsp;</a></span>id</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::player::Bag::getByType </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">item::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a01727.html">Item</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
+          <td class="memname"><a class="el" href="a00980.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> core::pplmn::WildPeoplemon::id</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the set of owned items of the given type. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">category</td><td>The type to search for </td></tr>
-    <tr><td class="paramname">result</td><td>Vector to populate with results </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>The type of peoplemon to generate. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00024">24</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02857_source.html#l00020">20</a> of file <a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aff6f092cae2b946019f16268f434f3d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff6f092cae2b946019f16268f434f3d2">&#9670;&nbsp;</a></span>hasItem()</h2>
+<a id="a4455c1e1512329c24872cbda32895f17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4455c1e1512329c24872cbda32895f17">&#9670;&nbsp;</a></span>maxLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::player::Bag::hasItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::uint8_t core::pplmn::WildPeoplemon::maxLevel</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns true if at least one of the given items is owned. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to search for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if owned, false if none </dd></dl>
+<p>The maximum level that may spawn, inclusive. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00042">42</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02857_source.html#l00026">26</a> of file <a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9f4c04917debacd6289fa77545edaf92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f4c04917debacd6289fa77545edaf92">&#9670;&nbsp;</a></span>itemCount()</h2>
+<a id="a3bd0467c151fec11b848f119b4e0db17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bd0467c151fec11b848f119b4e0db17">&#9670;&nbsp;</a></span>minLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int core::player::Bag::itemCount </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td> const</td>
+          <td class="memname">std::uint8_t core::pplmn::WildPeoplemon::minLevel</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the number of the given item owned. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to search for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>unsigned int The amount of that item that is owned </dd></dl>
+<p>The minimum level that may spawn, inclusive. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00037">37</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02857_source.html#l00023">23</a> of file <a class="el" href="a02857_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0889148b02fd6dc5b65b1ccb02a28052"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0889148b02fd6dc5b65b1ccb02a28052">&#9670;&nbsp;</a></span>removeItem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::player::Bag::removeItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>qty</em> = <code>1</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Removes the given item from the bag. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to remove </td></tr>
-    <tr><td class="paramname">qty</td><td>How many to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the item was removed, false if not enough to remove </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00052">52</a> of file <a class="el" href="a00707_source.html">Bag.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="a301c8b17fbbb747b70ee667a442d5ec1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a301c8b17fbbb747b70ee667a442d5ec1">&#9670;&nbsp;</a></span>bl::serial::SerializableObject< Bag ></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class bl::serial::SerializableObject&lt; <a class="el" href="a01723.html">Bag</a> &gt;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00245_source.html#l00113">113</a> of file <a class="el" href="a00245_source.html">Bag.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Player/<a class="el" href="a00245_source.html">Bag.hpp</a></li>
-<li>src/Core/Player/<a class="el" href="a00707_source.html">Bag.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Peoplemon/<a class="el" href="a02857_source.html">WildPeoplemon.hpp</a></li>
+<li>src/Core/Peoplemon/<a class="el" href="a02944_source.html">WildPeoplemon.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

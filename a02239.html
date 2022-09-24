@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::loaders::PrimaryTilesetLoader Struct Reference</title>
+<title>Peoplemon: core::map::loaders::LegacyMapLoader Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,64 +63,41 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00995.html">map</a></li><li class="navelem"><a class="el" href="a00998.html">loaders</a></li><li class="navelem"><a class="el" href="a02239.html">PrimaryTilesetLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01001.html">map</a></li><li class="navelem"><a class="el" href="a01004.html">loaders</a></li><li class="navelem"><a class="el" href="a02239.html">LegacyMapLoader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02236.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::loaders::PrimaryTilesetLoader Struct Reference</div>  </div>
+<div class="title">core::map::loaders::LegacyMapLoader Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::loaders::PrimaryTilesetLoader:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::loaders::LegacyMapLoader:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02239.png" usemap="#core::map::loaders::PrimaryTilesetLoader_map" alt=""/>
-  <map id="core::map::loaders::PrimaryTilesetLoader_map" name="core::map::loaders::PrimaryTilesetLoader_map">
+  <img src="a02239.png" usemap="#core::map::loaders::LegacyMapLoader_map" alt=""/>
+  <map id="core::map::loaders::LegacyMapLoader_map" name="core::map::loaders::LegacyMapLoader_map">
 </map>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:aba63eb4a8888273acb0fce0673fed8fb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02239.html#aba63eb4a8888273acb0fce0673fed8fb">Serializer</a> = bl::serial::binary::Serializer&lt; <a class="el" href="a01635.html">Tileset</a> &gt;</td></tr>
-<tr class="separator:aba63eb4a8888273acb0fce0673fed8fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7633107b2b9c997bcc893ba90b804a20"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02239.html#a7633107b2b9c997bcc893ba90b804a20">read</a> (<a class="el" href="a01635.html">Tileset</a> &amp;tileset, bl::serial::binary::InputStream &amp;input) const override</td></tr>
-<tr class="separator:a7633107b2b9c997bcc893ba90b804a20"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ade2f69a406ca282c53fe85a66a152364"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02239.html#ade2f69a406ca282c53fe85a66a152364">write</a> (const <a class="el" href="a01635.html">Tileset</a> &amp;tileset, bl::serial::binary::OutputStream &amp;output) const override</td></tr>
-<tr class="separator:ade2f69a406ca282c53fe85a66a152364"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44e43cf46e3c4c1b836f411e8860fd4e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02239.html#a44e43cf46e3c4c1b836f411e8860fd4e">read</a> (<a class="el" href="a01615.html">Map</a> &amp;result, bl::serial::binary::InputStream &amp;input) const override</td></tr>
+<tr class="separator:a44e43cf46e3c4c1b836f411e8860fd4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c50529eaaae51cd38bfc35b849af635"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02239.html#a7c50529eaaae51cd38bfc35b849af635">write</a> (const <a class="el" href="a01615.html">Map</a> &amp;, bl::serial::binary::OutputStream &amp;) const override</td></tr>
+<tr class="separator:a7c50529eaaae51cd38bfc35b849af635"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a02920_source.html#l00042">42</a> of file <a class="el" href="a02920_source.html">Tileset.cpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aba63eb4a8888273acb0fce0673fed8fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba63eb4a8888273acb0fce0673fed8fb">&#9670;&nbsp;</a></span>Serializer</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02239.html#aba63eb4a8888273acb0fce0673fed8fb">core::map::loaders::PrimaryTilesetLoader::Serializer</a> =  bl::serial::binary::Serializer&lt;<a class="el" href="a01635.html">Tileset</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a02920_source.html#l00043">43</a> of file <a class="el" href="a02920_source.html">Tileset.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7633107b2b9c997bcc893ba90b804a20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7633107b2b9c997bcc893ba90b804a20">&#9670;&nbsp;</a></span>read()</h2>
+<p class="definition">Definition at line <a class="el" href="a02926_source.html#l00020">20</a> of file <a class="el" href="a02926_source.html">Map.cpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a44e43cf46e3c4c1b836f411e8860fd4e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44e43cf46e3c4c1b836f411e8860fd4e">&#9670;&nbsp;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,10 +106,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::map::loaders::PrimaryTilesetLoader::read </td>
+          <td class="memname">virtual bool core::map::loaders::LegacyMapLoader::read </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01635.html">Tileset</a> &amp;&#160;</td>
-          <td class="paramname"><em>tileset</em>, </td>
+          <td class="paramtype"><a class="el" href="a01615.html">Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -153,12 +130,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02920_source.html#l00045">45</a> of file <a class="el" href="a02920_source.html">Tileset.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02926_source.html#l00022">22</a> of file <a class="el" href="a02926_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ade2f69a406ca282c53fe85a66a152364"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ade2f69a406ca282c53fe85a66a152364">&#9670;&nbsp;</a></span>write()</h2>
+<a id="a7c50529eaaae51cd38bfc35b849af635"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c50529eaaae51cd38bfc35b849af635">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -167,16 +144,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::map::loaders::PrimaryTilesetLoader::write </td>
+          <td class="memname">virtual bool core::map::loaders::LegacyMapLoader::write </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01635.html">Tileset</a> &amp;&#160;</td>
-          <td class="paramname"><em>tileset</em>, </td>
+          <td class="paramtype">const <a class="el" href="a01615.html">Map</a> &amp;&#160;</td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bl::serial::binary::OutputStream &amp;&#160;</td>
-          <td class="paramname"><em>output</em>&#160;</td>
+          <td class="paramname">&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -191,18 +168,18 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02920_source.html#l00049">49</a> of file <a class="el" href="a02920_source.html">Tileset.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02926_source.html#l00235">235</a> of file <a class="el" href="a02926_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Maps/<a class="el" href="a02920_source.html">Tileset.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/Core/Maps/<a class="el" href="a02926_source.html">Map.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::GameSave::WorldDataPointers Struct Reference</title>
+<title>Peoplemon: core::file::GameSave::InteractDataPointers Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00994.html">file</a></li><li class="navelem"><a class="el" href="a01439.html">GameSave</a></li><li class="navelem"><a class="el" href="a01451.html">WorldDataPointers</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01000.html">file</a></li><li class="navelem"><a class="el" href="a01447.html">GameSave</a></li><li class="navelem"><a class="el" href="a01451.html">InteractDataPointers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,103 +71,67 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01448.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::GameSave::WorldDataPointers Struct Reference</div>  </div>
+<div class="title">core::file::GameSave::InteractDataPointers Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
 <p>Stores pointers to the actual data to save/load from.  
  <a href="a01451.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02800_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02812_source.html">GameSave.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a68045e44e20b42cdaf14657c87cf3bb3"><td class="memItemLeft" align="right" valign="top">std::string *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#a68045e44e20b42cdaf14657c87cf3bb3">currentMap</a></td></tr>
-<tr class="separator:a68045e44e20b42cdaf14657c87cf3bb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53444b96ac8030a1b55296dbf0510472"><td class="memItemLeft" align="right" valign="top">std::string *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#a53444b96ac8030a1b55296dbf0510472">prevMap</a></td></tr>
-<tr class="separator:a53444b96ac8030a1b55296dbf0510472"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1240bec3c77edbe42c54b5ec824aeec6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01231.html">component::Position</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#a1240bec3c77edbe42c54b5ec824aeec6">playerPos</a></td></tr>
-<tr class="separator:a1240bec3c77edbe42c54b5ec824aeec6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afaa2b52ad204dea358340bc89a86d5cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01231.html">component::Position</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#afaa2b52ad204dea358340bc89a86d5cf">prevPlayerPos</a></td></tr>
-<tr class="separator:afaa2b52ad204dea358340bc89a86d5cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94b47cdfa7a78e4d6b162d39dbcf399c"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, std::unordered_set&lt; std::string &gt; &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#a94b47cdfa7a78e4d6b162d39dbcf399c">talkedto</a></td></tr>
+<tr class="separator:a94b47cdfa7a78e4d6b162d39dbcf399c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e09cc7e1d7d1883eb8b41071a52818f"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; std::string &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01451.html#a8e09cc7e1d7d1883eb8b41071a52818f">convFlags</a></td></tr>
+<tr class="separator:a8e09cc7e1d7d1883eb8b41071a52818f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Stores pointers to the actual data to save/load from. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02800_source.html#l00051">51</a> of file <a class="el" href="a02800_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02812_source.html#l00032">32</a> of file <a class="el" href="a02812_source.html">GameSave.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a68045e44e20b42cdaf14657c87cf3bb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68045e44e20b42cdaf14657c87cf3bb3">&#9670;&nbsp;</a></span>currentMap</h2>
+<a id="a8e09cc7e1d7d1883eb8b41071a52818f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e09cc7e1d7d1883eb8b41071a52818f">&#9670;&nbsp;</a></span>convFlags</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string* core::file::GameSave::WorldDataPointers::currentMap</td>
+          <td class="memname">std::unordered_set&lt;std::string&gt;* core::file::GameSave::InteractDataPointers::convFlags</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02800_source.html#l00052">52</a> of file <a class="el" href="a02800_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02812_source.html#l00034">34</a> of file <a class="el" href="a02812_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a1240bec3c77edbe42c54b5ec824aeec6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1240bec3c77edbe42c54b5ec824aeec6">&#9670;&nbsp;</a></span>playerPos</h2>
+<a id="a94b47cdfa7a78e4d6b162d39dbcf399c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94b47cdfa7a78e4d6b162d39dbcf399c">&#9670;&nbsp;</a></span>talkedto</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01231.html">component::Position</a>* core::file::GameSave::WorldDataPointers::playerPos</td>
+          <td class="memname">std::unordered_map&lt;std::string, std::unordered_set&lt;std::string&gt; &gt;* core::file::GameSave::InteractDataPointers::talkedto</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02800_source.html#l00054">54</a> of file <a class="el" href="a02800_source.html">GameSave.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a53444b96ac8030a1b55296dbf0510472"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53444b96ac8030a1b55296dbf0510472">&#9670;&nbsp;</a></span>prevMap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string* core::file::GameSave::WorldDataPointers::prevMap</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a02800_source.html#l00053">53</a> of file <a class="el" href="a02800_source.html">GameSave.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afaa2b52ad204dea358340bc89a86d5cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afaa2b52ad204dea358340bc89a86d5cf">&#9670;&nbsp;</a></span>prevPlayerPos</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01231.html">component::Position</a>* core::file::GameSave::WorldDataPointers::prevPlayerPos</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a02800_source.html#l00055">55</a> of file <a class="el" href="a02800_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02812_source.html#l00033">33</a> of file <a class="el" href="a02812_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Files/<a class="el" href="a02800_source.html">GameSave.hpp</a></li>
+<li>include/Core/Files/<a class="el" href="a02812_source.html">GameSave.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

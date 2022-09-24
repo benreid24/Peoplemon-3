@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::TrainerEditorWindow Class Reference</title>
+<title>Peoplemon: editor::component::PlaylistEditorWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01001.html">editor</a></li><li class="navelem"><a class="el" href="a01002.html">component</a></li><li class="navelem"><a class="el" href="a02027.html">TrainerEditorWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01007.html">editor</a></li><li class="navelem"><a class="el" href="a01008.html">component</a></li><li class="navelem"><a class="el" href="a02027.html">PlaylistEditorWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,95 +72,86 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02024.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::TrainerEditorWindow Class Reference</div>  </div>
+<div class="title">editor::component::PlaylistEditorWindow Class Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00975.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Editor for NPC files.  
+<p>The playlist editor and chooser.  
  <a href="a02027.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00416_source.html">TrainerEditorWindow.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00410_source.html">PlaylistEditorWindow.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aa9e7e28360ea248af1ece7cc83c6f784"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#aa9e7e28360ea248af1ece7cc83c6f784">SelectCb</a> = std::function&lt; void(const std::string &amp;file)&gt;</td></tr>
-<tr class="memdesc:aa9e7e28360ea248af1ece7cc83c6f784"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when a trainer file is selected.  <a href="#aa9e7e28360ea248af1ece7cc83c6f784">More...</a><br /></td></tr>
-<tr class="separator:aa9e7e28360ea248af1ece7cc83c6f784"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aed5ec5e7c7f910a99f82be63912ccb4f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#aed5ec5e7c7f910a99f82be63912ccb4f">CloseCb</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="memdesc:aed5ec5e7c7f910a99f82be63912ccb4f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the window is closed.  <a href="#aed5ec5e7c7f910a99f82be63912ccb4f">More...</a><br /></td></tr>
-<tr class="separator:aed5ec5e7c7f910a99f82be63912ccb4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca3b180b480ea273f6bcc596c89bcc5e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#aca3b180b480ea273f6bcc596c89bcc5e">SelectedCb</a> = std::function&lt; void(const std::string &amp;)&gt;</td></tr>
+<tr class="separator:aca3b180b480ea273f6bcc596c89bcc5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c58052112f6ee7ced08f3df9d2891f9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#a7c58052112f6ee7ced08f3df9d2891f9">CancelCb</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:a7c58052112f6ee7ced08f3df9d2891f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0b06789cb7a4f63f2cc7c8d33fb10a70"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#a0b06789cb7a4f63f2cc7c8d33fb10a70">TrainerEditorWindow</a> (const <a class="el" href="a02027.html#aa9e7e28360ea248af1ece7cc83c6f784">SelectCb</a> &amp;cb, const <a class="el" href="a02027.html#aed5ec5e7c7f910a99f82be63912ccb4f">CloseCb</a> &amp;closeCb)</td></tr>
-<tr class="memdesc:a0b06789cb7a4f63f2cc7c8d33fb10a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Trainer Editor Window.  <a href="#a0b06789cb7a4f63f2cc7c8d33fb10a70">More...</a><br /></td></tr>
-<tr class="separator:a0b06789cb7a4f63f2cc7c8d33fb10a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a348766611c43f2cc5703cb8a764fc013"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#a348766611c43f2cc5703cb8a764fc013">show</a> (bl::gui::GUI::Ptr parent, const std::string &amp;file)</td></tr>
-<tr class="memdesc:a348766611c43f2cc5703cb8a764fc013"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the trainer editor.  <a href="#a348766611c43f2cc5703cb8a764fc013">More...</a><br /></td></tr>
-<tr class="separator:a348766611c43f2cc5703cb8a764fc013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab17cd84a91ac3e54b318c205bba6cba3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#ab17cd84a91ac3e54b318c205bba6cba3">hide</a> ()</td></tr>
-<tr class="memdesc:ab17cd84a91ac3e54b318c205bba6cba3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the window and all created child windows.  <a href="#ab17cd84a91ac3e54b318c205bba6cba3">More...</a><br /></td></tr>
-<tr class="separator:ab17cd84a91ac3e54b318c205bba6cba3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b0b15838e22501e7c04f33f3652d71f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#a3b0b15838e22501e7c04f33f3652d71f">PlaylistEditorWindow</a> (const <a class="el" href="a02027.html#aca3b180b480ea273f6bcc596c89bcc5e">SelectedCb</a> &amp;onSelect, const <a class="el" href="a02027.html#a7c58052112f6ee7ced08f3df9d2891f9">CancelCb</a> &amp;onCancel)</td></tr>
+<tr class="memdesc:a3b0b15838e22501e7c04f33f3652d71f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the playlist editor.  <a href="#a3b0b15838e22501e7c04f33f3652d71f">More...</a><br /></td></tr>
+<tr class="separator:a3b0b15838e22501e7c04f33f3652d71f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70bf3626311f69a124817217c58afaf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02027.html#a70bf3626311f69a124817217c58afaf7">open</a> (const bl::gui::GUI::Ptr &amp;gui, const std::string &amp;plist)</td></tr>
+<tr class="memdesc:a70bf3626311f69a124817217c58afaf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the window with an optional file to load.  <a href="#a70bf3626311f69a124817217c58afaf7">More...</a><br /></td></tr>
+<tr class="separator:a70bf3626311f69a124817217c58afaf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Editor for NPC files. </p>
+<div class="textblock"><p>The playlist editor and chooser. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00023">23</a> of file <a class="el" href="a00416_source.html">TrainerEditorWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00016">16</a> of file <a class="el" href="a00410_source.html">PlaylistEditorWindow.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aed5ec5e7c7f910a99f82be63912ccb4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed5ec5e7c7f910a99f82be63912ccb4f">&#9670;&nbsp;</a></span>CloseCb</h2>
+<a id="a7c58052112f6ee7ced08f3df9d2891f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c58052112f6ee7ced08f3df9d2891f9">&#9670;&nbsp;</a></span>CancelCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02027.html#aed5ec5e7c7f910a99f82be63912ccb4f">editor::component::TrainerEditorWindow::CloseCb</a> =  std::function&lt;void()&gt;</td>
+          <td class="memname">using <a class="el" href="a02027.html#a7c58052112f6ee7ced08f3df9d2891f9">editor::component::PlaylistEditorWindow::CancelCb</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Called when the window is closed. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00029">29</a> of file <a class="el" href="a00416_source.html">TrainerEditorWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00019">19</a> of file <a class="el" href="a00410_source.html">PlaylistEditorWindow.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa9e7e28360ea248af1ece7cc83c6f784"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9e7e28360ea248af1ece7cc83c6f784">&#9670;&nbsp;</a></span>SelectCb</h2>
+<a id="aca3b180b480ea273f6bcc596c89bcc5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca3b180b480ea273f6bcc596c89bcc5e">&#9670;&nbsp;</a></span>SelectedCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02027.html#aa9e7e28360ea248af1ece7cc83c6f784">editor::component::TrainerEditorWindow::SelectCb</a> =  std::function&lt;void(const std::string&amp; file)&gt;</td>
+          <td class="memname">using <a class="el" href="a02027.html#aca3b180b480ea273f6bcc596c89bcc5e">editor::component::PlaylistEditorWindow::SelectedCb</a> =  std::function&lt;void(const std::string&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback for when a trainer file is selected. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00416_source.html#l00026">26</a> of file <a class="el" href="a00416_source.html">TrainerEditorWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00410_source.html#l00018">18</a> of file <a class="el" href="a00410_source.html">PlaylistEditorWindow.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a0b06789cb7a4f63f2cc7c8d33fb10a70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b06789cb7a4f63f2cc7c8d33fb10a70">&#9670;&nbsp;</a></span>TrainerEditorWindow()</h2>
+<a id="a3b0b15838e22501e7c04f33f3652d71f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0b15838e22501e7c04f33f3652d71f">&#9670;&nbsp;</a></span>PlaylistEditorWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::component::TrainerEditorWindow::TrainerEditorWindow </td>
+          <td class="memname">editor::component::PlaylistEditorWindow::PlaylistEditorWindow </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02027.html#aa9e7e28360ea248af1ece7cc83c6f784">SelectCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>, </td>
+          <td class="paramtype">const <a class="el" href="a02027.html#aca3b180b480ea273f6bcc596c89bcc5e">SelectedCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSelect</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a02027.html#aed5ec5e7c7f910a99f82be63912ccb4f">CloseCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>closeCb</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a02027.html#a7c58052112f6ee7ced08f3df9d2891f9">CancelCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>onCancel</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -170,58 +161,37 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Trainer Editor Window. </p>
+<p>Creates the playlist editor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">cb</td><td>Callback for when a trainer file is selected </td></tr>
-    <tr><td class="paramname">cb</td><td>Callback for when the window is closed </td></tr>
+    <tr><td class="paramname">onSelect</td><td>Called when a playlist is selected </td></tr>
+    <tr><td class="paramname">onCancel</td><td>Called when the window is closed with no selection </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00035">35</a> of file <a class="el" href="a00881_source.html">TrainerEditorWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00878_source.html#l00012">12</a> of file <a class="el" href="a00878_source.html">PlaylistEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ab17cd84a91ac3e54b318c205bba6cba3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab17cd84a91ac3e54b318c205bba6cba3">&#9670;&nbsp;</a></span>hide()</h2>
+<a id="a70bf3626311f69a124817217c58afaf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70bf3626311f69a124817217c58afaf7">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::component::TrainerEditorWindow::hide </td>
+          <td class="memname">void editor::component::PlaylistEditorWindow::open </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Hides the window and all created child windows. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00453">453</a> of file <a class="el" href="a00881_source.html">TrainerEditorWindow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a348766611c43f2cc5703cb8a764fc013"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a348766611c43f2cc5703cb8a764fc013">&#9670;&nbsp;</a></span>show()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::TrainerEditorWindow::show </td>
-          <td>(</td>
-          <td class="paramtype">bl::gui::GUI::Ptr&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
+          <td class="paramtype">const bl::gui::GUI::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>gui</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
+          <td class="paramname"><em>plist</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -231,28 +201,28 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Opens the trainer editor. </p>
+<p>Opens the window with an optional file to load. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI element </td></tr>
-    <tr><td class="paramname">file</td><td>The file to open. Empty for new file </td></tr>
+    <tr><td class="paramname">gui</td><td>The main gui object </td></tr>
+    <tr><td class="paramname">plist</td><td>The playlist to load </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00310">310</a> of file <a class="el" href="a00881_source.html">TrainerEditorWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00878_source.html#l00088">88</a> of file <a class="el" href="a00878_source.html">PlaylistEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00416_source.html">TrainerEditorWindow.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00881_source.html">TrainerEditorWindow.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00410_source.html">PlaylistEditorWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00878_source.html">PlaylistEditorWindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

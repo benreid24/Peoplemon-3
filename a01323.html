@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::ItemPickedUp Struct Reference</title>
+<title>Peoplemon: core::event::GameSaveInitializing Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00993.html">event</a></li><li class="navelem"><a class="el" href="a01323.html">ItemPickedUp</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00999.html">event</a></li><li class="navelem"><a class="el" href="a01323.html">GameSaveInitializing</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,34 +72,37 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01320.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::ItemPickedUp Struct Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00970.html">Events</a></div></div>  </div>
+<div class="title">core::event::GameSaveInitializing Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00976.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when an item is picked up.  
+<p>Fired when the game is saving or loading. Allows systems to hook in their data.  
  <a href="a01323.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02764_source.html">Item.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02809_source.html">GameSave.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a02a242e508999f81f07890b9cd2b2f47"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html#a02a242e508999f81f07890b9cd2b2f47">ItemPickedUp</a> (<a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="el" href="a01323.html#abbcca9187defa6d853137d023430f604">item</a>)</td></tr>
-<tr class="memdesc:a02a242e508999f81f07890b9cd2b2f47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01323.html" title="Fired when an item is picked up. ">ItemPickedUp</a> event.  <a href="#a02a242e508999f81f07890b9cd2b2f47">More...</a><br /></td></tr>
-<tr class="separator:a02a242e508999f81f07890b9cd2b2f47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a> (<a class="el" href="a01447.html">file::GameSave</a> &amp;sv, bool s)</td></tr>
+<tr class="memdesc:a89aee5a2ad64a2d11d46634ff300f72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Save Initializing object.  <a href="#a89aee5a2ad64a2d11d46634ff300f72e">More...</a><br /></td></tr>
+<tr class="separator:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:abbcca9187defa6d853137d023430f604"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html#abbcca9187defa6d853137d023430f604">item</a></td></tr>
-<tr class="memdesc:abbcca9187defa6d853137d023430f604"><td class="mdescLeft">&#160;</td><td class="mdescRight">The id of the item that was picked up.  <a href="#abbcca9187defa6d853137d023430f604">More...</a><br /></td></tr>
-<tr class="separator:abbcca9187defa6d853137d023430f604"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01447.html">file::GameSave</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a></td></tr>
+<tr class="memdesc:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game save being initialized.  <a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">More...</a><br /></td></tr>
+<tr class="separator:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f568dfb017538878fc182a74de877ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html#a8f568dfb017538878fc182a74de877ae">saving</a></td></tr>
+<tr class="memdesc:a8f568dfb017538878fc182a74de877ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when saving, false when loading.  <a href="#a8f568dfb017538878fc182a74de877ae">More...</a><br /></td></tr>
+<tr class="separator:a8f568dfb017538878fc182a74de877ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when an item is picked up. </p>
+<div class="textblock"><p>Fired when the game is saving or loading. Allows systems to hook in their data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02764_source.html#l00016">16</a> of file <a class="el" href="a02764_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00022">22</a> of file <a class="el" href="a02809_source.html">GameSave.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a02a242e508999f81f07890b9cd2b2f47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02a242e508999f81f07890b9cd2b2f47">&#9670;&nbsp;</a></span>ItemPickedUp()</h2>
+<a id="a89aee5a2ad64a2d11d46634ff300f72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89aee5a2ad64a2d11d46634ff300f72e">&#9670;&nbsp;</a></span>GameSaveInitializing()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -108,11 +111,21 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::ItemPickedUp::ItemPickedUp </td>
+          <td class="memname">core::event::GameSaveInitializing::GameSaveInitializing </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a01447.html">file::GameSave</a> &amp;&#160;</td>
+          <td class="paramname"><em>sv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -122,45 +135,64 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01323.html" title="Fired when an item is picked up. ">ItemPickedUp</a> event. </p>
+<p>Construct a new Game Save Initializing object. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">item</td><td>The item that was picked up </td></tr>
+    <tr><td class="paramname">sv</td><td>The game save to init </td></tr>
+    <tr><td class="paramname">s</td><td>True when saving, false when loading </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02764_source.html#l00025">25</a> of file <a class="el" href="a02764_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00035">35</a> of file <a class="el" href="a02809_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="abbcca9187defa6d853137d023430f604"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbcca9187defa6d853137d023430f604">&#9670;&nbsp;</a></span>item</h2>
+<a id="ac6fbd08a5bcbfc66c3df65f5f33965a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">&#9670;&nbsp;</a></span>gameSave</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00972.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> core::event::ItemPickedUp::item</td>
+          <td class="memname"><a class="el" href="a01447.html">file::GameSave</a>&amp; core::event::GameSaveInitializing::gameSave</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The id of the item that was picked up. </p>
+<p>Game save being initialized. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02764_source.html#l00018">18</a> of file <a class="el" href="a02764_source.html">Item.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00024">24</a> of file <a class="el" href="a02809_source.html">GameSave.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f568dfb017538878fc182a74de877ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f568dfb017538878fc182a74de877ae">&#9670;&nbsp;</a></span>saving</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::event::GameSaveInitializing::saving</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True when saving, false when loading. </p>
+
+<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00027">27</a> of file <a class="el" href="a02809_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a02764_source.html">Item.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a02809_source.html">GameSave.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

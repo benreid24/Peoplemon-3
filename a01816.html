@@ -63,29 +63,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00984.html">system</a></li><li class="navelem"><a class="el" href="a01819.html">Clock</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00990.html">system</a></li><li class="navelem"><a class="el" href="a01013.html">camera</a></li><li class="navelem"><a class="el" href="a01819.html">Follow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::Clock Member List</div>  </div>
+<div class="title">core::system::camera::Follow Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01819.html">core::system::Clock</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01819.html">core::system::camera::Follow</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a7b7904f9cc62a7b4107965c0883ebfd1">init</a>()</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01819.html#a778cc44bba610c75b6401a6b2465bd7e">now</a>() const</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a78a77f8dd85455cedad4fc88af98a1d2">observe</a>(const event::GameSaveInitializing &amp;save) override</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01819.html#aa12616bc7ed0b2e6b77d486682d4d1b9">observe</a>(const event::GameSaveLoaded &amp;load) override</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a9c6a0731f099a28c8b5ded37cf010d74">set</a>(const Time &amp;time)</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01819.html#ab13c4c4a512b597239a9f15e4edefffb">Systems</a> class</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a423bd545342520632fb9914e4dbfd328">update</a>(float dt)</td><td class="entry"><a class="el" href="a01819.html">core::system::Clock</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01815.html#ab45e67f235c3a742ca252bf2f5b49a9b">Camera</a>()</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01815.html#a0fae3a508d68fc556b9e22c107da0f22">Camera</a>(const sf::Vector2f &amp;position, float size)</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a3baf661f6695c380b359731d3cb29561">configureView</a>(sf::View &amp;view, const sf::Vector2f &amp;renderArea)</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01819.html#a6847c4b410b3808c8986e83a2f52da00">create</a>(Systems &amp;systems, bl::entity::Entity toFollow)</td><td class="entry"><a class="el" href="a01819.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a4023ca80f5e908e2487a32b9e753eeaa">getPosition</a>() const</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01815.html#a80d66dcbfa2d6885abad20f450f47c8e">getSize</a>() const</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a82c6b4d08847e094c08722f4e1f8abfc">position</a></td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01815.html#aa01fbd0679d46f65be2168fe269d9c81">Ptr</a> typedef</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a57bf801c937bdcc46e3d63a6eebdf9ef">size</a></td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01819.html#ac3b36bc02c29ac1374834d1343047fb6">update</a>(Systems &amp;systems, float dt) override</td><td class="entry"><a class="el" href="a01819.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a4f0aa847ae8941c668b992d04a9227e4">valid</a>() const override</td><td class="entry"><a class="el" href="a01819.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01815.html#a7ce84fcc1bf22b5f1a235f2eca7794e7">~Camera</a>()=default</td><td class="entry"><a class="el" href="a01815.html">core::system::camera::Camera</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01819.html#a6805a4d3432606b0914d01c1a2d51642">~Follow</a>()=default</td><td class="entry"><a class="el" href="a01819.html">core::system::camera::Follow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

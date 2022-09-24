@@ -63,25 +63,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00994.html">file</a></li><li class="navelem"><a class="el" href="a00996.html">loader</a></li><li class="navelem"><a class="el" href="a02183.html">ConversationLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01018.html">game</a></li><li class="navelem"><a class="el" href="a01020.html">state</a></li><li class="navelem"><a class="el" href="a02183.html">State</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::file::loader::ConversationLoader Member List</div>  </div>
+<div class="title">game::state::State Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02183.html">core::file::loader::ConversationLoader</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02183.html">game::state::State</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02183.html#a3dde3c8df7511bef5398ba837c249a2e">read</a>(Conversation &amp;result, bl::serial::binary::InputStream &amp;input) const override</td><td class="entry"><a class="el" href="a02183.html">core::file::loader::ConversationLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02183.html#a4a5ddd0a189ced4727ee4175895828fb">Serializer</a> typedef</td><td class="entry"><a class="el" href="a02183.html">core::file::loader::ConversationLoader</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02183.html#a00e07a3c586545373a2d52ae92c926c2">write</a>(const Conversation &amp;conversation, bl::serial::binary::OutputStream &amp;output) const override</td><td class="entry"><a class="el" href="a02183.html">core::file::loader::ConversationLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02183.html#a2245c2f3ab8cbd78e345b4b940ffa442">activate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02183.html#a63ff495c10ee7d986be1750173d24c6b">deactivate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02183.html#ae62840bb33e67ff1b1ea7b6c9431d249">name</a>() const override=0</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02183.html#a489c514e24d0a29a5e8bac1fc3cd7ba3">render</a>(bl::engine::Engine &amp;engine, float lag) override=0</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02183.html#a86449dde7c8422aa2557c4f6c77d7d82">State</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02183.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02183.html#af7fd85a21d6ff60886858d2676957991">update</a>(bl::engine::Engine &amp;engine, float dt) override=0</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02183.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02183.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::CharacterSpawn Struct Reference</title>
+<title>Peoplemon: core::map::CatchRegion Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00995.html">map</a></li><li class="navelem"><a class="el" href="a01551.html">CharacterSpawn</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01001.html">map</a></li><li class="navelem"><a class="el" href="a01551.html">CatchRegion</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,151 +72,97 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01548.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::CharacterSpawn Struct Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00973.html">Maps</a></div></div>  </div>
+<div class="title">core::map::CatchRegion Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00979.html">Maps</a><a class="el" href="a00971.html">Core</a> &raquo;  &#124; <a class="el" href="a00980.html">Peoplemon</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a character to be spawned into a map on load.  
+<p>Represents a class of catchable peoplemon.  
  <a href="a01551.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00164_source.html">CharacterSpawn.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00161_source.html">CatchRegion.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1ba49a0819e9a5489713ef658c597e8b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#a1ba49a0819e9a5489713ef658c597e8b">CharacterSpawn</a> ()=default</td></tr>
-<tr class="memdesc:a1ba49a0819e9a5489713ef658c597e8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Character <a class="el" href="a01615.html" title="Basic struct representing a spawn in a Map. ">Spawn</a> object.  <a href="#a1ba49a0819e9a5489713ef658c597e8b">More...</a><br /></td></tr>
-<tr class="separator:a1ba49a0819e9a5489713ef658c597e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a85e967f2b36ec276f5bc5e90cb0c37f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#a85e967f2b36ec276f5bc5e90cb0c37f8">CharacterSpawn</a> (const <a class="el" href="a01231.html">component::Position</a> &amp;pos, const std::string &amp;<a class="el" href="a01551.html#af6b31d53452f2b0f3362054c20bc23f9">file</a>)</td></tr>
-<tr class="memdesc:a85e967f2b36ec276f5bc5e90cb0c37f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Character <a class="el" href="a01615.html" title="Basic struct representing a spawn in a Map. ">Spawn</a> object.  <a href="#a85e967f2b36ec276f5bc5e90cb0c37f8">More...</a><br /></td></tr>
-<tr class="separator:a85e967f2b36ec276f5bc5e90cb0c37f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e7234051c55ff066a0b08f65019ab97"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01723.html">pplmn::WildPeoplemon</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#a0e7234051c55ff066a0b08f65019ab97">selectWild</a> () const</td></tr>
+<tr class="memdesc:a0e7234051c55ff066a0b08f65019ab97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects a wild peoplemon from the set based on frequency, or returns a level 100 Ben if the set is empty.  <a href="#a0e7234051c55ff066a0b08f65019ab97">More...</a><br /></td></tr>
+<tr class="separator:a0e7234051c55ff066a0b08f65019ab97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aa13a680b7d0a898aa01c2fc49055aca1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01231.html">component::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#aa13a680b7d0a898aa01c2fc49055aca1">position</a></td></tr>
-<tr class="separator:aa13a680b7d0a898aa01c2fc49055aca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6b31d53452f2b0f3362054c20bc23f9"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#af6b31d53452f2b0f3362054c20bc23f9">file</a></td></tr>
-<tr class="separator:af6b31d53452f2b0f3362054c20bc23f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa685b24f69d96f95d4c9d07b06c1f689"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#aa685b24f69d96f95d4c9d07b06c1f689">name</a></td></tr>
+<tr class="separator:aa685b24f69d96f95d4c9d07b06c1f689"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad13a93a6da9f31784cf5c3afbea6033d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01723.html">pplmn::WildPeoplemon</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01551.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a></td></tr>
+<tr class="separator:ad13a93a6da9f31784cf5c3afbea6033d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a character to be spawned into a map on load. </p>
+<div class="textblock"><p>Represents a class of catchable peoplemon. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00019">19</a> of file <a class="el" href="a00164_source.html">CharacterSpawn.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1ba49a0819e9a5489713ef658c597e8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ba49a0819e9a5489713ef658c597e8b">&#9670;&nbsp;</a></span>CharacterSpawn() <span class="overload">[1/2]</span></h2>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00018">18</a> of file <a class="el" href="a00161_source.html">CatchRegion.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0e7234051c55ff066a0b08f65019ab97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e7234051c55ff066a0b08f65019ab97">&#9670;&nbsp;</a></span>selectWild()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::CharacterSpawn::CharacterSpawn </td>
+          <td class="memname">const <a class="el" href="a01723.html">pplmn::WildPeoplemon</a> &amp; core::map::CatchRegion::selectWild </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Character <a class="el" href="a01615.html" title="Basic struct representing a spawn in a Map. ">Spawn</a> object. </p>
+<p>Selects a wild peoplemon from the set based on frequency, or returns a level 100 Ben if the set is empty. </p>
+<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01723.html" title="Template struct to generate OwnedPeoplemon for random encounters. ">pplmn::WildPeoplemon</a>&amp; </dd></dl>
 
-</div>
-</div>
-<a id="a85e967f2b36ec276f5bc5e90cb0c37f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85e967f2b36ec276f5bc5e90cb0c37f8">&#9670;&nbsp;</a></span>CharacterSpawn() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::map::CharacterSpawn::CharacterSpawn </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01231.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>file</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new Character <a class="el" href="a01615.html" title="Basic struct representing a spawn in a Map. ">Spawn</a> object. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">pos</td><td>The position to spawn at </td></tr>
-    <tr><td class="paramname">file</td><td>The file to load from </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00035">35</a> of file <a class="el" href="a00164_source.html">CharacterSpawn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00016">16</a> of file <a class="el" href="a00614_source.html">CatchRegion.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af6b31d53452f2b0f3362054c20bc23f9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6b31d53452f2b0f3362054c20bc23f9">&#9670;&nbsp;</a></span>file</h2>
+<a id="aa685b24f69d96f95d4c9d07b06c1f689"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa685b24f69d96f95d4c9d07b06c1f689">&#9670;&nbsp;</a></span>name</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::map::CharacterSpawn::file</td>
+          <td class="memname">std::string core::map::CatchRegion::name</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00021">21</a> of file <a class="el" href="a00164_source.html">CharacterSpawn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00019">19</a> of file <a class="el" href="a00161_source.html">CatchRegion.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa13a680b7d0a898aa01c2fc49055aca1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa13a680b7d0a898aa01c2fc49055aca1">&#9670;&nbsp;</a></span>position</h2>
+<a id="ad13a93a6da9f31784cf5c3afbea6033d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad13a93a6da9f31784cf5c3afbea6033d">&#9670;&nbsp;</a></span>wilds</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01231.html">component::Position</a> core::map::CharacterSpawn::position</td>
+          <td class="memname">std::vector&lt;<a class="el" href="a01723.html">pplmn::WildPeoplemon</a>&gt; core::map::CatchRegion::wilds</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00020">20</a> of file <a class="el" href="a00164_source.html">CharacterSpawn.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00161_source.html#l00020">20</a> of file <a class="el" href="a00161_source.html">CatchRegion.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Maps/<a class="el" href="a00164_source.html">CharacterSpawn.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Maps/<a class="el" href="a00161_source.html">CatchRegion.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a00614_source.html">CatchRegion.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

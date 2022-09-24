@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::GameSaveInitializing Struct Reference</title>
+<title>Peoplemon: core::event::EntityMoveFinished Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00993.html">event</a></li><li class="navelem"><a class="el" href="a01315.html">GameSaveInitializing</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00999.html">event</a></li><li class="navelem"><a class="el" href="a01315.html">EntityMoveFinished</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,37 +72,37 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01312.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::GameSaveInitializing Struct Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00970.html">Events</a></div></div>  </div>
+<div class="title">core::event::EntityMoveFinished Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00976.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when the game is saving or loading. Allows systems to hook in their data.  
+<p>Fired when an entity completes a move from one tile to another.  
  <a href="a01315.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02797_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00119_source.html">EntityMoved.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a> (<a class="el" href="a01439.html">file::GameSave</a> &amp;sv, bool s)</td></tr>
-<tr class="memdesc:a89aee5a2ad64a2d11d46634ff300f72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Save Initializing object.  <a href="#a89aee5a2ad64a2d11d46634ff300f72e">More...</a><br /></td></tr>
-<tr class="separator:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0454ae2025192560b058cf4227781f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#af0454ae2025192560b058cf4227781f0">EntityMoveFinished</a> (bl::entity::Entity <a class="el" href="a01315.html#a04755a17e6d08e3d1a5280d03478ea6e">entity</a>, const <a class="el" href="a01239.html">component::Position</a> &amp;<a class="el" href="a01315.html#aa25b9b4b94cf8ef516d686ca8a57356b">position</a>)</td></tr>
+<tr class="memdesc:af0454ae2025192560b058cf4227781f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Entity Move Finished event.  <a href="#af0454ae2025192560b058cf4227781f0">More...</a><br /></td></tr>
+<tr class="separator:af0454ae2025192560b058cf4227781f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01439.html">file::GameSave</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a></td></tr>
-<tr class="memdesc:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game save being initialized.  <a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">More...</a><br /></td></tr>
-<tr class="separator:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f568dfb017538878fc182a74de877ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#a8f568dfb017538878fc182a74de877ae">saving</a></td></tr>
-<tr class="memdesc:a8f568dfb017538878fc182a74de877ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when saving, false when loading.  <a href="#a8f568dfb017538878fc182a74de877ae">More...</a><br /></td></tr>
-<tr class="separator:a8f568dfb017538878fc182a74de877ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04755a17e6d08e3d1a5280d03478ea6e"><td class="memItemLeft" align="right" valign="top">const bl::entity::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#a04755a17e6d08e3d1a5280d03478ea6e">entity</a></td></tr>
+<tr class="memdesc:a04755a17e6d08e3d1a5280d03478ea6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="#a04755a17e6d08e3d1a5280d03478ea6e">More...</a><br /></td></tr>
+<tr class="separator:a04755a17e6d08e3d1a5280d03478ea6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa25b9b4b94cf8ef516d686ca8a57356b"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01239.html">component::Position</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01315.html#aa25b9b4b94cf8ef516d686ca8a57356b">position</a></td></tr>
+<tr class="memdesc:aa25b9b4b94cf8ef516d686ca8a57356b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="#aa25b9b4b94cf8ef516d686ca8a57356b">More...</a><br /></td></tr>
+<tr class="separator:aa25b9b4b94cf8ef516d686ca8a57356b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when the game is saving or loading. Allows systems to hook in their data. </p>
+<div class="textblock"><p>Fired when an entity completes a move from one tile to another. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02797_source.html#l00022">22</a> of file <a class="el" href="a02797_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00048">48</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a89aee5a2ad64a2d11d46634ff300f72e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89aee5a2ad64a2d11d46634ff300f72e">&#9670;&nbsp;</a></span>GameSaveInitializing()</h2>
+<a id="af0454ae2025192560b058cf4227781f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0454ae2025192560b058cf4227781f0">&#9670;&nbsp;</a></span>EntityMoveFinished()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -111,16 +111,16 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::GameSaveInitializing::GameSaveInitializing </td>
+          <td class="memname">core::event::EntityMoveFinished::EntityMoveFinished </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01439.html">file::GameSave</a> &amp;&#160;</td>
-          <td class="paramname"><em>sv</em>, </td>
+          <td class="paramtype">bl::entity::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>s</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01239.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -135,64 +135,64 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new Game Save Initializing object. </p>
+<p>Construct a new Entity Move Finished event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sv</td><td>The game save to init </td></tr>
-    <tr><td class="paramname">s</td><td>True when saving, false when loading </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity that completed moving </td></tr>
+    <tr><td class="paramname">position</td><td>The position the entity is at </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02797_source.html#l00035">35</a> of file <a class="el" href="a02797_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00061">61</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac6fbd08a5bcbfc66c3df65f5f33965a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">&#9670;&nbsp;</a></span>gameSave</h2>
+<a id="a04755a17e6d08e3d1a5280d03478ea6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04755a17e6d08e3d1a5280d03478ea6e">&#9670;&nbsp;</a></span>entity</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01439.html">file::GameSave</a>&amp; core::event::GameSaveInitializing::gameSave</td>
+          <td class="memname">const bl::entity::Entity core::event::EntityMoveFinished::entity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Game save being initialized. </p>
+<p>The entity that moved. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02797_source.html#l00024">24</a> of file <a class="el" href="a02797_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00050">50</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8f568dfb017538878fc182a74de877ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f568dfb017538878fc182a74de877ae">&#9670;&nbsp;</a></span>saving</h2>
+<a id="aa25b9b4b94cf8ef516d686ca8a57356b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa25b9b4b94cf8ef516d686ca8a57356b">&#9670;&nbsp;</a></span>position</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::event::GameSaveInitializing::saving</td>
+          <td class="memname">const <a class="el" href="a01239.html">component::Position</a>&amp; core::event::EntityMoveFinished::position</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>True when saving, false when loading. </p>
+<p>The current position of the entity. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02797_source.html#l00027">27</a> of file <a class="el" href="a02797_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00053">53</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a02797_source.html">GameSave.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a00119_source.html">EntityMoved.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player::Input Class Reference</title>
+<title>Peoplemon: core::player::input::Listener Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,64 +63,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a01003.html">player</a></li><li class="navelem"><a class="el" href="a01759.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01009.html">player</a></li><li class="navelem"><a class="el" href="a01010.html">input</a></li><li class="navelem"><a class="el" href="a01759.html">Listener</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="a01756.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::player::Input Class Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00975.html">Player</a></div></div>  </div>
+<div class="title">core::player::input::Listener Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00981.html">Player</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Class for processing player input and dispatching it to the appropriate listeners.  
+<p>Base class for any code that needs to handle player input.  
  <a href="a01759.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00263_source.html">Input.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00257_source.html">Listener.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::player::Input:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::player::input::Listener:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01759.png" usemap="#core::player::Input_map" alt=""/>
-  <map id="core::player::Input_map" name="core::player::Input_map">
+  <img src="a01759.png" usemap="#core::player::input::Listener_map" alt=""/>
+  <map id="core::player::input::Listener_map" name="core::player::input::Listener_map">
+<area href="a01155.html" title="This is the top level class for rendering battles. It takes commands and state from a BattleControlle..." alt="core::battle::BattleView" shape="rect" coords="0,56,206,80"/>
+<area href="a01235.html" title="Add this component to an entity to make it controlled by player input. " alt="core::component::PlayerControlled" shape="rect" coords="216,56,422,80"/>
+<area href="a01763.html" title="Helper class that implements input Listener and can drive menus. " alt="core::player::input::MenuDriver" shape="rect" coords="432,56,638,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2292cf5f267c94ee6423209102c8d12b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#a2292cf5f267c94ee6423209102c8d12b">Input</a> ()</td></tr>
-<tr class="memdesc:a2292cf5f267c94ee6423209102c8d12b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01759.html" title="Class for processing player input and dispatching it to the appropriate listeners. ">Input</a> object with default controls.  <a href="#a2292cf5f267c94ee6423209102c8d12b">More...</a><br /></td></tr>
-<tr class="separator:a2292cf5f267c94ee6423209102c8d12b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac76c0374fb64cc5d0ba2438804a23e5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#ac76c0374fb64cc5d0ba2438804a23e5f">addListener</a> (<a class="el" href="a01751.html">input::Listener</a> &amp;listener)</td></tr>
-<tr class="memdesc:ac76c0374fb64cc5d0ba2438804a23e5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new input listener. Only the latest listener receives input.  <a href="#ac76c0374fb64cc5d0ba2438804a23e5f">More...</a><br /></td></tr>
-<tr class="separator:ac76c0374fb64cc5d0ba2438804a23e5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aefac3bbb9d680778ea8998b52f78097b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#aefac3bbb9d680778ea8998b52f78097b">removeListener</a> (<a class="el" href="a01751.html">input::Listener</a> &amp;listener)</td></tr>
-<tr class="memdesc:aefac3bbb9d680778ea8998b52f78097b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given listener. Does not have to be the active listener.  <a href="#aefac3bbb9d680778ea8998b52f78097b">More...</a><br /></td></tr>
-<tr class="separator:aefac3bbb9d680778ea8998b52f78097b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a914f1c82075199bdec07addc52ffa852"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#a914f1c82075199bdec07addc52ffa852">replaceListener</a> (const <a class="el" href="a01751.html">input::Listener</a> &amp;oldListener, <a class="el" href="a01751.html">input::Listener</a> &amp;newListener)</td></tr>
-<tr class="memdesc:a914f1c82075199bdec07addc52ffa852"><td class="mdescLeft">&#160;</td><td class="mdescRight">Replaces the old listener with the new, keeping it at the same position in the queue.  <a href="#a914f1c82075199bdec07addc52ffa852">More...</a><br /></td></tr>
-<tr class="separator:a914f1c82075199bdec07addc52ffa852"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a183c477cc7f17596c66cd25f86124d36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#a183c477cc7f17596c66cd25f86124d36">update</a> ()</td></tr>
-<tr class="memdesc:a183c477cc7f17596c66cd25f86124d36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fires events for controls that are held.  <a href="#a183c477cc7f17596c66cd25f86124d36">More...</a><br /></td></tr>
-<tr class="separator:a183c477cc7f17596c66cd25f86124d36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeffd124ef155fca87d6670f47b001718"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#aeffd124ef155fca87d6670f47b001718">Listener</a> ()</td></tr>
+<tr class="memdesc:aeffd124ef155fca87d6670f47b001718"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a> object.  <a href="#aeffd124ef155fca87d6670f47b001718">More...</a><br /></td></tr>
+<tr class="separator:aeffd124ef155fca87d6670f47b001718"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900794fa25cfd167dd81e79b1defbd94"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#a900794fa25cfd167dd81e79b1defbd94">Listener</a> (const <a class="el" href="a01759.html">Listener</a> &amp;copy)</td></tr>
+<tr class="memdesc:a900794fa25cfd167dd81e79b1defbd94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a>.  <a href="#a900794fa25cfd167dd81e79b1defbd94">More...</a><br /></td></tr>
+<tr class="separator:a900794fa25cfd167dd81e79b1defbd94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5e389fb44ca9a6f97740d1a06c6897e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#ab5e389fb44ca9a6f97740d1a06c6897e">Listener</a> (<a class="el" href="a01759.html">Listener</a> &amp;&amp;copy)</td></tr>
+<tr class="memdesc:ab5e389fb44ca9a6f97740d1a06c6897e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a>.  <a href="#ab5e389fb44ca9a6f97740d1a06c6897e">More...</a><br /></td></tr>
+<tr class="separator:ab5e389fb44ca9a6f97740d1a06c6897e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd205ba3b699880051554740f3a4e1ef"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#acd205ba3b699880051554740f3a4e1ef">~Listener</a> ()</td></tr>
+<tr class="memdesc:acd205ba3b699880051554740f3a4e1ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a> and unsubscribes from the input if still subscribed.  <a href="#acd205ba3b699880051554740f3a4e1ef">More...</a><br /></td></tr>
+<tr class="separator:acd205ba3b699880051554740f3a4e1ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac6a335ce53e00aa2f19da5b20caa296"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#aac6a335ce53e00aa2f19da5b20caa296">process</a> (<a class="el" href="a00975.html#ga6701adf1fdd04d85dd6482e453417813">component::Command</a> control)=0</td></tr>
+<tr class="memdesc:aac6a335ce53e00aa2f19da5b20caa296"><td class="mdescLeft">&#160;</td><td class="mdescRight">Override this method to receive input.  <a href="#aac6a335ce53e00aa2f19da5b20caa296">More...</a><br /></td></tr>
+<tr class="separator:aac6a335ce53e00aa2f19da5b20caa296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:aa2bbdcb41488da37bb883ebeedc82f3b"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01759.html#aa2bbdcb41488da37bb883ebeedc82f3b">::core::player::Input</a></td></tr>
+<tr class="separator:aa2bbdcb41488da37bb883ebeedc82f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Class for processing player input and dispatching it to the appropriate listeners. </p>
+<div class="textblock"><p>Base class for any code that needs to handle player input. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00263_source.html#l00020">20</a> of file <a class="el" href="a00263_source.html">Input.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00020">20</a> of file <a class="el" href="a00257_source.html">Listener.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a2292cf5f267c94ee6423209102c8d12b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2292cf5f267c94ee6423209102c8d12b">&#9670;&nbsp;</a></span>Input()</h2>
+<a id="aeffd124ef155fca87d6670f47b001718"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeffd124ef155fca87d6670f47b001718">&#9670;&nbsp;</a></span>Listener() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::player::Input::Input </td>
+          <td class="memname">core::player::input::Listener::Listener </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -128,138 +137,156 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01759.html" title="Class for processing player input and dispatching it to the appropriate listeners. ">Input</a> object with default controls. </p>
+<p>Construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a> object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00009">9</a> of file <a class="el" href="a00719_source.html">Input.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00011">11</a> of file <a class="el" href="a00716_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a900794fa25cfd167dd81e79b1defbd94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900794fa25cfd167dd81e79b1defbd94">&#9670;&nbsp;</a></span>Listener() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::player::input::Listener::Listener </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01759.html">Listener</a> &amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Copy construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00014">14</a> of file <a class="el" href="a00716_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5e389fb44ca9a6f97740d1a06c6897e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5e389fb44ca9a6f97740d1a06c6897e">&#9670;&nbsp;</a></span>Listener() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::player::input::Listener::Listener </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01759.html">Listener</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>copy</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Move construct a new <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00019">19</a> of file <a class="el" href="a00716_source.html">Listener.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acd205ba3b699880051554740f3a4e1ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd205ba3b699880051554740f3a4e1ef">&#9670;&nbsp;</a></span>~Listener()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::player::input::Listener::~Listener </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the <a class="el" href="a01759.html" title="Base class for any code that needs to handle player input. ">Listener</a> and unsubscribes from the input if still subscribed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00024">24</a> of file <a class="el" href="a00716_source.html">Listener.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac76c0374fb64cc5d0ba2438804a23e5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac76c0374fb64cc5d0ba2438804a23e5f">&#9670;&nbsp;</a></span>addListener()</h2>
+<a id="aac6a335ce53e00aa2f19da5b20caa296"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac6a335ce53e00aa2f19da5b20caa296">&#9670;&nbsp;</a></span>process()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::player::Input::addListener </td>
+          <td class="memname">virtual void core::player::input::Listener::process </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01751.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>listener</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a00975.html#ga6701adf1fdd04d85dd6482e453417813">component::Command</a>&#160;</td>
+          <td class="paramname"><em>control</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Adds a new input listener. Only the latest listener receives input. </p>
+<p>Override this method to receive input. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">listener</td><td>The listener to make active </td></tr>
+    <tr><td class="paramname">control</td><td>The active player control </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00024">24</a> of file <a class="el" href="a00719_source.html">Input.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a01235.html#a1ebed2e98971e58292857d8c1ba9943c">core::component::PlayerControlled</a>, and <a class="el" href="a01763.html#aa49ba42b83514b15c49632ab6143b051">core::player::input::MenuDriver</a>.</p>
 
 </div>
 </div>
-<a id="aefac3bbb9d680778ea8998b52f78097b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aefac3bbb9d680778ea8998b52f78097b">&#9670;&nbsp;</a></span>removeListener()</h2>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="aa2bbdcb41488da37bb883ebeedc82f3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2bbdcb41488da37bb883ebeedc82f3b">&#9670;&nbsp;</a></span>::core::player::Input</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::player::Input::removeListener </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01751.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>listener</em></td><td>)</td>
-          <td></td>
+          <td class="memname">friend class ::<a class="el" href="a01767.html">core::player::Input</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Removes the given listener. Does not have to be the active listener. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">listener</td><td>The input listener to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00036">36</a> of file <a class="el" href="a00719_source.html">Input.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a914f1c82075199bdec07addc52ffa852"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a914f1c82075199bdec07addc52ffa852">&#9670;&nbsp;</a></span>replaceListener()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::player::Input::replaceListener </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01751.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>oldListener</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01751.html">input::Listener</a> &amp;&#160;</td>
-          <td class="paramname"><em>newListener</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Replaces the old listener with the new, keeping it at the same position in the queue. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">oldListener</td><td>The listener to replace </td></tr>
-    <tr><td class="paramname">newListener</td><td>The listener to take its place </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00029">29</a> of file <a class="el" href="a00719_source.html">Input.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a183c477cc7f17596c66cd25f86124d36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a183c477cc7f17596c66cd25f86124d36">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::player::Input::update </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Fires events for controls that are held. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00043">43</a> of file <a class="el" href="a00719_source.html">Input.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00257_source.html#l00056">56</a> of file <a class="el" href="a00257_source.html">Listener.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Player/<a class="el" href="a00263_source.html">Input.hpp</a></li>
-<li>src/Core/Player/<a class="el" href="a00719_source.html">Input.cpp</a></li>
+<li>include/Core/Player/Input/<a class="el" href="a00257_source.html">Listener.hpp</a></li>
+<li>src/Core/Player/Input/<a class="el" href="a00716_source.html">Listener.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

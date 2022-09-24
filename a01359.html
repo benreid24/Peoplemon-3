@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::WeatherStopped Struct Reference</title>
+<title>Peoplemon: core::event::TimeChange Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00993.html">event</a></li><li class="navelem"><a class="el" href="a01359.html">WeatherStopped</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00999.html">event</a></li><li class="navelem"><a class="el" href="a01359.html">TimeChange</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,34 +72,34 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01356.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::WeatherStopped Struct Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00970.html">Events</a></div></div>  </div>
+<div class="title">core::event::TimeChange Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00976.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when weather stops.  
+<p>Basic event for when the game time changes.  
  <a href="a01359.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02809_source.html">Weather.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00134_source.html">TimeChange.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3b10536ac7042c02e5fa2563122042d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01359.html#a3b10536ac7042c02e5fa2563122042d7">WeatherStopped</a> (<a class="el" href="a01651.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> <a class="el" href="a01359.html#ab88bdc50383dc2b3e14fc4940462ec16">type</a>)</td></tr>
-<tr class="memdesc:a3b10536ac7042c02e5fa2563122042d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a weather stopped event.  <a href="#a3b10536ac7042c02e5fa2563122042d7">More...</a><br /></td></tr>
-<tr class="separator:a3b10536ac7042c02e5fa2563122042d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46bc83a1996cf1f6052b44865550075e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01359.html#a46bc83a1996cf1f6052b44865550075e">TimeChange</a> (const <a class="el" href="a01831.html">system::Clock::Time</a> &amp;time)</td></tr>
+<tr class="memdesc:a46bc83a1996cf1f6052b44865550075e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new time change event.  <a href="#a46bc83a1996cf1f6052b44865550075e">More...</a><br /></td></tr>
+<tr class="separator:a46bc83a1996cf1f6052b44865550075e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab88bdc50383dc2b3e14fc4940462ec16"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01651.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01359.html#ab88bdc50383dc2b3e14fc4940462ec16">type</a></td></tr>
-<tr class="memdesc:ab88bdc50383dc2b3e14fc4940462ec16"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather that stopped.  <a href="#ab88bdc50383dc2b3e14fc4940462ec16">More...</a><br /></td></tr>
-<tr class="separator:ab88bdc50383dc2b3e14fc4940462ec16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01831.html">system::Clock::Time</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01359.html#a09b0cf6d04a4c701d36df8feba7ad6f6">newTime</a></td></tr>
+<tr class="memdesc:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the new time.  <a href="#a09b0cf6d04a4c701d36df8feba7ad6f6">More...</a><br /></td></tr>
+<tr class="separator:a09b0cf6d04a4c701d36df8feba7ad6f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when weather stops. </p>
+<div class="textblock"><p>Basic event for when the game time changes. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00035">35</a> of file <a class="el" href="a02809_source.html">Weather.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00134_source.html#l00024">24</a> of file <a class="el" href="a00134_source.html">TimeChange.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a3b10536ac7042c02e5fa2563122042d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3b10536ac7042c02e5fa2563122042d7">&#9670;&nbsp;</a></span>WeatherStopped()</h2>
+<a id="a46bc83a1996cf1f6052b44865550075e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46bc83a1996cf1f6052b44865550075e">&#9670;&nbsp;</a></span>TimeChange()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -108,10 +108,10 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::WeatherStopped::WeatherStopped </td>
+          <td class="memname">core::event::TimeChange::TimeChange </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01651.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a01831.html">system::Clock::Time</a> &amp;&#160;</td>
+          <td class="paramname"><em>time</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -122,45 +122,45 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates a weather stopped event. </p>
+<p>Creates a new time change event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The type of weather that stopped </td></tr>
+    <tr><td class="paramname">time</td><td>The new time </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00041">41</a> of file <a class="el" href="a02809_source.html">Weather.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00134_source.html#l00030">30</a> of file <a class="el" href="a00134_source.html">TimeChange.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab88bdc50383dc2b3e14fc4940462ec16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab88bdc50383dc2b3e14fc4940462ec16">&#9670;&nbsp;</a></span>type</h2>
+<a id="a09b0cf6d04a4c701d36df8feba7ad6f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09b0cf6d04a4c701d36df8feba7ad6f6">&#9670;&nbsp;</a></span>newTime</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01651.html#a1be4194375652797f8c87a7881b2ff3d">map::Weather::Type</a> core::event::WeatherStopped::type</td>
+          <td class="memname">const <a class="el" href="a01831.html">system::Clock::Time</a>&amp; core::event::TimeChange::newTime</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The type of weather that stopped. </p>
+<p>A reference to the new time. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02809_source.html#l00045">45</a> of file <a class="el" href="a02809_source.html">Weather.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00134_source.html#l00034">34</a> of file <a class="el" href="a00134_source.html">TimeChange.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a02809_source.html">Weather.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a00134_source.html">TimeChange.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

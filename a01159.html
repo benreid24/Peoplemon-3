@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::battle::Command Class Reference</title>
+<title>Peoplemon: core::battle::cmd::Animation Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00986.html">battle</a></li><li class="navelem"><a class="el" href="a01159.html">Command</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00992.html">battle</a></li><li class="navelem"><a class="el" href="a00994.html">cmd</a></li><li class="navelem"><a class="el" href="a01159.html">Animation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,134 +73,191 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a01156.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::Command Class Reference</div>  </div>
+<div class="title">core::battle::cmd::Animation Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Emitted by the BattleFSM. All UI is handled via a queue of commands. Commands are resolved in the order they are received. Commands are sent over the network and each player individually resolves them.  
+<p>Represents a type of animation that can be played in battle.  
  <a href="a01159.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a02743_source.html">Command.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00041_source.html">Animation.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a3c71671823951926934dc2759f0b7638"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638ab691e773dc2b7e6d765dd4eb4d15e27d">DisplayMessage</a> = 0, 
-<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638ad33a66acd30233700e7030a39519fa10">PlayAnimation</a> = 1, 
-<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638a3724ea11e468913b45ac8b2221d1c030">SyncStateNoSwitch</a> = 2, 
-<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638a7561d04122cc94f27bbd685adc3b53cd">SyncStateSwitch</a> = 3, 
+<tr class="memitem:a49ccd22efcd433e8c59876b456c9e238"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a059744e09a6756c2bcd4757f25d007d6">Type::_ERROR</a> = 0, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238aabe10f6173c54580c97c3a5595c898dc">Type::ShakeAndFlash</a> = 1, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238aa2e17402c5db35734f84787575a3c2f7">Type::SlideDown</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a268dec5115e24cffbe1016235cc60cbc">Type::ComeBack</a>, 
 <br />
-&#160;&#160;<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638a203390d0c521dd5c7d14866d8351771c">WaitForView</a> = 4, 
-<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638ae5215e8e8537af68b4ce33dabd0bfcd3">NotifyBattleWinner</a> = 5
+&#160;&#160;<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238ac2275093fbb84133c5807e1764ecf5f6">Type::SendOut</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238acfceff7cb4d837fcf13e9136f7b7f10b">Type::UseMove</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a16fce19bfe5475be3e01fcfd594045ff">Type::PlayerFirstSendout</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a85481dcc8f79c4be18d1ea1a981ddf63">Type::OpponentFirstSendout</a>, 
 <br />
- }<tr class="memdesc:a3c71671823951926934dc2759f0b7638"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type the command is.  <a href="a01159.html#a3c71671823951926934dc2759f0b7638">More...</a><br /></td></tr>
+&#160;&#160;<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a968e6d41df3df4c0f8ea9dd3293fcd42">Type::StatIncrease</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a15f84ae8044275bd82a37a50da28485d">Type::MultipleStateIncrease</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a05c901152ecad55a8422a58923a0b629">Type::StatDecrease</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a6ac68aa68d4ba4fbc69537c37d536569">Type::MultipleStateDecrease</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a01d9feb59f403d2df62155b234cff48e">Type::SlideOut</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a8c8e90d4776f94d493ba845a572757dd">Type::Ailment</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238add31b7f1bef56f1d0f4d7aab9b8beff7">Type::PassiveAilment</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238ad7abecddbe437cc5af529d4c5b2a5c69">Type::MakeWildVisible</a>, 
+<br />
+&#160;&#160;<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238ab01c079ccf381af40f47ae6b72a7523f">Type::ThrowPeopleball</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238ac5d8b179d9790f82bad7cce41d2562f0">Type::PeopleballShake</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238a3c83886f9718b682dcdb1d7e37faa4f9">Type::PeopleballCaught</a>, 
+<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238afe3911f8ff9e955b8ad868c0c64a2480">Type::ThrowCloneBall</a>
+<br />
+ }<tr class="memdesc:a49ccd22efcd433e8c59876b456c9e238"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of animation to play.  <a href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:a3c71671823951926934dc2759f0b7638"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a49ccd22efcd433e8c59876b456c9e238"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9f4d16d2ce4319287002d5d37c727e8d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a9f4d16d2ce4319287002d5d37c727e8d">Command</a> (<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a> type)</td></tr>
-<tr class="memdesc:a9f4d16d2ce4319287002d5d37c727e8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new command of the given type with no data.  <a href="#a9f4d16d2ce4319287002d5d37c727e8d">More...</a><br /></td></tr>
-<tr class="separator:a9f4d16d2ce4319287002d5d37c727e8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26671ee293da5b42b313f5c71e594f9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a26671ee293da5b42b313f5c71e594f9d">Command</a> (<a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a> type, bool <a class="el" href="a01159.html#a08a883700f65f713467bf25f662e45e4">forHost</a>)</td></tr>
-<tr class="memdesc:a26671ee293da5b42b313f5c71e594f9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new command of the given type and a bool to indicate which battler it is for.  <a href="#a26671ee293da5b42b313f5c71e594f9d">More...</a><br /></td></tr>
-<tr class="separator:a26671ee293da5b42b313f5c71e594f9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b4d7ed14733b82ecf336b1d93d91535"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a7b4d7ed14733b82ecf336b1d93d91535">Command</a> (<a class="el" href="a01167.html">cmd::Message</a> &amp;&amp;message)</td></tr>
-<tr class="memdesc:a7b4d7ed14733b82ecf336b1d93d91535"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new DisplayMessage command.  <a href="#a7b4d7ed14733b82ecf336b1d93d91535">More...</a><br /></td></tr>
-<tr class="separator:a7b4d7ed14733b82ecf336b1d93d91535"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef1762ba5140d02526f245acad43c547"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aef1762ba5140d02526f245acad43c547">Command</a> (<a class="el" href="a01151.html">cmd::Animation</a> &amp;&amp;anim)</td></tr>
-<tr class="memdesc:aef1762ba5140d02526f245acad43c547"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new PlayAnimation command.  <a href="#aef1762ba5140d02526f245acad43c547">More...</a><br /></td></tr>
-<tr class="separator:aef1762ba5140d02526f245acad43c547"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ffa20447feb2854a453bd82f2c90d85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a3ffa20447feb2854a453bd82f2c90d85">getType</a> () const</td></tr>
-<tr class="memdesc:a3ffa20447feb2854a453bd82f2c90d85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of this command.  <a href="#a3ffa20447feb2854a453bd82f2c90d85">More...</a><br /></td></tr>
-<tr class="separator:a3ffa20447feb2854a453bd82f2c90d85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f2795d69eadc93def1c6153fed1dfd7"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01167.html">cmd::Message</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a0f2795d69eadc93def1c6153fed1dfd7">getMessage</a> () const</td></tr>
-<tr class="memdesc:a0f2795d69eadc93def1c6153fed1dfd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the message if this command is a message.  <a href="#a0f2795d69eadc93def1c6153fed1dfd7">More...</a><br /></td></tr>
-<tr class="separator:a0f2795d69eadc93def1c6153fed1dfd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb41ec01ac0c6d8166c723b6404382bd"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01151.html">cmd::Animation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#adb41ec01ac0c6d8166c723b6404382bd">getAnimation</a> () const</td></tr>
-<tr class="memdesc:adb41ec01ac0c6d8166c723b6404382bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the animation if this command is an animation.  <a href="#adb41ec01ac0c6d8166c723b6404382bd">More...</a><br /></td></tr>
-<tr class="separator:adb41ec01ac0c6d8166c723b6404382bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08a883700f65f713467bf25f662e45e4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a08a883700f65f713467bf25f662e45e4">forHost</a> () const</td></tr>
-<tr class="memdesc:a08a883700f65f713467bf25f662e45e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this command is for the active battler.  <a href="#a08a883700f65f713467bf25f662e45e4">More...</a><br /></td></tr>
-<tr class="separator:a08a883700f65f713467bf25f662e45e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2588bbb77b2bff9773cd621a62443d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#ae2588bbb77b2bff9773cd621a62443d1">Animation</a> (<a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> type)</td></tr>
+<tr class="memdesc:ae2588bbb77b2bff9773cd621a62443d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">For animations that are not specific to either battler.  <a href="#ae2588bbb77b2bff9773cd621a62443d1">More...</a><br /></td></tr>
+<tr class="separator:ae2588bbb77b2bff9773cd621a62443d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a577ea44c380da180224e7bf41934b1d1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a577ea44c380da180224e7bf41934b1d1">Animation</a> (bool forHost, <a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> type)</td></tr>
+<tr class="memdesc:a577ea44c380da180224e7bf41934b1d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a non-move effect.  <a href="#a577ea44c380da180224e7bf41934b1d1">More...</a><br /></td></tr>
+<tr class="separator:a577ea44c380da180224e7bf41934b1d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23ff73aa95d96bce3f7a366bbb9e4cb8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a23ff73aa95d96bce3f7a366bbb9e4cb8">Animation</a> (bool forHost, <a class="el" href="a00980.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move)</td></tr>
+<tr class="memdesc:a23ff73aa95d96bce3f7a366bbb9e4cb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the attack animation.  <a href="#a23ff73aa95d96bce3f7a366bbb9e4cb8">More...</a><br /></td></tr>
+<tr class="separator:a23ff73aa95d96bce3f7a366bbb9e4cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86b1ab6d0d4742f571eda7101d00f789"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a86b1ab6d0d4742f571eda7101d00f789">Animation</a> (bool forHost, <a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> type, <a class="el" href="a00980.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> stat)</td></tr>
+<tr class="memdesc:a86b1ab6d0d4742f571eda7101d00f789"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a stat increase or decrease.  <a href="#a86b1ab6d0d4742f571eda7101d00f789">More...</a><br /></td></tr>
+<tr class="separator:a86b1ab6d0d4742f571eda7101d00f789"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a509d6911b54efb19bd156e4194cd2159"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a509d6911b54efb19bd156e4194cd2159">Animation</a> (bool forHost, <a class="el" href="a00980.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> ailment)</td></tr>
+<tr class="memdesc:a509d6911b54efb19bd156e4194cd2159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the given ailment.  <a href="#a509d6911b54efb19bd156e4194cd2159">More...</a><br /></td></tr>
+<tr class="separator:a509d6911b54efb19bd156e4194cd2159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accfc6d5ff0d6d7c487a9087722c41985"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#accfc6d5ff0d6d7c487a9087722c41985">Animation</a> (bool forHost, <a class="el" href="a00980.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> ailment)</td></tr>
+<tr class="memdesc:accfc6d5ff0d6d7c487a9087722c41985"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the given ailment.  <a href="#accfc6d5ff0d6d7c487a9087722c41985">More...</a><br /></td></tr>
+<tr class="separator:accfc6d5ff0d6d7c487a9087722c41985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca97c0835fe5297683e6f5fbdff6727c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aca97c0835fe5297683e6f5fbdff6727c">Animation</a> (bool forHost, <a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> type, <a class="el" href="a00978.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> peopleball)</td></tr>
+<tr class="memdesc:aca97c0835fe5297683e6f5fbdff6727c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a peopleball.  <a href="#aca97c0835fe5297683e6f5fbdff6727c">More...</a><br /></td></tr>
+<tr class="separator:aca97c0835fe5297683e6f5fbdff6727c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a7be19cfb5b95a3d9039dd4232927cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a8a7be19cfb5b95a3d9039dd4232927cf">forHostBattler</a> () const</td></tr>
+<tr class="memdesc:a8a7be19cfb5b95a3d9039dd4232927cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this animation is for the host or not.  <a href="#a8a7be19cfb5b95a3d9039dd4232927cf">More...</a><br /></td></tr>
+<tr class="separator:a8a7be19cfb5b95a3d9039dd4232927cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d1b6097fa7e18af47b5f7bdac028798"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a9d1b6097fa7e18af47b5f7bdac028798">getType</a> () const</td></tr>
+<tr class="memdesc:a9d1b6097fa7e18af47b5f7bdac028798"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of animation to play.  <a href="#a9d1b6097fa7e18af47b5f7bdac028798">More...</a><br /></td></tr>
+<tr class="separator:a9d1b6097fa7e18af47b5f7bdac028798"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1301fc3b184ad1918eb3440da71bc363"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00980.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a1301fc3b184ad1918eb3440da71bc363">getMove</a> () const</td></tr>
+<tr class="memdesc:a1301fc3b184ad1918eb3440da71bc363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the move for this animation.  <a href="#a1301fc3b184ad1918eb3440da71bc363">More...</a><br /></td></tr>
+<tr class="separator:a1301fc3b184ad1918eb3440da71bc363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac980eb577fa93cc581ae827f1d84225c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00980.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#ac980eb577fa93cc581ae827f1d84225c">getStat</a> () const</td></tr>
+<tr class="memdesc:ac980eb577fa93cc581ae827f1d84225c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the stat for this animation.  <a href="#ac980eb577fa93cc581ae827f1d84225c">More...</a><br /></td></tr>
+<tr class="separator:ac980eb577fa93cc581ae827f1d84225c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa76f05c198a892636268ec0a8dfed634"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00980.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#aa76f05c198a892636268ec0a8dfed634">getAilment</a> () const</td></tr>
+<tr class="memdesc:aa76f05c198a892636268ec0a8dfed634"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ailment for this animation.  <a href="#aa76f05c198a892636268ec0a8dfed634">More...</a><br /></td></tr>
+<tr class="separator:aa76f05c198a892636268ec0a8dfed634"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9468e5ae8445b923a838adf51db9c8ec"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00980.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#a9468e5ae8445b923a838adf51db9c8ec">getPassiveAilment</a> () const</td></tr>
+<tr class="memdesc:a9468e5ae8445b923a838adf51db9c8ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the ailment for this animation.  <a href="#a9468e5ae8445b923a838adf51db9c8ec">More...</a><br /></td></tr>
+<tr class="separator:a9468e5ae8445b923a838adf51db9c8ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7145eb01a97628028538c78bfdaab26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00978.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01159.html#ad7145eb01a97628028538c78bfdaab26">getPeopleball</a> () const</td></tr>
+<tr class="memdesc:ad7145eb01a97628028538c78bfdaab26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Peopleball for this animation.  <a href="#ad7145eb01a97628028538c78bfdaab26">More...</a><br /></td></tr>
+<tr class="separator:ad7145eb01a97628028538c78bfdaab26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Emitted by the BattleFSM. All UI is handled via a queue of commands. Commands are resolved in the order they are received. Commands are sent over the network and each player individually resolves them. </p>
+<div class="textblock"><p>Represents a type of animation that can be played in battle. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02743_source.html#l00022">22</a> of file <a class="el" href="a02743_source.html">Command.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00041_source.html#l00025">25</a> of file <a class="el" href="a00041_source.html">Animation.hpp</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="a3c71671823951926934dc2759f0b7638"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c71671823951926934dc2759f0b7638">&#9670;&nbsp;</a></span>Type</h2>
+<a id="a49ccd22efcd433e8c59876b456c9e238"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49ccd22efcd433e8c59876b456c9e238">&#9670;&nbsp;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">core::battle::Command::Type</a> : std::uint8_t</td>
+          <td class="memname">enum <a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">core::battle::cmd::Animation::Type</a> : std::uint8_t</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>The type the command is. </p>
+<p>The type of animation to play. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638ab691e773dc2b7e6d765dd4eb4d15e27d"></a>DisplayMessage&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638ad33a66acd30233700e7030a39519fa10"></a>PlayAnimation&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638a3724ea11e468913b45ac8b2221d1c030"></a>SyncStateNoSwitch&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638a7561d04122cc94f27bbd685adc3b53cd"></a>SyncStateSwitch&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638a203390d0c521dd5c7d14866d8351771c"></a>WaitForView&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="a3c71671823951926934dc2759f0b7638ae5215e8e8537af68b4ce33dabd0bfcd3"></a>NotifyBattleWinner&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a059744e09a6756c2bcd4757f25d007d6"></a>_ERROR&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238aabe10f6173c54580c97c3a5595c898dc"></a>ShakeAndFlash&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238aa2e17402c5db35734f84787575a3c2f7"></a>SlideDown&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a268dec5115e24cffbe1016235cc60cbc"></a>ComeBack&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238ac2275093fbb84133c5807e1764ecf5f6"></a>SendOut&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238acfceff7cb4d837fcf13e9136f7b7f10b"></a>UseMove&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a16fce19bfe5475be3e01fcfd594045ff"></a>PlayerFirstSendout&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a85481dcc8f79c4be18d1ea1a981ddf63"></a>OpponentFirstSendout&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a968e6d41df3df4c0f8ea9dd3293fcd42"></a>StatIncrease&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a15f84ae8044275bd82a37a50da28485d"></a>MultipleStateIncrease&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a05c901152ecad55a8422a58923a0b629"></a>StatDecrease&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a6ac68aa68d4ba4fbc69537c37d536569"></a>MultipleStateDecrease&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a01d9feb59f403d2df62155b234cff48e"></a>SlideOut&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a8c8e90d4776f94d493ba845a572757dd"></a>Ailment&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238add31b7f1bef56f1d0f4d7aab9b8beff7"></a>PassiveAilment&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238ad7abecddbe437cc5af529d4c5b2a5c69"></a>MakeWildVisible&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238ab01c079ccf381af40f47ae6b72a7523f"></a>ThrowPeopleball&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238ac5d8b179d9790f82bad7cce41d2562f0"></a>PeopleballShake&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238a3c83886f9718b682dcdb1d7e37faa4f9"></a>PeopleballCaught&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a49ccd22efcd433e8c59876b456c9e238afe3911f8ff9e955b8ad868c0c64a2480"></a>ThrowCloneBall&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="a02743_source.html#l00028">28</a> of file <a class="el" href="a02743_source.html">Command.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00041_source.html#l00030">30</a> of file <a class="el" href="a00041_source.html">Animation.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9f4d16d2ce4319287002d5d37c727e8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f4d16d2ce4319287002d5d37c727e8d">&#9670;&nbsp;</a></span>Command() <span class="overload">[1/4]</span></h2>
+<a id="ae2588bbb77b2bff9773cd621a62443d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2588bbb77b2bff9773cd621a62443d1">&#9670;&nbsp;</a></span>Animation() <span class="overload">[1/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::Command::Command </td>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>&#160;</td>
           <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new command of the given type with no data. </p>
+<p>For animations that are not specific to either battler. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The command type to create </td></tr>
+    <tr><td class="paramname">type</td><td>The type of animation to play </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00007">7</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00009">9</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a26671ee293da5b42b313f5c71e594f9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26671ee293da5b42b313f5c71e594f9d">&#9670;&nbsp;</a></span>Command() <span class="overload">[2/4]</span></h2>
+<a id="a577ea44c380da180224e7bf41934b1d1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a577ea44c380da180224e7bf41934b1d1">&#9670;&nbsp;</a></span>Animation() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::Command::Command </td>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>forHost</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,84 +267,237 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new command of the given type and a bool to indicate which battler it is for. </p>
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a non-move effect. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The command type to create </td></tr>
-    <tr><td class="paramname">forActiveBattler</td><td>True if cmd is for active battler, false for inactive </td></tr>
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">type</td><td>The type of animation to play </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00011">11</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00014">14</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7b4d7ed14733b82ecf336b1d93d91535"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b4d7ed14733b82ecf336b1d93d91535">&#9670;&nbsp;</a></span>Command() <span class="overload">[3/4]</span></h2>
+<a id="a23ff73aa95d96bce3f7a366bbb9e4cb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23ff73aa95d96bce3f7a366bbb9e4cb8">&#9670;&nbsp;</a></span>Animation() <span class="overload">[3/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::Command::Command </td>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01167.html">cmd::Message</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>message</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a00980.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a>&#160;</td>
+          <td class="paramname"><em>move</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new DisplayMessage command. </p>
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the attack animation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td>The message to display </td></tr>
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">moveIndex</td><td>Which move is being used [0, 3] </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00015">15</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00019">19</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aef1762ba5140d02526f245acad43c547"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef1762ba5140d02526f245acad43c547">&#9670;&nbsp;</a></span>Command() <span class="overload">[4/4]</span></h2>
+<a id="a86b1ab6d0d4742f571eda7101d00f789"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86b1ab6d0d4742f571eda7101d00f789">&#9670;&nbsp;</a></span>Animation() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::Command::Command </td>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01151.html">cmd::Animation</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>anim</em></td><td>)</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00980.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a>&#160;</td>
+          <td class="paramname"><em>stat</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates a new PlayAnimation command. </p>
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a stat increase or decrease. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">anim</td><td>The animation descriptor to play </td></tr>
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">type</td><td>Which type of stat change </td></tr>
+    <tr><td class="paramname">stat</td><td>The stat being changed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00019">19</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00024">24</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a509d6911b54efb19bd156e4194cd2159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a509d6911b54efb19bd156e4194cd2159">&#9670;&nbsp;</a></span>Animation() <span class="overload">[5/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00980.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a>&#160;</td>
+          <td class="paramname"><em>ailment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the given ailment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">ailment</td><td>The ailment animation to play </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00029">29</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="accfc6d5ff0d6d7c487a9087722c41985"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#accfc6d5ff0d6d7c487a9087722c41985">&#9670;&nbsp;</a></span>Animation() <span class="overload">[6/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00980.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a>&#160;</td>
+          <td class="paramname"><em>ailment</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for the given ailment. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">ailment</td><td>The ailment animation to play </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00034">34</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aca97c0835fe5297683e6f5fbdff6727c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca97c0835fe5297683e6f5fbdff6727c">&#9670;&nbsp;</a></span>Animation() <span class="overload">[7/7]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::battle::cmd::Animation::Animation </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>forHost</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a00978.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
+          <td class="paramname"><em>peopleball</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01159.html" title="Represents a type of animation that can be played in battle. ">Animation</a> for a peopleball. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">forHost</td><td>True to play on the host battler, false for other </td></tr>
+    <tr><td class="paramname">type</td><td>The type of animation to play </td></tr>
+    <tr><td class="paramname">peopleball</td><td>The peopleball to display </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00039">39</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a08a883700f65f713467bf25f662e45e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08a883700f65f713467bf25f662e45e4">&#9670;&nbsp;</a></span>forHost()</h2>
+<a id="a8a7be19cfb5b95a3d9039dd4232927cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a7be19cfb5b95a3d9039dd4232927cf">&#9670;&nbsp;</a></span>forHostBattler()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::battle::Command::forHost </td>
+          <td class="memname">bool core::battle::cmd::Animation::forHostBattler </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -295,20 +505,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns whether or not this command is for the active battler. </p>
+<p>Returns whether or not this animation is for the host or not. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00037">37</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00044">44</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adb41ec01ac0c6d8166c723b6404382bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb41ec01ac0c6d8166c723b6404382bd">&#9670;&nbsp;</a></span>getAnimation()</h2>
+<a id="aa76f05c198a892636268ec0a8dfed634"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa76f05c198a892636268ec0a8dfed634">&#9670;&nbsp;</a></span>getAilment()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01151.html">cmd::Animation</a> &amp; core::battle::Command::getAnimation </td>
+          <td class="memname"><a class="el" href="a00980.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> core::battle::cmd::Animation::getAilment </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -316,20 +526,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the animation if this command is an animation. </p>
+<p>Get the ailment for this animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00031">31</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00058">58</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0f2795d69eadc93def1c6153fed1dfd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f2795d69eadc93def1c6153fed1dfd7">&#9670;&nbsp;</a></span>getMessage()</h2>
+<a id="a1301fc3b184ad1918eb3440da71bc363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1301fc3b184ad1918eb3440da71bc363">&#9670;&nbsp;</a></span>getMove()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01167.html">cmd::Message</a> &amp; core::battle::Command::getMessage </td>
+          <td class="memname"><a class="el" href="a00980.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> core::battle::cmd::Animation::getMove </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -337,20 +547,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the message if this command is a message. </p>
+<p>Returns the move for this animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00025">25</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00048">48</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3ffa20447feb2854a453bd82f2c90d85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ffa20447feb2854a453bd82f2c90d85">&#9670;&nbsp;</a></span>getType()</h2>
+<a id="a9468e5ae8445b923a838adf51db9c8ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9468e5ae8445b923a838adf51db9c8ec">&#9670;&nbsp;</a></span>getPassiveAilment()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01159.html#a3c71671823951926934dc2759f0b7638">Command::Type</a> core::battle::Command::getType </td>
+          <td class="memname"><a class="el" href="a00980.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> core::battle::cmd::Animation::getPassiveAilment </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -358,21 +568,84 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the type of this command. </p>
+<p>Get the ailment for this animation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a02875_source.html#l00023">23</a> of file <a class="el" href="a02875_source.html">Command.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00063">63</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Battles/Commands/<a class="el" href="a02743_source.html">Command.hpp</a></li>
-<li>src/Core/Battles/Commands/<a class="el" href="a02875_source.html">Command.cpp</a></li>
+<a id="ad7145eb01a97628028538c78bfdaab26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7145eb01a97628028538c78bfdaab26">&#9670;&nbsp;</a></span>getPeopleball()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00978.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> core::battle::cmd::Animation::getPeopleball </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the Peopleball for this animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00068">68</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac980eb577fa93cc581ae827f1d84225c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac980eb577fa93cc581ae827f1d84225c">&#9670;&nbsp;</a></span>getStat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a00980.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> core::battle::cmd::Animation::getStat </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the stat for this animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00053">53</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9d1b6097fa7e18af47b5f7bdac028798"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d1b6097fa7e18af47b5f7bdac028798">&#9670;&nbsp;</a></span>getType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01159.html#a49ccd22efcd433e8c59876b456c9e238">Animation::Type</a> core::battle::cmd::Animation::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the type of animation to play. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00046">46</a> of file <a class="el" href="a00530_source.html">Animation.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Battles/Commands/<a class="el" href="a00041_source.html">Animation.hpp</a></li>
+<li>src/Core/Battles/Commands/<a class="el" href="a00530_source.html">Animation.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

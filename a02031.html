@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::TypeSelector Class Reference</title>
+<title>Peoplemon: editor::component::ScriptSelector Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,167 +63,172 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01001.html">editor</a></li><li class="navelem"><a class="el" href="a01002.html">component</a></li><li class="navelem"><a class="el" href="a02031.html">TypeSelector</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01007.html">editor</a></li><li class="navelem"><a class="el" href="a01008.html">component</a></li><li class="navelem"><a class="el" href="a02031.html">ScriptSelector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a02028.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::TypeSelector Class Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00969.html">Components</a></div></div>  </div>
+<div class="title">editor::component::ScriptSelector Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Wrapper around ComboBox for Peoplemon types.  
+<p>GUI component for selecting or writing scripts. Performs syntax validation as well.  
  <a href="a02031.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00419_source.html">TypeSelector.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::TypeSelector:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02031.png" usemap="#editor::component::TypeSelector_map" alt=""/>
-  <map id="editor::component::TypeSelector_map" name="editor::component::TypeSelector_map">
-</map>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00413_source.html">ScriptSelector.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aadc2d43c81e774816dc7d87ca2cd43a9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#aadc2d43c81e774816dc7d87ca2cd43a9">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02031.html">TypeSelector</a> &gt;</td></tr>
-<tr class="memdesc:aadc2d43c81e774816dc7d87ca2cd43a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to a <a class="el" href="a02031.html" title="Wrapper around ComboBox for Peoplemon types. ">TypeSelector</a> component.  <a href="#aadc2d43c81e774816dc7d87ca2cd43a9">More...</a><br /></td></tr>
-<tr class="separator:aadc2d43c81e774816dc7d87ca2cd43a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e8086d3c3717968151b80ce0144eb4b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> = std::function&lt; void(const std::string &amp;)&gt;</td></tr>
+<tr class="memdesc:a7e8086d3c3717968151b80ce0144eb4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for when a script is chosen.  <a href="#a7e8086d3c3717968151b80ce0144eb4b">More...</a><br /></td></tr>
+<tr class="separator:a7e8086d3c3717968151b80ce0144eb4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4755d42efaec91a7a4a5c7653d211e13"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:a4755d42efaec91a7a4a5c7653d211e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the window is closed without a selection.  <a href="#a4755d42efaec91a7a4a5c7653d211e13">More...</a><br /></td></tr>
+<tr class="separator:a4755d42efaec91a7a4a5c7653d211e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a45b8fc89f1a71d8ac00cc68ba56ce650"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a00974.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#a45b8fc89f1a71d8ac00cc68ba56ce650">currentType</a> () const</td></tr>
-<tr class="memdesc:a45b8fc89f1a71d8ac00cc68ba56ce650"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type that is currently selected.  <a href="#a45b8fc89f1a71d8ac00cc68ba56ce650">More...</a><br /></td></tr>
-<tr class="separator:a45b8fc89f1a71d8ac00cc68ba56ce650"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a080e1b5245aa045aa011d85bf20893b8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#a080e1b5245aa045aa011d85bf20893b8">setCurrentType</a> (<a class="el" href="a00974.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a> type)</td></tr>
-<tr class="memdesc:a080e1b5245aa045aa011d85bf20893b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the currently selected type.  <a href="#a080e1b5245aa045aa011d85bf20893b8">More...</a><br /></td></tr>
-<tr class="separator:a080e1b5245aa045aa011d85bf20893b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a0a3a7b95c3419cac1d1e2a8401ad5a60"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02031.html#aadc2d43c81e774816dc7d87ca2cd43a9">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#a0a3a7b95c3419cac1d1e2a8401ad5a60">create</a> ()</td></tr>
-<tr class="memdesc:a0a3a7b95c3419cac1d1e2a8401ad5a60"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a02031.html" title="Wrapper around ComboBox for Peoplemon types. ">TypeSelector</a>.  <a href="#a0a3a7b95c3419cac1d1e2a8401ad5a60">More...</a><br /></td></tr>
-<tr class="separator:a0a3a7b95c3419cac1d1e2a8401ad5a60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#ad64e7e6d573d5dc8040baf5a241bf48e">ScriptSelector</a> (const <a class="el" href="a02031.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> &amp;onSelect, const <a class="el" href="a02031.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> &amp;onCancel)</td></tr>
+<tr class="memdesc:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Script Selector dialog.  <a href="#ad64e7e6d573d5dc8040baf5a241bf48e">More...</a><br /></td></tr>
+<tr class="separator:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7afb0397dd155e4b37baf69b6de8b8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02031.html#ac7afb0397dd155e4b37baf69b6de8b8c">open</a> (const bl::gui::GUI::Ptr &amp;parent, const std::string &amp;value={})</td></tr>
+<tr class="memdesc:ac7afb0397dd155e4b37baf69b6de8b8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the dialog to select a script.  <a href="#ac7afb0397dd155e4b37baf69b6de8b8c">More...</a><br /></td></tr>
+<tr class="separator:ac7afb0397dd155e4b37baf69b6de8b8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wrapper around ComboBox for Peoplemon types. </p>
+<div class="textblock"><p>GUI component for selecting or writing scripts. Performs syntax validation as well. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00419_source.html#l00018">18</a> of file <a class="el" href="a00419_source.html">TypeSelector.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00017">17</a> of file <a class="el" href="a00413_source.html">ScriptSelector.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="aadc2d43c81e774816dc7d87ca2cd43a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadc2d43c81e774816dc7d87ca2cd43a9">&#9670;&nbsp;</a></span>Ptr</h2>
+<a id="a4755d42efaec91a7a4a5c7653d211e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4755d42efaec91a7a4a5c7653d211e13">&#9670;&nbsp;</a></span>OnCancel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02031.html#aadc2d43c81e774816dc7d87ca2cd43a9">editor::component::TypeSelector::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02031.html">TypeSelector</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a02031.html#a4755d42efaec91a7a4a5c7653d211e13">editor::component::ScriptSelector::OnCancel</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Pointer to a <a class="el" href="a02031.html" title="Wrapper around ComboBox for Peoplemon types. ">TypeSelector</a> component. </p>
+<p>Called when the window is closed without a selection. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00419_source.html#l00021">21</a> of file <a class="el" href="a00419_source.html">TypeSelector.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00023">23</a> of file <a class="el" href="a00413_source.html">ScriptSelector.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0a3a7b95c3419cac1d1e2a8401ad5a60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a3a7b95c3419cac1d1e2a8401ad5a60">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a7e8086d3c3717968151b80ce0144eb4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8086d3c3717968151b80ce0144eb4b">&#9670;&nbsp;</a></span>OnSelect</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02031.html#aadc2d43c81e774816dc7d87ca2cd43a9">TypeSelector::Ptr</a> editor::component::TypeSelector::create </td>
+          <td class="memname">using <a class="el" href="a02031.html#a7e8086d3c3717968151b80ce0144eb4b">editor::component::ScriptSelector::OnSelect</a> =  std::function&lt;void(const std::string&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Callback type for when a script is chosen. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00020">20</a> of file <a class="el" href="a00413_source.html">ScriptSelector.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad64e7e6d573d5dc8040baf5a241bf48e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad64e7e6d573d5dc8040baf5a241bf48e">&#9670;&nbsp;</a></span>ScriptSelector()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::ScriptSelector::ScriptSelector </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a02031.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSelect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="a02031.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> &amp;&#160;</td>
+          <td class="paramname"><em>onCancel</em>&#160;</td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Create a new <a class="el" href="a02031.html" title="Wrapper around ComboBox for Peoplemon types. ">TypeSelector</a>. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00020">20</a> of file <a class="el" href="a00884_source.html">TypeSelector.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a45b8fc89f1a71d8ac00cc68ba56ce650"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45b8fc89f1a71d8ac00cc68ba56ce650">&#9670;&nbsp;</a></span>currentType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a00974.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a> editor::component::TypeSelector::currentType </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the type that is currently selected. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00036">36</a> of file <a class="el" href="a00884_source.html">TypeSelector.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a080e1b5245aa045aa011d85bf20893b8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a080e1b5245aa045aa011d85bf20893b8">&#9670;&nbsp;</a></span>setCurrentType()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::TypeSelector::setCurrentType </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00974.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em></td><td>)</td>
           <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the currently selected type. </p>
+<p>Construct a new Script Selector dialog. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The type to set </td></tr>
+    <tr><td class="paramname">onSelect</td><td>Callback to call when a script is chosen </td></tr>
+    <tr><td class="paramname">onCancel</td><td>Called when the window is closed without a selection </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00038">38</a> of file <a class="el" href="a00884_source.html">TypeSelector.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00012">12</a> of file <a class="el" href="a00881_source.html">ScriptSelector.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac7afb0397dd155e4b37baf69b6de8b8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7afb0397dd155e4b37baf69b6de8b8c">&#9670;&nbsp;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::ScriptSelector::open </td>
+          <td>(</td>
+          <td class="paramtype">const bl::gui::GUI::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opens the dialog to select a script. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent to add the GUI elements to </td></tr>
+    <tr><td class="paramname">value</td><td>The default script value to fill </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00060">60</a> of file <a class="el" href="a00881_source.html">ScriptSelector.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00419_source.html">TypeSelector.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00884_source.html">TypeSelector.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00413_source.html">ScriptSelector.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00881_source.html">ScriptSelector.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:04 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

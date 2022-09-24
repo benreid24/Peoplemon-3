@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::EntityMoved Struct Reference</title>
+<title>Peoplemon: core::event::BattleStarted Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00983.html">core</a></li><li class="navelem"><a class="el" href="a00993.html">event</a></li><li class="navelem"><a class="el" href="a01303.html">EntityMoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a00999.html">event</a></li><li class="navelem"><a class="el" href="a01303.html">BattleStarted</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,40 +72,34 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01300.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::EntityMoved Struct Reference<div class="ingroups"><a class="el" href="a00965.html">Core</a> &raquo; <a class="el" href="a00970.html">Events</a></div></div>  </div>
+<div class="title">core::event::BattleStarted Struct Reference<div class="ingroups"><a class="el" href="a00971.html">Core</a> &raquo; <a class="el" href="a00976.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired after an entity completed moving from one position to another.  
+<p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin.  
  <a href="a01303.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00119_source.html">EntityMoved.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02746_source.html">Battle.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:addd7a79c2cbcc1b79fc44aee98bce12a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#addd7a79c2cbcc1b79fc44aee98bce12a">EntityMoved</a> (bl::entity::Entity <a class="el" href="a01303.html#aadb1d60a34628c9dae21efcae2f32708">entity</a>, const <a class="el" href="a01231.html">component::Position</a> &amp;oldPos, const <a class="el" href="a01231.html">component::Position</a> &amp;pos)</td></tr>
-<tr class="memdesc:addd7a79c2cbcc1b79fc44aee98bce12a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01303.html" title="Fired after an entity completed moving from one position to another. ">EntityMoved</a> event.  <a href="#addd7a79c2cbcc1b79fc44aee98bce12a">More...</a><br /></td></tr>
-<tr class="separator:addd7a79c2cbcc1b79fc44aee98bce12a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#ad383ca87cb6d0e838ffc86fb066b7a72">BattleStarted</a> (std::unique_ptr&lt; <a class="el" href="a01111.html">battle::Battle</a> &gt; &amp;&amp;<a class="el" href="a01303.html#a7441c17448e872495503eec88b334e5a">battle</a>)</td></tr>
+<tr class="memdesc:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Battle Started event.  <a href="#ad383ca87cb6d0e838ffc86fb066b7a72">More...</a><br /></td></tr>
+<tr class="separator:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aadb1d60a34628c9dae21efcae2f32708"><td class="memItemLeft" align="right" valign="top">const bl::entity::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#aadb1d60a34628c9dae21efcae2f32708">entity</a></td></tr>
-<tr class="memdesc:aadb1d60a34628c9dae21efcae2f32708"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="#aadb1d60a34628c9dae21efcae2f32708">More...</a><br /></td></tr>
-<tr class="separator:aadb1d60a34628c9dae21efcae2f32708"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad303aafbe3ab706307731fe162fec0d6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01231.html">component::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#ad303aafbe3ab706307731fe162fec0d6">previousPosition</a></td></tr>
-<tr class="memdesc:ad303aafbe3ab706307731fe162fec0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous position of the entity.  <a href="#ad303aafbe3ab706307731fe162fec0d6">More...</a><br /></td></tr>
-<tr class="separator:ad303aafbe3ab706307731fe162fec0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73dbf3b51c566408e358eba1c8d932d0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01231.html">component::Position</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#a73dbf3b51c566408e358eba1c8d932d0">position</a></td></tr>
-<tr class="memdesc:a73dbf3b51c566408e358eba1c8d932d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="#a73dbf3b51c566408e358eba1c8d932d0">More...</a><br /></td></tr>
-<tr class="separator:a73dbf3b51c566408e358eba1c8d932d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7441c17448e872495503eec88b334e5a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01111.html">battle::Battle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#a7441c17448e872495503eec88b334e5a">battle</a></td></tr>
+<tr class="memdesc:a7441c17448e872495503eec88b334e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The battle to start.  <a href="#a7441c17448e872495503eec88b334e5a">More...</a><br /></td></tr>
+<tr class="separator:a7441c17448e872495503eec88b334e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired after an entity completed moving from one position to another. </p>
+<div class="textblock"><p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00018">18</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02746_source.html#l00017">17</a> of file <a class="el" href="a02746_source.html">Battle.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="addd7a79c2cbcc1b79fc44aee98bce12a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addd7a79c2cbcc1b79fc44aee98bce12a">&#9670;&nbsp;</a></span>EntityMoved()</h2>
+<a id="ad383ca87cb6d0e838ffc86fb066b7a72"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad383ca87cb6d0e838ffc86fb066b7a72">&#9670;&nbsp;</a></span>BattleStarted()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,27 +108,11 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::EntityMoved::EntityMoved </td>
+          <td class="memname">core::event::BattleStarted::BattleStarted </td>
           <td>(</td>
-          <td class="paramtype">bl::entity::Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a01111.html">battle::Battle</a> &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>battle</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01231.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>oldPos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01231.html">component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -144,83 +122,45 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01303.html" title="Fired after an entity completed moving from one position to another. ">EntityMoved</a> event. </p>
+<p>Construct a new Battle Started event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity that moved </td></tr>
-    <tr><td class="paramname">oldPos</td><td>The old position </td></tr>
-    <tr><td class="paramname">pos</td><td>The current position </td></tr>
+    <tr><td class="paramname">battle</td><td>The battle to start </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00035">35</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02746_source.html#l00026">26</a> of file <a class="el" href="a02746_source.html">Battle.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aadb1d60a34628c9dae21efcae2f32708"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadb1d60a34628c9dae21efcae2f32708">&#9670;&nbsp;</a></span>entity</h2>
+<a id="a7441c17448e872495503eec88b334e5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7441c17448e872495503eec88b334e5a">&#9670;&nbsp;</a></span>battle</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const bl::entity::Entity core::event::EntityMoved::entity</td>
+          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01111.html">battle::Battle</a>&gt; core::event::BattleStarted::battle</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The entity that moved. </p>
+<p>The battle to start. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00020">20</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a73dbf3b51c566408e358eba1c8d932d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73dbf3b51c566408e358eba1c8d932d0">&#9670;&nbsp;</a></span>position</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01231.html">component::Position</a>&amp; core::event::EntityMoved::position</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The current position of the entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00026">26</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad303aafbe3ab706307731fe162fec0d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad303aafbe3ab706307731fe162fec0d6">&#9670;&nbsp;</a></span>previousPosition</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const <a class="el" href="a01231.html">component::Position</a> core::event::EntityMoved::previousPosition</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The previous position of the entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00023">23</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02746_source.html#l00019">19</a> of file <a class="el" href="a02746_source.html">Battle.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00119_source.html">EntityMoved.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a02746_source.html">Battle.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
