@@ -103,7 +103,7 @@ MoveEditorWindow::MoveEditorWindow(core::file::MoveDB& moveDb, const OnChange& o
     window->getSignal(Event::Closed).willAlwaysCall(std::bind(&MoveEditorWindow::onCancel, this));
 
     LinePacker::Ptr rowPack = LinePacker::create(LinePacker::Horizontal, 4.f);
-    const auto onEdit       = std::bind(MoveEditorWindow::makeDirty, this);
+    const auto onEdit       = std::bind(&MoveEditorWindow::makeDirty, this);
     applyBut                = Button::create("Save");
 
     Box::Ptr row = Box::create(rowPack);

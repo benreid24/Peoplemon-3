@@ -44,7 +44,6 @@ private:
     bool doingNewMove;
 
     bl::gui::Window::Ptr window;
-    bl::gui::GUI::Ptr parent;
     bl::gui::TextEntry::Ptr idEntry;
     bl::gui::TextEntry::Ptr nameEntry;
     bl::gui::TextEntry::Ptr descEntry;
