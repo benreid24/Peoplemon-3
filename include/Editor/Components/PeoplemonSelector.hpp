@@ -32,9 +32,15 @@ public:
 
     /**
      * @brief Sets the currently selected Peoplemon
-     * 
+     *
      */
     void setPeoplemon(core::pplmn::Id id);
+
+    /**
+     * @brief Refreshes the list of peoplemon
+     *
+     */
+    void refresh();
 
 private:
     PeoplemonSelector();

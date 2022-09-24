@@ -15,6 +15,7 @@ target_sources(PeoplemonEditor PUBLIC
     LightSlider.hpp
     OwnedPeoplemonWindow.hpp
     MoveEditorWindow.hpp
+    PeoplemonEditorWindow.hpp
     PeoplemonSelector.hpp
     MoveSelector.hpp
     NewMapDialog.hpp

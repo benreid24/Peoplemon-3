@@ -15,6 +15,12 @@ namespace
 std::vector<Id> ids;
 const std::string UnknownName        = "<Unknown Item>";
 const std::string UnknownDescription = "<This item is not known to Peoplemon>";
+
+void refreshIds(std::unordered_map<Id, std::string>* names) {
+    ids.reserve(names->size());
+    for (const auto& p : *names) { ids.emplace_back(p.first); }
+    std::sort(ids.begin(), ids.end());
+}
 } // namespace
 
 std::unordered_map<Id, std::string>* Item::names        = nullptr;
@@ -36,9 +42,7 @@ void Item::setDataSource(file::ItemDB& db) {
     descriptions = &db.descriptions;
     values       = &db.values;
 
-    ids.reserve(names->size());
-    for (const auto& p : *names) { ids.emplace_back(p.first); }
-    std::sort(ids.begin(), ids.end());
+    refreshIds(names);
 }
 
 Category Item::getCategory(Id item) {
@@ -117,7 +121,13 @@ int Item::getValue(Id item) {
     return it->second;
 }
 
-const std::vector<Id>& Item::validIds() { return ids; }
+const std::vector<Id>& Item::validIds() {
+#ifdef PEOPLEMON_DEBUG
+    refreshIds(names);
+#endif
+
+    return ids;
+}
 
 bool Item::canUseInBattle(Id id) {
     const Type t = getType(id);

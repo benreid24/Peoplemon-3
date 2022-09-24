@@ -26,10 +26,11 @@ public:
     /**
      * @brief Create a new MoveSelector
      *
+     * @param enableFilter True to add radio buttons to filter on peoplemon, false to show all
      * @param changeCb Called when a move is selected
      * @return Ptr The new MoveSelector
      */
-    static Ptr create(const ChangeCb& changeCb = {});
+    static Ptr create(bool enableFilter, const ChangeCb& changeCb = {});
 
     /**
      * @brief Returns the currently selected move
@@ -59,6 +60,12 @@ public:
      */
     void selectRandom();
 
+    /**
+     * @brief Refreshes the list of moves
+     *
+     */
+    void refresh();
+
 private:
     core::pplmn::Id peoplemon;
     unsigned int level;
@@ -68,8 +75,7 @@ private:
     bl::gui::RadioButton::Ptr levelMoveFilter;
     bl::gui::RadioButton::Ptr poolMoveFilter;
 
-    MoveSelector(const ChangeCb& ccb);
-    void refresh();
+    MoveSelector(bool enableFilter, const ChangeCb& ccb);
 };
 
 } // namespace component

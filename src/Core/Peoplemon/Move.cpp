@@ -12,20 +12,27 @@ namespace
 {
 const std::string Invalid = "<INVALID>";
 std::vector<MoveId> allIds;
+
+void refreshIds(const std::unordered_map<MoveId, std::string>* names) {
+    allIds.clear();
+    allIds.reserve(names->size());
+    for (const auto& p : *names) { allIds.emplace_back(p.first); }
+}
 } // namespace
-std::unordered_map<MoveId, std::string>* Move::names          = nullptr;
-std::unordered_map<MoveId, std::string>* Move::descriptions   = nullptr;
-std::unordered_map<MoveId, Type>* Move::types                 = nullptr;
-std::unordered_map<MoveId, int>* Move::damages                = nullptr;
-std::unordered_map<MoveId, int>* Move::accuracies             = nullptr;
-std::unordered_map<MoveId, int>* Move::priorities             = nullptr;
-std::unordered_map<MoveId, unsigned int>* Move::pps           = nullptr;
-std::unordered_map<MoveId, bool>* Move::contactors            = nullptr;
-std::unordered_map<MoveId, bool>* Move::specials              = nullptr;
-std::unordered_map<MoveId, MoveEffect>* Move::effects         = nullptr;
-std::unordered_map<MoveId, int>* Move::effectChances          = nullptr;
-std::unordered_map<MoveId, int>* Move::effectIntensities      = nullptr;
-std::unordered_map<MoveId, bool>* Move::effectSelves          = nullptr;
+
+std::unordered_map<MoveId, std::string>* Move::names        = nullptr;
+std::unordered_map<MoveId, std::string>* Move::descriptions = nullptr;
+std::unordered_map<MoveId, Type>* Move::types               = nullptr;
+std::unordered_map<MoveId, int>* Move::damages              = nullptr;
+std::unordered_map<MoveId, int>* Move::accuracies           = nullptr;
+std::unordered_map<MoveId, int>* Move::priorities           = nullptr;
+std::unordered_map<MoveId, unsigned int>* Move::pps         = nullptr;
+std::unordered_map<MoveId, bool>* Move::contactors          = nullptr;
+std::unordered_map<MoveId, bool>* Move::specials            = nullptr;
+std::unordered_map<MoveId, MoveEffect>* Move::effects       = nullptr;
+std::unordered_map<MoveId, int>* Move::effectChances        = nullptr;
+std::unordered_map<MoveId, int>* Move::effectIntensities    = nullptr;
+std::unordered_map<MoveId, bool>* Move::effectSelves        = nullptr;
 
 MoveId Move::cast(unsigned int id) {
     const MoveId r = static_cast<MoveId>(id);
@@ -51,12 +58,15 @@ void Move::setDataSource(file::MoveDB& db) {
     effectIntensities = &db.effectIntensities;
     effectSelves      = &db.effectSelves;
 
-    allIds.clear();
-    allIds.reserve(names->size());
-    for (const auto& p : *names) { allIds.emplace_back(p.first); }
+    refreshIds(names);
 }
 
-const std::vector<MoveId>& Move::validIds() { return allIds; }
+const std::vector<MoveId>& Move::validIds() {
+#ifdef PEOPLEMON_DEBUG
+    refreshIds(names);
+#endif
+    return allIds;
+}
 
 const std::string& Move::name(MoveId id) {
     const auto it = names->find(id);

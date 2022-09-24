@@ -16,6 +16,7 @@ target_sources(PeoplemonEditor PRIVATE
     LightSlider.cpp
     OwnedPeoplemonWindow.cpp
     MoveEditorWindow.cpp
+    PeoplemonEditorWindow.cpp
     PeoplemonSelector.cpp
     MapActions.hpp
     MapActions.cpp

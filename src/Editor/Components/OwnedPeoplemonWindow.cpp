@@ -63,7 +63,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     row->pack(moveBox, true, true);
     Box::Ptr box    = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));
     Box::Ptr subRow = Box::create(LinePacker::create());
-    moveSelector    = MoveSelector::create();
+    moveSelector    = MoveSelector::create(true);
     subRow->pack(moveSelector, false, true);
     Box::Ptr column = Box::create(LinePacker::create(LinePacker::Vertical));
     Button::Ptr but = Button::create("Add");

@@ -10,9 +10,16 @@ namespace pplmn
 namespace
 {
 const std::string InvalidStr = "<INVALID>";
-}
-
 std::vector<Id> allIds;
+
+void refreshIds(std::unordered_map<Id, std::string>* names) {
+    allIds.clear();
+    allIds.reserve(names->size());
+    for (const auto& p : *names) { allIds.emplace_back(p.first); }
+    std::sort(allIds.begin(), allIds.end());
+}
+} // namespace
+
 std::unordered_map<Id, std::string>* Peoplemon::names                                     = nullptr;
 std::unordered_map<Id, std::string>* Peoplemon::descriptions                              = nullptr;
 std::unordered_map<Id, Type>* Peoplemon::types                                            = nullptr;
@@ -42,10 +49,7 @@ void Peoplemon::setDataSource(file::PeoplemonDB& db) {
     xpMults      = &db.xpMults;
     catchRates   = &db.catchRates;
 
-    allIds.clear();
-    allIds.reserve(names->size());
-    for (const auto& p : *names) { allIds.emplace_back(p.first); }
-    std::sort(allIds.begin(), allIds.end());
+    refreshIds(names);
 }
 
 Id Peoplemon::cast(unsigned int id) {
@@ -55,7 +59,13 @@ Id Peoplemon::cast(unsigned int id) {
     return r;
 }
 
-const std::vector<Id>& Peoplemon::validIds() { return allIds; }
+const std::vector<Id>& Peoplemon::validIds() {
+#ifdef PEOPLEMON_DEBUG
+    refreshIds(names);
+#endif
+
+    return allIds;
+}
 
 const std::string& Peoplemon::name(Id id) {
     const auto it = names->find(id);

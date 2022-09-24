@@ -9,9 +9,7 @@ PeoplemonSelector::Ptr PeoplemonSelector::create() { return Ptr(new PeoplemonSel
 
 PeoplemonSelector::PeoplemonSelector()
 : ComboBox() {
-    for (const core::pplmn::Id id : core::pplmn::Peoplemon::validIds()) {
-        addOption(std::to_string(static_cast<int>(id)) + ": " + core::pplmn::Peoplemon::name(id));
-    }
+    refresh();
 }
 
 core::pplmn::Id PeoplemonSelector::currentPeoplemon() const {
@@ -28,6 +26,13 @@ void PeoplemonSelector::setPeoplemon(core::pplmn::Id id) {
     }
 
     BL_LOG_WARN << "Tried to set invalid Peoplemon id: " << id;
+}
+
+void PeoplemonSelector::refresh() {
+    clearOptions();
+    for (const core::pplmn::Id id : core::pplmn::Peoplemon::validIds()) {
+        addOption(std::to_string(static_cast<int>(id)) + ": " + core::pplmn::Peoplemon::name(id));
+    }
 }
 
 } // namespace component
