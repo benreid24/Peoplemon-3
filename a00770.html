@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/Interaction.cpp File Reference</title>
+<title>Peoplemon: src/Core/Systems/HUD/ScreenKeyboard.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,44 +63,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li><li class="navelem"><a class="el" href="dir_eb4f631c9efc438d7f9e0601d0e06295.html">HUD</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Interaction.cpp File Reference</div>  </div>
+<div class="title">ScreenKeyboard.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00323_source.html">Core/Systems/Interaction.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Serialization/JSON.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00014_source.html">Core/Battles/BattleControllers/LocalBattleController.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00020_source.html">Core/Battles/BattlerControllers/AIController.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02738_source.html">Core/Components/Item.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02750_source.html">Core/Components/NPC.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02762_source.html">Core/Components/Trainer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02741_source.html">Core/Events/Item.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02777_source.html">Core/Files/GameSave.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02744_source.html">Core/Items/Item.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00338_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00317_source.html">Core/Systems/HUD/ScreenKeyboard.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Engine.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00272_source.html">Core/Properties.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00770_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a00971"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00971.html">core</a></td></tr>
-<tr class="memdesc:a00971"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a00983"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00983.html">core</a></td></tr>
+<tr class="memdesc:a00983"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00972"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00972.html">core::system</a></td></tr>
-<tr class="memdesc:a00972"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a00984"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00984.html">core::system</a></td></tr>
+<tr class="memdesc:a00984"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01008"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01008.html">core::system::hud</a></td></tr>
+<tr class="memdesc:a01008"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper classes and utilities for the <a class="el" href="a01847.html" title="The primary HUD system for the player. Manages displaying messages and asking questions. A callback is issued when messages are complete or when choices are made. ">HUD</a>. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 23 2022 21:28:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Sep 24 2022 02:36:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
