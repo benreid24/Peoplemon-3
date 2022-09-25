@@ -21,8 +21,10 @@ public:
     /**
      * @brief Creates a new peoplemon selector
      *
+     * @param allowUnknown Allows Unknown/None option to be selected
+     *
      */
-    static Ptr create();
+    static Ptr create(bool allowUnknown = false);
 
     /**
      * @brief Returns the currently selected peoplemon
@@ -32,12 +34,20 @@ public:
 
     /**
      * @brief Sets the currently selected Peoplemon
-     * 
+     *
      */
     void setPeoplemon(core::pplmn::Id id);
 
+    /**
+     * @brief Refreshes the list of peoplemon
+     *
+     */
+    void refresh();
+
 private:
-    PeoplemonSelector();
+    const bool allowUnknown;
+
+    PeoplemonSelector(bool allowUnknown);
 };
 
 } // namespace component

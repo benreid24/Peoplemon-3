@@ -142,9 +142,7 @@ enum struct Id : std::uint8_t {
     Ben,
     RockManiac,
     JudasA,
-    JudasB,
-
-    _NUM_PEOPLEMON
+    JudasB
 };
 
 } // namespace pplmn

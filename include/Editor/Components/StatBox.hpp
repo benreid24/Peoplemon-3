@@ -24,7 +24,7 @@ public:
      *
      * @param mode EV or IV mode
      */
-    StatBox(Mode mode);
+    StatBox(Mode mode, bool showRandomBut = true);
 
     /**
      * @brief Returns the current Stats value entered
@@ -62,6 +62,7 @@ public:
 
 private:
     const Mode mode;
+    const bool showRandom;
     bl::gui::TextEntry::Ptr hpEntry;
     bl::gui::TextEntry::Ptr atkEntry;
     bl::gui::TextEntry::Ptr defEntry;

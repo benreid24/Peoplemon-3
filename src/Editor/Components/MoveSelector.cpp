@@ -9,9 +9,11 @@ namespace component
 {
 using namespace bl::gui;
 
-MoveSelector::Ptr MoveSelector::create(const ChangeCb& ccb) { return Ptr(new MoveSelector(ccb)); }
+MoveSelector::Ptr MoveSelector::create(bool ef, const ChangeCb& ccb) {
+    return Ptr(new MoveSelector(ef, ccb));
+}
 
-MoveSelector::MoveSelector(const ChangeCb& ccb)
+MoveSelector::MoveSelector(bool ef, const ChangeCb& ccb)
 : Box(LinePacker::create(LinePacker::Vertical, 8.f)) {
     Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     row->pack(Label::create("Filter:"), false, true);
@@ -27,7 +29,8 @@ MoveSelector::MoveSelector(const ChangeCb& ccb)
     row->pack(noMoveFilter, false, true);
     row->pack(levelMoveFilter, false, true);
     row->pack(poolMoveFilter, false, true);
-    pack(row, true, true);
+
+    if (ef) { pack(row, true, true); }
 
     selector = ComboBox::create();
     selector->getSignal(Event::ValueChanged).willAlwaysCall([this, ccb](const Event&, Element*) {

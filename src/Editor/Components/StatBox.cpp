@@ -32,8 +32,9 @@ core::pplmn::Stats genRandomEVs(unsigned int level) {
 } // namespace
 using namespace bl::gui;
 
-StatBox::StatBox(Mode m)
+StatBox::StatBox(Mode m, bool sr)
 : mode(m)
+, showRandom(sr)
 , level(50) {
     const auto f = std::bind(&StatBox::onChange, this, std::placeholders::_2);
 
@@ -155,23 +156,25 @@ void StatBox::pack(Box& content) {
     sumLabel = Label::create("");
     content.pack(sumLabel, true, false);
 
-    Button::Ptr but = Button::create("Randomize");
-    but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        if (mode == Mode::IV) {
-            constexpr unsigned int max = core::pplmn::Stats::MaxIVStat;
-            hpEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-            atkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-            defEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-            spAtkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-            spDefEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-            spdEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
-        }
-        else {
-            update(genRandomEVs(level));
-        }
-        syncSum();
-    });
-    content.pack(but);
+    if (showRandom) {
+        Button::Ptr but = Button::create("Randomize");
+        but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+            if (mode == Mode::IV) {
+                constexpr unsigned int max = core::pplmn::Stats::MaxIVStat;
+                hpEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+                atkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+                defEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+                spAtkEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+                spDefEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+                spdEntry->setInput(std::to_string(bl::util::Random::get<unsigned int>(0, max)));
+            }
+            else {
+                update(genRandomEVs(level));
+            }
+            syncSum();
+        });
+        content.pack(but);
+    }
 }
 
 void StatBox::onChange(Element* e) {
