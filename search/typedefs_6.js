@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gs',['GS',['../a01503.html#a7bc60f02a8287876fcd46fa32c41e8ff',1,'bl::serial::SerializableObject&lt; core::file::GameSave &gt;']]]
+  ['gs',['GS',['../a01510.html#a7bc60f02a8287876fcd46fa32c41e8ff',1,'bl::serial::SerializableObject&lt; core::file::GameSave &gt;']]]
 ];

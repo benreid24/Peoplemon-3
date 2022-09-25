@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/States/MainEditor.hpp File Reference</title>
+<title>Peoplemon: include/Editor/Pages/VariousEditors.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_deb240fe6eddc91a5a7d9b1aac504bb4.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,43 +71,38 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">MainEditor.hpp File Reference</div>  </div>
+<div class="title">VariousEditors.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Engine.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Interfaces/GUI.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00338_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00437_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00428_source.html">Editor/Pages/Credits.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00431_source.html">Editor/Pages/Items.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02842_source.html">Editor/Pages/Map.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00434_source.html">Editor/Pages/Moves.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02854_source.html">Editor/Pages/Peoplemon.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02872_source.html">Editor/Pages/Scripts.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00461_source.html">Editor/Pages/VariousEditors.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Interfaces/GUI.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00365_source.html">Editor/Components/ConversationWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00401_source.html">Editor/Components/NPCEditorWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00413_source.html">Editor/Components/PlaylistEditorWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00422_source.html">Editor/Components/TrainerEditorWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00440_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00464_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02131.html">editor::state::MainEditor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary state of the editor. Owns the GUI and all tabs.  <a href="a02131.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02138.html">editor::page::VariousEditors</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02078.html" title="Base class for all editor pages. ">Page</a> for opening various editor windows outside the map editor.  <a href="a02138.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01007"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01007.html">editor</a></td></tr>
-<tr class="memdesc:a01007"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a01013"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html">editor</a></td></tr>
+<tr class="memdesc:a01013"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01017"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01017.html">editor::state</a></td></tr>
-<tr class="memdesc:a01017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine states for the editor. <br /></td></tr>
+<tr class="memitem:a01022"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01022.html">editor::page</a></td></tr>
+<tr class="memdesc:a01022"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 25 2022 20:03:47 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

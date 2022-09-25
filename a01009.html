@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player Namespace Reference</title>
+<title>Peoplemon: core::item Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,58 +63,173 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00989.html">core</a></li><li class="navelem"><a class="el" href="a01009.html">player</a></li>  </ul>
+<li class="navelem"><a class="el" href="a00995.html">core</a></li><li class="navelem"><a class="el" href="a01009.html">item</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">core::player Namespace Reference</div>  </div>
+<div class="title">core::item Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for managing player state and functionality.  
+<p>Collection of enums and classes for managing and using items.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01010"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html">input</a></td></tr>
-<tr class="memdesc:a01010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes for processing player input. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01731.html">Bag</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic inventory class for managing player items.  <a href="a01731.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01767.html">Input</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Class for processing player input and dispatching it to the appropriate listeners.  <a href="a01767.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01771.html">State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores all player state.  <a href="a01771.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01775.html">StorageSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peoplemon storage system for extra peoplemon the player has.  <a href="a01775.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html">Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of static methods centered around items.  <a href="a01554.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga11b9fe689813091d7db2b7cf30c51200"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00981.html#ga11b9fe689813091d7db2b7cf30c51200">Gender</a> : std::uint8_t { <a class="el" href="a00981.html#gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7">Gender::Boy</a> = 1, 
-<a class="el" href="a00981.html#gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d">Gender::Girl</a> = 2
- }<tr class="memdesc:ga11b9fe689813091d7db2b7cf30c51200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible genders for the player.  <a href="a00981.html#ga11b9fe689813091d7db2b7cf30c51200">More...</a><br /></td></tr>
+<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00984.html#gac5b9981750f250d2d6aa8682b2a10b71">Category</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a00984.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">Category::Unknown</a>, 
+<a class="el" href="a00984.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">Category::Regular</a>, 
+<a class="el" href="a00984.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">Category::Key</a>, 
+<a class="el" href="a00984.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">Category::TM</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggac5b9981750f250d2d6aa8682b2a10b71a82f60caea0455676d244117d3ef104e4">Category::Peopleball</a>
+<br />
+ }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a00984.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:ga11b9fe689813091d7db2b7cf30c51200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00984.html#gaf2565ceb5b45ea8af94be0067e7474ca">Id</a> : std::uint16_t { <br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa88183b946cc5f0e8c96b2e66e1c74a7e">Id::Unknown</a> = 0, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">Id::None</a> = Unknown, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaf7f5d540f521d6d642502a9d459e7b16">Id::Potion</a> = 1, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caae0c271fdc45cbd3d6110566deb0cd531">Id::SuperPotion</a> = 2, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad7c90c469b7d5982cd71d2019de56df4">Id::MegaPotion</a> = 3, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa595bbda2cd044e2fb031ef2eeeeac8b5">Id::SuperMegaUltraPotion</a> = 4, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5153eab6aceb499becd7d8ba8e4afc68">Id::Terriball</a> = 5, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4">Id::Peopleball</a> = 6, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa84ec531da40f78b190d8db0449bffa97">Id::GreatPeopleball</a> = 7, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caab44591bdc15b00dae095f648c899f57c">Id::UltraPeopleball</a> = 8, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaaefd92cb1ec29b7a634d60dd49a2199e">Id::PairOfPeopleballs</a> = 9, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caac5fcde91fac3c1da9c162908d67089e7">Id::ClockPeopleball</a> = 10, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caab00bd2895767aa5c053add69c11d1471">Id::Intelligiball</a> = 11, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa91d74a6e34de4afc47a4eb879dd5f564">Id::Gulliball</a> = 12, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa4c1e23e6e3d34b3405d9a44159799fff">Id::QuistionableAbuseBall</a> = 13, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa304e3ce57cde13de8713ade89a170433">Id::BullyBall</a> = 14, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa9d8c42382bffa4b4026f92506f991da2">Id::CloneBall</a> = 15, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caacd0bcc3c26ab5884f27ff60d9d2cff14">Id::MasterPeopleball</a> = 16, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa9f0df2ef13392ea2324f2ec556ac199d">Id::LegendBall</a> = 17, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa6f7cbaca64052a98b00b53446dac5365">Id::PpPack</a> = 18, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5d56b70f2c57cb7dd8ce6762609622a9">Id::Pp6Pack</a> = 19, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa26f0cafa88e559eb8d0bf7e9a88a3fbd">Id::SuperPpPack</a> = 20, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa644764b2232904b903bd396320822782">Id::SuperPp6Pack</a> = 21, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa2a1bb7ea20c4ed1e2e82be4dd220e876">Id::KegOfProtein</a> = 22, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad80dabdefd99d439e7ae7bf3db21601c">Id::SuperPowerJuice</a> = 23, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa2467a8a664ad7205277260bdfd206c2e">Id::TubOfIcedCream</a> = 24, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad268da3e97acac1a20b1ba5372b7173b">Id::JarOfEncouragement</a> = 25, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa1c357f26709bc93a29ce621eb4c37bb5">Id::SuperSpeedJuice</a> = 26, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa3d203ade94b17989ebba2d478be6147f">Id::Compliments</a> = 27, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa2b29a5873bdce09eec1e188e60e4b7b0">Id::FriendshipStone</a> = 28, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5fd6cce41f8eb1fadac7f66f064d2457">Id::SupahCoolStone</a> = 29, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaa0c7cdbc97af40367c858930fbac5af7">Id::OooFancyStone</a> = 30, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa8012eb1251ad6be2009c8abf6f3e7029">Id::SupahFunnyStone</a> = 31, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caab68fbe8ee95e0c84e69befa590fbb4a7">Id::PartyStone</a> = 32, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa182ffc88f5b7129c43f4296d427dab8d">Id::ShadyMushroom</a> = 33, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caafd3e6e5fe0ea6e3c90ee6548d8e662a7">Id::BigShadyMushroom</a> = 34, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caadd7f55ebe768e649e68ca7342a39dfbf">Id::GoAwaySpray</a> = 35, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaf336cfc8752b50924cd3d9a240efa656">Id::SuperGoAwaySpray</a> = 36, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa0011fed8ee45883fd4f7758065c82d5f">Id::NeverComeBackSpray</a> = 37, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa8f10eb6eed6a6cbf9f05019fae847055">Id::PpRaiser</a> = 38, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa3a84fbdee7344093965ec87b96963f06">Id::UnAnnoyerSoda</a> = 39, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caab8ff77f084283969a865d73f421c636a">Id::UnFrustratorSoda</a> = 40, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caae63b0d6b5a45073955de006ea547f245">Id::WakeUpSoda</a> = 41, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa010ca5ffc870673231e64f4504687dee">Id::UnStickySoda</a> = 42, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa30dd7d4c6007bef11d07827caa636791">Id::UnFreezeSoda</a> = 43, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caace0be71e33226e4c1db2bcea5959f16b">Id::Log</a> = 44, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad52f4e113f2c11fc1b0f4c4f6720a3b2">Id::BagOfGoldFish</a> = 50, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa9e21a06c9e5ed90c0c99db4e29437454">Id::BackwardsHoody</a> = 51, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa0f461e64d283177a15179b180fed353d">Id::Glasses</a> = 52, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaeb395ae501386828658ede4010e0704c">Id::Spoon</a> = 53, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caae20c03a69cc5cc7e51b98b6133addb1b">Id::SlappingGlove</a> = 54, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caac3f0f5f952426873619fd7a4f9b792a4">Id::SuperTinyMiniFridge</a> = 55, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa39ad3c919d67564d9646f69e1c208e52">Id::SketchySack</a> = 56, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad4ba537ee3ab85e27c7ce6e1ffe49ee7">Id::GoldfishCracker</a> = 57, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa2a23a55cc3737ed779aba02c95a28ef3">Id::SpeedJuice</a> = 58, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caac9b6408f46fd4d1de9649c407b1dcc89">Id::PowerJuice</a> = 59, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa9154f90e691da3345a20c3c1f29679b5">Id::IcedTea</a> = 60, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caae9ac9902d3e3d79ee170e595e5f02b6f">Id::WakeUpBelle</a> = 61, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa209802fb858e2c83205027dbbb5d9e6c">Id::Package</a> = 101, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa501cbe046fa80a2b07df0f76e840ff4d">Id::SackOfGreenbacks</a> = 102, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaaa6d15f04d3e29ff6ff43d95b96bf5bf">Id::FancyFossil</a> = 103, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaad2a86d08df88d1f91cd26fc42f04def">Id::PartyFossil</a> = 104, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad0888defea7cf0dea03c15fa2d396a9a">Id::Teleporter</a> = 105, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c">Id::Map</a> = 106, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa56d4a81c147e369c7f696a3554b010f5">Id::TransportationCrystal</a> = 107, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa8907a1b7e0204929e0beea8668eac706">Id::Penny</a> = 108, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaae2808cf1948e523a40be3ffe59a7495">Id::MeatAndPotatoes</a> = 109, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaa8c09ba9e5eb19d882841bab1e0717c0">Id::TriliteCookie</a> = 110, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa8726aa6b21aceb55f0d4b11ccc1f62d5">Id::JesusShoes</a> = 111, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaa22aaaf7741ee2c408141cb5b635a977">Id::Lantern</a> = 112, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caad918d7bc07514a1abc1022e6ad56edcb">Id::OldYellowKey</a> = 113, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5136c5d71bded1e9de9868d8afec1c5b">Id::OldBlueKey</a> = 114, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caafbc9080607cfed1e1c718f75a03ff33b">Id::OldRedKey</a> = 115, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa44bb4f10858c0c4326db7cddb4791f87">Id::OldFishingRod</a> = 116, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa73f7830328e282da292f6a5db1bda66c">Id::Shoe</a> = 117, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaa86c2cfae332978e9cca927a3f13af50">Id::BigRedButton</a> = 118, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5a4890e1318141f1de992fcf2faa7bef">Id::MiniFridge</a> = 119, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa9523cc9c1cce5b65db7127422fd9d5b0">Id::OldRelic</a> = 120, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa650328df1ebcb285b96c3cbe201699a7">Id::DoorKey</a> = 121, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa26220cd6f5578e3b0eebdd852079dd0f">Id::DoorKey2</a> = 122, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa54cea7466690c1336ac1a42f21265598">Id::RescuePorter</a> = 123, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa5d136ce991b30d029f8754096361ada7">Id::JesusShoesUpgrade</a> = 124, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caa7ccff28d7d8de6aa98761c9331b36db6">Id::BoatPart</a> = 125, 
+<a class="el" href="a00984.html#ggaf2565ceb5b45ea8af94be0067e7474caaab4f28631a307eb598ba270756d60016">Id::ID_COUNT</a>
+<br />
+ }<tr class="memdesc:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an item in its simplist form.  <a href="a00984.html#gaf2565ceb5b45ea8af94be0067e7474ca">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:gaf2565ceb5b45ea8af94be0067e7474ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00984.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Type</a> : std::uint16_t { <br />
+&#160;&#160;<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">Type::Unknown</a> = 0, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">Type::TargetPeoplemon</a> = 1, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">Type::Peopleball</a>, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">Type::EvolveStone</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">Type::PlayerModifier</a>, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">Type::Useless</a>, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">Type::HoldItem</a>, 
+<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">Type::KeyItem</a>, 
+<br />
+&#160;&#160;<a class="el" href="a00984.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">Type::TM</a>
+<br />
+ }<tr class="memdesc:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type classification of an item. This is used to determine when an item may be used and how to use it.  <a href="a00984.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga0e0fc5f0899c8ab17fd8d7d307e878dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes for managing player state and functionality. </p>
+<div class="textblock"><p>Collection of enums and classes for managing and using items. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Sep 24 2022 03:31:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Sep 25 2022 20:03:47 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
