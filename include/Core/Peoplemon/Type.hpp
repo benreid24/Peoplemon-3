@@ -2,6 +2,7 @@
 #define CORE_PEOPLEMON_TYPE_HPP
 
 #include <cstdint>
+#include <utility>
 
 namespace core
 {
@@ -87,6 +88,14 @@ struct TypeUtil {
      * @return True if type contains the types in check, false otherwise
      */
     static inline bool isType(Type type, Type check) { return (type & check) == check; }
+
+    /**
+     * @brief Returns the primary and secondary type of the given composite type
+     *
+     * @param type The type to breakdown
+     * @return std::pair<Type, Type> The types contained. May be None
+     */
+    static std::pair<Type, Type> getTypes(Type type);
 };
 
 } // namespace pplmn

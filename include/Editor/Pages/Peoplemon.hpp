@@ -1,6 +1,8 @@
 #ifndef EDITOR_PAGES_PEOPLEMON_HPP
 #define EDITOR_PAGES_PEOPLEMON_HPP
 
+#include <Core/Files/PeoplemonDB.hpp>
+#include <Editor/Components/PeoplemonEditorWindow.hpp>
 #include <Editor/Pages/Page.hpp>
 
 namespace editor
@@ -36,7 +38,20 @@ public:
     virtual void update(float dt) override;
 
 private:
-    // TODO
+    core::file::PeoplemonDB peoplemonDb;
+    component::PeoplemonEditorWindow window;
+    bl::gui::Button::Ptr saveBut;
+    bl::gui::ScrollArea::Ptr rowArea;
+    bool firstSync;
+
+    void onChange();
+    void makeDirty();
+    void save();
+    void newPeoplemon();
+    void editPeoplemon(core::pplmn::Id move);
+    void deletePeoplemon(core::pplmn::Id move);
+    void sync();
+    void reset();
 };
 
 } // namespace page

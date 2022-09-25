@@ -53,9 +53,8 @@ void Peoplemon::setDataSource(file::PeoplemonDB& db) {
 }
 
 Id Peoplemon::cast(unsigned int id) {
-    static constexpr unsigned int maxid = static_cast<unsigned int>(Id::_NUM_PEOPLEMON);
-    const Id r                          = static_cast<Id>(id);
-    if (id >= maxid && names->find(r) == names->end()) return Id::Unknown;
+    const Id r = static_cast<Id>(id);
+    if (names != nullptr && names->find(r) == names->end()) return Id::Unknown;
     return r;
 }
 

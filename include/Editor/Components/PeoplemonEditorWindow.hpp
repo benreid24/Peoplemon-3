@@ -47,15 +47,24 @@ private:
     bl::gui::TextEntry::Ptr evolveLevelEntry;
     PeoplemonSelector::Ptr evolveIdSelect;
 
+    bl::gui::ComboBox::Ptr abilitySelect;
     bl::gui::ComboBox::Ptr xpGroupSelect;
     bl::gui::TextEntry::Ptr xpRewardMultEntry;
     StatBox evAwardEntry;
     bl::gui::TextEntry::Ptr catchRateEntry;
 
+    bl::resource::Resource<sf::Texture>::Ref thumbTxtr;
+    bl::resource::Resource<sf::Texture>::Ref playerTxtr;
+    bl::resource::Resource<sf::Texture>::Ref opTxtr;
+    bl::gui::Image::Ptr thumbImg;
+    bl::gui::Image::Ptr playerImg;
+    bl::gui::Image::Ptr opImg;
+
     core::pplmn::Id openId;
     bool dirty;
     bl::gui::Button::Ptr applyBut;
 
+    void reloadImages();
     void makeDirty();
     void onCancel();
     void onSave();

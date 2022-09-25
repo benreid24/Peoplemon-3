@@ -1,5 +1,8 @@
 #include <Core/Peoplemon/Type.hpp>
 
+#include <BLIB/Logging.hpp>
+#include <array>
+
 namespace core
 {
 namespace pplmn
@@ -74,6 +77,15 @@ float compareSingleEffective(Type move, Type ppl) {
 
     return 1.f;
 }
+
+constexpr std::array<Type, 7> TypeList = {Type::Normal,
+                                          Type::Intelligent,
+                                          Type::Funny,
+                                          Type::Athletic,
+                                          Type::Quiet,
+                                          Type::Awkward,
+                                          Type::PartyAnimal};
+
 } // namespace
 
 float TypeUtil::getStab(Type move, Type ppl) { return isType(ppl, move) ? 1.5f : 1.f; }
@@ -115,6 +127,23 @@ Type TypeUtil::legacyTypeToNew(unsigned int ogType) {
         if (ogType < 8) return static_cast<Type>(0x1 << ogType);
         return Type::None;
     }
+}
+
+std::pair<Type, Type> TypeUtil::getTypes(Type type) {
+    std::pair<Type, Type> p(Type::None, Type::None);
+    Type* t = &p.first;
+    for (Type c : TypeList) {
+        if (isType(type, c)) {
+            if (p.first == Type::None) { p.first = c; }
+            else if (p.second == Type::None) {
+                p.second = c;
+            }
+            else {
+                BL_LOG_WARN << "Type " << type << " contains more than two types";
+            }
+        }
+    }
+    return p;
 }
 
 } // namespace pplmn
