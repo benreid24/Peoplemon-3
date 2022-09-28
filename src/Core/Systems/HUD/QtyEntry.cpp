@@ -28,6 +28,10 @@ QtyEntry::QtyEntry()
 
 void QtyEntry::setPosition(const sf::Vector2f& pos) { position = pos; }
 
+sf::Vector2f QtyEntry::getSize() const {
+    return {background.getGlobalBounds().width, background.getGlobalBounds().height};
+}
+
 void QtyEntry::configure(int mn, int mx, int q) {
     // determine max text width
     text.setString(std::to_string(mn));

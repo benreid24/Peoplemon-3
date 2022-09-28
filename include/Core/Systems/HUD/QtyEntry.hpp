@@ -32,6 +32,12 @@ public:
     void setPosition(const sf::Vector2f& position);
 
     /**
+     * @brief Returns the size of the entry in pixels
+     *
+     */
+    sf::Vector2f getSize() const;
+
+    /**
      * @brief Configures the entry with the given parameters
      *
      * @param minQty The minimum number to allow entering

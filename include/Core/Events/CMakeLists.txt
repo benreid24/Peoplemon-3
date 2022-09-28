@@ -6,6 +6,7 @@ target_sources(Core PUBLIC
     Maps.hpp
     PeoplemonMenu.hpp
     StateChange.hpp
+    Store.hpp
     TimeChange.hpp
     Weather.hpp
 )

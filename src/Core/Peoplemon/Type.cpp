@@ -131,7 +131,6 @@ Type TypeUtil::legacyTypeToNew(unsigned int ogType) {
 
 std::pair<Type, Type> TypeUtil::getTypes(Type type) {
     std::pair<Type, Type> p(Type::None, Type::None);
-    Type* t = &p.first;
     for (Type c : TypeList) {
         if (isType(type, c)) {
             if (p.first == Type::None) { p.first = c; }

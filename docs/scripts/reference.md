@@ -40,6 +40,13 @@ The following functions are available in each type of Peoplemon script, in addit
 | promptPlayer   | `prompt`: String, `choices`: Array of String | String | Prompts the user with a set of choices and returns the chosen choice. Always blocks |
 | rollCredits    | N/A                                          | N/A    | Plays the credits                                                                   |
 
+### Stores
+
+| Name       | Parameters                               | Return | Description                                                                                                                             |
+|------------|------------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| pricedItem | `item`: Integer, `price`: Integer        | Number | Helper method to make an item object with a price override                                                                              |
+| openStore  | `items`: Array of Integer, `block`: Bool | Void   | Opens the store UI. Takes a list of item ids and prices using their value in the database. Call `pricedItem` to override an item price. |
+
 ### NPC's and Trainers
 
 | Name         | Parameters                                                                        | Return    | Description                                                                                                  |
