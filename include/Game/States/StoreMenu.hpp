@@ -94,6 +94,7 @@ private:
 
     MenuState menuState;
     std::vector<Item> items;
+    bl::audio::AudioSystem::Handle dingSound;
     core::player::input::MenuDriver inputDriver;
     unsigned int buyingItemIndex;
     core::item::Id sellingItem;

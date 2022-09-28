@@ -39,6 +39,9 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
             .data;
     background.setTexture(*bgndTxtr, true);
 
+    dingSound = bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/ding.wav"));
+
     if (data.items.empty()) {
         BL_LOG_INFO
             << "Received no item list, selling all regular items and Peopleballs at normal price";
@@ -209,7 +212,7 @@ void StoreMenu::enterState(MenuState newState) {
 
     case MenuState::BuyDing:
     case MenuState::SellDing:
-        // TODO - play ding sound
+        bl::audio::AudioSystem::playOrRestartSound(dingSound);
         dingTime = 0.f;
         setMoneyText();
         break;
