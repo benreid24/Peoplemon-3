@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Components/BehaviorEditor.cpp File Reference</title>
+<title>Peoplemon: src/Core/Systems/Trainers.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,33 +63,39 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">BehaviorEditor.cpp File Reference</div>  </div>
+<div class="title">Trainers.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00350_source.html">Editor/Components/BehaviorEditor.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00344_source.html">Core/Systems/Trainers.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Engine/Resources.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Audio/AudioSystem.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02864_source.html">Core/Files/GameSave.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00275_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00341_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00809_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01013"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01013.html">editor</a></td></tr>
-<tr class="memdesc:a01013"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
+<tr class="memitem:a01010"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html">core</a></td></tr>
+<tr class="memdesc:a01010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01014"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01014.html">editor::component</a></td></tr>
+<tr class="memitem:a01011"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01011.html">core::system</a></td></tr>
+<tr class="memdesc:a01011"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 25 2022 20:03:47 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 30 2022 03:55:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

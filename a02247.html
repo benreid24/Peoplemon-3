@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::file::loader::ConversationLoader Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,24 +63,146 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00995.html">core</a></li><li class="navelem"><a class="el" href="a01007.html">map</a></li><li class="navelem"><a class="el" href="a01010.html">loaders</a></li><li class="navelem"><a class="el" href="a02250.html">LegacyMapLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01010.html">core</a></li><li class="navelem"><a class="el" href="a01021.html">file</a></li><li class="navelem"><a class="el" href="a01023.html">loader</a></li><li class="navelem"><a class="el" href="a02247.html">ConversationLoader</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02244.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::loaders::LegacyMapLoader Member List</div>  </div>
+<div class="title">core::file::loader::ConversationLoader Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::file::loader::ConversationLoader:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02247.png" usemap="#core::file::loader::ConversationLoader_map" alt=""/>
+  <map id="core::file::loader::ConversationLoader_map" name="core::file::loader::ConversationLoader_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a4a5ddd0a189ced4727ee4175895828fb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02247.html#a4a5ddd0a189ced4727ee4175895828fb">Serializer</a> = bl::serial::binary::Serializer&lt; <a class="el" href="a01459.html">Conversation</a> &gt;</td></tr>
+<tr class="separator:a4a5ddd0a189ced4727ee4175895828fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a3dde3c8df7511bef5398ba837c249a2e"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02247.html#a3dde3c8df7511bef5398ba837c249a2e">read</a> (<a class="el" href="a01459.html">Conversation</a> &amp;result, bl::serial::binary::InputStream &amp;input) const override</td></tr>
+<tr class="separator:a3dde3c8df7511bef5398ba837c249a2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00e07a3c586545373a2d52ae92c926c2"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02247.html#a00e07a3c586545373a2d52ae92c926c2">write</a> (const <a class="el" href="a01459.html">Conversation</a> &amp;conversation, bl::serial::binary::OutputStream &amp;output) const override</td></tr>
+<tr class="separator:a00e07a3c586545373a2d52ae92c926c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a02930_source.html#l00264">264</a> of file <a class="el" href="a02930_source.html">Conversation.cpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a4a5ddd0a189ced4727ee4175895828fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a5ddd0a189ced4727ee4175895828fb">&#9670;&nbsp;</a></span>Serializer</h2>
 
-<p>This is the complete list of members for <a class="el" href="a02250.html">core::map::loaders::LegacyMapLoader</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02250.html#a44e43cf46e3c4c1b836f411e8860fd4e">read</a>(Map &amp;result, bl::serial::binary::InputStream &amp;input) const override</td><td class="entry"><a class="el" href="a02250.html">core::map::loaders::LegacyMapLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02250.html#a7c50529eaaae51cd38bfc35b849af635">write</a>(const Map &amp;, bl::serial::binary::OutputStream &amp;) const override</td><td class="entry"><a class="el" href="a02250.html">core::map::loaders::LegacyMapLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02247.html#a4a5ddd0a189ced4727ee4175895828fb">core::file::loader::ConversationLoader::Serializer</a> =  bl::serial::binary::Serializer&lt;<a class="el" href="a01459.html">Conversation</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02930_source.html#l00265">265</a> of file <a class="el" href="a02930_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3dde3c8df7511bef5398ba837c249a2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3dde3c8df7511bef5398ba837c249a2e">&#9670;&nbsp;</a></span>read()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool core::file::loader::ConversationLoader::read </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01459.html">Conversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::serial::binary::InputStream &amp;&#160;</td>
+          <td class="paramname"><em>input</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02930_source.html#l00267">267</a> of file <a class="el" href="a02930_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a00e07a3c586545373a2d52ae92c926c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00e07a3c586545373a2d52ae92c926c2">&#9670;&nbsp;</a></span>write()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool core::file::loader::ConversationLoader::write </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01459.html">Conversation</a> &amp;&#160;</td>
+          <td class="paramname"><em>conversation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::serial::binary::OutputStream &amp;&#160;</td>
+          <td class="paramname"><em>output</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02930_source.html#l00271">271</a> of file <a class="el" href="a02930_source.html">Conversation.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>src/Core/Files/<a class="el" href="a02930_source.html">Conversation.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 25 2022 20:03:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 30 2022 03:55:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

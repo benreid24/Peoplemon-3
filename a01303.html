@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::component::StandingBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,28 +63,148 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a00995.html">core</a></li><li class="navelem"><a class="el" href="a01005.html">event</a></li><li class="navelem"><a class="el" href="a01306.html">OpenBagMenu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01010.html">core</a></li><li class="navelem"><a class="el" href="a01016.html">component</a></li><li class="navelem"><a class="el" href="a01303.html">StandingBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01300.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::OpenBagMenu Member List</div>  </div>
+<div class="title">core::component::StandingBehavior Class Reference<div class="ingroups"><a class="el" href="a00992.html">Core</a> &raquo; <a class="el" href="a00996.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01306.html">core::event::OpenBagMenu</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01306.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a></td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01306.html#ad78f0398fc4b23471a2f3bf557393cfb">Context</a> enum name</td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01306.html#a468a5356eb66f28874362be4be3cd83d">context</a></td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01306.html#a7112bdc1a484393d7ddf99edc3c0c0e3">OpenBagMenu</a>(Context ctx, item::Id *result=nullptr, int outNow=-1, int *chosenPeoplemon=nullptr)</td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01306.html#a6cab0173c23c7808e82a85825bebd590">outNow</a></td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01306.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a></td><td class="entry"><a class="el" href="a01306.html">core::event::OpenBagMenu</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>AI behavior for standing in place facing a fixed direction.  
+ <a href="a01303.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00101_source.html">StandingBehavior.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af61e892602a954bdb55121e64111a3d0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#af61e892602a954bdb55121e64111a3d0">StandingBehavior</a> (<a class="el" href="a00996.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> faceDir)</td></tr>
+<tr class="memdesc:af61e892602a954bdb55121e64111a3d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Standing Behavior component.  <a href="#af61e892602a954bdb55121e64111a3d0">More...</a><br /></td></tr>
+<tr class="separator:af61e892602a954bdb55121e64111a3d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a89f199e60f44f1e782b1db45eac54947"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#a89f199e60f44f1e782b1db45eac54947">update</a> (<a class="el" href="a01263.html">Position</a> &amp;position, <a class="el" href="a01239.html">Controllable</a> &amp;controller)</td></tr>
+<tr class="memdesc:a89f199e60f44f1e782b1db45eac54947"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures the managed entity is facing the required position.  <a href="#a89f199e60f44f1e782b1db45eac54947">More...</a><br /></td></tr>
+<tr class="separator:a89f199e60f44f1e782b1db45eac54947"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="memItemLeft" align="right" valign="top">static constexpr bl::entity::Component::IdType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html#a7eb665c7ba2d5eabd8fde6a61d6c71bb">ComponentId</a> = 7</td></tr>
+<tr class="memdesc:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Required for BLIB ECS.  <a href="#a7eb665c7ba2d5eabd8fde6a61d6c71bb">More...</a><br /></td></tr>
+<tr class="separator:a7eb665c7ba2d5eabd8fde6a61d6c71bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>AI behavior for standing in place facing a fixed direction. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00101_source.html#l00017">17</a> of file <a class="el" href="a00101_source.html">StandingBehavior.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af61e892602a954bdb55121e64111a3d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af61e892602a954bdb55121e64111a3d0">&#9670;&nbsp;</a></span>StandingBehavior()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::component::StandingBehavior::StandingBehavior </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a00996.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td>
+          <td class="paramname"><em>faceDir</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Standing Behavior component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">faceDir</td><td>The direction to face </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00007">7</a> of file <a class="el" href="a00596_source.html">StandingBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a89f199e60f44f1e782b1db45eac54947"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89f199e60f44f1e782b1db45eac54947">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::StandingBehavior::update </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01263.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01239.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Ensures the managed entity is facing the required position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The entities position component </td></tr>
+    <tr><td class="paramname">controller</td><td>The entities controllable component </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00596_source.html#l00010">10</a> of file <a class="el" href="a00596_source.html">StandingBehavior.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7eb665c7ba2d5eabd8fde6a61d6c71bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eb665c7ba2d5eabd8fde6a61d6c71bb">&#9670;&nbsp;</a></span>ComponentId</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bl::entity::Component::IdType core::component::StandingBehavior::ComponentId = 7</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Required for BLIB ECS. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00101_source.html#l00020">20</a> of file <a class="el" href="a00101_source.html">StandingBehavior.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00101_source.html">StandingBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00596_source.html">StandingBehavior.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 25 2022 20:03:47 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 30 2022 03:55:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Peoplemon/MoveEffect.hpp File Reference</title>
+<title>Peoplemon: include/Core/Peoplemon/Move.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -68,120 +68,40 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">MoveEffect.hpp File Reference</div>  </div>
+<div class="title">Move.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00149_source.html">Core/Files/MoveDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00215_source.html">Core/Peoplemon/MoveEffect.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00218_source.html">Core/Peoplemon/MoveId.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02888_source.html">Core/Peoplemon/Type.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00212_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a00995"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00995.html">core</a></td></tr>
-<tr class="memdesc:a00995"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01012"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01012.html">core::pplmn</a></td></tr>
-<tr class="memdesc:a01012"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01702.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01707.html">core::pplmn::Move</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates the move datastore.  <a href="a01707.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gad2c804a47a118daf4b298874b8cd37f1"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00986.html#gad2c804a47a118daf4b298874b8cd37f1">core::pplmn::MoveEffect</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a6adf97f83acf6453d4a6a4b1070f3754">core::pplmn::MoveEffect::None</a> = 0, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1af357105e6becc3076a3da9b43465051a">core::pplmn::MoveEffect::Heal</a> = 1, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3a9d1818d0d7f5646e63465baf7d366f">core::pplmn::MoveEffect::Poison</a> = 2, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a11635778f116ce6922f6068638a39028">core::pplmn::MoveEffect::Burn</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a076b6b639e6ba240307e64a035b8cc18">core::pplmn::MoveEffect::Paralyze</a> = 4, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a65467087a19145f43129bba42781aea0">core::pplmn::MoveEffect::Freeze</a> = 5, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a070cd758377d510356eb3b802c42c1b8">core::pplmn::MoveEffect::Confuse</a> = 6, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a2c0650d0879d0457d78778b2ba9f912f">core::pplmn::MoveEffect::LeechSeed</a> = 7, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a16d1bfa931066fc5c7876947e11295af">core::pplmn::MoveEffect::Flinch</a> = 8, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a8b9038a4896d530d239f4af3bbb30357">core::pplmn::MoveEffect::Trap</a> = 9, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a243924bfd56a682be235638b53961e09">core::pplmn::MoveEffect::Sleep</a> = 10, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a83f1d9ca1a0c4c2fc51a371c0d773f76">core::pplmn::MoveEffect::Protection</a> = 11, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1adbac371392c3524970c325723d638527">core::pplmn::MoveEffect::Safegaurd</a> = 12, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a5f7bbf366eef76376ac3d25b02eb5164">core::pplmn::MoveEffect::Substitute</a> = 13, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a06ff8d84d32ab945bda69c2b68c24ac2">core::pplmn::MoveEffect::HealBell</a> = 14, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a42b70b63e3eb6b4950b8a9027a83d9d2">core::pplmn::MoveEffect::CritUp</a> = 15, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a9255d883799a2c98b317e8b562092ec5">core::pplmn::MoveEffect::AtkUp</a> = 16, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a03c31593c9730d10f0c08a4686193c58">core::pplmn::MoveEffect::DefUp</a> = 17, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a958cc33e22f159220bcd6324e6619990">core::pplmn::MoveEffect::AccUp</a> = 18, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ab9ca83debe840150cd03ec46e9848e86">core::pplmn::MoveEffect::EvdUp</a> = 19, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a1a7daf1ca2c4bc64a4367368de0f329e">core::pplmn::MoveEffect::SpdUp</a> = 20, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a18191a40465c7b3d6f4a783b57d64665">core::pplmn::MoveEffect::SpAtkUp</a> = 21, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a2d6a6ee620e4f8072b979f8d9a38a2e5">core::pplmn::MoveEffect::SpDefUp</a> = 22, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3ccc09581c7e6be761675c4cee13039a">core::pplmn::MoveEffect::CritDown</a> = 23, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ab52ab6c08915dddae4db9b795c27f2c2">core::pplmn::MoveEffect::AtkDown</a> = 24, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a2232d0ad8f356b0f5be61a53b0e56786">core::pplmn::MoveEffect::DefDown</a> = 25, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a7d35910550bb5770d6c059142f31004c">core::pplmn::MoveEffect::AccDown</a> = 26, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a62074f64abb609830e8fa16be63a9d6c">core::pplmn::MoveEffect::EvdDown</a> = 27, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ad3f4bf23e8ad7121930b5fe19b8b3310">core::pplmn::MoveEffect::SpdDown</a> = 28, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1aaddf89b3e66aa6849bb2d236cc50eabd">core::pplmn::MoveEffect::SpAtkDown</a> = 29, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a6f7e3fdd5dd4136561d21b94478f419d">core::pplmn::MoveEffect::SpDefDown</a> = 30, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a64f83bc1f166dab01765a6094a187908">core::pplmn::MoveEffect::Recoil</a> = 31, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a517349a3cdc1acf50617693e3ba33988">core::pplmn::MoveEffect::Charge</a> = 32, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1aa704d9c4ae610c2bb954eeadd66da3b1">core::pplmn::MoveEffect::Suicide</a> = 33, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a64d129224a5377b63e9727479ec987d9">core::pplmn::MoveEffect::Counter</a> = 34, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ae586509dbdb057e7cc41a27cbe3e1c39">core::pplmn::MoveEffect::MirrorCoat</a> = 35, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a0c64d3296163ce4bf2d0b8be1fbd0250">core::pplmn::MoveEffect::OnlySleeping</a> = 36, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1adda4a873265dfd06df50a0d8a2949081">core::pplmn::MoveEffect::Peanut</a> = 37, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1af6a9ee98d118c8f766a900a65b65d3d8">core::pplmn::MoveEffect::SetBall</a> = 38, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a93f4ea7d2927d1db80217b19c35d15db">core::pplmn::MoveEffect::WakeBoth</a> = 39, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a6428bf61b19c9f6c90d034777a20ca77">core::pplmn::MoveEffect::Absorb</a> = 40, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a2d67938a93e4499f0f84aba300a1ef17">core::pplmn::MoveEffect::Encore</a> = 41, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3ca08d8818a56b7341a19f236290adec">core::pplmn::MoveEffect::RandomMove</a> = 42, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a10bbd68bada5113151845bcd909fec93">core::pplmn::MoveEffect::BatonPass</a> = 43, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1adcf747cc9b3f7fce88ddb1aefe7c2cdd">core::pplmn::MoveEffect::DieIn3Turns</a> = 44, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ab4f46c450698342654a643ed679e5c40">core::pplmn::MoveEffect::CritEvdUp</a> = 45, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3a746968ddc015af35caaa93789d2dc7">core::pplmn::MoveEffect::BumpBall</a> = 46, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1afa2dd1ce1fa6cc1273ddcb38fb2eb170">core::pplmn::MoveEffect::SpikeBall</a> = 47, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ac58010911b0f4e05bd0b698fde19453e">core::pplmn::MoveEffect::DeathSwap</a> = 48, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1afc76b14d577ff811b647a1ff7b60abbb">core::pplmn::MoveEffect::Gamble</a> = 49, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1aeb1c890823fee3e8045067ea5b84e276">core::pplmn::MoveEffect::StayAlive</a> = 50, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ae25359f51453d5708ee31292d6df9e4f">core::pplmn::MoveEffect::MaxAtkMinAcc</a> = 51, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a30ea0298b27a8d75bfdd07d34aae0420">core::pplmn::MoveEffect::FrustConfuse</a> = 52, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a713ea5dd63e13100d90b22f75d2da4f8">core::pplmn::MoveEffect::Spikes</a> = 53, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a27ba5c370b12a7817512a1166cbfe22a">core::pplmn::MoveEffect::DoubleFamily</a> = 54, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1abfb966ad89fe26202c54d6cc5233b5ae">core::pplmn::MoveEffect::EnemyPPDown</a> = 55, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3f4b97c1a687d5cbcf2b2ca22215518d">core::pplmn::MoveEffect::HealNext</a> = 56, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1afe3c56376161c8146f798e8716788bde">core::pplmn::MoveEffect::Roar</a> = 57, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1af2f0974fef95d1a3f941b46f693e8389">core::pplmn::MoveEffect::FailOnMove64</a> = 58, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ac66b29a7a6c655ce8e6cd3e514b8ad87">core::pplmn::MoveEffect::SleepHeal</a> = 59, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3d4d49f6f51e6446ed7eb48b08041ea2">core::pplmn::MoveEffect::SpdAtkUp</a> = 60, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1abec4efb614228aaf8b077551c6c0a673">core::pplmn::MoveEffect::StealStats</a> = 61, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a1c529bf2f10a5bc8fbb7603b0ecb9457">core::pplmn::MoveEffect::BlockBall</a> = 62, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1ab27f5c4a03846ea342ded0c56ea9c480">core::pplmn::MoveEffect::SwipeBall</a> = 63, 
-<br />
-&#160;&#160;<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1a3a39245ae3cf6d070e495bd18a2aa369">core::pplmn::MoveEffect::DamageThenSwitch</a> = 64, 
-<a class="el" href="a00986.html#ggad2c804a47a118daf4b298874b8cd37f1aff79b06ed5cb9b815d72131e61d4d656">core::pplmn::MoveEffect::RoarCancelBallSpikes</a> = 65
-<br />
- }<tr class="memdesc:gad2c804a47a118daf4b298874b8cd37f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an effect that a move can have. Copied verbatim from Peoplemon 2, may refactor later when implementing battles.  <a href="a00986.html#gad2c804a47a118daf4b298874b8cd37f1">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gad2c804a47a118daf4b298874b8cd37f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01010"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01010.html">core</a></td></tr>
+<tr class="memdesc:a01010"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01027"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01027.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a01027"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01731.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Sep 25 2022 20:03:47 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Sep 30 2022 03:55:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
