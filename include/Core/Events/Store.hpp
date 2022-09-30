@@ -19,11 +19,15 @@ struct StoreOpened {
      * @brief Construct a new Store Opened event
      *
      * @param items The items to sell
+     * @param sellPrices Optional overrides of the prices a player gets for selling certain items
      */
-    StoreOpened(const std::vector<std::pair<item::Id, int>>& items)
-    : items(items) {}
+    StoreOpened(const std::vector<std::pair<item::Id, int>>& items,
+                const std::vector<std::pair<item::Id, int>>& sellPrices)
+    : items(items)
+    , sellPrices(sellPrices) {}
 
     const std::vector<std::pair<item::Id, int>>& items;
+    const std::vector<std::pair<item::Id, int>>& sellPrices;
 };
 
 /**

@@ -8,6 +8,7 @@
 #include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Game/Menus/StoreItemRow.hpp>
 #include <Game/States/State.hpp>
+#include <unordered_map>
 #include <vector>
 
 namespace game
@@ -96,6 +97,7 @@ private:
 
     MenuState menuState;
     std::vector<Item> items;
+    std::unordered_map<core::item::Id, int> sellPrices;
     bl::audio::AudioSystem::Handle dingSound;
     core::player::input::MenuDriver inputDriver;
     unsigned int buyingItemIndex;

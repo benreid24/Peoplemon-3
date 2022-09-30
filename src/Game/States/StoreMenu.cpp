@@ -109,6 +109,8 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
         sellMenus[i].setMaximumSize({500.f, 420.f});
     }
     curCat = 0;
+
+    for (const auto& p : data.sellPrices) { sellPrices.emplace(p.first, p.second); }
 }
 
 const char* StoreMenu::name() const { return "StoreMenu"; }
@@ -173,6 +175,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
     engine.window().setView(oldView);
     systems.player().inputSystem().removeListener(*this);
+    engine.eventBus().dispatch<core::event::StoreClosed>({});
 }
 
 void StoreMenu::update(bl::engine::Engine&, float dt) {
@@ -442,8 +445,8 @@ void StoreMenu::catSync() {
 }
 
 int StoreMenu::getSellPrice(core::item::Id item) const {
-    // TODO - support price overrides
-    return core::item::Item::getValue(item) * 4 / 5;
+    const auto it = sellPrices.find(item);
+    return it == sellPrices.end() ? core::item::Item::getValue(item) * 4 / 5 : it->second;
 }
 
 } // namespace state
