@@ -1,10 +1,12 @@
 #include <Core/Scripts/BaseFunctions.hpp>
 
+#include <BLIB/Events/EventWaiter.hpp>
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Util/Waiter.hpp>
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Events/Store.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
@@ -53,6 +55,13 @@ void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vecto
                   Value& result);
 void rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                  Value& result);
+
+void pricedItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                Value& result);
+void sellPriceOverride(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                       Value& result);
+void openStore(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
 
 void getNpc(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
             Value& result);
@@ -162,6 +171,10 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(displayMessage);
     BUILTIN(promptPlayer);
     BUILTIN(rollCredits);
+
+    BUILTIN(pricedItem);
+    BUILTIN(sellPriceOverride);
+    BUILTIN(openStore);
 
     BUILTIN(getNpc);
     BUILTIN(getTrainer);
@@ -488,6 +501,78 @@ void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vecto
 void rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
     // TODO - implement credits
     result = false;
+}
+
+void pricedItem(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("pricedItem", args);
+    result = args[0];
+    result.setProperty("price", args[1]);
+}
+
+void sellPriceOverride(system::Systems&, SymbolTable&, const std::vector<Value>& args,
+                       Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("sellPriceOverride",
+                                                                            args);
+    result = args[0];
+    result.setProperty("price", args[1]);
+}
+
+void openStore(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TArray, PrimitiveValue::TArray, PrimitiveValue::TBool>(
+        "openStore", args);
+
+    std::vector<std::pair<item::Id, int>> items;
+    const bool block     = args[2].value().getAsBool();
+    const auto& argItems = args[0].value().getAsArray();
+    items.reserve(argItems.size());
+    for (const auto& item : argItems) {
+        if (item.value().getType() != PrimitiveValue::TInteger) {
+            throw Error("openStore: Item list must be an array of integer ids");
+        }
+        const item::Id id = item::Item::cast(item.value().getAsInt());
+        if (id == item::Id::Unknown) {
+            throw Error("openStore: Invalid item id: " + std::to_string(item.value().getAsInt()));
+        }
+        const auto it       = item.allProperties().find("price");
+        const auto getPrice = [it]() -> int {
+            const auto& pv = it->second.deref().value();
+            if (pv.getType() != PrimitiveValue::TInteger) {
+                throw Error("openStore: Item prices must be integer values");
+            }
+            return pv.getAsInt();
+        };
+        const int price = it == item.allProperties().end() ? item::Item::getValue(id) : getPrice();
+        items.emplace_back(id, price);
+    }
+
+    std::vector<std::pair<item::Id, int>> sellPrices;
+    const auto& sellPriceArg = args[1].value().getAsArray();
+    sellPrices.reserve(sellPriceArg.size());
+    for (const auto& price : sellPriceArg) {
+        if (price.value().getType() != PrimitiveValue::TInteger) {
+            throw Error("openStore: Item list must be an array of integer ids");
+        }
+        const item::Id id = item::Item::cast(price.value().getAsInt());
+        if (id == item::Id::Unknown) {
+            throw Error("openStore: Invalid item id: " + std::to_string(price.value().getAsInt()));
+        }
+        const auto it       = price.allProperties().find("price");
+        const auto getPrice = [it]() -> int {
+            const auto& pv = it->second.deref().value();
+            if (pv.getType() != PrimitiveValue::TInteger) {
+                throw Error("openStore: Item prices must be integer values");
+            }
+            return pv.getAsInt();
+        };
+        const int sp = it == price.allProperties().end() ? item::Item::getValue(id) : getPrice();
+        sellPrices.emplace_back(id, sp);
+    }
+
+    systems.engine().eventBus().dispatch<event::StoreOpened>({items, sellPrices});
+    if (block) {
+        bl::event::EventWaiter<event::StoreClosed> waiter;
+        waiter.wait(systems.engine().eventBus());
+    }
 }
 
 void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value& npc) {

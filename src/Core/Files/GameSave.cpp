@@ -122,6 +122,7 @@ void GameSave::useLocalData() {
     player.whiteoutMap   = &d.whiteoutMap;
     player.whiteoutSpawn = &d.whiteoutSpawn;
     player.repelSteps    = &d.repelSteps;
+    player.storage       = &d.storage;
 
     interaction.convFlags = &d.convFlags;
     interaction.talkedto  = &d.talkedto;
@@ -146,6 +147,7 @@ GameSave::GameSave() {
     player.whiteoutMap   = nullptr;
     player.whiteoutSpawn = nullptr;
     player.repelSteps    = nullptr;
+    player.storage       = nullptr;
 
     interaction.convFlags = nullptr;
     interaction.talkedto  = nullptr;

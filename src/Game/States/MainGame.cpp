@@ -6,6 +6,7 @@
 #include <Game/States/BattleState.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
+#include <Game/States/StoreMenu.hpp>
 #include <iostream>
 
 namespace game
@@ -152,6 +153,10 @@ void MainGame::observe(const core::event::BattleStarted& event) {
         const_cast<std::unique_ptr<core::battle::Battle>&>(event.battle);
     systems.engine().pushState(BattleState::create(systems, std::move(battle)));
     // TODO - battle intro state
+}
+
+void MainGame::observe(const core::event::StoreOpened& store) {
+    systems.engine().pushState(StoreMenu::create(systems, store));
 }
 
 } // namespace state

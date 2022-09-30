@@ -161,6 +161,7 @@ private:
         std::string whiteoutMap;
         unsigned int whiteoutSpawn;
         unsigned int repelSteps;
+        std::array<std::vector<pplmn::StoredPeoplemon>, player::StorageSystem::BoxCount> storage;
         std::string currentMap;
         std::string prevMap;
         component::Position playerPos;
