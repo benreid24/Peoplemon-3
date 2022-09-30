@@ -731,7 +731,10 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
         }
         else if (editEventRadio->getValue()) {
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
-            if (e) { eventEditor.open(parent, e, tiles); }
+            if (e) {
+                mapArea.disableControls();
+                eventEditor.open(parent, e, tiles);
+            }
         }
         else if (deleteEventRadio->getValue()) {
             const core::map::Event* e = mapArea.editMap().getEvent(tiles);
