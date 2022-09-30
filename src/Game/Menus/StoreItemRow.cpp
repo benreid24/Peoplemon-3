@@ -32,7 +32,7 @@ StoreItemRow::StoreItemRow(int qty, core::item::Id item, int price)
     qtyText.setCharacterSize(FontSize);
     nameText.setCharacterSize(FontSize);
     priceText.setCharacterSize(FontSize);
-    qtyText.setFillColor(sf::Color::Black);
+    qtyText.setFillColor(sf::Color(30, 75, 240));
     nameText.setFillColor(sf::Color::Black);
     priceText.setFillColor(sf::Color::Black);
 

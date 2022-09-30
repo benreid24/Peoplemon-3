@@ -4,7 +4,6 @@
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
-#include <Game/Menus/StoreItemRow.hpp>
 
 namespace game
 {
@@ -13,7 +12,10 @@ namespace state
 namespace
 {
 const sf::Vector2f QtyPosition{293.f, 399.f};
-constexpr float DingTime = 0.6f;
+constexpr float DingTime               = 0.6f;
+constexpr core::item::Category cats[3] = {
+    core::item::Category::Regular, core::item::Category::Peopleball, core::item::Category::TM};
+const std::string catTexts[3] = {"Regular Items", "Peopleballs", "TM's"};
 } // namespace
 
 using menu::StoreItemRow;
@@ -32,7 +34,11 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
 , menuState(MenuState::GetAction)
 , actionMenu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
 , buyMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black))
-, sellMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
+, sellMenus{{bl::menu::ArrowSelector::create(8.f, sf::Color::Black)},
+            {bl::menu::ArrowSelector::create(8.f, sf::Color::Black)},
+            {bl::menu::ArrowSelector::create(8.f, sf::Color::Black)}}
+, leftArrow({0.f, 13.f}, {15.f, 0.f}, {15.f, 26.f})
+, rightArrow({0.f, 0.f}, {0.f, 26.f}, {15.f, 13.f}) {
     bgndTxtr =
         bl::engine::Resources::textures()
             .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"))
@@ -58,7 +64,7 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
         for (const auto& item : data.items) { items.emplace_back(item.first, item.second); }
     }
 
-    boxText.setPosition(26.f, 408.f);
+    boxText.setPosition(28.f, 408.f);
     moneyText.setPosition(605.f, 15.f);
     actionText.setPosition(378.f, 67.f);
     boxText.setFont(core::Properties::MenuFont());
@@ -69,6 +75,13 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
     actionText.setCharacterSize(30);
     boxText.setFillColor(sf::Color::Black);
     moneyText.setFillColor(sf::Color(10, 115, 0));
+    catText.setFont(core::Properties::MenuFont());
+    catText.setCharacterSize(30);
+    catText.setFillColor(sf::Color(0, 60, 20));
+
+    leftArrow.setFillColor(sf::Color::Black);
+    rightArrow.setFillColor(sf::Color::Black);
+    rightArrow.setPosition(730.f, 83.f);
 
     bl::menu::TextItem::Ptr buyItem =
         bl::menu::TextItem::create("Buy", core::Properties::MenuFont(), sf::Color::Black, 28);
@@ -91,6 +104,11 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
 
     buyMenu.setPosition({378.f, 140.f});
     buyMenu.setMaximumSize({500.f, 420.f});
+    for (int i = 0; i < 3; ++i) {
+        sellMenus[i].setPosition({378.f, 140.f});
+        sellMenus[i].setMaximumSize({500.f, 420.f});
+    }
+    curCat = 0;
 }
 
 const char* StoreMenu::name() const { return "StoreMenu"; }
@@ -122,7 +140,27 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
     }
     buyMenu.addItem(makeCloseItem(), prev, bl::menu::Item::Bottom);
 
-    // TODO - populate selling menus
+    std::vector<core::player::Bag::Item> playerItems;
+    for (int i = 0; i < 3; ++i) {
+        systems.player().state().bag.getByCategory(cats[i], playerItems);
+        if (!playerItems.empty()) {
+            bl::menu::Item::Ptr root =
+                makeSellItemRow(playerItems.front().id, playerItems.front().qty);
+            sellMenus[i].setRootItem(root);
+            prev = root.get();
+            for (unsigned int j = 1; j < playerItems.size(); ++j) {
+                bl::menu::Item::Ptr row = makeSellItemRow(playerItems[j].id, playerItems[j].qty);
+                sellMenus[i].addItem(row, prev, bl::menu::Item::Bottom);
+                prev = row.get();
+            }
+            sellMenus[i].addItem(makeCloseItem(), prev, bl::menu::Item::Bottom);
+        }
+        else {
+            sellMenus[i].setRootItem(makeCloseItem());
+        }
+    }
+    curCat = 0;
+    catSync();
 
     // general setup
     dingTime = 0.f;
@@ -168,6 +206,12 @@ void StoreMenu::render(bl::engine::Engine& engine, float) {
     if (menuState == MenuState::BuyQty || menuState == MenuState::SellQty) {
         qtyEntry.render(engine.window());
     }
+    if (menuState == MenuState::SellMenu || menuState == MenuState::SellDing ||
+        menuState == MenuState::SellQty) {
+        engine.window().draw(catText);
+        engine.window().draw(rightArrow);
+        engine.window().draw(leftArrow);
+    }
 
     engine.window().display();
 }
@@ -188,7 +232,7 @@ void StoreMenu::enterState(MenuState newState) {
         break;
 
     case MenuState::SellMenu:
-        renderMenu = &sellMenu;
+        renderMenu = &sellMenus[curCat];
         setBoxText("What can I take off your hands?");
         actionText.setFillColor(sf::Color(240, 60, 20));
         actionText.setString("Selling");
@@ -201,7 +245,7 @@ void StoreMenu::enterState(MenuState newState) {
         break;
 
     case MenuState::SellQty:
-        qtyEntry.configure(0, systems.player().state().bag.itemCount(sellingItem), 1);
+        qtyEntry.configure(0, systems.player().state().bag.itemCount(sellingItem->getItem()), 1);
         qtyEntry.setPosition(QtyPosition - qtyEntry.getSize());
         setBoxText("How many would you like to sell?");
         break;
@@ -224,7 +268,7 @@ void StoreMenu::enterState(MenuState newState) {
 
 void StoreMenu::setBoxText(const std::string& t) {
     boxText.setString(t);
-    bl::interface::wordWrap(boxText, 262.f);
+    bl::interface::wordWrap(boxText, 260.f);
 }
 
 void StoreMenu::setMoneyText() {
@@ -265,7 +309,17 @@ void StoreMenu::process(core::component::Command control) {
         sendTo = &buyMenu;
         break;
     case MenuState::SellMenu:
-        sendTo = &sellMenu;
+        switch (control) {
+        case core::component::Command::MoveRight:
+            catRight();
+            break;
+        case core::component::Command::MoveLeft:
+            catLeft();
+            break;
+        default:
+            sendTo = &sellMenus[curCat];
+            break;
+        }
         break;
     case MenuState::BuyQty:
     case MenuState::SellQty:
@@ -284,13 +338,32 @@ void StoreMenu::process(core::component::Command control) {
             break;
         case core::component::Command::Interact:
             if (menuState == MenuState::BuyQty) {
-                systems.player().state().monei -= qtyEntry.curQty() * items[buyingItemIndex].price;
-                systems.player().state().bag.addItem(items[buyingItemIndex].item,
-                                                     qtyEntry.curQty());
-                enterState(MenuState::BuyDing);
+                const int qty = qtyEntry.curQty();
+                if (qty > 0) {
+                    systems.player().state().monei -= qty * items[buyingItemIndex].price;
+                    systems.player().state().bag.addItem(items[buyingItemIndex].item, qty);
+                    enterState(MenuState::BuyDing);
+                }
+                else {
+                    enterState(MenuState::BuyMenu);
+                }
             }
             else {
-                // TODO - sell and stuff
+                const int qty = qtyEntry.curQty();
+                if (qty > 0) {
+                    systems.player().state().monei += getSellPrice(sellingItem->getItem()) * qty;
+                    systems.player().state().bag.removeItem(sellingItem->getItem(), qty);
+                    const int newQty =
+                        systems.player().state().bag.itemCount(sellingItem->getItem());
+                    if (newQty > 0) { sellingItem->updateQty(newQty); }
+                    else {
+                        sellMenus[curCat].removeItem(sellingItem);
+                    }
+                    enterState(MenuState::SellDing);
+                }
+                else {
+                    enterState(MenuState::SellMenu);
+                }
             }
             break;
         default:
@@ -313,6 +386,13 @@ bl::menu::Item::Ptr StoreMenu::makeItemRow(core::item::Id item, int price, unsig
     return row;
 }
 
+bl::menu::Item::Ptr StoreMenu::makeSellItemRow(core::item::Id item, int qty) {
+    StoreItemRow::Ptr row = StoreItemRow::create(qty, item, getSellPrice(item));
+    row->getSignal(bl::menu::Item::Activated)
+        .willAlwaysCall(std::bind(&StoreMenu::selectSellItem, this, row.get()));
+    return row;
+}
+
 bl::menu::Item::Ptr StoreMenu::makeCloseItem() {
     bl::menu::TextItem::Ptr ci =
         bl::menu::TextItem::create("Close", core::Properties::MenuFont(), sf::Color::Black, 16);
@@ -327,6 +407,44 @@ void StoreMenu::selectBuyItem(unsigned int i) {
 }
 
 void StoreMenu::closeMenu() { enterState(MenuState::GetAction); }
+
+void StoreMenu::selectSellItem(StoreItemRow* row) {
+    sellingItem = row;
+    enterState(MenuState::SellQty);
+}
+
+void StoreMenu::catRight() {
+    if (dingTime >= DingTime) {
+        dingTime = 0.f;
+        curCat   = (curCat + 1) % 3;
+        catSync();
+        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
+    }
+}
+
+void StoreMenu::catLeft() {
+    if (dingTime >= DingTime) {
+        dingTime = 0.f;
+        curCat   = curCat > 0 ? curCat - 1 : 2;
+        catSync();
+        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
+    }
+}
+
+void StoreMenu::catSync() {
+    catText.setString(catTexts[curCat]);
+    catText.setPosition(745.f - catText.getGlobalBounds().width -
+                            rightArrow.getGlobalBounds().width - 9.f,
+                        actionText.getPosition().y);
+    leftArrow.setPosition(catText.getPosition().x - leftArrow.getGlobalBounds().width + 3.f,
+                          rightArrow.getPosition().y);
+    renderMenu = &sellMenus[curCat];
+}
+
+int StoreMenu::getSellPrice(core::item::Id item) const {
+    // TODO - support price overrides
+    return core::item::Item::getValue(item) * 4 / 5;
+}
 
 } // namespace state
 } // namespace game
