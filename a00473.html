@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/Menus/BagItemButton.hpp File Reference</title>
+<title>Peoplemon: include/Editor/States/MainEditor.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_3ec18ca5bc15574d5d690a68ca8e7a1e.html">Menus</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_deb240fe6eddc91a5a7d9b1aac504bb4.html">States</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,33 +71,43 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">BagItemButton.hpp File Reference</div>  </div>
+<div class="title">MainEditor.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Interfaces/Menu.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248_source.html">Core/Player/Bag.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Engine.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces/GUI.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00341_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00443_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00434_source.html">Editor/Pages/Credits.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00437_source.html">Editor/Pages/Items.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02917_source.html">Editor/Pages/Map.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00440_source.html">Editor/Pages/Moves.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02929_source.html">Editor/Pages/Peoplemon.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02947_source.html">Editor/Pages/Scripts.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00470_source.html">Editor/Pages/VariousEditors.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00473_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02175.html">game::menu::BagItemButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a button for a quantity of items in the bag.  <a href="a02175.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02182.html">editor::state::MainEditor</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary state of the editor. Owns the GUI and all tabs.  <a href="a02182.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01039"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01039.html">game</a></td></tr>
-<tr class="memdesc:a01039"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all functionality unique to the game. <br /></td></tr>
+<tr class="memitem:a01034"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01034.html">editor</a></td></tr>
+<tr class="memdesc:a01034"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01040"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01040.html">game::menu</a></td></tr>
+<tr class="memitem:a01044"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01044.html">editor::state</a></td></tr>
+<tr class="memdesc:a01044"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine states for the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Sep 30 2022 03:55:52 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 2 2022 20:18:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
