@@ -488,6 +488,10 @@ void Map::update(float) {
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
         break;
 
+    case Tileset::LevelTiles:
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::LevelTransitions, 0);
+        break;
+
     default:
         switch (activeTool) {
         case Tool::Events:
@@ -606,6 +610,14 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 }
                 else {
                     mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
+                }
+                break;
+            case Tileset::LevelTiles:
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setLevelTileArea(selection, tileset.getActiveLevel());
+                }
+                else {
+                    mapArea.editMap().setLevelTile(tiles, tileset.getActiveLevel());
                 }
                 break;
             default:

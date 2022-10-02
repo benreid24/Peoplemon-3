@@ -59,8 +59,8 @@ public:
         /// Renders spawns in the map
         Spawns,
 
-        /// Renders catch zones
-        PeoplemonZones
+        /// Renders level transitions
+        LevelTransitions
     };
 
     /**
@@ -620,6 +620,22 @@ public:
      */
     void fillTownTiles(const sf::Vector2i& position, std::uint8_t id);
 
+    /**
+     * @brief Sets the given level tile
+     *
+     * @param position The position to set
+     * @param lt The level transition to occur on that tile
+     */
+    void setLevelTile(const sf::Vector2i& position, core::map::LevelTransition lt);
+
+    /**
+     * @brief Sets a selection of level tiles
+     *
+     * @param area The region to update
+     * @param lt The level transition to populate the region with
+     */
+    void setLevelTileArea(const sf::IntRect& area, core::map::LevelTransition lt);
+
 private:
     struct Action {
         using Ptr = std::shared_ptr<Action>;
@@ -724,6 +740,8 @@ private:
     class SetTownTileAction;
     class SetTownTileAreaAction;
     class FillTownTileAction;
+    class SetLevelTileAction;
+    class SetLevelTileAreaAction;
 };
 
 } // namespace component
