@@ -1629,5 +1629,57 @@ bool EditMap::FillTownTileAction::undo(EditMap& map) {
 
 const char* EditMap::FillTownTileAction::description() const { return "fill town tiles"; }
 
+EditMap::Action::Ptr EditMap::SetLevelTileAction::create(const sf::Vector2i& pos,
+                                                         core::map::LevelTransition lt,
+                                                         core::map::LevelTransition orig) {
+    return EditMap::Action::Ptr{new SetLevelTileAction(pos, lt, orig)};
+}
+
+EditMap::SetLevelTileAction::SetLevelTileAction(const sf::Vector2i& pos,
+                                                core::map::LevelTransition lt,
+                                                core::map::LevelTransition orig)
+: pos(pos)
+, lt(lt)
+, orig(orig) {}
+
+bool EditMap::SetLevelTileAction::apply(EditMap& map) { map.transitionField(pos.x, pos.y) = lt; }
+
+bool EditMap::SetLevelTileAction::undo(EditMap& map) { map.transitionField(pos.x, pos.y) = orig; }
+
+const char* EditMap::SetLevelTileAction::description() const { return "set level transition"; }
+
+EditMap::Action::Ptr EditMap::SetLevelTileAreaAction::create(const sf::IntRect& area,
+                                                             core::map::LevelTransition lt,
+                                                             EditMap& map) {
+    bl::container::Vector2D<core::map::LevelTransition> orig;
+    orig.setSize(area.width, area.height);
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            orig(x - area.left, y - area.top) = map.transitionField(x, y);
+        }
+    }
+
+    return EditMap::Action::Ptr{new SetLevelTileAreaAction(area, lt, std::move(orig))};
+}
+
+EditMap::SetLevelTileAreaAction::SetLevelTileAreaAction(
+    const sf::IntRect& area, core::map::LevelTransition lt,
+    bl::container::Vector2D<core::map::LevelTransition>&& orig)
+: area(area)
+, lt(lt)
+, orig(orig) {}
+
+bool EditMap::SetLevelTileAreaAction::apply(EditMap& map) {
+    // todo
+}
+
+bool EditMap::SetLevelTileAreaAction::undo(EditMap& map) {
+    // todo
+}
+
+const char* EditMap::SetLevelTileAreaAction::description() const {
+    return "set level transition area";
+}
+
 } // namespace component
 } // namespace editor

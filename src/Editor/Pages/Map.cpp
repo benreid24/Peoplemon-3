@@ -488,6 +488,10 @@ void Map::update(float) {
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
         break;
 
+    case Tileset::LevelTiles:
+        // TODO - set render overlay
+        break;
+
     default:
         switch (activeTool) {
         case Tool::Events:
@@ -607,6 +611,9 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 else {
                     mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
                 }
+                break;
+            case Tileset::LevelTiles:
+                // TODO - set level tiles
                 break;
             default:
                 break;

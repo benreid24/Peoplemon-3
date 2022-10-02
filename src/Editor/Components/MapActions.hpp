@@ -756,6 +756,43 @@ private:
     FillTownTileAction(std::uint8_t id, std::vector<std::pair<sf::Vector2i, std::uint8_t>>&& set);
 };
 
+class EditMap::SetLevelTileAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const sf::Vector2i& pos, core::map::LevelTransition lt,
+                              core::map::LevelTransition orig);
+
+    virtual ~SetLevelTileAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const sf::Vector2i pos;
+    const core::map::LevelTransition lt;
+    const core::map::LevelTransition orig;
+
+    SetLevelTileAction(const sf::Vector2i& pos, core::map::LevelTransition lt,
+                       core::map::LevelTransition orig);
+};
+
+class EditMap::SetLevelTileAreaAction : public EditMap::Action {
+public:
+    static Action::Ptr create(const sf::IntRect& area, core::map::LevelTransition id, EditMap& map);
+
+    virtual ~SetLevelTileAreaAction() = default;
+    virtual bool apply(EditMap& map) override;
+    virtual bool undo(EditMap& map) override;
+    virtual const char* description() const override;
+
+private:
+    const sf::IntRect area;
+    const core::map::LevelTransition lt;
+    const bl::container::Vector2D<core::map::LevelTransition> orig;
+
+    SetLevelTileAreaAction(const sf::IntRect& area, core::map::LevelTransition lt,
+                           bl::container::Vector2D<core::map::LevelTransition>&& orig);
+};
+
 } // namespace component
 } // namespace editor
 

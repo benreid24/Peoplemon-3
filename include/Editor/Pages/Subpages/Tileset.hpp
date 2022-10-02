@@ -6,6 +6,7 @@
 #include <Core/Maps/Tileset.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Collisions.hpp>
+#include <Editor/Pages/Subpages/LevelTransitions.hpp>
 #include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
@@ -25,7 +26,7 @@ namespace page
  */
 class Tileset {
 public:
-    enum Active { Tiles, Animations, CollisionTiles, TownTiles, CatchTiles };
+    enum Active { Tiles, Animations, CollisionTiles, TownTiles, CatchTiles, LevelTiles };
     using DeleteCb = std::function<void(core::map::Tile::IdType, bool)>;
 
     /**
@@ -94,6 +95,12 @@ public:
     std::uint8_t getActiveTown() const;
 
     /**
+     * @brief Returns the actively selected level transition type
+     *
+     */
+    core::map::LevelTransition getActiveLevel() const;
+
+    /**
      * @brief Returns whether or not the tileset is in a dirty state
      *
      */
@@ -122,6 +129,7 @@ private:
     Collisions collisions;
     Catchables catchables;
     Towns towns;
+    LevelTransitions levelTransitions;
 
     Active tool;
     core::map::Tile::IdType activeTile;

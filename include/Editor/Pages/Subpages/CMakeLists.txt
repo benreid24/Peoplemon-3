@@ -4,6 +4,7 @@ target_sources(PeoplemonEditor PUBLIC
     GameTesting.hpp
     Layers.hpp
     Levels.hpp
+    LevelTransitions.hpp
     MapArea.hpp
     Tileset.hpp
     Towns.hpp

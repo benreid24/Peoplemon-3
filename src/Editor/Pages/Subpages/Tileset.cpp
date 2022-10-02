@@ -161,8 +161,9 @@ Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
         "col", "Collisions", collisions.getContent(), [this]() { tool = Active::CollisionTiles; });
     content->addPage(
         "catch", "Catch Tiles", catchables.getContent(), [this]() { tool = Active::CatchTiles; });
-    content->addPage("level", "Level Transitions", Label::create("TODO"));
-    // TODO - create page for level transitions
+    content->addPage("level", "Level Transitions", levelTransitions.getContent(), [this]() {
+        tool = Active::LevelTiles;
+    });
 
     loadTileset("Worldtileset.tlst");
 }
@@ -185,6 +186,8 @@ core::map::Collision Tileset::getActiveCollision() const { return collisions.sel
 std::uint8_t Tileset::getActiveCatch() const { return catchables.selected(); }
 
 std::uint8_t Tileset::getActiveTown() const { return towns.selected(); }
+
+core::map::LevelTransition Tileset::getActiveLevel() const { return levelTransitions.getActive(); }
 
 bool Tileset::loadTileset(const std::string& file) {
     auto newTileset = core::Resources::tilesets().load(file).data;
