@@ -489,7 +489,7 @@ void Map::update(float) {
         break;
 
     case Tileset::LevelTiles:
-        // TODO - set render overlay
+        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::LevelTransitions, 0);
         break;
 
     default:
@@ -613,7 +613,12 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 }
                 break;
             case Tileset::LevelTiles:
-                // TODO - set level tiles
+                if (selectionState == SelectionMade) {
+                    mapArea.editMap().setLevelTileArea(selection, tileset.getActiveLevel());
+                }
+                else {
+                    mapArea.editMap().setLevelTile(tiles, tileset.getActiveLevel());
+                }
                 break;
             default:
                 break;

@@ -1642,9 +1642,15 @@ EditMap::SetLevelTileAction::SetLevelTileAction(const sf::Vector2i& pos,
 , lt(lt)
 , orig(orig) {}
 
-bool EditMap::SetLevelTileAction::apply(EditMap& map) { map.transitionField(pos.x, pos.y) = lt; }
+bool EditMap::SetLevelTileAction::apply(EditMap& map) {
+    map.transitionField(pos.x, pos.y) = lt;
+    return false;
+}
 
-bool EditMap::SetLevelTileAction::undo(EditMap& map) { map.transitionField(pos.x, pos.y) = orig; }
+bool EditMap::SetLevelTileAction::undo(EditMap& map) {
+    map.transitionField(pos.x, pos.y) = orig;
+    return false;
+}
 
 const char* EditMap::SetLevelTileAction::description() const { return "set level transition"; }
 
@@ -1670,11 +1676,19 @@ EditMap::SetLevelTileAreaAction::SetLevelTileAreaAction(
 , orig(orig) {}
 
 bool EditMap::SetLevelTileAreaAction::apply(EditMap& map) {
-    // todo
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) { map.transitionField(x, y) = lt; }
+    }
+    return false;
 }
 
 bool EditMap::SetLevelTileAreaAction::undo(EditMap& map) {
-    // todo
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.transitionField(x, y) = orig(x - area.left, y - area.top);
+        }
+    }
+    return false;
 }
 
 const char* EditMap::SetLevelTileAreaAction::description() const {

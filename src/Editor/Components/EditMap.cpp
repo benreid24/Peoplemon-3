@@ -38,6 +38,12 @@ const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
 const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
     bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
 
+const bl::resource::Resource<sf::Texture>::Ref ltGfx[] = {
+    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpRight.png").data,
+    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpLeft.png").data,
+    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpUp.png").data,
+    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpDown.png").data};
+
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
@@ -662,8 +668,18 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         }
     } break;
 
-    case RenderOverlay::PeoplemonZones:
-        // TODO
+    case RenderOverlay::LevelTransitions:
+        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                if (transitionField(x, y) != core::map::LevelTransition::None) {
+                    overlaySprite.setTexture(
+                        *ltGfx[static_cast<unsigned int>(transitionField(x, y)) - 1], true);
+                    overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
+                                              y * core::Properties::PixelsPerTile());
+                    target.draw(overlaySprite);
+                }
+            }
+        }
         break;
 
     case RenderOverlay::None:
@@ -801,6 +817,14 @@ void EditMap::setTownTileArea(const sf::IntRect& area, std::uint8_t id) {
 
 void EditMap::fillTownTiles(const sf::Vector2i& pos, std::uint8_t id) {
     addAction(FillTownTileAction::create(pos, id, *this));
+}
+
+void EditMap::setLevelTile(const sf::Vector2i& pos, core::map::LevelTransition lt) {
+    addAction(SetLevelTileAction::create(pos, lt, transitionField(pos.x, pos.y)));
+}
+
+void EditMap::setLevelTileArea(const sf::IntRect& area, core::map::LevelTransition lt) {
+    addAction(SetLevelTileAreaAction::create(area, lt, *this));
 }
 
 } // namespace component

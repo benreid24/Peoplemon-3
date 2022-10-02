@@ -59,8 +59,8 @@ public:
         /// Renders spawns in the map
         Spawns,
 
-        /// Renders catch zones
-        PeoplemonZones
+        /// Renders level transitions
+        LevelTransitions
     };
 
     /**
@@ -622,7 +622,7 @@ public:
 
     /**
      * @brief Sets the given level tile
-     * 
+     *
      * @param position The position to set
      * @param lt The level transition to occur on that tile
      */
@@ -630,7 +630,7 @@ public:
 
     /**
      * @brief Sets a selection of level tiles
-     * 
+     *
      * @param area The region to update
      * @param lt The level transition to populate the region with
      */

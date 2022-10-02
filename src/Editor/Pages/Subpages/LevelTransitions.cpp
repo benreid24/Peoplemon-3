@@ -30,9 +30,9 @@ LevelTransitions::LevelTransitions() {
                       "go down a level. Walking perpendicular has no effect.");
     sf::Text text;
     text.setFont(core::Properties::MenuFont());
-    text.setCharacterSize(16);
+    text.setCharacterSize(18);
     text.setString(help->getText());
-    bl::interface::wordWrap(text, 350.f);
+    bl::interface::wordWrap(text, 400.f);
     help->setText(text.getString());
     help->setCharacterSize(text.getCharacterSize());
     content->pack(help);
