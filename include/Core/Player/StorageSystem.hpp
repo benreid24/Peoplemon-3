@@ -21,8 +21,8 @@ namespace player
  */
 class StorageSystem {
 public:
-    static constexpr int BoxCount   = 14;
-    static constexpr int BoxWidth   = 10;
+    static constexpr int BoxCount  = 14;
+    static constexpr int BoxWidth  = 10;
     static constexpr int BoxHeight = 10;
 
     /**
@@ -38,6 +38,24 @@ public:
      * @return True if the peoplemon could be stored, false if full
      */
     bool add(const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Adds the peoplemon to storage at the given position. Does not check if the position is
+     *        available, the caller must ensure that it is free.
+     *
+     * @param box The box to add to [0, 13]
+     * @param pos The position in the box
+     * @param ppl The peoplemon to add
+     */
+    void add(unsigned int box, const sf::Vector2i& pos, const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Clears the peoplemon from the given position, if one is there
+     *
+     * @param box The box to remove from
+     * @param position The position to remove from
+     */
+    void remove(unsigned int box, const sf::Vector2i& position);
 
     /**
      * @brief Returns whether or not the given storage space is free

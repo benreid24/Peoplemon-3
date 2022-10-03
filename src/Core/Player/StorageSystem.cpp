@@ -21,6 +21,22 @@ bool StorageSystem::add(const pplmn::OwnedPeoplemon& ppl) {
     return false;
 }
 
+void StorageSystem::add(unsigned int box, const sf::Vector2i& pos,
+                        const pplmn::OwnedPeoplemon& ppl) {
+    boxes[box].emplace_back(ppl, box, pos);
+    boxes[box].back().peoplemon.heal();
+}
+
+void StorageSystem::remove(unsigned int b, const sf::Vector2i& pos) {
+    auto& box = boxes[b];
+    for (unsigned int i = 0; i < box.size(); ++i) {
+        if (box[i].position == pos) {
+            box.erase(box.begin() + i);
+            --i;
+        }
+    }
+}
+
 bool StorageSystem::spaceFree(int box, int x, int y) const {
     if (box < 0 || static_cast<unsigned int>(box) >= boxes.size()) return false;
 

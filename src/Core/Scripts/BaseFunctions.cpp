@@ -6,6 +6,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Events/StorageSystem.hpp>
 #include <Core/Events/Store.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -54,6 +55,8 @@ void displayMessage(system::Systems& systems, SymbolTable& table, const std::vec
 void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
 void rollCredits(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                 Value& result);
+void openStorage(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                  Value& result);
 
 void pricedItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -171,6 +174,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(displayMessage);
     BUILTIN(promptPlayer);
     BUILTIN(rollCredits);
+    BUILTIN(openStorage);
 
     BUILTIN(pricedItem);
     BUILTIN(sellPriceOverride);
@@ -501,6 +505,17 @@ void promptPlayer(system::Systems& systems, SymbolTable& table, const std::vecto
 void rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&, Value& result) {
     // TODO - implement credits
     result = false;
+}
+
+void openStorage(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TBool>("openStorage", args);
+
+    const bool block = args[0].value().getAsBool();
+    systems.engine().eventBus().dispatch<event::StorageSystemOpened>({});
+    if (block) {
+        bl::event::EventWaiter<event::StorageSystemClosed> waiter;
+        waiter.wait(systems.engine().eventBus());
+    }
 }
 
 void pricedItem(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value& result) {

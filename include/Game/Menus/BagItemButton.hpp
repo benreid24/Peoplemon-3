@@ -4,6 +4,13 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Player/Bag.hpp>
 
+/**
+ * @addtogroup Menus
+ * @brief Collection of menu components used in various game states
+ * @ingroup Game
+ *
+ */
+
 namespace game
 {
 namespace menu
