@@ -35,26 +35,31 @@ void MenuDriver::process(component::Command cmd) {
 void MenuDriver::processImmediate(component::Command cmd) {
     prevInput = cmd;
     if (!menu) return;
+    MenuDriver::sendToMenu(*menu, cmd);
+}
 
+void MenuDriver::setInputDelay(float d) { debounce = d; }
+
+void MenuDriver::sendToMenu(bl::menu::Menu& menu, component::Command cmd) {
     switch (cmd) {
     case component::Command::MoveDown:
-        menu->processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Bottom)});
+        menu.processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Bottom)});
         break;
 
     case component::Command::MoveRight:
-        menu->processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Right)});
+        menu.processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Right)});
         break;
 
     case component::Command::MoveUp:
-        menu->processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Top)});
+        menu.processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Top)});
         break;
 
     case component::Command::MoveLeft:
-        menu->processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Left)});
+        menu.processEvent({bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Left)});
         break;
 
     case component::Command::Interact:
-        menu->processEvent({bl::menu::Event::ActivateEvent()});
+        menu.processEvent({bl::menu::Event::ActivateEvent()});
         break;
 
     case component::Command::Back:
@@ -63,8 +68,6 @@ void MenuDriver::processImmediate(component::Command cmd) {
         break;
     }
 }
-
-void MenuDriver::setInputDelay(float d) { debounce = d; }
 
 } // namespace input
 } // namespace player

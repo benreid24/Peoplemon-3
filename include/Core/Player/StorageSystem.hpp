@@ -67,7 +67,22 @@ public:
      */
     bool spaceFree(int box, int x, int y) const;
 
-    // TODO - methods required for UI and management
+    /**
+     * @brief Returns the peoplemon at the given position in the given box
+     *
+     * @param box The box to search in
+     * @param pos The position to check
+     * @return pplmn::StoredPeoplemon* The peoplemon or nullptr if the spot is empty
+     */
+    pplmn::StoredPeoplemon* get(unsigned int box, const sf::Vector2i& pos);
+
+    /**
+     * @brief Returns the given box. Performs no bounds check
+     *
+     * @param box The box to get
+     * @return const std::vector<pplmn::StoredPeoplemon>& The box at the given index
+     */
+    const std::vector<pplmn::StoredPeoplemon>& getBox(unsigned int box) const;
 
 private:
     std::array<std::vector<pplmn::StoredPeoplemon>, BoxCount> boxes;

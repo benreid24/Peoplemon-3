@@ -4,6 +4,8 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
 #include <Core/Player/Input/Listener.hpp>
+#include <Game/Menus/StorageCursor.hpp>
+#include <Game/Menus/StorageGrid.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -79,6 +81,7 @@ private:
         // browse states
         BrowsingBox,
         BoxSliding,
+        CursorMoving,
 
         // context menu states
         BrowseMenuOpen,
@@ -91,6 +94,7 @@ private:
     };
 
     MenuState state;
+    MenuState prevState;
     int currentBox;
     core::pplmn::StoredPeoplemon* hovered;
     sf::Vector2i selectPos;
@@ -101,6 +105,17 @@ private:
     sf::View oldView;
     sf::View view;
     sf::View boxView;
+
+    core::player::input::MenuDriver menuDriver;
+    menu::StorageGrid activeGrid;
+    menu::StorageGrid slidingOutGrid;
+    menu::StorageCursor cursor;
+    float slideOffset;
+    float slideVel;
+
+    bl::audio::AudioSystem::Handle cursorMoveSound;
+    bl::audio::AudioSystem::Handle pageSlideSound;
+    bl::audio::AudioSystem::Handle pageSlideFailSound;
 
     bl::resource::Resource<sf::Texture>::Ref leftArrowTxtr;
     bl::resource::Resource<sf::Texture>::Ref rightArrowTxtr;
@@ -127,6 +142,7 @@ private:
     void close();
 
     // browse actions
+    void onCursor(const sf::Vector2i& pos);
     void onHover(core::pplmn::StoredPeoplemon* peoplemon);
     void onSelect(const sf::Vector2i& position);
     void boxLeft();

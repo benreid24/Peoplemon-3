@@ -21,6 +21,8 @@ const sf::Vector2f ThumbnailSize(218.f - ThumbnailPosition.x, 434.f - ThumbnailP
 const sf::Vector2f NamePosition(ThumbnailPosition.x + ThumbnailSize.x * 0.5f, ThumbnailPosition.y);
 const sf::Vector2f LevelPosition(ThumbnailPosition.x + 4.f, 480.f);
 const sf::Vector2f ItemPosition(LevelPosition.x, LevelPosition.y + 50.f);
+constexpr float SlideTime = 0.5f;
+const float SlideVel      = BoxSize.x / SlideTime;
 } // namespace
 
 bl::engine::State::Ptr StorageSystem::create(core::system::Systems& s) {
@@ -113,6 +115,8 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     contextMenu.addItem(releaseItem, itemItem.get(), Item::Bottom);
     contextMenu.addItem(backItem, releaseItem.get(), Item::Bottom);
     contextMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {12.f, 2.f, 2.f, 0.f});
+
+    // TODO - load sounds
 }
 
 const char* StorageSystem::name() const { return "StorageSystem"; }
@@ -147,11 +151,12 @@ void StorageSystem::deactivate(bl::engine::Engine&) {
 
 void StorageSystem::update(bl::engine::Engine&, float dt) {
     systems.player().update();
-    // TODO - update cursor
+    cursor.update(dt);
 
     switch (state) {
     case MenuState::BoxSliding:
-        // TODO - update slide
+        slideOffset += slideVel * dt;
+        if (std::abs(slideOffset) >= BoxSize.x) { enterState(prevState); }
         break;
 
     case MenuState::WaitingContextMessage:
@@ -178,15 +183,35 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
         engine.window().draw(level);
         engine.window().draw(item);
     }
-
-    // TODO - draw box contents and cursor
-
     actionMenu.render(engine.window());
-    switch (state) {
-    case MenuState::BoxSliding:
-        // TODO - draw sliding out box state
-        break;
 
+    const sf::View origView = engine.window().getView();
+    engine.window().setView(boxView);
+    if (state == MenuState::BoxSliding) {
+        sf::RenderStates states;
+        states.transform.translate(slideOffset, 0.f);
+        slidingOutGrid.render(engine.window(), states);
+        const float sign = -(slideVel / std::abs(slideVel));
+        states.transform.translate(BoxSize.x * sign, 0.f);
+        activeGrid.render(engine.window(), states);
+    }
+    else {
+        activeGrid.render(engine.window(), {});
+        switch (state) {
+        case MenuState::BrowseMenuOpen:
+        case MenuState::BrowsingBox:
+        case MenuState::PlacingPeoplemon:
+        case MenuState::CursorMoving:
+        case MenuState::WaitingContextMessage:
+        case MenuState::WaitingReleaseConfirm:
+            cursor.render(engine.window());
+            break;
+        default:
+            break;
+        }
+    }
+
+    switch (state) {
     case MenuState::BrowseMenuOpen:
     case MenuState::WaitingContextMessage:
     case MenuState::WaitingReleaseConfirm:
@@ -196,6 +221,7 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
     default:
         break;
     }
+    engine.window().setView(origView);
 }
 
 void StorageSystem::startDeposit() {
@@ -208,9 +234,14 @@ void StorageSystem::startBrowse() { enterState(MenuState::BrowsingBox); }
 
 void StorageSystem::close() { systems.engine().popState(); }
 
-void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
+void StorageSystem::onCursor(const sf::Vector2i& pos) {
     if (state == MenuState::PlacingPeoplemon) return;
 
+    core::pplmn::StoredPeoplemon* ppl = systems.player().state().storage.get(currentBox, pos);
+    if (ppl) { onHover(ppl); }
+}
+
+void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
     hovered = ppl;
     if (ppl != nullptr) { updatePeoplemonInfo(ppl->peoplemon); }
     else {
@@ -259,15 +290,15 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
 
 void StorageSystem::boxLeft() {
     if (currentBox == 0) return;
-    // TODO - start slide
-    enterState(MenuState::BoxSliding);
+    --currentBox;
+    slideVel = -SlideVel;
     finishBoxChange();
 }
 
 void StorageSystem::boxRight() {
     if (currentBox == 0) return;
-    // TODO - start slide
-    enterState(MenuState::BoxSliding);
+    ++currentBox;
+    slideVel = SlideVel;
     finishBoxChange();
 }
 
@@ -275,6 +306,10 @@ void StorageSystem::finishBoxChange() {
     boxTitle.setString("Storage Box " + std::to_string(currentBox + 1));
     boxTitle.setOrigin(boxTitle.getGlobalBounds().width * 0.5f,
                        boxTitle.getGlobalBounds().height * 0.5f);
+    slideOffset    = 0.f;
+    slidingOutGrid = std::move(activeGrid);
+    activeGrid.update(systems.player().state().storage.getBox(currentBox));
+    enterState(MenuState::BoxSliding);
 }
 
 void StorageSystem::showContextMessage(const std::string& msg, bool cm) {
@@ -318,19 +353,94 @@ void StorageSystem::onRelease() {
 }
 
 void StorageSystem::onCloseContextMenu() {
-    // TODO - play sound?
+    bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
     enterState(MenuState::BrowsingBox);
 }
 
 void StorageSystem::process(core::component::Command cmd) {
-    // TODO - handle it
+    if (cmd == core::component::Command::Back) {
+        switch (state) {
+        case MenuState::ChooseAction:
+            close();
+            break;
+        case MenuState::PlacingPeoplemon:
+        case MenuState::MovingPeoplemon:
+            cursor.setHolding(core::pplmn::Id::Unknown);
+            enterState(MenuState::ChooseAction);
+            break;
+        case MenuState::BrowsingBox:
+            enterState(MenuState::ChooseAction);
+            break;
+        case MenuState::BrowseMenuOpen:
+            enterState(MenuState::BrowsingBox);
+            break;
+        default:
+            break;
+        }
+        return;
+    }
+
+    switch (state) {
+    case MenuState::ChooseAction:
+        core::player::input::MenuDriver::sendToMenu(actionMenu, cmd);
+        break;
+
+    case MenuState::PlacingPeoplemon:
+    case MenuState::BrowsingBox:
+    case MenuState::MovingPeoplemon:
+        if (cmd == core::component::Command::Interact) { onSelect(cursor.getPosition()); }
+        else if (cmd == core::component::Command::MoveLeft && cursor.getPosition().x == 0) {
+            if (currentBox > 0) {
+                boxLeft();
+                bl::audio::AudioSystem::playOrRestartSound(pageSlideSound);
+            }
+            else {
+                bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound);
+            }
+        }
+        else if (cmd == core::component::Command::MoveRight &&
+                 cursor.getPosition().x == core::player::StorageSystem::BoxWidth - 1) {
+            if (currentBox < core::player::StorageSystem::BoxCount - 1) {
+                boxRight();
+                bl::audio::AudioSystem::playOrRestartSound(pageSlideSound);
+            }
+            else {
+                bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound);
+            }
+        }
+        else {
+            if (cursor.process(cmd)) {
+                onCursor(cursor.getPosition());
+                bl::audio::AudioSystem::playOrRestartSound(cursorMoveSound);
+            }
+            else {
+                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveFailSound());
+            }
+        }
+        break;
+
+    case MenuState::BrowseMenuOpen:
+        core::player::input::MenuDriver::sendToMenu(contextMenu, cmd);
+        break;
+
+    default:
+        break;
+    }
 }
 
 void StorageSystem::enterState(MenuState ns) {
-    state = ns;
-    // TODO - other stuff?
-    // like position context menu
-    // also update ppl info if diff/no longer there
+    prevState = state;
+    state     = ns;
+
+    switch (ns) {
+    case MenuState::BrowseMenuOpen:
+        // TODO - position menu
+        break;
+    default:
+        break; // anything else?
+    }
+    onCursor(cursor.getPosition());
+    if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
 }
 
 void StorageSystem::onReleaseConfirm(const std::string& c) {

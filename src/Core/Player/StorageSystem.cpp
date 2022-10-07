@@ -47,5 +47,16 @@ bool StorageSystem::spaceFree(int box, int x, int y) const {
     return true;
 }
 
+pplmn::StoredPeoplemon* StorageSystem::get(unsigned int box, const sf::Vector2i& pos) {
+    for (auto& ppl : boxes[box]) {
+        if (ppl.position == pos) { return &ppl; }
+    }
+    return nullptr;
+}
+
+const std::vector<pplmn::StoredPeoplemon>& StorageSystem::getBox(unsigned int box) const {
+    return boxes[box];
+}
+
 } // namespace player
 } // namespace core
