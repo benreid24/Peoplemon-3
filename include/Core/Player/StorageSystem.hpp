@@ -22,7 +22,7 @@ namespace player
 class StorageSystem {
 public:
     static constexpr int BoxCount  = 14;
-    static constexpr int BoxWidth  = 10;
+    static constexpr int BoxWidth  = 12;
     static constexpr int BoxHeight = 10;
 
     /**

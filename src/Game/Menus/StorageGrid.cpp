@@ -19,9 +19,9 @@ void StorageGrid::update(const std::vector<core::pplmn::StoredPeoplemon>& box) {
                          .load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id()))
                          .data;
         rp.sprite.setTexture(*rp.texture, true);
-        rp.sprite.setScale(StorageCursor::Tilesize() / static_cast<float>(rp.texture->getSize().x),
-                           StorageCursor::Tilesize() / static_cast<float>(rp.texture->getSize().y));
-        rp.sprite.setPosition(sf::Vector2f(ppl.position) * StorageCursor::Tilesize());
+        rp.sprite.setScale(StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().x),
+                           StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().y));
+        rp.sprite.setPosition(sf::Vector2f(ppl.position) * StorageCursor::TileSize());
     }
 }
 

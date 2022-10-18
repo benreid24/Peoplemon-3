@@ -143,7 +143,7 @@ void StorageCursor::render(sf::RenderTarget& target) const {
 
 void StorageCursor::syncPos() { cursor.setPosition(sf::Vector2f(position) * size); }
 
-float StorageCursor::Tilesize() { return size; }
+float StorageCursor::TileSize() { return size; }
 
 } // namespace menu
 } // namespace game

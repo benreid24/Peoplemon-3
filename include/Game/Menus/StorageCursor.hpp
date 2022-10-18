@@ -82,7 +82,7 @@ public:
      * @brief Returns the size of a square on the grid
      *
      */
-    static float Tilesize();
+    static float TileSize();
 
 private:
     sf::Vector2i position;

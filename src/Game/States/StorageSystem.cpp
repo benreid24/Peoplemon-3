@@ -35,7 +35,8 @@ StorageSystem::StorageSystem(core::system::Systems& s)
 , currentBox(0)
 , hovered(nullptr)
 , actionMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
-, contextMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black)) {
+, contextMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
+, depositedPeoplemon(-1) {
     auto& textures = bl::engine::Resources::textures();
     auto joinPath  = bl::util::FileUtil::joinPath;
     using bl::menu::Item;
@@ -47,11 +48,11 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     background.setTexture(*backgroundTxtr, true);
 
     leftArrowTxtr =
-        textures.load(joinPath(Properties::MenuImagePath(), "StorageMenu/storageArrowLeft.png"))
+        textures.load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowLeft.png"))
             .data;
     leftArrow.setTexture(*leftArrowTxtr, true);
     rightArrowTxtr =
-        textures.load(joinPath(Properties::MenuImagePath(), "StorageMenu/storageArrowRight.png"))
+        textures.load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowRight.png"))
             .data;
     rightArrow.setTexture(*rightArrowTxtr, true);
     leftArrow.setPosition(BoxTitlePosition.x - leftArrow.getGlobalBounds().width - 3.f,
@@ -63,6 +64,7 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     boxTitle.setFont(Properties::MenuFont());
     boxTitle.setCharacterSize(42);
     boxTitle.setFillColor(sf::Color::Black);
+    boxTitle.setPosition(BoxTitlePosition + BoxTitleSize * 0.5f);
 
     nickname.setFont(Properties::MenuFont());
     nickname.setFillColor(sf::Color(240, 40, 50));
@@ -133,15 +135,25 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     view.setSize(size);
     engine.window().setView(view);
     boxView = bl::interface::ViewUtil::computeSubView({BoxPosition, BoxSize}, view);
+    boxView.setCenter(BoxSize * 0.5f);
 
+    hovered = systems.player().state().storage.get(currentBox, cursor.getPosition());
     if (state == MenuState::WaitingDeposit) {
-        // TODO - check if deposit chosen and enter Placing state
-        updatePeoplemonInfo(systems.player().state().peoplemon[depositedPeoplemon]);
-        enterState(MenuState::ChooseAction);
+        if (depositedPeoplemon >= 0) {
+            hovered = nullptr;
+            updatePeoplemonInfo(systems.player().state().peoplemon[depositedPeoplemon]);
+            enterState(MenuState::PlacingPeoplemon);
+        }
+        else {
+            enterState(MenuState::ChooseAction);
+        }
     }
     else {
-        // TODO - first time setup?
+        enterState(MenuState::ChooseAction);
     }
+
+    finishBoxChange();
+    if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
 }
 
 void StorageSystem::deactivate(bl::engine::Engine&) {
@@ -162,6 +174,10 @@ void StorageSystem::update(bl::engine::Engine&, float dt) {
     case MenuState::WaitingContextMessage:
     case MenuState::WaitingReleaseConfirm:
         systems.hud().update(dt);
+        break;
+
+    case MenuState::CursorMoving:
+        if (!cursor.moving()) { enterState(prevState); }
         break;
 
     default:
@@ -222,6 +238,8 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
         break;
     }
     engine.window().setView(origView);
+
+    engine.window().display();
 }
 
 void StorageSystem::startDeposit() {
@@ -293,6 +311,7 @@ void StorageSystem::boxLeft() {
     --currentBox;
     slideVel = -SlideVel;
     finishBoxChange();
+    enterState(MenuState::BoxSliding);
 }
 
 void StorageSystem::boxRight() {
@@ -300,6 +319,7 @@ void StorageSystem::boxRight() {
     ++currentBox;
     slideVel = SlideVel;
     finishBoxChange();
+    enterState(MenuState::BoxSliding);
 }
 
 void StorageSystem::finishBoxChange() {
@@ -309,7 +329,6 @@ void StorageSystem::finishBoxChange() {
     slideOffset    = 0.f;
     slidingOutGrid = std::move(activeGrid);
     activeGrid.update(systems.player().state().storage.getBox(currentBox));
-    enterState(MenuState::BoxSliding);
 }
 
 void StorageSystem::showContextMessage(const std::string& msg, bool cm) {
@@ -358,6 +377,9 @@ void StorageSystem::onCloseContextMenu() {
 }
 
 void StorageSystem::process(core::component::Command cmd) {
+    // TODO - this is getting called 8x per input?
+    bl::menu::Menu* toSend = nullptr;
+
     if (cmd == core::component::Command::Back) {
         switch (state) {
         case MenuState::ChooseAction:
@@ -380,9 +402,10 @@ void StorageSystem::process(core::component::Command cmd) {
         return;
     }
 
+    BL_LOG_INFO << "state: " << state;
     switch (state) {
     case MenuState::ChooseAction:
-        core::player::input::MenuDriver::sendToMenu(actionMenu, cmd);
+        toSend = &actionMenu;
         break;
 
     case MenuState::PlacingPeoplemon:
@@ -412,6 +435,8 @@ void StorageSystem::process(core::component::Command cmd) {
             if (cursor.process(cmd)) {
                 onCursor(cursor.getPosition());
                 bl::audio::AudioSystem::playOrRestartSound(cursorMoveSound);
+                enterState(MenuState::CursorMoving);
+                BL_LOG_INFO << "cursor move";
             }
             else {
                 bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveFailSound());
@@ -420,11 +445,16 @@ void StorageSystem::process(core::component::Command cmd) {
         break;
 
     case MenuState::BrowseMenuOpen:
-        core::player::input::MenuDriver::sendToMenu(contextMenu, cmd);
+        toSend = &contextMenu;
         break;
 
     default:
         break;
+    }
+
+    if (toSend != nullptr) {
+        menuDriver.drive(toSend);
+        menuDriver.process(cmd);
     }
 }
 
