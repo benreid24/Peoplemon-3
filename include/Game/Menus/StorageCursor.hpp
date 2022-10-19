@@ -60,6 +60,13 @@ public:
     const sf::Vector2i& getPosition() const;
 
     /**
+     * @brief Sets the x position of the cursor
+     *
+     * @param x The new x position
+     */
+    void setX(int x);
+
+    /**
      * @brief Updates the cursor position if the box to the left is switched to
      *
      */

@@ -127,7 +127,8 @@ private:
     sf::Sprite thumbnail;
     sf::Text nickname;
     sf::Text level;
-    sf::Text item;
+    sf::Text itemLabel;
+    sf::Text itemName;
 
     bl::menu::Menu actionMenu;
     bl::menu::Menu contextMenu;

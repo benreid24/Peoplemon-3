@@ -67,7 +67,10 @@ void StorageCursor::update(float dt) {
 }
 
 bool StorageCursor::process(core::component::Command cmd) {
+    if (moving()) return false;
+
     moveDir = cmd;
+    offset  = 0.f;
     switch (cmd) {
     case core::component::Command::MoveUp:
         if (position.y > 0) {
@@ -120,6 +123,11 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
 bool StorageCursor::moving() const { return moveDir != core::component::Command::None; }
 
 const sf::Vector2i& StorageCursor::getPosition() const { return position; }
+
+void StorageCursor::setX(int x) {
+    position.x = x;
+    syncPos();
+}
 
 void StorageCursor::pageLeft() {
     position.x = core::player::StorageSystem::BoxWidth - 1;

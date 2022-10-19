@@ -14,13 +14,15 @@ namespace
 {
 const sf::Vector2f BoxTitlePosition(365.f, 70.f);
 const sf::Vector2f BoxTitleSize(701.f - BoxTitlePosition.x, 130.f - BoxTitlePosition.y);
-const sf::Vector2f BoxPosition(283.f, 148.f);
+const sf::Vector2f BoxPosition(293.f, 158.f);
 const sf::Vector2f BoxSize(784.f - BoxPosition.x, 581.f - BoxPosition.y);
 const sf::Vector2f ThumbnailPosition(68.f, 248.f);
 const sf::Vector2f ThumbnailSize(218.f - ThumbnailPosition.x, 434.f - ThumbnailPosition.y);
-const sf::Vector2f NamePosition(ThumbnailPosition.x + ThumbnailSize.x * 0.5f, ThumbnailPosition.y);
-const sf::Vector2f LevelPosition(ThumbnailPosition.x + 4.f, 480.f);
-const sf::Vector2f ItemPosition(LevelPosition.x, LevelPosition.y + 50.f);
+const sf::Vector2f NamePosition(ThumbnailPosition.x + ThumbnailSize.x * 0.5f,
+                                ThumbnailPosition.y + ThumbnailSize.y + 4.f);
+const sf::Vector2f LevelPosition(ThumbnailPosition.x + 4.f, 475.f);
+const sf::Vector2f ItemLabelPosition(LevelPosition.x, LevelPosition.y + 32.f);
+const sf::Vector2f ItemPosition(ItemLabelPosition.x, ItemLabelPosition.y + 25.f);
 constexpr float SlideTime = 0.5f;
 const float SlideVel      = BoxSize.x / SlideTime;
 } // namespace
@@ -69,15 +71,21 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     nickname.setFont(Properties::MenuFont());
     nickname.setFillColor(sf::Color(240, 40, 50));
     nickname.setPosition(NamePosition);
-    nickname.setCharacterSize(30);
+    nickname.setCharacterSize(26);
     level.setFont(Properties::MenuFont());
-    level.setFillColor(sf::Color(30, 130, 245));
+    level.setFillColor(sf::Color(35, 160, 245));
     level.setPosition(LevelPosition);
-    level.setCharacterSize(26);
-    item.setFont(Properties::MenuFont());
-    item.setFillColor(sf::Color(200, 255, 255));
-    item.setPosition(ItemPosition);
-    item.setCharacterSize(26);
+    level.setCharacterSize(22);
+    itemLabel.setFont(Properties::MenuFont());
+    itemLabel.setFillColor(sf::Color(200, 255, 255));
+    itemLabel.setPosition(ItemLabelPosition);
+    itemLabel.setCharacterSize(14);
+    itemLabel.setString("Hold item:");
+    itemName.setFont(Properties::MenuFont());
+    itemName.setFillColor(sf::Color(165, 255, 255));
+    itemName.setPosition(ItemPosition);
+    itemName.setCharacterSize(16);
+    thumbnail.setPosition(ThumbnailPosition);
 
     TextItem::Ptr depositItem =
         TextItem::create("Deposit", Properties::MenuFont(), sf::Color::Black, 34);
@@ -150,6 +158,7 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     }
     else {
         enterState(MenuState::ChooseAction);
+        finishBoxChange();
     }
 
     finishBoxChange();
@@ -197,7 +206,8 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
     if (hovered != nullptr) {
         engine.window().draw(nickname);
         engine.window().draw(level);
-        engine.window().draw(item);
+        engine.window().draw(itemLabel);
+        engine.window().draw(itemName);
     }
     actionMenu.render(engine.window());
 
@@ -254,9 +264,7 @@ void StorageSystem::close() { systems.engine().popState(); }
 
 void StorageSystem::onCursor(const sf::Vector2i& pos) {
     if (state == MenuState::PlacingPeoplemon) return;
-
-    core::pplmn::StoredPeoplemon* ppl = systems.player().state().storage.get(currentBox, pos);
-    if (ppl) { onHover(ppl); }
+    onHover(systems.player().state().storage.get(currentBox, pos));
 }
 
 void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
@@ -275,14 +283,15 @@ void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
 
 void StorageSystem::updatePeoplemonInfo(const core::pplmn::OwnedPeoplemon& ppl) {
     nickname.setString(ppl.name());
+    nickname.setOrigin(nickname.getGlobalBounds().width * 0.5f, 0.f);
     level.setString("Level " + std::to_string(ppl.currentLevel()));
-    item.setString("Hold item: " + (ppl.holdItem() == core::item::Id::None ?
-                                        "None" :
-                                        core::item::Item::getName(ppl.holdItem())));
-    thumbnail.setTexture(*thumbTxtr, true);
+    itemName.setString(ppl.holdItem() == core::item::Id::None ?
+                           "None" :
+                           core::item::Item::getName(ppl.holdItem()));
     thumbTxtr = bl::engine::Resources::textures()
                     .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
                     .data;
+    thumbnail.setTexture(*thumbTxtr, true);
     thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
                        ThumbnailSize.y / static_cast<float>(thumbTxtr->getSize().y));
 }
@@ -309,15 +318,17 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
 void StorageSystem::boxLeft() {
     if (currentBox == 0) return;
     --currentBox;
-    slideVel = -SlideVel;
+    slideVel = SlideVel;
+    cursor.setX(core::player::StorageSystem::BoxWidth - 1);
     finishBoxChange();
     enterState(MenuState::BoxSliding);
 }
 
 void StorageSystem::boxRight() {
-    if (currentBox == 0) return;
+    if (currentBox == core::player::StorageSystem::BoxCount - 1) return;
     ++currentBox;
-    slideVel = SlideVel;
+    slideVel = -SlideVel;
+    cursor.setX(0);
     finishBoxChange();
     enterState(MenuState::BoxSliding);
 }
@@ -377,9 +388,7 @@ void StorageSystem::onCloseContextMenu() {
 }
 
 void StorageSystem::process(core::component::Command cmd) {
-    // TODO - this is getting called 8x per input?
     bl::menu::Menu* toSend = nullptr;
-
     if (cmd == core::component::Command::Back) {
         switch (state) {
         case MenuState::ChooseAction:
@@ -402,7 +411,6 @@ void StorageSystem::process(core::component::Command cmd) {
         return;
     }
 
-    BL_LOG_INFO << "state: " << state;
     switch (state) {
     case MenuState::ChooseAction:
         toSend = &actionMenu;
@@ -436,7 +444,6 @@ void StorageSystem::process(core::component::Command cmd) {
                 onCursor(cursor.getPosition());
                 bl::audio::AudioSystem::playOrRestartSound(cursorMoveSound);
                 enterState(MenuState::CursorMoving);
-                BL_LOG_INFO << "cursor move";
             }
             else {
                 bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveFailSound());
