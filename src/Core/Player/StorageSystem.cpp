@@ -37,6 +37,18 @@ void StorageSystem::remove(unsigned int b, const sf::Vector2i& pos) {
     }
 }
 
+pplmn::StoredPeoplemon* StorageSystem::move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
+                                            const sf::Vector2i& newPos) {
+    boxes[newBox].emplace_back(ppl.peoplemon, newBox, newPos);
+    for (auto it = boxes[ppl.boxNumber].begin(); it != boxes[ppl.boxNumber].end(); ++it) {
+        if (&(*it) == &ppl) {
+            boxes[ppl.boxNumber].erase(it);
+            break;
+        }
+    }
+    return &boxes[newBox].back();
+}
+
 bool StorageSystem::spaceFree(int box, int x, int y) const {
     if (box < 0 || static_cast<unsigned int>(box) >= boxes.size()) return false;
 

@@ -134,6 +134,7 @@ private:
     bl::menu::Menu contextMenu;
 
     int depositedPeoplemon;
+    sf::Vector2i ogMovePos;
 
     StorageSystem(core::system::Systems& systems);
 

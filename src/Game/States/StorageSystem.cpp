@@ -16,7 +16,7 @@ const sf::Vector2f BoxTitlePosition(365.f, 70.f);
 const sf::Vector2f BoxTitleSize(701.f - BoxTitlePosition.x, 130.f - BoxTitlePosition.y);
 const sf::Vector2f BoxPosition(293.f, 158.f);
 const sf::Vector2f BoxSize(784.f - BoxPosition.x, 581.f - BoxPosition.y);
-const sf::Vector2f ThumbnailPosition(68.f, 248.f);
+const sf::Vector2f ThumbnailPosition(68.f, 284.f);
 const sf::Vector2f ThumbnailSize(218.f - ThumbnailPosition.x, 434.f - ThumbnailPosition.y);
 const sf::Vector2f NamePosition(ThumbnailPosition.x + ThumbnailSize.x * 0.5f,
                                 ThumbnailPosition.y + ThumbnailSize.y + 4.f);
@@ -194,7 +194,7 @@ void StorageSystem::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void StorageSystem::render(bl::engine::Engine& engine, float) {
+void StorageSystem::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();
 
     engine.window().draw(background);
@@ -230,6 +230,7 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
         case MenuState::CursorMoving:
         case MenuState::WaitingContextMessage:
         case MenuState::WaitingReleaseConfirm:
+        case MenuState::MovingPeoplemon:
             cursor.render(engine.window());
             break;
         default:
@@ -237,17 +238,20 @@ void StorageSystem::render(bl::engine::Engine& engine, float) {
         }
     }
 
+    engine.window().setView(origView);
+
     switch (state) {
-    case MenuState::BrowseMenuOpen:
     case MenuState::WaitingContextMessage:
     case MenuState::WaitingReleaseConfirm:
+        systems.hud().render(engine.window(), lag);
+        [[fallthrough]];
+    case MenuState::BrowseMenuOpen:
         contextMenu.render(engine.window());
         break;
 
     default:
         break;
     }
-    engine.window().setView(origView);
 
     engine.window().display();
 }
@@ -263,7 +267,7 @@ void StorageSystem::startBrowse() { enterState(MenuState::BrowsingBox); }
 void StorageSystem::close() { systems.engine().popState(); }
 
 void StorageSystem::onCursor(const sf::Vector2i& pos) {
-    if (state == MenuState::PlacingPeoplemon) return;
+    if (state == MenuState::PlacingPeoplemon || state == MenuState::MovingPeoplemon) return;
     onHover(systems.player().state().storage.get(currentBox, pos));
 }
 
@@ -273,7 +277,7 @@ void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
     else {
         thumbTxtr = bl::engine::Resources::textures()
                         .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                           "StorageMenu/question.png"))
+                                                           "StorageSystem/question.png"))
                         .data;
         thumbnail.setTexture(*thumbTxtr, true);
         thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
@@ -309,6 +313,14 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
         break;
     case MenuState::BrowsingBox:
         if (hovered != nullptr) { enterState(MenuState::BrowseMenuOpen); }
+        break;
+    case MenuState::MovingPeoplemon:
+        if (hovered) {
+            hovered = systems.player().state().storage.move(*hovered, currentBox, pos);
+            activeGrid.update(systems.player().state().storage.getBox(currentBox));
+        }
+        cursor.setHolding(core::pplmn::Id::Unknown);
+        enterState(MenuState::BrowsingBox);
         break;
     default:
         break;
@@ -356,10 +368,17 @@ void StorageSystem::onWithdraw() {
         showContextMessage(hovered->peoplemon.name() + " was added to your party!");
         systems.player().state().peoplemon.emplace_back(hovered->peoplemon);
         systems.player().state().storage.remove(currentBox, selectPos);
+        activeGrid.update(systems.player().state().storage.getBox(currentBox));
     }
 }
 
-void StorageSystem::onStartMove() { enterState(MenuState::MovingPeoplemon); }
+void StorageSystem::onStartMove() {
+    ogMovePos         = cursor.getPosition();
+    hovered->position = {-5, -5};
+    cursor.setHolding(hovered->peoplemon.id());
+    activeGrid.update(systems.player().state().storage.getBox(currentBox));
+    enterState(MenuState::MovingPeoplemon);
+}
 
 void StorageSystem::onTakeItem() {
     if (hovered->peoplemon.holdItem() != core::item::Id::None) {
@@ -395,15 +414,22 @@ void StorageSystem::process(core::component::Command cmd) {
             close();
             break;
         case MenuState::PlacingPeoplemon:
-        case MenuState::MovingPeoplemon:
             cursor.setHolding(core::pplmn::Id::Unknown);
             enterState(MenuState::ChooseAction);
             break;
         case MenuState::BrowsingBox:
             enterState(MenuState::ChooseAction);
             break;
+        case MenuState::MovingPeoplemon:
+            if (hovered) {
+                hovered->position = ogMovePos;
+                activeGrid.update(systems.player().state().storage.getBox(currentBox));
+            }
+            cursor.setHolding(core::pplmn::Id::Unknown);
+            [[fallthrough]];
         case MenuState::BrowseMenuOpen:
             enterState(MenuState::BrowsingBox);
+            onCursor(cursor.getPosition());
             break;
         default:
             break;
@@ -471,12 +497,14 @@ void StorageSystem::enterState(MenuState ns) {
 
     switch (ns) {
     case MenuState::BrowseMenuOpen:
-        // TODO - position menu
+        contextMenu.setPosition(BoxPosition +
+                                sf::Vector2f(cursor.getPosition() + sf::Vector2i{1, 1}) *
+                                    menu::StorageCursor::TileSize() +
+                                sf::Vector2f(5.f, 5.f));
         break;
     default:
-        break; // anything else?
+        break;
     }
-    onCursor(cursor.getPosition());
     if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
 }
 

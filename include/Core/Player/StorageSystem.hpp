@@ -58,6 +58,17 @@ public:
     void remove(unsigned int box, const sf::Vector2i& position);
 
     /**
+     * @brief Moves the given stored peoplemon from its current location to the new location
+     *
+     * @param ppl The peoplemon to move
+     * @param newBox The box to place it in
+     * @param newPos The new position to give it
+     * @return pplmn::StoredPeoplemon* The new address of the stored peoplemon
+     */
+    pplmn::StoredPeoplemon* move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
+                                 const sf::Vector2i& newPos);
+
+    /**
      * @brief Returns whether or not the given storage space is free
      *
      * @param box The box number to check

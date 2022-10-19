@@ -14,7 +14,7 @@ float StorageCursor::size = 40.f;
 namespace
 {
 constexpr float MoveTime   = 0.3f;
-constexpr float RotateRate = 450.f;
+constexpr float RotateRate = 360.f;
 
 sf::Vector2f moveVector(core::component::Command dir) {
     switch (dir) {
@@ -114,9 +114,12 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
         peoplemon.setTexture(*pplTxtr, true);
         const sf::Vector2f pplSize(pplTxtr->getSize());
         peoplemon.setOrigin(pplSize * 0.5f);
-        peoplemon.setPosition(peoplemon.getOrigin());
+        peoplemon.setPosition(size * 0.5f, size * 0.5f);
         peoplemon.setRotation(0.f);
         peoplemon.setScale(size / pplSize.x, size / pplSize.y);
+    }
+    else {
+        pplTxtr.reset();
     }
 }
 
