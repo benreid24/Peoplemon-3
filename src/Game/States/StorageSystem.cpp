@@ -114,7 +114,7 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     itemItem->getSignal(Item::Activated)
         .willAlwaysCall(std::bind(&StorageSystem::onTakeItem, this));
     TextItem::Ptr releaseItem = TextItem::create("Release", Properties::MenuFont());
-    withdrawItem->getSignal(Item::Activated)
+    releaseItem->getSignal(Item::Activated)
         .willAlwaysCall(std::bind(&StorageSystem::onRelease, this));
     TextItem::Ptr backItem = TextItem::create("Back", Properties::MenuFont());
     backItem->getSignal(Item::Activated)
