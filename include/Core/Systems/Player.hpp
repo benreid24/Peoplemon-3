@@ -5,6 +5,7 @@
 #include <BLIB/Events.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
+#include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
@@ -24,7 +25,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player : public bl::event::Listener<event::GameSaveInitializing> {
+class Player : public bl::event::Listener<event::GameSaveInitializing, event::EntityMoveFinished> {
 public:
     /**
      * @brief Construct a new Player system
@@ -123,6 +124,7 @@ private:
     player::State data;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
+    virtual void observe(const event::EntityMoveFinished& ent) override;
 
     friend class bl::serial::SerializableObject<Player>;
 };

@@ -85,6 +85,7 @@ private:
         Item(core::item::Id item, int price);
     };
     enum struct MenuState {
+        ImpulseBuyMessage,
         GetAction,
         BuyMenu,
         BuyQty,

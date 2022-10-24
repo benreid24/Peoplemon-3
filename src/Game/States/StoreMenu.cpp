@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 
@@ -170,6 +171,30 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
     setMoneyText();
     renderMenu = &buyMenu;
     systems.player().inputSystem().addListener(*this);
+
+    // impulse buy ability
+    for (const auto& ppl : systems.player().state().peoplemon) {
+        if (ppl.ability() == core::pplmn::SpecialAbility::ImpulseBuy) {
+            if (bl::util::Random::get<int>(0, 100) <= 5) {
+                core::item::Id cheapest = core::item::Id::None;
+                int cheapestPrice       = std::numeric_limits<int>::max();
+                for (const auto item : items) {
+                    if (item.price < cheapestPrice) {
+                        cheapestPrice = item.price;
+                        cheapest      = item.item;
+                    }
+                }
+
+                if (cheapestPrice <= systems.player().state().monei) {
+                    systems.player().state().monei -= cheapestPrice;
+                    systems.player().state().bag.addItem(cheapest);
+                    enterState(MenuState::ImpulseBuyMessage);
+                    setBoxText(ppl.name() + " made an Impulse Buy and purchased a " +
+                               core::item::Item::getName(cheapest) + "!");
+                }
+            }
+        }
+    }
 }
 
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
@@ -189,6 +214,9 @@ void StoreMenu::update(bl::engine::Engine&, float dt) {
         if (dingTime >= DingTime) {
             enterState(menuState == MenuState::SellDing ? MenuState::SellMenu : MenuState::BuyMenu);
         }
+        break;
+    case MenuState::ImpulseBuyMessage:
+        if (dingTime >= DingTime * 2.3f) { enterState(MenuState::GetAction); }
         break;
     default:
         break;
@@ -259,6 +287,7 @@ void StoreMenu::enterState(MenuState newState) {
 
     case MenuState::BuyDing:
     case MenuState::SellDing:
+    case MenuState::ImpulseBuyMessage:
         bl::audio::AudioSystem::playOrRestartSound(dingSound);
         dingTime = 0.f;
         setMoneyText();
