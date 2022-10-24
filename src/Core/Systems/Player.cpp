@@ -163,8 +163,8 @@ void Player::observe(const event::EntityMoveFinished& ent) {
         for (auto& ppl : data.peoplemon) {
             if (ppl.holdItem() != item::Id::None) continue;
 
-            if (ppl.ability() == pplmn::SpecialAbility::MrExtra || true) {
-                if (bl::util::Random::get<int>(0, 1000) < 5 || true) {
+            if (ppl.ability() == pplmn::SpecialAbility::MrExtra) {
+                if (bl::util::Random::get<int>(0, 1000) < 5) {
                     item::Id pickedUp;
                     do {
                         pickedUp = item::Item::validIds()[bl::util::Random::get<unsigned int>(
