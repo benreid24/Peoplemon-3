@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::script::ConversationContext Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,167 +63,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01016.html">core</a></li><li class="navelem"><a class="el" href="a01039.html">script</a></li><li class="navelem"><a class="el" href="a01834.html">ConversationContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01029.html">core</a></li><li class="navelem"><a class="el" href="a01049.html">player</a></li><li class="navelem"><a class="el" href="a01837.html">State</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="a01831.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::script::ConversationContext Class Reference<div class="ingroups"><a class="el" href="a00998.html">Core</a> &raquo; <a class="el" href="a01009.html">Scripts</a></div></div>  </div>
+<div class="title">core::player::State Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins.  
- <a href="a01834.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00284_source.html">ConversationContext.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::script::ConversationContext:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01834.png" usemap="#core::script::ConversationContext_map" alt=""/>
-  <map id="core::script::ConversationContext_map" name="core::script::ConversationContext_map">
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a6fb9f156a9650c9c7536fef50a92d982"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01834.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> = std::function&lt; bool(bl::entity::Entity)&gt;</td></tr>
-<tr class="memdesc:a6fb9f156a9650c9c7536fef50a92d982"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special callback type for reporting conversation state.  <a href="#a6fb9f156a9650c9c7536fef50a92d982">More...</a><br /></td></tr>
-<tr class="separator:a6fb9f156a9650c9c7536fef50a92d982"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01834.html#a5872edc2095ce1eda9d1d6b61d81ec19">ConversationContext</a> (<a class="el" href="a01942.html">system::Systems</a> &amp;systems, bl::entity::Entity entity, const <a class="el" href="a01834.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> &amp;cb)</td></tr>
-<tr class="memdesc:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01834.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>.  <a href="#a5872edc2095ce1eda9d1d6b61d81ec19">More...</a><br /></td></tr>
-<tr class="separator:a5872edc2095ce1eda9d1d6b61d81ec19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:aba09b02aa08c120e30e5fb011bd90801"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01834.html#aba09b02aa08c120e30e5fb011bd90801">addCustomSymbols</a> (bl::script::SymbolTable &amp;table) const override</td></tr>
-<tr class="separator:aba09b02aa08c120e30e5fb011bd90801"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00023">23</a> of file <a class="el" href="a00284_source.html">ConversationContext.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6fb9f156a9650c9c7536fef50a92d982"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fb9f156a9650c9c7536fef50a92d982">&#9670;&nbsp;</a></span>StatusCb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01834.html#a6fb9f156a9650c9c7536fef50a92d982">core::script::ConversationContext::StatusCb</a> =  std::function&lt;bool(bl::entity::Entity)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Special callback type for reporting conversation state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity to check status for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>bool True if conversation completed, false if ongoing </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00032">32</a> of file <a class="el" href="a00284_source.html">ConversationContext.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a5872edc2095ce1eda9d1d6b61d81ec19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5872edc2095ce1eda9d1d6b61d81ec19">&#9670;&nbsp;</a></span>ConversationContext()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::script::ConversationContext::ConversationContext </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01942.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bl::entity::Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01834.html#a6fb9f156a9650c9c7536fef50a92d982">StatusCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>cb</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new <a class="el" href="a01834.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
-    <tr><td class="paramname">entity</td><td>The entity being conversed with </td></tr>
-    <tr><td class="paramname">cb</td><td>Callback that can be used to query the conversation state </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00033">33</a> of file <a class="el" href="a00755_source.html">ConversationContext.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aba09b02aa08c120e30e5fb011bd90801"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba09b02aa08c120e30e5fb011bd90801">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::script::ConversationContext::addCustomSymbols </td>
-          <td>(</td>
-          <td class="paramtype">bl::script::SymbolTable &amp;&#160;</td>
-          <td class="paramname"><em>table</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00039">39</a> of file <a class="el" href="a00755_source.html">ConversationContext.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Scripts/<a class="el" href="a00284_source.html">ConversationContext.hpp</a></li>
-<li>src/Core/Scripts/<a class="el" href="a00755_source.html">ConversationContext.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01837.html">core::player::State</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#af138e05ed91617c02df4bdd321fa1eb3">bag</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#a7302f504bae7459e2a758bfe0da54e57">healPeoplemon</a>()</td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#a0503d98710d9ea14a94e2ff6b95b88a9">monei</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#a512f31e65aad71aa9e01f85b778dcfec">name</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#a4a4ba948bb65db83ef5b9037f08aa0c0">peoplemon</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#a9f078f88435987bd2d203cdb95a49081">repelSteps</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#aee283048fc557abdc85966f0cebf4b9a">savePos</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#adf899c890eacaf37a0970aae31726a08">sex</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#a6b9232ce0c0b30707798b92ee5f04f13">State</a>()</td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#a00cc75ccc4fc5c40ce4a73dde580b91a">storage</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01837.html#a8e5931070e6593bcf388861abdc288e1">whiteoutMap</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01837.html#a2dc44807131c9c810a1cf79e30e584e1">whiteoutSpawn</a></td><td class="entry"><a class="el" href="a01837.html">core::player::State</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 2 2022 20:18:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 24 2022 17:22:44 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
