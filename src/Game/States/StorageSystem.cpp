@@ -91,16 +91,15 @@ StorageSystem::StorageSystem(core::system::Systems& s)
         TextItem::create("Deposit", Properties::MenuFont(), sf::Color::Black, 34);
     depositItem->getSignal(Item::Activated)
         .willAlwaysCall(std::bind(&StorageSystem::startDeposit, this));
-    TextItem::Ptr browseItem =
-        TextItem::create("Withdraw", Properties::MenuFont(), sf::Color::Black, 34);
-    browseItem->getSignal(Item::Activated)
+    withdrawActionItem = TextItem::create("Browse", Properties::MenuFont(), sf::Color::Black, 34);
+    withdrawActionItem->getSignal(Item::Activated)
         .willAlwaysCall(std::bind(&StorageSystem::startBrowse, this));
     TextItem::Ptr closeItem =
         TextItem::create("Close", Properties::MenuFont(), sf::Color::Black, 34);
     closeItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&StorageSystem::close, this));
-    actionMenu.setRootItem(depositItem);
-    actionMenu.addItem(browseItem, depositItem.get(), Item::Bottom);
-    actionMenu.addItem(closeItem, browseItem.get(), Item::Bottom);
+    actionMenu.setRootItem(withdrawActionItem);
+    actionMenu.addItem(depositItem, withdrawActionItem.get(), Item::Bottom);
+    actionMenu.addItem(closeItem, depositItem.get(), Item::Bottom);
     actionMenu.setPosition({30.f, 25.f});
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {12.f, 2.f, 2.f, 0.f});
 
@@ -148,9 +147,13 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     hovered = systems.player().state().storage.get(currentBox, cursor.getPosition());
     if (state == MenuState::WaitingDeposit) {
         if (depositedPeoplemon >= 0) {
-            hovered = nullptr;
-            updatePeoplemonInfo(systems.player().state().peoplemon[depositedPeoplemon]);
+            actionMenu.setSelectedItem(withdrawActionItem.get());
+            const auto& ppl = systems.player().state().peoplemon[depositedPeoplemon];
+            hovered         = nullptr;
+            updatePeoplemonInfo(ppl);
+            cursor.setHolding(ppl.id());
             enterState(MenuState::PlacingPeoplemon);
+            showInfo = true;
         }
         else {
             enterState(MenuState::ChooseAction);
@@ -203,7 +206,7 @@ void StorageSystem::render(bl::engine::Engine& engine, float lag) {
     if (currentBox < 13) { engine.window().draw(rightArrow); }
 
     engine.window().draw(thumbnail);
-    if (hovered != nullptr) {
+    if (showInfo) {
         engine.window().draw(nickname);
         engine.window().draw(level);
         engine.window().draw(itemLabel);
@@ -273,8 +276,12 @@ void StorageSystem::onCursor(const sf::Vector2i& pos) {
 
 void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
     hovered = ppl;
-    if (ppl != nullptr) { updatePeoplemonInfo(ppl->peoplemon); }
+    if (ppl != nullptr) {
+        showInfo = true;
+        updatePeoplemonInfo(ppl->peoplemon);
+    }
     else {
+        showInfo  = false;
         thumbTxtr = bl::engine::Resources::textures()
                         .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
                                                            "StorageSystem/question.png"))
@@ -309,7 +316,10 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
             currentBox, pos, systems.player().state().peoplemon[depositedPeoplemon]);
         systems.player().state().peoplemon.erase(systems.player().state().peoplemon.begin() +
                                                  depositedPeoplemon);
+        activeGrid.update(systems.player().state().storage.getBox(currentBox));
+        cursor.setHolding(core::pplmn::Id::Unknown);
         enterState(MenuState::BrowsingBox);
+        onCursor(cursor.getPosition());
         break;
     case MenuState::BrowsingBox:
         if (hovered != nullptr) { enterState(MenuState::BrowseMenuOpen); }
@@ -513,6 +523,7 @@ void StorageSystem::onReleaseConfirm(const std::string& c) {
         showContextMessage(hovered->peoplemon.name() +
                            " was released and will probably end up on the streets.");
         systems.player().state().storage.remove(currentBox, selectPos);
+        activeGrid.update(systems.player().state().storage.getBox(currentBox));
     }
     else {
         enterState(MenuState::BrowseMenuOpen);
@@ -521,6 +532,7 @@ void StorageSystem::onReleaseConfirm(const std::string& c) {
 
 void StorageSystem::onMessageDone() {
     enterState(closeMenuAfterMessage ? MenuState::BrowsingBox : MenuState::BrowseMenuOpen);
+    onCursor(cursor.getPosition());
 }
 
 } // namespace state

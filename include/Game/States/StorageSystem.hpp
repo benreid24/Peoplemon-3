@@ -97,6 +97,7 @@ private:
     MenuState prevState;
     int currentBox;
     core::pplmn::StoredPeoplemon* hovered;
+    bool showInfo;
     sf::Vector2i selectPos;
     bool closeMenuAfterMessage;
 
@@ -131,6 +132,7 @@ private:
     sf::Text itemName;
 
     bl::menu::Menu actionMenu;
+    bl::menu::Item::Ptr withdrawActionItem;
     bl::menu::Menu contextMenu;
 
     int depositedPeoplemon;
