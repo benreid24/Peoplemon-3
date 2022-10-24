@@ -20,7 +20,7 @@ var searchData=
   ['updatelight',['updateLight',['../a01673.html#a22a68d5afbb4a40d25f2c1cc983ac3a0',1,'core::map::LightingSystem']]],
   ['updateqty',['updateQty',['../a02229.html#a26843972bb4e1de592957c1fbcef4429',1,'game::menu::StoreItemRow']]],
   ['updaterangeentities',['updateRangeEntities',['../a01953.html#a964de7e5c758cfec83ed01bc69bf6755',1,'core::system::Position']]],
-  ['useitem',['UseItem',['../a01397.html#a922eedf4fe4080648361bc520b77a2d5a47529dc6a8f4a0b93824f2252e5b033f',1,'core::event::OpenPeoplemonMenu::UseItem()'],['../a01177.html#ae1191e1c0bfd0bf20b53fe5c0e67bb1f',1,'core::battle::BattlerController::useItem()']]],
+  ['useitem',['useItem',['../a01177.html#ae1191e1c0bfd0bf20b53fe5c0e67bb1f',1,'core::battle::BattlerController::useItem()'],['../a01397.html#a922eedf4fe4080648361bc520b77a2d5a47529dc6a8f4a0b93824f2252e5b033f',1,'core::event::OpenPeoplemonMenu::UseItem()']]],
   ['useitembattle',['UseItemBattle',['../a01397.html#a922eedf4fe4080648361bc520b77a2d5a7ffc62f25599fa34ddedd3cc83088990',1,'core::event::OpenPeoplemonMenu']]],
   ['useless',['Useless',['../a01017.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d',1,'core::item']]],
   ['uselocaldata',['useLocalData',['../a01513.html#aa570a3cbbe5c2c7eb4b4344f60af7211',1,'core::file::GameSave']]],

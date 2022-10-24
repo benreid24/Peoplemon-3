@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['ability',['ability',['../a01753.html#a477ee3477ccdc52a15a55a9a0d3a7e10',1,'core::pplmn::OwnedPeoplemon']]],
   ['accuracy',['accuracy',['../a01737.html#a2b453713e3e77b59097418a9e51e98dd',1,'core::pplmn::Move']]],
   ['actionscompleted',['actionsCompleted',['../a01201.html#adcb403fda3b989b2f4a8058a0a5978b5',1,'core::battle::BattleView']]],
   ['actionselected',['actionSelected',['../a01169.html#a1d2caa22cb8bb35c064aef3468a35d2d',1,'core::battle::Battler::actionSelected()'],['../a01177.html#a808605c9858744ae6be2848244c27f3b',1,'core::battle::BattlerController::actionSelected()']]],

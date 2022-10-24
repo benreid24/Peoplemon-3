@@ -1,6 +1,7 @@
 var searchData=
 [
   ['abilities',['abilities',['../a01597.html#a60dffe68d84682349840ec527884a10a',1,'core::file::PeoplemonDB::abilities()'],['../a01601.html#a078ca09ccf6e3e67a5d690b70adb69de',1,'bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;::abilities()']]],
+  ['ability',['ability',['../a01753.html#a477ee3477ccdc52a15a55a9a0d3a7e10',1,'core::pplmn::OwnedPeoplemon']]],
   ['abiraja',['AbirajA',['../a01019.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a10fe09a8ff9d4cc7543c1018f0b19d42',1,'core::pplmn']]],
   ['abirajb',['AbirajB',['../a01019.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a088b52435b5eb99da187d53355c943f3',1,'core::pplmn']]],
   ['absent',['Absent',['../a01019.html#ggab39f21e54ca605725b382bd7848530b3ae384f071109188762a0f4349e8a38a88',1,'core::pplmn']]],

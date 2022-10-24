@@ -155,6 +155,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a23f9da78089b2775e2f309b60496abaa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01017.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a23f9da78089b2775e2f309b60496abaa">holdItem</a> () const</td></tr>
 <tr class="memdesc:a23f9da78089b2775e2f309b60496abaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Access the current hold item of this peoplemon.  <a href="#a23f9da78089b2775e2f309b60496abaa">More...</a><br /></td></tr>
 <tr class="separator:a23f9da78089b2775e2f309b60496abaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a477ee3477ccdc52a15a55a9a0d3a7e10"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01019.html#gae0a3870bdfdee167eb5686dda0f03885">SpecialAbility</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#a477ee3477ccdc52a15a55a9a0d3a7e10">ability</a> () const</td></tr>
+<tr class="memdesc:a477ee3477ccdc52a15a55a9a0d3a7e10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the special ability of this peoplemon.  <a href="#a477ee3477ccdc52a15a55a9a0d3a7e10">More...</a><br /></td></tr>
+<tr class="separator:a477ee3477ccdc52a15a55a9a0d3a7e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6aa013d73d67cffbc25c8f353239028"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01741.html">OwnedMove</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01753.html#ac6aa013d73d67cffbc25c8f353239028">knownMoves</a> () const</td></tr>
 <tr class="memdesc:ac6aa013d73d67cffbc25c8f353239028"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the moves known by this <a class="el" href="a01761.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>.  <a href="#ac6aa013d73d67cffbc25c8f353239028">More...</a><br /></td></tr>
 <tr class="separator:ac6aa013d73d67cffbc25c8f353239028"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -203,7 +206,7 @@ Friends</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon. Only contains persistent data specific to the individual peoplemon. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00043">43</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00044">44</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a666208b89ca5e1117e4e0a102622e21a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a666208b89ca5e1117e4e0a102622e21a">&#9670;&nbsp;</a></span>OwnedPeoplemon() <span class="overload">[1/2]</span></h2>
@@ -266,6 +269,28 @@ Friends</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a477ee3477ccdc52a15a55a9a0d3a7e10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a477ee3477ccdc52a15a55a9a0d3a7e10">&#9670;&nbsp;</a></span>ability()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01019.html#gae0a3870bdfdee167eb5686dda0f03885">SpecialAbility</a> core::pplmn::OwnedPeoplemon::ability </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the special ability of this peoplemon. </p>
+<dl class="section return"><dt>Returns</dt><dd>SpecialAbility The special ability of this peoplemon </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00187">187</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a4d30e087d3d02b84c65db62a1a1f0040"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d30e087d3d02b84c65db62a1a1f0040">&#9670;&nbsp;</a></span>applyDamage()</h2>
 
@@ -368,7 +393,7 @@ Friends</h2></td></tr>
 
 <p>Returns whether or not this peoplemon can be cloned. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00265">265</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00267">267</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -586,7 +611,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>OwnedMove* The move itself, or nullptr if not found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00236">236</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00238">238</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -615,7 +640,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if learned, false if all moves full </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00200">200</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00202">202</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -664,7 +689,7 @@ Friends</h2></td></tr>
 
 <p>Returns whether or not this peoplemon has an EXP share. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00215">215</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00217">217</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -685,7 +710,7 @@ Friends</h2></td></tr>
 
 <p>Restores HP and removes ailments. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00210">210</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00212">212</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -770,7 +795,7 @@ Friends</h2></td></tr>
 
 <p>Returns the moves known by this <a class="el" href="a01761.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00194">194</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00196">196</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -791,7 +816,7 @@ Friends</h2></td></tr>
 
 <p>Returns the moves known by this <a class="el" href="a01761.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a>. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00196">196</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00198">198</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -820,7 +845,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if known, false if unknown </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00187">187</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00189">189</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -859,7 +884,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00198">198</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00200">200</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -881,7 +906,7 @@ Friends</h2></td></tr>
 <p>Levels up the peoplemon. </p>
 <dl class="section return"><dt>Returns</dt><dd>MoveId The move to learn, if any </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00227">227</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00229">229</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -1027,7 +1052,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the ball should shake, false if the peoplemon should break out </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00243">243</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00245">245</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -1077,7 +1102,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>unsigned int The XP to award </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00220">220</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00716_source.html#l00222">222</a> of file <a class="el" href="a00716_source.html">OwnedPeoplemon.cpp</a>.</p>
 
 </div>
 </div>
@@ -1102,7 +1127,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00296">296</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00304">304</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
@@ -1126,7 +1151,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00297">297</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00305">305</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
@@ -1150,7 +1175,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00298">298</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00306">306</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
@@ -1174,7 +1199,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00295">295</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00227_source.html#l00303">303</a> of file <a class="el" href="a00227_source.html">OwnedPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
@@ -1186,7 +1211,7 @@ Friends</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 24 2022 17:22:44 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Oct 24 2022 22:56:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

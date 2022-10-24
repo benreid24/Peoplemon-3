@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['w',['w',['../a01653.html#a3b3e2079d0298a73d2eae164ad6e0031',1,'bl::serial::SerializableObject&lt; core::map::Layer&lt; T &gt; &gt;::w()'],['../a01477.html#a7a80d84cd4502c3917d86529f7e7aba6',1,'bl::serial::SerializableObject&lt; core::file::Behavior::Wander &gt;::W()']]],
+  ['w',['W',['../a01477.html#a7a80d84cd4502c3917d86529f7e7aba6',1,'bl::serial::SerializableObject&lt; core::file::Behavior::Wander &gt;::W()'],['../a01653.html#a3b3e2079d0298a73d2eae164ad6e0031',1,'bl::serial::SerializableObject&lt; core::map::Layer&lt; T &gt; &gt;::w()']]],
   ['waitforview',['WaitForView',['../a01213.html#a3c71671823951926934dc2759f0b7638a203390d0c521dd5c7d14866d8351771c',1,'core::battle::Command']]],
   ['waitingchoices',['WaitingChoices',['../a01197.html#ae57ad5ba635dfeb78ac751c91a1070e8ace93dd433b14f0f6c1b349c2b2b8540e',1,'core::battle::BattleState']]],
   ['waitingfaintswitch',['WaitingFaintSwitch',['../a01197.html#ae57ad5ba635dfeb78ac751c91a1070e8a7eb7bb84666165680dc8d702ed5b4699',1,'core::battle::BattleState']]],
@@ -32,7 +32,7 @@ var searchData=
   ['weathersystem',['weatherSystem',['../a01681.html#ad15ddd5ceb1065b4c3b325d92b095c6e',1,'core::map::Map']]],
   ['wetwilly',['WetWilly',['../a01019.html#ggab39f21e54ca605725b382bd7848530b3a8b3b133e0e41342e0384df489f3a2993',1,'core::pplmn']]],
   ['whilein',['WhileIn',['../a01633.html#a14f3d414a99e46aa6f6ade27229d374dac3ca701c1d3855d22fd7bcc423a4890d',1,'core::map::Event']]],
-  ['whiteout',['whiteout',['../a01949.html#a7a59c971c5fb74f393f88a90b0499a04',1,'core::system::Player::whiteout()'],['../a01977.html#ae90a636f0459843a0daffec144fc3014',1,'core::system::World::whiteout()'],['../a01197.html#ae57ad5ba635dfeb78ac751c91a1070e8aa66aa9eaa957f5d4b1972902f60ad621',1,'core::battle::BattleState::Whiteout()']]],
+  ['whiteout',['Whiteout',['../a01197.html#ae57ad5ba635dfeb78ac751c91a1070e8aa66aa9eaa957f5d4b1972902f60ad621',1,'core::battle::BattleState::Whiteout()'],['../a01949.html#a7a59c971c5fb74f393f88a90b0499a04',1,'core::system::Player::whiteout()'],['../a01977.html#ae90a636f0459843a0daffec144fc3014',1,'core::system::World::whiteout()']]],
   ['whiteouta',['WhiteoutA',['../a01221.html#a106f02dc7e97fe58faa106402de4e9c8aee943fe6913832c089ad278e39bab983',1,'core::battle::cmd::Message']]],
   ['whiteoutb',['WhiteoutB',['../a01221.html#a106f02dc7e97fe58faa106402de4e9c8a5d9395412121b48dbb62a1cab9796932',1,'core::battle::cmd::Message']]],
   ['whiteoutmap',['whiteoutMap',['../a01521.html#a2069ccc4812b9931f1b5ce9d41d74361',1,'core::file::GameSave::PlayerDataPointers::whiteoutMap()'],['../a01553.html#a61d922ad6dd3f4b90dd64633df3c63ac',1,'bl::serial::SerializableObject&lt; core::file::GameSave::PlayerDataPointers &gt;::whiteoutMap()'],['../a01837.html#a8e5931070e6593bcf388861abdc288e1',1,'core::player::State::whiteoutMap()']]],
