@@ -21,8 +21,8 @@ namespace player
  */
 class StorageSystem {
 public:
-    static constexpr int BoxCount   = 14;
-    static constexpr int BoxWidth   = 10;
+    static constexpr int BoxCount  = 14;
+    static constexpr int BoxWidth  = 12;
     static constexpr int BoxHeight = 10;
 
     /**
@@ -40,6 +40,35 @@ public:
     bool add(const pplmn::OwnedPeoplemon& ppl);
 
     /**
+     * @brief Adds the peoplemon to storage at the given position. Does not check if the position is
+     *        available, the caller must ensure that it is free.
+     *
+     * @param box The box to add to [0, 13]
+     * @param pos The position in the box
+     * @param ppl The peoplemon to add
+     */
+    void add(unsigned int box, const sf::Vector2i& pos, const pplmn::OwnedPeoplemon& ppl);
+
+    /**
+     * @brief Clears the peoplemon from the given position, if one is there
+     *
+     * @param box The box to remove from
+     * @param position The position to remove from
+     */
+    void remove(unsigned int box, const sf::Vector2i& position);
+
+    /**
+     * @brief Moves the given stored peoplemon from its current location to the new location
+     *
+     * @param ppl The peoplemon to move
+     * @param newBox The box to place it in
+     * @param newPos The new position to give it
+     * @return pplmn::StoredPeoplemon* The new address of the stored peoplemon
+     */
+    pplmn::StoredPeoplemon* move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
+                                 const sf::Vector2i& newPos);
+
+    /**
      * @brief Returns whether or not the given storage space is free
      *
      * @param box The box number to check
@@ -49,7 +78,22 @@ public:
      */
     bool spaceFree(int box, int x, int y) const;
 
-    // TODO - methods required for UI and management
+    /**
+     * @brief Returns the peoplemon at the given position in the given box
+     *
+     * @param box The box to search in
+     * @param pos The position to check
+     * @return pplmn::StoredPeoplemon* The peoplemon or nullptr if the spot is empty
+     */
+    pplmn::StoredPeoplemon* get(unsigned int box, const sf::Vector2i& pos);
+
+    /**
+     * @brief Returns the given box. Performs no bounds check
+     *
+     * @param box The box to get
+     * @return const std::vector<pplmn::StoredPeoplemon>& The box at the given index
+     */
+    const std::vector<pplmn::StoredPeoplemon>& getBox(unsigned int box) const;
 
 private:
     std::array<std::vector<pplmn::StoredPeoplemon>, BoxCount> boxes;

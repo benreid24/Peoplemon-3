@@ -10,7 +10,7 @@ namespace core
 namespace event
 {
 /**
- * @brief Fired after an entity completed moving from one position to another
+ * @brief Fired after an entity begins moving from one position to another
  *
  * @ingroup Events
  *

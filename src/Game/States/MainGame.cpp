@@ -6,6 +6,7 @@
 #include <Game/States/BattleState.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
+#include <Game/States/StorageSystem.hpp>
 #include <Game/States/StoreMenu.hpp>
 #include <iostream>
 
@@ -157,6 +158,10 @@ void MainGame::observe(const core::event::BattleStarted& event) {
 
 void MainGame::observe(const core::event::StoreOpened& store) {
     systems.engine().pushState(StoreMenu::create(systems, store));
+}
+
+void MainGame::observe(const core::event::StorageSystemOpened&) {
+    systems.engine().pushState(StorageSystem::create(systems));
 }
 
 } // namespace state

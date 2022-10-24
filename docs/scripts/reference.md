@@ -38,7 +38,8 @@ The following functions are available in each type of Peoplemon script, in addit
 |----------------|----------------------------------------------|--------|-------------------------------------------------------------------------------------|
 | displayMessage | `message`: String, `block`: Bool             | N/A    | Displays the message in the hud. Optionally blocks until message is complete        |
 | promptPlayer   | `prompt`: String, `choices`: Array of String | String | Prompts the user with a set of choices and returns the chosen choice. Always blocks |
-| rollCredits    | N/A                                          | N/A    | Plays the credits                                                                   |
+| rollCredits    | N/A                                          | N/A    | Plays the credits                     |
+| openStorage    | `block`: Bool                                          | N/A    | Opens the peoplemon storage menu. Optionally blocks |
 
 ### Stores
 

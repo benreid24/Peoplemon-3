@@ -65,6 +65,14 @@ public:
      */
     void setInputDelay(float delay);
 
+    /**
+     * @brief Helper method to send a player input to a menu if it is valid
+     *
+     * @param menu The menu to send to
+     * @param input The input to send
+     */
+    static void sendToMenu(bl::menu::Menu& menu, component::Command input);
+
 private:
     bl::menu::Menu* menu;
     float debounce;
