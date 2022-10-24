@@ -184,6 +184,8 @@ Ailment OwnedPeoplemon::currentAilment() const { return ailment; }
 
 item::Id OwnedPeoplemon::holdItem() const { return item; }
 
+SpecialAbility OwnedPeoplemon::ability() const { return Peoplemon::specialAbility(_id); }
+
 bool OwnedPeoplemon::knowsMove(MoveId m) const {
     for (unsigned int i = 0; i < 4; ++i) {
         if (moves[i].id == m) return true;

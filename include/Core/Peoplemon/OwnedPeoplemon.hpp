@@ -6,6 +6,7 @@
 #include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/OwnedMove.hpp>
+#include <Core/Peoplemon/SpecialAbility.hpp>
 #include <Core/Peoplemon/Stats.hpp>
 #include <Core/Peoplemon/Type.hpp>
 #include <string>
@@ -199,6 +200,13 @@ public:
      *
      */
     item::Id holdItem() const;
+
+    /**
+     * @brief Returns the special ability of this peoplemon
+     *
+     * @return SpecialAbility The special ability of this peoplemon
+     */
+    SpecialAbility ability() const;
 
     /**
      * @brief Returns the moves known by this Peoplemon

@@ -125,7 +125,11 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     contextMenu.addItem(backItem, releaseItem.get(), Item::Bottom);
     contextMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {12.f, 2.f, 2.f, 0.f});
 
-    // TODO - load sounds
+    pageSlideFailSound = core::Properties::MenuMoveFailSound();
+    pageSlideSound     = bl::audio::AudioSystem::getOrLoadSound(
+        joinPath(Properties::SoundPath(), "Menu/storageBoxChange.mp3"));
+    cursorMoveSound = bl::audio::AudioSystem::getOrLoadSound(
+        joinPath(Properties::SoundPath(), "Menu/storageCursorMove.mp3"));
 }
 
 const char* StorageSystem::name() const { return "StorageSystem"; }
