@@ -216,7 +216,7 @@ void StoreMenu::update(bl::engine::Engine&, float dt) {
         }
         break;
     case MenuState::ImpulseBuyMessage:
-        if (dingTime >= DingTime > 2.3f) { enterState(MenuState::GetAction); }
+        if (dingTime >= DingTime * 2.3f) { enterState(MenuState::GetAction); }
         break;
     default:
         break;

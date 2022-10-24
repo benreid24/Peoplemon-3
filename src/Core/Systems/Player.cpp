@@ -1,12 +1,13 @@
 #include <Core/Systems/Player.hpp>
 
 #include <BLIB/Logging.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <Core/Components/Collision.hpp>
 #include <Core/Components/PlayerControlled.hpp>
+#include <Core/Files/GameSave.hpp>
+#include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
-
-#include <Core/Files/GameSave.hpp>
 
 namespace core
 {
@@ -149,6 +150,35 @@ void Player::observe(const event::GameSaveInitializing& save) {
     save.gameSave.player.whiteoutSpawn = &data.whiteoutSpawn;
     save.gameSave.player.repelSteps    = &data.repelSteps;
     save.gameSave.player.storage       = &data.storage.boxes;
+}
+
+void Player::observe(const event::EntityMoveFinished& ent) {
+    if (ent.entity == playerId) {
+        if (data.repelSteps > 0) {
+            --data.repelSteps;
+            if (data.repelSteps == 0) { owner.hud().displayMessage("Repel wore off"); }
+        }
+
+        // MrExtra ability
+        for (auto& ppl : data.peoplemon) {
+            if (ppl.holdItem() != item::Id::None) continue;
+
+            if (ppl.ability() == pplmn::SpecialAbility::MrExtra || true) {
+                if (bl::util::Random::get<int>(0, 1000) < 5 || true) {
+                    item::Id pickedUp;
+                    do {
+                        pickedUp = item::Item::validIds()[bl::util::Random::get<unsigned int>(
+                            0, item::Item::validIds().size() - 1)];
+                    } while (item::Item::getCategory(pickedUp) == item::Category::Key);
+
+                    ppl.holdItem() = pickedUp;
+                    owner.hud().displayMessage(ppl.name() + " picked up a " +
+                                               item::Item::getName(pickedUp) +
+                                               " they found on the ground.");
+                }
+            }
+        }
+    }
 }
 
 } // namespace system
