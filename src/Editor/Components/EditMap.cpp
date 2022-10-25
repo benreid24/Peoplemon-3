@@ -785,7 +785,6 @@ void EditMap::staticRender(const RenderMapWindow& params) {
                 }
             }
 
-            // if (params.renderWeather()) { weather.render(patch, 0.f); }
             BL_LOG_DEBUG << "Rendering lighting for patch";
             lighting.render(patch);
 

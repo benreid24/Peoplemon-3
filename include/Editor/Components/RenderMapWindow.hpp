@@ -47,12 +47,6 @@ public:
     bool renderCharacters() const;
 
     /**
-     * @brief Returns whether or not to render the current weather in the map
-     *
-     */
-    bool renderWeather() const;
-
-    /**
      * @brief Returns the light level to render the map at
      *
      */
@@ -63,7 +57,6 @@ private:
     bl::gui::Window::Ptr window;
     std::string output;
     bl::gui::CheckButton::Ptr charBut;
-    bl::gui::CheckButton::Ptr weatherBut;
     LightSlider::Ptr lightSelect;
 
     void close();

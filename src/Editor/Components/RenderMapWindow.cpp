@@ -15,8 +15,6 @@ RenderMapWindow::RenderMapWindow(const StartRender& os)
 
     charBut = CheckButton::create("Render characters");
     window->pack(charBut);
-    weatherBut = CheckButton::create("Render current weather");
-    window->pack(weatherBut);
     lightSelect = LightSlider::create("Light Level", []() {});
     window->pack(lightSelect);
 
@@ -40,8 +38,6 @@ void RenderMapWindow::open(const bl::gui::GUI::Ptr& gui) {
 const std::string& RenderMapWindow::outputPath() const { return output; }
 
 bool RenderMapWindow::renderCharacters() const { return charBut->getValue(); }
-
-bool RenderMapWindow::renderWeather() const { return weatherBut->getValue(); }
 
 std::uint8_t RenderMapWindow::lightLevel() const { return lightSelect->getLightLevel(); }
 
