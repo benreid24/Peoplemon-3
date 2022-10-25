@@ -30,26 +30,34 @@ void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
     owner.cameras().configureView(map, view);
     target.setView(view);
 
-    const auto entityRender = [this, &target, lag](std::uint8_t level,
-                                                   unsigned int row,
-                                                   unsigned int minX,
-                                                   unsigned int maxX) {
-        for (unsigned int x = minX; x < maxX; ++x) {
-            const bl::entity::Entity e = this->owner.position().getEntity(
-                {level, sf::Vector2i(x, row), component::Direction::Up});
-            if (e == bl::entity::InvalidEntity) continue;
-            auto it = this->entities->results().find(e);
-            if (it != this->entities->results().end()) {
-                it->second.get<component::Renderable>()->render(target, lag);
-            }
-        }
-    };
-
-    map.render(target, lag, entityRender);
+    map.render(target,
+               lag,
+               std::bind(&Render::renderEntities,
+                         this,
+                         std::ref<sf::RenderTarget>(target),
+                         lag,
+                         std::placeholders::_1,
+                         std::placeholders::_2,
+                         std::placeholders::_3,
+                         std::placeholders::_4));
+    ;
     owner.hud().render(target, lag);
     owner.trainers().render(target);
 
     target.setView(oldView);
+}
+
+void Render::renderEntities(sf::RenderTarget& target, float lag, std::uint8_t level,
+                            unsigned int row, unsigned int minX, unsigned int maxX) {
+    for (unsigned int x = minX; x < maxX; ++x) {
+        const bl::entity::Entity e = this->owner.position().getEntity(
+            {level, sf::Vector2i(x, row), component::Direction::Up});
+        if (e == bl::entity::InvalidEntity) continue;
+        auto it = this->entities->results().find(e);
+        if (it != this->entities->results().end()) {
+            it->second.get<component::Renderable>()->render(target, lag);
+        }
+    }
 }
 
 } // namespace system

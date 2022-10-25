@@ -21,6 +21,7 @@ target_sources(PeoplemonEditor PUBLIC
     NewMapDialog.hpp
     NPCEditorWindow.hpp
     PlaylistEditorWindow.hpp
+    RenderMapWindow.hpp
     ScriptSelector.hpp
     StatBox.hpp
     TrainerEditorWindow.hpp

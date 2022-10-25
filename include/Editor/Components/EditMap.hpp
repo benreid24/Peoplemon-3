@@ -6,6 +6,7 @@
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Core/Systems/Cameras/Camera.hpp>
+#include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
 {
@@ -635,6 +636,13 @@ public:
      * @param lt The level transition to populate the region with
      */
     void setLevelTileArea(const sf::IntRect& area, core::map::LevelTransition lt);
+
+    /**
+     * @brief Renders the map contents
+     *
+     * @param params Parameters for the rendering
+     */
+    void staticRender(const RenderMapWindow& params);
 
 private:
     struct Action {
