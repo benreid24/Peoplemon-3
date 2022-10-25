@@ -1,5 +1,7 @@
 #include <Editor/Pages/Subpages/Towns.hpp>
 
+#include <BLIB/Engine/Resources.hpp>
+#include <Core/Properties.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 
 namespace editor
@@ -9,7 +11,8 @@ namespace page
 namespace
 {
 constexpr std::uint16_t NoSpawn = std::numeric_limits<std::uint16_t>::max();
-}
+constexpr float FlymapScale     = 0.5f;
+} // namespace
 using namespace bl::gui;
 
 Towns::Towns(component::EditMap& m)
@@ -41,9 +44,16 @@ Towns::Towns(component::EditMap& m)
 
     row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
     nameEntry = TextEntry::create();
-    nameEntry->setRequisition({80.f, 15.f});
+    nameEntry->setRequisition({100.f, 15.f});
     row->pack(Label::create("Name:"));
-    row->pack(nameEntry, true, false);
+    row->pack(nameEntry, false, false);
+    window->pack(row, true, false);
+
+    row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));
+    descEntry = TextEntry::create();
+    descEntry->setRequisition({200.f, 15.f});
+    row->pack(Label::create("Description:"));
+    row->pack(descEntry, true, false);
     window->pack(row, true, false);
 
     playlistLabel = Label::create("");
@@ -70,6 +80,18 @@ Towns::Towns(component::EditMap& m)
     spawnSelect->setMaxHeight(150.f);
     row->pack(spawnSelect, false, true);
     window->pack(row, true, false);
+
+    flymapTxtr = bl::engine::Resources::textures()
+                     .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                        "FlyMap/background.png"))
+                     .data;
+    flyMap.setTexture(*flymapTxtr, true);
+    flyMap.setScale(FlymapScale, FlymapScale);
+    window->pack(Label::create("Fly map position:"));
+    mapPosCanvas = Canvas::create(flymapTxtr->getSize().x / 2, flymapTxtr->getSize().y / 2);
+    mapPosCanvas->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Towns::setMapPos, this, std::placeholders::_1));
+    window->pack(mapPosCanvas, false, false);
 
     but = Button::create("Save");
     but->getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&Towns::onTownEdit, this));
@@ -130,8 +152,11 @@ void Towns::newTown() { map.addTown(); }
 void Towns::editTown(std::uint8_t i) {
     editing = i;
     nameEntry->setInput(map.towns[i].name);
+    descEntry->setInput(map.towns[i].description);
     playlistLabel->setText(map.towns[i].playlist);
     weatherSelect->setSelectedWeather(map.towns[i].weather);
+    mapPos = map.towns[i].mapPos;
+    refreshFlymapCanvas();
     refreshSpawns(map.towns[i].pcSpawn);
     gui->pack(window);
     window->setForceFocus(true);
@@ -141,9 +166,11 @@ void Towns::removeTown(std::uint8_t i) { map.removeTown(i); }
 
 void Towns::onTownEdit() {
     core::map::Town t;
-    t.name     = nameEntry->getInput();
-    t.playlist = playlistLabel->getText();
-    t.weather  = weatherSelect->selectedWeather();
+    t.name        = nameEntry->getInput();
+    t.description = descEntry->getInput();
+    t.playlist    = playlistLabel->getText();
+    t.weather     = weatherSelect->selectedWeather();
+    t.mapPos      = mapPos;
     if (spawnSelect->getSelectedOptionText() == "None") { t.pcSpawn = NoSpawn; }
     else {
         t.pcSpawn = std::atoi(spawnSelect->getSelectedOptionText().c_str());
@@ -175,6 +202,25 @@ Box::Ptr Towns::makeRow(std::uint8_t i, const std::string& name) {
     row->pack(but, true, true);
 
     return row;
+}
+
+void Towns::setMapPos(const Event& click) {
+    const sf::Vector2f localPos =
+        (click.mousePosition() - mapPosCanvas->getPosition()) / FlymapScale;
+    mapPos = sf::Vector2i(localPos);
+    refreshFlymapCanvas();
+}
+
+void Towns::refreshFlymapCanvas() {
+    mapPosCanvas->getTexture().draw(flyMap);
+    sf::CircleShape dot(5.f);
+    dot.setPosition(sf::Vector2f(mapPos) * FlymapScale);
+    dot.setOrigin({5.f, 5.f});
+    dot.setFillColor(sf::Color::Red);
+    dot.setOutlineColor(sf::Color::Black);
+    dot.setOutlineThickness(1.f);
+    mapPosCanvas->getTexture().draw(dot);
+    mapPosCanvas->getTexture().display();
 }
 
 } // namespace page

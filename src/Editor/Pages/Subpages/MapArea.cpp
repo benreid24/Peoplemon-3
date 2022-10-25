@@ -87,10 +87,10 @@ void MapArea::onMouseOver(const sf::Vector2f& pixels, const sf::Vector2i& tiles)
     positionLabel->setText("Tile: (" + std::to_string(tiles.x) + ", " + std::to_string(tiles.y) +
                            ")");
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left) && dragBut->getValue()) {
-        if (lastDragTile != tiles) {
+        if (lastDragTile != tiles && enableBut->getValue()) {
             lastDragTile = tiles;
             onClick(pixels, tiles);
-            }
+        }
     }
 }
 

@@ -69,10 +69,16 @@ private:
 
     bl::gui::Window::Ptr window;
     bl::gui::TextEntry::Ptr nameEntry;
+    bl::gui::TextEntry::Ptr descEntry;
     bl::gui::Label::Ptr playlistLabel;
     component::PlaylistEditorWindow playlistWindow;
     component::WeatherSelect::Ptr weatherSelect;
     bl::gui::ComboBox::Ptr spawnSelect;
+
+    bl::resource::Resource<sf::Texture>::Ref flymapTxtr;
+    sf::Sprite flyMap;
+    bl::gui::Canvas::Ptr mapPosCanvas;
+    sf::Vector2i mapPos;
 
     void refreshSpawns(std::uint16_t spawn);
     void onPlaylistPick(const std::string& plst);
@@ -84,6 +90,9 @@ private:
     void onTownEdit();
     void removeTown(std::uint8_t i);
     bl::gui::Box::Ptr makeRow(std::uint8_t i, const std::string& town);
+
+    void setMapPos(const bl::gui::Event& click);
+    void refreshFlymapCanvas();
 };
 
 } // namespace page
