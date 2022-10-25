@@ -237,6 +237,12 @@ public:
      */
     const CatchRegion* getCatchRegion(const component::Position& position) const;
 
+    /**
+     * @brief Returns the set of towns that can be flown to
+     *
+     */
+    static const std::vector<Town>& FlyMapTowns();
+
 protected:
     std::string nameField;
     std::string loadScriptField;
@@ -264,6 +270,7 @@ protected:
     std::unique_ptr<bl::script::Script> onEnterScript;
     std::unique_ptr<bl::script::Script> onExitScript;
     bl::container::Grid<const Event*> eventRegions;
+    bool isWorldMap;
 
     bool activated; // for weather continuity
     mutable sf::IntRect renderRange;
@@ -274,6 +281,9 @@ protected:
     void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);
     void enterTown(Town* town);
+
+    static std::vector<Town> flymapTowns;
+    static void loadFlymapTowns();
 
     friend class loaders::LegacyMapLoader;
     friend class bl::serial::SerializableObject<Map>;

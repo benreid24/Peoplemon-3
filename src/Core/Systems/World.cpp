@@ -42,6 +42,12 @@ bool World::switchMaps(const std::string& file, int spawn) {
         std::swap(prevMapFile, currentMapFile);
     }
     else {
+        // ensure we always have a whiteout location
+        if (owner.player().state().whiteoutMap.empty()) {
+            owner.player().state().whiteoutMap   = file;
+            owner.player().state().whiteoutSpawn = spawn;
+        }
+
         previousMap = Resources::maps().load(file).data;
         if (!previousMap) return false;
         prevMapFile    = currentMapFile;

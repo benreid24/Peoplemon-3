@@ -256,8 +256,9 @@ namespace
 {
 using VersionedSerializer = bl::serial::binary::VersionedSerializer<Map, loaders::LegacyMapLoader,
                                                                     loaders::PrimaryMapLoader>;
-
 }
+
+std::vector<Town> Map::flymapTowns;
 
 Map::Map()
 : weatherField(Weather::None)
@@ -470,6 +471,7 @@ bool Map::load(const std::string& file) {
                           levels.front().bottomLayers().front().height(),
                           0);
     }
+    isWorldMap = path.find("WorldMap.map") != std::string::npos;
     return true;
 }
 
@@ -735,6 +737,8 @@ void Map::enterTown(Town* town) {
     if (spawns.find(town->pcSpawn) != spawns.end()) {
         systems->world().setWhiteoutMap(town->pcSpawn);
     }
+
+    if (isWorldMap) { systems->player().state().visitedTowns.emplace(town->name); }
 }
 
 const CatchRegion* Map::getCatchRegion(const component::Position& pos) const {
@@ -755,6 +759,21 @@ const CatchRegion* Map::getCatchRegion(const component::Position& pos) const {
         return nullptr;
     }
     return &catchRegionsField[ci];
+}
+
+const std::vector<Town>& Map::FlyMapTowns() {
+    if (flymapTowns.empty()) loadFlymapTowns();
+    return flymapTowns;
+}
+
+void Map::loadFlymapTowns() {
+    bl::resource::Resource<Map>::Ref world = Resources::maps().load("WorldMap.map").data;
+    if (!world) {
+        BL_LOG_CRITICAL << "Failed to load world map";
+        return;
+    }
+
+    flymapTowns = world->towns;
 }
 
 } // namespace map

@@ -37,6 +37,7 @@ struct State {
     long monei;
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     StorageSystem storage;
+    std::unordered_set<std::string> visitedTowns;
 
     component::Position savePos;
     std::string whiteoutMap;

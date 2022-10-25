@@ -82,9 +82,9 @@ void Player::newGame(const std::string& n, player::Gender g) {
     data.bag.clear();
     data.monei = 0;
     data.peoplemon.clear();
-    // TODO - set
 
 #ifdef PEOPLEMON_DEBUG
+    data.monei = 100000;
     data.peoplemon.emplace_back(pplmn::Id::AnnaA, 30);
     data.peoplemon.back().learnMove(pplmn::MoveId::Awkwardness, 0);
     data.peoplemon.back().learnMove(pplmn::MoveId::Confuse, 1);
@@ -150,6 +150,7 @@ void Player::observe(const event::GameSaveInitializing& save) {
     save.gameSave.player.whiteoutSpawn = &data.whiteoutSpawn;
     save.gameSave.player.repelSteps    = &data.repelSteps;
     save.gameSave.player.storage       = &data.storage.boxes;
+    save.gameSave.player.visitedTowns  = &data.visitedTowns;
 }
 
 void Player::observe(const event::EntityMoveFinished& ent) {

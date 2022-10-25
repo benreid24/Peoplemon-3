@@ -45,6 +45,7 @@ struct GameSave {
         unsigned int* whiteoutSpawn;
         unsigned int* repelSteps;
         std::array<std::vector<pplmn::StoredPeoplemon>, player::StorageSystem::BoxCount>* storage;
+        std::unordered_set<std::string>* visitedTowns;
     } player;
 
     /// Stores pointers to the actual data to save/load from
@@ -162,6 +163,7 @@ private:
         unsigned int whiteoutSpawn;
         unsigned int repelSteps;
         std::array<std::vector<pplmn::StoredPeoplemon>, player::StorageSystem::BoxCount> storage;
+        std::unordered_set<std::string> visitedTowns;
         std::string currentMap;
         std::string prevMap;
         component::Position playerPos;
@@ -231,6 +233,7 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
                       std::array<std::vector<core::pplmn::StoredPeoplemon>,
                                  core::player::StorageSystem::BoxCount>*>
         storage;
+    SerializableField<10, Player, std::unordered_set<std::string>*> visitedTowns;
 
     SerializableObject()
     : name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
@@ -242,7 +245,9 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     , whiteoutSpawn("whiteoutSpawn", *this, &Player::whiteoutSpawn,
                     SerializableFieldBase::Required{})
     , repelSteps("repelSteps", *this, &Player::repelSteps, SerializableFieldBase::Required{})
-    , storage("storage", *this, &Player::storage, SerializableFieldBase::Optional{}) {}
+    , storage("storage", *this, &Player::storage, SerializableFieldBase::Optional{})
+    , visitedTowns("visitedTowns", *this, &Player::visitedTowns,
+                   SerializableFieldBase::Optional{}) {}
 };
 
 template<>
