@@ -1,6 +1,7 @@
 target_sources(Peoplemon PRIVATE
     BagMenu.cpp
     BattleState.cpp
+    FlyMap.cpp
     LoadGame.cpp
     MainGame.cpp
     MainMenu.cpp

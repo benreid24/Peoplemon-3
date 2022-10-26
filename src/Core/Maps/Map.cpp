@@ -776,5 +776,7 @@ void Map::loadFlymapTowns() {
     flymapTowns = world->towns;
 }
 
+bool Map::canFlyFromHere() const { return isWorldMap; }
+
 } // namespace map
 } // namespace core

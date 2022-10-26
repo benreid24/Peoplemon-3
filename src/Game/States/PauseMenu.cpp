@@ -3,6 +3,7 @@
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/BagMenu.hpp>
+#include <Game/States/FlyMap.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
@@ -45,7 +46,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     });
 
     map = TextItem::create("Map", core::Properties::MenuFont());
-    map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
+    map->getSignal(Item::Activated).willCall([this]() {
+        this->systems.engine().pushState(FlyMap::create(this->systems));
+    });
 
     save = TextItem::create("Save", core::Properties::MenuFont());
     save->getSignal(Item::Activated).willCall([this]() {

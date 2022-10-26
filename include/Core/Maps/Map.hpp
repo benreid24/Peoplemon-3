@@ -243,6 +243,12 @@ public:
      */
     static const std::vector<Town>& FlyMapTowns();
 
+    /**
+     * @brief Returns whether or not the player can fly from this map
+     * 
+     */
+    bool canFlyFromHere() const;
+
 protected:
     std::string nameField;
     std::string loadScriptField;
