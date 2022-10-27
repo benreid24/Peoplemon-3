@@ -4,6 +4,7 @@ target_sources(Core PRIVATE
     Clock.cpp
     Controllable.cpp
     Entity.cpp
+    Flight.cpp
     HUD.cpp
     Interaction.cpp
     Movement.cpp

@@ -245,9 +245,17 @@ public:
 
     /**
      * @brief Returns whether or not the player can fly from this map
-     * 
+     *
      */
     bool canFlyFromHere() const;
+
+    /**
+     * @brief Returns the position of the given player spawn, or nullptr if not found
+     *
+     * @param spawnId Id of the spawn to get the position for
+     * @return const component::Position* Pointer to the position to spawn at. May be nullptr
+     */
+    const component::Position* getSpawnPosition(unsigned int spawnId) const;
 
 protected:
     std::string nameField;

@@ -108,7 +108,12 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
     inputDriver.drive(nullptr);
 }
 
-void PauseMenu::update(bl::engine::Engine&, float dt) {
+void PauseMenu::update(bl::engine::Engine& engine, float dt) {
+    if (systems.flight().flying()) {
+        engine.popState();
+        return;
+    }
+
     systems.player().update();
     systems.world().update(dt);
     const core::component::Command input = inputDriver.mostRecentInput();
@@ -119,6 +124,8 @@ void PauseMenu::update(bl::engine::Engine&, float dt) {
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {
+    if (systems.flight().flying()) return;
+
     systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
 
     const sf::View oldView = systems.engine().window().getView();

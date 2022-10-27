@@ -136,12 +136,12 @@ void FlyMap::hoverTown(unsigned int i) {
 }
 
 void FlyMap::selectTown(unsigned int i) {
-    const auto& tn = core::map::Map::FlyMapTowns()[i].name;
+    const auto t = core::map::Map::FlyMapTowns()[i];
     if (systems.world().activeMap().canFlyFromHere()) {
         // TODO - check for key item
-        systems.hud().promptUser("Fly to " + tn + "?",
+        systems.hud().promptUser("Fly to " + t.name + "?",
                                  {"Yes", "No"},
-                                 std::bind(&FlyMap::onFlyChoice, this, std::placeholders::_1));
+                                 std::bind(&FlyMap::onFlyChoice, this, std::placeholders::_1, t));
     }
     else {
         systems.hud().displayMessage("You cannot fly from here!",
@@ -150,11 +150,15 @@ void FlyMap::selectTown(unsigned int i) {
     hudActive = true;
 }
 
-void FlyMap::onFlyChoice(const std::string& c) {
+void FlyMap::onFlyChoice(const std::string& c, const core::map::Town& town) {
     hudActive = false;
     if (c == "Yes") {
-        // TODO - trigger flight
-        close();
+        if (systems.flight().startFlight(town.pcSpawn)) { close(); }
+        else {
+            systems.hud().displayMessage("Something went wrong starting flight. Blame Chris.",
+                                         std::bind(&FlyMap::messageDone, this));
+            hudActive = true;
+        }
     }
 }
 

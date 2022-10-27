@@ -90,7 +90,7 @@ private:
     void clearHover();
     void hoverTown(unsigned int i);
     void selectTown(unsigned int i);
-    void onFlyChoice(const std::string& choice);
+    void onFlyChoice(const std::string& choice, const core::map::Town& town);
     void messageDone();
     void close();
     void wrap();

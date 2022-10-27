@@ -114,6 +114,8 @@ void Renderable::render(sf::RenderTarget& target, float lag) const {
     cur()->render(target, lag, pos);
 }
 
+void Renderable::setAngle(float a) { cur()->setAngle(a); }
+
 Renderable::Base* Renderable::cur() {
     switch (data.index()) {
     case 0:
@@ -145,6 +147,8 @@ float Renderable::StaticSprite::length() const { return 0.f; }
 
 void Renderable::StaticSprite::trigger(bool) {}
 
+void Renderable::StaticSprite::setAngle(float a) { sprite.setRotation(a); }
+
 Renderable::MoveAnims::MoveAnims(
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
 : movable(movable) {}
@@ -171,6 +175,8 @@ void Renderable::MoveAnims::trigger(bool loop) {
     anim.setIsLoop(loop);
     anim.play();
 }
+
+void Renderable::MoveAnims::setAngle(float a) { anim.setRotation(a); }
 
 Renderable::FastMoveAnims::FastMoveAnims(
     const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
@@ -211,6 +217,8 @@ void Renderable::FastMoveAnims::trigger(bool loop) {
     anim.play();
 }
 
+void Renderable::FastMoveAnims::setAngle(float a) { anim.setRotation(a); }
+
 Renderable::OneAnimation::OneAnimation(const std::string& path) {
     src = bl::engine::Resources::animations()
               .load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path))
@@ -239,6 +247,8 @@ void Renderable::OneAnimation::trigger(bool loop) {
     anim.setIsLoop(loop);
     anim.play();
 }
+
+void Renderable::OneAnimation::setAngle(float a) { anim.setRotation(a); }
 
 } // namespace component
 } // namespace core

@@ -595,7 +595,7 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
 void Map::observe(const event::EntityMoved& movedEvent) {
     triggerAnimation(movedEvent.position);
 
-    if (movedEvent.entity != systems->player().player()) { return; }
+    if (movedEvent.entity != systems->player().player() || systems->flight().flying()) { return; }
 
     const auto trigger = [this, &movedEvent](const Event& event) {
         script::LegacyWarn::warn(event.script);
@@ -777,6 +777,11 @@ void Map::loadFlymapTowns() {
 }
 
 bool Map::canFlyFromHere() const { return isWorldMap; }
+
+const component::Position* Map::getSpawnPosition(unsigned int spid) const {
+    const auto sit = spawns.find(spid);
+    return sit != spawns.end() ? &sit->second.position : nullptr;
+}
 
 } // namespace map
 } // namespace core
