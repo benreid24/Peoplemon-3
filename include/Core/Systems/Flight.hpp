@@ -75,6 +75,7 @@ private:
         float velocity;
         float angle;
         float ogDistSqrd;
+        float maxSpeed;
     };
 
     Systems& owner;
@@ -84,6 +85,7 @@ private:
     component::Renderable* playerAnim;
     component::Position destination;
     sf::Vector2f flightDest;
+    sf::Vector2f unitVelocity;
     union {
         RiseState riseState;
         RotateState rotateState;

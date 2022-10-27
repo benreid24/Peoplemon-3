@@ -12,13 +12,11 @@ namespace system
 {
 namespace
 {
-constexpr float RiseHeight     = 32.5 * 5.f;
-constexpr float RiseRate       = RiseHeight / 2.f;
-constexpr float RotateTime     = 0.65f;
-constexpr float MaxSpeed       = 32.f * 38.f;
-constexpr float AccelRate      = MaxSpeed / 2.5f;
-constexpr float DeccelDist     = MaxSpeed * MaxSpeed / (2 * AccelRate);
-constexpr float DeccelDistSqrd = DeccelDist * DeccelDist;
+constexpr float RiseHeight = 32.5 * 5.f;
+constexpr float RiseRate   = RiseHeight / 2.f;
+constexpr float RotateTime = 0.65f;
+constexpr float MaxSpeed   = 32.f * 38.f;
+constexpr float MinFlyTime = 2.5f;
 
 float distSqrd(const sf::Vector2f& p1, const sf::Vector2f& p2) {
     const float dx = p1.x - p2.x;
@@ -97,10 +95,16 @@ void Flight::update(float dt) {
             state      = State::Rotating;
             flightDest = destination.positionPixels();
             flightDest.y -= RiseHeight;
+            unitVelocity = flightDest - playerPos->positionPixels();
+            const float m =
+                std::sqrt(unitVelocity.x * unitVelocity.x + unitVelocity.y * unitVelocity.y);
+            unitVelocity.x /= m;
+            unitVelocity.y /= m;
             rotateState.angle       = 0.f;
-            rotateState.targetAngle = bl::math::radiansToDegrees(
-                std::atan2(flightDest.y - playerPos->positionPixels().y,
-                           flightDest.x - playerPos->positionPixels().x));
+            rotateState.targetAngle = bl::math::radiansToDegrees(std::atan2(
+                                          flightDest.y - playerPos->positionPixels().y,
+                                          flightDest.x - playerPos->positionPixels().x)) +
+                                      90.f;
             rotateState.rotateRate = (rotateState.targetAngle - rotateState.angle) / RotateTime;
         }
         break;
@@ -119,6 +123,7 @@ void Flight::update(float dt) {
                 flyState.angle      = pa; // probably not required but eh
                 flyState.velocity   = 0.f;
                 flyState.ogDistSqrd = distSqrd(*playerPos, flightDest);
+                flyState.maxSpeed = std::min(std::sqrt(flyState.ogDistSqrd) / MinFlyTime, MaxSpeed);
             }
             else {
                 state                     = State::Descending;
@@ -130,25 +135,35 @@ void Flight::update(float dt) {
         }
         break;
 
-    case State::Accelerating:
-        flyState.velocity = std::min(flyState.velocity + AccelRate * dt, MaxSpeed);
+    case State::Accelerating: {
         movePlayer(dt);
-        if (flyState.velocity == MaxSpeed) { state = State::Flying; }
-        else if (distSqrd(*playerPos, flightDest) <= flyState.ogDistSqrd * 0.2f) {
-            // TODO - wtf?
-            state = State::Deccelerating;
+        const float cDist   = distSqrd(*playerPos, flightDest);
+        const float percent = 1.f - (cDist / flyState.ogDistSqrd) + 0.005f;
+        flyState.velocity =
+            percent <= 0.25f ? percent * 4.f * flyState.maxSpeed : flyState.maxSpeed;
+        if (flyState.velocity >= flyState.maxSpeed) {
+            flyState.velocity = flyState.maxSpeed;
+            state             = State::Flying;
+            BL_LOG_INFO << "flying";
         }
-        break;
+    } break;
 
-    case State::Flying:
+    case State::Flying: {
         movePlayer(dt);
-        if (distSqrd(*playerPos, flightDest) <= DeccelDistSqrd) { state = State::Deccelerating; }
-        break;
+        const float cDist   = distSqrd(*playerPos, flightDest);
+        const float percent = 1.f - cDist / flyState.ogDistSqrd;
+        if (percent >= 0.98f) {
+            state = State::Deccelerating;
+            BL_LOG_INFO << "slowing";
+        }
+    } break;
 
-    case State::Deccelerating:
-        flyState.velocity = std::max(flyState.velocity - AccelRate * dt, 0.f);
+    case State::Deccelerating: {
         movePlayer(dt);
-        if (distSqrd(*playerPos, flightDest) <= 3.4f || flyState.velocity == 0.f) {
+        const float cDist   = distSqrd(*playerPos, flightDest);
+        const float percent = 1.f - cDist / flyState.ogDistSqrd;
+        flyState.velocity   = std::max((1.f - percent) * 50.f * flyState.maxSpeed, 32.f * 6.f);
+        if (cDist <= 3.4f || flyState.velocity == 0.f) {
             playerPos->setPixels(flightDest);
             const float pa          = flyState.angle;
             state                   = State::UnRotating;
@@ -156,7 +171,7 @@ void Flight::update(float dt) {
             rotateState.targetAngle = 0.f;
             rotateState.rotateRate  = (rotateState.targetAngle - rotateState.angle) / RotateTime;
         }
-        break;
+    } break;
 
     case State::Descending:
         riseState.height = std::max(riseState.height - RiseRate * dt, 0.f);
@@ -179,8 +194,8 @@ void Flight::update(float dt) {
 }
 
 void Flight::movePlayer(float dt) {
-    const sf::Vector2f vel(bl::math::cos(flyState.angle), bl::math::sin(flyState.angle));
-    playerPos->setPixels(playerPos->positionPixels() + vel * flyState.velocity * dt);
+    // const sf::Vector2f vel(bl::math::cos(flyState.angle), bl::math::sin(flyState.angle));
+    playerPos->setPixels(playerPos->positionPixels() + unitVelocity * flyState.velocity * dt);
     syncTiles();
 }
 
