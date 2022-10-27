@@ -106,6 +106,7 @@ Includes NPC's, trainers, and the player.
 | createLight     | `x`: Numeric, `y`: Numeric, `radius`: Numeric                | Numeric | Creates a light at the given position and radius. All parameters are in pixels. Returns the unique id of the new light                     |
 | updateLight     | `id`: Numeric, `x`: Numeric, `y`: Numeric, `radius`: Numeric | N/A     | Updates the light with the given `id` to the new position and radius.                                                                      |
 | removeLight     | `id`: Numeric                                                | N/A     | Deletes the light with the given `id`   |
+| visitTown       | `name`: String                                               | N/A     | Marks the given town as visited so it can be flown to  |
 
 ## Weather
 
