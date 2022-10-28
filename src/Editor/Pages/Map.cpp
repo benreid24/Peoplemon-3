@@ -24,7 +24,7 @@ Map::Map(core::system::Systems& s)
           std::bind(&Map::syncGui, this), s)
 , tileset([this](core::map::Tile::IdType id,
                  bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
-          mapArea.editMap())
+          mapArea)
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })
@@ -53,7 +53,8 @@ Map::Map(core::system::Systems& s)
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
 , characterEditor(
-      std::bind(&Map::onCharacterEdit, this, std::placeholders::_1, std::placeholders::_2)) {
+      std::bind(&Map::onCharacterEdit, this, std::placeholders::_1, std::placeholders::_2))
+, renderMapWindow(std::bind(&Map::doMapRender, this)) {
     content = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
     content->setOutlineThickness(0.f);
     Box::Ptr controlPane = Box::create(LinePacker::create(LinePacker::Vertical, 4));
@@ -89,9 +90,13 @@ Map::Map(core::system::Systems& s)
             tileset.markSaved();
         }
     });
+    Button::Ptr renderMapBut = Button::create("Render");
+    renderMapBut->getSignal(Event::LeftClicked)
+        .willAlwaysCall(std::bind(&Map::startMapRender, this));
     mapCtrlBox->pack(newMapBut);
     mapCtrlBox->pack(loadMapBut);
     mapCtrlBox->pack(saveMapBut);
+    mapCtrlBox->pack(renderMapBut);
 
     const auto lightingChangeCb = std::bind(&Map::onLightingChange, this);
     Box::Ptr lightingOuterBox   = Box::create(LinePacker::create());
@@ -485,7 +490,10 @@ void Map::update(float) {
         break;
 
     case Tileset::TownTiles:
-        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
+        mapArea.editMap().setRenderOverlay(activeTool == Tool::Spawns ?
+                                               component::EditMap::RenderOverlay::Spawns :
+                                               component::EditMap::RenderOverlay::Towns,
+                                           0);
         break;
 
     case Tileset::LevelTiles:
@@ -998,6 +1006,13 @@ void Map::setLightingDefault() {
     maxLightSlider->setLightLevel(255);
     lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
 }
+
+void Map::startMapRender() {
+    mapArea.disableControls();
+    renderMapWindow.open(parent);
+}
+
+void Map::doMapRender() { mapArea.editMap().staticRender(renderMapWindow); }
 
 } // namespace page
 } // namespace editor

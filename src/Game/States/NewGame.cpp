@@ -80,7 +80,7 @@ void NewGame::fadeOut() {
 
 void NewGame::deactivate(bl::engine::Engine&) {
     if (!systems.world().switchMaps("Hometown/HometownYourHouseYourRoom.map", 5)) {
-        BL_LOG_ERROR << "Failed to load world map";
+        BL_LOG_ERROR << "Failed to load starting map";
         systems.engine().flags().set(bl::engine::Flags::Terminate);
     }
     systems.clock().set({12, 0});

@@ -67,6 +67,7 @@ private:
     bl::entity::Registry::ComponentHandle<component::Position> position;
     float movementSpeed;
     float fastMovementSpeed;
+    float interpRemaining;
     Direction moveDir;
     bool isMoving;
     bool movingFast;

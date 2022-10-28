@@ -5,6 +5,7 @@
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
+#include <Editor/Pages/Subpages/MapArea.hpp>
 
 namespace editor
 {
@@ -28,9 +29,9 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb, component::EditMap& map)
+Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
 : deleteCb(dcb)
-, catchables(map)
+, catchables(map.editMap())
 , towns(map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)

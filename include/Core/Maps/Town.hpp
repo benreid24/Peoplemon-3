@@ -24,6 +24,8 @@ struct Town {
     std::string playlist;
     Weather::Type weather;
     std::uint16_t pcSpawn;
+    std::string description;
+    sf::Vector2i mapPos;
 };
 
 } // namespace map
@@ -43,12 +45,19 @@ struct SerializableObject<core::map::Town> : public SerializableObjectBase {
     SerializableField<2, Town, std::string> playlist;
     SerializableField<3, Town, Weather::Type> weather;
     SerializableField<4, Town, std::uint16_t> pcSpawn;
+    SerializableField<5, Town, std::string> description;
+    SerializableField<6, Town, sf::Vector2i> mapPos;
 
     SerializableObject()
     : name("name", *this, &Town::name, SerializableFieldBase::Required{})
     , playlist("playlist", *this, &Town::playlist, SerializableFieldBase::Required{})
     , weather("weather", *this, &Town::weather, SerializableFieldBase::Required{})
-    , pcSpawn("pcSpawn", *this, &Town::pcSpawn, SerializableFieldBase::Required{}) {}
+    , pcSpawn("pcSpawn", *this, &Town::pcSpawn, SerializableFieldBase::Required{})
+    , description("desc", *this, &Town::description, SerializableFieldBase::Optional{})
+    , mapPos("mapPos", *this, &Town::mapPos, SerializableFieldBase::Optional{}) {
+        description.setDefault("DESCRIPTION NOT SET");
+        mapPos.setDefault({-100, -100});
+    }
 };
 
 } // namespace serial

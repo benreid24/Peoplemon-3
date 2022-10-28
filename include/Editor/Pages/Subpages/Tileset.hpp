@@ -15,6 +15,7 @@ namespace component
 {
 class EditMap;
 }
+class MapArea;
 
 namespace page
 {
@@ -36,7 +37,7 @@ public:
      * @param map The map being edited
      *
      */
-    Tileset(const DeleteCb& deleteCb, component::EditMap& map);
+    Tileset(const DeleteCb& deleteCb, MapArea& map);
 
     /**
      * @brief Loads the given tileset and updates the GUI elements

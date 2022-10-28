@@ -7,6 +7,23 @@ namespace core
 {
 namespace component
 {
+namespace
+{
+sf::Vector2f getPixels(Direction dir, float x, float y, float interp) {
+    switch (dir) {
+    case Direction::Up:
+        return {x, y + interp};
+    case Direction::Right:
+        return {x - interp, y};
+    case Direction::Down:
+        return {x, y - interp};
+    case Direction::Left:
+    default:
+        return {x + interp, y};
+    }
+}
+} // namespace
+
 Movable::Movable(const bl::entity::Registry::ComponentHandle<component::Position>& pos, float speed,
                  float fastSpeed)
 : position(pos)
@@ -20,65 +37,28 @@ bool Movable::moving() const { return isMoving; }
 bool Movable::goingFast() const { return movingFast; }
 
 void Movable::move(Direction dir, bool fast) {
-    moveDir    = dir;
-    isMoving   = true;
-    movingFast = fast;
+    moveDir         = dir;
+    isMoving        = true;
+    movingFast      = fast;
+    interpRemaining = static_cast<float>(Properties::PixelsPerTile());
 }
 
 void Movable::update(bl::entity::Entity owner, bl::event::Dispatcher& bus, float dt) {
     if (isMoving) {
+        // interpolate
         const float speed        = movingFast ? fastMovementSpeed : movementSpeed;
         const float displacement = dt * speed;
+        interpRemaining          = std::max(interpRemaining - displacement, 0.f);
 
+        // set render pos
         const float xTile = position.get().positionTiles().x * Properties::PixelsPerTile();
         const float yTile = position.get().positionTiles().y * Properties::PixelsPerTile();
+        position.get().setPixels(getPixels(moveDir, xTile, yTile, interpRemaining));
 
-        switch (moveDir) {
-        case Direction::Up:
-            position.get().setPixels(position.get().positionPixels() -
-                                     sf::Vector2f(0.f, displacement));
-            if (position.get().positionPixels().y <= yTile) {
-                position.get().setTiles(position.get().positionTiles());
-                isMoving = false;
-                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
-            }
-            break;
-
-        case Direction::Right:
-            position.get().setPixels(position.get().positionPixels() +
-                                     sf::Vector2f(displacement, 0.f));
-            if (position.get().positionPixels().x >= xTile) {
-                position.get().setTiles(position.get().positionTiles());
-                isMoving = false;
-                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
-            }
-            break;
-
-        case Direction::Down:
-            position.get().setPixels(position.get().positionPixels() +
-                                     sf::Vector2f(0.f, displacement));
-            if (position.get().positionPixels().y >= yTile) {
-                position.get().setTiles(position.get().positionTiles());
-                isMoving = false;
-                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
-            }
-            break;
-
-        case Direction::Left:
-            position.get().setPixels(position.get().positionPixels() -
-                                     sf::Vector2f(displacement, 0.f));
-            if (position.get().positionPixels().x <= xTile) {
-                position.get().setTiles(position.get().positionTiles());
-                isMoving = false;
-                bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
-            }
-            break;
-
-        default:
-            BL_LOG_WARN << "Invalid move dir: " << static_cast<int>(moveDir);
+        if (interpRemaining <= 0.f) {
             position.get().setTiles(position.get().positionTiles());
             isMoving = false;
-            break;
+            bus.dispatch<event::EntityMoveFinished>({owner, position.get()});
         }
     }
 }

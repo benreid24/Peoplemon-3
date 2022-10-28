@@ -6,6 +6,7 @@
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Controllable.hpp>
 #include <Core/Systems/Entity.hpp>
+#include <Core/Systems/Flight.hpp>
 #include <Core/Systems/HUD.hpp>
 #include <Core/Systems/Interaction.hpp>
 #include <Core/Systems/Movement.hpp>
@@ -223,6 +224,18 @@ public:
      */
     const WildPeoplemon& wildPeoplemon() const;
 
+    /**
+     * @brief Returns the flight system
+     *
+     */
+    Flight& flight();
+
+    /**
+     * @brief Returns the flight system
+     *
+     */
+    const Flight& flight() const;
+
 private:
     bl::engine::Engine& _engine;
     Cameras _cameras;
@@ -240,6 +253,7 @@ private:
     Scripts _scripts;
     Trainers _trainers;
     WildPeoplemon _wildPeoplemon;
+    Flight _flight;
 
     /**
      * @brief Creates the core game object and associates it with the engine

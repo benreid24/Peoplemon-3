@@ -20,7 +20,8 @@ Systems::Systems(bl::engine::Engine& engine)
 , _hud(*this)
 , _scripts(*this)
 , _trainers(*this)
-, _wildPeoplemon(*this) {
+, _wildPeoplemon(*this)
+, _flight(*this) {
     _world.init();
     _position.init();
     _movement.init();
@@ -43,6 +44,7 @@ void Systems::update(float dt, bool ent) {
         _player.update();
         _movement.update(dt);
         _trainers.update(dt);
+        _flight.update(dt);
     }
     _position.update();
     _cameras.update(dt);
@@ -109,6 +111,10 @@ const Trainers& Systems::trainers() const { return _trainers; }
 WildPeoplemon& Systems::wildPeoplemon() { return _wildPeoplemon; }
 
 const WildPeoplemon& Systems::wildPeoplemon() const { return _wildPeoplemon; }
+
+Flight& Systems::flight() { return _flight; }
+
+const Flight& Systems::flight() const { return _flight; }
 
 } // namespace system
 } // namespace core

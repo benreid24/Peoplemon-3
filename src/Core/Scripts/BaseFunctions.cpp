@@ -125,6 +125,8 @@ void updateLight(system::Systems& systems, SymbolTable& table, const std::vector
                  Value& result);
 void removeLight(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                  Value& result);
+void visitTown(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+               Value& result);
 
 void clearWeather(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
@@ -211,6 +213,7 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
     BUILTIN(createLight);
     BUILTIN(updateLight);
     BUILTIN(removeLight);
+    BUILTIN(visitTown);
 
     BUILTIN(clearWeather);
     BUILTIN(makeRain);
@@ -1035,6 +1038,11 @@ void removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value
     const map::LightingSystem::Handle handle =
         static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
     systems.world().activeMap().lightingSystem().removeLight(handle);
+}
+
+void visitTown(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TString>("visitTown", args);
+    systems.player().state().visitedTowns.emplace(args[0].value().getAsString());
 }
 
 void clearWeather(system::Systems& systems, SymbolTable&, const std::vector<Value>&, Value&) {

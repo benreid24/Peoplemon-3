@@ -706,6 +706,119 @@ void EditMap::render(sf::RenderTarget& target, float residual,
     if (renderGrid) { target.draw(grid); }
 }
 
+void EditMap::staticRender(const RenderMapWindow& params) {
+    constexpr int PatchSize = 100;
+    BL_LOG_INFO << "Rendering map to " << params.outputPath();
+
+    BL_LOG_DEBUG << "Creating RAM and VRAM buffers";
+    sf::Image result;
+    result.create(size.x * core::Properties::PixelsPerTile(),
+                  size.y * core::Properties::PixelsPerTile());
+    sf::RenderTexture patch;
+    patch.create(PatchSize * core::Properties::PixelsPerTile(),
+                 PatchSize * core::Properties::PixelsPerTile());
+
+    int pw = size.x / PatchSize;
+    if (size.x % PatchSize > 0) ++pw;
+    int ph = size.y / PatchSize;
+    if (size.y % PatchSize > 0) ++ph;
+    BL_LOG_DEBUG << "Performing render in " << (pw * ph) << " patches";
+
+    const std::uint8_t oldLow  = lighting.getMinLightLevel();
+    const std::uint8_t oldHigh = lighting.getMaxLightLevel();
+    lighting.setAmbientLevel(params.lightLevel(), params.lightLevel());
+
+    for (int px = 0; px < pw; ++px) {
+        for (int py = 0; py < ph; ++py) {
+            BL_LOG_DEBUG << "Rendering patch " << (px * ph + py);
+
+            const sf::View view(
+                sf::Vector2f{sf::Vector2i{px * PatchSize * core::Properties::PixelsPerTile() +
+                                              PatchSize * core::Properties::PixelsPerTile() / 2,
+                                          py * PatchSize * core::Properties::PixelsPerTile() +
+                                              PatchSize * core::Properties::PixelsPerTile() / 2}},
+                sf::Vector2f{sf::Vector2i{PatchSize * core::Properties::PixelsPerTile(),
+                                          PatchSize * core::Properties::PixelsPerTile()}});
+            patch.setView(view);
+            patch.clear(sf::Color::Black);
+
+            refreshRenderRange(view);
+
+            const auto renderRow = [&patch, this](const core::map::TileLayer& layer, int row) {
+                for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+                    layer.get(x, row).render(patch, 0.f);
+                }
+            };
+
+            const auto renderSorted = [&patch, this](const core::map::SortedLayer& layer, int row) {
+                for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+                    core::map::Tile* t = layer(x, row);
+                    if (t) t->render(patch, 0.f);
+                }
+            };
+
+            for (unsigned int i = 0; i < levels.size(); ++i) {
+                const core::map::LayerSet& level = levels[i];
+
+                for (const core::map::TileLayer& layer : level.bottomLayers()) {
+                    for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                        renderRow(layer, y);
+                    }
+                }
+                for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                    for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
+                        renderSorted(layer, y);
+                    }
+                    if (params.renderCharacters()) {
+                        systems->render().renderEntities(patch,
+                                                         0.f,
+                                                         i,
+                                                         y,
+                                                         renderRange.left,
+                                                         renderRange.left + renderRange.width);
+                    }
+                }
+                for (const core::map::TileLayer& layer : level.topLayers()) {
+                    for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                        renderRow(layer, y);
+                    }
+                }
+            }
+
+            BL_LOG_DEBUG << "Rendering lighting for patch";
+            lighting.render(patch);
+
+            BL_LOG_DEBUG << "Copying patch to memory";
+            patch.display();
+            sf::Image rp = patch.getTexture().copyToImage();
+            result.copy(
+                rp,
+                renderRange.left * core::Properties::PixelsPerTile(),
+                renderRange.top * core::Properties::PixelsPerTile(),
+                {0,
+                 0,
+                 (renderRange.left + renderRange.width) * core::Properties::PixelsPerTile(),
+                 (renderRange.top + renderRange.height) * core::Properties::PixelsPerTile()});
+        }
+    }
+    BL_LOG_DEBUG << "Completed rendering, saving to file";
+    lighting.setAmbientLevel(oldLow, oldHigh);
+
+    std::string out = params.outputPath();
+    if (!result.saveToFile(out)) {
+        out = "properOutputFileBozo.png";
+        BL_LOG_DEBUG << "Failed to save, saving to " << out;
+        result.saveToFile(out);
+    }
+    BL_LOG_INFO << "Map rendering complete";
+
+    bl::dialog::tinyfd_messageBox("Rendering Complete",
+                                  std::string("Rendered map saved to: " + out).c_str(),
+                                  "ok",
+                                  "info",
+                                  1);
+}
+
 void EditMap::createEvent(const core::map::Event& event) {
     addAction(AddEventAction::create(event, eventsField.size()));
 }

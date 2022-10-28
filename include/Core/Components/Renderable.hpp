@@ -99,6 +99,27 @@ public:
      */
     void render(sf::RenderTarget& target, float lag) const;
 
+    /**
+     * @brief Sets the angle to render the entity at
+     *
+     * @param angle Rotation in degrees
+     */
+    void setAngle(float angle);
+
+    /**
+     * @brief Adds or updates the shadow of this renderable
+     *
+     * @param distance How far below the renderable to render the shadow
+     * @param radius The radius of the shadow in pixels
+     */
+    void updateShadow(float distance, float radius);
+
+    /**
+     * @brief Removes the shadow from this renderable if present
+     *
+     */
+    void removeShadow();
+
 private:
     struct Base {
         virtual ~Base() = default;
@@ -108,6 +129,7 @@ private:
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos)    = 0;
         virtual float length() const                                                         = 0;
         virtual void trigger(bool loop)                                                      = 0;
+        virtual void setAngle(float angle)                                                   = 0;
     };
 
     struct StaticSprite : public Base {
@@ -120,6 +142,7 @@ private:
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
+        virtual void setAngle(float angle) override;
     };
 
     struct MoveAnims : public Base {
@@ -135,6 +158,7 @@ private:
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
+        virtual void setAngle(float angle) override;
     };
 
     struct FastMoveAnims : public Base {
@@ -151,6 +175,7 @@ private:
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
+        virtual void setAngle(float angle) override;
     };
 
     struct OneAnimation : public Base {
@@ -166,10 +191,13 @@ private:
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
+        virtual void setAngle(float angle) override;
     };
 
     bl::entity::Registry::ComponentHandle<component::Position> position;
     std::variant<StaticSprite, MoveAnims, FastMoveAnims, OneAnimation> data;
+    sf::CircleShape shadow;
+    float shadowHeight;
 
     Base* cur();
     Base* cur() const;

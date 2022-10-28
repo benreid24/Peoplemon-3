@@ -15,6 +15,7 @@
 #include <Editor/Pages/Subpages/Levels.hpp>
 #include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
+#include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
 {
@@ -141,6 +142,10 @@ private:
     component::CharacterSpawnWindow characterEditor;
     void onCharacterEdit(const core::map::CharacterSpawn* orig,
                          const core::map::CharacterSpawn& spawn);
+
+    component::RenderMapWindow renderMapWindow;
+    void startMapRender();
+    void doMapRender();
 
     bool checkUnsaved();
 };

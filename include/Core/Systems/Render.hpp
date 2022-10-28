@@ -51,6 +51,19 @@ public:
      */
     void render(sf::RenderTarget& target, const map::Map& map, float lag);
 
+    /**
+     * @brief Helper function to render a section of entities to the given target
+     *
+     * @param target The target to render to
+     * @param lag Time not accounted for in update
+     * @param level The level to render entities on
+     * @param row The row to render entities in
+     * @param minX The leftmost x coord to render entities from
+     * @param maxX The max x coord to render entities from
+     */
+    void renderEntities(sf::RenderTarget& target, float lag, std::uint8_t level, unsigned int row,
+                        unsigned int minX, unsigned int maxX);
+
 private:
     Systems& owner;
     bl::entity::Registry::View<component::Renderable>::Ptr entities;

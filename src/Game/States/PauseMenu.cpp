@@ -3,6 +3,7 @@
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/BagMenu.hpp>
+#include <Game/States/FlyMap.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
@@ -45,7 +46,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     });
 
     map = TextItem::create("Map", core::Properties::MenuFont());
-    map->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Map"; });
+    map->getSignal(Item::Activated).willCall([this]() {
+        this->systems.engine().pushState(FlyMap::create(this->systems));
+    });
 
     save = TextItem::create("Save", core::Properties::MenuFont());
     save->getSignal(Item::Activated).willCall([this]() {
@@ -105,7 +108,12 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
     inputDriver.drive(nullptr);
 }
 
-void PauseMenu::update(bl::engine::Engine&, float dt) {
+void PauseMenu::update(bl::engine::Engine& engine, float dt) {
+    if (systems.flight().flying()) {
+        engine.popState();
+        return;
+    }
+
     systems.player().update();
     systems.world().update(dt);
     const core::component::Command input = inputDriver.mostRecentInput();
@@ -116,6 +124,8 @@ void PauseMenu::update(bl::engine::Engine&, float dt) {
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {
+    if (systems.flight().flying()) return;
+
     systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
 
     const sf::View oldView = systems.engine().window().getView();
