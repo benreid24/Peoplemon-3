@@ -54,12 +54,14 @@ public:
      */
     virtual void update(Systems& systems, float dt) override;
 
+protected:
+    Follow(Systems& systems, bl::entity::Entity toFollow);
+
 private:
     const bl::entity::Entity owner;
     bl::entity::Registry::ComponentHandle<component::Position> ownerPos;
     bool alive;
 
-    Follow(Systems& systems, bl::entity::Entity toFollow);
     virtual void observe(const bl::entity::event::EntityDestroyed& event) override;
 };
 

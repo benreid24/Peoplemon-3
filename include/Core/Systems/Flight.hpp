@@ -3,6 +3,7 @@
 
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Renderable.hpp>
+#include <Core/Systems/Cameras/ShakeFollow.hpp>
 
 namespace core
 {
@@ -80,6 +81,7 @@ private:
 
     Systems& owner;
     State state;
+    camera::ShakeFollow::Ptr camera;
     component::Position startPos;
     component::Position* playerPos;
     component::Renderable* playerAnim;

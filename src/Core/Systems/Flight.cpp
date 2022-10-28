@@ -12,11 +12,13 @@ namespace system
 {
 namespace
 {
-constexpr float RiseHeight = 32.5 * 5.f;
-constexpr float RiseRate   = RiseHeight / 2.f;
-constexpr float RotateTime = 0.65f;
-constexpr float MaxSpeed   = 32.f * 38.f;
-constexpr float MinFlyTime = 2.5f;
+constexpr float RiseHeight     = 32.5 * 5.f;
+constexpr float RiseRate       = RiseHeight / 2.f;
+constexpr float RotateTime     = 0.65f;
+constexpr float MaxSpeed       = 32.f * 38.f;
+constexpr float MinFlyTime     = 2.5f;
+constexpr float ShakesPerSec   = 8.f;
+constexpr float ShakeMagnitude = 10.f;
 
 float distSqrd(const sf::Vector2f& p1, const sf::Vector2f& p2) {
     const float dx = p1.x - p2.x;
@@ -80,6 +82,11 @@ bool Flight::startFlight(unsigned int spawn) {
     playerPos->direction = component::Direction::Down;
     playerPos->level     = std::max(playerPos->level, destination.level);
 
+    // setup camera
+    camera = camera::ShakeFollow::create(owner, owner.player().player(), 10.f);
+    owner.cameras().pushCamera(camera);
+
+    // start flight
     state            = State::Rising;
     riseState.height = 0.f;
     riseState.startY = playerPos->positionPixels().y;
@@ -146,6 +153,8 @@ void Flight::update(float dt) {
             flyState.velocity = flyState.maxSpeed;
             state             = State::Flying;
         }
+        camera->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
+        camera->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
     } break;
 
     case State::Flying: {
@@ -161,6 +170,7 @@ void Flight::update(float dt) {
         const float percent = 1.f - cDist / flyState.ogDistSqrd;
         flyState.velocity   = std::max((1.f - percent) * 50.f * flyState.maxSpeed, 32.f * 6.f);
         if (cDist <= 3.4f || flyState.velocity == 0.f) {
+            camera->setMagnitude(0);
             playerPos->setPixels(flightDest);
             const float pa          = flyState.angle;
             state                   = State::UnRotating;
@@ -168,6 +178,8 @@ void Flight::update(float dt) {
             rotateState.targetAngle = 0.f;
             rotateState.rotateRate  = (rotateState.targetAngle - rotateState.angle) / RotateTime;
         }
+        camera->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
+        camera->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
     } break;
 
     case State::Descending:
