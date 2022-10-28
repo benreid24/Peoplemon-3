@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['knownmoves',['knownMoves',['../a01753.html#ac6aa013d73d67cffbc25c8f353239028',1,'core::pplmn::OwnedPeoplemon::knownMoves() const'],['../a01753.html#ab414cdd033590659a967f5673da11941',1,'core::pplmn::OwnedPeoplemon::knownMoves()']]],
-  ['knowsmove',['knowsMove',['../a01753.html#a9c8990d7b5e797279e72f7c74825bb22',1,'core::pplmn::OwnedPeoplemon']]]
+  ['knownmoves',['knownMoves',['../a01779.html#ac6aa013d73d67cffbc25c8f353239028',1,'core::pplmn::OwnedPeoplemon::knownMoves() const'],['../a01779.html#ab414cdd033590659a967f5673da11941',1,'core::pplmn::OwnedPeoplemon::knownMoves()']]],
+  ['knowsmove',['knowsMove',['../a01779.html#a9c8990d7b5e797279e72f7c74825bb22',1,'core::pplmn::OwnedPeoplemon']]]
 ];

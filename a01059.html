@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::menu Namespace Reference</title>
+<title>Peoplemon: core::component Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,40 +63,162 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01058.html">game</a></li><li class="navelem"><a class="el" href="a01059.html">menu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01053.html">core</a></li><li class="navelem"><a class="el" href="a01059.html">component</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">game::menu Namespace Reference</div>  </div>
+<div class="title">core::component Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Collection of components for in game entities.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02209.html">BagItemButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a button for a quantity of items in the bag.  <a href="a02209.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01283.html">Collision</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty component to indicate that an entity cannot be moved through.  <a href="a01283.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02213.html">PeoplemonButton</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu item for peoplemon.  <a href="a02213.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01287.html">Controllable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity allows it to be controlled.  <a href="a01287.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02217.html">StorageCursor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cursor that is used to navigate the storage system boxes.  <a href="a02217.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01291.html">FixedPathBehavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it follow a fixed path.  <a href="a01291.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02221.html">StorageGrid</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renderer for the grid of peoplemon in a storage box.  <a href="a02221.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01295.html">Item</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it give an item when interacted with. On interact the owning entity is removed.  <a href="a01295.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02229.html">StoreItemRow</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Menu item for an item in the store. Does both sellable and for-sale items.  <a href="a02229.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01299.html">Movable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity will allow it to move.  <a href="a01299.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01303.html">NPC</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will allow it to be interacted with and talked to.  <a href="a01303.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01307.html">PlayerControlled</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it controlled by player input.  <a href="a01307.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01311.html">Position</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic structure representing the position of an entity.  <a href="a01311.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01323.html">Renderable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity will allow it to be rendered.  <a href="a01323.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01347.html">SpinBehavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this to an entity to make it spin in place.  <a href="a01347.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01351.html">StandingBehavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">AI behavior for standing in place facing a fixed direction.  <a href="a01351.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01355.html">Trainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will make it a trainer that can battle.  <a href="a01355.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01359.html">WanderBehavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it wander around.  <a href="a01359.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga6701adf1fdd04d85dd6482e453417813"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga6701adf1fdd04d85dd6482e453417813">Command</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a6adf97f83acf6453d4a6a4b1070f3754">Command::None</a> = 0, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813aa56a3ff692c679e34e0f52202fd9be5c">Command::MoveUp</a> = 1, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a78af9b7fcdf1574f729de1454e15257b">Command::MoveRight</a> = 2, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a8c95fa949833ae3c6a217f55dec17dd5">Command::MoveDown</a> = 3, 
+<br />
+&#160;&#160;<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813ae8a98c6fabdea857c20c91e9bfd318ca">Command::MoveLeft</a> = 4, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813aa5e639d8aa06b19bb20b63153bc34d70">Command::SprintUp</a> = 5, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a5522e6de62762b12579e3ddbbf16b11d">Command::SprintRight</a> = 6, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a3e7785e9a2e12edc80119bdedffc11c1">Command::SprintDown</a> = 7, 
+<br />
+&#160;&#160;<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813aef360d123552f89bc9359013a7dfbfc5">Command::SprintLeft</a> = 8, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813aefbc873e4634f3db63d62377d36e5f56">Command::Interact</a> = 9, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a105b296a83f9c105355403f3332af50f">Command::Pause</a> = 10, 
+<a class="el" href="a01038.html#gga6701adf1fdd04d85dd6482e453417813a0557fa923dcee4d0f86b1409f5c2167f">Command::Back</a> = 11
+<br />
+ }<tr class="memdesc:ga6701adf1fdd04d85dd6482e453417813"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic enum representing a command that can be issued to a controllable component.  <a href="a01038.html#ga6701adf1fdd04d85dd6482e453417813">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga6701adf1fdd04d85dd6482e453417813"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> : std::uint8_t { <a class="el" href="a01038.html#gga0192bf5ba1eccc191c8ef1187ce66d69a258f49887ef8d14ac268c92b02503aaa">Direction::Up</a> = 0, 
+<a class="el" href="a01038.html#gga0192bf5ba1eccc191c8ef1187ce66d69a92b09c7c48c520c3c55e497875da437c">Direction::Right</a> = 1, 
+<a class="el" href="a01038.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">Direction::Down</a> = 2, 
+<a class="el" href="a01038.html#gga0192bf5ba1eccc191c8ef1187ce66d69a945d5e233cf7d6240f6b783b36a374ff">Direction::Left</a> = 3
+ }<tr class="memdesc:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing.  <a href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">More...</a><br /></td></tr>
+</td></tr>
+<tr class="separator:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga6565d34107344f48a1e4087937d3f180"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01038.html#ga6701adf1fdd04d85dd6482e453417813">Command</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga6565d34107344f48a1e4087937d3f180">moveCommand</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir, bool run=false)</td></tr>
+<tr class="memdesc:ga6565d34107344f48a1e4087937d3f180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the command to move in the given direction.  <a href="a01038.html#ga6565d34107344f48a1e4087937d3f180">More...</a><br /></td></tr>
+<tr class="separator:ga6565d34107344f48a1e4087937d3f180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">oppositeDirection</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Direction that is opposite of the given direction.  <a href="a01038.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">More...</a><br /></td></tr>
+<tr class="separator:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#gae7dd07040e91c8b3e983b231c87be2b5">nextClockwiseDirection</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
+<tr class="memdesc:gae7dd07040e91c8b3e983b231c87be2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next clockwise direction from the given current direction.  <a href="a01038.html#gae7dd07040e91c8b3e983b231c87be2b5">More...</a><br /></td></tr>
+<tr class="separator:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga842aa40eaf7b83009f90dc2f80cc2486">nextCounterClockwiseDirection</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
+<tr class="memdesc:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next counterclockwise direction from the given current direction.  <a href="a01038.html#ga842aa40eaf7b83009f90dc2f80cc2486">More...</a><br /></td></tr>
+<tr class="separator:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#gab533b7d6c089ccc767c2400dac3a3fd0">directionFromString</a> (const std::string &amp;dir)</td></tr>
+<tr class="memdesc:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given string into a direction.  <a href="a01038.html#gab533b7d6c089ccc767c2400dac3a3fd0">More...</a><br /></td></tr>
+<tr class="separator:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">directionToString</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
+<tr class="memdesc:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to a string.  <a href="a01038.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">More...</a><br /></td></tr>
+<tr class="separator:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc5df8529fd380e0a4e254d0b9123f8d"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#acc5df8529fd380e0a4e254d0b9123f8d">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="a01311.html">core::component::Position</a> &amp;pos)</td></tr>
+<tr class="separator:acc5df8529fd380e0a4e254d0b9123f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of components for in game entities. </p>
+</div><h2 class="groupheader">Function Documentation</h2>
+<a id="acc5df8529fd380e0a4e254d0b9123f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc5df8529fd380e0a4e254d0b9123f8d">&#9670;&nbsp;</a></span>operator<<()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::ostream&amp; core::component::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::ostream &amp;&#160;</td>
+          <td class="paramname"><em>os</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01311.html">core::component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a02963_source.html#l00116">116</a> of file <a class="el" href="a02963_source.html">Position.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Oct 24 2022 22:56:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 28 2022 17:19:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
