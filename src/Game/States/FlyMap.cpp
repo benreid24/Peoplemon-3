@@ -27,6 +27,19 @@ FlyMap::FlyMap(core::system::Systems& s)
     cursorTxtr = textures.load(joinPath(ImgPath, "FlyMap/cursor.png")).data;
     cursor.setTexture(*cursorTxtr, true);
     cursor.setOrigin(sf::Vector2f(cursorTxtr->getSize()) * 0.5f);
+    if (systems.world().activeMap().canFlyFromHere()) {
+        const sf::Vector2f ws = systems.world().activeMap().sizePixels();
+        const sf::Vector2f pp = systems.player().position().positionPixels();
+        const sf::Vector2f ms(mapTxtr->getSize());
+        const std::string path =
+            std::string("FlyMap/") + (systems.player().state().sex == core::player::Gender::Boy ?
+                                          "boyHead.png" :
+                                          "girlHead.png");
+        playerTxtr = textures.load(joinPath(ImgPath, path)).data;
+        player.setTexture(*playerTxtr, true);
+        player.setOrigin(sf::Vector2f(playerTxtr->getSize()) * 0.5f);
+        player.setPosition(pp.x / ws.x * ms.x, pp.y / ws.y * ms.y);
+    }
 
     panelTxtr = textures.load(joinPath(ImgPath, "FlyMap/sidePanel.png")).data;
     panel.setTexture(*panelTxtr, true);
@@ -108,6 +121,7 @@ void FlyMap::render(bl::engine::Engine& engine, float lag) {
         cursorFlasher.render(engine.window(), {}, lag);
         engine.window().draw(townName);
     }
+    if (playerTxtr) { engine.window().draw(player); }
 
     engine.window().draw(panel);
     townMenu.render(engine.window());
@@ -155,7 +169,7 @@ void FlyMap::onFlyChoice(const std::string& c, const core::map::Town& town) {
     if (c == "Yes") {
         if (systems.flight().startFlight(town.pcSpawn)) { close(); }
         else {
-            systems.hud().displayMessage("Something went wrong starting flight. Blame Chris.",
+            systems.hud().displayMessage("You cannot fly from here!",
                                          std::bind(&FlyMap::messageDone, this));
             hudActive = true;
         }

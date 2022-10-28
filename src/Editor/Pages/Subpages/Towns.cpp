@@ -3,6 +3,7 @@
 #include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
+#include <Editor/Pages/Subpages/MapArea.hpp>
 
 namespace editor
 {
@@ -15,8 +16,9 @@ constexpr float FlymapScale     = 0.5f;
 } // namespace
 using namespace bl::gui;
 
-Towns::Towns(component::EditMap& m)
-: map(m)
+Towns::Towns(MapArea& ma)
+: mapArea(ma)
+, map(ma.editMap())
 , active(0)
 , playlistWindow(std::bind(&Towns::onPlaylistPick, this, std::placeholders::_1),
                  std::bind(&Towns::takeFocus, this)) {
@@ -158,6 +160,7 @@ void Towns::editTown(std::uint8_t i) {
     mapPos = map.towns[i].mapPos;
     refreshFlymapCanvas();
     refreshSpawns(map.towns[i].pcSpawn);
+    mapArea.disableControls();
     gui->pack(window);
     window->setForceFocus(true);
 }

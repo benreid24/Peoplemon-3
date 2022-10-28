@@ -73,8 +73,10 @@ private:
     bl::resource::Resource<sf::Texture>::Ref mapTxtr;
     bl::resource::Resource<sf::Texture>::Ref townTxtr;
     bl::resource::Resource<sf::Texture>::Ref cursorTxtr;
+    bl::resource::Resource<sf::Texture>::Ref playerTxtr;
     sf::Sprite map;
     sf::Sprite town;
+    sf::Sprite player;
     sf::Sprite cursor;
     bl::gfx::Flashing cursorFlasher;
 

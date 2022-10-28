@@ -471,7 +471,7 @@ bool Map::load(const std::string& file) {
                           levels.front().bottomLayers().front().height(),
                           0);
     }
-    isWorldMap = path.find("WorldMap.map") != std::string::npos;
+    isWorldMap = name() == "Worldmap";
     return true;
 }
 

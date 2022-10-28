@@ -11,6 +11,8 @@ namespace editor
 {
 namespace page
 {
+class MapArea;
+
 /**
  * @brief Subpage for creating, editing, deleting, and placing towns in maps
  *
@@ -24,7 +26,7 @@ public:
      *
      * @param map The edit map component
      */
-    Towns(component::EditMap& map);
+    Towns(MapArea& map);
 
     /**
      * @brief Returns the GUI element to pack
@@ -59,6 +61,7 @@ public:
 
 private:
     bl::gui::GUI::Ptr gui;
+    MapArea& mapArea;
     component::EditMap& map;
 
     bl::gui::Box::Ptr content;

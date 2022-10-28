@@ -24,7 +24,7 @@ Map::Map(core::system::Systems& s)
           std::bind(&Map::syncGui, this), s)
 , tileset([this](core::map::Tile::IdType id,
                  bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
-          mapArea.editMap())
+          mapArea)
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })
@@ -490,7 +490,10 @@ void Map::update(float) {
         break;
 
     case Tileset::TownTiles:
-        mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Towns, 0);
+        mapArea.editMap().setRenderOverlay(activeTool == Tool::Spawns ?
+                                               component::EditMap::RenderOverlay::Spawns :
+                                               component::EditMap::RenderOverlay::Towns,
+                                           0);
         break;
 
     case Tileset::LevelTiles:
@@ -1004,7 +1007,10 @@ void Map::setLightingDefault() {
     lightingSetBut->setColor(sf::Color::Yellow, sf::Color::Black);
 }
 
-void Map::startMapRender() { renderMapWindow.open(parent); }
+void Map::startMapRender() {
+    mapArea.disableControls();
+    renderMapWindow.open(parent);
+}
 
 void Map::doMapRender() { mapArea.editMap().staticRender(renderMapWindow); }
 

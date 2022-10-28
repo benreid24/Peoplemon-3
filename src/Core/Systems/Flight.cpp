@@ -67,7 +67,8 @@ bool Flight::startFlight(unsigned int spawn) {
     }
 
     if (playerPos->positionTiles() == destination.positionTiles()) {
-        // options:
+        return false;
+        // TODO - options:
         // 1. cancel with message
         // 2. go up and down
         // 3. go up and down with message
@@ -140,11 +141,10 @@ void Flight::update(float dt) {
         const float cDist   = distSqrd(*playerPos, flightDest);
         const float percent = 1.f - (cDist / flyState.ogDistSqrd) + 0.005f;
         flyState.velocity =
-            percent <= 0.25f ? percent * 4.f * flyState.maxSpeed : flyState.maxSpeed;
+            percent <= 0.125f ? percent * 8.f * flyState.maxSpeed : flyState.maxSpeed;
         if (flyState.velocity >= flyState.maxSpeed) {
             flyState.velocity = flyState.maxSpeed;
             state             = State::Flying;
-            BL_LOG_INFO << "flying";
         }
     } break;
 
@@ -152,10 +152,7 @@ void Flight::update(float dt) {
         movePlayer(dt);
         const float cDist   = distSqrd(*playerPos, flightDest);
         const float percent = 1.f - cDist / flyState.ogDistSqrd;
-        if (percent >= 0.98f) {
-            state = State::Deccelerating;
-            BL_LOG_INFO << "slowing";
-        }
+        if (percent >= 0.98f) { state = State::Deccelerating; }
     } break;
 
     case State::Deccelerating: {
@@ -178,11 +175,12 @@ void Flight::update(float dt) {
         playerPos->setPixels(
             {playerPos->positionPixels().x, destination.positionPixels().y - riseState.height});
         if (riseState.height == 0.f) {
-            *playerPos           = destination;
-            playerPos->direction = component::Direction::Down;
-            state                = State::Idle;
+            const component::Position prev = *playerPos;
+            *playerPos                     = destination;
+            playerPos->direction           = component::Direction::Down;
+            state                          = State::Idle;
             owner.engine().eventBus().dispatch<event::EntityMoved>(
-                {owner.player().player(), *playerPos, *playerPos});
+                {owner.player().player(), prev, *playerPos});
             owner.player().makePlayerControlled(owner.player().player());
         }
         break;
@@ -194,7 +192,6 @@ void Flight::update(float dt) {
 }
 
 void Flight::movePlayer(float dt) {
-    // const sf::Vector2f vel(bl::math::cos(flyState.angle), bl::math::sin(flyState.angle));
     playerPos->setPixels(playerPos->positionPixels() + unitVelocity * flyState.velocity * dt);
     syncTiles();
 }
