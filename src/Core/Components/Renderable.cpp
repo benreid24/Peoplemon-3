@@ -102,7 +102,10 @@ Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::strin
 }
 
 Renderable::Renderable(const PositionHandle& pos)
-: position(pos) {}
+: position(pos)
+, shadowHeight(-1.f) {
+    shadow.setFillColor(sf::Color(0, 0, 0, 145));
+}
 
 void Renderable::update(float dt) { cur()->update(dt, position); }
 
@@ -111,10 +114,24 @@ void Renderable::render(sf::RenderTarget& target, float lag) const {
     static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
                                      static_cast<float>(Properties::PixelsPerTile()));
     const sf::Vector2f pos(position.get().positionPixels() + offset);
+    if (shadowHeight >= 0.f) {
+        sf::RenderStates states;
+        states.transform.translate(pos);
+        states.transform.translate(-offset.x * 0.5f, shadowHeight);
+        target.draw(shadow, states);
+    }
     cur()->render(target, lag, pos);
 }
 
 void Renderable::setAngle(float a) { cur()->setAngle(a); }
+
+void Renderable::updateShadow(float height, float rad) {
+    shadow.setRadius(rad);
+    shadow.setOrigin({rad, rad});
+    shadowHeight = height;
+}
+
+void Renderable::removeShadow() { shadowHeight = -1.f; }
 
 Renderable::Base* Renderable::cur() {
     switch (data.index()) {

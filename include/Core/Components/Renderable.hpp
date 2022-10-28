@@ -106,6 +106,20 @@ public:
      */
     void setAngle(float angle);
 
+    /**
+     * @brief Adds or updates the shadow of this renderable
+     *
+     * @param distance How far below the renderable to render the shadow
+     * @param radius The radius of the shadow in pixels
+     */
+    void updateShadow(float distance, float radius);
+
+    /**
+     * @brief Removes the shadow from this renderable if present
+     *
+     */
+    void removeShadow();
+
 private:
     struct Base {
         virtual ~Base() = default;
@@ -182,6 +196,8 @@ private:
 
     bl::entity::Registry::ComponentHandle<component::Position> position;
     std::variant<StaticSprite, MoveAnims, FastMoveAnims, OneAnimation> data;
+    sf::CircleShape shadow;
+    float shadowHeight;
 
     Base* cur();
     Base* cur() const;

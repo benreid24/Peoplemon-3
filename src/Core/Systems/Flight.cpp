@@ -12,13 +12,15 @@ namespace system
 {
 namespace
 {
-constexpr float RiseHeight     = 32.5 * 5.f;
-constexpr float RiseRate       = RiseHeight / 2.f;
-constexpr float RotateTime     = 0.65f;
-constexpr float MaxSpeed       = 32.f * 38.f;
-constexpr float MinFlyTime     = 2.5f;
-constexpr float ShakesPerSec   = 8.f;
-constexpr float ShakeMagnitude = 10.f;
+constexpr float RiseHeight      = 32.5 * 5.f;
+constexpr float RiseRate        = RiseHeight / 2.f;
+constexpr float RotateTime      = 0.65f;
+constexpr float MaxSpeed        = 32.f * 38.f;
+constexpr float MinFlyTime      = 2.5f;
+constexpr float ShakesPerSec    = 8.f;
+constexpr float ShakeMagnitude  = 10.f;
+constexpr float ShadowSize      = 17.f;
+constexpr float ShadowShrinkage = ShadowSize * 0.3f;
 
 float distSqrd(const sf::Vector2f& p1, const sf::Vector2f& p2) {
     const float dx = p1.x - p2.x;
@@ -99,6 +101,8 @@ void Flight::update(float dt) {
     case State::Rising:
         riseState.height = std::min(riseState.height + RiseRate * dt, RiseHeight);
         playerPos->setPixels({playerPos->positionPixels().x, riseState.startY - riseState.height});
+        playerAnim->updateShadow(riseState.height,
+                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height >= RiseHeight) {
             state      = State::Rotating;
             flightDest = destination.positionPixels();
@@ -186,7 +190,10 @@ void Flight::update(float dt) {
         riseState.height = std::max(riseState.height - RiseRate * dt, 0.f);
         playerPos->setPixels(
             {playerPos->positionPixels().x, destination.positionPixels().y - riseState.height});
+        playerAnim->updateShadow(riseState.height,
+                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height == 0.f) {
+            playerAnim->removeShadow();
             const component::Position prev = *playerPos;
             *playerPos                     = destination;
             playerPos->direction           = component::Direction::Down;
