@@ -8,11 +8,14 @@ namespace game
 {
 namespace state
 {
-bl::engine::State::Ptr FlyMap::create(core::system::Systems& s) { return Ptr{new FlyMap(s)}; }
+bl::engine::State::Ptr FlyMap::create(core::system::Systems& s, bool& up) {
+    return Ptr{new FlyMap(s, up)};
+}
 
-FlyMap::FlyMap(core::system::Systems& s)
+FlyMap::FlyMap(core::system::Systems& s, bool& up)
 : State(s)
 , hudActive(false)
+, unpause(up)
 , cursorFlasher(cursor, 0.3f, 0.4f)
 , townMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
     auto& textures       = bl::engine::Resources::textures();
@@ -103,7 +106,7 @@ void FlyMap::deactivate(bl::engine::Engine& engine) {
 }
 
 void FlyMap::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
     if (hudActive) { systems.hud().update(dt); }
     cursorFlasher.update(dt);
     if (inputDriver.mostRecentInput() == core::component::Command::Back) { engine.popState(); }
@@ -152,10 +155,17 @@ void FlyMap::hoverTown(unsigned int i) {
 void FlyMap::selectTown(unsigned int i) {
     const auto t = core::map::Map::FlyMapTowns()[i];
     if (systems.world().activeMap().canFlyFromHere()) {
-        // TODO - check for key item
-        systems.hud().promptUser("Fly to " + t.name + "?",
-                                 {"Yes", "No"},
-                                 std::bind(&FlyMap::onFlyChoice, this, std::placeholders::_1, t));
+        if (systems.player().state().bag.hasItem(core::item::Id::Teleporter)) {
+            systems.hud().promptUser(
+                "Fly to " + t.name + "?",
+                {"Yes", "No"},
+                std::bind(&FlyMap::onFlyChoice, this, std::placeholders::_1, t));
+        }
+        else {
+            systems.hud().displayMessage("One day you may be able to quickly travel if you acquire "
+                                         "the right item... one day.",
+                                         std::bind(&FlyMap::messageDone, this));
+        }
     }
     else {
         systems.hud().displayMessage("You cannot fly from here!",
@@ -167,7 +177,10 @@ void FlyMap::selectTown(unsigned int i) {
 void FlyMap::onFlyChoice(const std::string& c, const core::map::Town& town) {
     hudActive = false;
     if (c == "Yes") {
-        if (systems.flight().startFlight(town.pcSpawn)) { close(); }
+        if (systems.flight().startFlight(town.pcSpawn)) {
+            unpause = true;
+            close();
+        }
         else {
             systems.hud().displayMessage("You cannot fly from here!",
                                          std::bind(&FlyMap::messageDone, this));

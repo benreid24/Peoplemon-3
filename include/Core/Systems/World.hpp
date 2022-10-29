@@ -53,9 +53,8 @@ public:
      *
      * @param newMap The map to whiteout into
      * @param spawnId Where to spawn
-     * @return True on success, false on error
      */
-    bool whiteout(const std::string& newMap, int spawnId);
+    void whiteout(const std::string& newMap, int spawnId);
 
     /**
      * @brief Returns a reference to the active map

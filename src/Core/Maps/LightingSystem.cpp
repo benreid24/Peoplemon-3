@@ -92,6 +92,8 @@ void LightingSystem::removeLight(Handle handle, bool p) {
     handles.erase(it);
 }
 
+bool LightingSystem::lightsAreOn() const { return computeAmbient() > 80; }
+
 void LightingSystem::setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel) {
     minLevel   = std::min(lowLightLevel, highLightLevel);
     maxLevel   = std::max(lowLightLevel, highLightLevel);
@@ -169,9 +171,7 @@ void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() * 0.5f);
     const sf::Vector2f& size = target.getView().getSize();
 
-    const float preambient = 255.f - (static_cast<float>(minLevel) + levelRange * sunlightFactor);
-    const std::uint8_t ambient =
-        std::min(std::max(0, static_cast<int>(preambient) + weatherModifier), 255);
+    const std::uint8_t ambient = computeAmbient();
     auto lightSet =
         lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
                        corner.y - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
@@ -202,6 +202,11 @@ void LightingSystem::render(sf::RenderTarget& target) {
     sprite.setScale(size.x / static_cast<float>(renderSurface.getSize().x),
                     -size.y / static_cast<float>(renderSurface.getSize().y));
     target.draw(sprite);
+}
+
+std::uint8_t LightingSystem::computeAmbient() const {
+    const float preambient = 255.f - (static_cast<float>(minLevel) + levelRange * sunlightFactor);
+    return std::min(std::max(0, static_cast<int>(preambient) + weatherModifier), 255);
 }
 
 void LightingSystem::observe(const event::TimeChange& now) {

@@ -17,6 +17,7 @@ const std::string UnknownName        = "<Unknown Item>";
 const std::string UnknownDescription = "<This item is not known to Peoplemon>";
 
 void refreshIds(std::unordered_map<Id, std::string>* names) {
+    ids.clear();
     ids.reserve(names->size());
     for (const auto& p : *names) { ids.emplace_back(p.first); }
     std::sort(ids.begin(), ids.end());

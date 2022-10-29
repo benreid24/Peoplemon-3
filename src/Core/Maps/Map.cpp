@@ -355,6 +355,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // subscribe to get entity position updates
     game.engine().eventBus().subscribe(this);
 
+    // start music
+    playlistHandle = bl::audio::AudioSystem::getOrLoadPlaylist(
+        bl::util::FileUtil::joinPath(Properties::PlaylistPath(), playlistField));
+    if (playlistHandle != bl::audio::AudioSystem::InvalidHandle) {
+        bl::audio::AudioSystem::replacePlaylist(playlistHandle);
+    }
+
     game.engine().eventBus().dispatch<event::MapEntered>({*this});
     BL_LOG_INFO << "Entered map: " << nameField;
 
@@ -372,8 +379,10 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     lighting.unsubscribe();
 
     // run exit script
-    onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
-    onExitScript->run(&game.engine().scriptManager());
+    if (onExitScript) {
+        onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
+        onExitScript->run(&game.engine().scriptManager());
+    }
 
     // TODO - pause weather
 
@@ -582,9 +591,9 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
     case Collision::LeftClosed:
         return dir != component::Direction::Right;
     case Collision::SurfRequired:
-        return false; // TODO - enforce surf. play anim?
+        return systems->player().state().bag.hasItem(item::Id::JesusShoes); // TODO - play anim?
     case Collision::WaterfallRequired:
-        return false; // TODO - enforce waterfall. play anim?
+        return systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade);
     default:
         BL_LOG_WARN << "Bad collision at (" << npos.positionTiles().x << ", "
                     << npos.positionTiles().y << ")";

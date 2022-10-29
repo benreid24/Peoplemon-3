@@ -4,10 +4,10 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Maps/Town.hpp>
 #include <Core/Player/Input.hpp>
 #include <Game/States/State.hpp>
 #include <SFML/Graphics.hpp>
-#include <Core/Maps/Town.hpp>
 
 namespace game
 {
@@ -19,9 +19,10 @@ public:
      * @brief Creates the fly map state
      *
      * @param systems The primary systems object
+     * @param unpause Boolean param to set if the pause menu should close after this closes
      * @return bl::engine::State::Ptr The new state
      */
-    static bl::engine::State::Ptr create(core::system::Systems& systems);
+    static bl::engine::State::Ptr create(core::system::Systems& systems, bool& unpause);
 
     /**
      * @brief Destroy the New Game state
@@ -69,6 +70,7 @@ private:
     std::vector<sf::Vector2f> townPositions;
     bool hudActive;
     sf::View oldView;
+    bool& unpause;
 
     bl::resource::Resource<sf::Texture>::Ref mapTxtr;
     bl::resource::Resource<sf::Texture>::Ref townTxtr;
@@ -88,7 +90,7 @@ private:
     bl::menu::Menu townMenu;
     core::player::input::MenuDriver inputDriver;
 
-    FlyMap(core::system::Systems& systems);
+    FlyMap(core::system::Systems& systems, bool& unpause);
     void clearHover();
     void hoverTown(unsigned int i);
     void selectTown(unsigned int i);

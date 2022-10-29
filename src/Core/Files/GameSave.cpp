@@ -92,7 +92,7 @@ bool GameSave::load(bl::event::Dispatcher* bus) {
 
     if (bus) {
         event::GameSaveLoaded finish{""};
-        bus->dispatch<event::GameSaveLoaded>(finish, false);
+        bus->dispatch<event::GameSaveLoaded>(finish);
         if (!finish.failMessage.empty()) {
             BL_LOG_ERROR << "Failed to load save file'" << sourceFile
                          << "': " << finish.failMessage;

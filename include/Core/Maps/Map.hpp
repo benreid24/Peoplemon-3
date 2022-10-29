@@ -16,6 +16,7 @@
 
 #include <BLIB/Entities.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Media/Audio.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Scripts.hpp>
 #include <BLIB/Serialization.hpp>
@@ -285,6 +286,7 @@ protected:
     std::unique_ptr<bl::script::Script> onExitScript;
     bl::container::Grid<const Event*> eventRegions;
     bool isWorldMap;
+    bl::audio::AudioSystem::Handle playlistHandle;
 
     bool activated; // for weather continuity
     mutable sf::IntRect renderRange;

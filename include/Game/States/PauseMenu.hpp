@@ -69,6 +69,7 @@ private:
     core::player::input::MenuDriver inputDriver;
     sf::View view;
     bool openedOnce;
+    bool unpause;
 
     bl::menu::Item::Ptr resume;
     bl::menu::Item::Ptr ppldex;

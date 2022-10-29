@@ -38,7 +38,7 @@ public:
      * @brief Destroy the Main Game state
      *
      */
-    virtual ~MainGame() = default;
+    virtual ~MainGame();
 
     /**
      * @brief Returns "MainGame"

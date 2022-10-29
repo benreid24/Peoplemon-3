@@ -41,7 +41,7 @@ void Systems::update(float dt, bool ent) {
 
     if (ent) {
         _ai.update(dt);
-        _player.update();
+        _player.update(dt);
         _movement.update(dt);
         _trainers.update(dt);
         _flight.update(dt);

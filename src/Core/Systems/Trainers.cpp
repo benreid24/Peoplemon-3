@@ -192,5 +192,7 @@ void Trainers::cleanup() {
     trainerMove      = nullptr;
 }
 
+void Trainers::resetDefeated() { defeated.clear(); }
+
 } // namespace system
 } // namespace core

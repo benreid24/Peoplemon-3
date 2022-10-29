@@ -3,11 +3,11 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
+#include <Core/Events/BagMenu.hpp>
 #include <Core/Player/Input/MenuDriver.hpp>
 #include <Game/Menus/BagItemButton.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/State.hpp>
-#include <Core/Events/BagMenu.hpp>
 
 namespace game
 {
@@ -31,10 +31,12 @@ public:
      * @param ctx Context the bag is being used from
      * @param result Optional item to populate with the chosen item
      * @param outNow Index of the currently out Peoplemon if in battle
+     * @param unpause Pointer to boolean to set if pause menu should close after bag closes
      * @return bl::engine::State::Ptr
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems, Context ctx,
-                                         core::item::Id* result = nullptr, int outNow = -1, int* chosenPeoplemon = nullptr);
+                                         core::item::Id* result = nullptr, int outNow = -1,
+                                         int* chosenPeoplemon = nullptr, bool* unpause = nullptr);
 
     /**
      * @brief Destroy the Bag Menu object
@@ -87,6 +89,7 @@ private:
     const int outNow;
     core::item::Id* const result;
     int* itemPeoplemon;
+    bool* unpause;
 
     MenuState state;
     float slideAmount;
@@ -112,7 +115,8 @@ private:
     menu::BagItemButton* selectedItem;
     int selectedPeoplemon;
 
-    BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result, int outNow, int* chosenPeoplemon);
+    BagMenu(core::system::Systems& systems, Context ctx, core::item::Id* result, int outNow,
+            int* chosenPeoplemon, bool* unpause);
 
     void itemHighlighted(const menu::BagItemButton* but);
     void itemSelected(const menu::BagItemButton* but);
@@ -127,6 +131,7 @@ private:
     void resetAction();
 
     void messageDone();
+    void keyItemConfirmUse(const std::string& choice);
 };
 
 } // namespace state

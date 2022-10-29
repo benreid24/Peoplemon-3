@@ -43,11 +43,13 @@ MainGame::MainGame(core::system::Systems& systems)
     cover.setFillColor(sf::Color::Black);
 }
 
+MainGame::~MainGame() { systems.engine().eventBus().unsubscribe(this); }
+
 const char* MainGame::name() const { return "MainGame"; }
 
 void MainGame::activate(bl::engine::Engine&) { systems.engine().eventBus().subscribe(this); }
 
-void MainGame::deactivate(bl::engine::Engine&) { systems.engine().eventBus().unsubscribe(this); }
+void MainGame::deactivate(bl::engine::Engine&) {}
 
 void MainGame::update(bl::engine::Engine&, float dt) {
     switch (state) {

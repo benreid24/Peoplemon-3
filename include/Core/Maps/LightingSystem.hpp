@@ -88,6 +88,12 @@ public:
     void removeLight(Handle light, bool updateSave = false);
 
     /**
+     * @brief Returns whether lights are being shown or not based on how dark it is
+     *
+     */
+    bool lightsAreOn() const;
+
+    /**
      * @brief The ambient light band. 0 is full darkness and 255 is full brightness
      *
      * @param lowLightLevel The min light level. This is reached at midnight
@@ -215,6 +221,8 @@ private:
     int weatherModifier;
     int targetWeatherModifier;
     float weatherResidual;
+
+    std::uint8_t computeAmbient() const;
 
     friend class bl::serial::SerializableObject<LightingSystem>;
 };

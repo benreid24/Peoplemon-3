@@ -204,7 +204,7 @@ void StoreMenu::deactivate(bl::engine::Engine& engine) {
 }
 
 void StoreMenu::update(bl::engine::Engine&, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
     dingTime += dt;
 
     switch (menuState) {
