@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
+#include <Core/Events/Maps.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
 
@@ -66,16 +67,18 @@ bool needPickPeoplemon(core::item::Id item, core::item::Type type) {
 } // namespace
 
 bl::engine::State::Ptr BagMenu::create(core::system::Systems& s, Context c, core::item::Id* i,
-                                       int outNow, int* chosenPpl) {
-    return bl::engine::State::Ptr(new BagMenu(s, c, i, outNow, chosenPpl));
+                                       int outNow, int* chosenPpl, bool* up) {
+    return bl::engine::State::Ptr(new BagMenu(s, c, i, outNow, chosenPpl, up));
 }
 
-BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int outNow, int* chosenPpl)
+BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int outNow, int* chosenPpl,
+                 bool* up)
 : State(s)
 , context(c)
 , outNow(outNow)
 , result(i)
 , itemPeoplemon(chosenPpl ? chosenPpl : &selectedPeoplemon)
+, unpause(up)
 , state(MenuState::Browsing)
 , activeMenu(&regularMenu)
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
@@ -234,7 +237,7 @@ void BagMenu::deactivate(bl::engine::Engine& engine) {
 }
 
 void BagMenu::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
 
     switch (state) {
     case MenuState::Browsing: {
@@ -354,12 +357,57 @@ void BagMenu::useItem() {
     else {
         if (context == Context::BattleUse) {
             if (result) *result = selectedItem->getItem().id;
-            systems.engine().popState();
+            state = MenuState::ImmediatelyPop;
         }
         else {
             switch (type) {
             case core::item::Type::KeyItem:
-                // TODO - use key items
+                state = MenuState::ShowingMessage;
+                switch (selectedItem->getItem().id) {
+                case core::item::Id::TransportationCrystal:
+                    if (systems.player().state().bag.hasItem(core::item::Id::Penny)) {
+                        systems.hud().promptUser(
+                            "Use your Penny to use the Transportation Crystal?",
+                            {"Yes", "No"},
+                            std::bind(&BagMenu::keyItemConfirmUse, this, std::placeholders::_1));
+                    }
+                    else {
+                        systems.hud().displayMessage("You need a Penny to use this!",
+                                                     std::bind(&BagMenu::messageDone, this));
+                    }
+                    break;
+                case core::item::Id::Lantern:
+                    if (systems.world().activeMap().lightingSystem().lightsAreOn()) {
+                        systems.player().showLantern();
+                        if (unpause != nullptr) { *unpause = true; }
+                        state = MenuState::ImmediatelyPop;
+                    }
+                    else {
+                        systems.hud().displayMessage(
+                            "It's not very dark here. Better save the batteries for later.",
+                            std::bind(&BagMenu::messageDone, this));
+                    }
+                    break;
+                case core::item::Id::BigRedButton:
+                    systems.hud().promptUser(
+                        "This will make all trainers hostile again! Are you sure you want to do "
+                        "this? This cannot be undone except through violence.",
+                        {"Yes", "No"},
+                        std::bind(&BagMenu::keyItemConfirmUse, this, std::placeholders::_1));
+                    break;
+                case core::item::Id::MiniFridge:
+                    systems.hud().promptUser(
+                        "Blow yourself up and respawn at the last PC Center you visited?",
+                        {"Yes", "No"},
+                        std::bind(&BagMenu::keyItemConfirmUse, this, std::placeholders::_1));
+                    break;
+                default:
+                    systems.hud().displayMessage(
+                        "The Professor's voice rings in your head: \"Not now I'm working!\"");
+                    systems.hud().displayMessage("... Or something like that.",
+                                                 std::bind(&BagMenu::messageDone, this));
+                    break;
+                }
                 break;
             case core::item::Type::PlayerModifier:
                 if (core::item::Item::hasEffectOnPlayer(selectedItem->getItem().id,
@@ -453,6 +501,40 @@ void BagMenu::removeAndUpdateItem(int qty) {
     if (it.qty <= 0) { activeMenu->removeItem(selectedItem); }
     else {
         selectedItem->update(it);
+    }
+}
+
+void BagMenu::keyItemConfirmUse(const std::string& c) {
+    messageDone();
+    if (c == "Yes") {
+        switch (selectedItem->getItem().id) {
+        case core::item::Id::MiniFridge:
+            systems.player().whiteout();
+            if (unpause != nullptr) { *unpause = true; }
+            state = MenuState::ImmediatelyPop;
+            break;
+        case core::item::Id::BigRedButton:
+            systems.trainers().resetDefeated();
+            systems.hud().displayMessage("Everyone's Peoplemon have been healed! Watch your back.",
+                                         std::bind(&BagMenu::messageDone, this));
+            state = MenuState::ShowingMessage;
+            break;
+        case core::item::Id::TransportationCrystal:
+            if (systems.player().state().bag.removeItem(core::item::Id::Penny)) {
+                systems.engine().eventBus().dispatch<core::event::SwitchMapTriggered>(
+                    {"TheVoid.map", 1});
+                if (unpause != nullptr) { *unpause = true; }
+                state = MenuState::ImmediatelyPop;
+            }
+            else {
+                systems.hud().displayMessage("What happened to your Penny?",
+                                             std::bind(&BagMenu::messageDone, this));
+                state = MenuState::ShowingMessage;
+            }
+            break;
+        default:
+            break;
+        }
     }
 }
 

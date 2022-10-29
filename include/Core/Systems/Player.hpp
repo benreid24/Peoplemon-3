@@ -7,6 +7,7 @@
 #include <Core/Components/Position.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
+#include <Core/Maps/LightingSystem.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
@@ -93,8 +94,10 @@ public:
     /**
      * @brief Updates the player system
      *
+     * @param dt Time elapsed in seconds
+     *
      */
-    void update();
+    void update(float dt);
 
     /**
      * @brief Heals all Peoplemon and respawns at the last PC center
@@ -114,17 +117,36 @@ public:
      */
     const player::State& state() const;
 
+    /**
+     * @brief Creates a light for the player's lantern. Keeps it updated as well
+     *
+     */
+    void showLantern();
+
 private:
     Systems& owner;
     bl::entity::Entity playerId;
     bl::entity::Registry::ComponentHandle<component::Position> _position;
     bl::entity::Registry::ComponentHandle<component::Movable> movable;
 
+    map::LightingSystem::Handle lantern;
+    float lanternVariance;
+    float lanternTargetVariance;
+    union {
+        float varianceConvergeRate;
+        float varianceSwitchTime;
+    };
+
     player::Input input;
     player::State data;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
     virtual void observe(const event::EntityMoveFinished& ent) override;
+
+    void updateLantern(float dt);
+    void startLanternVarianceHold();
+    void startLanternVarianceChange();
+    map::Light makeLight() const;
 
     friend class bl::serial::SerializableObject<Player>;
 };

@@ -1,5 +1,6 @@
 #include <Core/Systems/World.hpp>
 
+#include <Core/Events/Maps.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -66,13 +67,11 @@ bool World::switchMaps(const std::string& file, int spawn) {
     return true;
 }
 
-bool World::whiteout(const std::string& map, int spawn) {
-    if (switchMaps(map, spawn)) {
-        previousMap.reset();
-        prevMapFile.clear();
-        return true;
-    }
-    return false;
+void World::whiteout(const std::string& map, int spawn) {
+    BL_LOG_INFO << "Whiting out to " << map << " (" << spawn << ")";
+    previousMap.reset();
+    prevMapFile.clear();
+    owner.engine().eventBus().dispatch<event::SwitchMapTriggered>({map, spawn});
 }
 
 void World::setWhiteoutMap(unsigned int spawn) {

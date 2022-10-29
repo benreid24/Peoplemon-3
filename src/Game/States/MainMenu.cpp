@@ -73,7 +73,7 @@ void MainMenu::deactivate(bl::engine::Engine&) {
     inputDriver.drive(nullptr);
 }
 
-void MainMenu::update(bl::engine::Engine&, float) { systems.player().update(); }
+void MainMenu::update(bl::engine::Engine&, float dt) { systems.player().update(dt); }
 
 void MainMenu::render(bl::engine::Engine& engine, float) {
     sf::RenderWindow& w = engine.window();

@@ -91,7 +91,7 @@ void LoadGame::deactivate(bl::engine::Engine&) {
 }
 
 void LoadGame::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
 
     const core::component::Command input = inputDriver.mostRecentInput();
     switch (state) {

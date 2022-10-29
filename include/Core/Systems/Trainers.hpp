@@ -66,6 +66,12 @@ public:
      */
     bl::entity::Entity approachingTrainer() const;
 
+    /**
+     * @brief Resets the list of defeated trainers
+     *
+     */
+    void resetDefeated();
+
 private:
     enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
 

@@ -13,10 +13,20 @@ namespace core
 {
 namespace system
 {
+namespace
+{
+constexpr float LanternRadius           = 32.f * 6.f;
+constexpr float MaxVariance             = 19.f;
+constexpr float MaxVarianceHoldtime     = 0.22f;
+constexpr float VarianceMinConvergeRate = MaxVariance / 0.25f;
+constexpr float VarianceMaxConvergeRate = MaxVariance / 0.15f;
+} // namespace
+
 using Serializer = bl::serial::json::Serializer<Player>;
 
 Player::Player(Systems& owner)
-: owner(owner) {}
+: owner(owner)
+, lantern(map::LightingSystem::None) {}
 
 bool Player::spawnPlayer(const component::Position& pos) {
     playerId = owner.engine().entities().createEntity();
@@ -128,13 +138,67 @@ void Player::init() {
 
 void Player::whiteout() {
     for (auto& ppl : data.peoplemon) { ppl.heal(); }
-    if (!owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn)) {
-        BL_LOG_CRITICAL << "Failed to whiteout";
-        owner.engine().flags().set(bl::engine::Flags::Terminate);
+    owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn);
+}
+
+void Player::update(float dt) {
+    input.update();
+
+    if (lantern != map::LightingSystem::None) { updateLantern(dt); }
+}
+
+void Player::showLantern() {
+    if (lantern == map::LightingSystem::None) {
+        lanternVariance       = 0.f;
+        lanternTargetVariance = 0.f;
+        lantern               = owner.world().activeMap().lightingSystem().addLight(makeLight());
+        startLanternVarianceHold();
     }
 }
 
-void Player::update() { input.update(); }
+void Player::updateLantern(float dt) {
+    auto& lighting = owner.world().activeMap().lightingSystem();
+
+    if (lighting.lightsAreOn()) {
+        if (lanternVariance != lanternTargetVariance) {
+            if (lanternVariance < lanternTargetVariance) {
+                lanternVariance += varianceConvergeRate * dt;
+                if (lanternVariance >= lanternTargetVariance) { startLanternVarianceHold(); }
+            }
+            else {
+                lanternVariance -= varianceConvergeRate * dt;
+                if (lanternVariance <= lanternTargetVariance) { startLanternVarianceHold(); }
+            }
+        }
+        else {
+            varianceSwitchTime -= dt;
+            if (varianceSwitchTime <= 0.f) { startLanternVarianceChange(); }
+        }
+
+        lighting.updateLight(lantern, makeLight());
+    }
+    else {
+        lighting.removeLight(lantern);
+        lantern = map::LightingSystem::None;
+    }
+}
+
+void Player::startLanternVarianceHold() {
+    lanternVariance    = lanternTargetVariance;
+    varianceSwitchTime = bl::util::Random::get<float>(0.1f, MaxVarianceHoldtime);
+}
+
+void Player::startLanternVarianceChange() {
+    lanternTargetVariance = bl::util::Random::get<float>(-MaxVariance, MaxVariance);
+    varianceConvergeRate =
+        bl::util::Random::get<float>(VarianceMinConvergeRate, VarianceMaxConvergeRate);
+}
+
+map::Light Player::makeLight() const {
+    sf::Vector2i pos(position().positionPixels());
+    pos.x += Properties::PixelsPerTile() / 2;
+    return map::Light(static_cast<std::uint16_t>(LanternRadius + lanternVariance), pos);
+}
 
 player::State& Player::state() { return data; }
 

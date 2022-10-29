@@ -263,7 +263,7 @@ void PeoplemonMenu::setSelectable(unsigned int i) {
 }
 
 void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
     if (inputDriver.mostRecentInput() == core::component::Command::Back) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
         if (state == MenuState::SelectingMove) { cleanupMove(false); }

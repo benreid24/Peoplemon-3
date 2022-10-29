@@ -24,7 +24,8 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 PauseMenu::PauseMenu(core::system::Systems& s)
 : State(s)
 , menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
-, openedOnce(false) {
+, openedOnce(false)
+, unpause(false) {
     using bl::menu::Item;
     using bl::menu::TextItem;
 
@@ -42,12 +43,13 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 
     bag = TextItem::create("Bag", core::Properties::MenuFont());
     bag->getSignal(Item::Activated).willCall([this]() {
-        systems.engine().pushState(BagMenu::create(systems, BagMenu::Context::PauseMenu));
+        systems.engine().pushState(
+            BagMenu::create(systems, BagMenu::Context::PauseMenu, nullptr, -1, nullptr, &unpause));
     });
 
     map = TextItem::create("Map", core::Properties::MenuFont());
     map->getSignal(Item::Activated).willCall([this]() {
-        this->systems.engine().pushState(FlyMap::create(this->systems));
+        this->systems.engine().pushState(FlyMap::create(this->systems, this->unpause));
     });
 
     save = TextItem::create("Save", core::Properties::MenuFont());
@@ -72,8 +74,13 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     else {
         menu.addItem(bag, ppldex.get(), Item::Bottom);
     }
-    menu.addItem(map, bag.get(), Item::Bottom);
-    menu.addItem(save, map.get(), Item::Bottom);
+    if (systems.player().state().bag.hasItem(core::item::Id::Map)) {
+        menu.addItem(map, bag.get(), Item::Bottom);
+        menu.addItem(save, map.get(), Item::Bottom);
+    }
+    else {
+        menu.addItem(save, bag.get(), Item::Bottom);
+    }
     menu.addItem(settings, save.get(), Item::Bottom);
     menu.addItem(quit, settings.get(), Item::Bottom);
     menu.attachExisting(resume.get(), quit.get(), Item::Bottom);
@@ -106,15 +113,16 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
 void PauseMenu::deactivate(bl::engine::Engine&) {
     systems.player().inputSystem().removeListener(inputDriver);
     inputDriver.drive(nullptr);
+    unpause = false;
 }
 
 void PauseMenu::update(bl::engine::Engine& engine, float dt) {
-    if (systems.flight().flying()) {
+    if (unpause) {
         engine.popState();
         return;
     }
 
-    systems.player().update();
+    systems.player().update(dt);
     systems.world().update(dt);
     const core::component::Command input = inputDriver.mostRecentInput();
     if (input == core::component::Command::Back || input == core::component::Command::Pause) {

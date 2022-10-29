@@ -178,7 +178,7 @@ void StorageSystem::deactivate(bl::engine::Engine&) {
 }
 
 void StorageSystem::update(bl::engine::Engine&, float dt) {
-    systems.player().update();
+    systems.player().update(dt);
     cursor.update(dt);
 
     switch (state) {
