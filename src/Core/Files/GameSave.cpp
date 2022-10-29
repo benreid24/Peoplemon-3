@@ -114,16 +114,18 @@ void GameSave::useLocalData() {
     localData.emplace();
     auto& d = localData.value();
 
-    player.inventory     = &d.inventory;
-    player.monei         = &d.monei;
-    player.peoplemon     = &d.peoplemon;
-    player.playerName    = &d.playerName;
-    player.sex           = &d.sex;
-    player.whiteoutMap   = &d.whiteoutMap;
-    player.whiteoutSpawn = &d.whiteoutSpawn;
-    player.repelSteps    = &d.repelSteps;
-    player.storage       = &d.storage;
-    player.visitedTowns  = &d.visitedTowns;
+    player.inventory              = &d.inventory;
+    player.monei                  = &d.monei;
+    player.peoplemon              = &d.peoplemon;
+    player.playerName             = &d.playerName;
+    player.sex                    = &d.sex;
+    player.whiteoutMap            = &d.whiteoutMap;
+    player.whiteoutSpawn          = &d.whiteoutSpawn;
+    player.repelSteps             = &d.repelSteps;
+    player.storage                = &d.storage;
+    player.visitedTowns           = &d.visitedTowns;
+    player.seenPeoplemon          = &d.seenPeoplemon;
+    player.firstSightingLocations = &d.firstSightingLocations;
 
     interaction.convFlags = &d.convFlags;
     interaction.talkedto  = &d.talkedto;
@@ -140,16 +142,18 @@ void GameSave::useLocalData() {
 }
 
 GameSave::GameSave() {
-    player.inventory     = nullptr;
-    player.monei         = nullptr;
-    player.peoplemon     = nullptr;
-    player.playerName    = nullptr;
-    player.sex           = nullptr;
-    player.whiteoutMap   = nullptr;
-    player.whiteoutSpawn = nullptr;
-    player.repelSteps    = nullptr;
-    player.storage       = nullptr;
-    player.visitedTowns  = nullptr;
+    player.inventory              = nullptr;
+    player.monei                  = nullptr;
+    player.peoplemon              = nullptr;
+    player.playerName             = nullptr;
+    player.sex                    = nullptr;
+    player.whiteoutMap            = nullptr;
+    player.whiteoutSpawn          = nullptr;
+    player.repelSteps             = nullptr;
+    player.storage                = nullptr;
+    player.visitedTowns           = nullptr;
+    player.seenPeoplemon          = nullptr;
+    player.firstSightingLocations = nullptr;
 
     interaction.convFlags = nullptr;
     interaction.talkedto  = nullptr;

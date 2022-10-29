@@ -267,6 +267,14 @@ public:
      */
     const component::Position* getSpawnPosition(unsigned int spawnId) const;
 
+    /**
+     * @brief Returns the name of the town or route at the given position
+     *
+     * @param pos The position to check for
+     * @return const std::string& The name of the town, route, or map of the position
+     */
+    const std::string& getLocationName(const component::Position& pos) const;
+
 protected:
     std::string nameField;
     std::string loadScriptField;

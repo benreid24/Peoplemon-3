@@ -6,6 +6,7 @@
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
+#include <Core/Player/Peopledex.hpp>
 #include <Core/Player/StorageSystem.hpp>
 
 namespace core
@@ -38,6 +39,7 @@ struct State {
     std::vector<pplmn::OwnedPeoplemon> peoplemon;
     StorageSystem storage;
     std::unordered_set<std::string> visitedTowns;
+    Peopledex peopledex;
 
     component::Position savePos;
     std::string whiteoutMap;

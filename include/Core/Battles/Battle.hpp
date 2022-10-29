@@ -26,14 +26,14 @@ struct Battle {
     /**
      * @brief Creates the battle struct and initializes the player battler
      *
-     * @param systems The main game systems
+     * @param location The name of the map, town, or route where the battle is taking place
      * @param player The player data
      * @param type The type of battle this is
      * @param eventBus The event bus to use
      * @return std::unique_ptr<Battle> The new battle struct
      */
-    static std::unique_ptr<Battle> create(system::Player& player, Type type,
-                                          bl::event::Dispatcher& eventBus);
+    static std::unique_ptr<Battle> create(const std::string& location, system::Player& player,
+                                          Type type, bl::event::Dispatcher& eventBus);
 
     /**
      * @brief Sets and initializes the controller to use in battle
@@ -42,6 +42,7 @@ struct Battle {
      */
     void setController(std::unique_ptr<BattleController>&& controller);
 
+    const std::string location;
     system::Player& player;
     const Type type;
     BattleState state;
@@ -50,7 +51,8 @@ struct Battle {
     bool localPlayerWon; // set by controller
 
 private:
-    Battle(system::Player& player, Type type, bl::event::Dispatcher& eventBus);
+    Battle(const std::string& location, system::Player& player, Type type,
+           bl::event::Dispatcher& eventBus);
 };
 
 } // namespace battle

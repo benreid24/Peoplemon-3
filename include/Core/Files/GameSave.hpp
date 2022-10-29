@@ -46,6 +46,8 @@ struct GameSave {
         unsigned int* repelSteps;
         std::array<std::vector<pplmn::StoredPeoplemon>, player::StorageSystem::BoxCount>* storage;
         std::unordered_set<std::string>* visitedTowns;
+        std::unordered_map<pplmn::Id, std::uint32_t>* seenPeoplemon;
+        std::unordered_map<pplmn::Id, std::string>* firstSightingLocations;
     } player;
 
     /// Stores pointers to the actual data to save/load from
@@ -171,6 +173,8 @@ private:
         std::unordered_map<std::string, bl::script::Value> entries;
         system::Clock::Time clockTime;
         std::unordered_set<std::string> defeatedTrainers;
+        std::unordered_map<pplmn::Id, std::uint32_t> seenPeoplemon;
+        std::unordered_map<pplmn::Id, std::string> firstSightingLocations;
     };
 
     std::optional<Data> localData;
@@ -234,6 +238,8 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
                                  core::player::StorageSystem::BoxCount>*>
         storage;
     SerializableField<10, Player, std::unordered_set<std::string>*> visitedTowns;
+    SerializableField<11, Player, std::unordered_map<core::pplmn::Id, std::uint32_t>*> seenCounts;
+    SerializableField<12, Player, std::unordered_map<core::pplmn::Id, std::string>*> seenSpots;
 
     SerializableObject()
     : name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
@@ -246,8 +252,10 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
                     SerializableFieldBase::Required{})
     , repelSteps("repelSteps", *this, &Player::repelSteps, SerializableFieldBase::Required{})
     , storage("storage", *this, &Player::storage, SerializableFieldBase::Optional{})
-    , visitedTowns("visitedTowns", *this, &Player::visitedTowns,
-                   SerializableFieldBase::Optional{}) {}
+    , visitedTowns("visitedTowns", *this, &Player::visitedTowns, SerializableFieldBase::Optional{})
+    , seenCounts("seenPeoplemon", *this, &Player::seenPeoplemon, SerializableFieldBase::Optional{})
+    , seenSpots("seenSpots", *this, &Player::firstSightingLocations,
+                SerializableFieldBase::Optional{}) {}
 };
 
 template<>

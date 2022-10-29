@@ -205,16 +205,18 @@ player::State& Player::state() { return data; }
 const player::State& Player::state() const { return data; }
 
 void Player::observe(const event::GameSaveInitializing& save) {
-    save.gameSave.player.inventory     = &data.bag;
-    save.gameSave.player.monei         = &data.monei;
-    save.gameSave.player.peoplemon     = &data.peoplemon;
-    save.gameSave.player.playerName    = &data.name;
-    save.gameSave.player.sex           = &data.sex;
-    save.gameSave.player.whiteoutMap   = &data.whiteoutMap;
-    save.gameSave.player.whiteoutSpawn = &data.whiteoutSpawn;
-    save.gameSave.player.repelSteps    = &data.repelSteps;
-    save.gameSave.player.storage       = &data.storage.boxes;
-    save.gameSave.player.visitedTowns  = &data.visitedTowns;
+    save.gameSave.player.inventory              = &data.bag;
+    save.gameSave.player.monei                  = &data.monei;
+    save.gameSave.player.peoplemon              = &data.peoplemon;
+    save.gameSave.player.playerName             = &data.name;
+    save.gameSave.player.sex                    = &data.sex;
+    save.gameSave.player.whiteoutMap            = &data.whiteoutMap;
+    save.gameSave.player.whiteoutSpawn          = &data.whiteoutSpawn;
+    save.gameSave.player.repelSteps             = &data.repelSteps;
+    save.gameSave.player.storage                = &data.storage.boxes;
+    save.gameSave.player.visitedTowns           = &data.visitedTowns;
+    save.gameSave.player.seenPeoplemon          = &data.peopledex.seenCounts;
+    save.gameSave.player.firstSightingLocations = &data.peopledex.firstSawLocations;
 }
 
 void Player::observe(const event::EntityMoveFinished& ent) {
