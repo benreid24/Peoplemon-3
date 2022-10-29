@@ -8,6 +8,7 @@ State::State()
 : name("ERROR")
 , sex(Gender::Boy)
 , monei(0)
+, peopledex(*this)
 , whiteoutMap("Hometown/HometownYourHouseYourRoom.map")
 , whiteoutSpawn(5)
 , repelSteps(0) {}

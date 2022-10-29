@@ -60,6 +60,9 @@ private:
     int turnCounter;
     int curShake;
 
+    // peopledex
+    std::unordered_set<pplmn::BattlePeoplemon*> seenPeoplemon;
+
     virtual void onCommandQueued(const Command& cmd) override;
     virtual void onCommandProcessed(const Command& cmd) override;
     virtual void onUpdate(bool viewSynced, bool queueEmpty) override;

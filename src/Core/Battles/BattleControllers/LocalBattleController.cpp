@@ -1732,6 +1732,14 @@ void LocalBattleController::doSwitch(Battler& battler, unsigned int newPP) {
         queueCommand({cmd::Message(cmd::Message::Type::FriendlyAilmentHeal, oldIndex, isHost)},
                      true);
     }
+
+    // register sighting
+    if (&battler != &state->localPlayer() &&
+        seenPeoplemon.find(&battler.activePeoplemon()) == seenPeoplemon.end()) {
+        seenPeoplemon.emplace(&battler.activePeoplemon());
+        battle->player.state().peopledex.registerSighting(battler.activePeoplemon().base().id(),
+                                                          battle->location);
+    }
 }
 
 void LocalBattleController::postSwitch(Battler& battler) {

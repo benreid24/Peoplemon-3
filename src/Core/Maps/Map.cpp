@@ -800,5 +800,9 @@ const component::Position* Map::getSpawnPosition(unsigned int spid) const {
     return sit != spawns.end() ? &sit->second.position : nullptr;
 }
 
+const std::string& Map::getLocationName(const component::Position& pos) const {
+    return const_cast<Map*>(this)->getTown(pos.positionTiles())->name;
+}
+
 } // namespace map
 } // namespace core

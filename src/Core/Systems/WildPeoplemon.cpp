@@ -27,7 +27,10 @@ void WildPeoplemon::observe(const event::EntityMoveFinished& m) {
             currentWild = region->selectWild().generate();
 
             std::unique_ptr<battle::Battle> battle = battle::Battle::create(
-                owner.player(), battle::Battle::Type::WildPeoplemon, owner.engine().eventBus());
+                owner.world().activeMap().getLocationName(owner.player().position()),
+                owner.player(),
+                battle::Battle::Type::WildPeoplemon,
+                owner.engine().eventBus());
             std::vector<pplmn::BattlePeoplemon> team;
             team.emplace_back(&currentWild);
 

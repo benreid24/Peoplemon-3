@@ -67,7 +67,7 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     townPositions.reserve(core::map::Map::FlyMapTowns().size());
     for (unsigned int i = 0; i < core::map::Map::FlyMapTowns().size(); ++i) {
         const auto& t = core::map::Map::FlyMapTowns()[i];
-        if (visited.find(t.name) != visited.end()) {
+        if (visited.find(t.name) != visited.end() && t.mapPos != sf::Vector2i{} && t.pcSpawn > 0) {
             townPositions.emplace_back(sf::Vector2f(t.mapPos));
             bl::menu::Item::Ptr it = bl::menu::TextItem::create(
                 t.name, core::Properties::MenuFont(), sf::Color::Black, 18);
