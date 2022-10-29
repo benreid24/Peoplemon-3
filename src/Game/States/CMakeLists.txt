@@ -8,6 +8,7 @@ target_sources(Peoplemon PRIVATE
     MapExplorer.cpp
     NewGame.cpp
     PauseMenu.cpp
+    Peopledex.cpp
     PeoplemonMenu.cpp
     SaveGame.cpp
     State.cpp

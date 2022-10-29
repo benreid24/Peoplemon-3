@@ -424,9 +424,11 @@ void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Val
         result = "party";
     }
     else {
-        // TODO - implement peoplemon storage system
+        systems.player().state().storage.add({id, args[1].value().getAsInt()});
         result = "storage";
     }
+    systems.player().state().peopledex.registerSighting(
+        id, systems.world().activeMap().getLocationName(systems.player().position()));
 
     result = false;
 }

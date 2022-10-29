@@ -8,6 +8,7 @@ target_sources(Peoplemon PUBLIC
     MapExplorer.hpp
     NewGame.hpp
     PauseMenu.hpp
+    Peopledex.hpp
     PeoplemonMenu.hpp
     SaveGame.hpp
     State.hpp

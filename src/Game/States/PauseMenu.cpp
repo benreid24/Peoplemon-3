@@ -4,6 +4,7 @@
 #include <Core/Properties.hpp>
 #include <Game/States/BagMenu.hpp>
 #include <Game/States/FlyMap.hpp>
+#include <Game/States/Peopledex.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
 
@@ -33,7 +34,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     resume->getSignal(Item::Activated).willCall([this]() { this->systems.engine().popState(); });
 
     ppldex = TextItem::create("Peopledex", core::Properties::MenuFont());
-    ppldex->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Peopledex"; });
+    ppldex->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(Peopledex::create(systems));
+    });
 
     pplmon = TextItem::create("Peoplemon", core::Properties::MenuFont());
     pplmon->getSignal(Item::Activated).willCall([this]() {

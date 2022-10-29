@@ -16,8 +16,11 @@ unsigned int Peopledex::getSeen(pplmn::Id ppl) const {
 
 const std::string& Peopledex::getFirstSeenLocation(pplmn::Id ppl) const {
     static const std::string empty;
-    const auto it = firstSawLocations.find(ppl);
-    return it != firstSawLocations.end() ? it->second : empty;
+    static const std::string unknown = "Unknown";
+    const auto it                    = firstSawLocations.find(ppl);
+    if (it != firstSawLocations.end()) return it->second;
+    if (getIntelLevel(ppl) != NoIntel) return unknown;
+    return empty;
 }
 
 unsigned int Peopledex::getCaught(pplmn::Id ppl) const {
@@ -38,10 +41,9 @@ unsigned int Peopledex::getCaught(pplmn::Id ppl) const {
 
 Peopledex::IntelLevel Peopledex::getIntelLevel(pplmn::Id ppl) const {
     const unsigned int s = getSeen(ppl);
-    if (s == 0) return IntelLevel::NoIntel;
-
     const unsigned int c = getCaught(ppl);
-    return c > 0 ? IntelLevel::FullIntel : IntelLevel::LimitedIntel;
+    if (c > 0) return IntelLevel::FullIntel;
+    return s > 0 ? IntelLevel::LimitedIntel : IntelLevel::NoIntel;
 }
 
 void Peopledex::registerSighting(pplmn::Id ppl, const std::string& location) {
