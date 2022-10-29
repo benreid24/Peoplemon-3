@@ -6,11 +6,14 @@
 #include <BLIB/Events.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <BLIB/Engine/Engine.hpp>
 
 namespace core
 {
 namespace component
 {
+class Renderable;
+
 /**
  * @brief Adding this component to an entity will allow it to move
  *
@@ -29,7 +32,7 @@ public:
      * @param speed The speed to move at
      * @param fastSpeed The speed to move at when moving fast
      */
-    Movable(const bl::entity::Registry::ComponentHandle<component::Position>& pos, float speed,
+    Movable(const bl::entity::Registry::ComponentHandle<Position>& pos, float speed,
             float fastSpeed);
 
     /**
@@ -51,26 +54,28 @@ public:
      *
      * @param dir The direction to move in
      * @param fast True to move fast, false to move slow
+     * @param isLedgeHop Indicates whether we are hopping or moving regularly
      */
-    void move(Direction dir, bool fast);
+    void move(Direction dir, bool fast, bool isLedgeHop);
 
     /**
      * @brief Updates the interpolation of the entity if moving
      *
      * @param owner The owning entity of this component
-     * @param bus Event bus to fire finished events on
+     * @param engine The game engine
      * @param dt Time elapsed in seconds since last call to update
      */
-    void update(bl::entity::Entity owner, bl::event::Dispatcher& bus, float dt);
+    void update(bl::entity::Entity owner, bl::engine::Engine& engine, float dt);
 
 private:
-    bl::entity::Registry::ComponentHandle<component::Position> position;
+    enum struct MoveState : std::uint8_t { Still, Moving, MovingFast, LedgeHopping };
+
+    bl::entity::Registry::ComponentHandle<Position> position;
     float movementSpeed;
     float fastMovementSpeed;
     float interpRemaining;
     Direction moveDir;
-    bool isMoving;
-    bool movingFast;
+    MoveState state;
 };
 
 } // namespace component

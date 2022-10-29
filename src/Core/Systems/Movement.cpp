@@ -9,7 +9,10 @@ namespace core
 namespace system
 {
 Movement::Movement(Systems& owner)
-: owner(owner) {}
+: owner(owner) {
+    jumpSound = bl::audio::AudioSystem::getOrLoadSound(
+        bl::util::FileUtil::joinPath(Properties::SoundPath(), "World/jump.wav"));
+}
 
 void Movement::init() {
     entities = owner.engine()
@@ -42,8 +45,14 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
             if (!owner.position().spaceFree(npos)) return false;
             if (!owner.world().activeMap().movePossible(pos, dir)) return false;
 
+            const bool isHop = owner.world().activeMap().isLedgeHop(pos, dir);
+            if (isHop) {
+                bl::audio::AudioSystem::playOrRestartSound(jumpSound);
+                npos.setTiles(npos.positionTiles() + sf::Vector2i(0, 1));
+            }
+
             std::swap(pos, npos);
-            it->second.get<component::Movable>()->move(dir, fast);
+            it->second.get<component::Movable>()->move(dir, fast, isHop);
             owner.engine().eventBus().dispatch<event::EntityMoved>({e, npos, pos});
             return true;
         }
@@ -55,7 +64,7 @@ void Movement::update(float dt) {
     for (const bl::entity::Entity e : owner.position().updateRangeEntities()) {
         auto it = entities->results().find(e);
         if (it != entities->results().end()) {
-            it->second.get<component::Movable>()->update(e, owner.engine().eventBus(), dt);
+            it->second.get<component::Movable>()->update(e, owner.engine(), dt);
         }
     }
 }

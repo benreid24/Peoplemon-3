@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_MOVEMENT_HPP
 
 #include <BLIB/Entities.hpp>
+#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
 
@@ -61,6 +62,7 @@ public:
 private:
     Systems& owner;
     bl::entity::Registry::View<component::Position, component::Movable>::Ptr entities;
+    bl::audio::AudioSystem::Handle jumpSound;
 };
 
 } // namespace system

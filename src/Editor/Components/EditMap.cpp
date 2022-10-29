@@ -33,7 +33,8 @@ const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
     bl::engine::Resources::textures().load("EditorResources/Collisions/noBottom.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
     bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data};
+    bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data,
+    bl::engine::Resources::textures().load("EditorResources/Collisions/ledge.png").data};
 
 const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
     bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
