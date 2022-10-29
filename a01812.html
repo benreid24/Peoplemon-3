@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::pplmn::TypeUtil Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,27 +63,274 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01053.html">core</a></li><li class="navelem"><a class="el" href="a01070.html">pplmn</a></li><li class="navelem"><a class="el" href="a01815.html">WildPeoplemon</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01053.html">core</a></li><li class="navelem"><a class="el" href="a01070.html">pplmn</a></li><li class="navelem"><a class="el" href="a01812.html">TypeUtil</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a01809.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::pplmn::WildPeoplemon Member List</div>  </div>
+<div class="title">core::pplmn::TypeUtil Struct Reference<div class="ingroups"><a class="el" href="a01034.html">Core</a> &raquo; <a class="el" href="a01043.html">Peoplemon</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a5242a47f9f124e031cdcdddb5b96421c">frequency</a></td><td class="entry"><a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01815.html#afd7f616a2fc43c614e1e58054167a8e5">generate</a>() const</td><td class="entry"><a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a11bb70fa5cfd71306283bb8a09d21d42">id</a></td><td class="entry"><a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01815.html#a4455c1e1512329c24872cbda32895f17">maxLevel</a></td><td class="entry"><a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01815.html#a3bd0467c151fec11b848f119b4e0db17">minLevel</a></td><td class="entry"><a class="el" href="a01815.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Contains a collection of helper methods for types.  
+ <a href="a01812.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a03022_source.html">Type.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a50739384c05f4783ccb54a8a93fcd9f5"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html#a50739384c05f4783ccb54a8a93fcd9f5">getSuperMult</a> (<a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> moveType, <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> defenderType)</td></tr>
+<tr class="memdesc:a50739384c05f4783ccb54a8a93fcd9f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the multiplier for if/when a move is super effective.  <a href="#a50739384c05f4783ccb54a8a93fcd9f5">More...</a><br /></td></tr>
+<tr class="separator:a50739384c05f4783ccb54a8a93fcd9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4433122a7cf308384e47706e55db0bea"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html#a4433122a7cf308384e47706e55db0bea">getStab</a> (<a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> moveType, <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> userType)</td></tr>
+<tr class="memdesc:a4433122a7cf308384e47706e55db0bea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the STAB multiplier for a move.  <a href="#a4433122a7cf308384e47706e55db0bea">More...</a><br /></td></tr>
+<tr class="separator:a4433122a7cf308384e47706e55db0bea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1cd3528b2cd404573e2c4e7ec67111a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html#ac1cd3528b2cd404573e2c4e7ec67111a">legacyTypeToNew</a> (unsigned int ogType)</td></tr>
+<tr class="memdesc:ac1cd3528b2cd404573e2c4e7ec67111a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper method to convert old type ids to the new.  <a href="#ac1cd3528b2cd404573e2c4e7ec67111a">More...</a><br /></td></tr>
+<tr class="separator:ac1cd3528b2cd404573e2c4e7ec67111a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53571258a5311971367b3c6e174647dd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html#a53571258a5311971367b3c6e174647dd">isType</a> (<a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> type, <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> check)</td></tr>
+<tr class="memdesc:a53571258a5311971367b3c6e174647dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks whether the given type contains the type to check.  <a href="#a53571258a5311971367b3c6e174647dd">More...</a><br /></td></tr>
+<tr class="separator:a53571258a5311971367b3c6e174647dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a007e8e4e2cfc8cc7a8e81f8ace0d7da6"><td class="memItemLeft" align="right" valign="top">static std::pair&lt; <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>, <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01812.html#a007e8e4e2cfc8cc7a8e81f8ace0d7da6">getTypes</a> (<a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> type)</td></tr>
+<tr class="memdesc:a007e8e4e2cfc8cc7a8e81f8ace0d7da6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the primary and secondary type of the given composite type.  <a href="#a007e8e4e2cfc8cc7a8e81f8ace0d7da6">More...</a><br /></td></tr>
+<tr class="separator:a007e8e4e2cfc8cc7a8e81f8ace0d7da6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Contains a collection of helper methods for types. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03022_source.html#l00056">56</a> of file <a class="el" href="a03022_source.html">Type.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a4433122a7cf308384e47706e55db0bea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4433122a7cf308384e47706e55db0bea">&#9670;&nbsp;</a></span>getStab()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::pplmn::TypeUtil::getStab </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>moveType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>userType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the STAB multiplier for a move. </p>
+<h1><a class="anchor" id="autotoc_md0"></a>
+@param moveType The type of move being used</h1>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">defenderType</td><td>The type the attacker is </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float The multiplier for STAB </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00091">91</a> of file <a class="el" href="a00737_source.html">Type.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a50739384c05f4783ccb54a8a93fcd9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a50739384c05f4783ccb54a8a93fcd9f5">&#9670;&nbsp;</a></span>getSuperMult()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float core::pplmn::TypeUtil::getSuperMult </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>moveType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>defenderType</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the multiplier for if/when a move is super effective. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">moveType</td><td>The type of move being used </td></tr>
+    <tr><td class="paramname">defenderType</td><td>The type the defender is </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>float The multiplier for if the move is super effective </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00093">93</a> of file <a class="el" href="a00737_source.html">Type.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a007e8e4e2cfc8cc7a8e81f8ace0d7da6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a007e8e4e2cfc8cc7a8e81f8ace0d7da6">&#9670;&nbsp;</a></span>getTypes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::pair&lt; <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>, <a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> &gt; core::pplmn::TypeUtil::getTypes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the primary and secondary type of the given composite type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type to breakdown </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::pair&lt;Type, Type&gt; The types contained. May be None </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00132">132</a> of file <a class="el" href="a00737_source.html">Type.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a53571258a5311971367b3c6e174647dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53571258a5311971367b3c6e174647dd">&#9670;&nbsp;</a></span>isType()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static bool core::pplmn::TypeUtil::isType </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a>&#160;</td>
+          <td class="paramname"><em>check</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks whether the given type contains the type to check. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type being searched </td></tr>
+    <tr><td class="paramname">check</td><td>The type to check for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if type contains the types in check, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a03022_source.html#l00090">90</a> of file <a class="el" href="a03022_source.html">Type.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac1cd3528b2cd404573e2c4e7ec67111a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1cd3528b2cd404573e2c4e7ec67111a">&#9670;&nbsp;</a></span>legacyTypeToNew()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01043.html#gaa52c811bcb6c639158aff81bd4cfb39f">Type</a> core::pplmn::TypeUtil::legacyTypeToNew </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>ogType</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Helper method to convert old type ids to the new. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ogType</td><td>The old type id </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Type The corresponding new type value </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00737_source.html#l00102">102</a> of file <a class="el" href="a00737_source.html">Type.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Peoplemon/<a class="el" href="a03022_source.html">Type.hpp</a></li>
+<li>src/Core/Peoplemon/<a class="el" href="a00737_source.html">Type.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 28 2022 17:19:20 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 29 2022 03:49:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
