@@ -424,7 +424,8 @@ void givePeoplemon(system::Systems& systems, SymbolTable&, const std::vector<Val
         result = "party";
     }
     else {
-        systems.player().state().storage.add({id, args[1].value().getAsInt()});
+        systems.player().state().storage.add(
+            {id, static_cast<unsigned int>(args[1].value().getAsInt())});
         result = "storage";
     }
     systems.player().state().peopledex.registerSighting(
