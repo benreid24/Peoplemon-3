@@ -591,9 +591,9 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
     case Collision::LeftClosed:
         return dir != component::Direction::Right;
     case Collision::SurfRequired:
-        return false; // TODO - enforce surf. play anim?
+        return systems->player().state().bag.hasItem(item::Id::JesusShoes); // TODO - play anim?
     case Collision::WaterfallRequired:
-        return false; // TODO - enforce waterfall. play anim?
+        return systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade);
     default:
         BL_LOG_WARN << "Bad collision at (" << npos.positionTiles().x << ", "
                     << npos.positionTiles().y << ")";
