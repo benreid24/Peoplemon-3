@@ -83,21 +83,21 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6c7157a7c55d7362357fc6e12962c9e5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#a6c7157a7c55d7362357fc6e12962c9e5">Movable</a> (const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a01312.html">component::Position</a> &gt; &amp;pos, float speed, float fastSpeed)</td></tr>
-<tr class="memdesc:a6c7157a7c55d7362357fc6e12962c9e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01300.html" title="Adding this component to an entity will allow it to move. ">Movable</a> component.  <a href="#a6c7157a7c55d7362357fc6e12962c9e5">More...</a><br /></td></tr>
-<tr class="separator:a6c7157a7c55d7362357fc6e12962c9e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe760f1123168f2dc57ed248cec52acd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#afe760f1123168f2dc57ed248cec52acd">Movable</a> (const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a01312.html">Position</a> &gt; &amp;pos, float speed, float fastSpeed)</td></tr>
+<tr class="memdesc:afe760f1123168f2dc57ed248cec52acd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01300.html" title="Adding this component to an entity will allow it to move. ">Movable</a> component.  <a href="#afe760f1123168f2dc57ed248cec52acd">More...</a><br /></td></tr>
+<tr class="separator:afe760f1123168f2dc57ed248cec52acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a843bd9a56205f07badfa288c8e030a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#a8a843bd9a56205f07badfa288c8e030a">moving</a> () const</td></tr>
 <tr class="memdesc:a8a843bd9a56205f07badfa288c8e030a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the entity is moving.  <a href="#a8a843bd9a56205f07badfa288c8e030a">More...</a><br /></td></tr>
 <tr class="separator:a8a843bd9a56205f07badfa288c8e030a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e22f0d34312a87dcfbfc3d758ac401e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#a1e22f0d34312a87dcfbfc3d758ac401e">goingFast</a> () const</td></tr>
 <tr class="memdesc:a1e22f0d34312a87dcfbfc3d758ac401e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the entity is going fast.  <a href="#a1e22f0d34312a87dcfbfc3d758ac401e">More...</a><br /></td></tr>
 <tr class="separator:a1e22f0d34312a87dcfbfc3d758ac401e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09c3a77cd3443d7058d1f695c6a9b205"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#a09c3a77cd3443d7058d1f695c6a9b205">move</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir, bool fast)</td></tr>
-<tr class="memdesc:a09c3a77cd3443d7058d1f695c6a9b205"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the entity moving in the given direction. Only updates the interpolated position, not the tile position. This does not check collisions. Use the Movement system to ensure the move is valid.  <a href="#a09c3a77cd3443d7058d1f695c6a9b205">More...</a><br /></td></tr>
-<tr class="separator:a09c3a77cd3443d7058d1f695c6a9b205"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb6ad6d8d963bb8e600704b8ea41d118"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#acb6ad6d8d963bb8e600704b8ea41d118">update</a> (bl::entity::Entity owner, bl::event::Dispatcher &amp;bus, float dt)</td></tr>
-<tr class="memdesc:acb6ad6d8d963bb8e600704b8ea41d118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the interpolation of the entity if moving.  <a href="#acb6ad6d8d963bb8e600704b8ea41d118">More...</a><br /></td></tr>
-<tr class="separator:acb6ad6d8d963bb8e600704b8ea41d118"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1c66bf704a82e8c028d292f311e1ae3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#aa1c66bf704a82e8c028d292f311e1ae3">move</a> (<a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir, bool fast, bool isLedgeHop)</td></tr>
+<tr class="memdesc:aa1c66bf704a82e8c028d292f311e1ae3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts the entity moving in the given direction. Only updates the interpolated position, not the tile position. This does not check collisions. Use the Movement system to ensure the move is valid.  <a href="#aa1c66bf704a82e8c028d292f311e1ae3">More...</a><br /></td></tr>
+<tr class="separator:aa1c66bf704a82e8c028d292f311e1ae3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80cb9fcdc1ea35b26ad728376409ebc0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01300.html#a80cb9fcdc1ea35b26ad728376409ebc0">update</a> (bl::entity::Entity owner, bl::engine::Engine &amp;engine, float dt)</td></tr>
+<tr class="memdesc:a80cb9fcdc1ea35b26ad728376409ebc0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the interpolation of the entity if moving.  <a href="#a80cb9fcdc1ea35b26ad728376409ebc0">More...</a><br /></td></tr>
+<tr class="separator:a80cb9fcdc1ea35b26ad728376409ebc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -108,10 +108,10 @@ Static Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Adding this component to an entity will allow it to move. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00020">20</a> of file <a class="el" href="a00083_source.html">Movable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00023">23</a> of file <a class="el" href="a00083_source.html">Movable.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6c7157a7c55d7362357fc6e12962c9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c7157a7c55d7362357fc6e12962c9e5">&#9670;&nbsp;</a></span>Movable()</h2>
+<a id="afe760f1123168f2dc57ed248cec52acd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe760f1123168f2dc57ed248cec52acd">&#9670;&nbsp;</a></span>Movable()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -119,7 +119,7 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="memname">core::component::Movable::Movable </td>
           <td>(</td>
-          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a01312.html">component::Position</a> &gt; &amp;&#160;</td>
+          <td class="paramtype">const bl::entity::Registry::ComponentHandle&lt; <a class="el" href="a01312.html">Position</a> &gt; &amp;&#160;</td>
           <td class="paramname"><em>pos</em>, </td>
         </tr>
         <tr>
@@ -152,7 +152,7 @@ Static Public Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00027">27</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00036">36</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
 
 </div>
 </div>
@@ -174,12 +174,12 @@ Static Public Attributes</h2></td></tr>
 
 <p>Returns whether or not the entity is going fast. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00037">37</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00045">45</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a09c3a77cd3443d7058d1f695c6a9b205"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09c3a77cd3443d7058d1f695c6a9b205">&#9670;&nbsp;</a></span>move()</h2>
+<a id="aa1c66bf704a82e8c028d292f311e1ae3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1c66bf704a82e8c028d292f311e1ae3">&#9670;&nbsp;</a></span>move()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -194,7 +194,13 @@ Static Public Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fast</em>&#160;</td>
+          <td class="paramname"><em>fast</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>isLedgeHop</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -209,11 +215,12 @@ Static Public Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">dir</td><td>The direction to move in </td></tr>
     <tr><td class="paramname">fast</td><td>True to move fast, false to move slow </td></tr>
+    <tr><td class="paramname">isLedgeHop</td><td>Indicates whether we are hopping or moving regularly </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00039">39</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00047">47</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,12 +241,12 @@ Static Public Attributes</h2></td></tr>
 
 <p>Returns whether or not the entity is moving. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00035">35</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00043">43</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acb6ad6d8d963bb8e600704b8ea41d118"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb6ad6d8d963bb8e600704b8ea41d118">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a80cb9fcdc1ea35b26ad728376409ebc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80cb9fcdc1ea35b26ad728376409ebc0">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -253,8 +260,8 @@ Static Public Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bl::event::Dispatcher &amp;&#160;</td>
-          <td class="paramname"><em>bus</em>, </td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -274,13 +281,13 @@ Static Public Attributes</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">owner</td><td>The owning entity of this component </td></tr>
-    <tr><td class="paramname">bus</td><td>Event bus to fire finished events on </td></tr>
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
     <tr><td class="paramname">dt</td><td>Time elapsed in seconds since last call to update </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00046">46</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00053">53</a> of file <a class="el" href="a00599_source.html">Movable.cpp</a>.</p>
 
 </div>
 </div>
@@ -307,7 +314,7 @@ Static Public Attributes</h2></td></tr>
 
 <p>Required to be used in the BLIB ECS. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00023">23</a> of file <a class="el" href="a00083_source.html">Movable.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00083_source.html#l00026">26</a> of file <a class="el" href="a00083_source.html">Movable.hpp</a>.</p>
 
 </div>
 </div>
@@ -319,7 +326,7 @@ Static Public Attributes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 03:49:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 29 2022 17:50:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

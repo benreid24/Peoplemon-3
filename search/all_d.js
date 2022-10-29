@@ -25,6 +25,7 @@ var searchData=
   ['learnedmove',['LearnedMove',['../a01248.html#a106f02dc7e97fe58faa106402de4e9c8addd52ea0cccedd05585c8e69ab30d915',1,'core::battle::cmd::Message']]],
   ['learnedmoves',['learnedMoves',['../a01624.html#ada82aa88a177d79b3b3d9e420d92a170',1,'core::file::PeoplemonDB::learnedMoves()'],['../a01628.html#ad7cf28c17618a6f16fc7a3166ad57fbe',1,'bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;::learnedMoves()']]],
   ['learnmove',['learnMove',['../a01780.html#aa0f7932ea58157509784011732dbcf86',1,'core::pplmn::OwnedPeoplemon']]],
+  ['ledgehop',['LedgeHop',['../a01042.html#ggaa99d95911252405b5f77e93a2d5ecb0ca799a1882167d5735f07f49c7a1afc71c',1,'core::map']]],
   ['leechseed',['LeechSeed',['../a01043.html#ggad2c804a47a118daf4b298874b8cd37f1a2c0650d0879d0457d78778b2ba9f912f',1,'core::pplmn']]],
   ['left',['Left',['../a01044.html#ggac236ea2f3a5e94b61aa7359e9947b1bdae60c497e301161d83452f48de9763e11',1,'core::player::input::Controls::Left()'],['../a01038.html#gga0192bf5ba1eccc191c8ef1187ce66d69a945d5e233cf7d6240f6b783b36a374ff',1,'core::component::Left()']]],
   ['leftclosed',['LeftClosed',['../a01042.html#ggaa99d95911252405b5f77e93a2d5ecb0ca1a86b2bcbddd87dee0d5568b5bead635',1,'core::map']]],

@@ -478,6 +478,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ade2ff9b41bcd36a1c549b976d82e5411"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01708.html#ade2ff9b41bcd36a1c549b976d82e5411">movePossible</a> (const component::Position &amp;position, component::Direction dir) const</td></tr>
 <tr class="memdesc:ade2ff9b41bcd36a1c549b976d82e5411"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not a particular movement is possible. Does not take into account entities blocking the way.  <a href="#ade2ff9b41bcd36a1c549b976d82e5411">More...</a><br /></td></tr>
 <tr class="separator:ade2ff9b41bcd36a1c549b976d82e5411"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55d58ed8b8010ba8d3ce7a1722a36a77"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01708.html#a55d58ed8b8010ba8d3ce7a1722a36a77">isLedgeHop</a> (const component::Position &amp;position, component::Direction dir) const</td></tr>
+<tr class="memdesc:a55d58ed8b8010ba8d3ce7a1722a36a77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Test whether the given movement will be a ledge hop or not.  <a href="#a55d58ed8b8010ba8d3ce7a1722a36a77">More...</a><br /></td></tr>
+<tr class="separator:a55d58ed8b8010ba8d3ce7a1722a36a77"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04325969a762da291e93b7fd3da05c51"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01708.html#a04325969a762da291e93b7fd3da05c51">observe</a> (const event::EntityMoved &amp;moveEvent) override</td></tr>
 <tr class="memdesc:a04325969a762da291e93b7fd3da05c51"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01660.html" title="Represents an event in a Map. A script that is run on a trigger within a given region. ">Event</a> listener for moving entities. Used to trigger map events.  <a href="#a04325969a762da291e93b7fd3da05c51">More...</a><br /></td></tr>
 <tr class="separator:a04325969a762da291e93b7fd3da05c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -779,7 +782,7 @@ Friends</h2></td></tr>
 
 <p>Adds a new catch region to the map. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00897">897</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00898">898</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -807,7 +810,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00480">480</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00481">481</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -860,7 +863,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00846">846</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00847">847</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -913,7 +916,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00455">455</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00456">456</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -934,7 +937,7 @@ Friends</h2></td></tr>
 
 <p>Adds a town. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00915">915</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00916">916</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1010,7 +1013,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00415">415</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00416">416</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1031,7 +1034,7 @@ Friends</h2></td></tr>
 
 <p>Creates a new level. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00439">439</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00440">440</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1059,7 +1062,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00423">423</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00424">424</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1087,7 +1090,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00419">419</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00420">420</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1116,7 +1119,7 @@ Friends</h2></td></tr>
 
 <p>Returns whether or not the player can fly from this map. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00788">788</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00796">796</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -1137,7 +1140,7 @@ Friends</h2></td></tr>
 
 <p>Returns a reference to all catch regions. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00899">899</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00900">900</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1164,7 +1167,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00695">695</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00703">703</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -1270,7 +1273,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Ptr The new <a class="el" href="a02084.html" title="Wrapper over the core::Map class that is directly usable in a bl::gui::GUI. ">EditMap</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00049">49</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00050">50</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1298,7 +1301,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00822">822</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00823">823</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1319,7 +1322,7 @@ Friends</h2></td></tr>
 
 <p>Returns the current file the map is saving to. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00117">117</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00118">118</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1358,7 +1361,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00903">903</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00904">904</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1397,7 +1400,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00834">834</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00835">835</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1436,7 +1439,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00494">494</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00495">495</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1465,7 +1468,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if loaded without error, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00100">100</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00101">101</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1487,7 +1490,7 @@ Friends</h2></td></tr>
 <p>Saves the map to the file it was loaded from or created with. </p>
 <dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00109">109</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00110">110</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1526,7 +1529,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00917">917</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00918">918</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1616,7 +1619,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00735">735</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00743">743</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -1709,7 +1712,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00411">411</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00412">412</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1755,7 +1758,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00399">399</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00400">400</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1815,7 +1818,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00385">385</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00386">386</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1854,7 +1857,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00931">931</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00932">932</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1883,7 +1886,7 @@ Friends</h2></td></tr>
 
 <p>Returns the set of towns that can be flown to. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00773">773</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00781">781</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -1920,7 +1923,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>CatchRegion* The catch region if on a catch tile and a region is there, or nullptr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00753">753</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00761">761</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -1949,7 +1952,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01660.html" title="Represents an event in a Map. A script that is run on a trigger within a given region. ">core::map::Event</a>* Pointer to event or nullptr if none overlap </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00826">826</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00827">827</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -1989,7 +1992,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>std::pair&lt;core::item::Id, bool&gt; The item id and hidden state. Unknown if none </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00863">863</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00864">864</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2029,7 +2032,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01652.html" title="Represents a character to be spawned into a map on load. ">core::map::CharacterSpawn</a>* The spawn or nullptr if none </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00484">484</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00485">485</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2050,7 +2053,7 @@ Friends</h2></td></tr>
 
 <p>Get the OnEnter script. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00445">445</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00446">446</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2071,7 +2074,7 @@ Friends</h2></td></tr>
 
 <p>Get the OnExit script. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00451">451</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00452">452</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2108,7 +2111,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>const component::Position* Pointer to the position to spawn at. May be nullptr </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00790">790</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00798">798</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2136,7 +2139,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00727">727</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00735">735</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2183,7 +2186,55 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00671">671</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00679">679</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a55d58ed8b8010ba8d3ce7a1722a36a77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55d58ed8b8010ba8d3ce7a1722a36a77">&#9670;&nbsp;</a></span>isLedgeHop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::map::Map::isLedgeHop </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01312.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01038.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Test whether the given movement will be a ledge hop or not. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The current position being moved away from </td></tr>
+    <tr><td class="paramname">dir</td><td>The direction being moved in </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the move is a ledge hop, false otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00605">605</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2305,7 +2356,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00778">778</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00786">786</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2442,7 +2493,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00119">119</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00120">120</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2478,7 +2529,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00604">604</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00612">612</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2499,7 +2550,7 @@ Friends</h2></td></tr>
 
 <p>Reapplies the next action in the edit history. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00341">341</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00342">342</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2520,7 +2571,7 @@ Friends</h2></td></tr>
 
 <p>Returns the description of what action will be redone if redo is called. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00349">349</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00350">350</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2548,7 +2599,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00710">710</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00718">718</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -2587,7 +2638,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00239">239</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00240">240</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2615,7 +2666,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00907">907</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00908">908</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2643,7 +2694,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00840">840</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00841">841</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2682,7 +2733,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00872">872</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00873">873</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2721,7 +2772,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00427">427</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00428">428</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2775,7 +2826,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00890">890</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00891">891</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2803,7 +2854,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00506">506</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00507">507</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2842,7 +2893,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00470">470</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00471">471</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2870,7 +2921,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00921">921</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00922">922</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -2949,7 +3000,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00460">460</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00461">461</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3032,7 +3083,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00911">911</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00912">912</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3078,7 +3129,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00403">403</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00404">404</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3124,7 +3175,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00407">407</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00408">408</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3170,7 +3221,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00390">390</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00391">391</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3216,7 +3267,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00394">394</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00395">395</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3238,7 +3289,7 @@ Friends</h2></td></tr>
 
 <p>Enables or disables the map camera and click controls. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00219">219</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00220">220</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3284,7 +3335,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00226">226</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00227">227</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3323,7 +3374,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00935">935</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00936">936</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3362,7 +3413,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00939">939</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00940">940</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3401,7 +3452,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00224">224</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00225">225</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3440,7 +3491,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00883">883</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00884">884</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3468,7 +3519,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00365">365</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00366">366</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3496,7 +3547,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00441">441</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00442">442</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3524,7 +3575,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00447">447</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00448">448</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3552,7 +3603,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00367">367</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00368">368</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3591,7 +3642,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00230">230</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00231">231</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3651,7 +3702,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00375">375</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00376">376</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3711,7 +3762,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00380">380</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00381">381</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3750,7 +3801,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00923">923</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00924">924</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3789,7 +3840,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00927">927</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00928">928</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3817,7 +3868,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00371">371</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00372">372</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3863,7 +3914,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00431">431</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00432">432</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3902,7 +3953,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00435">435</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00436">436</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3924,7 +3975,7 @@ Friends</h2></td></tr>
 
 <p>Set whether or not to render a grid between tiles. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00235">235</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00236">236</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -3952,7 +4003,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00237">237</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00238">238</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4039,7 +4090,7 @@ Friends</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if unused, false if used </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00453">453</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00454">454</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4067,7 +4118,7 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00709">709</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00710">710</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4095,7 +4146,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00656">656</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03112_source.html#l00664">664</a> of file <a class="el" href="a03112_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
@@ -4116,7 +4167,7 @@ Friends</h2></td></tr>
 
 <p>Undoes the previous action in the edit history. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00328">328</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00329">329</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4137,7 +4188,7 @@ Friends</h2></td></tr>
 
 <p>Returns the description of what action will be undone if undo is called. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00336">336</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00337">337</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4158,7 +4209,7 @@ Friends</h2></td></tr>
 
 <p>Returns whether or not the map has been updated since last being saved. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00215">215</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00863_source.html#l00216">216</a> of file <a class="el" href="a00863_source.html">EditMap.cpp</a>.</p>
 
 </div>
 </div>
@@ -4311,7 +4362,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00291">291</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00300">300</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4335,7 +4386,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00274">274</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00283">283</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4359,7 +4410,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00270">270</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00279">279</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4383,7 +4434,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00293">293</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00302">302</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4407,7 +4458,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00281">281</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00290">290</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4431,7 +4482,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00280">280</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00289">289</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4455,7 +4506,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00287">287</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00296">296</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4479,7 +4530,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00272">272</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00281">281</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4503,7 +4554,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00301">301</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00310">310</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4527,7 +4578,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00288">288</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00297">297</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4551,7 +4602,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00271">271</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00280">280</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4575,7 +4626,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00267">267</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00276">276</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4599,7 +4650,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00273">273</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00282">282</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4623,7 +4674,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00263">263</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00272">272</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4647,7 +4698,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00262">262</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00271">271</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4671,7 +4722,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00285">285</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00294">294</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4695,7 +4746,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00286">286</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00295">295</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4719,7 +4770,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00265">265</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00274">274</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4743,7 +4794,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00289">289</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00298">298</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4767,7 +4818,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00292">292</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00301">301</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4791,7 +4842,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00282">282</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00291">291</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4815,7 +4866,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00269">269</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00278">278</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4839,7 +4890,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00279">279</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00288">288</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4863,7 +4914,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00283">283</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00292">292</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4887,7 +4938,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00268">268</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00277">277</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4911,7 +4962,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00276">276</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00285">285</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4935,7 +4986,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00277">277</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00286">286</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4959,7 +5010,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00275">275</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00284">284</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -4983,7 +5034,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00264">264</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00273">273</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -5007,7 +5058,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00284">284</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00293">293</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -5031,7 +5082,7 @@ Friends</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00266">266</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03025_source.html#l00275">275</a> of file <a class="el" href="a03025_source.html">Map.hpp</a>.</p>
 
 </div>
 </div>
@@ -5043,7 +5094,7 @@ Friends</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 03:49:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Oct 29 2022 17:50:45 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

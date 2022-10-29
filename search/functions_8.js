@@ -15,6 +15,7 @@ var searchData=
   ['isanimation',['isAnimation',['../a01724.html#adb6ca5d23413ac9a8fc588b51d7f5924',1,'core::map::Tile']]],
   ['isfirstmover',['isFirstMover',['../a01224.html#abc1d96dbcc5852ecb401e3429d894c38',1,'core::battle::BattleState']]],
   ['ishost',['isHost',['../a01196.html#a46dbe9c503369b6f342f7597629e746e',1,'core::battle::Battler::isHost()'],['../a01200.html#a7cd12e0043db7e5212754cdebdd44679',1,'core::battle::AIController::isHost()'],['../a01204.html#a0fc6037f207372c9be832ab85dec09d9',1,'core::battle::BattlerController::isHost()'],['../a01212.html#a7c78dacf8556e841c03f1ac36bda4d0c',1,'core::battle::PlayerController::isHost()'],['../a01216.html#a4db695bb8d788f690facc016bc37a5f5',1,'core::battle::RemoteController::isHost()']]],
+  ['isledgehop',['isLedgeHop',['../a01708.html#a55d58ed8b8010ba8d3ce7a1722a36a77',1,'core::map::Map']]],
   ['islocked',['isLocked',['../a01288.html#acbfff4cda8b1e9a4a32efcb4f10e01e4',1,'core::component::Controllable']]],
   ['isspecial',['isSpecial',['../a01764.html#a99bbb6262c5ca895f79aa395c79db486',1,'core::pplmn::Move']]],
   ['istype',['isType',['../a01812.html#a53571258a5311971367b3c6e174647dd',1,'core::pplmn::TypeUtil']]],
