@@ -31,7 +31,8 @@ enum struct Collision : std::uint8_t {
     BottomClosed      = 14,
     LeftClosed        = 15,
     SurfRequired      = 16,
-    WaterfallRequired = 17
+    WaterfallRequired = 17,
+    LedgeHop          = 18
 };
 
 } // namespace map

@@ -32,7 +32,8 @@ const std::pair<std::string, core::map::Collision> source[] = {
     {"EditorResources/Collisions/bottom.png", C::BottomOpen},
     {"EditorResources/Collisions/left.png", C::LeftOpen},
     {"EditorResources/Collisions/water.png", C::SurfRequired},
-    {"EditorResources/Collisions/fall.png", C::WaterfallRequired}};
+    {"EditorResources/Collisions/fall.png", C::WaterfallRequired},
+    {"EditorResources/Collisions/ledge.png", C::LedgeHop}};
 constexpr std::size_t nColTypes = std::extent<decltype(source)>::value;
 
 } // namespace

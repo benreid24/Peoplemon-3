@@ -216,6 +216,15 @@ public:
     bool movePossible(const component::Position& position, component::Direction dir) const;
 
     /**
+     * @brief Test whether the given movement will be a ledge hop or not
+     *
+     * @param position The current position being moved away from
+     * @param dir The direction being moved in
+     * @return True if the move is a ledge hop, false otherwise
+     */
+    bool isLedgeHop(const component::Position& position, component::Direction dir) const;
+
+    /**
      * @brief Event listener for moving entities. Used to trigger map events
      *
      * @param moveEvent The move event

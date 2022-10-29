@@ -587,11 +587,12 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
     case Collision::RightClosed:
         return dir != component::Direction::Left;
     case Collision::BottomClosed:
+    case Collision::LedgeHop:
         return dir != component::Direction::Up;
     case Collision::LeftClosed:
         return dir != component::Direction::Right;
     case Collision::SurfRequired:
-        return systems->player().state().bag.hasItem(item::Id::JesusShoes); // TODO - play anim?
+        return systems->player().state().bag.hasItem(item::Id::JesusShoes);
     case Collision::WaterfallRequired:
         return systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade);
     default:
@@ -599,6 +600,13 @@ bool Map::movePossible(const component::Position& pos, component::Direction dir)
                     << npos.positionTiles().y << ")";
         return false;
     }
+}
+
+bool Map::isLedgeHop(const component::Position& pos, component::Direction dir) const {
+    if (dir != component::Direction::Down) return false;
+    if (!contains(pos)) return false;
+    return levels.at(pos.level).collisionLayer().get(pos.positionTiles().x,
+                                                     pos.positionTiles().y) == Collision::LedgeHop;
 }
 
 void Map::observe(const event::EntityMoved& movedEvent) {
