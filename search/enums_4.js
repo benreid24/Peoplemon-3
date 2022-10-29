@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['id',['Id',['../a01041.html#gaf2565ceb5b45ea8af94be0067e7474ca',1,'core::item::Id()'],['../a01043.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8',1,'core::pplmn::Id()']]]
+  ['id',['Id',['../a01053.html#gaf2565ceb5b45ea8af94be0067e7474ca',1,'core::item::Id()'],['../a01055.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8',1,'core::pplmn::Id()']]],
+  ['intellevel',['IntelLevel',['../a01878.html#af72738f75b59895e9be958f3938a3256',1,'core::player::Peopledex']]]
 ];
