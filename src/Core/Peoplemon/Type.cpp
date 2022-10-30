@@ -86,6 +86,27 @@ constexpr std::array<Type, 7> TypeList = {Type::Normal,
                                           Type::Awkward,
                                           Type::PartyAnimal};
 
+std::string singleTypeString(Type type) {
+    switch (type) {
+    case Type::Normal:
+        return "Normal";
+    case Type::Intelligent:
+        return "Intelligent";
+    case Type::Funny:
+        return "Funny";
+    case Type::Athletic:
+        return "Athletic";
+    case Type::Quiet:
+        return "Quiet";
+    case Type::Awkward:
+        return "Awkward";
+    case Type::PartyAnimal:
+        return "Party Animal";
+    default:
+        return "???";
+    }
+}
+
 } // namespace
 
 float TypeUtil::getStab(Type move, Type ppl) { return isType(ppl, move) ? 1.5f : 1.f; }
@@ -143,6 +164,16 @@ std::pair<Type, Type> TypeUtil::getTypes(Type type) {
         }
     }
     return p;
+}
+
+std::string TypeUtil::getTypeString(Type type) {
+    std::string ts;
+    for (Type t : TypeList) {
+        if (isType(type, t)) {
+            ts = ts.empty() ? singleTypeString(t) : ts + " / " + singleTypeString(t);
+        }
+    }
+    return ts.empty() ? "???" : ts;
 }
 
 } // namespace pplmn

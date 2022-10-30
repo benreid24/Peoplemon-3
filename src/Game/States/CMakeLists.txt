@@ -9,6 +9,7 @@ target_sources(Peoplemon PRIVATE
     NewGame.cpp
     PauseMenu.cpp
     Peopledex.cpp
+    PeoplemonInfo.cpp
     PeoplemonMenu.cpp
     SaveGame.cpp
     State.cpp

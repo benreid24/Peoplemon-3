@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Core/Files/PeoplemonDB.hpp>
+#include <Core/Peoplemon/Ailment.hpp>
 #include <Core/Peoplemon/Id.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/SpecialAbility.hpp>
@@ -202,6 +203,30 @@ public:
      * @return True if cloneable, false otherwise
      */
     static bool canClone(Id id);
+
+    /**
+     * @brief Returns the name of the given ailment as a string
+     *
+     * @param ailment The ailment to get the name of
+     * @return const std::string& The user facing text for the ailment
+     */
+    static std::string ailmentString(Ailment ailment);
+
+    /**
+     * @brief Returns the name of the given special ability
+     *
+     * @param ability The ability to get the name of
+     * @return const std::string& The name of the ability
+     */
+    static const std::string& abilityName(SpecialAbility ability);
+
+    /**
+     * @brief Returns the description of the given special ability
+     *
+     * @param ability The ability to get the description of
+     * @return const std::string& The description of the ability
+     */
+    static const std::string& abilityDescription(SpecialAbility ability);
 
 private:
     static std::unordered_map<Id, std::string>* names;
