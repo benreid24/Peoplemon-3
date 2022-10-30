@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/Map.hpp File Reference</title>
+<title>Peoplemon: include/Game/States/StorageSystem.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_63f60c6c182692e62620af266969e641.html">States</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,65 +71,38 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Map.hpp File Reference</div>  </div>
+<div class="title">StorageSystem.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00119_source.html">Core/Events/EntityMoved.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00167_source.html">Core/Maps/CatchRegion.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00170_source.html">Core/Maps/CharacterSpawn.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00173_source.html">Core/Maps/Event.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02985_source.html">Core/Maps/Item.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00179_source.html">Core/Maps/LayerSet.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00182_source.html">Core/Maps/LevelTransition.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00188_source.html">Core/Maps/LightingSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00194_source.html">Core/Maps/Spawn.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03057_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00203_source.html">Core/Maps/Town.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03036_source.html">Core/Maps/Weather.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Events.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Media/Audio.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Serialization.hpp&gt;</code><br />
-<code>#include &lt;functional&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Interfaces/Menu.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00245_source.html">Core/Peoplemon/StoredPeoplemon.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00263_source.html">Core/Player/Input/Listener.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00500_source.html">Game/Menus/StorageCursor.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00503_source.html">Game/Menus/StorageGrid.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03105_source.html">Game/States/State.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a03051_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01722.html">core::map::Map</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary map class that represents a usable map in the game.  <a href="a01722.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01726.html">bl::serial::SerializableObject&lt; core::map::Map &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02387.html">game::state::StorageSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game state for the peoplemon storage system menu.  <a href="a02387.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01065"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01065.html">core</a></td></tr>
-<tr class="memdesc:a01065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01106"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01106.html">game</a></td></tr>
+<tr class="memdesc:a01106"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all functionality unique to the game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01066"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01066.html">core::system</a></td></tr>
-<tr class="memdesc:a01066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01077"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01077.html">core::map</a></td></tr>
-<tr class="memdesc:a01077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01080"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">core::map::loaders</a></td></tr>
-<tr class="memdesc:a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01072"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01072.html">bl</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01073"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01073.html">bl::serial</a></td></tr>
+<tr class="memitem:a01108"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html">game::state</a></td></tr>
+<tr class="memdesc:a01108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all engine states implemented by the game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 23:07:22 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 30 2022 19:40:31 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

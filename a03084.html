@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/States/State.hpp File Reference</title>
+<title>Peoplemon: include/Core/Peoplemon/Peoplemon.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_63f60c6c182692e62620af266969e641.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7c3823283bbfff1894463e96029f8928.html">Peoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,34 +71,43 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">State.hpp File Reference</div>  </div>
+<div class="title">Peoplemon.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Engine/State.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00350_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;string&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;unordered_set&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00155_source.html">Core/Files/PeoplemonDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00206_source.html">Core/Peoplemon/Ailment.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03063_source.html">Core/Peoplemon/Id.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00221_source.html">Core/Peoplemon/MoveId.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00236_source.html">Core/Peoplemon/SpecialAbility.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00242_source.html">Core/Peoplemon/Stats.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03069_source.html">Core/Peoplemon/Type.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a03084_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02362.html">game::state::State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent to all game states. Provides some commonly required data like core game systems.  <a href="a02362.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01815.html">core::pplmn::Peoplemon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serves as the primary store of all <a class="el" href="a01815.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> information.  <a href="a01815.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01094"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01094.html">game</a></td></tr>
-<tr class="memdesc:a01094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all functionality unique to the game. <br /></td></tr>
+<tr class="memitem:a01077"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01077.html">core</a></td></tr>
+<tr class="memdesc:a01077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01096"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01096.html">game::state</a></td></tr>
-<tr class="memdesc:a01096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all engine states implemented by the game. <br /></td></tr>
+<tr class="memitem:a01094"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01094.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a01094"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01815.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 23:07:22 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 30 2022 19:40:31 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

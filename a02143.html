@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::ItemSelector Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,30 +63,214 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01083.html">editor</a></li><li class="navelem"><a class="el" href="a01084.html">component</a></li><li class="navelem"><a class="el" href="a02146.html">MoveSelector</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01095.html">editor</a></li><li class="navelem"><a class="el" href="a01096.html">component</a></li><li class="navelem"><a class="el" href="a02143.html">ItemSelector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a02140.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::MoveSelector Member List</div>  </div>
+<div class="title">editor::component::ItemSelector Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02146.html">editor::component::MoveSelector</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02146.html#a3cefe4ca987015e99745b06e035304c2">ChangeCb</a> typedef</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02146.html#a99cc4174cd983063ead4ebcb35be8c4a">create</a>(bool enableFilter, const ChangeCb &amp;changeCb={})</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02146.html#aaf36a238023fa5003203727048e8fe79">currentMove</a>() const</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02146.html#a2e058b0332cb3966e98269ed654c63b5">notifyPeoplemon</a>(core::pplmn::Id ppl, unsigned int level)</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02146.html#a9c2dabeeaf1c9dcae2c25a5a4623d174">Ptr</a> typedef</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02146.html#af8f1ccd9cc95a4aa9020c9d9caffdfab">refresh</a>()</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02146.html#a1a95fb66bd4cb47687d9ea87c87890df">selectRandom</a>()</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02146.html#a06dd47c9db40c1d28b97c75b53aa34ab">setCurrentMove</a>(core::pplmn::MoveId move)</td><td class="entry"><a class="el" href="a02146.html">editor::component::MoveSelector</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Wrapper over ComboBox that allows selection of any item in the item database.  
+ <a href="a02143.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00395_source.html">ItemSelector.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::ItemSelector:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02143.png" usemap="#editor::component::ItemSelector_map" alt=""/>
+  <map id="editor::component::ItemSelector_map" name="editor::component::ItemSelector_map">
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7a37e19f66b21321f74da8d8665805cb"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#a7a37e19f66b21321f74da8d8665805cb">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02143.html">ItemSelector</a> &gt;</td></tr>
+<tr class="memdesc:a7a37e19f66b21321f74da8d8665805cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to this component.  <a href="#a7a37e19f66b21321f74da8d8665805cb">More...</a><br /></td></tr>
+<tr class="separator:a7a37e19f66b21321f74da8d8665805cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a498dfb32416bda0fc7161ed43c8f22f7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#a498dfb32416bda0fc7161ed43c8f22f7">ChangeCb</a> = std::function&lt; void(<a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>)&gt;</td></tr>
+<tr class="memdesc:a498dfb32416bda0fc7161ed43c8f22f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item changes.  <a href="#a498dfb32416bda0fc7161ed43c8f22f7">More...</a><br /></td></tr>
+<tr class="separator:a498dfb32416bda0fc7161ed43c8f22f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a370361fc17c2be15864880711d393e9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#a370361fc17c2be15864880711d393e9a">currentItem</a> () const</td></tr>
+<tr class="memdesc:a370361fc17c2be15864880711d393e9a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current selected item.  <a href="#a370361fc17c2be15864880711d393e9a">More...</a><br /></td></tr>
+<tr class="separator:a370361fc17c2be15864880711d393e9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab483662dc96d6f19e4b87e9fcdbf19"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#a1ab483662dc96d6f19e4b87e9fcdbf19">setItem</a> (<a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item)</td></tr>
+<tr class="memdesc:a1ab483662dc96d6f19e4b87e9fcdbf19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the current item.  <a href="#a1ab483662dc96d6f19e4b87e9fcdbf19">More...</a><br /></td></tr>
+<tr class="separator:a1ab483662dc96d6f19e4b87e9fcdbf19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37f59b1b49b84040a593fbbd3a3cb66d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#a37f59b1b49b84040a593fbbd3a3cb66d">refresh</a> ()</td></tr>
+<tr class="memdesc:a37f59b1b49b84040a593fbbd3a3cb66d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the items from the item database.  <a href="#a37f59b1b49b84040a593fbbd3a3cb66d">More...</a><br /></td></tr>
+<tr class="separator:a37f59b1b49b84040a593fbbd3a3cb66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acd918dd0e1e6a500a13889d0b62d3ac4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02143.html#a7a37e19f66b21321f74da8d8665805cb">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02143.html#acd918dd0e1e6a500a13889d0b62d3ac4">create</a> (const <a class="el" href="a02143.html#a498dfb32416bda0fc7161ed43c8f22f7">ChangeCb</a> &amp;cb=[](<a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>) {})</td></tr>
+<tr class="memdesc:acd918dd0e1e6a500a13889d0b62d3ac4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a02143.html" title="Wrapper over ComboBox that allows selection of any item in the item database. ">ItemSelector</a>.  <a href="#acd918dd0e1e6a500a13889d0b62d3ac4">More...</a><br /></td></tr>
+<tr class="separator:acd918dd0e1e6a500a13889d0b62d3ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Wrapper over ComboBox that allows selection of any item in the item database. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00017">17</a> of file <a class="el" href="a00395_source.html">ItemSelector.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a498dfb32416bda0fc7161ed43c8f22f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a498dfb32416bda0fc7161ed43c8f22f7">&#9670;&nbsp;</a></span>ChangeCb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02143.html#a498dfb32416bda0fc7161ed43c8f22f7">editor::component::ItemSelector::ChangeCb</a> =  std::function&lt;void(<a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Called when the item changes. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00023">23</a> of file <a class="el" href="a00395_source.html">ItemSelector.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7a37e19f66b21321f74da8d8665805cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a37e19f66b21321f74da8d8665805cb">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02143.html#a7a37e19f66b21321f74da8d8665805cb">editor::component::ItemSelector::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02143.html">ItemSelector</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to this component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00020">20</a> of file <a class="el" href="a00395_source.html">ItemSelector.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="acd918dd0e1e6a500a13889d0b62d3ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd918dd0e1e6a500a13889d0b62d3ac4">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02143.html#a7a37e19f66b21321f74da8d8665805cb">ItemSelector::Ptr</a> editor::component::ItemSelector::create </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02143.html#a498dfb32416bda0fc7161ed43c8f22f7">ChangeCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>cb</em> = <code>[](<a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>)&#160;{}</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="a02143.html" title="Wrapper over ComboBox that allows selection of any item in the item database. ">ItemSelector</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cb</td><td>The function to call when the item is changed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00899_source.html#l00009">9</a> of file <a class="el" href="a00899_source.html">ItemSelector.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a370361fc17c2be15864880711d393e9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a370361fc17c2be15864880711d393e9a">&#9670;&nbsp;</a></span>currentItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> editor::component::ItemSelector::currentItem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current selected item. </p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca" title="Represents an item in its simplist form. ">core::item::Id</a> </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00899_source.html#l00021">21</a> of file <a class="el" href="a00899_source.html">ItemSelector.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a37f59b1b49b84040a593fbbd3a3cb66d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37f59b1b49b84040a593fbbd3a3cb66d">&#9670;&nbsp;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::ItemSelector::refresh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refreshes the items from the item database. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00899_source.html#l00030">30</a> of file <a class="el" href="a00899_source.html">ItemSelector.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ab483662dc96d6f19e4b87e9fcdbf19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab483662dc96d6f19e4b87e9fcdbf19">&#9670;&nbsp;</a></span>setItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::ItemSelector::setItem </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01065.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the current item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00899_source.html#l00026">26</a> of file <a class="el" href="a00899_source.html">ItemSelector.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00395_source.html">ItemSelector.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00899_source.html">ItemSelector.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 23:07:23 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 30 2022 19:40:32 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

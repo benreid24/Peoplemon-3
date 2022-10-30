@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/WildPeoplemon.hpp File Reference</title>
+<title>Peoplemon: include/Core/Maps/Map.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,35 +71,65 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">WildPeoplemon.hpp File Reference</div>  </div>
+<div class="title">Map.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Events.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00119_source.html">Core/Events/EntityMoved.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00227_source.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00119_source.html">Core/Events/EntityMoved.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00167_source.html">Core/Maps/CatchRegion.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00170_source.html">Core/Maps/CharacterSpawn.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00173_source.html">Core/Maps/Event.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03006_source.html">Core/Maps/Item.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00179_source.html">Core/Maps/LayerSet.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00182_source.html">Core/Maps/LevelTransition.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00188_source.html">Core/Maps/LightingSystem.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00194_source.html">Core/Maps/Spawn.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03078_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00203_source.html">Core/Maps/Town.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03057_source.html">Core/Maps/Weather.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Entities.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Events.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Media/Audio.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Serialization.hpp&gt;</code><br />
+<code>#include &lt;functional&gt;</code><br />
+<code>#include &lt;unordered_map&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div>
 <p><a href="a03072_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02046.html">core::system::WildPeoplemon</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages the appearances of wild peoplemon when walking through catch tiles.  <a href="a02046.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01735.html">core::map::Map</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary map class that represents a usable map in the game.  <a href="a01735.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01739.html">bl::serial::SerializableObject&lt; core::map::Map &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01065"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01065.html">core</a></td></tr>
-<tr class="memdesc:a01065"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01077"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01077.html">core</a></td></tr>
+<tr class="memdesc:a01077"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01066"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01066.html">core::system</a></td></tr>
-<tr class="memdesc:a01066"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a01078"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html">core::system</a></td></tr>
+<tr class="memdesc:a01078"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01089"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01089.html">core::map</a></td></tr>
+<tr class="memdesc:a01089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01092"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01092.html">core::map::loaders</a></td></tr>
+<tr class="memdesc:a01092"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01084"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html">bl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01085"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01085.html">bl::serial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Oct 29 2022 23:07:22 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Oct 30 2022 19:40:31 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
