@@ -2,6 +2,7 @@
 #define CORE_PEOPLEMON_TYPE_HPP
 
 #include <cstdint>
+#include <string>
 #include <utility>
 
 namespace core
@@ -96,6 +97,14 @@ struct TypeUtil {
      * @return std::pair<Type, Type> The types contained. May be None
      */
     static std::pair<Type, Type> getTypes(Type type);
+
+    /**
+     * @brief Returns the type as a user-facing text string
+     *
+     * @param type The type to get the string for
+     * @return std::string The string to show to the user
+     */
+    static std::string getTypeString(Type type);
 };
 
 } // namespace pplmn

@@ -9,6 +9,7 @@ target_sources(Peoplemon PUBLIC
     NewGame.hpp
     PauseMenu.hpp
     Peopledex.hpp
+    PeoplemonInfo.hpp
     PeoplemonMenu.hpp
     SaveGame.hpp
     State.hpp

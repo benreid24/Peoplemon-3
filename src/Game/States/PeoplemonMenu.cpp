@@ -4,6 +4,7 @@
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Game/States/PeoplemonInfo.hpp>
 
 namespace game
 {
@@ -379,8 +380,8 @@ void PeoplemonMenu::selected(menu::PeoplemonButton* b) {
 }
 
 void PeoplemonMenu::showInfo() {
-    BL_LOG_INFO << "show info";
-    // TODO
+    systems.engine().pushState(
+        PeoplemonInfo::create(systems, systems.player().state().peoplemon[mover1]));
 }
 
 void PeoplemonMenu::startMove() {
