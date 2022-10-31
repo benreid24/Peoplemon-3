@@ -35,7 +35,6 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    // TODO - remove this when int/float are separated
     bl::entity::IdGenerator::generateSequentialIds(true);
 
     BL_LOG_INFO << "Loading game metadata";
@@ -65,11 +64,15 @@ int main(int argc, char** argv) {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(
-                core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
-            .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("Peoplemon")
-            .withWindowIcon(core::Properties::WindowIconFile())
+            .withWindowParameters(
+                bl::engine::Settings::WindowParameters()
+                    .withVideoMode(sf::VideoMode(
+                        core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
+                    .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                    .withTitle("Peoplemon")
+                    .withIcon(core::Properties::WindowIconFile())
+                    .withLetterBoxOnResize(true)
+                    .fromConfig())
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
     BL_LOG_INFO << "Created engine";

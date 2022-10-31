@@ -52,11 +52,15 @@ int main(int, char**) {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(
-                core::Properties::WindowWidth() + 350, core::Properties::WindowHeight() + 200, 32))
-            .withWindowStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-            .withWindowTitle("Peoplemon Editor")
-            .withWindowIcon("EditorResources/icon.png")
+            .withWindowParameters(
+                bl::engine::Settings::WindowParameters()
+                    .withVideoMode(sf::VideoMode(core::Properties::WindowWidth() + 350,
+                                                 core::Properties::WindowHeight() + 200,
+                                                 32))
+                    .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                    .withTitle("Peoplemon Editor")
+                    .withIcon("EditorResources/icon.png")
+                    .fromConfig())
             .withAllowVariableTimestep(false)
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
