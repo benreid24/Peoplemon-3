@@ -22,7 +22,7 @@ void Position::init() {
 }
 
 void Position::update() {
-    sf::FloatRect area = owner.cameras().getArea();
+    sf::FloatRect area = owner.engine().renderSystem().cameras().getCurrentViewport();
     area.left -= area.width * 1.5f;
     area.top -= area.height * 1.5f;
     area.width *= 3.f;

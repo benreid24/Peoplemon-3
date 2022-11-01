@@ -76,7 +76,6 @@ void MainEditor::update(bl::engine::Engine&, float dt) {
     currentPage->update(dt);
 
     systems.clock().update(dt);
-    systems.cameras().update(dt);
     systems.engine().entities().doDestroy();
 }
 

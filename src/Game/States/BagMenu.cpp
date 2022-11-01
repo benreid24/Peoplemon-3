@@ -197,14 +197,6 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         }
     }
     else { // first time activation
-        oldView = engine.window().getView();
-        sf::View v(oldView);
-        const sf::Vector2f size(background.getGlobalBounds().width,
-                                background.getGlobalBounds().height);
-        v.setCenter(size * 0.5f);
-        v.setSize(size);
-        engine.window().setView(v);
-
         systems.player().inputSystem().addListener(inputDriver);
         if (result) *result = core::item::Id::None;
 
@@ -227,12 +219,14 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (lastTab < 0) lastTab = 0;
     }
 
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
     systems.player().inputSystem().addListener(inputDriver);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
     systems.player().inputSystem().removeListener(inputDriver);
 }
 

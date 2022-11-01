@@ -60,7 +60,6 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    const sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 

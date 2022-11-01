@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_MAP_EXPLORER_HPP
 #define GAME_STATES_MAP_EXPLORER_HPP
 
+#include <BLIB/Render/Cameras.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
 
@@ -69,7 +70,7 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    core::system::camera::Camera::Ptr mapExplorer;
+    bl::render::camera::Camera::Ptr mapExplorer;
     sf::RectangleShape hintBox;
     sf::Text hintText;
     float hintTime;

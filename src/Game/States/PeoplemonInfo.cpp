@@ -230,18 +230,13 @@ const char* PeoplemonInfo::name() const { return "PeoplemonInfo"; }
 void PeoplemonInfo::activate(bl::engine::Engine& engine) {
     systems.player().inputSystem().addListener(*this);
 
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    const sf::Vector2i sizei(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    const sf::Vector2f size(sizei);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void PeoplemonInfo::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(*this);
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
 }
 
 void PeoplemonInfo::update(bl::engine::Engine&, float dt) {

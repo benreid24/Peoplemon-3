@@ -69,7 +69,6 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    sf::View oldView;
     bl::menu::Menu menu;
     core::player::input::MenuDriver menuDriver;
 

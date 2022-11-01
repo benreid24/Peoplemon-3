@@ -3,9 +3,9 @@
 
 #include <BLIB/Interfaces/GUI.hpp>
 #include <BLIB/Media/Graphics/VertexBuffer.hpp>
+#include <BLIB/Render/Cameras/Camera.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
-#include <Core/Systems/Cameras/Camera.hpp>
 #include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
@@ -658,22 +658,26 @@ private:
     unsigned int saveHead;
     void addAction(const Action::Ptr& action);
 
-    struct EditCamera : public core::system::camera::Camera {
+    struct EditCamera {
         using Ptr = std::shared_ptr<EditCamera>;
+
         EditCamera();
-        virtual ~EditCamera() = default;
-        virtual bool valid() const override;
-        virtual void update(core::system::Systems& s, float dt) override;
+        void update(float dt, const sf::Vector2f& area);
         void reset(const sf::Vector2i& size);
         void zoom(float z);
+        sf::FloatRect getArea() const;
+        void apply(sf::RenderTarget& target) const;
+
         bool enabled;
+        sf::Vector2f position;
+        float zoomAmount;
     };
 
     const PositionCb clickCb;
     const PositionCb moveCb;
     const ActionCb actionCb;
     const ActionCb syncCb;
-    EditCamera::Ptr camera;
+    EditCamera camera;
     bool controlsEnabled;
     std::string savefile;
     std::vector<bool> levelFilter;

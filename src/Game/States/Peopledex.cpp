@@ -107,18 +107,13 @@ const char* Peopledex::name() const { return "Peopledex"; }
 void Peopledex::activate(bl::engine::Engine& engine) {
     systems.player().inputSystem().addListener(menuDriver);
 
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    const sf::Vector2i sizei(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    const sf::Vector2f size(sizei);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void Peopledex::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(menuDriver);
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
 }
 
 void Peopledex::update(bl::engine::Engine& engine, float) {

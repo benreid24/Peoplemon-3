@@ -133,6 +133,13 @@ public:
     void exit(system::Systems& systems, const std::string& newMap);
 
     /**
+     * @brief Configures the game camera for the player in the map
+     * 
+     * @param systems The main game systems
+     */
+    void setupCamera(system::Systems& systems);
+
+    /**
      * @brief Returns the name of the map
      *
      */

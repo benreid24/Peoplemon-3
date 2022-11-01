@@ -86,7 +86,7 @@ bool Flight::startFlight(unsigned int spawn) {
 
     // setup camera
     camera = camera::ShakeFollow::create(owner, owner.player().player(), 10.f);
-    owner.cameras().pushCamera(camera);
+    owner.engine().renderSystem().cameras().pushCamera(camera);
 
     // start flight
     state            = State::Rising;
@@ -198,6 +198,7 @@ void Flight::update(float dt) {
             *playerPos                     = destination;
             playerPos->direction           = component::Direction::Down;
             state                          = State::Idle;
+            owner.engine().renderSystem().cameras().popCamera();
             owner.engine().eventBus().dispatch<event::EntityMoved>(
                 {owner.player().player(), prev, *playerPos});
             owner.player().makePlayerControlled(owner.player().player());

@@ -59,7 +59,7 @@ LoadGame::LoadGame(core::system::Systems& s)
 
 const char* LoadGame::name() const { return "LoadGame"; }
 
-void LoadGame::activate(bl::engine::Engine&) {
+void LoadGame::activate(bl::engine::Engine& engine) {
     saves.clear();
     core::file::GameSave::listSaves(saves);
 
@@ -81,13 +81,17 @@ void LoadGame::activate(bl::engine::Engine&) {
     }
     saveMenu.setSelectedItem(item.get());
 
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+
     state = SelectingSave;
     inputDriver.drive(&saveMenu);
     systems.player().inputSystem().addListener(inputDriver);
 }
 
-void LoadGame::deactivate(bl::engine::Engine&) {
+void LoadGame::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(inputDriver);
+    engine.renderSystem().cameras().popCamera();
 }
 
 void LoadGame::update(bl::engine::Engine& engine, float dt) {

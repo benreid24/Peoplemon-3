@@ -69,7 +69,6 @@ public:
 private:
     std::vector<sf::Vector2f> townPositions;
     bool hudActive;
-    sf::View oldView;
     bool& unpause;
 
     bl::resource::Resource<sf::Texture>::Ref mapTxtr;

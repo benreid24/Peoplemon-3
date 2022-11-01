@@ -28,7 +28,7 @@ public:
      * @return bl::engine::State::Ptr The new game state
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems,
-                                  const core::pplmn::OwnedPeoplemon& ppl);
+                                         const core::pplmn::OwnedPeoplemon& ppl);
 
     /**
      * @brief Destroy the Peoplemon Info object
@@ -76,7 +76,6 @@ private:
     enum ActivePage { Basics, Moves };
 
     const core::pplmn::OwnedPeoplemon& ppl;
-    sf::View oldView;
     ActivePage activePage;
     sf::Clock inputTimer;
 

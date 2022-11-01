@@ -6,7 +6,6 @@ namespace system
 {
 Systems::Systems(bl::engine::Engine& engine)
 : _engine(engine)
-, _cameras(*this)
 , _clock(*this)
 , _ai(*this)
 , _controllable(*this)
@@ -47,7 +46,6 @@ void Systems::update(float dt, bool ent) {
         _flight.update(dt);
     }
     _position.update();
-    _cameras.update(dt);
     _hud.update(dt);
 
     _world.update(dt);
@@ -67,10 +65,6 @@ const Clock& Systems::clock() const { return _clock; }
 World& Systems::world() { return _world; }
 
 const World& Systems::world() const { return _world; }
-
-Cameras& Systems::cameras() { return _cameras; }
-
-const Cameras& Systems::cameras() const { return _cameras; }
 
 Position& Systems::position() { return _position; }
 

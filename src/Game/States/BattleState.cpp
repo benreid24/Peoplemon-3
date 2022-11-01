@@ -50,13 +50,10 @@ BattleState::BattleState(core::system::Systems& systems,
 const char* BattleState::name() const { return "BattleState"; }
 
 void BattleState::activate(bl::engine::Engine& engine) {
-    oldView             = engine.window().getView();
-    sf::View battleView = oldView;
-    const sf::Vector2f ws(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    battleView.setSize(ws);
-    battleView.setCenter(ws * 0.5f);
-    engine.window().setView(battleView);
-    battle->view.configureView(battleView);
+    engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
+        {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
+    engine.renderSystem().cameras().configureView(engine.window());
+    battle->view.configureView(engine.window().getView());
     systems.player().inputSystem().addListener(battle->view);
     engine.eventBus().subscribe(this);
 
@@ -64,7 +61,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
     systems.player().inputSystem().removeListener(battle->view);
     engine.eventBus().unsubscribe(this);
 

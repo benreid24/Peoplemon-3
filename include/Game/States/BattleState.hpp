@@ -72,7 +72,6 @@ public:
 
 private:
     std::unique_ptr<core::battle::Battle> battle;
-    sf::View oldView;
 
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
 

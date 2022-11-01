@@ -10,17 +10,17 @@ namespace state
 {
 namespace
 {
-class ExplorerCamera : public core::system::camera::Camera {
+class ExplorerCamera : public bl::render::camera::Camera {
 public:
     static Ptr create(const sf::Vector2f& position) { return Ptr(new ExplorerCamera(position)); }
 
     virtual ~ExplorerCamera() = default;
 
-    virtual bool valid() const { return true; }
+    virtual bool valid() const override { return true; }
 
-    virtual void update(core::system::Systems&, float dt) {
+    virtual void update(float dt) override {
         const float PixelsPerSecond =
-            0.5f * size * static_cast<float>(core::Properties::WindowWidth());
+            0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
         static const float ZoomPerSecond = 0.5f;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
@@ -28,15 +28,23 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-            size -= ZoomPerSecond * dt;
-            if (size < 0.1f) size = 0.1f;
+            zoom -= ZoomPerSecond * dt;
+            if (zoom < 0.1f) zoom = 0.1f;
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { size += ZoomPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }
+
+        setCenter(position);
+        setZoomLevel(zoom, core::Properties::WindowSize());
     }
 
 private:
-    ExplorerCamera(const sf::Vector2f& position)
-    : Camera(position, 1.5f) {}
+    sf::Vector2f position;
+    float zoom;
+
+    ExplorerCamera(const sf::Vector2f& pos)
+    : Camera(sf::FloatRect{pos, core::Properties::WindowSize() * 1.5f}, 0.f)
+    , position(pos)
+    , zoom(1.5f) {}
 };
 
 } // namespace
@@ -70,16 +78,16 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
-void MapExplorer::activate(bl::engine::Engine&) {
+void MapExplorer::activate(bl::engine::Engine& engine) {
     systems.engine().eventBus().subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
-    systems.cameras().pushCamera(mapExplorer);
+    engine.renderSystem().cameras().pushCamera(mapExplorer);
 }
 
-void MapExplorer::deactivate(bl::engine::Engine&) {
+void MapExplorer::deactivate(bl::engine::Engine& engine) {
     systems.engine().eventBus().unsubscribe(this);
     systems.player().makePlayerControlled(systems.player().player());
-    systems.cameras().popCamera();
+    engine.renderSystem().cameras().popCamera();
 }
 
 void MapExplorer::update(bl::engine::Engine&, float dt) {

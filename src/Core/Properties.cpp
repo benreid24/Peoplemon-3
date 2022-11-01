@@ -257,6 +257,10 @@ int Properties::WindowHeight() {
     return val;
 }
 
+sf::Vector2f Properties::WindowSize() {
+    return {static_cast<float>(WindowWidth()), static_cast<float>(WindowHeight())};
+}
+
 bool Properties::InEditor() { return inEditor; }
 
 const std::string& Properties::SaveDirectory() {

@@ -98,7 +98,6 @@ private:
     bl::menu::Menu* activeMenu;
     bl::menu::Menu* slideOut;
 
-    sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 

@@ -1,13 +1,14 @@
 #include <Core/Maps/Map.hpp>
 
 #include <BLIB/Media/Audio.hpp>
+#include <BLIB/Render/Cameras/FollowCamera.hpp>
+#include <Core/Cameras/Util.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Scripts/MapChangeContext.hpp>
 #include <Core/Scripts/MapEventContext.hpp>
-#include <Core/Systems/Cameras/Follow.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
 
@@ -292,13 +293,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_ERROR << "Failed to spawn player";
         return false;
     }
-    game.cameras().clearAndReplace(system::camera::Follow::create(game, game.player().player()));
+    setupCamera(game);
     currentTown = getTown(spawnPos.positionTiles());
     enterTown(currentTown);
 
     // Activate camera and weather
-    game.cameras().update(0.f);
-    weather.activate(game.cameras().getArea());
+    game.engine().renderSystem().cameras().update(0.f);
+    weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
 
     // One time activation if not yet activated
     if (!activated) {
@@ -387,6 +388,15 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     // TODO - pause weather
 
     BL_LOG_INFO << "Exited map: " << nameField;
+}
+
+void Map::setupCamera(system::Systems& systems) {
+    systems.engine().renderSystem().cameras().setViewportConstraint(
+        {sf::Vector2f{0.f, 0.f}, sizePixels()});
+    systems.engine().renderSystem().cameras().clearAndReplace(
+        bl::render::camera::FollowCamera::create(
+            camera::getPositionPointer(systems, systems.player().player()),
+            Properties::WindowSize()));
 }
 
 const std::string& Map::name() const { return nameField; }

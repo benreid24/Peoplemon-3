@@ -103,7 +103,6 @@ private:
 
     bl::resource::Resource<sf::Texture>::Ref backgroundTxtr;
     sf::Sprite background;
-    sf::View oldView;
     sf::View view;
     sf::View boxView;
 

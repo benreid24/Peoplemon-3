@@ -91,18 +91,13 @@ const char* FlyMap::name() const { return "FlyMap"; }
 void FlyMap::activate(bl::engine::Engine& engine) {
     systems.player().inputSystem().addListener(inputDriver);
 
-    const sf::Vector2f size(static_cast<float>(core::Properties::WindowWidth()),
-                            static_cast<float>(core::Properties::WindowHeight()));
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void FlyMap::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(inputDriver);
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
 }
 
 void FlyMap::update(bl::engine::Engine& engine, float dt) {

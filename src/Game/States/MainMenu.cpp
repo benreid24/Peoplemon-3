@@ -62,13 +62,16 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
 const char* MainMenu::name() const { return "MainMenu"; }
 
-void MainMenu::activate(bl::engine::Engine&) {
+void MainMenu::activate(bl::engine::Engine& engine) {
     // TODO - music
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
     inputDriver.drive(&menu);
     systems.player().inputSystem().addListener(inputDriver);
 }
 
-void MainMenu::deactivate(bl::engine::Engine&) {
+void MainMenu::deactivate(bl::engine::Engine& engine) {
+    engine.renderSystem().cameras().popCamera();
     systems.player().inputSystem().removeListener(inputDriver);
     inputDriver.drive(nullptr);
 }

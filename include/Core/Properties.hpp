@@ -31,6 +31,7 @@ public:
     static const std::string& WindowIconFile();
     static int WindowWidth();
     static int WindowHeight();
+    static sf::Vector2f WindowSize();
     static bool InEditor();
 
     static const std::string& SaveDirectory();

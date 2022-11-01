@@ -133,12 +133,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }
 
 void PeoplemonMenu::activate(bl::engine::Engine& engine) {
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    view.setCenter(background.getGlobalBounds().width * 0.5f,
-                   background.getGlobalBounds().height * 0.5f);
-    view.setSize(background.getGlobalBounds().width, background.getGlobalBounds().height);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 
     for (unsigned int i = 0; i < 6; ++i) { buttons[i].reset(); }
 
@@ -210,7 +206,7 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
     inputDriver.drive(nullptr);
     systems.player().inputSystem().removeListener(inputDriver);
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
 }
 
 bool PeoplemonMenu::canCancel() const {

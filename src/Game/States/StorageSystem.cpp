@@ -138,13 +138,9 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     systems.player().inputSystem().addListener(*this);
 
     // create view for menu
-    oldView = engine.window().getView();
-    sf::View view(oldView);
-    const sf::Vector2f size(background.getGlobalBounds().width,
-                            background.getGlobalBounds().height);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    view    = engine.window().getView();
     boxView = bl::interface::ViewUtil::computeSubView({BoxPosition, BoxSize}, view);
     boxView.setCenter(BoxSize * 0.5f);
 
@@ -172,9 +168,10 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
 }
 
-void StorageSystem::deactivate(bl::engine::Engine&) {
+void StorageSystem::deactivate(bl::engine::Engine& engine) {
     systems.player().inputSystem().removeListener(*this);
     systems.engine().eventBus().dispatch<core::event::StorageSystemClosed>({});
+    engine.renderSystem().cameras().popCamera();
 }
 
 void StorageSystem::update(bl::engine::Engine&, float dt) {

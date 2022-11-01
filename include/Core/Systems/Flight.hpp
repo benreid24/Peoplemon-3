@@ -3,7 +3,7 @@
 
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Renderable.hpp>
-#include <Core/Systems/Cameras/ShakeFollow.hpp>
+#include <Core/Cameras/ShakeFollow.hpp>
 
 namespace core
 {

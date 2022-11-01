@@ -86,7 +86,6 @@ private:
     const int outNow;
     int* chosenPeoplemon;
     const core::item::Id useItem;
-    sf::View oldView;
 
     MenuState state;
     unsigned int mover1;

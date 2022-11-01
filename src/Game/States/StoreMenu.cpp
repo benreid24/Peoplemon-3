@@ -124,13 +124,8 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
     }
 
     // create view for menu
-    oldView = engine.window().getView();
-    sf::View view(oldView);
-    const sf::Vector2f size(background.getGlobalBounds().width,
-                            background.getGlobalBounds().height);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 
     // populate buy menu
     bl::menu::Item::Ptr root = makeItemRow(items.front().item, items.front().price, 0);
@@ -198,7 +193,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
 }
 
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
+    engine.renderSystem().cameras().popCamera();
     systems.player().inputSystem().removeListener(*this);
     engine.eventBus().dispatch<core::event::StoreClosed>({});
 }

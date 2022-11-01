@@ -106,7 +106,6 @@ private:
     float dingTime;
     unsigned int curCat;
 
-    sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 

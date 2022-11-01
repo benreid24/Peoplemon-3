@@ -24,12 +24,6 @@ void Render::update(float dt) {
 }
 
 void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
-    const sf::View oldView = target.getView();
-
-    sf::View view = oldView;
-    owner.cameras().configureView(map, view);
-    target.setView(view);
-
     map.render(target,
                lag,
                std::bind(&Render::renderEntities,
@@ -43,8 +37,6 @@ void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
     ;
     owner.hud().render(target, lag);
     owner.trainers().render(target);
-
-    target.setView(oldView);
 }
 
 void Render::renderEntities(sf::RenderTarget& target, float lag, std::uint8_t level,
