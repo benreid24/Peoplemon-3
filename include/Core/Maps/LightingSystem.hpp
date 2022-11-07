@@ -207,7 +207,7 @@ private:
     std::uint8_t maxLevel;
     std::uint8_t sunlight;
 
-    bl::event::ClassGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
+    bl::event::ListenerGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
         eventGuard;
 
     using Storage = bl::container::Grid<std::pair<Handle, Light>>;

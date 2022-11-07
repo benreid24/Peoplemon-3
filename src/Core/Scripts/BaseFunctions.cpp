@@ -918,7 +918,7 @@ void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vect
         bl::util::Waiter waiter;
         const auto unlock = [&waiter]() { waiter.unblock(); };
         ClockTrigger trigger(unlock, then);
-        bl::event::ClassGuard<event::TimeChange> guard(&trigger);
+        bl::event::ListenerGuard<event::TimeChange> guard(&trigger);
         guard.subscribe(systems.engine().eventBus());
         table.waitOn(waiter);
     }

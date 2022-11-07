@@ -29,7 +29,7 @@ struct Control {
     static Control fromString(const std::string& str);
 
     /**
-     * @brief Creates a control from the gien event
+     * @brief Creates a control from the given event
      *
      * @param event The event to create the control from
      * @return Control The produced control. May be Invalid
