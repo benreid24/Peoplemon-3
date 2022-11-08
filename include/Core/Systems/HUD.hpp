@@ -6,8 +6,7 @@
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Player/Input/Listener.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Core/Systems/HUD/ScreenKeyboard.hpp>
 #include <SFML/Graphics.hpp>
@@ -158,10 +157,11 @@ private:
             data;
     };
 
-    struct HudListener : public player::input::Listener {
+    struct HudListener : public bl::input::Listener {
         HudListener(HUD& owner);
         virtual ~HudListener() = default;
-        virtual void process(component::Command cmd) override;
+        virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                             bl::input::DispatchType, bool eventTriggered) override;
 
         HUD& owner;
     };
@@ -201,7 +201,7 @@ private:
     hud::QtyEntry qtyEntry;
 
     bl::menu::Menu choiceMenu;
-    core::player::input::MenuDriver choiceDriver;
+    core::input::MenuDriver choiceDriver;
     const float choiceBoxX;
 
     void ensureActive();

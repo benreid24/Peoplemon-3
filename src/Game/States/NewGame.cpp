@@ -94,7 +94,6 @@ void NewGame::deactivate(bl::engine::Engine& engine) {
 
 void NewGame::update(bl::engine::Engine&, float dt) {
     systems.hud().update(dt);
-    systems.player().update(dt);
     background.rotate(RotateSpeed * dt);
     if (fadeTime >= 0.f) {
         fadeTime += dt;

@@ -63,14 +63,14 @@ void QtyEntry::updateText() {
 
 int QtyEntry::curQty() const { return qty; }
 
-void QtyEntry::up(int q) {
-    if (rateLimit()) return;
+void QtyEntry::up(int q, bool ignore) {
+    if (rateLimit(ignore)) return;
     qty = std::min(maxQty, qty + q);
     updateText();
 }
 
-void QtyEntry::down(int q) {
-    if (rateLimit()) return;
+void QtyEntry::down(int q, bool ignore) {
+    if (rateLimit(ignore)) return;
     qty = std::max(minQty, qty - q);
     updateText();
 }
@@ -85,9 +85,8 @@ void QtyEntry::render(sf::RenderTarget& target) const {
     if (qty < maxQty) { target.draw(upArrow, states); }
 }
 
-bool QtyEntry::rateLimit() {
-    // TODO - we may want to differentiate between held and repeatedly pressed inputs
-    if (debounce.getElapsedTime().asSeconds() >= 0.4f) {
+bool QtyEntry::rateLimit(bool ignore) {
+    if (debounce.getElapsedTime().asSeconds() >= 0.4f || ignore) {
         debounce.restart();
         return false;
     }

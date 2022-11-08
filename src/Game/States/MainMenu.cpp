@@ -67,16 +67,16 @@ void MainMenu::activate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
     inputDriver.drive(&menu);
-    systems.player().inputSystem().addListener(inputDriver);
+    systems.engine().inputSystem().getActor().addListener(inputDriver);
 }
 
 void MainMenu::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
-    systems.player().inputSystem().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(inputDriver);
     inputDriver.drive(nullptr);
 }
 
-void MainMenu::update(bl::engine::Engine&, float dt) { systems.player().update(dt); }
+void MainMenu::update(bl::engine::Engine&, float) {}
 
 void MainMenu::render(bl::engine::Engine& engine, float) {
     sf::RenderWindow& w = engine.window();

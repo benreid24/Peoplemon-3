@@ -228,19 +228,18 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
 const char* PeoplemonInfo::name() const { return "PeoplemonInfo"; }
 
 void PeoplemonInfo::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(*this);
 
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void PeoplemonInfo::deactivate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().removeListener(*this);
+    systems.engine().inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
 }
 
 void PeoplemonInfo::update(bl::engine::Engine&, float dt) {
-    systems.player().inputSystem().update();
     leftFlasher.update(dt);
     rightFlasher.update(dt);
 }
@@ -291,35 +290,38 @@ void PeoplemonInfo::render(bl::engine::Engine& engine, float lag) {
     window.display();
 }
 
-void PeoplemonInfo::process(core::component::Command cmd) {
-    if (inputTimer.getElapsedTime().asSeconds() < 0.4f) return;
+bool PeoplemonInfo::observe(const bl::input::Actor&, unsigned int cmd, bl::input::DispatchType,
+                            bool eventTriggered) {
+    if (inputTimer.getElapsedTime().asSeconds() < 0.4f && !eventTriggered) return true;
     inputTimer.restart();
 
     switch (cmd) {
-    case core::component::Command::MoveLeft:
+    case core::input::Control::MoveLeft:
         if (activePage == ActivePage::Moves) { setPage(ActivePage::Basics); }
         break;
-    case core::component::Command::MoveRight:
+    case core::input::Control::MoveRight:
         if (activePage == ActivePage::Basics) { setPage(ActivePage::Moves); }
         break;
-    case core::component::Command::MoveDown:
+    case core::input::Control::MoveDown:
         if (activePage == ActivePage::Moves) {
             moveMenu.processEvent(
                 bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Bottom)));
         }
         break;
-    case core::component::Command::MoveUp:
+    case core::input::Control::MoveUp:
         if (activePage == ActivePage::Moves) {
             moveMenu.processEvent(
                 bl::menu::Event(bl::menu::Event::MoveEvent(bl::menu::Item::AttachPoint::Top)));
         }
         break;
-    case core::component::Command::Back:
+    case core::input::Control::Back:
         systems.engine().popState();
         break;
     default:
         break;
     }
+
+    return true;
 }
 
 void PeoplemonInfo::highlightMove(core::pplmn::MoveId move) {

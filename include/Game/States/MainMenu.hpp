@@ -3,7 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -62,7 +62,7 @@ private:
     sf::Sprite background;
 
     bl::menu::Menu menu;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     bl::menu::TextItem::Ptr newGame;
     bl::menu::TextItem::Ptr loadGame;
     bl::menu::TextItem::Ptr settings;

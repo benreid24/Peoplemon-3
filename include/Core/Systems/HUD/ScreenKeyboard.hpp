@@ -3,7 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
 
 /**
@@ -79,8 +79,11 @@ public:
     /**
      * @brief Handles player input
      *
+     * @param ctrl The control to process, in raw form
+     * @param ignoreDebounce True to ignore debounce and process always, false to rate limit
+     *
      */
-    void process(component::Command cmd);
+    void process(unsigned int ctrl, bool ignoreDebounce);
 
 private:
     const OnSubmit onSubmit;
@@ -92,7 +95,7 @@ private:
     sf::Text renderedInput;
     sf::RectangleShape background;
 
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     bl::menu::Menu keyboardMenu;
 
     void onKeyPress(char key);

@@ -7,6 +7,7 @@
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Files/MoveDB.hpp>
 #include <Core/Files/PeoplemonDB.hpp>
+#include <Core/Input/Control.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -75,6 +76,7 @@ int main(int argc, char** argv) {
                     .fromConfig())
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
+    core::input::configureInputSystem(engine.inputSystem());
     BL_LOG_INFO << "Created engine";
 
     BL_LOG_INFO << "Initializing game systems";

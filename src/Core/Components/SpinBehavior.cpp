@@ -17,12 +17,13 @@ void SpinBehavior::update(Position& position, Controllable& controller, float dt
         standTime -= Properties::CharacterSpinPeriod();
         switch (dir) {
         case file::Behavior::Spinning::Clockwise: {
-            controller.processControl(moveCommand(nextClockwiseDirection(position.direction)));
+            controller.processControl(
+                moveControlFromDirection(nextClockwiseDirection(position.direction)));
         } break;
 
         case file::Behavior::Spinning::Counterclockwise: {
             controller.processControl(
-                moveCommand(nextCounterClockwiseDirection(position.direction)));
+                moveControlFromDirection(nextCounterClockwiseDirection(position.direction)));
         } break;
 
         case file::Behavior::Spinning::Random: {
@@ -30,7 +31,7 @@ void SpinBehavior::update(Position& position, Controllable& controller, float dt
             while (ndir == position.direction) {
                 ndir = static_cast<Direction>(bl::util::Random::get<int>(0, 3));
             }
-            controller.processControl(moveCommand(ndir));
+            controller.processControl(moveControlFromDirection(ndir));
         } break;
 
         default:

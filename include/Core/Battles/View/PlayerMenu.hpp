@@ -6,11 +6,11 @@
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Battler.hpp>
 #include <Core/Battles/TurnAction.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
 #include <Core/Peoplemon/OwnedMove.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core
@@ -105,8 +105,11 @@ public:
     /**
      * @brief Processes player input to update the menu state
      *
+     * @param input The control to handle
+     * @param ignoreDebounce True to process always, false to rate limit
+     *
      */
-    void handleInput(component::Command input);
+    void handleInput(input::EntityControl input, bool ignoreDebounce);
 
     /**
      * @brief Renders the menu to the given target
@@ -128,7 +131,7 @@ private:
     State state;
     bool stateLoopGuard;
     bl::event::Dispatcher& eventBus;
-    player::input::MenuDriver menuDriver;
+    input::MenuDriver menuDriver;
     TurnAction chosenAction;
     int chosenMoveOrPeoplemon;
     item::Id chosenItem;

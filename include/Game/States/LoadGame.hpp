@@ -15,7 +15,9 @@ namespace state
  * @ingroup States
  *
  */
-class LoadGame : public State {
+class LoadGame
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Creates the load game state
@@ -79,11 +81,14 @@ private:
 
     bl::menu::Menu saveMenu;
     bl::menu::Menu actionMenu;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
 
     LoadGame(core::system::Systems& systems);
     void saveSelected(unsigned int save);
     void errorDone();
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

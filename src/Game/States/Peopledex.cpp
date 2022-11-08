@@ -105,20 +105,24 @@ Peopledex::Peopledex(core::system::Systems& s)
 const char* Peopledex::name() const { return "Peopledex"; }
 
 void Peopledex::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(menuDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(menuDriver);
 
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void Peopledex::deactivate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().removeListener(menuDriver);
+    systems.engine().inputSystem().getActor().removeListener(menuDriver);
+    systems.engine().inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
 }
 
-void Peopledex::update(bl::engine::Engine& engine, float) {
-    systems.player().inputSystem().update();
-    if (menuDriver.mostRecentInput() == core::component::Command::Back) { engine.popState(); }
+void Peopledex::update(bl::engine::Engine&, float) {}
+
+bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType, bool) {
+    if (ctrl == core::input::Control::Back) { systems.engine().popState(); }
+    return true;
 }
 
 void Peopledex::render(bl::engine::Engine& engine, float) {

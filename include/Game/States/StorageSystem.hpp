@@ -3,7 +3,6 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
-#include <Core/Player/Input/Listener.hpp>
 #include <Game/Menus/StorageCursor.hpp>
 #include <Game/Menus/StorageGrid.hpp>
 #include <Game/States/State.hpp>
@@ -20,7 +19,7 @@ namespace state
  */
 class StorageSystem
 : public State
-, private core::player::input::Listener {
+, public bl::input::Listener {
 public:
     /**
      * @brief Create a new storage system menu
@@ -106,7 +105,7 @@ private:
     sf::View view;
     sf::View boxView;
 
-    core::player::input::MenuDriver menuDriver;
+    core::input::MenuDriver menuDriver;
     menu::StorageGrid activeGrid;
     menu::StorageGrid slidingOutGrid;
     menu::StorageCursor cursor;
@@ -158,7 +157,8 @@ private:
     void onRelease();
     void onCloseContextMenu();
 
-    virtual void process(core::component::Command control) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 
     void enterState(MenuState state);
     void finishBoxChange();

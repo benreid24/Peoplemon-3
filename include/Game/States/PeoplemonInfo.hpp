@@ -3,7 +3,6 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Player/Input.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -18,7 +17,7 @@ namespace state
  */
 class PeoplemonInfo
 : public State
-, public core::player::input::Listener {
+, public bl::input::Listener {
 public:
     /**
      * @brief Create a new PeoplemonInfo engine state
@@ -123,7 +122,8 @@ private:
     sf::Text moveDescLabel;
 
     PeoplemonInfo(core::system::Systems& systems, const core::pplmn::OwnedPeoplemon& ppl);
-    virtual void process(core::component::Command cmd) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
     void highlightMove(core::pplmn::MoveId move);
     void setPage(ActivePage page);
 };

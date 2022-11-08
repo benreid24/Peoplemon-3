@@ -1,15 +1,15 @@
 #ifndef CORE_BATTLES_VIEW_MESSAGEPRINTER_HPP
 #define CORE_BATTLES_VIEW_MESSAGEPRINTER_HPP
 
-#include <Core/Player/Input/MenuDriver.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Interfaces/Utilities/GhostWriter.hpp>
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Media/Shapes/Triangle.hpp>
 #include <Core/Battles/Commands/Message.hpp>
-#include <SFML/Graphics.hpp>
-#include <Core/Components/Command.hpp>
+#include <Core/Input/Control.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/ScreenKeyboard.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace core
 {
@@ -43,9 +43,12 @@ public:
 
     /**
      * @brief Displays the full message. Call when user presses the continue button
+     * 
+     * @param ctrl The control to process
+     * @param ignoreDebounce True to always process, false to rate limit
      *
      */
-    void process(component::Command cmd);
+    void process(input::EntityControl ctrl, bool ignoreDebounce);
 
     /**
      * @brief Returns true when the full message is on display and finishPrint() has been called
@@ -61,13 +64,13 @@ public:
 
     /**
      * @brief Whether or not the player chose to set a nickname
-     * 
+     *
      */
     bool choseToSetName() const;
 
     /**
      * @brief Returns the nickname chosen by the player
-     * 
+     *
      */
     const std::string& chosenNickname() const;
 
@@ -111,7 +114,7 @@ private:
 
     bl::menu::Menu menu;
     bl::menu::TextItem::Ptr yesItem;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     bool choseYes;
     system::hud::ScreenKeyboard keyboard;
 

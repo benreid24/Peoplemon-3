@@ -11,7 +11,6 @@
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
-#include <Core/Player/Input.hpp>
 #include <Core/Player/State.hpp>
 
 namespace core
@@ -70,12 +69,6 @@ public:
      *
      */
     const component::Position& position() const;
-
-    /**
-     * @brief Returns a reference to the player input system
-     *
-     */
-    player::Input& inputSystem();
 
     /**
      * @brief Initializes all player data structures for a new game
@@ -137,7 +130,6 @@ private:
         float varianceSwitchTime;
     };
 
-    player::Input input;
     player::State data;
 
     virtual void observe(const event::GameSaveInitializing& save) override;

@@ -54,7 +54,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
         {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
     engine.renderSystem().cameras().configureView(engine.window());
     battle->view.configureView(engine.window().getView());
-    systems.player().inputSystem().addListener(battle->view);
+    systems.engine().inputSystem().getActor().addListener(battle->view);
     engine.eventBus().subscribe(this);
 
     // TODO - music here or in intro state?
@@ -62,7 +62,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
-    systems.player().inputSystem().removeListener(battle->view);
+    systems.engine().inputSystem().getActor().removeListener(battle->view);
     engine.eventBus().unsubscribe(this);
 
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
@@ -75,7 +75,6 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {
-    systems.player().inputSystem().update();
     battle->controller->update();
     battle->view.update(dt);
     battle->state.localPlayer().refresh();

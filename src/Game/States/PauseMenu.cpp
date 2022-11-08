@@ -99,14 +99,14 @@ PauseMenu::PauseMenu(core::system::Systems& s)
 const char* PauseMenu::name() const { return "PauseMenu"; }
 
 void PauseMenu::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(inputDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(inputDriver);
     inputDriver.drive(&menu);
     view = engine.window().getView();
     const sf::Vector2f size(core::Properties::WindowWidth(), core::Properties::WindowHeight());
     view.setCenter(size * 0.5f);
     view.setSize(size);
     systems.hud().hideEntryCard();
-    // TODO - get sound specific to menu opening/closing
     if (!openedOnce) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
         openedOnce = true;
@@ -114,7 +114,8 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
-    systems.player().inputSystem().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(*this);
     inputDriver.drive(nullptr);
     unpause = false;
 }
@@ -127,8 +128,10 @@ void PauseMenu::update(bl::engine::Engine& engine, float dt) {
 
     systems.player().update(dt);
     systems.world().update(dt);
-    const core::component::Command input = inputDriver.mostRecentInput();
-    if (input == core::component::Command::Back || input == core::component::Command::Pause) {
+}
+
+bool PauseMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType, bool) {
+    if (ctrl == core::input::Control::Back || ctrl == core::input::Control::Pause) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
         systems.engine().popState();
     }

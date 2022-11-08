@@ -16,31 +16,32 @@ PlayerControlled::PlayerControlled(
 
 void PlayerControlled::start() {
     if (!started) {
-        systems.player().inputSystem().addListener(*this);
+        systems.engine().inputSystem().getActor().addListener(*this);
         started = true;
     }
 }
 
 void PlayerControlled::stop() {
     started = false;
-    systems.player().inputSystem().removeListener(*this);
+    systems.engine().inputSystem().getActor().removeListener(*this);
 }
 
-void PlayerControlled::process(Command c) {
-    if (controllable.get().isLocked()) return;
+bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
+                               bl::input::DispatchType, bool) {
+    if (controllable.get().isLocked()) return false;
 
-    switch (c) {
-    case Command::Pause:
+    switch (ctrl) {
+    case input::Control::Pause:
         systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::GamePaused});
-        break;
+        return true;
 
-    case Command::Back:
+    case input::Control::Back:
         systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::BackPressed});
-        break;
+        return true;
 
     default:
-        controllable.get().processControl(c);
-        break;
+        return controllable.get().processControl(static_cast<input::EntityControl>(ctrl),
+                                                 actor.controlActive(input::Control::Sprint));
     }
 }
 

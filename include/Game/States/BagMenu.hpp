@@ -4,7 +4,7 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Events/BagMenu.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Game/Menus/BagItemButton.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/State.hpp>
@@ -19,7 +19,7 @@ namespace state
  * @ingroup States
  *
  */
-class BagMenu : public State {
+class BagMenu : public State, public bl::input::Listener {
 public:
     /// Represents how the menu was opened and affects how it may be used
     using Context = core::event::OpenBagMenu::Context;
@@ -101,7 +101,7 @@ private:
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     bl::menu::Menu actionMenu;
     bl::menu::Menu regularMenu;
     bl::menu::Menu ballMenu;
@@ -131,6 +131,10 @@ private:
 
     void messageDone();
     void keyItemConfirmUse(const std::string& choice);
+
+    // this will only get called for inputs not processed by menus
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl, bl::input::DispatchType,
+                         bool eventTriggered) override;
 };
 
 } // namespace state

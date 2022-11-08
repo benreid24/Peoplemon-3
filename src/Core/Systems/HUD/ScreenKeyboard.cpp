@@ -121,7 +121,9 @@ void ScreenKeyboard::start(unsigned int mn, unsigned int mx) {
 
 void ScreenKeyboard::stop() { inputDriver.drive(nullptr); }
 
-void ScreenKeyboard::process(component::Command cmd) { inputDriver.process(cmd); }
+void ScreenKeyboard::process(unsigned int ctrl, bool ignore) {
+    inputDriver.sendControl(ctrl, ignore);
+}
 
 void ScreenKeyboard::setPosition(const sf::Vector2f& pos) { position = pos; }
 

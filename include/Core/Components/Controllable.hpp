@@ -2,8 +2,8 @@
 #define CORE_COMPONENTS_CONTROLLABLE_HPP
 
 #include <BLIB/Entities.hpp>
-#include <Core/Components/Command.hpp>
 #include <Core/Components/Movable.hpp>
+#include <Core/Input/Control.hpp>
 
 namespace core
 {
@@ -37,10 +37,12 @@ public:
      * @brief Processes the given command and manipulates the entity accordingly
      *
      * @param command The command to apply
+     * @param sprint True to sprint, false to walk. Only has effect if processing a move control
      * @param overrideLock True to process the control even if locked
      * @return True if the control had effect, false if no effect
      */
-    bool processControl(Command command, bool overrideLock = false);
+    bool processControl(input::EntityControl command, bool sprint = false,
+                        bool overrideLock = false);
 
     /**
      * @brief Locks the controllable and prevents any commands from being processed. Optionally

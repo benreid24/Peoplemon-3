@@ -199,13 +199,15 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     state      = MenuState::Browsing;
     actionOpen = false;
     inputDriver.drive(&menu);
-    systems.player().inputSystem().addListener(inputDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(inputDriver);
     if (chosenPeoplemon) *chosenPeoplemon = -1;
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
     inputDriver.drive(nullptr);
-    systems.player().inputSystem().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
 }
 
@@ -260,15 +262,6 @@ void PeoplemonMenu::setSelectable(unsigned int i) {
 }
 
 void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
-    systems.player().update(dt);
-    if (inputDriver.mostRecentInput() == core::component::Command::Back) {
-        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-        if (state == MenuState::SelectingMove) { cleanupMove(false); }
-        else if (context != Context::BattleFaint) {
-            systems.engine().popState();
-        }
-    }
-
     const auto updateItems = [this, dt]() {
         for (int i = 0; i < 6; ++i) {
             if (buttons[i]) { buttons[i]->update(dt); }
@@ -315,6 +308,18 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
     default:
         break;
     }
+}
+
+bool PeoplemonMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                            bool) {
+    if (ctrl == core::input::Control::Back) {
+        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+        if (state == MenuState::SelectingMove) { cleanupMove(false); }
+        else if (context != Context::BattleFaint) {
+            systems.engine().popState();
+        }
+    }
+    return true;
 }
 
 void PeoplemonMenu::render(bl::engine::Engine& engine, float lag) {

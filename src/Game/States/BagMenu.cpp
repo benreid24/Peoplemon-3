@@ -197,7 +197,6 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         }
     }
     else { // first time activation
-        systems.player().inputSystem().addListener(inputDriver);
         if (result) *result = core::item::Id::None;
 
         std::vector<core::player::Bag::Item> items;
@@ -221,58 +220,19 @@ void BagMenu::activate(bl::engine::Engine& engine) {
 
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
-    systems.player().inputSystem().addListener(inputDriver);
+    engine.inputSystem().getActor().addListener(*this); // order matters. driver needs events first
+    engine.inputSystem().getActor().addListener(inputDriver);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
-    systems.player().inputSystem().removeListener(inputDriver);
+    engine.inputSystem().getActor().removeListener(inputDriver);
+    engine.inputSystem().getActor().removeListener(*this);
 }
 
 void BagMenu::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update(dt);
-
     switch (state) {
-    case MenuState::Browsing: {
-        const core::component::Command input = inputDriver.mostRecentInput();
-
-        if (actionOpen) {
-            if (input == core::component::Command::Back) {
-                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-                resetAction();
-            }
-        }
-        else {
-            switch (input) {
-            case core::component::Command::Back:
-                engine.popState();
-                break;
-
-            case core::component::Command::MoveLeft:
-                beginSlide(true);
-                lastTab    = lastTab > 0 ? lastTab - 1 : 3;
-                activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
-                itemHighlighted(
-                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
-                break;
-
-            case core::component::Command::MoveRight:
-                beginSlide(false);
-                lastTab    = lastTab < 3 ? lastTab + 1 : 0;
-                activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
-                itemHighlighted(
-                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
-                break;
-
-            default:
-                break;
-            }
-        }
-    } break;
-
     case MenuState::Sliding:
         slideOff += slideVel * dt;
         if (std::abs(slideOff) >= activeMenu->getBounds().width) {
@@ -289,9 +249,52 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
         engine.popState();
         break;
 
+    case MenuState::Browsing:
     default:
         break;
     }
+}
+
+bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                      bool) {
+    if (state == MenuState::Browsing) {
+        if (actionOpen) {
+            if (ctrl == core::input::Control::Back) {
+                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+                resetAction();
+            }
+        }
+        else {
+            switch (ctrl) {
+            case core::input::Control::Back:
+                systems.engine().popState();
+                break;
+
+            case core::input::Control::MoveLeft:
+                beginSlide(true);
+                lastTab    = lastTab > 0 ? lastTab - 1 : 3;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
+
+            case core::input::Control::MoveRight:
+                beginSlide(false);
+                lastTab    = lastTab < 3 ? lastTab + 1 : 0;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+
+    return true;
 }
 
 void BagMenu::render(bl::engine::Engine& engine, float lag) {

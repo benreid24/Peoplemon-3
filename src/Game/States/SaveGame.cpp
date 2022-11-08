@@ -40,10 +40,7 @@ void SaveGame::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
 }
 
-void SaveGame::update(bl::engine::Engine&, float dt) {
-    systems.hud().update(dt);
-    systems.player().update(dt);
-}
+void SaveGame::update(bl::engine::Engine&, float dt) { systems.hud().update(dt); }
 
 void SaveGame::render(bl::engine::Engine& engine, float lag) {
     engine.window().clear();

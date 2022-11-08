@@ -1,5 +1,4 @@
 target_sources(Core PRIVATE
-    Command.cpp
     Controllable.cpp
     Direction.cpp
     Movable.cpp

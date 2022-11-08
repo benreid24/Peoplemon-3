@@ -16,15 +16,15 @@ namespace
 constexpr float MoveTime   = 0.3f;
 constexpr float RotateRate = 360.f;
 
-sf::Vector2f moveVector(core::component::Command dir) {
+sf::Vector2f moveVector(core::input::EntityControl dir) {
     switch (dir) {
-    case core::component::Command::MoveRight:
+    case core::input::Control::MoveRight:
         return {1.f, 0.f};
-    case core::component::Command::MoveDown:
+    case core::input::Control::MoveDown:
         return {0.f, 1.f};
-    case core::component::Command::MoveLeft:
+    case core::input::Control::MoveLeft:
         return {-1.f, 0.f};
-    case core::component::Command::MoveUp:
+    case core::input::Control::MoveUp:
         return {0.f, -1.f};
     default:
         return {0.f, 0.f};
@@ -35,7 +35,7 @@ sf::Vector2f moveVector(core::component::Command dir) {
 StorageCursor::StorageCursor()
 : position(0, 0)
 , flasher(cursor, 0.3f, 0.3f)
-, moveDir(core::component::Command::None) {
+, moveDir(core::input::Control::EntityControl::None) {
     cursorTxtr = bl::engine::Resources::textures()
                      .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
                                                         "StorageSystem/storageCursor.png"))
@@ -52,13 +52,13 @@ void StorageCursor::update(float dt) {
     peoplemon.rotate(RotateRate * dt);
 
     switch (moveDir) {
-    case core::component::Command::MoveRight:
-    case core::component::Command::MoveDown:
-    case core::component::Command::MoveLeft:
-    case core::component::Command::MoveUp:
+    case core::input::Control::MoveRight:
+    case core::input::Control::MoveDown:
+    case core::input::Control::MoveLeft:
+    case core::input::Control::MoveUp:
         offset += moveVel * dt;
         if (offset >= size) {
-            moveDir = core::component::Command::None;
+            moveDir = core::input::Control::EntityControl::None;
             syncPos();
         }
     default:
@@ -66,34 +66,39 @@ void StorageCursor::update(float dt) {
     }
 }
 
-bool StorageCursor::process(core::component::Command cmd) {
-    if (moving()) return false;
+bool StorageCursor::process(core::input::EntityControl cmd, bool skip) {
+    if (moving()) {
+        if (!skip) return false;
+
+        // finish in-progress move
+        syncPos();
+    }
 
     moveDir = cmd;
     offset  = 0.f;
     switch (cmd) {
-    case core::component::Command::MoveUp:
+    case core::input::Control::MoveUp:
         if (position.y > 0) {
             --position.y;
             return true;
         }
         return false;
 
-    case core::component::Command::MoveRight:
+    case core::input::Control::MoveRight:
         if (position.x < core::player::StorageSystem::BoxWidth - 1) {
             ++position.x;
             return true;
         }
         return false;
 
-    case core::component::Command::MoveDown:
+    case core::input::Control::MoveDown:
         if (position.y < core::player::StorageSystem::BoxHeight - 1) {
             ++position.y;
             return true;
         }
         return false;
 
-    case core::component::Command::MoveLeft:
+    case core::input::Control::MoveLeft:
         if (position.x > 0) {
             --position.x;
             return true;
@@ -101,7 +106,7 @@ bool StorageCursor::process(core::component::Command cmd) {
         return false;
 
     default:
-        moveDir = core::component::Command::None;
+        moveDir = core::input::Control::EntityControl::None;
         return false;
     }
 }
@@ -123,7 +128,7 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
     }
 }
 
-bool StorageCursor::moving() const { return moveDir != core::component::Command::None; }
+bool StorageCursor::moving() const { return moveDir != core::input::Control::EntityControl::None; }
 
 const sf::Vector2i& StorageCursor::getPosition() const { return position; }
 

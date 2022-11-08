@@ -84,8 +84,6 @@ bl::entity::Entity Player::player() const { return playerId; }
 
 const component::Position& Player::position() const { return _position.get(); }
 
-player::Input& Player::inputSystem() { return input; }
-
 void Player::newGame(const std::string& n, player::Gender g) {
     data.name = n;
     data.sex  = g;
@@ -131,10 +129,7 @@ void Player::removePlayerControlled(bl::entity::Entity e) {
     owner.engine().entities().removeComponent<component::PlayerControlled>(e);
 }
 
-void Player::init() {
-    owner.engine().eventBus().subscribe(&input);
-    owner.engine().eventBus().subscribe(this);
-}
+void Player::init() { owner.engine().eventBus().subscribe(this); }
 
 void Player::whiteout() {
     for (auto& ppl : data.peoplemon) { ppl.heal(); }
@@ -142,8 +137,6 @@ void Player::whiteout() {
 }
 
 void Player::update(float dt) {
-    input.update();
-
     if (lantern != map::LightingSystem::None) { updateLantern(dt); }
 }
 
