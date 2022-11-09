@@ -420,6 +420,8 @@ bool StorageSystem::observe(const bl::input::Actor&, unsigned int cmd, bl::input
                             bool eventTriggered) {
     bl::menu::Menu* toSend = nullptr;
     if (cmd == core::input::Control::Back) {
+        if (!eventTriggered) return true;
+        
         switch (state) {
         case MenuState::ChooseAction:
             close();

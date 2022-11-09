@@ -244,7 +244,7 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
                                bool eventTriggered) {
     switch (owner.state) {
     case Printing:
-        if (isNextCommand(ctrl)) {
+        if (isNextCommand(ctrl) && eventTriggered) {
             owner.currentMessage.showAll();
             owner.displayText.setString(owner.currentMessage.getContent());
             owner.printDoneStateTransition();
@@ -252,7 +252,7 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
         break;
 
     case WaitingContinue:
-        if (isNextCommand(ctrl)) {
+        if (isNextCommand(ctrl) && eventTriggered) {
             owner.queuedOutput.front().getCallback()(owner.queuedOutput.front().getMessage());
             owner.next();
         }

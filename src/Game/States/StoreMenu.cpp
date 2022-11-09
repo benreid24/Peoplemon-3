@@ -307,6 +307,8 @@ void StoreMenu::close() { systems.engine().popState(); }
 bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input::DispatchType,
                         bool eventTriggered) {
     if (control == core::input::Control::Back) {
+        if (!eventTriggered) return true;
+
         switch (menuState) {
         case MenuState::GetAction:
             close();

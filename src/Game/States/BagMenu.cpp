@@ -220,14 +220,12 @@ void BagMenu::activate(bl::engine::Engine& engine) {
 
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
-    engine.inputSystem().getActor().addListener(*this); // order matters. driver needs events first
-    engine.inputSystem().getActor().addListener(inputDriver);
+    engine.inputSystem().getActor().addListener(*this);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
-    engine.inputSystem().getActor().removeListener(inputDriver);
     engine.inputSystem().getActor().removeListener(*this);
 }
 
@@ -256,8 +254,10 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
 }
 
 bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
-                      bool) {
-    if (state == MenuState::Browsing) {
+                      bool fromEvent) {
+    inputDriver.sendControl(ctrl, fromEvent);
+    
+    if (state == MenuState::Browsing && fromEvent) {
         if (actionOpen) {
             if (ctrl == core::input::Control::Back) {
                 bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());

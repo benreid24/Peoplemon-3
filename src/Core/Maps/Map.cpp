@@ -298,7 +298,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     enterTown(currentTown);
 
     // Activate camera and weather
-    game.engine().renderSystem().cameras().update(0.f);
     weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
 
     // One time activation if not yet activated
@@ -348,6 +347,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn items
     for (const Item& item : itemsField) { game.entity().spawnItem(item); }
+
+    setupCamera(game); // TODO - position address isn't stable
 
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));

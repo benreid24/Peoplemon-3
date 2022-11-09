@@ -10,9 +10,9 @@ namespace core
 {
 namespace camera
 {
-sf::Vector2f* getPositionPointer(system::Systems& s, bl::entity::Entity e) {
+const sf::Vector2f* getPositionPointer(system::Systems& s, bl::entity::Entity e) {
     component::Position* pos = s.engine().entities().getComponent<component::Position>(e);
-    return pos ? const_cast<sf::Vector2f*>(&pos->positionPixels()) : nullptr;
+    return pos ? &pos->positionPixels() : nullptr;
 }
 
 ShakeFollow::Ptr ShakeFollow::create(system::Systems& s, bl::entity::Entity e, float sps) {

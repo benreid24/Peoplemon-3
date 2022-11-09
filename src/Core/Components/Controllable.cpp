@@ -33,6 +33,9 @@ bool Controllable::processControl(input::EntityControl ctrl, bool sprint, bool i
     case input::Control::Interact:
         return systems.interaction().interact(owner);
 
+    case input::Control::Sprint:
+        return false;
+
     default:
         BL_LOG_WARN << "Unknown control: " << static_cast<int>(ctrl);
         return false;

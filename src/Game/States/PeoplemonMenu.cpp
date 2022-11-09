@@ -200,13 +200,11 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     actionOpen = false;
     inputDriver.drive(&menu);
     systems.engine().inputSystem().getActor().addListener(*this);
-    systems.engine().inputSystem().getActor().addListener(inputDriver);
     if (chosenPeoplemon) *chosenPeoplemon = -1;
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
     inputDriver.drive(nullptr);
-    systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
 }
@@ -311,13 +309,19 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt) {
 }
 
 bool PeoplemonMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
-                            bool) {
-    if (ctrl == core::input::Control::Back) {
+                            bool fromEvent) {
+    if (ctrl == core::input::Control::Back && fromEvent) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
         if (state == MenuState::SelectingMove) { cleanupMove(false); }
-        else if (context != Context::BattleFaint) {
-            systems.engine().popState();
+        else if (state == MenuState::Browsing) {
+            if (actionOpen) { resetAction(); }
+            else if (context != Context::BattleFaint) {
+                systems.engine().popState();
+            }
         }
+    }
+    else {
+        inputDriver.sendControl(ctrl, fromEvent);
     }
     return true;
 }

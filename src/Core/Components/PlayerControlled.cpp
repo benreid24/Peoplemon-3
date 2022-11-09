@@ -27,22 +27,26 @@ void PlayerControlled::stop() {
 }
 
 bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
-                               bl::input::DispatchType, bool) {
-    if (controllable.get().isLocked()) return false;
+                               bl::input::DispatchType, bool fromEvent) {
+    if (controllable.get().isLocked()) return true;
 
     switch (ctrl) {
     case input::Control::Pause:
-        systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::GamePaused});
-        return true;
+        if (fromEvent) {
+            systems.engine().eventBus().dispatch<event::StateChange>(
+                {event::StateChange::GamePaused});
+        }
+        break;
 
     case input::Control::Back:
-        systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::BackPressed});
-        return true;
+        break;
 
     default:
-        return controllable.get().processControl(static_cast<input::EntityControl>(ctrl),
-                                                 actor.controlActive(input::Control::Sprint));
+        controllable.get().processControl(static_cast<input::EntityControl>(ctrl),
+                                          actor.controlActive(input::Control::Sprint));
+        break;
     }
+    return true;
 }
 
 } // namespace component

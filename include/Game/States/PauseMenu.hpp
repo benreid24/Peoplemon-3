@@ -69,7 +69,7 @@ public:
 private:
     bl::menu::Menu menu;
     core::input::MenuDriver inputDriver;
-    sf::View view;
+    sf::RenderStates menuRenderStates;
     bool openedOnce;
     bool unpause;
 

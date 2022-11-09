@@ -16,10 +16,7 @@ struct StateChange {
     /// The type of state change that should occur
     enum Type {
         /// The game should pause
-        GamePaused = 0,
-
-        /// Context dependent action
-        BackPressed = 1
+        GamePaused = 0
     };
 
     /// The type of state change that should occur

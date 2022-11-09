@@ -90,14 +90,12 @@ const char* FlyMap::name() const { return "FlyMap"; }
 
 void FlyMap::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
-    systems.engine().inputSystem().getActor().addListener(inputDriver);
 
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void FlyMap::deactivate(bl::engine::Engine& engine) {
-    systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
 }
@@ -108,8 +106,11 @@ void FlyMap::update(bl::engine::Engine&, float dt) {
 }
 
 bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
-                     bl::input::DispatchType, bool) {
+                     bl::input::DispatchType, bool fromEvent) {
     if (activatedControl == core::input::Control::Back) { systems.engine().popState(); }
+    else {
+        inputDriver.sendControl(activatedControl, fromEvent);
+    }
     return true;
 }
 

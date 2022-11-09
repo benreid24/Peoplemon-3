@@ -140,8 +140,8 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
 }
 
 bool LoadGame::observe(const bl::input::Actor&, unsigned int activatedControl,
-                       bl::input::DispatchType, bool) {
-    if (activatedControl == core::input::Control::Back) {
+                       bl::input::DispatchType, bool fromEvent) {
+    if (activatedControl == core::input::Control::Back && fromEvent) {
         switch (state) {
         case SelectingSave:
             bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());

@@ -100,12 +100,11 @@ const char* PauseMenu::name() const { return "PauseMenu"; }
 
 void PauseMenu::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
-    systems.engine().inputSystem().getActor().addListener(inputDriver);
     inputDriver.drive(&menu);
-    view = engine.window().getView();
-    const sf::Vector2f size(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
+    inputDriver.resetDebounce();
+    systems.world().activeMap().setupCamera(systems);
+    menuRenderStates.transform.translate(engine.window().getView().getCenter() -
+                                         engine.window().getView().getSize() * 0.5f);
     systems.hud().hideEntryCard();
     if (!openedOnce) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
@@ -114,7 +113,6 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
-    systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
     inputDriver.drive(nullptr);
     unpause = false;
@@ -130,22 +128,23 @@ void PauseMenu::update(bl::engine::Engine& engine, float dt) {
     systems.world().update(dt);
 }
 
-bool PauseMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType, bool) {
-    if (ctrl == core::input::Control::Back || ctrl == core::input::Control::Pause) {
-        bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-        systems.engine().popState();
+bool PauseMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                        bool fromEvent) {
+    inputDriver.sendControl(ctrl, fromEvent);
+    if (fromEvent) {
+        if (ctrl == core::input::Control::Back || ctrl == core::input::Control::Pause) {
+            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+            systems.engine().popState();
+        }
     }
+    return true;
 }
 
 void PauseMenu::render(bl::engine::Engine&, float lag) {
     if (systems.flight().flying()) return;
 
     systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
-
-    const sf::View oldView = systems.engine().window().getView();
-    systems.engine().window().setView(view);
-    menu.render(systems.engine().window());
-    systems.engine().window().setView(oldView);
+    menu.render(systems.engine().window(), menuRenderStates);
 
     systems.engine().window().display();
 }
