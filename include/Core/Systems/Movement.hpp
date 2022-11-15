@@ -27,12 +27,6 @@ public:
     Movement(Systems& owner);
 
     /**
-     * @brief Performs one time initialization of the movement system
-     *
-     */
-    void init();
-
-    /**
      * @brief Adds a Movable component to the given entity if it does not already exist
      *
      * @param entity The entity to make movable
@@ -61,7 +55,6 @@ public:
 
 private:
     Systems& owner;
-    bl::ecs::View<component::Position, component::Movable>* entities;
     bl::audio::AudioSystem::Handle jumpSound;
 };
 

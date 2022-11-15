@@ -23,7 +23,6 @@ Systems::Systems(bl::engine::Engine& engine)
 , _flight(*this) {
     _world.init();
     _position.init();
-    _movement.init();
     _player.init();
     _ai.init();
     _interaction.init();

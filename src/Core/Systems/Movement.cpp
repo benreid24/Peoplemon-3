@@ -14,10 +14,6 @@ Movement::Movement(Systems& owner)
         bl::util::FileUtil::joinPath(Properties::SoundPath(), "World/jump.wav"));
 }
 
-void Movement::init() {
-    entities = owner.engine().ecs().getOrCreateView<component::Position, component::Movable>();
-}
-
 bool Movement::makeMovable(bl::ecs::Entity e, float sp, float fsp) {
     if (owner.engine().ecs().hasComponent<component::Movable>(e)) return false;
     component::Position* pos = owner.engine().ecs().getComponent<component::Position>(e);
@@ -60,12 +56,8 @@ bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast
 void Movement::update(float dt) {
     bl::engine::Engine& engine = owner.engine();
 
-    const auto visitor = [&engine,
-                          dt](bl::ecs::ComponentSet<component::Position, component::Movable>& cs) {
-        cs.get<component::Movable>()->update(cs.entity(), engine, dt);
-    };
-
-    entities->forEach(visitor);
+    engine.ecs().getAllComponents<component::Movable>().forEach(
+        [dt, &engine](bl::ecs::Entity ent, component::Movable& mv) { mv.update(ent, engine, dt); });
 }
 
 } // namespace system
