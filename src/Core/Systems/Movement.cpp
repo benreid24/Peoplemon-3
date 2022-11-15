@@ -15,25 +15,22 @@ Movement::Movement(Systems& owner)
 }
 
 void Movement::init() {
-    entities = owner.engine()
-                   .entities()
-                   .getEntitiesWithComponents<component::Position, component::Movable>();
+    entities = owner.engine().ecs().getOrCreateView<component::Position, component::Movable>();
 }
 
-bool Movement::makeMovable(bl::entity::Entity e, float sp, float fsp) {
-    if (owner.engine().entities().hasComponent<component::Movable>(e)) return false;
-    bl::entity::Registry::ComponentHandle<component::Position> h =
-        owner.engine().entities().getComponentHandle<component::Position>(e);
-    if (!h.hasValue()) return false;
-    owner.engine().entities().addComponent<component::Movable>(e, {h, sp, fsp});
+bool Movement::makeMovable(bl::ecs::Entity e, float sp, float fsp) {
+    if (owner.engine().ecs().hasComponent<component::Movable>(e)) return false;
+    component::Position* pos = owner.engine().ecs().getComponent<component::Position>(e);
+    if (!pos) return false;
+    owner.engine().ecs().addComponent<component::Movable>(e, {*pos, sp, fsp});
     return true;
 }
 
-bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool fast) {
-    auto it = entities->results().find(e);
-    if (it != entities->results().end()) {
-        component::Position& pos = *(it->second.get<component::Position>());
-        if (!it->second.get<component::Movable>()->moving()) {
+bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast) {
+    component::Movable* mv = owner.engine().ecs().getComponent<component::Movable>(e);
+    if (mv != nullptr) {
+        component::Position& pos = mv->position;
+        if (!mv->moving()) {
             component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
             if (npos.positionTiles() == pos.positionTiles()) {
                 const event::EntityRotated event(e, npos.direction, pos.direction);
@@ -52,7 +49,7 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
             }
 
             std::swap(pos, npos);
-            it->second.get<component::Movable>()->move(dir, fast, isHop);
+            mv->move(dir, fast, isHop);
             owner.engine().eventBus().dispatch<event::EntityMoved>({e, npos, pos});
             return true;
         }
@@ -61,12 +58,14 @@ bool Movement::moveEntity(bl::entity::Entity e, component::Direction dir, bool f
 }
 
 void Movement::update(float dt) {
-    for (const bl::entity::Entity e : owner.position().updateRangeEntities()) {
-        auto it = entities->results().find(e);
-        if (it != entities->results().end()) {
-            it->second.get<component::Movable>()->update(e, owner.engine(), dt);
-        }
-    }
+    bl::engine::Engine& engine = owner.engine();
+
+    const auto visitor = [&engine,
+                          dt](bl::ecs::ComponentSet<component::Position, component::Movable>& cs) {
+        cs.get<component::Movable>()->update(cs.entity(), engine, dt);
+    };
+
+    entities->forEach(visitor);
 }
 
 } // namespace system

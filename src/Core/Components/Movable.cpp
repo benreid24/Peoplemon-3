@@ -33,8 +33,7 @@ sf::Vector2f getPixels(Direction dir, float x, float y, float interp) {
 }
 } // namespace
 
-Movable::Movable(const bl::entity::Registry::ComponentHandle<Position>& pos, float speed,
-                 float fastSpeed)
+Movable::Movable(Position& pos, float speed, float fastSpeed)
 : position(pos)
 , movementSpeed(speed)
 , fastMovementSpeed(fastSpeed)
@@ -50,7 +49,7 @@ void Movable::move(Direction dir, bool fast, bool isHop) {
     interpRemaining = static_cast<float>(Properties::PixelsPerTile()) * (isHop ? 2.f : 1.f);
 }
 
-void Movable::update(bl::entity::Entity owner, bl::engine::Engine& engine, float dt) {
+void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt) {
     if (state != MoveState::Still) {
         if (state != MoveState::LedgeHopping) {
             // interpolate
@@ -59,14 +58,14 @@ void Movable::update(bl::entity::Entity owner, bl::engine::Engine& engine, float
             interpRemaining          = std::max(interpRemaining - displacement, 0.f);
 
             // set render pos
-            const float xTile = position.get().positionTiles().x * Properties::PixelsPerTile();
-            const float yTile = position.get().positionTiles().y * Properties::PixelsPerTile();
-            position.get().setPixels(getPixels(moveDir, xTile, yTile, interpRemaining));
+            const float xTile = position.positionTiles().x * Properties::PixelsPerTile();
+            const float yTile = position.positionTiles().y * Properties::PixelsPerTile();
+            position.setPixels(getPixels(moveDir, xTile, yTile, interpRemaining));
 
             if (interpRemaining <= 0.f) {
-                position.get().setTiles(position.get().positionTiles());
+                position.setTiles(position.positionTiles());
                 state = MoveState::Still;
-                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position.get()});
+                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position});
             }
         }
         else {
@@ -78,19 +77,19 @@ void Movable::update(bl::entity::Entity owner, bl::engine::Engine& engine, float
             const float height  = HopHeight * hp;
 
             // update shadow
-            Renderable* anim = engine.entities().getComponent<Renderable>(owner);
+            Renderable* anim = engine.ecs().getComponent<Renderable>(owner);
             if (anim) { anim->updateShadow(height, ShadowSize - ShadowShrinkage * hp); }
 
             // set render pos
-            const float xTile = position.get().positionTiles().x * Properties::PixelsPerTile();
-            const float yTile = position.get().positionTiles().y * Properties::PixelsPerTile();
-            position.get().setPixels({xTile, yTile - interpRemaining - height});
+            const float xTile = position.positionTiles().x * Properties::PixelsPerTile();
+            const float yTile = position.positionTiles().y * Properties::PixelsPerTile();
+            position.setPixels({xTile, yTile - interpRemaining - height});
 
             // check finished
             if (interpRemaining <= 0.f) {
-                position.get().setTiles(position.get().positionTiles());
+                position.setTiles(position.positionTiles());
                 state = MoveState::Still;
-                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position.get()});
+                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position});
                 if (anim) { anim->removeShadow(); }
             }
         }

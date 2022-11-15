@@ -4,7 +4,7 @@
 #include <Core/Components/Renderable.hpp>
 #include <Core/Maps/Map.hpp>
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core
@@ -28,12 +28,6 @@ public:
      * @param owner The primary systems object
      */
     Render(Systems& owner);
-
-    /**
-     * @brief Initializes the entity registry view
-     *
-     */
-    void init();
 
     /**
      * @brief Updates all entity animations
@@ -66,7 +60,6 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Registry::View<component::Renderable>::Ptr entities;
 };
 
 } // namespace system

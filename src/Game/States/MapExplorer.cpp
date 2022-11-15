@@ -57,8 +57,7 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
 : State(systems) {
     sf::Vector2f camPos(500.f, 500.f);
     core::component::Position* pos =
-        systems.engine().entities().getComponent<core::component::Position>(
-            systems.player().player());
+        systems.engine().ecs().getComponent<core::component::Position>(systems.player().player());
     if (pos) { camPos = pos->positionPixels(); }
     mapExplorer = ExplorerCamera::create(camPos);
 

@@ -7,9 +7,7 @@ namespace core
 {
 namespace component
 {
-PlayerControlled::PlayerControlled(
-    system::Systems& s,
-    const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable)
+PlayerControlled::PlayerControlled(system::Systems& s, Controllable& controllable)
 : systems(s)
 , controllable(controllable)
 , started(false) {}
@@ -28,7 +26,7 @@ void PlayerControlled::stop() {
 
 bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
                                bl::input::DispatchType, bool fromEvent) {
-    if (controllable.get().isLocked()) return true;
+    if (controllable.isLocked()) return true;
 
     switch (ctrl) {
     case input::Control::Pause:
@@ -42,8 +40,8 @@ bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
         break;
 
     default:
-        controllable.get().processControl(static_cast<input::EntityControl>(ctrl),
-                                          actor.controlActive(input::Control::Sprint));
+        controllable.processControl(static_cast<input::EntityControl>(ctrl),
+                                    actor.controlActive(input::Control::Sprint));
         break;
     }
     return true;

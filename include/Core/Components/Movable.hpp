@@ -1,15 +1,17 @@
 #ifndef CORE_COMPONENTS_MOVABLE_HPP
 #define CORE_COMPONENTS_MOVABLE_HPP
 
-#include <BLIB/Entities.hpp>
-#include <BLIB/Entities/Component.hpp>
+#include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/System/Vector2.hpp>
-#include <BLIB/Engine/Engine.hpp>
 
 namespace core
 {
+namespace system
+{
+class Movement;
+}
 namespace component
 {
 class Renderable;
@@ -22,9 +24,6 @@ class Renderable;
  */
 class Movable {
 public:
-    /// Required to be used in the BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 2;
-
     /**
      * @brief Construct a new Movable component
      *
@@ -32,8 +31,7 @@ public:
      * @param speed The speed to move at
      * @param fastSpeed The speed to move at when moving fast
      */
-    Movable(const bl::entity::Registry::ComponentHandle<Position>& pos, float speed,
-            float fastSpeed);
+    Movable(Position& pos, float speed, float fastSpeed);
 
     /**
      * @brief Returns whether or not the entity is moving
@@ -65,17 +63,19 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds since last call to update
      */
-    void update(bl::entity::Entity owner, bl::engine::Engine& engine, float dt);
+    void update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt);
 
 private:
     enum struct MoveState : std::uint8_t { Still, Moving, MovingFast, LedgeHopping };
 
-    bl::entity::Registry::ComponentHandle<Position> position;
+    Position& position;
     float movementSpeed;
     float fastMovementSpeed;
     float interpRemaining;
     Direction moveDir;
     MoveState state;
+
+    friend class system::Movement;
 };
 
 } // namespace component

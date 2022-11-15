@@ -25,30 +25,29 @@ std::string npcName(const std::string& n) { return "npc:" + n; }
 
 Interaction::Interaction(Systems& owner)
 : owner(owner)
-, interactingEntity(bl::entity::InvalidEntity)
+, interactingEntity(bl::ecs::InvalidEntity)
 , currentConversation(owner)
 , interactingTrainer(nullptr) {}
 
 void Interaction::init() { owner.engine().eventBus().subscribe(this); }
 
-bool Interaction::interact(bl::entity::Entity interactor) {
+bool Interaction::interact(bl::ecs::Entity interactor) {
     const component::Position* pos =
-        owner.engine().entities().getComponent<component::Position>(interactor);
+        owner.engine().ecs().getComponent<component::Position>(interactor);
     if (!pos) return false;
 
-    const bl::entity::Entity interacted = owner.position().search(*pos, pos->direction, 1);
-    if (interacted != bl::entity::InvalidEntity) {
+    const bl::ecs::Entity interacted = owner.position().search(*pos, pos->direction, 1);
+    if (interacted != bl::ecs::InvalidEntity) {
         BL_LOG_INFO << "Entity " << interactor << " interacted with entity: " << interacted;
 
         if (interactor != owner.player().player() && interacted != owner.player().player()) {
             BL_LOG_WARN << "Nonplayer entity " << interactor << " interacted with " << interacted;
             return false;
         }
-        const bl::entity::Entity nonplayer =
+        const bl::ecs::Entity nonplayer =
             interactor != owner.player().player() ? interactor : interacted;
 
-        const component::NPC* npc =
-            owner.engine().entities().getComponent<component::NPC>(nonplayer);
+        const component::NPC* npc = owner.engine().ecs().getComponent<component::NPC>(nonplayer);
         if (npc) {
             setTalked(npcName(npc->name()));
             owner.controllable().setEntityLocked(nonplayer, true);
@@ -62,7 +61,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         }
         else {
             component::Trainer* trainer =
-                owner.engine().entities().getComponent<component::Trainer>(nonplayer);
+                owner.engine().ecs().getComponent<component::Trainer>(nonplayer);
             if (trainer) {
                 setTalked(trainerName(trainer->name()));
                 owner.controllable().setEntityLocked(nonplayer, true);
@@ -88,14 +87,14 @@ bool Interaction::interact(bl::entity::Entity interactor) {
         // Check for item if player
         if (interactor == owner.player().player()) {
             const component::Item* ic =
-                owner.engine().entities().getComponent<component::Item>(interacted);
+                owner.engine().ecs().getComponent<component::Item>(interacted);
             if (ic) {
                 const std::string name = item::Item::getName(ic->id());
                 BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
                             << name << ")";
                 owner.player().state().bag.addItem(ic->id(), 1);
                 owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
-                owner.engine().entities().destroyEntity(interacted);
+                owner.engine().ecs().destroyEntity(interacted);
                 owner.hud().displayMessage("Picked up a " + name);
                 return true;
             }
@@ -107,7 +106,7 @@ bool Interaction::interact(bl::entity::Entity interactor) {
 }
 
 void Interaction::processConversationNode() {
-    if (interactingEntity == bl::entity::InvalidEntity) return;
+    if (interactingEntity == bl::ecs::InvalidEntity) return;
     if (currentConversation.finished()) {
         if (interactingTrainer) { startBattle(); }
         else {
@@ -173,7 +172,7 @@ void Interaction::processConversationNode() {
     default:
         BL_LOG_ERROR << "Invalid conversation node type " << node.getType() << ", terminating";
         owner.controllable().resetEntityLock(interactingEntity);
-        interactingEntity = bl::entity::InvalidEntity;
+        interactingEntity = bl::ecs::InvalidEntity;
         break;
     }
 }
@@ -229,10 +228,9 @@ void Interaction::giveMoneyDecided(const std::string& c) {
     }
 }
 
-void Interaction::faceEntity(bl::entity::Entity rot, bl::entity::Entity face) {
-    component::Position* mpos = owner.engine().entities().getComponent<component::Position>(rot);
-    const component::Position* fpos =
-        owner.engine().entities().getComponent<component::Position>(face);
+void Interaction::faceEntity(bl::ecs::Entity rot, bl::ecs::Entity face) {
+    component::Position* mpos       = owner.engine().ecs().getComponent<component::Position>(rot);
+    const component::Position* fpos = owner.engine().ecs().getComponent<component::Position>(face);
     if (mpos && fpos) {
         const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
         mpos->direction                = dir;

@@ -7,7 +7,7 @@ namespace core
 {
 namespace component
 {
-Controllable::Controllable(system::Systems& systems, bl::entity::Entity owner)
+Controllable::Controllable(system::Systems& systems, bl::ecs::Entity owner)
 : owner(owner)
 , systems(systems)
 , locked(false)

@@ -37,7 +37,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
         prevPlayerPos                  = owner.player().position();
 
         currentMap->exit(owner, previousMap->name());
-        owner.engine().entities().clear();
+        owner.engine().ecs().destroyAllEntities();
         if (!previousMap->enter(owner, 0, currentMap->name(), ppos)) return false;
         std::swap(currentMap, previousMap);
         std::swap(prevMapFile, currentMapFile);
@@ -57,7 +57,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
         if (currentMap) {
             currentMap->exit(owner, previousMap->name());
             prevPlayerPos = owner.player().position();
-            owner.engine().entities().clear();
+            owner.engine().ecs().destroyAllEntities();
         }
         std::swap(currentMap, previousMap);
         if (!currentMap->enter(

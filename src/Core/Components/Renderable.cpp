@@ -8,12 +8,7 @@ namespace core
 {
 namespace component
 {
-namespace
-{
-using PositionHandle = bl::entity::Registry::ComponentHandle<component::Position>;
-}
-
-Renderable Renderable::fromSprite(const PositionHandle& pos, const std::string& file) {
+Renderable Renderable::fromSprite(const Position& pos, const std::string& file) {
     Renderable rc(pos);
     rc.data.emplace<StaticSprite>();
     StaticSprite& spr = *std::get_if<StaticSprite>(&rc.data);
@@ -25,10 +20,8 @@ Renderable Renderable::fromSprite(const PositionHandle& pos, const std::string& 
     return rc;
 }
 
-Renderable Renderable::fromMoveAnims(
-    const PositionHandle& pos,
-    const bl::entity::Registry::ComponentHandle<component::Movable>& movable,
-    const std::string& path) {
+Renderable Renderable::fromMoveAnims(const Position& pos, Movable& movable,
+                                     const std::string& path) {
     Renderable rc(pos);
     rc.data.emplace<MoveAnims>(movable);
     MoveAnims& mv = *std::get_if<MoveAnims>(&rc.data);
@@ -52,10 +45,8 @@ Renderable Renderable::fromMoveAnims(
     return rc;
 }
 
-Renderable Renderable::fromFastMoveAnims(
-    const PositionHandle& pos,
-    const bl::entity::Registry::ComponentHandle<component::Movable>& movable,
-    const std::string& path) {
+Renderable Renderable::fromFastMoveAnims(const Position& pos, Movable& movable,
+                                         const std::string& path) {
     Renderable rc(pos);
     rc.data.emplace<FastMoveAnims>(movable);
     FastMoveAnims& mv = *std::get_if<FastMoveAnims>(&rc.data);
@@ -95,13 +86,13 @@ Renderable Renderable::fromFastMoveAnims(
     return rc;
 }
 
-Renderable Renderable::fromAnimation(const PositionHandle& pos, const std::string& path) {
+Renderable Renderable::fromAnimation(const Position& pos, const std::string& path) {
     Renderable rc(pos);
     rc.data.emplace<OneAnimation>(path);
     return rc;
 }
 
-Renderable::Renderable(const PositionHandle& pos)
+Renderable::Renderable(const Position& pos)
 : position(pos)
 , shadowHeight(-1.f) {
     shadow.setFillColor(sf::Color(0, 0, 0, 145));
@@ -113,7 +104,7 @@ void Renderable::render(sf::RenderTarget& target, float lag) const {
     // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
     static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
                                      static_cast<float>(Properties::PixelsPerTile()));
-    const sf::Vector2f pos(position.get().positionPixels() + offset);
+    const sf::Vector2f pos(position.positionPixels() + offset);
     if (shadowHeight >= 0.f) {
         sf::RenderStates states;
         states.transform.translate(pos);
@@ -166,14 +157,13 @@ void Renderable::StaticSprite::trigger(bool) {}
 
 void Renderable::StaticSprite::setAngle(float a) { sprite.setRotation(a); }
 
-Renderable::MoveAnims::MoveAnims(
-    const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
+Renderable::MoveAnims::MoveAnims(Movable& movable)
 : movable(movable) {}
 
-void Renderable::MoveAnims::update(float dt, const PositionHandle& pos) {
-    anim.setData(*data[static_cast<unsigned int>(pos.get().direction)]);
+void Renderable::MoveAnims::update(float dt, const Position& pos) {
+    anim.setData(*data[static_cast<unsigned int>(pos.direction)]);
     anim.update(dt);
-    if (movable.get().moving())
+    if (movable.moving())
         anim.play(false);
     else
         anim.stop();
@@ -195,24 +185,23 @@ void Renderable::MoveAnims::trigger(bool loop) {
 
 void Renderable::MoveAnims::setAngle(float a) { anim.setRotation(a); }
 
-Renderable::FastMoveAnims::FastMoveAnims(
-    const bl::entity::Registry::ComponentHandle<component::Movable>& movable)
+Renderable::FastMoveAnims::FastMoveAnims(Movable& movable)
 : movable(movable) {}
 
-void Renderable::FastMoveAnims::update(float dt, const PositionHandle& pos) {
-    if (movable.get().moving()) {
-        if (movable.get().goingFast()) {
-            auto& src = *run[static_cast<unsigned int>(pos.get().direction)];
+void Renderable::FastMoveAnims::update(float dt, const Position& pos) {
+    if (movable.moving()) {
+        if (movable.goingFast()) {
+            auto& src = *run[static_cast<unsigned int>(pos.direction)];
             anim.setData(src);
         }
         else {
-            auto& src = *walk[static_cast<unsigned int>(pos.get().direction)];
+            auto& src = *walk[static_cast<unsigned int>(pos.direction)];
             anim.setData(src);
         }
         anim.play(false);
     }
     else {
-        auto& src = *walk[static_cast<unsigned int>(pos.get().direction)];
+        auto& src = *walk[static_cast<unsigned int>(pos.direction)];
         anim.setData(src);
         anim.stop();
     }
@@ -250,7 +239,7 @@ Renderable::OneAnimation::OneAnimation(const std::string& path) {
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
 }
 
-void Renderable::OneAnimation::update(float dt, const PositionHandle&) { anim.update(dt); }
+void Renderable::OneAnimation::update(float dt, const Position&) { anim.update(dt); }
 
 void Renderable::OneAnimation::render(sf::RenderTarget& target, float lag,
                                       const sf::Vector2f& pos) {

@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_PLAYERCONTROLLED_HPP
 #define CORE_COMPONENTS_PLAYERCONTROLLED_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Input/Control.hpp>
 
@@ -22,9 +21,6 @@ namespace component
  */
 class PlayerControlled : public bl::input::Listener {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 6;
-
     /**
      * @brief Construct a new Player Controlled component and immediately start taking player input.
      *        Whatever was previously receiving player input is cut off
@@ -32,13 +28,11 @@ public:
      * @param systems The primary systems object
      * @param controllable The controllable component to interface with
      */
-    PlayerControlled(
-        system::Systems& systems,
-        const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable);
+    PlayerControlled(system::Systems& systems, Controllable& controllable);
 
     /**
      * @brief Destroy the Player Controlled component
-     * 
+     *
      */
     virtual ~PlayerControlled() = default;
 
@@ -65,7 +59,7 @@ public:
 
 private:
     system::Systems& systems;
-    bl::entity::Registry::ComponentHandle<component::Controllable> controllable;
+    component::Controllable& controllable;
     bool started;
 };
 

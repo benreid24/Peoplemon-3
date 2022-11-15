@@ -340,7 +340,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
-        if (game.entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
+        if (game.entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
@@ -687,7 +687,7 @@ void Map::triggerAnimation(const component::Position& pos) {
     }
 }
 
-bool Map::interact(bl::entity::Entity interactor, const component::Position& pos) {
+bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
     const auto trigger = [this, interactor, &pos](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << interactor << " triggered event at (" << pos.positionTiles().x << ", "

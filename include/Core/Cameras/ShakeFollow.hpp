@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_CAMERAS_SHAKEFOLLOW_HPP
 #define CORE_SYSTEMS_CAMERAS_SHAKEFOLLOW_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Render/Cameras/FollowCamera.hpp>
 
 namespace core
@@ -32,7 +32,7 @@ public:
      * @param shakesPerSec How many times to shake per second
      * @return Camera::Ptr The new camera
      */
-    static Ptr create(system::Systems& systems, bl::entity::Entity toFollow, float shakesPerSec);
+    static Ptr create(system::Systems& systems, bl::ecs::Entity toFollow, float shakesPerSec);
 
     /**
      * @brief Set the number of shakes per second
@@ -62,7 +62,7 @@ private:
     float magnitude;
     float time;
 
-    ShakeFollow(system::Systems& systems, bl::entity::Entity entity, float sps);
+    ShakeFollow(system::Systems& systems, bl::ecs::Entity entity, float sps);
 };
 
 } // namespace camera

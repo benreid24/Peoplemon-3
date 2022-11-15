@@ -55,10 +55,8 @@ bool Flight::startFlight(unsigned int spawn) {
     }
     destination = *spos;
 
-    playerPos =
-        owner.engine().entities().getComponent<component::Position>(owner.player().player());
-    playerAnim =
-        owner.engine().entities().getComponent<component::Renderable>(owner.player().player());
+    playerPos  = owner.engine().ecs().getComponent<component::Position>(owner.player().player());
+    playerAnim = owner.engine().ecs().getComponent<component::Renderable>(owner.player().player());
     if (!playerPos) {
         BL_LOG_CRITICAL << "Player position could not be found";
         owner.engine().flags().set(bl::engine::Flags::Terminate);

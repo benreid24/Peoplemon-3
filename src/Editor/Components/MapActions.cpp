@@ -1095,8 +1095,8 @@ bool EditMap::AddNpcSpawnAction::apply(EditMap& map) {
 
 bool EditMap::AddNpcSpawnAction::undo(EditMap& map) {
     map.characterField.erase(map.characterField.begin() + i);
-    bl::entity::Entity c = map.systems->position().getEntity(spawn.position);
-    if (c != bl::entity::InvalidEntity) { map.systems->engine().entities().destroyEntity(c); }
+    bl::ecs::Entity c = map.systems->position().getEntity(spawn.position);
+    if (c != bl::ecs::InvalidEntity) { map.systems->engine().ecs().destroyEntity(c); }
     return false;
 }
 
@@ -1116,18 +1116,16 @@ EditMap::EditNpcSpawnAction::EditNpcSpawnAction(unsigned int i,
 , value(s) {}
 
 bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
-    bl::entity::Entity e = map.systems->position().getEntity(orig.position);
-    map.systems->engine().entities().destroyEntity(e);
-    map.systems->engine().entities().doDestroy();
+    bl::ecs::Entity e = map.systems->position().getEntity(orig.position);
+    map.systems->engine().ecs().destroyEntity(e);
     map.systems->entity().spawnCharacter(value);
     map.characterField[i] = value;
     return false;
 }
 
 bool EditMap::EditNpcSpawnAction::undo(EditMap& map) {
-    bl::entity::Entity e = map.systems->position().getEntity(value.position);
-    map.systems->engine().entities().destroyEntity(e);
-    map.systems->engine().entities().doDestroy();
+    bl::ecs::Entity e = map.systems->position().getEntity(value.position);
+    map.systems->engine().ecs().destroyEntity(e);
     map.systems->entity().spawnCharacter(orig);
     map.characterField[i] = orig;
     return false;
@@ -1147,8 +1145,8 @@ EditMap::RemoveNpcSpawnAction::RemoveNpcSpawnAction(const core::map::CharacterSp
 
 bool EditMap::RemoveNpcSpawnAction::apply(EditMap& map) {
     map.characterField.erase(map.characterField.begin() + i);
-    bl::entity::Entity e = map.systems->position().getEntity(orig.position);
-    map.systems->engine().entities().destroyEntity(e);
+    bl::ecs::Entity e = map.systems->position().getEntity(orig.position);
+    map.systems->engine().ecs().destroyEntity(e);
     return false;
 }
 
@@ -1198,9 +1196,7 @@ bool EditMap::AddOrEditItemAction::undo(EditMap& map) {
         map.itemsField.pop_back();
         const auto ent = map.systems->position().getEntity(
             {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
-        if (ent != bl::entity::InvalidEntity) {
-            map.systems->engine().entities().destroyEntity(ent);
-        }
+        if (ent != bl::ecs::InvalidEntity) { map.systems->engine().ecs().destroyEntity(ent); }
     }
     else {
         map.itemsField[i].id      = orig.id;
@@ -1230,7 +1226,7 @@ bool EditMap::RemoveItemAction::apply(EditMap& map) {
     map.itemsField.erase(map.itemsField.begin() + i);
     const auto ent = map.systems->position().getEntity(
         {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
-    if (ent != bl::entity::InvalidEntity) { map.systems->engine().entities().destroyEntity(ent); }
+    if (ent != bl::ecs::InvalidEntity) { map.systems->engine().ecs().destroyEntity(ent); }
     return false;
 }
 

@@ -1,7 +1,7 @@
 #ifndef CORE_SCRIPTS_CONVERSATIONCONTEXT_HPP
 #define CORE_SCRIPTS_CONVERSATIONCONTEXT_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <BLIB/Scripts.hpp>
 
 namespace core
@@ -29,7 +29,7 @@ public:
      * @return bool True if conversation completed, false if ongoing
      *
      */
-    using StatusCb = std::function<bool(bl::entity::Entity)>;
+    using StatusCb = std::function<bool(bl::ecs::Entity)>;
 
     /**
      * @brief Construct a new ConversationContext
@@ -38,7 +38,7 @@ public:
      * @param entity The entity being conversed with
      * @param cb Callback that can be used to query the conversation state
      */
-    ConversationContext(system::Systems& systems, bl::entity::Entity entity, const StatusCb& cb);
+    ConversationContext(system::Systems& systems, bl::ecs::Entity entity, const StatusCb& cb);
 
 protected:
     virtual void addCustomSymbols(bl::script::SymbolTable& table) const override;
@@ -46,7 +46,7 @@ protected:
 private:
     system::Systems& systems;
     const StatusCb cb;
-    const bl::entity::Entity owner;
+    const bl::ecs::Entity owner;
 };
 
 } // namespace script

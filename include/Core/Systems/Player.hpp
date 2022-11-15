@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_PLAYER_HPP
 #define CORE_SYSTEMS_PLAYER_HPP
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
@@ -49,20 +49,20 @@ public:
      * @param entity The entity to receive player input
      * @return True if added, false on error
      */
-    bool makePlayerControlled(bl::entity::Entity entity);
+    bool makePlayerControlled(bl::ecs::Entity entity);
 
     /**
      * @brief Removes the PlayerControlled component from the given entity, if any
      *
      * @param entity The entity to remove player control from
      */
-    void removePlayerControlled(bl::entity::Entity entity);
+    void removePlayerControlled(bl::ecs::Entity entity);
 
     /**
      * @brief Returns the id of the player entity
      *
      */
-    bl::entity::Entity player() const;
+    bl::ecs::Entity player() const;
 
     /**
      * @brief Returns the current position of the player
@@ -118,9 +118,9 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Entity playerId;
-    bl::entity::Registry::ComponentHandle<component::Position> _position;
-    bl::entity::Registry::ComponentHandle<component::Movable> movable;
+    bl::ecs::Entity playerId;
+    component::Position* _position;
+    component::Movable* movable;
 
     map::LightingSystem::Handle lantern;
     float lanternVariance;

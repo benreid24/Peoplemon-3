@@ -14,7 +14,7 @@
 #include <Core/Maps/Town.hpp>
 #include <Core/Maps/Weather.hpp>
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Media/Audio.hpp>
 #include <BLIB/Resources.hpp>
@@ -134,7 +134,7 @@ public:
 
     /**
      * @brief Configures the game camera for the player in the map
-     * 
+     *
      * @param systems The main game systems
      */
     void setupCamera(system::Systems& systems);
@@ -244,7 +244,7 @@ public:
      * @param interactor The entity doing the interact
      * @param interactPos The position being interacted with
      */
-    bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
+    bool interact(bl::ecs::Entity interactor, const component::Position& interactPos);
 
     /**
      * @brief Returns the catch region at the given position if the position is on a catch tile

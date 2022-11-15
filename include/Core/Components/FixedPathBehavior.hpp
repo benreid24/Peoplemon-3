@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_FIXEDPATHBEHAVIOR_HPP
 #define CORE_COMPONENTS_FIXEDPATHBEHAVIOR_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Files/Behavior.hpp>
 
@@ -17,9 +16,6 @@ namespace component
  */
 class FixedPathBehavior {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 9;
-
     /**
      * @brief Construct a new Fixed Path Behavior component
      *
@@ -33,7 +29,7 @@ public:
      * @param position The position component of the entity
      * @param controller The controllable component of the entity
      */
-    void update(Position& position, Controllable& controller);
+    void update(Position& position, Controllable& controller, float);
 
 private:
     const file::Behavior::Path path;

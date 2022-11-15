@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_ITEM_HPP
 #define CORE_COMPONENTS_ITEM_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Items/Id.hpp>
 
 namespace core
@@ -17,9 +16,6 @@ namespace component
  */
 class Item {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 11;
-
     /**
      * @brief Construct a new Item component
      *

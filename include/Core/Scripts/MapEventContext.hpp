@@ -1,7 +1,7 @@
 #ifndef CORE_SCRIPTS_MAPEVENTCONTEXT_HPP
 #define CORE_SCRIPTS_MAPEVENTCONTEXT_HPP
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Scripts.hpp>
 #include <Core/Components/Position.hpp>
 #include <Core/Maps/Event.hpp>
@@ -31,7 +31,7 @@ public:
      * @param event The event that the entity triggered
      * @param tile The position of the entity when the event fired
      */
-    MapEventContext(system::Systems& systems, bl::entity::Entity entity, const map::Event& event,
+    MapEventContext(system::Systems& systems, bl::ecs::Entity entity, const map::Event& event,
                     const component::Position& tile);
 
 protected:
@@ -39,7 +39,7 @@ protected:
 
 private:
     system::Systems& systems;
-    const bl::entity::Entity entity;
+    const bl::ecs::Entity entity;
     const map::Event event;
     const component::Position tile;
 };

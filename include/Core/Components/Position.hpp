@@ -1,7 +1,6 @@
 #ifndef CORE_ENTITIES_POSITION_HPP
 #define CORE_ENTITIES_POSITION_HPP
 
-#include <BLIB/Entities/Component.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Components/Direction.hpp>
 
@@ -17,9 +16,6 @@ namespace component
  */
 class Position {
 public:
-    /// Required to be used in the BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 1;
-
     /**
      * @brief Creates an empty position
      *

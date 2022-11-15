@@ -24,8 +24,6 @@ Systems::Systems(bl::engine::Engine& engine)
     _world.init();
     _position.init();
     _movement.init();
-    _render.init();
-    _controllable.init();
     _player.init();
     _ai.init();
     _interaction.init();
@@ -50,8 +48,6 @@ void Systems::update(float dt, bool ent) {
 
     _world.update(dt);
     _render.update(dt);
-
-    _engine.entities().doDestroy();
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }

@@ -17,7 +17,7 @@
 #include <Game/States/MainGame.hpp>
 #include <Game/States/MainMenu.hpp>
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <iostream>
 
 int main(int argc, char** argv) {
@@ -35,8 +35,6 @@ int main(int argc, char** argv) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
-
-    bl::entity::IdGenerator::generateSequentialIds(true);
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

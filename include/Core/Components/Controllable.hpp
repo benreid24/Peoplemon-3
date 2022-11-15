@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_CONTROLLABLE_HPP
 #define CORE_COMPONENTS_CONTROLLABLE_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Input/Control.hpp>
 
@@ -22,16 +21,13 @@ namespace component
  */
 class Controllable {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 5;
-
     /**
      * @brief Construct a new Controllable component
      *
      * @param systems The primary systems object
      * @param owner The entity that owns this component
      */
-    Controllable(system::Systems& systems, bl::entity::Entity owner);
+    Controllable(system::Systems& systems, bl::ecs::Entity owner);
 
     /**
      * @brief Processes the given command and manipulates the entity accordingly
@@ -66,7 +62,7 @@ public:
     bool isLocked() const;
 
 private:
-    bl::entity::Entity owner;
+    bl::ecs::Entity owner;
     system::Systems& systems;
     bool locked;
     bool wasLocked;

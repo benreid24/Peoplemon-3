@@ -1,7 +1,7 @@
 #ifndef CORE_COMPONENTS_RENDERABLE_HPP
 #define CORE_COMPONENTS_RENDERABLE_HPP
 
-#include <BLIB/Entities/Registry.hpp>
+#include <BLIB/ECS/Registry.hpp>
 #include <BLIB/Media/Graphics/Animation.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
@@ -19,9 +19,6 @@ namespace component
  */
 class Renderable {
 public:
-    /// Required to be used in the BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 4;
-
     /**
      * @brief Creates a renderable component for a static sprite
      *
@@ -29,9 +26,7 @@ public:
      * @param path The path to the sprite
      * @return Renderable A usable component
      */
-    static Renderable fromSprite(
-        const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-        const std::string& path);
+    static Renderable fromSprite(const Position& pos, const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations
@@ -41,10 +36,8 @@ public:
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
-    static Renderable fromMoveAnims(
-        const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-        const bl::entity::Registry::ComponentHandle<component::Movable>& movable,
-        const std::string& path);
+    static Renderable fromMoveAnims(const Position& pos, component::Movable& movable,
+                                    const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations with running
@@ -54,10 +47,8 @@ public:
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
-    static Renderable fromFastMoveAnims(
-        const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-        const bl::entity::Registry::ComponentHandle<component::Movable>& move,
-        const std::string& path);
+    static Renderable fromFastMoveAnims(const Position& pos, component::Movable& move,
+                                        const std::string& path);
 
     /**
      * @brief Creates a renderable component from a single animation
@@ -66,9 +57,7 @@ public:
      * @param path The path of the animation
      * @return Renderable The created component
      */
-    static Renderable fromAnimation(
-        const bl::entity::Registry::ComponentHandle<component::Position>& pos,
-        const std::string& path);
+    static Renderable fromAnimation(const Position& pos, const std::string& path);
 
     /**
      * @brief Updates contained animations
@@ -124,12 +113,11 @@ private:
     struct Base {
         virtual ~Base() = default;
 
-        virtual void update(
-            float dt, const bl::entity::Registry::ComponentHandle<component::Position>& pos) = 0;
-        virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos)    = 0;
-        virtual float length() const                                                         = 0;
-        virtual void trigger(bool loop)                                                      = 0;
-        virtual void setAngle(float angle)                                                   = 0;
+        virtual void update(float dt, const Position& pos)                                      = 0;
+        virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) = 0;
+        virtual float length() const                                                      = 0;
+        virtual void trigger(bool loop)                                                   = 0;
+        virtual void setAngle(float angle)                                                = 0;
     };
 
     struct StaticSprite : public Base {
@@ -137,8 +125,7 @@ private:
         sf::Sprite sprite;
 
         virtual ~StaticSprite() = default;
-        virtual void update(
-            float, const bl::entity::Registry::ComponentHandle<component::Position>&) override {}
+        virtual void update(float, const Position&) override {}
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
@@ -148,13 +135,11 @@ private:
     struct MoveAnims : public Base {
         bl::resource::Resource<bl::gfx::AnimationData>::Ref data[4];
         bl::gfx::Animation anim;
-        bl::entity::Registry::ComponentHandle<component::Movable> movable;
+        component::Movable& movable;
 
-        MoveAnims(const bl::entity::Registry::ComponentHandle<component::Movable>& movable);
+        MoveAnims(component::Movable& movable);
         virtual ~MoveAnims() = default;
-        virtual void update(
-            float dt,
-            const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
+        virtual void update(float dt, const Position& pos) override;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
@@ -165,13 +150,11 @@ private:
         bl::resource::Resource<bl::gfx::AnimationData>::Ref walk[4];
         bl::resource::Resource<bl::gfx::AnimationData>::Ref run[4];
         bl::gfx::Animation anim;
-        bl::entity::Registry::ComponentHandle<component::Movable> movable;
+        component::Movable& movable;
 
-        FastMoveAnims(const bl::entity::Registry::ComponentHandle<component::Movable>& movable);
+        FastMoveAnims(component::Movable& movable);
         virtual ~FastMoveAnims() = default;
-        virtual void update(
-            float dt,
-            const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
+        virtual void update(float dt, const Position& pos) override;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
@@ -185,16 +168,14 @@ private:
 
         OneAnimation(const std::string& path);
         virtual ~OneAnimation() = default;
-        virtual void update(
-            float dt,
-            const bl::entity::Registry::ComponentHandle<component::Position>& pos) override;
+        virtual void update(float dt, const Position& pos) override;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) override;
         virtual float length() const override;
         virtual void trigger(bool loop) override;
         virtual void setAngle(float angle) override;
     };
 
-    bl::entity::Registry::ComponentHandle<component::Position> position;
+    const component::Position& position;
     std::variant<StaticSprite, MoveAnims, FastMoveAnims, OneAnimation> data;
     sf::CircleShape shadow;
     float shadowHeight;
@@ -202,7 +183,7 @@ private:
     Base* cur();
     Base* cur() const;
 
-    Renderable(const bl::entity::Registry::ComponentHandle<component::Position>& pos);
+    Renderable(const Position& pos);
 };
 
 } // namespace component

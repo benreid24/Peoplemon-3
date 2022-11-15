@@ -145,7 +145,7 @@ bool EditMap::editorActivate() {
     historyHead = 0;
     saveHead    = 0;
 
-    systems->engine().entities().clear();
+    systems->engine().ecs().destroyAllEntities();
 
     size = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
@@ -170,7 +170,7 @@ bool EditMap::editorActivate() {
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField) {
-        if (systems->entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
+        if (systems->entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
@@ -516,8 +516,8 @@ const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
 
 void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
                            const core::map::CharacterSpawn& val) {
-    const bl::entity::Entity e = systems->position().getEntity(orig->position);
-    if (e != bl::entity::InvalidEntity) {
+    const bl::ecs::Entity e = systems->position().getEntity(orig->position);
+    if (e != bl::ecs::InvalidEntity) {
         addAction(EditNpcSpawnAction::create(orig - characterField.data(), *orig, val));
     }
     else {
@@ -531,8 +531,8 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
     for (; i < characterField.size(); ++i) {
         if (&characterField[i] == s) { break; }
     }
-    const bl::entity::Entity e = systems->position().getEntity(s->position);
-    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
+    const bl::ecs::Entity e = systems->position().getEntity(s->position);
+    if (e != bl::ecs::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
     else {
         const auto& pos = s->position.positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";

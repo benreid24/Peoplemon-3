@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_AI_HPP
 #define CORE_SYSTEMS_AI_HPP
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <Core/Components/FixedPathBehavior.hpp>
 #include <Core/Components/SpinBehavior.hpp>
 #include <Core/Components/StandingBehavior.hpp>
@@ -49,7 +49,7 @@ public:
      * @param behavior The behavior to add
      * @return True if the behavior was able to be added, false otherwise
      */
-    bool addBehavior(bl::entity::Entity entity, const file::Behavior& behavior);
+    bool addBehavior(bl::ecs::Entity entity, const file::Behavior& behavior);
 
     /**
      * @brief Makes the given entity stand in place. Replaces any existing behavior on the entity
@@ -58,7 +58,7 @@ public:
      * @param dir The direction to face
      * @return True if the behvaior was able to be added, false otherwise
      */
-    bool makeStanding(bl::entity::Entity entity, component::Direction dir);
+    bool makeStanding(bl::ecs::Entity entity, component::Direction dir);
 
     /**
      * @brief Makes the given entity spin in place. Replaces any existing behavior
@@ -67,7 +67,7 @@ public:
      * @param dir The direction to spin in
      * @return True if the behavior was able to be added, false otherwise
      */
-    bool makeSpinning(bl::entity::Entity entity, file::Behavior::Spinning::Direction dir);
+    bool makeSpinning(bl::ecs::Entity entity, file::Behavior::Spinning::Direction dir);
 
     /**
      * @brief Make the entity follow a fixed path. Replacces existing behavior
@@ -76,7 +76,7 @@ public:
      * @param path The path to follow
      * @return True if the behavior was added, false otherwise
      */
-    bool makeFollowPath(bl::entity::Entity entity, const file::Behavior::Path& path);
+    bool makeFollowPath(bl::ecs::Entity entity, const file::Behavior::Path& path);
 
     /**
      * @brief Makes the given entity wander around within the given radius. Replaces any existing
@@ -86,7 +86,7 @@ public:
      * @param radius The radius to stay within, in tiles
      * @return True if the behavior was able to be added, false otherwise
      */
-    bool makeWander(bl::entity::Entity entity, unsigned int radius);
+    bool makeWander(bl::ecs::Entity entity, unsigned int radius);
 
     /**
      * @brief Uses a pathfinder to navigate the entity to the given position and end up facing the
@@ -98,7 +98,7 @@ public:
      * @param finalDir The direction to face at the end of the path
      * @return True if the controller was able to be added and the path is valid, false otherwise
      */
-    bool moveToPosition(bl::entity::Entity entity, const component::Position& pos,
+    bool moveToPosition(bl::ecs::Entity entity, const component::Position& pos,
                         component::Direction finalDir);
 
     /**
@@ -106,18 +106,23 @@ public:
      *
      * @param ent The entity to remove behavior from
      */
-    void removeAi(bl::entity::Entity ent);
+    void removeAi(bl::ecs::Entity ent);
 
 private:
     Systems& owner;
-    bl::entity::Registry::View<component::StandingBehavior, component::Position,
-                               component::Controllable>::Ptr standing;
-    bl::entity::Registry::View<component::SpinBehavior, component::Position,
-                               component::Controllable>::Ptr spinning;
-    bl::entity::Registry::View<component::FixedPathBehavior, component::Position,
-                               component::Controllable>::Ptr paths;
-    bl::entity::Registry::View<component::WanderBehavior, component::Position,
-                               component::Controllable>::Ptr wandering;
+    bl::ecs::View<component::StandingBehavior, component::Position, component::Controllable>*
+        standing;
+    bl::ecs::View<component::SpinBehavior, component::Position, component::Controllable>* spinning;
+    bl::ecs::View<component::FixedPathBehavior, component::Position, component::Controllable>*
+        paths;
+    bl::ecs::View<component::WanderBehavior, component::Position, component::Controllable>*
+        wandering;
+
+    template<typename T>
+    void viewVisitor(float dt,
+                     bl::ecs::ComponentSet<T, component::Position, component::Controllable>& cs) {
+        //cs.get<T>()->update(*cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
+    }
 };
 
 } // namespace system

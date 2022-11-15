@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_ENTITY_HPP
 #define CORE_SYSTEMS_ENTITY_HPP
 
+#include <BLIB/ECS.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
 #include <Core/Maps/Item.hpp>
 
@@ -32,7 +33,7 @@ public:
      * @param spawn The map spawn information
      * @return Id of the created entity, or InvalidId if spawn failed
      */
-    bl::entity::Entity spawnCharacter(const map::CharacterSpawn& spawn);
+    bl::ecs::Entity spawnCharacter(const map::CharacterSpawn& spawn);
 
     /**
      * @brief Spawns an item into the world
@@ -50,8 +51,8 @@ public:
      * @param gfx Path to image or animation for graphic component
      * @return The created entity id or InvalidEntity
      */
-    bl::entity::Entity spawnGeneric(const component::Position& position, bool collidable,
-                                    const std::string& gfx);
+    bl::ecs::Entity spawnGeneric(const component::Position& position, bool collidable,
+                                 const std::string& gfx);
 
     /**
      * @brief Spawns an animation-only entity at the given position. The animation is not played
@@ -61,7 +62,7 @@ public:
      * @param gfx The path to the animation to render
      * @return The created entity id or InvalidEntity
      */
-    bl::entity::Entity spawnAnimation(const component::Position& position, const std::string& gfx);
+    bl::ecs::Entity spawnAnimation(const component::Position& position, const std::string& gfx);
 
 private:
     Systems& owner;

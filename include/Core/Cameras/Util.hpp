@@ -1,7 +1,7 @@
 #ifndef CORE_CAMERAS_UTIL_HPP
 #define CORE_CAMERAS_UTIL_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core
@@ -20,7 +20,7 @@ namespace camera
  * @param e The entity to get the position pointer to
  * @return const sf::Vector2f* Pointer to the pixel position, nullptr if invalid
  */
-const sf::Vector2f* getPositionPointer(system::Systems& s, bl::entity::Entity e);
+const sf::Vector2f* getPositionPointer(system::Systems& s, bl::ecs::Entity e);
 
 } // namespace camera
 } // namespace core
