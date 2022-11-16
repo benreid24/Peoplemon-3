@@ -7,7 +7,7 @@ namespace component
 StandingBehavior::StandingBehavior(Direction faceDir)
 : dir(faceDir) {}
 
-void StandingBehavior::update(Position& position, Controllable& controller, float) {
+void StandingBehavior::update(Position& position, Controllable& controller) {
     if (position.direction != dir) { controller.processControl(moveControlFromDirection(dir)); }
 }
 

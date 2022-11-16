@@ -36,7 +36,6 @@ public:
 
     static const std::string& SaveDirectory();
     static const std::string& SaveExtension();
-    static const std::string& ControlsFile();
 
     static int PixelsPerTile();
     static int ExtraRenderTiles();

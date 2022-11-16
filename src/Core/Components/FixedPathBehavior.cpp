@@ -10,7 +10,7 @@ FixedPathBehavior::FixedPathBehavior(const file::Behavior::Path& path)
 , currentPace(0)
 , currentStep(0) {}
 
-void FixedPathBehavior::update(Position& position, Controllable& controller, float) {
+void FixedPathBehavior::update(Position& position, Controllable& controller) {
     if (path.paces.empty()) return;
 
     const Direction moveDir = backwards ? oppositeDirection(path.paces[currentPace].direction) :

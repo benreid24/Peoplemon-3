@@ -59,7 +59,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
         }
     } break;
     case Standing:
-        data.standing.update(position, controller, dt);
+        data.standing.update(position, controller);
         break;
     case Spinning:
         data.spinning.update(position, controller, dt);

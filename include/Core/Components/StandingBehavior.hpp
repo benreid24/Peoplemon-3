@@ -29,7 +29,7 @@ public:
      * @param controller The entities controllable component
      *
      */
-    void update(Position& position, Controllable& controller, float);
+    void update(Position& position, Controllable& controller);
 
 private:
     const Direction dir;

@@ -27,6 +27,7 @@ void PlayerControlled::stop() {
 bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
                                bl::input::DispatchType, bool fromEvent) {
     if (controllable.isLocked()) return true;
+    if (ctrl == input::Control::Interact && !fromEvent) return true;
 
     switch (ctrl) {
     case input::Control::Pause:

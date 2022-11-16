@@ -29,7 +29,7 @@ public:
      * @param position The position component of the entity
      * @param controller The controllable component of the entity
      */
-    void update(Position& position, Controllable& controller, float);
+    void update(Position& position, Controllable& controller);
 
 private:
     const file::Behavior::Path path;

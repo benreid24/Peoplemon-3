@@ -109,20 +109,31 @@ public:
     void removeAi(bl::ecs::Entity ent);
 
 private:
-    Systems& owner;
-    bl::ecs::View<component::StandingBehavior, component::Position, component::Controllable>*
-        standing;
-    bl::ecs::View<component::SpinBehavior, component::Position, component::Controllable>* spinning;
-    bl::ecs::View<component::FixedPathBehavior, component::Position, component::Controllable>*
-        paths;
-    bl::ecs::View<component::WanderBehavior, component::Position, component::Controllable>*
-        wandering;
+    // type helpers
+#define StandingTypes component::StandingBehavior, component::Position, component::Controllable
+#define SpinTypes component::SpinBehavior, component::Position, component::Controllable
+#define FixedPathTypes component::FixedPathBehavior, component::Position, component::Controllable
+#define WanderTypes component::WanderBehavior, component::Position, component::Controllable
 
-    template<typename T>
-    void viewVisitor(float dt,
-                     bl::ecs::ComponentSet<T, component::Position, component::Controllable>& cs) {
-        //cs.get<T>()->update(*cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
-    }
+    using StandingView  = bl::ecs::View<StandingTypes>*;
+    using StandingRow   = bl::ecs::ComponentSet<StandingTypes>;
+    using SpinView      = bl::ecs::View<SpinTypes>*;
+    using SpinRow       = bl::ecs::ComponentSet<SpinTypes>;
+    using FixedPathView = bl::ecs::View<FixedPathTypes>*;
+    using FixedPathRow  = bl::ecs::ComponentSet<FixedPathTypes>;
+    using WanderView    = bl::ecs::View<WanderTypes>*;
+    using WanderRow     = bl::ecs::ComponentSet<WanderTypes>;
+
+#undef StandingTypes
+#undef SpinTypes
+#undef FixedPathTypes
+#undef WanderTypes
+
+    Systems& owner;
+    StandingView standing;
+    SpinView spinning;
+    FixedPathView paths;
+    WanderView wandering;
 };
 
 } // namespace system

@@ -46,14 +46,25 @@ void AI::init() {
 }
 
 void AI::update(float dt) {
-    standing->forEach(
-        std::bind(&AI::viewVisitor<component::StandingBehavior>, this, dt, std::placeholders::_1));
-    spinning->forEach(
-        std::bind(&AI::viewVisitor<component::SpinBehavior>, this, dt, std::placeholders::_1));
-    paths->forEach(
-        std::bind(&AI::viewVisitor<component::FixedPathBehavior>, this, dt, std::placeholders::_1));
-    wandering->forEach(
-        std::bind(&AI::viewVisitor<component::WanderBehavior>, this, dt, std::placeholders::_1));
+    standing->forEach([this](StandingRow& cs) {
+        cs.get<component::StandingBehavior>()->update(*cs.get<component::Position>(),
+                                                      *cs.get<component::Controllable>());
+    });
+
+    spinning->forEach([this, dt](SpinRow& cs) {
+        cs.get<component::SpinBehavior>()->update(
+            *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
+    });
+
+    paths->forEach([this](FixedPathRow& cs) {
+        cs.get<component::FixedPathBehavior>()->update(*cs.get<component::Position>(),
+                                                       *cs.get<component::Controllable>());
+    });
+
+    wandering->forEach([this, dt](WanderRow& cs) {
+        cs.get<component::WanderBehavior>()->update(
+            *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
+    });
 }
 
 bool AI::addBehavior(bl::ecs::Entity e, const file::Behavior& behavior) {
