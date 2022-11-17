@@ -512,14 +512,14 @@ void rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&, Valu
     result = false;
 }
 
-void openStorage(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void openStorage(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TBool>("openStorage", args);
 
     const bool block = args[0].value().getAsBool();
-    systems.engine().eventBus().dispatch<event::StorageSystemOpened>({});
+    bl::event::Dispatcher::dispatch<event::StorageSystemOpened>({});
     if (block) {
         bl::event::EventWaiter<event::StorageSystemClosed> waiter;
-        waiter.wait(systems.engine().eventBus());
+        waiter.wait();
     }
 }
 
@@ -537,7 +537,7 @@ void sellPriceOverride(system::Systems&, SymbolTable&, const std::vector<Value>&
     result.setProperty("price", args[1]);
 }
 
-void openStore(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void openStore(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TArray, PrimitiveValue::TArray, PrimitiveValue::TBool>(
         "openStore", args);
 
@@ -588,10 +588,10 @@ void openStore(system::Systems& systems, SymbolTable&, const std::vector<Value>&
         sellPrices.emplace_back(id, sp);
     }
 
-    systems.engine().eventBus().dispatch<event::StoreOpened>({items, sellPrices});
+    bl::event::Dispatcher::dispatch<event::StoreOpened>({items, sellPrices});
     if (block) {
         bl::event::EventWaiter<event::StoreClosed> waiter;
-        waiter.wait(systems.engine().eventBus());
+        waiter.wait();
     }
 }
 
@@ -771,7 +771,7 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
         np.setTiles(sf::Vector2i(args[2].value().getAsInt(), args[3].value().getAsInt()));
         np.level = args[1].value().getAsInt();
         *pos     = np;
-        systems.engine().eventBus().dispatch<event::EntityMoved>({entity, old, np});
+        bl::event::Dispatcher::dispatch<event::EntityMoved>({entity, old, np});
     }
     else {
         BL_LOG_ERROR << "Moving entity with no position component: " << entity;
@@ -918,7 +918,7 @@ void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vect
         const auto unlock = [&waiter]() { waiter.unblock(); };
         ClockTrigger trigger(unlock, then);
         bl::event::ListenerGuard<event::TimeChange> guard(&trigger);
-        guard.subscribe(systems.engine().eventBus());
+        guard.subscribe();
         table.waitOn(waiter);
     }
 }
@@ -953,9 +953,9 @@ void getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Valu
     result           = val ? *val : false;
 }
 
-void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void loadMap(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
-    systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
+    bl::event::Dispatcher::dispatch<event::SwitchMapTriggered>(
         {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
 }
 

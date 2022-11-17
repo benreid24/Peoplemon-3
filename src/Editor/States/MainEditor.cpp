@@ -62,13 +62,13 @@ MainEditor::MainEditor(core::system::Systems& s)
 const char* MainEditor::name() const { return "MainEditor"; }
 
 void MainEditor::activate(bl::engine::Engine&) {
-    gui->subscribe(systems.engine().eventBus());
-    systems.engine().eventBus().subscribe(this);
+    gui->subscribe();
+    bl::event::Dispatcher::subscribe(this);
 }
 
 void MainEditor::deactivate(bl::engine::Engine&) {
-    systems.engine().eventBus().unsubscribe(gui.get());
-    systems.engine().eventBus().unsubscribe(this);
+    bl::event::Dispatcher::unsubscribe(gui.get());
+    bl::event::Dispatcher::unsubscribe(this);
 }
 
 void MainEditor::update(bl::engine::Engine&, float dt) {

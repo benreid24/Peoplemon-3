@@ -10,7 +10,7 @@ namespace system
 Scripts::Scripts(Systems& s)
 : owner(s) {}
 
-void Scripts::init() { owner.engine().eventBus().subscribe(this); }
+void Scripts::init() { bl::event::Dispatcher::subscribe(this); }
 
 const bl::script::Value* Scripts::getEntry(const std::string& name) const {
     const auto it = entries.find(name);

@@ -112,7 +112,7 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
         fadeTime += dt;
         cover.setFillColor(sf::Color(0, 0, 0, std::min(255.f, 255.f * (fadeTime / FadeTime))));
         if (fadeTime >= FadeTime) {
-            if (saves[selectedSave].load(&engine.eventBus())) {
+            if (saves[selectedSave].load()) {
                 systems.engine().replaceState(MainGame::create(systems));
             }
             else {

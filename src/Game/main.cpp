@@ -88,12 +88,12 @@ int main(int argc, char** argv) {
 
     bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
 #ifdef PEOPLEMON_DEBUG
-    core::debug::DebugOverrides::subscribe(engine.eventBus());
+    core::debug::DebugOverrides::subscribe();
 
     if (argc == 2) {
         const std::string path = argv[1];
         BL_LOG_INFO << "Loading save: " << path;
-        if (!core::file::GameSave::loadFromFile(path, engine.eventBus())) {
+        if (!core::file::GameSave::loadFromFile(path)) {
             BL_LOG_CRITICAL << "Failed to load save";
             return 1;
         }

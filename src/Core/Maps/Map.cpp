@@ -276,7 +276,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
-    game.engine().eventBus().dispatch<event::MapSwitch>({*this});
+    bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
@@ -336,7 +336,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     }
 
     // Ensure lighting is updated for time
-    lighting.subscribe(game.engine().eventBus());
+    lighting.subscribe();
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
@@ -355,7 +355,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     onEnterScript->run(&game.engine().scriptManager());
 
     // subscribe to get entity position updates
-    game.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 
     // start music
     playlistHandle = bl::audio::AudioSystem::getOrLoadPlaylist(
@@ -364,7 +364,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         bl::audio::AudioSystem::replacePlaylist(playlistHandle);
     }
 
-    game.engine().eventBus().dispatch<event::MapEntered>({*this});
+    bl::event::Dispatcher::dispatch<event::MapEntered>({*this});
     BL_LOG_INFO << "Entered map: " << nameField;
 
     return true;
@@ -372,10 +372,10 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
 void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField;
-    game.engine().eventBus().dispatch<event::MapExited>({*this});
+    bl::event::Dispatcher::dispatch<event::MapExited>({*this});
 
     // unsubscribe from entity events
-    game.engine().eventBus().unsubscribe(this);
+    bl::event::Dispatcher::unsubscribe(this);
 
     // shut down light system
     lighting.unsubscribe();
@@ -415,10 +415,10 @@ Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
 
-void Map::update(system::Systems& systems, float dt) {
+void Map::update(float dt) {
     tileset->update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
-    weather.update(systems, dt);
+    weather.update(dt);
     lighting.update(dt);
 }
 

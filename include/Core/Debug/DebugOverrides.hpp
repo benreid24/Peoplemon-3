@@ -47,7 +47,7 @@ public:
      *
      * @param bus The event bus to subscribe to
      */
-    static void subscribe(bl::event::Dispatcher& bus);
+    static void subscribe();
 
 private:
     DebugOverrides();

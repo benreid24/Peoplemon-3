@@ -8,9 +8,9 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView(BattleState& s, bool canRun, bl::event::Dispatcher& eb)
+BattleView::BattleView(BattleState& s, bool canRun)
 : battleState(s)
-, playerMenu(canRun, eb)
+, playerMenu(canRun)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent)
 , inited(false) {

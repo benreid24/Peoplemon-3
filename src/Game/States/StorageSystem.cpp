@@ -170,7 +170,7 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
 
 void StorageSystem::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(*this);
-    systems.engine().eventBus().dispatch<core::event::StorageSystemClosed>({});
+    bl::event::Dispatcher::dispatch<core::event::StorageSystemClosed>({});
     engine.renderSystem().cameras().popCamera();
 }
 
@@ -421,7 +421,7 @@ bool StorageSystem::observe(const bl::input::Actor&, unsigned int cmd, bl::input
     bl::menu::Menu* toSend = nullptr;
     if (cmd == core::input::Control::Back) {
         if (!eventTriggered) return true;
-        
+
         switch (state) {
         case MenuState::ChooseAction:
             close();

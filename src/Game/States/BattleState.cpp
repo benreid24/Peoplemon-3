@@ -55,7 +55,7 @@ void BattleState::activate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().configureView(engine.window());
     battle->view.configureView(engine.window().getView());
     systems.engine().inputSystem().getActor().addListener(battle->view);
-    engine.eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 
     // TODO - music here or in intro state?
 }
@@ -63,10 +63,10 @@ void BattleState::activate(bl::engine::Engine& engine) {
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
     systems.engine().inputSystem().getActor().removeListener(battle->view);
-    engine.eventBus().unsubscribe(this);
+    bl::event::Dispatcher::unsubscribe(this);
 
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
-        engine.eventBus().dispatch<core::event::BattleCompleted>(
+        bl::event::Dispatcher::dispatch<core::event::BattleCompleted>(
             {battle->type, battle->localPlayerWon});
     }
 

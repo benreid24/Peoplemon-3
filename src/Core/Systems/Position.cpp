@@ -13,7 +13,7 @@ Position::Position(Systems& owner)
 : owner(owner) {}
 
 void Position::init() {
-    owner.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
     owner.engine().ecs().getAllComponents<component::Position>().forEach(
         [this](bl::ecs::Entity ent, component::Position& pos) {
             observe(bl::ecs::event::ComponentAdded<component::Position>(ent, pos));

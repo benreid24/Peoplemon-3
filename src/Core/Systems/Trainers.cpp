@@ -28,7 +28,7 @@ Trainers::Trainers(Systems& o)
     exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
 }
 
-void Trainers::init() { owner.engine().eventBus().subscribe(this); }
+void Trainers::init() { bl::event::Dispatcher::subscribe(this); }
 
 void Trainers::update(float dt) {
     static const sf::Vector2i es(txtr->getSize());

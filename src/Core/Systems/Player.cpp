@@ -94,7 +94,7 @@ void Player::removePlayerControlled(bl::ecs::Entity e) {
     owner.engine().ecs().removeComponent<component::PlayerControlled>(e);
 }
 
-void Player::init() { owner.engine().eventBus().subscribe(this); }
+void Player::init() { bl::event::Dispatcher::subscribe(this); }
 
 void Player::whiteout() {
     for (auto& ppl : data.peoplemon) { ppl.heal(); }

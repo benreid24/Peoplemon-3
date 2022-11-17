@@ -31,7 +31,7 @@ bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast
             if (npos.positionTiles() == pos.positionTiles()) {
                 const event::EntityRotated event(e, npos.direction, pos.direction);
                 pos.direction = npos.direction;
-                owner.engine().eventBus().dispatch<event::EntityRotated>(event);
+                bl::event::Dispatcher::dispatch<event::EntityRotated>(event);
                 return true;
             }
             if (!owner.world().activeMap().contains(npos)) return false;
@@ -46,7 +46,7 @@ bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast
 
             std::swap(pos, npos);
             mv->move(dir, fast, isHop);
-            owner.engine().eventBus().dispatch<event::EntityMoved>({e, npos, pos});
+            bl::event::Dispatcher::dispatch<event::EntityMoved>({e, npos, pos});
             return true;
         }
     }

@@ -29,7 +29,7 @@ Interaction::Interaction(Systems& owner)
 , currentConversation(owner)
 , interactingTrainer(nullptr) {}
 
-void Interaction::init() { owner.engine().eventBus().subscribe(this); }
+void Interaction::init() { bl::event::Dispatcher::subscribe(this); }
 
 bool Interaction::interact(bl::ecs::Entity interactor) {
     const component::Position* pos =
@@ -93,7 +93,7 @@ bool Interaction::interact(bl::ecs::Entity interactor) {
                 BL_LOG_INFO << "Player picked up: " << static_cast<unsigned int>(ic->id()) << " ("
                             << name << ")";
                 owner.player().state().bag.addItem(ic->id(), 1);
-                owner.engine().eventBus().dispatch<event::ItemPickedUp>({ic->id()});
+                bl::event::Dispatcher::dispatch<event::ItemPickedUp>({ic->id()});
                 owner.engine().ecs().destroyEntity(interacted);
                 owner.hud().displayMessage("Picked up a " + name);
                 return true;
@@ -283,8 +283,7 @@ void Interaction::startBattle() {
     std::unique_ptr<battle::Battle> battle =
         battle::Battle::create(owner.world().activeMap().getLocationName(owner.player().position()),
                                owner.player(),
-                               battle::Battle::Type::Trainer,
-                               owner.engine().eventBus());
+                               battle::Battle::Type::Trainer);
 
     std::vector<pplmn::BattlePeoplemon> team;
     team.reserve(interactingTrainer->team().size());
@@ -297,7 +296,7 @@ void Interaction::startBattle() {
     battle->setController(std::make_unique<battle::LocalBattleController>());
     battle->state.enemy().getSubstate().trainer = interactingTrainer;
 
-    owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
+    bl::event::Dispatcher::dispatch<event::BattleStarted>({std::move(battle)});
 }
 
 } // namespace system

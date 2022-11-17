@@ -78,13 +78,13 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
 const char* MapExplorer::name() const { return "MapExplorer"; }
 
 void MapExplorer::activate(bl::engine::Engine& engine) {
-    systems.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
     engine.renderSystem().cameras().pushCamera(mapExplorer);
 }
 
 void MapExplorer::deactivate(bl::engine::Engine& engine) {
-    systems.engine().eventBus().unsubscribe(this);
+    bl::event::Dispatcher::unsubscribe(this);
     systems.player().makePlayerControlled(systems.player().player());
     engine.renderSystem().cameras().popCamera();
 }

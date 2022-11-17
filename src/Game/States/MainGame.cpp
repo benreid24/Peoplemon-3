@@ -43,12 +43,12 @@ MainGame::MainGame(core::system::Systems& systems)
     cover.setFillColor(sf::Color::Black);
 }
 
-MainGame::~MainGame() { systems.engine().eventBus().unsubscribe(this); }
+MainGame::~MainGame() { bl::event::Dispatcher::unsubscribe(this); }
 
 const char* MainGame::name() const { return "MainGame"; }
 
 void MainGame::activate(bl::engine::Engine&) {
-    systems.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
     systems.world().activeMap().setupCamera(systems);
 }
 

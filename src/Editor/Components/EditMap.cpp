@@ -149,7 +149,7 @@ bool EditMap::editorActivate() {
 
     size = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
-    systems->engine().eventBus().dispatch<core::event::MapSwitch>({*this});
+    bl::event::Dispatcher::dispatch<core::event::MapSwitch>({*this});
 
     camera.reset(size);
 
@@ -166,7 +166,7 @@ bool EditMap::editorActivate() {
 
     if (!activated) {
         activated = true;
-        lighting.subscribe(systems->engine().eventBus());
+        lighting.subscribe();
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField) {
@@ -177,7 +177,7 @@ bool EditMap::editorActivate() {
 
     for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item); }
 
-    systems->engine().eventBus().dispatch<core::event::MapEntered>({*this});
+    bl::event::Dispatcher::dispatch<core::event::MapEntered>({*this});
 
     levelFilter.clear();
     levelFilter.resize(levels.size(), true);
@@ -213,7 +213,7 @@ bool EditMap::editorActivate() {
 bool EditMap::unsavedChanges() const { return saveHead != historyHead; }
 
 void EditMap::update(float dt) {
-    Map::update(*systems, dt);
+    Map::update(dt);
     camera.update(dt, sizePixels());
 }
 

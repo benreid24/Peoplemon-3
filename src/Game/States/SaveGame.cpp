@@ -28,7 +28,7 @@ void SaveGame::activate(bl::engine::Engine& engine) {
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 
     const auto cb = std::bind(&SaveGame::onFinish, this);
-    if (core::file::GameSave::saveGame(systems.player().state().name, engine.eventBus())) {
+    if (core::file::GameSave::saveGame(systems.player().state().name)) {
         systems.hud().displayMessage(systems.player().state().name + " saved the game!", cb);
     }
     else {

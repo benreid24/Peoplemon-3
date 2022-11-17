@@ -195,7 +195,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
     systems.engine().inputSystem().getActor().removeListener(*this);
-    engine.eventBus().dispatch<core::event::StoreClosed>({});
+    bl::event::Dispatcher::dispatch<core::event::StoreClosed>({});
 }
 
 void StoreMenu::update(bl::engine::Engine&, float dt) {

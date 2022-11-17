@@ -17,7 +17,7 @@ GameTesting::GameTesting()
     saveSelector->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event&, Element*) {
         if (saveSelector->getSelectedOption() >= 0) {
             auto& save = saves[saveSelector->getSelectedOption()];
-            if (!save.load(nullptr)) {
+            if (!save.load()) {
                 bl::dialog::tinyfd_messageBox("Error", "Error loading save", "ok", "error", 0);
                 return;
             }
@@ -29,7 +29,7 @@ GameTesting::GameTesting()
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (saveSelector->getSelectedOption() >= 0) {
             auto& save = saves[saveSelector->getSelectedOption()];
-            save.load(nullptr);
+            save.load();
             window.open(gui, save);
         }
     });
@@ -88,7 +88,7 @@ void GameTesting::notifyClick(const std::string& mapName, unsigned int level,
                               const sf::Vector2i& pos) {
     if (saveSelector->getSelectedOption() >= 0) {
         auto& save = saves[saveSelector->getSelectedOption()];
-        save.load(nullptr);
+        save.load();
         *save.world.currentMap = mapName;
         *save.world.playerPos =
             core::component::Position(level, pos, core::component::Direction::Down);
@@ -109,7 +109,7 @@ void GameTesting::launchGame() {
         if (saveSelector->getSelectedOption() >= 0) {
             auto& save = saves[saveSelector->getSelectedOption()];
             save.useLocalData();
-            if (save.load(nullptr)) {
+            if (save.load()) {
                 const std::string cmd =
                     Path + " \"" + core::file::GameSave::filename(*save.player.playerName) + "\"";
                 BL_LOG_INFO << "Launching game: '" << cmd << "'";

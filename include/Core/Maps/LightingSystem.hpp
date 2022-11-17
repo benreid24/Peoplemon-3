@@ -151,7 +151,7 @@ public:
      * @brief Subscribes the lighting system to time events for ambient light level
      *
      */
-    void subscribe(bl::event::Dispatcher& eventBus);
+    void subscribe();
 
     /**
      * @brief Unsubscribes the lighting system from the event dispatcher

@@ -32,7 +32,7 @@ bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
     switch (ctrl) {
     case input::Control::Pause:
         if (fromEvent) {
-            systems.engine().eventBus().dispatch<event::StateChange>(
+            bl::event::Dispatcher::dispatch<event::StateChange>(
                 {event::StateChange::GamePaused});
         }
         break;

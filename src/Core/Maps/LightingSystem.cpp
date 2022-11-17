@@ -128,7 +128,7 @@ void LightingSystem::activate(const sf::Vector2i& mapSize) {
     levelRange = maxLevel - minLevel;
 }
 
-void LightingSystem::subscribe(bl::event::Dispatcher& bus) { eventGuard.subscribe(bus); }
+void LightingSystem::subscribe() { eventGuard.subscribe(); }
 
 void LightingSystem::unsubscribe() { eventGuard.unsubscribe(); }
 

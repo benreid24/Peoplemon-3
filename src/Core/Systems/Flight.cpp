@@ -197,7 +197,7 @@ void Flight::update(float dt) {
             playerPos->direction           = component::Direction::Down;
             state                          = State::Idle;
             owner.engine().renderSystem().cameras().popCamera();
-            owner.engine().eventBus().dispatch<event::EntityMoved>(
+            bl::event::Dispatcher::dispatch<event::EntityMoved>(
                 {owner.player().player(), prev, *playerPos});
             owner.player().makePlayerControlled(owner.player().player());
         }
@@ -223,7 +223,7 @@ void Flight::syncTiles() {
         const auto old = *playerPos;
         playerPos->setTiles(tiles);
         playerPos->setPixels(pixels);
-        owner.engine().eventBus().dispatch<event::EntityMoved>(
+        bl::event::Dispatcher::dispatch<event::EntityMoved>(
             {owner.player().player(), old, *playerPos});
     }
 }

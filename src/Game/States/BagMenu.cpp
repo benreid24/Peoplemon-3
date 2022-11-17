@@ -256,7 +256,7 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
 bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
                       bool fromEvent) {
     inputDriver.sendControl(ctrl, fromEvent);
-    
+
     if (state == MenuState::Browsing && fromEvent) {
         if (actionOpen) {
             if (ctrl == core::input::Control::Back) {
@@ -518,7 +518,7 @@ void BagMenu::keyItemConfirmUse(const std::string& c) {
             break;
         case core::item::Id::TransportationCrystal:
             if (systems.player().state().bag.removeItem(core::item::Id::Penny)) {
-                systems.engine().eventBus().dispatch<core::event::SwitchMapTriggered>(
+                bl::event::Dispatcher::dispatch<core::event::SwitchMapTriggered>(
                     {"TheVoid.map", 1});
                 if (unpause != nullptr) { *unpause = true; }
                 state = MenuState::ImmediatelyPop;

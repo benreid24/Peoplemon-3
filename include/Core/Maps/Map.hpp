@@ -178,10 +178,9 @@ public:
     /**
      * @brief Updates internal logic over the elapsed time
      *
-     * * @param systems The primary game systems
      * @param dt Elapsed time in seconds since last update
      */
-    void update(system::Systems& systems, float dt);
+    void update(float dt);
 
     /**
      * @brief Renders the map to the given target using its built-in View

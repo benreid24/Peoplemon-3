@@ -31,10 +31,9 @@ public:
      * @brief Construct a new Player Menu
      *
      * @param canRun Whether or not to allow running
-     * @param eventBus The event bus to use
      *
      */
-    PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus);
+    PlayerMenu(bool canRun);
 
     /**
      * @brief Polls state from opened peoplemon or bag menu
@@ -130,7 +129,6 @@ private:
 
     State state;
     bool stateLoopGuard;
-    bl::event::Dispatcher& eventBus;
     input::MenuDriver menuDriver;
     TurnAction chosenAction;
     int chosenMoveOrPeoplemon;

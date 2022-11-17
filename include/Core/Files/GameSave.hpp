@@ -91,28 +91,25 @@ struct GameSave {
      * data to the save before it is written
      *
      * @param name The name of the player
-     * @param bus Event bus to fire the GameSaveInitializing event on. May be nullptr
      * @return True if the game could be saved, false on error
      */
-    static bool saveGame(const std::string& name, bl::event::Dispatcher& bus);
+    static bool saveGame(const std::string& name);
 
     /**
      * @brief Loads the game from the given save file
      *
      * @param sourceFile The file to load from
-     * @param bus The event bus to use when loading
      * @return True on success, false on error
      */
-    static bool loadFromFile(const std::string& sourceFile, bl::event::Dispatcher& bus);
+    static bool loadFromFile(const std::string& sourceFile);
 
     /**
      * @brief Loads the save represented by this object and fires an event::GameSaveLoaded event to
      *        allow systems to populate their data
      *
-     * @param bus Event bus to fire the GameSaveLoaded event on. May be nullptr
      * @return True on success, false on error
      */
-    bool load(bl::event::Dispatcher* bus);
+    bool load();
 
     /**
      * @brief Saves the data back to the file it was loaded from

@@ -20,7 +20,7 @@ World::~World() {
     if (currentMap) currentMap->exit(owner, "GameClosing");
 }
 
-void World::init() { owner.engine().eventBus().subscribe(this); }
+void World::init() { bl::event::Dispatcher::subscribe(this); }
 
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
@@ -71,7 +71,7 @@ void World::whiteout(const std::string& map, int spawn) {
     BL_LOG_INFO << "Whiting out to " << map << " (" << spawn << ")";
     previousMap.reset();
     prevMapFile.clear();
-    owner.engine().eventBus().dispatch<event::SwitchMapTriggered>({map, spawn});
+    bl::event::Dispatcher::dispatch<event::SwitchMapTriggered>({map, spawn});
 }
 
 void World::setWhiteoutMap(unsigned int spawn) {
@@ -83,7 +83,7 @@ map::Map& World::activeMap() { return *currentMap; }
 
 const map::Map& World::activeMap() const { return *currentMap; }
 
-void World::update(float dt) { currentMap->update(owner, dt); }
+void World::update(float dt) { currentMap->update(dt); }
 
 void World::observe(const event::GameSaveInitializing& save) {
     if (save.saving) { playerPos = owner.player().position(); }

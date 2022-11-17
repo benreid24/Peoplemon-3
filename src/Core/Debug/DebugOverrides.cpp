@@ -25,7 +25,7 @@ DebugOverrides& DebugOverrides::instance() {
     return overrides;
 }
 
-void DebugOverrides::subscribe(bl::event::Dispatcher& bus) { bus.subscribe(&instance()); }
+void DebugOverrides::subscribe() { bl::event::Dispatcher::subscribe(&instance()); }
 
 void DebugOverrides::observe(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {

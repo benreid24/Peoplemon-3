@@ -65,7 +65,7 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
             if (interpRemaining <= 0.f) {
                 position.setTiles(position.positionTiles());
                 state = MoveState::Still;
-                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position});
+                bl::event::Dispatcher::dispatch<event::EntityMoveFinished>({owner, position});
             }
         }
         else {
@@ -89,7 +89,7 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
             if (interpRemaining <= 0.f) {
                 position.setTiles(position.positionTiles());
                 state = MoveState::Still;
-                engine.eventBus().dispatch<event::EntityMoveFinished>({owner, position});
+                bl::event::Dispatcher::dispatch<event::EntityMoveFinished>({owner, position});
                 if (anim) { anim->removeShadow(); }
             }
         }

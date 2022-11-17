@@ -31,18 +31,17 @@ BattleState::Stage typeToStage(Battle::Type type) {
 }
 } // namespace
 
-Battle::Battle(const std::string& location, system::Player& player, Type type,
-               bl::event::Dispatcher& eb)
+Battle::Battle(const std::string& location, system::Player& player, Type type)
 : location(location)
 , player(player)
 , type(type)
 , state(typeToStage(type))
-, view(state, type == Type::WildPeoplemon, eb)
+, view(state, type == Type::WildPeoplemon)
 , localPlayerWon(false) {}
 
 std::unique_ptr<Battle> Battle::create(const std::string& location, system::Player& player,
-                                       Type type, bl::event::Dispatcher& eb) {
-    std::unique_ptr<Battle> b(new Battle(location, player, type, eb));
+                                       Type type) {
+    std::unique_ptr<Battle> b(new Battle(location, player, type));
 
     std::vector<pplmn::BattlePeoplemon> team;
     team.reserve(player.state().peoplemon.size());
