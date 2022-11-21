@@ -7,6 +7,7 @@
 #include <Game/States/Peopledex.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 #include <Game/States/SaveGame.hpp>
+#include <Game/States/SettingsMenu.hpp>
 
 namespace game
 {
@@ -61,7 +62,9 @@ PauseMenu::PauseMenu(core::system::Systems& s)
     });
 
     settings = TextItem::create("Settings", core::Properties::MenuFont());
-    settings->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Settings"; });
+    settings->getSignal(Item::Activated).willCall([this]() {
+        systems.engine().pushState(SettingsMenu::create(systems));
+    });
 
     quit = TextItem::create("Quit", core::Properties::MenuFont());
     quit->getSignal(Item::Activated).willCall([this]() {

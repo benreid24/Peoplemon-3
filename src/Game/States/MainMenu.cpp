@@ -6,6 +6,7 @@
 #include <Core/Properties.hpp>
 #include <Game/States/LoadGame.hpp>
 #include <Game/States/NewGame.hpp>
+#include <Game/States/SettingsMenu.hpp>
 
 namespace game
 {
@@ -43,7 +44,10 @@ MainMenu::MainMenu(core::system::Systems& systems)
 
     settings = TextItem::create("Settings", core::Properties::MenuFont(), sf::Color::Black, 32);
     settings->getTextObject().setStyle(sf::Text::Bold);
-    settings->getSignal(Item::Activated).willCall([]() { BL_LOG_INFO << "Settings selected"; });
+    settings->getSignal(Item::Activated).willCall([&systems]() {
+        BL_LOG_INFO << "Settings selected";
+        systems.engine().pushState(SettingsMenu::create(systems));
+    });
 
     quit = TextItem::create("Quit", core::Properties::MenuFont(), sf::Color::Black, 32);
     quit->getTextObject().setStyle(sf::Text::Bold);
