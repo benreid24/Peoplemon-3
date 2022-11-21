@@ -264,7 +264,7 @@ std::vector<Town> Map::flymapTowns;
 Map::Map()
 : weatherField(Weather::None)
 , systems(nullptr)
-, eventRegions(100.f, 100.f, 100.f, 100.f)
+, eventRegions({}, 1.f, 1.f) // no allocations
 , activated(false) {
     cover.setFillColor(sf::Color::Black);
 }
@@ -322,14 +322,14 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         onExitScript.reset(new bl::script::Script(unloadScriptField));
 
         // Build event zones data structure
-        eventRegions.setSize(static_cast<float>(size.x * Properties::PixelsPerTile()),
-                             static_cast<float>(size.y * Properties::PixelsPerTile()),
+        eventRegions.setSize({0.f,
+                              0.f,
+                              static_cast<float>(size.x * Properties::PixelsPerTile()),
+                              static_cast<float>(size.y * Properties::PixelsPerTile())},
                              static_cast<float>(Properties::WindowWidth()),
                              static_cast<float>(Properties::WindowHeight()));
         for (const Event& event : eventsField) {
-            eventRegions.add(static_cast<float>(event.position.x * Properties::PixelsPerTile()),
-                             static_cast<float>(event.position.y * Properties::PixelsPerTile()),
-                             &event);
+            eventRegions.add(sf::Vector2f(event.position * Properties::PixelsPerTile()), &event);
         }
 
         BL_LOG_INFO << nameField << " activated";
@@ -635,10 +635,8 @@ void Map::observe(const event::EntityMoved& movedEvent) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto range = eventRegions.getCellAndNeighbors(movedEvent.position.positionPixels().x,
-                                                        movedEvent.position.positionPixels().y);
-    for (const auto& it : range) {
-        const Event& e = *it.get();
+    const auto visitor = [this, &movedEvent, &trigger](const Event* ep) {
+        const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
         const bool isIn  = area.contains(movedEvent.position.positionTiles());
@@ -663,7 +661,8 @@ void Map::observe(const event::EntityMoved& movedEvent) {
         default:
             break;
         }
-    }
+    };
+    eventRegions.forAllInCellAndNeighbors(movedEvent.position.positionPixels(), visitor);
 
     Town* newTown = getTown(movedEvent.position.positionTiles());
     if (newTown != currentTown) {
@@ -697,16 +696,16 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto range =
-        eventRegions.getCellAndNeighbors(pos.positionPixels().x, pos.positionPixels().y);
-    for (const auto& it : range) {
-        const Event& e = *it.get();
+    const auto visitor = [this, &trigger, &pos](const Event* ep) -> bool {
+        const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {
             trigger(e);
-            return true;
+            return true; // ends iteration
         }
-    }
+        return false;
+    };
+    eventRegions.forAllInCellAndNeighbors(pos.positionPixels(), visitor);
 
     return false;
 }

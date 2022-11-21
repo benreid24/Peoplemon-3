@@ -1,8 +1,8 @@
 #ifndef CORE_MAPS_LIGHTINGSYSTEM_HPP
 #define CORE_MAPS_LIGHTINGSYSTEM_HPP
 
-#include <BLIB/Containers/DynamicObjectPool.hpp>
 #include <BLIB/Containers/Grid.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Containers/QuadTree.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Serialization/Binary.hpp>
@@ -207,12 +207,20 @@ private:
     std::uint8_t maxLevel;
     std::uint8_t sunlight;
 
-    bl::event::ListenerGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
-        eventGuard;
+    struct ActiveLight {
+        Light light;
+        Handle handle;
 
-    using Storage = bl::container::Grid<std::pair<Handle, Light>>;
-    std::unordered_map<Handle, Storage::Payload::Ptr> handles;
-    Storage lights;
+        ActiveLight(const Light& l, Handle h)
+        : light(l)
+        , handle(h) {}
+    };
+
+    using Storage = bl::container::ObjectPool<ActiveLight>;
+    Storage activeLights;
+    std::unordered_map<Handle, Storage::Iterator> handles;
+    bl::container::Grid<ActiveLight*> lightGrid;
+    Handle nextHandle;
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
@@ -223,6 +231,7 @@ private:
     float weatherResidual;
 
     std::uint8_t computeAmbient() const;
+    void rebuildCache();
 
     friend class bl::serial::SerializableObject<LightingSystem>;
 };

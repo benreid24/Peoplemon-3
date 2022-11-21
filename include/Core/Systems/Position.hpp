@@ -85,7 +85,7 @@ public:
     /**
      * @brief Returns an iterable set containing all the entities that should be updated
      *
-     * @return const bl::container::Grid<bl::ecs::Entity>::Range& Entities that should be updated
+     * @return const std::vector<bl::ecs::Entity>& Entities that should be updated
      */
     const std::vector<bl::ecs::Entity>& updateRangeEntities() const;
 
