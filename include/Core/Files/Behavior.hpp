@@ -193,8 +193,8 @@ private:
     Type _type;
     std::variant<Standing, Spinning, Path, Wander> data;
 
-    friend class bl::serial::binary::Serializer<Behavior>;
-    friend class bl::serial::SerializableObject<Behavior>;
+    friend struct bl::serial::binary::Serializer<Behavior>;
+    friend struct bl::serial::SerializableObject<Behavior>;
 };
 
 } // namespace file

@@ -3,7 +3,6 @@
 
 #include <BLIB/Containers/Grid.hpp>
 #include <BLIB/Containers/ObjectPool.hpp>
-#include <BLIB/Containers/QuadTree.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 #include <Core/Events/TimeChange.hpp>
@@ -66,7 +65,7 @@ public:
      * @brief Returns a handle to the light closest to the given position
      *
      * @param position The position to search near
-     * @return Handle A handle to the closest light. May be None based on QuadTree partitions
+     * @return Handle A handle to the closest light
      */
     Handle getClosestLight(const sf::Vector2i& position);
 

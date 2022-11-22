@@ -9,7 +9,7 @@ namespace core
 {
 namespace battle
 {
-class Battle;
+struct Battle;
 class BattleView;
 class BattleState;
 

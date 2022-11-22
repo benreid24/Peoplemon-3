@@ -24,7 +24,6 @@ constexpr float SquareSize   = 200.f;
 const sf::Vector2f PlayerPos(PlayerPosX, PlayerPosY);
 const sf::Vector2f OpponentPos(OpponentPosX, OpponentPosY);
 const sf::Vector2f ViewSize(SquareSize, SquareSize);
-constexpr float FadeRate                = 120.f;
 constexpr float SlideRate               = 285.f;
 constexpr float ShakesPerSecond         = 18.f;
 constexpr float ShakeOffMultiple        = ShakesPerSecond * 360.f;
@@ -286,7 +285,7 @@ bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
     if (state == State::Playing) {
-        const auto updateSpark = [this, dt](Spark& sp) {
+        const auto updateSpark = [dt](Spark& sp) {
             sp.time += dt;
             sp.position += sp.velocity * dt;
             return sp.time < sp.lifetime;
@@ -317,9 +316,7 @@ void PeoplemonAnimation::update(float dt) {
                 else if (a >= 255 - ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                 }
-                else {
-                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                }
+                else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
             }
             // closed ball state
             else {
@@ -362,9 +359,7 @@ void PeoplemonAnimation::update(float dt) {
                 if (a < 255) {
                     peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
                 }
-                else {
-                    peoplemon.setColor(sf::Color::White);
-                }
+                else { peoplemon.setColor(sf::Color::White); }
                 peoplemon.setScale(ps * scale.x, ps * scale.y);
                 ball.setColor(sf::Color(255, 255, 255, 255 - a));
                 if (a <= ScreenFlashAlpha) {
@@ -373,9 +368,7 @@ void PeoplemonAnimation::update(float dt) {
                 else if (a >= 255 - ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                 }
-                else {
-                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                }
+                else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
             }
             break;
 
@@ -472,9 +465,7 @@ void PeoplemonAnimation::update(float dt) {
                     else if (a >= 255 - ScreenFlashAlpha) {
                         screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                     }
-                    else {
-                        screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                    }
+                    else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
                 }
                 else {
                     ballTime += dt;
@@ -640,7 +631,7 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
                 if (type == Animation::Type::ThrowCloneBall) { target.draw(clone); }
                 target.draw(throwBall); // in global coords
                 target.draw(screenFlash);
-                implosion.render([this, &target, &states](const Spark& s) {
+                implosion.render([this, &target](const Spark& s) {
                     const float p = s.time / s.lifetime;
                     spark.setPosition(s.position);
                     spark.setCenterColor(makeColor(255.f - 150.f * p * p));

@@ -20,6 +20,12 @@
 #include <BLIB/ECS.hpp>
 #include <iostream>
 
+struct WindowSizePersister : public bl::event::Listener<bl::engine::event::WindowResized> {
+    virtual void observe(const bl::engine::event::WindowResized&) override {
+        core::Properties::save();
+    }
+};
+
 int main(int argc, char** argv) {
     // TODO - make log roller
 #ifdef PEOPLEMON_DEBUG
@@ -35,6 +41,8 @@ int main(int argc, char** argv) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
+    WindowSizePersister sizePersist;
+    bl::event::Dispatcher::subscribe(&sizePersist);
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

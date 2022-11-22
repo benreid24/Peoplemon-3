@@ -40,6 +40,14 @@ public:
     Tile(const Tile& copy) = default;
 
     /**
+     * @brief Copy constructs from the given tile
+     *
+     * @param copy The tile to copy
+     * @return A reference to this tile
+     */
+    Tile& operator=(const Tile& copy) = default;
+
+    /**
      * @brief Builds a tile with the given info
      *
      * @param id The id of the tile in the tileset

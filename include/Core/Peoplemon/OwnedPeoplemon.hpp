@@ -31,7 +31,7 @@ namespace core
 {
 namespace pplmn
 {
-class WildPeoplemon;
+struct WildPeoplemon;
 class BattlePeoplemon;
 
 /**

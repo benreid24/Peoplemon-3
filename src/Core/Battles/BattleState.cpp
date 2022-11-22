@@ -6,8 +6,8 @@ namespace battle
 {
 BattleState::BattleState(Stage state)
 : stage(state)
-, player(*this)
-, opponent(*this)
+, player()
+, opponent()
 , currentMover(0)
 , firstMover(0) {}
 

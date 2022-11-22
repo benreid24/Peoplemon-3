@@ -26,7 +26,7 @@ public:
      * @brief Creates an uninitialized battler
      *
      */
-    Battler(BattleState& state);
+    Battler();
 
     /**
      * @brief Initializes the battler with a team and a controller
@@ -234,7 +234,6 @@ public:
     bool isHost() const;
 
 private:
-    BattleState& state;
     BattlerSubstate substate;
     std::unique_ptr<BattlerController> controller;
     std::vector<core::pplmn::BattlePeoplemon> team;

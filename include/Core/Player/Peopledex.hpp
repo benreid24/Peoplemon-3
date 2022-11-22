@@ -13,7 +13,7 @@ class Player;
 }
 namespace player
 {
-class State;
+struct State;
 
 /**
  * @brief Maintains the information required to populate the peopledex
@@ -28,7 +28,7 @@ public:
 
     /**
      * @brief Construct a new Peopledex object
-     * 
+     *
      * @param playerState The player state
      */
     Peopledex(State& playerState);
