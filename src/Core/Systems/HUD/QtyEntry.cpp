@@ -66,12 +66,14 @@ int QtyEntry::curQty() const { return qty; }
 void QtyEntry::up(int q, bool ignore) {
     if (rateLimit(ignore)) return;
     qty = std::min(maxQty, qty + q);
+    bl::audio::AudioSystem::playOrRestartSound(Properties::MenuMoveSound());
     updateText();
 }
 
 void QtyEntry::down(int q, bool ignore) {
     if (rateLimit(ignore)) return;
     qty = std::max(minQty, qty - q);
+    bl::audio::AudioSystem::playOrRestartSound(Properties::MenuMoveSound());
     updateText();
 }
 

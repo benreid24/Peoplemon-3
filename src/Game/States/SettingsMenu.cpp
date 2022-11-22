@@ -45,7 +45,12 @@ sf::VideoMode bestFullscreenMode() {
     return *best;
 }
 
+std::string volumeString() {
+    return "Volume: " + std::to_string(static_cast<int>(bl::audio::AudioSystem::getVolume())) + "%";
+}
+
 } // namespace
+
 using namespace bl::menu;
 using namespace core::input;
 
@@ -69,10 +74,15 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
 
     bgndTexture = textures.load(joinPath(Path, "background.png")).data;
     background.setTexture(*bgndTexture);
+    hint.setFont(font);
+    hint.setFillColor(sf::Color(65, 10, 0));
+    hint.setCharacterSize(18);
+    hint.setPosition(590.f, 440.f);
 
     const auto makeBack = [this, &font]() {
         Item::Ptr bi = TextItem::create("Back", font, sf::Color::Black, FontSize);
         bi->getSignal(Item::Activated).willAlwaysCall(std::bind(&SettingsMenu::back, this));
+        bi->getSignal(Item::Selected).willAlwaysCall([this]() { setHint(""); });
         return bi;
     };
 
@@ -81,13 +91,22 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     videoItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         enterState(MenuState::VideoMenu);
     });
+    videoItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Settings related to the Peoplemon window.");
+    });
     Item::Ptr audioItem = TextItem::create("Audio", font, sf::Color::Black, FontSize);
     audioItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         enterState(MenuState::AudioMenu);
     });
+    audioItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Settings related to music and sounds.");
+    });
     Item::Ptr controlsItem = TextItem::create("Controls", font, sf::Color::Black, FontSize);
     controlsItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         enterState(MenuState::ControlsTopMenu);
+    });
+    controlsItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Change your controls for both keyboard/mouse and controller.");
     });
 
     topMenu.setRootItem(videoItem);
@@ -105,13 +124,23 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     windowModeDropdownItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         onWindowModeOpen();
     });
+    windowModeDropdownItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Set whether to be fullscreen or windowed.");
+    });
     fullscreenItem = TextItem::create("Fullscreen", font, sf::Color::Black, FontSize);
     fullscreenItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         onWindowModeChange(true);
     });
+    fullscreenItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("The Peoplemon window will be fullscreen.");
+    });
     windowedItem = TextItem::create("Windowed", font, sf::Color::Black, FontSize);
     windowedItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         onWindowModeChange(false);
+    });
+    windowedItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("The Peoplemon window will be a regular window that can be moved, resized, "
+                "minimized, etc.");
     });
     windowModeDropdownItem->addOption(fullscreenItem);
     windowModeDropdownItem->addOption(windowedItem);
@@ -121,6 +150,10 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
         sf::Color::White, sf::Color::Black, FontSizeF, 2.f, FontSizeF * 0.4f, false);
     vsyncItem->getSignal(Item::Activated).willAlwaysCall([this]() { onVsyncUpdate(); });
     vsyncItem->setChecked(systems.engine().settings().windowParameters().vsyncEnabled());
+    vsyncItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Vsync limits the render rate to your monitor refresh rate to prevent tearing. "
+                "Graphics will be smoother but there may be input delay.");
+    });
 
     videoMenu.setRootItem(windowModeDropdownItem);
     videoMenu.addItem(videoLabel, windowModeDropdownItem.get(), Item::Top);
@@ -132,10 +165,21 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     // Audio menu
     Item::Ptr audioLabel = TextItem::create("Audio Settings", font, LabelColor, LabelSize);
     audioLabel->setSelectable(false);
-    muteItem = TextItem::create("Mute", font, sf::Color::Black, FontSize);
-    // TODO - make toggle
-    volumeItem = TextItem::create("Volume", font, sf::Color::Black, FontSize);
-    // TODO - tie into qty select
+    muteItem = ToggleTextItem::create("Mute", font, sf::Color::Black, FontSize);
+    muteItem->setChecked(bl::audio::AudioSystem::getMuted());
+    muteItem->getSignal(Item::Activated).willAlwaysCall([this]() {
+        bl::audio::AudioSystem::setMuted(muteItem->isChecked());
+    });
+    muteItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Enable and disable all sounds and music.");
+    });
+    volumeItem = TextItem::create(volumeString(), font, sf::Color::Black, FontSize);
+    volumeItem->getSignal(Item::Activated).willAlwaysCall([this]() {
+        enterState(MenuState::AudioSelectVolume);
+    });
+    volumeItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Sets the volume of all sounds and music.");
+    });
 
     audioMenu.setRootItem(muteItem);
     audioMenu.addItem(audioLabel, muteItem.get(), Item::Top);
@@ -150,9 +194,15 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     kbmItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         enterState(MenuState::ControlsKBMMenu);
     });
+    kbmItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Configure your controls when using keyboard and mouse.");
+    });
     Item::Ptr padItem = TextItem::create("Controller", font, sf::Color::Black, FontSize);
     padItem->getSignal(Item::Activated).willAlwaysCall([this]() {
         enterState(MenuState::ControlsPadMenu);
+    });
+    padItem->getSignal(Item::Selected).willAlwaysCall([this]() {
+        setHint("Configure your controls when using a controller.");
     });
 
     controlsTopMenu.setRootItem(kbmItem);
@@ -166,6 +216,9 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
             TextItem::create(ctrlString(ctrl, kbm), font, sf::Color::Black, SmallSize);
         item->getSignal(Item::Activated).willAlwaysCall([this, ctrl, kbm]() {
             startBindControl(kbm, ctrl);
+        });
+        item->getSignal(Item::Selected).willAlwaysCall([this]() {
+            setHint("Select to rebind this control.");
         });
         return item;
     };
@@ -245,6 +298,7 @@ void SettingsMenu::activate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().addListener(*this);
     engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(background.getGlobalBounds()));
+    enterState(MenuState::TopMenu);
 }
 
 void SettingsMenu::deactivate(bl::engine::Engine& engine) {
@@ -259,6 +313,7 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
 
     engine.window().draw(background);
+    engine.window().draw(hint);
     switch (state) {
     case MenuState::TopMenu:
         topMenu.render(engine.window());
@@ -270,8 +325,9 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
         break;
 
     case MenuState::AudioSelectVolume:
-        // TODO - render qty entry
-        [[fallthrough]];
+        audioMenu.render(engine.window());
+        volumeEntry.render(engine.window());
+        break;
     case MenuState::AudioMenu:
         audioMenu.render(engine.window());
         break;
@@ -298,34 +354,47 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
 void SettingsMenu::enterState(MenuState s) {
     state = s;
 
+    Menu* sm = nullptr;
+
     switch (state) {
     case MenuState::TopMenu:
         inputDriver.drive(&topMenu);
+        sm = &topMenu;
         break;
     case MenuState::VideoMenu:
         inputDriver.drive(&videoMenu);
+        sm = &videoMenu;
         break;
     case MenuState::VideoSelectMode:
         // nothing
         break;
     case MenuState::AudioMenu:
         inputDriver.drive(&audioMenu);
+        sm = &audioMenu;
         break;
     case MenuState::AudioSelectVolume:
-        // TODO
+        volumeEntry.configure(0, 100, static_cast<int>(bl::audio::AudioSystem::getVolume()));
+        volumeEntry.setPosition({volumeItem->getPosition().x + volumeItem->getSize().x -
+                                     volumeEntry.getSize().x + audioMenu.getBounds().left + 20.f,
+                                 volumeItem->getPosition().y + audioMenu.getBounds().top + 20.f});
         break;
     case MenuState::ControlsTopMenu:
         inputDriver.drive(&controlsTopMenu);
+        sm = &controlsTopMenu;
         break;
     case MenuState::ControlsKBMMenu:
         inputDriver.drive(&controlsKbmMenu);
+        sm = &controlsKbmMenu;
         break;
     case MenuState::ControlsPadMenu:
         inputDriver.drive(&controlsPadMenu);
+        sm = &controlsPadMenu;
         break;
     default:
         break;
     }
+
+    if (sm != nullptr) { sm->setSelectedItem(const_cast<Item*>(sm->getSelectedItem())); }
 }
 
 void SettingsMenu::close() { systems.engine().popState(); }
@@ -338,7 +407,32 @@ bool SettingsMenu::observe(const bl::input::Actor&, unsigned int activatedContro
     else {
         switch (state) {
         case MenuState::AudioSelectVolume:
-            // TODO
+            switch (activatedControl) {
+            case Control::MoveUp:
+                volumeEntry.up(1, eventTriggered);
+                bl::audio::AudioSystem::setVolume(static_cast<float>(volumeEntry.curQty()));
+                break;
+            case Control::MoveRight:
+                volumeEntry.up(10, eventTriggered);
+                bl::audio::AudioSystem::setVolume(static_cast<float>(volumeEntry.curQty()));
+                break;
+            case Control::MoveDown:
+                volumeEntry.down(1, eventTriggered);
+                bl::audio::AudioSystem::setVolume(static_cast<float>(volumeEntry.curQty()));
+                break;
+            case Control::MoveLeft:
+                volumeEntry.down(10, eventTriggered);
+                bl::audio::AudioSystem::setVolume(static_cast<float>(volumeEntry.curQty()));
+                break;
+            case Control::Interact:
+                if (eventTriggered) {
+                    volumeItem->getTextObject().setString(volumeString());
+                    back();
+                }
+                break;
+            default:
+                break;
+            }
             break;
         case MenuState::ControlsBindingControl:
             // TODO
@@ -446,6 +540,11 @@ void SettingsMenu::onVsyncUpdate() {
     bl::engine::Settings::WindowParameters params = systems.engine().settings().windowParameters();
     params.withVSyncEnabled(vsyncItem->isChecked());
     systems.engine().updateExistingWindow(params);
+}
+
+void SettingsMenu::setHint(const std::string& m) {
+    hint.setString(m);
+    bl::interface::wordWrap(hint, 183.f);
 }
 
 } // namespace state

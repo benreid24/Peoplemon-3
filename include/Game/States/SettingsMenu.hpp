@@ -82,6 +82,7 @@ private:
     MenuState state;
     bl::resource::Resource<sf::Texture>::Ref bgndTexture;
     sf::Sprite background;
+    sf::Text hint;
 
     core::input::MenuDriver inputDriver;
     bl::menu::Menu topMenu;
@@ -94,8 +95,9 @@ private:
     bl::menu::ToggleTextItem::Ptr vsyncItem;
 
     bl::menu::Menu audioMenu;
-    bl::menu::TextItem::Ptr muteItem;
+    bl::menu::ToggleTextItem::Ptr muteItem;
     bl::menu::TextItem::Ptr volumeItem;
+    core::system::hud::QtyEntry volumeEntry;
 
     bl::menu::Menu controlsTopMenu;
 
@@ -122,6 +124,7 @@ private:
     SettingsMenu(core::system::Systems& systems);
 
     void enterState(MenuState state);
+    void setHint(const std::string& message);
 
     void onWindowModeOpen();
     bool isFullscreen() const;
