@@ -22,7 +22,7 @@
         {
             "label": "build debug",
             "type": "shell",
-            "command": "cd build-debug && make",
+            "command": "cd build-debug && mingw32-make \"MAKE=mingw32-make -j3\"",
             "group": "build",
             "dependsOn": [
                 "cmake generate debug"
@@ -31,7 +31,7 @@
         {
             "label": "build release",
             "type": "shell",
-            "command": "cd build-release && make",
+            "command": "cd build-release && mingw32-make \"MAKE=mingw32-make -j3\"",
             "group": "build",
             "dependsOn": [
                 "cmake generate release"

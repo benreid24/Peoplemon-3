@@ -137,7 +137,7 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     actionMenu.setPosition({252.f, 82.f});
 
     pocketLabel.setFont(core::Properties::MenuFont());
-    pocketLabel.setCharacterSize(30);
+    pocketLabel.setCharacterSize(27);
     pocketLabel.setFillColor(sf::Color(0, 20, 75));
     pocketLabel.setPosition({72.f, 342.f});
 

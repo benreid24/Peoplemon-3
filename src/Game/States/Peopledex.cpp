@@ -69,7 +69,7 @@ Peopledex::Peopledex(core::system::Systems& s)
     locationLabel.setFont(core::Properties::MenuFont());
     locationLabel.setCharacterSize(22);
     locationLabel.setFillColor(sf::Color(0, 65, 20));
-    locationLabel.setPosition(130.f, 445.f);
+    locationLabel.setPosition(130.f, 442.f);
 
     const auto& all = core::pplmn::Peoplemon::validIds();
     firstId         = all[1];
@@ -121,9 +121,7 @@ void Peopledex::update(bl::engine::Engine&, float) {}
 bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
                         bool fromEvent) {
     if (ctrl == core::input::Control::Back && fromEvent) { systems.engine().popState(); }
-    else {
-        menuDriver.sendControl(ctrl, fromEvent);
-    }
+    else { menuDriver.sendControl(ctrl, fromEvent); }
     return true;
 }
 
@@ -171,18 +169,16 @@ void Peopledex::onHighlight(core::pplmn::Id ppl) {
     bl::interface::wordWrap(descLabel, InfoWidth - 20.f);
     locationLabel.setString(systems.player().state().peopledex.getFirstSeenLocation(ppl));
     seenLabel.setString(std::to_string(systems.player().state().peopledex.getSeen(ppl)));
-    seenLabel.setOrigin(0.f, seenLabel.getGlobalBounds().height * 0.5f);
+    seenLabel.setOrigin(
+        0.f, seenLabel.getGlobalBounds().height * 0.5f + seenLabel.getLocalBounds().top * 0.5f);
     ownedLabel.setString(std::to_string(systems.player().state().peopledex.getCaught(ppl)));
-    ownedLabel.setOrigin(0.f, ownedLabel.getGlobalBounds().height * 0.5f);
+    ownedLabel.setOrigin(
+        0.f, ownedLabel.getGlobalBounds().height * 0.5f + ownedLabel.getLocalBounds().top * 0.5f);
 
     if (ppl == firstId) { upArrow.setColor(HiddenColor); }
-    else {
-        upArrow.setColor(ShowingColor);
-    }
+    else { upArrow.setColor(ShowingColor); }
     if (ppl == lastId) { downArrow.setColor(HiddenColor); }
-    else {
-        downArrow.setColor(ShowingColor);
-    }
+    else { downArrow.setColor(ShowingColor); }
 }
 
 void Peopledex::onSelect(core::pplmn::Id) {

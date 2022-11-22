@@ -20,9 +20,7 @@ const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, u
         const unsigned int i = layer - l.bottomLayers().size();
         return l.ysortLayers()[i].get(pos.x, pos.y);
     }
-    else {
-        return l.bottomLayers()[layer].get(pos.x, pos.y);
-    }
+    else { return l.bottomLayers()[layer].get(pos.x, pos.y); }
 }
 
 void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset& tileset,
@@ -52,7 +50,7 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
                   std::vector<bool>& filter) {
     if (layer < level.bottomLayers().size()) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer - 1]);
-        std::swap(filter[layer], filter[layer - 1]);
+        std::vector<bool>::swap(filter[layer], filter[layer - 1]);
     }
     else {
         layer -= level.bottomLayers().size();
@@ -65,7 +63,7 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
         }
         else if (layer < level.ysortLayers().size()) {
             std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer - 1]);
-            std::swap(filter[layer], filter[layer - 1]);
+            std::vector<bool>::swap(filter[layer], filter[layer - 1]);
             level.renderSortedLayers().clear();
             level.activate(tileset);
         }
@@ -80,7 +78,7 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
             }
             else {
                 std::swap(level.topLayers()[layer], level.topLayers()[layer - 1]);
-                std::swap(filter[layer], filter[layer - 1]);
+                std::vector<bool>::swap(filter[layer], filter[layer - 1]);
             }
         }
     }
@@ -90,7 +88,7 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
                     std::vector<bool>& filter) {
     if (layer < level.bottomLayers().size() - 1) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer + 1]);
-        std::swap(filter[layer], filter[layer + 1]);
+        std::vector<bool>::swap(filter[layer], filter[layer + 1]);
     }
     else if (layer == level.bottomLayers().size() - 1) {
         core::map::TileLayer temp(std::move(level.bottomLayers()[layer]));
@@ -103,7 +101,7 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
         layer -= level.bottomLayers().size();
         if (layer < level.ysortLayers().size() - 1) {
             std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer + 1]);
-            std::swap(filter[layer], filter[layer + 1]);
+            std::vector<bool>::swap(filter[layer], filter[layer + 1]);
             level.renderSortedLayers().clear();
             level.activate(tileset);
         }
@@ -117,7 +115,7 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
         else {
             layer -= level.ysortLayers().size();
             std::swap(level.topLayers()[layer], level.topLayers()[layer + 1]);
-            std::swap(filter[layer], filter[layer + 1]);
+            std::vector<bool>::swap(filter[layer], filter[layer + 1]);
         }
     }
 }
@@ -801,9 +799,7 @@ EditMap::ShiftLayerAction::ShiftLayerAction(unsigned int level, unsigned int lay
 
 bool EditMap::ShiftLayerAction::apply(EditMap& map) {
     if (up) { shiftLayerUp(map.levels[level], layer, *map.tileset, map.layerFilter[level]); }
-    else {
-        shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
-    }
+    else { shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]); }
     return true;
 }
 
@@ -842,11 +838,11 @@ EditMap::ShiftLevelAction::ShiftLevelAction(unsigned int level, bool up)
 bool EditMap::ShiftLevelAction::apply(EditMap& map) {
     if (up) {
         shiftLevelUp(map.levels, *map.tileset, level);
-        std::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level);
-        std::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
     }
     return true;
 }
@@ -854,11 +850,11 @@ bool EditMap::ShiftLevelAction::apply(EditMap& map) {
 bool EditMap::ShiftLevelAction::undo(EditMap& map) {
     if (!up) {
         shiftLevelUp(map.levels, *map.tileset, level + 1);
-        std::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level - 1);
-        std::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
     }
     return true;
 }
@@ -899,17 +895,13 @@ EditMap::SetScriptAction::SetScriptAction(bool l, const std::string& s, const st
 
 bool EditMap::SetScriptAction::apply(EditMap& map) {
     if (load) { map.loadScriptField = s; }
-    else {
-        map.unloadScriptField = s;
-    }
+    else { map.unloadScriptField = s; }
     return true;
 }
 
 bool EditMap::SetScriptAction::undo(EditMap& map) {
     if (load) { map.loadScriptField = p; }
-    else {
-        map.unloadScriptField = p;
-    }
+    else { map.unloadScriptField = p; }
     return true;
 }
 
@@ -1254,18 +1246,14 @@ bool EditMap::SetLightAction::apply(EditMap& map) {
         map.lighting.addLight(value, true);
         spawned = true;
     }
-    else {
-        map.lighting.updateLight(h, value, true);
-    }
+    else { map.lighting.updateLight(h, value, true); }
     return false;
 }
 
 bool EditMap::SetLightAction::undo(EditMap& map) {
     const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(value.position);
     if (spawned) { map.lighting.removeLight(h, true); }
-    else {
-        map.lighting.updateLight(h, orig, true);
-    }
+    else { map.lighting.updateLight(h, orig, true); }
     return false;
 }
 
@@ -1489,9 +1477,7 @@ bool EditMap::RemoveTownAction::apply(EditMap& map) {
                 tiles.emplace_back(x, y);
                 map.townTiles(x, y) = 0;
             }
-            else if (map.townTiles(x, y) > j) {
-                map.townTiles(x, y) -= 1;
-            }
+            else if (map.townTiles(x, y) > j) { map.townTiles(x, y) -= 1; }
         }
     }
     return true;

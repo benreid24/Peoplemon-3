@@ -48,14 +48,14 @@ PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& d
     id.setCharacterSize(14);
     id.setString(toString(ppl));
     id.setPosition(bw + ball.getPosition().x, mid);
-    id.setOrigin(0.f, id.getGlobalBounds().height * 0.5f);
+    id.setOrigin(0.f, id.getGlobalBounds().height * 0.5f + id.getLocalBounds().top * 0.5f);
 
     name.setFont(core::Properties::MenuFont());
     name.setFillColor(sf::Color::Black);
     name.setCharacterSize(24);
     name.setString(intel != core::player::Peopledex::NoIntel ? core::pplmn::Peoplemon::name(ppl) :
                                                                "???");
-    name.setOrigin(0.f, name.getGlobalBounds().height * 0.5f);
+    name.setOrigin(0.f, name.getGlobalBounds().height * 0.5f + name.getLocalBounds().top * 0.5f);
     name.setPosition(id.getPosition().x + 65.f, mid);
 
     getSignal(Item::Selected).willAlwaysCall(std::bind(&PeopledexRow::makeActive, this));

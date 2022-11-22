@@ -25,7 +25,7 @@ BagItemButton::BagItemButton(const core::player::Bag::Item& item) {
 
     qty.setFillColor(sf::Color(30, 140, 230));
     qty.setFont(core::Properties::MenuFont());
-    qty.setCharacterSize(20);
+    qty.setCharacterSize(18);
 
     update(item);
     getSignal(Item::Selected).willAlwaysCall(std::bind(&BagItemButton::onSelect, this));
@@ -39,7 +39,8 @@ void BagItemButton::update(const core::player::Bag::Item& i) {
         qty.setString("");
         label.setPosition(
             background.getGlobalBounds().width * 0.5f - label.getGlobalBounds().width * 0.5f,
-            background.getGlobalBounds().height * 0.5f - label.getGlobalBounds().height * 0.5f);
+            background.getGlobalBounds().height * 0.5f - label.getGlobalBounds().height * 0.5f -
+                label.getLocalBounds().top * 0.5f);
     }
     else {
         label.setString(core::item::Item::getName(item.id));
@@ -49,11 +50,11 @@ void BagItemButton::update(const core::player::Bag::Item& i) {
                               label.getGlobalBounds().height * 0.5f);
         qty.setPosition(background.getGlobalBounds().width * 0.75f,
                         background.getGlobalBounds().height * 0.5f -
-                            qty.getGlobalBounds().height * 0.5f);
+                            qty.getGlobalBounds().height * 0.5f - qty.getLocalBounds().top * 0.5f);
     }
 
     label.setCharacterSize(22);
-    while (label.getGlobalBounds().width > background.getGlobalBounds().width * 0.75f - 6.f) {
+    while (label.getGlobalBounds().width > background.getGlobalBounds().width * 0.75f - 8.f) {
         label.setCharacterSize(label.getCharacterSize() - 1);
         if (label.getCharacterSize() <= 8) {
             BL_LOG_WARN << "Item name too long to fit: " << label.getString().toAnsiString();
