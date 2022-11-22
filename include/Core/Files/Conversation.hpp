@@ -14,8 +14,8 @@ namespace file
 {
 namespace loader
 {
-class LegacyConversationLoader;
-class ConversationLoader;
+struct LegacyConversationLoader;
+struct ConversationLoader;
 } // namespace loader
 
 /**
@@ -320,8 +320,8 @@ public:
 private:
     std::vector<Node> cnodes;
 
-    friend class loader::LegacyConversationLoader;
-    friend class loader::ConversationLoader;
+    friend struct loader::LegacyConversationLoader;
+    friend struct loader::ConversationLoader;
     friend struct bl::serial::SerializableObject<Conversation>;
 };
 

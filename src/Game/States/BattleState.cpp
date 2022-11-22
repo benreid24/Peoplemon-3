@@ -43,7 +43,7 @@ BattleState::BattleState(core::system::Systems& systems,
 , battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {
     if (!this->battle->controller) {
         BL_LOG_WARN << "Invalid battle controller, using dummy";
-        this->battle->setController(std::move(std::make_unique<DummyController>()));
+        this->battle->setController(std::make_unique<DummyController>());
     }
 }
 

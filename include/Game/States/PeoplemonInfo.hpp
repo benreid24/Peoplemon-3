@@ -74,7 +74,6 @@ public:
 private:
     enum ActivePage { Basics, Moves };
 
-    const core::pplmn::OwnedPeoplemon& ppl;
     ActivePage activePage;
     sf::Clock inputTimer;
 

@@ -44,7 +44,6 @@ private:
     bl::gui::Window::Ptr window;
     bl::gui::TextEntry::Ptr scriptInput;
     bl::gui::Label::Ptr errorLabel;
-    bool error;
 
     bl::gui::FilePicker picker;
     bl::gui::GUI::Ptr parent;

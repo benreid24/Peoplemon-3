@@ -13,12 +13,6 @@ namespace game
 {
 namespace state
 {
-namespace
-{
-constexpr float Width  = 200.f;
-constexpr float Height = 385.f;
-} // namespace
-
 bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
     return bl::engine::State::Ptr(new PauseMenu(systems));
 }
@@ -77,16 +71,12 @@ PauseMenu::PauseMenu(core::system::Systems& s)
         menu.addItem(pplmon, ppldex.get(), Item::Bottom);
         menu.addItem(bag, pplmon.get(), Item::Bottom);
     }
-    else {
-        menu.addItem(bag, ppldex.get(), Item::Bottom);
-    }
+    else { menu.addItem(bag, ppldex.get(), Item::Bottom); }
     if (systems.player().state().bag.hasItem(core::item::Id::Map)) {
         menu.addItem(map, bag.get(), Item::Bottom);
         menu.addItem(save, map.get(), Item::Bottom);
     }
-    else {
-        menu.addItem(save, bag.get(), Item::Bottom);
-    }
+    else { menu.addItem(save, bag.get(), Item::Bottom); }
     menu.addItem(settings, save.get(), Item::Bottom);
     menu.addItem(quit, settings.get(), Item::Bottom);
     menu.attachExisting(resume.get(), quit.get(), Item::Bottom);

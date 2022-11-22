@@ -48,7 +48,7 @@ Map::Map(core::system::Systems& s)
             [this]() { mapPicker.close(); })
 , newMapWindow(std::bind(&Map::makeNewMap, this, std::placeholders::_1, std::placeholders::_2,
                          std::placeholders::_3, std::placeholders::_4, std::placeholders::_5))
-, playlistEditor(std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1), [this]() {})
+, playlistEditor(std::bind(&Map::onChoosePlaylist, this, std::placeholders::_1), []() {})
 , scriptSelector(std::bind(&Map::onChooseScript, this, std::placeholders::_1), []() {})
 , choosingOnloadScript(false)
 , eventEditor(std::bind(&Map::onEventEdit, this, std::placeholders::_1, std::placeholders::_2))
@@ -86,9 +86,7 @@ Map::Map(core::system::Systems& s)
                 "error",
                 1);
         }
-        else {
-            tileset.markSaved();
-        }
+        else { tileset.markSaved(); }
     });
     Button::Ptr renderMapBut = Button::create("Render");
     renderMapBut->getSignal(Event::LeftClicked)
@@ -434,15 +432,9 @@ Map::Map(core::system::Systems& s)
 
     const auto onObjectActive = [this]() {
         if (objectBook->getActivePageName() == "spawns") { activeTool = Tool::Spawns; }
-        else if (objectBook->getActivePageName() == "items") {
-            activeTool = Tool::Items;
-        }
-        else if (objectBook->getActivePageName() == "ai") {
-            activeTool = Tool::NPCs;
-        }
-        else if (objectBook->getActivePageName() == "lights") {
-            activeTool = Tool::Lights;
-        }
+        else if (objectBook->getActivePageName() == "items") { activeTool = Tool::Items; }
+        else if (objectBook->getActivePageName() == "ai") { activeTool = Tool::NPCs; }
+        else if (objectBook->getActivePageName() == "lights") { activeTool = Tool::Lights; }
     };
 
     Notebook::Ptr controlBook = Notebook::create();
@@ -474,9 +466,7 @@ void Map::update(float) {
     else if (selectionState == Selecting) {
         mapArea.editMap().showSelection({selection.left, selection.top, -1, -1});
     }
-    else {
-        mapArea.editMap().showSelection({0, 0, 0, 0});
-    }
+    else { mapArea.editMap().showSelection({0, 0, 0, 0}); }
 
     switch (tileset.getActiveTool()) {
     case Tileset::CollisionTiles:
@@ -521,9 +511,7 @@ void Map::update(float) {
     if (mapArea.editMap().unsavedChanges() || tileset.unsavedChanges()) {
         saveMapBut->setColor(sf::Color(200, 185, 20), sf::Color::Red);
     }
-    else {
-        saveMapBut->setColor(sf::Color::Green, sf::Color::Black);
-    }
+    else { saveMapBut->setColor(sf::Color::Green, sf::Color::Black); }
 }
 
 void Map::doLoadMap(const std::string& file) {
@@ -616,17 +604,13 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 if (selectionState == SelectionMade) {
                     mapArea.editMap().setTownTileArea(selection, tileset.getActiveTown());
                 }
-                else {
-                    mapArea.editMap().setTownTile(tiles, tileset.getActiveTown());
-                }
+                else { mapArea.editMap().setTownTile(tiles, tileset.getActiveTown()); }
                 break;
             case Tileset::LevelTiles:
                 if (selectionState == SelectionMade) {
                     mapArea.editMap().setLevelTileArea(selection, tileset.getActiveLevel());
                 }
-                else {
-                    mapArea.editMap().setLevelTile(tiles, tileset.getActiveLevel());
-                }
+                else { mapArea.editMap().setLevelTile(tiles, tileset.getActiveLevel()); }
                 break;
             default:
                 break;
@@ -698,17 +682,13 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 if (selectionState == SelectionMade) {
                     mapArea.editMap().setCatchArea(levelSelect->getSelectedOption(), selection, 0);
                 }
-                else {
-                    mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0);
-                }
+                else { mapArea.editMap().setCatch(levelSelect->getSelectedOption(), tiles, 0); }
                 break;
             case Tileset::TownTiles:
                 if (selectionState == SelectionMade) {
                     mapArea.editMap().setTownTileArea(selection, 0);
                 }
-                else {
-                    mapArea.editMap().setTownTile(tiles, 0);
-                }
+                else { mapArea.editMap().setTownTile(tiles, 0); }
                 break;
             default:
                 break;
@@ -852,9 +832,7 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
             mapArea.editMap().setLight(sf::Vector2i(pixels),
                                        std::atoi(lightRadiusEntry->getInput().c_str()));
         }
-        else if (lightRemove->getValue()) {
-            mapArea.editMap().removeLight(sf::Vector2i(pixels));
-        }
+        else if (lightRemove->getValue()) { mapArea.editMap().removeLight(sf::Vector2i(pixels)); }
         break;
 
     case Tool::Testing:
@@ -937,25 +915,19 @@ void Map::onLevelChange(unsigned int l) {
 
 void Map::onChooseScript(const std::string& s) {
     if (choosingOnloadScript) { mapArea.editMap().setOnEnterScript(s); }
-    else {
-        mapArea.editMap().setOnExitScript(s);
-    }
+    else { mapArea.editMap().setOnExitScript(s); }
 }
 
 void Map::onEventEdit(const core::map::Event* orig, const core::map::Event& val) {
     if (orig) { mapArea.editMap().editEvent(orig, val); }
-    else {
-        mapArea.editMap().createEvent(val);
-    }
+    else { mapArea.editMap().createEvent(val); }
     mapArea.enableControls();
 }
 
 void Map::onCharacterEdit(const core::map::CharacterSpawn* orig,
                           const core::map::CharacterSpawn& spawn) {
     if (orig) { mapArea.editMap().editNpcSpawn(orig, spawn); }
-    else {
-        mapArea.editMap().addNpcSpawn(spawn);
-    }
+    else { mapArea.editMap().addNpcSpawn(spawn); }
     mapArea.enableControls();
 }
 

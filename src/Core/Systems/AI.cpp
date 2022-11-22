@@ -46,22 +46,22 @@ void AI::init() {
 }
 
 void AI::update(float dt) {
-    standing->forEach([this](StandingRow& cs) {
+    standing->forEach([](StandingRow& cs) {
         cs.get<component::StandingBehavior>()->update(*cs.get<component::Position>(),
                                                       *cs.get<component::Controllable>());
     });
 
-    spinning->forEach([this, dt](SpinRow& cs) {
+    spinning->forEach([dt](SpinRow& cs) {
         cs.get<component::SpinBehavior>()->update(
             *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
     });
 
-    paths->forEach([this](FixedPathRow& cs) {
+    paths->forEach([](FixedPathRow& cs) {
         cs.get<component::FixedPathBehavior>()->update(*cs.get<component::Position>(),
                                                        *cs.get<component::Controllable>());
     });
 
-    wandering->forEach([this, dt](WanderRow& cs) {
+    wandering->forEach([dt](WanderRow& cs) {
         cs.get<component::WanderBehavior>()->update(
             *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
     });

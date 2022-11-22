@@ -16,7 +16,7 @@ namespace map
 {
 namespace weather
 {
-class Base;
+struct Base;
 }
 
 /**

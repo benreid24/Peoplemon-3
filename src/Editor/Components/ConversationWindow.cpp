@@ -164,9 +164,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     saveBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate()) {
             if (value.save(fileLabel->getText())) { makeClean(); }
-            else {
-                bl::dialog::tinyfd_messageBox("Error", "Failed to save", "ok", "error", 1);
-            }
+            else { bl::dialog::tinyfd_messageBox("Error", "Failed to save", "ok", "error", 1); }
         }
     });
     row->pack(saveBut, false, true);
@@ -245,7 +243,7 @@ bool ConversationWindow::validate() const {
         using T        = core::file::Conversation::Node::Type;
         using OutputCb = std::function<void(const std::string&)>;
 
-        const auto output = [&n, i](const OutputCb& cb, const std::string& m) {
+        const auto output = [i](const OutputCb& cb, const std::string& m) {
             std::string o = "Node " + std::to_string(i) + ": " + m;
             for (unsigned int i = 0; i < o.size(); ++i) {
                 if (o[i] == '\'') o[i] = '`';

@@ -92,7 +92,6 @@ private:
     bool* unpause;
 
     MenuState state;
-    float slideAmount;
     float slideVel;
     float slideOff;
     bl::menu::Menu* activeMenu;

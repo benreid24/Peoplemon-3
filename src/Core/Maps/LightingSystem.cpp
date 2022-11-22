@@ -130,8 +130,8 @@ void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
 void LightingSystem::activate(const sf::Vector2i& mapSize) {
     legacyResize(mapSize);
 
-    activeLights.reserve(rawLights.size() + Properties::InEditor() ? EditorBufferExtra :
-                                                                     GameBufferExtra);
+    activeLights.reserve(rawLights.size() +
+                         (Properties::InEditor() ? EditorBufferExtra : GameBufferExtra));
     for (const auto& light : rawLights) { addLight(light, false); }
 
     renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
@@ -176,9 +176,7 @@ void LightingSystem::update(float dt) {
             }
         }
     }
-    else {
-        weatherResidual = 0.f;
-    }
+    else { weatherResidual = 0.f; }
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
@@ -232,9 +230,7 @@ void LightingSystem::observe(const event::TimeChange& now) {
         sunlightFactor = 1.f - (0.5 * std::cos(3.1415926 * x / 720) + 0.5) *
                                    ((1 - n) * (720 - x) * (720 - x) / 518400 + n);
     }
-    else {
-        sunlightFactor = 1.f;
-    }
+    else { sunlightFactor = 1.f; }
 }
 
 void LightingSystem::observe(const event::WeatherStarted& event) {

@@ -14,7 +14,6 @@ namespace
 {
 constexpr float HoldTime   = 0.75f;
 constexpr float RevealRate = 60.f;
-constexpr float HideRate   = RevealRate * 2.f;
 
 std::string trainerKey(const component::Trainer& t) { return t.file() + ":" + t.name(); }
 } // namespace
@@ -44,9 +43,7 @@ void Trainers::update(float dt) {
             state  = State::Holding;
             height = 0.f;
         }
-        else {
-            updateRect(height);
-        }
+        else { updateRect(height); }
         break;
 
     case State::Holding:
@@ -74,9 +71,7 @@ void Trainers::update(float dt) {
                                  << " was unable to interact with player, aborting";
                     cleanup();
                 }
-                else {
-                    state = State::Battling;
-                }
+                else { state = State::Battling; }
             }
             else {
                 if (!owner.movement().moveEntity(walkingTrainer, trainerPos->direction, false)) {
@@ -147,9 +142,7 @@ void Trainers::observe(const event::EntityMoveFinished& moved) {
             checkTrainer(ent);
         }
     }
-    else {
-        checkTrainer(moved.entity);
-    }
+    else { checkTrainer(moved.entity); }
 }
 
 void Trainers::checkTrainer(bl::ecs::Entity ent) {

@@ -12,7 +12,6 @@ using namespace bl::gui;
 ScriptSelector::ScriptSelector(const OnSelect& os, const OnCancel& oc)
 : onSelect(os)
 , onCancel(oc)
-, error(false)
 , picker(core::Properties::ScriptPath(), {"psc", "bs"},
          std::bind(&ScriptSelector::onPick, this, std::placeholders::_1), [this]() {
              picker.close();

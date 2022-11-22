@@ -21,8 +21,7 @@ PeopledexRow::Ptr PeopledexRow::create(core::pplmn::Id ppl, const core::player::
     return Ptr{new PeopledexRow(ppl, dex)};
 }
 
-PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& dex)
-: ppl(ppl) {
+PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& dex) {
     const auto intel  = dex.getIntelLevel(ppl);
     const bool caught = dex.getCaught(ppl) > 0;
 

@@ -167,9 +167,7 @@ public:
                 item.id      = item.id - 500;
                 item.visible = false;
             }
-            else {
-                item.visible = true;
-            }
+            else { item.visible = true; }
             result.itemsField.push_back(item);
         }
 
@@ -275,7 +273,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
-            static_cast<int>(levels.front().bottomLayers().front().height())};
+               static_cast<int>(levels.front().bottomLayers().front().height())};
     bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
@@ -635,7 +633,7 @@ void Map::observe(const event::EntityMoved& movedEvent) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto visitor = [this, &movedEvent, &trigger](const Event* ep) {
+    const auto visitor = [&movedEvent, &trigger](const Event* ep) {
         const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
@@ -696,7 +694,7 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto visitor = [this, &trigger, &pos](const Event* ep) -> bool {
+    const auto visitor = [&trigger, &pos](const Event* ep) -> bool {
         const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {

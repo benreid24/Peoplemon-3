@@ -12,7 +12,7 @@ namespace core
 {
 namespace file
 {
-class MoveDBLoader;
+struct MoveDBLoader;
 
 /**
  * @brief Stores the metadata of all peoplemon moves
@@ -49,7 +49,7 @@ struct MoveDB : private bl::util::NonCopyable {
     std::unordered_map<pplmn::MoveId, std::int32_t> effectIntensities;
     std::unordered_map<pplmn::MoveId, bool> effectSelves;
 
-    friend class MoveDBLoader;
+    friend struct MoveDBLoader;
     friend struct bl::serial::SerializableObject<MoveDB>;
 };
 

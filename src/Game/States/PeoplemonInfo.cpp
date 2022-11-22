@@ -27,7 +27,6 @@ bl::engine::State::Ptr PeoplemonInfo::create(core::system::Systems& s,
 
 PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedPeoplemon& ppl)
 : State(s)
-, ppl(ppl)
 , leftFlasher(leftArrow, FlashTime, FlashTime)
 , rightFlasher(rightArrow, FlashTime, FlashTime)
 , moveMenu(bl::menu::NoSelector::create()) {
@@ -219,9 +218,7 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
         }
         moveMenu.setSelectedItem(items.front().get());
     }
-    else {
-        BL_LOG_CRITICAL << "Peoplemon has no moves!";
-    }
+    else { BL_LOG_CRITICAL << "Peoplemon has no moves!"; }
     moveMenu.setPosition({565.f - moveMenu.getBounds().width * 0.5f, 60.f});
 }
 

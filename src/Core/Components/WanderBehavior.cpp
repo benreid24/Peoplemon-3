@@ -21,7 +21,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
 
     switch (state) {
     case Walking: {
-        const auto changeDirection = [this, &position, &controller]() {
+        const auto changeDirection = [this, &position]() {
             if (bl::util::Random::chance(1, 2)) {
                 const int dx   = position.positionTiles().x - origin.x;
                 const float xf = dx + radius;
