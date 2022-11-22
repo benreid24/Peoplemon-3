@@ -11,7 +11,7 @@ namespace state
 namespace
 {
 const sf::Vector2f MenuPos(420.f, 45.f);
-constexpr float MenuWidth    = 350.f;
+constexpr float MenuWidth    = -1.f;
 constexpr float MenuHeight   = 460.f;
 constexpr float ArrowPadding = 2.f;
 

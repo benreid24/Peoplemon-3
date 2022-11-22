@@ -87,7 +87,11 @@ private:
     bl::menu::Menu topMenu;
 
     bl::menu::Menu videoMenu;
-    bl::menu::TextItem::Ptr windowModeItem;
+    bl::menu::TextItem::Ptr windowModeTextItem;
+    bl::menu::SubmenuItem::Ptr windowModeDropdownItem;
+    bl::menu::TextItem::Ptr fullscreenItem;
+    bl::menu::TextItem::Ptr windowedItem;
+    bl::menu::ToggleTextItem::Ptr vsyncItem;
 
     bl::menu::Menu audioMenu;
     bl::menu::TextItem::Ptr muteItem;
@@ -118,6 +122,12 @@ private:
     SettingsMenu(core::system::Systems& systems);
 
     void enterState(MenuState state);
+
+    void onWindowModeOpen();
+    bool isFullscreen() const;
+    std::string windowModeString() const;
+    void onWindowModeChange(bool fullscreen);
+    void onVsyncUpdate();
 
     void startBindControl(bool kbm, unsigned int ctrl);
     std::string ctrlString(unsigned int ctrl, bool kbm) const;

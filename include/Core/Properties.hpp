@@ -142,6 +142,12 @@ public:
      */
     static bool load(bool inEditor);
 
+    /**
+     * @brief Saves the config to the data file
+     *
+     */
+    static void save();
+
 private:
     Properties() = default;
 };

@@ -28,7 +28,7 @@ LoadGame::LoadGame(core::system::Systems& s)
                                                       "LoadGame/loadGameBgnd.png"))
                    .data;
     background.setTexture(*bgndTxtr, true);
-    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 8.f, 8.f, 8.f});
+    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 4.f});
     saveMenu.setMinHeight(30.f);
     saveMenu.setPosition({170.f, 200.f});
     saveMenu.setMaximumSize({-1.f, 250.f});

@@ -127,7 +127,7 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
     }
     actionMenu.setMinHeight(36.f);
     actionMenu.setPadding({18.f, 12.f});
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 0.f, 2.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 0.f, 0.f});
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }

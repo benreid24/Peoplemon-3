@@ -230,7 +230,7 @@ bool Properties::load(bool ie) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
     }
     bl::engine::Configuration::log();
-    bl::engine::Configuration::save(ConfigFile); // ensure defaults saved if changed
+    save(); // ensure defaults saved if changed
 
     menuFont = bl::engine::Resources::fonts()
                    .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
@@ -239,6 +239,8 @@ bool Properties::load(bool ie) {
 
     return true;
 }
+
+void Properties::save() { bl::engine::Configuration::save(ConfigFile); }
 
 const std::string& Properties::WindowIconFile() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(

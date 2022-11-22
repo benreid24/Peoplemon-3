@@ -46,7 +46,7 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 8.f});
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
     qtyEntry.setPosition({textbox.getPosition().x + textbox.getGlobalBounds().width - 50.f,
@@ -149,14 +149,16 @@ void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 void HUD::hideEntryCard() { entryCard.hide(); }
 
 void HUD::ensureActive() {
-    if (state == Hidden && !queuedOutput.empty()) { startPrinting(); }
+    if (state == Hidden && !queuedOutput.empty()) {
+        owner.engine().inputSystem().getActor().addListener(inputListener);
+        startPrinting();
+    }
 }
 
 void HUD::startPrinting() {
     state = Printing;
     currentMessage.setContent(queuedOutput.front().getMessage());
     displayText.setString("");
-    owner.engine().inputSystem().getActor().addListener(inputListener);
 }
 
 void HUD::printDoneStateTransition() {

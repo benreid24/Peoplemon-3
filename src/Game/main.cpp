@@ -71,6 +71,7 @@ int main(int argc, char** argv) {
                     .withTitle("Peoplemon")
                     .withIcon(core::Properties::WindowIconFile())
                     .withLetterBoxOnResize(true)
+                    .withInitialViewSize(core::Properties::WindowSize())
                     .fromConfig())
             .fromConfig();
     bl::engine::Engine engine(engineSettings);

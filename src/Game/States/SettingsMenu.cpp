@@ -12,8 +12,39 @@ namespace
 const sf::Vector2f MenuPosition(40.f, 70.f);
 const sf::Color LabelColor(0, 60, 130);
 constexpr unsigned int FontSize  = 30;
+constexpr float FontSizeF        = static_cast<float>(FontSize);
 constexpr unsigned int LabelSize = FontSize + 5;
 constexpr unsigned int SmallSize = 26;
+
+sf::VideoMode defaultVideoMode() {
+    return sf::VideoMode(core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32);
+}
+
+sf::VideoMode bestFullscreenMode() {
+    const unsigned int ar =
+        sf::VideoMode::getDesktopMode().width / sf::VideoMode::getDesktopMode().height;
+    const std::vector<sf::VideoMode>& modes = sf::VideoMode::getFullscreenModes();
+    sf::VideoMode const* best               = nullptr;
+    unsigned int highest                    = 0;
+
+    for (const sf::VideoMode& mode : modes) {
+        const unsigned int mar = mode.width / mode.height;
+        if (mar == ar) {
+            const unsigned int s = mode.width * mode.height;
+            if (s > highest || best == nullptr) {
+                best    = &mode;
+                highest = s;
+            }
+        }
+    }
+
+    if (best == nullptr) {
+        BL_LOG_ERROR << "Failed to select a valid fullscreen video mode. Attempting defualt mode";
+        return defaultVideoMode();
+    }
+    return *best;
+}
+
 } // namespace
 using namespace bl::menu;
 using namespace core::input;
@@ -68,13 +99,35 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     // Video menu
     Item::Ptr videoLabel = TextItem::create("Video Settings", font, LabelColor, LabelSize);
     videoLabel->setSelectable(false);
-    windowModeItem = TextItem::create("Window mode", font, sf::Color::Black, FontSize);
-    // TODO - make dropdown
+    windowModeTextItem = TextItem::create(windowModeString(), font, sf::Color::Black, FontSize);
+    windowModeDropdownItem =
+        SubmenuItem::create(videoMenu, windowModeTextItem, Item::Right, Item::Bottom);
+    windowModeDropdownItem->getSignal(Item::Activated).willAlwaysCall([this]() {
+        onWindowModeOpen();
+    });
+    fullscreenItem = TextItem::create("Fullscreen", font, sf::Color::Black, FontSize);
+    fullscreenItem->getSignal(Item::Activated).willAlwaysCall([this]() {
+        onWindowModeChange(true);
+    });
+    windowedItem = TextItem::create("Windowed", font, sf::Color::Black, FontSize);
+    windowedItem->getSignal(Item::Activated).willAlwaysCall([this]() {
+        onWindowModeChange(false);
+    });
+    windowModeDropdownItem->addOption(fullscreenItem);
+    windowModeDropdownItem->addOption(windowedItem);
+    windowModeDropdownItem->addOption(makeBack());
+    vsyncItem = ToggleTextItem::create("Vsync Enabled:", font, sf::Color::Black, FontSize);
+    vsyncItem->setBoxProperties(
+        sf::Color::White, sf::Color::Black, FontSizeF, 2.f, FontSizeF * 0.4f, false);
+    vsyncItem->getSignal(Item::Activated).willAlwaysCall([this]() { onVsyncUpdate(); });
+    vsyncItem->setChecked(systems.engine().settings().windowParameters().vsyncEnabled());
 
-    videoMenu.setRootItem(windowModeItem);
-    videoMenu.addItem(videoLabel, windowModeItem.get(), Item::Top);
-    videoMenu.addItem(makeBack(), windowModeItem.get(), Item::Bottom);
+    videoMenu.setRootItem(windowModeDropdownItem);
+    videoMenu.addItem(videoLabel, windowModeDropdownItem.get(), Item::Top);
+    videoMenu.addItem(vsyncItem, windowModeDropdownItem.get(), Item::Bottom);
+    videoMenu.addItem(makeBack(), vsyncItem.get(), Item::Bottom);
     videoMenu.setPosition(MenuPosition);
+    videoMenu.setPadding({25.f, 10.f});
 
     // Audio menu
     Item::Ptr audioLabel = TextItem::create("Audio Settings", font, LabelColor, LabelSize);
@@ -153,15 +206,15 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     // controller menu
     Item::Ptr padLabel = TextItem::create("Controller", font, LabelColor, LabelSize);
     padLabel->setSelectable(false);
-    padUpItem          = makeCtrl(Control::MoveUp, false);
-    padRightItem       = makeCtrl(Control::MoveRight, false);
-    padDownItem        = makeCtrl(Control::MoveDown, false);
-    padLeftItem        = makeCtrl(Control::MoveLeft, false);
-    padSprintItem      = makeCtrl(Control::Sprint, false);
-    padInteractItem    = makeCtrl(Control::Interact, false);
-    padBackItem        = makeCtrl(Control::Back, false);
-    padPauseItem       = makeCtrl(Control::Pause, false);
-    backItem = makeBack();
+    padUpItem       = makeCtrl(Control::MoveUp, false);
+    padRightItem    = makeCtrl(Control::MoveRight, false);
+    padDownItem     = makeCtrl(Control::MoveDown, false);
+    padLeftItem     = makeCtrl(Control::MoveLeft, false);
+    padSprintItem   = makeCtrl(Control::Sprint, false);
+    padInteractItem = makeCtrl(Control::Interact, false);
+    padBackItem     = makeCtrl(Control::Back, false);
+    padPauseItem    = makeCtrl(Control::Pause, false);
+    backItem        = makeBack();
 
     controlsPadMenu.setRootItem(padUpItem);
     controlsPadMenu.setPosition(MenuPosition);
@@ -197,13 +250,10 @@ void SettingsMenu::activate(bl::engine::Engine& engine) {
 void SettingsMenu::deactivate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
-
-    // TODO - sync settings to config and save to file
+    core::Properties::save();
 }
 
-void SettingsMenu::update(bl::engine::Engine&, float) {
-    // TODO - ?
-}
+void SettingsMenu::update(bl::engine::Engine&, float) {}
 
 void SettingsMenu::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
@@ -215,7 +265,6 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
         break;
 
     case MenuState::VideoSelectMode:
-        // TODO - anything else?
     case MenuState::VideoMenu:
         videoMenu.render(engine.window());
         break;
@@ -257,7 +306,7 @@ void SettingsMenu::enterState(MenuState s) {
         inputDriver.drive(&videoMenu);
         break;
     case MenuState::VideoSelectMode:
-        // TODO
+        // nothing
         break;
     case MenuState::AudioMenu:
         inputDriver.drive(&audioMenu);
@@ -288,9 +337,6 @@ bool SettingsMenu::observe(const bl::input::Actor&, unsigned int activatedContro
     }
     else {
         switch (state) {
-        case MenuState::VideoSelectMode:
-            // TODO
-            break;
         case MenuState::AudioSelectVolume:
             // TODO
             break;
@@ -317,6 +363,7 @@ void SettingsMenu::back() {
         enterState(MenuState::TopMenu);
         break;
     case MenuState::VideoSelectMode:
+        windowModeDropdownItem->closeMenu();
         enterState(MenuState::VideoMenu);
         break;
     case MenuState::AudioSelectVolume:
@@ -360,6 +407,45 @@ std::string SettingsMenu::ctrlString(unsigned int ctrl, bool kbm) const {
     default:
         return "ERROR: Unknown control";
     }
+}
+
+void SettingsMenu::onWindowModeOpen() {
+    enterState(MenuState::VideoSelectMode);
+    videoMenu.setSelectedItem(isFullscreen() ? fullscreenItem.get() : windowedItem.get());
+}
+
+bool SettingsMenu::isFullscreen() const {
+    return (systems.engine().settings().windowParameters().style() & sf::Style::Fullscreen) != 0;
+}
+
+std::string SettingsMenu::windowModeString() const {
+    return std::string("Window mode: ") + (isFullscreen() ? "Fullscreen" : "Windowed");
+}
+
+void SettingsMenu::onWindowModeChange(bool fs) {
+    windowModeDropdownItem->closeMenu();
+    if (fs != isFullscreen()) {
+        bl::engine::Settings::WindowParameters params =
+            systems.engine().settings().windowParameters();
+        if (fs) {
+            params.withVideoMode(bestFullscreenMode());
+            params.withStyle(params.style() | sf::Style::Fullscreen);
+        }
+        else {
+            params.withVideoMode(defaultVideoMode());
+            params.withStyle(params.style() & (~sf::Style::Fullscreen));
+        }
+
+        windowModeTextItem->getTextObject().setString(windowModeString());
+        systems.engine().reCreateWindow(params);
+    }
+    enterState(MenuState::VideoMenu);
+}
+
+void SettingsMenu::onVsyncUpdate() {
+    bl::engine::Settings::WindowParameters params = systems.engine().settings().windowParameters();
+    params.withVSyncEnabled(vsyncItem->isChecked());
+    systems.engine().updateExistingWindow(params);
 }
 
 } // namespace state

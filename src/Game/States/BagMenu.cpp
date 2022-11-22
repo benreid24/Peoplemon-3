@@ -512,7 +512,7 @@ void BagMenu::keyItemConfirmUse(const std::string& c) {
             break;
         case core::item::Id::BigRedButton:
             systems.trainers().resetDefeated();
-            systems.hud().displayMessage("Everyone's Peoplemon have been healed! Watch your back.",
+            systems.hud().displayMessage("All trainer Peoplemon have been healed! Watch your back.",
                                          std::bind(&BagMenu::messageDone, this));
             state = MenuState::ShowingMessage;
             break;
