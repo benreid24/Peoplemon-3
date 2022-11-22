@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_TRAINERS_HPP
 #define CORE_SYSTEMS_TRAINERS_HPP
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Resources.hpp>
@@ -27,7 +27,7 @@ class Systems;
  */
 class Trainers
 : bl::event::Listener<event::GameSaveInitializing,
-                      bl::entity::event::ComponentAdded<component::Trainer>, event::BattleCompleted,
+                      bl::ecs::event::ComponentAdded<component::Trainer>, event::BattleCompleted,
                       event::EntityMoveFinished, event::EntityRotated> {
 public:
     /**
@@ -62,15 +62,30 @@ public:
     /**
      * @brief Returns the trainer currently approaching the player
      *
-     * @return bl::entity::Entity
+     * @return bl::ecs::Entity
      */
-    bl::entity::Entity approachingTrainer() const;
+    bl::ecs::Entity approachingTrainer() const;
 
     /**
      * @brief Resets the list of defeated trainers
      *
      */
     void resetDefeated();
+
+    /**
+     * @brief Checks whether or not the given trainer has been defeated
+     *
+     * @param trainer The trainer to test
+     * @return True if defeated, false if not
+     */
+    bool trainerDefeated(const component::Trainer& trainer) const;
+
+    /**
+     * @brief Sets the given trainer as having been defeated and updates the game save data
+     *
+     * @param trainer The trainer to mark defeated
+     */
+    void setDefeated(component::Trainer& trainer);
 
 private:
     enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
@@ -82,7 +97,7 @@ private:
     float height;
 
     State state;
-    bl::entity::Entity walkingTrainer;
+    bl::ecs::Entity walkingTrainer;
     component::Trainer* trainerComponent;
     const component::Position* trainerPos;
     component::Movable* trainerMove;
@@ -90,12 +105,12 @@ private:
     std::unordered_set<std::string> defeated;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
-    virtual void observe(const bl::entity::event::ComponentAdded<component::Trainer>& tc) override;
+    virtual void observe(const bl::ecs::event::ComponentAdded<component::Trainer>& tc) override;
     virtual void observe(const event::BattleCompleted& event) override;
     virtual void observe(const event::EntityMoveFinished& moved) override;
     virtual void observe(const event::EntityRotated& rotated) override;
 
-    void checkTrainer(bl::entity::Entity ent);
+    void checkTrainer(bl::ecs::Entity ent);
     void cleanup();
 };
 

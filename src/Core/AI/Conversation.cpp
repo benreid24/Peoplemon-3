@@ -23,7 +23,7 @@ Conversation::Conversation(system::Systems& s)
 , nodes(nullptr)
 , current(0) {}
 
-void Conversation::setConversation(const file::Conversation& conv, bl::entity::Entity e, bool t) {
+void Conversation::setConversation(const file::Conversation& conv, bl::ecs::Entity e, bool t) {
     nodes         = &conv.nodes();
     current       = 0;
     entity        = e;
@@ -106,7 +106,7 @@ void Conversation::followNodes() {
             break;
 
         case E::RunScript: {
-            const auto cb = [this](bl::entity::Entity e) {
+            const auto cb = [this](bl::ecs::Entity e) {
                 if (e != entity) return true;
                 return finished();
             };

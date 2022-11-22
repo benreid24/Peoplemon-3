@@ -199,7 +199,7 @@ private:
 
     std::vector<SortedLayer> ysortedLayers;
 
-    friend class bl::serial::SerializableObject<LayerSet>;
+    friend struct bl::serial::SerializableObject<LayerSet>;
 };
 
 } // namespace map

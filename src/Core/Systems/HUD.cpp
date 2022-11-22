@@ -13,8 +13,8 @@ namespace
 constexpr float ChoiceHeight  = 25.f;
 constexpr float ChoicePadding = 8.f;
 
-bool isNextCommand(component::Command cmd) {
-    return cmd == component::Command::Back || cmd == component::Command::Interact;
+bool isNextCommand(unsigned int cmd) {
+    return cmd == input::Control::Back || cmd == input::Control::Interact;
 }
 
 } // namespace
@@ -46,7 +46,7 @@ HUD::HUD(Systems& owner)
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
-    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 8.f});
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
     screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
                                 textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
     qtyEntry.setPosition({textbox.getPosition().x + textbox.getGlobalBounds().width - 50.f,
@@ -149,14 +149,16 @@ void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 void HUD::hideEntryCard() { entryCard.hide(); }
 
 void HUD::ensureActive() {
-    if (state == Hidden && !queuedOutput.empty()) { startPrinting(); }
+    if (state == Hidden && !queuedOutput.empty()) {
+        owner.engine().inputSystem().getActor().addListener(inputListener);
+        startPrinting();
+    }
 }
 
 void HUD::startPrinting() {
     state = Printing;
     currentMessage.setContent(queuedOutput.front().getMessage());
     displayText.setString("");
-    owner.player().inputSystem().addListener(inputListener);
 }
 
 void HUD::printDoneStateTransition() {
@@ -227,7 +229,7 @@ void HUD::next() {
     if (!queuedOutput.empty()) { startPrinting(); }
     else {
         state = HUD::Hidden;
-        owner.player().inputSystem().removeListener(inputListener);
+        owner.engine().inputSystem().getActor().removeListener(inputListener);
     }
 }
 
@@ -240,10 +242,11 @@ void HUD::keyboardSubmit(const std::string& i) {
 HUD::HudListener::HudListener(HUD& o)
 : owner(o) {}
 
-void HUD::HudListener::process(component::Command cmd) {
+bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                               bool eventTriggered) {
     switch (owner.state) {
     case Printing:
-        if (isNextCommand(cmd)) {
+        if (isNextCommand(ctrl) && eventTriggered) {
             owner.currentMessage.showAll();
             owner.displayText.setString(owner.currentMessage.getContent());
             owner.printDoneStateTransition();
@@ -251,38 +254,38 @@ void HUD::HudListener::process(component::Command cmd) {
         break;
 
     case WaitingContinue:
-        if (isNextCommand(cmd)) {
+        if (isNextCommand(ctrl) && eventTriggered) {
             owner.queuedOutput.front().getCallback()(owner.queuedOutput.front().getMessage());
             owner.next();
         }
         break;
 
     case WaitingPrompt:
-        owner.choiceDriver.process(cmd);
+        owner.choiceDriver.sendControl(ctrl, eventTriggered);
         break;
 
     case WaitingKeyboard:
-        owner.screenKeyboard.process(cmd);
+        owner.screenKeyboard.process(ctrl, eventTriggered);
         break;
 
     case WaitingQty:
-        switch (cmd) {
-        case component::Command::MoveDown:
-            owner.qtyEntry.down();
+        switch (ctrl) {
+        case input::Control::MoveDown:
+            owner.qtyEntry.down(1, eventTriggered);
             break;
-        case component::Command::MoveUp:
-            owner.qtyEntry.up();
+        case input::Control::MoveUp:
+            owner.qtyEntry.up(1, eventTriggered);
             break;
-        case component::Command::MoveRight:
-            owner.qtyEntry.up(10);
+        case input::Control::MoveRight:
+            owner.qtyEntry.up(10, eventTriggered);
             break;
-        case component::Command::MoveLeft:
-            owner.qtyEntry.down(10);
+        case input::Control::MoveLeft:
+            owner.qtyEntry.down(10, eventTriggered);
             break;
-        case component::Command::Interact:
+        case input::Control::Interact:
             owner.qtySelected(owner.qtyEntry.curQty());
             break;
-        case component::Command::Back:
+        case input::Control::Back:
             owner.qtySelected(0);
             break;
         default:
@@ -294,6 +297,8 @@ void HUD::HudListener::process(component::Command cmd) {
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;
     }
+
+    return true;
 }
 
 HUD::Item::Item(const std::string& msg, const HUD::Callback& cb)

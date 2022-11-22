@@ -246,9 +246,8 @@ Value BaseFunctions::makePosition(const component::Position& pos) {
 
 namespace
 {
-Value makePosition(system::Systems& systems, bl::entity::Entity e) {
-    const component::Position* pos =
-        systems.engine().entities().getComponent<component::Position>(e);
+Value makePosition(system::Systems& systems, bl::ecs::Entity e) {
+    const component::Position* pos = systems.engine().ecs().getComponent<component::Position>(e);
     if (pos) { return BaseFunctions::makePosition(*pos); }
     BL_LOG_WARN << "Entity " << e << " has no position";
     return {};
@@ -513,14 +512,14 @@ void rollCredits(system::Systems&, SymbolTable&, const std::vector<Value>&, Valu
     result = false;
 }
 
-void openStorage(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void openStorage(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TBool>("openStorage", args);
 
     const bool block = args[0].value().getAsBool();
-    systems.engine().eventBus().dispatch<event::StorageSystemOpened>({});
+    bl::event::Dispatcher::dispatch<event::StorageSystemOpened>({});
     if (block) {
         bl::event::EventWaiter<event::StorageSystemClosed> waiter;
-        waiter.wait(systems.engine().eventBus());
+        waiter.wait();
     }
 }
 
@@ -538,7 +537,7 @@ void sellPriceOverride(system::Systems&, SymbolTable&, const std::vector<Value>&
     result.setProperty("price", args[1]);
 }
 
-void openStore(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void openStore(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TArray, PrimitiveValue::TArray, PrimitiveValue::TBool>(
         "openStore", args);
 
@@ -589,10 +588,10 @@ void openStore(system::Systems& systems, SymbolTable&, const std::vector<Value>&
         sellPrices.emplace_back(id, sp);
     }
 
-    systems.engine().eventBus().dispatch<event::StoreOpened>({items, sellPrices});
+    bl::event::Dispatcher::dispatch<event::StoreOpened>({items, sellPrices});
     if (block) {
         bl::event::EventWaiter<event::StoreClosed> waiter;
-        waiter.wait(systems.engine().eventBus());
+        waiter.wait();
     }
 }
 
@@ -600,39 +599,40 @@ void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& ar
     Value::validateArgs<PrimitiveValue::TString>("getNpc", args);
 
     const std::string name = args[0].value().getAsString();
-    const auto npcMap      = systems.engine()
-                            .entities()
-                            .getEntitiesWithComponents<component::NPC, component::Position>()
-                            ->results();
-    for (const auto& pair : npcMap) {
-        if (pair.second.get<component::NPC>()->name() == name) {
-            npc = pair.first;
+    bool found             = false;
+    const auto visitor     = [&name, &npc, &systems, &found](bl::ecs::Entity ent,
+                                                         component::NPC& component) {
+        if (found) return;
+        component::Position* pos = systems.engine().ecs().getComponent<component::Position>(ent);
+        if (!pos) return;
+
+        if (component.name() == name) {
+            npc = ent;
             npc.setProperty("name", {name});
             npc.setProperty("talkedTo", {systems.interaction().npcTalkedTo(name)});
             npc.setProperty("defeated", {false});
-            npc.setProperty("position",
-                            BaseFunctions::makePosition(*pair.second.get<component::Position>()));
-            return;
+            npc.setProperty("position", BaseFunctions::makePosition(*pos));
+            found = true;
         }
-    }
+    };
 
-    npc = false;
+    systems.engine().ecs().getAllComponents<component::NPC>().forEach(visitor);
+    if (!found) { npc = false; }
 }
 
 void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                    Value& character) {
     Value::validateArgs<PrimitiveValue::TInteger>("loadCharacter", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    if (systems.engine().entities().entityExists(entity)) {
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    if (systems.engine().ecs().entityExists(entity)) {
         const component::Position* pos =
-            systems.engine().entities().getComponent<component::Position>(entity);
+            systems.engine().ecs().getComponent<component::Position>(entity);
         if (pos) {
             character = entity;
             character.setProperty("position", BaseFunctions::makePosition(*pos));
 
-            const component::NPC* npc =
-                systems.engine().entities().getComponent<component::NPC>(entity);
+            const component::NPC* npc = systems.engine().ecs().getComponent<component::NPC>(entity);
             if (npc) {
                 character.setProperty("name", {npc->name()});
                 character.setProperty("talkedTo", {systems.interaction().npcTalkedTo(npc->name())});
@@ -641,12 +641,12 @@ void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Val
             }
 
             const component::Trainer* trainer =
-                systems.engine().entities().getComponent<component::Trainer>(entity);
+                systems.engine().ecs().getComponent<component::Trainer>(entity);
             if (trainer) {
                 character.setProperty("name", {trainer->name()});
                 character.setProperty("talkedTo",
                                       {systems.interaction().trainerTalkedto(trainer->name())});
-                character.setProperty("defeated", {false}); // TODO - track defeated
+                character.setProperty("defeated", {systems.trainers().trainerDefeated(*trainer)});
                 return;
             }
         }
@@ -677,24 +677,25 @@ void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>
     Value::validateArgs<PrimitiveValue::TString>("getTrainer", args);
 
     const std::string name = args[0].value().getAsString();
-    const auto trainerMap =
-        systems.engine()
-            .entities()
-            .getEntitiesWithComponents<component::Trainer, component::Position>()
-            ->results();
-    for (const auto& pair : trainerMap) {
-        if (pair.second.get<component::Trainer>()->name() == name) {
-            trainer = pair.first;
+
+    bool found         = false;
+    const auto visitor = [&systems, &found, &name, &trainer](bl::ecs::Entity ent,
+                                                             component::Trainer& tc) {
+        if (found) return;
+        component::Position* pos = systems.engine().ecs().getComponent<component::Position>(ent);
+        if (!pos) return;
+        if (tc.name() == name) {
+            trainer = ent;
             trainer.setProperty("name", {name});
             trainer.setProperty("talkedTo", {systems.interaction().trainerTalkedto(name)});
-            trainer.setProperty("defeated", {false}); // TODO - track who defeated
-            trainer.setProperty(
-                "position", BaseFunctions::makePosition(*pair.second.get<component::Position>()));
-            return;
+            trainer.setProperty("defeated", {systems.trainers().trainerDefeated(tc)});
+            trainer.setProperty("position", BaseFunctions::makePosition(*pos));
+            found = true;
         }
-    }
+    };
 
-    trainer = false;
+    systems.engine().ecs().getAllComponents<component::Trainer>().forEach(visitor);
+    if (!found) { trainer = false; }
 }
 
 void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -702,14 +703,14 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString, PrimitiveValue::TBool>(
         "moveEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
-    const bool block                = args[2].value().getAsBool();
-    const bool result               = systems.movement().moveEntity(entity, dir, false);
+    const bl::ecs::Entity entity   = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const component::Direction dir = component::directionFromString(args[1].value().getAsString());
+    const bool block               = args[2].value().getAsBool();
+    const bool result              = systems.movement().moveEntity(entity, dir, false);
 
     if (block && result) {
         const component::Movable* move =
-            systems.engine().entities().getComponent<component::Movable>(entity);
+            systems.engine().ecs().getComponent<component::Movable>(entity);
         if (move) {
             float t = 0.f;
             const float mtime =
@@ -732,10 +733,9 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
 void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString>("rotateEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    const component::Direction dir  = component::directionFromString(args[1].value().getAsString());
-    component::Position* pos =
-        systems.engine().entities().getComponent<component::Position>(entity);
+    const bl::ecs::Entity entity   = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const component::Direction dir = component::directionFromString(args[1].value().getAsString());
+    component::Position* pos = systems.engine().ecs().getComponent<component::Position>(entity);
     if (pos && pos->direction != dir) pos->direction = dir;
 }
 
@@ -743,10 +743,10 @@ void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
                   Value& res) {
     Value::validateArgs<PrimitiveValue::TInteger>("removeEntity", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     if (entity != systems.player().player()) {
-        const bool result = systems.engine().entities().entityExists(entity);
-        systems.engine().entities().destroyEntity(entity);
+        const bool result = systems.engine().ecs().entityExists(entity);
+        systems.engine().ecs().destroyEntity(entity);
         res = result;
     }
     else {
@@ -762,9 +762,8 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
                         PrimitiveValue::TInteger,
                         PrimitiveValue::TBool>("entityToPosition", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    component::Position* pos =
-        systems.engine().entities().getComponent<component::Position>(entity);
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    component::Position* pos     = systems.engine().ecs().getComponent<component::Position>(entity);
     if (pos) {
         BL_LOG_INFO << "moved entity";
         const component::Position old = *pos;
@@ -772,7 +771,7 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
         np.setTiles(sf::Vector2i(args[2].value().getAsInt(), args[3].value().getAsInt()));
         np.level = args[1].value().getAsInt();
         *pos     = np;
-        systems.engine().eventBus().dispatch<event::EntityMoved>({entity, old, np});
+        bl::event::Dispatcher::dispatch<event::EntityMoved>({entity, old, np});
     }
     else {
         BL_LOG_ERROR << "Moving entity with no position component: " << entity;
@@ -786,15 +785,15 @@ void entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Va
                     Value& result) {
     Value::validateArgs<PrimitiveValue::TInteger>("entityInteract", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    result                          = systems.interaction().interact(entity);
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    result                       = systems.interaction().interact(entity);
 }
 
 void setEntityLock(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool>("setEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
-    const bool lock                 = args[1].value().getAsBool();
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const bool lock              = args[1].value().getAsBool();
     systems.controllable().setEntityLocked(entity, lock, true);
 }
 
@@ -802,7 +801,7 @@ void resetEntityLock(system::Systems& systems, SymbolTable&, const std::vector<V
                      Value&) {
     Value::validateArgs<PrimitiveValue::TInteger>("resetEntityLock", args);
 
-    const bl::entity::Entity entity = static_cast<bl::entity::Entity>(args[0].value().getAsInt());
+    const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     systems.controllable().resetEntityLock(entity);
 }
 
@@ -844,8 +843,8 @@ void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::v
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TBool, PrimitiveValue::TBool>(
         "triggerEntityAnimation", args);
 
-    const bl::entity::Entity e = args[0].value().getAsInt();
-    component::Renderable* r   = systems.engine().entities().getComponent<component::Renderable>(e);
+    const bl::ecs::Entity e  = args[0].value().getAsInt();
+    component::Renderable* r = systems.engine().ecs().getComponent<component::Renderable>(e);
 
     if (!r) {
         BL_LOG_WARN << "Could not trigger animation for invalid entity: " << e;
@@ -918,8 +917,8 @@ void waitUntilTime(system::Systems& systems, SymbolTable& table, const std::vect
         bl::util::Waiter waiter;
         const auto unlock = [&waiter]() { waiter.unblock(); };
         ClockTrigger trigger(unlock, then);
-        bl::event::ClassGuard<event::TimeChange> guard(&trigger);
-        guard.subscribe(systems.engine().eventBus());
+        bl::event::ListenerGuard<event::TimeChange> guard(&trigger);
+        guard.subscribe();
         table.waitOn(waiter);
     }
 }
@@ -954,9 +953,9 @@ void getSaveEntry(system::Systems& systems, SymbolTable&, const std::vector<Valu
     result           = val ? *val : false;
 }
 
-void loadMap(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+void loadMap(system::Systems&, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TString, PrimitiveValue::TInteger>("loadMap", args);
-    systems.engine().eventBus().dispatch<event::SwitchMapTriggered>(
+    bl::event::Dispatcher::dispatch<event::SwitchMapTriggered>(
         {args[0].value().getAsString(), static_cast<int>(args[1].value().getAsInt())});
 }
 

@@ -43,7 +43,10 @@ NewGame::NewGame(core::system::Systems& systems)
 
 const char* NewGame::name() const { return "NewGame"; }
 
-void NewGame::activate(bl::engine::Engine&) {
+void NewGame::activate(bl::engine::Engine& engine) {
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+
     systems.hud().displayMessage("Hello there!");
     systems.hud().displayMessage("I'm the professor in HomeTown. My name is Professor, but you can "
                                  "just call me Professor Professor");
@@ -78,11 +81,12 @@ void NewGame::fadeOut() {
     cover.setSize(systems.engine().window().getView().getSize());
 }
 
-void NewGame::deactivate(bl::engine::Engine&) {
+void NewGame::deactivate(bl::engine::Engine& engine) {
     if (!systems.world().switchMaps("Hometown/HometownYourHouseYourRoom.map", 5)) {
         BL_LOG_ERROR << "Failed to load starting map";
         systems.engine().flags().set(bl::engine::Flags::Terminate);
     }
+    engine.renderSystem().cameras().popCamera();
     systems.clock().set({12, 0});
     systems.player().newGame(playerName,
                              isBoy ? core::player::Gender::Boy : core::player::Gender::Girl);
@@ -90,7 +94,6 @@ void NewGame::deactivate(bl::engine::Engine&) {
 
 void NewGame::update(bl::engine::Engine&, float dt) {
     systems.hud().update(dt);
-    systems.player().update(dt);
     background.rotate(RotateSpeed * dt);
     if (fadeTime >= 0.f) {
         fadeTime += dt;

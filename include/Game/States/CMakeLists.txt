@@ -12,6 +12,7 @@ target_sources(Peoplemon PUBLIC
     PeoplemonInfo.hpp
     PeoplemonMenu.hpp
     SaveGame.hpp
+    SettingsMenu.hpp
     State.hpp
     StorageSystem.hpp
     StoreMenu.hpp

@@ -19,6 +19,12 @@ public:
     using Ptr = std::shared_ptr<PeoplemonButton>;
 
     /**
+     * @brief Destroy the Peoplemon Button object
+     *
+     */
+    virtual ~PeoplemonButton() = default;
+
+    /**
      * @brief Creates a new peoplemon button from the peoplemon
      *
      * @param ppl The peoplemon to represent

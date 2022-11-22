@@ -21,7 +21,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
 
     switch (state) {
     case Walking: {
-        const auto changeDirection = [this, &position, &controller]() {
+        const auto changeDirection = [this, &position]() {
             if (bl::util::Random::chance(1, 2)) {
                 const int dx   = position.positionTiles().x - origin.x;
                 const float xf = dx + radius;
@@ -50,7 +50,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
             stateTime = 0.f;
         };
 
-        if (controller.processControl(moveCommand(data.walking.dir))) {
+        if (controller.processControl(moveControlFromDirection(data.walking.dir))) {
             data.walking.steps += 1;
             if (data.walking.steps >= data.walking.total) changeDirection();
         }
@@ -68,7 +68,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
         if (stateTime >= bl::util::Random::get<float>(1.f, 5.f)) {
             data.walking.total = bl::util::Random::get<unsigned short int>(1, 3);
             if (position.direction != data.walking.dir)
-                controller.processControl(moveCommand(data.walking.dir));
+                controller.processControl(moveControlFromDirection(data.walking.dir));
             state = Walking;
         }
 

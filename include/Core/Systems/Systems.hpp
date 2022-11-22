@@ -2,7 +2,6 @@
 #define CORE_GAME_GAME_HPP
 
 #include <Core/Systems/AI.hpp>
-#include <Core/Systems/Cameras.hpp>
 #include <Core/Systems/Clock.hpp>
 #include <Core/Systems/Controllable.hpp>
 #include <Core/Systems/Entity.hpp>
@@ -91,18 +90,6 @@ public:
      *
      */
     const World& world() const;
-
-    /**
-     * @brief Returns a modifiable accessor for the camera system
-     *
-     */
-    Cameras& cameras();
-
-    /**
-     * @brief Returns an immutable accessor for the camera system
-     *
-     */
-    const Cameras& cameras() const;
 
     /**
      * @brief Returns a reference to the position system
@@ -238,7 +225,6 @@ public:
 
 private:
     bl::engine::Engine& _engine;
-    Cameras _cameras;
     Clock _clock;
     AI _ai;
     Controllable _controllable;

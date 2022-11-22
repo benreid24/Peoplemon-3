@@ -1025,20 +1025,18 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     if (clear) text.setString("");
 }
 
-void MessagePrinter::process(component::Command cmd) {
+void MessagePrinter::process(input::EntityControl ctrl, bool ignore) {
     switch (state) {
     case State::Printing:
     case State::PrintingYesNoChoice:
     case State::ShowingNotAcked:
-        if (cmd == component::Command::Back || cmd == component::Command::Interact) {
-            finishPrint();
-        }
+        if (ctrl == input::Control::Back || ctrl == input::Control::Interact) { finishPrint(); }
         break;
     case State::WaitingYesNoChoice:
-        inputDriver.process(cmd);
+        inputDriver.sendControl(ctrl, ignore);
         break;
     case State::WaitingNameEntry:
-        keyboard.process(cmd);
+        keyboard.process(ctrl, ignore);
         break;
     default:
         break;

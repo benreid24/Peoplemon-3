@@ -1,10 +1,8 @@
 #ifndef CORE_COMPONENTS_PLAYERCONTROLLED_HPP
 #define CORE_COMPONENTS_PLAYERCONTROLLED_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Controllable.hpp>
-#include <Core/Player/Input.hpp>
-#include <Core/Player/Input/Listener.hpp>
+#include <Core/Input/Control.hpp>
 
 namespace core
 {
@@ -21,11 +19,8 @@ namespace component
  * @ingroup Components
  *
  */
-class PlayerControlled : public player::input::Listener {
+class PlayerControlled : public bl::input::Listener {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 6;
-
     /**
      * @brief Construct a new Player Controlled component and immediately start taking player input.
      *        Whatever was previously receiving player input is cut off
@@ -33,9 +28,13 @@ public:
      * @param systems The primary systems object
      * @param controllable The controllable component to interface with
      */
-    PlayerControlled(
-        system::Systems& systems,
-        const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable);
+    PlayerControlled(system::Systems& systems, Controllable& controllable);
+
+    /**
+     * @brief Destroy the Player Controlled component
+     *
+     */
+    virtual ~PlayerControlled() = default;
 
     /**
      * @brief Activate this listener and receive player input. Does not have effect if already
@@ -53,13 +52,14 @@ public:
     /**
      * @brief Forwards the player input to the underlying entity
      *
-     * @param input The input to forward
+     * @param ctrl The input to forward
      */
-    virtual void process(Command input) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                         bool) override;
 
 private:
     system::Systems& systems;
-    bl::entity::Registry::ComponentHandle<component::Controllable> controllable;
+    component::Controllable& controllable;
     bool started;
 };
 

@@ -3,7 +3,7 @@
 
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Game/States/State.hpp>
 
 namespace game
@@ -16,7 +16,9 @@ namespace state
  * @ingroup States
  *
  */
-class MainMenu : public State {
+class MainMenu
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Creates a new MainMenu state
@@ -62,13 +64,20 @@ private:
     sf::Sprite background;
 
     bl::menu::Menu menu;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     bl::menu::TextItem::Ptr newGame;
     bl::menu::TextItem::Ptr loadGame;
     bl::menu::TextItem::Ptr settings;
     bl::menu::TextItem::Ptr quit;
 
+    sf::Clock hintTimer;
+    sf::RectangleShape hintBox;
+    sf::Text hint;
+
     MainMenu(core::system::Systems& systems);
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

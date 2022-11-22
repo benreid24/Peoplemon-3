@@ -135,16 +135,12 @@ StorageSystem::StorageSystem(core::system::Systems& s)
 const char* StorageSystem::name() const { return "StorageSystem"; }
 
 void StorageSystem::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(*this);
 
     // create view for menu
-    oldView = engine.window().getView();
-    sf::View view(oldView);
-    const sf::Vector2f size(background.getGlobalBounds().width,
-                            background.getGlobalBounds().height);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    view    = engine.window().getView();
     boxView = bl::interface::ViewUtil::computeSubView({BoxPosition, BoxSize}, view);
     boxView.setCenter(BoxSize * 0.5f);
 
@@ -172,13 +168,13 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
 }
 
-void StorageSystem::deactivate(bl::engine::Engine&) {
-    systems.player().inputSystem().removeListener(*this);
-    systems.engine().eventBus().dispatch<core::event::StorageSystemClosed>({});
+void StorageSystem::deactivate(bl::engine::Engine& engine) {
+    systems.engine().inputSystem().getActor().removeListener(*this);
+    bl::event::Dispatcher::dispatch<core::event::StorageSystemClosed>({});
+    engine.renderSystem().cameras().popCamera();
 }
 
 void StorageSystem::update(bl::engine::Engine&, float dt) {
-    systems.player().update(dt);
     cursor.update(dt);
 
     switch (state) {
@@ -420,9 +416,12 @@ void StorageSystem::onCloseContextMenu() {
     enterState(MenuState::BrowsingBox);
 }
 
-void StorageSystem::process(core::component::Command cmd) {
+bool StorageSystem::observe(const bl::input::Actor&, unsigned int cmd, bl::input::DispatchType,
+                            bool eventTriggered) {
     bl::menu::Menu* toSend = nullptr;
-    if (cmd == core::component::Command::Back) {
+    if (cmd == core::input::Control::Back) {
+        if (!eventTriggered) return true;
+
         switch (state) {
         case MenuState::ChooseAction:
             close();
@@ -448,7 +447,7 @@ void StorageSystem::process(core::component::Command cmd) {
         default:
             break;
         }
-        return;
+        return true;
     }
 
     switch (state) {
@@ -459,8 +458,8 @@ void StorageSystem::process(core::component::Command cmd) {
     case MenuState::PlacingPeoplemon:
     case MenuState::BrowsingBox:
     case MenuState::MovingPeoplemon:
-        if (cmd == core::component::Command::Interact) { onSelect(cursor.getPosition()); }
-        else if (cmd == core::component::Command::MoveLeft && cursor.getPosition().x == 0) {
+        if (cmd == core::input::Control::Interact) { onSelect(cursor.getPosition()); }
+        else if (cmd == core::input::Control::MoveLeft && cursor.getPosition().x == 0) {
             if (currentBox > 0) {
                 boxLeft();
                 bl::audio::AudioSystem::playOrRestartSound(pageSlideSound);
@@ -469,7 +468,7 @@ void StorageSystem::process(core::component::Command cmd) {
                 bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound);
             }
         }
-        else if (cmd == core::component::Command::MoveRight &&
+        else if (cmd == core::input::Control::MoveRight &&
                  cursor.getPosition().x == core::player::StorageSystem::BoxWidth - 1) {
             if (currentBox < core::player::StorageSystem::BoxCount - 1) {
                 boxRight();
@@ -480,7 +479,7 @@ void StorageSystem::process(core::component::Command cmd) {
             }
         }
         else {
-            if (cursor.process(cmd)) {
+            if (cursor.process(cmd, eventTriggered)) {
                 onCursor(cursor.getPosition());
                 bl::audio::AudioSystem::playOrRestartSound(cursorMoveSound);
                 enterState(MenuState::CursorMoving);
@@ -501,8 +500,10 @@ void StorageSystem::process(core::component::Command cmd) {
 
     if (toSend != nullptr) {
         menuDriver.drive(toSend);
-        menuDriver.process(cmd);
+        menuDriver.sendControl(cmd, eventTriggered);
     }
+
+    return true;
 }
 
 void StorageSystem::enterState(MenuState ns) {

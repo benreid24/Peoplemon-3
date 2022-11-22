@@ -24,7 +24,7 @@ namespace loaders
  * @ingroup Maps
  *
  */
-class LegacyTilesetLoader;
+struct LegacyTilesetLoader;
 
 /**
  * @brief Loads the new tileset format
@@ -32,7 +32,7 @@ class LegacyTilesetLoader;
  * @ingroup Maps
  *
  */
-class PrimaryTilesetLoader;
+struct PrimaryTilesetLoader;
 
 } // namespace loaders
 
@@ -166,9 +166,9 @@ private:
     void initializeTile(Tile& tile);
 
     friend class Tile;
-    friend class loaders::LegacyTilesetLoader;
-    friend class loaders::PrimaryTilesetLoader;
-    friend class bl::serial::SerializableObject<Tileset>;
+    friend struct loaders::LegacyTilesetLoader;
+    friend struct loaders::PrimaryTilesetLoader;
+    friend struct bl::serial::SerializableObject<Tileset>;
 };
 
 } // namespace map

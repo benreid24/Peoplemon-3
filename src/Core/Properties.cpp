@@ -9,8 +9,9 @@ namespace core
 {
 namespace
 {
-const std::string ConfigFile = "configuration.cfg";
-bool inEditor                = false;
+const std::string DataDirectory = bl::util::FileUtil::getDataDirectory("Peoplemon");
+const std::string ConfigFile    = bl::util::FileUtil::joinPath(DataDirectory, "configuration.cfg");
+bool inEditor                   = false;
 
 namespace defaults
 {
@@ -229,7 +230,7 @@ bool Properties::load(bool ie) {
         BL_LOG_INFO << "Failed to load configuration file, using defaults";
     }
     bl::engine::Configuration::log();
-    bl::engine::Configuration::save(ConfigFile); // ensure defaults saved if changed
+    save(); // ensure defaults saved if changed
 
     menuFont = bl::engine::Resources::fonts()
                    .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
@@ -238,6 +239,8 @@ bool Properties::load(bool ie) {
 
     return true;
 }
+
+void Properties::save() { bl::engine::Configuration::save(ConfigFile); }
 
 const std::string& Properties::WindowIconFile() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
@@ -257,11 +260,14 @@ int Properties::WindowHeight() {
     return val;
 }
 
+sf::Vector2f Properties::WindowSize() {
+    return {static_cast<float>(WindowWidth()), static_cast<float>(WindowHeight())};
+}
+
 bool Properties::InEditor() { return inEditor; }
 
 const std::string& Properties::SaveDirectory() {
-    static const std::string d =
-        bl::util::FileUtil::joinPath(bl::util::FileUtil::getDataDirectory("Peoplemon"), "saves");
+    static const std::string d = bl::util::FileUtil::joinPath(DataDirectory, "saves");
     if (!bl::util::FileUtil::directoryExists(d)) { bl::util::FileUtil::createDirectory(d); }
     return d;
 }
@@ -269,12 +275,6 @@ const std::string& Properties::SaveDirectory() {
 const std::string& Properties::SaveExtension() {
     static const std::string e = "psf";
     return e;
-}
-
-const std::string& Properties::ControlsFile() {
-    static const std::string f = bl::util::FileUtil::joinPath(
-        bl::util::FileUtil::getDataDirectory("Peoplemon"), "controls.pcf");
-    return f;
 }
 
 int Properties::PixelsPerTile() {

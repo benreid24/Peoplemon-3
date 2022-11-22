@@ -22,7 +22,7 @@ void Clock::update(float dt) {
     if (minutes > 0) {
         residual -= minutes; // 1 real second = 1 game minute
         currentTime.addMinutes(static_cast<unsigned int>(minutes + 0.1f));
-        owner.engine().eventBus().dispatch<event::TimeChange>({currentTime});
+        bl::event::Dispatcher::dispatch<event::TimeChange>({currentTime});
     }
 }
 
@@ -86,11 +86,11 @@ void Clock::observe(const event::GameSaveInitializing& save) {
 }
 
 void Clock::observe(const event::GameSaveLoaded&) {
-    owner.engine().eventBus().dispatch<event::TimeChange>({currentTime});
+    bl::event::Dispatcher::dispatch<event::TimeChange>({currentTime});
 }
 
 void Clock::init() {
-    owner.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
     currentTime = {};
 }
 

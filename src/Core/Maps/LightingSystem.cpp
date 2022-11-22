@@ -1,5 +1,6 @@
 #include <Core/Maps/LightingSystem.hpp>
 
+#include <BLIB/Math.hpp>
 #include <BLIB/Media/Shapes/GradientCircle.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
@@ -12,25 +13,32 @@ namespace map
 {
 namespace
 {
-constexpr float AdjustSpeed = 30.f;
-}
+constexpr float AdjustSpeed             = 30.f;
+constexpr std::size_t GameBufferExtra   = 4;
+constexpr std::size_t EditorBufferExtra = 64;
+} // namespace
 
 LightingSystem::LightingSystem()
 : minLevel(175)
 , maxLevel(255)
 , sunlight(1)
-, eventGuard(this)
-, lights(320, 320, 800, 600)
+, activeLights(Storage::GrowthPolicy::ExpandBuffer, 0) // no alocation
+, lightGrid({}, 1.f, 1.f)                              // no allocation
+, nextHandle(1)
 , sunlightFactor(1.f)
 , weatherModifier(0)
 , targetWeatherModifier(0)
 , weatherResidual(0.f) {}
 
 LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
-    const Handle h =
-        bl::util::Random::get<Handle>(static_cast<Handle>(1), std::numeric_limits<Handle>::max());
-    auto ptr = lights.add(light.position.x, light.position.y, std::make_pair(h, light));
-    handles.emplace(h, ptr);
+    const Handle h         = nextHandle++;
+    const bool needRecache = activeLights.size() == activeLights.capacity();
+    auto it                = activeLights.emplace(light, h);
+    if (needRecache) { rebuildCache(); }
+    else {
+        lightGrid.add(sf::Vector2f(light.position), &(*it));
+        handles.emplace(h, it);
+    }
 
     if (p) { rawLights.push_back(light); }
     return h;
@@ -39,12 +47,13 @@ LightingSystem::Handle LightingSystem::addLight(const Light& light, bool p) {
 void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
     auto it = handles.find(handle);
     if (it == handles.end()) return;
-    it->second->move(light.position.x, light.position.y);
-    it->second->get().second = light;
+    lightGrid.move(
+        sf::Vector2f(it->second->light.position), sf::Vector2f(light.position), &(*it->second));
+    it->second->light = light;
 
     if (p) {
         for (auto& l : rawLights) {
-            if (l.position == it->second->get().second.position) {
+            if (l.position == light.position) {
                 l = light;
                 break;
             }
@@ -53,26 +62,26 @@ void LightingSystem::updateLight(Handle handle, const Light& light, bool p) {
 }
 
 LightingSystem::Handle LightingSystem::getClosestLight(const sf::Vector2i& position) {
-    auto set            = lights.getCellAndNeighbors(position.x, position.y);
     Handle closest      = None;
     unsigned long cdist = 10000000;
-    for (const auto& light : set) {
-        const long dx            = light.get().second.position.x - position.x;
-        const long dy            = light.get().second.position.y - position.y;
-        const unsigned int r     = light.get().second.radius;
-        const unsigned long dist = dx * dx + dy * dy;
+
+    const auto visitor = [&closest, &cdist, &position](ActiveLight* light) {
+        const unsigned long dist = bl::math::magnitudeSquared(light->light.position - position);
+        const unsigned int r     = light->light.radius;
         if (dist < cdist && dist < r * r) {
             cdist   = dist;
-            closest = light.get().first;
+            closest = light->handle;
         }
-    }
+    };
+
+    lightGrid.forAllInCellAndNeighbors(sf::Vector2f(position), visitor);
     return closest;
 }
 
 const Light& LightingSystem::getLight(Handle h) const {
     static const Light empty(0, {-1, -1});
     const auto it = handles.find(h);
-    return it != handles.end() ? it->second->get().second : empty;
+    return it != handles.end() ? it->second->light : empty;
 }
 
 void LightingSystem::removeLight(Handle handle, bool p) {
@@ -80,15 +89,15 @@ void LightingSystem::removeLight(Handle handle, bool p) {
     if (it == handles.end()) return;
 
     if (p) {
-        for (unsigned int i = 0; i < rawLights.size(); ++i) {
-            if (rawLights[i].position == it->second->get().second.position) {
-                rawLights.erase(rawLights.begin() + i);
+        for (auto lit = rawLights.begin(); lit != rawLights.end(); ++lit) {
+            if (lit->position == it->second->light.position) {
+                rawLights.erase(lit);
                 break;
             }
         }
     }
 
-    it->second->remove();
+    lightGrid.remove(sf::Vector2f(it->second->light.position), &(*it->second));
     handles.erase(it);
 }
 
@@ -110,15 +119,19 @@ bool LightingSystem::adjustsForSunlight() const { return sunlight != 0; }
 
 void LightingSystem::legacyResize(const sf::Vector2i& mapSize) {
     handles.clear();
-    lights.setSize(mapSize.x * Properties::PixelsPerTile(),
-                   mapSize.y * Properties::PixelsPerTile(),
-                   Properties::WindowWidth(),
-                   Properties::WindowHeight());
+    lightGrid.setSize({0.f,
+                       0.f,
+                       static_cast<float>(mapSize.x * Properties::PixelsPerTile()),
+                       static_cast<float>(mapSize.y * Properties::PixelsPerTile())},
+                      Properties::WindowWidth(),
+                      Properties::WindowHeight());
 }
 
 void LightingSystem::activate(const sf::Vector2i& mapSize) {
     legacyResize(mapSize);
 
+    activeLights.reserve(rawLights.size() +
+                         (Properties::InEditor() ? EditorBufferExtra : GameBufferExtra));
     for (const auto& light : rawLights) { addLight(light, false); }
 
     renderSurface.create(Properties::LightingWidthTiles() * Properties::PixelsPerTile(),
@@ -128,9 +141,9 @@ void LightingSystem::activate(const sf::Vector2i& mapSize) {
     levelRange = maxLevel - minLevel;
 }
 
-void LightingSystem::subscribe(bl::event::Dispatcher& bus) { eventGuard.subscribe(bus); }
+void LightingSystem::subscribe() { bl::event::Dispatcher::subscribe(this); }
 
-void LightingSystem::unsubscribe() { eventGuard.unsubscribe(); }
+void LightingSystem::unsubscribe() { bl::event::Dispatcher::unsubscribe(this); }
 
 void LightingSystem::clear() {
     rawLights.clear();
@@ -138,8 +151,9 @@ void LightingSystem::clear() {
     minLevel   = 75;
     levelRange = maxLevel - minLevel;
     sunlight   = 1;
-    lights.clear();
+    activeLights.clear();
     handles.clear();
+    lightGrid.clear();
 }
 
 void LightingSystem::update(float dt) {
@@ -162,9 +176,7 @@ void LightingSystem::update(float dt) {
             }
         }
     }
-    else {
-        weatherResidual = 0.f;
-    }
+    else { weatherResidual = 0.f; }
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
@@ -172,30 +184,32 @@ void LightingSystem::render(sf::RenderTarget& target) {
     const sf::Vector2f& size = target.getView().getSize();
 
     const std::uint8_t ambient = computeAmbient();
-    auto lightSet =
-        lights.getArea(corner.x - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
-                       corner.y - Properties::ExtraRenderTiles() * Properties::PixelsPerTile(),
-                       size.x + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2,
-                       size.y + Properties::ExtraRenderTiles() * Properties::PixelsPerTile() * 2);
 
     sf::View view = target.getView();
     view.setViewport({0.f, 0.f, 1.f, 1.f});
     renderSurface.setView(view);
     renderSurface.clear(sf::Color(0, 0, 0, ambient));
 
-    bl::shapes::GradientCircle circle(100);
-    circle.setCenterColor(sf::Color(0, 0, 0, ambient));
-    circle.setOuterColor(sf::Color(0, 0, 0, 0));
-
-    static const sf::BlendMode blendMode(
-        sf::BlendMode::One, sf::BlendMode::One, sf::BlendMode::ReverseSubtract);
-
     if (ambient > 80) {
-        for (auto& light : lightSet) {
-            circle.setPosition(static_cast<sf::Vector2f>(light.get().second.position));
-            circle.setRadius(light.get().second.radius);
+        const float extraSpace =
+            static_cast<float>(Properties::ExtraRenderTiles() * Properties::PixelsPerTile());
+        const sf::BlendMode blendMode(
+            sf::BlendMode::One, sf::BlendMode::One, sf::BlendMode::ReverseSubtract);
+        bl::shapes::GradientCircle circle(100);
+        circle.setCenterColor(sf::Color(0, 0, 0, ambient));
+        circle.setOuterColor(sf::Color(0, 0, 0, 0));
+
+        const auto visitor = [this, &circle, &blendMode](ActiveLight* light) {
+            circle.setPosition(static_cast<sf::Vector2f>(light->light.position));
+            circle.setRadius(light->light.radius);
             renderSurface.draw(circle, blendMode);
-        }
+        };
+
+        lightGrid.forAllInRegion({corner.x - extraSpace,
+                                  corner.y - extraSpace,
+                                  size.x + extraSpace * 2.f,
+                                  size.y + extraSpace * 2.f},
+                                 visitor);
     }
 
     sprite.setPosition(corner.x, corner.y + size.y);
@@ -216,9 +230,7 @@ void LightingSystem::observe(const event::TimeChange& now) {
         sunlightFactor = 1.f - (0.5 * std::cos(3.1415926 * x / 720) + 0.5) *
                                    ((1 - n) * (720 - x) * (720 - x) / 518400 + n);
     }
-    else {
-        sunlightFactor = 1.f;
-    }
+    else { sunlightFactor = 1.f; }
 }
 
 void LightingSystem::observe(const event::WeatherStarted& event) {
@@ -266,6 +278,17 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
 }
 
 void LightingSystem::observe(const event::WeatherStopped&) { targetWeatherModifier = 0; }
+
+void LightingSystem::rebuildCache() {
+    BL_LOG_WARN << "Light allocation was too small and reallocation had to be performed";
+
+    handles.clear();
+    lightGrid.clear();
+    for (auto it = activeLights.begin(); it != activeLights.end(); ++it) {
+        handles.emplace(it->handle, it);
+        lightGrid.add(sf::Vector2f(it->light.position), &(*it));
+    }
+}
 
 } // namespace map
 } // namespace core

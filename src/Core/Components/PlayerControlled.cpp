@@ -7,41 +7,45 @@ namespace core
 {
 namespace component
 {
-PlayerControlled::PlayerControlled(
-    system::Systems& s,
-    const bl::entity::Registry::ComponentHandle<component::Controllable>& controllable)
+PlayerControlled::PlayerControlled(system::Systems& s, Controllable& controllable)
 : systems(s)
 , controllable(controllable)
 , started(false) {}
 
 void PlayerControlled::start() {
     if (!started) {
-        systems.player().inputSystem().addListener(*this);
+        systems.engine().inputSystem().getActor().addListener(*this);
         started = true;
     }
 }
 
 void PlayerControlled::stop() {
     started = false;
-    systems.player().inputSystem().removeListener(*this);
+    systems.engine().inputSystem().getActor().removeListener(*this);
 }
 
-void PlayerControlled::process(Command c) {
-    if (controllable.get().isLocked()) return;
+bool PlayerControlled::observe(const bl::input::Actor& actor, unsigned int ctrl,
+                               bl::input::DispatchType, bool fromEvent) {
+    if (controllable.isLocked()) return true;
+    if (ctrl == input::Control::Interact && !fromEvent) return true;
 
-    switch (c) {
-    case Command::Pause:
-        systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::GamePaused});
+    switch (ctrl) {
+    case input::Control::Pause:
+        if (fromEvent) {
+            bl::event::Dispatcher::dispatch<event::StateChange>(
+                {event::StateChange::GamePaused});
+        }
         break;
 
-    case Command::Back:
-        systems.engine().eventBus().dispatch<event::StateChange>({event::StateChange::BackPressed});
+    case input::Control::Back:
         break;
 
     default:
-        controllable.get().processControl(c);
+        controllable.processControl(static_cast<input::EntityControl>(ctrl),
+                                    actor.controlActive(input::Control::Sprint));
         break;
     }
+    return true;
 }
 
 } // namespace component

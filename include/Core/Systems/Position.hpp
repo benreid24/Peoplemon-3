@@ -6,7 +6,7 @@
 #include <Core/Events/Maps.hpp>
 
 #include <BLIB/Containers/Grid.hpp>
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <unordered_map>
 
@@ -24,10 +24,9 @@ class Systems;
  *
  */
 class Position
-: public bl::event::Listener<bl::entity::event::EntityDestroyed, event::EntityMoved,
-                             bl::entity::event::ComponentAdded<component::Position>,
-                             bl::entity::event::ComponentRemoved<component::Position>,
-                             event::MapSwitch> {
+: public bl::event::Listener<
+      event::EntityMoved, bl::ecs::event::ComponentAdded<component::Position>,
+      bl::ecs::event::ComponentRemoved<component::Position>, event::MapSwitch> {
 public:
     /**
      * @brief Construct the Position system
@@ -59,9 +58,9 @@ public:
      * @brief Returns the entity at the given position or InvalidEntity if not found
      *
      * @param pos The position to check
-     * @return bl::entity::Entity The entity at the given position or bl::entity::InvalidEntity
+     * @return bl::ecs::Entity The entity at the given position or bl::ecs::InvalidEntity
      */
-    bl::entity::Entity getEntity(const component::Position& pos) const;
+    bl::ecs::Entity getEntity(const component::Position& pos) const;
 
     /**
      * @brief Returns whether or not a tile is currently occupied
@@ -78,17 +77,17 @@ public:
      *
      * @param start The position to start at. Is not searched
      * @param range Number of spaces to search. Must be greater than 1
-     * @return bl::entity::Entity The entity that was found, or bl::entity::InvalidEntity if none
+     * @return bl::ecs::Entity The entity that was found, or bl::ecs::InvalidEntity if none
      */
-    bl::entity::Entity search(const component::Position& start, component::Direction dir,
-                              unsigned int range);
+    bl::ecs::Entity search(const component::Position& start, component::Direction dir,
+                           unsigned int range);
 
     /**
      * @brief Returns an iterable set containing all the entities that should be updated
      *
-     * @return const bl::container::Grid<bl::entity::Entity>::Range& Entities that should be updated
+     * @return const std::vector<bl::ecs::Entity>& Entities that should be updated
      */
-    const std::vector<bl::entity::Entity>& updateRangeEntities() const;
+    const std::vector<bl::ecs::Entity>& updateRangeEntities() const;
 
     /**
      * @brief Called by the editor when a level is added
@@ -104,23 +103,16 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Registry::View<component::Position>::Ptr entities;
-    std::vector<bl::container::Vector2D<bl::entity::Entity>> entityMap;
-    std::vector<bl::entity::Entity> toUpdate;
+    std::vector<bl::container::Vector2D<bl::ecs::Entity>> entityMap;
+    std::vector<bl::ecs::Entity> toUpdate;
 
     virtual void observe(const event::EntityMoved& event) override;
-
-    virtual void observe(const bl::entity::event::EntityDestroyed& event) override;
-
+    virtual void observe(const bl::ecs::event::ComponentAdded<component::Position>& event) override;
     virtual void observe(
-        const bl::entity::event::ComponentAdded<component::Position>& event) override;
-
-    virtual void observe(
-        const bl::entity::event::ComponentRemoved<component::Position>& event) override;
-
+        const bl::ecs::event::ComponentRemoved<component::Position>& event) override;
     virtual void observe(const event::MapSwitch& event) override;
 
-    bl::entity::Entity& get(const component::Position& pos);
+    bl::ecs::Entity& get(const component::Position& pos);
 };
 
 } // namespace system

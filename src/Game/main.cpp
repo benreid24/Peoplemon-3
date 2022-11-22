@@ -7,6 +7,7 @@
 #include <Core/Files/ItemDB.hpp>
 #include <Core/Files/MoveDB.hpp>
 #include <Core/Files/PeoplemonDB.hpp>
+#include <Core/Input/Control.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -16,8 +17,14 @@
 #include <Game/States/MainGame.hpp>
 #include <Game/States/MainMenu.hpp>
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <iostream>
+
+struct WindowSizePersister : public bl::event::Listener<bl::engine::event::WindowResized> {
+    virtual void observe(const bl::engine::event::WindowResized&) override {
+        core::Properties::save();
+    }
+};
 
 int main(int argc, char** argv) {
     // TODO - make log roller
@@ -34,9 +41,8 @@ int main(int argc, char** argv) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
-
-    // TODO - remove this when int/float are separated
-    bl::entity::IdGenerator::generateSequentialIds(true);
+    WindowSizePersister sizePersist;
+    bl::event::Dispatcher::subscribe(&sizePersist);
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";
@@ -65,13 +71,19 @@ int main(int argc, char** argv) {
     BL_LOG_INFO << "Creating engine instance";
     const bl::engine::Settings engineSettings =
         bl::engine::Settings()
-            .withVideoMode(sf::VideoMode(
-                core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
-            .withWindowStyle(sf::Style::Close | sf::Style::Titlebar)
-            .withWindowTitle("Peoplemon")
-            .withWindowIcon(core::Properties::WindowIconFile())
+            .withWindowParameters(
+                bl::engine::Settings::WindowParameters()
+                    .withVideoMode(sf::VideoMode(
+                        core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
+                    .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                    .withTitle("Peoplemon")
+                    .withIcon(core::Properties::WindowIconFile())
+                    .withLetterBoxOnResize(true)
+                    .withInitialViewSize(core::Properties::WindowSize())
+                    .fromConfig())
             .fromConfig();
     bl::engine::Engine engine(engineSettings);
+    core::input::configureInputSystem(engine.inputSystem());
     BL_LOG_INFO << "Created engine";
 
     BL_LOG_INFO << "Initializing game systems";
@@ -85,12 +97,12 @@ int main(int argc, char** argv) {
 
     bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
 #ifdef PEOPLEMON_DEBUG
-    core::debug::DebugOverrides::subscribe(engine.eventBus());
+    core::debug::DebugOverrides::subscribe();
 
     if (argc == 2) {
         const std::string path = argv[1];
         BL_LOG_INFO << "Loading save: " << path;
-        if (!core::file::GameSave::loadFromFile(path, engine.eventBus())) {
+        if (!core::file::GameSave::loadFromFile(path)) {
             BL_LOG_CRITICAL << "Failed to load save";
             return 1;
         }

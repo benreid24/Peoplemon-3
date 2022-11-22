@@ -18,9 +18,6 @@ const sf::Vector2f BarSize(96.f, 6.f);
 const sf::Vector2f XpBarPos(52.f, 88.f);
 const sf::Vector2f XpBarSize(192.f, 4.f);
 
-constexpr float GreenThresh  = 0.55f;
-constexpr float YellowThresh = 0.25f;
-
 const sf::Vector2f OpBoxPos(0.f, 0.f);
 const sf::Vector2f OpBarPos(100.f, 50.f);
 

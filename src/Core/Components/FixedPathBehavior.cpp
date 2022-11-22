@@ -16,9 +16,11 @@ void FixedPathBehavior::update(Position& position, Controllable& controller) {
     const Direction moveDir = backwards ? oppositeDirection(path.paces[currentPace].direction) :
                                           path.paces[currentPace].direction;
 
-    if (position.direction != moveDir) { controller.processControl(moveCommand(moveDir)); }
+    if (position.direction != moveDir) {
+        controller.processControl(moveControlFromDirection(moveDir));
+    }
     else {
-        if (controller.processControl(moveCommand(moveDir))) {
+        if (controller.processControl(moveControlFromDirection(moveDir))) {
             if (backwards) {
                 if (currentStep == 0) {
                     if (currentPace == 0) { backwards = false; }

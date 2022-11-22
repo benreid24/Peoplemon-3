@@ -14,7 +14,7 @@
 #include <Core/Maps/Town.hpp>
 #include <Core/Maps/Weather.hpp>
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Media/Audio.hpp>
 #include <BLIB/Resources.hpp>
@@ -133,6 +133,13 @@ public:
     void exit(system::Systems& systems, const std::string& newMap);
 
     /**
+     * @brief Configures the game camera for the player in the map
+     *
+     * @param systems The main game systems
+     */
+    void setupCamera(system::Systems& systems);
+
+    /**
      * @brief Returns the name of the map
      *
      */
@@ -171,10 +178,9 @@ public:
     /**
      * @brief Updates internal logic over the elapsed time
      *
-     * * @param systems The primary game systems
      * @param dt Elapsed time in seconds since last update
      */
-    void update(system::Systems& systems, float dt);
+    void update(float dt);
 
     /**
      * @brief Renders the map to the given target using its built-in View
@@ -237,7 +243,7 @@ public:
      * @param interactor The entity doing the interact
      * @param interactPos The position being interacted with
      */
-    bool interact(bl::entity::Entity interactor, const component::Position& interactPos);
+    bool interact(bl::ecs::Entity interactor, const component::Position& interactPos);
 
     /**
      * @brief Returns the catch region at the given position if the position is on a catch tile
@@ -319,7 +325,7 @@ protected:
     static void loadFlymapTowns();
 
     friend class loaders::LegacyMapLoader;
-    friend class bl::serial::SerializableObject<Map>;
+    friend struct bl::serial::SerializableObject<Map>;
 };
 
 } // namespace map

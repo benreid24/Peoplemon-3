@@ -16,7 +16,7 @@ namespace map
 {
 namespace weather
 {
-class Base;
+struct Base;
 }
 
 /**
@@ -121,10 +121,9 @@ public:
     /**
      * @brief Updates the current weather
      *
-     * @param systems The primary game systems
      * @param dt Time elapsed since last call to update() in seconds
      */
-    void update(system::Systems& systems, float dt);
+    void update(float dt);
 
     /**
      * @brief Renders the current weather
@@ -143,7 +142,7 @@ private:
     float stateTime;
     mutable sf::FloatRect area;
 
-    void makeWeather(system::Systems& systems);
+    void makeWeather();
 };
 
 } // namespace map

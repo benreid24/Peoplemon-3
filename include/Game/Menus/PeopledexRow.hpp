@@ -46,8 +46,6 @@ protected:
                         const sf::Vector2f& position) const override;
 
 private:
-    const core::pplmn::Id ppl;
-
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     bl::resource::Resource<sf::Texture>::Ref activeBgndTxtr;
     sf::Sprite background;

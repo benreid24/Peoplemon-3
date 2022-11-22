@@ -8,9 +8,8 @@ namespace core
 {
 namespace battle
 {
-Battler::Battler(BattleState& state)
-: state(state)
-, currentPeoplemon(0) {}
+Battler::Battler()
+: currentPeoplemon(0) {}
 
 void Battler::init(std::vector<core::pplmn::BattlePeoplemon>&& t,
                    std::unique_ptr<BattlerController>&& c) {

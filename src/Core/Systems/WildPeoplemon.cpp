@@ -16,7 +16,7 @@ namespace system
 WildPeoplemon::WildPeoplemon(Systems& o)
 : owner(o) {}
 
-void WildPeoplemon::init() { owner.engine().eventBus().subscribe(this); }
+void WildPeoplemon::init() { bl::event::Dispatcher::subscribe(this); }
 
 void WildPeoplemon::observe(const event::EntityMoveFinished& m) {
     if (m.entity == owner.player().player() && owner.player().state().repelSteps == 0) {
@@ -29,8 +29,7 @@ void WildPeoplemon::observe(const event::EntityMoveFinished& m) {
             std::unique_ptr<battle::Battle> battle = battle::Battle::create(
                 owner.world().activeMap().getLocationName(owner.player().position()),
                 owner.player(),
-                battle::Battle::Type::WildPeoplemon,
-                owner.engine().eventBus());
+                battle::Battle::Type::WildPeoplemon);
             std::vector<pplmn::BattlePeoplemon> team;
             team.emplace_back(&currentWild);
 
@@ -39,7 +38,7 @@ void WildPeoplemon::observe(const event::EntityMoveFinished& m) {
                                            currentWild.name(), std::vector<item::Id>{}));
             battle->setController(std::make_unique<battle::LocalBattleController>());
 
-            owner.engine().eventBus().dispatch<event::BattleStarted>({std::move(battle)});
+            bl::event::Dispatcher::dispatch<event::BattleStarted>({std::move(battle)});
         }
     }
 }

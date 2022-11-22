@@ -4,7 +4,7 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Game/Menus/PeoplemonButton.hpp>
 #include <Game/States/State.hpp>
 
@@ -18,7 +18,9 @@ namespace state
  * @ingroup States
  *
  */
-class PeoplemonMenu : public State {
+class PeoplemonMenu
+: public State
+, public bl::input::Listener {
 public:
     using Context = core::event::OpenPeoplemonMenu::Context;
 
@@ -86,7 +88,6 @@ private:
     const int outNow;
     int* chosenPeoplemon;
     const core::item::Id useItem;
-    sf::View oldView;
 
     MenuState state;
     unsigned int mover1;
@@ -99,7 +100,7 @@ private:
     sf::Sprite background;
 
     bl::menu::Menu menu;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     menu::PeoplemonButton::Ptr buttons[6];
     bl::menu::ImageItem::Ptr backBut;
 
@@ -125,6 +126,9 @@ private:
     void messageDone();
     void confirmMoveDelete(const std::string& choice);
     void delMove(const std::string& choice);
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

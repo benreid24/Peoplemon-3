@@ -17,9 +17,6 @@ namespace component
  */
 class WanderBehavior {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 10;
-
     /**
      * @brief Construct a new Wander Behavior component
      *

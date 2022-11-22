@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_INTERACTION_HPP
 #define CORE_SYSTEMS_INTERACTION_HPP
 
-#include <BLIB/Entities.hpp>
+#include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
 #include <Core/AI/Conversation.hpp>
 #include <Core/Components/Trainer.hpp>
@@ -45,7 +45,7 @@ public:
      * @param interactor The entity doing the interaction
      * @return True if an interaction occurred, false if nothing happened
      */
-    bool interact(bl::entity::Entity interactor);
+    bool interact(bl::ecs::Entity interactor);
 
     /**
      * @brief Returns whether or not the given npc has been talked to
@@ -80,14 +80,14 @@ public:
 
 private:
     Systems& owner;
-    bl::entity::Entity interactingEntity;
+    bl::ecs::Entity interactingEntity;
     ai::Conversation currentConversation;
     std::unordered_map<std::string, std::unordered_set<std::string>> talkedTo;
     std::unordered_set<std::string> flags;
     component::Trainer* interactingTrainer;
 
     void processConversationNode();
-    void faceEntity(bl::entity::Entity toRotate, bl::entity::Entity toFace);
+    void faceEntity(bl::ecs::Entity toRotate, bl::ecs::Entity toFace);
 
     void continuePressed();
     void failMessageFinished();

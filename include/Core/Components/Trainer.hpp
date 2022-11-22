@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_TRAINER_HPP
 #define CORE_COMPONENTS_TRAINER_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Core/Files/Trainer.hpp>
 
@@ -17,9 +16,6 @@ namespace component
  */
 class Trainer {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 13;
-
     /**
      * @brief Construct a new Trainer component
      *

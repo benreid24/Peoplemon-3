@@ -61,7 +61,7 @@ void Weather::set(Type t, bool im) {
 
 Weather::Type Weather::getType() const { return type; }
 
-void Weather::update(system::Systems& systems, float dt) {
+void Weather::update(float dt) {
     if (weather) weather->update(dt);
 
     switch (state) {
@@ -81,7 +81,7 @@ void Weather::update(system::Systems& systems, float dt) {
             BL_LOG_INFO << "Starting new weather";
             stateTime = bl::util::Random::get<float>(300.f, 600.f);
             state     = WaitingWeather;
-            makeWeather(systems);
+            makeWeather();
         }
         break;
 
@@ -89,7 +89,7 @@ void Weather::update(system::Systems& systems, float dt) {
         if (!weather || weather->stopped()) {
             if (weather) {
                 BL_LOG_INFO << "Weather stopped";
-                systems.engine().eventBus().dispatch<event::WeatherStopped>({weather->type()});
+                bl::event::Dispatcher::dispatch<event::WeatherStopped>({weather->type()});
                 weather.release();
             }
 
@@ -106,7 +106,7 @@ void Weather::update(system::Systems& systems, float dt) {
                 break;
             default:
                 state = Continuous;
-                makeWeather(systems);
+                makeWeather();
                 break;
             }
         }
@@ -123,7 +123,7 @@ void Weather::render(sf::RenderTarget& target, float lag) const {
     if (weather) weather->render(target, lag);
 }
 
-void Weather::makeWeather(system::Systems& systems) {
+void Weather::makeWeather() {
     const auto makeRain = [this](bool hard, bool thunder) {
         BL_LOG_INFO << "Created rain";
         this->weather.reset(new weather::Rain(hard, thunder));
@@ -217,7 +217,7 @@ void Weather::makeWeather(system::Systems& systems) {
 
     if (weather) {
         weather->start(area);
-        systems.engine().eventBus().dispatch<event::WeatherStarted>({weather->type()});
+        bl::event::Dispatcher::dispatch<event::WeatherStarted>({weather->type()});
     }
 }
 

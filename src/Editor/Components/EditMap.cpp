@@ -63,7 +63,7 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , moveCb(mcb)
 , actionCb(actionCb)
 , syncCb(syncCb)
-, camera(EditCamera::Ptr(new EditCamera()))
+, camera()
 , controlsEnabled(false)
 , renderGrid(false)
 , grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
@@ -145,16 +145,13 @@ bool EditMap::editorActivate() {
     historyHead = 0;
     saveHead    = 0;
 
-    systems->engine().entities().clear();
+    systems->engine().ecs().destroyAllEntities();
 
     size = {static_cast<int>(levels.front().bottomLayers().front().width()),
             static_cast<int>(levels.front().bottomLayers().front().height())};
-    systems->engine().eventBus().dispatch<core::event::MapSwitch>({*this});
+    bl::event::Dispatcher::dispatch<core::event::MapSwitch>({*this});
 
-    camera->reset(size);
-    systems->cameras().clearAndReplace(camera);
-    systems->cameras().update(0.f);
-    weather.activate(systems->cameras().getArea());
+    camera.reset(size);
 
     tileset = core::Resources::tilesets().load(tilesetField).data;
     if (!tileset) return false;
@@ -169,18 +166,18 @@ bool EditMap::editorActivate() {
 
     if (!activated) {
         activated = true;
-        lighting.subscribe(systems->engine().eventBus());
+        lighting.subscribe();
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField) {
-        if (systems->entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
+        if (systems->entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
     for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item); }
 
-    systems->engine().eventBus().dispatch<core::event::MapEntered>({*this});
+    bl::event::Dispatcher::dispatch<core::event::MapEntered>({*this});
 
     levelFilter.clear();
     levelFilter.resize(levels.size(), true);
@@ -215,11 +212,14 @@ bool EditMap::editorActivate() {
 
 bool EditMap::unsavedChanges() const { return saveHead != historyHead; }
 
-void EditMap::update(float dt) { Map::update(*systems, dt); }
+void EditMap::update(float dt) {
+    Map::update(dt);
+    camera.update(dt, sizePixels());
+}
 
 void EditMap::setControlsEnabled(bool e) {
     controlsEnabled = e;
-    camera->enabled = e;
+    camera.enabled  = e;
 }
 
 void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] = v; }
@@ -266,13 +266,13 @@ void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
 }
 
 EditMap::EditCamera::EditCamera()
-: enabled(false) {}
+: enabled(false)
+, position(core::Properties::WindowSize() * 0.5f) {}
 
-bool EditMap::EditCamera::valid() const { return true; }
-
-void EditMap::EditCamera::update(core::system::Systems&, float dt) {
+void EditMap::EditCamera::update(float dt, const sf::Vector2f& sp) {
     if (enabled) {
-        float PixelsPerSecond = 0.5f * size * static_cast<float>(core::Properties::WindowWidth());
+        float PixelsPerSecond =
+            0.5f * zoomAmount * static_cast<float>(core::Properties::WindowWidth());
         static const float ZoomPerSecond = 1.f;
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) PixelsPerSecond *= 5.f;
@@ -295,17 +295,38 @@ void EditMap::EditCamera::update(core::system::Systems&, float dt) {
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) { zoom(-ZoomPerSecond * dt); }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom(ZoomPerSecond * dt); }
+
+        const float w = getArea().width;
+        const float h = getArea().height;
+
+        // constrain
+        if (position.x - w * 0.5f < 0.f) { position.x = w * 0.5f; }
+        if (position.x + w * 0.5f > sp.x) { position.x = sp.x - w * 0.5f; }
+        if (position.y - h * 0.5f < 0.f) { position.y = h * 0.5f; }
+        if (position.y + h * 0.5f > sp.y) { position.y = sp.y - h * 0.5f; }
     }
 }
 
 void EditMap::EditCamera::reset(const sf::Vector2i& t) {
-    position = sf::Vector2f(t) * static_cast<float>(core::Properties::PixelsPerTile()) * 0.5f;
-    size     = 1.f;
+    position   = sf::Vector2f(t) * static_cast<float>(core::Properties::PixelsPerTile()) * 0.5f;
+    zoomAmount = 1.5f;
 }
 
 void EditMap::EditCamera::zoom(float z) {
-    size += z;
-    if (size < 0.1f) size = 0.1f;
+    zoomAmount += z;
+    if (zoomAmount < 0.1f) zoomAmount = 0.1f;
+}
+
+void EditMap::EditCamera::apply(sf::RenderTarget& target) const {
+    sf::View view = target.getView();
+    view.setCenter(position);
+    view.setSize(view.getSize() * zoomAmount);
+    target.setView(view);
+}
+
+sf::FloatRect EditMap::EditCamera::getArea() const {
+    return sf::FloatRect(position - core::Properties::WindowSize() * 0.5f,
+                         core::Properties::WindowSize());
 }
 
 sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
@@ -316,13 +337,14 @@ void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
     renderView =
         bl::interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView());
     target.setView(renderView);
+    camera.apply(target);
     systems->render().render(target, *this, 0.f);
     target.setView(oldView);
 }
 
 bool EditMap::handleScroll(const bl::gui::Event& event) {
     const bool c = getAcquisition().contains(event.mousePosition());
-    if (controlsEnabled && c) camera->zoom(-event.scrollDelta() * 0.1f);
+    if (controlsEnabled && c) camera.zoom(-event.scrollDelta() * 0.1f);
     return c;
 }
 
@@ -494,8 +516,8 @@ const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
 
 void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
                            const core::map::CharacterSpawn& val) {
-    const bl::entity::Entity e = systems->position().getEntity(orig->position);
-    if (e != bl::entity::InvalidEntity) {
+    const bl::ecs::Entity e = systems->position().getEntity(orig->position);
+    if (e != bl::ecs::InvalidEntity) {
         addAction(EditNpcSpawnAction::create(orig - characterField.data(), *orig, val));
     }
     else {
@@ -509,8 +531,8 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
     for (; i < characterField.size(); ++i) {
         if (&characterField[i] == s) { break; }
     }
-    const bl::entity::Entity e = systems->position().getEntity(s->position);
-    if (e != bl::entity::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
+    const bl::ecs::Entity e = systems->position().getEntity(s->position);
+    if (e != bl::ecs::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
     else {
         const auto& pos = s->position.positionTiles();
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";

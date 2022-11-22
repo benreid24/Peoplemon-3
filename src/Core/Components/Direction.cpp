@@ -55,5 +55,20 @@ std::string directionToString(Direction dir) {
     }
 }
 
+input::EntityControl moveControlFromDirection(Direction dir) {
+    switch (dir) {
+    case Direction::Up:
+        return input::Control::MoveUp;
+    case Direction::Right:
+        return input::Control::MoveRight;
+    case Direction::Down:
+        return input::Control::MoveDown;
+    case Direction::Left:
+        return input::Control::MoveLeft;
+    default:
+        return input::Control::None;
+    }
+}
+
 } // namespace component
 } // namespace core

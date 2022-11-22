@@ -9,7 +9,6 @@
 #include <Core/Battles/View/PeoplemonAnimation.hpp>
 #include <Core/Battles/View/PlayerMenu.hpp>
 #include <Core/Battles/View/StatBoxes.hpp>
-#include <Core/Player/Input/Listener.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <queue>
@@ -27,16 +26,15 @@ class BattleState;
  * @ingroup Battles
  *
  */
-class BattleView : public player::input::Listener {
+class BattleView : public bl::input::Listener {
 public:
     /**
      * @brief Construct a new Battle View
      *
      * @param state The current state of the battle
      * @param canRun Whether or not the player menu should allow running
-     * @param eventBus The event bus to use
      */
-    BattleView(BattleState& state, bool canRun, bl::event::Dispatcher& eventBus);
+    BattleView(BattleState& state, bool canRun);
 
     /**
      * @brief Sets up the subviews from the view used during battle
@@ -65,7 +63,7 @@ public:
 
     /**
      * @brief Returns the nickname the player entered
-     * 
+     *
      */
     const std::string& chosenNickname() const;
 
@@ -119,7 +117,8 @@ private:
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 
-    virtual void process(component::Command control) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace battle

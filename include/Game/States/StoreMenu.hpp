@@ -4,7 +4,7 @@
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Media/Shapes/Triangle.hpp>
 #include <Core/Events/Store.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Game/Menus/StoreItemRow.hpp>
 #include <Game/States/State.hpp>
@@ -23,7 +23,7 @@ namespace state
  */
 class StoreMenu
 : public State
-, private core::player::input::Listener {
+, public bl::input::Listener {
 public:
     /**
      * @brief Create a new StoreMenu
@@ -100,13 +100,12 @@ private:
     std::vector<Item> items;
     std::unordered_map<core::item::Id, int> sellPrices;
     bl::audio::AudioSystem::Handle dingSound;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
     unsigned int buyingItemIndex;
     menu::StoreItemRow* sellingItem;
     float dingTime;
     unsigned int curCat;
 
-    sf::View oldView;
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
 
@@ -138,7 +137,8 @@ private:
 
     void close();
 
-    virtual void process(core::component::Command control) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 
     bl::menu::Item::Ptr makeItemRow(core::item::Id item, int price, unsigned int i);
     bl::menu::Item::Ptr makeSellItemRow(core::item::Id item, int qty);

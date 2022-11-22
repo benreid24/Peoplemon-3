@@ -11,7 +11,7 @@ namespace state
 namespace
 {
 const sf::Vector2f MenuPos(420.f, 45.f);
-constexpr float MenuWidth    = 350.f;
+constexpr float MenuWidth    = -1.f;
 constexpr float MenuHeight   = 460.f;
 constexpr float ArrowPadding = 2.f;
 
@@ -69,7 +69,7 @@ Peopledex::Peopledex(core::system::Systems& s)
     locationLabel.setFont(core::Properties::MenuFont());
     locationLabel.setCharacterSize(22);
     locationLabel.setFillColor(sf::Color(0, 65, 20));
-    locationLabel.setPosition(130.f, 445.f);
+    locationLabel.setPosition(130.f, 442.f);
 
     const auto& all = core::pplmn::Peoplemon::validIds();
     firstId         = all[1];
@@ -105,25 +105,24 @@ Peopledex::Peopledex(core::system::Systems& s)
 const char* Peopledex::name() const { return "Peopledex"; }
 
 void Peopledex::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(menuDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
 
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    const sf::Vector2i sizei(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    const sf::Vector2f size(sizei);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void Peopledex::deactivate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().removeListener(menuDriver);
-    engine.window().setView(oldView);
+    systems.engine().inputSystem().getActor().removeListener(*this);
+    engine.renderSystem().cameras().popCamera();
 }
 
-void Peopledex::update(bl::engine::Engine& engine, float) {
-    systems.player().inputSystem().update();
-    if (menuDriver.mostRecentInput() == core::component::Command::Back) { engine.popState(); }
+void Peopledex::update(bl::engine::Engine&, float) {}
+
+bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                        bool fromEvent) {
+    if (ctrl == core::input::Control::Back && fromEvent) { systems.engine().popState(); }
+    else { menuDriver.sendControl(ctrl, fromEvent); }
+    return true;
 }
 
 void Peopledex::render(bl::engine::Engine& engine, float) {
@@ -170,18 +169,16 @@ void Peopledex::onHighlight(core::pplmn::Id ppl) {
     bl::interface::wordWrap(descLabel, InfoWidth - 20.f);
     locationLabel.setString(systems.player().state().peopledex.getFirstSeenLocation(ppl));
     seenLabel.setString(std::to_string(systems.player().state().peopledex.getSeen(ppl)));
-    seenLabel.setOrigin(0.f, seenLabel.getGlobalBounds().height * 0.5f);
+    seenLabel.setOrigin(
+        0.f, seenLabel.getGlobalBounds().height * 0.5f + seenLabel.getLocalBounds().top * 0.5f);
     ownedLabel.setString(std::to_string(systems.player().state().peopledex.getCaught(ppl)));
-    ownedLabel.setOrigin(0.f, ownedLabel.getGlobalBounds().height * 0.5f);
+    ownedLabel.setOrigin(
+        0.f, ownedLabel.getGlobalBounds().height * 0.5f + ownedLabel.getLocalBounds().top * 0.5f);
 
     if (ppl == firstId) { upArrow.setColor(HiddenColor); }
-    else {
-        upArrow.setColor(ShowingColor);
-    }
+    else { upArrow.setColor(ShowingColor); }
     if (ppl == lastId) { downArrow.setColor(HiddenColor); }
-    else {
-        downArrow.setColor(ShowingColor);
-    }
+    else { downArrow.setColor(ShowingColor); }
 }
 
 void Peopledex::onSelect(core::pplmn::Id) {

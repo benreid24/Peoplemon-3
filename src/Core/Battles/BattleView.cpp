@@ -8,9 +8,9 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView(BattleState& s, bool canRun, bl::event::Dispatcher& eb)
+BattleView::BattleView(BattleState& s, bool canRun)
 : battleState(s)
-, playerMenu(canRun, eb)
+, playerMenu(canRun)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent)
 , inited(false) {
@@ -139,15 +139,17 @@ void BattleView::render(sf::RenderTarget& target, float lag) const {
     printer.render(target);
 }
 
-void BattleView::process(component::Command cmd) {
+bool BattleView::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                         bool eventTriggered) {
     if ((battleState.currentStage() == BattleState::Stage::WaitingForgetMoveChoice ||
          battleState.currentStage() == BattleState::Stage::WaitingChoices) &&
         !playerMenu.ready()) {
-        playerMenu.handleInput(cmd);
+        playerMenu.handleInput(ctrl, eventTriggered);
     }
     else {
-        printer.process(cmd);
+        printer.process(ctrl, eventTriggered);
     }
+    return true;
 }
 
 } // namespace battle

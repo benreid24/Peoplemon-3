@@ -3,7 +3,7 @@
 
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Components/Command.hpp>
+#include <Core/Input/Control.hpp>
 #include <Core/Peoplemon/Id.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -36,9 +36,10 @@ public:
      * @brief Processes user input to move the cursor
      *
      * @param cmd The user input
+     * @param skipAnim True to skip the rest of an in-progress animation and move right away
      * @return True if the cursor moved, false otherwise
      */
-    bool process(core::component::Command cmd);
+    bool process(core::input::EntityControl cmd, bool skipAnim);
 
     /**
      * @brief Sets a Peoplemon to render with the cursor. Pass Unknown to clear
@@ -98,7 +99,7 @@ private:
     bl::gfx::Flashing flasher;
     bl::resource::Resource<sf::Texture>::Ref pplTxtr;
     sf::Sprite peoplemon;
-    core::component::Command moveDir;
+    core::input::EntityControl moveDir;
     float offset;
     float moveVel;
 

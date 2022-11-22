@@ -1,6 +1,7 @@
 #ifndef CORE_ENTITIES_DIRECTION_HPP
 #define CORE_ENTITIES_DIRECTION_HPP
 
+#include <Core/Input/Control.hpp>
 #include <cstdint>
 #include <string>
 
@@ -73,6 +74,14 @@ Direction directionFromString(const std::string& dir);
  * @ingroup Components
  */
 std::string directionToString(Direction dir);
+
+/**
+ * @brief Converts the given direction to the corresponding move control
+ *
+ * @param dir The direction to move in
+ * @return input::EntityControl The control to issue to move in that direction
+ */
+input::EntityControl moveControlFromDirection(Direction dir);
 
 } // namespace component
 } // namespace core

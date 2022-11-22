@@ -55,10 +55,8 @@ bool Flight::startFlight(unsigned int spawn) {
     }
     destination = *spos;
 
-    playerPos =
-        owner.engine().entities().getComponent<component::Position>(owner.player().player());
-    playerAnim =
-        owner.engine().entities().getComponent<component::Renderable>(owner.player().player());
+    playerPos  = owner.engine().ecs().getComponent<component::Position>(owner.player().player());
+    playerAnim = owner.engine().ecs().getComponent<component::Renderable>(owner.player().player());
     if (!playerPos) {
         BL_LOG_CRITICAL << "Player position could not be found";
         owner.engine().flags().set(bl::engine::Flags::Terminate);
@@ -86,7 +84,7 @@ bool Flight::startFlight(unsigned int spawn) {
 
     // setup camera
     camera = camera::ShakeFollow::create(owner, owner.player().player(), 10.f);
-    owner.cameras().pushCamera(camera);
+    owner.engine().renderSystem().cameras().pushCamera(camera);
 
     // start flight
     state            = State::Rising;
@@ -198,7 +196,8 @@ void Flight::update(float dt) {
             *playerPos                     = destination;
             playerPos->direction           = component::Direction::Down;
             state                          = State::Idle;
-            owner.engine().eventBus().dispatch<event::EntityMoved>(
+            owner.engine().renderSystem().cameras().popCamera();
+            bl::event::Dispatcher::dispatch<event::EntityMoved>(
                 {owner.player().player(), prev, *playerPos});
             owner.player().makePlayerControlled(owner.player().player());
         }
@@ -224,7 +223,7 @@ void Flight::syncTiles() {
         const auto old = *playerPos;
         playerPos->setTiles(tiles);
         playerPos->setPixels(pixels);
-        owner.engine().eventBus().dispatch<event::EntityMoved>(
+        bl::event::Dispatcher::dispatch<event::EntityMoved>(
             {owner.player().player(), old, *playerPos});
     }
 }

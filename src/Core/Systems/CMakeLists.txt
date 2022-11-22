@@ -1,6 +1,5 @@
 target_sources(Core PRIVATE
     AI.cpp
-    Cameras.cpp
     Clock.cpp
     Controllable.cpp
     Entity.cpp
@@ -18,5 +17,4 @@ target_sources(Core PRIVATE
     World.cpp
 )
 
-add_subdirectory(Cameras)
 add_subdirectory(HUD)

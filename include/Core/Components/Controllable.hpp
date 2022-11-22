@@ -1,9 +1,8 @@
 #ifndef CORE_COMPONENTS_CONTROLLABLE_HPP
 #define CORE_COMPONENTS_CONTROLLABLE_HPP
 
-#include <BLIB/Entities.hpp>
-#include <Core/Components/Command.hpp>
 #include <Core/Components/Movable.hpp>
+#include <Core/Input/Control.hpp>
 
 namespace core
 {
@@ -22,25 +21,24 @@ namespace component
  */
 class Controllable {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 5;
-
     /**
      * @brief Construct a new Controllable component
      *
      * @param systems The primary systems object
      * @param owner The entity that owns this component
      */
-    Controllable(system::Systems& systems, bl::entity::Entity owner);
+    Controllable(system::Systems& systems, bl::ecs::Entity owner);
 
     /**
      * @brief Processes the given command and manipulates the entity accordingly
      *
      * @param command The command to apply
+     * @param sprint True to sprint, false to walk. Only has effect if processing a move control
      * @param overrideLock True to process the control even if locked
      * @return True if the control had effect, false if no effect
      */
-    bool processControl(Command command, bool overrideLock = false);
+    bool processControl(input::EntityControl command, bool sprint = false,
+                        bool overrideLock = false);
 
     /**
      * @brief Locks the controllable and prevents any commands from being processed. Optionally
@@ -64,7 +62,7 @@ public:
     bool isLocked() const;
 
 private:
-    bl::entity::Entity owner;
+    bl::ecs::Entity owner;
     system::Systems& systems;
     bool locked;
     bool wasLocked;

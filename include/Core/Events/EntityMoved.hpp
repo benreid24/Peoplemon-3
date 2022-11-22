@@ -1,7 +1,7 @@
 #ifndef CORE_EVENTS_ENTITYMOVED_HPP
 #define CORE_EVENTS_ENTITYMOVED_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <Core/Components/Position.hpp>
 #include <SFML/System/Vector2.hpp>
 
@@ -17,7 +17,7 @@ namespace event
  */
 struct EntityMoved {
     /// The entity that moved
-    const bl::entity::Entity entity;
+    const bl::ecs::Entity entity;
 
     /// The previous position of the entity
     const component::Position previousPosition;
@@ -32,7 +32,7 @@ struct EntityMoved {
      * @param oldPos The old position
      * @param pos The current position
      */
-    EntityMoved(bl::entity::Entity entity, const component::Position& oldPos,
+    EntityMoved(bl::ecs::Entity entity, const component::Position& oldPos,
                 const component::Position& pos)
     : entity(entity)
     , previousPosition(oldPos)
@@ -47,7 +47,7 @@ struct EntityMoved {
  */
 struct EntityMoveFinished {
     /// The entity that moved
-    const bl::entity::Entity entity;
+    const bl::ecs::Entity entity;
 
     /// The current position of the entity
     const component::Position& position;
@@ -58,7 +58,7 @@ struct EntityMoveFinished {
      * @param entity The entity that completed moving
      * @param position The position the entity is at
      */
-    EntityMoveFinished(bl::entity::Entity entity, const component::Position& position)
+    EntityMoveFinished(bl::ecs::Entity entity, const component::Position& position)
     : entity(entity)
     , position(position) {}
 };
@@ -71,7 +71,7 @@ struct EntityMoveFinished {
  */
 struct EntityRotated {
     /// The entity that rotated
-    const bl::entity::Entity entity;
+    const bl::ecs::Entity entity;
 
     /// The direction the entity is now facing
     const component::Direction faceDir;
@@ -86,7 +86,7 @@ struct EntityRotated {
      * @param dir The direction it is now facing
      * @param og The original direction it was facing
      */
-    EntityRotated(bl::entity::Entity e, component::Direction dir, component::Direction og)
+    EntityRotated(bl::ecs::Entity e, component::Direction dir, component::Direction og)
     : entity(e)
     , faceDir(dir)
     , origDir(og) {}

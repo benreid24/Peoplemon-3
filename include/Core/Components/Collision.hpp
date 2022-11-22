@@ -1,8 +1,6 @@
 #ifndef CORE_COMPONENTS_COLLISION_HPP
 #define CORE_COMPONENTS_COLLISION_HPP
 
-#include <BLIB/Entities.hpp>
-
 namespace core
 {
 namespace component
@@ -14,7 +12,6 @@ namespace component
  *
  */
 struct Collision {
-    static constexpr bl::entity::Component::IdType ComponentId = 3;
 };
 
 } // namespace component

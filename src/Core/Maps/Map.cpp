@@ -1,13 +1,14 @@
 #include <Core/Maps/Map.hpp>
 
 #include <BLIB/Media/Audio.hpp>
+#include <BLIB/Render/Cameras/FollowCamera.hpp>
+#include <Core/Cameras/Util.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Scripts/MapChangeContext.hpp>
 #include <Core/Scripts/MapEventContext.hpp>
-#include <Core/Systems/Cameras/Follow.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
 
@@ -166,9 +167,7 @@ public:
                 item.id      = item.id - 500;
                 item.visible = false;
             }
-            else {
-                item.visible = true;
-            }
+            else { item.visible = true; }
             result.itemsField.push_back(item);
         }
 
@@ -263,7 +262,7 @@ std::vector<Town> Map::flymapTowns;
 Map::Map()
 : weatherField(Weather::None)
 , systems(nullptr)
-, eventRegions(100.f, 100.f, 100.f, 100.f)
+, eventRegions({}, 1.f, 1.f) // no allocations
 , activated(false) {
     cover.setFillColor(sf::Color::Black);
 }
@@ -274,8 +273,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
-            static_cast<int>(levels.front().bottomLayers().front().height())};
-    game.engine().eventBus().dispatch<event::MapSwitch>({*this});
+               static_cast<int>(levels.front().bottomLayers().front().height())};
+    bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
@@ -292,13 +291,12 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_ERROR << "Failed to spawn player";
         return false;
     }
-    game.cameras().clearAndReplace(system::camera::Follow::create(game, game.player().player()));
+    setupCamera(game);
     currentTown = getTown(spawnPos.positionTiles());
     enterTown(currentTown);
 
     // Activate camera and weather
-    game.cameras().update(0.f);
-    weather.activate(game.cameras().getArea());
+    weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
 
     // One time activation if not yet activated
     if (!activated) {
@@ -322,25 +320,25 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         onExitScript.reset(new bl::script::Script(unloadScriptField));
 
         // Build event zones data structure
-        eventRegions.setSize(static_cast<float>(size.x * Properties::PixelsPerTile()),
-                             static_cast<float>(size.y * Properties::PixelsPerTile()),
+        eventRegions.setSize({0.f,
+                              0.f,
+                              static_cast<float>(size.x * Properties::PixelsPerTile()),
+                              static_cast<float>(size.y * Properties::PixelsPerTile())},
                              static_cast<float>(Properties::WindowWidth()),
                              static_cast<float>(Properties::WindowHeight()));
         for (const Event& event : eventsField) {
-            eventRegions.add(static_cast<float>(event.position.x * Properties::PixelsPerTile()),
-                             static_cast<float>(event.position.y * Properties::PixelsPerTile()),
-                             &event);
+            eventRegions.add(sf::Vector2f(event.position * Properties::PixelsPerTile()), &event);
         }
 
         BL_LOG_INFO << nameField << " activated";
     }
 
     // Ensure lighting is updated for time
-    lighting.subscribe(game.engine().eventBus());
+    lighting.subscribe();
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
-        if (game.entity().spawnCharacter(spawn) == bl::entity::InvalidEntity) {
+        if (game.entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
@@ -348,12 +346,14 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // Spawn items
     for (const Item& item : itemsField) { game.entity().spawnItem(item); }
 
+    setupCamera(game); // TODO - position address isn't stable
+
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));
     onEnterScript->run(&game.engine().scriptManager());
 
     // subscribe to get entity position updates
-    game.engine().eventBus().subscribe(this);
+    bl::event::Dispatcher::subscribe(this);
 
     // start music
     playlistHandle = bl::audio::AudioSystem::getOrLoadPlaylist(
@@ -362,7 +362,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         bl::audio::AudioSystem::replacePlaylist(playlistHandle);
     }
 
-    game.engine().eventBus().dispatch<event::MapEntered>({*this});
+    bl::event::Dispatcher::dispatch<event::MapEntered>({*this});
     BL_LOG_INFO << "Entered map: " << nameField;
 
     return true;
@@ -370,10 +370,10 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
 void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField;
-    game.engine().eventBus().dispatch<event::MapExited>({*this});
+    bl::event::Dispatcher::dispatch<event::MapExited>({*this});
 
     // unsubscribe from entity events
-    game.engine().eventBus().unsubscribe(this);
+    bl::event::Dispatcher::unsubscribe(this);
 
     // shut down light system
     lighting.unsubscribe();
@@ -387,6 +387,15 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     // TODO - pause weather
 
     BL_LOG_INFO << "Exited map: " << nameField;
+}
+
+void Map::setupCamera(system::Systems& systems) {
+    systems.engine().renderSystem().cameras().setViewportConstraint(
+        {sf::Vector2f{0.f, 0.f}, sizePixels()});
+    systems.engine().renderSystem().cameras().clearAndReplace(
+        bl::render::camera::FollowCamera::create(
+            camera::getPositionPointer(systems, systems.player().player()),
+            Properties::WindowSize()));
 }
 
 const std::string& Map::name() const { return nameField; }
@@ -404,10 +413,10 @@ Weather& Map::weatherSystem() { return weather; }
 
 LightingSystem& Map::lightingSystem() { return lighting; }
 
-void Map::update(system::Systems& systems, float dt) {
+void Map::update(float dt) {
     tileset->update(dt);
     for (LayerSet& level : levels) { level.update(renderRange, dt); }
-    weather.update(systems, dt);
+    weather.update(dt);
     lighting.update(dt);
 }
 
@@ -624,10 +633,8 @@ void Map::observe(const event::EntityMoved& movedEvent) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto range = eventRegions.getCellAndNeighbors(movedEvent.position.positionPixels().x,
-                                                        movedEvent.position.positionPixels().y);
-    for (const auto& it : range) {
-        const Event& e = *it.get();
+    const auto visitor = [&movedEvent, &trigger](const Event* ep) {
+        const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
         const bool isIn  = area.contains(movedEvent.position.positionTiles());
@@ -652,7 +659,8 @@ void Map::observe(const event::EntityMoved& movedEvent) {
         default:
             break;
         }
-    }
+    };
+    eventRegions.forAllInCellAndNeighbors(movedEvent.position.positionPixels(), visitor);
 
     Town* newTown = getTown(movedEvent.position.positionTiles());
     if (newTown != currentTown) {
@@ -676,7 +684,7 @@ void Map::triggerAnimation(const component::Position& pos) {
     }
 }
 
-bool Map::interact(bl::entity::Entity interactor, const component::Position& pos) {
+bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
     const auto trigger = [this, interactor, &pos](const Event& event) {
         script::LegacyWarn::warn(event.script);
         BL_LOG_INFO << interactor << " triggered event at (" << pos.positionTiles().x << ", "
@@ -686,16 +694,16 @@ bool Map::interact(bl::entity::Entity interactor, const component::Position& pos
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto range =
-        eventRegions.getCellAndNeighbors(pos.positionPixels().x, pos.positionPixels().y);
-    for (const auto& it : range) {
-        const Event& e = *it.get();
+    const auto visitor = [&trigger, &pos](const Event* ep) -> bool {
+        const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {
             trigger(e);
-            return true;
+            return true; // ends iteration
         }
-    }
+        return false;
+    };
+    eventRegions.forAllInCellAndNeighbors(pos.positionPixels(), visitor);
 
     return false;
 }

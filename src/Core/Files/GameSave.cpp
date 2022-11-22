@@ -59,11 +59,11 @@ void GameSave::listSaves(std::vector<GameSave>& result) {
     std::sort(result.begin(), result.end());
 }
 
-bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
+bool GameSave::saveGame(const std::string& name) {
     GameSave save;
     save.saveName = name;
     save.saveTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    bus.dispatch<event::GameSaveInitializing>({save, true});
+    bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({save, true});
 
     const std::string file           = filename(name);
     bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(save);
@@ -73,10 +73,10 @@ bool GameSave::saveGame(const std::string& name, bl::event::Dispatcher& bus) {
     return true; // TODO - modify above to return boolean
 }
 
-bool GameSave::loadFromFile(const std::string& file, bl::event::Dispatcher& bus) {
+bool GameSave::loadFromFile(const std::string& file) {
     GameSave save;
     save.sourceFile = file;
-    return save.load(&bus);
+    return save.load();
 }
 
 void GameSave::editorSave() {
@@ -85,19 +85,16 @@ void GameSave::editorSave() {
     bl::serial::json::saveToFile(filename(*player.playerName), allData);
 }
 
-bool GameSave::load(bl::event::Dispatcher* bus) {
+bool GameSave::load() {
     const bl::serial::json::Group data = bl::serial::json::loadFromFile(sourceFile);
-    if (bus) { bus->dispatch<event::GameSaveInitializing>({*this, false}); }
+    bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({*this, false});
     if (!bl::serial::json::Serializer<GameSave>::deserialize(*this, {data})) return false;
 
-    if (bus) {
-        event::GameSaveLoaded finish{""};
-        bus->dispatch<event::GameSaveLoaded>(finish);
-        if (!finish.failMessage.empty()) {
-            BL_LOG_ERROR << "Failed to load save file'" << sourceFile
-                         << "': " << finish.failMessage;
-            return false;
-        }
+    event::GameSaveLoaded finish{""};
+    bl::event::Dispatcher::dispatch<event::GameSaveLoaded>(finish);
+    if (!finish.failMessage.empty()) {
+        BL_LOG_ERROR << "Failed to load save file'" << sourceFile << "': " << finish.failMessage;
+        return false;
     }
 
     return true;

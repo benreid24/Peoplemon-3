@@ -31,11 +31,11 @@ public:
     static const std::string& WindowIconFile();
     static int WindowWidth();
     static int WindowHeight();
+    static sf::Vector2f WindowSize();
     static bool InEditor();
 
     static const std::string& SaveDirectory();
     static const std::string& SaveExtension();
-    static const std::string& ControlsFile();
 
     static int PixelsPerTile();
     static int ExtraRenderTiles();
@@ -141,6 +141,12 @@ public:
      * @return True if loaded without error, false for failure
      */
     static bool load(bool inEditor);
+
+    /**
+     * @brief Saves the config to the data file
+     *
+     */
+    static void save();
 
 private:
     Properties() = default;

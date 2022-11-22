@@ -89,27 +89,29 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
 const char* FlyMap::name() const { return "FlyMap"; }
 
 void FlyMap::activate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().addListener(inputDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
 
-    const sf::Vector2f size(static_cast<float>(core::Properties::WindowWidth()),
-                            static_cast<float>(core::Properties::WindowHeight()));
-    oldView       = engine.window().getView();
-    sf::View view = oldView;
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 }
 
 void FlyMap::deactivate(bl::engine::Engine& engine) {
-    systems.player().inputSystem().removeListener(inputDriver);
-    engine.window().setView(oldView);
+    systems.engine().inputSystem().getActor().removeListener(*this);
+    engine.renderSystem().cameras().popCamera();
 }
 
-void FlyMap::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update(dt);
+void FlyMap::update(bl::engine::Engine&, float dt) {
     if (hudActive) { systems.hud().update(dt); }
     cursorFlasher.update(dt);
-    if (inputDriver.mostRecentInput() == core::component::Command::Back) { engine.popState(); }
+}
+
+bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
+                     bl::input::DispatchType, bool fromEvent) {
+    if (activatedControl == core::input::Control::Back) { systems.engine().popState(); }
+    else {
+        inputDriver.sendControl(activatedControl, fromEvent);
+    }
+    return true;
 }
 
 void FlyMap::render(bl::engine::Engine& engine, float lag) {

@@ -14,7 +14,7 @@ namespace core
 {
 namespace file
 {
-class ItemDBLoader;
+struct ItemDBLoader;
 
 /**
  * @brief Loads and stores metadata surrounding items in the game
@@ -41,7 +41,7 @@ struct ItemDB : private bl::util::NonCopyable {
     std::unordered_map<item::Id, std::string> descriptions;
     std::unordered_map<item::Id, std::int32_t> values;
 
-    friend class ItemDBLoader;
+    friend struct ItemDBLoader;
 };
 
 } // namespace file

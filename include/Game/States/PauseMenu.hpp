@@ -4,7 +4,7 @@
 #include <Game/States/State.hpp>
 
 #include <BLIB/Interfaces/Menu.hpp>
-#include <Core/Player/Input/MenuDriver.hpp>
+#include <Core/Input/MenuDriver.hpp>
 
 namespace game
 {
@@ -16,7 +16,9 @@ namespace state
  * @ingroup States
  *
  */
-class PauseMenu : public State {
+class PauseMenu
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Creates a new pause menu state
@@ -66,8 +68,8 @@ public:
 
 private:
     bl::menu::Menu menu;
-    core::player::input::MenuDriver inputDriver;
-    sf::View view;
+    core::input::MenuDriver inputDriver;
+    sf::RenderStates menuRenderStates;
     bool openedOnce;
     bool unpause;
 
@@ -81,6 +83,9 @@ private:
     bl::menu::Item::Ptr quit;
 
     PauseMenu(core::system::Systems& systems);
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

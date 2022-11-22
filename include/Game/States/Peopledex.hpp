@@ -2,7 +2,6 @@
 #define GAME_STATES_PEOPLEDEX_HPP
 
 #include <BLIB/Interfaces/Menu.hpp>
-#include <Core/Player/Input.hpp>
 #include <Core/Player/Peopledex.hpp>
 #include <Game/States/State.hpp>
 
@@ -16,7 +15,7 @@ namespace state
  * @ingroup States
  *
  */
-class Peopledex : public State {
+class Peopledex : public State, public bl::input::Listener {
 public:
     /**
      * @brief Create a new Peopledex state
@@ -69,9 +68,8 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    sf::View oldView;
     bl::menu::Menu menu;
-    core::player::input::MenuDriver menuDriver;
+    core::input::MenuDriver menuDriver;
 
     bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
     sf::Sprite background;
@@ -101,6 +99,9 @@ private:
     void onHighlight(core::pplmn::Id ppl);
     void onSelect(core::pplmn::Id ppl);
     bl::menu::Item::Ptr makeRow(core::pplmn::Id ppl);
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

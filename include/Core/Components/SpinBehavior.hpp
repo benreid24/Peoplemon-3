@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_SPINBEHAVIOR_HPP
 #define CORE_COMPONENTS_SPINBEHAVIOR_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Controllable.hpp>
 #include <Core/Files/Behavior.hpp>
 
@@ -17,9 +16,6 @@ namespace component
  */
 class SpinBehavior {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 8;
-
     /**
      * @brief Construct a new Spin Behavior component
      *

@@ -1,7 +1,7 @@
 #ifndef CORE_AI_CONVERSATION_HPP
 #define CORE_AI_CONVERSATION_HPP
 
-#include <BLIB/Entities/Entity.hpp>
+#include <BLIB/ECS/Entity.hpp>
 #include <Core/Files/Conversation.hpp>
 
 /**
@@ -43,7 +43,7 @@ public:
      * @param entity The entity being conversed with
      * @param talked Whether or not this entity has already been talked to
      */
-    void setConversation(const file::Conversation& conversation, bl::entity::Entity entity,
+    void setConversation(const file::Conversation& conversation, bl::ecs::Entity entity,
                          bool talked);
 
     /**
@@ -85,7 +85,7 @@ public:
 
 private:
     system::Systems& systems;
-    bl::entity::Entity entity;
+    bl::ecs::Entity entity;
     const std::vector<file::Conversation::Node>* nodes;
     unsigned int current;
     bool alreadyTalked;

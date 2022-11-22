@@ -1,6 +1,5 @@
 target_sources(Core PUBLIC
     AI.hpp
-    Cameras.hpp
     Clock.hpp
     Controllable.hpp
     Entity.hpp
@@ -18,5 +17,4 @@ target_sources(Core PUBLIC
     World.hpp
 )
 
-add_subdirectory(Cameras)
 add_subdirectory(HUD)

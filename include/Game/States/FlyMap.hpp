@@ -5,7 +5,6 @@
 #include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Maps/Town.hpp>
-#include <Core/Player/Input.hpp>
 #include <Game/States/State.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -13,7 +12,9 @@ namespace game
 {
 namespace state
 {
-class FlyMap : public State {
+class FlyMap
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Creates the fly map state
@@ -69,7 +70,6 @@ public:
 private:
     std::vector<sf::Vector2f> townPositions;
     bool hudActive;
-    sf::View oldView;
     bool& unpause;
 
     bl::resource::Resource<sf::Texture>::Ref mapTxtr;
@@ -88,7 +88,7 @@ private:
     sf::Text townDesc;
 
     bl::menu::Menu townMenu;
-    core::player::input::MenuDriver inputDriver;
+    core::input::MenuDriver inputDriver;
 
     FlyMap(core::system::Systems& systems, bool& unpause);
     void clearHover();
@@ -98,6 +98,9 @@ private:
     void messageDone();
     void close();
     void wrap();
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

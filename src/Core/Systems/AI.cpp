@@ -7,69 +7,67 @@ namespace core
 {
 namespace system
 {
+namespace
+{
+using StandingSet =
+    bl::ecs::ComponentSet<component::StandingBehavior, component::Position, component::Movable>;
+using SpinningSet =
+    bl::ecs::ComponentSet<component::SpinBehavior, component::Position, component::Movable>;
+using PathSet =
+    bl::ecs::ComponentSet<component::FixedPathBehavior, component::Position, component::Movable>;
+using WanderSet =
+    bl::ecs::ComponentSet<component::WanderBehavior, component::Position, component::Movable>;
+} // namespace
+
 AI::AI(Systems& o)
 : owner(o) {}
 
 void AI::init() {
     standing = owner.engine()
-                   .entities()
-                   .getEntitiesWithComponents<component::StandingBehavior,
-                                              component::Position,
-                                              component::Controllable>();
+                   .ecs()
+                   .getOrCreateView<component::StandingBehavior,
+                                    component::Position,
+                                    component::Controllable>();
     spinning = owner.engine()
-                   .entities()
-                   .getEntitiesWithComponents<component::SpinBehavior,
-                                              component::Position,
-                                              component::Controllable>();
+                   .ecs()
+                   .getOrCreateView<component::SpinBehavior,
+                                    component::Position,
+                                    component::Controllable>();
     paths = owner.engine()
-                .entities()
-                .getEntitiesWithComponents<component::FixedPathBehavior,
-                                           component::Position,
-                                           component::Controllable>();
+                .ecs()
+                .getOrCreateView<component::FixedPathBehavior,
+                                 component::Position,
+                                 component::Controllable>();
     wandering = owner.engine()
-                    .entities()
-                    .getEntitiesWithComponents<component::WanderBehavior,
-                                               component::Position,
-                                               component::Controllable>();
+                    .ecs()
+                    .getOrCreateView<component::WanderBehavior,
+                                     component::Position,
+                                     component::Controllable>();
 }
 
 void AI::update(float dt) {
-    const auto updateEntity = [this, dt](bl::entity::Entity entity) {
-        auto stand = standing->results().find(entity);
-        if (stand != standing->results().end()) {
-            stand->second.get<component::StandingBehavior>()->update(
-                *stand->second.get<component::Position>(),
-                *stand->second.get<component::Controllable>());
-        }
+    standing->forEach([](StandingRow& cs) {
+        cs.get<component::StandingBehavior>()->update(*cs.get<component::Position>(),
+                                                      *cs.get<component::Controllable>());
+    });
 
-        auto spin = spinning->results().find(entity);
-        if (spin != spinning->results().end()) {
-            spin->second.get<component::SpinBehavior>()->update(
-                *spin->second.get<component::Position>(),
-                *spin->second.get<component::Controllable>(),
-                dt);
-        }
+    spinning->forEach([dt](SpinRow& cs) {
+        cs.get<component::SpinBehavior>()->update(
+            *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
+    });
 
-        auto path = paths->results().find(entity);
-        if (path != paths->results().end()) {
-            path->second.get<component::FixedPathBehavior>()->update(
-                *path->second.get<component::Position>(),
-                *path->second.get<component::Controllable>());
-        }
+    paths->forEach([](FixedPathRow& cs) {
+        cs.get<component::FixedPathBehavior>()->update(*cs.get<component::Position>(),
+                                                       *cs.get<component::Controllable>());
+    });
 
-        auto wander = wandering->results().find(entity);
-        if (wander != wandering->results().end()) {
-            wander->second.get<component::WanderBehavior>()->update(
-                *wander->second.get<component::Position>(),
-                *wander->second.get<component::Controllable>(),
-                dt);
-        }
-    };
-
-    for (bl::entity::Entity e : owner.position().updateRangeEntities()) { updateEntity(e); }
+    wandering->forEach([dt](WanderRow& cs) {
+        cs.get<component::WanderBehavior>()->update(
+            *cs.get<component::Position>(), *cs.get<component::Controllable>(), dt);
+    });
 }
 
-bool AI::addBehavior(bl::entity::Entity e, const file::Behavior& behavior) {
+bool AI::addBehavior(bl::ecs::Entity e, const file::Behavior& behavior) {
     switch (behavior.type()) {
     case file::Behavior::StandStill:
         return makeStanding(e, behavior.standing().facedir);
@@ -84,8 +82,10 @@ bool AI::addBehavior(bl::entity::Entity e, const file::Behavior& behavior) {
     }
 }
 
-bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
-    if (!owner.engine().entities().addComponent<component::StandingBehavior>(e, {dir})) {
+bool AI::makeStanding(bl::ecs::Entity e, component::Direction dir) {
+    removeAi(e);
+
+    if (!owner.engine().ecs().addComponent<component::StandingBehavior>(e, {dir})) {
         BL_LOG_ERROR << "Failed to add standing behavior to entity: " << e;
         return false;
     }
@@ -93,31 +93,37 @@ bool AI::makeStanding(bl::entity::Entity e, component::Direction dir) {
     return true;
 }
 
-bool AI::makeSpinning(bl::entity::Entity e, file::Behavior::Spinning::Direction dir) {
-    if (!owner.engine().entities().addComponent<component::SpinBehavior>(e, {dir})) {
+bool AI::makeSpinning(bl::ecs::Entity e, file::Behavior::Spinning::Direction dir) {
+    removeAi(e);
+
+    if (!owner.engine().ecs().addComponent<component::SpinBehavior>(e, {dir})) {
         BL_LOG_ERROR << "Failed to add spinning behavior to entity: " << e;
         return false;
     }
     return true;
 }
 
-bool AI::makeFollowPath(bl::entity::Entity e, const file::Behavior::Path& path) {
-    if (!owner.engine().entities().addComponent<component::FixedPathBehavior>(e, {path})) {
+bool AI::makeFollowPath(bl::ecs::Entity e, const file::Behavior::Path& path) {
+    removeAi(e);
+
+    if (!owner.engine().ecs().addComponent<component::FixedPathBehavior>(e, {path})) {
         BL_LOG_ERROR << "Failed to add fixed path behavior to entity: " << e;
         return false;
     }
     return true;
 }
 
-bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {
-    const component::Position* pos = owner.engine().entities().getComponent<component::Position>(e);
+bool AI::makeWander(bl::ecs::Entity e, unsigned int radius) {
+    removeAi(e);
+
+    const component::Position* pos = owner.engine().ecs().getComponent<component::Position>(e);
     if (!pos) {
         BL_LOG_ERROR << "Cannot add wander behavior to entity (" << e
                      << ") without position component";
         return false;
     }
 
-    if (!owner.engine().entities().addComponent<component::WanderBehavior>(
+    if (!owner.engine().ecs().addComponent<component::WanderBehavior>(
             e, {radius, pos->positionTiles()})) {
         BL_LOG_ERROR << "Failed to add wander behavior to entity: " << e;
         return false;
@@ -125,11 +131,11 @@ bool AI::makeWander(bl::entity::Entity e, unsigned int radius) {
     return true;
 }
 
-void AI::removeAi(bl::entity::Entity ent) {
-    if (owner.engine().entities().removeComponent<component::StandingBehavior>(ent)) return;
-    if (owner.engine().entities().removeComponent<component::SpinBehavior>(ent)) return;
-    if (owner.engine().entities().removeComponent<component::FixedPathBehavior>(ent)) return;
-    owner.engine().entities().removeComponent<component::WanderBehavior>(ent);
+void AI::removeAi(bl::ecs::Entity ent) {
+    owner.engine().ecs().removeComponent<component::StandingBehavior>(ent);
+    owner.engine().ecs().removeComponent<component::SpinBehavior>(ent);
+    owner.engine().ecs().removeComponent<component::FixedPathBehavior>(ent);
+    owner.engine().ecs().removeComponent<component::WanderBehavior>(ent);
 }
 
 } // namespace system

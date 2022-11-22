@@ -1,9 +1,8 @@
 #ifndef CORE_MAPS_LIGHTINGSYSTEM_HPP
 #define CORE_MAPS_LIGHTINGSYSTEM_HPP
 
-#include <BLIB/Containers/DynamicObjectPool.hpp>
 #include <BLIB/Containers/Grid.hpp>
-#include <BLIB/Containers/QuadTree.hpp>
+#include <BLIB/Containers/ObjectPool.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 #include <Core/Events/TimeChange.hpp>
@@ -66,7 +65,7 @@ public:
      * @brief Returns a handle to the light closest to the given position
      *
      * @param position The position to search near
-     * @return Handle A handle to the closest light. May be None based on QuadTree partitions
+     * @return Handle A handle to the closest light
      */
     Handle getClosestLight(const sf::Vector2i& position);
 
@@ -151,7 +150,7 @@ public:
      * @brief Subscribes the lighting system to time events for ambient light level
      *
      */
-    void subscribe(bl::event::Dispatcher& eventBus);
+    void subscribe();
 
     /**
      * @brief Unsubscribes the lighting system from the event dispatcher
@@ -207,12 +206,20 @@ private:
     std::uint8_t maxLevel;
     std::uint8_t sunlight;
 
-    bl::event::ClassGuard<event::TimeChange, event::WeatherStarted, event::WeatherStopped>
-        eventGuard;
+    struct ActiveLight {
+        Light light;
+        Handle handle;
 
-    using Storage = bl::container::Grid<std::pair<Handle, Light>>;
-    std::unordered_map<Handle, Storage::Payload::Ptr> handles;
-    Storage lights;
+        ActiveLight(const Light& l, Handle h)
+        : light(l)
+        , handle(h) {}
+    };
+
+    using Storage = bl::container::ObjectPool<ActiveLight>;
+    Storage activeLights;
+    std::unordered_map<Handle, Storage::Iterator> handles;
+    bl::container::Grid<ActiveLight*> lightGrid;
+    Handle nextHandle;
 
     sf::RenderTexture renderSurface;
     sf::Sprite sprite;
@@ -223,8 +230,9 @@ private:
     float weatherResidual;
 
     std::uint8_t computeAmbient() const;
+    void rebuildCache();
 
-    friend class bl::serial::SerializableObject<LightingSystem>;
+    friend struct bl::serial::SerializableObject<LightingSystem>;
 };
 
 } // namespace map

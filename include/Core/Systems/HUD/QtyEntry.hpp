@@ -56,17 +56,19 @@ public:
      * @brief Increments the qty up
      *
      * @param q The amount to go up by
+     * @param ignoreDebounce True to always modify, false to rate limit
      *
      */
-    void up(int q = 1);
+    void up(int q, bool ignoreDebounce);
 
     /**
      * @brief Decrements the qty down
      *
      * @param q The amount to go down by
+     *  @param ignoreDebounce True to always modify, false to rate limit
      *
      */
-    void down(int q = 1);
+    void down(int q, bool ignoreDebounce);
 
     /**
      * @brief Renders the selector
@@ -88,7 +90,7 @@ private:
     int maxQty;
 
     void updateText();
-    bool rateLimit();
+    bool rateLimit(bool ignore);
 };
 } // namespace hud
 } // namespace system

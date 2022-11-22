@@ -1,7 +1,6 @@
 #ifndef CORE_COMPONENTS_STANDINGBEHAVIOR_HPP
 #define CORE_COMPONENTS_STANDINGBEHAVIOR_HPP
 
-#include <BLIB/Entities.hpp>
 #include <Core/Components/Controllable.hpp>
 
 namespace core
@@ -16,9 +15,6 @@ namespace component
  */
 class StandingBehavior {
 public:
-    /// Required for BLIB ECS
-    static constexpr bl::entity::Component::IdType ComponentId = 7;
-
     /**
      * @brief Construct a new Standing Behavior component
      *
@@ -28,7 +24,7 @@ public:
 
     /**
      * @brief Ensures the managed entity is facing the required position
-     * 
+     *
      * @param position The entities position component
      * @param controller The entities controllable component
      *

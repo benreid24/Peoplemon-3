@@ -14,8 +14,8 @@ namespace file
 {
 namespace loader
 {
-class LegacyConversationLoader;
-class ConversationLoader;
+struct LegacyConversationLoader;
+struct ConversationLoader;
 } // namespace loader
 
 /**
@@ -246,8 +246,8 @@ public:
         TData data;
         std::uint32_t jumps[2];
 
-        friend class bl::serial::SerializableObject<Node>;
-        friend class bl::serial::SerializableObject<core::file::Conversation::Node::Item>;
+        friend struct bl::serial::SerializableObject<Node>;
+        friend struct bl::serial::SerializableObject<core::file::Conversation::Node::Item>;
     };
 
     /**
@@ -320,9 +320,9 @@ public:
 private:
     std::vector<Node> cnodes;
 
-    friend class loader::LegacyConversationLoader;
-    friend class loader::ConversationLoader;
-    friend class bl::serial::SerializableObject<Conversation>;
+    friend struct loader::LegacyConversationLoader;
+    friend struct loader::ConversationLoader;
+    friend struct bl::serial::SerializableObject<Conversation>;
 };
 
 } // namespace file

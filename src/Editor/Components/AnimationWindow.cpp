@@ -44,7 +44,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     window->pack(row);
 
     Button::Ptr editBut = Button::create("Open Editor");
-    editBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
+    editBut->getSignal(Event::LeftClicked).willAlwaysCall([](const Event&, Element*) {
         openAnimationEditor();
     });
     window->pack(editBut, false, false);

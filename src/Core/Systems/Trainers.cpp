@@ -14,19 +14,20 @@ namespace
 {
 constexpr float HoldTime   = 0.75f;
 constexpr float RevealRate = 60.f;
-constexpr float HideRate   = RevealRate * 2.f;
+
+std::string trainerKey(const component::Trainer& t) { return t.file() + ":" + t.name(); }
 } // namespace
 
 Trainers::Trainers(Systems& o)
 : owner(o)
 , state(State::Searching)
-, walkingTrainer(bl::entity::InvalidEntity) {
+, walkingTrainer(bl::ecs::InvalidEntity) {
     txtr = bl::engine::Resources::textures().load(Properties::TrainerExclaimImage()).data;
     exclaim.setTexture(*txtr, true);
     exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
 }
 
-void Trainers::init() { owner.engine().eventBus().subscribe(this); }
+void Trainers::init() { bl::event::Dispatcher::subscribe(this); }
 
 void Trainers::update(float dt) {
     static const sf::Vector2i es(txtr->getSize());
@@ -42,9 +43,7 @@ void Trainers::update(float dt) {
             state  = State::Holding;
             height = 0.f;
         }
-        else {
-            updateRect(height);
-        }
+        else { updateRect(height); }
         break;
 
     case State::Holding:
@@ -72,9 +71,7 @@ void Trainers::update(float dt) {
                                  << " was unable to interact with player, aborting";
                     cleanup();
                 }
-                else {
-                    state = State::Battling;
-                }
+                else { state = State::Battling; }
             }
             else {
                 if (!owner.movement().moveEntity(walkingTrainer, trainerPos->direction, false)) {
@@ -106,62 +103,65 @@ void Trainers::render(sf::RenderTarget& target) {
     }
 }
 
-bl::entity::Entity Trainers::approachingTrainer() const { return walkingTrainer; }
+bl::ecs::Entity Trainers::approachingTrainer() const { return walkingTrainer; }
+
+bool Trainers::trainerDefeated(const component::Trainer& t) const {
+    return defeated.find(trainerKey(t)) != defeated.end();
+}
+
+void Trainers::setDefeated(component::Trainer& t) {
+    t.setDefeated();
+    defeated.emplace(trainerKey(t));
+}
 
 void Trainers::observe(const event::GameSaveInitializing& save) {
     save.gameSave.trainers.defeated = &defeated;
 }
 
-void Trainers::observe(const bl::entity::event::ComponentAdded<component::Trainer>& tc) {
-    if (defeated.find(tc.component.file()) != defeated.end()) {
+void Trainers::observe(const bl::ecs::event::ComponentAdded<component::Trainer>& tc) {
+    if (trainerDefeated(tc.component)) {
         component::Trainer& t = const_cast<component::Trainer&>(tc.component);
         t.setDefeated();
     }
 }
 
 void Trainers::observe(const event::BattleCompleted& b) {
-    if (b.type == battle::Battle::Type::Trainer && b.playerWon) {
-        trainerComponent->setDefeated();
-        defeated.emplace(trainerComponent->file());
-    }
+    if (b.type == battle::Battle::Type::Trainer && b.playerWon) { setDefeated(*trainerComponent); }
     cleanup();
 }
 
 void Trainers::observe(const event::EntityRotated& rot) {
-    if (walkingTrainer == bl::entity::InvalidEntity) checkTrainer(rot.entity);
+    if (walkingTrainer == bl::ecs::InvalidEntity) checkTrainer(rot.entity);
 }
 
 void Trainers::observe(const event::EntityMoveFinished& moved) {
-    if (walkingTrainer != bl::entity::InvalidEntity) return;
+    if (walkingTrainer != bl::ecs::InvalidEntity) return;
 
     if (moved.entity == owner.player().player()) {
-        for (const bl::entity::Entity ent : owner.position().updateRangeEntities()) {
+        for (const bl::ecs::Entity ent : owner.position().updateRangeEntities()) {
             checkTrainer(ent);
         }
     }
-    else {
-        checkTrainer(moved.entity);
-    }
+    else { checkTrainer(moved.entity); }
 }
 
-void Trainers::checkTrainer(bl::entity::Entity ent) {
-    component::Trainer* trainer = owner.engine().entities().getComponent<component::Trainer>(ent);
+void Trainers::checkTrainer(bl::ecs::Entity ent) {
+    component::Trainer* trainer = owner.engine().ecs().getComponent<component::Trainer>(ent);
     if (!trainer || trainer->defeated()) return;
     if (owner.flight().flying()) return;
     // TODO - respect player/trainer locks?
-    const component::Position* pos =
-        owner.engine().entities().getComponent<component::Position>(ent);
+    const component::Position* pos = owner.engine().ecs().getComponent<component::Position>(ent);
     if (!pos) {
         BL_LOG_ERROR << "Encountered trainer " << ent << " with no position";
         return;
     }
-    component::Movable* move = owner.engine().entities().getComponent<component::Movable>(ent);
+    component::Movable* move = owner.engine().ecs().getComponent<component::Movable>(ent);
     if (!move) {
         BL_LOG_ERROR << "Encountered trainer " << ent << " with no movable";
         return;
     }
 
-    const bl::entity::Entity see = owner.position().search(*pos, pos->direction, trainer->range());
+    const bl::ecs::Entity see = owner.position().search(*pos, pos->direction, trainer->range());
     if (see == owner.player().player()) {
         BL_LOG_INFO << "Trainer " << ent << "(" << trainer->name() << " | " << trainer->file()
                     << ") sees player";
@@ -187,7 +187,7 @@ void Trainers::checkTrainer(bl::entity::Entity ent) {
 
 void Trainers::cleanup() {
     state            = State::Searching;
-    walkingTrainer   = bl::entity::InvalidEntity;
+    walkingTrainer   = bl::ecs::InvalidEntity;
     trainerComponent = nullptr;
     trainerMove      = nullptr;
 }

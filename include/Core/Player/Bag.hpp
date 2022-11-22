@@ -110,7 +110,7 @@ private:
 
     unsigned int find(item::Id id) const;
 
-    friend class bl::serial::SerializableObject<Bag>;
+    friend struct bl::serial::SerializableObject<Bag>;
 };
 
 } // namespace player

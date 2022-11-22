@@ -28,7 +28,7 @@ LoadGame::LoadGame(core::system::Systems& s)
                                                       "LoadGame/loadGameBgnd.png"))
                    .data;
     background.setTexture(*bgndTxtr, true);
-    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 8.f, 8.f, 8.f});
+    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 4.f});
     saveMenu.setMinHeight(30.f);
     saveMenu.setPosition({170.f, 200.f});
     saveMenu.setMaximumSize({-1.f, 250.f});
@@ -48,7 +48,7 @@ LoadGame::LoadGame(core::system::Systems& s)
     Item::Ptr back =
         TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     back->getSignal(Item::Activated).willAlwaysCall([this]() {
-        inputDriver.processImmediate(core::component::Command::Back);
+        inputDriver.sendControl(core::input::Control::Back, true);
     });
     actionMenu.setMinHeight(28.f);
     actionMenu.setRootItem(load);
@@ -59,14 +59,14 @@ LoadGame::LoadGame(core::system::Systems& s)
 
 const char* LoadGame::name() const { return "LoadGame"; }
 
-void LoadGame::activate(bl::engine::Engine&) {
+void LoadGame::activate(bl::engine::Engine& engine) {
     saves.clear();
     core::file::GameSave::listSaves(saves);
 
     Item::Ptr item =
         TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     item->getSignal(Item::Activated).willAlwaysCall([this]() {
-        inputDriver.processImmediate(core::component::Command::Back);
+        inputDriver.sendControl(core::input::Control::Back, true);
     });
     saveMenu.setRootItem(item);
 
@@ -81,35 +81,23 @@ void LoadGame::activate(bl::engine::Engine&) {
     }
     saveMenu.setSelectedItem(item.get());
 
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+
     state = SelectingSave;
     inputDriver.drive(&saveMenu);
-    systems.player().inputSystem().addListener(inputDriver);
+    systems.engine().inputSystem().getActor().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(inputDriver);
 }
 
-void LoadGame::deactivate(bl::engine::Engine&) {
-    systems.player().inputSystem().removeListener(inputDriver);
+void LoadGame::deactivate(bl::engine::Engine& engine) {
+    systems.engine().inputSystem().getActor().removeListener(inputDriver);
+    systems.engine().inputSystem().getActor().removeListener(*this);
+    engine.renderSystem().cameras().popCamera();
 }
 
 void LoadGame::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update(dt);
-
-    const core::component::Command input = inputDriver.mostRecentInput();
     switch (state) {
-    case SelectingSave:
-        if (input == core::component::Command::Back) {
-            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-            engine.popState();
-        }
-        break;
-
-    case ChooseAction:
-        if (input == core::component::Command::Back) {
-            state = SelectingSave;
-            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-            inputDriver.drive(&saveMenu);
-        }
-        break;
-
     case SaveDeleted:
         if (saves[selectedSave].remove()) { activate(engine); }
         else {
@@ -124,7 +112,7 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
         fadeTime += dt;
         cover.setFillColor(sf::Color(0, 0, 0, std::min(255.f, 255.f * (fadeTime / FadeTime))));
         if (fadeTime >= FadeTime) {
-            if (saves[selectedSave].load(&engine.eventBus())) {
+            if (saves[selectedSave].load()) {
                 systems.engine().replaceState(MainGame::create(systems));
             }
             else {
@@ -140,11 +128,37 @@ void LoadGame::update(bl::engine::Engine& engine, float dt) {
         systems.hud().update(dt);
         break;
 
+    case SelectingSave:
+    case ChooseAction:
+        break;
+
     default:
         state = SelectingSave;
         inputDriver.drive(&saveMenu);
         break;
     }
+}
+
+bool LoadGame::observe(const bl::input::Actor&, unsigned int activatedControl,
+                       bl::input::DispatchType, bool fromEvent) {
+    if (activatedControl == core::input::Control::Back && fromEvent) {
+        switch (state) {
+        case SelectingSave:
+            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+            systems.engine().popState();
+            break;
+
+        case ChooseAction:
+            state = SelectingSave;
+            bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+            inputDriver.drive(&saveMenu);
+            break;
+
+        default:
+            break;
+        }
+    }
+    return true;
 }
 
 void LoadGame::render(bl::engine::Engine& engine, float lag) {

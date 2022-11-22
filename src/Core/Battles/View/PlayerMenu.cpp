@@ -18,10 +18,9 @@ namespace
 const sf::Vector2f MoveBoxPos(499.f, 463.f);
 }
 
-PlayerMenu::PlayerMenu(bool canRun, bl::event::Dispatcher& eventBus)
+PlayerMenu::PlayerMenu(bool canRun)
 : state(State::Hidden)
 , stateLoopGuard(false)
-, eventBus(eventBus)
 , currentPeoplemon(0)
 , actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
@@ -155,18 +154,19 @@ void PlayerMenu::choosePeoplemonMidTurn(bool fromFaint, bool fromRevive) {
     chosenMoveOrPeoplemon = -1;
     stateLoopGuard        = true;
     if (fromFaint) {
-        eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleFaint,
-                                                     currentPeoplemon,
-                                                     &chosenMoveOrPeoplemon});
+        bl::event::Dispatcher::dispatch<event::OpenPeoplemonMenu>(
+            {event::OpenPeoplemonMenu::Context::BattleFaint,
+             currentPeoplemon,
+             &chosenMoveOrPeoplemon});
     }
     else if (fromRevive) {
-        eventBus.dispatch<event::OpenPeoplemonMenu>(
+        bl::event::Dispatcher::dispatch<event::OpenPeoplemonMenu>(
             {event::OpenPeoplemonMenu::Context::BattleReviveSwitch,
              currentPeoplemon,
              &chosenMoveOrPeoplemon});
     }
     else {
-        eventBus.dispatch<event::OpenPeoplemonMenu>(
+        bl::event::Dispatcher::dispatch<event::OpenPeoplemonMenu>(
             {event::OpenPeoplemonMenu::Context::BattleMustSwitch,
              currentPeoplemon,
              &chosenMoveOrPeoplemon});
@@ -188,9 +188,9 @@ item::Id PlayerMenu::selectedItem() const { return chosenItem; }
 
 int PlayerMenu::selectedPeoplemon() const { return chosenMoveOrPeoplemon; }
 
-void PlayerMenu::handleInput(component::Command cmd) {
-    menuDriver.process(cmd);
-    if (cmd == component::Command::Back) {
+void PlayerMenu::handleInput(input::EntityControl cmd, bool ignore) {
+    menuDriver.sendControl(cmd, ignore);
+    if (cmd == input::Control::Back) {
         if (state == State::PickingMove) {
             state = State::PickingAction;
             menuDriver.drive(&actionMenu);
@@ -245,9 +245,10 @@ void PlayerMenu::switchChosen() {
     chosenAction          = TurnAction::Switch;
     chosenMoveOrPeoplemon = -1;
     stateLoopGuard        = true;
-    eventBus.dispatch<event::OpenPeoplemonMenu>({event::OpenPeoplemonMenu::Context::BattleSwitch,
-                                                 currentPeoplemon,
-                                                 &chosenMoveOrPeoplemon});
+    bl::event::Dispatcher::dispatch<event::OpenPeoplemonMenu>(
+        {event::OpenPeoplemonMenu::Context::BattleSwitch,
+         currentPeoplemon,
+         &chosenMoveOrPeoplemon});
 }
 
 void PlayerMenu::itemChosen() {
@@ -255,10 +256,10 @@ void PlayerMenu::itemChosen() {
     chosenAction   = TurnAction::Item;
     stateLoopGuard = true;
     chosenItem     = item::Id::None;
-    eventBus.dispatch<event::OpenBagMenu>({event::OpenBagMenu::Context::BattleUse,
-                                           &chosenItem,
-                                           currentPeoplemon,
-                                           &chosenMoveOrPeoplemon});
+    bl::event::Dispatcher::dispatch<event::OpenBagMenu>({event::OpenBagMenu::Context::BattleUse,
+                                                         &chosenItem,
+                                                         currentPeoplemon,
+                                                         &chosenMoveOrPeoplemon});
 }
 
 void PlayerMenu::runChosen() {

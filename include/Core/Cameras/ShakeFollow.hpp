@@ -1,12 +1,16 @@
 #ifndef CORE_SYSTEMS_CAMERAS_SHAKEFOLLOW_HPP
 #define CORE_SYSTEMS_CAMERAS_SHAKEFOLLOW_HPP
 
-#include <Core/Systems/Cameras/Follow.hpp>
+#include <BLIB/ECS/Entity.hpp>
+#include <BLIB/Render/Cameras/FollowCamera.hpp>
 
 namespace core
 {
 namespace system
 {
+class Systems;
+}
+
 namespace camera
 {
 /**
@@ -15,7 +19,7 @@ namespace camera
  * @ingroup Cameras
  *
  */
-class ShakeFollow : public Follow {
+class ShakeFollow : public bl::render::camera::FollowCamera {
 public:
     /// @brief Pointer to a ShakeFollow camera
     using Ptr = std::shared_ptr<ShakeFollow>;
@@ -28,7 +32,7 @@ public:
      * @param shakesPerSec How many times to shake per second
      * @return Camera::Ptr The new camera
      */
-    static Ptr create(Systems& systems, bl::entity::Entity toFollow, float shakesPerSec);
+    static Ptr create(system::Systems& systems, bl::ecs::Entity toFollow, float shakesPerSec);
 
     /**
      * @brief Set the number of shakes per second
@@ -51,18 +55,17 @@ public:
      * @param systems The primary systems object
      * @param dt Time elapsed in seconds
      */
-    virtual void update(Systems& systems, float dt) override;
+    virtual void update(float dt) override;
 
 private:
     float shakesPerSec;
     float magnitude;
     float time;
 
-    ShakeFollow(Systems& systems, bl::entity::Entity entity, float sps);
+    ShakeFollow(system::Systems& systems, bl::ecs::Entity entity, float sps);
 };
 
 } // namespace camera
-} // namespace system
 } // namespace core
 
 #endif

@@ -7,40 +7,34 @@ namespace core
 {
 namespace component
 {
-Controllable::Controllable(system::Systems& systems, bl::entity::Entity owner)
+Controllable::Controllable(system::Systems& systems, bl::ecs::Entity owner)
 : owner(owner)
 , systems(systems)
 , locked(false)
 , wasLocked(false) {}
 
-bool Controllable::processControl(Command ctrl, bool ignoreLock) {
+bool Controllable::processControl(input::EntityControl ctrl, bool sprint, bool ignoreLock) {
     if (locked && !ignoreLock) return false;
 
     switch (ctrl) {
-    case Command::MoveUp:
-        return systems.movement().moveEntity(owner, Direction::Up, false);
-    case Command::MoveRight:
-        return systems.movement().moveEntity(owner, Direction::Right, false);
-    case Command::MoveDown:
-        return systems.movement().moveEntity(owner, Direction::Down, false);
-    case Command::MoveLeft:
-        return systems.movement().moveEntity(owner, Direction::Left, false);
+    case input::Control::MoveUp:
+        return systems.movement().moveEntity(owner, Direction::Up, sprint);
+    case input::Control::MoveRight:
+        return systems.movement().moveEntity(owner, Direction::Right, sprint);
+    case input::Control::MoveDown:
+        return systems.movement().moveEntity(owner, Direction::Down, sprint);
+    case input::Control::MoveLeft:
+        return systems.movement().moveEntity(owner, Direction::Left, sprint);
 
-    case Command::SprintUp:
-        return systems.movement().moveEntity(owner, Direction::Up, true);
-    case Command::SprintRight:
-        return systems.movement().moveEntity(owner, Direction::Right, true);
-    case Command::SprintDown:
-        return systems.movement().moveEntity(owner, Direction::Down, true);
-    case Command::SprintLeft:
-        return systems.movement().moveEntity(owner, Direction::Left, true);
-
-    case Command::Pause: // handled in PlayerControlled
-    case Command::Back:
+    case input::Control::Pause: // handled in PlayerControlled
+    case input::Control::Back:
         return false;
 
-    case Command::Interact:
+    case input::Control::Interact:
         return systems.interaction().interact(owner);
+
+    case input::Control::Sprint:
+        return false;
 
     default:
         BL_LOG_WARN << "Unknown control: " << static_cast<int>(ctrl);

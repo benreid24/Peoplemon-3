@@ -137,7 +137,7 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     actionMenu.setPosition({252.f, 82.f});
 
     pocketLabel.setFont(core::Properties::MenuFont());
-    pocketLabel.setCharacterSize(30);
+    pocketLabel.setCharacterSize(27);
     pocketLabel.setFillColor(sf::Color(0, 20, 75));
     pocketLabel.setPosition({72.f, 342.f});
 
@@ -197,15 +197,6 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         }
     }
     else { // first time activation
-        oldView = engine.window().getView();
-        sf::View v(oldView);
-        const sf::Vector2f size(background.getGlobalBounds().width,
-                                background.getGlobalBounds().height);
-        v.setCenter(size * 0.5f);
-        v.setSize(size);
-        engine.window().setView(v);
-
-        systems.player().inputSystem().addListener(inputDriver);
         if (result) *result = core::item::Id::None;
 
         std::vector<core::player::Bag::Item> items;
@@ -227,58 +218,19 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (lastTab < 0) lastTab = 0;
     }
 
-    systems.player().inputSystem().addListener(inputDriver);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    engine.inputSystem().getActor().addListener(*this);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
-    systems.player().inputSystem().removeListener(inputDriver);
+    engine.renderSystem().cameras().popCamera();
+    engine.inputSystem().getActor().removeListener(*this);
 }
 
 void BagMenu::update(bl::engine::Engine& engine, float dt) {
-    systems.player().update(dt);
-
     switch (state) {
-    case MenuState::Browsing: {
-        const core::component::Command input = inputDriver.mostRecentInput();
-
-        if (actionOpen) {
-            if (input == core::component::Command::Back) {
-                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
-                resetAction();
-            }
-        }
-        else {
-            switch (input) {
-            case core::component::Command::Back:
-                engine.popState();
-                break;
-
-            case core::component::Command::MoveLeft:
-                beginSlide(true);
-                lastTab    = lastTab > 0 ? lastTab - 1 : 3;
-                activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
-                itemHighlighted(
-                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
-                break;
-
-            case core::component::Command::MoveRight:
-                beginSlide(false);
-                lastTab    = lastTab < 3 ? lastTab + 1 : 0;
-                activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
-                itemHighlighted(
-                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
-                break;
-
-            default:
-                break;
-            }
-        }
-    } break;
-
     case MenuState::Sliding:
         slideOff += slideVel * dt;
         if (std::abs(slideOff) >= activeMenu->getBounds().width) {
@@ -295,9 +247,54 @@ void BagMenu::update(bl::engine::Engine& engine, float dt) {
         engine.popState();
         break;
 
+    case MenuState::Browsing:
     default:
         break;
     }
+}
+
+bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
+                      bool fromEvent) {
+    inputDriver.sendControl(ctrl, fromEvent);
+
+    if (state == MenuState::Browsing && fromEvent) {
+        if (actionOpen) {
+            if (ctrl == core::input::Control::Back) {
+                bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
+                resetAction();
+            }
+        }
+        else {
+            switch (ctrl) {
+            case core::input::Control::Back:
+                systems.engine().popState();
+                break;
+
+            case core::input::Control::MoveLeft:
+                beginSlide(true);
+                lastTab    = lastTab > 0 ? lastTab - 1 : 3;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
+
+            case core::input::Control::MoveRight:
+                beginSlide(false);
+                lastTab    = lastTab < 3 ? lastTab + 1 : 0;
+                activeMenu = menuTabs[lastTab];
+                pocketLabel.setString(tabTitles[lastTab]);
+                itemHighlighted(
+                    dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+
+    return true;
 }
 
 void BagMenu::render(bl::engine::Engine& engine, float lag) {
@@ -515,13 +512,13 @@ void BagMenu::keyItemConfirmUse(const std::string& c) {
             break;
         case core::item::Id::BigRedButton:
             systems.trainers().resetDefeated();
-            systems.hud().displayMessage("Everyone's Peoplemon have been healed! Watch your back.",
+            systems.hud().displayMessage("All trainer Peoplemon have been healed! Watch your back.",
                                          std::bind(&BagMenu::messageDone, this));
             state = MenuState::ShowingMessage;
             break;
         case core::item::Id::TransportationCrystal:
             if (systems.player().state().bag.removeItem(core::item::Id::Penny)) {
-                systems.engine().eventBus().dispatch<core::event::SwitchMapTriggered>(
+                bl::event::Dispatcher::dispatch<core::event::SwitchMapTriggered>(
                     {"TheVoid.map", 1});
                 if (unpause != nullptr) { *unpause = true; }
                 state = MenuState::ImmediatelyPop;

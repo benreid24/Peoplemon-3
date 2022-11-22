@@ -43,33 +43,30 @@ BattleState::BattleState(core::system::Systems& systems,
 , battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {
     if (!this->battle->controller) {
         BL_LOG_WARN << "Invalid battle controller, using dummy";
-        this->battle->setController(std::move(std::make_unique<DummyController>()));
+        this->battle->setController(std::make_unique<DummyController>());
     }
 }
 
 const char* BattleState::name() const { return "BattleState"; }
 
 void BattleState::activate(bl::engine::Engine& engine) {
-    oldView             = engine.window().getView();
-    sf::View battleView = oldView;
-    const sf::Vector2f ws(core::Properties::WindowWidth(), core::Properties::WindowHeight());
-    battleView.setSize(ws);
-    battleView.setCenter(ws * 0.5f);
-    engine.window().setView(battleView);
-    battle->view.configureView(battleView);
-    systems.player().inputSystem().addListener(battle->view);
-    engine.eventBus().subscribe(this);
+    engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
+        {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
+    engine.renderSystem().cameras().configureView(engine.window());
+    battle->view.configureView(engine.window().getView());
+    systems.engine().inputSystem().getActor().addListener(battle->view);
+    bl::event::Dispatcher::subscribe(this);
 
     // TODO - music here or in intro state?
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
-    systems.player().inputSystem().removeListener(battle->view);
-    engine.eventBus().unsubscribe(this);
+    engine.renderSystem().cameras().popCamera();
+    systems.engine().inputSystem().getActor().removeListener(battle->view);
+    bl::event::Dispatcher::unsubscribe(this);
 
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
-        engine.eventBus().dispatch<core::event::BattleCompleted>(
+        bl::event::Dispatcher::dispatch<core::event::BattleCompleted>(
             {battle->type, battle->localPlayerWon});
     }
 
@@ -78,7 +75,6 @@ void BattleState::deactivate(bl::engine::Engine& engine) {
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {
-    systems.player().inputSystem().update();
     battle->controller->update();
     battle->view.update(dt);
     battle->state.localPlayer().refresh();

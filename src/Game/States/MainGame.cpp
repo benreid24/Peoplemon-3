@@ -43,15 +43,22 @@ MainGame::MainGame(core::system::Systems& systems)
     cover.setFillColor(sf::Color::Black);
 }
 
-MainGame::~MainGame() { systems.engine().eventBus().unsubscribe(this); }
+MainGame::~MainGame() { bl::event::Dispatcher::unsubscribe(this); }
 
 const char* MainGame::name() const { return "MainGame"; }
 
-void MainGame::activate(bl::engine::Engine&) { systems.engine().eventBus().subscribe(this); }
+void MainGame::activate(bl::engine::Engine&) {
+    bl::event::Dispatcher::subscribe(this);
+    systems.world().activeMap().setupCamera(systems);
+}
 
-void MainGame::deactivate(bl::engine::Engine&) {}
+void MainGame::deactivate(bl::engine::Engine&) {
+    systems.engine().renderSystem().cameras().clearViewportConstraint();
+}
 
 void MainGame::update(bl::engine::Engine&, float dt) {
+    systems.update(dt, true);
+
     switch (state) {
     case SwitchMapFadeout:
         fadeTime += dt;
@@ -62,6 +69,7 @@ void MainGame::update(bl::engine::Engine&, float dt) {
                 systems.engine().flags().set(bl::engine::Flags::Terminate);
                 return;
             }
+            // systems.world().activeMap().setupCamera(systems);
             fadeTime = 0.f;
             state    = MapFadein;
         }
@@ -69,8 +77,6 @@ void MainGame::update(bl::engine::Engine&, float dt) {
             const float a = fadeTime / core::Properties::ScreenFadePeriod() * 255.f;
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }
-
-        systems.update(dt, true);
         break;
 
     case MapFadein:
@@ -83,12 +89,9 @@ void MainGame::update(bl::engine::Engine&, float dt) {
             const float a = (1.f - fadeTime / core::Properties::ScreenFadePeriod()) * 255.f;
             cover.setFillColor(sf::Color(0, 0, 0, a));
         }
-
-        systems.update(dt, false);
         break;
 
     default:
-        systems.update(dt, true);
         break;
     }
 }
@@ -101,6 +104,8 @@ void MainGame::render(bl::engine::Engine& engine, float lag) {
     case MapFadein:
     case SwitchMapFadeout:
         cover.setSize(engine.window().getView().getSize());
+        cover.setPosition(engine.window().getView().getCenter());
+        cover.setOrigin(engine.window().getView().getSize() * 0.5f);
         engine.window().draw(cover);
         break;
     default:

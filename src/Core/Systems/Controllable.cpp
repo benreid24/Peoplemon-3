@@ -8,17 +8,13 @@ namespace core
 namespace system
 {
 Controllable::Controllable(Systems& owner)
-: owner(owner) {}
+: ecs(owner.engine().ecs()) {}
 
-void Controllable::init() {
-    entities = owner.engine().entities().getEntitiesWithComponents<component::Controllable>();
-}
-
-bool Controllable::setEntityLocked(bl::entity::Entity e, bool l, bool p) {
-    auto it = entities->results().find(e);
-    if (it != entities->results().end()) {
+bool Controllable::setEntityLocked(bl::ecs::Entity e, bool l, bool p) {
+    component::Controllable* c = ecs.getComponent<component::Controllable>(e);
+    if (c) {
         BL_LOG_INFO << "Locked entity " << e;
-        it->second.get<component::Controllable>()->setLocked(l, p);
+        c->setLocked(l, p);
         return true;
     }
     else {
@@ -27,25 +23,23 @@ bool Controllable::setEntityLocked(bl::entity::Entity e, bool l, bool p) {
     return false;
 }
 
-bool Controllable::resetEntityLock(bl::entity::Entity e) {
-    auto it = entities->results().find(e);
-    if (it != entities->results().end()) {
-        it->second.get<component::Controllable>()->resetLock();
+bool Controllable::resetEntityLock(bl::ecs::Entity e) {
+    component::Controllable* c = ecs.getComponent<component::Controllable>(e);
+    if (c) {
+        c->resetLock();
         return true;
     }
     return false;
 }
 
 void Controllable::setAllLocks(bool l, bool p) {
-    for (auto& pair : entities->results()) {
-        pair.second.get<component::Controllable>()->setLocked(l, p);
-    }
+    ecs.getAllComponents<component::Controllable>().forEach(
+        [l, p](bl::ecs::Entity, component::Controllable& c) { c.setLocked(l, p); });
 }
 
 void Controllable::resetAllLocks() {
-    for (auto& pair : entities->results()) {
-        pair.second.get<component::Controllable>()->resetLock();
-    }
+    ecs.getAllComponents<component::Controllable>().forEach(
+        [](bl::ecs::Entity, component::Controllable& c) { c.resetLock(); });
 }
 
 } // namespace system

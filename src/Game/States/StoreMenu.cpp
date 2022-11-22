@@ -124,13 +124,8 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
     }
 
     // create view for menu
-    oldView = engine.window().getView();
-    sf::View view(oldView);
-    const sf::Vector2f size(background.getGlobalBounds().width,
-                            background.getGlobalBounds().height);
-    view.setCenter(size * 0.5f);
-    view.setSize(size);
-    engine.window().setView(view);
+    engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
 
     // populate buy menu
     bl::menu::Item::Ptr root = makeItemRow(items.front().item, items.front().price, 0);
@@ -170,7 +165,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
     enterState(MenuState::GetAction);
     setMoneyText();
     renderMenu = &buyMenu;
-    systems.player().inputSystem().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(*this);
 
     // impulse buy ability
     for (const auto& ppl : systems.player().state().peoplemon) {
@@ -198,13 +193,12 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
 }
 
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
-    engine.window().setView(oldView);
-    systems.player().inputSystem().removeListener(*this);
-    engine.eventBus().dispatch<core::event::StoreClosed>({});
+    engine.renderSystem().cameras().popCamera();
+    systems.engine().inputSystem().getActor().removeListener(*this);
+    bl::event::Dispatcher::dispatch<core::event::StoreClosed>({});
 }
 
 void StoreMenu::update(bl::engine::Engine&, float dt) {
-    systems.player().update(dt);
     dingTime += dt;
 
     switch (menuState) {
@@ -310,8 +304,11 @@ void StoreMenu::setMoneyText() {
 
 void StoreMenu::close() { systems.engine().popState(); }
 
-void StoreMenu::process(core::component::Command control) {
-    if (control == core::component::Command::Back) {
+bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input::DispatchType,
+                        bool eventTriggered) {
+    if (control == core::input::Control::Back) {
+        if (!eventTriggered) return true;
+
         switch (menuState) {
         case MenuState::GetAction:
             close();
@@ -329,7 +326,7 @@ void StoreMenu::process(core::component::Command control) {
         default:
             break;
         }
-        return;
+        return true;
     }
 
     bl::menu::Menu* sendTo = nullptr;
@@ -342,10 +339,10 @@ void StoreMenu::process(core::component::Command control) {
         break;
     case MenuState::SellMenu:
         switch (control) {
-        case core::component::Command::MoveRight:
+        case core::input::Control::MoveRight:
             catRight();
             break;
-        case core::component::Command::MoveLeft:
+        case core::input::Control::MoveLeft:
             catLeft();
             break;
         default:
@@ -356,19 +353,19 @@ void StoreMenu::process(core::component::Command control) {
     case MenuState::BuyQty:
     case MenuState::SellQty:
         switch (control) {
-        case core::component::Command::MoveUp:
-            qtyEntry.up(1);
+        case core::input::Control::MoveUp:
+            qtyEntry.up(1, eventTriggered);
             break;
-        case core::component::Command::MoveRight:
-            qtyEntry.up(10);
+        case core::input::Control::MoveRight:
+            qtyEntry.up(10, eventTriggered);
             break;
-        case core::component::Command::MoveDown:
-            qtyEntry.down(1);
+        case core::input::Control::MoveDown:
+            qtyEntry.down(1, eventTriggered);
             break;
-        case core::component::Command::MoveLeft:
-            qtyEntry.down(10);
+        case core::input::Control::MoveLeft:
+            qtyEntry.down(10, eventTriggered);
             break;
-        case core::component::Command::Interact:
+        case core::input::Control::Interact:
             if (menuState == MenuState::BuyQty) {
                 const int qty = qtyEntry.curQty();
                 if (qty > 0) {
@@ -407,8 +404,10 @@ void StoreMenu::process(core::component::Command control) {
     }
     if (sendTo != nullptr && dingTime >= DingTime) {
         inputDriver.drive(sendTo);
-        inputDriver.process(control);
+        inputDriver.sendControl(control, eventTriggered);
     }
+
+    return true;
 }
 
 bl::menu::Item::Ptr StoreMenu::makeItemRow(core::item::Id item, int price, unsigned int i) {
