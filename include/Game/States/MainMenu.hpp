@@ -16,7 +16,9 @@ namespace state
  * @ingroup States
  *
  */
-class MainMenu : public State {
+class MainMenu
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Creates a new MainMenu state
@@ -68,7 +70,14 @@ private:
     bl::menu::TextItem::Ptr settings;
     bl::menu::TextItem::Ptr quit;
 
+    sf::Clock hintTimer;
+    sf::RectangleShape hintBox;
+    sf::Text hint;
+
     MainMenu(core::system::Systems& systems);
+
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state
