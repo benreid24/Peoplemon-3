@@ -124,7 +124,7 @@ private:
     bl::gfx::Animation* anim;
 
     friend class Tileset;
-    friend class bl::serial::SerializableObject<Tile>;
+    friend struct bl::serial::SerializableObject<Tile>;
 };
 
 } // namespace map

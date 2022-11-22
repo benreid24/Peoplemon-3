@@ -106,7 +106,7 @@ private:
     sf::Vector2i position;
     sf::Vector2f interpolatedPosition;
 
-    friend class bl::serial::SerializableObject<Position>;
+    friend struct bl::serial::SerializableObject<Position>;
 };
 
 inline std::ostream& operator<<(std::ostream& os, const core::component::Position& pos) {

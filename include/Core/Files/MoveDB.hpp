@@ -50,7 +50,7 @@ struct MoveDB : private bl::util::NonCopyable {
     std::unordered_map<pplmn::MoveId, bool> effectSelves;
 
     friend class MoveDBLoader;
-    friend class bl::serial::SerializableObject<MoveDB>;
+    friend struct bl::serial::SerializableObject<MoveDB>;
 };
 
 } // namespace file

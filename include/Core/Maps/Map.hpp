@@ -325,7 +325,7 @@ protected:
     static void loadFlymapTowns();
 
     friend class loaders::LegacyMapLoader;
-    friend class bl::serial::SerializableObject<Map>;
+    friend struct bl::serial::SerializableObject<Map>;
 };
 
 } // namespace map

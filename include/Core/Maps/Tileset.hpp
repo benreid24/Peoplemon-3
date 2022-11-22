@@ -168,7 +168,7 @@ private:
     friend class Tile;
     friend class loaders::LegacyTilesetLoader;
     friend class loaders::PrimaryTilesetLoader;
-    friend class bl::serial::SerializableObject<Tileset>;
+    friend struct bl::serial::SerializableObject<Tileset>;
 };
 
 } // namespace map

@@ -300,9 +300,9 @@ private:
     Ailment ailment;
     item::Id item;
 
-    friend class WildPeoplemon;
+    friend struct WildPeoplemon;
     friend class BattlePeoplemon;
-    friend class bl::serial::SerializableObject<OwnedPeoplemon>;
+    friend struct bl::serial::SerializableObject<OwnedPeoplemon>;
     friend class editor::component::OwnedPeoplemonWindow;
 };
 

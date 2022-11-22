@@ -140,7 +140,7 @@ private:
     void startLanternVarianceChange();
     map::Light makeLight() const;
 
-    friend class bl::serial::SerializableObject<Player>;
+    friend struct bl::serial::SerializableObject<Player>;
 };
 
 } // namespace system

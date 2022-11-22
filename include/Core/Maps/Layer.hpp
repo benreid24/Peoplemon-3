@@ -79,7 +79,7 @@ private:
     std::uint32_t h;
     std::vector<T> data;
 
-    friend class bl::serial::SerializableObject<Layer<T>>;
+    friend struct bl::serial::SerializableObject<Layer<T>>;
 };
 
 //////////////////////////// INLINE FUNCTIONS /////////////////////////////////

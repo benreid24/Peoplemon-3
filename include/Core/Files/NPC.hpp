@@ -101,7 +101,7 @@ private:
     std::string conversationField;
     Behavior behaviorField;
 
-    friend class bl::serial::SerializableObject<NPC>;
+    friend struct bl::serial::SerializableObject<NPC>;
 };
 
 } // namespace file

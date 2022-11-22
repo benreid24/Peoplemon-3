@@ -232,7 +232,7 @@ private:
     std::uint8_t computeAmbient() const;
     void rebuildCache();
 
-    friend class bl::serial::SerializableObject<LightingSystem>;
+    friend struct bl::serial::SerializableObject<LightingSystem>;
 };
 
 } // namespace map
