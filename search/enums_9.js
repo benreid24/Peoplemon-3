@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['specialability',['SpecialAbility',['../a01067.html#gae0a3870bdfdee167eb5686dda0f03885',1,'core::pplmn']]],
-  ['stage',['Stage',['../a01251.html#ae57ad5ba635dfeb78ac751c91a1070e8',1,'core::battle::BattleState']]],
-  ['stat',['Stat',['../a01067.html#ga618b96b522bdec7042a5ff5b04672317',1,'core::pplmn']]]
+  ['renderoverlay',['RenderOverlay',['../a02054.html#a8e534b393969b6fc5b303ebd36115b5e',1,'editor::component::EditMap']]]
 ];

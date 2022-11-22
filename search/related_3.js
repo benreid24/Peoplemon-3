@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['itemdbloader',['ItemDBLoader',['../a01627.html#aef94e8b224eeb1a1cb5ac39545a6753e',1,'core::file::ItemDB']]]
+  ['itemdbloader',['ItemDBLoader',['../a01602.html#a73be8a91f50a262f733f3d105844f502',1,'core::file::ItemDB']]]
 ];

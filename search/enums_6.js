@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['mode',['Mode',['../a02195.html#a7116e95b3653cad1c3ece68ef19298fc',1,'editor::component::StatBox']]],
-  ['moveeffect',['MoveEffect',['../a01067.html#gad2c804a47a118daf4b298874b8cd37f1',1,'core::pplmn']]],
-  ['moveid',['MoveId',['../a01067.html#gab39f21e54ca605725b382bd7848530b3',1,'core::pplmn']]]
+  ['leveltransition',['LevelTransition',['../a01040.html#gacd6894855472f8b22d022ece25eda9b4',1,'core::map']]],
+  ['location',['Location',['../a02514.html#a3cdad53a606a87389f9d14dea568bfc3',1,'editor::component::EditMap::AppendLayerAction']]]
 ];

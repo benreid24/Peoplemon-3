@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::battle::BattleController Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,430 +63,63 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01077.html">core</a></li><li class="navelem"><a class="el" href="a01080.html">battle</a></li><li class="navelem"><a class="el" href="a01215.html">BattleController</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01050.html">core</a></li><li class="navelem"><a class="el" href="a01053.html">battle</a></li><li class="navelem"><a class="el" href="a01218.html">BattlerSubstate</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
-<a href="a01212.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::BattleController Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
+<div class="title">core::battle::BattlerSubstate Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Interface for battle controllers. <a class="el" href="a01211.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles.  
- <a href="a01215.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00011_source.html">BattleController.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::battle::BattleController:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01215.png" usemap="#core::battle::BattleController_map" alt=""/>
-  <map id="core::battle::BattleController_map" name="core::battle::BattleController_map">
-<area href="a01219.html" title="Battle controller for local battles against peoplemon or trainers. " alt="core::battle::LocalBattleController" shape="rect" coords="0,56,198,80"/>
-</map>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a1d9bb04bfe43bb564892986299e0b837"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a1d9bb04bfe43bb564892986299e0b837">BattleController</a> ()</td></tr>
-<tr class="memdesc:a1d9bb04bfe43bb564892986299e0b837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes some internal state.  <a href="#a1d9bb04bfe43bb564892986299e0b837">More...</a><br /></td></tr>
-<tr class="separator:a1d9bb04bfe43bb564892986299e0b837"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7beb877acc9002867fc20df74c7ba3c1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a7beb877acc9002867fc20df74c7ba3c1">~BattleController</a> ()=default</td></tr>
-<tr class="memdesc:a7beb877acc9002867fc20df74c7ba3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01211.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> Controller object.  <a href="#a7beb877acc9002867fc20df74c7ba3c1">More...</a><br /></td></tr>
-<tr class="separator:a7beb877acc9002867fc20df74c7ba3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a03fb7651c32b7f81f5faf0dbe827daf2">init</a> (<a class="el" href="a01211.html">Battle</a> &amp;<a class="el" href="a01215.html#a52949e7c96b02eb980268d56e5b9103e">battle</a>, <a class="el" href="a01255.html">BattleView</a> &amp;<a class="el" href="a01215.html#ac3232f65b5c17b5d3ea7c64d6a5faf13">view</a>, <a class="el" href="a01251.html">BattleState</a> &amp;<a class="el" href="a01215.html#ae44668dc54fec0f11f21438086fc10bd">state</a>)</td></tr>
-<tr class="memdesc:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets internal references to the view and state of the battle.  <a href="#a03fb7651c32b7f81f5faf0dbe827daf2">More...</a><br /></td></tr>
-<tr class="separator:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a17a84794f0b2ebbb7b5ffb0cb84df484">update</a> ()</td></tr>
-<tr class="memdesc:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the processing of the command queue.  <a href="#a17a84794f0b2ebbb7b5ffb0cb84df484">More...</a><br /></td></tr>
-<tr class="separator:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a046b3867a8dfb36fe5ddc1450f216eb5">queueCommand</a> (<a class="el" href="a01267.html">Command</a> &amp;&amp;command, bool addWait=false)</td></tr>
-<tr class="memdesc:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues a command to manipulate battle state or the view.  <a href="#a046b3867a8dfb36fe5ddc1450f216eb5">More...</a><br /></td></tr>
-<tr class="separator:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:a5ee11826f943752206d0902906c73fd7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a5ee11826f943752206d0902906c73fd7">onCommandQueued</a> (const <a class="el" href="a01267.html">Command</a> &amp;cmd)=0</td></tr>
-<tr class="memdesc:a5ee11826f943752206d0902906c73fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a command is first enqueued but not processed. May be used to send commands over the network, for example.  <a href="#a5ee11826f943752206d0902906c73fd7">More...</a><br /></td></tr>
-<tr class="separator:a5ee11826f943752206d0902906c73fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaded8cbf80cf2d6078ba6455be53af61"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#aaded8cbf80cf2d6078ba6455be53af61">onCommandProcessed</a> (const <a class="el" href="a01267.html">Command</a> &amp;cmd)=0</td></tr>
-<tr class="memdesc:aaded8cbf80cf2d6078ba6455be53af61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called after a command is processed. Derived classes may perform specific actions for commands in this method, such as sending state across the network.  <a href="#aaded8cbf80cf2d6078ba6455be53af61">More...</a><br /></td></tr>
-<tr class="separator:aaded8cbf80cf2d6078ba6455be53af61"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1621b5a2d603aeb1c1715612514b6f1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#ab1621b5a2d603aeb1c1715612514b6f1">onUpdate</a> (bool viewSynced, bool queueEmpty)=0</td></tr>
-<tr class="memdesc:ab1621b5a2d603aeb1c1715612514b6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived controllers may use this method for update logic every frame.  <a href="#ab1621b5a2d603aeb1c1715612514b6f1">More...</a><br /></td></tr>
-<tr class="separator:ab1621b5a2d603aeb1c1715612514b6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:a52949e7c96b02eb980268d56e5b9103e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01211.html">Battle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#a52949e7c96b02eb980268d56e5b9103e">battle</a></td></tr>
-<tr class="separator:a52949e7c96b02eb980268d56e5b9103e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac3232f65b5c17b5d3ea7c64d6a5faf13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01255.html">BattleView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#ac3232f65b5c17b5d3ea7c64d6a5faf13">view</a></td></tr>
-<tr class="separator:ac3232f65b5c17b5d3ea7c64d6a5faf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae44668dc54fec0f11f21438086fc10bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01251.html">BattleState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01215.html#ae44668dc54fec0f11f21438086fc10bd">state</a></td></tr>
-<tr class="separator:ae44668dc54fec0f11f21438086fc10bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface for battle controllers. <a class="el" href="a01211.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00023">23</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1d9bb04bfe43bb564892986299e0b837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d9bb04bfe43bb564892986299e0b837">&#9670;&nbsp;</a></span>BattleController()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::battle::BattleController::BattleController </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes some internal state. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00545_source.html#l00011">11</a> of file <a class="el" href="a00545_source.html">BattleController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7beb877acc9002867fc20df74c7ba3c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7beb877acc9002867fc20df74c7ba3c1">&#9670;&nbsp;</a></span>~BattleController()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual core::battle::BattleController::~BattleController </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a01211.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> Controller object. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a03fb7651c32b7f81f5faf0dbe827daf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03fb7651c32b7f81f5faf0dbe827daf2">&#9670;&nbsp;</a></span>init()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattleController::init </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01211.html">Battle</a> &amp;&#160;</td>
-          <td class="paramname"><em>battle</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01255.html">BattleView</a> &amp;&#160;</td>
-          <td class="paramname"><em>view</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01251.html">BattleState</a> &amp;&#160;</td>
-          <td class="paramname"><em>state</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets internal references to the view and state of the battle. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">battle</td><td>The battle itself </td></tr>
-    <tr><td class="paramname">view</td><td>The view of the battle </td></tr>
-    <tr><td class="paramname">state</td><td>The state of the battle </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00545_source.html#l00016">16</a> of file <a class="el" href="a00545_source.html">BattleController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaded8cbf80cf2d6078ba6455be53af61"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaded8cbf80cf2d6078ba6455be53af61">&#9670;&nbsp;</a></span>onCommandProcessed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void core::battle::BattleController::onCommandProcessed </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01267.html">Command</a> &amp;&#160;</td>
-          <td class="paramname"><em>cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>This is called after a command is processed. Derived classes may perform specific actions for commands in this method, such as sending state across the network. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cmd</td><td>The command that was just processed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a5ee11826f943752206d0902906c73fd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee11826f943752206d0902906c73fd7">&#9670;&nbsp;</a></span>onCommandQueued()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void core::battle::BattleController::onCommandQueued </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01267.html">Command</a> &amp;&#160;</td>
-          <td class="paramname"><em>cmd</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when a command is first enqueued but not processed. May be used to send commands over the network, for example. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">cmd</td><td>The command that was just enqueued </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="ab1621b5a2d603aeb1c1715612514b6f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1621b5a2d603aeb1c1715612514b6f1">&#9670;&nbsp;</a></span>onUpdate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual void core::battle::BattleController::onUpdate </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>viewSynced</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>queueEmpty</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Derived controllers may use this method for update logic every frame. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">viewSynced</td><td>Whether or not the view is fully up to date and static </td></tr>
-    <tr><td class="paramname">queueEmpty</td><td>Whether or not the command queue has been fully drained </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="a046b3867a8dfb36fe5ddc1450f216eb5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a046b3867a8dfb36fe5ddc1450f216eb5">&#9670;&nbsp;</a></span>queueCommand()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattleController::queueCommand </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01267.html">Command</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>command</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>addWait</em> = <code>false</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Enqueues a command to manipulate battle state or the view. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">command</td><td>The command to enqueue </td></tr>
-    <tr><td class="paramname">addWait</td><td>True to add a waitView command after the given command </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00545_source.html#l00049">49</a> of file <a class="el" href="a00545_source.html">BattleController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a17a84794f0b2ebbb7b5ffb0cb84df484"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17a84794f0b2ebbb7b5ffb0cb84df484">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattleController::update </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the processing of the command queue. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00545_source.html#l00022">22</a> of file <a class="el" href="a00545_source.html">BattleController.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a52949e7c96b02eb980268d56e5b9103e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52949e7c96b02eb980268d56e5b9103e">&#9670;&nbsp;</a></span>battle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01211.html">Battle</a>* core::battle::BattleController::battle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00061">61</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae44668dc54fec0f11f21438086fc10bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae44668dc54fec0f11f21438086fc10bd">&#9670;&nbsp;</a></span>state</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01251.html">BattleState</a>* core::battle::BattleController::state</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00063">63</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac3232f65b5c17b5d3ea7c64d6a5faf13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3232f65b5c17b5d3ea7c64d6a5faf13">&#9670;&nbsp;</a></span>view</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01255.html">BattleView</a>* core::battle::BattleController::view</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00062">62</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Battles/BattleControllers/<a class="el" href="a00011_source.html">BattleController.hpp</a></li>
-<li>src/Core/Battles/BattleControllers/<a class="el" href="a00545_source.html">BattleController.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01218.html">core::battle::BattlerSubstate</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#adff4303ec01423d9710b93467d2a4014">ailments</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a4f23369c9196731dc9b5f97257f82730">ballBlocked</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a0fa7c564257d1205a9be0dfebd457094">ballBumped</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a2453c6ca4371589c8de053aa5145704c">ballSet</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a2cf8ff9513bec50611128e34f4474cdd">ballSpiked</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#abe054f6a067d9d67583fb9980c97f84e">ballSwiped</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a5b9e68eaa37dee80a1823de0ee2df8ce">ballUpTurns</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#af94c1ae48e8b30a7f27f63ef09ba1d43">BattlerSubstate</a>()</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#aa1297d3de5a168b4a3cca4d11b6b30ff">chargingMove</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#affd7614f8d287ef4d4fcf3b4d46a06fa">clearAilment</a>(pplmn::PassiveAilment ail)</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a7858a94e58eaa54ca3a1180312f2baed">copyStatsFrom</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a95f1513a6da6f7a072cf8ee83a510c14">deathCounter</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a237cd82a74a8baab4664f94b9ed58f41">encoreMove</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ad5772edb1c1e7b49fd8224306270156c">encoreTurnsLeft</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a209dd73d59f804849cf187ce6a95b349">enduredLastTurn</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ace535355dc06866a20132301d31ac0d9">enduringThisTurn</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a6fa8473725340ca2dc7dd387d9f2adfc">faintHandled</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#acb1fa3367b3c9e975881e90fbec425d7">giveAilment</a>(pplmn::PassiveAilment ail)</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a54eee364575801f21cb8a91ac501aa52">gotBaked</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a38cb861a039cbc5a578bfadf32ea5123">hasAilment</a>(pplmn::PassiveAilment ail) const</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#af269e01d8290a3c336ca8af808dd2242">healNext</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ae6cb6d2976974f4bc2747886ad8a16e1">isProtected</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a6974fb1f5d6c06b3c5e93bdc07521862">koReviveHp</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#abf2683fe1cdbb9b5f91642e99cc2fade">lastDamageTaken</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#ae27ca451fe3a0aa7302e692a8cadab7c">lastMoveHitWith</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#abfc6a15190eddbafee5d2db7038fd7c7">lastMoveIndex</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#af1a48c7bb1c9cb6b8a61372f292368ea">lastMoveSuperEffective</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ac781bcf0785bce86db6301de4b3ce99c">lastMoveUsed</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#afa7a11a8272f99590d405c86d6bed019">move64Hit</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ac222df503216fb30532c8067f6eb859c">noOneToGetBall</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#aa5e6bd660bc6e289b9ca1c81ff786910">notifySwitch</a>()</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a6a0122145a352994017aa6db195a683d">notifyTurnBegin</a>()</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a6bd719d0e2b8e5b2dda0b8eacbd200a4">notifyTurnEnd</a>(TurnAction action, pplmn::BattlePeoplemon &amp;outNow)</td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a3f69ab542361464f50d906c245e36702">preserveLastSuper</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#ac67639237157ca5751f53474c538a47b">spikesOut</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a256be456ae2607abbbef76c0fc2cc212">substituteHp</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#acdc4c04affec1c97d378881ef355bc4c">totalMomIndex</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ad17d475d0a893cdfac2eed6ade669569">trainer</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a07a3c032c932c6ddae365a4f52c6cf45">turnsConfused</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#ab8245a49103e9b78e6edb1cb9c869deb">turnsGuarded</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a5d2c55e2bad3a3a5192260b0765d4262">turnsSticky</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::BattlerSubstate</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Oct 30 2022 19:40:31 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Nov 22 2022 23:02:00 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

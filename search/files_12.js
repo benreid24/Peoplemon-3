@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['variouseditors_2ecpp',['VariousEditors.cpp',['../a00995.html',1,'']]],
-  ['variouseditors_2ehpp',['VariousEditors.hpp',['../a00482.html',1,'']]]
+  ['util_2ehpp',['Util.hpp',['../a00071.html',1,'']]]
 ];

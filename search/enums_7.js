@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['passiveailment',['PassiveAilment',['../a01067.html#ga1e8c161a804d51a4a4eec572dc0e4a46',1,'core::pplmn']]],
-  ['position',['Position',['../a01291.html#a33e41a98243cee98869fa6591289fd98',1,'core::battle::view::PeoplemonAnimation']]]
+  ['mode',['Mode',['../a02134.html#a7116e95b3653cad1c3ece68ef19298fc',1,'editor::component::StatBox']]],
+  ['moveeffect',['MoveEffect',['../a01041.html#gad2c804a47a118daf4b298874b8cd37f1',1,'core::pplmn']]],
+  ['moveid',['MoveId',['../a01041.html#gab39f21e54ca605725b382bd7848530b3',1,'core::pplmn']]]
 ];

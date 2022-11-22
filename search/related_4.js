@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['conversationloader',['ConversationLoader',['../a01543.html#ad21138b88436c907887e0b450a6889aa',1,'core::file::Conversation']]],
-  ['legacyconversationloader',['LegacyConversationLoader',['../a01543.html#a184e87582d39859c87e5a72f1b1a69ca',1,'core::file::Conversation']]],
-  ['legacymaploader',['LegacyMapLoader',['../a01735.html#a7c80f581370155f01148731497a89423',1,'core::map::Map']]],
-  ['legacytilesetloader',['LegacyTilesetLoader',['../a01763.html#a46a5e488e04da057f1cba5fa4ba0e83e',1,'core::map::Tileset']]],
-  ['primarytilesetloader',['PrimaryTilesetLoader',['../a01763.html#a6c6088a948ad33f476223e3faa9c9ff2',1,'core::map::Tileset']]]
+  ['conversationloader',['ConversationLoader',['../a01518.html#addd26523021c759a18f23019f790af70',1,'core::file::Conversation']]],
+  ['legacyconversationloader',['LegacyConversationLoader',['../a01518.html#a7f004cf73eae55e0a4d33f7fd324ef0c',1,'core::file::Conversation']]],
+  ['legacymaploader',['LegacyMapLoader',['../a01714.html#a7c80f581370155f01148731497a89423',1,'core::map::Map']]],
+  ['legacytilesetloader',['LegacyTilesetLoader',['../a01742.html#ad6c350f287857ca7a38e57d935d98494',1,'core::map::Tileset']]],
+  ['primarytilesetloader',['PrimaryTilesetLoader',['../a01742.html#ad0049c70135e0ffd0be4ce30e714fee1',1,'core::map::Tileset']]]
 ];

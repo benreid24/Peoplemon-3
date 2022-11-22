@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['leveltransition',['LevelTransition',['../a01066.html#gacd6894855472f8b22d022ece25eda9b4',1,'core::map']]],
-  ['location',['Location',['../a02571.html#a3cdad53a606a87389f9d14dea568bfc3',1,'editor::component::EditMap::AppendLayerAction']]]
+  ['id',['Id',['../a01039.html#gaf2565ceb5b45ea8af94be0067e7474ca',1,'core::item::Id()'],['../a01041.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8',1,'core::pplmn::Id()']]],
+  ['intellevel',['IntelLevel',['../a01846.html#af72738f75b59895e9be958f3938a3256',1,'core::player::Peopledex']]]
 ];
