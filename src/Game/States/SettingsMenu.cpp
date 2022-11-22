@@ -14,7 +14,7 @@ const sf::Color LabelColor(0, 60, 130);
 constexpr unsigned int FontSize  = 30;
 constexpr float FontSizeF        = static_cast<float>(FontSize);
 constexpr unsigned int LabelSize = FontSize + 5;
-constexpr unsigned int SmallSize = 26;
+constexpr unsigned int SmallSize = 22;
 
 sf::VideoMode defaultVideoMode() {
     return sf::VideoMode(core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32);
@@ -214,7 +214,9 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     const auto makeCtrl = [this, &font](unsigned int ctrl, bool kbm) {
         TextItem::Ptr item =
             TextItem::create(ctrlString(ctrl, kbm), font, sf::Color::Black, SmallSize);
-        item->getSignal(Item::Activated).willAlwaysCall([this, ctrl, kbm]() {
+        TextItem* rp = item.get();
+        item->getSignal(Item::Activated).willAlwaysCall([this, ctrl, kbm, rp]() {
+            ctrlItem = rp;
             startBindControl(kbm, ctrl);
         });
         item->getSignal(Item::Selected).willAlwaysCall([this]() {
@@ -226,15 +228,15 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     // kbm menu
     Item::Ptr kbmLabel = TextItem::create("Keyboard and Mouse", font, LabelColor, LabelSize);
     kbmLabel->setSelectable(false);
-    kbmUpItem          = makeCtrl(Control::MoveUp, true);
-    kbmRightItem       = makeCtrl(Control::MoveRight, true);
-    kbmDownItem        = makeCtrl(Control::MoveDown, true);
-    kbmLeftItem        = makeCtrl(Control::MoveLeft, true);
-    kbmSprintItem      = makeCtrl(Control::Sprint, true);
-    kbmInteractItem    = makeCtrl(Control::Interact, true);
-    kbmBackItem        = makeCtrl(Control::Back, true);
-    kbmPauseItem       = makeCtrl(Control::Pause, true);
-    Item::Ptr backItem = makeBack();
+    bl::menu::TextItem::Ptr kbmUpItem       = makeCtrl(Control::MoveUp, true);
+    bl::menu::TextItem::Ptr kbmRightItem    = makeCtrl(Control::MoveRight, true);
+    bl::menu::TextItem::Ptr kbmDownItem     = makeCtrl(Control::MoveDown, true);
+    bl::menu::TextItem::Ptr kbmLeftItem     = makeCtrl(Control::MoveLeft, true);
+    bl::menu::TextItem::Ptr kbmSprintItem   = makeCtrl(Control::Sprint, true);
+    bl::menu::TextItem::Ptr kbmInteractItem = makeCtrl(Control::Interact, true);
+    bl::menu::TextItem::Ptr kbmBackItem     = makeCtrl(Control::Back, true);
+    bl::menu::TextItem::Ptr kbmPauseItem    = makeCtrl(Control::Pause, true);
+    Item::Ptr backItem                      = makeBack();
 
     controlsKbmMenu.setRootItem(kbmUpItem);
     controlsKbmMenu.setPosition(MenuPosition);
@@ -259,15 +261,15 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     // controller menu
     Item::Ptr padLabel = TextItem::create("Controller", font, LabelColor, LabelSize);
     padLabel->setSelectable(false);
-    padUpItem       = makeCtrl(Control::MoveUp, false);
-    padRightItem    = makeCtrl(Control::MoveRight, false);
-    padDownItem     = makeCtrl(Control::MoveDown, false);
-    padLeftItem     = makeCtrl(Control::MoveLeft, false);
-    padSprintItem   = makeCtrl(Control::Sprint, false);
-    padInteractItem = makeCtrl(Control::Interact, false);
-    padBackItem     = makeCtrl(Control::Back, false);
-    padPauseItem    = makeCtrl(Control::Pause, false);
-    backItem        = makeBack();
+    bl::menu::TextItem::Ptr padUpItem       = makeCtrl(Control::MoveUp, false);
+    bl::menu::TextItem::Ptr padRightItem    = makeCtrl(Control::MoveRight, false);
+    bl::menu::TextItem::Ptr padDownItem     = makeCtrl(Control::MoveDown, false);
+    bl::menu::TextItem::Ptr padLeftItem     = makeCtrl(Control::MoveLeft, false);
+    bl::menu::TextItem::Ptr padSprintItem   = makeCtrl(Control::Sprint, false);
+    bl::menu::TextItem::Ptr padInteractItem = makeCtrl(Control::Interact, false);
+    bl::menu::TextItem::Ptr padBackItem     = makeCtrl(Control::Back, false);
+    bl::menu::TextItem::Ptr padPauseItem    = makeCtrl(Control::Pause, false);
+    backItem                                = makeBack();
 
     controlsPadMenu.setRootItem(padUpItem);
     controlsPadMenu.setPosition(MenuPosition);
@@ -304,10 +306,24 @@ void SettingsMenu::activate(bl::engine::Engine& engine) {
 void SettingsMenu::deactivate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().removeListener(*this);
     engine.renderSystem().cameras().popCamera();
+
+    engine.inputSystem().saveToConfig();
     core::Properties::save();
 }
 
-void SettingsMenu::update(bl::engine::Engine&, float) {}
+void SettingsMenu::update(bl::engine::Engine&, float) {
+    if (state == MenuState::ControlsBindingControl && ctrlConfigurator.finished()) {
+        ctrlItem->getTextObject().setString(ctrlString(bindingCtrl, bindingKbm));
+        if (bindingKbm) {
+            enterState(MenuState::ControlsKBMMenu);
+            controlsKbmMenu.refreshPositions();
+        }
+        else {
+            enterState(MenuState::ControlsPadMenu);
+            controlsPadMenu.refreshPositions();
+        }
+    }
+}
 
 void SettingsMenu::render(bl::engine::Engine& engine, float) {
     engine.window().clear();
@@ -342,6 +358,13 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
 
     case MenuState::ControlsPadMenu:
         controlsPadMenu.render(engine.window());
+        break;
+
+    case MenuState::ControlsBindingControl:
+        if (bindingKbm) { controlsKbmMenu.render(engine.window()); }
+        else {
+            controlsPadMenu.render(engine.window());
+        }
         break;
 
     default:
@@ -425,17 +448,14 @@ bool SettingsMenu::observe(const bl::input::Actor&, unsigned int activatedContro
                 bl::audio::AudioSystem::setVolume(static_cast<float>(volumeEntry.curQty()));
                 break;
             case Control::Interact:
-                if (eventTriggered) {
-                    volumeItem->getTextObject().setString(volumeString());
-                    back();
-                }
+                if (eventTriggered) { back(); }
                 break;
             default:
                 break;
             }
             break;
         case MenuState::ControlsBindingControl:
-            // TODO
+            // do nothing
             break;
         default:
             inputDriver.sendControl(activatedControl, eventTriggered);
@@ -461,6 +481,7 @@ void SettingsMenu::back() {
         enterState(MenuState::VideoMenu);
         break;
     case MenuState::AudioSelectVolume:
+        volumeItem->getTextObject().setString(volumeString());
         enterState(MenuState::AudioMenu);
         break;
     case MenuState::ControlsKBMMenu:
@@ -472,8 +493,19 @@ void SettingsMenu::back() {
     }
 }
 
-void SettingsMenu::startBindControl(bool, unsigned int) {
-    // TODO
+void SettingsMenu::startBindControl(bool kbm, unsigned int ctrl) {
+    auto& a     = systems.engine().inputSystem().getActor();
+    bindingCtrl = ctrl;
+    bindingKbm  = kbm;
+    if (kbm) {
+        ctrlConfigurator.start(a.getKBMTriggerControl(ctrl));
+        setHint("Press any key or mouse button to rebind the control.");
+    }
+    else {
+        ctrlConfigurator.start(a.getJoystickTriggerControl(ctrl));
+        setHint("Move a joystick or press a button on your controller to rebind the control.");
+    }
+    enterState(MenuState::ControlsBindingControl);
 }
 
 std::string SettingsMenu::ctrlString(unsigned int ctrl, bool kbm) const {

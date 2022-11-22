@@ -100,26 +100,13 @@ private:
     core::system::hud::QtyEntry volumeEntry;
 
     bl::menu::Menu controlsTopMenu;
+    bl::input::Configurator ctrlConfigurator;
+    unsigned int bindingCtrl;
+    bool bindingKbm;
+    bl::menu::TextItem* ctrlItem;
 
     bl::menu::Menu controlsKbmMenu;
-    bl::menu::TextItem::Ptr kbmUpItem;
-    bl::menu::TextItem::Ptr kbmRightItem;
-    bl::menu::TextItem::Ptr kbmDownItem;
-    bl::menu::TextItem::Ptr kbmLeftItem;
-    bl::menu::TextItem::Ptr kbmSprintItem;
-    bl::menu::TextItem::Ptr kbmInteractItem;
-    bl::menu::TextItem::Ptr kbmBackItem;
-    bl::menu::TextItem::Ptr kbmPauseItem;
-
     bl::menu::Menu controlsPadMenu;
-    bl::menu::TextItem::Ptr padUpItem;
-    bl::menu::TextItem::Ptr padRightItem;
-    bl::menu::TextItem::Ptr padDownItem;
-    bl::menu::TextItem::Ptr padLeftItem;
-    bl::menu::TextItem::Ptr padSprintItem;
-    bl::menu::TextItem::Ptr padInteractItem;
-    bl::menu::TextItem::Ptr padBackItem;
-    bl::menu::TextItem::Ptr padPauseItem;
 
     SettingsMenu(core::system::Systems& systems);
 
