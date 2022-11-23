@@ -6,6 +6,7 @@
 #include <Core/Components/NPC.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Maps.hpp>
+#include <Core/Events/PathFind.hpp>
 #include <Core/Events/StorageSystem.hpp>
 #include <Core/Events/Store.hpp>
 #include <Core/Items/Item.hpp>
@@ -300,13 +301,9 @@ void giveItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
                 if (args[3].value().getAsBool()) table.waitOn(waiter);
             }
         }
-        else {
-            BL_LOG_WARN << "qty must be a positive integer";
-        }
+        else { BL_LOG_WARN << "qty must be a positive integer"; }
     }
-    else {
-        BL_LOG_WARN << "Unknown item id: " << rawId;
-    }
+    else { BL_LOG_WARN << "Unknown item id: " << rawId; }
 }
 
 void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -328,9 +325,7 @@ void giveMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
             if (args[2].value().getAsBool()) table.waitOn(waiter);
         }
     }
-    else {
-        BL_LOG_WARN << "qty must be a positive integer";
-    }
+    else { BL_LOG_WARN << "qty must be a positive integer"; }
 }
 
 void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -359,9 +354,7 @@ void takeItem(system::Systems& systems, SymbolTable& table, const std::vector<Va
                 table.waitOn(waiter);
                 if (choice == "No") { result = false; }
             }
-            else {
-                result = systems.player().state().bag.removeItem(item, qty);
-            }
+            else { result = systems.player().state().bag.removeItem(item, qty); }
         }
         else {
             BL_LOG_WARN << "qty must be a positive integer";
@@ -397,9 +390,7 @@ void takeMoney(system::Systems& systems, SymbolTable& table, const std::vector<V
             systems.player().state().monei -= qty;
             result = true;
         }
-        else {
-            result = false;
-        }
+        else { result = false; }
     }
     else {
         BL_LOG_WARN << "qty must be a positive integer";
@@ -749,9 +740,7 @@ void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
         systems.engine().ecs().destroyEntity(entity);
         res = result;
     }
-    else {
-        res = false;
-    }
+    else { res = false; }
 }
 
 void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -760,25 +749,35 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
                         PrimitiveValue::TInteger,
                         PrimitiveValue::TInteger,
                         PrimitiveValue::TInteger,
+                        PrimitiveValue::TString,
                         PrimitiveValue::TBool>("entityToPosition", args);
 
     const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
-    component::Position* pos     = systems.engine().ecs().getComponent<component::Position>(entity);
-    if (pos) {
-        BL_LOG_INFO << "moved entity";
-        const component::Position old = *pos;
-        component::Position np        = *pos;
-        np.setTiles(sf::Vector2i(args[2].value().getAsInt(), args[3].value().getAsInt()));
-        np.level = args[1].value().getAsInt();
-        *pos     = np;
-        bl::event::Dispatcher::dispatch<event::EntityMoved>({entity, old, np});
-    }
-    else {
-        BL_LOG_ERROR << "Moving entity with no position component: " << entity;
-    }
+    const std::uint8_t level     = args[1].value().getAsInt();
+    const sf::Vector2i destTiles(args[2].value().getAsInt(), args[3].value().getAsInt());
+    const component::Direction dir = component::directionFromString(args[4].value().getAsString());
+    const bool block               = args[5].value().getAsBool();
+    const component::Position dest(level, destTiles, dir);
+    BL_LOG_INFO << "Moving entity " << entity << "to " << dest;
 
-    // TODO - implement path finder
+    if (!systems.ai().moveToPosition(entity, dest)) {
+        result = false;
+        BL_LOG_ERROR << "Failed to path find entity " << entity << "to " << dest;
+        return;
+    }
     result = true;
+
+    if (block) {
+        bl::event::EventWaiter<event::PathFindCompleted> eventWaiter;
+
+        while (!bl::util::Waiter::allUnblocked()) {
+            std::optional<event::PathFindCompleted> pathEvent = eventWaiter.wait();
+            if (pathEvent.has_value() && pathEvent.value().entity == entity) {
+                result = pathEvent.value().success;
+                break;
+            }
+        }
+    }
 }
 
 void entityInteract(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

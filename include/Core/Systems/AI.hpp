@@ -3,6 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <Core/Components/FixedPathBehavior.hpp>
+#include <Core/Components/PathFinder.hpp>
 #include <Core/Components/SpinBehavior.hpp>
 #include <Core/Components/StandingBehavior.hpp>
 #include <Core/Components/WanderBehavior.hpp>
@@ -94,15 +95,13 @@ public:
      *        path is completed
      *
      * @param entity The entity to navigate
-     * @param pos The position to navigate to
-     * @param finalDir The direction to face at the end of the path
+     * @param dest The position to navigate to
      * @return True if the controller was able to be added and the path is valid, false otherwise
      */
-    bool moveToPosition(bl::ecs::Entity entity, const component::Position& pos,
-                        component::Direction finalDir);
+    bool moveToPosition(bl::ecs::Entity entity, const component::Position& dest);
 
     /**
-     * @brief Removes any ai behavior from the given entity
+     * @brief Removes any ai behavior from the given entity. Does not affect path finding
      *
      * @param ent The entity to remove behavior from
      */
@@ -134,6 +133,8 @@ private:
     SpinView spinning;
     FixedPathView paths;
     WanderView wandering;
+
+    bool findPath(bl::ecs::Entity ent, component::PathFinder& path);
 };
 
 } // namespace system
