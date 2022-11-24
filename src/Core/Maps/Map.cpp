@@ -346,7 +346,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // Spawn items
     for (const Item& item : itemsField) { game.entity().spawnItem(item); }
 
-    setupCamera(game); // TODO - position address isn't stable
+    setupCamera(game);
 
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));

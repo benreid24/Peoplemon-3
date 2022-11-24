@@ -1,9 +1,9 @@
 #ifndef CORE_SYSTEMS_FLIGHT_HPP
 #define CORE_SYSTEMS_FLIGHT_HPP
 
+#include <Core/Cameras/ShakeFollow.hpp>
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Renderable.hpp>
-#include <Core/Cameras/ShakeFollow.hpp>
 
 namespace core
 {
@@ -46,8 +46,6 @@ public:
      * @param dt Time elapsed in seconds
      */
     void update(float dt);
-
-    // TODO - render shadow?
 
 private:
     enum struct State {

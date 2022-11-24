@@ -1126,7 +1126,6 @@ void LocalBattleController::startUseMove(Battler& user, int index) {
 
     // finally play the animation
     queueCommand({cmd::Animation(!userIsHost, usedMove)}, true);
-    // TODO - play peoplemon animation for attacker?
 
     // move does damage
     if (pwr > 0) {
