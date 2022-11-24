@@ -804,6 +804,7 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
     if (!systems.ai().moveToPosition(entity, dest)) {
         result = false;
         BL_LOG_ERROR << "Failed to path find entity " << entity << "to " << dest;
+        result = false;
         return;
     }
     result = true;
