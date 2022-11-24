@@ -32,6 +32,24 @@ public:
     Position(std::uint8_t level, const sf::Vector2i& tiles, Direction direction);
 
     /**
+     * @brief Tests whether this position is equal to another. Does not consider interpolation or
+     *        direction, only tiles and level
+     *
+     * @param other The position to test againt
+     * @return True if the positions are on the same level and tile, false otherwise
+     */
+    bool operator==(const Position& other) const;
+
+    /**
+     * @brief Tests whether this position is not equal to another. Does not consider interpolation
+     *        or direction, only tiles and level
+     *
+     * @param other The position to test againt
+     * @return True if the positions are not on the same level or tile, false otherwise
+     */
+    bool operator!=(const Position& other) const;
+
+    /**
      * @brief Set the position in tiles. This also sets the interpolated position to be the top
      *        right corner of the given tile position
      *

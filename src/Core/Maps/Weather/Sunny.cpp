@@ -31,7 +31,6 @@ void Sunny::start(const sf::FloatRect&) {
     stopping = false;
 }
 
-// TODO - consider limiting this weather to daytime hours
 void Sunny::stop() {
     t        = computeLevel(t);
     stopping = true;

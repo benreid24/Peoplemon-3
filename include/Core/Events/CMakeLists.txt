@@ -4,6 +4,7 @@ target_sources(Core PUBLIC
     EntityMoved.hpp
     Item.hpp
     Maps.hpp
+    PathFind.hpp
     PeoplemonMenu.hpp
     StateChange.hpp
     StorageSystem.hpp

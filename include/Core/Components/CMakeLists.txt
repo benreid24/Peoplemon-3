@@ -6,6 +6,7 @@ target_sources(Core PUBLIC
     Item.hpp
     Movable.hpp
     NPC.hpp
+    PathFinder.hpp
     PlayerControlled.hpp
     Position.hpp
     Renderable.hpp

@@ -153,9 +153,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
             }
             sellMenus[i].addItem(makeCloseItem(), prev, bl::menu::Item::Bottom);
         }
-        else {
-            sellMenus[i].setRootItem(makeCloseItem());
-        }
+        else { sellMenus[i].setRootItem(makeCloseItem()); }
     }
     curCat = 0;
     catSync();
@@ -298,7 +296,6 @@ void StoreMenu::setBoxText(const std::string& t) {
 }
 
 void StoreMenu::setMoneyText() {
-    // TODO - $ in our font looks like an S
     moneyText.setString("$" + std::to_string(systems.player().state().monei));
 }
 
@@ -373,9 +370,7 @@ bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input
                     systems.player().state().bag.addItem(items[buyingItemIndex].item, qty);
                     enterState(MenuState::BuyDing);
                 }
-                else {
-                    enterState(MenuState::BuyMenu);
-                }
+                else { enterState(MenuState::BuyMenu); }
             }
             else {
                 const int qty = qtyEntry.curQty();
@@ -385,14 +380,10 @@ bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input
                     const int newQty =
                         systems.player().state().bag.itemCount(sellingItem->getItem());
                     if (newQty > 0) { sellingItem->updateQty(newQty); }
-                    else {
-                        sellMenus[curCat].removeItem(sellingItem);
-                    }
+                    else { sellMenus[curCat].removeItem(sellingItem); }
                     enterState(MenuState::SellDing);
                 }
-                else {
-                    enterState(MenuState::SellMenu);
-                }
+                else { enterState(MenuState::SellMenu); }
             }
             break;
         default:
