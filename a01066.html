@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::input::Control Namespace Reference</title>
+<title>Peoplemon: bl::serial::binary Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,47 +63,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01050.html">core</a></li><li class="navelem"><a class="el" href="a01065.html">input</a></li><li class="navelem"><a class="el" href="a01066.html">Control</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01064.html">bl</a></li><li class="navelem"><a class="el" href="a01065.html">serial</a></li><li class="navelem"><a class="el" href="a01066.html">binary</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">core::input::Control Namespace Reference</div>  </div>
+<div class="title">bl::serial::binary Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Wrapper around the enum for player input ids.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gaf9a43071401d217a03ca35e89affedf2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#gaf9a43071401d217a03ca35e89affedf2">EntityControl</a> : unsigned int { <br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">MoveUp</a> = 0, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">MoveRight</a> = 1, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">MoveDown</a> = 2, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">MoveLeft</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Sprint</a> = 4, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Interact</a> = 5, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Pause</a> = 6, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Back</a> = 7, 
-<br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">Count</a>, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">None</a> = Count
-<br />
- }<tr class="memdesc:gaf9a43071401d217a03ca35e89affedf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the various inputs a player or AI can use to control the game or an NPC.  <a href="a01038.html#gaf9a43071401d217a03ca35e89affedf2">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaf9a43071401d217a03ca35e89affedf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01328.html">Serializer&lt; core::component::Position, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01528.html">Serializer&lt; core::file::Behavior &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01748.html">Serializer&lt; core::map::Tile, false &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01792.html">Serializer&lt; OwnedMove &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01816.html">Serializer&lt; Stats &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wrapper around the enum for player input ids. </p>
-</div></div><!-- contents -->
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 00:05:38 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

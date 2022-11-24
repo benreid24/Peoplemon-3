@@ -1,11 +1,11 @@
 var searchData=
 [
-  ['validmoves',['validMoves',['../a01626.html#a7cb3528dc8c9ee3efb5bea573a31cd6b',1,'core::file::PeoplemonDB::validMoves()'],['../a01630.html#a8402b2ba07befa9a75e5a0d72c1d6ca3',1,'bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;::validMoves()']]],
-  ['values',['values',['../a01602.html#ad0fe258a8cf9fe02142b8483428d908f',1,'core::file::ItemDB::values()'],['../a01606.html#a1d51b75206555723a8003dc052932d03',1,'bl::serial::SerializableObject&lt; core::file::ItemDB &gt;::values()']]],
-  ['varianceconvergerate',['varianceConvergeRate',['../a01970.html#a0bc220359646fde082540fa23e5a7054',1,'core::system::Player']]],
-  ['varianceswitchtime',['varianceSwitchTime',['../a01970.html#a16b281ce496ebfa41ea4cd7457caa80f',1,'core::system::Player']]],
-  ['view',['view',['../a01182.html#a91d39a12a5b4e4c77033ad4bbd7d44e5',1,'core::battle::Battle::view()'],['../a01186.html#ac3232f65b5c17b5d3ea7c64d6a5faf13',1,'core::battle::BattleController::view()']]],
-  ['visible',['visible',['../a01670.html#af311bd583a573b483571a3602e4e6425',1,'core::map::Item::visible()'],['../a01674.html#a3264adad65b04974af1454bab40a5f90',1,'bl::serial::SerializableObject&lt; core::map::Item &gt;::visible()']]],
-  ['visionrange',['visionRange',['../a01634.html#a15a0956c65f5d87aced159237d14d917',1,'core::file::Trainer']]],
-  ['visitedtowns',['visitedTowns',['../a01550.html#acc956f49cc691054967450c96dc4f8f6',1,'core::file::GameSave::PlayerDataPointers::visitedTowns()'],['../a01582.html#ad7d7314c9e498a5d7e4696db7b8ac2fc',1,'bl::serial::SerializableObject&lt; core::file::GameSave::PlayerDataPointers &gt;::visitedTowns()'],['../a01850.html#afb2a7b6deaad36263e6ffb04709d5053',1,'core::player::State::visitedTowns()']]]
+  ['validmoves',['validMoves',['../a01640.html#a7cb3528dc8c9ee3efb5bea573a31cd6b',1,'core::file::PeoplemonDB::validMoves()'],['../a01644.html#a8402b2ba07befa9a75e5a0d72c1d6ca3',1,'bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;::validMoves()']]],
+  ['values',['values',['../a01616.html#ad0fe258a8cf9fe02142b8483428d908f',1,'core::file::ItemDB::values()'],['../a01620.html#a1d51b75206555723a8003dc052932d03',1,'bl::serial::SerializableObject&lt; core::file::ItemDB &gt;::values()']]],
+  ['varianceconvergerate',['varianceConvergeRate',['../a01984.html#a0bc220359646fde082540fa23e5a7054',1,'core::system::Player']]],
+  ['varianceswitchtime',['varianceSwitchTime',['../a01984.html#a16b281ce496ebfa41ea4cd7457caa80f',1,'core::system::Player']]],
+  ['view',['view',['../a01188.html#a91d39a12a5b4e4c77033ad4bbd7d44e5',1,'core::battle::Battle::view()'],['../a01192.html#ac3232f65b5c17b5d3ea7c64d6a5faf13',1,'core::battle::BattleController::view()']]],
+  ['visible',['visible',['../a01684.html#af311bd583a573b483571a3602e4e6425',1,'core::map::Item::visible()'],['../a01688.html#a3264adad65b04974af1454bab40a5f90',1,'bl::serial::SerializableObject&lt; core::map::Item &gt;::visible()']]],
+  ['visionrange',['visionRange',['../a01648.html#a15a0956c65f5d87aced159237d14d917',1,'core::file::Trainer']]],
+  ['visitedtowns',['visitedTowns',['../a01564.html#acc956f49cc691054967450c96dc4f8f6',1,'core::file::GameSave::PlayerDataPointers::visitedTowns()'],['../a01596.html#ad7d7314c9e498a5d7e4696db7b8ac2fc',1,'bl::serial::SerializableObject&lt; core::file::GameSave::PlayerDataPointers &gt;::visitedTowns()'],['../a01864.html#afb2a7b6deaad36263e6ffb04709d5053',1,'core::player::State::visitedTowns()']]]
 ];

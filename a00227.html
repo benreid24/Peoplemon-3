@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Peoplemon/Move.hpp File Reference</title>
+<title>Peoplemon: include/Core/Peoplemon/BattlePeoplemon.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,37 +71,40 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Move.hpp File Reference</div>  </div>
+<div class="title">BattlePeoplemon.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00158_source.html">Core/Files/MoveDB.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00230_source.html">Core/Peoplemon/MoveEffect.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00233_source.html">Core/Peoplemon/MoveId.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03018_source.html">Core/Peoplemon/Type.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00230_source.html">Core/Peoplemon/BattleStats.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00239_source.html">Core/Peoplemon/MoveId.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00245_source.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00248_source.html">Core/Peoplemon/PassiveAilment.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00254_source.html">Core/Peoplemon/SpecialAbility.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00227_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01770.html">core::pplmn::Move</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates the move datastore.  <a href="a01770.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01776.html">core::pplmn::BattlePeoplemon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a <a class="el" href="a01808.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> in battle. Stores some extra state that only exists in battle. Wraps an underlying <a class="el" href="a01800.html" title="Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon...">OwnedPeoplemon</a>.  <a href="a01776.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01050"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01050.html">core</a></td></tr>
-<tr class="memdesc:a01050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
+<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01070"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01070.html">core::pplmn</a></td></tr>
-<tr class="memdesc:a01070"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01794.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="memitem:a01059"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html">core::battle</a></td></tr>
+<tr class="memdesc:a01059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01076"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html">core::pplmn</a></td></tr>
+<tr class="memdesc:a01076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01808.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 00:05:38 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

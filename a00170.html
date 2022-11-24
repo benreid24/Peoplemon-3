@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/Category.hpp File Reference</title>
+<title>Peoplemon: include/Core/Input/Control.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,49 +63,72 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_d0817f30fd8c8c383703ce347219b18e.html">Items</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_5a360ce72f845b04181dbb6c528142b3.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">Category.hpp File Reference</div>  </div>
+<div class="title">Control.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Input.hpp&gt;</code><br />
 </div>
 <p><a href="a00170_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01050"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01050.html">core</a></td></tr>
-<tr class="memdesc:a01050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
+<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01067"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01067.html">core::item</a></td></tr>
-<tr class="memdesc:a01067"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of enums and classes for managing and using items. <br /></td></tr>
+<tr class="memitem:a01071"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html">core::input</a></td></tr>
+<tr class="memdesc:a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peoplemon specific input functionality around the BLIB input system. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01072"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01072.html">core::input::Control</a></td></tr>
+<tr class="memdesc:a01072"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around the enum for player input ids. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a362a94172d86c7b7662228aeab1b7516"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a> = std::underlying_type_t&lt; Control::EntityControl &gt;</td></tr>
+<tr class="memdesc:a362a94172d86c7b7662228aeab1b7516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper typedef to avoid too much casting boilerplate.  <a href="a01071.html#a362a94172d86c7b7662228aeab1b7516">More...</a><br /></td></tr>
+<tr class="separator:a362a94172d86c7b7662228aeab1b7516"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01039.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01039.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Category::Unknown</a>, 
-<a class="el" href="a01039.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">core::item::Category::Regular</a>, 
-<a class="el" href="a01039.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">core::item::Category::Key</a>, 
-<a class="el" href="a01039.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">core::item::Category::TM</a>, 
+<tr class="memitem:gaf9a43071401d217a03ca35e89affedf2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01044.html#gaf9a43071401d217a03ca35e89affedf2">core::input::Control::EntityControl</a> : unsigned int { <br />
+&#160;&#160;<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a> = 0, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a> = 1, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a> = 2, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a> = 3, 
 <br />
-&#160;&#160;<a class="el" href="a01039.html#ggac5b9981750f250d2d6aa8682b2a10b71a82f60caea0455676d244117d3ef104e4">core::item::Category::Peopleball</a>
+&#160;&#160;<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">core::input::Control::Sprint</a> = 4, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a> = 5, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">core::input::Control::Pause</a> = 6, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a> = 7, 
 <br />
- }<tr class="memdesc:gac5b9981750f250d2d6aa8682b2a10b71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a category that an item can belong to. Used for bag sorting.  <a href="a01039.html#gac5b9981750f250d2d6aa8682b2a10b71">More...</a><br /></td></tr>
+&#160;&#160;<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">core::input::Control::Count</a>, 
+<a class="el" href="a01044.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::None</a> = Count
+<br />
+ }<tr class="memdesc:gaf9a43071401d217a03ca35e89affedf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the various inputs a player or AI can use to control the game or an NPC.  <a href="a01044.html#gaf9a43071401d217a03ca35e89affedf2">More...</a><br /></td></tr>
 </td></tr>
-<tr class="separator:gac5b9981750f250d2d6aa8682b2a10b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:gaf9a43071401d217a03ca35e89affedf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a293f677406b187f5aab5509859935f33"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html#a293f677406b187f5aab5509859935f33">core::input::configureInputSystem</a> (bl::input::InputSystem &amp;system)</td></tr>
+<tr class="memdesc:a293f677406b187f5aab5509859935f33"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the input system for the set of peoplemon inputs.  <a href="a01071.html#a293f677406b187f5aab5509859935f33">More...</a><br /></td></tr>
+<tr class="separator:a293f677406b187f5aab5509859935f33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 00:05:38 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

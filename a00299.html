@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/AI.hpp File Reference</title>
+<title>Peoplemon: include/Core/Scripts/MapChangeContext.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,123 +63,45 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_cdcd8c60c7240d84e0c0149062c9e6fd.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">AI.hpp File Reference</div>  </div>
+<div class="title">MapChangeContext.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/ECS.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00083_source.html">Core/Components/FixedPathBehavior.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00104_source.html">Core/Components/SpinBehavior.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00107_source.html">Core/Components/StandingBehavior.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00113_source.html">Core/Components/WanderBehavior.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00152_source.html">Core/Files/Behavior.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
+<code>#include &lt;cstdint&gt;</code><br />
 </div>
 <p><a href="a00299_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01890.html">core::system::AI</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages NPC's and trainers and their behaviors.  <a href="a01890.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01896.html">core::script::MapChangeContext</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special context for map enter and exit scripts.  <a href="a01896.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01050"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01050.html">core</a></td></tr>
-<tr class="memdesc:a01050"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
+<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01051"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01051.html">core::system</a></td></tr>
-<tr class="memdesc:a01051"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
+<tr class="memitem:a01057"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01057.html">core::system</a></td></tr>
+<tr class="memdesc:a01057"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing core game systems shared between the game and the editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a877d5f5264cb7c483b9540e5bd6d38ad"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00299.html#a877d5f5264cb7c483b9540e5bd6d38ad">StandingTypes</a>&#160;&#160;&#160;component::StandingBehavior, component::Position, component::Controllable</td></tr>
-<tr class="separator:a877d5f5264cb7c483b9540e5bd6d38ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad46fdf88fb45bc192d5cffd16814aa9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00299.html#aad46fdf88fb45bc192d5cffd16814aa9">SpinTypes</a>&#160;&#160;&#160;component::SpinBehavior, component::Position, component::Controllable</td></tr>
-<tr class="separator:aad46fdf88fb45bc192d5cffd16814aa9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a656da27f98a206a1a2e9b6260cf005f1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00299.html#a656da27f98a206a1a2e9b6260cf005f1">FixedPathTypes</a>&#160;&#160;&#160;component::FixedPathBehavior, component::Position, component::Controllable</td></tr>
-<tr class="separator:a656da27f98a206a1a2e9b6260cf005f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ee58d53ede7735baadd40728b193ffe"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00299.html#a5ee58d53ede7735baadd40728b193ffe">WanderTypes</a>&#160;&#160;&#160;component::WanderBehavior, component::Position, component::Controllable</td></tr>
-<tr class="separator:a5ee58d53ede7735baadd40728b193ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01080"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">core::script</a></td></tr>
+<tr class="memdesc:a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helpers and contexts for in-game scripts. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a656da27f98a206a1a2e9b6260cf005f1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a656da27f98a206a1a2e9b6260cf005f1">&#9670;&nbsp;</a></span>FixedPathTypes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define FixedPathTypes&#160;&#160;&#160;component::FixedPathBehavior, component::Position, component::Controllable</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00115">115</a> of file <a class="el" href="a00299_source.html">AI.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aad46fdf88fb45bc192d5cffd16814aa9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad46fdf88fb45bc192d5cffd16814aa9">&#9670;&nbsp;</a></span>SpinTypes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define SpinTypes&#160;&#160;&#160;component::SpinBehavior, component::Position, component::Controllable</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00114">114</a> of file <a class="el" href="a00299_source.html">AI.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a877d5f5264cb7c483b9540e5bd6d38ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a877d5f5264cb7c483b9540e5bd6d38ad">&#9670;&nbsp;</a></span>StandingTypes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define StandingTypes&#160;&#160;&#160;component::StandingBehavior, component::Position, component::Controllable</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00113">113</a> of file <a class="el" href="a00299_source.html">AI.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a5ee58d53ede7735baadd40728b193ffe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ee58d53ede7735baadd40728b193ffe">&#9670;&nbsp;</a></span>WanderTypes</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define WanderTypes&#160;&#160;&#160;component::WanderBehavior, component::Position, component::Controllable</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00299_source.html#l00116">116</a> of file <a class="el" href="a00299_source.html">AI.hpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 00:05:38 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

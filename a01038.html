@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: PlayerInput</title>
+<title>Peoplemon: Editor</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,99 +64,31 @@ $(function() {
 
 <div class="header">
   <div class="summary">
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#groups">Modules</a>  </div>
   <div class="headertitle">
-<div class="title">PlayerInput<div class="ingroups"><a class="el" href="a01031.html">Core</a></div></div>  </div>
+<div class="title">Editor</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Peoplemon specific input functionality around the BLIB input system.  
+<p>All classes and functionality used for implementing the game editor.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga4177a2fb4c67d583c7ea3ab587db8791"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> = bl::menu::TriggerDriver&lt; <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a> &gt;</td></tr>
-<tr class="memdesc:ga4177a2fb4c67d583c7ea3ab587db8791"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper typedef for Peoplemon specific menu driving.  <a href="a01038.html#ga4177a2fb4c67d583c7ea3ab587db8791">More...</a><br /></td></tr>
-<tr class="separator:ga4177a2fb4c67d583c7ea3ab587db8791"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gaf9a43071401d217a03ca35e89affedf2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01038.html#gaf9a43071401d217a03ca35e89affedf2">core::input::Control::EntityControl</a> : unsigned int { <br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a> = 0, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a> = 1, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a> = 2, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">core::input::Control::Sprint</a> = 4, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a> = 5, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">core::input::Control::Pause</a> = 6, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a> = 7, 
-<br />
-&#160;&#160;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">core::input::Control::Count</a>, 
-<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::None</a> = Count
-<br />
- }<tr class="memdesc:gaf9a43071401d217a03ca35e89affedf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the various inputs a player or AI can use to control the game or an NPC.  <a href="a01038.html#gaf9a43071401d217a03ca35e89affedf2">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaf9a43071401d217a03ca35e89affedf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="groups"></a>
+Modules</h2></td></tr>
+<tr class="memitem:a01052"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01052.html">Pages</a></td></tr>
+<tr class="memdesc:a01052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01053"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01053.html">States</a></td></tr>
+<tr class="memdesc:a01053"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of engine states for the editor. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<p>Peoplemon specific input functionality around the BLIB input system. </p>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="ga4177a2fb4c67d583c7ea3ab587db8791"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga4177a2fb4c67d583c7ea3ab587db8791">&#9670;&nbsp;</a></span>MenuDriver</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01038.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> = typedef bl::menu::TriggerDriver&lt;<a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>, <a class="el" href="a01038.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Helper typedef for Peoplemon specific menu driving. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00167_source.html#l00018">18</a> of file <a class="el" href="a00167_source.html">MenuDriver.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="gaf9a43071401d217a03ca35e89affedf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#gaf9a43071401d217a03ca35e89affedf2">&#9670;&nbsp;</a></span>EntityControl</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a01038.html#gaf9a43071401d217a03ca35e89affedf2">core::input::Control::EntityControl</a> : unsigned int</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Contains the various inputs a player or AI can use to control the game or an NPC. </p>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"></a>MoveUp&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"></a>MoveRight&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"></a>MoveDown&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"></a>MoveLeft&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c"></a>Sprint&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223"></a>Interact&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7"></a>Pause&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868"></a>Back&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c"></a>Count&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d"></a>None&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="a00164_source.html#l00027">27</a> of file <a class="el" href="a00164_source.html">Control.hpp</a>.</p>
-
-</div>
-</div>
+<p>All classes and functionality used for implementing the game editor. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Nov 23 2022 00:05:38 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
