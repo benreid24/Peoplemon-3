@@ -80,7 +80,7 @@ void AI::update(float dt) {
     });
 
     auto& ecs = owner.engine().ecs();
-    ecs.getAllComponents<component::PathFinder>().forEach(
+    ecs.getAllComponents<component::PathFinder>().forEachWithWrites(
         [this, &ecs](bl::ecs::Entity entity, component::PathFinder& path) {
             const auto cleanup = [this, entity, &ecs]() {
                 ecs.removeComponent<component::PathFinder>(entity);
@@ -97,6 +97,9 @@ void AI::update(float dt) {
 
             if (!cs.get<component::Movable>()->moving()) {
                 if (path.step == path.path.size()) {
+                    if (cs.get<component::Position>()->direction != path.destination.direction) {
+                        owner.movement().moveEntity(entity, path.destination.direction, false);
+                    }
                     cleanup();
                     bl::event::Dispatcher::dispatch<event::PathFindCompleted>({entity, true});
                 }

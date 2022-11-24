@@ -87,6 +87,10 @@ void moveEntity(system::Systems& systems, SymbolTable& table, const std::vector<
                 Value& result);
 void rotateEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
+void faceEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                Value& result);
+void faceDirection(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
+                   Value& result);
 void removeEntity(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
                   Value& result);
 void entityToPosition(system::Systems& systems, SymbolTable& table, const std::vector<Value>& args,
@@ -190,6 +194,8 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 
     BUILTIN(moveEntity);
     BUILTIN(rotateEntity);
+    BUILTIN(faceEntity);
+    BUILTIN(faceDirection);
     BUILTIN(removeEntity);
     BUILTIN(entityToPosition);
     BUILTIN(entityInteract);
@@ -730,6 +736,41 @@ void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Valu
     if (pos && pos->direction != dir) pos->direction = dir;
 }
 
+void faceEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("faceEntity", args);
+
+    const bl::ecs::Entity toSpin = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const bl::ecs::Entity toFace = static_cast<bl::ecs::Entity>(args[1].value().getAsInt());
+    component::Position* sp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+    component::Position* fp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+
+    if (sp && fp) {
+        const component::Direction d = component::Position::facePosition(*sp, *fp);
+        if (sp->direction != d) { systems.movement().moveEntity(toSpin, d, false); }
+    }
+    else { BL_LOG_ERROR << "Invalid entities. Tried to make " << toSpin << " face " << toFace; }
+}
+
+void faceDirection(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
+                   Value& result) {
+    Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TInteger>("faceDirection", args);
+
+    const bl::ecs::Entity toSpin = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const bl::ecs::Entity toFace = static_cast<bl::ecs::Entity>(args[1].value().getAsInt());
+    component::Position* sp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+    component::Position* fp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+
+    if (sp && fp) {
+        const component::Direction d = component::Position::facePosition(*sp, *fp);
+        result                       = component::directionToString(d);
+    }
+    else {
+        BL_LOG_ERROR << "Invalid entities. Tried to get direction from " << toSpin << " to "
+                     << toFace;
+        result = "ERROR";
+    }
+}
+
 void removeEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                   Value& res) {
     Value::validateArgs<PrimitiveValue::TInteger>("removeEntity", args);
@@ -758,7 +799,7 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
     const component::Direction dir = component::directionFromString(args[4].value().getAsString());
     const bool block               = args[5].value().getAsBool();
     const component::Position dest(level, destTiles, dir);
-    BL_LOG_INFO << "Moving entity " << entity << "to " << dest;
+    BL_LOG_INFO << "Moving entity " << entity << " to " << dest;
 
     if (!systems.ai().moveToPosition(entity, dest)) {
         result = false;
