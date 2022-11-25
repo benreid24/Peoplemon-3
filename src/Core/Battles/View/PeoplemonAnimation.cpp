@@ -685,7 +685,7 @@ void PeoplemonAnimation::spawnSpark(Spark* sp) {
     sp->velocity.x = v * c;
     sp->velocity.y = v * s;
     sp->time       = 0.f;
-    sp->lifetime   = bl::util::Random::get<float>(0.6, 1.1);
+    sp->lifetime   = bl::util::Random::get<float>(0.6f, 1.1f);
     sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
 }
 
