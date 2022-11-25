@@ -98,16 +98,12 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
 
     case Message::Type::Callback:
         if (forPlayer) { dispText = "Come back " + ppl + "!"; }
-        else {
-            dispText = state.enemy().name() + " called back " + ppl + "!";
-        }
+        else { dispText = state.enemy().name() + " called back " + ppl + "!"; }
         break;
 
     case Message::Type::SendOut:
         if (forPlayer) { dispText = "Go " + ppl + "!"; }
-        else {
-            dispText = state.enemy().name() + " sent out " + ppl + "!";
-        }
+        else { dispText = state.enemy().name() + " sent out " + ppl + "!"; }
         break;
 
     case Message::Type::SuperEffective:
@@ -582,9 +578,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
         if (battler.peoplemon().size() > 1) {
             dispText = ppl + " tried to retreat but all of their friends are dead!";
         }
-        else {
-            dispText = ppl + " tried to retreat but they don't have any friends!";
-        }
+        else { dispText = ppl + " tried to retreat but they don't have any friends!"; }
         break;
 
     case Message::Type::SleepHealed:
@@ -639,9 +633,7 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
             dispText = "You have beaten your acquaintance " + state.enemy().name() +
                        " at the most advanced fighting game!";
         }
-        else {
-            dispText = "A person you know named " + state.enemy().name() + " has shamed you!";
-        }
+        else { dispText = "A person you know named " + state.enemy().name() + " has shamed you!"; }
         break;
 
     case Message::Type::AwardedXp:
@@ -1025,18 +1017,20 @@ void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
     if (clear) text.setString("");
 }
 
-void MessagePrinter::process(input::EntityControl ctrl, bool ignore) {
+void MessagePrinter::process(input::EntityControl ctrl, bool fromEvent) {
     switch (state) {
     case State::Printing:
     case State::PrintingYesNoChoice:
     case State::ShowingNotAcked:
-        if (ctrl == input::Control::Back || ctrl == input::Control::Interact) { finishPrint(); }
+        if ((ctrl == input::Control::Back || ctrl == input::Control::Interact) && fromEvent) {
+            finishPrint();
+        }
         break;
     case State::WaitingYesNoChoice:
-        inputDriver.sendControl(ctrl, ignore);
+        inputDriver.sendControl(ctrl, fromEvent);
         break;
     case State::WaitingNameEntry:
-        keyboard.process(ctrl, ignore);
+        keyboard.process(ctrl, fromEvent);
         break;
     default:
         break;
@@ -1081,9 +1075,7 @@ void MessagePrinter::update(float dt) {
         }
         if (writer.finished()) {
             if (state == State::Printing) { state = State::ShowingNotAcked; }
-            else {
-                state = State::WaitingYesNoChoice;
-            }
+            else { state = State::WaitingYesNoChoice; }
         }
     } break;
 

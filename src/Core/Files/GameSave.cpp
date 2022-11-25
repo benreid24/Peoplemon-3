@@ -63,7 +63,9 @@ bool GameSave::saveGame(const std::string& name) {
     GameSave save;
     save.saveName = name;
     save.saveTime = std::chrono::system_clock::to_time_t(std::chrono::system_clock::now());
-    bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({save, true});
+    if (!Properties::InEditor()) {
+        bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({save, true});
+    }
 
     const std::string file           = filename(name);
     bl::serial::json::Value data     = bl::serial::json::Serializer<GameSave>::serialize(save);
@@ -87,14 +89,19 @@ void GameSave::editorSave() {
 
 bool GameSave::load() {
     const bl::serial::json::Group data = bl::serial::json::loadFromFile(sourceFile);
-    bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({*this, false});
+    if (!Properties::InEditor()) {
+        bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({*this, false});
+    }
     if (!bl::serial::json::Serializer<GameSave>::deserialize(*this, {data})) return false;
 
-    event::GameSaveLoaded finish{""};
-    bl::event::Dispatcher::dispatch<event::GameSaveLoaded>(finish);
-    if (!finish.failMessage.empty()) {
-        BL_LOG_ERROR << "Failed to load save file'" << sourceFile << "': " << finish.failMessage;
-        return false;
+    if (!Properties::InEditor()) {
+        event::GameSaveLoaded finish{""};
+        bl::event::Dispatcher::dispatch<event::GameSaveLoaded>(finish);
+        if (!finish.failMessage.empty()) {
+            BL_LOG_ERROR << "Failed to load save file'" << sourceFile
+                         << "': " << finish.failMessage;
+            return false;
+        }
     }
 
     return true;

@@ -188,9 +188,9 @@ item::Id PlayerMenu::selectedItem() const { return chosenItem; }
 
 int PlayerMenu::selectedPeoplemon() const { return chosenMoveOrPeoplemon; }
 
-void PlayerMenu::handleInput(input::EntityControl cmd, bool ignore) {
-    menuDriver.sendControl(cmd, ignore);
-    if (cmd == input::Control::Back) {
+void PlayerMenu::handleInput(input::EntityControl cmd, bool fromEvent) {
+    menuDriver.sendControl(cmd, fromEvent);
+    if (cmd == input::Control::Back && fromEvent) {
         if (state == State::PickingMove) {
             state = State::PickingAction;
             menuDriver.drive(&actionMenu);
