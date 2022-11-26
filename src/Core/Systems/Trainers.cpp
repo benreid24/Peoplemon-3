@@ -126,7 +126,9 @@ void Trainers::observe(const bl::ecs::event::ComponentAdded<component::Trainer>&
 }
 
 void Trainers::observe(const event::BattleCompleted& b) {
-    if (b.type == battle::Battle::Type::Trainer && b.playerWon) { setDefeated(*trainerComponent); }
+    if (b.type == battle::Battle::Type::Trainer && b.result.localPlayerWon) {
+        setDefeated(*trainerComponent);
+    }
     cleanup();
 }
 

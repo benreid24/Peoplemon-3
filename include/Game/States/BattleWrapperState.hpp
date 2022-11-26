@@ -81,11 +81,14 @@ private:
     std::unique_ptr<core::battle::Battle> battle;
     std::unique_ptr<intros::SequenceBase> sequence;
     sf::View sequenceView;
+    unsigned int evolveIndex;
 
     BattleWrapperState(core::system::Systems& systems,
                        std::unique_ptr<core::battle::Battle>&& battle,
                        std::unique_ptr<intros::SequenceBase>&& sequence);
 
+    void incEvolveIndex();
+    void startEvolve();
     virtual bool observe(const bl::input::Actor&, unsigned int, bl::input::DispatchType, bool) override;
 };
 

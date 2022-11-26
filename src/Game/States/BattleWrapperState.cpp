@@ -4,6 +4,7 @@
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/BattleState.hpp>
+#include <Game/States/Evolution.hpp>
 #include <array>
 
 namespace game
@@ -54,8 +55,6 @@ private:
     unsigned int si;
     sf::CircleShape barCircle;
     std::array<sf::Color, 6> barColors;
-
-    void shuffleColors();
 };
 
 } // namespace intros
@@ -77,7 +76,8 @@ BattleWrapperState::BattleWrapperState(core::system::Systems& systems,
 : State(systems)
 , state(Substate::BattleIntro)
 , battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle))
-, sequence(std::forward<std::unique_ptr<intros::SequenceBase>>(sequence)) {}
+, sequence(std::forward<std::unique_ptr<intros::SequenceBase>>(sequence))
+, evolveIndex(0) {}
 
 const char* BattleWrapperState::name() const { return "BattleWrapperState"; }
 
@@ -86,17 +86,18 @@ void BattleWrapperState::activate(bl::engine::Engine& engine) {
 
     switch (state) {
     case Substate::Battling:
-        // TODO - check for evolutions and set state if any
-        if (false) {
-            state = Substate::Evolving;
-            // TODO - push evolution state
+        if (systems.player().state().evolutionPending()) {
+            state       = Substate::Evolving;
+            evolveIndex = 0;
+            incEvolveIndex();
+            startEvolve();
         }
         else { engine.popState(); }
         break;
     case Substate::Evolving:
-        // TODO - check if done
-        if (false) {
-            // TODO - push evolution state
+        if (systems.player().state().evolutionPending()) {
+            incEvolveIndex();
+            startEvolve();
         }
         else { engine.popState(); }
         break;
@@ -136,6 +137,17 @@ void BattleWrapperState::render(bl::engine::Engine& engine, float lag) {
 bool BattleWrapperState::observe(const bl::input::Actor&, unsigned int, bl::input::DispatchType,
                                  bool) {
     return true;
+}
+
+void BattleWrapperState::incEvolveIndex() {
+    const auto& team = systems.player().state().peoplemon;
+    while (evolveIndex < team.size() && !team[evolveIndex].pendingEvolution()) { ++evolveIndex; }
+}
+
+void BattleWrapperState::startEvolve() {
+    auto& ppl              = systems.player().state().peoplemon[evolveIndex];
+    ppl.pendingEvolution() = false;
+    systems.engine().pushState(Evolution::create(systems, ppl));
 }
 
 namespace intros
@@ -246,10 +258,6 @@ void WildSequence::render(sf::RenderTarget& target, float lag) {
 }
 
 bool WildSequence::finished() const { return time >= 2.5f; }
-
-void WildSequence::shuffleColors() {
-    bl::util::Random::shuffle(barColors.begin(), barColors.end());
-}
 
 } // namespace intros
 

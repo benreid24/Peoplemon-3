@@ -97,7 +97,7 @@ void Player::removePlayerControlled(bl::ecs::Entity e) {
 void Player::init() { bl::event::Dispatcher::subscribe(this); }
 
 void Player::whiteout() {
-    for (auto& ppl : data.peoplemon) { ppl.heal(); }
+    data.healPeoplemon();
     owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn);
 }
 

@@ -35,7 +35,8 @@ OwnedPeoplemon::OwnedPeoplemon()
 , xp(0)
 , hp(0)
 , ailment(Ailment::None)
-, item(item::Id::None) {}
+, item(item::Id::None)
+, pendingEvolve(false) {}
 
 OwnedPeoplemon::OwnedPeoplemon(Id ppl, unsigned int l)
 : OwnedPeoplemon() {
@@ -122,6 +123,12 @@ bool OwnedPeoplemon::loadLegacyFile(const std::string& f) {
 
 Id OwnedPeoplemon::id() const { return _id; }
 
+void OwnedPeoplemon::evolve() {
+    const Id eid = evolvesInto();
+    if (eid != Id::Unknown) { _id = eid; }
+    else { BL_LOG_ERROR << "Tried to evolve " << _id << " but it has no valid evolution!"; }
+}
+
 const std::string& OwnedPeoplemon::name() const {
     return customName.empty() ? Peoplemon::name(_id) : customName;
 }
@@ -131,6 +138,14 @@ Type OwnedPeoplemon::type() const { return Peoplemon::type(_id); }
 void OwnedPeoplemon::setCustomName(const std::string& n) { customName = n; }
 
 unsigned int OwnedPeoplemon::currentLevel() const { return level; }
+
+unsigned int OwnedPeoplemon::evolveLevel() const { return Peoplemon::evolveLevel(_id); }
+
+Id OwnedPeoplemon::evolvesInto() const { return Peoplemon::evolvesInto(_id); }
+
+bool OwnedPeoplemon::pendingEvolution() const { return pendingEvolve; }
+
+bool& OwnedPeoplemon::pendingEvolution() { return pendingEvolve; }
 
 unsigned int OwnedPeoplemon::currentXP() const { return xp; }
 

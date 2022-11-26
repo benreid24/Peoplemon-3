@@ -4,6 +4,7 @@
 #include <Core/Properties.hpp>
 #include <Core/Scripts/DebugScriptContext.hpp>
 #include <Game/States/BattleWrapperState.hpp>
+#include <Game/States/Evolution.hpp>
 #include <Game/States/MapExplorer.hpp>
 #include <Game/States/PauseMenu.hpp>
 #include <Game/States/StorageSystem.hpp>
@@ -144,6 +145,10 @@ void MainGame::observe(const sf::Event& event) {
                 std::thread t(&runDebugScript, std::ref(systems), std::ref(running));
                 t.detach();
             }
+        }
+        else if (event.key.code == sf::Keyboard::F2) {
+            systems.engine().pushState(
+                Evolution::create(systems, systems.player().state().peoplemon.front()));
         }
     }
 #endif

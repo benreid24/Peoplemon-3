@@ -694,16 +694,59 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
         s.run(&systems->engine().scriptManager());
     };
 
-    const auto visitor = [&trigger, &pos](const Event* ep) -> bool {
+    bool found         = false;
+    const auto visitor = [&trigger, &pos, &found](const Event* ep) -> bool {
         const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
         if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {
             trigger(e);
+            found = true;
             return true; // ends iteration
         }
         return false;
     };
     eventRegions.forAllInCellAndNeighbors(pos.positionPixels(), visitor);
+    if (found) return true;
+
+    if (interactor == systems->player().player()) {
+        const Collision col =
+            levels[pos.level].collisionLayer().get(pos.positionTiles().x, pos.positionTiles().y);
+        switch (col) {
+        case Collision::LedgeHop:
+            systems->hud().displayMessage(
+                "This ledge is pretty tall. I'll have to find a way around.");
+            return true;
+        case Collision::SurfRequired:
+            if (systems->player().state().bag.hasItem(item::Id::JesusShoes)) {
+                systems->hud().displayMessage(
+                    "I bet the shoes I'm wearing will let me walk right over this!");
+            }
+            else { systems->hud().displayMessage("There's no way I can walk on water! Unless..."); }
+            return true;
+        case Collision::WaterfallRequired:
+            if (systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade)) {
+                systems->hud().displayMessage(
+                    "With my super awesome upgrades Jesus Shoes I bet I can walk right up this!");
+            }
+            else {
+                systems->hud().displayMessage(
+                    "Even my Jesus Shoes can't get up here. Maybe there's a new model available.");
+            }
+            return true;
+        default:
+            break;
+        }
+
+        // check ledge hop down
+        const component::Position prev = pos.move(component::oppositeDirection(pos.direction));
+        const Collision oncol =
+            levels[pos.level].collisionLayer().get(prev.positionTiles().x, prev.positionTiles().y);
+        if (oncol == Collision::LedgeHop && pos.direction == component::Direction::Down) {
+            systems->hud().displayMessage("I think I can jump down without getting hurt, but I "
+                                          "won't be able to get back up.");
+            return true;
+        }
+    }
 
     return false;
 }

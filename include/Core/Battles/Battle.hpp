@@ -4,6 +4,7 @@
 #include <Core/Battles/BattleControllers/BattleController.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Battles/BattleView.hpp>
+#include <Core/Battles/Result.hpp>
 #include <Core/Systems/Player.hpp>
 #include <memory>
 
@@ -47,7 +48,7 @@ struct Battle {
     BattleState state;
     std::unique_ptr<BattleController> controller;
     BattleView view;
-    bool localPlayerWon; // set by controller
+    Result result; // set by controller
 
 private:
     Battle(const std::string& location, system::Player& player, Type type);

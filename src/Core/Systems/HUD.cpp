@@ -68,6 +68,7 @@ void HUD::update(float dt) {
 
     case WaitingKeyboard:
     case WaitingPrompt:
+    case WaitingSticky:
         // noop
         break;
 
@@ -114,8 +115,26 @@ void HUD::displayMessage(const std::string& msg, const Callback& cb) {
     sf::Text text = displayText;
     text.setString(msg);
     bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), cb);
+    queuedOutput.emplace(text.getString().toAnsiString(), false, true, cb);
     ensureActive();
+}
+
+void HUD::displayStickyMessage(const std::string& msg, bool ghost, const Callback& cb) {
+    sf::Text text = displayText;
+    text.setString(msg);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
+    queuedOutput.emplace(text.getString().toAnsiString(), true, ghost, cb);
+    ensureActive();
+}
+
+bool HUD::dismissStickyMessage(bool ignoreGhost) {
+    if (queuedOutput.empty()) return false;
+    if (queuedOutput.front().getType() != Item::Message) return false;
+    if (!queuedOutput.front().isSticky()) return false;
+    if (!ignoreGhost && !currentMessage.finished()) return false;
+
+    next();
+    return true;
 }
 
 void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& choices,
@@ -158,13 +177,18 @@ void HUD::ensureActive() {
 void HUD::startPrinting() {
     state = Printing;
     currentMessage.setContent(queuedOutput.front().getMessage());
-    displayText.setString("");
+    if (!queuedOutput.front().ghostWrite()) { currentMessage.showAll(); }
+    displayText.setString(std::string{currentMessage.getVisible()});
 }
 
 void HUD::printDoneStateTransition() {
     switch (queuedOutput.front().getType()) {
     case Item::Message:
-        state = WaitingContinue;
+        if (!queuedOutput.front().isSticky()) { state = WaitingContinue; }
+        else {
+            state = WaitingSticky;
+            queuedOutput.front().getCallback()(queuedOutput.front().getMessage());
+        }
         break;
 
     case Item::Prompt: {
@@ -293,6 +317,10 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
         }
         break;
 
+    case HUD::WaitingSticky:
+        // ignore input
+        break;
+
     default:
         BL_LOG_WARN << "Input received by HUD while in invalid state: " << owner.state;
         break;
@@ -301,11 +329,11 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
     return true;
 }
 
-HUD::Item::Item(const std::string& msg, const HUD::Callback& cb)
+HUD::Item::Item(const std::string& msg, bool sticky, bool ghost, const HUD::Callback& cb)
 : type(Message)
 , cb(cb)
 , message(msg)
-, data(std::in_place_type_t<Empty>{}) {}
+, data(std::in_place_type_t<std::pair<bool, bool>>{}, sticky, ghost) {}
 
 HUD::Item::Item(const std::string& p, const std::vector<std::string>& c, const HUD::Callback& cb)
 : type(Prompt)
@@ -329,6 +357,13 @@ HUD::Item::Item(const std::string& prompt, int minQty, int maxQty, const QtyCall
 HUD::Item::Type HUD::Item::getType() const { return type; }
 
 const std::string& HUD::Item::getMessage() const { return message; }
+
+bool HUD::Item::isSticky() const { return std::get_if<std::pair<bool, bool>>(&data)->first; }
+
+bool HUD::Item::ghostWrite() const {
+    const auto* p = std::get_if<std::pair<bool, bool>>(&data);
+    return p ? p->second : true;
+}
 
 const std::vector<std::string>& HUD::Item::getChoices() const {
     return *std::get_if<std::vector<std::string>>(&data);

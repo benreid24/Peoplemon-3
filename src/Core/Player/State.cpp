@@ -17,5 +17,12 @@ void State::healPeoplemon() {
     for (auto& ppl : peoplemon) { ppl.heal(); }
 }
 
+bool State::evolutionPending() const {
+    for (const auto& ppl : peoplemon) {
+        if (ppl.pendingEvolution()) return true;
+    }
+    return false;
+}
+
 } // namespace player
 } // namespace core

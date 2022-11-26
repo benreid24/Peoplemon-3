@@ -4,6 +4,7 @@ target_sources(Core PUBLIC
     BattleState.hpp
     BattlerSubstate.hpp
     BattleView.hpp
+    Result.hpp
     TurnAction.hpp
 )
 
