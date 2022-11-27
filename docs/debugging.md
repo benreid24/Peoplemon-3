@@ -18,6 +18,7 @@ The following utilities are available in the debug build of Peoplemon:
 2. **Battle skipping**: Battles may be skipped by pressing `F2`, which will toggle the setting. Press this before battles. When battles are off wild Peoplemon will not attack. Trainers will still enter battle, but the battle will skip ahead to the trainer being defeated.
 3. **Peoplemon catching**: All peopleballs can be given a catch rate of 100% by pressing `F3`. With this setting on Peoplemon will always be caught when a ball is used.
 4. **Run away**: Press `F4` to be able to always escape battle with wild Peoplemon
+5. **Evolution**: Press `F5` to instantly level up your current lead Peoplemon to the level it evolves at and trigger an evolution. Moves are learned along the way if spots are open. XP is not reset. EVs are not modified.
 
 ## Game Saves
 

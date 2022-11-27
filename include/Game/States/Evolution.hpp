@@ -1,6 +1,8 @@
 #ifndef GAME_STATE_EVOLUTION_HPP
 #define GAME_STATE_EVOLUTION_HPP
 
+#include <BLIB/Media/Shapes.hpp>
+#include <BLIB/Particles.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Game/States/State.hpp>
 
@@ -83,14 +85,26 @@ private:
         CancelMsg
     };
 
+    struct Spark {
+        sf::Vector2f position;
+        sf::Vector2f velocity;
+        float radius;
+        float time;
+        float lifetime;
+    };
+
     AnimState state;
     AnimState cancelPriorState;
+    bl::particle::System<Spark> sparks;
+    bl::shapes::GradientCircle spark;
     union {
         float fadeColor;
         float oscillateTime;
     };
 
     Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon& ppl);
+
+    void spawnSpark(Spark* obj);
 
     void messageDone();
     void onCancelConfirm(const std::string& choice);

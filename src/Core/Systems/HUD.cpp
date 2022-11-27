@@ -12,6 +12,7 @@ namespace
 {
 constexpr float ChoiceHeight  = 25.f;
 constexpr float ChoicePadding = 8.f;
+constexpr float TextPadding   = 10.f;
 
 bool isNextCommand(unsigned int cmd) {
     return cmd == input::Control::Back || cmd == input::Control::Interact;
@@ -38,7 +39,7 @@ HUD::HUD(Systems& owner)
     displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
     displayText.setFillColor(sf::Color::Black);
-    displayText.setPosition(textbox.getPosition() + sf::Vector2f(10.f, 8.f));
+    displayText.setPosition(textbox.getPosition() + sf::Vector2f(TextPadding, 8.f));
     promptTriangle.setFillColor(sf::Color(255, 77, 0));
     promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
     promptTriangle.setOutlineThickness(1.5f);
@@ -112,18 +113,12 @@ void HUD::render(sf::RenderTarget& target, float lag) {
 }
 
 void HUD::displayMessage(const std::string& msg, const Callback& cb) {
-    sf::Text text = displayText;
-    text.setString(msg);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), false, true, cb);
+    queuedOutput.emplace(wordWrap(msg), false, true, cb);
     ensureActive();
 }
 
 void HUD::displayStickyMessage(const std::string& msg, bool ghost, const Callback& cb) {
-    sf::Text text = displayText;
-    text.setString(msg);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), true, ghost, cb);
+    queuedOutput.emplace(wordWrap(msg), true, ghost, cb);
     ensureActive();
 }
 
@@ -139,27 +134,18 @@ bool HUD::dismissStickyMessage(bool ignoreGhost) {
 
 void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& choices,
                      const Callback& cb) {
-    sf::Text text = displayText;
-    text.setString(prompt);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), choices, cb);
+    queuedOutput.emplace(wordWrap(prompt), choices, cb);
     ensureActive();
 }
 
 void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned int mx,
                          const Callback& cb) {
-    sf::Text text = displayText;
-    text.setString(prompt);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), mn, mx, cb);
+    queuedOutput.emplace(wordWrap(prompt), mn, mx, cb);
     ensureActive();
 }
 
 void HUD::getQty(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb) {
-    sf::Text text = displayText;
-    text.setString(prompt);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x);
-    queuedOutput.emplace(text.getString().toAnsiString(), minQty, maxQty, cb);
+    queuedOutput.emplace(wordWrap(prompt), minQty, maxQty, cb);
     ensureActive();
 }
 
@@ -261,6 +247,13 @@ void HUD::keyboardSubmit(const std::string& i) {
     queuedOutput.front().getCallback()(i);
     screenKeyboard.stop();
     next();
+}
+
+std::string HUD::wordWrap(const std::string& str) const {
+    sf::Text text = displayText;
+    text.setString(str);
+    bl::interface::wordWrap(text, textboxTxtr->getSize().x - TextPadding);
+    return text.getString().toAnsiString();
 }
 
 HUD::HudListener::HudListener(HUD& o)

@@ -2,6 +2,7 @@
 
 #include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Math.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 
 namespace game
@@ -20,6 +21,16 @@ constexpr float ScalingTime = 7.f;
 constexpr float InitialRpm  = 0.9f;
 constexpr float SinMult     = 90.f / InitialRpm; // 90 so we end at 0
 
+constexpr unsigned int SparkCount = 400;
+constexpr float SparkSpawnRate    = 1600.f;
+constexpr float SparkPercent      = 1.f / 2.3f;
+constexpr float SparkStopColor    = 255.f * SparkPercent;
+const sf::Color SparkColor(252, 230, 30);
+
+sf::Color makeColor(float alpha) {
+    return sf::Color(SparkColor.r, SparkColor.g, SparkColor.b, static_cast<std::uint8_t>(alpha));
+}
+
 sf::Color makeFade(float c) {
     const float af        = 255.f - (1.f - c * MaxColorRecip) * FadeDiff;
     const std::uint8_t a  = static_cast<std::uint8_t>(af);
@@ -37,6 +48,8 @@ Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon
 : State(systems)
 , ppl(ppl)
 , state(AnimState::IntroMsg)
+, sparks(std::bind(&Evolution::spawnSpark, this, std::placeholders::_1), 0, 0.f)
+, spark(4.f)
 , fadeColor(255.f) {
     oldTxtr = bl::engine::Resources::textures()
                   .load(core::pplmn::Peoplemon::opponentImage(ppl.id()))
@@ -85,6 +98,12 @@ void Evolution::deactivate(bl::engine::Engine& engine) {
 }
 
 void Evolution::update(bl::engine::Engine&, float dt) {
+    const auto updateSpark = [dt](Spark& spark) {
+        spark.time += dt;
+        spark.position += spark.velocity * dt;
+        return spark.time < spark.lifetime;
+    };
+
     switch (state) {
     case AnimState::OldFadeOut:
         fadeColor = std::max(0.f, fadeColor - FadeRate * dt);
@@ -107,12 +126,19 @@ void Evolution::update(bl::engine::Engine&, float dt) {
             state = AnimState::NewFadeIn;
             newThumb.setScale(1.f, 1.f);
             fadeColor = 0.f;
+            sparks.setTargetCount(SparkCount);
+            sparks.setCreateRate(SparkSpawnRate);
         }
     } break;
 
     case AnimState::NewFadeIn:
         fadeColor = std::min(255.f, fadeColor + FadeRate * dt);
         newThumb.setColor(makeFade(fadeColor));
+        sparks.update(updateSpark, dt);
+        if (fadeColor >= SparkStopColor) {
+            sparks.setTargetCount(0);
+            sparks.setCreateRate(0.f);
+        }
         if (fadeColor >= 255.f) {
             state = AnimState::EvolvedMsg;
             ppl.evolve();
@@ -122,9 +148,11 @@ void Evolution::update(bl::engine::Engine&, float dt) {
                                          std::bind(&Evolution::messageDone, this));
         }
         break;
+    case AnimState::EvolvedMsg:
+        sparks.update(updateSpark, dt);
+        [[fallthrough]];
 
     case AnimState::IntroMsg:
-    case AnimState::EvolvedMsg:
     case AnimState::CancelMsg:
     case AnimState::CancelConfirm:
         systems.hud().update(dt);
@@ -140,6 +168,13 @@ void Evolution::render(bl::engine::Engine& engine, float lag) {
     engine.window().draw(background);
     systems.hud().render(engine.window(), lag);
 
+    const auto renderSpark = [this, &engine](const Spark& s) {
+        spark.setPosition(s.position);
+        spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
+        spark.setRadius(s.radius);
+        engine.window().draw(spark);
+    };
+
     switch (state) {
     case AnimState::IntroMsg:
     case AnimState::OldFadeOut:
@@ -154,6 +189,7 @@ void Evolution::render(bl::engine::Engine& engine, float lag) {
     case AnimState::EvolvedMsg:
     case AnimState::NewFadeIn:
         engine.window().draw(newThumb);
+        sparks.render(renderSpark);
         break;
     default:
         break;
@@ -213,6 +249,20 @@ bool Evolution::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::D
         }
     }
     return true;
+}
+
+void Evolution::spawnSpark(Spark* sp) {
+    const float a  = bl::util::Random::get<float>(0.f, 360.f);
+    const float d  = bl::util::Random::get<float>(1.f, 40.f);
+    const float v  = bl::util::Random::get<float>(150.f, 900.f);
+    const float c  = bl::math::cos(a);
+    const float s  = bl::math::sin(a);
+    sp->position   = core::Properties::WindowSize() * 0.5f + sf::Vector2f(c, s) * d;
+    sp->velocity.x = v * c;
+    sp->velocity.y = v * s;
+    sp->time       = 0.f;
+    sp->lifetime   = bl::util::Random::get<float>(0.75f, 1.4f);
+    sp->radius     = bl::util::Random::get<float>(2.f, 7.f);
 }
 
 } // namespace state

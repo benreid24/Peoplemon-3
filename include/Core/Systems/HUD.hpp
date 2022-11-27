@@ -232,6 +232,7 @@ private:
     core::input::MenuDriver choiceDriver;
     const float choiceBoxX;
 
+    std::string wordWrap(const std::string& str) const;
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();

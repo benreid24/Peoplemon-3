@@ -146,9 +146,21 @@ void MainGame::observe(const sf::Event& event) {
                 t.detach();
             }
         }
-        else if (event.key.code == sf::Keyboard::F2) {
-            systems.engine().pushState(
-                Evolution::create(systems, systems.player().state().peoplemon.front()));
+        else if (event.key.code == sf::Keyboard::F5) {
+            auto& team = systems.player().state().peoplemon;
+            if (!team.empty()) {
+                auto& ppl = team.front();
+                if (ppl.evolvesInto() != core::pplmn::Id::Unknown) {
+                    const unsigned int lvl = ppl.evolveLevel();
+                    if (lvl <= 100) {
+                        while (ppl.currentLevel() < lvl) {
+                            const auto move = ppl.levelUp();
+                            if (move != core::pplmn::MoveId::Unknown) { ppl.gainMove(move); }
+                        }
+                        systems.engine().pushState(Evolution::create(systems, ppl));
+                    }
+                }
+            }
         }
     }
 #endif
