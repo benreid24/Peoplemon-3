@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Battles/BattleState.cpp File Reference</title>
+<title>Peoplemon: include/Editor/Pages/Map.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,34 +63,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_f1cf2b57ee8bdcca98640d5a23e68a32.html">Battles</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">BattleState.cpp File Reference</div>  </div>
+<div class="title">Map.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a02946_source.html">Core/Battles/BattleState.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00362_source.html">Editor/Components/CharacterSpawnWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00377_source.html">Editor/Components/EventEditor.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00389_source.html">Editor/Components/ItemSelector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00395_source.html">Editor/Components/LightSlider.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00404_source.html">Editor/Components/NewMapDialog.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00419_source.html">Editor/Components/PlaylistEditorWindow.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00425_source.html">Editor/Components/ScriptSelector.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00437_source.html">Editor/Components/WeatherSelect.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00449_source.html">Editor/Pages/Page.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00458_source.html">Editor/Pages/Subpages/GameTesting.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00461_source.html">Editor/Pages/Subpages/Layers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00464_source.html">Editor/Pages/Subpages/Levels.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00470_source.html">Editor/Pages/Subpages/MapArea.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03093_source.html">Editor/Pages/Subpages/Tileset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00422_source.html">Editor/Components/RenderMapWindow.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a03087_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02189.html">editor::page::Map</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a02197.html" title="Base class for all editor pages. ">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything.  <a href="a02189.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
-<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01092"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01092.html">editor</a></td></tr>
+<tr class="memdesc:a01092"><td class="mdescLeft">&#160;</td><td class="mdescRight">All classes and functionality used for implementing the game editor. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01059"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html">core::battle</a></td></tr>
-<tr class="memdesc:a01059"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
+<tr class="memitem:a01098"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01098.html">editor::page</a></td></tr>
+<tr class="memdesc:a01098"><td class="mdescLeft">&#160;</td><td class="mdescRight">Classes that implement top level editor pages. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

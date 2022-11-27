@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::PeoplemonEditorWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,31 +63,124 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01077.html">editor</a></li><li class="navelem"><a class="el" href="a01078.html">component</a></li><li class="navelem"><a class="el" href="a02148.html">StatBox</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01092.html">editor</a></li><li class="navelem"><a class="el" href="a01093.html">component</a></li><li class="navelem"><a class="el" href="a02145.html">PeoplemonEditorWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02142.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::StatBox Member List</div>  </div>
+<div class="title">editor::component::PeoplemonEditorWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02148.html">editor::component::StatBox</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02148.html#a6d4475253ab2c37415e773ea4f972ae7">currentValue</a>() const</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02148.html#a7116e95b3653cad1c3ece68ef19298fca9ee120e145433c17b92395496a136b2c">EV</a> enum value</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02148.html#a7116e95b3653cad1c3ece68ef19298fcaafc5a887eed4514ae4a96d04462eceb8">IV</a> enum value</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02148.html#a7116e95b3653cad1c3ece68ef19298fc">Mode</a> enum name</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02148.html#af01d771b0d4fe4ea6f95ca6be9aa22c3">notifyLevel</a>(unsigned int level)</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02148.html#a016f35d296f9f449396853b00559458b">pack</a>(bl::gui::Box &amp;container)</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02148.html#a4036cd064ae0ec3c974c462cbd8e0489">reset</a>()</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02148.html#abda77e6402de87200eadcaa8a39ebc37">StatBox</a>(Mode mode, bool showRandomBut=true)</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02148.html#af97392c9bb25b8d180a18b363f31da2e">update</a>(const core::pplmn::Stats &amp;value)</td><td class="entry"><a class="el" href="a02148.html">editor::component::StatBox</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00413_source.html">PeoplemonEditorWindow.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a0a34c1eef96144fd8290b9c4ed406d1b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#a0a34c1eef96144fd8290b9c4ed406d1b">OnChange</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:a0a34c1eef96144fd8290b9c4ed406d1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a7bb97104a1d7316e5d6aa2d38a7a51dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#a7bb97104a1d7316e5d6aa2d38a7a51dd">PeoplemonEditorWindow</a> (<a class="el" href="a01661.html">core::file::PeoplemonDB</a> &amp;db, const <a class="el" href="a02145.html#a0a34c1eef96144fd8290b9c4ed406d1b">OnChange</a> &amp;onChange)</td></tr>
+<tr class="separator:a7bb97104a1d7316e5d6aa2d38a7a51dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03483ab9745e76845c59c6710ad730a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#a03483ab9745e76845c59c6710ad730a3">open</a> (const bl::gui::GUI::Ptr &amp;parent, <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl)</td></tr>
+<tr class="separator:a03483ab9745e76845c59c6710ad730a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00017">17</a> of file <a class="el" href="a00413_source.html">PeoplemonEditorWindow.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a0a34c1eef96144fd8290b9c4ed406d1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a34c1eef96144fd8290b9c4ed406d1b">&#9670;&nbsp;</a></span>OnChange</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02145.html#a0a34c1eef96144fd8290b9c4ed406d1b">editor::component::PeoplemonEditorWindow::OnChange</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00413_source.html#l00019">19</a> of file <a class="el" href="a00413_source.html">PeoplemonEditorWindow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7bb97104a1d7316e5d6aa2d38a7a51dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bb97104a1d7316e5d6aa2d38a7a51dd">&#9670;&nbsp;</a></span>PeoplemonEditorWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::PeoplemonEditorWindow::PeoplemonEditorWindow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01661.html">core::file::PeoplemonDB</a> &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a02145.html#a0a34c1eef96144fd8290b9c4ed406d1b">OnChange</a> &amp;&#160;</td>
+          <td class="paramname"><em>onChange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00914_source.html#l00045">45</a> of file <a class="el" href="a00914_source.html">PeoplemonEditorWindow.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a03483ab9745e76845c59c6710ad730a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03483ab9745e76845c59c6710ad730a3">&#9670;&nbsp;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::PeoplemonEditorWindow::open </td>
+          <td>(</td>
+          <td class="paramtype">const bl::gui::GUI::Ptr &amp;&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a>&#160;</td>
+          <td class="paramname"><em>ppl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00914_source.html#l00287">287</a> of file <a class="el" href="a00914_source.html">PeoplemonEditorWindow.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00413_source.html">PeoplemonEditorWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00914_source.html">PeoplemonEditorWindow.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 24 2022 13:47:15 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Nov 27 2022 03:32:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Cameras/ShakeFollow.cpp File Reference</title>
+<title>Peoplemon: src/Core/Battles/View/PeoplemonAnimation.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,45 +63,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_b29097b3ea2e3c4d7f00e5ec59d74ab2.html">Cameras</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_f1cf2b57ee8bdcca98640d5a23e68a32.html">Battles</a></li><li class="navelem"><a class="el" href="dir_3adeae034aa8f7891c9158350b551ddc.html">View</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">ShakeFollow.cpp File Reference</div>  </div>
+<div class="title">PeoplemonAnimation.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00068_source.html">Core/Cameras/ShakeFollow.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00062_source.html">Core/Battles/View/PeoplemonAnimation.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Engine/Resources.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Interfaces/Utilities/ViewUtil.hpp&gt;</code><br />
 <code>#include &lt;BLIB/Math.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00071_source.html">Core/Cameras/Util.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02982_source.html">Core/Components/Position.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00281_source.html">Core/Properties.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00341_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Util/Random.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03096_source.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00284_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<code>#include &lt;cmath&gt;</code><br />
 </div>
 <p><a href="a00593_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
-<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01071"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html">core</a></td></tr>
+<tr class="memdesc:a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01062"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01062.html">core::camera</a></td></tr>
+<tr class="memitem:a01074"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01074.html">core::battle</a></td></tr>
+<tr class="memdesc:a01074"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes used for peoplemon battling. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01062.html#a8cd0da8323480ab2c8b51eb4d0fcfddf">core::camera::getPositionPointer</a> (system::Systems &amp;s, bl::ecs::Entity e)</td></tr>
-<tr class="memdesc:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to get a pointer to the pixel position of the given entity.  <a href="a01062.html#a8cd0da8323480ab2c8b51eb4d0fcfddf">More...</a><br /></td></tr>
-<tr class="separator:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01075"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">core::battle::view</a></td></tr>
+<tr class="memdesc:a01075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes that compose the <a class="el" href="a01249.html" title="This is the top level class for rendering battles. It takes commands and state from a BattleControlle...">BattleView</a>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

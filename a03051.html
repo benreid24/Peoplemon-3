@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Peoplemon/Peoplemon.hpp File Reference</title>
+<title>Peoplemon: include/Core/Events/PeoplemonMenu.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7c3823283bbfff1894463e96029f8928.html">Peoplemon</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,43 +71,32 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">Peoplemon.hpp File Reference</div>  </div>
+<div class="title">PeoplemonMenu.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;unordered_map&gt;</code><br />
-<code>#include &lt;unordered_set&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00167_source.html">Core/Files/PeoplemonDB.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00224_source.html">Core/Peoplemon/Ailment.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03030_source.html">Core/Peoplemon/Id.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00239_source.html">Core/Peoplemon/MoveId.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00254_source.html">Core/Peoplemon/SpecialAbility.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00260_source.html">Core/Peoplemon/Stats.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03036_source.html">Core/Peoplemon/Type.hpp</a>&gt;</code><br />
-</div>
+
 <p><a href="a03051_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01808.html">core::pplmn::Peoplemon</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serves as the primary store of all <a class="el" href="a01808.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> information.  <a href="a01808.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01461.html">core::event::OpenPeoplemonMenu</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special event to trigger the opening of the peoplemon menu.  <a href="a01461.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01056"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01056.html">core</a></td></tr>
-<tr class="memdesc:a01056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01071"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01071.html">core</a></td></tr>
+<tr class="memdesc:a01071"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01076"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01076.html">core::pplmn</a></td></tr>
-<tr class="memdesc:a01076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes and enums pertaining to <a class="el" href="a01808.html" title="Serves as the primary store of all Peoplemon information. ">Peoplemon</a> themselves. <br /></td></tr>
+<tr class="memitem:a01082"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01082.html">core::event</a></td></tr>
+<tr class="memdesc:a01082"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace containing all the event types that propagate through the event bus. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

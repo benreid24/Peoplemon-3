@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::event::EntityMoved Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,24 +63,164 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01056.html">core</a></li><li class="navelem"><a class="el" href="a01067.html">event</a></li><li class="navelem"><a class="el" href="a01420.html">MapSwitch</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01082.html">event</a></li><li class="navelem"><a class="el" href="a01417.html">EntityMoved</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01414.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::MapSwitch Member List</div>  </div>
+<div class="title">core::event::EntityMoved Struct Reference<div class="ingroups"><a class="el" href="a01052.html">Core</a> &raquo; <a class="el" href="a01057.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01420.html">core::event::MapSwitch</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01420.html#aad55f26e8decefb28139ad792f768091">map</a></td><td class="entry"><a class="el" href="a01420.html">core::event::MapSwitch</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01420.html#a523e5c5b903e672e08b9fda365be64bc">MapSwitch</a>(const map::Map &amp;map)</td><td class="entry"><a class="el" href="a01420.html">core::event::MapSwitch</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-</table></div><!-- contents -->
+<p>Fired after an entity begins moving from one position to another.  
+ <a href="a01417.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00131_source.html">EntityMoved.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9520965f50377334f534fc149143e81f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01417.html#a9520965f50377334f534fc149143e81f">EntityMoved</a> (bl::ecs::Entity <a class="el" href="a01417.html#a6bc4cf3380f910db6882963c753d9737">entity</a>, const <a class="el" href="a01345.html">component::Position</a> &amp;oldPos, const <a class="el" href="a01345.html">component::Position</a> &amp;pos)</td></tr>
+<tr class="memdesc:a9520965f50377334f534fc149143e81f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01417.html" title="Fired after an entity begins moving from one position to another. ">EntityMoved</a> event.  <a href="#a9520965f50377334f534fc149143e81f">More...</a><br /></td></tr>
+<tr class="separator:a9520965f50377334f534fc149143e81f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:a6bc4cf3380f910db6882963c753d9737"><td class="memItemLeft" align="right" valign="top">const bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01417.html#a6bc4cf3380f910db6882963c753d9737">entity</a></td></tr>
+<tr class="memdesc:a6bc4cf3380f910db6882963c753d9737"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="#a6bc4cf3380f910db6882963c753d9737">More...</a><br /></td></tr>
+<tr class="separator:a6bc4cf3380f910db6882963c753d9737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad303aafbe3ab706307731fe162fec0d6"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01345.html">component::Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01417.html#ad303aafbe3ab706307731fe162fec0d6">previousPosition</a></td></tr>
+<tr class="memdesc:ad303aafbe3ab706307731fe162fec0d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous position of the entity.  <a href="#ad303aafbe3ab706307731fe162fec0d6">More...</a><br /></td></tr>
+<tr class="separator:ad303aafbe3ab706307731fe162fec0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73dbf3b51c566408e358eba1c8d932d0"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01345.html">component::Position</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01417.html#a73dbf3b51c566408e358eba1c8d932d0">position</a></td></tr>
+<tr class="memdesc:a73dbf3b51c566408e358eba1c8d932d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="#a73dbf3b51c566408e358eba1c8d932d0">More...</a><br /></td></tr>
+<tr class="separator:a73dbf3b51c566408e358eba1c8d932d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Fired after an entity begins moving from one position to another. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00131_source.html#l00018">18</a> of file <a class="el" href="a00131_source.html">EntityMoved.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9520965f50377334f534fc149143e81f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9520965f50377334f534fc149143e81f">&#9670;&nbsp;</a></span>EntityMoved()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::event::EntityMoved::EntityMoved </td>
+          <td>(</td>
+          <td class="paramtype">bl::ecs::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01345.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>oldPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01345.html">component::Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01417.html" title="Fired after an entity begins moving from one position to another. ">EntityMoved</a> event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entity</td><td>The entity that moved </td></tr>
+    <tr><td class="paramname">oldPos</td><td>The old position </td></tr>
+    <tr><td class="paramname">pos</td><td>The current position </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00131_source.html#l00035">35</a> of file <a class="el" href="a00131_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a6bc4cf3380f910db6882963c753d9737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc4cf3380f910db6882963c753d9737">&#9670;&nbsp;</a></span>entity</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bl::ecs::Entity core::event::EntityMoved::entity</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The entity that moved. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00131_source.html#l00020">20</a> of file <a class="el" href="a00131_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a73dbf3b51c566408e358eba1c8d932d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73dbf3b51c566408e358eba1c8d932d0">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01345.html">component::Position</a>&amp; core::event::EntityMoved::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current position of the entity. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00131_source.html#l00026">26</a> of file <a class="el" href="a00131_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad303aafbe3ab706307731fe162fec0d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad303aafbe3ab706307731fe162fec0d6">&#9670;&nbsp;</a></span>previousPosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01345.html">component::Position</a> core::event::EntityMoved::previousPosition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The previous position of the entity. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00131_source.html#l00023">23</a> of file <a class="el" href="a00131_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a00131_source.html">EntityMoved.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Nov 24 2022 13:47:14 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
