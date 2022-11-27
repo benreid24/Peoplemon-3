@@ -65,7 +65,8 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     Box::Ptr subRow = Box::create(LinePacker::create());
     moveSelector    = MoveSelector::create(true);
     subRow->pack(moveSelector, false, true);
-    Box::Ptr column = Box::create(LinePacker::create(LinePacker::Vertical));
+    box->pack(subRow, true, false);
+    subRow = Box::create(LinePacker::create());
     Button::Ptr but = Button::create("Add");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (moves.size() < 4) {
@@ -75,12 +76,12 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
             }
         }
     });
-    column->pack(but, false, false);
+    subRow->pack(but, false, true);
     but = Button::create("Random");
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         moveSelector->selectRandom();
     });
-    column->pack(but, false, false);
+    subRow->pack(but, false, false);
     but = Button::create("Remove");
     but->setColor(sf::Color::Red, sf::Color::Black);
     but->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
@@ -90,7 +91,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
             moveBox->removeOption(sel.value());
         }
     });
-    subRow->pack(column, false, true);
+    subRow->pack(but, false, true);
     box->pack(subRow, true, false);
     row->pack(box);
     window->pack(row, true, false);

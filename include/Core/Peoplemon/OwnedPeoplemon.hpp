@@ -73,6 +73,12 @@ public:
     Id id() const;
 
     /**
+     * @brief Changes this Peoplemon into it's evolved form if it has one
+     *
+     */
+    void evolve();
+
+    /**
      * @brief Returns the name of this peoplemon, custom or defualt
      *
      */
@@ -96,6 +102,30 @@ public:
      *
      */
     unsigned int currentLevel() const;
+
+    /**
+     * @brief Returns the level that this people can evolve at
+     *
+     */
+    unsigned int evolveLevel() const;
+
+    /**
+     * @brief Returns the people that this evolves into. Returns Unknown if no evolution
+     *
+     */
+    Id evolvesInto() const;
+
+    /**
+     * @brief Flag set by battle controller when this people is able to evolve after battle
+     *
+     */
+    bool& pendingEvolution();
+
+    /**
+     * @brief Flag set by battle controller when this people is able to evolve after battle
+     *
+     */
+    bool pendingEvolution() const;
 
     /**
      * @brief Returns the current XP of this peoplemon
@@ -299,6 +329,7 @@ private:
     OwnedMove moves[4];
     Ailment ailment;
     item::Id item;
+    bool pendingEvolve;
 
     friend struct WildPeoplemon;
     friend class BattlePeoplemon;

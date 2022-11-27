@@ -36,8 +36,7 @@ Battle::Battle(const std::string& location, system::Player& player, Type type)
 , player(player)
 , type(type)
 , state(typeToStage(type))
-, view(state, type == Type::WildPeoplemon)
-, localPlayerWon(false) {}
+, view(state, type == Type::WildPeoplemon) {}
 
 std::unique_ptr<Battle> Battle::create(const std::string& location, system::Player& player,
                                        Type type) {

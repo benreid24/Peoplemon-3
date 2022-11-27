@@ -32,6 +32,12 @@ struct State {
      */
     void healPeoplemon();
 
+    /**
+     * @brief Returns whether or not any peoplemon have a pending evolution
+     *
+     */
+    bool evolutionPending() const;
+
     std::string name;
     player::Gender sex;
     player::Bag bag;

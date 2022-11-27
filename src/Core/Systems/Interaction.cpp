@@ -109,9 +109,7 @@ void Interaction::processConversationNode() {
     if (interactingEntity == bl::ecs::InvalidEntity) return;
     if (currentConversation.finished()) {
         if (interactingTrainer) { startBattle(); }
-        else {
-            owner.controllable().resetEntityLock(interactingEntity);
-        }
+        else { owner.controllable().resetEntityLock(interactingEntity); }
         return;
     }
 
@@ -260,11 +258,13 @@ void Interaction::observe(const event::GameSaveInitializing& save) {
 
 void Interaction::observe(const event::BattleCompleted& battle) {
     if (interactingTrainer && battle.type == battle::Battle::Type::Trainer) {
-        currentConversation.setConversation(interactingTrainer->afterBattleConversation(),
-                                            interactingEntity,
-                                            trainerTalkedto(interactingTrainer->name()));
-        processConversationNode();
-        interactingTrainer->setDefeated();
+        if (battle.result.localPlayerWon) {
+            currentConversation.setConversation(interactingTrainer->afterBattleConversation(),
+                                                interactingEntity,
+                                                trainerTalkedto(interactingTrainer->name()));
+            processConversationNode();
+            interactingTrainer->setDefeated();
+        }
         interactingTrainer = nullptr;
     }
     owner.controllable().resetEntityLock(owner.player().player());

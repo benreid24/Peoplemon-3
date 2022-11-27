@@ -173,7 +173,7 @@ void StatBoxes::update(float dt) {
         lpAil.setPosition(lpBox.getPosition() + sf::Vector2f(33.f, 61.f));
         lpName.setPosition(lpBox.getPosition() + sf::Vector2f(41.f, 22.f));
         lpLevel.setPosition(lpBox.getPosition() + sf::Vector2f(218.f, 24.f));
-        lpHp.setPosition(lpBox.getPosition() + sf::Vector2f(131.f, 68.f));
+        lpHp.setPosition(lpBox.getPosition() + sf::Vector2f(131.f, 66.f));
         lpHpBar.setPosition(lpBox.getPosition() + LpBarPos);
         lpXpBar.setPosition(lpBox.getPosition() + XpBarPos);
     }

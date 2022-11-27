@@ -56,22 +56,13 @@ void BattleState::activate(bl::engine::Engine& engine) {
     battle->view.configureView(engine.window().getView());
     systems.engine().inputSystem().getActor().addListener(battle->view);
     bl::event::Dispatcher::subscribe(this);
-
-    // TODO - music here or in intro state?
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
     engine.renderSystem().cameras().popCamera();
     systems.engine().inputSystem().getActor().removeListener(battle->view);
     bl::event::Dispatcher::unsubscribe(this);
-
-    if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
-        bl::event::Dispatcher::dispatch<core::event::BattleCompleted>(
-            {battle->type, battle->localPlayerWon});
-    }
-
-    // TODO - stop battle music?
-    // TODO - handle whiteout and evolve
+    bl::audio::AudioSystem::popPlaylist();
 }
 
 void BattleState::update(bl::engine::Engine& engine, float dt) {
@@ -81,7 +72,15 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
     battle->state.enemy().refresh();
     if (battle->state.currentStage() == core::battle::BattleState::Stage::Completed) {
         engine.popState();
-        // TODO - handle whiteout/healing here
+        if (battle->type == core::battle::Battle::Type::Online) {
+            systems.player().state().healPeoplemon();
+        }
+        else {
+            if (!battle->result.localPlayerWon) { systems.player().whiteout(); }
+        }
+
+        bl::event::Dispatcher::dispatch<core::event::BattleCompleted>(
+            {battle->type, std::move(battle->result)});
     }
 }
 

@@ -79,6 +79,26 @@ public:
         const std::string& message, const Callback& cb = [](const std::string&) {});
 
     /**
+     * @brief Displays a message in the HUD textbox. Sticky messages stay displayed until
+     *        programmatically dismissed. Events can queue up behind sticky messages
+     *
+     * @param message The message to display
+     * @param ghostWrite True to display text char by char, false to show entire message at once
+     * @param cb Callback to issue when the message is fully shown
+     */
+    void displayStickyMessage(
+        const std::string& message, bool ghostWrite,
+        const Callback& cb = [](const std::string&) {});
+
+    /**
+     * @brief Dismisses the currrently active sticky message
+     *
+     * @param ignoreGhostWrite True to dismiss even if message is not done printing, false to wait
+     * @return True if a message was dismissed, false otherwise
+     */
+    bool dismissStickyMessage(bool ignoreGhostWrite = true);
+
+    /**
      * @brief Asks the player a question through the HUD
      *
      * @param prompt The question to ask
@@ -123,13 +143,21 @@ public:
     void hideEntryCard();
 
 private:
-    enum State { Hidden, Printing, WaitingContinue, WaitingPrompt, WaitingKeyboard, WaitingQty };
+    enum State {
+        Hidden,
+        Printing,
+        WaitingContinue,
+        WaitingSticky,
+        WaitingPrompt,
+        WaitingKeyboard,
+        WaitingQty
+    };
 
     class Item {
     public:
         enum Type { Message, Prompt, Keyboard, Qty };
 
-        Item(const std::string& message, const Callback& cb);
+        Item(const std::string& message, bool sticky, bool ghost, const Callback& cb);
         Item(const std::string& prompt, const std::vector<std::string>& choices,
              const Callback& cb);
         Item(const std::string& prompt, unsigned int minLen, unsigned int maxLen,
@@ -138,6 +166,8 @@ private:
 
         Type getType() const;
         const std::string& getMessage() const;
+        bool isSticky() const;
+        bool ghostWrite() const;
         const std::vector<std::string>& getChoices() const;
         const Callback& getCallback() const;
         const QtyCallback& getQtyCallback() const;
@@ -147,13 +177,11 @@ private:
         int getMaxQty() const;
 
     private:
-        struct Empty {};
-
         const Type type;
         const std::variant<Callback, QtyCallback> cb;
         const std::string message;
-        const std::variant<Empty, std::vector<std::string>, std::pair<unsigned int, unsigned int>,
-                           std::pair<int, int>>
+        const std::variant<std::pair<bool, bool>, std::vector<std::string>,
+                           std::pair<unsigned int, unsigned int>, std::pair<int, int>>
             data;
     };
 
@@ -204,6 +232,7 @@ private:
     core::input::MenuDriver choiceDriver;
     const float choiceBoxX;
 
+    std::string wordWrap(const std::string& str) const;
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();

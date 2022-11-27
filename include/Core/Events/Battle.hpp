@@ -38,17 +38,17 @@ struct BattleCompleted {
      * @brief Construct a new Battle Completed event
      *
      * @param type The type of battle that was completed
-     * @param playerwon Whether or not the local player won
+     * @param result The result of the battle
      */
-    BattleCompleted(battle::Battle::Type type, bool playerwon)
+    BattleCompleted(battle::Battle::Type type, battle::Result&& result)
     : type(type)
-    , playerWon(playerwon) {}
+    , result(std::forward<battle::Result>(result)) {}
 
     /// The type of battle that was completed
     const battle::Battle::Type type;
 
-    /// Whether or not the local player won
-    const bool playerWon;
+    /// The result of the battle
+    const battle::Result result;
 };
 
 } // namespace event
