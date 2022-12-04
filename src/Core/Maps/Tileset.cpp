@@ -154,7 +154,7 @@ void Tileset::update(float dt) {
     for (auto& ap : sharedAnimations) { ap.second.update(dt); }
 }
 
-bool Tileset::load(const std::string& file) {
+bool Tileset::loadDev(bl::serial::binary::InputStream& input) {
     textureFiles.clear();
     animFiles.clear();
     nextTextureId = nextAnimationId = 1;
@@ -162,8 +162,6 @@ bool Tileset::load(const std::string& file) {
     anims.clear();
     sharedAnimations.clear();
 
-    bl::serial::binary::InputFile input(
-        bl::util::FileUtil::joinPath(Properties::TilesetPath(), file));
     if (!VersionedSerializer::read(input, *this)) return false;
 
     for (const auto& tpair : textureFiles) {
@@ -187,6 +185,11 @@ bool Tileset::load(const std::string& file) {
     }
 
     return true;
+}
+
+bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
+    // TODO - save to json in dev mode
+    return loadDev(input);
 }
 
 bool Tileset::save(const std::string& file) const {
@@ -223,6 +226,10 @@ std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {
         if (it != anims.end()) { result.emplace_back(it); }
     }
     return result;
+}
+
+std::string Tileset::getFullPath(const std::string& path) {
+    return bl::util::FileUtil::joinPath(Properties::TilesetPath(), path);
 }
 
 } // namespace map

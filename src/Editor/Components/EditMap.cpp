@@ -152,7 +152,7 @@ bool EditMap::editorActivate() {
 
     camera.reset(size);
 
-    tileset = TilesetManager::load(tilesetField).data;
+    tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField)).data;
     if (!tileset) return false;
     tileset->activate();
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }

@@ -306,7 +306,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_INFO << "Activating map " << nameField;
 
         // Load tileset and init tiles
-        tileset = TilesetManager::load(tilesetField).data;
+        tileset = TilesetManager::load(Tileset::getFullPath(tilesetField)).data;
         if (!tileset) return false;
         tileset->activate();
         for (LayerSet& level : levels) { level.activate(*tileset); }
@@ -472,6 +472,7 @@ bool Map::load(const std::string& file) {
     BL_LOG_INFO << "Loading map " << file;
     renderRange = sf::IntRect(0, 0, 1, 1);
 
+    // TODO - extract this logic to outside method. refactor to accept data input
     std::string path = bl::util::FileUtil::getExtension(file) == "map" ? file : file + ".map";
     if (!bl::util::FileUtil::exists(path))
         path = bl::util::FileUtil::joinPath(Properties::MapPath(), path);

@@ -96,12 +96,20 @@ public:
     unsigned int tileHeight(Tile::IdType id, bool isAnim) const;
 
     /**
-     * @brief Loads the tileset from the given file and loads all media
+     * @brief Loads the tileset from the development format data
      *
-     * @param file The file to load from
+     * @param input The input stream to load from
      * @return True if loaded successfully, false on error
      */
-    bool load(const std::string& file);
+    bool loadDev(bl::serial::binary::InputStream& input);
+
+    /**
+     * @brief Loads the tileset from the production format data
+     *
+     * @param input The input stream to load from
+     * @return True if loaded successfully, false on error
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     /**
      * @brief Saves the tileset to the given file. No media is saved
@@ -152,6 +160,14 @@ public:
      *
      */
     std::vector<AnimStore::const_iterator> getAnims() const;
+
+    /**
+     * @brief Generates the full path to the given tileset file
+     *
+     * @param path The relative tileset path
+     * @return std::string The full path to the given tileset
+     */
+    static std::string getFullPath(const std::string& path);
 
 private:
     std::unordered_map<Tile::IdType, std::string> textureFiles;
