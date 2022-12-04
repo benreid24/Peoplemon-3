@@ -1,6 +1,6 @@
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -67,10 +67,9 @@ Tileset::Tileset()
 
 Tile::IdType Tileset::addTexture(const std::string& uri) {
     textureFiles.emplace(nextTextureId, uri);
-    textures.emplace(nextTextureId,
-                     bl::engine::Resources::textures()
-                         .load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), uri))
-                         .data);
+    textures.emplace(
+        nextTextureId,
+        TextureManager::load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), uri)).data);
     return nextTextureId++;
 }
 
@@ -81,13 +80,12 @@ void Tileset::removeTexture(Tile::IdType id) {
 
 Tile::IdType Tileset::addAnimation(const std::string& uri) {
     animFiles.emplace(nextAnimationId, uri);
-    auto it =
-        anims
-            .emplace(nextAnimationId,
-                     bl::engine::Resources::animations()
-                         .load(bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), uri))
-                         .data)
-            .first;
+    auto it = anims
+                  .emplace(nextAnimationId,
+                           AnimationManager::load(
+                               bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), uri))
+                               .data)
+                  .first;
     if (it->second->isLooping()) {
         auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
         jit->second.play();
@@ -169,22 +167,21 @@ bool Tileset::load(const std::string& file) {
     if (!VersionedSerializer::read(input, *this)) return false;
 
     for (const auto& tpair : textureFiles) {
-        textures.emplace(
-            tpair.first,
-            bl::engine::Resources::textures()
-                .load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), tpair.second))
-                .data);
+        textures.emplace(tpair.first,
+                         TextureManager::load(
+                             bl::util::FileUtil::joinPath(Properties::MapTilePath(), tpair.second))
+                             .data);
         if (tpair.first >= nextTextureId) nextTextureId = tpair.first + 1;
     }
 
     for (const auto& apair : animFiles) {
-        auto it = anims
-                      .emplace(apair.first,
-                               bl::engine::Resources::animations()
-                                   .load(bl::util::FileUtil::joinPath(
-                                       Properties::MapAnimationPath(), apair.second))
-                                   .data)
-                      .first;
+        auto it =
+            anims
+                .emplace(apair.first,
+                         AnimationManager::load(bl::util::FileUtil::joinPath(
+                                                    Properties::MapAnimationPath(), apair.second))
+                             .data)
+                .first;
         if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }

@@ -1,9 +1,9 @@
 #include <Game/States/StorageSystem.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Events/StorageSystem.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/PeoplemonMenu.hpp>
 
 namespace game
@@ -39,23 +39,23 @@ StorageSystem::StorageSystem(core::system::Systems& s)
 , actionMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
 , contextMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
 , depositedPeoplemon(-1) {
-    auto& textures = bl::engine::Resources::textures();
-    auto joinPath  = bl::util::FileUtil::joinPath;
+    auto joinPath = bl::util::FileUtil::joinPath;
     using bl::menu::Item;
     using bl::menu::TextItem;
     using core::Properties;
 
     backgroundTxtr =
-        textures.load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageBGND.png")).data;
+        TextureManager::load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageBGND.png"))
+            .data;
     background.setTexture(*backgroundTxtr, true);
 
-    leftArrowTxtr =
-        textures.load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowLeft.png"))
-            .data;
+    leftArrowTxtr = TextureManager::load(
+                        joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowLeft.png"))
+                        .data;
     leftArrow.setTexture(*leftArrowTxtr, true);
-    rightArrowTxtr =
-        textures.load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowRight.png"))
-            .data;
+    rightArrowTxtr = TextureManager::load(joinPath(Properties::MenuImagePath(),
+                                                   "StorageSystem/storageArrowRight.png"))
+                         .data;
     rightArrow.setTexture(*rightArrowTxtr, true);
     leftArrow.setPosition(BoxTitlePosition.x - leftArrow.getGlobalBounds().width - 3.f,
                           BoxTitlePosition.y + BoxTitleSize.y * 0.5f -
@@ -281,11 +281,11 @@ void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
         updatePeoplemonInfo(ppl->peoplemon);
     }
     else {
-        showInfo  = false;
-        thumbTxtr = bl::engine::Resources::textures()
-                        .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                           "StorageSystem/question.png"))
-                        .data;
+        showInfo = false;
+        thumbTxtr =
+            TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                              "StorageSystem/question.png"))
+                .data;
         thumbnail.setTexture(*thumbTxtr, true);
         thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
                            ThumbnailSize.y / static_cast<float>(thumbTxtr->getSize().y));
@@ -299,9 +299,7 @@ void StorageSystem::updatePeoplemonInfo(const core::pplmn::OwnedPeoplemon& ppl) 
     itemName.setString(ppl.holdItem() == core::item::Id::None ?
                            "None" :
                            core::item::Item::getName(ppl.holdItem()));
-    thumbTxtr = bl::engine::Resources::textures()
-                    .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
-                    .data;
+    thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.id())).data;
     thumbnail.setTexture(*thumbTxtr, true);
     thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
                        ThumbnailSize.y / static_cast<float>(thumbTxtr->getSize().y));

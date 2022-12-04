@@ -4,8 +4,8 @@
 #include "Base.hpp"
 
 #include "Thunder.hpp"
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Particles.hpp>
+#include <Core/Resources.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace core

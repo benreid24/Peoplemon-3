@@ -3,8 +3,8 @@
 
 #include "Base.hpp"
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Particles.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -35,7 +35,7 @@ public:
 
     /**
      * @brief Returns ThinFog or ThickFog
-     * 
+     *
      */
     virtual Weather::Type type() const override;
 

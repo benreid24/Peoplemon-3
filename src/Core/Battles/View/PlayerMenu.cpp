@@ -1,11 +1,11 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -54,10 +54,9 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveMenu.setPosition({16.f, 477.f});
     moveMenu.setPadding({25.f, 20.f});
 
-    moveTxtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"))
-            .data;
+    moveTxtr = TextureManager::load(
+                   bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"))
+                   .data;
     moveBox.setTexture(*moveTxtr, true);
     moveBox.setPosition(MoveBoxPos);
 

@@ -1,8 +1,8 @@
 #include <Game/States/BattleWrapperState.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/BattleState.hpp>
 #include <Game/States/Evolution.hpp>
 #include <array>
@@ -65,7 +65,9 @@ bl::engine::State::Ptr BattleWrapperState::create(core::system::Systems& systems
     if (battle->type == core::battle::Battle::Type::WildPeoplemon) {
         seq = std::make_unique<intros::WildSequence>();
     }
-    else { seq = std::make_unique<intros::TrainerSequence>(); }
+    else {
+        seq = std::make_unique<intros::TrainerSequence>();
+    }
     return Ptr{new BattleWrapperState(
         systems, std::forward<std::unique_ptr<core::battle::Battle>>(battle), std::move(seq))};
 }
@@ -92,14 +94,18 @@ void BattleWrapperState::activate(bl::engine::Engine& engine) {
             incEvolveIndex();
             startEvolve();
         }
-        else { engine.popState(); }
+        else {
+            engine.popState();
+        }
         break;
     case Substate::Evolving:
         if (systems.player().state().evolutionPending()) {
             incEvolveIndex();
             startEvolve();
         }
-        else { engine.popState(); }
+        else {
+            engine.popState();
+        }
         break;
     case Substate::BattleIntro:
     default:
@@ -154,9 +160,8 @@ namespace intros
 {
 TrainerSequence::TrainerSequence()
 : time(0.f) {
-    ballTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::ImagePath(),
-                                                      "Battle/battleBall.png"))
+    ballTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::ImagePath(),
+                                                                 "Battle/battleBall.png"))
                    .data;
     ball.setTexture(*ballTxtr);
     ball.setOrigin(sf::Vector2f(ballTxtr->getSize()) * 0.5f);

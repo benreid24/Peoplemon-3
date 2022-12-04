@@ -3,7 +3,7 @@
 
 #include "Base.hpp"
 
-#include <BLIB/Engine/Resources.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {

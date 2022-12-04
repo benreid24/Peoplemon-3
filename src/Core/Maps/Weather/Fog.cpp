@@ -29,7 +29,7 @@ Fog::Fog(bool thick)
 : maxOpacity(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha())
 , targetOpacity(0)
 , alpha(0) {
-    fogTxtr = bl::engine::Resources::textures().load(Properties::FogFile()).data;
+    fogTxtr = TextureManager::load(Properties::FogFile()).data;
     fog.setTexture(*fogTxtr, true);
     fog.setOrigin(fogTxtr->getSize().x / 2, fogTxtr->getSize().y / 2);
 }

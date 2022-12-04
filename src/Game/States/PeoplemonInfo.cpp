@@ -1,10 +1,10 @@
 #include <Game/States/PeoplemonInfo.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/Menus/MoveInfoRow.hpp>
 
 namespace game
@@ -35,9 +35,7 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "PplInfo");
     const auto loadImg =
         [&ImgPath](const std::string& path) -> bl::resource::Resource<sf::Texture>::Ref {
-        return bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(ImgPath, path))
-            .data;
+        return TextureManager::load(bl::util::FileUtil::joinPath(ImgPath, path)).data;
     };
 
     bgndTxtr = loadImg("background.png");
@@ -59,9 +57,7 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
     pageLabel.setPosition(612.f, 31.f);
     setPage(ActivePage::Basics);
 
-    thumbTxtr = bl::engine::Resources::textures()
-                    .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
-                    .data;
+    thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.id())).data;
     thumbnail.setTexture(*thumbTxtr, true);
     thumbnail.setPosition(30.f, 165.f);
     thumbnail.setScale(ThumbSize / static_cast<float>(thumbTxtr->getSize().x),
@@ -218,7 +214,9 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
         }
         moveMenu.setSelectedItem(items.front().get());
     }
-    else { BL_LOG_CRITICAL << "Peoplemon has no moves!"; }
+    else {
+        BL_LOG_CRITICAL << "Peoplemon has no moves!";
+    }
     moveMenu.setPosition({565.f - moveMenu.getBounds().width * 0.5f, 60.f});
 }
 

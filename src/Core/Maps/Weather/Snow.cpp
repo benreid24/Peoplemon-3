@@ -29,7 +29,7 @@ Snow::Snow(bool hard, bool thunder)
 , stopFactor(-1.f)
 , snow(std::bind(&Snow::createFlake, this, std::placeholders::_1), targetParticleCount, 450.f)
 , thunder(thunder, hard) {
-    snowTxtr = bl::engine::Resources::textures().load(Properties::SnowFlakeFile()).data;
+    snowTxtr = TextureManager::load(Properties::SnowFlakeFile()).data;
     snowFlake.setTexture(*snowTxtr, true);
     snowFlake.setOrigin(snowTxtr->getSize().x / 2, snowTxtr->getSize().y / 2);
     snow.setReplaceDestroyed(true);

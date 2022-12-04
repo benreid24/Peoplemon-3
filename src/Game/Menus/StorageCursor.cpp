@@ -1,10 +1,10 @@
 #include <Game/Menus/StorageCursor.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Player/StorageSystem.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -36,10 +36,10 @@ StorageCursor::StorageCursor()
 : position(0, 0)
 , flasher(cursor, 0.3f, 0.3f)
 , moveDir(core::input::Control::EntityControl::None) {
-    cursorTxtr = bl::engine::Resources::textures()
-                     .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                        "StorageSystem/storageCursor.png"))
-                     .data;
+    cursorTxtr =
+        TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                          "StorageSystem/storageCursor.png"))
+            .data;
     cursor.setTexture(*cursorTxtr, true);
 
     size    = static_cast<float>(cursorTxtr->getSize().x);
@@ -113,9 +113,7 @@ bool StorageCursor::process(core::input::EntityControl cmd, bool skip) {
 
 void StorageCursor::setHolding(core::pplmn::Id ppl) {
     if (ppl != core::pplmn::Id::Unknown) {
-        pplTxtr = bl::engine::Resources::textures()
-                      .load(core::pplmn::Peoplemon::thumbnailImage(ppl))
-                      .data;
+        pplTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl)).data;
         peoplemon.setTexture(*pplTxtr, true);
         const sf::Vector2f pplSize(pplTxtr->getSize());
         peoplemon.setOrigin(pplSize * 0.5f);

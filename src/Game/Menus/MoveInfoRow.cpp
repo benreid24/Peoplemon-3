@@ -1,8 +1,8 @@
 #include <Game/Menus/MoveInfoRow.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -15,10 +15,9 @@ bl::menu::Item::Ptr MoveInfoRow::create(core::pplmn::MoveId move) {
 MoveInfoRow::MoveInfoRow(core::pplmn::MoveId move) {
     const auto& joinPath      = bl::util::FileUtil::joinPath;
     const std::string ImgPath = joinPath(core::Properties::MenuImagePath(), "PplInfo");
-    auto& txtrs               = bl::engine::Resources::textures();
 
-    bgndTxtr       = txtrs.load(joinPath(ImgPath, "move.png")).data;
-    activeBgndTxtr = txtrs.load(joinPath(ImgPath, "moveActive.png")).data;
+    bgndTxtr       = TextureManager::load(joinPath(ImgPath, "move.png")).data;
+    activeBgndTxtr = TextureManager::load(joinPath(ImgPath, "moveActive.png")).data;
     background.setTexture(*bgndTxtr, true);
 
     name.setFont(core::Properties::MenuFont());

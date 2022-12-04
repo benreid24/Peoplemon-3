@@ -1,9 +1,9 @@
 #include <Game/States/PeoplemonMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/PeoplemonInfo.hpp>
 
 namespace game
@@ -52,10 +52,10 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
 , menu(bl::menu::NoSelector::create())
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , actionOpen(false) {
-    backgroundTxtr = bl::engine::Resources::textures()
-                         .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                            "Peoplemon/background.png"))
-                         .data;
+    backgroundTxtr =
+        TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                          "Peoplemon/background.png"))
+            .data;
     background.setTexture(*backgroundTxtr, true);
 
     const sf::Vector2f MenuPosition(41.f, 5.f);
@@ -67,9 +67,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
         sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
 
     backBut = bl::menu::ImageItem::create(
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                               "Peoplemon/cancel.png"))
+        TextureManager::load(
+            bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/cancel.png"))
             .data);
     backBut->overridePosition(
         sf::Vector2f(core::Properties::WindowWidth(), core::Properties::WindowHeight()) -

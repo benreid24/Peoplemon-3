@@ -1,7 +1,7 @@
 #include <Game/States/NewGame.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/MainGame.hpp>
 
 namespace game
@@ -23,13 +23,11 @@ NewGame::NewGame(core::system::Systems& systems)
 : State(systems)
 , fadeTime(-1.f) {
     cover.setFillColor(sf::Color::Transparent);
-    bgndTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                      "NewGame/newGameBgnd.png"))
+    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                                 "NewGame/newGameBgnd.png"))
                    .data;
-    profTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                      "NewGame/professor.png"))
+    profTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                                 "NewGame/professor.png"))
                    .data;
 
     background.setTexture(*bgndTxtr, true);

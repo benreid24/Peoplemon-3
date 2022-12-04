@@ -1,8 +1,8 @@
 #include <Core/Battles/BattleView.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Battles/BattleState.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -14,10 +14,9 @@ BattleView::BattleView(BattleState& s, bool canRun)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent)
 , inited(false) {
-    bgndTxtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/battleBgnd.png"))
-            .data;
+    bgndTxtr = TextureManager::load(
+                   bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/battleBgnd.png"))
+                   .data;
     background.setTexture(*bgndTxtr, true);
 }
 

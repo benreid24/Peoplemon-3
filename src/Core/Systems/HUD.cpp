@@ -1,7 +1,7 @@
 #include <Core/Systems/HUD.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -25,7 +25,7 @@ HUD::HUD(Systems& owner)
 , state(Hidden)
 , inputListener(*this)
 , screenKeyboard(std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
-, textboxTxtr(bl::engine::Resources::textures().load(Properties::TextboxFile()).data)
+, textboxTxtr(TextureManager::load(Properties::TextboxFile()).data)
 , viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
            static_cast<float>(textboxTxtr->getSize().y) * 4.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
@@ -379,8 +379,8 @@ const HUD::Callback& HUD::Item::getCallback() const { return *std::get_if<Callba
 const HUD::QtyCallback& HUD::Item::getQtyCallback() const { return *std::get_if<QtyCallback>(&cb); }
 
 HUD::EntryCard::EntryCard() {
-    txtr = bl::engine::Resources::textures()
-               .load(bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"))
+    txtr = TextureManager::load(
+               bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"))
                .data;
     card.setTexture(*txtr, true);
     text.setFont(Properties::MenuFont());

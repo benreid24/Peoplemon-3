@@ -1,8 +1,8 @@
 #include <Game/Menus/PeopledexRow.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -26,15 +26,14 @@ PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& d
     const bool caught = dex.getCaught(ppl) > 0;
 
     const std::string& ImgPath = core::Properties::MenuImagePath();
-    auto& txtrs                = bl::engine::Resources::textures();
     auto& jp                   = bl::util::FileUtil::joinPath;
 
-    bgndTxtr       = txtrs.load(jp(ImgPath, "Peopledex/item.png")).data;
-    activeBgndTxtr = txtrs.load(jp(ImgPath, "Peopledex/itemActive.png")).data;
+    bgndTxtr       = TextureManager::load(jp(ImgPath, "Peopledex/item.png")).data;
+    activeBgndTxtr = TextureManager::load(jp(ImgPath, "Peopledex/itemActive.png")).data;
     background.setTexture(*bgndTxtr, true);
     const float mid = static_cast<float>(bgndTxtr->getSize().y) * 0.5f;
 
-    ballTxtr = txtrs.load(jp(core::Properties::ImagePath(), "item.png")).data;
+    ballTxtr = TextureManager::load(jp(core::Properties::ImagePath(), "item.png")).data;
     if (caught) {
         ball.setTexture(*ballTxtr, true);
         ball.setOrigin(sf::Vector2f(ballTxtr->getSize()) * 0.5f);

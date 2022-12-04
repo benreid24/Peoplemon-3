@@ -148,7 +148,7 @@ void PlaylistEditorWindow::save() {
     songList->getAllOptions(songs);
     for (const auto& song : songs) { plst.addSong(song); }
 
-    if (plst.save(
+    if (plst.saveToFile(
             bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), fileLabel->getText()))) {
         markClean();
     }
@@ -161,7 +161,7 @@ void PlaylistEditorWindow::load(const std::string& file) {
     if (!confirmUnsaved()) return;
 
     bl::audio::Playlist plst;
-    if (!plst.load(bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), file))) {
+    if (!plst.loadFromFile(bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), file))) {
         bl::dialog::tinyfd_messageBox("Error", "Failed to load playlist", "ok", "error", 1);
         return;
     }

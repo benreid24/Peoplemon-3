@@ -1,9 +1,9 @@
 #include "Thunder.hpp"
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <cmath>
 
 namespace core

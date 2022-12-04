@@ -1,9 +1,9 @@
 #include <Game/Menus/PeoplemonButton.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -21,9 +21,8 @@ PeoplemonButton::Ptr PeoplemonButton::create(const core::pplmn::OwnedPeoplemon& 
 
 PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl)
 : color(sf::Color::White) {
-    txtr = bl::engine::Resources::textures()
-               .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                  "Peoplemon/button.png"))
+    txtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                             "Peoplemon/button.png"))
                .data;
     image.setTexture(*txtr, true);
 
@@ -68,9 +67,7 @@ PeoplemonButton::PeoplemonButton(const core::pplmn::OwnedPeoplemon& ppl)
     ailment.setTexture(ailmentTexture(ppl.currentAilment()), true);
     ailment.setPosition(135.f, 90.f);
 
-    faceTxtr = bl::engine::Resources::textures()
-                   .load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()))
-                   .data;
+    faceTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.id())).data;
     face.setTexture(*faceTxtr, true);
     sf::Rect<unsigned int> bounds(100000, 100000, 0, 0);
     const sf::Image img(faceTxtr->copyToImage());

@@ -1,7 +1,7 @@
 #include <Game/States/LoadGame.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/MainGame.hpp>
 
 namespace game
@@ -23,9 +23,8 @@ LoadGame::LoadGame(core::system::Systems& s)
 , selectedSave(0)
 , saveMenu(ArrowSelector::create(12.f, sf::Color::Black))
 , actionMenu(ArrowSelector::create(12.f, sf::Color::Black)) {
-    bgndTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                      "LoadGame/loadGameBgnd.png"))
+    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                                 "LoadGame/loadGameBgnd.png"))
                    .data;
     background.setTexture(*bgndTxtr, true);
     saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 4.f});

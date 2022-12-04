@@ -88,7 +88,11 @@ void GameSave::editorSave() {
 }
 
 bool GameSave::load() {
-    const bl::serial::json::Group data = bl::serial::json::loadFromFile(sourceFile);
+    bl::serial::json::Group data;
+    if (!bl::serial::json::loadFromFile(sourceFile, data)) {
+        BL_LOG_ERROR << "Failed to parse game save";
+        return false;
+    }
     if (!Properties::InEditor()) {
         bl::event::Dispatcher::dispatch<event::GameSaveInitializing>({*this, false});
     }

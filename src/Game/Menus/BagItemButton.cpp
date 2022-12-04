@@ -1,8 +1,8 @@
 #include <Game/Menus/BagItemButton.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -13,10 +13,9 @@ BagItemButton::Ptr BagItemButton::create(const core::player::Bag::Item& item) {
 }
 
 BagItemButton::BagItemButton(const core::player::Bag::Item& item) {
-    txtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/button.png"))
-            .data;
+    txtr = TextureManager::load(
+               bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/button.png"))
+               .data;
     background.setTexture(*txtr, true);
 
     label.setFillColor(sf::Color::Black);

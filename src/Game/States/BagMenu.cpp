@@ -1,10 +1,10 @@
 #include <Game/States/BagMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -87,9 +87,8 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
 , keyMenu(bl::menu::NoSelector::create())
 , tmMenu(bl::menu::NoSelector::create())
 , actionOpen(false) {
-    bgndTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                      "Bag/background.png"))
+    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
+                                                                 "Bag/background.png"))
                    .data;
     background.setTexture(*bgndTxtr, true);
 

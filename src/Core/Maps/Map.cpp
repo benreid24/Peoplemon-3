@@ -167,7 +167,9 @@ public:
                 item.id      = item.id - 500;
                 item.visible = false;
             }
-            else { item.visible = true; }
+            else {
+                item.visible = true;
+            }
             result.itemsField.push_back(item);
         }
 
@@ -273,7 +275,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
-               static_cast<int>(levels.front().bottomLayers().front().height())};
+            static_cast<int>(levels.front().bottomLayers().front().height())};
     bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
@@ -304,7 +306,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_INFO << "Activating map " << nameField;
 
         // Load tileset and init tiles
-        tileset = Resources::tilesets().load(tilesetField).data;
+        tileset = TilesetManager::load(tilesetField).data;
         if (!tileset) return false;
         tileset->activate();
         for (LayerSet& level : levels) { level.activate(*tileset); }
@@ -721,7 +723,9 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
                 systems->hud().displayMessage(
                     "I bet the shoes I'm wearing will let me walk right over this!");
             }
-            else { systems->hud().displayMessage("There's no way I can walk on water! Unless..."); }
+            else {
+                systems->hud().displayMessage("There's no way I can walk on water! Unless...");
+            }
             return true;
         case Collision::WaterfallRequired:
             if (systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade)) {
@@ -835,7 +839,7 @@ const std::vector<Town>& Map::FlyMapTowns() {
 }
 
 void Map::loadFlymapTowns() {
-    bl::resource::Resource<Map>::Ref world = Resources::maps().load("WorldMap.map").data;
+    bl::resource::Resource<Map>::Ref world = MapManager::load("WorldMap.map").data;
     if (!world) {
         BL_LOG_CRITICAL << "Failed to load world map";
         return;

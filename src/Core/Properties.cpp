@@ -1,9 +1,9 @@
 #include <Core/Properties.hpp>
 
 #include <BLIB/Engine/Configuration.hpp>
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -232,9 +232,9 @@ bool Properties::load(bool ie) {
     bl::engine::Configuration::log();
     save(); // ensure defaults saved if changed
 
-    menuFont = bl::engine::Resources::fonts()
-                   .load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
-                   .data;
+    menuFont =
+        FontManager::load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
+            .data;
     if (!menuFont) return false;
 
     return true;
@@ -652,20 +652,19 @@ sf::Color Properties::HPBarColor(float percent) {
 }
 
 bl::resource::Resource<sf::Texture>::Ref Properties::AilmentTexture(pplmn::Ailment ail) {
-    auto& textures         = bl::engine::Resources::textures();
     static const auto join = bl::util::FileUtil::joinPath;
 
     switch (ail) {
     case pplmn::Ailment::Annoyed:
-        return textures.load(join(ImagePath(), "Battle/annoy.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/annoy.png")).data;
     case pplmn::Ailment::Frustrated:
-        return textures.load(join(ImagePath(), "Battle/frustrate.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/frustrate.png")).data;
     case pplmn::Ailment::Sticky:
-        return textures.load(join(ImagePath(), "Battle/sticky.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/sticky.png")).data;
     case pplmn::Ailment::Sleep:
-        return textures.load(join(ImagePath(), "Battle/sleep.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/sleep.png")).data;
     case pplmn::Ailment::Frozen:
-        return textures.load(join(ImagePath(), "Battle/frozen.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/frozen.png")).data;
     default:
         return {};
     }

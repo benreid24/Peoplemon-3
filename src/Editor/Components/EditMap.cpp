@@ -1,7 +1,6 @@
 #include <Editor/Components/EditMap.hpp>
 
 #include "MapActions.hpp"
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
@@ -16,34 +15,34 @@ namespace component
 namespace
 {
 const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
-    bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/top.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/right.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/left.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topBottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/leftRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noTop.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noBottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/ledge.png").data};
+    TextureManager::load("EditorResources/Collisions/none.png").data,
+    TextureManager::load("EditorResources/Collisions/all.png").data,
+    TextureManager::load("EditorResources/Collisions/top.png").data,
+    TextureManager::load("EditorResources/Collisions/right.png").data,
+    TextureManager::load("EditorResources/Collisions/bottom.png").data,
+    TextureManager::load("EditorResources/Collisions/left.png").data,
+    TextureManager::load("EditorResources/Collisions/topRight.png").data,
+    TextureManager::load("EditorResources/Collisions/bottomRight.png").data,
+    TextureManager::load("EditorResources/Collisions/bottomLeft.png").data,
+    TextureManager::load("EditorResources/Collisions/topLeft.png").data,
+    TextureManager::load("EditorResources/Collisions/topBottom.png").data,
+    TextureManager::load("EditorResources/Collisions/leftRight.png").data,
+    TextureManager::load("EditorResources/Collisions/noTop.png").data,
+    TextureManager::load("EditorResources/Collisions/noRight.png").data,
+    TextureManager::load("EditorResources/Collisions/noBottom.png").data,
+    TextureManager::load("EditorResources/Collisions/noLeft.png").data,
+    TextureManager::load("EditorResources/Collisions/water.png").data,
+    TextureManager::load("EditorResources/Collisions/fall.png").data,
+    TextureManager::load("EditorResources/Collisions/ledge.png").data};
 
 const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
-    bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
+    TextureManager::load("EditorResources/arrow.png").data;
 
 const bl::resource::Resource<sf::Texture>::Ref ltGfx[] = {
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpUp.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpDown.png").data};
+    TextureManager::load("EditorResources/LevelTransitions/horUpRight.png").data,
+    TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png").data,
+    TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png").data,
+    TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png").data};
 
 } // namespace
 
@@ -153,7 +152,7 @@ bool EditMap::editorActivate() {
 
     camera.reset(size);
 
-    tileset = core::Resources::tilesets().load(tilesetField).data;
+    tileset = TilesetManager::load(tilesetField).data;
     if (!tileset) return false;
     tileset->activate();
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }

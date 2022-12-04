@@ -1,6 +1,6 @@
 #include <Editor/Pages/Peoplemon.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
+#include <Core/Resources.hpp>
 
 namespace editor
 {
@@ -55,9 +55,8 @@ void Peoplemon::sync() {
         lbl->setColor(sf::Color(30, 85, 255), sf::Color::Transparent);
         row->pack(lbl, false, true);
 
-        Image::Ptr icon = Image::create(bl::engine::Resources::textures()
-                                            .load(core::pplmn::Peoplemon::thumbnailImage(id))
-                                            .data);
+        Image::Ptr icon =
+            Image::create(TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(id)).data);
         icon->scaleToSize({40.f, 40.f});
         row->pack(icon);
 

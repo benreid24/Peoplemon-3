@@ -1,6 +1,6 @@
 #include <Editor/Components/LightPreview.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
+#include <Core/Resources.hpp>
 
 namespace editor
 {
@@ -9,7 +9,7 @@ namespace component
 namespace
 {
 bl::resource::Resource<sf::Texture>::Ref txtr =
-    bl::engine::Resources::textures().load("EditorResources/lightpreview.png").data;
+    TextureManager::load("EditorResources/lightpreview.png").data;
 }
 
 LightPreview::Ptr LightPreview::create(const sf::Vector2f& size) {
