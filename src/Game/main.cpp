@@ -13,6 +13,7 @@
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Game/States/MainGame.hpp>
 #include <Game/States/MainMenu.hpp>
@@ -43,6 +44,13 @@ int main(int argc, char** argv) {
     }
     WindowSizePersister sizePersist;
     bl::event::Dispatcher::subscribe(&sizePersist);
+
+    BL_LOG_INFO << "Initializing resource systems";
+#ifdef PEOPLEMON_DEBUG
+    core::res::installDevLoaders();
+#else
+    core::res::installProdLoaders();
+#endif
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

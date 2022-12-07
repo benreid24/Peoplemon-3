@@ -10,6 +10,7 @@
 #include <Core/Peoplemon/Peoplemon.hpp>
 
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <Editor/States/MainEditor.hpp>
 
@@ -24,6 +25,9 @@ int main(int, char**) {
         BL_LOG_ERROR << "Failed to load application properties";
         return 1;
     }
+
+    BL_LOG_INFO << "Initializing resource systems";
+    core::res::installDevLoaders();
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

@@ -94,13 +94,33 @@ public:
     virtual ~Map() = default;
 
     /**
-     * @brief Loads the map from the given file. Will try to determine if the extension or path need
-     *        to be added in order to support how map names used to be entered
+     * @brief Returns the full path to the map file from the given partial file. Accounts for
+     *        missing extension
      *
-     * @param file The file to load from
+     * @param partialFile
+     * @return std::string
+     */
+    static std::string getMapFile(const std::string& partialFile);
+
+    /**
+     * @brief Loads the map from the given file. Will try to determine if the extension or path need
+     *        to be added in order to support how map names used to be entered. Loads the json
+     *        format
+     *
+     * @param input Stream to load the map from
      * @return True if the map was able to be loaded, false on error
      */
-    bool load(const std::string& file);
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the map from the given file. Will try to determine if the extension or path need
+     *        to be added in order to support how map names used to be entered. Loads the binary
+     *        format
+     *
+     * @param input Stream to load the map from
+     * @return True if the map was able to be loaded, false on error
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     /**
      * @brief Saves the map to the given file. The path should be relative to the maps directory and

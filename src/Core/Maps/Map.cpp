@@ -167,9 +167,7 @@ public:
                 item.id      = item.id - 500;
                 item.visible = false;
             }
-            else {
-                item.visible = true;
-            }
+            else { item.visible = true; }
             result.itemsField.push_back(item);
         }
 
@@ -275,7 +273,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     systems = &game;
     size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
-            static_cast<int>(levels.front().bottomLayers().front().height())};
+               static_cast<int>(levels.front().bottomLayers().front().height())};
     bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
@@ -468,19 +466,28 @@ void Map::render(sf::RenderTarget& target, float residual,
     const_cast<Map*>(this)->lighting.render(target);
 }
 
-bool Map::load(const std::string& file) {
-    BL_LOG_INFO << "Loading map " << file;
-    renderRange = sf::IntRect(0, 0, 1, 1);
-
-    // TODO - extract this logic to outside method. refactor to accept data input
+std::string Map::getMapFile(const std::string& file) {
     std::string path = bl::util::FileUtil::getExtension(file) == "map" ? file : file + ".map";
-    if (!bl::util::FileUtil::exists(path))
+    if (!bl::util::FileUtil::exists(path)) {
         path = bl::util::FileUtil::joinPath(Properties::MapPath(), path);
+    }
     if (!bl::util::FileUtil::exists(path)) {
         BL_LOG_ERROR << "Failed to find map '" << file << "'. Tried '" << path << "'";
-        return false;
+        return "";
     }
-    bl::serial::binary::InputFile input(path);
+    return path;
+}
+
+bool Map::loadDev(std::istream& input) {
+    // TODO - load json instead
+    bl::serial::StreamInputBuffer buf(input);
+    bl::serial::binary::InputStream is(buf);
+    return loadProd(is);
+}
+
+bool Map::loadProd(bl::serial::binary::InputStream& input) {
+    renderRange = sf::IntRect(0, 0, 1, 1);
+
     if (!VersionedSerializer::read(input, *this)) return false;
 
     defaultTown.name     = nameField;
@@ -724,9 +731,7 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
                 systems->hud().displayMessage(
                     "I bet the shoes I'm wearing will let me walk right over this!");
             }
-            else {
-                systems->hud().displayMessage("There's no way I can walk on water! Unless...");
-            }
+            else { systems->hud().displayMessage("There's no way I can walk on water! Unless..."); }
             return true;
         case Collision::WaterfallRequired:
             if (systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade)) {

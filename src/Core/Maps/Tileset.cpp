@@ -154,7 +154,14 @@ void Tileset::update(float dt) {
     for (auto& ap : sharedAnimations) { ap.second.update(dt); }
 }
 
-bool Tileset::loadDev(bl::serial::binary::InputStream& input) {
+bool Tileset::loadDev(std::istream& input) {
+    // TODO - save to json in dev mode
+    bl::serial::StreamInputBuffer buf(input);
+    bl::serial::binary::InputStream is(buf);
+    return loadProd(is);
+}
+
+bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
     textureFiles.clear();
     animFiles.clear();
     nextTextureId = nextAnimationId = 1;
@@ -185,11 +192,6 @@ bool Tileset::loadDev(bl::serial::binary::InputStream& input) {
     }
 
     return true;
-}
-
-bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
-    // TODO - save to json in dev mode
-    return loadDev(input);
 }
 
 bool Tileset::save(const std::string& file) const {

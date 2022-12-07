@@ -131,7 +131,12 @@ void EditMap::newMap(const std::string& filename, const std::string& name,
 
 bool EditMap::doLoad(const std::string& file) {
     clear();
-    if (!Map::load(file)) return false;
+    char* buffer    = nullptr;
+    std::size_t len = 0;
+    if (!bl::resource::FileSystem::getData(getMapFile(file), &buffer, len)) return false;
+    bl::util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
+    std::istream is(&buf);
+    if (!Map::loadDev(is)) return false;
     nextItemId = 0;
     for (const auto& item : itemsField) {
         if (nextItemId <= item.mapId) { nextItemId = item.mapId + 1; }

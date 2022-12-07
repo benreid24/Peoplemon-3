@@ -20,21 +20,23 @@ enum Mode { Dev, Prod };
  */
 template<typename T, Mode mode>
 struct PeoplemonLoader : public bl::resource::LoaderBase<T> {
-    using Ref = bl::resource::Resource<T>::Ref;
+    using Ref = typename bl::resource::Resource<T>::Ref;
 
-    virtual Ref load(const std::string& path, const std::vector<char>& data,
+    virtual Ref load(const std::string& path, const char* buffer, std::size_t len,
                      std::istream&) override {
         Ref ref(new T());
-        // TODO - json in dev mode, binary in prod mode
-        bl::serial::MemoryInputBuffer wrapper(data);
-        bl::serial::binary::InputStream is(wrapper);
-        if constexpr (mode == Dev) {
+        constexpr bool DevEnabled = false; // TODO - flip when ready
+        if constexpr (mode == Dev && DevEnabled) {
+            bl::util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
+            std::istream is(&buf);
             if (!ref->loadDev(is)) {
                 BL_LOG_ERROR << "Failed to load resource: " << path;
                 return nullptr;
             }
         }
         else {
+            bl::serial::MemoryInputBuffer wrapper(buffer, len);
+            bl::serial::binary::InputStream is(wrapper);
             if (!ref->loadProd(is)) {
                 BL_LOG_ERROR << "Failed to load resource: " << path;
                 return nullptr;

@@ -101,7 +101,7 @@ public:
      * @param input The input stream to load from
      * @return True if loaded successfully, false on error
      */
-    bool loadDev(bl::serial::binary::InputStream& input);
+    bool loadDev(std::istream& input);
 
     /**
      * @brief Loads the tileset from the production format data
