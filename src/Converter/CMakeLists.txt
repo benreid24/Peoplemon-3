@@ -13,6 +13,6 @@ target_link_libraries(Converter PRIVATE
 
 set_target_properties(Converter
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
     OUTPUT_NAME "Converter"
 )

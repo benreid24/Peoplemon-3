@@ -1,12 +1,15 @@
 #include <BLIB/Util/FileUtil.hpp>
+#include <Core/Items/Item.hpp>
+#include <Core/Peoplemon/Move.hpp>
+#include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 
 using namespace core;
 
 void convertConversations() {
-    std::vector<std::string> files;
-    bl::util::FileUtil::listDirectory(Properties::ConversationPath());
+    std::vector<std::string> files =
+        bl::util::FileUtil::listDirectory(Properties::ConversationPath());
     for (const std::string& path : files) {
         file::Conversation conv;
         if (!conv.load(path)) {
@@ -19,8 +22,7 @@ void convertConversations() {
 }
 
 void convertTrainers() {
-    std::vector<std::string> files;
-    bl::util::FileUtil::listDirectory(Properties::TrainerPath());
+    std::vector<std::string> files = bl::util::FileUtil::listDirectory(Properties::TrainerPath());
     for (const std::string& path : files) {
         file::Trainer trainer;
         if (!trainer.load(path)) {
@@ -33,8 +35,7 @@ void convertTrainers() {
 }
 
 void convertNpcs() {
-    std::vector<std::string> files;
-    bl::util::FileUtil::listDirectory(Properties::NpcPath());
+    std::vector<std::string> files = bl::util::FileUtil::listDirectory(Properties::NpcPath());
     for (const std::string& path : files) {
         file::NPC npc;
         if (!npc.load(path)) {
@@ -47,8 +48,7 @@ void convertNpcs() {
 }
 
 void convertMaps() {
-    std::vector<std::string> files;
-    bl::util::FileUtil::listDirectory(Properties::MapPath());
+    std::vector<std::string> files = bl::util::FileUtil::listDirectory(Properties::MapPath());
     for (const std::string& path : files) {
         map::Map map;
         bl::serial::binary::InputFile input(path);
@@ -62,8 +62,7 @@ void convertMaps() {
 }
 
 void convertTilesets() {
-    std::vector<std::string> files;
-    bl::util::FileUtil::listDirectory(Properties::TilesetPath());
+    std::vector<std::string> files = bl::util::FileUtil::listDirectory(Properties::TilesetPath());
     for (const std::string& path : files) {
         map::Tileset tileset;
         bl::serial::binary::InputFile input(path);
@@ -89,6 +88,7 @@ int main() {
         BL_LOG_ERROR << "Failed to convert item db";
         return 1;
     }
+    item::Item::setDataSource(itemDb);
     BL_LOG_INFO << "Converted item db";
 
     BL_LOG_INFO << "Converting move db";
@@ -101,6 +101,7 @@ int main() {
         BL_LOG_ERROR << "Failed to convert move db";
         return 1;
     }
+    pplmn::Move::setDataSource(moveDb);
     BL_LOG_INFO << "Converted move db";
 
     BL_LOG_INFO << "Converting peoplemon db";
@@ -113,5 +114,14 @@ int main() {
         BL_LOG_ERROR << "Failed to convert peoplemon db";
         return 1;
     }
+    pplmn::Peoplemon::setDataSource(pplDb);
     BL_LOG_INFO << "Converted peoplemon db";
+
+    convertConversations();
+    convertNpcs();
+    convertTrainers();
+    convertMaps();
+    convertTilesets();
+
+    return 0;
 }

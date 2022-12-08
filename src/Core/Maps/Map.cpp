@@ -272,8 +272,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     BL_LOG_INFO << "Entering map " << nameField << " at spawn " << spawnId;
 
     systems = &game;
-    size    = {static_cast<int>(levels.front().bottomLayers().front().width()),
-               static_cast<int>(levels.front().bottomLayers().front().height())};
     bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
     // Spawn player
@@ -495,11 +493,11 @@ void Map::finishLoad() {
     defaultTown.name     = nameField;
     defaultTown.playlist = playlistField;
     defaultTown.weather  = weatherField;
-    if (townTiles.getWidth() != levels.front().bottomLayers().front().width() ||
-        townTiles.getHeight() != levels.front().bottomLayers().front().height()) {
-        townTiles.setSize(levels.front().bottomLayers().front().width(),
-                          levels.front().bottomLayers().front().height(),
-                          0);
+    size                 = {static_cast<int>(levels.front().collisionLayer().width()),
+                            static_cast<int>(levels.front().collisionLayer().height())};
+    if (townTiles.getWidth() != static_cast<unsigned int>(size.x) ||
+        townTiles.getHeight() != static_cast<unsigned int>(size.y)) {
+        townTiles.setSize(size.x, size.y, 0);
     }
     isWorldMap = name() == "Worldmap";
 }

@@ -636,7 +636,7 @@ const std::string& Properties::PeoplemonDBFile() {
 
 const std::string& Properties::MoveDBFile() {
     static const std::string val = bl::engine::Configuration::getOrDefault<std::string>(
-        "core.moves.dbfile", defaults::PeoplemonDBFile);
+        "core.moves.dbfile", defaults::MoveDBFile);
     return val;
 }
 
