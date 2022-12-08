@@ -93,8 +93,8 @@ bool MoveDB::loadProd(bl::serial::binary::InputStream& input) {
 }
 
 bool MoveDB::save() const {
-    bl::serial::binary::OutputFile output(Properties::MoveDBFile());
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(Properties::MoveDBFile().c_str());
+    return bl::serial::json::Serializer<MoveDB>::serializeStream(output, *this, 4, 0);
 }
 
 } // namespace file

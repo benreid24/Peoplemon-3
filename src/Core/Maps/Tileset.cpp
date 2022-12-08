@@ -200,9 +200,10 @@ void Tileset::finishLoad() {
 }
 
 bool Tileset::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(
-        bl::util::FileUtil::joinPath(Properties::TilesetPath(), file));
-    return VersionedSerializer::write(output, *this);
+    std::ofstream output(bl::util::FileUtil::startsWithPath(file, Properties::TilesetPath()) ?
+                             file.c_str() :
+                             bl::util::FileUtil::joinPath(Properties::TilesetPath(), file).c_str());
+    return bl::serial::json::Serializer<Tileset>::serializeStream(output, *this, 4, 0);
 }
 
 bl::resource::Resource<sf::Texture>::Ref Tileset::getTile(Tile::IdType id) {

@@ -151,8 +151,8 @@ bool PeoplemonDB::loadProd(bl::serial::binary::InputStream& input) {
 }
 
 bool PeoplemonDB::save() const {
-    OutputFile input(Properties::PeoplemonDBFile());
-    return VersionedLoader::write(input, *this);
+    std::ofstream output(Properties::PeoplemonDBFile().c_str());
+    return bl::serial::json::Serializer<PeoplemonDB>::serializeStream(output, *this, 4, 0);
 }
 
 } // namespace file

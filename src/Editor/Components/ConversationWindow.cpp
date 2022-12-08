@@ -14,6 +14,10 @@ namespace
 {
 const std::string EmptyFile = "<no file selected>";
 
+std::string makePath(const std::string& local) {
+    return bl::util::FileUtil::joinPath(core::Properties::ConversationPath(), local);
+}
+
 const core::file::Conversation DefaultConversation = []() {
     core::file::Conversation val;
     core::file::Conversation::Node node(core::file::Conversation::Node::Type::Talk);
@@ -106,7 +110,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
               break;
           case FilePickerMode::OpenExisting:
               currentNode = 0;
-              if (!value.load(conv)) {
+              if (!value.load(makePath(conv))) {
                   const std::string msg = "Failed to load conversation: " + conv;
                   bl::dialog::tinyfd_messageBox("Error", msg.c_str(), "ok", "error", 1);
                   value = DefaultConversation;
@@ -163,7 +167,7 @@ ConversationWindow::ConversationWindow(const SelectCb& onSelect, const CancelCb&
     saveBut = Button::create("Save");
     saveBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
         if (validate()) {
-            if (value.save(fileLabel->getText())) { makeClean(); }
+            if (value.save(makePath(fileLabel->getText()))) { makeClean(); }
             else { bl::dialog::tinyfd_messageBox("Error", "Failed to save", "ok", "error", 1); }
         }
     });
@@ -213,7 +217,7 @@ void ConversationWindow::sync() {
 void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& current) {
     parent      = p;
     currentNode = 0;
-    if (current.empty() || !value.load(current)) { value = DefaultConversation; }
+    if (current.empty() || !value.load(makePath(current))) { value = DefaultConversation; }
 
     nodeComponent.setParent(p);
     sync();

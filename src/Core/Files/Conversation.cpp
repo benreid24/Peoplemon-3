@@ -281,8 +281,7 @@ using VersionedLoader =
 }
 
 bool Conversation::load(const std::string& file) {
-    return ConversationManager::initializeExisting(
-        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file), *this);
+    return ConversationManager::initializeExisting(file, *this);
 }
 
 bool Conversation::loadDev(std::istream& input) {
@@ -294,9 +293,8 @@ bool Conversation::loadProd(bl::serial::binary::InputStream& input) {
 }
 
 bool Conversation::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(
-        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<Conversation>::serializeStream(output, *this, 4, 0);
 }
 
 const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes; }

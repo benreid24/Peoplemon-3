@@ -83,8 +83,8 @@ Trainer::Trainer()
 : payout(0) {}
 
 bool Trainer::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(file);
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<Trainer>::serializeStream(output, *this, 4, 0);
 }
 
 bool Trainer::load(const std::string& file, component::Direction spawnDir) {

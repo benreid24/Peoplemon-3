@@ -43,8 +43,8 @@ using VersionedLoader = bl::serial::binary::VersionedSerializer<NPC, LegacyLoade
 } // namespace
 
 bool NPC::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(file);
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<NPC>::serializeStream(output, *this, 4, 0);
 }
 
 bool NPC::load(const std::string& file, component::Direction spawnDir) {

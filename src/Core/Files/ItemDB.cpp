@@ -64,8 +64,8 @@ bool ItemDB::loadProd(bl::serial::binary::InputStream& input) {
 }
 
 bool ItemDB::save() const {
-    OutputFile output(Properties::ItemMetadataFile());
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(Properties::ItemMetadataFile().c_str());
+    return bl::serial::json::Serializer<ItemDB>::serializeStream(output, *this, 4, 0);
 }
 
 } // namespace file

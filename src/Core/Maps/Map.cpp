@@ -505,9 +505,10 @@ void Map::finishLoad() {
 }
 
 bool Map::save(const std::string& file) {
-    bl::serial::binary::OutputFile output(
-        bl::util::FileUtil::joinPath(Properties::MapPath(), file));
-    return VersionedSerializer::write(output, *this);
+    std::ofstream output(bl::util::FileUtil::startsWithPath(file, Properties::MapPath()) ?
+                             file.c_str() :
+                             bl::util::FileUtil::joinPath(Properties::MapPath(), file).c_str());
+    return bl::serial::json::Serializer<Map>::serializeStream(output, *this, 4, 0);
 }
 
 bool Map::contains(const component::Position& pos) const {
