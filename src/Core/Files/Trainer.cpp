@@ -1,5 +1,7 @@
 #include <Core/Files/Trainer.hpp>
+
 #include <Core/Items/Item.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -86,15 +88,20 @@ bool Trainer::save(const std::string& file) const {
 }
 
 bool Trainer::load(const std::string& file, component::Direction spawnDir) {
-    bl::serial::binary::InputFile input(file);
-    if (VersionedLoader::read(input, *this)) {
-        if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
-        sourceFile = file;
-        if (payout == 0) { payout = 40; }
-        for (auto& ppl : peoplemon) { ppl.heal(); }
-        return true;
-    }
-    return false;
+    sourceFile = file;
+    if (!TrainerManager::initializeExisting(file, *this)) return false;
+    if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
+    if (payout == 0) { payout = 40; }
+    for (auto& ppl : peoplemon) { ppl.heal(); }
+    return true;
+}
+
+bool Trainer::loadProd(bl::serial::binary::InputStream& input) {
+    return VersionedLoader::read(input, *this);
+}
+
+bool Trainer::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<Trainer>::deserializeStream(input, *this);
 }
 
 } // namespace file

@@ -41,6 +41,22 @@ public:
      */
     bool load(const std::string& file, component::Direction spawnDir = component::Direction::Down);
 
+    /**
+     * @brief Loads the trainer from the json stream
+     *
+     * @param input JSON input stream
+     * @return True if the trainer could be loaded, false on error
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the trainer from it's binary format
+     *
+     * @param input The input stream to load from
+     * @return True if the trainer could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
     std::string name;
     std::string animation;
     std::string prebattleConversation;

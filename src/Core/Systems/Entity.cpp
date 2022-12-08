@@ -77,7 +77,7 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
         }
 
         animation = data.animation;
-        owner.engine().ecs().addComponent<component::Trainer>(entity, component::Trainer(data));
+        owner.engine().ecs().emplaceComponent<component::Trainer>(entity, std::move(data));
     }
     else {
         BL_LOG_ERROR << "Unknown character file type: " << spawn.file;

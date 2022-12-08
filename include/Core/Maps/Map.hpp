@@ -336,6 +336,7 @@ protected:
     mutable sf::RectangleShape cover;
 
     void clear();
+    void finishLoad();
     void triggerAnimation(const component::Position& position);
     void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);

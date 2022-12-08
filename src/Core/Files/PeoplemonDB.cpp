@@ -3,6 +3,7 @@
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -73,9 +74,7 @@ struct LegacyDBLoader : public SerializerVersion<PeoplemonDB> {
                     BL_LOG_ERROR << "Invalid learn move id " << mi << " for peoplemon "
                                  << static_cast<unsigned int>(id) << "(" << db.names[id] << ")";
                 }
-                else {
-                    db.validMoves[id].insert(m);
-                }
+                else { db.validMoves[id].insert(m); }
             }
 
             if (!input.read<std::uint16_t>(u16)) return false;
@@ -140,7 +139,14 @@ using VersionedLoader =
 } // namespace
 
 bool PeoplemonDB::load() {
-    InputFile input(Properties::PeoplemonDBFile());
+    return PeoplemonDbManager::initializeExisting(Properties::PeoplemonDBFile(), *this);
+}
+
+bool PeoplemonDB::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<PeoplemonDB>::deserializeStream(input, *this);
+}
+
+bool PeoplemonDB::loadProd(bl::serial::binary::InputStream& input) {
     return VersionedLoader::read(input, *this);
 }
 

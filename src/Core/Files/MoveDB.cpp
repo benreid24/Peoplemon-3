@@ -1,5 +1,7 @@
 #include <Core/Files/MoveDB.hpp>
+
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -80,8 +82,13 @@ using VersionedLoader =
 
 } // namespace
 
-bool MoveDB::load() {
-    bl::serial::binary::InputFile input(Properties::MoveDBFile());
+bool MoveDB::load() { return MoveDbManager::initializeExisting(Properties::MoveDBFile(), *this); }
+
+bool MoveDB::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<MoveDB>::deserializeStream(input, *this);
+}
+
+bool MoveDB::loadProd(bl::serial::binary::InputStream& input) {
     return VersionedLoader::read(input, *this);
 }
 

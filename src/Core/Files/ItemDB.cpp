@@ -1,5 +1,7 @@
 #include <Core/Files/ItemDB.hpp>
+
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 using namespace bl::serial::binary;
 
@@ -50,7 +52,14 @@ using VersionedLoader = VersionedSerializer<ItemDB, LegacyDBLoader, ItemDBLoader
 } // namespace
 
 bool ItemDB::load() {
-    InputFile input(Properties::ItemMetadataFile());
+    return ItemDbManager::initializeExisting(Properties::ItemMetadataFile(), *this);
+}
+
+bool ItemDB::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<ItemDB>::deserializeStream(input, *this);
+}
+
+bool ItemDB::loadProd(bl::serial::binary::InputStream& input) {
     return VersionedLoader::read(input, *this);
 }
 

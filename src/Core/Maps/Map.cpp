@@ -479,17 +479,19 @@ std::string Map::getMapFile(const std::string& file) {
 }
 
 bool Map::loadDev(std::istream& input) {
-    // TODO - load json instead
-    bl::serial::StreamInputBuffer buf(input);
-    bl::serial::binary::InputStream is(buf);
-    return loadProd(is);
+    if (!bl::serial::json::Serializer<Map>::deserializeStream(input, *this)) return false;
+    finishLoad();
+    return true;
 }
 
 bool Map::loadProd(bl::serial::binary::InputStream& input) {
-    renderRange = sf::IntRect(0, 0, 1, 1);
-
     if (!VersionedSerializer::read(input, *this)) return false;
+    finishLoad();
+    return true;
+}
 
+void Map::finishLoad() {
+    renderRange          = sf::IntRect(0, 0, 1, 1);
     defaultTown.name     = nameField;
     defaultTown.playlist = playlistField;
     defaultTown.weather  = weatherField;
@@ -500,7 +502,6 @@ bool Map::loadProd(bl::serial::binary::InputStream& input) {
                           0);
     }
     isWorldMap = name() == "Worldmap";
-    return true;
 }
 
 bool Map::save(const std::string& file) {

@@ -48,6 +48,22 @@ public:
     bool load(const std::string& file, component::Direction spawnDir = component::Direction::Up);
 
     /**
+     * @brief Loads the NPC from the json stream
+     *
+     * @param input JSON input stream
+     * @return True if the NPC could be loaded, false on error
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the NPC from it's binary format
+     *
+     * @param input The input stream to load from
+     * @return True if the NPC could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
      * @brief The name of the NPC
      *
      */

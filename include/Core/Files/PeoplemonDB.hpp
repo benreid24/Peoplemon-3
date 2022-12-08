@@ -35,6 +35,22 @@ struct PeoplemonDB : private bl::util::NonCopyable {
      */
     bool load();
 
+    /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
     std::unordered_map<pplmn::Id, std::string> names;
     std::unordered_map<pplmn::Id, std::string> descriptions;
     std::unordered_map<pplmn::Id, pplmn::Type> types;

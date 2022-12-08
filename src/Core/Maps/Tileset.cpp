@@ -155,22 +155,29 @@ void Tileset::update(float dt) {
 }
 
 bool Tileset::loadDev(std::istream& input) {
-    // TODO - save to json in dev mode
-    bl::serial::StreamInputBuffer buf(input);
-    bl::serial::binary::InputStream is(buf);
-    return loadProd(is);
+    clear();
+    if (!bl::serial::json::Serializer<Tileset>::deserializeStream(input, *this)) return false;
+    finishLoad();
+    return true;
 }
 
-bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
+void Tileset::clear() {
     textureFiles.clear();
     animFiles.clear();
     nextTextureId = nextAnimationId = 1;
     textures.clear();
     anims.clear();
     sharedAnimations.clear();
+}
 
+bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
+    clear();
     if (!VersionedSerializer::read(input, *this)) return false;
+    finishLoad();
+    return true;
+}
 
+void Tileset::finishLoad() {
     for (const auto& tpair : textureFiles) {
         textures.emplace(tpair.first,
                          TextureManager::load(
@@ -190,8 +197,6 @@ bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
         if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }
-
-    return true;
 }
 
 bool Tileset::save(const std::string& file) const {

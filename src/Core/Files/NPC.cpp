@@ -1,5 +1,7 @@
 #include <Core/Files/NPC.hpp>
 
+#include <Core/Resources.hpp>
+
 namespace core
 {
 namespace file
@@ -46,12 +48,17 @@ bool NPC::save(const std::string& file) const {
 }
 
 bool NPC::load(const std::string& file, component::Direction spawnDir) {
-    bl::serial::binary::InputFile input(file);
-    if (VersionedLoader::read(input, *this)) {
-        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
-        return true;
-    }
-    return false;
+    if (!NpcManager::initializeExisting(file, *this)) return false;
+    if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+    return true;
+}
+
+bool NPC::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<NPC>::deserializeStream(input, *this);
+}
+
+bool NPC::loadProd(bl::serial::binary::InputStream& input) {
+    return VersionedLoader::read(input, *this);
 }
 
 std::string& NPC::name() { return nameField; }

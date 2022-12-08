@@ -265,6 +265,22 @@ public:
     bool load(const std::string& file);
 
     /**
+     * @brief Loads the conversation from its json format
+     *
+     * @param input The input stream to process
+     * @return True if the conversation was loaded, false otherwise
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the conversation from its binary format
+     *
+     * @param input The input stream to process
+     * @return True if the conversation was loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
      * @brief Saves the conversation to the given file
      *
      * @param file The file to save to, relative to the conversation path

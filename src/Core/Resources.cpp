@@ -9,25 +9,44 @@ namespace res
 namespace
 {
 const std::string BundlePath = "data";
-}
+
+// TODO - flip when ready
+constexpr bool MountBundle    = false;
+constexpr bool DevModeEnabled = false;
+} // namespace
 
 void installDevLoaders() {
+    if (!DevModeEnabled) {
+        installProdLoaders();
+        return;
+    }
+
     TilesetManager::installLoader<TilesetDevLoader>();
     MapManager::installLoader<MapDevLoader>();
-
-    // TODO - other loaders
+    ConversationManager::installLoader<ConversationDevLoader>();
+    NpcManager::installLoader<NpcDevLoader>();
+    TrainerManager::installLoader<TrainerDevLoader>();
+    ItemDbManager::installLoader<ItemDBDevLoader>();
+    MoveDbManager::installLoader<MoveDBDevLoader>();
+    PeoplemonDbManager::installLoader<PeoplemonDBDevLoader>();
 }
 
 void installProdLoaders() {
-    if (!bl::resource::FileSystem::useBundle(BundlePath)) {
-        BL_LOG_CRITICAL << "Unable to mount resource bundles";
-        std::exit(1);
+    if (MountBundle) {
+        if (!bl::resource::FileSystem::useBundle(BundlePath)) {
+            BL_LOG_CRITICAL << "Unable to mount resource bundles";
+            std::exit(1);
+        }
     }
 
     TilesetManager::installLoader<TilesetProdLoader>();
     MapManager::installLoader<MapProdLoader>();
-
-    // TODO - other loaders
+    ConversationManager::installLoader<ConversationProdLoader>();
+    NpcManager::installLoader<NpcProdLoader>();
+    TrainerManager::installLoader<TrainerProdLoader>();
+    ItemDbManager::installLoader<ItemDBProdLoader>();
+    MoveDbManager::installLoader<MoveDBProdLoader>();
+    PeoplemonDbManager::installLoader<PeoplemonDBProdLoader>();
 }
 
 bool createBundles() {

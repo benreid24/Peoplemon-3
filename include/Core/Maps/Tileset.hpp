@@ -180,6 +180,8 @@ private:
     std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
 
     void initializeTile(Tile& tile);
+    void clear();
+    void finishLoad();
 
     friend class Tile;
     friend struct loaders::LegacyTilesetLoader;

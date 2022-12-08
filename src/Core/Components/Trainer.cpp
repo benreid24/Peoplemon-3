@@ -4,13 +4,13 @@ namespace core
 {
 namespace component
 {
-Trainer::Trainer(const file::Trainer& data)
-: sourceFile(data.sourceFile)
-, _name(data.name)
-, loseDialog(data.lostBattleLine)
+Trainer::Trainer(file::Trainer&& data)
+: sourceFile(std::move(data.sourceFile))
+, _name(std::move(data.name))
+, loseDialog(std::move(data.lostBattleLine))
 , visionRange(data.visionRange)
-, peoplemon(data.peoplemon)
-, _items(data.items)
+, peoplemon(std::move(data.peoplemon))
+, _items(std::move(data.items))
 , payout(data.payout)
 , beat(false) {
     if (!beforeBattle.load(data.prebattleConversation)) {

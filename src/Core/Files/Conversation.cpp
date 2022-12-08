@@ -2,6 +2,7 @@
 
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -33,9 +34,7 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
                 const std::uint32_t j = nodes[jump].next();
                 jump                  = j > i ? j - 1 : j;
             }
-            else {
-                jump = EndNode;
-            }
+            else { jump = EndNode; }
         }
         else if (jump > i)
             --jump;
@@ -206,9 +205,7 @@ struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<C
             auto it = labelPoints.find(pair.first);
             if (it != labelPoints.end()) {
                 if (tolower(pair.first) == "end") { *pair.second = EndNode; }
-                else {
-                    *pair.second = it->second;
-                }
+                else { *pair.second = it->second; }
             }
             else {
                 if (tolower(pair.first) != "end") {
@@ -284,8 +281,15 @@ using VersionedLoader =
 }
 
 bool Conversation::load(const std::string& file) {
-    bl::serial::binary::InputFile input(
-        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
+    return ConversationManager::initializeExisting(
+        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file), *this);
+}
+
+bool Conversation::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<Conversation>::deserializeStream(input, *this);
+}
+
+bool Conversation::loadProd(bl::serial::binary::InputStream& input) {
     return VersionedLoader::read(input, *this);
 }
 
@@ -302,18 +306,14 @@ void Conversation::deleteNode(unsigned int i) {
         shiftDownJumps(cnodes, i);
         cnodes.erase(cnodes.begin() + i);
     }
-    else {
-        BL_LOG_WARN << "Tried to delete out of range node: " << i;
-    }
+    else { BL_LOG_WARN << "Tried to delete out of range node: " << i; }
 }
 
 void Conversation::appendNode(const Node& node) { cnodes.push_back(node); }
 
 void Conversation::setNode(unsigned int i, const Node& node) {
     if (i < cnodes.size()) { cnodes[i] = node; }
-    else {
-        BL_LOG_WARN << "Out of range node assign: " << i;
-    }
+    else { BL_LOG_WARN << "Out of range node assign: " << i; }
 }
 
 Conversation::Node::Node() { setType(Talk); }
