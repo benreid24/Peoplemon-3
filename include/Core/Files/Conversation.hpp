@@ -12,12 +12,6 @@ namespace core
 {
 namespace file
 {
-namespace loader
-{
-struct LegacyConversationLoader;
-struct ConversationLoader;
-} // namespace loader
-
 /**
  * @brief Stores a conversation that an NPC or trainer can have with the player
  *
@@ -336,8 +330,6 @@ public:
 private:
     std::vector<Node> cnodes;
 
-    friend struct loader::LegacyConversationLoader;
-    friend struct loader::ConversationLoader;
     friend struct bl::serial::SerializableObject<Conversation>;
 };
 

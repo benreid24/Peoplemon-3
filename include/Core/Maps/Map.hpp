@@ -41,26 +41,6 @@ class Systems;
 /// Collection of classes responsible for loading, editing, rendering, and updating maps
 namespace map
 {
-namespace loaders
-{
-/**
- * @brief Loads the original peoplemon format maps
- *
- * @ingroup Maps
- *
- */
-class LegacyMapLoader;
-
-/**
- * @brief Loads the new format maps
- *
- * @ingroup Maps
- *
- */
-class PrimaryMapLoader;
-
-} // namespace loaders
-
 /**
  * @brief The primary map class that represents a usable map in the game
  *
@@ -345,7 +325,6 @@ protected:
     static std::vector<Town> flymapTowns;
     static void loadFlymapTowns();
 
-    friend class loaders::LegacyMapLoader;
     friend struct bl::serial::SerializableObject<Map>;
 };
 
@@ -394,9 +373,9 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     , lighting("lighting", *this, &M::lighting, SerializableFieldBase::Required{})
     , transitionField("transitions", *this, &M::transitionField, SerializableFieldBase::Required{})
     , catchRegionsField("catchZones", *this, &M::catchRegionsField,
-                        SerializableFieldBase::Optional{})
-    , townsField("towns", *this, &M::towns, SerializableFieldBase::Optional{})
-    , townTiles("townTiles", *this, &M::townTiles, SerializableFieldBase::Optional{}) {}
+                        SerializableFieldBase::Required{})
+    , townsField("towns", *this, &M::towns, SerializableFieldBase::Required{})
+    , townTiles("townTiles", *this, &M::townTiles, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

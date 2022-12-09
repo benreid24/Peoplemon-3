@@ -6,61 +6,6 @@ namespace core
 {
 namespace map
 {
-namespace loaders
-{
-struct LegacyTilesetLoader : public bl::serial::binary::SerializerVersion<Tileset> {
-    virtual bool read(Tileset& tileset, bl::serial::binary::InputStream& input) const override {
-        std::uint16_t n = 0;
-
-        if (!input.read<std::uint16_t>(n)) return false;
-        for (unsigned int i = 0; i < n; ++i) {
-            std::string path;
-            std::uint16_t id;
-            if (!input.read<std::uint16_t>(id)) return false;
-            if (!input.read(path)) return false;
-            tileset.textureFiles.emplace(id, path);
-        }
-
-        if (!input.read<std::uint16_t>(n)) return false;
-        for (unsigned int i = 0; i < n; ++i) {
-            std::string path;
-            std::uint16_t id;
-            if (!input.read<std::uint16_t>(id)) return false;
-            if (!input.read(path)) return false;
-            tileset.animFiles.emplace(id, path);
-        }
-
-        return true;
-    }
-
-    virtual bool write(const Tileset&, bl::serial::binary::OutputStream&) const override {
-        // unimplemented
-        return false;
-    }
-};
-
-struct PrimaryTilesetLoader : public bl::serial::binary::SerializerVersion<Tileset> {
-    using Serializer = bl::serial::binary::Serializer<Tileset>;
-
-    virtual bool read(Tileset& tileset, bl::serial::binary::InputStream& input) const override {
-        return Serializer::deserialize(input, tileset);
-    }
-
-    virtual bool write(const Tileset& tileset,
-                       bl::serial::binary::OutputStream& output) const override {
-        return Serializer::serialize(output, tileset);
-    }
-};
-
-} // namespace loaders
-
-namespace
-{
-using VersionedSerializer =
-    bl::serial::binary::VersionedSerializer<Tileset, loaders::LegacyTilesetLoader,
-                                            loaders::PrimaryTilesetLoader>;
-}
-
 Tileset::Tileset()
 : nextTextureId(1)
 , nextAnimationId(1) {}
@@ -172,7 +117,7 @@ void Tileset::clear() {
 
 bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
     clear();
-    if (!VersionedSerializer::read(input, *this)) return false;
+    if (!bl::serial::binary::Serializer<Tileset>::deserialize(input, *this)) return false;
     finishLoad();
     return true;
 }
