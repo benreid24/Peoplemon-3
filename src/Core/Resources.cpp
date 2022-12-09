@@ -12,7 +12,7 @@ const std::string BundlePath = "data";
 
 // TODO - flip when ready
 constexpr bool MountBundle    = false;
-constexpr bool DevModeEnabled = false;
+constexpr bool DevModeEnabled = true;
 } // namespace
 
 void installDevLoaders() {
