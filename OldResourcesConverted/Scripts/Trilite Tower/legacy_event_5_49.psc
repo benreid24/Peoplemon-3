@@ -1,0 +1,1 @@
+loadMap("TriliteIsland/TriliteRoom2,2);

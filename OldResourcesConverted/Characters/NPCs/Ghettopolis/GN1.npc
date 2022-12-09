@@ -1,0 +1,36 @@
+{
+    "behavior": {
+        "data": {
+    "data": {
+        "paces": [
+            {
+                "direction": 0,
+                "steps": 2
+            },
+            {
+                "direction": 3,
+                "steps": 1
+            },
+            {
+                "direction": 2,
+                "steps": 3
+            },
+            {
+                "direction": 1,
+                "steps": 1
+            },
+            {
+                "direction": 0,
+                "steps": 1
+            }
+        ],
+        "reverse": false
+    },
+    "index": 2
+},
+        "type": 2
+    },
+    "conv": "Ghettopolis/GN1.conv",
+    "anim": "3",
+    "name": "GN1"
+}

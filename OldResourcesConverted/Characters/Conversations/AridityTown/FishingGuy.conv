@@ -1,0 +1,284 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                13
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "FishingGuyTalked",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                21
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "RodFixed",
+            "type": 7
+        },
+        {
+            "jumps": [
+                3,
+                5
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "TalkedAfterRodFix",
+            "type": 7
+        },
+        {
+            "jumps": [
+                4,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Remember, for the rod to work, you need to be in one of my marked spots facing the water.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now go empty the oceans and make me proud!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You've fixed the rod. Great! Now time for your greatest lesson.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Fishing is the best, but there's a secret to it...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's near impossible if you don't know the right spots.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "That's why I've spent the last 20 years of my life finding and labeling the best fishing spots accross the world. Now the next generation of fishers won't get discouraged.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now all you need to do is go to one of my marked spots, face the water, use the item, and voila.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now go out there and empty the oceans!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Make me proud.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "TalkedAfterRodFix",
+            "type": 8
+        },
+        {
+            "jumps": [
+                14,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Fishing is one of the greatest past times in the world.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                15,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You get to sit or stand somewhere for hours, bored, waiting for something to happen.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999995
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 116
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                18,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "This is what I used when I was your age.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                19,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's broken now, but if you can find some way to fix it, I'd be more than happy to teach you how to use it.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                20,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "A little glue should do the trick.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "FishingGuyTalked",
+            "type": 8
+        },
+        {
+            "jumps": [
+                22,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you can fix that rod, I'll teach you to fish.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Some glue should do the trick.",
+            "type": 0
+        }
+    ]
+}

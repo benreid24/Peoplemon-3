@@ -1,0 +1,64 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "This is the famed Hall of Puzzles",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's location is a secret and quite tricky to find, you must be pretty clever to be here",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The puzzles are through those doors",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'd try them myself but it seems hard and there's a TV here",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I guess the real challenge is a proper diet and exercise",
+            "type": 0
+        }
+    ]
+}

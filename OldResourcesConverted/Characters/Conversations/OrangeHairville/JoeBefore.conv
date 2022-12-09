@@ -1,0 +1,64 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Hello. I'm the Leader of the Orange Hairville gym. My name is Joe.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "My whole life, I've had red hair, yet for some reason everyone says it's orange.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I have no idea why.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It is the anger from these memories I use to fuel my fighting spirit.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now feel my red hair fury!",
+            "type": 0
+        }
+    ]
+}

@@ -1,0 +1,105 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Curvlinear Forest",
+            "second": 1
+        },
+        {
+            "first": "Ghettopolis Island 1",
+            "second": 3
+        },
+        {
+            "first": "Trainer Island",
+            "second": 4
+        },
+        {
+            "first": "I think I'll stay here",
+            "second": 6
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Where would you like to go?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                2,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Will do. Climb aboard!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"Worldmap\",150);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're already there, bud!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Will do. Climb aboard!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"Worldmap\",152);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Okay. Just let me know if you want to go anywhere.",
+            "type": 0
+        }
+    ]
+}

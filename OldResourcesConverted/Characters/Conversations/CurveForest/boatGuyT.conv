@@ -1,0 +1,73 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "I need more time.",
+            "second": 1
+        },
+        {
+            "first": "Yes. I'm ready.",
+            "second": 2
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Should we set sail Auspicious Island?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry. I'm just itchin' to get out to sea.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Aye aye!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"WorldMap\",130);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "AuspiciousDelivery",
+            "type": 8
+        }
+    ]
+}

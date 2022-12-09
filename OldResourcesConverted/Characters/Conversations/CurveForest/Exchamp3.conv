@@ -1,0 +1,88 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I got my Peoplemon, now .. oh, you've already beaten one.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You know.. you be may strong enough to take the Gym challenges. They're the true test of a trainer's strength.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "There's one in Ghettopolis, just take the ferry on the other side of the forest, if you're interested that is.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now that this is taken care of, I must go. I have very important buisness to attend to.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Maybe we'll cross paths again someday though.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks again.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999999
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"CurveForest/Thug1Escapes3.psc\",1);",
+            "type": 6
+        }
+    ]
+}

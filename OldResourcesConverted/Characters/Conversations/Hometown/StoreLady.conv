@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Welcome.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "openStore(\"What would you like to purchase?\",\"You don't have enough money for that.\",5,150,39,400,41,500,1,600,35,700);",
+            "type": 6
+        }
+    ]
+}

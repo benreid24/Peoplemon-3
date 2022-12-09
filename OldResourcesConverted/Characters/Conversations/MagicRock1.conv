@@ -1,0 +1,16 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"rockManiacEncounter.psc\",1);",
+            "type": 6
+        }
+    ]
+}

@@ -1,0 +1,3712 @@
+{
+    "townTiles": {
+    "data": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "h": 18,
+    "w": 10
+},
+    "towns": [
+    ],
+    "name": "Battle Tower",
+    "loadScript": "",
+    "unloadScript": "",
+    "spawns": {
+        "1": {
+            "position": {
+                "pixels": { "x": 128.000000, "y": 512.000000 },
+                "position": { "x": 4, "y": 16 },
+                "direction": 0,
+                "level": 0
+            },
+            "id": 1
+        }
+    },
+    "lighting": {
+        "sun": 0,
+        "high": 255,
+        "low": 75,
+        "lights": [
+        ]
+    },
+    "playlist": "",
+    "transitions": {
+    "data": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+    ],
+    "h": 18,
+    "w": 10
+},
+    "levels": [
+        {
+            "ysort": [
+                {
+                    "data": [
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 41,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        }
+                    ],
+                    "h": 18,
+                    "w": 10
+                }
+            ],
+            "bottom": [
+                {
+                    "data": [
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 32,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        },
+                        {
+                            "id": 1,
+                            "anim": false
+                        }
+                    ],
+                    "h": 18,
+                    "w": 10
+                },
+                {
+                    "data": [
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 38,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 39,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        }
+                    ],
+                    "h": 18,
+                    "w": 10
+                }
+            ],
+            "catches": {
+                "data": [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ],
+                "h": 18,
+                "w": 10
+            },
+            "top": [
+                {
+                    "data": [
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        },
+                        {
+                            "id": 0,
+                            "anim": false
+                        }
+                    ],
+                    "h": 18,
+                    "w": 10
+                }
+            ],
+            "cols": {
+                "data": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    1,
+                    0,
+                    0,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0,
+                    0,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1
+                ],
+                "h": 18,
+                "w": 10
+            }
+        }
+    ],
+    "weather": 0,
+    "tileset": "Inside1.tlst",
+    "catchZones": [
+    ],
+    "characters": [
+    ],
+    "items": [
+    ],
+    "events": [
+        {
+            "script": "loadMap(\"PalletTown/BattleTowerMainroom\",2);",
+            "area": { "x": 1, "y": 1 },
+            "position": { "x": 4, "y": 17 },
+            "trigger": 1
+        },
+        {
+            "script": "loadMap(\"PalletTown/BattleTowerMainroom\",2);",
+            "area": { "x": 1, "y": 1 },
+            "position": { "x": 5, "y": 17 },
+            "trigger": 1
+        },
+        {
+            "script": "loadMap(\"PalletTown/BattleTowerBattleRoom\",1);",
+            "area": { "x": 1, "y": 1 },
+            "position": { "x": 5, "y": 1 },
+            "trigger": 1
+        }
+    ]
+}

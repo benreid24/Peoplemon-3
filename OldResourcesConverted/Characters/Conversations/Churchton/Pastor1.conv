@@ -1,0 +1,495 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "PastorTalked",
+            "type": 7
+        },
+        {
+            "jumps": [
+                35,
+                14
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "GotDivineBadge",
+            "type": 7
+        },
+        {
+            "jumps": [
+                3,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "PastorTalked",
+            "type": 8
+        },
+        {
+            "jumps": [
+                4,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well it's always nice to see a new face in our church.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999987,
+                999987
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "God",
+            "second": 5
+        },
+        {
+            "first": "Free on Sunday Mornings",
+            "second": 6
+        },
+        {
+            "first": "Crushing Self-Guilt",
+            "second": 7
+        },
+        {
+            "first": "The Snack Table",
+            "second": 10
+        },
+        {
+            "first": "Gym Battle",
+            "second": 16
+        },
+        {
+            "first": "Couches",
+            "second": 13
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What brings you here?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                14,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You and me both brother.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well it's a good way to spend free time, I can assure you that.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh.. well..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The Lord does have healing powers. I can probably ask him to hook you up.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "We're kinda like bros.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Didn't you talk to the fat guy in the back? The snack table has been gone for weeks.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm so sorry you had to find out this way.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Yes we hear that a lot.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999987,
+                999987
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Gym Battle",
+            "second": 16
+        },
+        {
+            "first": "Nope",
+            "second": 15
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Is there anything else I can do for you?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9999987,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well welcome to the congregation. Please let me know if you need anything at all.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh.. I'm sorry.. but no.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                18,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I was a gym leader in my youth, but now I'm a man of the cloth. I gave up fighting for good.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                19,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I do get a bunch of these badges from the league.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                20,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Perhaps with a large enough donation you could find yourself with one.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999987,
+                999987
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Give 100",
+            "second": 21
+        },
+        {
+            "first": "Give 1000",
+            "second": 23
+        },
+        {
+            "first": "Nope",
+            "second": 15
+        },
+        {
+            "first": "",
+            "second": 9999987
+        }
+    ],
+    "index": 0
+},
+            "prompt": "So how about it. Wanna make a donation?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                22,
+                9999987
+            ],
+            "data": {
+    "data": 100,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                20,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thank you, but I think you can do better than that.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                24,
+                9999987
+            ],
+            "data": {
+    "data": 1000,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                20,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thank you, but I think you can do better than that.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                26,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh, you can't afford that.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                27,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well don't worry about having no money. At this church, we take care of God's children.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                28,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                29,
+                999987
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 257
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                30,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "This should be able to fetch you a pretty penny at a local market.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                31,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh and you can have this too.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                32,
+                999987
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 127
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                33,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "GotDivineBadge",
+            "type": 8
+        },
+        {
+            "jumps": [
+                34,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Don't thank me, I was probably just going to throw these old things out anyway.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999987,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh, and welcome to the congregation. Please let me know if you need anything else.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999987,
+                999987
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Go in peace, and welcome to the congregation.",
+            "type": 0
+        }
+    ]
+}

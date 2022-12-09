@@ -1,0 +1,137 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Please give me room to think.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I guess we're here to get some scientist guy? I don't know.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's important to our cause but.. it seems a little bit wrong.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "It does seem wrong",
+            "second": 5
+        },
+        {
+            "first": "Nah man you're fine",
+            "second": 5
+        },
+        {
+            "first": "Of course it's wrong dufus",
+            "second": 7
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What do you think?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "hm. I guess I'm gonna think on it a bit.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Change",
+            "type": 8
+        },
+        {
+            "jumps": [
+                8,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I try to open up to someone and this is what I get?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The only people who get me is the Local Thugs. I guess it's where I belong.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Stay",
+            "type": 8
+        }
+    ]
+}

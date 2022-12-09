@@ -1,0 +1,125 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Give 1 money",
+            "second": 1
+        },
+        {
+            "first": "Give 10 money",
+            "second": 3
+        },
+        {
+            "first": "Give 100 money",
+            "second": 5
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Could you spare some change?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                2,
+                9999996
+            ],
+            "data": {
+    "data": 1,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now only a few hundred more of these to cover the shelter tonight..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                9999996
+            ],
+            "data": {
+    "data": 10,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's not much, but thank you.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thank you. Hopefully this will be enough to get me through the night.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                9999996
+            ],
+            "data": {
+    "data": 100,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                8,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You don't even have that much.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Please don't play with my tired heart.",
+            "type": 0
+        }
+    ]
+}

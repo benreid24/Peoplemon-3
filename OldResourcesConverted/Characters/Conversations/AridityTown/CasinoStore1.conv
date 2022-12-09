@@ -1,0 +1,130 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "CasinoKeys",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "What would you like to buy today?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"AridityTown/StoreLeft.psc\",0);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "I'd like to buy something.",
+            "second": 1
+        },
+        {
+            "first": "Where are the Keys?",
+            "second": 4
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What can I help you with today?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Keys? I think a gentleman won a pair of keys earlier today in a card game.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I believe he's standing near those vending machines to my right.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "CasinoKeys",
+            "type": 8
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yes",
+            "second": 8
+        },
+        {
+            "first": "No",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Is that all?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Okay then. Have a nice day.",
+            "type": 0
+        }
+    ]
+}

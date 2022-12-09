@@ -1,0 +1,121 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm all out of ideas.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "They should call me the one idea thug, cuz that's all I got.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I thought Local Thugs just fight people.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If I knew I'd have to do real work, I would have started my own posse.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Our name could be The Regional Gang.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah.. it's alright.",
+            "second": 7
+        },
+        {
+            "first": "Nah man. That's lame.",
+            "second": 8
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Great name huh?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks. I'm all excited about this idea now!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Aw man. I'll have to think of something else.",
+            "type": 0
+        }
+    ]
+}

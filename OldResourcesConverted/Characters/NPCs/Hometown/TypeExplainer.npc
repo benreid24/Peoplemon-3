@@ -1,0 +1,76 @@
+{
+    "behavior": {
+        "data": {
+    "data": {
+        "paces": [
+            {
+                "direction": 1,
+                "steps": 2
+            },
+            {
+                "direction": 0,
+                "steps": 5
+            },
+            {
+                "direction": 1,
+                "steps": 3
+            },
+            {
+                "direction": 0,
+                "steps": 4
+            },
+            {
+                "direction": 1,
+                "steps": 2
+            },
+            {
+                "direction": 2,
+                "steps": 3
+            },
+            {
+                "direction": 3,
+                "steps": 3
+            },
+            {
+                "direction": 2,
+                "steps": 3
+            },
+            {
+                "direction": 3,
+                "steps": 18
+            },
+            {
+                "direction": 2,
+                "steps": 4
+            },
+            {
+                "direction": 3,
+                "steps": 2
+            },
+            {
+                "direction": 0,
+                "steps": 7
+            },
+            {
+                "direction": 1,
+                "steps": 1
+            },
+            {
+                "direction": 2,
+                "steps": 2
+            },
+            {
+                "direction": 3,
+                "steps": 2
+            }
+        ],
+        "reverse": true
+    },
+    "index": 2
+},
+        "type": 2
+    },
+    "conv": "Hometown/TypeExplainer.conv",
+    "anim": "32A",
+    "name": "TypeExplainer"
+}

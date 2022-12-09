@@ -1,0 +1,245 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Can't talk now. I gotta get back to my research.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah. I'm confused honestly.",
+            "second": 3
+        },
+        {
+            "first": "Nah. You talk to much and Idrc.",
+            "second": 18
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Do you want to know what happened?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                4,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Over the last 35 years, my goal has been to find a renewable energy source potent enough to ease concerns about the sustainability of our daily habits.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It wasn't until about 4 years ago, while in Piper Cave doing some field work, that I realized the answer had been staring me right in the face the whole time.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Dominics! I encountered them way too frequently in the cave.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It seemed as though with every couple steps, a new one would appear to annoy me.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If I could only take all those Dominics, I thought, and turn them into something useful instead of something redundant..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "..I knew I'd be making the world a better place.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "So now we have Dom Juice!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I can't get into the details, but basically we harvest Dominic's naturally occuring vitamins and minerals and turn them into juice.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And not only is it an energy source.. it's a delicious and nutritious beverage.. now in 4 varieties!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Here..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999996
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 59
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                15,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you're not completely satisfied, you can return it to me free!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "That's right. Free!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh.. so yeah.. the Thugs wanted to know the secrets of my patented Dom Juice.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "That's all. Now I have to get back to my research.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh okay. That's fine. I have to get back to my research anyway.",
+            "type": 0
+        }
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry it's a mess in here, I never finished unpacking from when we moved to this town not that long ago, a fact that I never before have mentioned.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now show me what you learned on your adventure!",
+            "type": 0
+        }
+    ]
+}
