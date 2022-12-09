@@ -27,7 +27,8 @@ int main(int, char**) {
     }
 
     BL_LOG_INFO << "Initializing resource systems";
-    core::res::installDevLoaders();
+    //core::res::installDevLoaders();
+    core::res::installProdLoaders();
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

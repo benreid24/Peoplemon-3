@@ -358,7 +358,8 @@ struct SerializableObject<core::file::Conversation::Node::Item> : public Seriali
     SerializableField<3, Item, bool> afterPrompt;
 
     SerializableObject()
-    : id("id", *this, &Item::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ConversationNodeItem")
+    , id("id", *this, &Item::id, SerializableFieldBase::Required{})
     , beforePrompt("beforePrompt", *this, &Item::beforePrompt, SerializableFieldBase::Required{})
     , afterPrompt("afterPrompt", *this, &Item::afterPrompt, SerializableFieldBase::Required{}) {}
 };
@@ -373,7 +374,8 @@ struct SerializableObject<core::file::Conversation::Node> : public SerializableO
     SerializableField<4, Node, std::uint32_t[2]> jumps;
 
     SerializableObject()
-    : type("type", *this, &Node::type, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ConversationNode")
+    , type("type", *this, &Node::type, SerializableFieldBase::Required{})
     , prompt("prompt", *this, &Node::prompt, SerializableFieldBase::Required{})
     , data("data", *this, &Node::data, SerializableFieldBase::Required{})
     , jumps("jumps", *this, &Node::jumps, SerializableFieldBase::Required{}) {}
@@ -387,7 +389,8 @@ struct SerializableObject<core::file::Conversation> : public SerializableObjectB
     SerializableField<1, Conversation, std::vector<Node>> nodes;
 
     SerializableObject()
-    : nodes("nodes", *this, &Conversation::cnodes, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("Conversation")
+    , nodes("nodes", *this, &Conversation::cnodes, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

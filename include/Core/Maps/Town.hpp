@@ -49,7 +49,8 @@ struct SerializableObject<core::map::Town> : public SerializableObjectBase {
     SerializableField<6, Town, sf::Vector2i> mapPos;
 
     SerializableObject()
-    : name("name", *this, &Town::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Town")
+    , name("name", *this, &Town::name, SerializableFieldBase::Required{})
     , playlist("playlist", *this, &Town::playlist, SerializableFieldBase::Required{})
     , weather("weather", *this, &Town::weather, SerializableFieldBase::Required{})
     , pcSpawn("pcSpawn", *this, &Town::pcSpawn, SerializableFieldBase::Required{})

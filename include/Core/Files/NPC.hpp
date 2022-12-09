@@ -137,7 +137,8 @@ struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
     SerializableField<4, N, core::file::Behavior> behaviorField;
 
     SerializableObject()
-    : nameField("name", *this, &N::nameField, SerializableFieldBase::Required{})
+    : SerializableObjectBase("NPC")
+    , nameField("name", *this, &N::nameField, SerializableFieldBase::Required{})
     , animField("anim", *this, &N::animField, SerializableFieldBase::Required{})
     , conversationField("conv", *this, &N::conversationField, SerializableFieldBase::Required{})
     , behaviorField("behavior", *this, &N::behaviorField, SerializableFieldBase::Required{}) {}

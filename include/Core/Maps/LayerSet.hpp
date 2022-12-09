@@ -218,7 +218,8 @@ struct SerializableObject<core::map::LayerSet> : public SerializableObjectBase {
     SerializableField<5, core::map::LayerSet, std::vector<core::map::TileLayer>> top;
 
     SerializableObject()
-    : collisions("cols", *this, &core::map::LayerSet::collisions, SerializableFieldBase::Required{})
+    : SerializableObjectBase("LayerSet")
+    , collisions("cols", *this, &core::map::LayerSet::collisions, SerializableFieldBase::Required{})
     , catches("catches", *this, &core::map::LayerSet::catches, SerializableFieldBase::Required{})
     , bottom("bottom", *this, &core::map::LayerSet::bottom, SerializableFieldBase::Required{})
     , ysort("ysort", *this, &core::map::LayerSet::ysort, SerializableFieldBase::Required{})

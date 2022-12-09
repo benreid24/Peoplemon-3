@@ -212,7 +212,8 @@ struct SerializableObject<core::file::Behavior::Path::Pace> : public Serializabl
     SerializableField<2, P, std::uint16_t> steps;
 
     SerializableObject()
-    : direction("direction", *this, &P::direction, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BehaviorPathPace")
+    , direction("direction", *this, &P::direction, SerializableFieldBase::Required{})
     , steps("steps", *this, &P::steps, SerializableFieldBase::Required{}) {}
 };
 
@@ -224,7 +225,8 @@ struct SerializableObject<core::file::Behavior::Path> : public SerializableObjec
     SerializableField<2, P, bool> reverse;
 
     SerializableObject()
-    : paces("paces", *this, &P::paces, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BehaviorPath")
+    , paces("paces", *this, &P::paces, SerializableFieldBase::Required{})
     , reverse("reverse", *this, &P::reverse, SerializableFieldBase::Required{}) {}
 };
 
@@ -235,7 +237,8 @@ struct SerializableObject<core::file::Behavior::Standing> : public SerializableO
     SerializableField<1, S, core::component::Direction> direction;
 
     SerializableObject()
-    : direction("direction", *this, &S::facedir, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorStanding")
+    , direction("direction", *this, &S::facedir, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -245,7 +248,8 @@ struct SerializableObject<core::file::Behavior::Spinning> : public SerializableO
     SerializableField<1, S, S::Direction> direction;
 
     SerializableObject()
-    : direction("direction", *this, &S::spinDir, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorSpinning")
+    , direction("direction", *this, &S::spinDir, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -255,7 +259,8 @@ struct SerializableObject<core::file::Behavior::Wander> : public SerializableObj
     SerializableField<1, W, std::uint32_t> radius;
 
     SerializableObject()
-    : radius("radius", *this, &W::radius, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorWander")
+    , radius("radius", *this, &W::radius, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -266,7 +271,8 @@ struct SerializableObject<core::file::Behavior> : public SerializableObjectBase 
     SerializableField<2, B, decltype(B::data)> data;
 
     SerializableObject()
-    : type("type", *this, &B::_type, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Behavior")
+    , type("type", *this, &B::_type, SerializableFieldBase::Required{})
     , data("data", *this, &B::data, SerializableFieldBase::Required{}) {}
 };
 

@@ -96,7 +96,8 @@ struct SerializableObject<core::file::PeoplemonDB> : public SerializableObjectBa
     SerializableField<13, DB, std::unordered_map<Id, int>> catchRates;
 
     SerializableObject()
-    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    : SerializableObjectBase("PeoplemonDB")
+    , names("names", *this, &DB::names, SerializableFieldBase::Required{})
     , descriptions("descs", *this, &DB::descriptions, SerializableFieldBase::Required{})
     , types("types", *this, &DB::types, SerializableFieldBase::Required{})
     , abilities("abilities", *this, &DB::abilities, SerializableFieldBase::Required{})

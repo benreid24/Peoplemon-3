@@ -77,7 +77,8 @@ struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
     SerializableField<3, DB, std::unordered_map<Id, std::int32_t>> values;
 
     SerializableObject()
-    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ItemDB")
+    , names("names", *this, &DB::names, SerializableFieldBase::Required{})
     , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
     , values("values", *this, &DB::values, SerializableFieldBase::Required{}) {}
 };

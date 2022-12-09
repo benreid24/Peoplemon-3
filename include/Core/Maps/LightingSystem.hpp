@@ -252,7 +252,8 @@ struct SerializableObject<core::map::LightingSystem> : public SerializableObject
     SerializableField<4, LS, std::uint8_t> sun;
 
     SerializableObject()
-    : lights("lights", *this, &LS::rawLights, SerializableFieldBase::Required{})
+    : SerializableObjectBase("LightingSystem")
+    , lights("lights", *this, &LS::rawLights, SerializableFieldBase::Required{})
     , low("low", *this, &LS::minLevel, SerializableFieldBase::Required{})
     , high("high", *this, &LS::maxLevel, SerializableFieldBase::Required{})
     , sun("sun", *this, &LS::sunlight, SerializableFieldBase::Required{}) {}

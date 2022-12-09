@@ -61,7 +61,8 @@ struct SerializableObject<core::pplmn::StoredPeoplemon> : public SerializableObj
     SerializableField<3, SP, sf::Vector2i> position;
 
     SerializableObject()
-    : peoplemon("peoplemon", *this, &SP::peoplemon, SerializableFieldBase::Required{})
+    : SerializableObjectBase("StoredPeoplemon")
+    , peoplemon("peoplemon", *this, &SP::peoplemon, SerializableFieldBase::Required{})
     , boxNumber("boxNumber", *this, &SP::boxNumber, SerializableFieldBase::Required{})
     , position("position", *this, &SP::position, SerializableFieldBase::Required{}) {}
 };

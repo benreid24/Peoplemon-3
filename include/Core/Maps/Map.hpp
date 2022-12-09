@@ -378,7 +378,8 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<17, M, bl::container::Vector2D<std::uint8_t>> townTiles;
 
     SerializableObject()
-    : nameField("name", *this, &M::nameField, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Map")
+    , nameField("name", *this, &M::nameField, SerializableFieldBase::Required{})
     , loadScriptField("loadScript", *this, &M::loadScriptField, SerializableFieldBase::Required{})
     , unloadScriptField("unloadScript", *this, &M::unloadScriptField,
                         SerializableFieldBase::Required{})
@@ -393,9 +394,9 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     , lighting("lighting", *this, &M::lighting, SerializableFieldBase::Required{})
     , transitionField("transitions", *this, &M::transitionField, SerializableFieldBase::Required{})
     , catchRegionsField("catchZones", *this, &M::catchRegionsField,
-                        SerializableFieldBase::Required{})
-    , townsField("towns", *this, &M::towns, SerializableFieldBase::Required{})
-    , townTiles("townTiles", *this, &M::townTiles, SerializableFieldBase::Required{}) {}
+                        SerializableFieldBase::Optional{})
+    , townsField("towns", *this, &M::towns, SerializableFieldBase::Optional{})
+    , townTiles("townTiles", *this, &M::townTiles, SerializableFieldBase::Optional{}) {}
 };
 
 } // namespace serial

@@ -196,7 +196,8 @@ struct SerializableObject<core::file::GameSave::InteractDataPointers>
     SerializableField<2, I, F*> flags;
 
     SerializableObject()
-    : talkedTo("talked", *this, &I::talkedto, SerializableFieldBase::Required{})
+    : SerializableObjectBase("GameSaveInteraction")
+    , talkedTo("talked", *this, &I::talkedto, SerializableFieldBase::Required{})
     , flags("flags", *this, &I::convFlags, SerializableFieldBase::Required{}) {}
 };
 
@@ -211,7 +212,8 @@ struct SerializableObject<core::file::GameSave::WorldDataPointers> : Serializabl
     SerializableField<4, World, Pos*> prevPlayerPos;
 
     SerializableObject()
-    : currentMap("current", *this, &World::currentMap, SerializableFieldBase::Required{})
+    : SerializableObjectBase("GameSaveWorld")
+    , currentMap("current", *this, &World::currentMap, SerializableFieldBase::Required{})
     , prevMap("previous", *this, &World::prevMap, SerializableFieldBase::Required{})
     , playerPos("position", *this, &World::playerPos, SerializableFieldBase::Required{})
     , prevPlayerPos("prevPos", *this, &World::prevPlayerPos, SerializableFieldBase::Required{}) {}
@@ -239,7 +241,8 @@ struct SerializableObject<core::file::GameSave::PlayerDataPointers>
     SerializableField<12, Player, std::unordered_map<core::pplmn::Id, std::string>*> seenSpots;
 
     SerializableObject()
-    : name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
+    : SerializableObjectBase("GameSavePlayer")
+    , name("name", *this, &Player::playerName, SerializableFieldBase::Required{})
     , gender("gender", *this, &Player::sex, SerializableFieldBase::Required{})
     , bag("bag", *this, &Player::inventory, SerializableFieldBase::Required{})
     , peoplemon("peoplemon", *this, &Player::peoplemon, SerializableFieldBase::Required{})
@@ -264,7 +267,8 @@ struct SerializableObject<core::file::GameSave::ScriptDataPointers>
     SerializableField<1, S, M*> entries;
 
     SerializableObject()
-    : entries("saveEntries", *this, &S::entries, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("GameSaveScript")
+    , entries("saveEntries", *this, &S::entries, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -275,7 +279,8 @@ struct SerializableObject<core::file::GameSave::ClockPointers> : public Serializ
     SerializableField<1, C, T*> time;
 
     SerializableObject()
-    : time("time", *this, &C::time, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("GameSaveTime")
+    , time("time", *this, &C::time, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -286,7 +291,8 @@ struct SerializableObject<core::file::GameSave::TrainerPointers> : public Serial
     SerializableField<1, T, D*> defeated;
 
     SerializableObject()
-    : defeated("defeated", *this, &T::defeated, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("GameSaveTrainer")
+    , defeated("defeated", *this, &T::defeated, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -300,7 +306,8 @@ struct SerializableObject<core::file::GameSave> : public SerializableObjectBase 
     SerializableField<6, GS, GS::ClockPointers> clock;
 
     SerializableObject()
-    : saveTime("saveTime", *this, &GS::saveTime, SerializableFieldBase::Required{})
+    : SerializableObjectBase("GameSave")
+    , saveTime("saveTime", *this, &GS::saveTime, SerializableFieldBase::Required{})
     , player("player", *this, &GS::player, SerializableFieldBase::Required{})
     , interaction("interaction", *this, &GS::interaction, SerializableFieldBase::Required{})
     , world("world", *this, &GS::world, SerializableFieldBase::Required{})

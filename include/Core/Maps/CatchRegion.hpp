@@ -44,7 +44,8 @@ struct SerializableObject<core::map::CatchRegion> : public SerializableObjectBas
     SerializableField<2, Region, std::vector<Wild>> wilds;
 
     SerializableObject()
-    : name("name", *this, &Region::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("CatchRegion")
+    , name("name", *this, &Region::name, SerializableFieldBase::Required{})
     , wilds("wilds", *this, &Region::wilds, SerializableFieldBase::Required{}) {}
 };
 

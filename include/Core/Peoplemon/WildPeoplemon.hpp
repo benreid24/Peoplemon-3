@@ -52,7 +52,8 @@ struct SerializableObject<core::pplmn::WildPeoplemon> : public SerializableObjec
     SerializableField<4, Wild, core::pplmn::Id> id;
 
     SerializableObject()
-    : minLevel("minLevel", *this, &Wild::minLevel, SerializableFieldBase::Required{})
+    : SerializableObjectBase("WildPeoplemon")
+    , minLevel("minLevel", *this, &Wild::minLevel, SerializableFieldBase::Required{})
     , maxLevel("maxLevel", *this, &Wild::maxLevel, SerializableFieldBase::Required{})
     , freq("freq", *this, &Wild::frequency, SerializableFieldBase::Required{})
     , id("id", *this, &Wild::id, SerializableFieldBase::Required{}) {}

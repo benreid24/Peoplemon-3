@@ -466,10 +466,10 @@ void Map::render(sf::RenderTarget& target, float residual,
 
 std::string Map::getMapFile(const std::string& file) {
     std::string path = bl::util::FileUtil::getExtension(file) == "map" ? file : file + ".map";
-    if (!bl::util::FileUtil::exists(path)) {
+    if (!bl::resource::FileSystem::resourceExists(path)) {
         path = bl::util::FileUtil::joinPath(Properties::MapPath(), path);
     }
-    if (!bl::util::FileUtil::exists(path)) {
+    if (!bl::resource::FileSystem::resourceExists(path)) {
         BL_LOG_ERROR << "Failed to find map '" << file << "'. Tried '" << path << "'";
         return "";
     }

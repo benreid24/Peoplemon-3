@@ -48,7 +48,8 @@ struct SerializableObject<core::map::Spawn> : public SerializableObjectBase {
     SerializableField<2, core::map::Spawn, core::component::Position> position;
 
     SerializableObject()
-    : id("id", *this, &core::map::Spawn::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Spawn")
+    , id("id", *this, &core::map::Spawn::id, SerializableFieldBase::Required{})
     , position("position", *this, &core::map::Spawn::position, SerializableFieldBase::Required{}) {}
 };
 

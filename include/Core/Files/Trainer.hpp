@@ -96,7 +96,8 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     SerializableField<10, T, std::uint8_t> payout;
 
     SerializableObject()
-    : name("name", *this, &T::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Trainer")
+    , name("name", *this, &T::name, SerializableFieldBase::Required{})
     , anim("anim", *this, &T::animation, SerializableFieldBase::Required{})
     , preBattle("preBattle", *this, &T::prebattleConversation, SerializableFieldBase::Required{})
     , postBattle("postBattle", *this, &T::postBattleConversation, SerializableFieldBase::Required{})

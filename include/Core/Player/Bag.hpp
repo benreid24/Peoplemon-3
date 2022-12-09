@@ -129,7 +129,8 @@ struct SerializableObject<core::player::Bag::Item> : public SerializableObjectBa
     SerializableField<2, Item, unsigned int> qty;
 
     SerializableObject()
-    : id("id", *this, &Item::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BagItem")
+    , id("id", *this, &Item::id, SerializableFieldBase::Required{})
     , qty("qty", *this, &Item::qty, SerializableFieldBase::Required{}) {}
 };
 
@@ -140,7 +141,8 @@ struct SerializableObject<core::player::Bag> : public SerializableObjectBase {
     SerializableField<1, Bag, std::vector<Bag::Item>> items;
 
     SerializableObject()
-    : items("items", *this, &Bag::items, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("Bag")
+    , items("items", *this, &Bag::items, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

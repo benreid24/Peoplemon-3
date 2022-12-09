@@ -205,7 +205,8 @@ struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
     SerializableField<2, TS, std::unordered_map<T::IdType, std::string>> animFiles;
 
     SerializableObject()
-    : textureFiles("textures", *this, &TS::textureFiles, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Tileset")
+    , textureFiles("textures", *this, &TS::textureFiles, SerializableFieldBase::Required{})
     , animFiles("anims", *this, &TS::animFiles, SerializableFieldBase::Required{}) {}
 };
 

@@ -94,7 +94,8 @@ struct SerializableObject<core::pplmn::OwnedMove> : public SerializableObjectBas
     SerializableField<3, Move, unsigned int> maxPP;
 
     SerializableObject()
-    : id("id", *this, &Move::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("OwnedMove")
+    , id("id", *this, &Move::id, SerializableFieldBase::Required{})
     , curPP("pp", *this, &Move::curPP, SerializableFieldBase::Required{})
     , maxPP("maxPP", *this, &Move::maxPP, SerializableFieldBase::Required{}) {}
 };

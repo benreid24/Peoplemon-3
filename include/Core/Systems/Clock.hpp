@@ -172,7 +172,8 @@ struct SerializableObject<core::system::Clock::Time> : public SerializableObject
     SerializableField<3, T, unsigned int> minute;
 
     SerializableObject()
-    : day("day", *this, &T::day, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ClockTime")
+    , day("day", *this, &T::day, SerializableFieldBase::Required{})
     , hour("hour", *this, &T::hour, SerializableFieldBase::Required{})
     , minute("minute", *this, &T::minute, SerializableFieldBase::Required{}) {}
 };

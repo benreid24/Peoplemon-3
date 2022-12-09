@@ -96,7 +96,8 @@ struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
     SerializableField<14, DB, std::unordered_map<Id, bool>> effectSelves;
 
     SerializableObject()
-    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    : SerializableObjectBase("MoveDB")
+    , names("names", *this, &DB::names, SerializableFieldBase::Required{})
     , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
     , types("types", *this, &DB::types, SerializableFieldBase::Required{})
     , damages("damages", *this, &DB::damages, SerializableFieldBase::Required{})
