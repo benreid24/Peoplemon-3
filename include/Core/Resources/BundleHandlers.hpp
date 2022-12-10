@@ -17,6 +17,14 @@ namespace res
  */
 template<typename T>
 struct PeoplemonBundleHandler : public bl::resource::bundle::FileHandler {
+    /**
+     * @brief Processes the given resource file to bundle
+     *
+     * @param path The file to bundle
+     * @param output Stream to bundle into
+     * @param context Context for bundling
+     * @return True if the file could be bundled, false on error
+     */
     virtual bool processFile(const std::string& path, std::ostream& output,
                              bl::resource::bundle::FileHandlerContext& context) override {
         T obj;

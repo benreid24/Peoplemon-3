@@ -11,18 +11,9 @@ namespace res
 namespace
 {
 const std::string BundlePath = "data";
-
-// TODO - flip when ready
-constexpr bool MountBundle    = false;
-constexpr bool DevModeEnabled = true;
 } // namespace
 
 void installDevLoaders() {
-    if (!DevModeEnabled) {
-        installProdLoaders();
-        return;
-    }
-
     TilesetManager::installLoader<TilesetDevLoader>();
     MapManager::installLoader<MapDevLoader>();
     ConversationManager::installLoader<ConversationDevLoader>();
@@ -34,11 +25,9 @@ void installDevLoaders() {
 }
 
 void installProdLoaders() {
-    if (MountBundle) {
-        if (!bl::resource::FileSystem::useBundle(BundlePath)) {
-            BL_LOG_CRITICAL << "Unable to mount resource bundles";
-            std::exit(1);
-        }
+    if (!bl::resource::FileSystem::useBundle(BundlePath)) {
+        BL_LOG_CRITICAL << "Unable to mount resource bundles";
+        std::exit(1);
     }
 
     TilesetManager::installLoader<TilesetProdLoader>();
@@ -61,7 +50,7 @@ bool createBundles() {
     Bundler bundler(
         bundle::Config(BundlePath)
             .addBundleSource({"Resources/Animations/Battle", BundleAllFiles})
-            .addBundleSource({"Resources/Animations/Moves", BundleForEachRecurse})
+            .addBundleSource({"Resources/Animations/Moves", BundleEachTopLevel})
 
             .addBundleSource({"Resources/Audio/Playlists", BundleForEachRecurse})
             .addBundleSource({"Resources/Audio/Music", BundleAllFiles})
