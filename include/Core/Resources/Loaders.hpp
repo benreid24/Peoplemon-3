@@ -31,11 +31,22 @@ struct PeoplemonLoader : public bl::resource::LoaderBase<T> {
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       T& result) override {
         if constexpr (mode == Dev) {
-            bl::util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
-            std::istream is(&buf);
-            if (!result.loadDev(is)) {
-                BL_LOG_ERROR << "Failed to load resource: " << path;
-                return false;
+            // worldmap exceeds git size limit in json so load in binary in dev mode
+            if (path == "Resources/Maps/Maps/WorldMap.map") {
+                bl::serial::MemoryInputBuffer wrapper(buffer, len);
+                bl::serial::binary::InputStream is(wrapper);
+                if (!result.loadProd(is)) {
+                    BL_LOG_ERROR << "Failed to load resource: " << path;
+                    return false;
+                }
+            }
+            else {
+                bl::util::BufferIstreamBuf buf(const_cast<char*>(buffer), len);
+                std::istream is(&buf);
+                if (!result.loadDev(is)) {
+                    BL_LOG_ERROR << "Failed to load resource: " << path;
+                    return false;
+                }
             }
         }
         else {

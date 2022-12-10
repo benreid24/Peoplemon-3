@@ -56,13 +56,6 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
         }
     }
 }
-
-std::string tolower(const std::string& s) {
-    std::string lower(s);
-    for (char& c : lower) { c = std::tolower(c); }
-    return lower;
-}
-
 } // namespace
 
 bool Conversation::load(const std::string& file) {

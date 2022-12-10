@@ -1,4 +1,2 @@
 *.psc linguist-language=LegacyPeoplemonScript
 *.bsc linguist-language=bScript
-Resources/Maps/Maps/WorldMap.map filter=lfs diff=lfs merge=text -text
-OldResourcesConverted/Maps/Maps/WorldMap.map filter=lfs diff=lfs merge=text -text

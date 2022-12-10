@@ -242,7 +242,7 @@ bool Map::loadDev(std::istream& input) {
 }
 
 bool Map::loadProd(bl::serial::binary::InputStream& input) {
-    if (bl::serial::binary::Serializer<Map>::deserialize(input, *this)) return false;
+    if (!bl::serial::binary::Serializer<Map>::deserialize(input, *this)) return false;
     finishLoad();
     return true;
 }
@@ -262,10 +262,20 @@ void Map::finishLoad() {
 }
 
 bool Map::save(const std::string& file) {
-    std::ofstream output(bl::util::FileUtil::startsWithPath(file, Properties::MapPath()) ?
-                             file.c_str() :
-                             bl::util::FileUtil::joinPath(Properties::MapPath(), file).c_str());
-    return bl::serial::json::Serializer<Map>::serializeStream(output, *this, 4, 0);
+    if (!isWorldMap) {
+        std::ofstream output(bl::util::FileUtil::startsWithPath(file, Properties::MapPath()) ?
+                                 file.c_str() :
+                                 bl::util::FileUtil::joinPath(Properties::MapPath(), file).c_str());
+        return bl::serial::json::Serializer<Map>::serializeStream(output, *this, 4, 0);
+    }
+    else {
+        // always save worldmap in binary otherwise it is too big
+        bl::serial::binary::OutputFile output(
+            bl::util::FileUtil::startsWithPath(file, Properties::MapPath()) ?
+                file.c_str() :
+                bl::util::FileUtil::joinPath(Properties::MapPath(), file).c_str());
+        return bl::serial::binary::Serializer<Map>::serialize(output, *this);
+    }
 }
 
 bool Map::contains(const component::Position& pos) const {
