@@ -1,6 +1,7 @@
 #ifndef CORE_FILE_MOVEDB_HPP
 #define CORE_FILE_MOVEDB_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Peoplemon/MoveEffect.hpp>
@@ -48,6 +49,16 @@ struct MoveDB : private bl::util::NonCopyable {
      * @return True on success, false on error
      */
     bool save() const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     std::unordered_map<pplmn::MoveId, std::string> names;
     std::unordered_map<pplmn::MoveId, std::string> descriptions;

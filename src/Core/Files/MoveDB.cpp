@@ -24,5 +24,10 @@ bool MoveDB::save() const {
     return bl::serial::json::Serializer<MoveDB>::serializeStream(output, *this, 4, 0);
 }
 
+bool MoveDB::saveBundle(bl::serial::binary::OutputStream& output,
+                        bl::resource::bundle::FileHandlerContext&) const {
+    return bl::serial::binary::Serializer<MoveDB>::serialize(output, *this);
+}
+
 } // namespace file
 } // namespace core

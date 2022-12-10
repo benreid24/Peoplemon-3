@@ -8,7 +8,6 @@
 #include <Core/Files/Trainer.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Core/Maps/Tileset.hpp>
-#include <Core/Resources/BundleHandlers.hpp>
 #include <Core/Resources/Loaders.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>

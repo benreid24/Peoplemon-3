@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_PEOPLEMONDB_HPP
 #define CORE_FILES_PEOPLEMONDB_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization/Binary.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <unordered_map>
@@ -50,6 +51,16 @@ struct PeoplemonDB : private bl::util::NonCopyable {
      * @return True if the data could be loaded, false otherwise
      */
     bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     std::unordered_map<pplmn::Id, std::string> names;
     std::unordered_map<pplmn::Id, std::string> descriptions;

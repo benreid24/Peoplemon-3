@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_CONVERSATION_HPP
 #define CORE_FILES_CONVERSATION_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Items/Id.hpp>
 #include <cstdint>
@@ -281,6 +282,16 @@ public:
      * @return True if saved, false on error
      */
     bool save(const std::string& file) const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
      * @brief Returns the list of nodes in the conversation

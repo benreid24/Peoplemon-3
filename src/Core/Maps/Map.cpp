@@ -278,6 +278,31 @@ bool Map::save(const std::string& file) {
     }
 }
 
+bool Map::saveBundle(bl::serial::binary::OutputStream& output,
+                     bl::resource::bundle::FileHandlerContext& ctx) const {
+    if (!bl::serial::binary::Serializer<Map>::serialize(output, *this)) return false;
+
+    const auto addScript = [&ctx](const std::string& src) {
+        std::string s = src;
+        if (bl::script::Script::getFullScriptPath(s)) { ctx.addDependencyFile(s); }
+    };
+    addScript(loadScriptField);
+    addScript(unloadScriptField);
+    for (const Event& e : eventsField) { addScript(e.script); }
+
+    const auto addCharacter = [&ctx](const std::string& cf) {
+        std::string path = bl::util::FileUtil::joinPath(Properties::NpcPath(), cf);
+        if (bl::util::FileUtil::exists(path)) { ctx.addDependencyFile(path); }
+        else {
+            path = bl::util::FileUtil::joinPath(Properties::TrainerPath(), cf);
+            if (bl::util::FileUtil::exists(path)) { ctx.addDependencyFile(path); }
+        }
+    };
+    for (const CharacterSpawn& s : characterField) { addCharacter(s.file); }
+
+    return true;
+}
+
 bool Map::contains(const component::Position& pos) const {
     return pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
            pos.positionTiles().x < size.x && pos.positionTiles().y < size.y &&

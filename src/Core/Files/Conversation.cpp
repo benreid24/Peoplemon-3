@@ -75,6 +75,11 @@ bool Conversation::save(const std::string& file) const {
     return bl::serial::json::Serializer<Conversation>::serializeStream(output, *this, 4, 0);
 }
 
+bool Conversation::saveBundle(bl::serial::binary::OutputStream& output,
+                              bl::resource::bundle::FileHandlerContext&) const {
+    return bl::serial::binary::Serializer<Conversation>::serialize(output, *this);
+}
+
 const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes; }
 
 void Conversation::deleteNode(unsigned int i) {

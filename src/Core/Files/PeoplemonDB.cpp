@@ -26,5 +26,10 @@ bool PeoplemonDB::save() const {
     return bl::serial::json::Serializer<PeoplemonDB>::serializeStream(output, *this, 4, 0);
 }
 
+bool PeoplemonDB::saveBundle(bl::serial::binary::OutputStream& output,
+                             bl::resource::bundle::FileHandlerContext&) const {
+    return bl::serial::binary::Serializer<PeoplemonDB>::serialize(output, *this);
+}
+
 } // namespace file
 } // namespace core

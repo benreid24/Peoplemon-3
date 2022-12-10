@@ -25,5 +25,10 @@ bool ItemDB::save() const {
     return bl::serial::json::Serializer<ItemDB>::serializeStream(output, *this, 4, 0);
 }
 
+bool ItemDB::saveBundle(bl::serial::binary::OutputStream& output,
+                        bl::resource::bundle::FileHandlerContext&) const {
+    return bl::serial::binary::Serializer<ItemDB>::serialize(output, *this);
+}
+
 } // namespace file
 } // namespace core

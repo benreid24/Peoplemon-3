@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_ITEMDB_HPP
 #define CORE_FILES_ITEMDB_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Items/Category.hpp>
@@ -50,6 +51,16 @@ struct ItemDB : private bl::util::NonCopyable {
      * @return True on success false on error
      */
     bool save() const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     std::unordered_map<item::Id, std::string> names;
     std::unordered_map<item::Id, std::string> descriptions;

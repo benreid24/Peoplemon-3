@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_NPC_HPP
 #define CORE_FILES_NPC_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Files/Behavior.hpp>
 
@@ -37,6 +38,16 @@ public:
      * @return True on success, false on error
      */
     bool save(const std::string& file) const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
      * @brief Loads the NPC data from the given file

@@ -23,6 +23,7 @@ enum Mode { Dev, Prod };
  *
  * @tparam T The type of resource to load
  * @tparam mode The mode to load in
+ * @ingroup CoreResources
  */
 template<typename T, Mode mode>
 struct PeoplemonLoader : public bl::resource::LoaderBase<T> {

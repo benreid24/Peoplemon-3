@@ -112,6 +112,16 @@ public:
     bool save(const std::string& file);
 
     /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
+
+    /**
      * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
      *        on-load script
      *

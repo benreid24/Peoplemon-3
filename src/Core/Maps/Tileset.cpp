@@ -151,6 +151,21 @@ bool Tileset::save(const std::string& file) const {
     return bl::serial::json::Serializer<Tileset>::serializeStream(output, *this, 4, 0);
 }
 
+bool Tileset::saveBundle(bl::serial::binary::OutputStream& output,
+                         bl::resource::bundle::FileHandlerContext& ctx) const {
+    if (!bl::serial::binary::Serializer<Tileset>::serialize(output, *this)) return false;
+    for (const auto& tp : textureFiles) {
+        const std::string p = bl::util::FileUtil::joinPath(Properties::MapTilePath(), tp.second);
+        if (bl::util::FileUtil::exists(p)) { ctx.addDependencyFile(p); }
+    }
+    for (const auto& ap : animFiles) {
+        const std::string p =
+            bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), ap.second);
+        if (bl::util::FileUtil::exists(p)) { ctx.addDependencyFile(p); }
+    }
+    return true;
+}
+
 bl::resource::Resource<sf::Texture>::Ref Tileset::getTile(Tile::IdType id) {
     auto it = textures.find(id);
     return it != textures.end() ? it->second : nullptr;
