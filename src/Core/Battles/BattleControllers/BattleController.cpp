@@ -25,11 +25,11 @@ void BattleController::update() {
         if (view->actionsCompleted()) {
             subState = SubState::Done;
             view->hideText();
-            [[fallthrough]];
         }
         else {
             break;
         }
+        [[fallthrough]];
 
     case SubState::Done:
         if (!commandQueue.empty()) {

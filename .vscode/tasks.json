@@ -10,19 +10,19 @@
         {
             "label": "cmake generate debug",
             "type": "shell",
-            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -G \"Unix Makefiles\" -S . -B ./build-debug",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Debug -S . -B ./build-debug",
             "group": "build"
         },
         {
             "label": "cmake generate release",
             "type": "shell",
-            "command": "cmake -DCMAKE_BUILD_TYPE=Release -G \"Unix Makefiles\" -S . -B ./build-release",
+            "command": "cmake -DCMAKE_BUILD_TYPE=Release -S . -B ./build-release",
             "group": "build"
         },
         {
             "label": "build debug",
             "type": "shell",
-            "command": "cd build-debug && mingw32-make \"MAKE=mingw32-make -j3\"",
+            "command": "cd build-debug && cmake --build . --config Debug",
             "group": "build",
             "dependsOn": [
                 "cmake generate debug"
@@ -31,7 +31,7 @@
         {
             "label": "build release",
             "type": "shell",
-            "command": "cd build-release && mingw32-make \"MAKE=mingw32-make -j3\"",
+            "command": "cd build-release && cmake --build . --config Release",
             "group": "build",
             "dependsOn": [
                 "cmake generate release"
@@ -76,7 +76,7 @@
         {
             "label": "unit test",
             "type": "shell",
-            "command": "cd build-debug/tests && ./Peoplemon.t --gtest_color=no",
+            "command": "cd build-debug/tests && ./Peoplemon.t",
             "group": "build",
             "dependsOn": [
                 "build debug"
@@ -85,7 +85,7 @@
         {
             "label": "filtered tests",
             "type": "shell",
-            "command": "cd build-debug/tests && ./Peoplemon.t --gtest_filter=${input:tfilter} -v --gtest_color=no",
+            "command": "cd build-debug/tests && ./Peoplemon.t --gtest_filter=${input:tfilter} -v",
             "group": "build",
             "dependsOn": [
                 "build debug"
@@ -107,7 +107,7 @@
         },
     ],
     "problemMatcher": {
-        "base": "$gcc",
+        "base": "$msCompile",
         "fileLocation": [
             "absolute"
         ]

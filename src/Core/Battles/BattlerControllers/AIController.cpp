@@ -40,7 +40,7 @@ void AIController::startChoosePeoplemon(bool, bool reviveOnly) {
             return;
         }
     }
-    choosePeoplemon(-1);
+    choosePeoplemon(0);
 }
 
 void AIController::startChooseToContinue() { chooseGiveUp(false); }

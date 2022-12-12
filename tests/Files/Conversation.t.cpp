@@ -19,13 +19,13 @@ TEST(Conversation, BasicAppend) {
     node.message() = "three";
     conversation.appendNode(node);
 
-    ASSERT_EQ(conversation.nodes().size(), 3);
+    ASSERT_EQ(conversation.nodes().size(), 3u);
     EXPECT_EQ(conversation.nodes().at(0).message(), "one");
-    EXPECT_EQ(conversation.nodes().at(0).next(), 1);
+    EXPECT_EQ(conversation.nodes().at(0).next(), 1u);
     EXPECT_EQ(conversation.nodes().at(1).message(), "two");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 1);
+    EXPECT_EQ(conversation.nodes().at(1).next(), 1u);
     EXPECT_EQ(conversation.nodes().at(2).message(), "three");
-    EXPECT_EQ(conversation.nodes().at(2).next(), 1);
+    EXPECT_EQ(conversation.nodes().at(2).next(), 1u);
 }
 
 TEST(Conversation, BasicDelete) {
@@ -45,18 +45,18 @@ TEST(Conversation, BasicDelete) {
     node.next()    = 3;
     conversation.appendNode(node);
 
-    ASSERT_EQ(conversation.nodes().size(), 3);
-    EXPECT_EQ(conversation.nodes().at(0).next(), 1);
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
-    EXPECT_EQ(conversation.nodes().at(2).next(), 3);
+    ASSERT_EQ(conversation.nodes().size(), 3u);
+    EXPECT_EQ(conversation.nodes().at(0).next(), 1u);
+    EXPECT_EQ(conversation.nodes().at(1).next(), 2u);
+    EXPECT_EQ(conversation.nodes().at(2).next(), 3u);
 
     conversation.deleteNode(1);
 
-    ASSERT_EQ(conversation.nodes().size(), 2);
+    ASSERT_EQ(conversation.nodes().size(), 2u);
     EXPECT_EQ(conversation.nodes().at(0).message(), "one");
-    EXPECT_EQ(conversation.nodes().at(0).next(), 1);
+    EXPECT_EQ(conversation.nodes().at(0).next(), 1u);
     EXPECT_EQ(conversation.nodes().at(1).message(), "three");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
+    EXPECT_EQ(conversation.nodes().at(1).next(), 2u);
 }
 
 TEST(Conversation, DeleteConnectJump) {
@@ -85,13 +85,13 @@ TEST(Conversation, DeleteConnectJump) {
 
     conversation.deleteNode(2);
 
-    ASSERT_EQ(conversation.nodes().size(), 3);
+    ASSERT_EQ(conversation.nodes().size(), 3u);
     EXPECT_EQ(conversation.nodes().at(0).message(), "one");
-    EXPECT_EQ(conversation.nodes().at(0).next(), 2);
+    EXPECT_EQ(conversation.nodes().at(0).next(), 2u);
     EXPECT_EQ(conversation.nodes().at(1).message(), "two");
-    EXPECT_EQ(conversation.nodes().at(1).next(), 2);
+    EXPECT_EQ(conversation.nodes().at(1).next(), 2u);
     EXPECT_EQ(conversation.nodes().at(2).message(), "four");
-    EXPECT_EQ(conversation.nodes().at(2).next(), 3);
+    EXPECT_EQ(conversation.nodes().at(2).next(), 3u);
 }
 
 TEST(Conversation, DeleteInvalidateJump) {
@@ -124,13 +124,13 @@ TEST(Conversation, DeleteInvalidateJump) {
 
     conversation.deleteNode(2);
 
-    ASSERT_EQ(conversation.nodes().size(), 3);
+    ASSERT_EQ(conversation.nodes().size(), 3u);
     EXPECT_EQ(conversation.nodes().at(0).message(), "one");
     EXPECT_GE(conversation.nodes().at(0).next(), conversation.nodes().size());
     EXPECT_EQ(conversation.nodes().at(1).message(), "two");
     EXPECT_GE(conversation.nodes().at(1).next(), conversation.nodes().size());
     EXPECT_EQ(conversation.nodes().at(2).message(), "four");
-    EXPECT_EQ(conversation.nodes().at(2).next(), 3);
+    EXPECT_EQ(conversation.nodes().at(2).next(), 3u);
 }
 
 } // namespace tests

@@ -360,7 +360,7 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
     SerializableField<10, M, std::vector<core::map::Item>> itemsField;
     SerializableField<11, M, std::vector<core::map::Event>> eventsField;
-    SerializableField<12, M, core::map::LightingSystem, false> lighting; // 13 was catch zones
+    SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
     SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
     SerializableField<16, M, std::vector<core::map::Town>> townsField;

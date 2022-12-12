@@ -35,6 +35,8 @@ int main(int argc, char** argv) {
 #else
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Warn);
     bl::logging::Config::addFileOutput("error.log", bl::logging::Config::Warn);
+    (void)argc;
+    (void)argv;
 #endif
 
     BL_LOG_INFO << "Loading application properties";
