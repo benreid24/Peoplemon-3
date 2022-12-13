@@ -79,57 +79,59 @@ int main(int argc, char** argv) {
     core::pplmn::Peoplemon::setDataSource(ppldb);
     BL_LOG_INFO << "Game metadata loaded";
 
-    BL_LOG_INFO << "Creating engine instance";
-    const bl::engine::Settings engineSettings =
-        bl::engine::Settings()
-            .withWindowParameters(
-                bl::engine::Settings::WindowParameters()
-                    .withVideoMode(sf::VideoMode(
-                        core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
-                    .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
-                    .withTitle("Peoplemon")
-                    .withIcon(core::Properties::WindowIconFile())
-                    .withLetterBoxOnResize(true)
-                    .withInitialViewSize(core::Properties::WindowSize())
-                    .fromConfig())
-            .fromConfig();
-    bl::engine::Engine engine(engineSettings);
-    core::input::configureInputSystem(engine.inputSystem());
-    BL_LOG_INFO << "Created engine";
+    {
+        BL_LOG_INFO << "Creating engine instance";
+        const bl::engine::Settings engineSettings =
+            bl::engine::Settings()
+                .withWindowParameters(
+                    bl::engine::Settings::WindowParameters()
+                        .withVideoMode(sf::VideoMode(
+                            core::Properties::WindowWidth(), core::Properties::WindowHeight(), 32))
+                        .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
+                        .withTitle("Peoplemon")
+                        .withIcon(core::Properties::WindowIconFile())
+                        .withLetterBoxOnResize(true)
+                        .withInitialViewSize(core::Properties::WindowSize())
+                        .fromConfig())
+                .fromConfig();
+        bl::engine::Engine engine(engineSettings);
+        core::input::configureInputSystem(engine.inputSystem());
+        BL_LOG_INFO << "Created engine";
 
-    BL_LOG_INFO << "Initializing game systems";
-    core::system::Systems systems(engine);
-    BL_LOG_INFO << "Core game systems initialized";
+        BL_LOG_INFO << "Initializing game systems";
+        core::system::Systems systems(engine);
+        BL_LOG_INFO << "Core game systems initialized";
 
-    BL_LOG_INFO << "Configuring menu sounds";
-    bl::menu::Menu::setDefaultMoveSound(core::Properties::MenuMoveSound());
-    bl::menu::Menu::setDefaultSelectSound(core::Properties::MenuMoveSound());
-    bl::menu::Menu::setDefaultMoveFailSound(core::Properties::MenuMoveFailSound());
+        BL_LOG_INFO << "Configuring menu sounds";
+        bl::menu::Menu::setDefaultMoveSound(core::Properties::MenuMoveSound());
+        bl::menu::Menu::setDefaultSelectSound(core::Properties::MenuMoveSound());
+        bl::menu::Menu::setDefaultMoveFailSound(core::Properties::MenuMoveFailSound());
 
-    bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
+        bl::engine::State::Ptr state = game::state::MainMenu::create(systems);
 #ifdef PEOPLEMON_DEBUG
-    core::debug::DebugOverrides::subscribe();
+        core::debug::DebugOverrides::subscribe();
 
-    if (argc == 2) {
-        const std::string path = argv[1];
-        BL_LOG_INFO << "Loading save: " << path;
-        if (!core::file::GameSave::loadFromFile(path)) {
-            BL_LOG_CRITICAL << "Failed to load save";
-            return 1;
+        if (argc == 2) {
+            const std::string path = argv[1];
+            BL_LOG_INFO << "Loading save: " << path;
+            if (!core::file::GameSave::loadFromFile(path)) {
+                BL_LOG_CRITICAL << "Failed to load save";
+                return 1;
+            }
+            state = game::state::MainGame::create(systems);
         }
-        state = game::state::MainGame::create(systems);
-    }
 #endif
 
-    BL_LOG_INFO << "Running engine main loop";
-    if (!engine.run(state)) {
-        BL_LOG_ERROR << "Engine exited with error";
-        bl::util::Waiter::unblockAll();
-        return 1;
-    }
+        BL_LOG_INFO << "Running engine main loop";
+        if (!engine.run(state)) {
+            BL_LOG_ERROR << "Engine exited with error";
+            bl::util::Waiter::unblockAll();
+            return 1;
+        }
 
-    BL_LOG_INFO << "Unblocking waiting threads";
-    bl::util::Waiter::unblockAll();
+        BL_LOG_INFO << "Unblocking waiting threads";
+        bl::util::Waiter::unblockAll();
+    }
 
     BL_LOG_INFO << "Freeing resources";
     bl::resource::GarbageCollector::shutdownAndClear();
