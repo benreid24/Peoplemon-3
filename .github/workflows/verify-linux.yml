@@ -28,4 +28,7 @@ jobs:
       run: cd build && make
 
     - name: test
-      run: build/tests/Peoplemon.t 
+      run: build/tests/Peoplemon.t
+
+    - name: bundle verify
+      run: ./Bundler

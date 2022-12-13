@@ -21,10 +21,13 @@ jobs:
       - name: Build Peoplemon
         run: cd build && make
 
+      - name: Bundle Resources
+        run: ./Bundler
+
       - name: Package Project
         run: |
           mkdir Peoplemon
-          mv Resources Peoplemon
+          mv data Peoplemon
           mv PeoplemonRelease.exe Peoplemon/Peoplemon.exe
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./Peoplemon
           Compress-Archive -Path Peoplemon -DestinationPath Windows.zip
@@ -61,10 +64,13 @@ jobs:
       - name: Build Peoplemon
         run: cd build && make
 
+      - name: Bundle Resources
+        run: ./Bundler
+
       - name: Package Project
         run: |
           mkdir Peoplemon
-          mv Resources Peoplemon
+          mv data Peoplemon
           mv PeoplemonRelease Peoplemon/Peoplemon
           zip -r Linux.zip Peoplemon
 
@@ -95,6 +101,9 @@ jobs:
       - name: Build Peoplemon
         run: cd build && make
 
+      - name: Bundle Resources
+        run: ./Bundler
+
       - name: Package Project
         run: |
           mkdir Peoplemon.app
@@ -105,7 +114,7 @@ jobs:
           cp macos/Info.plist Peoplemon.app/Contents
           cp macos/peoplemon.icns Peoplemon.app/Contents/Resources
 
-          mv Resources Peoplemon.app/Contents/MacOS
+          mv data Peoplemon.app/Contents/MacOS
           mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
           zip -vr MacOS.zip Peoplemon.app
 

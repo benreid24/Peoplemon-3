@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir PeoplemonEditor
           mv PeoplemonRelease.exe PeoplemonEditor/PeoplemonDebug.exe
+          mv Bundler.exe PeoplemonEditor
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./PeoplemonEditor
           
           mv EditorResources PeoplemonEditor
