@@ -46,11 +46,11 @@ protected:
                         const sf::Vector2f& position) const override;
 
 private:
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
-    bl::resource::Resource<sf::Texture>::Ref activeBgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
+    bl::resource::Ref<sf::Texture> activeBgndTxtr;
     sf::Sprite background;
 
-    bl::resource::Resource<sf::Texture>::Ref ballTxtr;
+    bl::resource::Ref<sf::Texture> ballTxtr;
     sf::Sprite ball;
 
     sf::Text id;

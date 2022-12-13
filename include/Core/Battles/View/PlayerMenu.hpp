@@ -145,7 +145,7 @@ private:
     bl::menu::TextItem::Ptr moveItems[4];
     const pplmn::OwnedMove* moves;
 
-    bl::resource::Resource<sf::Texture>::Ref moveTxtr;
+    bl::resource::Ref<sf::Texture> moveTxtr;
     sf::Sprite moveBox;
     sf::Text movePP;
     sf::Text movePwr;

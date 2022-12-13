@@ -24,8 +24,7 @@ LoadGame::LoadGame(core::system::Systems& s)
 , saveMenu(ArrowSelector::create(12.f, sf::Color::Black))
 , actionMenu(ArrowSelector::create(12.f, sf::Color::Black)) {
     bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                                 "LoadGame/loadGameBgnd.png"))
-                   .data;
+                                                                 "LoadGame/loadGameBgnd.png"));
     background.setTexture(*bgndTxtr, true);
     saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 4.f});
     saveMenu.setMinHeight(30.f);

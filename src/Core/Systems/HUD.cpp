@@ -25,7 +25,7 @@ HUD::HUD(Systems& owner)
 , state(Hidden)
 , inputListener(*this)
 , screenKeyboard(std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
-, textboxTxtr(TextureManager::load(Properties::TextboxFile()).data)
+, textboxTxtr(TextureManager::load(Properties::TextboxFile()))
 , viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
            static_cast<float>(textboxTxtr->getSize().y) * 4.f)
 , promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
@@ -380,8 +380,7 @@ const HUD::QtyCallback& HUD::Item::getQtyCallback() const { return *std::get_if<
 
 HUD::EntryCard::EntryCard() {
     txtr = TextureManager::load(
-               bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"))
-               .data;
+        bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"));
     card.setTexture(*txtr, true);
     text.setFont(Properties::MenuFont());
     text.setCharacterSize(20);

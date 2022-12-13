@@ -34,10 +34,10 @@ Peopledex::Peopledex(core::system::Systems& s)
     const std::string& ImgPath = core::Properties::MenuImagePath();
     auto& joinPath             = bl::util::FileUtil::joinPath;
 
-    bgndTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/background.png")).data;
+    bgndTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/background.png"));
     background.setTexture(*bgndTxtr, true);
 
-    seenTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/seenBox.png")).data;
+    seenTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/seenBox.png"));
     seenBox.setTexture(*seenTxtr, true);
     seenBox.setPosition(SeenBoxPos);
     seenLabel.setFont(core::Properties::MenuFont());
@@ -47,7 +47,7 @@ Peopledex::Peopledex(core::system::Systems& s)
         SeenBoxPos +
         sf::Vector2f(InfoPadding - 12.f, static_cast<float>(seenTxtr->getSize().y) * 0.5f));
 
-    ownedTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/ownedBox.png")).data;
+    ownedTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/ownedBox.png"));
     ownedBox.setTexture(*ownedTxtr, true);
     ownedBox.setPosition(OwnBoxPos);
     ownedLabel.setFont(core::Properties::MenuFont());
@@ -89,12 +89,12 @@ Peopledex::Peopledex(core::system::Systems& s)
     menuDriver.drive(&menu);
     const float mw = menu.getBounds().width;
 
-    upTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/upArrow.png")).data;
+    upTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/upArrow.png"));
     upArrow.setTexture(*upTxtr, true);
     upArrow.setOrigin(0.f, static_cast<float>(upTxtr->getSize().y));
     upArrow.setPosition(MenuPos + sf::Vector2f(mw * 0.5f, -ArrowPadding));
 
-    downTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/downArrow.png")).data;
+    downTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/downArrow.png"));
     downArrow.setTexture(*downTxtr, true);
     downArrow.setPosition(
         MenuPos.x + mw * 0.5f,
@@ -120,9 +120,7 @@ void Peopledex::update(bl::engine::Engine&, float) {}
 bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
                         bool fromEvent) {
     if (ctrl == core::input::Control::Back && fromEvent) { systems.engine().popState(); }
-    else {
-        menuDriver.sendControl(ctrl, fromEvent);
-    }
+    else { menuDriver.sendControl(ctrl, fromEvent); }
     return true;
 }
 
@@ -151,14 +149,13 @@ void Peopledex::onHighlight(core::pplmn::Id ppl) {
     if (systems.player().state().peopledex.getIntelLevel(ppl) != core::player::Peopledex::NoIntel) {
         nameLabel.setString(core::pplmn::Peoplemon::name(ppl));
         descLabel.setString(core::pplmn::Peoplemon::description(ppl));
-        thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl)).data;
+        thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
     }
     else {
         nameLabel.setString("???");
         descLabel.setString("");
         thumbTxtr =
-            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown))
-                .data;
+            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown));
     }
     thumbnail.setScale(200.f / static_cast<float>(thumbTxtr->getSize().x),
                        200.f / static_cast<float>(thumbTxtr->getSize().y));
@@ -175,13 +172,9 @@ void Peopledex::onHighlight(core::pplmn::Id ppl) {
         0.f, ownedLabel.getGlobalBounds().height * 0.5f + ownedLabel.getLocalBounds().top * 0.5f);
 
     if (ppl == firstId) { upArrow.setColor(HiddenColor); }
-    else {
-        upArrow.setColor(ShowingColor);
-    }
+    else { upArrow.setColor(ShowingColor); }
     if (ppl == lastId) { downArrow.setColor(HiddenColor); }
-    else {
-        downArrow.setColor(ShowingColor);
-    }
+    else { downArrow.setColor(ShowingColor); }
 }
 
 void Peopledex::onSelect(core::pplmn::Id) {

@@ -1,5 +1,6 @@
 #include <BLIB/Engine.hpp>
 #include <BLIB/Logging.hpp>
+#include <BLIB/Resources.hpp>
 #include <BLIB/Util/Waiter.hpp>
 
 #include <Core/Debug/DebugOverrides.hpp>
@@ -129,6 +130,9 @@ int main(int argc, char** argv) {
 
     BL_LOG_INFO << "Unblocking waiting threads";
     bl::util::Waiter::unblockAll();
+
+    BL_LOG_INFO << "Freeing resources";
+    bl::resource::GarbageCollector::shutdownAndClear();
 
     BL_LOG_INFO << "Exiting normally";
     return 0;

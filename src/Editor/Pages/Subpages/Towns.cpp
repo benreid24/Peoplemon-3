@@ -83,10 +83,8 @@ Towns::Towns(MapArea& ma)
     row->pack(spawnSelect, false, true);
     window->pack(row, true, false);
 
-    flymapTxtr =
-        TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                          "FlyMap/background.png"))
-            .data;
+    flymapTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "FlyMap/background.png"));
     flyMap.setTexture(*flymapTxtr, true);
     flyMap.setScale(FlymapScale, FlymapScale);
     window->pack(Label::create("Fly map position:"));
@@ -175,9 +173,7 @@ void Towns::onTownEdit() {
     t.weather     = weatherSelect->selectedWeather();
     t.mapPos      = mapPos;
     if (spawnSelect->getSelectedOptionText() == "None") { t.pcSpawn = NoSpawn; }
-    else {
-        t.pcSpawn = std::atoi(spawnSelect->getSelectedOptionText().c_str());
-    }
+    else { t.pcSpawn = std::atoi(spawnSelect->getSelectedOptionText().c_str()); }
     map.editTown(editing, t);
     closeWindow();
 }

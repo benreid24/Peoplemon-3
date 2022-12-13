@@ -23,12 +23,10 @@ NewGame::NewGame(core::system::Systems& systems)
 : State(systems)
 , fadeTime(-1.f) {
     cover.setFillColor(sf::Color::Transparent);
-    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                                 "NewGame/newGameBgnd.png"))
-                   .data;
-    profTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                                 "NewGame/professor.png"))
-                   .data;
+    bgndTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "NewGame/newGameBgnd.png"));
+    profTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "NewGame/professor.png"));
 
     background.setTexture(*bgndTxtr, true);
     background.setOrigin(sf::Vector2f(bgndTxtr->getSize()) * 0.5f);

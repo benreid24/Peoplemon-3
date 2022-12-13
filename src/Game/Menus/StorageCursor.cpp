@@ -36,10 +36,8 @@ StorageCursor::StorageCursor()
 : position(0, 0)
 , flasher(cursor, 0.3f, 0.3f)
 , moveDir(core::input::Control::EntityControl::None) {
-    cursorTxtr =
-        TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                          "StorageSystem/storageCursor.png"))
-            .data;
+    cursorTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
+        core::Properties::MenuImagePath(), "StorageSystem/storageCursor.png"));
     cursor.setTexture(*cursorTxtr, true);
 
     size    = static_cast<float>(cursorTxtr->getSize().x);
@@ -113,7 +111,7 @@ bool StorageCursor::process(core::input::EntityControl cmd, bool skip) {
 
 void StorageCursor::setHolding(core::pplmn::Id ppl) {
     if (ppl != core::pplmn::Id::Unknown) {
-        pplTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl)).data;
+        pplTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
         peoplemon.setTexture(*pplTxtr, true);
         const sf::Vector2f pplSize(pplTxtr->getSize());
         peoplemon.setOrigin(pplSize * 0.5f);
@@ -121,9 +119,7 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
         peoplemon.setRotation(0.f);
         peoplemon.setScale(size / pplSize.x, size / pplSize.y);
     }
-    else {
-        pplTxtr.reset();
-    }
+    else { pplTxtr.release(); }
 }
 
 bool StorageCursor::moving() const { return moveDir != core::input::Control::EntityControl::None; }

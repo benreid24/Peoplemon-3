@@ -14,8 +14,7 @@ BagItemButton::Ptr BagItemButton::create(const core::player::Bag::Item& item) {
 
 BagItemButton::BagItemButton(const core::player::Bag::Item& item) {
     txtr = TextureManager::load(
-               bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/button.png"))
-               .data;
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/button.png"));
     background.setTexture(*txtr, true);
 
     label.setFillColor(sf::Color::Black);

@@ -41,8 +41,7 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
 , leftArrow({0.f, 13.f}, {15.f, 0.f}, {15.f, 26.f})
 , rightArrow({0.f, 0.f}, {0.f, 26.f}, {15.f, 13.f}) {
     bgndTxtr = TextureManager::load(
-                   bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"))
-                   .data;
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"));
     background.setTexture(*bgndTxtr, true);
 
     dingSound = bl::audio::AudioSystem::getOrLoadSound(
@@ -152,9 +151,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
             }
             sellMenus[i].addItem(makeCloseItem(), prev, bl::menu::Item::Bottom);
         }
-        else {
-            sellMenus[i].setRootItem(makeCloseItem());
-        }
+        else { sellMenus[i].setRootItem(makeCloseItem()); }
     }
     curCat = 0;
     catSync();
@@ -371,9 +368,7 @@ bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input
                     systems.player().state().bag.addItem(items[buyingItemIndex].item, qty);
                     enterState(MenuState::BuyDing);
                 }
-                else {
-                    enterState(MenuState::BuyMenu);
-                }
+                else { enterState(MenuState::BuyMenu); }
             }
             else {
                 const int qty = qtyEntry.curQty();
@@ -383,14 +378,10 @@ bool StoreMenu::observe(const bl::input::Actor&, unsigned int control, bl::input
                     const int newQty =
                         systems.player().state().bag.itemCount(sellingItem->getItem());
                     if (newQty > 0) { sellingItem->updateQty(newQty); }
-                    else {
-                        sellMenus[curCat].removeItem(sellingItem);
-                    }
+                    else { sellMenus[curCat].removeItem(sellingItem); }
                     enterState(MenuState::SellDing);
                 }
-                else {
-                    enterState(MenuState::SellMenu);
-                }
+                else { enterState(MenuState::SellMenu); }
             }
             break;
         default:

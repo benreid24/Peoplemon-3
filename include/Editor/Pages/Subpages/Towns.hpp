@@ -78,7 +78,7 @@ private:
     component::WeatherSelect::Ptr weatherSelect;
     bl::gui::ComboBox::Ptr spawnSelect;
 
-    bl::resource::Resource<sf::Texture>::Ref flymapTxtr;
+    bl::resource::Ref<sf::Texture> flymapTxtr;
     sf::Sprite flyMap;
     bl::gui::Canvas::Ptr mapPosCanvas;
     sf::Vector2i mapPos;

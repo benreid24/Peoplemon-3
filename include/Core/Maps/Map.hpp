@@ -313,7 +313,7 @@ protected:
     Town defaultTown;
     Town* currentTown;
     sf::Vector2i size;
-    bl::resource::Resource<Tileset>::Ref tileset;
+    bl::resource::Ref<Tileset> tileset;
     Weather weather;
     std::unique_ptr<bl::script::Script> onEnterScript;
     std::unique_ptr<bl::script::Script> onExitScript;

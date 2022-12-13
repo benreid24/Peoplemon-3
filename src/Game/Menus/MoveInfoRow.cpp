@@ -16,8 +16,8 @@ MoveInfoRow::MoveInfoRow(core::pplmn::MoveId move) {
     const auto& joinPath      = bl::util::FileUtil::joinPath;
     const std::string ImgPath = joinPath(core::Properties::MenuImagePath(), "PplInfo");
 
-    bgndTxtr       = TextureManager::load(joinPath(ImgPath, "move.png")).data;
-    activeBgndTxtr = TextureManager::load(joinPath(ImgPath, "moveActive.png")).data;
+    bgndTxtr       = TextureManager::load(joinPath(ImgPath, "move.png"));
+    activeBgndTxtr = TextureManager::load(joinPath(ImgPath, "moveActive.png"));
     background.setTexture(*bgndTxtr, true);
 
     name.setFont(core::Properties::MenuFont());

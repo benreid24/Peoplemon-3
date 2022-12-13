@@ -22,7 +22,7 @@ Trainers::Trainers(Systems& o)
 : owner(o)
 , state(State::Searching)
 , walkingTrainer(bl::ecs::InvalidEntity) {
-    txtr = TextureManager::load(Properties::TrainerExclaimImage()).data;
+    txtr = TextureManager::load(Properties::TrainerExclaimImage());
     exclaim.setTexture(*txtr, true);
     exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
 }
@@ -43,9 +43,7 @@ void Trainers::update(float dt) {
             state  = State::Holding;
             height = 0.f;
         }
-        else {
-            updateRect(height);
-        }
+        else { updateRect(height); }
         break;
 
     case State::Holding:
@@ -73,9 +71,7 @@ void Trainers::update(float dt) {
                                  << " was unable to interact with player, aborting";
                     cleanup();
                 }
-                else {
-                    state = State::Battling;
-                }
+                else { state = State::Battling; }
             }
             else {
                 if (!owner.movement().moveEntity(walkingTrainer, trainerPos->direction, false)) {
@@ -148,9 +144,7 @@ void Trainers::observe(const event::EntityMoveFinished& moved) {
             checkTrainer(ent);
         }
     }
-    else {
-        checkTrainer(moved.entity);
-    }
+    else { checkTrainer(moved.entity); }
 }
 
 void Trainers::checkTrainer(bl::ecs::Entity ent) {

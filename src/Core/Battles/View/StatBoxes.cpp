@@ -47,11 +47,11 @@ StatBoxes::StatBoxes()
     constexpr auto join        = bl::util::FileUtil::joinPath;
     const std::string& ImgPath = Properties::ImagePath();
 
-    opBoxTxtr = TextureManager::load(join(ImgPath, "Battle/opBox.png")).data;
+    opBoxTxtr = TextureManager::load(join(ImgPath, "Battle/opBox.png"));
     opBox.setTexture(*opBoxTxtr, true);
     opBox.setPosition(-opBox.getGlobalBounds().width, OpBoxPos.y);
 
-    lpBoxTxtr = TextureManager::load(join(ImgPath, "Battle/pBox.png")).data;
+    lpBoxTxtr = TextureManager::load(join(ImgPath, "Battle/pBox.png"));
     lpBox.setTexture(*lpBoxTxtr, true);
     lpBox.setPosition(Properties::WindowWidth() + lpBox.getGlobalBounds().width, LpBoxPos.y);
     lpXpBar.setFillColor(sf::Color::Blue);

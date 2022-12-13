@@ -28,12 +28,12 @@ PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& d
     const std::string& ImgPath = core::Properties::MenuImagePath();
     auto& jp                   = bl::util::FileUtil::joinPath;
 
-    bgndTxtr       = TextureManager::load(jp(ImgPath, "Peopledex/item.png")).data;
-    activeBgndTxtr = TextureManager::load(jp(ImgPath, "Peopledex/itemActive.png")).data;
+    bgndTxtr       = TextureManager::load(jp(ImgPath, "Peopledex/item.png"));
+    activeBgndTxtr = TextureManager::load(jp(ImgPath, "Peopledex/itemActive.png"));
     background.setTexture(*bgndTxtr, true);
     const float mid = static_cast<float>(bgndTxtr->getSize().y) * 0.5f;
 
-    ballTxtr = TextureManager::load(jp(core::Properties::ImagePath(), "item.png")).data;
+    ballTxtr = TextureManager::load(jp(core::Properties::ImagePath(), "item.png"));
     if (caught) {
         ball.setTexture(*ballTxtr, true);
         ball.setOrigin(sf::Vector2f(ballTxtr->getSize()) * 0.5f);

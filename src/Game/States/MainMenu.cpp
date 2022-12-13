@@ -25,9 +25,8 @@ MainMenu::MainMenu(core::system::Systems& systems)
     using bl::menu::Item;
     using bl::menu::TextItem;
 
-    backgroundTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
-                                              core::Properties::MenuImagePath(), "mainMenu.png"))
-                         .data;
+    backgroundTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"));
     background.setTexture(*backgroundTxtr, true);
 
     newGame = TextItem::create("New Game", core::Properties::MenuFont(), sf::Color::Black, 32);

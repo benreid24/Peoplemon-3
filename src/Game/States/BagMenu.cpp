@@ -87,9 +87,8 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
 , keyMenu(bl::menu::NoSelector::create())
 , tmMenu(bl::menu::NoSelector::create())
 , actionOpen(false) {
-    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                                 "Bag/background.png"))
-                   .data;
+    bgndTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/background.png"));
     background.setTexture(*bgndTxtr, true);
 
     if (context == Context::PauseMenu) {
@@ -171,9 +170,7 @@ void BagMenu::activate(bl::engine::Engine& engine) {
             removeAndUpdateItem(1);
             toDrive = activeMenu;
         }
-        else {
-            toDrive = &actionMenu;
-        }
+        else { toDrive = &actionMenu; }
         state = MenuState::Browsing;
     }
     else if (state == MenuState::ChoosingItemPeoplemon) {
@@ -311,9 +308,7 @@ void BagMenu::render(bl::engine::Engine& engine, float lag) {
         activeMenu->render(engine.window(), states);
         engine.window().setView(oldView);
     }
-    else {
-        activeMenu->render(engine.window());
-    }
+    else { activeMenu->render(engine.window()); }
     if (actionOpen) { actionMenu.render(engine.window()); }
     engine.window().draw(pocketLabel);
     engine.window().draw(description);
@@ -471,9 +466,7 @@ void BagMenu::itemHighlighted(const menu::BagItemButton* but) {
         description.setString(d);
         bl::interface::wordWrap(description, 607.f);
     }
-    else {
-        description.setString("Close the bag");
-    }
+    else { description.setString("Close the bag"); }
 }
 
 void BagMenu::beginSlide(bool l) {
@@ -495,9 +488,7 @@ void BagMenu::removeAndUpdateItem(int qty) {
     systems.player().state().bag.removeItem(it.id, qty);
     it.qty = systems.player().state().bag.itemCount(it.id);
     if (it.qty <= 0) { activeMenu->removeItem(selectedItem); }
-    else {
-        selectedItem->update(it);
-    }
+    else { selectedItem->update(it); }
 }
 
 void BagMenu::keyItemConfirmUse(const std::string& c) {

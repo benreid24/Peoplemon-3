@@ -55,8 +55,7 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveMenu.setPadding({25.f, 20.f});
 
     moveTxtr = TextureManager::load(
-                   bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"))
-                   .data;
+        bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"));
     moveBox.setTexture(*moveTxtr, true);
     moveBox.setPosition(MoveBoxPos);
 
@@ -119,20 +118,14 @@ void PlayerMenu::refresh() {
     switch (state) {
     case State::PickingItem:
         if (chosenItem != item::Id::None) { state = State::Hidden; }
-        else if (stateLoopGuard) {
-            stateLoopGuard = false;
-        }
-        else {
-            state = State::PickingAction;
-        }
+        else if (stateLoopGuard) { stateLoopGuard = false; }
+        else { state = State::PickingAction; }
         break;
     case State::PickingPeoplemon:
         if (chosenMoveOrPeoplemon != -1 && chosenMoveOrPeoplemon != currentPeoplemon) {
             state = State::Hidden;
         }
-        else if (stateLoopGuard) {
-            stateLoopGuard = false;
-        }
+        else if (stateLoopGuard) { stateLoopGuard = false; }
         else {
             state                 = State::PickingAction;
             chosenMoveOrPeoplemon = -1;

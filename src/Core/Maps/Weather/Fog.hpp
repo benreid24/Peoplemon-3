@@ -87,7 +87,7 @@ private:
     const std::uint8_t maxOpacity;
     std::uint8_t targetOpacity;
     float alpha;
-    bl::resource::Resource<sf::Texture>::Ref fogTxtr;
+    bl::resource::Ref<sf::Texture> fogTxtr;
     mutable sf::Sprite fog;
     mutable sf::FloatRect area;
     std::vector<Particle> particles;

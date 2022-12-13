@@ -191,7 +191,7 @@ std::uint8_t Tileset::getActiveTown() const { return towns.selected(); }
 core::map::LevelTransition Tileset::getActiveLevel() const { return levelTransitions.getActive(); }
 
 bool Tileset::loadTileset(const std::string& file) {
-    auto newTileset = TilesetManager::load(core::map::Tileset::getFullPath(file)).data;
+    auto newTileset = TilesetManager::load(core::map::Tileset::getFullPath(file));
     if (!newTileset) return false;
     if (newTileset.get() != tileset.get()) {
         tileset = newTileset;

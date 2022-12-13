@@ -53,9 +53,9 @@ private:
     StatBox evAwardEntry;
     bl::gui::TextEntry::Ptr catchRateEntry;
 
-    bl::resource::Resource<sf::Texture>::Ref thumbTxtr;
-    bl::resource::Resource<sf::Texture>::Ref playerTxtr;
-    bl::resource::Resource<sf::Texture>::Ref opTxtr;
+    bl::resource::Ref<sf::Texture> thumbTxtr;
+    bl::resource::Ref<sf::Texture> playerTxtr;
+    bl::resource::Ref<sf::Texture> opTxtr;
     bl::gui::Image::Ptr thumbImg;
     bl::gui::Image::Ptr playerImg;
     bl::gui::Image::Ptr opImg;

@@ -169,9 +169,8 @@ PeoplemonEditorWindow::PeoplemonEditorWindow(PeoplemonDB& db, const OnChange& on
     catchRateEntry->setRequisition({30.f, 1.f});
     catchRateEntry->getSignal(Event::TextEntered).willAlwaysCall(onEdit);
 
-    thumbTxtr = playerTxtr = opTxtr =
-        TextureManager::load(Peoplemon::thumbnailImage(Id::Unknown)).data;
-    thumbImg = Image::create(*thumbTxtr);
+    thumbTxtr = playerTxtr = opTxtr = TextureManager::load(Peoplemon::thumbnailImage(Id::Unknown));
+    thumbImg                        = Image::create(*thumbTxtr);
     thumbImg->scaleToSize({100.f, 100.f});
     playerImg = Image::create(*playerTxtr);
     playerImg->scaleToSize({150.f, 150.f});
@@ -341,9 +340,9 @@ void PeoplemonEditorWindow::open(const GUI::Ptr& parent, Id ppl) {
 
 void PeoplemonEditorWindow::reloadImages() {
     const Id ppl = parseInput<Id>(idEntry);
-    thumbTxtr    = TextureManager::load(Peoplemon::thumbnailImage(ppl)).data;
-    playerTxtr   = TextureManager::load(Peoplemon::playerImage(ppl)).data;
-    opTxtr       = TextureManager::load(Peoplemon::opponentImage(ppl)).data;
+    thumbTxtr    = TextureManager::load(Peoplemon::thumbnailImage(ppl));
+    playerTxtr   = TextureManager::load(Peoplemon::playerImage(ppl));
+    opTxtr       = TextureManager::load(Peoplemon::opponentImage(ppl));
     thumbImg->setImage(thumbTxtr, false);
     playerImg->setImage(playerTxtr, false);
     opImg->setImage(opTxtr, false);

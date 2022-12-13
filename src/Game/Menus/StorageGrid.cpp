@@ -16,7 +16,7 @@ void StorageGrid::update(const std::vector<core::pplmn::StoredPeoplemon>& box) {
         peoplemon.emplace_back();
         auto& rp = peoplemon.back();
         rp.texture =
-            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id())).data;
+            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id()));
         rp.sprite.setTexture(*rp.texture, true);
         rp.sprite.setScale(StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().x),
                            StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().y));

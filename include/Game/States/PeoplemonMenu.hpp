@@ -96,7 +96,7 @@ private:
     sf::Vector2f mover1Dest;
     sf::Vector2f mover2Dest;
 
-    bl::resource::Resource<sf::Texture>::Ref backgroundTxtr;
+    bl::resource::Ref<sf::Texture> backgroundTxtr;
     sf::Sprite background;
 
     bl::menu::Menu menu;

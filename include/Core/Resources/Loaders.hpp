@@ -27,7 +27,7 @@ enum Mode { Dev, Prod };
  */
 template<typename T, Mode mode>
 struct PeoplemonLoader : public bl::resource::LoaderBase<T> {
-    using Ref = typename bl::resource::Resource<T>::Ref;
+    using Ref = typename bl::resource::Ref<T>;
 
     virtual bool load(const std::string& path, const char* buffer, std::size_t len, std::istream&,
                       T& result) override {

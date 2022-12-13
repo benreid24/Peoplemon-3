@@ -71,7 +71,7 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
     const std::string& Path = joinPath(core::Properties::MenuImagePath(), "Settings");
     const sf::Font& font    = core::Properties::MenuFont();
 
-    bgndTexture = TextureManager::load(joinPath(Path, "background.png")).data;
+    bgndTexture = TextureManager::load(joinPath(Path, "background.png"));
     background.setTexture(*bgndTexture);
     hint.setFont(font);
     hint.setFillColor(sf::Color(65, 10, 0));
@@ -361,9 +361,7 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
 
     case MenuState::ControlsBindingControl:
         if (bindingKbm) { controlsKbmMenu.render(engine.window()); }
-        else {
-            controlsPadMenu.render(engine.window());
-        }
+        else { controlsPadMenu.render(engine.window()); }
         break;
 
     default:

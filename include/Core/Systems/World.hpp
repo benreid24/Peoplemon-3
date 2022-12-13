@@ -96,8 +96,8 @@ public:
 
 private:
     Systems& owner;
-    bl::resource::Resource<map::Map>::Ref currentMap;
-    bl::resource::Resource<map::Map>::Ref previousMap;
+    bl::resource::Ref<map::Map> currentMap;
+    bl::resource::Ref<map::Map> previousMap;
 
     std::string currentMapFile;
     std::string prevMapFile;

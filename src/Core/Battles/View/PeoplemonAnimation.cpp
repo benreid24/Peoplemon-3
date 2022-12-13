@@ -81,55 +81,44 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
 
     ballOpenTxtr =
-        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png"))
-            .data;
+        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png"));
     // TODO - consider using multiple graphics based on what ball it was caught in
-    ballTxtr =
-        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png")).data;
+    ballTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png"));
     setBallTexture(*ballTxtr);
     ball.setPosition(ViewSize.x * 0.5f, ViewSize.y * 0.75f);
     ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
     spark.setOuterColor(sf::Color::Transparent);
     ballFlash.setOuterColor(sf::Color::Transparent);
 
-    statTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/statArrow.png")).data;
+    statTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/statArrow.png"));
     statArrow.setTexture(*statTxtr, true);
     statArrow.setOrigin(statArrow.getGlobalBounds().width * 0.5f,
                         statArrow.getGlobalBounds().height * 0.5f);
     statArrow.setPosition(ViewSize.x, ViewSize.y * 0.5f);
 
     annoySrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Annoyed.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Annoyed.anim"));
     confuseSrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Confusion.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Confusion.anim"));
     frozenSrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Frozen.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Frozen.anim"));
     frustrationSrc = AnimationManager::load(
-                         join(Properties::AnimationPath(), "Battle/Ailments/Frustration.anim"))
-                         .data;
+        join(Properties::AnimationPath(), "Battle/Ailments/Frustration.anim"));
     sleepSrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sleep.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sleep.anim"));
     stickySrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sticky.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sticky.anim"));
     trappedSrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"));
     // TODO - update to jumped anim when we have it
     jumpedSrc =
-        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"))
-            .data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"));
     ailmentAnim.setIsLoop(false);
     ailmentAnim.setPosition(ViewSize * 0.5f);
     ailmentAnim.setData(*trappedSrc);
 
     throwBallTxtr =
-        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png"))
-            .data;
+        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png"));
     setThrowBallTxtr(*throwBallTxtr);
 }
 
@@ -146,7 +135,7 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
     const auto path = position == Position::Player ? pplmn::Peoplemon::playerImage :
                                                      pplmn::Peoplemon::opponentImage;
-    txtr            = TextureManager::load(path(ppl)).data;
+    txtr            = TextureManager::load(path(ppl));
 
     const sf::Vector2f ts(txtr->getSize());
     peoplemon.setTexture(*txtr, true);
@@ -331,9 +320,7 @@ void PeoplemonAnimation::update(float dt) {
                 else if (a >= 255 - ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                 }
-                else {
-                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                }
+                else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
             }
             // closed ball state
             else {
@@ -376,9 +363,7 @@ void PeoplemonAnimation::update(float dt) {
                 if (a < 255) {
                     peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
                 }
-                else {
-                    peoplemon.setColor(sf::Color::White);
-                }
+                else { peoplemon.setColor(sf::Color::White); }
                 peoplemon.setScale(ps * scale.x, ps * scale.y);
                 ball.setColor(sf::Color(255, 255, 255, 255 - a));
                 if (a <= ScreenFlashAlpha) {
@@ -387,9 +372,7 @@ void PeoplemonAnimation::update(float dt) {
                 else if (a >= 255 - ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                 }
-                else {
-                    screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                }
+                else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
             }
             break;
 
@@ -486,9 +469,7 @@ void PeoplemonAnimation::update(float dt) {
                     else if (a >= 255 - ScreenFlashAlpha) {
                         screenFlash.setFillColor(sf::Color(255, 255, 255, 255 - a));
                     }
-                    else {
-                        screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha));
-                    }
+                    else { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }
                 }
                 else {
                     ballTime += dt;

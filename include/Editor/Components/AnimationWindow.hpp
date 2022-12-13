@@ -57,7 +57,7 @@ private:
     bl::gui::GUI::Ptr parent;
     bl::gui::Label::Ptr fileLabel;
     bl::gui::Animation::Ptr animation;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref animSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> animSrc;
     std::optional<bl::gui::FilePicker> filePicker;
 
     void packAnim(const std::string& f);

@@ -81,8 +81,8 @@ private:
         void set(float x, float y);
     };
 
-    bl::resource::Resource<sf::Texture>::Ref sandTxtr;
-    bl::resource::Resource<sf::Texture>::Ref swirlTxtr;
+    bl::resource::Ref<sf::Texture> sandTxtr;
+    bl::resource::Ref<sf::Texture> swirlTxtr;
     mutable sf::Sprite sand;
     mutable sf::Sprite swirl;
     mutable sf::FloatRect area;

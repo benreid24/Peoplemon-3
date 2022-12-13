@@ -76,11 +76,11 @@ private:
     State pState;
     State oState;
 
-    bl::resource::Resource<sf::Texture>::Ref ailTxtr;
+    bl::resource::Ref<sf::Texture> ailTxtr;
     sf::Texture blank;
 
-    bl::resource::Resource<sf::Texture>::Ref opBoxTxtr;
-    bl::resource::Resource<sf::Texture>::Ref lpBoxTxtr;
+    bl::resource::Ref<sf::Texture> opBoxTxtr;
+    bl::resource::Ref<sf::Texture> lpBoxTxtr;
     sf::Sprite opBox;
     sf::Sprite lpBox;
 

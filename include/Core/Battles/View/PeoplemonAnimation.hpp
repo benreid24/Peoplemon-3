@@ -113,22 +113,22 @@ private:
     };
     sf::Vector2f shakeOff;
 
-    bl::resource::Resource<sf::Texture>::Ref ballTxtr;
-    bl::resource::Resource<sf::Texture>::Ref ballOpenTxtr;
+    bl::resource::Ref<sf::Texture> ballTxtr;
+    bl::resource::Ref<sf::Texture> ballOpenTxtr;
     sf::Sprite ball;
     bl::shapes::GradientCircle ballFlash;
     bl::particle::System<Spark> sparks;
     bl::particle::System<Spark> implosion;
     mutable bl::shapes::GradientCircle spark;
     sf::RectangleShape screenFlash;
-    bl::resource::Resource<sf::Texture>::Ref statTxtr;
+    bl::resource::Ref<sf::Texture> statTxtr;
     sf::Sprite statArrow;
     float arrowOffset;
     sf::Vector2f implodeOrigin;
     bool renderBall;
 
     enum struct BallThrowState { Arcing, Eating, Bouncing, CloneFading } throwState;
-    bl::resource::Resource<sf::Texture>::Ref throwBallTxtr;
+    bl::resource::Ref<sf::Texture> throwBallTxtr;
     sf::Sprite throwBall;
     sf::Sprite clone;
     sf::Sprite* toEat;
@@ -138,20 +138,20 @@ private:
     void spawnImplodeSpark(Spark* obj);
     void setThrowBallTxtr(sf::Texture& t);
 
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref annoySrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref confuseSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref frozenSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref frustrationSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref sleepSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref stickySrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref trappedSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref jumpedSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> annoySrc;
+    bl::resource::Ref<bl::gfx::AnimationData> confuseSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> frozenSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> frustrationSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> sleepSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> stickySrc;
+    bl::resource::Ref<bl::gfx::AnimationData> trappedSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> jumpedSrc;
     bl::gfx::Animation ailmentAnim;
 
     void updateAilmentAnimation(pplmn::Ailment ail);
     void updateAilmentAnimation(pplmn::PassiveAilment ail);
 
-    bl::resource::Resource<sf::Texture>::Ref txtr;
+    bl::resource::Ref<sf::Texture> txtr;
     mutable sf::Sprite peoplemon;
     bl::gfx::Flashing flasher;
     sf::Vector2f scale;

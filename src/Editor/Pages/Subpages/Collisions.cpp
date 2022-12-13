@@ -46,7 +46,7 @@ Collisions::Collisions() {
     for (unsigned int i = 0; i < nColTypes; ++i) {
         const auto& pair = source[i];
 
-        auto txtr      = TextureManager::load(pair.first).data;
+        auto txtr      = TextureManager::load(pair.first);
         Image::Ptr img = Image::create(txtr);
         img->scaleToSize({64, 64});
         component::HighlightRadioButton::Ptr but =

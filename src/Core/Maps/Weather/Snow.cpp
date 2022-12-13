@@ -29,7 +29,7 @@ Snow::Snow(bool hard, bool thunder)
 , stopFactor(-1.f)
 , snow(std::bind(&Snow::createFlake, this, std::placeholders::_1), targetParticleCount, 450.f)
 , thunder(thunder, hard) {
-    snowTxtr = TextureManager::load(Properties::SnowFlakeFile()).data;
+    snowTxtr = TextureManager::load(Properties::SnowFlakeFile());
     snowFlake.setTexture(*snowTxtr, true);
     snowFlake.setOrigin(snowTxtr->getSize().x / 2, snowTxtr->getSize().y / 2);
     snow.setReplaceDestroyed(true);
@@ -61,9 +61,7 @@ void Snow::update(float dt) {
 
             if (flake.position.z < 0.f) flake.position.z = -0.001f;
         }
-        else {
-            flake.position.z -= dt;
-        }
+        else { flake.position.z -= dt; }
 
         return flake.position.z >= GroundTime;
     };

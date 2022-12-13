@@ -78,8 +78,8 @@ public:
     void renderForeground(sf::RenderTarget& target, float lag) const;
 
 private:
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref bgSrc;
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref fgSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> bgSrc;
+    bl::resource::Ref<bl::gfx::AnimationData> fgSrc;
     bl::gfx::Animation background;
     bl::gfx::Animation foreground;
 };

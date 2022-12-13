@@ -68,8 +68,8 @@ public:
     virtual void render(bl::engine::Engine& engine, float lag) override;
 
 private:
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
-    bl::resource::Resource<sf::Texture>::Ref profTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
+    bl::resource::Ref<sf::Texture> profTxtr;
     sf::Sprite background;
     sf::Sprite prof;
 

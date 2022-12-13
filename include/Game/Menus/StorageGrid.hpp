@@ -36,7 +36,7 @@ public:
 
 private:
     struct Stored {
-        bl::resource::Resource<sf::Texture>::Ref texture;
+        bl::resource::Ref<sf::Texture> texture;
         sf::Sprite sprite;
     };
     std::vector<Stored> peoplemon;

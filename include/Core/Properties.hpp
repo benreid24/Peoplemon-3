@@ -122,7 +122,7 @@ public:
 
     static sf::Color HPBarColor(float percent);
     static sf::Color HPBarColor(unsigned int hp, unsigned int maxHp);
-    static bl::resource::Resource<sf::Texture>::Ref AilmentTexture(pplmn::Ailment ailment);
+    static bl::resource::Ref<sf::Texture> AilmentTexture(pplmn::Ailment ailment);
     static const std::string& PeoplemonImageFolder();
 
     static bl::audio::AudioSystem::Handle MenuMoveSound();

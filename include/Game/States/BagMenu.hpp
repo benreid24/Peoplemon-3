@@ -19,7 +19,9 @@ namespace state
  * @ingroup States
  *
  */
-class BagMenu : public State, public bl::input::Listener {
+class BagMenu
+: public State
+, public bl::input::Listener {
 public:
     /// Represents how the menu was opened and affects how it may be used
     using Context = core::event::OpenBagMenu::Context;
@@ -97,7 +99,7 @@ private:
     bl::menu::Menu* activeMenu;
     bl::menu::Menu* slideOut;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
 
     core::input::MenuDriver inputDriver;
@@ -132,8 +134,8 @@ private:
     void keyItemConfirmUse(const std::string& choice);
 
     // this will only get called for inputs not processed by menus
-    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl, bl::input::DispatchType,
-                         bool eventTriggered) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
+                         bl::input::DispatchType, bool eventTriggered) override;
 };
 
 } // namespace state

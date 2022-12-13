@@ -44,18 +44,15 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     using bl::menu::TextItem;
     using core::Properties;
 
-    backgroundTxtr =
-        TextureManager::load(joinPath(Properties::MenuImagePath(), "StorageSystem/storageBGND.png"))
-            .data;
+    backgroundTxtr = TextureManager::load(
+        joinPath(Properties::MenuImagePath(), "StorageSystem/storageBGND.png"));
     background.setTexture(*backgroundTxtr, true);
 
     leftArrowTxtr = TextureManager::load(
-                        joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowLeft.png"))
-                        .data;
+        joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowLeft.png"));
     leftArrow.setTexture(*leftArrowTxtr, true);
-    rightArrowTxtr = TextureManager::load(joinPath(Properties::MenuImagePath(),
-                                                   "StorageSystem/storageArrowRight.png"))
-                         .data;
+    rightArrowTxtr = TextureManager::load(
+        joinPath(Properties::MenuImagePath(), "StorageSystem/storageArrowRight.png"));
     rightArrow.setTexture(*rightArrowTxtr, true);
     leftArrow.setPosition(BoxTitlePosition.x - leftArrow.getGlobalBounds().width - 3.f,
                           BoxTitlePosition.y + BoxTitleSize.y * 0.5f -
@@ -155,9 +152,7 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
             enterState(MenuState::PlacingPeoplemon);
             showInfo = true;
         }
-        else {
-            enterState(MenuState::ChooseAction);
-        }
+        else { enterState(MenuState::ChooseAction); }
     }
     else {
         enterState(MenuState::ChooseAction);
@@ -281,11 +276,9 @@ void StorageSystem::onHover(core::pplmn::StoredPeoplemon* ppl) {
         updatePeoplemonInfo(ppl->peoplemon);
     }
     else {
-        showInfo = false;
-        thumbTxtr =
-            TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                              "StorageSystem/question.png"))
-                .data;
+        showInfo  = false;
+        thumbTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
+            core::Properties::MenuImagePath(), "StorageSystem/question.png"));
         thumbnail.setTexture(*thumbTxtr, true);
         thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
                            ThumbnailSize.y / static_cast<float>(thumbTxtr->getSize().y));
@@ -299,7 +292,7 @@ void StorageSystem::updatePeoplemonInfo(const core::pplmn::OwnedPeoplemon& ppl) 
     itemName.setString(ppl.holdItem() == core::item::Id::None ?
                            "None" :
                            core::item::Item::getName(ppl.holdItem()));
-    thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.id())).data;
+    thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.id()));
     thumbnail.setTexture(*thumbTxtr, true);
     thumbnail.setScale(ThumbnailSize.x / static_cast<float>(thumbTxtr->getSize().x),
                        ThumbnailSize.y / static_cast<float>(thumbTxtr->getSize().y));
@@ -396,9 +389,7 @@ void StorageSystem::onTakeItem() {
         systems.player().state().bag.addItem(hovered->peoplemon.holdItem());
         hovered->peoplemon.holdItem() = core::item::Id::None;
     }
-    else {
-        showContextMessage(hovered->peoplemon.name() + " isn't holding anything!", false);
-    }
+    else { showContextMessage(hovered->peoplemon.name() + " isn't holding anything!", false); }
 }
 
 void StorageSystem::onRelease() {
@@ -462,9 +453,7 @@ bool StorageSystem::observe(const bl::input::Actor&, unsigned int cmd, bl::input
                 boxLeft();
                 bl::audio::AudioSystem::playOrRestartSound(pageSlideSound);
             }
-            else {
-                bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound);
-            }
+            else { bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound); }
         }
         else if (cmd == core::input::Control::MoveRight &&
                  cursor.getPosition().x == core::player::StorageSystem::BoxWidth - 1) {
@@ -472,9 +461,7 @@ bool StorageSystem::observe(const bl::input::Actor&, unsigned int cmd, bl::input
                 boxRight();
                 bl::audio::AudioSystem::playOrRestartSound(pageSlideSound);
             }
-            else {
-                bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound);
-            }
+            else { bl::audio::AudioSystem::playOrRestartSound(pageSlideFailSound); }
         }
         else {
             if (cursor.process(cmd, eventTriggered)) {
@@ -528,9 +515,7 @@ void StorageSystem::onReleaseConfirm(const std::string& c) {
         systems.player().state().storage.remove(currentBox, selectPos);
         activeGrid.update(systems.player().state().storage.getBox(currentBox));
     }
-    else {
-        enterState(MenuState::BrowseMenuOpen);
-    }
+    else { enterState(MenuState::BrowseMenuOpen); }
 }
 
 void StorageSystem::onMessageDone() {

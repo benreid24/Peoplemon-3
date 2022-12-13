@@ -113,7 +113,7 @@ const std::string TrainerExclaimImage      = "Resources/Images/trainer.png";
 
 } // namespace defaults
 
-bl::resource::Resource<sf::Font>::Ref menuFont;
+bl::resource::Ref<sf::Font> menuFont;
 } // namespace
 
 bool Properties::load(bool ie) {
@@ -233,8 +233,7 @@ bool Properties::load(bool ie) {
     save(); // ensure defaults saved if changed
 
     menuFont =
-        FontManager::load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"))
-            .data;
+        FontManager::load(bl::engine::Configuration::get<std::string>("core.menu.primary_font"));
     if (!menuFont) return false;
 
     return true;
@@ -651,20 +650,20 @@ sf::Color Properties::HPBarColor(float percent) {
     return sf::Color(235, 33, 33);
 }
 
-bl::resource::Resource<sf::Texture>::Ref Properties::AilmentTexture(pplmn::Ailment ail) {
+bl::resource::Ref<sf::Texture> Properties::AilmentTexture(pplmn::Ailment ail) {
     static const auto join = bl::util::FileUtil::joinPath;
 
     switch (ail) {
     case pplmn::Ailment::Annoyed:
-        return TextureManager::load(join(ImagePath(), "Battle/annoy.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/annoy.png"));
     case pplmn::Ailment::Frustrated:
-        return TextureManager::load(join(ImagePath(), "Battle/frustrate.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/frustrate.png"));
     case pplmn::Ailment::Sticky:
-        return TextureManager::load(join(ImagePath(), "Battle/sticky.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/sticky.png"));
     case pplmn::Ailment::Sleep:
-        return TextureManager::load(join(ImagePath(), "Battle/sleep.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/sleep.png"));
     case pplmn::Ailment::Frozen:
-        return TextureManager::load(join(ImagePath(), "Battle/frozen.png")).data;
+        return TextureManager::load(join(ImagePath(), "Battle/frozen.png"));
     default:
         return {};
     }

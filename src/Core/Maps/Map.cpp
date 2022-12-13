@@ -61,7 +61,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_INFO << "Activating map " << nameField;
 
         // Load tileset and init tiles
-        tileset = TilesetManager::load(Tileset::getFullPath(tilesetField)).data;
+        tileset = TilesetManager::load(Tileset::getFullPath(tilesetField));
         if (!tileset) return false;
         tileset->activate();
         for (LayerSet& level : levels) { level.activate(*tileset); }
@@ -639,7 +639,7 @@ const std::vector<Town>& Map::FlyMapTowns() {
 }
 
 void Map::loadFlymapTowns() {
-    bl::resource::Resource<Map>::Ref world = MapManager::load("WorldMap.map").data;
+    bl::resource::Ref<Map> world = MapManager::load("WorldMap.map");
     if (!world) {
         BL_LOG_CRITICAL << "Failed to load world map";
         return;

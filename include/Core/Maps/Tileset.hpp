@@ -23,9 +23,8 @@ namespace map
  */
 class Tileset {
 public:
-    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref>;
-    using AnimStore =
-        std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref>;
+    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Ref<sf::Texture>>;
+    using AnimStore = std::unordered_map<Tile::IdType, bl::resource::Ref<bl::gfx::AnimationData>>;
 
     /**
      * @brief Creates an empty Tileset
@@ -126,9 +125,9 @@ public:
      * @brief Returns a tile from the set. Returns nullptr if not found
      *
      * @param id The id of the tile to get
-     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the tile
+     * @return bl::resource::Ref<sf::Texture> A reference to the tile
      */
-    bl::resource::Resource<sf::Texture>::Ref getTile(Tile::IdType id);
+    bl::resource::Ref<sf::Texture> getTile(Tile::IdType id);
 
     /**
      * @brief Returns all contained tiles
@@ -140,9 +139,9 @@ public:
      * @brief Returns an animation from the set. Returns nullptr if not found
      *
      * @param id The id of the animation to get
-     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the animation
+     * @return bl::resource::Ref<sf::Texture> A reference to the animation
      */
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref getAnim(Tile::IdType id);
+    bl::resource::Ref<bl::gfx::AnimationData> getAnim(Tile::IdType id);
 
     /**
      * @brief Returns all contained animations

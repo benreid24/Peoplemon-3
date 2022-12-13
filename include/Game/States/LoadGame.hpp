@@ -74,7 +74,7 @@ private:
 
     std::vector<core::file::GameSave> saves;
     unsigned int selectedSave;
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
     sf::RectangleShape cover;
     float fadeTime;

@@ -100,7 +100,7 @@ private:
     sf::Vector2i selectPos;
     bool closeMenuAfterMessage;
 
-    bl::resource::Resource<sf::Texture>::Ref backgroundTxtr;
+    bl::resource::Ref<sf::Texture> backgroundTxtr;
     sf::Sprite background;
     sf::View view;
     sf::View boxView;
@@ -116,13 +116,13 @@ private:
     bl::audio::AudioSystem::Handle pageSlideSound;
     bl::audio::AudioSystem::Handle pageSlideFailSound;
 
-    bl::resource::Resource<sf::Texture>::Ref leftArrowTxtr;
-    bl::resource::Resource<sf::Texture>::Ref rightArrowTxtr;
+    bl::resource::Ref<sf::Texture> leftArrowTxtr;
+    bl::resource::Ref<sf::Texture> rightArrowTxtr;
     sf::Sprite leftArrow;
     sf::Sprite rightArrow;
     sf::Text boxTitle;
 
-    bl::resource::Resource<sf::Texture>::Ref thumbTxtr;
+    bl::resource::Ref<sf::Texture> thumbTxtr;
     sf::Sprite thumbnail;
     sf::Text nickname;
     sf::Text level;

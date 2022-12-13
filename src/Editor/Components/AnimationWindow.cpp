@@ -50,7 +50,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     window->pack(editBut, false, false);
 
     row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    auto src  = AnimationManager::load(bl::util::FileUtil::joinPath(path, "4/down.anim")).data;
+    auto src  = AnimationManager::load(bl::util::FileUtil::joinPath(path, "4/down.anim"));
     animation = Animation::create(src);
     animation->setRequisition({32, 45});
     row->pack(animation, true, true);
@@ -91,7 +91,7 @@ void AnimationWindow::packAnim(const std::string& f) {
     const std::string af = characterMode ? bl::util::FileUtil::getPath(f) : f;
     const std::string vf = characterMode ? bl::util::FileUtil::joinPath(af, "down.anim") : af;
     fileLabel->setText(af);
-    animSrc = AnimationManager::load(bl::util::FileUtil::joinPath(path, vf)).data;
+    animSrc = AnimationManager::load(bl::util::FileUtil::joinPath(path, vf));
     BL_LOG_INFO << bl::util::FileUtil::joinPath(path, vf);
     if (animSrc) {
         sf::Vector2f size = animSrc->getMaxSize();

@@ -15,7 +15,9 @@ namespace state
  * @ingroup States
  *
  */
-class Peopledex : public State, public bl::input::Listener {
+class Peopledex
+: public State
+, public bl::input::Listener {
 public:
     /**
      * @brief Create a new Peopledex state
@@ -71,25 +73,25 @@ private:
     bl::menu::Menu menu;
     core::input::MenuDriver menuDriver;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
 
     core::pplmn::Id firstId;
     core::pplmn::Id lastId;
-    bl::resource::Resource<sf::Texture>::Ref upTxtr;
+    bl::resource::Ref<sf::Texture> upTxtr;
     sf::Sprite upArrow;
-    bl::resource::Resource<sf::Texture>::Ref downTxtr;
+    bl::resource::Ref<sf::Texture> downTxtr;
     sf::Sprite downArrow;
 
-    bl::resource::Resource<sf::Texture>::Ref seenTxtr;
+    bl::resource::Ref<sf::Texture> seenTxtr;
     sf::Sprite seenBox;
     sf::Text seenLabel;
 
-    bl::resource::Resource<sf::Texture>::Ref ownedTxtr;
+    bl::resource::Ref<sf::Texture> ownedTxtr;
     sf::Sprite ownedBox;
     sf::Text ownedLabel;
 
-    bl::resource::Resource<sf::Texture>::Ref thumbTxtr;
+    bl::resource::Ref<sf::Texture> thumbTxtr;
     sf::Sprite thumbnail;
     sf::Text nameLabel;
     sf::Text descLabel;

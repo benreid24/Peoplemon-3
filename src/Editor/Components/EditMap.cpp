@@ -14,37 +14,37 @@ namespace component
 {
 namespace
 {
-std::vector<bl::resource::Resource<sf::Texture>::Ref> colGfx;
-bl::resource::Resource<sf::Texture>::Ref arrowGfx;
-std::vector<bl::resource::Resource<sf::Texture>::Ref> ltGfx;
+std::vector<bl::resource::Ref<sf::Texture>> colGfx;
+bl::resource::Ref<sf::Texture> arrowGfx;
+std::vector<bl::resource::Ref<sf::Texture>> ltGfx;
 
 void loadResources() {
-    colGfx = {TextureManager::load("EditorResources/Collisions/none.png").data,
-              TextureManager::load("EditorResources/Collisions/all.png").data,
-              TextureManager::load("EditorResources/Collisions/top.png").data,
-              TextureManager::load("EditorResources/Collisions/right.png").data,
-              TextureManager::load("EditorResources/Collisions/bottom.png").data,
-              TextureManager::load("EditorResources/Collisions/left.png").data,
-              TextureManager::load("EditorResources/Collisions/topRight.png").data,
-              TextureManager::load("EditorResources/Collisions/bottomRight.png").data,
-              TextureManager::load("EditorResources/Collisions/bottomLeft.png").data,
-              TextureManager::load("EditorResources/Collisions/topLeft.png").data,
-              TextureManager::load("EditorResources/Collisions/topBottom.png").data,
-              TextureManager::load("EditorResources/Collisions/leftRight.png").data,
-              TextureManager::load("EditorResources/Collisions/noTop.png").data,
-              TextureManager::load("EditorResources/Collisions/noRight.png").data,
-              TextureManager::load("EditorResources/Collisions/noBottom.png").data,
-              TextureManager::load("EditorResources/Collisions/noLeft.png").data,
-              TextureManager::load("EditorResources/Collisions/water.png").data,
-              TextureManager::load("EditorResources/Collisions/fall.png").data,
-              TextureManager::load("EditorResources/Collisions/ledge.png").data};
+    colGfx = {TextureManager::load("EditorResources/Collisions/none.png"),
+              TextureManager::load("EditorResources/Collisions/all.png"),
+              TextureManager::load("EditorResources/Collisions/top.png"),
+              TextureManager::load("EditorResources/Collisions/right.png"),
+              TextureManager::load("EditorResources/Collisions/bottom.png"),
+              TextureManager::load("EditorResources/Collisions/left.png"),
+              TextureManager::load("EditorResources/Collisions/topRight.png"),
+              TextureManager::load("EditorResources/Collisions/bottomRight.png"),
+              TextureManager::load("EditorResources/Collisions/bottomLeft.png"),
+              TextureManager::load("EditorResources/Collisions/topLeft.png"),
+              TextureManager::load("EditorResources/Collisions/topBottom.png"),
+              TextureManager::load("EditorResources/Collisions/leftRight.png"),
+              TextureManager::load("EditorResources/Collisions/noTop.png"),
+              TextureManager::load("EditorResources/Collisions/noRight.png"),
+              TextureManager::load("EditorResources/Collisions/noBottom.png"),
+              TextureManager::load("EditorResources/Collisions/noLeft.png"),
+              TextureManager::load("EditorResources/Collisions/water.png"),
+              TextureManager::load("EditorResources/Collisions/fall.png"),
+              TextureManager::load("EditorResources/Collisions/ledge.png")};
 
-    arrowGfx = TextureManager::load("EditorResources/arrow.png").data;
+    arrowGfx = TextureManager::load("EditorResources/arrow.png");
 
-    ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png").data,
-             TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png").data,
-             TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png").data,
-             TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png").data};
+    ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png"),
+             TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png"),
+             TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png"),
+             TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png")};
 }
 
 } // namespace
@@ -156,7 +156,7 @@ bool EditMap::editorActivate() {
 
     camera.reset(size);
 
-    tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField)).data;
+    tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField));
     if (!tileset) return false;
     tileset->activate();
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }

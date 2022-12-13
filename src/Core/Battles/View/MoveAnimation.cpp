@@ -42,8 +42,8 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
                                            pplmn::Move::opponentAnimationForeground;
     const auto bg = user == User::Player ? pplmn::Move::playerAnimationBackground :
                                            pplmn::Move::opponentAnimationBackground;
-    fgSrc         = AnimationManager::load(fg(move)).data;
-    bgSrc         = AnimationManager::load(bg(move)).data;
+    fgSrc         = AnimationManager::load(fg(move));
+    bgSrc         = AnimationManager::load(bg(move));
     if (fgSrc && bgSrc) {
         foreground.setData(*fgSrc);
         background.setData(*bgSrc);

@@ -21,12 +21,12 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     const auto& joinPath = bl::util::FileUtil::joinPath;
     const auto& ImgPath  = core::Properties::MenuImagePath();
 
-    mapTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/background.png")).data;
+    mapTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/background.png"));
     map.setTexture(*mapTxtr, true);
-    townTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/town.png")).data;
+    townTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/town.png"));
     town.setTexture(*townTxtr, true);
     town.setOrigin(sf::Vector2f(townTxtr->getSize()) * 0.5f);
-    cursorTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/cursor.png")).data;
+    cursorTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/cursor.png"));
     cursor.setTexture(*cursorTxtr, true);
     cursor.setOrigin(sf::Vector2f(cursorTxtr->getSize()) * 0.5f);
     if (systems.world().activeMap().canFlyFromHere()) {
@@ -37,13 +37,13 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
             std::string("FlyMap/") + (systems.player().state().sex == core::player::Gender::Boy ?
                                           "boyHead.png" :
                                           "girlHead.png");
-        playerTxtr = TextureManager::load(joinPath(ImgPath, path)).data;
+        playerTxtr = TextureManager::load(joinPath(ImgPath, path));
         player.setTexture(*playerTxtr, true);
         player.setOrigin(sf::Vector2f(playerTxtr->getSize()) * 0.5f);
         player.setPosition(pp.x / ws.x * ms.x, pp.y / ws.y * ms.y);
     }
 
-    panelTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/sidePanel.png")).data;
+    panelTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/sidePanel.png"));
     panel.setTexture(*panelTxtr, true);
     panel.setPosition(map.getGlobalBounds().width, 0.f);
     townName.setFont(core::Properties::MenuFont());
@@ -107,9 +107,7 @@ void FlyMap::update(bl::engine::Engine&, float dt) {
 bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
                      bl::input::DispatchType, bool fromEvent) {
     if (activatedControl == core::input::Control::Back) { systems.engine().popState(); }
-    else {
-        inputDriver.sendControl(activatedControl, fromEvent);
-    }
+    else { inputDriver.sendControl(activatedControl, fromEvent); }
     return true;
 }
 

@@ -91,7 +91,7 @@ private:
     enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
 
     Systems& owner;
-    bl::resource::Resource<sf::Texture>::Ref txtr;
+    bl::resource::Ref<sf::Texture> txtr;
     sf::Sprite exclaim;
     bl::audio::AudioSystem::Handle exclaimSound;
     float height;

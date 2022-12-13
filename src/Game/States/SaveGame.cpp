@@ -15,8 +15,7 @@ bl::engine::State::Ptr SaveGame::create(core::system::Systems& s) {
 SaveGame::SaveGame(core::system::Systems& s)
 : State(s) {
     bgndTxtr = TextureManager::load(
-                   bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "savegame.png"))
-                   .data;
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "savegame.png"));
     background.setTexture(*bgndTxtr, true);
 }
 
@@ -30,9 +29,7 @@ void SaveGame::activate(bl::engine::Engine& engine) {
     if (core::file::GameSave::saveGame(systems.player().state().name)) {
         systems.hud().displayMessage(systems.player().state().name + " saved the game!", cb);
     }
-    else {
-        systems.hud().displayMessage("Failed to save the game, goodluck", cb);
-    }
+    else { systems.hud().displayMessage("Failed to save the game, goodluck", cb); }
 }
 
 void SaveGame::deactivate(bl::engine::Engine& engine) {
