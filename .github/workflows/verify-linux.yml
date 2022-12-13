@@ -30,5 +30,8 @@ jobs:
     - name: test
       run: build/tests/Peoplemon.t
 
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+
     - name: bundle verify
       run: xvfb-run ./Bundler
