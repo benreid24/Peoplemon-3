@@ -127,7 +127,7 @@ public:
      * @param id The id of the tile to get
      * @return bl::resource::Ref<sf::Texture> A reference to the tile
      */
-    bl::resource::Ref<sf::Texture> getTile(Tile::IdType id);
+    bl::resource::Ref<sf::Texture> getTile(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained tiles
@@ -141,7 +141,7 @@ public:
      * @param id The id of the animation to get
      * @return bl::resource::Ref<sf::Texture> A reference to the animation
      */
-    bl::resource::Ref<bl::gfx::AnimationData> getAnim(Tile::IdType id);
+    bl::resource::Ref<bl::gfx::AnimationData> getAnim(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained animations

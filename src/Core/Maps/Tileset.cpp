@@ -162,7 +162,7 @@ bool Tileset::saveBundle(bl::serial::binary::OutputStream& output,
     return true;
 }
 
-bl::resource::Ref<sf::Texture> Tileset::getTile(Tile::IdType id) {
+bl::resource::Ref<sf::Texture> Tileset::getTile(Tile::IdType id) const {
     auto it = textures.find(id);
     return it != textures.end() ? it->second : bl::resource::Ref<sf::Texture>{};
 }
@@ -177,7 +177,7 @@ std::vector<Tileset::TileStore::const_iterator> Tileset::getTiles() const {
     return result;
 }
 
-bl::resource::Ref<bl::gfx::AnimationData> Tileset::getAnim(Tile::IdType id) {
+bl::resource::Ref<bl::gfx::AnimationData> Tileset::getAnim(Tile::IdType id) const {
     auto it = anims.find(id);
     return it != anims.end() ? it->second : bl::resource::Ref<bl::gfx::AnimationData>{};
 }
