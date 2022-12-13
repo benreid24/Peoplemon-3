@@ -14,41 +14,45 @@ namespace component
 {
 namespace
 {
-const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
-    TextureManager::load("EditorResources/Collisions/none.png").data,
-    TextureManager::load("EditorResources/Collisions/all.png").data,
-    TextureManager::load("EditorResources/Collisions/top.png").data,
-    TextureManager::load("EditorResources/Collisions/right.png").data,
-    TextureManager::load("EditorResources/Collisions/bottom.png").data,
-    TextureManager::load("EditorResources/Collisions/left.png").data,
-    TextureManager::load("EditorResources/Collisions/topRight.png").data,
-    TextureManager::load("EditorResources/Collisions/bottomRight.png").data,
-    TextureManager::load("EditorResources/Collisions/bottomLeft.png").data,
-    TextureManager::load("EditorResources/Collisions/topLeft.png").data,
-    TextureManager::load("EditorResources/Collisions/topBottom.png").data,
-    TextureManager::load("EditorResources/Collisions/leftRight.png").data,
-    TextureManager::load("EditorResources/Collisions/noTop.png").data,
-    TextureManager::load("EditorResources/Collisions/noRight.png").data,
-    TextureManager::load("EditorResources/Collisions/noBottom.png").data,
-    TextureManager::load("EditorResources/Collisions/noLeft.png").data,
-    TextureManager::load("EditorResources/Collisions/water.png").data,
-    TextureManager::load("EditorResources/Collisions/fall.png").data,
-    TextureManager::load("EditorResources/Collisions/ledge.png").data};
+std::vector<bl::resource::Resource<sf::Texture>::Ref> colGfx;
+bl::resource::Resource<sf::Texture>::Ref arrowGfx;
+std::vector<bl::resource::Resource<sf::Texture>::Ref> ltGfx;
 
-const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
-    TextureManager::load("EditorResources/arrow.png").data;
+void loadResources() {
+    colGfx = {TextureManager::load("EditorResources/Collisions/none.png").data,
+              TextureManager::load("EditorResources/Collisions/all.png").data,
+              TextureManager::load("EditorResources/Collisions/top.png").data,
+              TextureManager::load("EditorResources/Collisions/right.png").data,
+              TextureManager::load("EditorResources/Collisions/bottom.png").data,
+              TextureManager::load("EditorResources/Collisions/left.png").data,
+              TextureManager::load("EditorResources/Collisions/topRight.png").data,
+              TextureManager::load("EditorResources/Collisions/bottomRight.png").data,
+              TextureManager::load("EditorResources/Collisions/bottomLeft.png").data,
+              TextureManager::load("EditorResources/Collisions/topLeft.png").data,
+              TextureManager::load("EditorResources/Collisions/topBottom.png").data,
+              TextureManager::load("EditorResources/Collisions/leftRight.png").data,
+              TextureManager::load("EditorResources/Collisions/noTop.png").data,
+              TextureManager::load("EditorResources/Collisions/noRight.png").data,
+              TextureManager::load("EditorResources/Collisions/noBottom.png").data,
+              TextureManager::load("EditorResources/Collisions/noLeft.png").data,
+              TextureManager::load("EditorResources/Collisions/water.png").data,
+              TextureManager::load("EditorResources/Collisions/fall.png").data,
+              TextureManager::load("EditorResources/Collisions/ledge.png").data};
 
-const bl::resource::Resource<sf::Texture>::Ref ltGfx[] = {
-    TextureManager::load("EditorResources/LevelTransitions/horUpRight.png").data,
-    TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png").data,
-    TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png").data,
-    TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png").data};
+    arrowGfx = TextureManager::load("EditorResources/arrow.png").data;
+
+    ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png").data,
+             TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png").data,
+             TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png").data,
+             TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png").data};
+}
 
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
                              core::system::Systems& systems) {
+    loadResources();
     return Ptr(new EditMap(clickCb, moveCb, actionCb, syncCb, systems));
 }
 

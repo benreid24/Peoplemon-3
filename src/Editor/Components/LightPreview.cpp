@@ -8,11 +8,11 @@ namespace component
 {
 namespace
 {
-bl::resource::Resource<sf::Texture>::Ref txtr =
-    TextureManager::load("EditorResources/lightpreview.png").data;
+bl::resource::Resource<sf::Texture>::Ref txtr;
 }
 
 LightPreview::Ptr LightPreview::create(const sf::Vector2f& size) {
+    if (!txtr) { txtr = TextureManager::load("EditorResources/lightpreview.png").data; }
     return Ptr(new LightPreview(size));
 }
 
