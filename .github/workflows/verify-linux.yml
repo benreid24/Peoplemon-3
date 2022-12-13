@@ -19,7 +19,7 @@ jobs:
       run: sudo apt-get update
 
     - name: package-install
-      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
+      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev xvfb
       
     - name: configure
       run: cmake -DON_CI=On -G "Unix Makefiles" -S . -B ./build
@@ -31,4 +31,4 @@ jobs:
       run: build/tests/Peoplemon.t
 
     - name: bundle verify
-      run: ./Bundler
+      run: xvfb-run ./Bundler
