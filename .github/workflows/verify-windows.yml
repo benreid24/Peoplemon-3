@@ -28,5 +28,5 @@ jobs:
 
     - name: bundle verify
       run: |
-        cp ../lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./
+        cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./
         ./Bundler
