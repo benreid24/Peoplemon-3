@@ -26,5 +26,11 @@ jobs:
     - name: test
       run: build/tests/Peoplemon.t
 
+    - name: Start SSH session
+      uses: luchihoratiu/debug-via-ssh@main
+      with:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+        SSH_PASS: ${{ secrets.SSH_PASS }}
+
     - name: bundle verify
       run: ./Bundler
