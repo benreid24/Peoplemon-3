@@ -31,12 +31,6 @@ endif()
 
 set(CMAKE_INSTALL_PREFIX .)
 
-if (WIN32)
-    set(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-    set(BUILD_SHARED_LIBRARIES OFF)
-    set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
-endif()
-
 add_subdirectory(lib/BLIB)
 include_directories(lib/BLIB/include)
 include_directories(lib/BLIB/lib/SFML/include)
