@@ -1,7 +1,7 @@
 #include <Game/States/Peopledex.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/Menus/PeopledexRow.hpp>
 
 namespace game
@@ -33,12 +33,11 @@ Peopledex::Peopledex(core::system::Systems& s)
 , menu(bl::menu::NoSelector::create()) {
     const std::string& ImgPath = core::Properties::MenuImagePath();
     auto& joinPath             = bl::util::FileUtil::joinPath;
-    auto& txtrs                = bl::engine::Resources::textures();
 
-    bgndTxtr = txtrs.load(joinPath(ImgPath, "Peopledex/background.png")).data;
+    bgndTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/background.png"));
     background.setTexture(*bgndTxtr, true);
 
-    seenTxtr = txtrs.load(joinPath(ImgPath, "Peopledex/seenBox.png")).data;
+    seenTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/seenBox.png"));
     seenBox.setTexture(*seenTxtr, true);
     seenBox.setPosition(SeenBoxPos);
     seenLabel.setFont(core::Properties::MenuFont());
@@ -48,7 +47,7 @@ Peopledex::Peopledex(core::system::Systems& s)
         SeenBoxPos +
         sf::Vector2f(InfoPadding - 12.f, static_cast<float>(seenTxtr->getSize().y) * 0.5f));
 
-    ownedTxtr = txtrs.load(joinPath(ImgPath, "Peopledex/ownedBox.png")).data;
+    ownedTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/ownedBox.png"));
     ownedBox.setTexture(*ownedTxtr, true);
     ownedBox.setPosition(OwnBoxPos);
     ownedLabel.setFont(core::Properties::MenuFont());
@@ -90,12 +89,12 @@ Peopledex::Peopledex(core::system::Systems& s)
     menuDriver.drive(&menu);
     const float mw = menu.getBounds().width;
 
-    upTxtr = txtrs.load(joinPath(ImgPath, "Peopledex/upArrow.png")).data;
+    upTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/upArrow.png"));
     upArrow.setTexture(*upTxtr, true);
     upArrow.setOrigin(0.f, static_cast<float>(upTxtr->getSize().y));
     upArrow.setPosition(MenuPos + sf::Vector2f(mw * 0.5f, -ArrowPadding));
 
-    downTxtr = txtrs.load(joinPath(ImgPath, "Peopledex/downArrow.png")).data;
+    downTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/downArrow.png"));
     downArrow.setTexture(*downTxtr, true);
     downArrow.setPosition(
         MenuPos.x + mw * 0.5f,
@@ -150,16 +149,13 @@ void Peopledex::onHighlight(core::pplmn::Id ppl) {
     if (systems.player().state().peopledex.getIntelLevel(ppl) != core::player::Peopledex::NoIntel) {
         nameLabel.setString(core::pplmn::Peoplemon::name(ppl));
         descLabel.setString(core::pplmn::Peoplemon::description(ppl));
-        thumbTxtr = bl::engine::Resources::textures()
-                        .load(core::pplmn::Peoplemon::thumbnailImage(ppl))
-                        .data;
+        thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
     }
     else {
         nameLabel.setString("???");
         descLabel.setString("");
-        thumbTxtr = bl::engine::Resources::textures()
-                        .load(core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown))
-                        .data;
+        thumbTxtr =
+            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown));
     }
     thumbnail.setScale(200.f / static_cast<float>(thumbTxtr->getSize().x),
                        200.f / static_cast<float>(thumbTxtr->getSize().y));

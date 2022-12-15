@@ -8,7 +8,7 @@ jobs:
   windows_build:
     name: Windows Build
     runs-on: windows-latest
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -16,21 +16,26 @@ jobs:
           submodules: 'recursive'
 
       - name: Configure Build
-        run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
+
+      - name: Bundle Resources
+        run: |
+          cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./
+          ./Bundler
 
       - name: Package Project
         run: |
           mkdir Peoplemon
-          mv Resources Peoplemon
+          mv data Peoplemon
           mv PeoplemonRelease.exe Peoplemon/Peoplemon.exe
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./Peoplemon
           Compress-Archive -Path Peoplemon -DestinationPath Windows.zip
 
       - name: Upload Game Package
-        id: upload-release-game 
+        id: upload-release-game
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,7 +48,7 @@ jobs:
   linux_build:
     name: Linux Build
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -59,17 +64,23 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
+
+      - name: Bundle Resources
+        run: |
+          export DISPLAY=:99
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 &
+          ./Bundler
 
       - name: Package Project
         run: |
           mkdir Peoplemon
-          mv Resources Peoplemon
+          mv data Peoplemon
           mv PeoplemonRelease Peoplemon/Peoplemon
           zip -r Linux.zip Peoplemon
 
       - name: Upload Game Package
-        id: upload-release-game 
+        id: upload-release-game
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -82,7 +93,7 @@ jobs:
   macos_build:
     name: MacOS Build
     runs-on: macos-latest
-    
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -93,7 +104,10 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
+
+      - name: Bundle Resources
+        run: ./Bundler
 
       - name: Package Project
         run: |
@@ -105,12 +119,12 @@ jobs:
           cp macos/Info.plist Peoplemon.app/Contents
           cp macos/peoplemon.icns Peoplemon.app/Contents/Resources
 
-          mv Resources Peoplemon.app/Contents/MacOS
+          mv data Peoplemon.app/Contents/MacOS
           mv PeoplemonRelease Peoplemon.app/Contents/MacOS/Peoplemon
           zip -vr MacOS.zip Peoplemon.app
 
       - name: Upload Game Package
-        id: upload-release-game 
+        id: upload-release-game
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

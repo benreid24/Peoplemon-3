@@ -1,57 +1,50 @@
 #include <Core/Files/NPC.hpp>
 
+#include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
+
 namespace core
 {
 namespace file
 {
-namespace
-{
-struct LegacyLoader : public bl::serial::binary::SerializerVersion<NPC> {
-    virtual ~LegacyLoader() = default;
-
-    virtual bool read(NPC& npc, bl::serial::binary::InputStream& input) const override {
-        if (!input.read(npc.name())) return false;
-        if (!input.read(npc.animation())) return false;
-        if (!input.read(npc.conversation())) return false;
-        return npc.behavior().legacyLoad(input);
-    }
-
-    virtual bool write(const NPC&, bl::serial::binary::OutputStream&) const override {
-        // unimplemented
-        return false;
-    }
-};
-
-struct PrimaryLoader : public bl::serial::binary::SerializerVersion<NPC> {
-    using Serializer = bl::serial::binary::Serializer<NPC>;
-
-    virtual ~PrimaryLoader() = default;
-
-    virtual bool read(NPC& npc, bl::serial::binary::InputStream& input) const override {
-        return Serializer::deserialize(input, npc);
-    }
-
-    virtual bool write(const NPC& npc, bl::serial::binary::OutputStream& output) const override {
-        return Serializer::serialize(output, npc);
-    }
-};
-
-using VersionedLoader = bl::serial::binary::VersionedSerializer<NPC, LegacyLoader, PrimaryLoader>;
-
-} // namespace
-
 bool NPC::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(file);
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<NPC>::serializeStream(output, *this, 4, 0);
+}
+
+bool NPC::saveBundle(bl::serial::binary::OutputStream& output,
+                     bl::resource::bundle::FileHandlerContext& ctx) const {
+    if (!bl::serial::binary::Serializer<NPC>::serialize(output, *this)) return false;
+
+    const std::array<std::string, 4> Suffixes{"up.anim", "right.anim", "down.anim", "left.anim"};
+    const std::string ap =
+        bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animField);
+    for (const std::string& s : Suffixes) {
+        const std::string p = bl::util::FileUtil::joinPath(ap, s);
+        if (bl::util::FileUtil::exists(p)) { ctx.addDependencyFile(p); }
+        else { BL_LOG_WARN << "NPC " << nameField << " is missing anim: " << p; }
+    }
+
+    const std::string c =
+        bl::util::FileUtil::joinPath(Properties::ConversationPath(), conversationField);
+    if (bl::util::FileUtil::exists(c)) { ctx.addDependencyFile(c); }
+    else { BL_LOG_WARN << "NPC " << nameField << " is missing conversation " << conversationField; }
+
+    return true;
 }
 
 bool NPC::load(const std::string& file, component::Direction spawnDir) {
-    bl::serial::binary::InputFile input(file);
-    if (VersionedLoader::read(input, *this)) {
-        if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
-        return true;
-    }
-    return false;
+    if (!NpcManager::initializeExisting(file, *this)) return false;
+    if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
+    return true;
+}
+
+bool NPC::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<NPC>::deserializeStream(input, *this);
+}
+
+bool NPC::loadProd(bl::serial::binary::InputStream& input) {
+    return bl::serial::binary::Serializer<NPC>::deserialize(input, *this);
 }
 
 std::string& NPC::name() { return nameField; }

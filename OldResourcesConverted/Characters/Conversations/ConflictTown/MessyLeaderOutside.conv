@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The other half of town has spewed their trash for too long.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "David is the best and we're gonna prove it once and for all.",
+            "type": 0
+        }
+    ]
+}

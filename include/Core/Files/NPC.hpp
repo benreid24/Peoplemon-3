@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_NPC_HPP
 #define CORE_FILES_NPC_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Files/Behavior.hpp>
 
@@ -39,6 +40,16 @@ public:
     bool save(const std::string& file) const;
 
     /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
+
+    /**
      * @brief Loads the NPC data from the given file
      *
      * @param file The file to load from
@@ -46,6 +57,22 @@ public:
      * @return True on success, false on error
      */
     bool load(const std::string& file, component::Direction spawnDir = component::Direction::Up);
+
+    /**
+     * @brief Loads the NPC from the json stream
+     *
+     * @param input JSON input stream
+     * @return True if the NPC could be loaded, false on error
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the NPC from it's binary format
+     *
+     * @param input The input stream to load from
+     * @return True if the NPC could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     /**
      * @brief The name of the NPC
@@ -121,7 +148,8 @@ struct SerializableObject<core::file::NPC> : public SerializableObjectBase {
     SerializableField<4, N, core::file::Behavior> behaviorField;
 
     SerializableObject()
-    : nameField("name", *this, &N::nameField, SerializableFieldBase::Required{})
+    : SerializableObjectBase("NPC")
+    , nameField("name", *this, &N::nameField, SerializableFieldBase::Required{})
     , animField("anim", *this, &N::animField, SerializableFieldBase::Required{})
     , conversationField("conv", *this, &N::conversationField, SerializableFieldBase::Required{})
     , behaviorField("behavior", *this, &N::behaviorField, SerializableFieldBase::Required{}) {}

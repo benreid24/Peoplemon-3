@@ -1,0 +1,188 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                10
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "gotStarter",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "TalkedAfterChosen",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Still haven't made the delivery yet? He should be in a trench coat near the Peoplemon center.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh, you picked that one?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Anyway... I need you to make a delivery for me if you could.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "There's a rather sketchy gentleman near the Peoplemon Center in hometown.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999995
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 101
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                8,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you could give him this, that would be great! The peoplemon is for protection of course!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You can never be too careful near sketchy looking gentlemen.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "TalkedAfterChosen",
+            "type": 8
+        },
+        {
+            "jumps": [
+                11,
+                12
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Pick a Peoplemon. There's no time to waste!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Hey! You must be $PLAYERNAME !",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "No time for conversation. I have a favor to ask of you.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Go grab a Peoplemon from the table over there.",
+            "type": 0
+        }
+    ]
+}

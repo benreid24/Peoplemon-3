@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thugs for Lyfe!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Seriously though. Don't mess with us.",
+            "type": 0
+        }
+    ]
+}

@@ -1,9 +1,9 @@
 #include <Core/Systems/Trainers.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -22,7 +22,7 @@ Trainers::Trainers(Systems& o)
 : owner(o)
 , state(State::Searching)
 , walkingTrainer(bl::ecs::InvalidEntity) {
-    txtr = bl::engine::Resources::textures().load(Properties::TrainerExclaimImage()).data;
+    txtr = TextureManager::load(Properties::TrainerExclaimImage());
     exclaim.setTexture(*txtr, true);
     exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
 }

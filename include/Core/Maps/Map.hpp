@@ -41,26 +41,6 @@ class Systems;
 /// Collection of classes responsible for loading, editing, rendering, and updating maps
 namespace map
 {
-namespace loaders
-{
-/**
- * @brief Loads the original peoplemon format maps
- *
- * @ingroup Maps
- *
- */
-class LegacyMapLoader;
-
-/**
- * @brief Loads the new format maps
- *
- * @ingroup Maps
- *
- */
-class PrimaryMapLoader;
-
-} // namespace loaders
-
 /**
  * @brief The primary map class that represents a usable map in the game
  *
@@ -94,13 +74,33 @@ public:
     virtual ~Map() = default;
 
     /**
-     * @brief Loads the map from the given file. Will try to determine if the extension or path need
-     *        to be added in order to support how map names used to be entered
+     * @brief Returns the full path to the map file from the given partial file. Accounts for
+     *        missing extension
      *
-     * @param file The file to load from
+     * @param partialFile
+     * @return std::string
+     */
+    static std::string getMapFile(const std::string& partialFile);
+
+    /**
+     * @brief Loads the map from the given file. Will try to determine if the extension or path need
+     *        to be added in order to support how map names used to be entered. Loads the json
+     *        format
+     *
+     * @param input Stream to load the map from
      * @return True if the map was able to be loaded, false on error
      */
-    bool load(const std::string& file);
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the map from the given file. Will try to determine if the extension or path need
+     *        to be added in order to support how map names used to be entered. Loads the binary
+     *        format
+     *
+     * @param input Stream to load the map from
+     * @return True if the map was able to be loaded, false on error
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     /**
      * @brief Saves the map to the given file. The path should be relative to the maps directory and
@@ -110,6 +110,16 @@ public:
      * @return True if saved successfully, false on error
      */
     bool save(const std::string& file);
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
      * @brief Initializes runtime data structures and spawns entities into the game. Also runs the
@@ -303,7 +313,7 @@ protected:
     Town defaultTown;
     Town* currentTown;
     sf::Vector2i size;
-    bl::resource::Resource<Tileset>::Ref tileset;
+    bl::resource::Ref<Tileset> tileset;
     Weather weather;
     std::unique_ptr<bl::script::Script> onEnterScript;
     std::unique_ptr<bl::script::Script> onExitScript;
@@ -316,6 +326,7 @@ protected:
     mutable sf::RectangleShape cover;
 
     void clear();
+    void finishLoad();
     void triggerAnimation(const component::Position& position);
     void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);
@@ -324,7 +335,6 @@ protected:
     static std::vector<Town> flymapTowns;
     static void loadFlymapTowns();
 
-    friend class loaders::LegacyMapLoader;
     friend struct bl::serial::SerializableObject<Map>;
 };
 
@@ -350,14 +360,15 @@ struct SerializableObject<core::map::Map> : public SerializableObjectBase {
     SerializableField<9, M, std::vector<core::map::CharacterSpawn>> characterField;
     SerializableField<10, M, std::vector<core::map::Item>> itemsField;
     SerializableField<11, M, std::vector<core::map::Event>> eventsField;
-    SerializableField<12, M, core::map::LightingSystem, false> lighting; // 13 was catch zones
+    SerializableField<12, M, core::map::LightingSystem> lighting; // 13 was catch zones
     SerializableField<14, M, bl::container::Vector2D<core::map::LevelTransition>> transitionField;
     SerializableField<15, M, std::vector<core::map::CatchRegion>> catchRegionsField;
     SerializableField<16, M, std::vector<core::map::Town>> townsField;
     SerializableField<17, M, bl::container::Vector2D<std::uint8_t>> townTiles;
 
     SerializableObject()
-    : nameField("name", *this, &M::nameField, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Map")
+    , nameField("name", *this, &M::nameField, SerializableFieldBase::Required{})
     , loadScriptField("loadScript", *this, &M::loadScriptField, SerializableFieldBase::Required{})
     , unloadScriptField("unloadScript", *this, &M::unloadScriptField,
                         SerializableFieldBase::Required{})

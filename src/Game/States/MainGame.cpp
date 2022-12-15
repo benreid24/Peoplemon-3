@@ -163,6 +163,8 @@ void MainGame::observe(const sf::Event& event) {
             }
         }
     }
+#else
+    (void)event;
 #endif
 }
 

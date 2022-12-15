@@ -45,7 +45,8 @@ struct SerializableObject<core::map::Light> : public SerializableObjectBase {
     SerializableField<2, core::map::Light, sf::Vector2i> position;
 
     SerializableObject()
-    : radius("radius", *this, &core::map::Light::radius, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Light")
+    , radius("radius", *this, &core::map::Light::radius, SerializableFieldBase::Required{})
     , position("position", *this, &core::map::Light::position, SerializableFieldBase::Required{}) {}
 };
 

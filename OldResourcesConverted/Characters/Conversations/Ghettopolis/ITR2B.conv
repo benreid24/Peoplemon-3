@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "A lot of trainers from Ghettopolis come here to train.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're not from around here though are you?",
+            "type": 0
+        }
+    ]
+}

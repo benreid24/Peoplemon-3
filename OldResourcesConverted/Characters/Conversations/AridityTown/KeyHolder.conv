@@ -1,0 +1,204 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                15,
+                8
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ShoeRecieved",
+            "type": 7
+        },
+        {
+            "jumps": [
+                3,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're here for my key aren't you. ",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well I won it fair and square in a game of cards.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm not gonna sell it to you for some crazy high sum of money.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "No, I just want my shoe back. I lost it somewhere in the desert.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I've been wearing the replacement shoe, but it's just not the same.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you bring me my shoe, I'll certainly give you my key.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                9999995
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 117
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                10,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "My shoe!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999995
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 121
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                12,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "This is the best day ever!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ShoeRecieved",
+            "type": 8
+        },
+        {
+            "jumps": [
+                14,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I thought you came back to give me my shoe.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999995,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It should be somewhere in the desert.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999995
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "With my shoe back, I can once again rake in the money at the cards table.",
+            "type": 0
+        }
+    ]
+}

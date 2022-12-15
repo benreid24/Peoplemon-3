@@ -1,0 +1,68 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                4,
+                1
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Who are you?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Why are we here again?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 226
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I don't know what's going on.",
+            "type": 0
+        }
+    ]
+}

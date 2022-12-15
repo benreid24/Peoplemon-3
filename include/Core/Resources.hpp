@@ -1,41 +1,66 @@
 #ifndef CORE_RESOURCES_HPP
 #define CORE_RESOURCES_HPP
 
+#include <BLIB/Media/Graphics.hpp>
 #include <BLIB/Resources.hpp>
-
+#include <Core/Files/Conversation.hpp>
+#include <Core/Files/NPC.hpp>
+#include <Core/Files/Trainer.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Core/Maps/Tileset.hpp>
+#include <Core/Resources/Loaders.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
+using TextureManager      = bl::resource::ResourceManager<sf::Texture>;
+using ImageManager        = bl::resource::ResourceManager<sf::Image>;
+using SoundManager        = bl::resource::ResourceManager<sf::SoundBuffer>;
+using AnimationManager    = bl::resource::ResourceManager<bl::gfx::AnimationData>;
+using FontManager         = bl::resource::ResourceManager<sf::Font>;
+using MapManager          = bl::resource::ResourceManager<core::map::Map>;
+using TilesetManager      = bl::resource::ResourceManager<core::map::Tileset>;
+using ConversationManager = bl::resource::ResourceManager<core::file::Conversation>;
+using TrainerManager      = bl::resource::ResourceManager<core::file::Trainer>;
+using NpcManager          = bl::resource::ResourceManager<core::file::NPC>;
+using ItemDbManager       = bl::resource::ResourceManager<core::file::ItemDB>;
+using MoveDbManager       = bl::resource::ResourceManager<core::file::MoveDB>;
+using PeoplemonDbManager  = bl::resource::ResourceManager<core::file::PeoplemonDB>;
+
+/**
+ * @addtogroup CoreResources
+ * @ingroup Core
+ * @brief Collection of utilities for resource bundling and management
+ *
+ */
 
 namespace core
 {
+/// @brief Collection of utilities for resource bundling and management
+namespace res
+{
 /**
- * @brief Collection of resource manager singletons for Peoplemon specific resources
+ * @brief Sets up the BLIB resource managers in dev mode
  *
- * @ingroup Core
- *
+ * @ingroup CoreResources
  */
-class Resources {
-public:
-    /**
-     * @brief Returns the tileset resource manager
-     *
-     */
-    static bl::resource::Manager<map::Tileset>& tilesets();
+void installDevLoaders();
 
-    /**
-     * @brief Returns the map resource manager
-     *
-     */
-    static bl::resource::Manager<map::Map>& maps();
+/**
+ * @brief Sets up the BLIB resource managers in prod mode and mounts the resource bundles
+ *
+ * @ingroup CoreResources
+ */
+void installProdLoaders();
 
-private:
-    bl::resource::Manager<map::Tileset> _tilesets;
-    bl::resource::Manager<map::Map> _maps;
+/**
+ * @brief Creates the resource bundles
+ *
+ * @return True if the bundles could be created, false on error
+ * @ingroup CoreResources
+ */
+bool createBundles();
 
-    Resources();
-    static Resources& get();
-};
-
+} // namespace res
 } // namespace core
 
 #endif

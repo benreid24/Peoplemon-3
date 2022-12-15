@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I hope you're ready.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm gonna teach you a lesson, then slap you so you remember it!",
+            "type": 0
+        }
+    ]
+}

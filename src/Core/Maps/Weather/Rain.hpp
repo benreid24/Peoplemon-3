@@ -89,11 +89,11 @@ private:
     mutable sf::FloatRect area;
     float stopFactor;
 
-    bl::resource::Resource<sf::Texture>::Ref dropTxtr;
+    bl::resource::Ref<sf::Texture> dropTxtr;
     mutable sf::Sprite drop;
-    bl::resource::Resource<sf::Texture>::Ref splash1Txtr;
+    bl::resource::Ref<sf::Texture> splash1Txtr;
     mutable sf::Sprite splash1;
-    bl::resource::Resource<sf::Texture>::Ref splash2Txtr;
+    bl::resource::Ref<sf::Texture> splash2Txtr;
     mutable sf::Sprite splash2;
 
     bl::audio::AudioSystem::Handle rainSoundHandle;

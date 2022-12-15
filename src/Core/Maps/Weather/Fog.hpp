@@ -3,8 +3,8 @@
 
 #include "Base.hpp"
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Particles.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -35,7 +35,7 @@ public:
 
     /**
      * @brief Returns ThinFog or ThickFog
-     * 
+     *
      */
     virtual Weather::Type type() const override;
 
@@ -87,7 +87,7 @@ private:
     const std::uint8_t maxOpacity;
     std::uint8_t targetOpacity;
     float alpha;
-    bl::resource::Resource<sf::Texture>::Ref fogTxtr;
+    bl::resource::Ref<sf::Texture> fogTxtr;
     mutable sf::Sprite fog;
     mutable sf::FloatRect area;
     std::vector<Particle> particles;

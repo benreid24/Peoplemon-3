@@ -1,0 +1,164 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                10
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Jacky3",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Item",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Keep it real man.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Hey man, listen.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I know my freind talks big but he isn't all that bad.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks for being cool earlier and for not taking the ferry. That really means a lot.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Here..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999997
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 27
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                9,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks again man.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Item",
+            "type": 8
+        },
+        {
+            "jumps": [
+                11,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "setPlayerLock(1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                12,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Ghettopolis/ThugJacky3.psc\",1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                13,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Jacky3",
+            "type": 8
+        }
+    ]
+}

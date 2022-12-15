@@ -1,0 +1,28 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I may have lost, but the pain will help me remember to train harder.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "That's one of Marsala's principles we in this gym live by.",
+            "type": 0
+        }
+    ]
+}

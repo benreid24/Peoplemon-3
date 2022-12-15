@@ -15,27 +15,6 @@ namespace core
 {
 namespace map
 {
-/// Collection of classes to handle loading legacy and new formats
-namespace loaders
-{
-/**
- * @brief Loads the old Peoplemon format tilesets
- *
- * @ingroup Maps
- *
- */
-struct LegacyTilesetLoader;
-
-/**
- * @brief Loads the new tileset format
- *
- * @ingroup Maps
- *
- */
-struct PrimaryTilesetLoader;
-
-} // namespace loaders
-
 /**
  * @brief Stores the collection of images and animations used by Tiles in a Map
  *
@@ -44,9 +23,8 @@ struct PrimaryTilesetLoader;
  */
 class Tileset {
 public:
-    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Resource<sf::Texture>::Ref>;
-    using AnimStore =
-        std::unordered_map<Tile::IdType, bl::resource::Resource<bl::gfx::AnimationData>::Ref>;
+    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Ref<sf::Texture>>;
+    using AnimStore = std::unordered_map<Tile::IdType, bl::resource::Ref<bl::gfx::AnimationData>>;
 
     /**
      * @brief Creates an empty Tileset
@@ -96,12 +74,20 @@ public:
     unsigned int tileHeight(Tile::IdType id, bool isAnim) const;
 
     /**
-     * @brief Loads the tileset from the given file and loads all media
+     * @brief Loads the tileset from the development format data
      *
-     * @param file The file to load from
+     * @param input The input stream to load from
      * @return True if loaded successfully, false on error
      */
-    bool load(const std::string& file);
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the tileset from the production format data
+     *
+     * @param input The input stream to load from
+     * @return True if loaded successfully, false on error
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     /**
      * @brief Saves the tileset to the given file. No media is saved
@@ -110,6 +96,16 @@ public:
      * @return True if successfully written, false on error
      */
     bool save(const std::string& file) const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
      * @brief Starts playing all shared animations
@@ -129,9 +125,9 @@ public:
      * @brief Returns a tile from the set. Returns nullptr if not found
      *
      * @param id The id of the tile to get
-     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the tile
+     * @return bl::resource::Ref<sf::Texture> A reference to the tile
      */
-    bl::resource::Resource<sf::Texture>::Ref getTile(Tile::IdType id);
+    bl::resource::Ref<sf::Texture> getTile(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained tiles
@@ -143,15 +139,23 @@ public:
      * @brief Returns an animation from the set. Returns nullptr if not found
      *
      * @param id The id of the animation to get
-     * @return bl::resource::Resource<sf::Texture>::Ref A reference to the animation
+     * @return bl::resource::Ref<sf::Texture> A reference to the animation
      */
-    bl::resource::Resource<bl::gfx::AnimationData>::Ref getAnim(Tile::IdType id);
+    bl::resource::Ref<bl::gfx::AnimationData> getAnim(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained animations
      *
      */
     std::vector<AnimStore::const_iterator> getAnims() const;
+
+    /**
+     * @brief Generates the full path to the given tileset file
+     *
+     * @param path The relative tileset path
+     * @return std::string The full path to the given tileset
+     */
+    static std::string getFullPath(const std::string& path);
 
 private:
     std::unordered_map<Tile::IdType, std::string> textureFiles;
@@ -164,10 +168,10 @@ private:
     std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
 
     void initializeTile(Tile& tile);
+    void clear();
+    void finishLoad();
 
     friend class Tile;
-    friend struct loaders::LegacyTilesetLoader;
-    friend struct loaders::PrimaryTilesetLoader;
     friend struct bl::serial::SerializableObject<Tileset>;
 };
 
@@ -187,7 +191,8 @@ struct SerializableObject<core::map::Tileset> : public SerializableObjectBase {
     SerializableField<2, TS, std::unordered_map<T::IdType, std::string>> animFiles;
 
     SerializableObject()
-    : textureFiles("textures", *this, &TS::textureFiles, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Tileset")
+    , textureFiles("textures", *this, &TS::textureFiles, SerializableFieldBase::Required{})
     , animFiles("anims", *this, &TS::animFiles, SerializableFieldBase::Required{}) {}
 };
 

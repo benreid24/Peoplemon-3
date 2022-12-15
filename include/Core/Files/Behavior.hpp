@@ -212,7 +212,8 @@ struct SerializableObject<core::file::Behavior::Path::Pace> : public Serializabl
     SerializableField<2, P, std::uint16_t> steps;
 
     SerializableObject()
-    : direction("direction", *this, &P::direction, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BehaviorPathPace")
+    , direction("direction", *this, &P::direction, SerializableFieldBase::Required{})
     , steps("steps", *this, &P::steps, SerializableFieldBase::Required{}) {}
 };
 
@@ -224,7 +225,8 @@ struct SerializableObject<core::file::Behavior::Path> : public SerializableObjec
     SerializableField<2, P, bool> reverse;
 
     SerializableObject()
-    : paces("paces", *this, &P::paces, SerializableFieldBase::Required{})
+    : SerializableObjectBase("BehaviorPath")
+    , paces("paces", *this, &P::paces, SerializableFieldBase::Required{})
     , reverse("reverse", *this, &P::reverse, SerializableFieldBase::Required{}) {}
 };
 
@@ -235,7 +237,8 @@ struct SerializableObject<core::file::Behavior::Standing> : public SerializableO
     SerializableField<1, S, core::component::Direction> direction;
 
     SerializableObject()
-    : direction("direction", *this, &S::facedir, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorStanding")
+    , direction("direction", *this, &S::facedir, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -245,7 +248,8 @@ struct SerializableObject<core::file::Behavior::Spinning> : public SerializableO
     SerializableField<1, S, S::Direction> direction;
 
     SerializableObject()
-    : direction("direction", *this, &S::spinDir, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorSpinning")
+    , direction("direction", *this, &S::spinDir, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -255,7 +259,8 @@ struct SerializableObject<core::file::Behavior::Wander> : public SerializableObj
     SerializableField<1, W, std::uint32_t> radius;
 
     SerializableObject()
-    : radius("radius", *this, &W::radius, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("BehaviorWander")
+    , radius("radius", *this, &W::radius, SerializableFieldBase::Required{}) {}
 };
 
 template<>
@@ -266,111 +271,10 @@ struct SerializableObject<core::file::Behavior> : public SerializableObjectBase 
     SerializableField<2, B, decltype(B::data)> data;
 
     SerializableObject()
-    : type("type", *this, &B::_type, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Behavior")
+    , type("type", *this, &B::_type, SerializableFieldBase::Required{})
     , data("data", *this, &B::data, SerializableFieldBase::Required{}) {}
 };
-
-namespace binary
-{
-template<>
-struct Serializer<core::file::Behavior> {
-    using B = core::file::Behavior;
-
-    static bool deserialize(InputStream& in, B& b) {
-        if (!Serializer<B::Type>::deserialize(in, b._type)) return false;
-
-        switch (b._type) {
-        case B::Type::StandStill: {
-            core::component::Direction dir;
-            if (!Serializer<core::component::Direction>::deserialize(in, dir)) return false;
-            b.data.emplace<B::Standing>(dir);
-            return true;
-        }
-        case B::Type::SpinInPlace: {
-            B::Spinning::Direction dir;
-            if (!Serializer<B::Spinning::Direction>::deserialize(in, dir)) return false;
-            b.data.emplace<B::Spinning>(dir);
-            return true;
-        }
-        case B::Type::Wandering: {
-            std::uint16_t rad;
-            if (!in.read<std::uint16_t>(rad)) return false;
-            b.data.emplace<B::Wander>(rad);
-            return true;
-        }
-        case B::Type::FollowingPath: {
-            b.data.emplace<B::Path>();
-            auto& path = std::get<B::Path>(b.data);
-
-            std::uint8_t rev;
-            if (!in.read<std::uint8_t>(rev)) return false;
-            path.reverse = rev != 0;
-
-            return Serializer<std::vector<B::Path::Pace>>::deserialize(in, path.paces);
-        }
-        default:
-            return false;
-        }
-    }
-
-    static bool serialize(OutputStream& out, const B& b) {
-        if (!Serializer<B::Type>::serialize(out, b._type)) return false;
-
-        switch (b._type) {
-        case B::Type::StandStill: {
-            const auto& s = std::get<B::Standing>(b.data);
-            return Serializer<core::component::Direction>::serialize(out, s.facedir);
-        }
-        case B::Type::SpinInPlace: {
-            const auto& s = std::get<B::Spinning>(b.data);
-            return Serializer<B::Spinning::Direction>::serialize(out, s.spinDir);
-        }
-        case B::Type::Wandering: {
-            const auto& w = std::get<B::Wander>(b.data);
-            return out.write<std::uint16_t>(w.radius);
-        }
-        case B::Type::FollowingPath: {
-            const auto& path = std::get<B::Path>(b.data);
-            if (!out.write<std::uint8_t>(path.reverse ? 1 : 0)) return false;
-            return Serializer<std::vector<B::Path::Pace>>::serialize(out, path.paces);
-        }
-        default:
-            return false;
-        }
-    }
-
-    static std::size_t size(const B& b) {
-        std::size_t sz = Serializer<B::Type>::size(b._type);
-
-        switch (b._type) {
-        case B::Type::StandStill: {
-            const auto& s = std::get<B::Standing>(b.data);
-            sz += Serializer<core::component::Direction>::size(s.facedir);
-            break;
-        }
-        case B::Type::SpinInPlace: {
-            const auto& s = std::get<B::Spinning>(b.data);
-            sz += Serializer<B::Spinning::Direction>::size(s.spinDir);
-            break;
-        }
-        case B::Type::Wandering: {
-            sz += sizeof(std::uint16_t);
-            break;
-        }
-        case B::Type::FollowingPath: {
-            const auto& path = std::get<B::Path>(b.data);
-            sz += sizeof(std::uint8_t);
-            sz += Serializer<std::vector<B::Path::Pace>>::size(path.paces);
-            break;
-        }
-        default:
-            return 0;
-        }
-        return sz;
-    }
-};
-
-} // namespace binary
 } // namespace serial
 } // namespace bl
 

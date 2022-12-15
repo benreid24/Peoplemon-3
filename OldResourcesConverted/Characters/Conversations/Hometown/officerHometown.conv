@@ -1,0 +1,128 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm gonna catch this guy.. I can feel it!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I feel like I'm hot on the trail and it's all thanks to a great tip.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Wait. Was that you who told me?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                9
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "helpedOfficer",
+            "type": 7
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Yeah it was! Thanks again.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I actually have something for you.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999996
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 6
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just something to show my appreciation.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry. It must have been someone else.",
+            "type": 0
+        }
+    ]
+}

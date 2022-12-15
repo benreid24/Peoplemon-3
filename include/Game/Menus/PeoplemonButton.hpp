@@ -67,9 +67,9 @@ public:
 private:
     sf::Color color;
     bool isSelected;
-    bl::resource::Resource<sf::Texture>::Ref txtr;
-    bl::resource::Resource<sf::Texture>::Ref faceTxtr;
-    bl::resource::Resource<sf::Texture>::Ref ailTxtr;
+    bl::resource::Ref<sf::Texture> txtr;
+    bl::resource::Ref<sf::Texture> faceTxtr;
+    bl::resource::Ref<sf::Texture> ailTxtr;
     sf::Sprite image;
     sf::Sprite face;
     sf::RectangleShape hpBar;

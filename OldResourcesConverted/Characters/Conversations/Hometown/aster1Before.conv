@@ -1,0 +1,64 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Whos zis you?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": ".. Whos ziS mE?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm AsTEr and I's Not 'sposed to tulk to strangajers.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Stangajer dangerr! Stangajer dangerr!",
+            "type": 0
+        }
+    ]
+}

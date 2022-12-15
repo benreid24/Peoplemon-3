@@ -1,0 +1,40 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ToughCrewBB",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "My worms are okay now.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now my friends need to go to the hopsital",
+            "type": 0
+        }
+    ]
+}

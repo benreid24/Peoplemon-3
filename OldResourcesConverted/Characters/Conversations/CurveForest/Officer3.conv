@@ -1,0 +1,92 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'll take him in once back up comes. Just move along please.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Another member of The Local Thugs apprehended.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 2
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You must be a strong trainer. This is the department's way of saying thanks.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now move along. I can take care of this from here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "setPlayerLock(0);",
+            "type": 6
+        }
+    ]
+}

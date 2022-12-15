@@ -1,0 +1,299 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "BoughtStoneF",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999993,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry bud. I don't have anything else to sell ya.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                4
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "NoSale",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999993,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry. That sale was one time only.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I haven't found a fossil yet, but I think I've found something even better.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999993,
+                999993
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "No way man",
+            "second": 13
+        },
+        {
+            "first": "Sure",
+            "second": 6
+        },
+        {
+            "first": "That price is too high",
+            "second": 9
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Wanna buy it off me for 1500 money? It's a one time deal.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                7,
+                9999993
+            ],
+            "data": {
+    "data": 1500,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                8,
+                999993
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 28
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                20,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "BoughtStoneF",
+            "type": 8
+        },
+        {
+            "jumps": [
+                999993,
+                999993
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "I've decided no",
+            "second": 13
+        },
+        {
+            "first": "Still too high",
+            "second": 15
+        },
+        {
+            "first": "Okay",
+            "second": 10
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Okay, okay. How about 1200?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                11,
+                9999993
+            ],
+            "data": {
+    "data": 1200,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                12,
+                999993
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 28
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                20,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "BoughtStoneF",
+            "type": 8
+        },
+        {
+            "jumps": [
+                14,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're no fun.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999993,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "NoSale",
+            "type": 8
+        },
+        {
+            "jumps": [
+                16,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The price isn't going any lower buddy.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999993,
+                999993
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "No",
+            "second": 13
+        },
+        {
+            "first": "I'll take it",
+            "second": 10
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Do you want it or not?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                18,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Are you trying to pull a fast one on me?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                19,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You don't have that much money. Now get lost.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999993,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "NoSale",
+            "type": 8
+        },
+        {
+            "jumps": [
+                21,
+                999993
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Pleasure doing business with ya.",
+            "type": 0
+        }
+    ]
+}

@@ -1,8 +1,8 @@
 #include <Editor/Pages/Subpages/LevelTransitions.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
 
 namespace editor
@@ -46,7 +46,7 @@ LevelTransitions::LevelTransitions() {
     RadioButton::Group* group = noneBut->getRadioGroup();
     for (unsigned int i = 0; i < sourceN; ++i) {
         const auto& pair = source[i];
-        auto txtr        = bl::engine::Resources::textures().load(pair.first).data;
+        auto txtr        = TextureManager::load(pair.first);
         Image::Ptr img   = Image::create(txtr);
         img->scaleToSize({64, 64});
         component::HighlightRadioButton::Ptr but =

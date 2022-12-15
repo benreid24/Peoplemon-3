@@ -1,0 +1,69 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I thought I said the ferry is closed.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Wait.. do I smell food?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999999,
+                999999
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "No",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "How about you hand over that food? I'm hungry.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Fine then. Don't say I didn't give you a choice.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "We'll do this the hard way.",
+            "type": 0
+        }
+    ]
+}

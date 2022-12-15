@@ -80,7 +80,7 @@ private:
     };
 
     MenuState state;
-    bl::resource::Resource<sf::Texture>::Ref bgndTexture;
+    bl::resource::Ref<sf::Texture> bgndTexture;
     sf::Sprite background;
     sf::Text hint;
 

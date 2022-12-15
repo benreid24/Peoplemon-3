@@ -1,0 +1,24 @@
+{
+    "behavior": {
+        "data": {
+    "data": {
+        "paces": [
+            {
+                "direction": 3,
+                "steps": 4
+            },
+            {
+                "direction": 1,
+                "steps": 4
+            }
+        ],
+        "reverse": false
+    },
+    "index": 2
+},
+        "type": 2
+    },
+    "conv": "Ghettopolis/SwimmingGirl.conv",
+    "anim": "12B",
+    "name": "SwimmingGirl"
+}

@@ -1,9 +1,9 @@
 #include <Game/States/PeoplemonMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/PeoplemonInfo.hpp>
 
 namespace game
@@ -52,10 +52,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
 , menu(bl::menu::NoSelector::create())
 , actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , actionOpen(false) {
-    backgroundTxtr = bl::engine::Resources::textures()
-                         .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                            "Peoplemon/background.png"))
-                         .data;
+    backgroundTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
+        core::Properties::MenuImagePath(), "Peoplemon/background.png"));
     background.setTexture(*backgroundTxtr, true);
 
     const sf::Vector2f MenuPosition(41.f, 5.f);
@@ -66,11 +64,8 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
     menu.configureBackground(
         sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
 
-    backBut = bl::menu::ImageItem::create(
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                               "Peoplemon/cancel.png"))
-            .data);
+    backBut = bl::menu::ImageItem::create(TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/cancel.png")));
     backBut->overridePosition(
         sf::Vector2f(core::Properties::WindowWidth(), core::Properties::WindowHeight()) -
         backBut->getSize() - MenuPosition - sf::Vector2f(10.f, 5.f));
@@ -177,15 +172,11 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
             menu.attachExisting(
                 backBut.get(), buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom, false);
         }
-        else {
-            menu.addItem(backBut, buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom);
-        }
+        else { menu.addItem(backBut, buttons[(col1N - 1) * 2].get(), bl::menu::Item::Bottom); }
     }
 
     if (canCancel()) { menu.setSelectedItem(backBut.get()); }
-    else {
-        menu.setSelectedItem(buttons[0].get());
-    }
+    else { menu.setSelectedItem(buttons[0].get()); }
     for (unsigned int i = 0; i < team.size(); ++i) {
         if (buttons[i]->isSelectable()) {
             menu.setSelectedItem(buttons[i].get());
@@ -249,9 +240,7 @@ void PeoplemonMenu::setSelectable(unsigned int i) {
                 buttons[i]->setHighlightColor(sf::Color(242, 83, 51));
             }
         }
-        else {
-            buttons[i]->setSelectable(true);
-        }
+        else { buttons[i]->setSelectable(true); }
         break;
     default:
         buttons[i]->setSelectable(true);
@@ -315,14 +304,10 @@ bool PeoplemonMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::inpu
         if (state == MenuState::SelectingMove) { cleanupMove(false); }
         else if (state == MenuState::Browsing) {
             if (actionOpen) { resetAction(); }
-            else if (context != Context::BattleFaint) {
-                systems.engine().popState();
-            }
+            else if (context != Context::BattleFaint) { systems.engine().popState(); }
         }
     }
-    else {
-        inputDriver.sendControl(ctrl, fromEvent);
-    }
+    else { inputDriver.sendControl(ctrl, fromEvent); }
     return true;
 }
 
@@ -397,13 +382,9 @@ void PeoplemonMenu::startMove() {
 
         if (mover1 % 2 == 0) {
             if (buttons[mover1 + 1]) { menu.setSelectedItem(buttons[mover1 + 1].get()); }
-            else {
-                menu.setSelectedItem(buttons[mover1 - 2].get());
-            }
+            else { menu.setSelectedItem(buttons[mover1 - 2].get()); }
         }
-        else {
-            menu.setSelectedItem(buttons[mover1 - 1].get());
-        }
+        else { menu.setSelectedItem(buttons[mover1 - 1].get()); }
     }
 }
 
@@ -482,9 +463,7 @@ void PeoplemonMenu::connectButtons() {
             menu.attachExisting(backBut.get(), buttons[mr].get(), bl::menu::Item::Bottom);
             menu.attachExisting(backBut.get(), buttons[ml].get(), bl::menu::Item::Bottom, false);
         }
-        else {
-            menu.attachExisting(backBut.get(), buttons[ml].get(), bl::menu::Item::Bottom);
-        }
+        else { menu.attachExisting(backBut.get(), buttons[ml].get(), bl::menu::Item::Bottom); }
     }
 }
 

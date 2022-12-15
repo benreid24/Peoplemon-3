@@ -57,7 +57,8 @@ struct SerializableObject<core::map::Item> : public SerializableObjectBase {
     SerializableField<5, I, bool> visible;
 
     SerializableObject()
-    : id("id", *this, &I::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("MapItem")
+    , id("id", *this, &I::id, SerializableFieldBase::Required{})
     , mapId("mapid", *this, &I::mapId, SerializableFieldBase::Required{})
     , position("position", *this, &I::position, SerializableFieldBase::Required{})
     , level("level", *this, &I::level, SerializableFieldBase::Required{})

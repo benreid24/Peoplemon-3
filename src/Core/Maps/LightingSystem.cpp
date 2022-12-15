@@ -226,7 +226,7 @@ std::uint8_t LightingSystem::computeAmbient() const {
 void LightingSystem::observe(const event::TimeChange& now) {
     if (adjustsForSunlight()) {
         const float x  = now.newTime.hour * 60 + now.newTime.minute;
-        const float n  = 0.7;
+        const float n  = 0.7f;
         sunlightFactor = 1.f - (0.5 * std::cos(3.1415926 * x / 720) + 0.5) *
                                    ((1 - n) * (720 - x) * (720 - x) / 518400 + n);
     }

@@ -1,7 +1,7 @@
 #include <Game/Menus/StorageGrid.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
+#include <Core/Resources.hpp>
 #include <Game/Menus/StorageCursor.hpp>
 
 namespace game
@@ -14,10 +14,9 @@ void StorageGrid::update(const std::vector<core::pplmn::StoredPeoplemon>& box) {
 
     for (const auto& ppl : box) {
         peoplemon.emplace_back();
-        auto& rp   = peoplemon.back();
-        rp.texture = bl::engine::Resources::textures()
-                         .load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id()))
-                         .data;
+        auto& rp = peoplemon.back();
+        rp.texture =
+            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id()));
         rp.sprite.setTexture(*rp.texture, true);
         rp.sprite.setScale(StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().x),
                            StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().y));

@@ -153,7 +153,8 @@ struct SerializableObject<core::map::Layer<T>> : public SerializableObjectBase {
     SerializableField<3, Layer, std::vector<T>> data;
 
     SerializableObject()
-    : w("w", *this, &Layer::w, SerializableFieldBase::Required{})
+    : SerializableObjectBase("MapLayer")
+    , w("w", *this, &Layer::w, SerializableFieldBase::Required{})
     , h("h", *this, &Layer::h, SerializableFieldBase::Required{})
     , data("data", *this, &Layer::data, SerializableFieldBase::Required{}) {}
 };

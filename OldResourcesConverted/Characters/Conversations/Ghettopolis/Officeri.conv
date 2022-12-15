@@ -1,0 +1,80 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks again.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Marsala brought all these guys down, but I heard you helped take on the boss.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 2
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "To show my appreciation.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "After many years of pursuit, it's nice to finally win one.",
+            "type": 0
+        }
+    ]
+}

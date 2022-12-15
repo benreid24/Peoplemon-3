@@ -72,17 +72,17 @@ private:
     bool hudActive;
     bool& unpause;
 
-    bl::resource::Resource<sf::Texture>::Ref mapTxtr;
-    bl::resource::Resource<sf::Texture>::Ref townTxtr;
-    bl::resource::Resource<sf::Texture>::Ref cursorTxtr;
-    bl::resource::Resource<sf::Texture>::Ref playerTxtr;
+    bl::resource::Ref<sf::Texture> mapTxtr;
+    bl::resource::Ref<sf::Texture> townTxtr;
+    bl::resource::Ref<sf::Texture> cursorTxtr;
+    bl::resource::Ref<sf::Texture> playerTxtr;
     sf::Sprite map;
     sf::Sprite town;
     sf::Sprite player;
     sf::Sprite cursor;
     bl::gfx::Flashing cursorFlasher;
 
-    bl::resource::Resource<sf::Texture>::Ref panelTxtr;
+    bl::resource::Ref<sf::Texture> panelTxtr;
     sf::Sprite panel;
     sf::Text townName;
     sf::Text townDesc;

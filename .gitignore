@@ -5,3 +5,10 @@ build-release
 *.exe
 *.log
 AnimationEditor
+data
+out
+Debug
+Release
+*.pdb
+*.ilk
+.vs

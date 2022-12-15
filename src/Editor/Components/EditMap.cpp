@@ -1,7 +1,6 @@
 #include <Editor/Components/EditMap.hpp>
 
 #include "MapActions.hpp"
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
@@ -15,41 +14,45 @@ namespace component
 {
 namespace
 {
-const bl::resource::Resource<sf::Texture>::Ref colGfx[] = {
-    bl::engine::Resources::textures().load("EditorResources/Collisions/none.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/all.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/top.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/right.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/left.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/bottomLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/topBottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/leftRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noTop.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noBottom.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/noLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/water.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/fall.png").data,
-    bl::engine::Resources::textures().load("EditorResources/Collisions/ledge.png").data};
+std::vector<bl::resource::Ref<sf::Texture>> colGfx;
+bl::resource::Ref<sf::Texture> arrowGfx;
+std::vector<bl::resource::Ref<sf::Texture>> ltGfx;
 
-const bl::resource::Resource<sf::Texture>::Ref arrowGfx =
-    bl::engine::Resources::textures().load("EditorResources/arrow.png").data;
+void loadResources() {
+    colGfx = {TextureManager::load("EditorResources/Collisions/none.png"),
+              TextureManager::load("EditorResources/Collisions/all.png"),
+              TextureManager::load("EditorResources/Collisions/top.png"),
+              TextureManager::load("EditorResources/Collisions/right.png"),
+              TextureManager::load("EditorResources/Collisions/bottom.png"),
+              TextureManager::load("EditorResources/Collisions/left.png"),
+              TextureManager::load("EditorResources/Collisions/topRight.png"),
+              TextureManager::load("EditorResources/Collisions/bottomRight.png"),
+              TextureManager::load("EditorResources/Collisions/bottomLeft.png"),
+              TextureManager::load("EditorResources/Collisions/topLeft.png"),
+              TextureManager::load("EditorResources/Collisions/topBottom.png"),
+              TextureManager::load("EditorResources/Collisions/leftRight.png"),
+              TextureManager::load("EditorResources/Collisions/noTop.png"),
+              TextureManager::load("EditorResources/Collisions/noRight.png"),
+              TextureManager::load("EditorResources/Collisions/noBottom.png"),
+              TextureManager::load("EditorResources/Collisions/noLeft.png"),
+              TextureManager::load("EditorResources/Collisions/water.png"),
+              TextureManager::load("EditorResources/Collisions/fall.png"),
+              TextureManager::load("EditorResources/Collisions/ledge.png")};
 
-const bl::resource::Resource<sf::Texture>::Ref ltGfx[] = {
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpRight.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/horUpLeft.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpUp.png").data,
-    bl::engine::Resources::textures().load("EditorResources/LevelTransitions/vertUpDown.png").data};
+    arrowGfx = TextureManager::load("EditorResources/arrow.png");
+
+    ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png"),
+             TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png"),
+             TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png"),
+             TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png")};
+}
 
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
                              core::system::Systems& systems) {
+    loadResources();
     return Ptr(new EditMap(clickCb, moveCb, actionCb, syncCb, systems));
 }
 
@@ -132,7 +135,7 @@ void EditMap::newMap(const std::string& filename, const std::string& name,
 
 bool EditMap::doLoad(const std::string& file) {
     clear();
-    if (!Map::load(file)) return false;
+    if (!MapManager::initializeExisting(getMapFile(file), static_cast<Map&>(*this))) return false;
     nextItemId = 0;
     for (const auto& item : itemsField) {
         if (nextItemId <= item.mapId) { nextItemId = item.mapId + 1; }
@@ -153,7 +156,7 @@ bool EditMap::editorActivate() {
 
     camera.reset(size);
 
-    tileset = core::Resources::tilesets().load(tilesetField).data;
+    tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField));
     if (!tileset) return false;
     tileset->activate();
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }

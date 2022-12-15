@@ -1,7 +1,7 @@
 #include <Core/Battles/View/MoveAnimation.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Peoplemon/Move.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -18,19 +18,21 @@ MoveAnimation::MoveAnimation() {
 
 void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon& lp,
                                  const pplmn::BattlePeoplemon& op) {
-    auto& loader = bl::engine::Resources::animations();
-
     for (int i = 0; i < 4; ++i) {
         if (lp.base().knownMoves()[i].id != pplmn::MoveId::Unknown) {
-            loader.load(pplmn::Move::playerAnimationBackground(lp.base().knownMoves()[i].id));
-            loader.load(pplmn::Move::playerAnimationForeground(lp.base().knownMoves()[i].id));
+            AnimationManager::load(
+                pplmn::Move::playerAnimationBackground(lp.base().knownMoves()[i].id));
+            AnimationManager::load(
+                pplmn::Move::playerAnimationForeground(lp.base().knownMoves()[i].id));
         }
     }
 
     for (int i = 0; i < 4; ++i) {
         if (op.base().knownMoves()[i].id != pplmn::MoveId::Unknown) {
-            loader.load(pplmn::Move::opponentAnimationBackground(op.base().knownMoves()[i].id));
-            loader.load(pplmn::Move::opponentAnimationForeground(op.base().knownMoves()[i].id));
+            AnimationManager::load(
+                pplmn::Move::opponentAnimationBackground(op.base().knownMoves()[i].id));
+            AnimationManager::load(
+                pplmn::Move::opponentAnimationForeground(op.base().knownMoves()[i].id));
         }
     }
 }
@@ -40,8 +42,8 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
                                            pplmn::Move::opponentAnimationForeground;
     const auto bg = user == User::Player ? pplmn::Move::playerAnimationBackground :
                                            pplmn::Move::opponentAnimationBackground;
-    fgSrc         = bl::engine::Resources::animations().load(fg(move)).data;
-    bgSrc         = bl::engine::Resources::animations().load(bg(move)).data;
+    fgSrc         = AnimationManager::load(fg(move));
+    bgSrc         = AnimationManager::load(bg(move));
     if (fgSrc && bgSrc) {
         foreground.setData(*fgSrc);
         background.setData(*bgSrc);

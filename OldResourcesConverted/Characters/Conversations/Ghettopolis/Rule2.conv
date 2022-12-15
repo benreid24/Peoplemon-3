@@ -1,0 +1,40 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Marsala's Principles - Rule 2 (aka Marsala's Theorem):",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Suppose A/B=C and you must solve for B. Just switch B and C.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "A/C=B.",
+            "type": 0
+        }
+    ]
+}

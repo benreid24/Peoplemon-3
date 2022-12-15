@@ -1,0 +1,113 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Curvlinear Forest",
+            "second": 1
+        },
+        {
+            "first": "Ghettopolis Island 1",
+            "second": 3
+        },
+        {
+            "first": "Trainer Island",
+            "second": 5
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Where would you like to go?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                2,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Then to the sea we shall return.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"Worldmap\",150);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Then to the sea we shall return.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"Worldmap\",151);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Then to the sea we shall return.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "loadMap(\"Worldmap\",152);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                8,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Haha I'm just kidding. Don't you know where you are?",
+            "type": 0
+        }
+    ]
+}

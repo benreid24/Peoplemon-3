@@ -1,7 +1,7 @@
 #include <Core/Battles/View/StatBoxes.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -44,15 +44,14 @@ StatBoxes::StatBoxes()
 , opHpBarTarget(0.f)
 , lpHpBarTarget(0.f)
 , lpXpBarTarget(0.f) {
-    auto& textures             = bl::engine::Resources::textures();
     constexpr auto join        = bl::util::FileUtil::joinPath;
     const std::string& ImgPath = Properties::ImagePath();
 
-    opBoxTxtr = textures.load(join(ImgPath, "Battle/opBox.png")).data;
+    opBoxTxtr = TextureManager::load(join(ImgPath, "Battle/opBox.png"));
     opBox.setTexture(*opBoxTxtr, true);
     opBox.setPosition(-opBox.getGlobalBounds().width, OpBoxPos.y);
 
-    lpBoxTxtr = textures.load(join(ImgPath, "Battle/pBox.png")).data;
+    lpBoxTxtr = TextureManager::load(join(ImgPath, "Battle/pBox.png"));
     lpBox.setTexture(*lpBoxTxtr, true);
     lpBox.setPosition(Properties::WindowWidth() + lpBox.getGlobalBounds().width, LpBoxPos.y);
     lpXpBar.setFillColor(sf::Color::Blue);

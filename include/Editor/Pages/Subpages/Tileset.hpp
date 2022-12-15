@@ -121,7 +121,7 @@ public:
 
 private:
     const DeleteCb deleteCb;
-    bl::resource::Resource<core::map::Tileset>::Ref tileset;
+    bl::resource::Ref<core::map::Tileset> tileset;
 
     bl::gui::Notebook::Ptr content;
     bl::gui::Box::Ptr tilesBox;

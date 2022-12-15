@@ -1,10 +1,10 @@
 #include <Game/States/StoreMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -40,10 +40,8 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
             {bl::menu::ArrowSelector::create(8.f, sf::Color::Black)}}
 , leftArrow({0.f, 13.f}, {15.f, 0.f}, {15.f, 26.f})
 , rightArrow({0.f, 0.f}, {0.f, 26.f}, {15.f, 13.f}) {
-    bgndTxtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"))
-            .data;
+    bgndTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"));
     background.setTexture(*bgndTxtr, true);
 
     dingSound = bl::audio::AudioSystem::getOrLoadSound(

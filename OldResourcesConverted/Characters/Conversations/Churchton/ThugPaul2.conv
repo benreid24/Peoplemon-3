@@ -1,0 +1,133 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                5
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Rejected",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'll get stronger. Then you'll have no choice but to go out with me!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Can't wait for our date later.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "*wink*",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I have the deepest respect for your strength.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "No way.",
+            "second": 7
+        },
+        {
+            "first": "Okay",
+            "second": 9
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Maybe we should get a coffee sometime.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                8,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's because I'm too weak isn't it?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Rejected",
+            "type": 8
+        },
+        {
+            "jumps": [
+                10,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Great. It's a date.",
+            "type": 0
+        }
+    ]
+}

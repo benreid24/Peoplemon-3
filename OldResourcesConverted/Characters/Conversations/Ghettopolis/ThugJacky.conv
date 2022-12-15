@@ -1,0 +1,52 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I hope they finish soon. I could really go for some food right now.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Hey, kid. Scram!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just keep still and quiet for now. We'll all be on our way once we finish up here.",
+            "type": 0
+        }
+    ]
+}

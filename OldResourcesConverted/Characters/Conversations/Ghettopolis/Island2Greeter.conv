@@ -1,0 +1,40 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Welcome to the Second island that comprises our great town of Ghettopolis.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm sure you'l find it very different from Island 1, which is primarily residdential.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Island 2 is where all the strong trainers come to trade, battle and train.",
+            "type": 0
+        }
+    ]
+}

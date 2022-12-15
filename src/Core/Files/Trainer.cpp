@@ -1,100 +1,60 @@
 #include <Core/Files/Trainer.hpp>
+
 #include <Core/Items/Item.hpp>
+#include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
 namespace file
 {
-namespace
-{
-struct LegacyLoader : public bl::serial::binary::SerializerVersion<Trainer> {
-    virtual bool read(Trainer& trainer, bl::serial::binary::InputStream& input) const override {
-        if (!input.read(trainer.name)) return false;
-        if (!input.read(trainer.animation)) return false;
-        if (!input.read(trainer.prebattleConversation)) return false;
-        if (!input.read(trainer.postBattleConversation)) return false;
-        if (!input.read(trainer.lostBattleLine)) return false;
-
-        std::string discard;
-        if (!input.read(discard)) return false; //  battle music
-        if (!input.read(discard)) return false; // battle background
-
-        if (!input.read<std::uint8_t>(trainer.visionRange)) return false;
-
-        std::uint16_t pplCount;
-        if (!input.read<std::uint16_t>(pplCount)) return false;
-        trainer.peoplemon.reserve(pplCount);
-        for (std::uint16_t i = 0; i < pplCount; ++i) {
-            if (!input.read(discard)) return false;
-            trainer.peoplemon.emplace_back();
-            if (!trainer.peoplemon.back().loadLegacyFile(discard)) {
-                BL_LOG_ERROR << "Bad peoplemon file " << discard << " for trainer " << trainer.name;
-                return false;
-            }
-        }
-
-        std::uint8_t itemCount;
-        if (!input.read<std::uint8_t>(itemCount)) return false;
-        trainer.items.reserve(itemCount);
-        for (std::uint8_t i = 0; i < itemCount; ++i) {
-            std::uint16_t item;
-            if (!input.read<std::uint16_t>(item)) return false;
-            const item::Id it = item::Item::cast(item);
-            if (it == item::Id::Unknown) {
-                BL_LOG_ERROR << "Bad item " << item << " for trainer " << trainer.name;
-                return false;
-            }
-            trainer.items.emplace_back(it);
-        }
-
-        std::uint8_t aiType; // TODO - store trainer ai
-        if (!input.read<std::uint8_t>(aiType)) return false;
-
-        return trainer.behavior.legacyLoad(input);
-    }
-
-    virtual bool write(const Trainer&, bl::serial::binary::OutputStream&) const override {
-        // not implemented
-        return false;
-    }
-};
-
-struct PrimaryLoader : public bl::serial::binary::SerializerVersion<Trainer> {
-    using Serializer = bl::serial::binary::Serializer<Trainer>;
-
-    virtual bool read(Trainer& trainer, bl::serial::binary::InputStream& input) const override {
-        return Serializer::deserialize(input, trainer);
-    }
-
-    virtual bool write(const Trainer& trainer,
-                       bl::serial::binary::OutputStream& output) const override {
-        return Serializer::serialize(output, trainer);
-    }
-};
-
-using VersionedLoader =
-    bl::serial::binary::VersionedSerializer<Trainer, LegacyLoader, PrimaryLoader>;
-
-} // namespace
-
 Trainer::Trainer()
 : payout(0) {}
 
 bool Trainer::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(file);
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<Trainer>::serializeStream(output, *this, 4, 0);
+}
+
+bool Trainer::saveBundle(bl::serial::binary::OutputStream& output,
+                         bl::resource::bundle::FileHandlerContext& ctx) const {
+    if (!bl::serial::binary::Serializer<Trainer>::serialize(output, *this)) return false;
+
+    const std::array<std::string, 4> Suffixes{"up.anim", "right.anim", "down.anim", "left.anim"};
+    const std::string ap =
+        bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animation);
+    for (const std::string& s : Suffixes) {
+        const std::string p = bl::util::FileUtil::joinPath(ap, s);
+        if (bl::util::FileUtil::exists(p)) { ctx.addDependencyFile(p); }
+        else { BL_LOG_WARN << "Trainer " << name << " is missing anim: " << p; }
+    }
+
+    const auto addConv = [this, &ctx](const std::string& cf) {
+        const std::string c = bl::util::FileUtil::joinPath(Properties::ConversationPath(), cf);
+        if (bl::util::FileUtil::exists(c)) { ctx.addDependencyFile(c); }
+        else { BL_LOG_WARN << "Trainer " << name << " is missing conversation " << cf; }
+    };
+    addConv(prebattleConversation);
+    addConv(postBattleConversation);
+
+    return true;
 }
 
 bool Trainer::load(const std::string& file, component::Direction spawnDir) {
-    bl::serial::binary::InputFile input(file);
-    if (VersionedLoader::read(input, *this)) {
-        if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
-        sourceFile = file;
-        if (payout == 0) { payout = 40; }
-        for (auto& ppl : peoplemon) { ppl.heal(); }
-        return true;
-    }
-    return false;
+    sourceFile = file;
+    if (!TrainerManager::initializeExisting(file, *this)) return false;
+    if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }
+    if (payout == 0) { payout = 40; }
+    for (auto& ppl : peoplemon) { ppl.heal(); }
+    return true;
+}
+
+bool Trainer::loadProd(bl::serial::binary::InputStream& input) {
+    return bl::serial::binary::Serializer<Trainer>::deserialize(input, *this);
+}
+
+bool Trainer::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<Trainer>::deserializeStream(input, *this);
 }
 
 } // namespace file

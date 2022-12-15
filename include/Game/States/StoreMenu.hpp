@@ -106,7 +106,7 @@ private:
     float dingTime;
     unsigned int curCat;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
 
     bl::menu::Menu* renderMenu;

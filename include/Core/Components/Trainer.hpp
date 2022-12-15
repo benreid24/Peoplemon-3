@@ -1,6 +1,7 @@
 #ifndef CORE_COMPONENTS_TRAINER_HPP
 #define CORE_COMPONENTS_TRAINER_HPP
 
+#include <BLIB/Resources.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Core/Files/Trainer.hpp>
 
@@ -21,7 +22,7 @@ public:
      *
      * @param trainer The trainer data to create from
      */
-    Trainer(const file::Trainer& trainer);
+    Trainer(file::Trainer&& trainer);
 
     /**
      * @brief Returns the file the trainer was spawned from

@@ -1,0 +1,216 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "JustBeatM",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The gym is in Churchton. It should be on the other side of Hometown, just through Piper Cave.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now where'd Mr. Baehr go?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 126
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I was gonna smack you, but it's you who smacked me!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I buffed up as much as I could and it didn't seem to help.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Maybe I should spend more time getting my Peoplemon buff instead of just getting buff myself..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "..nah. Gettin' buff is what I do.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You should go fight the gym over in Churchton.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The leader doesn't have muscles like me but he's pretty good.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And this should help...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999998
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 252
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                13,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "So your Peoplemon can learn the move Wet Willy. It's a potent attack against a sleeping enemy.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And I'll teach you how to give a Wet Willy too in case you encounter another Jake in your path.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                15,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just lick your finger, put it in their ear, and then move it around a little. It sends 'em flying.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now you have everything you need. Go teach those Churchies what being buff is all about!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "JustBeatM",
+            "type": 8
+        }
+    ]
+}

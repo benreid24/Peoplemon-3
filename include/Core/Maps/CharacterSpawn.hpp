@@ -50,7 +50,8 @@ struct SerializableObject<core::map::CharacterSpawn> : public SerializableObject
     SerializableField<2, core::map::CharacterSpawn, std::string> file;
 
     SerializableObject()
-    : position("position", *this, &core::map::CharacterSpawn::position,
+    : SerializableObjectBase("CharacterSpawn")
+    , position("position", *this, &core::map::CharacterSpawn::position,
                SerializableFieldBase::Required{})
     , file("file", *this, &core::map::CharacterSpawn::file, SerializableFieldBase::Required{}) {}
 };

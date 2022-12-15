@@ -77,18 +77,18 @@ private:
     ActivePage activePage;
     sf::Clock inputTimer;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
 
-    bl::resource::Resource<sf::Texture>::Ref leftTxtr;
+    bl::resource::Ref<sf::Texture> leftTxtr;
     sf::Sprite leftArrow;
     bl::gfx::Flashing leftFlasher;
-    bl::resource::Resource<sf::Texture>::Ref rightTxtr;
+    bl::resource::Ref<sf::Texture> rightTxtr;
     sf::Sprite rightArrow;
     bl::gfx::Flashing rightFlasher;
     sf::Text pageLabel;
 
-    bl::resource::Resource<sf::Texture>::Ref thumbTxtr;
+    bl::resource::Ref<sf::Texture> thumbTxtr;
     sf::Sprite thumbnail;
     sf::Text nameLabel;
     sf::Text idLabel;
@@ -98,7 +98,7 @@ private:
     sf::Text nextXpLabel;
     sf::Text ailLabel;
 
-    bl::resource::Resource<sf::Texture>::Ref basicsTxtr;
+    bl::resource::Ref<sf::Texture> basicsTxtr;
     sf::Sprite basicsBox;
     sf::Text speciesLabel;
     sf::Text typeLabel;
@@ -113,7 +113,7 @@ private:
     sf::Text abilityDescLabel;
 
     bl::menu::Menu moveMenu;
-    bl::resource::Resource<sf::Texture>::Ref moveTxtr;
+    bl::resource::Ref<sf::Texture> moveTxtr;
     sf::Sprite moveBox;
     sf::Text movePwrLabel;
     sf::Text moveAccLabel;

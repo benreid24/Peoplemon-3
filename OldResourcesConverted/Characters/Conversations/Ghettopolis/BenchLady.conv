@@ -1,0 +1,97 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                9999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Y",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Of course. Anyone can bench unitless amounts.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Y",
+            "type": 8
+        },
+        {
+            "jumps": [
+                4,
+                6
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "N",
+            "type": 7
+        },
+        {
+            "jumps": [
+                5,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Are you sure you're not a misogynist?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "N",
+            "type": 8
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Hardly",
+            "second": 3
+        },
+        {
+            "first": "Yeah",
+            "second": 1
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Would you believe me if I said I could bench 220?",
+            "type": 1
+        }
+    ]
+}

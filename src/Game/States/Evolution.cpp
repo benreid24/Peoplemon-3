@@ -1,9 +1,9 @@
 #include <Game/States/Evolution.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Math.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -51,22 +51,16 @@ Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon
 , sparks(std::bind(&Evolution::spawnSpark, this, std::placeholders::_1), 0, 0.f)
 , spark(4.f)
 , fadeColor(255.f) {
-    oldTxtr = bl::engine::Resources::textures()
-                  .load(core::pplmn::Peoplemon::opponentImage(ppl.id()))
-                  .data;
-    newTxtr = bl::engine::Resources::textures()
-                  .load(core::pplmn::Peoplemon::opponentImage(ppl.evolvesInto()))
-                  .data;
+    oldTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.id()));
+    newTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.evolvesInto()));
     oldThumb.setTexture(*oldTxtr, true);
     oldThumb.setOrigin(sf::Vector2f(oldTxtr->getSize()) * 0.5f);
     oldThumb.setPosition(core::Properties::WindowSize() * 0.5f);
     newThumb.setTexture(*newTxtr, true);
     newThumb.setOrigin(sf::Vector2f(newTxtr->getSize()) * 0.5f);
     newThumb.setPosition(core::Properties::WindowSize() * 0.5f);
-    bgndTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::ImagePath(),
-                                                      "Battle/evolveBgnd.png"))
-                   .data;
+    bgndTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::ImagePath(), "Battle/evolveBgnd.png"));
     background.setTexture(*bgndTxtr, true);
 }
 

@@ -113,7 +113,7 @@ private:
     struct Base {
         virtual ~Base() = default;
 
-        virtual void update(float dt, const Position& pos)                                      = 0;
+        virtual void update(float dt, const Position& pos)                                = 0;
         virtual void render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) = 0;
         virtual float length() const                                                      = 0;
         virtual void trigger(bool loop)                                                   = 0;
@@ -121,7 +121,7 @@ private:
     };
 
     struct StaticSprite : public Base {
-        bl::resource::Resource<sf::Texture>::Ref texture;
+        bl::resource::Ref<sf::Texture> texture;
         sf::Sprite sprite;
 
         virtual ~StaticSprite() = default;
@@ -133,7 +133,7 @@ private:
     };
 
     struct MoveAnims : public Base {
-        bl::resource::Resource<bl::gfx::AnimationData>::Ref data[4];
+        bl::resource::Ref<bl::gfx::AnimationData> data[4];
         bl::gfx::Animation anim;
         component::Movable& movable;
 
@@ -147,8 +147,8 @@ private:
     };
 
     struct FastMoveAnims : public Base {
-        bl::resource::Resource<bl::gfx::AnimationData>::Ref walk[4];
-        bl::resource::Resource<bl::gfx::AnimationData>::Ref run[4];
+        bl::resource::Ref<bl::gfx::AnimationData> walk[4];
+        bl::resource::Ref<bl::gfx::AnimationData> run[4];
         bl::gfx::Animation anim;
         component::Movable& movable;
 
@@ -162,7 +162,7 @@ private:
     };
 
     struct OneAnimation : public Base {
-        bl::resource::Resource<bl::gfx::AnimationData>::Ref src;
+        bl::resource::Ref<bl::gfx::AnimationData> src;
         bl::gfx::Animation anim;
         sf::Vector2f offset;
 

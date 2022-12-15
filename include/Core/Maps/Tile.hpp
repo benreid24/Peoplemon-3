@@ -165,7 +165,8 @@ struct SerializableObject<core::map::Tile> : public SerializableObjectBase {
     SerializableField<2, core::map::Tile, core::map::Tile::IdType> id;
 
     SerializableObject()
-    : anim("anim", *this, &core::map::Tile::isAnim, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Tile")
+    , anim("anim", *this, &core::map::Tile::isAnim, SerializableFieldBase::Required{})
     , id("id", *this, &core::map::Tile::tid, SerializableFieldBase::Required{}) {}
 };
 

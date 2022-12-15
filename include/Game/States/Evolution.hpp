@@ -68,9 +68,9 @@ public:
 private:
     core::pplmn::OwnedPeoplemon& ppl;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
-    bl::resource::Resource<sf::Texture>::Ref oldTxtr;
-    bl::resource::Resource<sf::Texture>::Ref newTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
+    bl::resource::Ref<sf::Texture> oldTxtr;
+    bl::resource::Ref<sf::Texture> newTxtr;
     sf::Sprite background;
     sf::Sprite oldThumb;
     sf::Sprite newThumb;

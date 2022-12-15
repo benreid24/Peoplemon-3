@@ -1,0 +1,52 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Pastor2Beat",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "God bless you.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now please be on your way.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Churchton/pastor2.psc\",1);",
+            "type": 6
+        }
+    ]
+}

@@ -1,0 +1,40 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I don't like being so close to the boss.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "She could be watching me at any moment, and I wouldn't know.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It makes me uncomfortable to say the least.",
+            "type": 0
+        }
+    ]
+}

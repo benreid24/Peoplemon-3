@@ -1,7 +1,7 @@
 #include <Game/States/SettingsMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace game
 {
@@ -68,11 +68,10 @@ SettingsMenu::SettingsMenu(core::system::Systems& s)
 , controlsKbmMenu(ArrowSelector::create(8.f, sf::Color::Black))
 , controlsPadMenu(ArrowSelector::create(8.f, sf::Color::Black)) {
     const auto joinPath     = bl::util::FileUtil::joinPath;
-    auto& textures          = bl::engine::Resources::textures();
     const std::string& Path = joinPath(core::Properties::MenuImagePath(), "Settings");
     const sf::Font& font    = core::Properties::MenuFont();
 
-    bgndTexture = textures.load(joinPath(Path, "background.png")).data;
+    bgndTexture = TextureManager::load(joinPath(Path, "background.png"));
     background.setTexture(*bgndTexture);
     hint.setFont(font);
     hint.setFillColor(sf::Color(65, 10, 0));
@@ -362,9 +361,7 @@ void SettingsMenu::render(bl::engine::Engine& engine, float) {
 
     case MenuState::ControlsBindingControl:
         if (bindingKbm) { controlsKbmMenu.render(engine.window()); }
-        else {
-            controlsPadMenu.render(engine.window());
-        }
+        else { controlsPadMenu.render(engine.window()); }
         break;
 
     default:

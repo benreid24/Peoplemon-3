@@ -1,0 +1,214 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're not my type.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "HAHAHA I always lead with that joke.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I don't really know what my type is.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999994,
+                999994
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "No thanks",
+            "second": 4
+        },
+        {
+            "first": "Okay",
+            "second": 5
+        }
+    ],
+    "index": 0
+},
+            "prompt": "How about you ask me about a type and I'll tell you all about it.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9999994,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well you're no fun.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999994,
+                999994
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Normal and Funny",
+            "second": 6
+        },
+        {
+            "first": "Athletic and Intelligent",
+            "second": 8
+        },
+        {
+            "first": "Quiet and Awkward",
+            "second": 11
+        },
+        {
+            "first": "Party Animal",
+            "second": 14
+        },
+        {
+            "first": "I'm good",
+            "second": 4
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Okay. Which types do you want me to talk about?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                7,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Normal is your standard type. It is completely useless against the Awkward but otherwise is a safe choice.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Funny types do well against types not many others do well against, particularly against Intelligent and Party Animal types. They do not so well against Athletic and Quiet types however.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Athletic types do well against many common types, including Normal, Athletic and Funny types.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Athletic types are not great facing Intelligent types and are useless against Awkward types though.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Intelligent types are the most common type. They are strong only against Athletic types and are not very effective against Funny or other Intelligent types.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Quiet types are one of the less common types. Because of their nature, they aren't hit hard by many types.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": " Quiet types are strong against Awkward and Intelligent types and do not hit Party Animals or other Quiet Types very hard.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Awkward Types are the uncommon and most volitile of types. Awkward types are useless against the normal and Athletic and is not very strong against the Quiet or Party Animal types. They are great against other Awkward types however.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999994
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Party Animal may be the rarest of all types. Party Animals are great against Athletic and Quiet types but not so strong against Funny Types.",
+            "type": 0
+        }
+    ]
+}

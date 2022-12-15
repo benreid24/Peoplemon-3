@@ -1,6 +1,6 @@
 #include <Editor/Pages/Peoplemon.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
+#include <Core/Resources.hpp>
 
 namespace editor
 {
@@ -55,9 +55,8 @@ void Peoplemon::sync() {
         lbl->setColor(sf::Color(30, 85, 255), sf::Color::Transparent);
         row->pack(lbl, false, true);
 
-        Image::Ptr icon = Image::create(bl::engine::Resources::textures()
-                                            .load(core::pplmn::Peoplemon::thumbnailImage(id))
-                                            .data);
+        Image::Ptr icon =
+            Image::create(TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(id)));
         icon->scaleToSize({40.f, 40.f});
         row->pack(icon);
 
@@ -83,9 +82,7 @@ void Peoplemon::makeDirty() { saveBut->setColor(sf::Color::Yellow, sf::Color::Bl
 
 void Peoplemon::save() {
     if (!peoplemonDb.save()) { BL_LOG_ERROR << "Failed to save peoplemon database"; }
-    else {
-        saveBut->setColor(sf::Color::Green, sf::Color::Black);
-    }
+    else { saveBut->setColor(sf::Color::Green, sf::Color::Black); }
 }
 
 void Peoplemon::newPeoplemon() { window.open(parent, core::pplmn::Id::Unknown); }

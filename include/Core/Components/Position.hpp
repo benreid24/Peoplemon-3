@@ -182,7 +182,8 @@ struct SerializableObject<core::component::Position> : SerializableObjectBase {
     SerializableField<4, Pos, sf::Vector2f> pixels;
 
     SerializableObject()
-    : level("level", *this, &Pos::level, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Position")
+    , level("level", *this, &Pos::level, SerializableFieldBase::Required{})
     , direction("direction", *this, &Pos::direction, SerializableFieldBase::Required{})
     , position("position", *this, &Pos::position, SerializableFieldBase::Required{})
     , pixels("pixels", *this, &Pos::interpolatedPosition, SerializableFieldBase::Required{}) {}

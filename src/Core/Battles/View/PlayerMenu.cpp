@@ -1,11 +1,11 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -54,10 +54,8 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveMenu.setPosition({16.f, 477.f});
     moveMenu.setPadding({25.f, 20.f});
 
-    moveTxtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"))
-            .data;
+    moveTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"));
     moveBox.setTexture(*moveTxtr, true);
     moveBox.setPosition(MoveBoxPos);
 
@@ -120,20 +118,14 @@ void PlayerMenu::refresh() {
     switch (state) {
     case State::PickingItem:
         if (chosenItem != item::Id::None) { state = State::Hidden; }
-        else if (stateLoopGuard) {
-            stateLoopGuard = false;
-        }
-        else {
-            state = State::PickingAction;
-        }
+        else if (stateLoopGuard) { stateLoopGuard = false; }
+        else { state = State::PickingAction; }
         break;
     case State::PickingPeoplemon:
         if (chosenMoveOrPeoplemon != -1 && chosenMoveOrPeoplemon != currentPeoplemon) {
             state = State::Hidden;
         }
-        else if (stateLoopGuard) {
-            stateLoopGuard = false;
-        }
+        else if (stateLoopGuard) { stateLoopGuard = false; }
         else {
             state                 = State::PickingAction;
             chosenMoveOrPeoplemon = -1;

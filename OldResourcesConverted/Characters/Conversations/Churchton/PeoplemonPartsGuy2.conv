@@ -1,0 +1,153 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "PartsGiven2",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I can never repay you for what you've done.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "My peoplemon is in terrible pain. Without parts, she won't make it.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Sorry, I can't help.",
+            "second": 9
+        },
+        {
+            "first": "Yes. I have parts.",
+            "second": 4
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Do you happen to have any?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                5,
+                9999996
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 135
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're a true God-send. Here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 257
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                8,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "She's alive because of you. I don't even know what to say.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                1,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "PartsGiven2",
+            "type": 8
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I certainly hope I find some soon. She's my whole world.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You don't have any. Please don't toy with my emotions.",
+            "type": 0
+        }
+    ]
+}

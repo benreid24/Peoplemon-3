@@ -1,0 +1,22 @@
+{
+    "payout": 40,
+    "peoplemon": [
+    ],
+    "behavior": {
+        "data": {
+    "data": {
+        "direction": 2
+    },
+    "index": 1
+},
+        "type": 1
+    },
+    "range": 4,
+    "loseLine": "lost!",
+    "postBattle": "after.convo",
+    "preBattle": "before.convo",
+    "items": [
+    ],
+    "anim": "animation.anim",
+    "name": "name"
+}

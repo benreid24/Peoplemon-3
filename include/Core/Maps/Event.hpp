@@ -75,7 +75,8 @@ struct SerializableObject<core::map::Event> : public SerializableObjectBase {
     SerializableField<4, E, std::string> script;
 
     SerializableObject()
-    : trigger("trigger", *this, &E::trigger, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Event")
+    , trigger("trigger", *this, &E::trigger, SerializableFieldBase::Required{})
     , position("position", *this, &E::position, SerializableFieldBase::Required{})
     , areaSize("area", *this, &E::areaSize, SerializableFieldBase::Required{})
     , script("script", *this, &E::script, SerializableFieldBase::Required{}) {}

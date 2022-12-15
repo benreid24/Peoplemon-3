@@ -1,0 +1,106 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I've studied every book there is on Peoplemon battling strategy.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Of course.",
+            "second": 2
+        },
+        {
+            "first": "No",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Do you know what a People-Sweeper is?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yes and Yes",
+            "second": 4
+        },
+        {
+            "first": "..you lost me.",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Oh yeah, well.. what about a People-staller? or a People-wall?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Yeah. That's what I thought.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I highly doubt it.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You don't read enough books to know.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now feel the power of a truly knowledgable Peoplemon Master.",
+            "type": 0
+        }
+    ]
+}

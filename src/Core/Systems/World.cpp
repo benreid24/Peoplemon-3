@@ -29,7 +29,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
                 BL_LOG_ERROR << "No previous map to return to";
                 return false;
             }
-            previousMap = Resources::maps().load(prevMapFile).data;
+            previousMap = MapManager::load(map::Map::getMapFile(prevMapFile));
             if (!previousMap) return false;
         }
 
@@ -49,7 +49,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
             owner.player().state().whiteoutSpawn = spawn;
         }
 
-        previousMap = Resources::maps().load(file).data;
+        previousMap = MapManager::load(map::Map::getMapFile(file));
         if (!previousMap) return false;
         prevMapFile    = currentMapFile;
         currentMapFile = file;
@@ -69,7 +69,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
 
 void World::whiteout(const std::string& map, int spawn) {
     BL_LOG_INFO << "Whiting out to " << map << " (" << spawn << ")";
-    previousMap.reset();
+    previousMap.release();
     prevMapFile.clear();
     bl::event::Dispatcher::dispatch<event::SwitchMapTriggered>({map, spawn});
 }
@@ -94,7 +94,7 @@ void World::observe(const event::GameSaveInitializing& save) {
 }
 
 void World::observe(const event::GameSaveLoaded& load) {
-    currentMap = Resources::maps().load(currentMapFile).data;
+    currentMap = MapManager::load(map::Map::getMapFile(currentMapFile));
     if (!currentMap) {
         load.failMessage = "Failed to load map: " + currentMapFile;
         return;

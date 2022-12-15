@@ -1,0 +1,88 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Into the forest. There's no time to lose!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Hometown/Exchamp1.psc\",1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh great, can you do me favor?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "A couple of thugs ran by that I need to take care of, but I need to go get my peoplemon first.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just go and stall them until I get back. They ran into the forest there.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Hometown/Exchamp1.psc\",1);",
+            "type": 6
+        }
+    ]
+}

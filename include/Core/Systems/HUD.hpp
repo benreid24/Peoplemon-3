@@ -203,7 +203,7 @@ private:
         void hide();
 
     private:
-        bl::resource::Resource<sf::Texture>::Ref txtr;
+        bl::resource::Ref<sf::Texture> txtr;
         sf::Sprite card;
         sf::Text text;
 
@@ -220,7 +220,7 @@ private:
     hud::ScreenKeyboard screenKeyboard;
     EntryCard entryCard;
 
-    bl::resource::Resource<sf::Texture>::Ref textboxTxtr;
+    bl::resource::Ref<sf::Texture> textboxTxtr;
     const sf::Vector2f viewSize;
     sf::Sprite textbox;
     sf::Text displayText;

@@ -1,8 +1,8 @@
 #include <Core/Components/Renderable.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -13,7 +13,7 @@ Renderable Renderable::fromSprite(const Position& pos, const std::string& file) 
     rc.data.emplace<StaticSprite>();
     StaticSprite& spr = *std::get_if<StaticSprite>(&rc.data);
 
-    spr.texture = bl::engine::Resources::textures().load(file).data;
+    spr.texture = TextureManager::load(file);
     spr.sprite.setTexture(*spr.texture, true);
     spr.sprite.setOrigin(spr.texture->getSize().x, spr.texture->getSize().y);
 
@@ -26,18 +26,10 @@ Renderable Renderable::fromMoveAnims(const Position& pos, Movable& movable,
     rc.data.emplace<MoveAnims>(movable);
     MoveAnims& mv = *std::get_if<MoveAnims>(&rc.data);
 
-    mv.data[0] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(path, "up.anim"))
-                     .data;
-    mv.data[1] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(path, "right.anim"))
-                     .data;
-    mv.data[2] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(path, "down.anim"))
-                     .data;
-    mv.data[3] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(path, "left.anim"))
-                     .data;
+    mv.data[0] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "up.anim"));
+    mv.data[1] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "right.anim"));
+    mv.data[2] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "down.anim"));
+    mv.data[3] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "left.anim"));
 
     mv.anim.setData(*mv.data[0]);
     rc.update(0.f);
@@ -54,31 +46,15 @@ Renderable Renderable::fromFastMoveAnims(const Position& pos, Movable& movable,
     const std::string walkPath = bl::util::FileUtil::joinPath(path, "Walk");
     const std::string runPath  = bl::util::FileUtil::joinPath(path, "Run");
 
-    mv.walk[0] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(walkPath, "up.anim"))
-                     .data;
-    mv.walk[1] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(walkPath, "right.anim"))
-                     .data;
-    mv.walk[2] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(walkPath, "down.anim"))
-                     .data;
-    mv.walk[3] = bl::engine::Resources::animations()
-                     .load(bl::util::FileUtil::joinPath(walkPath, "left.anim"))
-                     .data;
+    mv.walk[0] = AnimationManager::load(bl::util::FileUtil::joinPath(walkPath, "up.anim"));
+    mv.walk[1] = AnimationManager::load(bl::util::FileUtil::joinPath(walkPath, "right.anim"));
+    mv.walk[2] = AnimationManager::load(bl::util::FileUtil::joinPath(walkPath, "down.anim"));
+    mv.walk[3] = AnimationManager::load(bl::util::FileUtil::joinPath(walkPath, "left.anim"));
 
-    mv.run[0] = bl::engine::Resources::animations()
-                    .load(bl::util::FileUtil::joinPath(runPath, "up.anim"))
-                    .data;
-    mv.run[1] = bl::engine::Resources::animations()
-                    .load(bl::util::FileUtil::joinPath(runPath, "right.anim"))
-                    .data;
-    mv.run[2] = bl::engine::Resources::animations()
-                    .load(bl::util::FileUtil::joinPath(runPath, "down.anim"))
-                    .data;
-    mv.run[3] = bl::engine::Resources::animations()
-                    .load(bl::util::FileUtil::joinPath(runPath, "left.anim"))
-                    .data;
+    mv.run[0] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "up.anim"));
+    mv.run[1] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "right.anim"));
+    mv.run[2] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "down.anim"));
+    mv.run[3] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "left.anim"));
 
     mv.anim.setData(*mv.walk[0]);
     rc.update(0.f);
@@ -226,9 +202,7 @@ void Renderable::FastMoveAnims::trigger(bool loop) {
 void Renderable::FastMoveAnims::setAngle(float a) { anim.setRotation(a); }
 
 Renderable::OneAnimation::OneAnimation(const std::string& path) {
-    src = bl::engine::Resources::animations()
-              .load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path))
-              .data;
+    src = AnimationManager::load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path));
     if (!src) {
         BL_LOG_WARN << "Failed to load animation: " << path;
         return;

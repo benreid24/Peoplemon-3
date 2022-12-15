@@ -1,8 +1,8 @@
 #include <Game/States/BattleWrapperState.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/BattleState.hpp>
 #include <Game/States/Evolution.hpp>
 #include <array>
@@ -35,7 +35,7 @@ public:
 
 private:
     float time;
-    bl::resource::Resource<sf::Texture>::Ref ballTxtr;
+    bl::resource::Ref<sf::Texture> ballTxtr;
     sf::Sprite ball;
     sf::CircleShape barCircle;
 };
@@ -154,10 +154,8 @@ namespace intros
 {
 TrainerSequence::TrainerSequence()
 : time(0.f) {
-    ballTxtr = bl::engine::Resources::textures()
-                   .load(bl::util::FileUtil::joinPath(core::Properties::ImagePath(),
-                                                      "Battle/battleBall.png"))
-                   .data;
+    ballTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::ImagePath(), "Battle/battleBall.png"));
     ball.setTexture(*ballTxtr);
     ball.setOrigin(sf::Vector2f(ballTxtr->getSize()) * 0.5f);
     ball.setPosition(core::Properties::WindowSize() * 0.5f);

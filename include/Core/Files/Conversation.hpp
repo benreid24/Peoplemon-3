@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_CONVERSATION_HPP
 #define CORE_FILES_CONVERSATION_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Items/Id.hpp>
 #include <cstdint>
@@ -12,12 +13,6 @@ namespace core
 {
 namespace file
 {
-namespace loader
-{
-struct LegacyConversationLoader;
-struct ConversationLoader;
-} // namespace loader
-
 /**
  * @brief Stores a conversation that an NPC or trainer can have with the player
  *
@@ -265,12 +260,38 @@ public:
     bool load(const std::string& file);
 
     /**
+     * @brief Loads the conversation from its json format
+     *
+     * @param input The input stream to process
+     * @return True if the conversation was loaded, false otherwise
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the conversation from its binary format
+     *
+     * @param input The input stream to process
+     * @return True if the conversation was loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
      * @brief Saves the conversation to the given file
      *
      * @param file The file to save to, relative to the conversation path
      * @return True if saved, false on error
      */
     bool save(const std::string& file) const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
      * @brief Returns the list of nodes in the conversation
@@ -320,8 +341,6 @@ public:
 private:
     std::vector<Node> cnodes;
 
-    friend struct loader::LegacyConversationLoader;
-    friend struct loader::ConversationLoader;
     friend struct bl::serial::SerializableObject<Conversation>;
 };
 
@@ -342,7 +361,8 @@ struct SerializableObject<core::file::Conversation::Node::Item> : public Seriali
     SerializableField<3, Item, bool> afterPrompt;
 
     SerializableObject()
-    : id("id", *this, &Item::id, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ConversationNodeItem")
+    , id("id", *this, &Item::id, SerializableFieldBase::Required{})
     , beforePrompt("beforePrompt", *this, &Item::beforePrompt, SerializableFieldBase::Required{})
     , afterPrompt("afterPrompt", *this, &Item::afterPrompt, SerializableFieldBase::Required{}) {}
 };
@@ -357,7 +377,8 @@ struct SerializableObject<core::file::Conversation::Node> : public SerializableO
     SerializableField<4, Node, std::uint32_t[2]> jumps;
 
     SerializableObject()
-    : type("type", *this, &Node::type, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ConversationNode")
+    , type("type", *this, &Node::type, SerializableFieldBase::Required{})
     , prompt("prompt", *this, &Node::prompt, SerializableFieldBase::Required{})
     , data("data", *this, &Node::data, SerializableFieldBase::Required{})
     , jumps("jumps", *this, &Node::jumps, SerializableFieldBase::Required{}) {}
@@ -371,7 +392,8 @@ struct SerializableObject<core::file::Conversation> : public SerializableObjectB
     SerializableField<1, Conversation, std::vector<Node>> nodes;
 
     SerializableObject()
-    : nodes("nodes", *this, &Conversation::cnodes, SerializableFieldBase::Required{}) {}
+    : SerializableObjectBase("Conversation")
+    , nodes("nodes", *this, &Conversation::cnodes, SerializableFieldBase::Required{}) {}
 };
 
 } // namespace serial

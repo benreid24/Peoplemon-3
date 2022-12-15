@@ -1,6 +1,7 @@
 #ifndef CORE_FILE_MOVEDB_HPP
 #define CORE_FILE_MOVEDB_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Peoplemon/MoveEffect.hpp>
@@ -12,8 +13,6 @@ namespace core
 {
 namespace file
 {
-struct MoveDBLoader;
-
 /**
  * @brief Stores the metadata of all peoplemon moves
  *
@@ -29,11 +28,37 @@ struct MoveDB : private bl::util::NonCopyable {
     bool load();
 
     /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
      * @brief Saves the moves to the data file
      *
      * @return True on success, false on error
      */
     bool save() const;
+
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
 
     std::unordered_map<pplmn::MoveId, std::string> names;
     std::unordered_map<pplmn::MoveId, std::string> descriptions;
@@ -48,9 +73,6 @@ struct MoveDB : private bl::util::NonCopyable {
     std::unordered_map<pplmn::MoveId, std::int32_t> effectChances;
     std::unordered_map<pplmn::MoveId, std::int32_t> effectIntensities;
     std::unordered_map<pplmn::MoveId, bool> effectSelves;
-
-    friend struct MoveDBLoader;
-    friend struct bl::serial::SerializableObject<MoveDB>;
 };
 
 } // namespace file
@@ -80,7 +102,8 @@ struct SerializableObject<core::file::MoveDB> : public SerializableObjectBase {
     SerializableField<14, DB, std::unordered_map<Id, bool>> effectSelves;
 
     SerializableObject()
-    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    : SerializableObjectBase("MoveDB")
+    , names("names", *this, &DB::names, SerializableFieldBase::Required{})
     , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
     , types("types", *this, &DB::types, SerializableFieldBase::Required{})
     , damages("damages", *this, &DB::damages, SerializableFieldBase::Required{})

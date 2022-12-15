@@ -1,0 +1,221 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                9999997
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 109
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                2,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh no. The Local Thugs have taken over my beautiful town?!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Not too many",
+            "second": 3
+        },
+        {
+            "first": "9 or 10",
+            "second": 3
+        },
+        {
+            "first": "100 atleast",
+            "second": 3
+        },
+        {
+            "first": "Over 9000!!!",
+            "second": 3
+        },
+        {
+            "first": "Too many to count!",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "How many thugs are there?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Okay. I might need your help taking a few of these thugs out.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yes",
+            "second": 5
+        },
+        {
+            "first": "No",
+            "second": 9
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Can I count on your help?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Great. Let's go teach them a lesson with pain, so they remember.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "setPlayerLock(1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Ghettopolis/MarsalaGoesToTown.psc\",1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Sorry kid, I'm a little busy looking muscular right now.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Okay",
+            "second": 5
+        },
+        {
+            "first": "No",
+            "second": 10
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Please...",
+            "type": 1
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Fine",
+            "second": 5
+        },
+        {
+            "first": "Still No",
+            "second": 11
+        }
+    ],
+    "index": 0
+},
+            "prompt": "..with Meat and Potatoes on top?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                12,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I will not take no for an answer.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Fine",
+            "second": 5
+        },
+        {
+            "first": "No",
+            "second": 11
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Please",
+            "type": 1
+        }
+    ]
+}

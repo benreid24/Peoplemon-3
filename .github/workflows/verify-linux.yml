@@ -19,13 +19,19 @@ jobs:
       run: sudo apt-get update
 
     - name: package-install
-      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev
-      
+      run: sudo apt-get install libx11-dev xorg-dev freeglut3-dev libudev-dev libopenal-dev libvorbis-dev libflac-dev xvfb
+
     - name: configure
       run: cmake -DON_CI=On -G "Unix Makefiles" -S . -B ./build
-      
+
     - name: make
       run: cd build && make
 
     - name: test
-      run: build/tests/Peoplemon.t 
+      run: build/tests/Peoplemon.t
+
+    - name: bundle verify
+      run: |
+        export DISPLAY=:99
+        sudo Xvfb -ac :99 -screen 0 1280x1024x24 &
+        ./Bundler

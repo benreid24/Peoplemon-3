@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_ITEMDB_HPP
 #define CORE_FILES_ITEMDB_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Items/Category.hpp>
@@ -14,8 +15,6 @@ namespace core
 {
 namespace file
 {
-struct ItemDBLoader;
-
 /**
  * @brief Loads and stores metadata surrounding items in the game
  *
@@ -31,17 +30,41 @@ struct ItemDB : private bl::util::NonCopyable {
     bool load();
 
     /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the database from its json format
+     *
+     * @param input The input stream to load from
+     * @return True if the data could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
+
+    /**
      * @brief Writes the item metadata to the data file
      *
      * @return True on success false on error
      */
     bool save() const;
 
+    /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
+
     std::unordered_map<item::Id, std::string> names;
     std::unordered_map<item::Id, std::string> descriptions;
     std::unordered_map<item::Id, std::int32_t> values;
-
-    friend struct ItemDBLoader;
 };
 
 } // namespace file
@@ -61,7 +84,8 @@ struct SerializableObject<core::file::ItemDB> : public SerializableObjectBase {
     SerializableField<3, DB, std::unordered_map<Id, std::int32_t>> values;
 
     SerializableObject()
-    : names("names", *this, &DB::names, SerializableFieldBase::Required{})
+    : SerializableObjectBase("ItemDB")
+    , names("names", *this, &DB::names, SerializableFieldBase::Required{})
     , descriptions("descriptions", *this, &DB::descriptions, SerializableFieldBase::Required{})
     , values("values", *this, &DB::values, SerializableFieldBase::Required{}) {}
 };

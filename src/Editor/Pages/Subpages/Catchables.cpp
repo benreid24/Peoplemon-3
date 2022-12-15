@@ -1,6 +1,6 @@
 #include <Editor/Pages/Subpages/Catchables.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
+#include <Core/Resources.hpp>
 #include <Editor/Components/EditMap.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
 

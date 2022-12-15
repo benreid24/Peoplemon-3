@@ -1,6 +1,7 @@
 #ifndef CORE_FILES_TRAINER_HPP
 #define CORE_FILES_TRAINER_HPP
 
+#include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <Core/Files/Behavior.hpp>
 #include <Core/Items/Id.hpp>
@@ -33,6 +34,16 @@ public:
     bool save(const std::string& file) const;
 
     /**
+     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     *
+     * @param output Stream to output to
+     * @param ctx Context to register dependencies with
+     * @return True if serialization succeeded, false otherwise
+     */
+    bool saveBundle(bl::serial::binary::OutputStream& output,
+                    bl::resource::bundle::FileHandlerContext& ctx) const;
+
+    /**
      * @brief Loads the trainer data from the given file
      *
      * @param file The file to load from
@@ -40,6 +51,22 @@ public:
      * @return True on load, false on error
      */
     bool load(const std::string& file, component::Direction spawnDir = component::Direction::Down);
+
+    /**
+     * @brief Loads the trainer from the json stream
+     *
+     * @param input JSON input stream
+     * @return True if the trainer could be loaded, false on error
+     */
+    bool loadDev(std::istream& input);
+
+    /**
+     * @brief Loads the trainer from it's binary format
+     *
+     * @param input The input stream to load from
+     * @return True if the trainer could be loaded, false otherwise
+     */
+    bool loadProd(bl::serial::binary::InputStream& input);
 
     std::string name;
     std::string animation;
@@ -80,7 +107,8 @@ struct SerializableObject<core::file::Trainer> : public SerializableObjectBase {
     SerializableField<10, T, std::uint8_t> payout;
 
     SerializableObject()
-    : name("name", *this, &T::name, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Trainer")
+    , name("name", *this, &T::name, SerializableFieldBase::Required{})
     , anim("anim", *this, &T::animation, SerializableFieldBase::Required{})
     , preBattle("preBattle", *this, &T::prebattleConversation, SerializableFieldBase::Required{})
     , postBattle("postBattle", *this, &T::postBattleConversation, SerializableFieldBase::Required{})

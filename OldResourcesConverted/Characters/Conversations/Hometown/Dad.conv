@@ -1,0 +1,205 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                11
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Talk",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you're home today, make sure you tell your mom we talked about the dishes.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Your mom told me this morning you didn't do the dishes last night.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999996,
+                999996
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah. I forgot.",
+            "second": 5
+        },
+        {
+            "first": "No idea what she's talking about.",
+            "second": 8
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Is that true?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                6,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh okay.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": " Well if you could just get those done tonight, that would help me out a lot.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Talk",
+            "type": 8
+        },
+        {
+            "jumps": [
+                9,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Yeah, I thought that sounded a little out of the ordinary.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Keep up the good work.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Talk",
+            "type": 8
+        },
+        {
+            "jumps": [
+                12,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's kinda slow at the gym today so I'm just standing out here..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Today just seems like such a nice day.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's almost as if today is the first day in a series of many that one unlikely hero will be met with a barrage of mundane tasks he must complete to see his quest through that...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                15,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "... the fate of mankind so despereatly rests upon.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "It's just a feeling.",
+            "type": 0
+        }
+    ]
+}

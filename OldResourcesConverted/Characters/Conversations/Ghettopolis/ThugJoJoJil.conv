@@ -1,0 +1,40 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                9999998,
+                1
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "setPlayerLock(1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Ghettopolis/ThugJoJoJil.psc\",1);",
+            "type": 6
+        }
+    ]
+}

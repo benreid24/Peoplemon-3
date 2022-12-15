@@ -1,0 +1,304 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yes",
+            "second": 1
+        },
+        {
+            "first": "No",
+            "second": 2
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Hey kid, want to hear an old fishing tale?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I figured you were the type",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "TOO BAD!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "There's an ancient legend about a master fisherman that once roamed these lands",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "He was the very best, like no one ever was",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "To catch them was his cause",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And so he did. He caught every fish in the sea",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "For a time he was happy with his accomplishment",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "But once the sea was empty, his life no longer had meaning",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thankfully, he had kept some fish in a tank. He decided to repopulate the oceans",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "He wandered the lands, finding the best places to put the fish back in",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "He marked each spot with a red X",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "To this day, the fish of the sea remain only near the X's, fearing that if they venture out there may be a new master fisherman to catch them all",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "So yeah, if you want to fish and you find a rod, you have to do it where there's an X",
+            "type": 0
+        },
+        {
+            "jumps": [
+                15,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Different spots should have different fish, but no one is really sure because there's only one fishing rod in the whole world",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Seriously, you can't buy those things",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Not that I could. I'm unemployed because all I do is stand here and tell people this story",
+            "type": 0
+        },
+        {
+            "jumps": [
+                18,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I actually never leave this spot",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "um, sure",
+            "second": 3
+        },
+        {
+            "first": "oh please no",
+            "second": 19
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Anyways, want to hear the story again?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah",
+            "second": 20
+        },
+        {
+            "first": "On second thought...",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Are you sure?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                999998,
+                999998
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Get a life",
+            "second": 9999998
+        },
+        {
+            "first": "ok fine",
+            "second": 3
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Pleeeeaase! This is all I do",
+            "type": 1
+        },
+        {
+            "jumps": [
+                22,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Alright, I'll let you go now",
+            "type": 0
+        }
+    ]
+}

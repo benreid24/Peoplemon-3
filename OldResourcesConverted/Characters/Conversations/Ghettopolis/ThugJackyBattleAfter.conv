@@ -1,0 +1,64 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I should have just stood here looking tough.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                2,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "But instead I tried to beat up a kid for his potatos and lost.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999999
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Why do you do this to me tum?!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999999
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "setPlayerLock(1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                5,
+                999999
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"Ghettopolis/DockThugsLeave.psc\",1);",
+            "type": 6
+        }
+    ]
+}

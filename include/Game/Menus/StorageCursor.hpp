@@ -94,10 +94,10 @@ public:
 
 private:
     sf::Vector2i position;
-    bl::resource::Resource<sf::Texture>::Ref cursorTxtr;
+    bl::resource::Ref<sf::Texture> cursorTxtr;
     sf::Sprite cursor;
     bl::gfx::Flashing flasher;
-    bl::resource::Resource<sf::Texture>::Ref pplTxtr;
+    bl::resource::Ref<sf::Texture> pplTxtr;
     sf::Sprite peoplemon;
     core::input::EntityControl moveDir;
     float offset;

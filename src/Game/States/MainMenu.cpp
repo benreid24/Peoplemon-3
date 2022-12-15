@@ -4,6 +4,7 @@
 #include <BLIB/Logging.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <Game/States/LoadGame.hpp>
 #include <Game/States/NewGame.hpp>
 #include <Game/States/SettingsMenu.hpp>
@@ -24,10 +25,8 @@ MainMenu::MainMenu(core::system::Systems& systems)
     using bl::menu::Item;
     using bl::menu::TextItem;
 
-    backgroundTxtr =
-        bl::engine::Resources::textures()
-            .load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"))
-            .data;
+    backgroundTxtr = TextureManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"));
     background.setTexture(*backgroundTxtr, true);
 
     newGame = TextItem::create("New Game", core::Properties::MenuFont(), sf::Color::Black, 32);

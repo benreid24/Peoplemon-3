@@ -29,7 +29,7 @@ Fog::Fog(bool thick)
 : maxOpacity(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha())
 , targetOpacity(0)
 , alpha(0) {
-    fogTxtr = bl::engine::Resources::textures().load(Properties::FogFile()).data;
+    fogTxtr = TextureManager::load(Properties::FogFile());
     fog.setTexture(*fogTxtr, true);
     fog.setOrigin(fogTxtr->getSize().x / 2, fogTxtr->getSize().y / 2);
 }
@@ -68,9 +68,7 @@ void Fog::update(float dt) {
         p.position += FogVelocity * dt;
         p.rotation += p.angularVelocity * dt;
         if (p.position.x >= area.left + area.width * 1.5f) { p.position.x -= area.width * 2.f; }
-        else if (p.position.x <= area.left - area.width / 2.f) {
-            p.position.x += area.width * 2.f;
-        }
+        else if (p.position.x <= area.left - area.width / 2.f) { p.position.x += area.width * 2.f; }
         if (p.position.y >= area.top + area.height * 1.5f) { p.position.y -= area.height * 2.f; }
         else if (p.position.y <= area.top - area.height / 2.f) {
             p.position.y += area.height * 2.f;

@@ -107,7 +107,7 @@ Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
         if (file) {
             const std::string animFile = makeCopyName(core::Properties::MapAnimationPath(), file);
             bl::gfx::AnimationData anim;
-            if (!anim.load(file)) {
+            if (!anim.loadFromFile(file)) {
                 bl::dialog::tinyfd_messageBox(
                     "Bad Animation", "Failed to load animation", "ok", "error", 0);
                 return;
@@ -191,7 +191,7 @@ std::uint8_t Tileset::getActiveTown() const { return towns.selected(); }
 core::map::LevelTransition Tileset::getActiveLevel() const { return levelTransitions.getActive(); }
 
 bool Tileset::loadTileset(const std::string& file) {
-    auto newTileset = core::Resources::tilesets().load(file).data;
+    auto newTileset = TilesetManager::load(core::map::Tileset::getFullPath(file));
     if (!newTileset) return false;
     if (newTileset.get() != tileset.get()) {
         tileset = newTileset;

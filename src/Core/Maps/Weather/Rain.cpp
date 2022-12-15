@@ -1,8 +1,8 @@
 #include "Rain.hpp"
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -28,15 +28,15 @@ Rain::Rain(bool hard, bool canThunder)
 , fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
 , stopFactor(-1.f)
 , thunder(canThunder, hard) {
-    dropTxtr = bl::engine::Resources::textures().load(Properties::RainDropFile()).data;
+    dropTxtr = TextureManager::load(Properties::RainDropFile());
     drop.setTexture(*dropTxtr, true);
     drop.setRotation(hard ? 45.f : 15.f);
     drop.setOrigin(dropTxtr->getSize().x / 2, dropTxtr->getSize().y);
-    splash1Txtr = bl::engine::Resources::textures().load(Properties::RainSplash1File()).data;
+    splash1Txtr = TextureManager::load(Properties::RainSplash1File());
     splash1.setTexture(*splash1Txtr, true);
     splash1.setRotation(hard ? 45.f : 15.f);
     splash1.setOrigin(splash1Txtr->getSize().x / 2, splash1Txtr->getSize().y);
-    splash2Txtr = bl::engine::Resources::textures().load(Properties::RainSplash2File()).data;
+    splash2Txtr = TextureManager::load(Properties::RainSplash2File());
     splash2.setTexture(*splash2Txtr, true);
     splash2.setOrigin(splash2Txtr->getSize().x / 2, splash2Txtr->getSize().y);
 

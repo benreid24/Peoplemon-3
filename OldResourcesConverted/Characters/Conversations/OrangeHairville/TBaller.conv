@@ -1,0 +1,389 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                6,
+                1
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                2,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "What are you doing in my house!? I didn't invite you in!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I know it's just a trailer but it's my home and we still have rules here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Anyway.. since you're here, I guess it wouldn't hurt to get to know eachother.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I modify Peopleballs for a living.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Take two Peopleballs, glue them together, and you've effectively doubled the catch rate.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "If you have two Peopleballs, I could make you a pair of Peopleballs.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah",
+            "second": 9
+        },
+        {
+            "first": "No thanks",
+            "second": 8
+        },
+        {
+            "first": "I need other gluing done.",
+            "second": 19
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What do you say? Do you want a pair of Peopleballs? I charge 50 money.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Okay. Just come here whenever you need your Peopleballs glued together.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                9999992
+            ],
+            "data": {
+    "data": 50,
+    "index": 2
+},
+            "prompt": "",
+            "type": 5
+        },
+        {
+            "jumps": [
+                11,
+                9999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 6
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                12,
+                9999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 6
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                13,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And.... here you go.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 9
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just let me know if you need any more gluing done!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                18,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You don't have any Peopleballs.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You only have one Peopleball.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                18,
+                999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 6
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You need two Peopleballs if you want two Peopleballs glued together.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                20,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "A broken fishing pole, eh?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                21,
+                9999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 116
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 3
+        },
+        {
+            "jumps": [
+                22,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Nothing a little glue can't fix.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                23,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "....",
+            "type": 0
+        },
+        {
+            "jumps": [
+                24,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Here you go, all better.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                25,
+                999992
+            ],
+            "data": {
+    "data": {
+        "afterPrompt": false,
+        "beforePrompt": false,
+        "id": 137
+    },
+    "index": 1
+},
+            "prompt": "",
+            "type": 2
+        },
+        {
+            "jumps": [
+                26,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Just let me know if you need any more gluing done!",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "RodFixed",
+            "type": 8
+        },
+        {
+            "jumps": [
+                28,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Gluing is an art. I don't just glue anything.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                29,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Come back when you have something real for me to glue.",
+            "type": 0
+        }
+    ]
+}

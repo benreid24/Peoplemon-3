@@ -1,0 +1,112 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "StoreManagerRes",
+            "type": 7
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thank you. I can't wait to hear back about my job.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ShiftMissedTalked",
+            "type": 8
+        },
+        {
+            "jumps": [
+                4,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I missed my shift. My manager will never believe I was a thug hostage.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                5,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I guess that excuse only works once..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                8
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "EmployeeTalkedGhet",
+            "type": 7
+        },
+        {
+            "jumps": [
+                7,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Wait, you saw me in the Peoplemon Center.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Please tell my manager the truth. Otherwise I'm canned.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999996,
+                999996
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Can you pretend to be my alibi? Otherwise I'm canned.",
+            "type": 0
+        }
+    ]
+}

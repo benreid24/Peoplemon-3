@@ -1,11 +1,11 @@
 #include <Core/Battles/View/PeoplemonAnimation.hpp>
 
-#include <BLIB/Engine/Resources.hpp>
 #include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Math.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 #include <cmath>
 
 namespace core
@@ -76,45 +76,49 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 , spark(4.f)
 , renderBall(false)
 , flasher(peoplemon, 0.08f, 0.05f) {
-    auto& textures  = bl::engine::Resources::textures();
-    auto& anims     = bl::engine::Resources::animations();
     const auto join = bl::util::FileUtil::joinPath;
 
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
 
     ballOpenTxtr =
-        textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png")).data;
+        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png"));
     // TODO - consider using multiple graphics based on what ball it was caught in
-    ballTxtr = textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png")).data;
+    ballTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png"));
     setBallTexture(*ballTxtr);
     ball.setPosition(ViewSize.x * 0.5f, ViewSize.y * 0.75f);
     ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
     spark.setOuterColor(sf::Color::Transparent);
     ballFlash.setOuterColor(sf::Color::Transparent);
 
-    statTxtr = textures.load(join(Properties::ImagePath(), "Battle/statArrow.png")).data;
+    statTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/statArrow.png"));
     statArrow.setTexture(*statTxtr, true);
     statArrow.setOrigin(statArrow.getGlobalBounds().width * 0.5f,
                         statArrow.getGlobalBounds().height * 0.5f);
     statArrow.setPosition(ViewSize.x, ViewSize.y * 0.5f);
 
-    annoySrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Annoyed.anim")).data;
+    annoySrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Annoyed.anim"));
     confuseSrc =
-        anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Confusion.anim")).data;
-    frozenSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Frozen.anim")).data;
-    frustrationSrc =
-        anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Frustration.anim")).data;
-    sleepSrc   = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Sleep.anim")).data;
-    stickySrc  = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Sticky.anim")).data;
-    trappedSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim")).data;
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Confusion.anim"));
+    frozenSrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Frozen.anim"));
+    frustrationSrc = AnimationManager::load(
+        join(Properties::AnimationPath(), "Battle/Ailments/Frustration.anim"));
+    sleepSrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sleep.anim"));
+    stickySrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Sticky.anim"));
+    trappedSrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"));
     // TODO - update to jumped anim when we have it
-    jumpedSrc = anims.load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim")).data;
+    jumpedSrc =
+        AnimationManager::load(join(Properties::AnimationPath(), "Battle/Ailments/Trapped.anim"));
     ailmentAnim.setIsLoop(false);
     ailmentAnim.setPosition(ViewSize * 0.5f);
     ailmentAnim.setData(*trappedSrc);
 
     throwBallTxtr =
-        textures.load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png")).data;
+        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png"));
     setThrowBallTxtr(*throwBallTxtr);
 }
 
@@ -131,7 +135,7 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
     const auto path = position == Position::Player ? pplmn::Peoplemon::playerImage :
                                                      pplmn::Peoplemon::opponentImage;
-    txtr            = bl::engine::Resources::textures().load(path(ppl)).data;
+    txtr            = TextureManager::load(path(ppl));
 
     const sf::Vector2f ts(txtr->getSize());
     peoplemon.setTexture(*txtr, true);

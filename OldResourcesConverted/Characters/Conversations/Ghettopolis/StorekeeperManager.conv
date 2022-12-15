@@ -1,0 +1,393 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                27,
+                1
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "FireLateEmployee",
+            "type": 7
+        },
+        {
+            "jumps": [
+                27,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ForgiveLateEmployee",
+            "type": 7
+        },
+        {
+            "jumps": [
+                3,
+                5
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Banned4LifeGhet",
+            "type": 7
+        },
+        {
+            "jumps": [
+                4,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You are no longer allowed in this store.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now I'd like you to leave.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Make Purchase",
+            "second": 6
+        },
+        {
+            "first": "Talk",
+            "second": 8
+        },
+        {
+            "first": "Nothing",
+            "second": 7
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What can I help you with today?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                7,
+                999992
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "openStore(\"Very good. What would you like?\",\"You can't afford that item right now.\",1,660,6,440,18,2200,22,10000);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thank you. Please come again.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Yeah",
+            "second": 10
+        },
+        {
+            "first": "Nope",
+            "second": 9
+        }
+    ],
+    "index": 0
+},
+            "prompt": "Is this about my employee standing outside?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                5,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Well then..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I don't know what to do with her. ",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "She called in once before claiming she was a hostage taken by a local cult.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "She wasn't even scheduled that day..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Now she wants me to believe she was a hostage again? I'm not buying it.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "I mean.. fair.",
+            "second": 15
+        },
+        {
+            "first": "Bet you don't.",
+            "second": 18
+        },
+        {
+            "first": "Forgiveness!",
+            "second": 22
+        }
+    ],
+    "index": 0
+},
+            "prompt": "I think I'm going to can her.",
+            "type": 1
+        },
+        {
+            "jumps": [
+                16,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'm glad we're in agreement. I think it's for the best.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "FireLateEmployee",
+            "type": 8
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "StoreManagerRes",
+            "type": 8
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Nothing.. sorry.",
+            "second": 9
+        },
+        {
+            "first": "Chump chump chump!",
+            "second": 19
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What did you say?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                20,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Excuse me. I would like you to leave now.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                21,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Banned4LifeGhet",
+            "type": 8
+        },
+        {
+            "jumps": [
+                9999992,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "StoreManagerRes",
+            "type": 8
+        },
+        {
+            "jumps": [
+                23,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I suppose you're right. Maybe I should give her one more chance.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                24,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Thanks random stranger.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                25,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "So now that that's taken care of..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                26,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ForgiveLateEmployee",
+            "type": 8
+        },
+        {
+            "jumps": [
+                27,
+                999992
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "StoreManagerRes",
+            "type": 8
+        },
+        {
+            "jumps": [
+                999992,
+                999992
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "Make Purchase",
+            "second": 6
+        },
+        {
+            "first": "Nothing",
+            "second": 7
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What is it you would like?",
+            "type": 1
+        }
+    ]
+}

@@ -1,0 +1,88 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                5,
+                1
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Tri2Beat",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "How dare you beat your elder.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "The manners of kids these days..",
+            "type": 0
+        },
+        {
+            "jumps": [
+                4,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Tri2Beat",
+            "type": 8
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "runScript(\"TriliteIsland/MoveBlockerTR2.psc\",1);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Show your elders some respect.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Next time you see an old person, help them cross a road.",
+            "type": 0
+        }
+    ]
+}

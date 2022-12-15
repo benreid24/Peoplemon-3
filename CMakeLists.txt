@@ -11,7 +11,6 @@ endif()
 project(Peoplemon C CXX)
 
 # BLIB will inherit these settings as well
-option(STATIC_LINK "On to link statically" On)
 option(BUILD_TESTS "On to build unit tests" On)
 option(BUILD_EXAMPLES "On to build examples" On)
 option(ON_CI "True when on CI, false when local" Off)
@@ -40,31 +39,15 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
 
-if (MSVC)
-    # warning level 4 and all warnings as errors
-    target_compile_options(Core PUBLIC /W4 /WX)
-    target_compile_options(Peoplemon PUBLIC /W4 /WX)
-    target_compile_options(PeoplemonEditor PUBLIC /W4 /WX)
-else()
-    # lots of warnings and all warnings as errors
-    target_compile_options(Core PUBLIC -Wall -Wextra -pedantic)
-    target_compile_options(Peoplemon PUBLIC -Wall -Wextra -pedantic)
-    target_compile_options(PeoplemonEditor PUBLIC -Wall -Wextra -pedantic)
-    target_compile_options(PeoplemonEditor PUBLIC -Wno-switch)
-endif()
+include("lib/BLIB/cmake/blib_helpers.cmake")
+configure_target(Peoplemon)
+configure_target(PeoplemonEditor)
+configure_target(Core)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Core PUBLIC PEOPLEMON_DEBUG)
     target_compile_definitions(PeoplemonEditor PUBLIC PEOPLEMON_DEBUG)
     target_compile_definitions(Peoplemon PUBLIC PEOPLEMON_DEBUG)
-endif()
-
-if (STATIC_LINK)
-    if (WIN32)
-        SET(CMAKE_FIND_LIBRARY_SUFFIXES ".a")
-        set(BUILD_SHARED_LIBRARIES OFF)
-        set(CMAKE_EXE_LINKER_FLAGS "-static -static-libgcc -static-libstdc++")
-    endif()
 endif()
 
 target_link_libraries(Core PRIVATE
@@ -110,12 +93,14 @@ endif()
 
 set_target_properties(Peoplemon
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
     OUTPUT_NAME "Peoplemon${CMAKE_BUILD_TYPE}"
 )
 
 set_target_properties(PeoplemonEditor
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
     OUTPUT_NAME "PeoplemonEditor${CMAKE_BUILD_TYPE}"
 )

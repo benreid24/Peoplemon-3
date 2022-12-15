@@ -31,8 +31,8 @@ float computeAlpha(float current, float target, float dt) {
 Sandstorm::Sandstorm()
 : targetAlpha(0)
 , alpha(0) {
-    sandTxtr  = bl::engine::Resources::textures().load(Properties::SandPatchFile()).data;
-    swirlTxtr = bl::engine::Resources::textures().load(Properties::SandSwirlFile()).data;
+    sandTxtr  = TextureManager::load(Properties::SandPatchFile());
+    swirlTxtr = TextureManager::load(Properties::SandSwirlFile());
     sand.setTexture(*sandTxtr, true);
     swirl.setTexture(*swirlTxtr, true);
     sand.setOrigin(sandTxtr->getSize().x / 2, sandTxtr->getSize().y / 2);

@@ -2,6 +2,7 @@
 
 #include <Core/Items/Item.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Resources.hpp>
 
 namespace core
 {
@@ -33,9 +34,7 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
                 const std::uint32_t j = nodes[jump].next();
                 jump                  = j > i ? j - 1 : j;
             }
-            else {
-                jump = EndNode;
-            }
+            else { jump = EndNode; }
         }
         else if (jump > i)
             --jump;
@@ -57,242 +56,28 @@ void shiftDownJumps(std::vector<Conversation::Node>& nodes, unsigned int i) {
         }
     }
 }
-
-std::string tolower(const std::string& s) {
-    std::string lower(s);
-    for (char& c : lower) { c = std::tolower(c); }
-    return lower;
-}
-
 } // namespace
 
-namespace loader
-{
-struct LegacyConversationLoader : public bl::serial::binary::SerializerVersion<Conversation> {
-    virtual bool read(Conversation& result, bl::serial::binary::InputStream& input) const override {
-        std::vector<Conversation::Node>& nodes = result.cnodes;
-        nodes.clear();
-
-        // Data for legacy conversaion
-        std::unordered_map<std::string, unsigned int> labelPoints;
-        std::vector<std::pair<std::string, std::uint32_t*>> namedJumps;
-
-        // Load legacy data
-        std::uint16_t nodeCount = 0;
-        if (!input.read(nodeCount)) return false;
-        nodes.reserve(nodeCount);
-        std::uint16_t i = 0;
-        for (std::uint16_t ai = 0; ai < nodeCount; ++ai) {
-            nodes.emplace_back();
-            Conversation::Node& node = nodes.back();
-            bool inc                 = true;
-
-            std::uint8_t type;
-            if (!input.read(type)) return false;
-
-            switch (type) {
-            case 't':
-                node.setType(Conversation::Node::Talk);
-                if (!input.read(node.message())) return false;
-                node.next() = i + 1;
-                break;
-
-            case 'o': {
-                node.setType(Conversation::Node::Prompt);
-                std::uint16_t choiceCount;
-                if (!input.read(node.message())) return false;
-                if (!input.read(choiceCount)) return false;
-                node.choices().resize(choiceCount, std::make_pair("", EndNode));
-                for (std::uint16_t j = 0; j < choiceCount; ++j) {
-                    std::string jump;
-                    if (!input.read(node.choices()[j].first)) return false;
-                    if (!input.read(jump)) return false;
-                    namedJumps.emplace_back(jump, &node.choices()[j].second);
-                }
-
-            } break;
-
-            case 'j':
-                node.setType(Conversation::Node::_LEGACY_Jump);
-                if (!input.read(node.message())) return false;
-                namedJumps.emplace_back(node.message(), &node.next());
-                break;
-
-            case 'z':
-                node.setType(Conversation::Node::RunScript);
-                node.runConcurrently() = false;
-                if (!input.read(node.script())) return false;
-                node.next() = i + 1;
-                break;
-
-            case 'r': {
-                std::uint8_t t;
-                std::uint16_t d;
-                if (!input.read(t)) return false;
-                if (!input.read(d)) return false;
-                if (!input.read(node.message())) return false;
-                if (t == 0) { // take money
-                    node.setType(Conversation::Node::TakeMoney);
-                    node.money() = d;
-                }
-                else { // take item
-                    node.setType(Conversation::Node::TakeItem);
-                    node.item().id           = item::Item::cast(d);
-                    node.item().beforePrompt = false;
-                    node.item().afterPrompt  = false;
-                }
-                node.nextOnPass() = i + 1;
-                namedJumps.emplace_back(node.message(), &node.nextOnReject());
-            } break;
-
-            case 'g': {
-                std::uint8_t t;
-                std::uint16_t d;
-                if (!input.read(t)) return false;
-                if (!input.read(d)) return false;
-                if (t == 0) { // give money
-                    node.setType(Conversation::Node::GiveMoney);
-                    node.money() = d;
-                }
-                else { // give item
-                    node.setType(Conversation::Node::GiveItem);
-                    node.item().id           = item::Item::cast(d);
-                    node.item().beforePrompt = false;
-                    node.item().afterPrompt  = false;
-                }
-                node.next() = i + 1;
-            } break;
-
-            case 's':
-                node.setType(Conversation::Node::SetSaveFlag);
-                if (!input.read(node.saveFlag())) return false;
-                node.next() = i + 1;
-                break;
-
-            case 'c': {
-                std::string jump;
-                node.setType(Conversation::Node::CheckSaveFlag);
-                if (!input.read(node.saveFlag())) return false;
-                if (!input.read(jump)) return false;
-                node.nextOnPass() = i + 1;
-                namedJumps.emplace_back(jump, &nodes.back().nextOnReject());
-            } break;
-
-            case 'l':
-                if (!input.read(node.message())) return false;
-                labelPoints.insert(std::make_pair(node.message(), i));
-                nodes.pop_back();
-                inc = false;
-                break;
-
-            case 'w': {
-                node.setType(Conversation::Node::CheckInteracted);
-                node.nextOnPass() = i + 1;
-                std::string jump;
-                if (!input.read(jump)) return false;
-                namedJumps.emplace_back(jump, &node.nextOnReject());
-            } break;
-
-            default:
-                BL_LOG_ERROR << "Unknown legacy conversation node type: " << type;
-                return false;
-            }
-
-            if (inc) ++i;
-        }
-
-        // Resolve named jumps
-        for (auto& pair : namedJumps) {
-            auto it = labelPoints.find(pair.first);
-            if (it != labelPoints.end()) {
-                if (tolower(pair.first) == "end") { *pair.second = EndNode; }
-                else {
-                    *pair.second = it->second;
-                }
-            }
-            else {
-                if (tolower(pair.first) != "end") {
-                    BL_LOG_WARN << "Invalid jump '" << pair.first << "' in conversation '"
-                                << "', jumping to end";
-                }
-                *pair.second = EndNode;
-            }
-        }
-
-        // Remove legacy jump nodes
-        const auto connectJump = [&nodes](unsigned int orig, unsigned int next) {
-            for (Conversation::Node& node : nodes) {
-                if (node.nextOnPass() == orig)
-                    node.nextOnPass() = next;
-                else if (node.nextOnPass() > orig)
-                    node.nextOnPass() -= 1;
-                if (node.nextOnReject() == orig)
-                    node.nextOnReject() = next;
-                else if (node.nextOnReject() > orig)
-                    node.nextOnReject() -= 1;
-
-                if (node.getType() == Conversation::Node::Prompt) {
-                    for (auto& pair : node.choices()) {
-                        if (pair.second == orig)
-                            pair.second = next;
-                        else if (pair.second > orig)
-                            pair.second -= 1;
-                    }
-                }
-            }
-        };
-
-        for (unsigned int i = 0; i < nodes.size(); ++i) {
-            if (nodes[i].getType() == Conversation::Node::_LEGACY_Jump) {
-                const unsigned int next =
-                    nodes[i].next() > i ? nodes[i].next() - 1 : nodes[i].next();
-                nodes.erase(nodes.begin() + i);
-                connectJump(i, next);
-                --i;
-            }
-        }
-
-        return true;
-    }
-
-    virtual bool write(const Conversation&, bl::serial::binary::OutputStream&) const override {
-        // not implemented
-        return false;
-    }
-};
-
-struct ConversationLoader : public bl::serial::binary::SerializerVersion<Conversation> {
-    using Serializer = bl::serial::binary::Serializer<Conversation>;
-
-    virtual bool read(Conversation& result, bl::serial::binary::InputStream& input) const override {
-        return Serializer::deserialize(input, result);
-    }
-
-    virtual bool write(const Conversation& conversation,
-                       bl::serial::binary::OutputStream& output) const override {
-        return Serializer::serialize(output, conversation);
-    }
-};
-
-} // namespace loader
-
-namespace
-{
-using VersionedLoader =
-    bl::serial::binary::VersionedSerializer<Conversation, loader::LegacyConversationLoader,
-                                            loader::ConversationLoader>;
+bool Conversation::load(const std::string& file) {
+    return ConversationManager::initializeExisting(file, *this);
 }
 
-bool Conversation::load(const std::string& file) {
-    bl::serial::binary::InputFile input(
-        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
-    return VersionedLoader::read(input, *this);
+bool Conversation::loadDev(std::istream& input) {
+    return bl::serial::json::Serializer<Conversation>::deserializeStream(input, *this);
+}
+
+bool Conversation::loadProd(bl::serial::binary::InputStream& input) {
+    return bl::serial::binary::Serializer<Conversation>::deserialize(input, *this);
 }
 
 bool Conversation::save(const std::string& file) const {
-    bl::serial::binary::OutputFile output(
-        bl::util::FileUtil::joinPath(Properties::ConversationPath(), file));
-    return VersionedLoader::write(output, *this);
+    std::ofstream output(file.c_str());
+    return bl::serial::json::Serializer<Conversation>::serializeStream(output, *this, 4, 0);
+}
+
+bool Conversation::saveBundle(bl::serial::binary::OutputStream& output,
+                              bl::resource::bundle::FileHandlerContext&) const {
+    return bl::serial::binary::Serializer<Conversation>::serialize(output, *this);
 }
 
 const std::vector<Conversation::Node>& Conversation::nodes() const { return cnodes; }
@@ -302,18 +87,14 @@ void Conversation::deleteNode(unsigned int i) {
         shiftDownJumps(cnodes, i);
         cnodes.erase(cnodes.begin() + i);
     }
-    else {
-        BL_LOG_WARN << "Tried to delete out of range node: " << i;
-    }
+    else { BL_LOG_WARN << "Tried to delete out of range node: " << i; }
 }
 
 void Conversation::appendNode(const Node& node) { cnodes.push_back(node); }
 
 void Conversation::setNode(unsigned int i, const Node& node) {
     if (i < cnodes.size()) { cnodes[i] = node; }
-    else {
-        BL_LOG_WARN << "Out of range node assign: " << i;
-    }
+    else { BL_LOG_WARN << "Out of range node assign: " << i; }
 }
 
 Conversation::Node::Node() { setType(Talk); }

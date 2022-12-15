@@ -114,7 +114,7 @@ private:
     view::MoveAnimation moveAnimation;
     bool inited;
 
-    bl::resource::Resource<sf::Texture>::Ref bgndTxtr;
+    bl::resource::Ref<sf::Texture> bgndTxtr;
     sf::Sprite background;
 
     virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,

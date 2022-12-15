@@ -16,10 +16,10 @@ jobs:
           submodules: 'recursive'
 
       - name: Configure Build
-        run: cmake -DEDITOR_RELEASE=1 -G "Unix Makefiles" -S . -B ./build
+        run: cmake -DEDITOR_RELEASE=1 -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
 
       - name: Download Animation Editor
         run: |
@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir PeoplemonEditor
           mv PeoplemonRelease.exe PeoplemonEditor/PeoplemonDebug.exe
+          mv Bundler.exe PeoplemonEditor
           cp lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./PeoplemonEditor
           
           mv EditorResources PeoplemonEditor

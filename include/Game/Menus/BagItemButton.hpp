@@ -64,7 +64,7 @@ protected:
 
 private:
     core::player::Bag::Item item;
-    bl::resource::Resource<sf::Texture>::Ref txtr;
+    bl::resource::Ref<sf::Texture> txtr;
     sf::Sprite background;
     sf::Text label;
     sf::Text qty;

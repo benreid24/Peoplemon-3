@@ -1,0 +1,245 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                2
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "",
+            "type": 9
+        },
+        {
+            "jumps": [
+                9999997,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Yep. Just gotta finnish up my taquitos and then I'm outta here.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                3,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "You're from the outside aren't you?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                999997,
+                999997
+            ],
+            "data": {
+    "data": [
+        {
+            "first": "It's alright",
+            "second": 6
+        },
+        {
+            "first": "Mind blowing.",
+            "second": 5
+        },
+        {
+            "first": "Awful. Never leave.",
+            "second": 4
+        }
+    ],
+    "index": 0
+},
+            "prompt": "What's it like out there?",
+            "type": 1
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I don't believe that for a second.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                6,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Oh I believe it.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                7,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I hear it's amazing out there.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                8,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "There's so many things I've heard of but never seen.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Like a computer. I heard you can watch cats any time you want with them.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                10,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Are there many cats trapped inside?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                11,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "What's an app?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                12,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "How many apps can one hold?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                13,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "And what's a toothbrush?",
+            "type": 0
+        },
+        {
+            "jumps": [
+                14,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "I'll never feel at peace until I learn these things for myself.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                15,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "...",
+            "type": 0
+        },
+        {
+            "jumps": [
+                16,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "But I have tons of taquitos in the fridge right now. I can't just leave them there.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                17,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "So need to finish my taquitos first.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                18,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "After that, I'm getting out of this joint.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                19,
+                999997
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "NativeLeave",
+            "type": 8
+        }
+    ]
+}

@@ -1,0 +1,52 @@
+{
+    "nodes": [
+        {
+            "jumps": [
+                1,
+                3
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "ToughCrewBB",
+            "type": 7
+        },
+        {
+            "jumps": [
+                2,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "Let's see if you're still tough.",
+            "type": 0
+        },
+        {
+            "jumps": [
+                9999998,
+                999998
+            ],
+            "data": {
+    "data": false,
+    "index": 3
+},
+            "prompt": "startBattle(Lvl4WeedleWormy.ppl,Battle.plst,battleBgnd2.png,0,0);",
+            "type": 6
+        },
+        {
+            "jumps": [
+                4,
+                999998
+            ],
+            "data": {
+    "data": [ ],
+    "index": 0
+},
+            "prompt": "No fair. You got a not worm?",
+            "type": 0
+        }
+    ]
+}

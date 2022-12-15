@@ -1,5 +1,7 @@
 #include <Core/Components/NPC.hpp>
 
+#include <Core/Properties.hpp>
+
 namespace core
 {
 namespace component
@@ -7,7 +9,8 @@ namespace component
 NPC::NPC(const file::NPC& data)
 : _name(data.name())
 , _conversation() {
-    if (!_conversation.load(data.conversation())) {
+    if (!_conversation.load(
+            bl::util::FileUtil::joinPath(Properties::ConversationPath(), data.conversation()))) {
         BL_LOG_ERROR << "Failed to load npc conversation: " << data.conversation();
 #ifdef PEOPLEMON_DEBUG
         _conversation = file::Conversation::makeLoadError(data.conversation());

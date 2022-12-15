@@ -170,7 +170,8 @@ struct SerializableObject<core::pplmn::Stats> : public SerializableObjectBase {
     SerializableField<6, Stats, int> spdef;
 
     SerializableObject()
-    : hp("hp", *this, &Stats::hp, SerializableFieldBase::Required{})
+    : SerializableObjectBase("Stats")
+    , hp("hp", *this, &Stats::hp, SerializableFieldBase::Required{})
     , atk("atk", *this, &Stats::atk, SerializableFieldBase::Required{})
     , def("def", *this, &Stats::def, SerializableFieldBase::Required{})
     , spd("spd", *this, &Stats::spd, SerializableFieldBase::Required{})
