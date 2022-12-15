@@ -50,7 +50,10 @@ bool createBundles() {
     Bundler bundler(
         bundle::Config(BundlePath)
             .addBundleSource({"Resources/Animations/Battle", BundleAllFiles})
-            .addBundleSource({"Resources/Animations/Moves", BundleEachTopLevel})
+            .addBundleSource(
+                {"Resources/Animations/Moves",
+                 BundleEachTopLevel,
+                 ".*((Front)|(Back))[\\/\\\\]((foreground\\.anim)|(background\\.anim)|(.*\\.png))"})
 
             .addBundleSource({"Resources/Audio/Playlists", BundleForEachRecurse})
             .addBundleSource({"Resources/Audio/Music", BundleAllFiles})
