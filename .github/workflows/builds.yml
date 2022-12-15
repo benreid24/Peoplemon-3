@@ -19,7 +19,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
 
       - name: Bundle Resources
         run: |
@@ -64,10 +64,13 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
 
       - name: Bundle Resources
-        run: ./Bundler
+        run: |
+          export DISPLAY=:99
+          sudo Xvfb -ac :99 -screen 0 1280x1024x24 &
+          ./Bundler
 
       - name: Package Project
         run: |
@@ -101,7 +104,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && make
+        run: cd build && cmake --build .
 
       - name: Bundle Resources
         run: ./Bundler
