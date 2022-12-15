@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['handle',['Handle',['../a01737.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
-  ['heighttransitionlayer',['HeightTransitionLayer',['../a01061.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
+  ['handle',['Handle',['../a01733.html#a07cf9096e42952fae87c61e6018a45c4',1,'core::map::LightingSystem']]],
+  ['heighttransitionlayer',['HeightTransitionLayer',['../a01067.html#gab98902d96935b8002b77c6739f0b18c5',1,'core::map']]]
 ];

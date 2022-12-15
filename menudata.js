@@ -157,9 +157,6 @@ var menudata={children:[
 {text:":",url:"functions_rela.html#index_0x3a"},
 {text:"b",url:"functions_rela.html#index_b"},
 {text:"e",url:"functions_rela.html#index_e"},
-{text:"i",url:"functions_rela.html#index_i"},
-{text:"l",url:"functions_rela.html#index_l"},
-{text:"m",url:"functions_rela.html#index_m"},
 {text:"o",url:"functions_rela.html#index_o"},
 {text:"p",url:"functions_rela.html#index_p"},
 {text:"s",url:"functions_rela.html#index_s"},
@@ -170,4 +167,5 @@ var menudata={children:[
 {text:"File Members",url:"globals.html",children:[
 {text:"All",url:"globals.html"},
 {text:"Functions",url:"globals_func.html"},
+{text:"Typedefs",url:"globals_type.html"},
 {text:"Macros",url:"globals_defs.html"}]}]}]}

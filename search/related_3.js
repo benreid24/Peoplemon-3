@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['itemdbloader',['ItemDBLoader',['../a01637.html#a73be8a91f50a262f733f3d105844f502',1,'core::file::ItemDB']]]
+  ['operator_3c_3c',['operator&lt;&lt;',['../a01933.html#a73b813712c239aa2edc3c4575fafcb40',1,'core::system::Clock::Time']]]
 ];

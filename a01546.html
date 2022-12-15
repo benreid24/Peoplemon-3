@@ -63,26 +63,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01079.html">bl</a></li><li class="navelem"><a class="el" href="a01080.html">serial</a></li><li class="navelem"><a class="el" href="a01081.html">binary</a></li><li class="navelem"><a class="el" href="a01549.html">Serializer&lt; core::file::Behavior &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01078.html">core</a></li><li class="navelem"><a class="el" href="a01090.html">file</a></li><li class="navelem"><a class="el" href="a01549.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">bl::serial::binary::Serializer&lt; core::file::Behavior &gt; Member List</div>  </div>
+<div class="title">core::file::Conversation Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01549.html">bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01549.html">core::file::Conversation</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01549.html#a82e2e1f3afe5459595067634a43eee15">B</a> typedef</td><td class="entry"><a class="el" href="a01549.html">bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01549.html#ae158d0bb04601462fa13b626c94a629d">deserialize</a>(InputStream &amp;in, B &amp;b)</td><td class="entry"><a class="el" href="a01549.html">bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01549.html#a801273aa7c31d9e911c73e7d35085181">serialize</a>(OutputStream &amp;out, const B &amp;b)</td><td class="entry"><a class="el" href="a01549.html">bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01549.html#a76867662f2e68dc97903bfa3e9020ff4">size</a>(const B &amp;b)</td><td class="entry"><a class="el" href="a01549.html">bl::serial::binary::Serializer&lt; core::file::Behavior &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#addec79f31516d231332b99eeb0c44d57">appendNode</a>(const Node &amp;node)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a0a2be97cd74852690ca576b137f86c7e">bl::serial::SerializableObject&lt; Conversation &gt;</a></td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#af496c18644abeed581a2e936f438f08a">Conversation</a>()=default</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a66f845b272eb21ec8283529181234de6">deleteNode</a>(unsigned int i)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#a48621fdaafeaed405fa84149a4f3f8e5">getNextJumps</a>(const Node &amp;node, std::vector&lt; unsigned int &gt; &amp;jumps)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a58289112f105ce81d15f3bb8ff205ba6">load</a>(const std::string &amp;file)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#ab3d8460168dddead8711fca9d04640c2">loadDev</a>(std::istream &amp;input)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a8564fa4a8cd70499046af22e1015ff34">loadProd</a>(bl::serial::binary::InputStream &amp;input)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#adcb20abe541cd3e9058d390e7cf6462a">makeLoadError</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a966ec1403830724de5d2ce2dfc6631bc">nodes</a>() const</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#ad8bdca4cee63f78ace5d8912450060fd">save</a>(const std::string &amp;file) const</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01549.html#a1ca14520167b88853fcd1791145d404f">saveBundle</a>(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01549.html#a78b0703b2677db7f6dd1538d5bb55cd0">setNode</a>(unsigned int i, const Node &amp;node)</td><td class="entry"><a class="el" href="a01549.html">core::file::Conversation</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

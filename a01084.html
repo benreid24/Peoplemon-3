@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map Namespace Reference</title>
+<title>Peoplemon: core::camera Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,144 +63,76 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01084.html">map</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01078.html">core</a></li><li class="navelem"><a class="el" href="a01084.html">camera</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">core::map Namespace Reference</div>  </div>
+<div class="title">core::camera Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>Collection of classes responsible for loading, editing, rendering, and updating maps.  
-<a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01089"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01089.html">loaders</a></td></tr>
-<tr class="memdesc:a01089"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes to handle loading legacy and new formats. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01090"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01090.html">weather</a></td></tr>
-<tr class="memdesc:a01090"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of different weather types. <br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01681.html">CatchRegion</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a class of catchable peoplemon.  <a href="a01681.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01689.html">CharacterSpawn</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a character to be spawned into a map on load.  <a href="a01689.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01697.html">Event</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an event in a <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a>. A script that is run on a trigger within a given region.  <a href="a01697.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01705.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a pickup-able item in <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a01705.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01713.html">Layer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic map layer class. Can be used for any type of layer.  <a href="a01713.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01721.html">LayerSet</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Encapsulates a set of layers for a given map height. Maps have one <a class="el" href="a01721.html" title="Encapsulates a set of layers for a given map height. Maps have one LayerSet per height level...">LayerSet</a> per height level, as well as a TransitionLayer.  <a href="a01721.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01729.html">Light</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a renderable light in a <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a01729.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01737.html">LightingSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System for handling lighting in Maps. Manages all the lights and performs rendering. Also handles the loading and saving of lights to map files.  <a href="a01737.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01749.html">Map</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary map class that represents a usable map in the game.  <a href="a01749.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01757.html">Spawn</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic struct representing a spawn in a <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a01757.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01765.html">Tile</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data representation of a tile in a <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a> TileLayer.  <a href="a01765.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01777.html">Tileset</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the collection of images and animations used by Tiles in a <a class="el" href="a01749.html" title="The primary map class that represents a usable map in the game. ">Map</a>.  <a href="a01777.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01785.html">Town</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a town, route, or region within a map. Maps may have many towns. Individual tiles are associated to a town. If a tile is not associated with a town then a default town is used with the name, music, and weather of the map itself.  <a href="a01785.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01793.html">Weather</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent weather system for maps. Manages active weather.  <a href="a01793.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01309.html">ShakeFollow</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special version of the Follow camera that also shakes.  <a href="a01309.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:ga66eea922eb1a848502083dd129b60e7f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#ga66eea922eb1a848502083dd129b60e7f">CollisionLayer</a> = <a class="el" href="a01713.html">Layer</a>&lt; <a class="el" href="a01061.html#gaa99d95911252405b5f77e93a2d5ecb0c">Collision</a> &gt;</td></tr>
-<tr class="memdesc:ga66eea922eb1a848502083dd129b60e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01713.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for collisions.  <a href="a01061.html#ga66eea922eb1a848502083dd129b60e7f">More...</a><br /></td></tr>
-<tr class="separator:ga66eea922eb1a848502083dd129b60e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gaebf97290ad4f85bdc69c37956e898f58"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#gaebf97290ad4f85bdc69c37956e898f58">CatchLayer</a> = <a class="el" href="a01713.html">Layer</a>&lt; std::uint8_t &gt;</td></tr>
-<tr class="memdesc:gaebf97290ad4f85bdc69c37956e898f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01713.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for catch tiles.  <a href="a01061.html#gaebf97290ad4f85bdc69c37956e898f58">More...</a><br /></td></tr>
-<tr class="separator:gaebf97290ad4f85bdc69c37956e898f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#ga20b619b84a2c30417adb8107ad0b51a6">TileLayer</a> = <a class="el" href="a01713.html">Layer</a>&lt; <a class="el" href="a01765.html">Tile</a> &gt;</td></tr>
-<tr class="memdesc:ga20b619b84a2c30417adb8107ad0b51a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01713.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for tiles.  <a href="a01061.html#ga20b619b84a2c30417adb8107ad0b51a6">More...</a><br /></td></tr>
-<tr class="separator:ga20b619b84a2c30417adb8107ad0b51a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#ga6f70b9c1f8b3325b63baf210dd69e816">SortedLayer</a> = bl::container::Vector2D&lt; <a class="el" href="a01765.html">Tile</a> * &gt;</td></tr>
-<tr class="memdesc:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special type of tile layer for y-sorted tiles. Used for rendering only.  <a href="a01061.html#ga6f70b9c1f8b3325b63baf210dd69e816">More...</a><br /></td></tr>
-<tr class="separator:ga6f70b9c1f8b3325b63baf210dd69e816"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab98902d96935b8002b77c6739f0b18c5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#gab98902d96935b8002b77c6739f0b18c5">HeightTransitionLayer</a> = <a class="el" href="a01713.html">Layer</a>&lt; std::uint8_t &gt;</td></tr>
-<tr class="memdesc:gab98902d96935b8002b77c6739f0b18c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialization of <a class="el" href="a01713.html" title="Generic map layer class. Can be used for any type of layer. ">Layer</a> for height transitions.  <a href="a01061.html#gab98902d96935b8002b77c6739f0b18c5">More...</a><br /></td></tr>
-<tr class="separator:gab98902d96935b8002b77c6739f0b18c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:gaa99d95911252405b5f77e93a2d5ecb0c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#gaa99d95911252405b5f77e93a2d5ecb0c">Collision</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca4ecc0d90eec1cea3e9db96583a1bb9c2">Collision::Blocked</a> = 0, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0cac3bf447eabe632720a3aa1a7ce401274">Collision::Open</a> = 1, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca87d158dc8eb82868e2baa187729cbad3">Collision::TopOpen</a> = 2, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0caba4301cbcce14ffe0af48db26b24b836">Collision::RightOpen</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0cab084bb1ff9e1f76286eedd6ad2472174">Collision::BottomOpen</a> = 4, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca9005b1f87b2103c362e0791712e21d16">Collision::LeftOpen</a> = 5, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca12c6d5e19da3702dc6f8344422db536e">Collision::TopRightOpen</a> = 6, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0cafb5f211e8127c6c4a68516d37dd1fd31">Collision::BottomRightOpen</a> = 7, 
-<br />
-&#160;&#160;<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0cad2cc8803e93672b5005b970fe3101ed5">Collision::BottomLeftOpen</a> = 8, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca10e38ea0bdb5047fc7e947ff04c28a75">Collision::TopLeftOpen</a> = 9, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca2ef7fd400396dbc9c334a5e0ebca6622">Collision::TopBottomOpen</a> = 10, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca4fe28465ce64b491a5e7761193fd4f1a">Collision::LeftRightOpen</a> = 11, 
-<br />
-&#160;&#160;<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0caecf4b31d489c9e5cb45eef0bc637e2d8">Collision::TopClosed</a> = 12, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca67b9428b9e63f2e541587c3a26c9be11">Collision::RightClosed</a> = 13, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca4a0b96aef929a865667a693d187f801f">Collision::BottomClosed</a> = 14, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca1a86b2bcbddd87dee0d5568b5bead635">Collision::LeftClosed</a> = 15, 
-<br />
-&#160;&#160;<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0caff6c58e584836a1ea8b0cbfe397f3c5b">Collision::SurfRequired</a> = 16, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0cafe70076167bac55b9bfa30e427598dd0">Collision::WaterfallRequired</a> = 17, 
-<a class="el" href="a01061.html#ggaa99d95911252405b5f77e93a2d5ecb0ca799a1882167d5735f07f49c7a1afc71c">Collision::LedgeHop</a> = 18
-<br />
- }<tr class="memdesc:gaa99d95911252405b5f77e93a2d5ecb0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The different types of collisions in maps.  <a href="a01061.html#gaa99d95911252405b5f77e93a2d5ecb0c">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gaa99d95911252405b5f77e93a2d5ecb0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gacd6894855472f8b22d022ece25eda9b4"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01061.html#gacd6894855472f8b22d022ece25eda9b4">LevelTransition</a> : std::uint8_t { <br />
-&#160;&#160;<a class="el" href="a01061.html#ggacd6894855472f8b22d022ece25eda9b4a6adf97f83acf6453d4a6a4b1070f3754">LevelTransition::None</a> = 0, 
-<a class="el" href="a01061.html#ggacd6894855472f8b22d022ece25eda9b4a269088cddc0f9a0a535f28ff5ce989c7">LevelTransition::HorizontalRightUp</a> = 1, 
-<a class="el" href="a01061.html#ggacd6894855472f8b22d022ece25eda9b4aca5bf14504066a1aea13ab1930acdb3d">LevelTransition::HorizontalRightDown</a> = 2, 
-<a class="el" href="a01061.html#ggacd6894855472f8b22d022ece25eda9b4a8c98237b17c0b1c662043c4f1e57a68f">LevelTransition::VerticalTopUp</a> = 3, 
-<br />
-&#160;&#160;<a class="el" href="a01061.html#ggacd6894855472f8b22d022ece25eda9b4a4b41ef67d644cdca6a4d43cec16103f1">LevelTransition::VerticalTopDown</a> = 4
-<br />
- }<tr class="memdesc:gacd6894855472f8b22d022ece25eda9b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a level transition in a map. Level transitions are applied when an entity moves either onto or out of a tile containing a transition. When the transition is for going up the change occurs when the tile is left. When it is going down it is applied when the tile is entered.  <a href="a01061.html#gacd6894855472f8b22d022ece25eda9b4">More...</a><br /></td></tr>
-</td></tr>
-<tr class="separator:gacd6894855472f8b22d022ece25eda9b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="memItemLeft" align="right" valign="top">const sf::Vector2f *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01084.html#a8cd0da8323480ab2c8b51eb4d0fcfddf">getPositionPointer</a> (<a class="el" href="a02021.html">system::Systems</a> &amp;s, bl::ecs::Entity e)</td></tr>
+<tr class="memdesc:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to get a pointer to the pixel position of the given entity.  <a href="#a8cd0da8323480ab2c8b51eb4d0fcfddf">More...</a><br /></td></tr>
+<tr class="separator:a8cd0da8323480ab2c8b51eb4d0fcfddf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes responsible for loading, editing, rendering, and updating maps. </p>
-</div></div><!-- contents -->
+<h2 class="groupheader">Function Documentation</h2>
+<a id="a8cd0da8323480ab2c8b51eb4d0fcfddf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cd0da8323480ab2c8b51eb4d0fcfddf">&#9670;&nbsp;</a></span>getPositionPointer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const sf::Vector2f * core::camera::getPositionPointer </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02021.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::ecs::Entity&#160;</td>
+          <td class="paramname"><em>e</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to get a pointer to the pixel position of the given entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The main game systems </td></tr>
+    <tr><td class="paramname">e</td><td>The entity to get the position pointer to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>const sf::Vector2f* Pointer to the pixel position, nullptr if invalid </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00611_source.html#l00013">13</a> of file <a class="el" href="a00611_source.html">ShakeFollow.cpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

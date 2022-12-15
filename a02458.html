@@ -63,31 +63,29 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01084.html">map</a></li><li class="navelem"><a class="el" href="a01090.html">weather</a></li><li class="navelem"><a class="el" href="a02461.html">Fog</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01097.html">editor</a></li><li class="navelem"><a class="el" href="a01098.html">component</a></li><li class="navelem"><a class="el" href="a02085.html">EditMap</a></li><li class="navelem"><a class="el" href="a02461.html">FillCollisionAction</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::Fog Member List</div>  </div>
+<div class="title">editor::component::EditMap::FillCollisionAction Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02461.html">core::map::weather::Fog</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a363198746b5701dbe3c60af35fdd3172">Fog</a>(bool thick)</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02461.html#a1d72a91571d896322955f21468a26f36">render</a>(sf::RenderTarget &amp;target, float residual) const override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a0ce4aa85bbc44dbb7d6b7a28cb6b5d45">start</a>(const sf::FloatRect &amp;area) override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02461.html#a006dd0233fbf667a52ac42f5b133a90c">stop</a>() override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02461.html#aae75145834c972195d18ed804a929540">stopped</a>() const override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02461.html#a34546f007d7e10480e6fd5c6c5a0feca">type</a>() const override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a3dc1077da6f77b13781e3969a04f6868">update</a>(float dt) override</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02457.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a02457.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a31111c0a96ba8a477e66c4a89e9cb4ac">~Fog</a>()=default</td><td class="entry"><a class="el" href="a02461.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a83e686c93c56dd265e0768e605de2449">apply</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02461.html#a386d5e1ac071e655f3ad990adf940bef">create</a>(unsigned int level, const sf::Vector2i &amp;pos, core::map::Collision col, EditMap &amp;map)</td><td class="entry"><a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a750be4c01a4444baca32088a65912651">description</a>() const override</td><td class="entry"><a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Ptr</b> typedef (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02089.html">editor::component::EditMap::Action</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02461.html#ad60527336284cf4785f31cbe8e368b91">undo</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Action</b>()=default (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02089.html">editor::component::EditMap::Action</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02461.html#a126451cc515ecb13ff7e7e41ffbb83dd">~FillCollisionAction</a>()=default</td><td class="entry"><a class="el" href="a02461.html">editor::component::EditMap::FillCollisionAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

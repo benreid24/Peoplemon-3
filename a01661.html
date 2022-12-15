@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::PeoplemonDB Struct Reference</title>
+<title>Peoplemon: bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt; Struct Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,337 +63,357 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01083.html">file</a></li><li class="navelem"><a class="el" href="a01661.html">PeoplemonDB</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">bl</a></li><li class="navelem"><a class="el" href="a01087.html">serial</a></li><li class="navelem"><a class="el" href="a01661.html">SerializableObject&lt; core::file::PeoplemonDB &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01658.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::PeoplemonDB Struct Reference<div class="ingroups"><a class="el" href="a01052.html">Core</a> &raquo; <a class="el" href="a01058.html">Files</a></div></div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt; Struct Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Data structure that holds the underlaying data for all the peoplemon.  
- <a href="a01661.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::file::PeoplemonDB:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01661.png" usemap="#core::file::PeoplemonDB_map" alt=""/>
-  <map id="core::file::PeoplemonDB_map" name="core::file::PeoplemonDB_map">
+  <img src="a01661.png" usemap="#bl::serial::SerializableObject_3C_20core::file::PeoplemonDB_20_3E_map" alt=""/>
+  <map id="bl::serial::SerializableObject_3C_20core::file::PeoplemonDB_20_3E_map" name="bl::serial::SerializableObject_3C_20core::file::PeoplemonDB_20_3E_map">
 </map>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a0d2ffd9dfb415680a6200c27d2f2ec52"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a> = <a class="el" href="a01657.html">core::file::PeoplemonDB</a></td></tr>
+<tr class="separator:a0d2ffd9dfb415680a6200c27d2f2ec52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2132ee749b04086e25eaee9e96bfab23"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a2132ee749b04086e25eaee9e96bfab23">Id</a> = <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></td></tr>
+<tr class="separator:a2132ee749b04086e25eaee9e96bfab23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5edaba822a205ec11da8d4b8a0df51e5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a5edaba822a205ec11da8d4b8a0df51e5">save</a> () const</td></tr>
-<tr class="memdesc:a5edaba822a205ec11da8d4b8a0df51e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the database data to the save file.  <a href="#a5edaba822a205ec11da8d4b8a0df51e5">More...</a><br /></td></tr>
-<tr class="separator:a5edaba822a205ec11da8d4b8a0df51e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c67bdc04c8cf17fe23e9f87c76857cf"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a0c67bdc04c8cf17fe23e9f87c76857cf">load</a> ()</td></tr>
-<tr class="memdesc:a0c67bdc04c8cf17fe23e9f87c76857cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the database data from the save file.  <a href="#a0c67bdc04c8cf17fe23e9f87c76857cf">More...</a><br /></td></tr>
-<tr class="separator:a0c67bdc04c8cf17fe23e9f87c76857cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1954e517152d1c846e929b72c53f80ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a1954e517152d1c846e929b72c53f80ce">SerializableObject</a> ()</td></tr>
+<tr class="separator:a1954e517152d1c846e929b72c53f80ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:afb02ade81f85267703cc559884ba6f7a"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#afb02ade81f85267703cc559884ba6f7a">names</a></td></tr>
-<tr class="separator:afb02ade81f85267703cc559884ba6f7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace577fb480cb1b8192e454c1ca59fa27"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ace577fb480cb1b8192e454c1ca59fa27">descriptions</a></td></tr>
-<tr class="separator:ace577fb480cb1b8192e454c1ca59fa27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6fea3f47309c1c1b261a22fc6968d442"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gaa52c811bcb6c639158aff81bd4cfb39f">pplmn::Type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a6fea3f47309c1c1b261a22fc6968d442">types</a></td></tr>
-<tr class="separator:a6fea3f47309c1c1b261a22fc6968d442"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60dffe68d84682349840ec527884a10a"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gae0a3870bdfdee167eb5686dda0f03885">pplmn::SpecialAbility</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a60dffe68d84682349840ec527884a10a">abilities</a></td></tr>
-<tr class="separator:a60dffe68d84682349840ec527884a10a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96d31bbc8db827fd0824755d14c8b42b"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01833.html">pplmn::Stats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a96d31bbc8db827fd0824755d14c8b42b">stats</a></td></tr>
-<tr class="separator:a96d31bbc8db827fd0824755d14c8b42b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cb3528dc8c9ee3efb5bea573a31cd6b"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::unordered_set&lt; <a class="el" href="a01062.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a7cb3528dc8c9ee3efb5bea573a31cd6b">validMoves</a></td></tr>
-<tr class="separator:a7cb3528dc8c9ee3efb5bea573a31cd6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada82aa88a177d79b3b3d9e420d92a170"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::unordered_map&lt; unsigned int, <a class="el" href="a01062.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ada82aa88a177d79b3b3d9e420d92a170">learnedMoves</a></td></tr>
-<tr class="separator:ada82aa88a177d79b3b3d9e420d92a170"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa97d24667e753d4f012b11bd3243d2e4"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#aa97d24667e753d4f012b11bd3243d2e4">evolveLevels</a></td></tr>
-<tr class="separator:aa97d24667e753d4f012b11bd3243d2e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59d65e1554869a469ae9b59b2b145725"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a59d65e1554869a469ae9b59b2b145725">evolveIds</a></td></tr>
-<tr class="separator:a59d65e1554869a469ae9b59b2b145725"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3f879933c67aa6f0a40ab93126c1b14"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01833.html">pplmn::Stats</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ab3f879933c67aa6f0a40ab93126c1b14">evAwards</a></td></tr>
-<tr class="separator:ab3f879933c67aa6f0a40ab93126c1b14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92357ab32f5f3f0bd7596fbdbd7d732d"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a92357ab32f5f3f0bd7596fbdbd7d732d">xpGroups</a></td></tr>
-<tr class="separator:a92357ab32f5f3f0bd7596fbdbd7d732d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a697048ac89879380c41a57933d0c813d"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a697048ac89879380c41a57933d0c813d">xpMults</a></td></tr>
-<tr class="separator:a697048ac89879380c41a57933d0c813d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e19a5e9a5dcca2f0ec6726822f95c8d"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a0e19a5e9a5dcca2f0ec6726822f95c8d">catchRates</a></td></tr>
-<tr class="separator:a0e19a5e9a5dcca2f0ec6726822f95c8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8365292796d126744b7a1eb5db9fcd0f"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a8365292796d126744b7a1eb5db9fcd0f">names</a></td></tr>
+<tr class="separator:a8365292796d126744b7a1eb5db9fcd0f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7e809f7d07c9f7e4b656d0e2784c9e"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a7c7e809f7d07c9f7e4b656d0e2784c9e">descriptions</a></td></tr>
+<tr class="separator:a7c7e809f7d07c9f7e4b656d0e2784c9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae46a61a7a97d83ccb89c5c5c74756178"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 3, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ae46a61a7a97d83ccb89c5c5c74756178">types</a></td></tr>
+<tr class="separator:ae46a61a7a97d83ccb89c5c5c74756178"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a078ca09ccf6e3e67a5d690b70adb69de"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 4, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gae0a3870bdfdee167eb5686dda0f03885">core::pplmn::SpecialAbility</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a078ca09ccf6e3e67a5d690b70adb69de">abilities</a></td></tr>
+<tr class="separator:a078ca09ccf6e3e67a5d690b70adb69de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abb94ee87535d0b10fc358da97f9f9c25"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 5, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01829.html">core::pplmn::Stats</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#abb94ee87535d0b10fc358da97f9f9c25">stats</a></td></tr>
+<tr class="separator:abb94ee87535d0b10fc358da97f9f9c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8402b2ba07befa9a75e5a0d72c1d6ca3"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 6, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::unordered_set&lt; <a class="el" href="a01068.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a8402b2ba07befa9a75e5a0d72c1d6ca3">validMoves</a></td></tr>
+<tr class="separator:a8402b2ba07befa9a75e5a0d72c1d6ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7cf28c17618a6f16fc7a3166ad57fbe"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 7, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::unordered_map&lt; unsigned int, <a class="el" href="a01068.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ad7cf28c17618a6f16fc7a3166ad57fbe">learnedMoves</a></td></tr>
+<tr class="separator:ad7cf28c17618a6f16fc7a3166ad57fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa257bdc895f160abed599cef2169a3e"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 8, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, unsigned int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#aaa257bdc895f160abed599cef2169a3e">evolveLevels</a></td></tr>
+<tr class="separator:aaa257bdc895f160abed599cef2169a3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6989c5f9017c0000a8427339e76ba7b1"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 9, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#a6989c5f9017c0000a8427339e76ba7b1">evolveIds</a></td></tr>
+<tr class="separator:a6989c5f9017c0000a8427339e76ba7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae70d2987717cc373e5d2d4f6195640ba"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 10, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01829.html">core::pplmn::Stats</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ae70d2987717cc373e5d2d4f6195640ba">evAwards</a></td></tr>
+<tr class="separator:ae70d2987717cc373e5d2d4f6195640ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad180a572225ce3c025435c07199d4242"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 11, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, unsigned int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ad180a572225ce3c025435c07199d4242">xpGroups</a></td></tr>
+<tr class="separator:ad180a572225ce3c025435c07199d4242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adae041b3cb00f90df3c8285be9a4c6bb"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 12, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#adae041b3cb00f90df3c8285be9a4c6bb">xpMults</a></td></tr>
+<tr class="separator:adae041b3cb00f90df3c8285be9a4c6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8a042cf45ca3e876f4701ce76def4c1"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 13, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt; <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, int &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01661.html#ab8a042cf45ca3e876f4701ce76def4c1">catchRates</a></td></tr>
+<tr class="separator:ab8a042cf45ca3e876f4701ce76def4c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Data structure that holds the underlaying data for all the peoplemon. </p>
+<div class="textblock"><h3>template&lt;&gt;<br />
+struct bl::serial::SerializableObject&lt; core::file::PeoplemonDB &gt;</h3>
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00025">25</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0c67bdc04c8cf17fe23e9f87c76857cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c67bdc04c8cf17fe23e9f87c76857cf">&#9670;&nbsp;</a></span>load()</h2>
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00088">88</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a0d2ffd9dfb415680a6200c27d2f2ec52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d2ffd9dfb415680a6200c27d2f2ec52">&#9670;&nbsp;</a></span>DB</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::file::PeoplemonDB::load </td>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::<a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a> =  <a class="el" href="a01657.html">core::file::PeoplemonDB</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00089">89</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a2132ee749b04086e25eaee9e96bfab23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2132ee749b04086e25eaee9e96bfab23">&#9670;&nbsp;</a></span>Id</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a> =  <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00090">90</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a1954e517152d1c846e929b72c53f80ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1954e517152d1c846e929b72c53f80ce">&#9670;&nbsp;</a></span>SerializableObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::SerializableObject </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Loads the database data from the save file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00142">142</a> of file <a class="el" href="a00662_source.html">PeoplemonDB.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5edaba822a205ec11da8d4b8a0df51e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5edaba822a205ec11da8d4b8a0df51e5">&#9670;&nbsp;</a></span>save()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::PeoplemonDB::save </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Saves the database data to the save file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00147">147</a> of file <a class="el" href="a00662_source.html">PeoplemonDB.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00109">109</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a60dffe68d84682349840ec527884a10a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60dffe68d84682349840ec527884a10a">&#9670;&nbsp;</a></span>abilities</h2>
+<a id="a078ca09ccf6e3e67a5d690b70adb69de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a078ca09ccf6e3e67a5d690b70adb69de">&#9670;&nbsp;</a></span>abilities</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gae0a3870bdfdee167eb5686dda0f03885">pplmn::SpecialAbility</a>&gt; core::file::PeoplemonDB::abilities</td>
+          <td class="memname">SerializableField&lt;4, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gae0a3870bdfdee167eb5686dda0f03885">core::pplmn::SpecialAbility</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::abilities</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00041">41</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00095">95</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0e19a5e9a5dcca2f0ec6726822f95c8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e19a5e9a5dcca2f0ec6726822f95c8d">&#9670;&nbsp;</a></span>catchRates</h2>
+<a id="ab8a042cf45ca3e876f4701ce76def4c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8a042cf45ca3e876f4701ce76def4c1">&#9670;&nbsp;</a></span>catchRates</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, int&gt; core::file::PeoplemonDB::catchRates</td>
+          <td class="memname">SerializableField&lt;13, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, int&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::catchRates</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00050">50</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00107">107</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ace577fb480cb1b8192e454c1ca59fa27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace577fb480cb1b8192e454c1ca59fa27">&#9670;&nbsp;</a></span>descriptions</h2>
+<a id="a7c7e809f7d07c9f7e4b656d0e2784c9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7e809f7d07c9f7e4b656d0e2784c9e">&#9670;&nbsp;</a></span>descriptions</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::string&gt; core::file::PeoplemonDB::descriptions</td>
+          <td class="memname">SerializableField&lt;2, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::string&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::descriptions</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00039">39</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00093">93</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ab3f879933c67aa6f0a40ab93126c1b14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3f879933c67aa6f0a40ab93126c1b14">&#9670;&nbsp;</a></span>evAwards</h2>
+<a id="ae70d2987717cc373e5d2d4f6195640ba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae70d2987717cc373e5d2d4f6195640ba">&#9670;&nbsp;</a></span>evAwards</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01833.html">pplmn::Stats</a>&gt; core::file::PeoplemonDB::evAwards</td>
+          <td class="memname">SerializableField&lt;10, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01829.html">core::pplmn::Stats</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::evAwards</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00047">47</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00104">104</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a59d65e1554869a469ae9b59b2b145725"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59d65e1554869a469ae9b59b2b145725">&#9670;&nbsp;</a></span>evolveIds</h2>
+<a id="a6989c5f9017c0000a8427339e76ba7b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6989c5f9017c0000a8427339e76ba7b1">&#9670;&nbsp;</a></span>evolveIds</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>&gt; core::file::PeoplemonDB::evolveIds</td>
+          <td class="memname">SerializableField&lt;9, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::evolveIds</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00046">46</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00103">103</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="aa97d24667e753d4f012b11bd3243d2e4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa97d24667e753d4f012b11bd3243d2e4">&#9670;&nbsp;</a></span>evolveLevels</h2>
+<a id="aaa257bdc895f160abed599cef2169a3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa257bdc895f160abed599cef2169a3e">&#9670;&nbsp;</a></span>evolveLevels</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, unsigned int&gt; core::file::PeoplemonDB::evolveLevels</td>
+          <td class="memname">SerializableField&lt;8, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, unsigned int&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::evolveLevels</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00045">45</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00102">102</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ada82aa88a177d79b3b3d9e420d92a170"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada82aa88a177d79b3b3d9e420d92a170">&#9670;&nbsp;</a></span>learnedMoves</h2>
+<a id="ad7cf28c17618a6f16fc7a3166ad57fbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7cf28c17618a6f16fc7a3166ad57fbe">&#9670;&nbsp;</a></span>learnedMoves</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::unordered_map&lt;unsigned int, <a class="el" href="a01062.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a>&gt; &gt; core::file::PeoplemonDB::learnedMoves</td>
+          <td class="memname">SerializableField&lt;7, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::unordered_map&lt;unsigned int, <a class="el" href="a01068.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a>&gt; &gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::learnedMoves</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00044">44</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00101">101</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afb02ade81f85267703cc559884ba6f7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb02ade81f85267703cc559884ba6f7a">&#9670;&nbsp;</a></span>names</h2>
+<a id="a8365292796d126744b7a1eb5db9fcd0f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8365292796d126744b7a1eb5db9fcd0f">&#9670;&nbsp;</a></span>names</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::string&gt; core::file::PeoplemonDB::names</td>
+          <td class="memname">SerializableField&lt;1, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::string&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::names</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00038">38</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00092">92</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a96d31bbc8db827fd0824755d14c8b42b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96d31bbc8db827fd0824755d14c8b42b">&#9670;&nbsp;</a></span>stats</h2>
+<a id="abb94ee87535d0b10fc358da97f9f9c25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb94ee87535d0b10fc358da97f9f9c25">&#9670;&nbsp;</a></span>stats</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01833.html">pplmn::Stats</a>&gt; core::file::PeoplemonDB::stats</td>
+          <td class="memname">SerializableField&lt;5, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01829.html">core::pplmn::Stats</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::stats</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00042">42</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00096">96</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a6fea3f47309c1c1b261a22fc6968d442"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fea3f47309c1c1b261a22fc6968d442">&#9670;&nbsp;</a></span>types</h2>
+<a id="ae46a61a7a97d83ccb89c5c5c74756178"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae46a61a7a97d83ccb89c5c5c74756178">&#9670;&nbsp;</a></span>types</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, <a class="el" href="a01062.html#gaa52c811bcb6c639158aff81bd4cfb39f">pplmn::Type</a>&gt; core::file::PeoplemonDB::types</td>
+          <td class="memname">SerializableField&lt;3, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, <a class="el" href="a01068.html#gaa52c811bcb6c639158aff81bd4cfb39f">core::pplmn::Type</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::types</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00040">40</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00094">94</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a7cb3528dc8c9ee3efb5bea573a31cd6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cb3528dc8c9ee3efb5bea573a31cd6b">&#9670;&nbsp;</a></span>validMoves</h2>
+<a id="a8402b2ba07befa9a75e5a0d72c1d6ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8402b2ba07befa9a75e5a0d72c1d6ca3">&#9670;&nbsp;</a></span>validMoves</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, std::unordered_set&lt;<a class="el" href="a01062.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a>&gt; &gt; core::file::PeoplemonDB::validMoves</td>
+          <td class="memname">SerializableField&lt;6, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, std::unordered_set&lt;<a class="el" href="a01068.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a>&gt; &gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::validMoves</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00043">43</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00098">98</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a92357ab32f5f3f0bd7596fbdbd7d732d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92357ab32f5f3f0bd7596fbdbd7d732d">&#9670;&nbsp;</a></span>xpGroups</h2>
+<a id="ad180a572225ce3c025435c07199d4242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad180a572225ce3c025435c07199d4242">&#9670;&nbsp;</a></span>xpGroups</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, unsigned int&gt; core::file::PeoplemonDB::xpGroups</td>
+          <td class="memname">SerializableField&lt;11, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, unsigned int&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::xpGroups</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00048">48</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00105">105</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a697048ac89879380c41a57933d0c813d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a697048ac89879380c41a57933d0c813d">&#9670;&nbsp;</a></span>xpMults</h2>
+<a id="adae041b3cb00f90df3c8285be9a4c6bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adae041b3cb00f90df3c8285be9a4c6bb">&#9670;&nbsp;</a></span>xpMults</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;<a class="el" href="a01062.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a>, int&gt; core::file::PeoplemonDB::xpMults</td>
+          <td class="memname">SerializableField&lt;12, <a class="el" href="a01661.html#a0d2ffd9dfb415680a6200c27d2f2ec52">DB</a>, std::unordered_map&lt;<a class="el" href="a01068.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">Id</a>, int&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01657.html">core::file::PeoplemonDB</a> &gt;::xpMults</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00049">49</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00170_source.html#l00106">106</a> of file <a class="el" href="a00170_source.html">PeoplemonDB.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
+<hr/>The documentation for this struct was generated from the following file:<ul>
 <li>include/Core/Files/<a class="el" href="a00170_source.html">PeoplemonDB.hpp</a></li>
-<li>src/Core/Files/<a class="el" href="a00662_source.html">PeoplemonDB.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

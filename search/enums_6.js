@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['leveltransition',['LevelTransition',['../a01061.html#gacd6894855472f8b22d022ece25eda9b4',1,'core::map']]],
-  ['location',['Location',['../a02565.html#a3cdad53a606a87389f9d14dea568bfc3',1,'editor::component::EditMap::AppendLayerAction']]]
+  ['leveltransition',['LevelTransition',['../a01067.html#gacd6894855472f8b22d022ece25eda9b4',1,'core::map']]],
+  ['location',['Location',['../a02493.html#a3cdad53a606a87389f9d14dea568bfc3',1,'editor::component::EditMap::AppendLayerAction']]]
 ];

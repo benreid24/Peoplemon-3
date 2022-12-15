@@ -63,24 +63,29 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01084.html">map</a></li><li class="navelem"><a class="el" href="a01089.html">loaders</a></li><li class="navelem"><a class="el" href="a02445.html">PrimaryMapLoader</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01097.html">editor</a></li><li class="navelem"><a class="el" href="a01098.html">component</a></li><li class="navelem"><a class="el" href="a02085.html">EditMap</a></li><li class="navelem"><a class="el" href="a02445.html">SetTileAreaAction</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::loaders::PrimaryMapLoader Member List</div>  </div>
+<div class="title">editor::component::EditMap::SetTileAreaAction Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02445.html">core::map::loaders::PrimaryMapLoader</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02445.html#af717562274c29647016330a8e0f805f0">read</a>(Map &amp;result, bl::serial::binary::InputStream &amp;input) const override</td><td class="entry"><a class="el" href="a02445.html">core::map::loaders::PrimaryMapLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02445.html#a97b2e7f5e2d73dbcc821a5f678e2f498">write</a>(const Map &amp;map, bl::serial::binary::OutputStream &amp;output) const override</td><td class="entry"><a class="el" href="a02445.html">core::map::loaders::PrimaryMapLoader</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02445.html#a3d625c771531e0ef697270d8208c6d1c">apply</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02445.html#a58fd487453b9d871e4739cfa3e332471">create</a>(unsigned int level, unsigned int layer, const sf::IntRect &amp;area, bool isAnim, core::map::Tile::IdType value, const EditMap &amp;map)</td><td class="entry"><a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02445.html#a1eca293ad4996fb760d15e05c5c4c6b2">description</a>() const override</td><td class="entry"><a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>Ptr</b> typedef (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02089.html">editor::component::EditMap::Action</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02445.html#a87550ad21bda32e8e54f1d5f4204a1ab">undo</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Action</b>()=default (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02089.html">editor::component::EditMap::Action</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02445.html#a0816896fa0c4d5a809bc64cdf03b6a20">~SetTileAreaAction</a>()=default</td><td class="entry"><a class="el" href="a02445.html">editor::component::EditMap::SetTileAreaAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:55 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

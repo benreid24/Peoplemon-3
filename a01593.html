@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.13"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::GameSave::ScriptDataPointers Struct Reference</title>
+<title>Peoplemon: core::file::GameSave::ClockPointers Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,7 +63,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01071.html">core</a></li><li class="navelem"><a class="el" href="a01083.html">file</a></li><li class="navelem"><a class="el" href="a01577.html">GameSave</a></li><li class="navelem"><a class="el" href="a01593.html">ScriptDataPointers</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01078.html">core</a></li><li class="navelem"><a class="el" href="a01090.html">file</a></li><li class="navelem"><a class="el" href="a01573.html">GameSave</a></li><li class="navelem"><a class="el" href="a01593.html">ClockPointers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -71,49 +71,49 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01590.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::GameSave::ScriptDataPointers Struct Reference</div>  </div>
+<div class="title">core::file::GameSave::ClockPointers Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stores pointers to the actual data to save/load from.  
+<p>Stores the date in game.  
  <a href="a01593.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03048_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a02986_source.html">GameSave.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a7800e30eac50a00c410290f174e90600"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, bl::script::Value &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01593.html#a7800e30eac50a00c410290f174e90600">entries</a></td></tr>
-<tr class="separator:a7800e30eac50a00c410290f174e90600"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaabe6a3b50a85bce217d96be4a0c936d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01933.html">system::Clock::Time</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01593.html#aaabe6a3b50a85bce217d96be4a0c936d">time</a></td></tr>
+<tr class="separator:aaabe6a3b50a85bce217d96be4a0c936d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stores pointers to the actual data to save/load from. </p>
+<div class="textblock"><p>Stores the date in game. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03048_source.html#l00062">62</a> of file <a class="el" href="a03048_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02986_source.html#l00067">67</a> of file <a class="el" href="a02986_source.html">GameSave.hpp</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7800e30eac50a00c410290f174e90600"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7800e30eac50a00c410290f174e90600">&#9670;&nbsp;</a></span>entries</h2>
+<a id="aaabe6a3b50a85bce217d96be4a0c936d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaabe6a3b50a85bce217d96be4a0c936d">&#9670;&nbsp;</a></span>time</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unordered_map&lt;std::string, bl::script::Value&gt;* core::file::GameSave::ScriptDataPointers::entries</td>
+          <td class="memname"><a class="el" href="a01933.html">system::Clock::Time</a>* core::file::GameSave::ClockPointers::time</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03048_source.html#l00063">63</a> of file <a class="el" href="a03048_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a02986_source.html#l00068">68</a> of file <a class="el" href="a02986_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Files/<a class="el" href="a03048_source.html">GameSave.hpp</a></li>
+<li>include/Core/Files/<a class="el" href="a02986_source.html">GameSave.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Nov 27 2022 03:32:53 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Dec 15 2022 04:25:54 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
