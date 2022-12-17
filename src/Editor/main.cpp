@@ -18,8 +18,9 @@
 #include <iostream>
 
 int main(int, char**) {
+    bl::logging::Config::rollLogs("logs", "editor", 3);
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);
-    bl::logging::Config::addFileOutput("editor.log", bl::logging::Config::Debug);
+    bl::logging::Config::addFileOutput("logs/editor.log", bl::logging::Config::Debug);
 
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load(true)) {
