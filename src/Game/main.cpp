@@ -29,13 +29,14 @@ struct WindowSizePersister : public bl::event::Listener<bl::engine::event::Windo
 };
 
 int main(int argc, char** argv) {
-    // TODO - make log roller
 #ifdef PEOPLEMON_DEBUG
+    bl::logging::Config::rollLogs("logs", "verbose", 3);
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
-    bl::logging::Config::addFileOutput("verbose.log", bl::logging::Config::Trace);
+    bl::logging::Config::addFileOutput("logs/verbose.log", bl::logging::Config::Trace);
 #else
+    bl::logging::Config::rollLogs("logs", "error", 3);
     bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Warn);
-    bl::logging::Config::addFileOutput("error.log", bl::logging::Config::Warn);
+    bl::logging::Config::addFileOutput("logs/error.log", bl::logging::Config::Warn);
     (void)argc;
     (void)argv;
 #endif

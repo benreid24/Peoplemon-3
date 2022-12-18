@@ -19,7 +19,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && cmake --build .
+        run: cd build && cmake --build . --config Release
 
       - name: Bundle Resources
         run: |
@@ -64,7 +64,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && cmake --build .
+        run: cd build && cmake --build . --config Release
 
       - name: Bundle Resources
         run: |
@@ -104,7 +104,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -G "Unix Makefiles" -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && cmake --build .
+        run: cd build && cmake --build . --config Release
 
       - name: Bundle Resources
         run: ./Bundler
