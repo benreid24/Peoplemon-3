@@ -6,8 +6,9 @@
 #include <iostream>
 
 int main() {
-    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Info);
-    bl::logging::Config::addFileOutput("bundle.log", bl::logging::Config::Debug);
+    bl::logging::Config::rollLogs("logs", "bundle", 3);
+    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);
+    bl::logging::Config::addFileOutput("logs/bundle.log", bl::logging::Config::Debug);
     core::Properties::load(false);
     core::res::installDevLoaders();
 
