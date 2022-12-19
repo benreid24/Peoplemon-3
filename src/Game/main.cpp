@@ -41,6 +41,13 @@ int main(int argc, char** argv) {
     (void)argv;
 #endif
 
+    BL_LOG_INFO << "Initializing resource systems";
+#ifdef PEOPLEMON_DEBUG
+    core::res::installDevLoaders();
+#else
+    core::res::installProdLoaders();
+#endif
+
     BL_LOG_INFO << "Loading application properties";
     if (!core::Properties::load(false)) {
         BL_LOG_ERROR << "Failed to load application properties";
@@ -48,13 +55,6 @@ int main(int argc, char** argv) {
     }
     WindowSizePersister sizePersist;
     bl::event::Dispatcher::subscribe(&sizePersist);
-
-    BL_LOG_INFO << "Initializing resource systems";
-#ifdef PEOPLEMON_DEBUG
-    core::res::installDevLoaders();
-#else
-    core::res::installProdLoaders();
-#endif
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";
