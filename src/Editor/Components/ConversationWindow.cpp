@@ -214,7 +214,7 @@ void ConversationWindow::sync() {
     treeComponent->setSelected(currentNode);
 }
 
-void ConversationWindow::open(const bl::gui::GUI::Ptr& p, const std::string& current) {
+void ConversationWindow::open(bl::gui::GUI* p, const std::string& current) {
     parent      = p;
     currentNode = 0;
     if (current.empty() || !value.load(makePath(current))) { value = DefaultConversation; }

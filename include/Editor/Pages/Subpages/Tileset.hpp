@@ -51,7 +51,7 @@ public:
      * @brief Sets the parent GUI object
      *
      */
-    void setGUI(const bl::gui::GUI::Ptr& gui);
+    void setGUI(bl::gui::GUI* gui);
 
     /**
      * @brief Returns the gui element to pack

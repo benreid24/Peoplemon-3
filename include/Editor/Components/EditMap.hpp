@@ -2,8 +2,6 @@
 #define EDITOR_COMPONENTS_EDITMAP_HPP
 
 #include <BLIB/Interfaces/GUI.hpp>
-#include <BLIB/Media/Graphics/VertexBuffer.hpp>
-#include <BLIB/Render/Cameras/Camera.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Editor/Components/RenderMapWindow.hpp>
@@ -645,6 +643,8 @@ public:
     void staticRender(const RenderMapWindow& params);
 
 private:
+    // TODO - BLIB_UPGRADE - update edit map rendering
+
     struct Action {
         using Ptr = std::shared_ptr<Action>;
 
@@ -687,7 +687,7 @@ private:
     mutable sf::RectangleShape selectRect;
     mutable sf::Sprite overlaySprite;
     bool renderGrid;
-    bl::gfx::VertexBuffer grid;
+    // bl::gfx::VertexBuffer grid;
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
@@ -698,8 +698,7 @@ private:
     bool editorActivate();
 
     virtual sf::Vector2f minimumRequisition() const override;
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const bl::gui::Renderer& renderer) const override;
+    virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
     virtual bool handleScroll(const bl::gui::Event& scroll) override;
     virtual void update(float dt) override;
     virtual void render(sf::RenderTarget& target, float residual,

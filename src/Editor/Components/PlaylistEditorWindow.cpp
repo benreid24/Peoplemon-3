@@ -85,12 +85,10 @@ PlaylistEditorWindow::PlaylistEditorWindow(const SelectedCb& oscb, const CancelC
     markClean();
 }
 
-void PlaylistEditorWindow::open(const GUI::Ptr& g, const std::string& p) {
+void PlaylistEditorWindow::open(GUI* g, const std::string& p) {
     gui = g;
     if (!p.empty()) { load(p); }
-    else {
-        makeNew();
-    }
+    else { makeNew(); }
     gui->pack(window);
     window->setForceFocus(true);
 }
@@ -108,9 +106,7 @@ void PlaylistEditorWindow::onPlaylistPick(const std::string& p) {
         fileLabel->setText(plst);
         markDirty();
     }
-    else {
-        load(plst);
-    }
+    else { load(plst); }
     closePickers();
 }
 
@@ -152,9 +148,7 @@ void PlaylistEditorWindow::save() {
             bl::util::FileUtil::joinPath(core::Properties::PlaylistPath(), fileLabel->getText()))) {
         markClean();
     }
-    else {
-        bl::dialog::tinyfd_messageBox("Error", "Failed to save playlist", "ok", "error", 1);
-    }
+    else { bl::dialog::tinyfd_messageBox("Error", "Failed to save playlist", "ok", "error", 1); }
 }
 
 void PlaylistEditorWindow::load(const std::string& file) {

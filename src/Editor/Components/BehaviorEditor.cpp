@@ -157,7 +157,7 @@ void BehaviorEditor::pack(Box::Ptr row) {
     row->pack(editBut, false, true);
 }
 
-void BehaviorEditor::configure(GUI::Ptr p, const core::file::Behavior& behavior) {
+void BehaviorEditor::configure(GUI* p, const core::file::Behavior& behavior) {
     using T = core::file::Behavior::Type;
 
     parent = p;
@@ -257,9 +257,7 @@ void BehaviorEditor::PathEditor::sync() {
                     stepEntry->setColor(sf::Color::Green, sf::Color::Transparent);
                     pace.steps = std::atoi(stepEntry->getInput().c_str());
                 }
-                else {
-                    stepEntry->setColor(sf::Color::Red, sf::Color::Transparent);
-                }
+                else { stepEntry->setColor(sf::Color::Red, sf::Color::Transparent); }
             });
         stepEntry->setRequisition({80, 1});
         row->pack(Label::create("Steps:"), false, true);

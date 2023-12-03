@@ -47,7 +47,7 @@ public:
      * @param parent The parent GUI object
      * @param behavior The behavior value to init with
      */
-    void configure(bl::gui::GUI::Ptr parent, const core::file::Behavior& behavior);
+    void configure(bl::gui::GUI* parent, const core::file::Behavior& behavior);
 
     /**
      * @brief Hides the editor window if opened
@@ -76,7 +76,7 @@ private:
     const NotifyWindowCb onClose;
     core::file::Behavior value;
     core::file::Behavior ogValue;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
     bl::gui::Notebook::Ptr notebook;
     bl::gui::Label::Ptr typeLabel;

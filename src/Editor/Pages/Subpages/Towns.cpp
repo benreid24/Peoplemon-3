@@ -102,7 +102,7 @@ Element::Ptr Towns::getContent() { return content; }
 
 std::uint8_t Towns::selected() const { return active; }
 
-void Towns::setGUI(const GUI::Ptr& g) { gui = g; }
+void Towns::setGUI(GUI* g) { gui = g; }
 
 sf::Color Towns::getColor(std::uint8_t i) { return Catchables::getColor(i); }
 
@@ -211,15 +211,16 @@ void Towns::setMapPos(const Event& click) {
 }
 
 void Towns::refreshFlymapCanvas() {
-    mapPosCanvas->getTexture().draw(flyMap);
-    sf::CircleShape dot(5.f);
-    dot.setPosition(sf::Vector2f(mapPos) * FlymapScale);
-    dot.setOrigin({5.f, 5.f});
-    dot.setFillColor(sf::Color::Red);
-    dot.setOutlineColor(sf::Color::Black);
-    dot.setOutlineThickness(1.f);
-    mapPosCanvas->getTexture().draw(dot);
-    mapPosCanvas->getTexture().display();
+    // TODO - BLIB_UPGRADE - update town flymap indicator rendering
+    /* mapPosCanvas->getTexture().draw(flyMap);
+     sf::CircleShape dot(5.f);
+     dot.setPosition(sf::Vector2f(mapPos) * FlymapScale);
+     dot.setOrigin({5.f, 5.f});
+     dot.setFillColor(sf::Color::Red);
+     dot.setOutlineColor(sf::Color::Black);
+     dot.setOutlineThickness(1.f);
+     mapPosCanvas->getTexture().draw(dot);
+     mapPosCanvas->getTexture().display();*/
 }
 
 } // namespace page

@@ -1,8 +1,8 @@
 #ifndef EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP
 #define EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
-#include <BLIB/Media.hpp>
 #include <functional>
 #include <optional>
 
@@ -40,7 +40,7 @@ public:
      * @param path Path to search for animations within
      * @param file Existing animation to use
      */
-    void open(const bl::gui::GUI::Ptr& parent, const std::string& path, const std::string& file);
+    void open(bl::gui::GUI* parent, const std::string& path, const std::string& file);
 
     /**
      * @brief Removes the window from view
@@ -49,12 +49,13 @@ public:
     void hide();
 
 private:
+    // TODO - BLIB_UPGRADE - update animation window
     const bool characterMode;
     const ChooseCb chooseCb;
     const CloseCb closeCb;
     std::string path;
     bl::gui::Window::Ptr window;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Label::Ptr fileLabel;
     bl::gui::Animation::Ptr animation;
     bl::resource::Ref<bl::gfx::a2d::AnimationData> animSrc;

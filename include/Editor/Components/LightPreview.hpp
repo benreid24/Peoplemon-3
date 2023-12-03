@@ -35,8 +35,7 @@ private:
     sf::RectangleShape cover;
 
     LightPreview(const sf::Vector2f& size);
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const bl::gui::Renderer& renderer) const override;
+    virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
 };
 
 } // namespace component

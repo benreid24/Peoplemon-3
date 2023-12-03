@@ -38,7 +38,7 @@ public:
      * @param parent The parent GUI object
      * @param current The conversation to load. Blank to make a new one
      */
-    void open(const bl::gui::GUI::Ptr& parent, const std::string& current);
+    void open(bl::gui::GUI* parent, const std::string& current);
 
 private:
     enum struct FilePickerMode { MakeNew, OpenExisting, SetFile } filePickerMode;
@@ -48,7 +48,7 @@ private:
     core::file::Conversation value;
     unsigned int currentNode;
 
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
     bl::gui::Box::Ptr nodeBox;
     ConversationTree::Ptr treeComponent;

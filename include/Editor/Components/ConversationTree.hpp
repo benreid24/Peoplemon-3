@@ -1,8 +1,8 @@
 #ifndef EDITOR_COMPONENTS_CONVERSATIONTREE_HPP
 #define EDITOR_COMPONENTS_CONVERSATIONTREE_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
-#include <BLIB/Media/Graphics/VertexBuffer.hpp>
 #include <Core/Files/Conversation.hpp>
 
 namespace editor
@@ -44,6 +44,8 @@ public:
     void setSelected(unsigned int i);
 
 private:
+    // TODO - BLIB_UPGRADE - update conversation tree rendering
+
     struct Node {
         sf::Text label;
         sf::Vector2f center;
@@ -61,7 +63,7 @@ private:
     const ClickCb clickCb;
     mutable sf::View view;
     sf::RectangleShape background;
-    bl::gfx::VertexBuffer vertexBuffer;
+    // bl::gfx::VertexBuffer vertexBuffer;
     std::vector<Node> renderNodes;
     unsigned int selected;
     float flashTime;
@@ -79,8 +81,7 @@ private:
 
     virtual void update(float dt) override;
     virtual sf::Vector2f minimumRequisition() const override;
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const bl::gui::Renderer& renderer) const override;
+    virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
 };
 
 } // namespace component

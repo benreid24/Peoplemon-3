@@ -29,7 +29,7 @@ RenderMapWindow::RenderMapWindow(const StartRender& os)
     window->pack(row);
 }
 
-void RenderMapWindow::open(const bl::gui::GUI::Ptr& gui) {
+void RenderMapWindow::open(bl::gui::GUI* gui) {
     gui->pack(window);
     window->setForceFocus(true);
     lightSelect->setLightLevel(255);

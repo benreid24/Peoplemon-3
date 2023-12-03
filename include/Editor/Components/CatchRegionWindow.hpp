@@ -33,7 +33,7 @@ public:
      * @param gui The main gui object
      * @param region The region to populate with
      */
-    void open(const bl::gui::GUI::Ptr& gui, const core::map::CatchRegion& region);
+    void open(bl::gui::GUI* gui, const core::map::CatchRegion& region);
 
     /**
      * @brief Returns the current region value as inputed by the user

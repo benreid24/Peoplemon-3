@@ -20,7 +20,7 @@ public:
 
     PeoplemonEditorWindow(core::file::PeoplemonDB& db, const OnChange& onChange);
 
-    void open(const bl::gui::GUI::Ptr& parent, core::pplmn::Id ppl);
+    void open(bl::gui::GUI* parent, core::pplmn::Id ppl);
 
 private:
     core::file::PeoplemonDB& peoplemonDb;

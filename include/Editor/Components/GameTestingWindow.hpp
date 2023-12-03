@@ -16,7 +16,7 @@ public:
 
     GameTestingWindow(const ActionCb& onSave);
 
-    void open(const bl::gui::GUI::Ptr& gui, core::file::GameSave& save);
+    void open(bl::gui::GUI* gui, core::file::GameSave& save);
 
 private:
     core::file::GameSave* activeSave;

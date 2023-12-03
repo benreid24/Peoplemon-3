@@ -56,7 +56,7 @@ ScriptSelector::ScriptSelector(const OnSelect& os, const OnCancel& oc)
     window->pack(row, true, false);
 }
 
-void ScriptSelector::open(const GUI::Ptr& p, const std::string& s) {
+void ScriptSelector::open(GUI* p, const std::string& s) {
     parent = p;
     scriptInput->setInput(s);
     parent->pack(window);

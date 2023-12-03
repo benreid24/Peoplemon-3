@@ -56,7 +56,7 @@ void Peoplemon::sync() {
         row->pack(lbl, false, true);
 
         Image::Ptr icon =
-            Image::create(TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(id)));
+            Image::create(ImageManager::load(core::pplmn::Peoplemon::thumbnailImage(id)));
         icon->scaleToSize({40.f, 40.f});
         row->pack(icon);
 

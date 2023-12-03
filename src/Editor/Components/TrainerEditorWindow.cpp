@@ -117,9 +117,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
                                                            fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save Trainer", "ok", "error", 1);
             }
-            else {
-                makeClean();
-            }
+            else { makeClean(); }
         }
     });
     fileLabel = Label::create("");
@@ -307,7 +305,7 @@ TrainerEditorWindow::TrainerEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     window->pack(row, true, false);
 }
 
-void TrainerEditorWindow::show(GUI::Ptr p, const std::string& file) {
+void TrainerEditorWindow::show(GUI* p, const std::string& file) {
     parent = p;
     reset();
     if (!file.empty()) {
@@ -466,9 +464,7 @@ void TrainerEditorWindow::onChooseAnimation(const std::string& f) {
 
 void TrainerEditorWindow::onChooseConversation(const std::string& c) {
     if (selectingBB) { bbLabel->setText(c); }
-    else {
-        abLabel->setText(c);
-    }
+    else { abLabel->setText(c); }
     window->setForceFocus(true);
     makeDirty();
 }

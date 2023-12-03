@@ -33,7 +33,7 @@ public:
      * @param parent The parent GUI element
      * @param file The map file to save to
      */
-    void show(bl::gui::GUI::Ptr parent, const std::string& file);
+    void show(bl::gui::GUI* parent, const std::string& file);
 
 private:
     const CreateCb createCb;

@@ -34,13 +34,13 @@ public:
      * @param source Optional event to populate from
      * @param pos The position to populate if not editing an existing event
      */
-    void open(const bl::gui::GUI::Ptr& parent, const core::map::Event* source,
+    void open(bl::gui::GUI* parent, const core::map::Event* source,
               const sf::Vector2i& pos);
 
 private:
     const OnEdit onEdit;
     const core::map::Event* orig;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
     bl::gui::Label::Ptr scriptLabel;
     bl::gui::TextEntry::Ptr xInput;

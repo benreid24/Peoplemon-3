@@ -36,7 +36,7 @@ public:
      * @param parent The parent GUI object
      * @param move The move to populate for, or Unknown for a new move
      */
-    void open(const bl::gui::GUI::Ptr& parent, core::pplmn::MoveId move);
+    void open(bl::gui::GUI* parent, core::pplmn::MoveId move);
 
 private:
     core::file::MoveDB& moveDb;

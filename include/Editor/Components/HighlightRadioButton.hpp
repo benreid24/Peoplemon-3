@@ -40,8 +40,7 @@ private:
     HighlightRadioButton(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group* group);
 
     virtual void onAcquisition() override;
-    virtual void doRender(sf::RenderTarget& target, sf::RenderStates states,
-                          const bl::gui::Renderer& renderer) const override;
+    virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
 };
 
 } // namespace component

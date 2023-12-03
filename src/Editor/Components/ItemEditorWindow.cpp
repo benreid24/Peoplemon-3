@@ -67,7 +67,7 @@ ItemEditorWindow::ItemEditorWindow(core::file::ItemDB& db, const OnChange& onCha
     window->pack(row, true, false);
 }
 
-void ItemEditorWindow::open(const bl::gui::GUI::Ptr& parent, core::item::Id item) {
+void ItemEditorWindow::open(bl::gui::GUI* parent, core::item::Id item) {
     using Item = core::item::Item;
 
     openId       = item;

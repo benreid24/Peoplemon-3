@@ -20,14 +20,18 @@ void HighlightRadioButton::onAcquisition() {
     highlight.setSize({getAcquisition().width, getAcquisition().height});
 }
 
-void HighlightRadioButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
-                                    const Renderer& renderer) const {
-    ToggleButton::doRender(target, states, renderer);
-    if (getValue()) {
-        highlight.setPosition(getPosition());
-        target.draw(highlight, states);
-    }
+bl::gui::rdr::Component* HighlightRadioButton::doPrepareRender(bl::gui::rdr::Renderer& renderer) {
+    return nullptr;
 }
+
+// void HighlightRadioButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
+//                                     const Renderer& renderer) const {
+//     ToggleButton::doRender(target, states, renderer);
+//     if (getValue()) {
+//         highlight.setPosition(getPosition());
+//         target.draw(highlight, states);
+//     }
+// }
 
 } // namespace component
 } // namespace editor
