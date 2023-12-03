@@ -1,8 +1,8 @@
 #ifndef GAME_STATES_FLYMAP_HPP
 #define GAME_STATES_FLYMAP_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
-#include <BLIB/Media/Graphics/Flashing.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Maps/Town.hpp>
 #include <Game/States/State.hpp>
@@ -57,17 +57,11 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the new game features
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update fly map rendering
+
     std::vector<sf::Vector2f> townPositions;
     bool hudActive;
     bool& unpause;
@@ -80,7 +74,7 @@ private:
     sf::Sprite town;
     sf::Sprite player;
     sf::Sprite cursor;
-    bl::gfx::Flashing cursorFlasher;
+    // bl::gfx::Flashing cursorFlasher;
 
     bl::resource::Ref<sf::Texture> panelTxtr;
     sf::Sprite panel;

@@ -1,7 +1,7 @@
 #ifndef CORE_RESOURCES_HPP
 #define CORE_RESOURCES_HPP
 
-#include <BLIB/Media/Graphics.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Files/Conversation.hpp>
 #include <Core/Files/NPC.hpp>
@@ -15,8 +15,8 @@
 using TextureManager      = bl::resource::ResourceManager<sf::Texture>;
 using ImageManager        = bl::resource::ResourceManager<sf::Image>;
 using SoundManager        = bl::resource::ResourceManager<sf::SoundBuffer>;
-using AnimationManager    = bl::resource::ResourceManager<bl::gfx::AnimationData>;
-using FontManager         = bl::resource::ResourceManager<sf::Font>;
+using AnimationManager    = bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>;
+using FontManager         = bl::resource::ResourceManager<sf::VulkanFont>;
 using MapManager          = bl::resource::ResourceManager<core::map::Map>;
 using TilesetManager      = bl::resource::ResourceManager<core::map::Tileset>;
 using ConversationManager = bl::resource::ResourceManager<core::file::Conversation>;

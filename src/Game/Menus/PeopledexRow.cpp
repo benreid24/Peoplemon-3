@@ -21,59 +21,76 @@ PeopledexRow::Ptr PeopledexRow::create(core::pplmn::Id ppl, const core::player::
     return Ptr{new PeopledexRow(ppl, dex)};
 }
 
-PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& dex) {
+PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& dex)
+: ppl(ppl)
+, dex(dex) {
+    getSignal(Item::Selected).willAlwaysCall(std::bind(&PeopledexRow::makeActive, this));
+    getSignal(Item::Deselected).willAlwaysCall(std::bind(&PeopledexRow::makeInactive, this));
+}
+
+glm::vec2 PeopledexRow::getSize() const { return bgndTxtr->size(); }
+
+bl::com::Transform2D& PeopledexRow::doCreate(bl::engine::Engine& engine, bl::ecs::Entity parent) {
     const auto intel  = dex.getIntelLevel(ppl);
     const bool caught = dex.getCaught(ppl) > 0;
 
     const std::string& ImgPath = core::Properties::MenuImagePath();
     auto& jp                   = bl::util::FileUtil::joinPath;
 
-    bgndTxtr       = TextureManager::load(jp(ImgPath, "Peopledex/item.png"));
-    activeBgndTxtr = TextureManager::load(jp(ImgPath, "Peopledex/itemActive.png"));
-    background.setTexture(*bgndTxtr, true);
-    const float mid = static_cast<float>(bgndTxtr->getSize().y) * 0.5f;
+    bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(jp(ImgPath, "Peopledex/item.png"));
+    activeBgndTxtr =
+        engine.renderer().texturePool().getOrLoadTexture(jp(ImgPath, "Peopledex/itemActive.png"));
+    background.create(engine, bgndTxtr);
+    background.setParent(parent);
+    const float mid = static_cast<float>(bgndTxtr->size().y) * 0.5f;
 
-    ballTxtr = TextureManager::load(jp(core::Properties::ImagePath(), "item.png"));
+    ballTxtr = engine.renderer().texturePool().getOrLoadTexture(
+        jp(core::Properties::ImagePath(), "item.png"));
+    constexpr float BallX = 26.f;
+    const float bw        = static_cast<float>(ballTxtr->size().x) * 0.5f;
     if (caught) {
-        ball.setTexture(*ballTxtr, true);
-        ball.setOrigin(sf::Vector2f(ballTxtr->getSize()) * 0.5f);
+        ball.create(engine, ballTxtr);
+        ball.getTransform().setOrigin(ballTxtr->size() * 0.5f);
+        ball.getTransform().setPosition({BallX, mid});
+        ball.setParent(background);
     }
-    ball.setPosition({26.f, mid});
-    const float bw = static_cast<float>(ballTxtr->getSize().x) * 0.5f;
 
-    id.setFont(core::Properties::MenuFont());
-    id.setFillColor(sf::Color::Black);
-    id.setCharacterSize(14);
-    id.setString(toString(ppl));
-    id.setPosition(bw + ball.getPosition().x, mid);
-    id.setOrigin(0.f, id.getGlobalBounds().height * 0.5f + id.getLocalBounds().top * 0.5f);
+    id.create(engine, core::Properties::MenuFont(), toString(ppl), 14, sf::Color::Black);
+    id.getTransform().setPosition(bw + BallX, mid);
+    id.getTransform().setOrigin(0.f,
+                                id.getLocalBounds().height * 0.5f + id.getLocalBounds().top * 0.5f);
+    id.setParent(background);
 
-    name.setFont(core::Properties::MenuFont());
-    name.setFillColor(sf::Color::Black);
-    name.setCharacterSize(24);
-    name.setString(intel != core::player::Peopledex::NoIntel ? core::pplmn::Peoplemon::name(ppl) :
-                                                               "???");
-    name.setOrigin(0.f, name.getGlobalBounds().height * 0.5f + name.getLocalBounds().top * 0.5f);
-    name.setPosition(id.getPosition().x + 65.f, mid);
+    name.create(engine,
+                core::Properties::MenuFont(),
+                intel != core::player::Peopledex::NoIntel ? core::pplmn::Peoplemon::name(ppl) :
+                                                            "???",
+                24,
+                sf::Color::Black);
+    name.getTransform().setOrigin(
+        0.f, name.getLocalBounds().height * 0.5f + name.getLocalBounds().top * 0.5f);
+    name.getTransform().setPosition(id.getTransform().getLocalPosition().x + 65.f, mid);
+    name.setParent(background);
 
-    getSignal(Item::Selected).willAlwaysCall(std::bind(&PeopledexRow::makeActive, this));
-    getSignal(Item::Deselected).willAlwaysCall(std::bind(&PeopledexRow::makeInactive, this));
+    return background.getTransform();
 }
 
-sf::Vector2f PeopledexRow::getSize() const { return sf::Vector2f(bgndTxtr->getSize()); }
-
-void PeopledexRow::render(sf::RenderTarget& target, sf::RenderStates states,
-                          const sf::Vector2f& position) const {
-    states.transform.translate(position);
-    target.draw(background, states);
-    target.draw(ball, states);
-    target.draw(id, states);
-    target.draw(name, states);
+void PeopledexRow::doSceneAdd(bl::rc::Overlay* overlay) {
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    id.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    name.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    if (ball.entity() != bl::ecs::InvalidEntity) {
+        ball.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    }
 }
 
-void PeopledexRow::makeActive() { background.setTexture(*activeBgndTxtr, true); }
+void PeopledexRow::doSceneRemove() { background.removeFromScene(); }
 
-void PeopledexRow::makeInactive() { background.setTexture(*bgndTxtr, true); }
+bl::ecs::Entity PeopledexRow::getEntity() const { return background.entity(); }
+
+void PeopledexRow::makeActive() { background.setTexture(activeBgndTxtr); }
+
+void PeopledexRow::makeInactive() { background.setTexture(bgndTxtr); }
 
 } // namespace menu
 } // namespace game

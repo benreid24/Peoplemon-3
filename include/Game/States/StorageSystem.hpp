@@ -61,17 +61,11 @@ public:
      * @param engine The game engine instance
      * @param dt Time elapsed, in seconds, since last call to update
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the menu to the game window
-     *
-     * @param engine The game engine instance
-     * @param lag Time elapsed in seconds not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update storage menu rendering
+
     enum struct MenuState {
         // entry states
         ChooseAction,

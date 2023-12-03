@@ -1,9 +1,9 @@
 #ifndef CORE_SYSTEMS_TRAINERS_HPP
 #define CORE_SYSTEMS_TRAINERS_HPP
 
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
-#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>

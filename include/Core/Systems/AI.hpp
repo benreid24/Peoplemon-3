@@ -115,13 +115,13 @@ private:
 #define WanderTypes component::WanderBehavior, component::Position, component::Controllable
 
     using StandingView  = bl::ecs::View<StandingTypes>*;
-    using StandingRow   = bl::ecs::ComponentSet<StandingTypes>;
+    using StandingRow   = bl::ecs::ComponentSet<bl::ecs::Require<StandingTypes>>;
     using SpinView      = bl::ecs::View<SpinTypes>*;
-    using SpinRow       = bl::ecs::ComponentSet<SpinTypes>;
+    using SpinRow       = bl::ecs::ComponentSet<bl::ecs::Require<SpinTypes>>;
     using FixedPathView = bl::ecs::View<FixedPathTypes>*;
-    using FixedPathRow  = bl::ecs::ComponentSet<FixedPathTypes>;
+    using FixedPathRow  = bl::ecs::ComponentSet<bl::ecs::Require<FixedPathTypes>>;
     using WanderView    = bl::ecs::View<WanderTypes>*;
-    using WanderRow     = bl::ecs::ComponentSet<WanderTypes>;
+    using WanderRow     = bl::ecs::ComponentSet<bl::ecs::Require<WanderTypes>>;
 
 #undef StandingTypes
 #undef SpinTypes

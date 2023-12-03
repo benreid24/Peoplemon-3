@@ -50,22 +50,22 @@ BattleState::BattleState(core::system::Systems& systems,
 const char* BattleState::name() const { return "BattleState"; }
 
 void BattleState::activate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
+    /*engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
         {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
     engine.renderSystem().cameras().configureView(engine.window());
-    battle->view.configureView(engine.window().getView());
+    battle->view.configureView(engine.window().getView());*/
     systems.engine().inputSystem().getActor().addListener(battle->view);
     bl::event::Dispatcher::subscribe(this);
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
     systems.engine().inputSystem().getActor().removeListener(battle->view);
     bl::event::Dispatcher::unsubscribe(this);
     bl::audio::AudioSystem::popPlaylist();
 }
 
-void BattleState::update(bl::engine::Engine& engine, float dt) {
+void BattleState::update(bl::engine::Engine& engine, float dt, float) {
     battle->controller->update();
     battle->view.update(dt);
     battle->state.localPlayer().refresh();
@@ -84,13 +84,13 @@ void BattleState::update(bl::engine::Engine& engine, float dt) {
     }
 }
 
-void BattleState::render(bl::engine::Engine& engine, float lag) {
-    battle->view.render(engine.window(), lag);
-#ifdef PEOPLEMON_DEBUG
-    core::debug::DebugBanner::render(engine.window());
-#endif
-    engine.window().display();
-}
+// void BattleState::render(bl::engine::Engine& engine, float lag) {
+//     battle->view.render(engine.window(), lag);
+// #ifdef PEOPLEMON_DEBUG
+//     core::debug::DebugBanner::render(engine.window());
+// #endif
+//     engine.window().display();
+// }
 
 void BattleState::observe(const core::event::OpenPeoplemonMenu& event) {
     systems.engine().pushState(

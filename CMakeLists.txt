@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Fix behavior of CMAKE_CXX_STANDARD when targeting macOS.
@@ -39,10 +39,10 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
 
-include("lib/BLIB/cmake/blib_helpers.cmake")
-configure_target(Peoplemon)
-configure_target(PeoplemonEditor)
-configure_target(Core)
+include("lib/BLIB/cmake/configure_blib_target.cmake")
+configure_blib_target(Peoplemon)
+configure_blib_target(PeoplemonEditor)
+configure_blib_target(Core)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Core PUBLIC PEOPLEMON_DEBUG)

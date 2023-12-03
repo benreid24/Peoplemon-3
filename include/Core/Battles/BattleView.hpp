@@ -24,7 +24,6 @@ class BattleState;
  *        BattleController and updates itself independently of battle logic
  *
  * @ingroup Battles
- *
  */
 class BattleView : public bl::input::Listener {
 public:

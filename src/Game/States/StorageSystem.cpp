@@ -36,8 +36,8 @@ StorageSystem::StorageSystem(core::system::Systems& s)
 , state(MenuState::ChooseAction)
 , currentBox(0)
 , hovered(nullptr)
-, actionMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
-, contextMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
+//, actionMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
+//, contextMenu(bl::menu::ArrowSelector::create(7.f, sf::Color::Black))
 , depositedPeoplemon(-1) {
     auto joinPath = bl::util::FileUtil::joinPath;
     using bl::menu::Item;
@@ -60,25 +60,25 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     rightArrow.setPosition(BoxTitlePosition.x + BoxTitleSize.x + 3.f,
                            BoxTitlePosition.y + BoxTitleSize.y * 0.5f -
                                rightArrow.getGlobalBounds().height * 0.5f);
-    boxTitle.setFont(Properties::MenuFont());
+    // boxTitle.setFont(Properties::MenuFont());
     boxTitle.setCharacterSize(42);
     boxTitle.setFillColor(sf::Color::Black);
     boxTitle.setPosition(BoxTitlePosition + BoxTitleSize * 0.5f);
 
-    nickname.setFont(Properties::MenuFont());
+    // nickname.setFont(Properties::MenuFont());
     nickname.setFillColor(sf::Color(240, 40, 50));
     nickname.setPosition(NamePosition);
     nickname.setCharacterSize(26);
-    level.setFont(Properties::MenuFont());
+    // level.setFont(Properties::MenuFont());
     level.setFillColor(sf::Color(35, 160, 245));
     level.setPosition(LevelPosition);
     level.setCharacterSize(22);
-    itemLabel.setFont(Properties::MenuFont());
+    // itemLabel.setFont(Properties::MenuFont());
     itemLabel.setFillColor(sf::Color(200, 255, 255));
     itemLabel.setPosition(ItemLabelPosition);
     itemLabel.setCharacterSize(14);
     itemLabel.setString("Hold item:");
-    itemName.setFont(Properties::MenuFont());
+    // itemName.setFont(Properties::MenuFont());
     itemName.setFillColor(sf::Color(165, 255, 255));
     itemName.setPosition(ItemPosition);
     itemName.setCharacterSize(16);
@@ -135,11 +135,11 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
 
     // create view for menu
-    engine.renderSystem().cameras().pushCamera(
+    /*engine.renderSystem().cameras().pushCamera(
         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
     view    = engine.window().getView();
     boxView = bl::interface::ViewUtil::computeSubView({BoxPosition, BoxSize}, view);
-    boxView.setCenter(BoxSize * 0.5f);
+    boxView.setCenter(BoxSize * 0.5f);*/
 
     hovered = systems.player().state().storage.get(currentBox, cursor.getPosition());
     if (state == MenuState::WaitingDeposit) {
@@ -166,10 +166,10 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
 void StorageSystem::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(*this);
     bl::event::Dispatcher::dispatch<core::event::StorageSystemClosed>({});
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void StorageSystem::update(bl::engine::Engine&, float dt) {
+void StorageSystem::update(bl::engine::Engine&, float dt, float) {
     cursor.update(dt);
 
     switch (state) {
@@ -192,67 +192,67 @@ void StorageSystem::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void StorageSystem::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-
-    engine.window().draw(background);
-    engine.window().draw(boxTitle);
-    if (currentBox > 0) { engine.window().draw(leftArrow); }
-    if (currentBox < 13) { engine.window().draw(rightArrow); }
-
-    engine.window().draw(thumbnail);
-    if (showInfo) {
-        engine.window().draw(nickname);
-        engine.window().draw(level);
-        engine.window().draw(itemLabel);
-        engine.window().draw(itemName);
-    }
-    actionMenu.render(engine.window());
-
-    const sf::View origView = engine.window().getView();
-    engine.window().setView(boxView);
-    if (state == MenuState::BoxSliding) {
-        sf::RenderStates states;
-        states.transform.translate(slideOffset, 0.f);
-        slidingOutGrid.render(engine.window(), states);
-        const float sign = -(slideVel / std::abs(slideVel));
-        states.transform.translate(BoxSize.x * sign, 0.f);
-        activeGrid.render(engine.window(), states);
-    }
-    else {
-        activeGrid.render(engine.window(), {});
-        switch (state) {
-        case MenuState::BrowseMenuOpen:
-        case MenuState::BrowsingBox:
-        case MenuState::PlacingPeoplemon:
-        case MenuState::CursorMoving:
-        case MenuState::WaitingContextMessage:
-        case MenuState::WaitingReleaseConfirm:
-        case MenuState::MovingPeoplemon:
-            cursor.render(engine.window());
-            break;
-        default:
-            break;
-        }
-    }
-
-    engine.window().setView(origView);
-
-    switch (state) {
-    case MenuState::WaitingContextMessage:
-    case MenuState::WaitingReleaseConfirm:
-        systems.hud().render(engine.window(), lag);
-        [[fallthrough]];
-    case MenuState::BrowseMenuOpen:
-        contextMenu.render(engine.window());
-        break;
-
-    default:
-        break;
-    }
-
-    engine.window().display();
-}
+// void StorageSystem::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//
+//     engine.window().draw(background);
+//     engine.window().draw(boxTitle);
+//     if (currentBox > 0) { engine.window().draw(leftArrow); }
+//     if (currentBox < 13) { engine.window().draw(rightArrow); }
+//
+//     engine.window().draw(thumbnail);
+//     if (showInfo) {
+//         engine.window().draw(nickname);
+//         engine.window().draw(level);
+//         engine.window().draw(itemLabel);
+//         engine.window().draw(itemName);
+//     }
+//     actionMenu.render(engine.window());
+//
+//     const sf::View origView = engine.window().getView();
+//     engine.window().setView(boxView);
+//     if (state == MenuState::BoxSliding) {
+//         sf::RenderStates states;
+//         states.transform.translate(slideOffset, 0.f);
+//         slidingOutGrid.render(engine.window(), states);
+//         const float sign = -(slideVel / std::abs(slideVel));
+//         states.transform.translate(BoxSize.x * sign, 0.f);
+//         activeGrid.render(engine.window(), states);
+//     }
+//     else {
+//         activeGrid.render(engine.window(), {});
+//         switch (state) {
+//         case MenuState::BrowseMenuOpen:
+//         case MenuState::BrowsingBox:
+//         case MenuState::PlacingPeoplemon:
+//         case MenuState::CursorMoving:
+//         case MenuState::WaitingContextMessage:
+//         case MenuState::WaitingReleaseConfirm:
+//         case MenuState::MovingPeoplemon:
+//             cursor.render(engine.window());
+//             break;
+//         default:
+//             break;
+//         }
+//     }
+//
+//     engine.window().setView(origView);
+//
+//     switch (state) {
+//     case MenuState::WaitingContextMessage:
+//     case MenuState::WaitingReleaseConfirm:
+//         systems.hud().render(engine.window(), lag);
+//         [[fallthrough]];
+//     case MenuState::BrowseMenuOpen:
+//         contextMenu.render(engine.window());
+//         break;
+//
+//     default:
+//         break;
+//     }
+//
+//     engine.window().display();
+// }
 
 void StorageSystem::startDeposit() {
     systems.engine().pushState(PeoplemonMenu::create(
@@ -497,10 +497,10 @@ void StorageSystem::enterState(MenuState ns) {
 
     switch (ns) {
     case MenuState::BrowseMenuOpen:
-        contextMenu.setPosition(BoxPosition +
-                                sf::Vector2f(cursor.getPosition() + sf::Vector2i{1, 1}) *
-                                    menu::StorageCursor::TileSize() +
-                                sf::Vector2f(5.f, 5.f));
+        /* contextMenu.setPosition(BoxPosition +
+                                 glm::vec2(cursor.getPosition() + sf::Vector2i{1, 1}) *
+                                     menu::StorageCursor::TileSize() +
+                                 sf::Vector2f(5.f, 5.f));*/
         break;
     default:
         break;

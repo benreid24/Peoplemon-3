@@ -49,7 +49,7 @@ Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon
 , ppl(ppl)
 , state(AnimState::IntroMsg)
 , sparks(std::bind(&Evolution::spawnSpark, this, std::placeholders::_1), 0, 0.f)
-, spark(4.f)
+//, spark(4.f)
 , fadeColor(255.f) {
     oldTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.id()));
     newTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.evolvesInto()));
@@ -67,8 +67,8 @@ Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon
 const char* Evolution::name() const { return "Evolution"; }
 
 void Evolution::activate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /* engine.renderSystem().cameras().pushCamera(
+         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
     engine.inputSystem().getActor().addListener(*this);
 
     if (ppl.evolvesInto() == core::pplmn::Id::Unknown) {
@@ -86,12 +86,12 @@ void Evolution::activate(bl::engine::Engine& engine) {
 }
 
 void Evolution::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
     engine.inputSystem().getActor().removeListener(*this);
     // TODO - stop music
 }
 
-void Evolution::update(bl::engine::Engine&, float dt) {
+void Evolution::update(bl::engine::Engine&, float dt, float) {
     const auto updateSpark = [dt](Spark& spark) {
         spark.time += dt;
         spark.position += spark.velocity * dt;
@@ -157,40 +157,40 @@ void Evolution::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void Evolution::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-    engine.window().draw(background);
-    systems.hud().render(engine.window(), lag);
-
-    const auto renderSpark = [this, &engine](const Spark& s) {
-        spark.setPosition(s.position);
-        spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
-        spark.setRadius(s.radius);
-        engine.window().draw(spark);
-    };
-
-    switch (state) {
-    case AnimState::IntroMsg:
-    case AnimState::OldFadeOut:
-        engine.window().draw(oldThumb);
-        break;
-    case AnimState::CancelConfirm:
-    case AnimState::CancelMsg:
-    case AnimState::SizeOscillating:
-        engine.window().draw(oldThumb);
-        engine.window().draw(newThumb);
-        break;
-    case AnimState::EvolvedMsg:
-    case AnimState::NewFadeIn:
-        engine.window().draw(newThumb);
-        sparks.render(renderSpark);
-        break;
-    default:
-        break;
-    }
-
-    engine.window().display();
-}
+// void Evolution::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//     engine.window().draw(background);
+//     systems.hud().render(engine.window(), lag);
+//
+//     const auto renderSpark = [this, &engine](const Spark& s) {
+//         spark.setPosition(s.position);
+//         spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
+//         spark.setRadius(s.radius);
+//         engine.window().draw(spark);
+//     };
+//
+//     switch (state) {
+//     case AnimState::IntroMsg:
+//     case AnimState::OldFadeOut:
+//         engine.window().draw(oldThumb);
+//         break;
+//     case AnimState::CancelConfirm:
+//     case AnimState::CancelMsg:
+//     case AnimState::SizeOscillating:
+//         engine.window().draw(oldThumb);
+//         engine.window().draw(newThumb);
+//         break;
+//     case AnimState::EvolvedMsg:
+//     case AnimState::NewFadeIn:
+//         engine.window().draw(newThumb);
+//         sparks.render(renderSpark);
+//         break;
+//     default:
+//         break;
+//     }
+//
+//     engine.window().display();
+// }
 
 void Evolution::messageDone() {
     switch (state) {

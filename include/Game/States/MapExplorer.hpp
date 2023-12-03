@@ -40,7 +40,7 @@ public:
     virtual const char* name() const override;
 
     /**
-     * @brief Activates the state and camera. Discnnects the player from their entity
+     * @brief Activates the state and camera. Disconnects the player from their entity
      *
      * @param engine The game engine
      */
@@ -59,18 +59,12 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the game and hint box
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    bl::render::camera::Camera::Ptr mapExplorer;
+    // TODO - BLIB_UPGRADE - update map explorer rendering
+
+    // bl::render::camera::Camera::Ptr mapExplorer;
     sf::RectangleShape hintBox;
     sf::Text hintText;
     float hintTime;

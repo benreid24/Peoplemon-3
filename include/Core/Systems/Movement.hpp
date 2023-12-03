@@ -1,8 +1,8 @@
 #ifndef CORE_SYSTEMS_MOVEMENT_HPP
 #define CORE_SYSTEMS_MOVEMENT_HPP
 
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/ECS.hpp>
-#include <BLIB/Media/Audio/AudioSystem.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
 

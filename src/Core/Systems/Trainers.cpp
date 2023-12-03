@@ -1,6 +1,6 @@
 #include <Core/Systems/Trainers.hpp>
 
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>

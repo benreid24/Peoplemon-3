@@ -21,8 +21,9 @@ LoadGame::LoadGame(core::system::Systems& s)
 : State(s)
 , state(SelectingSave)
 , selectedSave(0)
-, saveMenu(ArrowSelector::create(12.f, sf::Color::Black))
-, actionMenu(ArrowSelector::create(12.f, sf::Color::Black)) {
+//, saveMenu(ArrowSelector::create(12.f, sf::Color::Black))
+//, actionMenu(ArrowSelector::create(12.f, sf::Color::Black)) {
+{
     bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
                                                                  "LoadGame/loadGameBgnd.png"));
     background.setTexture(*bgndTxtr, true);
@@ -79,8 +80,8 @@ void LoadGame::activate(bl::engine::Engine& engine) {
     }
     saveMenu.setSelectedItem(item.get());
 
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /* engine.renderSystem().cameras().pushCamera(
+         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
 
     state = SelectingSave;
     inputDriver.drive(&saveMenu);
@@ -91,10 +92,10 @@ void LoadGame::activate(bl::engine::Engine& engine) {
 void LoadGame::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void LoadGame::update(bl::engine::Engine& engine, float dt) {
+void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
     switch (state) {
     case SaveDeleted:
         if (saves[selectedSave].remove()) { activate(engine); }
@@ -159,25 +160,25 @@ bool LoadGame::observe(const bl::input::Actor&, unsigned int activatedControl,
     return true;
 }
 
-void LoadGame::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-
-    engine.window().draw(background);
-    if (state != SelectingSave) { actionMenu.render(engine.window()); }
-    saveMenu.render(engine.window());
-    if (state == Error) { systems.hud().render(engine.window(), lag); }
-    if (state == Fading) { engine.window().draw(cover); }
-
-    engine.window().display();
-}
+// void LoadGame::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//
+//     engine.window().draw(background);
+//     if (state != SelectingSave) { actionMenu.render(engine.window()); }
+//     saveMenu.render(engine.window());
+//     if (state == Error) { systems.hud().render(engine.window(), lag); }
+//     if (state == Fading) { engine.window().draw(cover); }
+//
+//     engine.window().display();
+// }
 
 void LoadGame::saveSelected(unsigned int i) {
     selectedSave = i;
     state        = ChooseAction;
     inputDriver.drive(&actionMenu);
-    const sf::Vector2f pos(170.f + saveMenu.getBounds().width + 40.f,
-                           200.f + static_cast<float>(i) * 26.f + 32.f);
-    actionMenu.setPosition(pos + sf::Vector2f(22.f, 14.f));
+    const glm::vec2 pos(170.f + saveMenu.getBounds().width + 40.f,
+                        200.f + static_cast<float>(i) * 26.f + 32.f);
+    actionMenu.setPosition(pos + glm::vec2(22.f, 14.f));
 }
 
 void LoadGame::errorDone() { activate(systems.engine()); }

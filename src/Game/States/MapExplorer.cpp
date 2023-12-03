@@ -10,42 +10,42 @@ namespace state
 {
 namespace
 {
-class ExplorerCamera : public bl::render::camera::Camera {
-public:
-    static Ptr create(const sf::Vector2f& position) { return Ptr(new ExplorerCamera(position)); }
-
-    virtual ~ExplorerCamera() = default;
-
-    virtual bool valid() const override { return true; }
-
-    virtual void update(float dt) override {
-        const float PixelsPerSecond =
-            0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
-        static const float ZoomPerSecond = 0.5f;
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-            zoom -= ZoomPerSecond * dt;
-            if (zoom < 0.1f) zoom = 0.1f;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }
-
-        setCenter(position);
-        setZoomLevel(zoom, core::Properties::WindowSize());
-    }
-
-private:
-    sf::Vector2f position;
-    float zoom;
-
-    ExplorerCamera(const sf::Vector2f& pos)
-    : Camera(sf::FloatRect{pos, core::Properties::WindowSize() * 1.5f}, 0.f)
-    , position(pos)
-    , zoom(1.5f) {}
-};
+// class ExplorerCamera : public bl::render::camera::Camera {
+// public:
+//     static Ptr create(const sf::Vector2f& position) { return Ptr(new ExplorerCamera(position)); }
+//
+//     virtual ~ExplorerCamera() = default;
+//
+//     virtual bool valid() const override { return true; }
+//
+//     virtual void update(float dt) override {
+//         const float PixelsPerSecond =
+//             0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
+//         static const float ZoomPerSecond = 0.5f;
+//
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+//             zoom -= ZoomPerSecond * dt;
+//             if (zoom < 0.1f) zoom = 0.1f;
+//         }
+//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }
+//
+//         setCenter(position);
+//         setZoomLevel(zoom, core::Properties::WindowSize());
+//     }
+//
+// private:
+//     sf::Vector2f position;
+//     float zoom;
+//
+//     ExplorerCamera(const sf::Vector2f& pos)
+//     : Camera(sf::FloatRect{pos, core::Properties::WindowSize() * 1.5f}, 0.f)
+//     , position(pos)
+//     , zoom(1.5f) {}
+// };
 
 } // namespace
 
@@ -59,9 +59,9 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
     core::component::Position* pos =
         systems.engine().ecs().getComponent<core::component::Position>(systems.player().player());
     if (pos) { camPos = pos->positionPixels(); }
-    mapExplorer = ExplorerCamera::create(camPos);
+    // mapExplorer = ExplorerCamera::create(camPos);
 
-    hintText.setFont(core::Properties::MenuFont());
+    // hintText.setFont(core::Properties::MenuFont());
     hintText.setFillColor(sf::Color(220, 220, 220));
     hintText.setCharacterSize(48);
     hintText.setString("Move around: WASD\nZoom out: V\nZoom in: C");
@@ -80,16 +80,16 @@ const char* MapExplorer::name() const { return "MapExplorer"; }
 void MapExplorer::activate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
-    engine.renderSystem().cameras().pushCamera(mapExplorer);
+    // engine.renderSystem().cameras().pushCamera(mapExplorer);
 }
 
 void MapExplorer::deactivate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::unsubscribe(this);
     systems.player().makePlayerControlled(systems.player().player());
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void MapExplorer::update(bl::engine::Engine&, float dt) {
+void MapExplorer::update(bl::engine::Engine&, float dt, float) {
     systems.update(dt, false);
 
     hintTime += dt;
@@ -107,13 +107,13 @@ void MapExplorer::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void MapExplorer::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-    systems.render().render(engine.window(), systems.world().activeMap(), lag);
-    engine.window().draw(hintBox);
-    engine.window().draw(hintText);
-    engine.window().display();
-}
+// void MapExplorer::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//     systems.render().render(engine.window(), systems.world().activeMap(), lag);
+//     engine.window().draw(hintBox);
+//     engine.window().draw(hintText);
+//     engine.window().display();
+// }
 
 void MapExplorer::observe(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {

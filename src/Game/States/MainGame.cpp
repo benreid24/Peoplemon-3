@@ -54,10 +54,10 @@ void MainGame::activate(bl::engine::Engine&) {
 }
 
 void MainGame::deactivate(bl::engine::Engine&) {
-    systems.engine().renderSystem().cameras().clearViewportConstraint();
+    // systems.engine().renderSystem().cameras().clearViewportConstraint();
 }
 
-void MainGame::update(bl::engine::Engine&, float dt) {
+void MainGame::update(bl::engine::Engine&, float dt, float) {
     systems.update(dt, true);
 
     switch (state) {
@@ -97,28 +97,28 @@ void MainGame::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void MainGame::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-    systems.render().render(engine.window(), systems.world().activeMap(), lag);
-
-    switch (state) {
-    case MapFadein:
-    case SwitchMapFadeout:
-        cover.setSize(engine.window().getView().getSize());
-        cover.setPosition(engine.window().getView().getCenter());
-        cover.setOrigin(engine.window().getView().getSize() * 0.5f);
-        engine.window().draw(cover);
-        break;
-    default:
-        break;
-    }
-
-#ifdef PEOPLEMON_DEBUG
-    core::debug::DebugBanner::render(engine.window());
-#endif
-
-    engine.window().display();
-}
+// void MainGame::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//     systems.render().render(engine.window(), systems.world().activeMap(), lag);
+//
+//     switch (state) {
+//     case MapFadein:
+//     case SwitchMapFadeout:
+//         cover.setSize(engine.window().getView().getSize());
+//         cover.setPosition(engine.window().getView().getCenter());
+//         cover.setOrigin(engine.window().getView().getSize() * 0.5f);
+//         engine.window().draw(cover);
+//         break;
+//     default:
+//         break;
+//     }
+//
+// #ifdef PEOPLEMON_DEBUG
+//     core::debug::DebugBanner::render(engine.window());
+// #endif
+//
+//     engine.window().display();
+// }
 
 void MainGame::observe(const core::event::StateChange& event) {
     switch (event.type) {

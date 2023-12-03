@@ -9,8 +9,7 @@ namespace map
 {
 Tile::Tile()
 : isAnim(false)
-, tid(Blank)
-, anim(nullptr) {}
+, tid(Blank) {}
 
 Tile::Tile(IdType i, bool a)
 : Tile() {
@@ -25,32 +24,35 @@ Tile::IdType Tile::id() const { return tid; }
 void Tile::setDataOnly(IdType id, bool a) {
     tid    = id;
     isAnim = a;
-    if (!isAnim) anim = nullptr;
 }
 
 void Tile::set(Tileset& tileset, IdType id, bool anim) {
     tid    = id;
     isAnim = anim;
-    initialize(tileset, sprite.getPosition());
+
+    // TODO - BLIB_UPGRADE - tilemap rendering
+    // initialize(tileset, sprite.getPosition());
 }
 
 void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
+    // TODO - BLIB_UPGRADE - tilemap rendering
     tileset.initializeTile(*this);
-    sprite.setPosition(pos);
+
+    /* sprite.setPosition(pos);
     uniqueAnim.setPosition(pos);
 
     if (tid == Blank || !isAnim) { anim = nullptr; }
+    */
 }
 
 void Tile::step() {
-    if (anim && !anim->playing()) { anim->play(); }
-}
-
-void Tile::update(float dt) {
-    if (anim == &uniqueAnim) uniqueAnim.update(dt);
+    // TODO - BLIB_UPGRADE - tilemap rendering
+    // if (anim && !anim->playing()) { anim->play(); }
 }
 
 void Tile::render(sf::RenderTarget& target, float lag) const {
+    // TODO - BLIB_UPGRADE - tilemap rendering
+    /*
     if (tid != Blank) {
         if (isAnim) {
             anim->setPosition(sprite.getPosition()); // in case of shared anim
@@ -60,6 +62,7 @@ void Tile::render(sf::RenderTarget& target, float lag) const {
             target.draw(sprite);
         }
     }
+    */
 }
 
 } // namespace map

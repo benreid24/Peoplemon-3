@@ -59,7 +59,7 @@ public:
     virtual void activate(bl::engine::Engine&) override;
 
     /**
-     * @brief Unsubscribes from event and input busses
+     * @brief Unsubscribes from event and input buses
      *
      */
     virtual void deactivate(bl::engine::Engine&) override;
@@ -69,15 +69,10 @@ public:
      *
      * @param dt Time elapsed in seconds since the last call to update
      */
-    virtual void update(bl::engine::Engine&, float dt) override;
-
-    /**
-     * @brief Renders the menu to the screen
-     *
-     */
-    virtual void render(bl::engine::Engine&, float) override;
+    virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update bag menu rendering
     enum struct MenuState {
         Browsing,
         Sliding,

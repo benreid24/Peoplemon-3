@@ -40,14 +40,14 @@ NewGame::NewGame(core::system::Systems& systems)
 const char* NewGame::name() const { return "NewGame"; }
 
 void NewGame::activate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /*engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
 
     systems.hud().displayMessage("Hello there!");
     systems.hud().displayMessage("I'm the professor in HomeTown. My name is Professor, but you can "
                                  "just call me Professor Professor");
     systems.hud().getInputString(
-        "Your mom told me she had a kid, but I wasn't really listnening. What's your name?",
+        "Your mom told me she had a kid, but I wasn't really listening. What's your name?",
         1,
         24,
         std::bind(&NewGame::nameSet, this, std::placeholders::_1));
@@ -72,9 +72,9 @@ void NewGame::genderSet(const std::string& g) {
 
 void NewGame::fadeOut() {
     fadeTime = 0.f;
-    cover.setPosition(systems.engine().window().getView().getCenter());
+    /*cover.setPosition(systems.engine().window().getView().getCenter());
     cover.setOrigin(systems.engine().window().getView().getSize() * 0.5f);
-    cover.setSize(systems.engine().window().getView().getSize());
+    cover.setSize(systems.engine().window().getView().getSize());*/
 }
 
 void NewGame::deactivate(bl::engine::Engine& engine) {
@@ -82,13 +82,13 @@ void NewGame::deactivate(bl::engine::Engine& engine) {
         BL_LOG_ERROR << "Failed to load starting map";
         systems.engine().flags().set(bl::engine::Flags::Terminate);
     }
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
     systems.clock().set({12, 0});
     systems.player().newGame(playerName,
                              isBoy ? core::player::Gender::Boy : core::player::Gender::Girl);
 }
 
-void NewGame::update(bl::engine::Engine&, float dt) {
+void NewGame::update(bl::engine::Engine&, float dt, float) {
     systems.hud().update(dt);
     background.rotate(RotateSpeed * dt);
     if (fadeTime >= 0.f) {
@@ -101,14 +101,14 @@ void NewGame::update(bl::engine::Engine&, float dt) {
     }
 }
 
-void NewGame::render(bl::engine::Engine&, float lag) {
-    systems.engine().window().clear();
-    systems.engine().window().draw(background);
-    systems.engine().window().draw(prof);
-    systems.hud().render(systems.engine().window(), lag);
-    if (fadeTime >= 0.f) { systems.engine().window().draw(cover); }
-    systems.engine().window().display();
-}
+// void NewGame::render(bl::engine::Engine&, float lag) {
+//     systems.engine().window().clear();
+//     systems.engine().window().draw(background);
+//     systems.engine().window().draw(prof);
+//     systems.hud().render(systems.engine().window(), lag);
+//     if (fadeTime >= 0.f) { systems.engine().window().draw(cover); }
+//     systems.engine().window().display();
+// }
 
 } // namespace state
 } // namespace game

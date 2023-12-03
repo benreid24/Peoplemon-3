@@ -31,7 +31,7 @@ Renderable Renderable::fromMoveAnims(const Position& pos, Movable& movable,
     mv.data[2] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "down.anim"));
     mv.data[3] = AnimationManager::load(bl::util::FileUtil::joinPath(path, "left.anim"));
 
-    mv.anim.setData(*mv.data[0]);
+    // mv.anim.setData(*mv.data[0]);
     rc.update(0.f);
 
     return rc;
@@ -56,7 +56,7 @@ Renderable Renderable::fromFastMoveAnims(const Position& pos, Movable& movable,
     mv.run[2] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "down.anim"));
     mv.run[3] = AnimationManager::load(bl::util::FileUtil::joinPath(runPath, "left.anim"));
 
-    mv.anim.setData(*mv.walk[0]);
+    // mv.anim.setData(*mv.walk[0]);
     rc.update(0.f);
 
     return rc;
@@ -137,34 +137,42 @@ Renderable::MoveAnims::MoveAnims(Movable& movable)
 : movable(movable) {}
 
 void Renderable::MoveAnims::update(float dt, const Position& pos) {
-    anim.setData(*data[static_cast<unsigned int>(pos.direction)]);
+    /* anim.setData(*data[static_cast<unsigned int>(pos.direction)]);
     anim.update(dt);
     if (movable.moving())
         anim.play(false);
     else
         anim.stop();
+        */
 }
 
 void Renderable::MoveAnims::render(sf::RenderTarget& target, float lag, const sf::Vector2f& pos) {
-    const sf::Vector2f offset =
+    /* const sf::Vector2f offset =
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
     anim.setPosition(pos - offset);
     anim.render(target, lag);
+    */
 }
 
-float Renderable::MoveAnims::length() const { return anim.getData().getLength(); }
+float Renderable::MoveAnims::length() const {
+    return 0.f;
+    // return anim.getData().getLength();
+}
 
 void Renderable::MoveAnims::trigger(bool loop) {
-    anim.setIsLoop(loop);
-    anim.play();
+    // anim.setIsLoop(loop);
+    // anim.play();
 }
 
-void Renderable::MoveAnims::setAngle(float a) { anim.setRotation(a); }
+void Renderable::MoveAnims::setAngle(float a) {
+    // anim.setRotation(a);
+}
 
 Renderable::FastMoveAnims::FastMoveAnims(Movable& movable)
 : movable(movable) {}
 
 void Renderable::FastMoveAnims::update(float dt, const Position& pos) {
+    /*
     if (movable.moving()) {
         if (movable.goingFast()) {
             auto& src = *run[static_cast<unsigned int>(pos.direction)];
@@ -182,24 +190,32 @@ void Renderable::FastMoveAnims::update(float dt, const Position& pos) {
         anim.stop();
     }
     anim.update(dt);
+    */
 }
 
 void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
                                        const sf::Vector2f& pos) {
+    /*
     const sf::Vector2f offset =
         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
     anim.setPosition(pos - offset);
     anim.render(target, lag);
+    */
 }
 
-float Renderable::FastMoveAnims::length() const { return anim.getData().getLength(); }
+float Renderable::FastMoveAnims::length() const {
+    return 0.f;
+    // return anim.getData().getLength();
+}
 
 void Renderable::FastMoveAnims::trigger(bool loop) {
-    anim.setIsLoop(loop);
-    anim.play();
+    // anim.setIsLoop(loop);
+    // anim.play();
 }
 
-void Renderable::FastMoveAnims::setAngle(float a) { anim.setRotation(a); }
+void Renderable::FastMoveAnims::setAngle(float a) {
+    // anim.setRotation(a);
+}
 
 Renderable::OneAnimation::OneAnimation(const std::string& path) {
     src = AnimationManager::load(bl::util::FileUtil::joinPath(Properties::AnimationPath(), path));
@@ -208,27 +224,32 @@ Renderable::OneAnimation::OneAnimation(const std::string& path) {
         return;
     }
 
-    anim.setData(*src);
-    offset =
-        anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f, 0.f);
+    // anim.setData(*src);
+    // offset =
+    //     anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f,
+    //     0.f);
 }
 
-void Renderable::OneAnimation::update(float dt, const Position&) { anim.update(dt); }
+void Renderable::OneAnimation::update(float dt, const Position&) {
+    // anim.update(dt);
+}
 
 void Renderable::OneAnimation::render(sf::RenderTarget& target, float lag,
                                       const sf::Vector2f& pos) {
-    anim.setPosition(pos - offset);
-    anim.render(target, lag);
+    // anim.setPosition(pos - offset);
+    // anim.render(target, lag);
 }
 
 float Renderable::OneAnimation::length() const { return src->getLength(); }
 
 void Renderable::OneAnimation::trigger(bool loop) {
-    anim.setIsLoop(loop);
-    anim.play();
+    // anim.setIsLoop(loop);
+    // anim.play();
 }
 
-void Renderable::OneAnimation::setAngle(float a) { anim.setRotation(a); }
+void Renderable::OneAnimation::setAngle(float a) {
+    // anim.setRotation(a);
+}
 
 } // namespace component
 } // namespace core

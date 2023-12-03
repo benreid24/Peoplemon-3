@@ -39,7 +39,7 @@ using TileLayer = Layer<Tile>;
  * @ingroup Maps
  *
  */
-using SortedLayer = bl::container::Vector2D<Tile*>;
+using SortedLayer = bl::ctr::Vector2D<Tile*>;
 
 /**
  * @brief Specialization of Layer for height transitions

@@ -1,7 +1,7 @@
 #ifndef GAME_MENUS_STORAGECURSOR_HPP
 #define GAME_MENUS_STORAGECURSOR_HPP
 
-#include <BLIB/Media/Graphics/Flashing.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Input/Control.hpp>
 #include <Core/Peoplemon/Id.hpp>
@@ -94,11 +94,10 @@ public:
 
 private:
     sf::Vector2i position;
-    bl::resource::Ref<sf::Texture> cursorTxtr;
-    sf::Sprite cursor;
-    bl::gfx::Flashing flasher;
-    bl::resource::Ref<sf::Texture> pplTxtr;
-    sf::Sprite peoplemon;
+    bl::rc::res::TextureRef cursorTxtr;
+    bl::gfx::Sprite cursor;
+    bl::rc::res::TextureRef pplTxtr;
+    bl::gfx::Sprite peoplemon;
     core::input::EntityControl moveDir;
     float offset;
     float moveVel;

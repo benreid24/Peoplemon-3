@@ -1,6 +1,6 @@
 #include <Core/Battles/View/PlayerMenu.hpp>
 
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <Core/Events/BagMenu.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
 #include <Core/Peoplemon/Move.hpp>

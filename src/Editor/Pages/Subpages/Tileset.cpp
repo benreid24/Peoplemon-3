@@ -106,7 +106,7 @@ Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
             "Add animation", nullptr, 1, filters, "Animation files", 0);
         if (file) {
             const std::string animFile = makeCopyName(core::Properties::MapAnimationPath(), file);
-            bl::gfx::AnimationData anim;
+            bl::gfx::a2d::AnimationData anim;
             if (!anim.loadFromFile(file)) {
                 bl::dialog::tinyfd_messageBox(
                     "Bad Animation", "Failed to load animation", "ok", "error", 0);

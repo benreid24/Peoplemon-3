@@ -16,8 +16,9 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
 : State(s)
 , hudActive(false)
 , unpause(up)
-, cursorFlasher(cursor, 0.3f, 0.4f)
-, townMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
+//, cursorFlasher(cursor, 0.3f, 0.4f)
+//, townMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black)) {
+{
     const auto& joinPath = bl::util::FileUtil::joinPath;
     const auto& ImgPath  = core::Properties::MenuImagePath();
 
@@ -46,11 +47,11 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     panelTxtr = TextureManager::load(joinPath(ImgPath, "FlyMap/sidePanel.png"));
     panel.setTexture(*panelTxtr, true);
     panel.setPosition(map.getGlobalBounds().width, 0.f);
-    townName.setFont(core::Properties::MenuFont());
+    // townName.setFont(core::Properties::MenuFont());
     townName.setCharacterSize(20);
     townName.setFillColor(sf::Color(20, 40, 65));
     townName.setPosition(panel.getPosition().x + 100.f, 375.f);
-    townDesc.setFont(core::Properties::MenuFont());
+    // townDesc.setFont(core::Properties::MenuFont());
     townDesc.setCharacterSize(14);
     townDesc.setFillColor(sf::Color::Black);
     townDesc.setPosition(panel.getPosition().x + 10.f, 415.f);
@@ -90,18 +91,17 @@ const char* FlyMap::name() const { return "FlyMap"; }
 void FlyMap::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
 
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /*engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
 }
 
 void FlyMap::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(*this);
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void FlyMap::update(bl::engine::Engine&, float dt) {
+void FlyMap::update(bl::engine::Engine&, float dt, float) {
     if (hudActive) { systems.hud().update(dt); }
-    cursorFlasher.update(dt);
 }
 
 bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
@@ -111,29 +111,29 @@ bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
     return true;
 }
 
-void FlyMap::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-
-    engine.window().draw(map);
-    for (const sf::Vector2f& pos : townPositions) {
-        town.setPosition(pos);
-        engine.window().draw(town);
-    }
-    if (!townName.getString().isEmpty()) {
-        cursorFlasher.render(engine.window(), {}, lag);
-        engine.window().draw(townName);
-    }
-    if (playerTxtr) { engine.window().draw(player); }
-
-    engine.window().draw(panel);
-    townMenu.render(engine.window());
-    engine.window().draw(townDesc);
-    engine.window().draw(townName);
-
-    if (hudActive) { systems.hud().render(engine.window(), lag); }
-
-    engine.window().display();
-}
+// void FlyMap::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//
+//     engine.window().draw(map);
+//     for (const sf::Vector2f& pos : townPositions) {
+//         town.setPosition(pos);
+//         engine.window().draw(town);
+//     }
+//     if (!townName.getString().isEmpty()) {
+//         cursorFlasher.render(engine.window(), {}, lag);
+//         engine.window().draw(townName);
+//     }
+//     if (playerTxtr) { engine.window().draw(player); }
+//
+//     engine.window().draw(panel);
+//     townMenu.render(engine.window());
+//     engine.window().draw(townDesc);
+//     engine.window().draw(townName);
+//
+//     if (hudActive) { systems.hud().render(engine.window(), lag); }
+//
+//     engine.window().display();
+// }
 
 void FlyMap::clearHover() {
     townName.setString("");
@@ -193,8 +193,8 @@ void FlyMap::messageDone() { hudActive = false; }
 void FlyMap::close() { systems.engine().popState(); }
 
 void FlyMap::wrap() {
-    bl::interface::wordWrap(townDesc, 180.f);
-    bl::interface::wordWrap(townName, 180.f);
+    /*bl::interface::wordWrap(townDesc, 180.f);
+    bl::interface::wordWrap(townName, 180.f);*/
 }
 
 } // namespace state

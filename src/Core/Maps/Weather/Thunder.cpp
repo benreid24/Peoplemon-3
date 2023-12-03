@@ -1,6 +1,6 @@
 #include "Thunder.hpp"
 
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>

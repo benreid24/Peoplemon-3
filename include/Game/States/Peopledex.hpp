@@ -59,17 +59,11 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the new game features
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update peopledex rendering
+
     bl::menu::Menu menu;
     core::input::MenuDriver menuDriver;
 

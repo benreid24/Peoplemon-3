@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_TILE_HPP
 #define CORE_MAPS_TILE_HPP
 
-#include <BLIB/Media/Graphics.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
@@ -101,13 +101,6 @@ public:
     void step();
 
     /**
-     * @brief Updates the tile's unique animation if there is one
-     *
-     * @param dt Time elapsed since last call to update()
-     */
-    void update(float dt);
-
-    /**
      * @brief Renders the tile to the given target
      *
      * @param target The target to render to
@@ -119,9 +112,7 @@ private:
     bool isAnim;
     IdType tid;
 
-    sf::Sprite sprite;
-    bl::gfx::Animation uniqueAnim;
-    bl::gfx::Animation* anim;
+    // TODO - BLIB_UPGRADE - tilemap rendering
 
     friend class Tileset;
     friend struct bl::serial::SerializableObject<Tile>;
