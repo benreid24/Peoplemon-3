@@ -21,7 +21,8 @@ void Position::init() {
 }
 
 void Position::update() {
-    sf::FloatRect area = owner.engine().renderSystem().cameras().getCurrentViewport();
+    // TODO - BLIB_UPGRADE - refactor position component + system
+    /*sf::FloatRect area = owner.engine().renderSystem().cameras().getCurrentViewport();
     area.left -= area.width * 1.5f;
     area.top -= area.height * 1.5f;
     area.width *= 3.f;
@@ -44,7 +45,7 @@ void Position::update() {
                 if (e != bl::ecs::InvalidEntity) toUpdate.emplace_back(e);
             }
         }
-    }
+    }*/
 }
 
 const std::vector<bl::ecs::Entity>& Position::updateRangeEntities() const { return toUpdate; }

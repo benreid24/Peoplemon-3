@@ -22,8 +22,8 @@ PlayerMenu::PlayerMenu(bool canRun)
 : state(State::Hidden)
 , stateLoopGuard(false)
 , currentPeoplemon(0)
-, actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
-, moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
+//, actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
+//, moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
 , moves(nullptr) {
     using namespace bl::menu;
 
@@ -60,17 +60,17 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveBox.setPosition(MoveBoxPos);
 
     movePwr.setFillColor(sf::Color::Black);
-    movePwr.setFont(Properties::MenuFont());
+    // movePwr.setFont(Properties::MenuFont());
     movePwr.setCharacterSize(25);
     movePwr.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
 
     moveAcc.setFillColor(sf::Color::Black);
-    moveAcc.setFont(Properties::MenuFont());
+    // moveAcc.setFont(Properties::MenuFont());
     moveAcc.setCharacterSize(25);
     moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 53.f));
 
     movePP.setFillColor(sf::Color::Black);
-    movePP.setFont(Properties::MenuFont());
+    // movePP.setFont(Properties::MenuFont());
     movePP.setCharacterSize(25);
     movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 87.f));
 }
@@ -196,14 +196,14 @@ void PlayerMenu::handleInput(input::EntityControl cmd, bool fromEvent) {
 }
 
 void PlayerMenu::render(sf::RenderTarget& target) const {
-    if (state == State::PickingAction) { actionMenu.render(target); }
-    else if (state == State::PickingMove || state == State::ChoosingMoveToForget) {
-        moveMenu.render(target);
-        target.draw(moveBox);
-        target.draw(movePP);
-        target.draw(movePwr);
-        target.draw(moveAcc);
-    }
+    /* if (state == State::PickingAction) { actionMenu.render(target); }
+     else if (state == State::PickingMove || state == State::ChoosingMoveToForget) {
+         moveMenu.render(target);
+         target.draw(moveBox);
+         target.draw(movePP);
+         target.draw(movePwr);
+         target.draw(moveAcc);
+     }*/
 }
 
 void PlayerMenu::fightChosen() {

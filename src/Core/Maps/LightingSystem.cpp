@@ -1,7 +1,6 @@
 #include <Core/Maps/LightingSystem.hpp>
 
 #include <BLIB/Math.hpp>
-#include <BLIB/Media/Shapes/GradientCircle.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 #include <cmath>
@@ -180,7 +179,9 @@ void LightingSystem::update(float dt) {
 }
 
 void LightingSystem::render(sf::RenderTarget& target) {
-    const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() * 0.5f);
+    // TODO - BLIB_UPGRADE - update lighting rendering
+
+    /*const sf::Vector2f corner(target.getView().getCenter() - target.getView().getSize() * 0.5f);
     const sf::Vector2f& size = target.getView().getSize();
 
     const std::uint8_t ambient = computeAmbient();
@@ -215,7 +216,7 @@ void LightingSystem::render(sf::RenderTarget& target) {
     sprite.setPosition(corner.x, corner.y + size.y);
     sprite.setScale(size.x / static_cast<float>(renderSurface.getSize().x),
                     -size.y / static_cast<float>(renderSurface.getSize().y));
-    target.draw(sprite);
+    target.draw(sprite);*/
 }
 
 std::uint8_t LightingSystem::computeAmbient() const {

@@ -1,6 +1,6 @@
 #include <Editor/Components/PlaylistEditorWindow.hpp>
 
-#include <BLIB/Media/Audio.hpp>
+#include <BLIB/Audio.hpp>
 #include <Core/Properties.hpp>
 
 namespace editor

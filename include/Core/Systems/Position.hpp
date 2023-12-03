@@ -103,7 +103,7 @@ public:
 
 private:
     Systems& owner;
-    std::vector<bl::container::Vector2D<bl::ecs::Entity>> entityMap;
+    std::vector<bl::ctr::Vector2D<bl::ecs::Entity>> entityMap;
     std::vector<bl::ecs::Entity> toUpdate;
 
     virtual void observe(const event::EntityMoved& event) override;

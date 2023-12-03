@@ -60,6 +60,7 @@ bl::com::Transform2D& PeoplemonButton::doCreate(bl::engine::Engine& engine,
     txtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/button.png"));
     image.create(engine, txtr);
+    image.setParent(parent);
 
     name.create(engine,
                 core::Properties::MenuFont(),

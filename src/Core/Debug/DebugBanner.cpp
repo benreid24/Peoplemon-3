@@ -15,7 +15,7 @@ const sf::Vector2f ViewSize(Properties::WindowWidth(), Properties::WindowHeight(
 DebugBanner::DebugBanner()
 : view(ViewSize * 0.5f, ViewSize)
 , timeout(2.f) {
-    text.setFont(core::Properties::MenuFont());
+    // text.setFont(core::Properties::MenuFont());
     text.setFillColor(sf::Color::Cyan);
     text.setOutlineColor(sf::Color::Black);
     text.setCharacterSize(20);

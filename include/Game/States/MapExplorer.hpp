@@ -1,7 +1,7 @@
 #ifndef GAME_STATES_MAP_EXPLORER_HPP
 #define GAME_STATES_MAP_EXPLORER_HPP
 
-#include <BLIB/Render/Cameras.hpp>
+#include <BLIB/Cameras.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
 

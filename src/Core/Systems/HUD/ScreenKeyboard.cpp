@@ -16,12 +16,14 @@ constexpr float InputAreaHeight = 35.f;
 
 using namespace bl::menu;
 
+// TODO - BLIB_UPGRADE - update screen keyboard rendering
 ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
 : onSubmit(os)
 , minLen(0)
 , maxLen(16)
-, keyboardMenu(ArrowSelector::create(8.f, sf::Color::Black)) {
-    renderedInput.setFont(Properties::MenuFont());
+//, keyboardMenu(ArrowSelector::create(8.f, sf::Color::Black))
+{
+    // renderedInput.setFont(Properties::MenuFont());
     renderedInput.setPosition({15.f, 5.f});
     renderedInput.setFillColor(sf::Color::Black);
     renderedInput.setCharacterSize(28);
@@ -73,9 +75,7 @@ ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
     for (unsigned int i = 1; i < keys[0].size(); ++i) {
         keyboardMenu.addItem(keys[0][i], keys[0][i - 1].get(), Item::Right);
         if (i < 3) { keyboardMenu.attachExisting(keys[0][i].get(), topRow[i], Item::Bottom); }
-        else {
-            keyboardMenu.attachExisting(submit.get(), keys[0][i].get(), Item::Top, false);
-        }
+        else { keyboardMenu.attachExisting(submit.get(), keys[0][i].get(), Item::Top, false); }
     }
     keyboardMenu.attachExisting(keys[0].back().get(), keys[0].front().get(), Item::Left);
 
@@ -84,9 +84,7 @@ ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
             if (j < keys[i - 1].size()) {
                 keyboardMenu.addItem(keys[i][j], keys[i - 1][j].get(), Item::Bottom);
             }
-            else {
-                keyboardMenu.addItem(keys[i][j], keys[i][j - 1].get(), Item::Right);
-            }
+            else { keyboardMenu.addItem(keys[i][j], keys[i][j - 1].get(), Item::Right); }
             if (j > 0) {
                 keyboardMenu.attachExisting(keys[i][j].get(), keys[i][j - 1].get(), Item::Right);
             }
@@ -144,7 +142,7 @@ void ScreenKeyboard::draw(sf::RenderTarget& target, sf::RenderStates states) con
     states.transform.translate(position);
     target.draw(background, states);
     target.draw(renderedInput, states);
-    keyboardMenu.render(target, states);
+    // keyboardMenu.render(target, states);
 }
 
 } // namespace hud

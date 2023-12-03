@@ -1,8 +1,7 @@
 #ifndef CORE_SYSTEMS_HUD_QTYENTRY_HPP
 #define CORE_SYSTEMS_HUD_QTYENTRY_HPP
 
-#include <BLIB/Media/Shapes/Triangle.hpp>
-#include <SFML/Graphics.hpp>
+#include <BLIB/Graphics/Triangle.hpp>
 
 namespace core
 {
@@ -78,11 +77,13 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
+    // TODO - BLIB_UPGRADE - update qty entry rendering
+
     sf::Vector2f position;
     sf::RectangleShape background;
     sf::Text text;
-    bl::shapes::Triangle upArrow;
-    bl::shapes::Triangle downArrow;
+    /*bl::shapes::Triangle upArrow;
+    bl::shapes::Triangle downArrow;*/
     sf::Clock debounce;
 
     int qty;

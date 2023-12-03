@@ -9,9 +9,9 @@ namespace system
 namespace hud
 {
 QtyEntry::QtyEntry()
-: upArrow({6.f, 0.f}, {12.f, 8.f}, {0.f, 8.f})
-, downArrow({0.f, 0.f}, {12.f, 0.f}, {6.f, 8.f})
-, qty(0)
+: /*upArrow({6.f, 0.f}, {12.f, 8.f}, {0.f, 8.f})
+, downArrow({0.f, 0.f}, {12.f, 0.f}, {6.f, 8.f})*/
+    qty(0)
 , minQty(0)
 , maxQty(0) {
     background.setFillColor(sf::Color::White);
@@ -19,11 +19,11 @@ QtyEntry::QtyEntry()
     background.setOutlineThickness(2.f);
 
     text.setFillColor(sf::Color::Black);
-    text.setFont(Properties::MenuFont());
+    // text.setFont(Properties::MenuFont());
     text.setCharacterSize(14);
 
-    upArrow.setFillColor(sf::Color::Black);
-    downArrow.setFillColor(sf::Color::Black);
+    /*upArrow.setFillColor(sf::Color::Black);
+    downArrow.setFillColor(sf::Color::Black);*/
 }
 
 void QtyEntry::setPosition(const sf::Vector2f& pos) { position = pos; }
@@ -40,13 +40,13 @@ void QtyEntry::configure(int mn, int mx, int q) {
     w = std::max(w, text.getGlobalBounds().width);
 
     // update positions
-    background.setSize({w + 12.f,
+    /*background.setSize({w + 12.f,
                         upArrow.getGlobalBounds().height + downArrow.getGlobalBounds().height +
                             text.getGlobalBounds().height + 6.f + text.getLocalBounds().top + 6.f});
     upArrow.setPosition(w * 0.5f + 6.f, 7.f);
     downArrow.setPosition(w * 0.5f + 6.f,
                           background.getSize().y - downArrow.getGlobalBounds().height - 1.f);
-    text.setPosition(0.f, upArrow.getGlobalBounds().height + 5.f);
+    text.setPosition(0.f, upArrow.getGlobalBounds().height + 5.f);*/
 
     // update data
     qty    = q;
@@ -83,8 +83,8 @@ void QtyEntry::render(sf::RenderTarget& target) const {
 
     target.draw(background, states);
     target.draw(text, states);
-    if (qty > minQty) { target.draw(downArrow, states); }
-    if (qty < maxQty) { target.draw(upArrow, states); }
+    /*if (qty > minQty) { target.draw(downArrow, states); }
+    if (qty < maxQty) { target.draw(upArrow, states); }*/
 }
 
 bool QtyEntry::rateLimit(bool ignore) {
