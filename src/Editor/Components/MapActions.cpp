@@ -219,8 +219,8 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
     }
     const float ts = static_cast<float>(core::Properties::PixelsPerTile());
 
-    bl::container::Vector2D<core::map::Tile::IdType> prev;
-    bl::container::Vector2D<std::uint8_t> wasAnim;
+    bl::ctr::Vector2D<core::map::Tile::IdType> prev;
+    bl::ctr::Vector2D<std::uint8_t> wasAnim;
     prev.setSize(area.width, area.height, core::map::Tile::Blank);
     wasAnim.setSize(area.width, area.height, 0);
 
@@ -245,8 +245,8 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
 
 EditMap::SetTileAreaAction::SetTileAreaAction(
     unsigned int level, unsigned int layer, const sf::IntRect& area,
-    bl::container::Vector2D<core::map::Tile::IdType>&& prev,
-    bl::container::Vector2D<std::uint8_t>&& wasAnim, core::map::Tile::IdType value, bool isAnim,
+    bl::ctr::Vector2D<core::map::Tile::IdType>&& prev,
+    bl::ctr::Vector2D<std::uint8_t>&& wasAnim, core::map::Tile::IdType value, bool isAnim,
     int w, int h)
 : level(level)
 , layer(layer)
@@ -291,7 +291,7 @@ EditMap::Action::Ptr EditMap::FillTileAction::create(unsigned int level, unsigne
     const core::map::Tile& tile = getTile(map.levels, level, layer, pos);
     const unsigned int estSize  = map.sizeTiles().x * map.sizeTiles().y / 8;
 
-    bl::container::Vector2D<std::uint8_t> visited;
+    bl::ctr::Vector2D<std::uint8_t> visited;
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
@@ -383,7 +383,7 @@ EditMap::Action::Ptr EditMap::SetCollisionAreaAction::create(unsigned int level,
                                                              const sf::IntRect& area,
                                                              core::map::Collision value,
                                                              const EditMap& map) {
-    bl::container::Vector2D<core::map::Collision> ogcols;
+    bl::ctr::Vector2D<core::map::Collision> ogcols;
     ogcols.setSize(area.width, area.height, core::map::Collision::Open);
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
@@ -395,7 +395,7 @@ EditMap::Action::Ptr EditMap::SetCollisionAreaAction::create(unsigned int level,
 
 EditMap::SetCollisionAreaAction::SetCollisionAreaAction(
     unsigned int level, const sf::IntRect& area, core::map::Collision value,
-    bl::container::Vector2D<core::map::Collision>&& ogcols)
+    bl::ctr::Vector2D<core::map::Collision>&& ogcols)
 : level(level)
 , area(area)
 , value(value)
@@ -427,7 +427,7 @@ EditMap::Action::Ptr EditMap::FillCollisionAction::create(unsigned int level,
     const core::map::Collision oc = map.levels[level].collisionLayer().get(pos.x, pos.y);
     const unsigned int estSize    = map.sizeTiles().x * map.sizeTiles().y / 8;
 
-    bl::container::Vector2D<std::uint8_t> visited;
+    bl::ctr::Vector2D<std::uint8_t> visited;
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
@@ -509,7 +509,7 @@ const char* EditMap::SetCatchAction::description() const { return "set catch til
 EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
                                                          const sf::IntRect& area,
                                                          std::uint8_t value, const EditMap& map) {
-    bl::container::Vector2D<std::uint8_t> ogcols;
+    bl::ctr::Vector2D<std::uint8_t> ogcols;
     ogcols.setSize(area.width, area.height, 0);
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
@@ -521,7 +521,7 @@ EditMap::Action::Ptr EditMap::SetCatchAreaAction::create(unsigned int level,
 
 EditMap::SetCatchAreaAction::SetCatchAreaAction(unsigned int level, const sf::IntRect& area,
                                                 std::uint8_t value,
-                                                bl::container::Vector2D<std::uint8_t>&& ogcols)
+                                                bl::ctr::Vector2D<std::uint8_t>&& ogcols)
 : level(level)
 , area(area)
 , value(value)
@@ -552,7 +552,7 @@ EditMap::Action::Ptr EditMap::FillCatchAction::create(unsigned int level, const 
     const std::uint8_t og      = map.levels[level].catchLayer().get(pos.x, pos.y);
     const unsigned int estSize = map.sizeTiles().x * map.sizeTiles().y / 8;
 
-    bl::container::Vector2D<std::uint8_t> visited;
+    bl::ctr::Vector2D<std::uint8_t> visited;
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
@@ -1524,7 +1524,7 @@ const char* EditMap::SetTownTileAction::description() const { return "set town t
 
 EditMap::Action::Ptr EditMap::SetTownTileAreaAction::create(const sf::IntRect& area,
                                                             std::uint8_t id, EditMap& map) {
-    bl::container::Vector2D<std::uint8_t> set;
+    bl::ctr::Vector2D<std::uint8_t> set;
     set.setSize(area.width, area.height, 0);
     for (int x = 0; x < area.width; ++x) {
         for (int y = 0; y < area.height; ++y) {
@@ -1535,7 +1535,7 @@ EditMap::Action::Ptr EditMap::SetTownTileAreaAction::create(const sf::IntRect& a
 }
 
 EditMap::SetTownTileAreaAction::SetTownTileAreaAction(const sf::IntRect& area, std::uint8_t id,
-                                                      bl::container::Vector2D<std::uint8_t>&& set)
+                                                      bl::ctr::Vector2D<std::uint8_t>&& set)
 : area(area)
 , id(id)
 , orig(set) {}
@@ -1563,7 +1563,7 @@ EditMap::Action::Ptr EditMap::FillTownTileAction::create(const sf::Vector2i& pos
     const std::uint8_t val     = map.townTiles(pos.x, pos.y);
     const unsigned int estSize = map.sizeTiles().x * map.sizeTiles().y / 8;
 
-    bl::container::Vector2D<std::uint8_t> visited;
+    bl::ctr::Vector2D<std::uint8_t> visited;
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
@@ -1639,7 +1639,7 @@ const char* EditMap::SetLevelTileAction::description() const { return "set level
 EditMap::Action::Ptr EditMap::SetLevelTileAreaAction::create(const sf::IntRect& area,
                                                              core::map::LevelTransition lt,
                                                              EditMap& map) {
-    bl::container::Vector2D<core::map::LevelTransition> orig;
+    bl::ctr::Vector2D<core::map::LevelTransition> orig;
     orig.setSize(area.width, area.height);
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
@@ -1652,7 +1652,7 @@ EditMap::Action::Ptr EditMap::SetLevelTileAreaAction::create(const sf::IntRect& 
 
 EditMap::SetLevelTileAreaAction::SetLevelTileAreaAction(
     const sf::IntRect& area, core::map::LevelTransition lt,
-    bl::container::Vector2D<core::map::LevelTransition>&& orig)
+    bl::ctr::Vector2D<core::map::LevelTransition>&& orig)
 : area(area)
 , lt(lt)
 , orig(orig) {}

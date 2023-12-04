@@ -64,17 +64,11 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the intro sequence
-     *
-     * @param engine The game engine
-     * @param lag Time, in seconds, not accounted for in update()
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update battle rendering
+
     enum struct Substate { BattleIntro, Battling, Evolving };
 
     Substate state;
@@ -89,7 +83,8 @@ private:
 
     void incEvolveIndex();
     void startEvolve();
-    virtual bool observe(const bl::input::Actor&, unsigned int, bl::input::DispatchType, bool) override;
+    virtual bool observe(const bl::input::Actor&, unsigned int, bl::input::DispatchType,
+                         bool) override;
 };
 
 } // namespace state

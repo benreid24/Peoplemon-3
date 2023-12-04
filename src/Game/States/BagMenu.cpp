@@ -81,11 +81,11 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
 , unpause(up)
 , state(MenuState::Browsing)
 , activeMenu(&regularMenu)
-, actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
-, regularMenu(bl::menu::NoSelector::create())
-, ballMenu(bl::menu::NoSelector::create())
-, keyMenu(bl::menu::NoSelector::create())
-, tmMenu(bl::menu::NoSelector::create())
+//, actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
+//, regularMenu(bl::menu::NoSelector::create())
+//, ballMenu(bl::menu::NoSelector::create())
+//, keyMenu(bl::menu::NoSelector::create())
+//, tmMenu(bl::menu::NoSelector::create())
 , actionOpen(false) {
     bgndTxtr = TextureManager::load(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/background.png"));
@@ -134,12 +134,12 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 2.f, 2.f, 2.f});
     actionMenu.setPosition({252.f, 82.f});
 
-    pocketLabel.setFont(core::Properties::MenuFont());
+    // pocketLabel.setFont(core::Properties::MenuFont());
     pocketLabel.setCharacterSize(27);
     pocketLabel.setFillColor(sf::Color(0, 20, 75));
     pocketLabel.setPosition({72.f, 342.f});
 
-    description.setFont(core::Properties::MenuFont());
+    // description.setFont(core::Properties::MenuFont());
     description.setCharacterSize(20);
     description.setFillColor(sf::Color::Black);
     description.setPosition({98.f, 473.f});
@@ -214,18 +214,18 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         if (lastTab < 0) lastTab = 0;
     }
 
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /* engine.renderSystem().cameras().pushCamera(
+         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
     engine.inputSystem().getActor().addListener(*this);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
     engine.inputSystem().getActor().removeListener(*this);
 }
 
-void BagMenu::update(bl::engine::Engine& engine, float dt) {
+void BagMenu::update(bl::engine::Engine& engine, float dt, float) {
     switch (state) {
     case MenuState::Sliding:
         slideOff += slideVel * dt;
@@ -293,28 +293,28 @@ bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::Dis
     return true;
 }
 
-void BagMenu::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-    if (state == MenuState::ImmediatelyPop) return;
-
-    engine.window().draw(background);
-    if (state == MenuState::Sliding) {
-        const sf::View oldView = engine.window().getView();
-        sf::RenderStates states;
-        states.transform.translate({slideOff, 0.f});
-        slideOut->render(engine.window(), states);
-        const float m = slideVel > 0.f ? -1.f : 1.f;
-        states.transform.translate({m * regularMenu.getBounds().width, 0});
-        activeMenu->render(engine.window(), states);
-        engine.window().setView(oldView);
-    }
-    else { activeMenu->render(engine.window()); }
-    if (actionOpen) { actionMenu.render(engine.window()); }
-    engine.window().draw(pocketLabel);
-    engine.window().draw(description);
-    if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
-    engine.window().display();
-}
+// void BagMenu::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//     if (state == MenuState::ImmediatelyPop) return;
+//
+//     engine.window().draw(background);
+//     if (state == MenuState::Sliding) {
+//         const sf::View oldView = engine.window().getView();
+//         sf::RenderStates states;
+//         states.transform.translate({slideOff, 0.f});
+//         slideOut->render(engine.window(), states);
+//         const float m = slideVel > 0.f ? -1.f : 1.f;
+//         states.transform.translate({m * regularMenu.getBounds().width, 0});
+//         activeMenu->render(engine.window(), states);
+//         engine.window().setView(oldView);
+//     }
+//     else { activeMenu->render(engine.window()); }
+//     if (actionOpen) { actionMenu.render(engine.window()); }
+//     engine.window().draw(pocketLabel);
+//     engine.window().draw(description);
+//     if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
+//     engine.window().display();
+// }
 
 void BagMenu::itemSelected(const menu::BagItemButton* but) {
     selectedItem = const_cast<menu::BagItemButton*>(but);
@@ -464,7 +464,7 @@ void BagMenu::itemHighlighted(const menu::BagItemButton* but) {
     if (i != core::item::Id::None) {
         const std::string& d = core::item::Item::getDescription(i);
         description.setString(d);
-        bl::interface::wordWrap(description, 607.f);
+        // bl::interface::wordWrap(description, 607.f);
     }
     else { description.setString("Close the bag"); }
 }

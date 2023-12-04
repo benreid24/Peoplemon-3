@@ -51,15 +51,11 @@ public:
      * @brief Does nothing
      *
      */
-    virtual void update(bl::engine::Engine&, float dt) override;
-
-    /**
-     * @brief Renders the menu and its background
-     *
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update main menu rendering
+
     bl::resource::Ref<sf::Texture> backgroundTxtr;
     sf::Sprite background;
 

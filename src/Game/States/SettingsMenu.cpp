@@ -9,7 +9,7 @@ namespace state
 {
 namespace
 {
-const sf::Vector2f MenuPosition(40.f, 70.f);
+const glm::vec2 MenuPosition(40.f, 70.f);
 const sf::Color LabelColor(0, 60, 130);
 constexpr unsigned int FontSize  = 30;
 constexpr float FontSizeF        = static_cast<float>(FontSize);
@@ -61,19 +61,20 @@ bl::engine::State::Ptr SettingsMenu::create(core::system::Systems& s) {
 SettingsMenu::SettingsMenu(core::system::Systems& s)
 : State(s)
 , state(MenuState::TopMenu)
-, topMenu(ArrowSelector::create(10.f, sf::Color::Black))
-, videoMenu(ArrowSelector::create(10.f, sf::Color::Black))
-, audioMenu(ArrowSelector::create(10.f, sf::Color::Black))
-, controlsTopMenu(ArrowSelector::create(10.f, sf::Color::Black))
-, controlsKbmMenu(ArrowSelector::create(8.f, sf::Color::Black))
-, controlsPadMenu(ArrowSelector::create(8.f, sf::Color::Black)) {
-    const auto joinPath     = bl::util::FileUtil::joinPath;
-    const std::string& Path = joinPath(core::Properties::MenuImagePath(), "Settings");
-    const sf::Font& font    = core::Properties::MenuFont();
+//, topMenu(ArrowSelector::create(10.f, sf::Color::Black))
+//, videoMenu(ArrowSelector::create(10.f, sf::Color::Black))
+//, audioMenu(ArrowSelector::create(10.f, sf::Color::Black))
+//, controlsTopMenu(ArrowSelector::create(10.f, sf::Color::Black))
+//, controlsKbmMenu(ArrowSelector::create(8.f, sf::Color::Black))
+//, controlsPadMenu(ArrowSelector::create(8.f, sf::Color::Black))
+{
+    const auto joinPath        = bl::util::FileUtil::joinPath;
+    const std::string& Path    = joinPath(core::Properties::MenuImagePath(), "Settings");
+    const sf::VulkanFont& font = core::Properties::MenuFont();
 
     bgndTexture = TextureManager::load(joinPath(Path, "background.png"));
     background.setTexture(*bgndTexture);
-    hint.setFont(font);
+    // hint.setFont(font);
     hint.setFillColor(sf::Color(65, 10, 0));
     hint.setCharacterSize(18);
     hint.setPosition(590.f, 440.f);
@@ -297,22 +298,22 @@ void SettingsMenu::activate(bl::engine::Engine& engine) {
     state = MenuState::TopMenu;
     inputDriver.drive(&topMenu);
     engine.inputSystem().getActor().addListener(*this);
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(background.getGlobalBounds()));
+    /*engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(background.getGlobalBounds()));*/
     enterState(MenuState::TopMenu);
 }
 
 void SettingsMenu::deactivate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().removeListener(*this);
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 
     engine.inputSystem().saveToConfig();
     core::Properties::save();
 }
 
-void SettingsMenu::update(bl::engine::Engine&, float) {
+void SettingsMenu::update(bl::engine::Engine&, float, float) {
     if (state == MenuState::ControlsBindingControl && ctrlConfigurator.finished()) {
-        ctrlItem->getTextObject().setString(ctrlString(bindingCtrl, bindingKbm));
+        ctrlItem->getTextObject().getSection().setString(ctrlString(bindingCtrl, bindingKbm));
         if (bindingKbm) {
             enterState(MenuState::ControlsKBMMenu);
             controlsKbmMenu.refreshPositions();
@@ -324,52 +325,52 @@ void SettingsMenu::update(bl::engine::Engine&, float) {
     }
 }
 
-void SettingsMenu::render(bl::engine::Engine& engine, float) {
-    engine.window().clear();
-
-    engine.window().draw(background);
-    engine.window().draw(hint);
-    switch (state) {
-    case MenuState::TopMenu:
-        topMenu.render(engine.window());
-        break;
-
-    case MenuState::VideoSelectMode:
-    case MenuState::VideoMenu:
-        videoMenu.render(engine.window());
-        break;
-
-    case MenuState::AudioSelectVolume:
-        audioMenu.render(engine.window());
-        volumeEntry.render(engine.window());
-        break;
-    case MenuState::AudioMenu:
-        audioMenu.render(engine.window());
-        break;
-
-    case MenuState::ControlsTopMenu:
-        controlsTopMenu.render(engine.window());
-        break;
-
-    case MenuState::ControlsKBMMenu:
-        controlsKbmMenu.render(engine.window());
-        break;
-
-    case MenuState::ControlsPadMenu:
-        controlsPadMenu.render(engine.window());
-        break;
-
-    case MenuState::ControlsBindingControl:
-        if (bindingKbm) { controlsKbmMenu.render(engine.window()); }
-        else { controlsPadMenu.render(engine.window()); }
-        break;
-
-    default:
-        break;
-    }
-
-    engine.window().display();
-}
+// void SettingsMenu::render(bl::engine::Engine& engine, float) {
+//     engine.window().clear();
+//
+//     engine.window().draw(background);
+//     engine.window().draw(hint);
+//     switch (state) {
+//     case MenuState::TopMenu:
+//         topMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::VideoSelectMode:
+//     case MenuState::VideoMenu:
+//         videoMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::AudioSelectVolume:
+//         audioMenu.render(engine.window());
+//         volumeEntry.render(engine.window());
+//         break;
+//     case MenuState::AudioMenu:
+//         audioMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::ControlsTopMenu:
+//         controlsTopMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::ControlsKBMMenu:
+//         controlsKbmMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::ControlsPadMenu:
+//         controlsPadMenu.render(engine.window());
+//         break;
+//
+//     case MenuState::ControlsBindingControl:
+//         if (bindingKbm) { controlsKbmMenu.render(engine.window()); }
+//         else { controlsPadMenu.render(engine.window()); }
+//         break;
+//
+//     default:
+//         break;
+//     }
+//
+//     engine.window().display();
+// }
 
 void SettingsMenu::enterState(MenuState s) {
     state = s;
@@ -478,7 +479,7 @@ void SettingsMenu::back() {
         enterState(MenuState::VideoMenu);
         break;
     case MenuState::AudioSelectVolume:
-        volumeItem->getTextObject().setString(volumeString());
+        volumeItem->getTextObject().getSection().setString(volumeString());
         enterState(MenuState::AudioMenu);
         break;
     case MenuState::ControlsKBMMenu:
@@ -559,7 +560,7 @@ void SettingsMenu::onWindowModeChange(bool fs) {
             params.withStyle(params.style() & (~sf::Style::Fullscreen));
         }
 
-        windowModeTextItem->getTextObject().setString(windowModeString());
+        windowModeTextItem->getTextObject().getSection().setString(windowModeString());
         systems.engine().reCreateWindow(params);
     }
     enterState(MenuState::VideoMenu);
@@ -573,7 +574,7 @@ void SettingsMenu::onVsyncUpdate() {
 
 void SettingsMenu::setHint(const std::string& m) {
     hint.setString(m);
-    bl::interface::wordWrap(hint, 183.f);
+    // bl::interface::wordWrap(hint, 183.f);
 }
 
 } // namespace state

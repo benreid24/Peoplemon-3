@@ -62,12 +62,12 @@ public:
      *
      * @param parent The parent GUI object
      */
-    void registerGui(bl::gui::GUI::Ptr parent);
+    void registerGui(bl::gui::GUI* parent);
 
 protected:
     core::system::Systems& systems;
     bl::gui::Box::Ptr content;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
 };
 
 } // namespace page

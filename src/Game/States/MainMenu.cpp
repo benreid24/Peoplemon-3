@@ -21,7 +21,8 @@ bl::engine::State::Ptr MainMenu::create(core::system::Systems& systems) {
 
 MainMenu::MainMenu(core::system::Systems& systems)
 : State(systems)
-, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black)) {
+//, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
+{
     using bl::menu::Item;
     using bl::menu::TextItem;
 
@@ -29,29 +30,29 @@ MainMenu::MainMenu(core::system::Systems& systems)
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "mainMenu.png"));
     background.setTexture(*backgroundTxtr, true);
 
-    newGame = TextItem::create("New Game", core::Properties::MenuFont(), sf::Color::Black, 32);
-    newGame->getTextObject().setStyle(sf::Text::Bold);
+    newGame = TextItem::create(
+        "New Game", core::Properties::MenuFont(), sf::Color::Black, 32, sf::Text::Bold);
     newGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "New Game selected";
         systems.engine().replaceState(NewGame::create(systems));
     });
 
-    loadGame = TextItem::create("Load Game", core::Properties::MenuFont(), sf::Color::Black, 32);
-    loadGame->getTextObject().setStyle(sf::Text::Bold);
+    loadGame = TextItem::create(
+        "Load Game", core::Properties::MenuFont(), sf::Color::Black, 32, sf::Text::Bold);
     loadGame->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "Load Game selected";
         systems.engine().pushState(LoadGame::create(systems));
     });
 
-    settings = TextItem::create("Settings", core::Properties::MenuFont(), sf::Color::Black, 32);
-    settings->getTextObject().setStyle(sf::Text::Bold);
+    settings = TextItem::create(
+        "Settings", core::Properties::MenuFont(), sf::Color::Black, 32, sf::Text::Bold);
     settings->getSignal(Item::Activated).willCall([&systems]() {
         BL_LOG_INFO << "Settings selected";
         systems.engine().pushState(SettingsMenu::create(systems));
     });
 
-    quit = TextItem::create("Quit", core::Properties::MenuFont(), sf::Color::Black, 32);
-    quit->getTextObject().setStyle(sf::Text::Bold);
+    quit = TextItem::create(
+        "Quit", core::Properties::MenuFont(), sf::Color::Black, 32, sf::Text::Bold);
     quit->getSignal(Item::Activated).willCall([this]() {
         BL_LOG_INFO << "Quit selected";
         this->systems.engine().flags().set(bl::engine::Flags::PopState);
@@ -70,7 +71,7 @@ MainMenu::MainMenu(core::system::Systems& systems)
                                     core::Properties::WindowSize().y * 0.63f);
     const sf::Vector2f HintPadding{4.f, 4.f};
     const auto& a = systems.engine().inputSystem().getActor();
-    hint.setFont(core::Properties::MenuFont());
+    // hint.setFont(core::Properties::MenuFont());
     hint.setFillColor(sf::Color::Black);
     hint.setCharacterSize(16);
     hint.setString("Controls:\nMove up: " + a.getKBMTriggerControl(Control::MoveUp).toString() +
@@ -96,32 +97,32 @@ const char* MainMenu::name() const { return "MainMenu"; }
 
 void MainMenu::activate(bl::engine::Engine& engine) {
     // TODO - music
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /* engine.renderSystem().cameras().pushCamera(
+         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
     inputDriver.drive(&menu);
     systems.engine().inputSystem().getActor().addListener(*this);
     hintTimer.restart();
 }
 
 void MainMenu::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
     systems.engine().inputSystem().getActor().removeListener(*this);
 }
 
-void MainMenu::update(bl::engine::Engine&, float) {}
+void MainMenu::update(bl::engine::Engine&, float, float) {}
 
-void MainMenu::render(bl::engine::Engine& engine, float) {
-    sf::RenderWindow& w = engine.window();
-
-    w.clear();
-    w.draw(background);
-    menu.render(w);
-    if (hintTimer.getElapsedTime().asSeconds() >= 5.f) {
-        w.draw(hintBox);
-        w.draw(hint);
-    }
-    w.display();
-}
+// void MainMenu::render(bl::engine::Engine& engine, float) {
+//     sf::RenderWindow& w = engine.window();
+//
+//     w.clear();
+//     w.draw(background);
+//     menu.render(w);
+//     if (hintTimer.getElapsedTime().asSeconds() >= 5.f) {
+//         w.draw(hintBox);
+//         w.draw(hint);
+//     }
+//     w.display();
+// }
 
 bool MainMenu::observe(const bl::input::Actor&, unsigned int activatedControl,
                        bl::input::DispatchType, bool eventTriggered) {

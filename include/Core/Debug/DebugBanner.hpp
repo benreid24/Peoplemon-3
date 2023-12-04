@@ -33,6 +33,8 @@ public:
     static void display(const std::string& message, float timeout = 2.f);
 
 private:
+    // TODO - BLIB_UPGRADE - update debug banner rendering
+
     sf::View view;
     sf::Text text;
     sf::Clock timer;

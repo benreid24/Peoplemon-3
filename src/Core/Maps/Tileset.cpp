@@ -31,8 +31,8 @@ Tile::IdType Tileset::addAnimation(const std::string& uri) {
                                bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), uri)))
                   .first;
     if (it->second->isLooping()) {
-        auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
-        jit->second.play();
+        // auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
+        // jit->second.play();
     }
     return nextAnimationId++;
 }
@@ -40,10 +40,12 @@ Tile::IdType Tileset::addAnimation(const std::string& uri) {
 void Tileset::removeAnimation(Tile::IdType id) {
     animFiles.erase(id);
     anims.erase(id);
-    sharedAnimations.erase(id);
+    // sharedAnimations.erase(id);
 }
 
 void Tileset::initializeTile(Tile& tile) {
+    // TODO - BLIB_UPGRADE - update map rendering
+    /*
     if (tile.id() == Tile::Blank) return;
 
     if (tile.isAnimation()) {
@@ -74,10 +76,11 @@ void Tileset::initializeTile(Tile& tile) {
             tile.set(*this, Tile::Blank, false);
         }
     }
+    */
 }
 
 void Tileset::activate() {
-    for (auto& ap : sharedAnimations) { ap.second.play(); }
+    // for (auto& ap : sharedAnimations) { ap.second.play(); }
 }
 
 unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
@@ -95,7 +98,7 @@ unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
 }
 
 void Tileset::update(float dt) {
-    for (auto& ap : sharedAnimations) { ap.second.update(dt); }
+    // for (auto& ap : sharedAnimations) { ap.second.update(dt); }
 }
 
 bool Tileset::loadDev(std::istream& input) {
@@ -111,7 +114,7 @@ void Tileset::clear() {
     nextTextureId = nextAnimationId = 1;
     textures.clear();
     anims.clear();
-    sharedAnimations.clear();
+    // sharedAnimations.clear();
 }
 
 bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
@@ -135,7 +138,7 @@ void Tileset::finishLoad() {
                                AnimationManager::load(bl::util::FileUtil::joinPath(
                                    Properties::MapAnimationPath(), apair.second)))
                       .first;
-        if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
+        // if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }
 }
@@ -177,9 +180,9 @@ std::vector<Tileset::TileStore::const_iterator> Tileset::getTiles() const {
     return result;
 }
 
-bl::resource::Ref<bl::gfx::AnimationData> Tileset::getAnim(Tile::IdType id) const {
+bl::resource::Ref<bl::gfx::a2d::AnimationData> Tileset::getAnim(Tile::IdType id) const {
     auto it = anims.find(id);
-    return it != anims.end() ? it->second : bl::resource::Ref<bl::gfx::AnimationData>{};
+    return it != anims.end() ? it->second : bl::resource::Ref<bl::gfx::a2d::AnimationData>{};
 }
 
 std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {

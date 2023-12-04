@@ -82,20 +82,6 @@ const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort; }
 
 const std::vector<TileLayer>& LayerSet::topLayers() const { return top; }
 
-void LayerSet::update(const sf::IntRect& area, float dt) {
-    static const auto updateLayer = [](TileLayer& layer, const sf::IntRect& area, float dt) {
-        const unsigned int xb = area.left + area.width;
-        const unsigned int yb = area.top + area.height;
-        for (unsigned int x = area.left; x < xb; ++x) {
-            for (unsigned int y = area.top; y < yb; ++y) { layer.getRef(x, y).update(dt); }
-        }
-    };
-
-    for (TileLayer& layer : bottom) { updateLayer(layer, area, dt); }
-    for (TileLayer& layer : ysort) { updateLayer(layer, area, dt); }
-    for (TileLayer& layer : top) { updateLayer(layer, area, dt); }
-}
-
 Tile** LayerSet::getSortedTile(Tileset& tileset, unsigned int l, unsigned int x, unsigned int y) {
     TileLayer& layer    = ysortLayers()[l];
     SortedLayer& sorted = ysortedLayers[l];

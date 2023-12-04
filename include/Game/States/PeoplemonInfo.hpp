@@ -61,17 +61,11 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the new game features
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update peoplemon info rendering
+
     enum ActivePage { Basics, Moves };
 
     ActivePage activePage;
@@ -82,10 +76,10 @@ private:
 
     bl::resource::Ref<sf::Texture> leftTxtr;
     sf::Sprite leftArrow;
-    bl::gfx::Flashing leftFlasher;
+    // bl::gfx::Flashing leftFlasher;
     bl::resource::Ref<sf::Texture> rightTxtr;
     sf::Sprite rightArrow;
-    bl::gfx::Flashing rightFlasher;
+    // bl::gfx::Flashing rightFlasher;
     sf::Text pageLabel;
 
     bl::resource::Ref<sf::Texture> thumbTxtr;

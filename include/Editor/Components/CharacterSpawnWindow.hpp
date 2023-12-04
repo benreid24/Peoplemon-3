@@ -37,13 +37,13 @@ public:
      * @param pos The position the spawn is at
      * @param orig The spawn currently in that spot. Nullptr if none
      */
-    void open(const bl::gui::GUI::Ptr& parent, unsigned int level, const sf::Vector2i& pos,
+    void open(bl::gui::GUI* parent, unsigned int level, const sf::Vector2i& pos,
               const core::map::CharacterSpawn* orig);
 
 private:
     const OnEdit onEdit;
     const core::map::CharacterSpawn* orig;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
     bl::gui::Label::Ptr fileLabel;
     bl::gui::TextEntry::Ptr levelInput;

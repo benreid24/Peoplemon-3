@@ -39,7 +39,7 @@ public:
      *
      * @param gui The primary GUI object
      */
-    void setGUI(const bl::gui::GUI::Ptr& gui);
+    void setGUI(bl::gui::GUI* gui);
 
     /**
      * @brief Returns the currently selected town index
@@ -60,7 +60,7 @@ public:
     void refresh();
 
 private:
-    bl::gui::GUI::Ptr gui;
+    bl::gui::GUI* gui;
     MapArea& mapArea;
     component::EditMap& map;
 

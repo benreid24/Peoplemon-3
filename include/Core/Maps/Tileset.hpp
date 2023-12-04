@@ -3,7 +3,7 @@
 
 #include <Core/Maps/Tile.hpp>
 
-#include <BLIB/Media/Graphics.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
@@ -19,16 +19,15 @@ namespace map
  * @brief Stores the collection of images and animations used by Tiles in a Map
  *
  * @ingroup Maps
- *
  */
 class Tileset {
 public:
     using TileStore = std::unordered_map<Tile::IdType, bl::resource::Ref<sf::Texture>>;
-    using AnimStore = std::unordered_map<Tile::IdType, bl::resource::Ref<bl::gfx::AnimationData>>;
+    using AnimStore =
+        std::unordered_map<Tile::IdType, bl::resource::Ref<bl::gfx::a2d::AnimationData>>;
 
     /**
      * @brief Creates an empty Tileset
-     *
      */
     Tileset();
 
@@ -141,7 +140,7 @@ public:
      * @param id The id of the animation to get
      * @return bl::resource::Ref<sf::Texture> A reference to the animation
      */
-    bl::resource::Ref<bl::gfx::AnimationData> getAnim(Tile::IdType id) const;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> getAnim(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained animations
@@ -165,7 +164,8 @@ private:
 
     TileStore textures;
     AnimStore anims;
-    std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
+    // TODO - BLIB_UPGRADE - update tilemap rendering
+    // std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
 
     void initializeTile(Tile& tile);
     void clear();

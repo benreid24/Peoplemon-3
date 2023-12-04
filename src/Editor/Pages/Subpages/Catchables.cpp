@@ -50,7 +50,7 @@ Catchables::Catchables(component::EditMap& m)
     content->pack(scrollRegion, true, true);
 }
 
-void Catchables::setGUI(const GUI::Ptr& g) { gui = g; }
+void Catchables::setGUI(GUI* g) { gui = g; }
 
 Element::Ptr Catchables::getContent() { return content; }
 

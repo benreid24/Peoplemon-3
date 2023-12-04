@@ -61,16 +61,10 @@ public:
      *
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine&, float dt) override;
-
-    /**
-     * @brief Renders the battle to the display
-     *
-     * @param lag Time elapsed in seconds since previous update()
-     */
-    virtual void render(bl::engine::Engine&, float lag) override;
+    virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update battle rendering
     std::unique_ptr<core::battle::Battle> battle;
 
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);

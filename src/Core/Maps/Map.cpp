@@ -1,8 +1,6 @@
 #include <Core/Maps/Map.hpp>
 
-#include <BLIB/Media/Audio.hpp>
-#include <BLIB/Render/Cameras/FollowCamera.hpp>
-#include <Core/Cameras/Util.hpp>
+#include <BLIB/Audio.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
@@ -53,7 +51,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     enterTown(currentTown);
 
     // Activate camera and weather
-    weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
+    // weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
 
     // One time activation if not yet activated
     if (!activated) {
@@ -147,12 +145,12 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
 }
 
 void Map::setupCamera(system::Systems& systems) {
-    systems.engine().renderSystem().cameras().setViewportConstraint(
+    /*systems.engine().renderSystem().cameras().setViewportConstraint(
         {sf::Vector2f{0.f, 0.f}, sizePixels()});
     systems.engine().renderSystem().cameras().clearAndReplace(
         bl::render::camera::FollowCamera::create(
             camera::getPositionPointer(systems, systems.player().player()),
-            Properties::WindowSize()));
+            Properties::WindowSize()));*/
 }
 
 const std::string& Map::name() const { return nameField; }
@@ -172,7 +170,6 @@ LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(float dt) {
     tileset->update(dt);
-    for (LayerSet& level : levels) { level.update(renderRange, dt); }
     weather.update(dt);
     lighting.update(dt);
 }

@@ -39,7 +39,7 @@ public:
      * @param parent The parent GUI element
      * @param file The file to open. Empty for new file
      */
-    void show(bl::gui::GUI::Ptr parent, const std::string& file);
+    void show(bl::gui::GUI* parent, const std::string& file);
 
     /**
      * @brief Hides the window and all created child windows
@@ -51,7 +51,7 @@ private:
     const SelectCb selectCb;
     const CloseCb closeCb;
     bool clean;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
     bl::gui::Button::Ptr saveBut;
     bl::gui::Label::Ptr fileLabel;

@@ -66,17 +66,11 @@ public:
      * @param engine The game engine
      * @param dt Time to step forward in the game world
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the map and all entities
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed in not accounted for in update
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update game rendering
+
     enum GameState { SwitchMapFadeout, MapFadein, Running };
 
     GameState state;

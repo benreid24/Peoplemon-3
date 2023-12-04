@@ -28,22 +28,22 @@ HUD::HUD(Systems& owner)
 , textboxTxtr(TextureManager::load(Properties::TextboxFile()))
 , viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
            static_cast<float>(textboxTxtr->getSize().y) * 4.f)
-, promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
-, flashingTriangle(promptTriangle, 0.75f, 0.65f)
-, choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
+//, promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
+//, flashingTriangle(promptTriangle, 0.75f, 0.65f)
+//, choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , choiceBoxX(viewSize.x * 0.75f + 3.f) {
     const sf::Vector2f boxSize = sf::Vector2f(textboxTxtr->getSize());
     textbox.setTexture(*textboxTxtr, true);
     textbox.setPosition(boxSize.x * 0.5f, boxSize.y * 3.f);
 
-    displayText.setFont(Properties::MenuFont());
+    // displayText.setFont(Properties::MenuFont());
     displayText.setCharacterSize(Properties::HudFontSize());
     displayText.setFillColor(sf::Color::Black);
     displayText.setPosition(textbox.getPosition() + sf::Vector2f(TextPadding, 8.f));
-    promptTriangle.setFillColor(sf::Color(255, 77, 0));
+    /* promptTriangle.setFillColor(sf::Color(255, 77, 0));
     promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
     promptTriangle.setOutlineThickness(1.5f);
-    promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));
+    promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));*/
 
     choiceMenu.setPadding({0.f, ChoicePadding});
     choiceMenu.setMinHeight(ChoiceHeight);
@@ -64,7 +64,7 @@ void HUD::update(float dt) {
         break;
 
     case WaitingContinue:
-        flashingTriangle.update(dt);
+        // flashingTriangle.update(dt);
         break;
 
     case WaitingKeyboard:
@@ -87,17 +87,17 @@ void HUD::render(sf::RenderTarget& target, float lag) {
     if (state == Hidden) return;
 
     const sf::View oldView = target.getView();
-    target.setView(bl::interface::ViewUtil::computeViewAnchoredPreserveAR(
-        viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
-    target.draw(textbox);
-    target.draw(displayText);
+    /* target.setView(bl::interface::ViewUtil::computeViewAnchoredPreserveAR(
+         viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
+     target.draw(textbox);
+     target.draw(displayText);*/
 
     switch (state) {
     case WaitingContinue:
-        flashingTriangle.render(target, {}, lag);
+        // flashingTriangle.render(target, {}, lag);
         break;
     case WaitingPrompt:
-        choiceMenu.render(target);
+        // choiceMenu.render(target);
         break;
     case WaitingKeyboard:
         target.draw(screenKeyboard);
@@ -252,7 +252,7 @@ void HUD::keyboardSubmit(const std::string& i) {
 std::string HUD::wordWrap(const std::string& str) const {
     sf::Text text = displayText;
     text.setString(str);
-    bl::interface::wordWrap(text, textboxTxtr->getSize().x - TextPadding);
+    // bl::interface::wordWrap(text, textboxTxtr->getSize().x - TextPadding);
     return text.getString().toAnsiString();
 }
 
@@ -382,7 +382,7 @@ HUD::EntryCard::EntryCard() {
     txtr = TextureManager::load(
         bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"));
     card.setTexture(*txtr, true);
-    text.setFont(Properties::MenuFont());
+    // text.setFont(Properties::MenuFont());
     text.setCharacterSize(20);
     text.setFillColor(sf::Color(20, 200, 240));
 }
@@ -423,7 +423,7 @@ void HUD::EntryCard::display(const std::string& t) {
     constexpr float Padding = 10.f;
 
     text.setString(t);
-    bl::interface::wordWrap(text, card.getGlobalBounds().width - Padding * 2.f);
+    // bl::interface::wordWrap(text, card.getGlobalBounds().width - Padding * 2.f);
     text.setPosition(card.getGlobalBounds().width * 0.5f - text.getGlobalBounds().width * 0.5f,
                      card.getGlobalBounds().height * 0.5f - text.getGlobalBounds().height * 0.5f);
 

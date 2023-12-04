@@ -1,7 +1,7 @@
 #ifndef CORE_PROPERTIES_HPP
 #define CORE_PROPERTIES_HPP
 
-#include <BLIB/Media/Audio/AudioSystem.hpp>
+#include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Peoplemon/Ailment.hpp>
@@ -24,7 +24,6 @@ namespace core
  *        that may be accessed without performing look ups, and hides the string config names
  *
  * @ingroup Core
- *
  */
 class Properties : private bl::util::NonCopyable {
 public:
@@ -42,7 +41,7 @@ public:
     static int LightingWidthTiles();
     static int LightingHeightTiles();
 
-    static const sf::Font& MenuFont();
+    static const sf::VulkanFont& MenuFont();
     static const std::string& MenuImagePath();
     static const std::string& ImagePath();
     static const std::string& AnimationPath();
@@ -122,7 +121,7 @@ public:
 
     static sf::Color HPBarColor(float percent);
     static sf::Color HPBarColor(unsigned int hp, unsigned int maxHp);
-    static bl::resource::Ref<sf::Texture> AilmentTexture(pplmn::Ailment ailment);
+    static std::string AilmentTexture(pplmn::Ailment ailment);
     static const std::string& PeoplemonImageFolder();
 
     static bl::audio::AudioSystem::Handle MenuMoveSound();

@@ -72,14 +72,7 @@ public:
      *
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine&, float dt) override;
-
-    /**
-     * @brief Renders the gui
-     *
-     * @param lag Time not accounted for in update
-     */
-    virtual void render(bl::engine::Engine&, float lag) override;
+    virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
     core::system::Systems& systems;
@@ -94,7 +87,6 @@ private:
     page::Page* currentPage;
 
     bl::gui::GUI::Ptr gui;
-    bl::gui::Renderer::Ptr renderer;
     bl::gui::Notebook::Ptr notebook;
 
     MainEditor(core::system::Systems& systems);

@@ -1,7 +1,7 @@
 #ifndef CORE_BATTLES_MOVEANIMATION_HPP
 #define CORE_BATTLES_MOVEANIMATION_HPP
 
-#include <BLIB/Media/Graphics/Animation.hpp>
+#include <BLIB/Graphics/Animation2D.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
 #include <Core/Peoplemon/MoveId.hpp>
@@ -78,10 +78,11 @@ public:
     void renderForeground(sf::RenderTarget& target, float lag) const;
 
 private:
-    bl::resource::Ref<bl::gfx::AnimationData> bgSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> fgSrc;
+    // TODO - BLIB_UPGRADE - battle rendering
+    /* bl::resource::Ref<bl::gfx::a2d::AnimationData> bgSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> fgSrc;
     bl::gfx::Animation background;
-    bl::gfx::Animation foreground;
+    bl::gfx::Animation foreground;*/
 };
 
 } // namespace view

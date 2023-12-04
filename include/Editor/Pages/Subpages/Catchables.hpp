@@ -33,9 +33,9 @@ public:
 
     /**
      * @brief Sets the parent GUI object
-     * 
+     *
      */
-    void setGUI(const bl::gui::GUI::Ptr& gui);
+    void setGUI(bl::gui::GUI* gui);
 
     /**
      * @brief Returns the GUI element to pack
@@ -62,7 +62,7 @@ public:
     void refresh();
 
 private:
-    bl::gui::GUI::Ptr gui;
+    bl::gui::GUI* gui;
     component::EditMap& map;
     component::CatchRegionWindow editWindow;
     bl::gui::Box::Ptr content;

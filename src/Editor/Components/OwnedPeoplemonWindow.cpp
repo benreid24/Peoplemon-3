@@ -129,7 +129,7 @@ OwnedPeoplemonWindow::OwnedPeoplemonWindow(const NotifyCB& fcb, const NotifyCB& 
     window->pack(but);
 }
 
-void OwnedPeoplemonWindow::show(const GUI::Ptr& p, const core::pplmn::OwnedPeoplemon& value) {
+void OwnedPeoplemonWindow::show(GUI* p, const core::pplmn::OwnedPeoplemon& value) {
     parent = p;
 
     if (core::pplmn::Peoplemon::name(value.id()) == value.name()) { nameEntry->setInput(""); }

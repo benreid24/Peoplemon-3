@@ -1,8 +1,8 @@
 #ifndef GAME_STATES_STOREMENU_HPP
 #define GAME_STATES_STOREMENU_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
-#include <BLIB/Media/Shapes/Triangle.hpp>
 #include <Core/Events/Store.hpp>
 #include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
@@ -67,17 +67,11 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds since the last call to update
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the store
-     *
-     * @param engine The game engine
-     * @param lag Time elapsed in seconds not accounted for in update()
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update store menu rendering
+
     struct Item {
         const core::item::Id item;
         const int price;
@@ -118,8 +112,8 @@ private:
     sf::Text boxText;
     sf::Text moneyText;
     sf::Text catText;
-    bl::shapes::Triangle leftArrow;
-    bl::shapes::Triangle rightArrow;
+    /*bl::shapes::Triangle leftArrow;
+    bl::shapes::Triangle rightArrow;*/
 
     StoreMenu(core::system::Systems& systems, const core::event::StoreOpened& data);
 

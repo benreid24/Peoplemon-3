@@ -215,10 +215,10 @@ private:
         , handle(h) {}
     };
 
-    using Storage = bl::container::ObjectPool<ActiveLight>;
+    using Storage = bl::ctr::ObjectPool<ActiveLight>;
     Storage activeLights;
     std::unordered_map<Handle, Storage::Iterator> handles;
-    bl::container::Grid<ActiveLight*> lightGrid;
+    bl::ctr::Grid<ActiveLight*> lightGrid;
     Handle nextHandle;
 
     sf::RenderTexture renderSurface;

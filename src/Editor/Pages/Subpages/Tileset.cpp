@@ -106,7 +106,7 @@ Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
             "Add animation", nullptr, 1, filters, "Animation files", 0);
         if (file) {
             const std::string animFile = makeCopyName(core::Properties::MapAnimationPath(), file);
-            bl::gfx::AnimationData anim;
+            bl::gfx::a2d::AnimationData anim;
             if (!anim.loadFromFile(file)) {
                 bl::dialog::tinyfd_messageBox(
                     "Bad Animation", "Failed to load animation", "ok", "error", 0);
@@ -169,7 +169,7 @@ Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
     loadTileset("Worldtileset.tlst");
 }
 
-void Tileset::setGUI(const GUI::Ptr& gui) {
+void Tileset::setGUI(GUI* gui) {
     catchables.setGUI(gui);
     towns.setGUI(gui);
 }
@@ -207,7 +207,8 @@ void Tileset::updateGui() {
     // tiles
     RadioButton::Group* group = nullptr;
     for (const auto& pair : tileset->getTiles()) {
-        Image::Ptr img = Image::create(pair->second);
+        // TODO - BLIB_UPGRADE - update tileset tile storage
+        /*Image::Ptr img = Image::create(pair->second);
         img->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(img, group);
@@ -219,7 +220,7 @@ void Tileset::updateGui() {
             button->setValue(true);
         }
         group = button->getRadioGroup();
-        tilesBox->pack(button);
+        tilesBox->pack(button);*/
     }
 
     // animations

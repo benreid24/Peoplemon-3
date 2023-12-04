@@ -118,6 +118,8 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
+    // TODO - BLIB_UPGRADE - update player battle menu rendering
+
     enum struct State {
         Hidden,
         PickingAction,

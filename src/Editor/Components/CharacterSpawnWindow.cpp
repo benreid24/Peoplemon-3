@@ -143,7 +143,7 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     window->pack(row, true, false);
 }
 
-void CharacterSpawnWindow::open(const bl::gui::GUI::Ptr& p, unsigned int level,
+void CharacterSpawnWindow::open(bl::gui::GUI* p, unsigned int level,
                                 const sf::Vector2i& pos, const core::map::CharacterSpawn* orig) {
     parent     = p;
     this->orig = orig;

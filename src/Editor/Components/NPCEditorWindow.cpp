@@ -76,9 +76,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
                                                        fileLabel->getText()))) {
                 bl::dialog::tinyfd_messageBox("Error", "Failed to save NPC", "ok", "error", 1);
             }
-            else {
-                makeClean();
-            }
+            else { makeClean(); }
         }
     });
     fileLabel = Label::create("filename.npc");
@@ -149,7 +147,7 @@ NpcEditorWindow::NpcEditorWindow(const SelectCb& cb, const CloseCb& ccb)
     window->pack(row, true, false);
 }
 
-void NpcEditorWindow::show(GUI::Ptr p, const std::string& file) {
+void NpcEditorWindow::show(GUI* p, const std::string& file) {
     parent = p;
     reset();
     if (!file.empty()) {

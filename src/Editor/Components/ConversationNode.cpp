@@ -192,7 +192,7 @@ ConversationNode::ConversationNode(const FocusCb& fcb, const NotifyCb& ecb, cons
     scriptRow->pack(but);
 }
 
-void ConversationNode::setParent(const GUI::Ptr& p) { parent = p; }
+void ConversationNode::setParent(GUI* p) { parent = p; }
 
 void ConversationNode::update(unsigned int i, const Conversation::Node& node) {
     current = node;

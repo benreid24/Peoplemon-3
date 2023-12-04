@@ -69,7 +69,7 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , camera()
 , controlsEnabled(false)
 , renderGrid(false)
-, grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
+//, grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
 , renderOverlay(RenderOverlay::None)
 , overlayLevel(0)
 , nextItemId(0) {
@@ -78,8 +78,9 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
     static const auto callCb = [this, &s](const PositionCb& cb) {
         static const float PixelRatio = 1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
-        const sf::Vector2i mouse  = sf::Mouse::getPosition(s.engine().window());
-        const sf::Vector2f pixels = s.engine().window().mapPixelToCoords(mouse, renderView);
+        const sf::Vector2i mouse = sf::Mouse::getPosition(s.engine().window().getSfWindow());
+        const sf::Vector2f pixels(mouse); // TODO - BLIB_UPGRADE
+        // s.engine().window().mapPixelToCoords(mouse, renderView);
         const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                  std::floor(pixels.y * PixelRatio));
         cb(pixels, tiles);
@@ -192,7 +193,7 @@ bool EditMap::editorActivate() {
 
     actionCb();
 
-    grid.resize((size.x + size.y + 2) * 2);
+    /*grid.resize((size.x + size.y + 2) * 2);
     for (int x = 0; x <= size.x * 2; x += 2) {
         grid[x].color     = sf::Color::Black;
         grid[x + 1].color = sf::Color::Black;
@@ -208,7 +209,7 @@ bool EditMap::editorActivate() {
         grid[y + 1 + o].position =
             sf::Vector2f(sizePixels().x, y / 2 * core::Properties::PixelsPerTile());
     }
-    grid.update();
+    grid.update();*/
 
     return true;
 }
@@ -334,16 +335,20 @@ sf::FloatRect EditMap::EditCamera::getArea() const {
 
 sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
 
-void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
-                       const bl::gui::Renderer& renderer) const {
-    const sf::View oldView = target.getView();
-    renderView =
-        bl::interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView());
-    target.setView(renderView);
-    camera.apply(target);
-    systems->render().render(target, *this, 0.f);
-    target.setView(oldView);
+bl::gui::rdr::Component* EditMap::doPrepareRender(bl::gui::rdr::Renderer& renderer) {
+    return nullptr;
 }
+
+// void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,
+//                        const bl::gui::Renderer& renderer) const {
+//     const sf::View oldView = target.getView();
+//     renderView =
+//         bl::interface::ViewUtil::computeSubView(getAcquisition(), renderer.getOriginalView());
+//     target.setView(renderView);
+//     camera.apply(target);
+//     systems->render().render(target, *this, 0.f);
+//     target.setView(oldView);
+// }
 
 bool EditMap::handleScroll(const bl::gui::Event& event) {
     const bool c = getAcquisition().contains(event.mousePosition());
@@ -664,7 +669,7 @@ void EditMap::render(sf::RenderTarget& target, float residual,
 
     case RenderOverlay::Spawns: {
         sf::Text id;
-        id.setFont(core::Properties::MenuFont());
+        // id.setFont(core::Properties::MenuFont());
         id.setCharacterSize(24);
         id.setFillColor(sf::Color::Red);
         id.setOutlineColor(sf::Color::Black);
@@ -729,7 +734,7 @@ void EditMap::render(sf::RenderTarget& target, float residual,
         target.draw(selectRect);
     }
 
-    if (renderGrid) { target.draw(grid); }
+    // if (renderGrid) { target.draw(grid); }
 }
 
 void EditMap::staticRender(const RenderMapWindow& params) {

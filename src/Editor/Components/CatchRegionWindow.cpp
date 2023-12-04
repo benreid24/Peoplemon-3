@@ -60,7 +60,7 @@ CatchRegionWindow::CatchRegionWindow(const TriggerCb& cb)
     window->pack(row, true, false);
 }
 
-void CatchRegionWindow::open(const bl::gui::GUI::Ptr& gui, const core::map::CatchRegion& v) {
+void CatchRegionWindow::open(bl::gui::GUI* gui, const core::map::CatchRegion& v) {
     for (auto& row : rows) { row.row->remove(); }
     rows.clear();
 

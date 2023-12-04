@@ -56,24 +56,24 @@ StatBoxes::StatBoxes()
     lpBox.setPosition(Properties::WindowWidth() + lpBox.getGlobalBounds().width, LpBoxPos.y);
     lpXpBar.setFillColor(sf::Color::Blue);
 
-    opName.setFont(Properties::MenuFont());
+    // opName.setFont(Properties::MenuFont());
     opName.setFillColor(sf::Color::Black);
     opName.setCharacterSize(NameSize);
     opName.setStyle(sf::Text::Bold);
-    opLevel.setFont(Properties::MenuFont());
+    // opLevel.setFont(Properties::MenuFont());
     opLevel.setFillColor(LevelColor);
     opLevel.setCharacterSize(LevelSize);
     opLevel.setStyle(sf::Text::Bold);
 
-    lpName.setFont(Properties::MenuFont());
+    // lpName.setFont(Properties::MenuFont());
     lpName.setFillColor(sf::Color::Black);
     lpName.setCharacterSize(NameSize);
     lpName.setStyle(sf::Text::Bold);
-    lpLevel.setFont(Properties::MenuFont());
+    // lpLevel.setFont(Properties::MenuFont());
     lpLevel.setFillColor(LevelColor);
     lpLevel.setCharacterSize(LevelSize);
     lpLevel.setStyle(sf::Text::Bold);
-    lpHp.setFont(Properties::MenuFont());
+    // lpHp.setFont(Properties::MenuFont());
     lpHp.setCharacterSize(14.f);
     lpHp.setFillColor(sf::Color::Black);
 }
@@ -230,8 +230,9 @@ void StatBoxes::render(sf::RenderTarget& target) const {
 }
 
 const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) {
-    ailTxtr = Properties::AilmentTexture(ail);
-    return ailTxtr ? *ailTxtr : blank;
+    /*ailTxtr = Properties::AilmentTexture(ail);
+    return ailTxtr ? *ailTxtr : blank;*/
+    return blank;
 }
 
 } // namespace view

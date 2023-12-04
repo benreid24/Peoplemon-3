@@ -81,7 +81,7 @@ EventEditor::EventEditor(const OnEdit& oe)
     window->pack(row, true, false);
 }
 
-void EventEditor::open(const GUI::Ptr& p, const core::map::Event* source,
+void EventEditor::open(GUI* p, const core::map::Event* source,
                        const sf::Vector2i& tiles) {
     parent = p;
     p->pack(window);

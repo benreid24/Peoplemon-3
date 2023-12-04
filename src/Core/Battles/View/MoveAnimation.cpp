@@ -10,10 +10,10 @@ namespace battle
 namespace view
 {
 MoveAnimation::MoveAnimation() {
-    foreground.setIsLoop(false);
+    /* foreground.setIsLoop(false);
     background.setIsLoop(false);
     background.setPosition({0.f, 0.f});
-    foreground.setPosition({0.f, 0.f});
+    foreground.setPosition({0.f, 0.f});*/
 }
 
 void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon& lp,
@@ -42,6 +42,7 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
                                            pplmn::Move::opponentAnimationForeground;
     const auto bg = user == User::Player ? pplmn::Move::playerAnimationBackground :
                                            pplmn::Move::opponentAnimationBackground;
+    /*
     fgSrc         = AnimationManager::load(fg(move));
     bgSrc         = AnimationManager::load(bg(move));
     if (fgSrc && bgSrc) {
@@ -55,23 +56,28 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
         foreground.stop();
         background.stop();
     }
+    */
 }
 
-bool MoveAnimation::completed() const { return background.finished() && foreground.finished(); }
+bool MoveAnimation::completed() const {
+    // TODO - BLIB_UPGRADE - battle rendering
+    // return background.finished() && foreground.finished();
+    return true;
+}
 
 void MoveAnimation::update(float dt) {
-    background.update(dt);
-    foreground.update(dt);
+    // background.update(dt);
+    // foreground.update(dt);
 }
 
 void MoveAnimation::renderBackground(sf::RenderTarget& target, float lag) const {
-    bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(background);
-    if (!anim.finished()) anim.render(target, lag);
+    // bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(background);
+    // if (!anim.finished()) anim.render(target, lag);
 }
 
 void MoveAnimation::renderForeground(sf::RenderTarget& target, float lag) const {
-    bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(foreground);
-    if (!anim.finished()) anim.render(target, lag);
+    // bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(foreground);
+    // if (!anim.finished()) anim.render(target, lag);
 }
 
 } // namespace view

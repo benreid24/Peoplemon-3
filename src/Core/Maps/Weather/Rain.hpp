@@ -4,7 +4,7 @@
 #include "Base.hpp"
 #include "Thunder.hpp"
 
-#include <BLIB/Media/Audio.hpp>
+#include <BLIB/Audio.hpp>
 #include <BLIB/Particles.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>

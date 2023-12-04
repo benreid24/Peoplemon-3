@@ -39,7 +39,7 @@ using TileLayer = Layer<Tile>;
  * @ingroup Maps
  *
  */
-using SortedLayer = bl::container::Vector2D<Tile*>;
+using SortedLayer = bl::ctr::Vector2D<Tile*>;
 
 /**
  * @brief Specialization of Layer for height transitions
@@ -171,14 +171,6 @@ public:
      *
      */
     unsigned int layerCount() const;
-
-    /**
-     * @brief Updates tiles in the layer set
-     *
-     * @param area The area of the map to update
-     * @param dt Elapsed time in seconds since last call to update()
-     */
-    void update(const sf::IntRect& area, float dt);
 
     /**
      * @brief Returns a pointer to the pointer to sorted tile

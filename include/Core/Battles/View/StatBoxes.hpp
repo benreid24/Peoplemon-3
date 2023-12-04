@@ -69,6 +69,8 @@ public:
     void render(sf::RenderTarget& target) const;
 
 private:
+    // TODO - BLIB_UPGRADE - update battle stat box rendering
+
     enum struct State { Hidden, Sliding, Showing };
 
     pplmn::BattlePeoplemon* localPlayer;

@@ -39,22 +39,50 @@ public:
      * @brief Returns the size that the row takes up
      *
      */
-    virtual sf::Vector2f getSize() const override;
+    virtual glm::vec2 getSize() const override;
 
 protected:
-    virtual void render(sf::RenderTarget& target, sf::RenderStates states,
-                        const sf::Vector2f& position) const override;
+    /**
+     * @brief Called at least once when the item is added to a menu. Should create required graphics
+     *        primitives and return the transform to use
+     *
+     * @param engine The game engine instance
+     * @param parent The parent entity that should be used
+     * @return The transform component to use
+     */
+    virtual bl::com::Transform2D& doCreate(bl::engine::Engine& engine,
+                                           bl::ecs::Entity parent) override;
+
+    /**
+     * @brief Called when the item should be added to the overlay
+     *
+     * @param overlay The overlay to add to
+     */
+    virtual void doSceneAdd(bl::rc::Overlay* overlay) override;
+
+    /**
+     * @brief Called when the item should be removed from the overlay
+     */
+    virtual void doSceneRemove() override;
+
+    /**
+     * @brief Returns the entity (or top level entity) of the item
+     */
+    virtual bl::ecs::Entity getEntity() const override;
 
 private:
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    bl::resource::Ref<sf::Texture> activeBgndTxtr;
-    sf::Sprite background;
+    const core::pplmn::Id ppl;
+    const core::player::Peopledex& dex;
 
-    bl::resource::Ref<sf::Texture> ballTxtr;
-    sf::Sprite ball;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::rc::res::TextureRef activeBgndTxtr;
+    bl::gfx::Sprite background;
 
-    sf::Text id;
-    sf::Text name;
+    bl::rc::res::TextureRef ballTxtr;
+    bl::gfx::Sprite ball;
+
+    bl::gfx::Text id;
+    bl::gfx::Text name;
 
     PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& dex);
     void makeActive();

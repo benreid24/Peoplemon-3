@@ -1,9 +1,8 @@
 #ifndef CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 #define CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 
-#include <BLIB/Media/Graphics/Animation.hpp>
-#include <BLIB/Media/Graphics/Flashing.hpp>
-#include <BLIB/Media/Shapes/GradientCircle.hpp>
+#include <BLIB/Graphics/Animation2D.hpp>
+#include <BLIB/Graphics/Circle.hpp>
 #include <BLIB/Particles/System.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/Animation.hpp>
@@ -97,6 +96,8 @@ private:
         float lifetime;
     };
 
+    // TODO - BLIB_UPGRADE - update battle rendering
+
     const Position position;
     sf::Vector2f offset;
     sf::View view;
@@ -116,10 +117,10 @@ private:
     bl::resource::Ref<sf::Texture> ballTxtr;
     bl::resource::Ref<sf::Texture> ballOpenTxtr;
     sf::Sprite ball;
-    bl::shapes::GradientCircle ballFlash;
+    bl::gfx::Circle ballFlash;
     bl::particle::System<Spark> sparks;
     bl::particle::System<Spark> implosion;
-    mutable bl::shapes::GradientCircle spark;
+    mutable bl::gfx::Circle spark;
     sf::RectangleShape screenFlash;
     bl::resource::Ref<sf::Texture> statTxtr;
     sf::Sprite statArrow;
@@ -138,22 +139,21 @@ private:
     void spawnImplodeSpark(Spark* obj);
     void setThrowBallTxtr(sf::Texture& t);
 
-    bl::resource::Ref<bl::gfx::AnimationData> annoySrc;
-    bl::resource::Ref<bl::gfx::AnimationData> confuseSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> frozenSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> frustrationSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> sleepSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> stickySrc;
-    bl::resource::Ref<bl::gfx::AnimationData> trappedSrc;
-    bl::resource::Ref<bl::gfx::AnimationData> jumpedSrc;
-    bl::gfx::Animation ailmentAnim;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> annoySrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> confuseSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> frozenSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> frustrationSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> sleepSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> stickySrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> trappedSrc;
+    bl::resource::Ref<bl::gfx::a2d::AnimationData> jumpedSrc;
+    bl::gfx::Animation2D ailmentAnim;
 
     void updateAilmentAnimation(pplmn::Ailment ail);
     void updateAilmentAnimation(pplmn::PassiveAilment ail);
 
     bl::resource::Ref<sf::Texture> txtr;
     mutable sf::Sprite peoplemon;
-    bl::gfx::Flashing flasher;
     sf::Vector2f scale;
 };
 

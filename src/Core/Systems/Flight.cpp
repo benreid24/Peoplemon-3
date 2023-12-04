@@ -1,5 +1,6 @@
 #include <Core/Systems/Flight.hpp>
 
+#include <BLIB/Cameras.hpp>
 #include <BLIB/Logging.hpp>
 #include <BLIB/Math.hpp>
 #include <Core/Properties.hpp>
@@ -37,6 +38,7 @@ float distSqrd(const component::Position& p1, const sf::Vector2f& p2) {
 Flight::Flight(Systems& s)
 : owner(s)
 , state(State::Idle)
+, cameraShake(nullptr)
 , playerPos(nullptr)
 , playerAnim(nullptr) {}
 
@@ -83,8 +85,9 @@ bool Flight::startFlight(unsigned int spawn) {
     playerPos->level     = std::max(playerPos->level, destination.level);
 
     // setup camera
-    camera = camera::ShakeFollow::create(owner, owner.player().player(), 10.f);
-    owner.engine().renderSystem().cameras().pushCamera(camera);
+    auto* cam = owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
+    if (cam) { cameraShake = cam->addAffector<bl::cam::c2d::CameraShake>(0.f, 10.f); }
+    else { cameraShake = nullptr; }
 
     // start flight
     state            = State::Rising;
@@ -155,8 +158,10 @@ void Flight::update(float dt) {
             flyState.velocity = flyState.maxSpeed;
             state             = State::Flying;
         }
-        camera->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
-        camera->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
+        if (cameraShake) {
+            cameraShake->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
+            cameraShake->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
+        }
     } break;
 
     case State::Flying: {
@@ -172,7 +177,7 @@ void Flight::update(float dt) {
         const float percent = 1.f - cDist / flyState.ogDistSqrd;
         flyState.velocity   = std::max((1.f - percent) * 50.f * flyState.maxSpeed, 32.f * 6.f);
         if (cDist <= 3.4f || flyState.velocity == 0.f) {
-            camera->setMagnitude(0);
+            if (cameraShake) { cameraShake->setMagnitude(0.f); }
             playerPos->setPixels(flightDest);
             const float pa          = flyState.angle;
             state                   = State::UnRotating;
@@ -180,8 +185,10 @@ void Flight::update(float dt) {
             rotateState.targetAngle = 0.f;
             rotateState.rotateRate  = (rotateState.targetAngle - rotateState.angle) / RotateTime;
         }
-        camera->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
-        camera->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
+        else if (cameraShake) {
+            cameraShake->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
+            cameraShake->setShakesPerSecond(flyState.velocity / flyState.maxSpeed * ShakesPerSec);
+        }
     } break;
 
     case State::Descending:
@@ -196,7 +203,9 @@ void Flight::update(float dt) {
             *playerPos                     = destination;
             playerPos->direction           = component::Direction::Down;
             state                          = State::Idle;
-            owner.engine().renderSystem().cameras().popCamera();
+            auto* cam =
+                owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
+            if (cam) { cam->removeAffector(cameraShake); }
             bl::event::Dispatcher::dispatch<event::EntityMoved>(
                 {owner.player().player(), prev, *playerPos});
             owner.player().makePlayerControlled(owner.player().player());

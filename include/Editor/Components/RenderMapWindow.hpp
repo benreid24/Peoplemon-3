@@ -32,7 +32,7 @@ public:
      *
      * @param gui The parent GUI object
      */
-    void open(const bl::gui::GUI::Ptr& gui);
+    void open(bl::gui::GUI* gui);
 
     /**
      * @brief Returns the filename to output to

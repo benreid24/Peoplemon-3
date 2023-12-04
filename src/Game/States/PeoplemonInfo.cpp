@@ -27,10 +27,11 @@ bl::engine::State::Ptr PeoplemonInfo::create(core::system::Systems& s,
 
 PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedPeoplemon& ppl)
 : State(s)
-, leftFlasher(leftArrow, FlashTime, FlashTime)
-, rightFlasher(rightArrow, FlashTime, FlashTime)
-, moveMenu(bl::menu::NoSelector::create()) {
-    const sf::Font& font = core::Properties::MenuFont();
+//, leftFlasher(leftArrow, FlashTime, FlashTime)
+//, rightFlasher(rightArrow, FlashTime, FlashTime)
+//, moveMenu(bl::menu::NoSelector::create())
+{
+    // const sf::Font& font = core::Properties::MenuFont();
     const std::string ImgPath =
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "PplInfo");
     const auto loadImg = [&ImgPath](const std::string& path) -> bl::resource::Ref<sf::Texture> {
@@ -51,7 +52,7 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
     rightArrow.setOrigin(0.f, static_cast<float>(rightTxtr->getSize().y) * 0.5f);
     rightArrow.setPosition(0.f, 31.f);
 
-    pageLabel.setFont(font);
+    // pageLabel.setFont(font);
     pageLabel.setCharacterSize(34);
     pageLabel.setPosition(612.f, 31.f);
     setPage(ActivePage::Basics);
@@ -62,25 +63,25 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
     thumbnail.setScale(ThumbSize / static_cast<float>(thumbTxtr->getSize().x),
                        ThumbSize / static_cast<float>(thumbTxtr->getSize().y));
 
-    nameLabel.setFont(font);
+    // nameLabel.setFont(font);
     nameLabel.setCharacterSize(28);
     nameLabel.setPosition(13.f, 75.f);
     nameLabel.setFillColor(sf::Color(200, 40, 10));
     nameLabel.setString(ppl.name());
 
-    idLabel.setFont(font);
+    // idLabel.setFont(font);
     idLabel.setCharacterSize(18);
     idLabel.setFillColor(sf::Color(200, 200, 255));
     idLabel.setPosition(57.f, 122.f);
     idLabel.setString(std::to_string(static_cast<int>(ppl.id())));
 
-    levelLabel.setFont(font);
+    // levelLabel.setFont(font);
     levelLabel.setCharacterSize(22);
     levelLabel.setFillColor(sf::Color(190, 255, 220));
     levelLabel.setPosition(254.f, 115.f);
     levelLabel.setString(std::to_string(ppl.currentLevel()));
 
-    itemLabel.setFont(font);
+    // itemLabel.setFont(font);
     itemLabel.setCharacterSize(16);
     itemLabel.setPosition(79.f, 473.f);
     itemLabel.setFillColor(sf::Color(200, 255, 230));
@@ -88,18 +89,18 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
                             core::item::Item::getName(ppl.holdItem()) :
                             "No hold item");
 
-    curXpLabel.setFont(font);
+    // curXpLabel.setFont(font);
     curXpLabel.setCharacterSize(16);
     curXpLabel.setPosition(101.f, 495.f);
     curXpLabel.setFillColor(sf::Color(50, 200, 255));
     curXpLabel.setString(std::to_string(ppl.currentXP()));
-    nextXpLabel.setFont(font);
+    // nextXpLabel.setFont(font);
     nextXpLabel.setCharacterSize(16);
     nextXpLabel.setPosition(101.f, 518.f);
     nextXpLabel.setFillColor(sf::Color(20, 140, 220));
     nextXpLabel.setString(std::to_string(ppl.nextLevelXP()));
 
-    ailLabel.setFont(font);
+    // ailLabel.setFont(font);
     ailLabel.setFillColor(ppl.currentAilment() == core::pplmn::Ailment::None ?
                               sf::Color(40, 255, 120) :
                               sf::Color(230, 50, 50));
@@ -111,14 +112,14 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
     basicsBox.setTexture(*basicsTxtr, true);
     basicsBox.setPosition(BasicPos);
 
-    speciesLabel.setFont(font);
+    // speciesLabel.setFont(font);
     speciesLabel.setCharacterSize(30);
     speciesLabel.setPosition(BasicPos + sf::Vector2f(26.f, 83.f));
     speciesLabel.setFillColor(sf::Color(165, 40, 20));
     speciesLabel.setString(core::pplmn::Peoplemon::name(ppl.id()));
     speciesLabel.setOrigin(0.f, speciesLabel.getGlobalBounds().height * 0.5f);
 
-    typeLabel.setFont(font);
+    // typeLabel.setFont(font);
     typeLabel.setCharacterSize(20);
     typeLabel.setFillColor(sf::Color(30, 170, 85));
     typeLabel.setString(core::pplmn::TypeUtil::getTypeString(ppl.type()));
@@ -143,51 +144,51 @@ PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedP
     const std::array<sf::Text*, 6> stps{
         {&hpLabel, &atkLabel, &defLabel, &spdLabel, &spAtkLabel, &spDefLabel}};
     for (sf::Text* stat : stps) {
-        stat->setFont(font);
+        // stat->setFont(font);
         stat->setCharacterSize(18);
         stat->setFillColor(sf::Color(30, 165, 80));
         stat->move(BasicPos);
     }
 
-    descLabel.setFont(font);
+    // descLabel.setFont(font);
     descLabel.setCharacterSize(14);
     descLabel.setFillColor(sf::Color(230, 230, 230));
     descLabel.setString(core::pplmn::Peoplemon::description(ppl.id()));
     descLabel.setPosition(BasicPos + sf::Vector2f(30.f, 350.f));
-    bl::interface::wordWrap(descLabel, 397.f);
+    // bl::interface::wordWrap(descLabel, 397.f);
 
-    abilityLabel.setFont(font);
+    // abilityLabel.setFont(font);
     abilityLabel.setCharacterSize(19);
     abilityLabel.setFillColor(sf::Color(40, 200, 100));
     abilityLabel.setPosition(BasicPos + sf::Vector2f(30.f, 437.f));
     abilityLabel.setString(core::pplmn::Peoplemon::abilityName(ppl.ability()));
 
-    abilityDescLabel.setFont(font);
+    // abilityDescLabel.setFont(font);
     abilityDescLabel.setCharacterSize(15);
     abilityDescLabel.setFillColor(sf::Color(220, 220, 220));
     abilityDescLabel.setPosition(BasicPos.x + 45.f,
                                  abilityLabel.getPosition().y +
                                      abilityLabel.getGlobalBounds().height + 4.f);
     abilityDescLabel.setString(core::pplmn::Peoplemon::abilityDescription(ppl.ability()));
-    bl::interface::wordWrap(abilityDescLabel, 380.f);
+    // bl::interface::wordWrap(abilityDescLabel, 380.f);
 
     moveTxtr = loadImg("moveBox.png");
     moveBox.setTexture(*moveTxtr, true);
     moveBox.setPosition(MovePos);
 
-    movePwrLabel.setFont(font);
+    // movePwrLabel.setFont(font);
     movePwrLabel.setCharacterSize(22);
     movePwrLabel.setPosition(MovePos + sf::Vector2f(228.f, 54.f));
     movePwrLabel.setFillColor(sf::Color(152, 81, 81));
-    moveAccLabel.setFont(font);
+    // moveAccLabel.setFont(font);
     moveAccLabel.setCharacterSize(22);
     moveAccLabel.setPosition(MovePos + sf::Vector2f(228.f, 93.f));
     moveAccLabel.setFillColor(sf::Color(58, 161, 151));
-    moveTypeLabel.setFont(font);
+    // moveTypeLabel.setFont(font);
     moveTypeLabel.setPosition(MovePos + sf::Vector2f(228.f, 137.f));
     moveTypeLabel.setCharacterSize(22);
     moveTypeLabel.setFillColor(sf::Color(76, 162, 50));
-    moveDescLabel.setFont(font);
+    // moveDescLabel.setFont(font);
     moveDescLabel.setCharacterSize(16);
     moveDescLabel.setFillColor(sf::Color(220, 220, 220));
     moveDescLabel.setPosition(MovePos + sf::Vector2f(50.f, 196.f));
@@ -222,65 +223,65 @@ const char* PeoplemonInfo::name() const { return "PeoplemonInfo"; }
 void PeoplemonInfo::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
 
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /*engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
 }
 
 void PeoplemonInfo::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(*this);
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void PeoplemonInfo::update(bl::engine::Engine&, float dt) {
-    leftFlasher.update(dt);
-    rightFlasher.update(dt);
+void PeoplemonInfo::update(bl::engine::Engine&, float dt, float) {
+    /* leftFlasher.update(dt);
+     rightFlasher.update(dt);*/
 }
 
-void PeoplemonInfo::render(bl::engine::Engine& engine, float lag) {
-    auto& window = engine.window();
-    window.clear();
-
-    window.draw(background);
-    window.draw(pageLabel);
-    window.draw(idLabel);
-    window.draw(nameLabel);
-    window.draw(levelLabel);
-    window.draw(thumbnail);
-    window.draw(itemLabel);
-    window.draw(curXpLabel);
-    window.draw(nextXpLabel);
-    window.draw(ailLabel);
-
-    switch (activePage) {
-    case ActivePage::Basics:
-        rightFlasher.render(window, {}, lag);
-        window.draw(basicsBox);
-        window.draw(speciesLabel);
-        window.draw(typeLabel);
-        window.draw(hpLabel);
-        window.draw(atkLabel);
-        window.draw(defLabel);
-        window.draw(spdLabel);
-        window.draw(spAtkLabel);
-        window.draw(spDefLabel);
-        window.draw(descLabel);
-        window.draw(abilityLabel);
-        window.draw(abilityDescLabel);
-        break;
-
-    case ActivePage::Moves:
-        leftFlasher.render(window, {}, lag);
-        moveMenu.render(window);
-        window.draw(moveBox);
-        window.draw(movePwrLabel);
-        window.draw(moveAccLabel);
-        window.draw(moveDescLabel);
-        window.draw(moveTypeLabel);
-        break;
-    }
-
-    window.display();
-}
+// void PeoplemonInfo::render(bl::engine::Engine& engine, float lag) {
+//     auto& window = engine.window();
+//     window.clear();
+//
+//     window.draw(background);
+//     window.draw(pageLabel);
+//     window.draw(idLabel);
+//     window.draw(nameLabel);
+//     window.draw(levelLabel);
+//     window.draw(thumbnail);
+//     window.draw(itemLabel);
+//     window.draw(curXpLabel);
+//     window.draw(nextXpLabel);
+//     window.draw(ailLabel);
+//
+//     switch (activePage) {
+//     case ActivePage::Basics:
+//         rightFlasher.render(window, {}, lag);
+//         window.draw(basicsBox);
+//         window.draw(speciesLabel);
+//         window.draw(typeLabel);
+//         window.draw(hpLabel);
+//         window.draw(atkLabel);
+//         window.draw(defLabel);
+//         window.draw(spdLabel);
+//         window.draw(spAtkLabel);
+//         window.draw(spDefLabel);
+//         window.draw(descLabel);
+//         window.draw(abilityLabel);
+//         window.draw(abilityDescLabel);
+//         break;
+//
+//     case ActivePage::Moves:
+//         leftFlasher.render(window, {}, lag);
+//         moveMenu.render(window);
+//         window.draw(moveBox);
+//         window.draw(movePwrLabel);
+//         window.draw(moveAccLabel);
+//         window.draw(moveDescLabel);
+//         window.draw(moveTypeLabel);
+//         break;
+//     }
+//
+//     window.display();
+// }
 
 bool PeoplemonInfo::observe(const bl::input::Actor&, unsigned int cmd, bl::input::DispatchType,
                             bool eventTriggered) {
@@ -324,7 +325,7 @@ void PeoplemonInfo::highlightMove(core::pplmn::MoveId move) {
     moveAccLabel.setString(acc > 0 ? std::to_string(acc) : "Always hits");
     moveTypeLabel.setString(core::pplmn::TypeUtil::getTypeString(Move::type(move)));
     moveDescLabel.setString(Move::description(move));
-    bl::interface::wordWrap(moveDescLabel, 380.f);
+    // bl::interface::wordWrap(moveDescLabel, 380.f);
 }
 
 void PeoplemonInfo::setPage(ActivePage page) {

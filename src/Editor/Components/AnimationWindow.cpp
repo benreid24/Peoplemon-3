@@ -19,7 +19,8 @@ bool validFile(const std::string& f) { return !f.empty() && bl::util::FileUtil::
 AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb)
 : characterMode(cm)
 , chooseCb(cb)
-, closeCb(ccb) {
+, closeCb(ccb)
+, parent(nullptr) {
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Animation Picker");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -79,7 +80,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     window->pack(row);
 }
 
-void AnimationWindow::open(const GUI::Ptr& p, const std::string& pt, const std::string& file) {
+void AnimationWindow::open(GUI* p, const std::string& pt, const std::string& file) {
     path   = pt;
     parent = p;
     p->pack(window);

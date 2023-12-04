@@ -28,7 +28,7 @@ public:
      * @brief Sets the primary GUI object
      *
      */
-    void registerGUI(const bl::gui::GUI::Ptr& gui);
+    void registerGUI(bl::gui::GUI* gui);
 
     /**
      * @brief Notifies of the spawn being set
@@ -49,7 +49,7 @@ private:
     std::vector<core::file::GameSave> saves;
     core::file::GameSave newSave;
 
-    bl::gui::GUI::Ptr gui;
+    bl::gui::GUI* gui;
     bl::gui::Box::Ptr content;
     bl::gui::ComboBox::Ptr saveSelector;
     bl::gui::Label::Ptr posLabel;

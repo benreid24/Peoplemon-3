@@ -2,7 +2,7 @@
 #define CORE_COMPONENTS_RENDERABLE_HPP
 
 #include <BLIB/ECS/Registry.hpp>
-#include <BLIB/Media/Graphics/Animation.hpp>
+#include <BLIB/Graphics/Animation2D.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
 #include <Core/Components/Position.hpp>
@@ -15,9 +15,8 @@ namespace component
  * @brief Adding this component to an entity will allow it to be rendered
  *
  * @ingroup Components
- *
  */
-class Renderable {
+class Renderable { // TODO - BLIB_UPGRADE - update entity rendering and remove this
 public:
     /**
      * @brief Creates a renderable component for a static sprite
@@ -133,8 +132,8 @@ private:
     };
 
     struct MoveAnims : public Base {
-        bl::resource::Ref<bl::gfx::AnimationData> data[4];
-        bl::gfx::Animation anim;
+        bl::resource::Ref<bl::gfx::a2d::AnimationData> data[4];
+        // bl::gfx::Animation anim;
         component::Movable& movable;
 
         MoveAnims(component::Movable& movable);
@@ -147,9 +146,9 @@ private:
     };
 
     struct FastMoveAnims : public Base {
-        bl::resource::Ref<bl::gfx::AnimationData> walk[4];
-        bl::resource::Ref<bl::gfx::AnimationData> run[4];
-        bl::gfx::Animation anim;
+        bl::resource::Ref<bl::gfx::a2d::AnimationData> walk[4];
+        bl::resource::Ref<bl::gfx::a2d::AnimationData> run[4];
+        // bl::gfx::Animation anim;
         component::Movable& movable;
 
         FastMoveAnims(component::Movable& movable);
@@ -162,8 +161,8 @@ private:
     };
 
     struct OneAnimation : public Base {
-        bl::resource::Ref<bl::gfx::AnimationData> src;
-        bl::gfx::Animation anim;
+        bl::resource::Ref<bl::gfx::a2d::AnimationData> src;
+        // bl::gfx::Animation anim;
         sf::Vector2f offset;
 
         OneAnimation(const std::string& path);

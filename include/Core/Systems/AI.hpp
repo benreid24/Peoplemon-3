@@ -109,10 +109,14 @@ public:
 
 private:
     // type helpers
-#define StandingTypes component::StandingBehavior, component::Position, component::Controllable
-#define SpinTypes component::SpinBehavior, component::Position, component::Controllable
-#define FixedPathTypes component::FixedPathBehavior, component::Position, component::Controllable
-#define WanderTypes component::WanderBehavior, component::Position, component::Controllable
+    using StandingTypes =
+        bl::ecs::Require<component::StandingBehavior, component::Position, component::Controllable>;
+    using SpinTypes =
+        bl::ecs::Require<component::SpinBehavior, component::Position, component::Controllable>;
+    using FixedPathTypes = bl::ecs::Require<component::FixedPathBehavior, component::Position,
+                                            component::Controllable>;
+    using WanderTypes =
+        bl::ecs::Require<component::WanderBehavior, component::Position, component::Controllable>;
 
     using StandingView  = bl::ecs::View<StandingTypes>*;
     using StandingRow   = bl::ecs::ComponentSet<StandingTypes>;
@@ -122,11 +126,6 @@ private:
     using FixedPathRow  = bl::ecs::ComponentSet<FixedPathTypes>;
     using WanderView    = bl::ecs::View<WanderTypes>*;
     using WanderRow     = bl::ecs::ComponentSet<WanderTypes>;
-
-#undef StandingTypes
-#undef SpinTypes
-#undef FixedPathTypes
-#undef WanderTypes
 
     Systems& owner;
     StandingView standing;

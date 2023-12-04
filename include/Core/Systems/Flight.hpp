@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_FLIGHT_HPP
 #define CORE_SYSTEMS_FLIGHT_HPP
 
-#include <Core/Cameras/ShakeFollow.hpp>
+#include <BLIB/Cameras/2D/Affectors/CameraShake.hpp>
 #include <Core/Components/Position.hpp>
 #include <Core/Components/Renderable.hpp>
 
@@ -79,7 +79,7 @@ private:
 
     Systems& owner;
     State state;
-    camera::ShakeFollow::Ptr camera;
+    bl::cam::c2d::CameraShake* cameraShake;
     component::Position startPos;
     component::Position* playerPos;
     component::Renderable* playerAnim;

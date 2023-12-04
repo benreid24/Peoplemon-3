@@ -186,7 +186,7 @@ GameTestingWindow::GameTestingWindow(const ActionCb& scb)
     window->pack(row, true, false);
 }
 
-void GameTestingWindow::open(const GUI::Ptr& gui, core::file::GameSave& save) {
+void GameTestingWindow::open(GUI* gui, core::file::GameSave& save) {
     gui->pack(window);
     window->setForceFocus(true);
     activeSave = &save;

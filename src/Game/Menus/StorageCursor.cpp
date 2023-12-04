@@ -13,8 +13,9 @@ namespace menu
 float StorageCursor::size = 40.f;
 namespace
 {
-constexpr float MoveTime   = 0.3f;
-constexpr float RotateRate = 360.f;
+constexpr float MoveTime    = 0.3f;
+constexpr float RotateRate  = 360.f;
+constexpr float FlashPeriod = 0.3f;
 
 sf::Vector2f moveVector(core::input::EntityControl dir) {
     switch (dir) {
@@ -34,20 +35,21 @@ sf::Vector2f moveVector(core::input::EntityControl dir) {
 
 StorageCursor::StorageCursor()
 : position(0, 0)
-, flasher(cursor, 0.3f, 0.3f)
 , moveDir(core::input::Control::EntityControl::None) {
+    // TODO - BLIB_UPGRADE - update this class and usage
+    /*
     cursorTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
         core::Properties::MenuImagePath(), "StorageSystem/storageCursor.png"));
     cursor.setTexture(*cursorTxtr, true);
 
-    size    = static_cast<float>(cursorTxtr->getSize().x);
+    size    = static_cast<float>(cursorTxtr->getSize().x);*/
     moveVel = size / MoveTime;
     offset  = 0.f;
 }
 
 void StorageCursor::update(float dt) {
-    flasher.update(dt);
-    peoplemon.rotate(RotateRate * dt);
+    // TODO - BLIB_UPGRADE - uncomment when created
+    // peoplemon.getTransform().rotate(RotateRate * dt);
 
     switch (moveDir) {
     case core::input::Control::MoveRight:
@@ -111,6 +113,8 @@ bool StorageCursor::process(core::input::EntityControl cmd, bool skip) {
 
 void StorageCursor::setHolding(core::pplmn::Id ppl) {
     if (ppl != core::pplmn::Id::Unknown) {
+        // TODO - BLIB_UPGRADE - update this class and usage
+        /*
         pplTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
         peoplemon.setTexture(*pplTxtr, true);
         const sf::Vector2f pplSize(pplTxtr->getSize());
@@ -118,6 +122,7 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
         peoplemon.setPosition(size * 0.5f, size * 0.5f);
         peoplemon.setRotation(0.f);
         peoplemon.setScale(size / pplSize.x, size / pplSize.y);
+        */
     }
     else { pplTxtr.release(); }
 }
@@ -142,16 +147,20 @@ void StorageCursor::pageRight() {
 }
 
 void StorageCursor::render(sf::RenderTarget& target) const {
-    sf::RenderStates states;
+    // TODO - BLIB_UPGRADE - update this class and usage
+    /* sf::RenderStates states;
     states.transform.translate(moveVector(moveDir) * offset);
     flasher.render(target, states, 0.f);
     if (pplTxtr) {
         states.transform.translate(cursor.getPosition());
         target.draw(peoplemon, states);
-    }
+    }*/
 }
 
-void StorageCursor::syncPos() { cursor.setPosition(sf::Vector2f(position) * size); }
+void StorageCursor::syncPos() {
+    // TODO - BLIB_UPGRADE - update this class and usage
+    // cursor.setPosition(sf::Vector2f(position) * size);
+}
 
 float StorageCursor::TileSize() { return size; }
 

@@ -37,7 +37,7 @@ public:
      * @param parent The parent GUI object
      * @param value The value to fill with
      */
-    void show(const bl::gui::GUI::Ptr& parent, const core::pplmn::OwnedPeoplemon& value = {});
+    void show(bl::gui::GUI* parent, const core::pplmn::OwnedPeoplemon& value = {});
 
     /**
      * @brief Hides the window
@@ -54,7 +54,7 @@ public:
 private:
     const NotifyCB onFinish;
     const NotifyCB onCancel;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     bl::gui::Window::Ptr window;
 
     PeoplemonSelector::Ptr idSelect;

@@ -22,28 +22,28 @@ SaveGame::SaveGame(core::system::Systems& s)
 const char* SaveGame::name() const { return "SaveGame"; }
 
 void SaveGame::activate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));
+    /*engine.renderSystem().cameras().pushCamera(
+        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
 
     const auto cb = std::bind(&SaveGame::onFinish, this);
     if (core::file::GameSave::saveGame(systems.player().state().name)) {
         systems.hud().displayMessage(systems.player().state().name + " saved the game!", cb);
     }
-    else { systems.hud().displayMessage("Failed to save the game, goodluck", cb); }
+    else { systems.hud().displayMessage("Failed to save the game, good luck :(", cb); }
 }
 
 void SaveGame::deactivate(bl::engine::Engine& engine) {
-    engine.renderSystem().cameras().popCamera();
+    // engine.renderSystem().cameras().popCamera();
 }
 
-void SaveGame::update(bl::engine::Engine&, float dt) { systems.hud().update(dt); }
+void SaveGame::update(bl::engine::Engine&, float dt, float) { systems.hud().update(dt); }
 
-void SaveGame::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-    engine.window().draw(background);
-    systems.hud().render(engine.window(), lag);
-    engine.window().display();
-}
+// void SaveGame::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//     engine.window().draw(background);
+//     systems.hud().render(engine.window(), lag);
+//     engine.window().display();
+// }
 
 void SaveGame::onFinish() { systems.engine().popState(); }
 

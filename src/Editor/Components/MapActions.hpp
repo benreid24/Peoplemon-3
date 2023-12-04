@@ -47,16 +47,16 @@ private:
     const unsigned int level;
     const unsigned int layer;
     const sf::IntRect area;
-    const bl::container::Vector2D<core::map::Tile::IdType> prev;
-    const bl::container::Vector2D<std::uint8_t> wasAnim;
+    const bl::ctr::Vector2D<core::map::Tile::IdType> prev;
+    const bl::ctr::Vector2D<std::uint8_t> wasAnim;
     const core::map::Tile::IdType updated;
     const bool isAnim;
     const int w;
     const int h;
 
     SetTileAreaAction(unsigned int level, unsigned int layer, const sf::IntRect& area,
-                      bl::container::Vector2D<core::map::Tile::IdType>&& prev,
-                      bl::container::Vector2D<std::uint8_t>&& wasAnim,
+                      bl::ctr::Vector2D<core::map::Tile::IdType>&& prev,
+                      bl::ctr::Vector2D<std::uint8_t>&& wasAnim,
                       core::map::Tile::IdType value, bool isAnim, int w, int h);
 };
 
@@ -145,10 +145,10 @@ private:
     const unsigned int level;
     const sf::IntRect area;
     const core::map::Collision value;
-    const bl::container::Vector2D<core::map::Collision> ogVals;
+    const bl::ctr::Vector2D<core::map::Collision> ogVals;
 
     SetCollisionAreaAction(unsigned int level, const sf::IntRect& area, core::map::Collision value,
-                           bl::container::Vector2D<core::map::Collision>&& ogcols);
+                           bl::ctr::Vector2D<core::map::Collision>&& ogcols);
 };
 
 class EditMap::SetCatchAction : public EditMap::Action {
@@ -185,10 +185,10 @@ private:
     const unsigned int level;
     const sf::IntRect area;
     const std::uint8_t value;
-    const bl::container::Vector2D<std::uint8_t> ogVals;
+    const bl::ctr::Vector2D<std::uint8_t> ogVals;
 
     SetCatchAreaAction(unsigned int level, const sf::IntRect& area, std::uint8_t value,
-                       bl::container::Vector2D<std::uint8_t>&& ogcols);
+                       bl::ctr::Vector2D<std::uint8_t>&& ogcols);
 };
 
 class EditMap::FillCatchAction : public EditMap::Action {
@@ -734,10 +734,10 @@ public:
 private:
     const sf::IntRect area;
     const std::uint8_t id;
-    const bl::container::Vector2D<std::uint8_t> orig;
+    const bl::ctr::Vector2D<std::uint8_t> orig;
 
     SetTownTileAreaAction(const sf::IntRect& area, std::uint8_t id,
-                          bl::container::Vector2D<std::uint8_t>&& orig);
+                          bl::ctr::Vector2D<std::uint8_t>&& orig);
 };
 
 class EditMap::FillTownTileAction : public EditMap::Action {
@@ -787,10 +787,10 @@ public:
 private:
     const sf::IntRect area;
     const core::map::LevelTransition lt;
-    const bl::container::Vector2D<core::map::LevelTransition> orig;
+    const bl::ctr::Vector2D<core::map::LevelTransition> orig;
 
     SetLevelTileAreaAction(const sf::IntRect& area, core::map::LevelTransition lt,
-                           bl::container::Vector2D<core::map::LevelTransition>&& orig);
+                           bl::ctr::Vector2D<core::map::LevelTransition>&& orig);
 };
 
 } // namespace component

@@ -35,7 +35,7 @@ public:
      * @param parent The parent GUI object
      * @param item The item to populate for, or Unknown for a new item
      */
-    void open(const bl::gui::GUI::Ptr& parent, core::item::Id item);
+    void open(bl::gui::GUI* parent, core::item::Id item);
 
 private:
     core::file::ItemDB& itemDb;

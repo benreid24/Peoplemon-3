@@ -71,7 +71,7 @@ GameTesting::GameTesting()
     sync();
 }
 
-void GameTesting::registerGUI(const GUI::Ptr& g) { gui = g; }
+void GameTesting::registerGUI(GUI* g) { gui = g; }
 
 const Box::Ptr& GameTesting::getContent() const { return content; }
 

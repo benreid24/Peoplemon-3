@@ -1,6 +1,5 @@
 #include <Game/States/PauseMenu.hpp>
 
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/BagMenu.hpp>
 #include <Game/States/FlyMap.hpp>
@@ -19,7 +18,7 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 
 PauseMenu::PauseMenu(core::system::Systems& s)
 : State(s)
-, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
+//, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
 , openedOnce(false)
 , unpause(false) {
     using bl::menu::Item;
@@ -96,8 +95,8 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
     inputDriver.drive(&menu);
     inputDriver.resetDebounce();
     systems.world().activeMap().setupCamera(systems);
-    menuRenderStates.transform.translate(engine.window().getView().getCenter() -
-                                         engine.window().getView().getSize() * 0.5f);
+    /*menuRenderStates.transform.translate(engine.window().getView().getCenter() -
+                                         engine.window().getView().getSize() * 0.5f);*/
     systems.hud().hideEntryCard();
     if (!openedOnce) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
@@ -111,7 +110,7 @@ void PauseMenu::deactivate(bl::engine::Engine&) {
     unpause = false;
 }
 
-void PauseMenu::update(bl::engine::Engine& engine, float dt) {
+void PauseMenu::update(bl::engine::Engine& engine, float dt, float) {
     if (unpause) {
         engine.popState();
         return;
@@ -133,14 +132,14 @@ bool PauseMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::D
     return true;
 }
 
-void PauseMenu::render(bl::engine::Engine&, float lag) {
-    if (systems.flight().flying()) return;
-
-    systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
-    menu.render(systems.engine().window(), menuRenderStates);
-
-    systems.engine().window().display();
-}
+// void PauseMenu::render(bl::engine::Engine&, float lag) {
+//     if (systems.flight().flying()) return;
+//
+//     systems.render().render(systems.engine().window(), systems.world().activeMap(), lag);
+//     menu.render(systems.engine().window(), menuRenderStates);
+//
+//     systems.engine().window().display();
+// }
 
 } // namespace state
 } // namespace game

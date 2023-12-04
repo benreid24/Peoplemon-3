@@ -1,7 +1,7 @@
 #ifndef GAME_STATE_EVOLUTION_HPP
 #define GAME_STATE_EVOLUTION_HPP
 
-#include <BLIB/Media/Shapes.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Particles.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Game/States/State.hpp>
@@ -55,17 +55,10 @@ public:
      * @param engine The game engine
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override;
-
-    /**
-     * @brief Renders the evolution process
-     *
-     * @param engine The game engine
-     * @param lag Time, in seconds, not accounted for in update()
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override;
+    virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update evolution rendering
     core::pplmn::OwnedPeoplemon& ppl;
 
     bl::resource::Ref<sf::Texture> bgndTxtr;
@@ -96,7 +89,7 @@ private:
     AnimState state;
     AnimState cancelPriorState;
     bl::particle::System<Spark> sparks;
-    bl::shapes::GradientCircle spark;
+    // bl::shapes::GradientCircle spark;
     union {
         float fadeColor;
         float oscillateTime;

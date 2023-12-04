@@ -28,13 +28,14 @@ LevelTransitions::LevelTransitions() {
         Label::create("Walking in the direction of the arrow on a transition makes the "
                       "player go up a level. Walking opposite the arrow makes the player "
                       "go down a level. Walking perpendicular has no effect.");
-    sf::Text text;
+    // TODO - BLIB_UPGRADE - gui label word wrapping
+    /*sf::Text text;
     text.setFont(core::Properties::MenuFont());
     text.setCharacterSize(18);
     text.setString(help->getText());
     bl::interface::wordWrap(text, 400.f);
     help->setText(text.getString());
-    help->setCharacterSize(text.getCharacterSize());
+    help->setCharacterSize(text.getCharacterSize());*/
     content->pack(help);
 
     RadioButton::Ptr noneBut = RadioButton::create("Flat", "flat");
@@ -46,7 +47,7 @@ LevelTransitions::LevelTransitions() {
     RadioButton::Group* group = noneBut->getRadioGroup();
     for (unsigned int i = 0; i < sourceN; ++i) {
         const auto& pair = source[i];
-        auto txtr        = TextureManager::load(pair.first);
+        auto txtr        = ImageManager::load(pair.first);
         Image::Ptr img   = Image::create(txtr);
         img->scaleToSize({64, 64});
         component::HighlightRadioButton::Ptr but =

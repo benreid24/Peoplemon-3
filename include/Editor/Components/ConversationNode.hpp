@@ -66,7 +66,7 @@ public:
      * @brief Set the parent GUI object
      *
      */
-    void setParent(const bl::gui::GUI::Ptr& parent);
+    void setParent(bl::gui::GUI* parent);
 
 private:
     class NodeConnector {
@@ -115,7 +115,7 @@ private:
         NodeConnector jump;
     };
 
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     const FocusCb focusCb;
     const NotifyCb onEdit;
     const NotifyCb onDelete;

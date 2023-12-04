@@ -104,7 +104,7 @@ void BattleWrapperState::activate(bl::engine::Engine& engine) {
     case Substate::BattleIntro:
     default:
         sequence->start();
-        sequenceView = engine.window().getView();
+        // sequenceView = engine.window().getView();
         sequenceView.setCenter(core::Properties::WindowSize() * 0.5f);
         sequenceView.setSize(core::Properties::WindowSize());
         break;
@@ -115,7 +115,7 @@ void BattleWrapperState::deactivate(bl::engine::Engine& engine) {
     engine.inputSystem().getActor().removeListener(*this);
 }
 
-void BattleWrapperState::update(bl::engine::Engine& engine, float dt) {
+void BattleWrapperState::update(bl::engine::Engine& engine, float dt, float) {
     systems.update(dt, false);
     sequence->update(dt);
     if (sequence->finished()) {
@@ -124,15 +124,15 @@ void BattleWrapperState::update(bl::engine::Engine& engine, float dt) {
     }
 }
 
-void BattleWrapperState::render(bl::engine::Engine& engine, float lag) {
-    engine.window().clear();
-
-    systems.render().render(engine.window(), systems.world().activeMap(), lag);
-    engine.window().setView(sequenceView); // engine resets it for us every frame
-    sequence->render(engine.window(), lag);
-
-    engine.window().display();
-}
+// void BattleWrapperState::render(bl::engine::Engine& engine, float lag) {
+//     engine.window().clear();
+//
+//     systems.render().render(engine.window(), systems.world().activeMap(), lag);
+//     engine.window().setView(sequenceView); // engine resets it for us every frame
+//     sequence->render(engine.window(), lag);
+//
+//     engine.window().display();
+// }
 
 bool BattleWrapperState::observe(const bl::input::Actor&, unsigned int, bl::input::DispatchType,
                                  bool) {

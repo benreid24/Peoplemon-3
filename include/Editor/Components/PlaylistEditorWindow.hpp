@@ -9,18 +9,18 @@ namespace component
 {
 /**
  * @brief The playlist editor and chooser
- * 
+ *
  * @ingroup Components
- * 
+ *
  */
 class PlaylistEditorWindow {
 public:
     using SelectedCb = std::function<void(const std::string&)>;
-    using CancelCb = std::function<void()>;
+    using CancelCb   = std::function<void()>;
 
     /**
      * @brief Creates the playlist editor
-     * 
+     *
      * @param onSelect Called when a playlist is selected
      * @param onCancel Called when the window is closed with no selection
      */
@@ -28,16 +28,16 @@ public:
 
     /**
      * @brief Opens the window with an optional file to load
-     * 
+     *
      * @param gui The main gui object
      * @param plist The playlist to load
      */
-    void open(const bl::gui::GUI::Ptr& gui, const std::string& plist);
+    void open(bl::gui::GUI* gui, const std::string& plist);
 
 private:
     const SelectedCb onSelect;
     const CancelCb onCancel;
-    bl::gui::GUI::Ptr gui;
+    bl::gui::GUI* gui;
     bl::gui::Window::Ptr window;
     bl::gui::SelectBox::Ptr songList;
     bl::gui::CheckButton::Ptr shuffleBut;
@@ -60,15 +60,15 @@ private:
 
     bool confirmUnsaved();
     void select();
-    
+
     void save();
     void load(const std::string& file);
-    
+
     void close();
     void closePickers();
 };
 
-}
-}
+} // namespace component
+} // namespace editor
 
 #endif

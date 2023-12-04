@@ -36,7 +36,7 @@ public:
      * @param parent The parent to add the GUI elements to
      * @param value The default script value to fill
      */
-    void open(const bl::gui::GUI::Ptr& parent, const std::string& value = {});
+    void open(bl::gui::GUI* parent, const std::string& value = {});
 
 private:
     const OnSelect onSelect;
@@ -46,7 +46,7 @@ private:
     bl::gui::Label::Ptr errorLabel;
 
     bl::gui::FilePicker picker;
-    bl::gui::GUI::Ptr parent;
+    bl::gui::GUI* parent;
     void onPick(const std::string& s);
 
     void checkSyntax();

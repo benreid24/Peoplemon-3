@@ -109,7 +109,7 @@ NewMapDialog::NewMapDialog(const CreateCb& cb)
     });
 }
 
-void NewMapDialog::show(GUI::Ptr parent, const std::string& file) {
+void NewMapDialog::show(GUI* parent, const std::string& file) {
     mapFileLabel->setText(file);
     tilesetLabel->setText("");
     nameEntry->setInput("");

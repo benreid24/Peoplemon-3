@@ -1,6 +1,5 @@
 #include <Core/Battles/View/PeoplemonAnimation.hpp>
 
-#include <BLIB/Interfaces/Utilities/ViewUtil.hpp>
 #include <BLIB/Math.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
@@ -61,6 +60,9 @@ constexpr float ShakeCount    = 6.f;
 constexpr float ShakeSpeed    = 360.f * ShakeCount;
 constexpr float GreenRate     = 255.f / 0.5f;
 
+constexpr float PeoplemonFlashOn  = 0.08f;
+constexpr float PeoplemonFlashOff = 0.05f;
+
 sf::Color makeColor(float alpha) {
     return sf::Color(FlashColor.r, FlashColor.g, FlashColor.b, static_cast<std::uint8_t>(alpha));
 }
@@ -74,13 +76,14 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 , sparks(std::bind(&PeoplemonAnimation::spawnSpark, this, std::placeholders::_1), 0, 0.f)
 , implosion(std::bind(&PeoplemonAnimation::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)
 , spark(4.f)
-, renderBall(false)
-, flasher(peoplemon, 0.08f, 0.05f) {
+, renderBall(false) {
     const auto join = bl::util::FileUtil::joinPath;
 
     peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
 
-    ballOpenTxtr =
+    // TODO - BLIB_UPGRADE - update battle rendering
+
+    /* ballOpenTxtr =
         TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png"));
     // TODO - consider using multiple graphics based on what ball it was caught in
     ballTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png"));
@@ -119,17 +122,20 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
 
     throwBallTxtr =
         TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png"));
-    setThrowBallTxtr(*throwBallTxtr);
+    setThrowBallTxtr(*throwBallTxtr);*/
 }
 
 void PeoplemonAnimation::configureView(const sf::View& pv) {
-    const sf::Vector2f& pos = position == Position::Player ? PlayerPos : OpponentPos;
+    // TODO - BLIB_UPGRADE - update battle rendering
+
+    /* const sf::Vector2f& pos = position == Position::Player ? PlayerPos : OpponentPos;
     view = bl::interface::ViewUtil::computeSubView(sf::FloatRect(pos, ViewSize), pv);
     view.setCenter(ViewSize * 0.5f);
     screenFlash.setSize(pv.getSize());
     screenFlash.setPosition(pv.getCenter());
     screenFlash.setOrigin(screenFlash.getSize() * 0.5f);
     offset = pos;
+    */
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
@@ -172,7 +178,8 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     case Animation::Type::ShakeAndFlash:
         shakeTime = 0.f;
-        flasher.reset();
+        // TODO - BLIB_UPGRADE - update battle rendering
+        // flasher.reset();
         break;
 
     case Animation::Type::SlideDown:
@@ -203,7 +210,8 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     case Animation::Type::Ailment:
     case Animation::Type::PassiveAilment:
-        ailmentAnim.play(true);
+        // TODO - BLIB_UPGRADE - update battle rendering
+        // ailmentAnim.play(true);
         break;
 
     case Animation::Type::MakeWildVisible:
@@ -336,7 +344,8 @@ void PeoplemonAnimation::update(float dt) {
                 if (ballTime >= 0.75f) {
                     setBallTexture(*ballOpenTxtr);
                     ballFlash.setRadius(1.f);
-                    ballFlash.setCenterColor(makeColor(255.f));
+                    // TODO - BLIB_UPGRADE - update battle rendering
+                    // ballFlash.setCenterColor(makeColor(255.f));
                     alpha = 0.f;
                     sparks.setTargetCount(50);
                     sparks.setCreateRate(200.f);
@@ -358,7 +367,8 @@ void PeoplemonAnimation::update(float dt) {
                 const float ps       = std::sqrt(p);
                 const float pss      = std::sqrt(ps);
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
-                ballFlash.setCenterColor(makeColor(255.f - 255.f * p));
+                // TODO - BLIB_UPGRADE - update battle rendering
+                // ballFlash.setCenterColor(makeColor(255.f - 255.f * p));
                 ballFlash.setRadius(BallFlashRadius * pss);
                 if (a < 255) {
                     peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
@@ -378,7 +388,8 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::ShakeAndFlash:
             shakeTime += dt;
-            flasher.update(dt);
+            // TODO - BLIB_UPGRADE - update battle rendering
+            // flasher.update(dt);
             if (shakeTime >= ShakeTime) { state = State::Static; }
             break;
 
@@ -413,8 +424,9 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::Ailment:
         case Animation::Type::PassiveAilment:
-            ailmentAnim.update(dt);
-            if (ailmentAnim.finished()) { state = State::Static; }
+            // TODO - BLIB_UPGRADE - update battle rendering
+            // ailmentAnim.update(dt);
+            // if (ailmentAnim.finished()) { state = State::Static; }
             break;
 
         case Animation::Type::ThrowCloneBall:
@@ -545,6 +557,9 @@ void PeoplemonAnimation::update(float dt) {
 }
 
 void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
+    // TODO - BLIB_UPGRADE - update battle rendering
+
+    /*
     if (state == State::Hidden) return;
 
     sf::RenderStates states;
@@ -676,6 +691,8 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
         target.draw(peoplemon, states);
         if (renderBall) { target.draw(throwBall); }
     }
+
+    */
 }
 
 void PeoplemonAnimation::spawnSpark(Spark* sp) {
@@ -719,6 +736,8 @@ void PeoplemonAnimation::setThrowBallTxtr(sf::Texture& t) {
 }
 
 void PeoplemonAnimation::updateAilmentAnimation(pplmn::Ailment ail) {
+    // TODO - BLIB_UPGRADE - update battle rendering
+    /*
     switch (ail) {
     case pplmn::Ailment::Annoyed:
         ailmentAnim.setData(*annoySrc);
@@ -739,9 +758,13 @@ void PeoplemonAnimation::updateAilmentAnimation(pplmn::Ailment ail) {
         BL_LOG_WARN << "Invalid ailment: " << ail;
         break;
     }
+    */
 }
 
 void PeoplemonAnimation::updateAilmentAnimation(pplmn::PassiveAilment ail) {
+    // TODO - BLIB_UPGRADE - update battle rendering
+
+    /*
     switch (ail) {
     case pplmn::PassiveAilment::Confused:
         ailmentAnim.setData(*confuseSrc);
@@ -756,6 +779,7 @@ void PeoplemonAnimation::updateAilmentAnimation(pplmn::PassiveAilment ail) {
         BL_LOG_WARN << "Invalid ailment animation: " << ail;
         break;
     }
+    */
 }
 
 } // namespace view

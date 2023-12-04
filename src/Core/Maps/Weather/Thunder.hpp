@@ -1,7 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_THUNDER_HPP
 #define CORE_MAPS_WEATHER_THUNDER_HPP
 
-#include <BLIB/Media/Audio.hpp>
+#include <BLIB/Audio.hpp>
 #include <BLIB/Resources.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -35,7 +35,7 @@ public:
 
     /**
      * @brief Prevents further thunder and fades out current strike if present
-     * 
+     *
      */
     void stop();
 

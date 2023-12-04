@@ -62,17 +62,10 @@ public:
      * @brief Perform all update logic as required in here
      *
      * @param engine The active engine
-     * @param dt The elapsed time since the last call to update
+     * @param dt The elapsed simulated time since the last call to update
+     * @param realDt The elapsed real time since the last call to update
      */
-    virtual void update(bl::engine::Engine& engine, float dt) override = 0;
-
-    /**
-     * @brief Render to the screen
-     *
-     * @param engine The active engine
-     * @param lag The residual time not accounted for in update()
-     */
-    virtual void render(bl::engine::Engine& engine, float lag) override = 0;
+    virtual void update(bl::engine::Engine& engine, float dt, float realDt) override = 0;
 
 protected:
     core::system::Systems& systems;
@@ -82,7 +75,7 @@ protected:
      *
      * @param systems A reference to the core game systems
      */
-    State(core::system::Systems& systems);
+    State(core::system::Systems& systems); // TODO - BLIB_UPGRADE - take state flag to pass down
 };
 
 } // namespace state

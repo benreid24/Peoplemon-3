@@ -13,15 +13,6 @@ namespace system
 {
 namespace
 {
-using StandingSet =
-    bl::ecs::ComponentSet<component::StandingBehavior, component::Position, component::Movable>;
-using SpinningSet =
-    bl::ecs::ComponentSet<component::SpinBehavior, component::Position, component::Movable>;
-using PathSet =
-    bl::ecs::ComponentSet<component::FixedPathBehavior, component::Position, component::Movable>;
-using WanderSet =
-    bl::ecs::ComponentSet<component::WanderBehavior, component::Position, component::Movable>;
-
 struct PositionHash {
     std::size_t operator()(const component::Position& pos) const {
         const std::size_t tileHash = bl::util::Vector2Hash<int>()(pos.positionTiles());
@@ -36,26 +27,10 @@ AI::AI(Systems& o)
 : owner(o) {}
 
 void AI::init() {
-    standing = owner.engine()
-                   .ecs()
-                   .getOrCreateView<component::StandingBehavior,
-                                    component::Position,
-                                    component::Controllable>();
-    spinning = owner.engine()
-                   .ecs()
-                   .getOrCreateView<component::SpinBehavior,
-                                    component::Position,
-                                    component::Controllable>();
-    paths = owner.engine()
-                .ecs()
-                .getOrCreateView<component::FixedPathBehavior,
-                                 component::Position,
-                                 component::Controllable>();
-    wandering = owner.engine()
-                    .ecs()
-                    .getOrCreateView<component::WanderBehavior,
-                                     component::Position,
-                                     component::Controllable>();
+    standing  = owner.engine().ecs().getOrCreateView<StandingTypes>();
+    spinning  = owner.engine().ecs().getOrCreateView<SpinTypes>();
+    paths     = owner.engine().ecs().getOrCreateView<FixedPathTypes>();
+    wandering = owner.engine().ecs().getOrCreateView<WanderTypes>();
 }
 
 void AI::update(float dt) {
@@ -87,7 +62,9 @@ void AI::update(float dt) {
                 owner.controllable().resetEntityLock(entity);
             };
 
-            auto cs = ecs.getComponentSet<component::Position, component::Movable>(entity);
+            auto cs =
+                ecs.getComponentSet<bl::ecs::Require<component::Position, component::Movable>>(
+                    entity);
             if (!cs.isValid()) {
                 BL_LOG_ERROR << "Cannot pathfind entity without Movable/Position component: "
                              << entity;

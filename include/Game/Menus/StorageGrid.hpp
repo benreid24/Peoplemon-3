@@ -1,9 +1,9 @@
 #ifndef GAME_MENUS_STORAGEGRID_HPP
 #define GAME_MENUS_STORAGEGRID_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
-#include <SFML/Graphics.hpp>
 #include <functional>
 #include <vector>
 
@@ -15,10 +15,11 @@ namespace menu
  * @brief Renderer for the grid of peoplemon in a storage box
  *
  * @ingroup Menus
- *
  */
 class StorageGrid {
 public:
+    // TODO - BLIB_UPGRADE - storage box rendering
+
     /**
      * @brief Updates the set of peoplemon to render
      *
@@ -36,8 +37,8 @@ public:
 
 private:
     struct Stored {
-        bl::resource::Ref<sf::Texture> texture;
-        sf::Sprite sprite;
+        bl::rc::res::TextureRef texture;
+        bl::gfx::Sprite sprite;
     };
     std::vector<Stored> peoplemon;
 };

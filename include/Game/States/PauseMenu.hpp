@@ -57,16 +57,11 @@ public:
      *
      * @param dt Time elapsed in seconds
      */
-    virtual void update(bl::engine::Engine&, float dt) override;
-
-    /**
-     * @brief Renders the world and the menu overlayed on top of it
-     *
-     * @param lag Time elapsed not accounted for in update()
-     */
-    virtual void render(bl::engine::Engine&, float lag) override;
+    virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
+    // TODO - BLIB_UPGRADE - update pause menu rendering
+
     bl::menu::Menu menu;
     core::input::MenuDriver inputDriver;
     sf::RenderStates menuRenderStates;

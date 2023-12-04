@@ -1,10 +1,9 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
-#include <BLIB/Media/Graphics/Flashing.hpp>
-#include <BLIB/Media/Shapes.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
@@ -211,6 +210,8 @@ private:
         float stateVar;
     };
 
+    // TODO - BLIB_UPGRADE - update map rendering
+
     Systems& owner;
     State state;
 
@@ -224,8 +225,8 @@ private:
     const sf::Vector2f viewSize;
     sf::Sprite textbox;
     sf::Text displayText;
-    bl::shapes::Triangle promptTriangle;
-    bl::gfx::Flashing flashingTriangle;
+    // bl::shapes::Triangle promptTriangle;
+    // bl::gfx::Flashing flashingTriangle;
     hud::QtyEntry qtyEntry;
 
     bl::menu::Menu choiceMenu;
