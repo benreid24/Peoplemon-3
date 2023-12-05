@@ -62,15 +62,13 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update load game rendering
-
     enum LoadState { SelectingSave, ChooseAction, SaveDeleted, Fading, Error } state;
 
     std::vector<core::file::GameSave> saves;
     unsigned int selectedSave;
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
-    sf::RectangleShape cover;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
+    bl::gfx::Rectangle cover;
     float fadeTime;
 
     bl::menu::Menu saveMenu;

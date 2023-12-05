@@ -20,52 +20,65 @@ LoadGame::Ptr LoadGame::create(core::system::Systems& s) { return Ptr(new LoadGa
 LoadGame::LoadGame(core::system::Systems& s)
 : State(s)
 , state(SelectingSave)
-, selectedSave(0)
-//, saveMenu(ArrowSelector::create(12.f, sf::Color::Black))
-//, actionMenu(ArrowSelector::create(12.f, sf::Color::Black)) {
-{
-    bgndTxtr = TextureManager::load(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
-                                                                 "LoadGame/loadGameBgnd.png"));
-    background.setTexture(*bgndTxtr, true);
-    saveMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 4.f});
-    saveMenu.setMinHeight(30.f);
-    saveMenu.setPosition({170.f, 200.f});
-    saveMenu.setMaximumSize({-1.f, 250.f});
-
-    cover.setFillColor(sf::Color::Transparent);
-    cover.setSize({static_cast<float>(core::Properties::WindowWidth()),
-                   static_cast<float>(core::Properties::WindowHeight())});
-
-    Item::Ptr load = TextItem::create("Load", core::Properties::MenuFont(), sf::Color::Black, 26);
-    load->getSignal(Item::Activated).willAlwaysCall([this]() {
-        fadeTime = 0.f;
-        inputDriver.drive(nullptr);
-        state = Fading;
-    });
-    Item::Ptr del = TextItem::create("Delete", core::Properties::MenuFont(), sf::Color::Black, 26);
-    del->getSignal(Item::Activated).willAlwaysCall([this]() { state = SaveDeleted; });
-    Item::Ptr back =
-        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
-    back->getSignal(Item::Activated).willAlwaysCall([this]() {
-        inputDriver.sendControl(core::input::Control::Back, true);
-    });
-    actionMenu.setMinHeight(28.f);
-    actionMenu.setRootItem(load);
-    actionMenu.addItem(del, load.get(), Item::Bottom);
-    actionMenu.addItem(back, del.get(), Item::Bottom);
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
-}
+, selectedSave(0) {}
 
 const char* LoadGame::name() const { return "LoadGame"; }
 
 void LoadGame::activate(bl::engine::Engine& engine) {
+    if (!bgndTxtr) {
+        bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(
+            core::Properties::MenuImagePath(), "LoadGame/loadGameBgnd.png"));
+        background.create(engine, bgndTxtr);
+
+        saveMenu.create(
+            engine, engine.renderer().getObserver(), ArrowSelector::create(12.f, sf::Color::Black));
+        saveMenu.configureBackground(
+            sf::Color::White, sf::Color::Black, 3.f, {22.f, 4.f, 4.f, 6.f});
+        saveMenu.setMinHeight(30.f);
+        saveMenu.setPosition({170.f, 200.f});
+        saveMenu.setMaximumSize({-1.f, 250.f});
+
+        // TODO - use fade post effect instead
+        cover.create(engine, bgndTxtr->size());
+        cover.setFillColor(sf::Color::Transparent);
+        cover.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
+
+        actionMenu.create(
+            engine, engine.renderer().getObserver(), ArrowSelector::create(12.f, sf::Color::Black));
+        Item::Ptr load =
+            TextItem::create("Load", core::Properties::MenuFont(), sf::Color::Black, 26);
+        load->getSignal(Item::Activated).willAlwaysCall([this]() {
+            fadeTime = 0.f;
+            inputDriver.drive(nullptr);
+            cover.setHidden(false);
+            state = Fading;
+        });
+        Item::Ptr del =
+            TextItem::create("Delete", core::Properties::MenuFont(), sf::Color::Black, 26);
+        del->getSignal(Item::Activated).willAlwaysCall([this]() { state = SaveDeleted; });
+        Item::Ptr back =
+            TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
+        back->getSignal(Item::Activated).willAlwaysCall([this]() {
+            observe(systems.engine().inputSystem().getActor(),
+                    core::input::Control::Back,
+                    bl::input::DispatchType::TriggerActivated,
+                    true);
+        });
+        actionMenu.setMinHeight(28.f);
+        actionMenu.setRootItem(load);
+        actionMenu.addItem(del, load.get(), Item::Bottom);
+        actionMenu.addItem(back, del.get(), Item::Bottom);
+        actionMenu.configureBackground(
+            sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
+    }
+
     saves.clear();
     core::file::GameSave::listSaves(saves);
 
     Item::Ptr item =
         TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     item->getSignal(Item::Activated).willAlwaysCall([this]() {
-        inputDriver.sendControl(core::input::Control::Back, true);
+        observe(systems.engine().inputSystem().getActor(), core::input::Control::Back, bl::input::DispatchType::TriggerActivated, true);
     });
     saveMenu.setRootItem(item);
 
@@ -80,8 +93,13 @@ void LoadGame::activate(bl::engine::Engine& engine) {
     }
     saveMenu.setSelectedItem(item.get());
 
-    /* engine.renderSystem().cameras().pushCamera(
-         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    cover.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    cover.setHidden(true);
+    saveMenu.addToOverlay(background.entity());
+    actionMenu.addToOverlay(background.entity());
+    actionMenu.setHidden(true);
 
     state = SelectingSave;
     inputDriver.drive(&saveMenu);
@@ -90,9 +108,9 @@ void LoadGame::activate(bl::engine::Engine& engine) {
 }
 
 void LoadGame::deactivate(bl::engine::Engine& engine) {
+    engine.renderer().getObserver().popScene();
     systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
-    // engine.renderSystem().cameras().popCamera();
 }
 
 void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
@@ -151,6 +169,7 @@ bool LoadGame::observe(const bl::input::Actor&, unsigned int activatedControl,
             state = SelectingSave;
             bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuBackSound());
             inputDriver.drive(&saveMenu);
+            actionMenu.setHidden(true);
             break;
 
         default:
@@ -179,9 +198,13 @@ void LoadGame::saveSelected(unsigned int i) {
     const glm::vec2 pos(170.f + saveMenu.getBounds().width + 40.f,
                         200.f + static_cast<float>(i) * 26.f + 32.f);
     actionMenu.setPosition(pos + glm::vec2(22.f, 14.f));
+    actionMenu.setHidden(false);
 }
 
-void LoadGame::errorDone() { activate(systems.engine()); }
+void LoadGame::errorDone() {
+    // TODO - refactor out reset logic?
+    activate(systems.engine());
+}
 
 } // namespace state
 } // namespace game
