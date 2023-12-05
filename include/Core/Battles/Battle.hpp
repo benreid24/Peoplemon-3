@@ -27,13 +27,14 @@ struct Battle {
     /**
      * @brief Creates the battle struct and initializes the player battler
      *
+     * @param engine The game engine instance
      * @param location The name of the map, town, or route where the battle is taking place
      * @param player The player data
      * @param type The type of battle this is
      * @return std::unique_ptr<Battle> The new battle struct
      */
-    static std::unique_ptr<Battle> create(const std::string& location, system::Player& player,
-                                          Type type);
+    static std::unique_ptr<Battle> create(bl::engine::Engine& engine, const std::string& location,
+                                          system::Player& player, Type type);
 
     /**
      * @brief Sets and initializes the controller to use in battle
@@ -51,7 +52,8 @@ struct Battle {
     Result result; // set by controller
 
 private:
-    Battle(const std::string& location, system::Player& player, Type type);
+    Battle(bl::engine::Engine& engine, const std::string& location, system::Player& player,
+           Type type);
 };
 
 } // namespace battle

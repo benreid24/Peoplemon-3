@@ -55,6 +55,9 @@ int main(int argc, char** argv) {
     }
     WindowSizePersister sizePersist;
     bl::event::Dispatcher::subscribe(&sizePersist);
+    bl::cam::OverlayCamera::setOverlayCoordinateSpace(
+        static_cast<float>(core::Properties::WindowWidth()),
+        static_cast<float>(core::Properties::WindowHeight()));
 
     BL_LOG_INFO << "Loading game metadata";
     BL_LOG_INFO << "Loading items";

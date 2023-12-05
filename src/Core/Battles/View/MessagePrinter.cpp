@@ -51,11 +51,12 @@ std::string snackShareSuffix(Message::Type type, const std::string& other) {
 }
 } // namespace
 
-MessagePrinter::MessagePrinter()
-: state(State::Hidden)
-, keyboard(std::bind(&MessagePrinter::nameEntered, this)) {}
+MessagePrinter::MessagePrinter(bl::engine::Engine& engine)
+: engine(engine)
+, state(State::Hidden)
+, keyboard(engine, std::bind(&MessagePrinter::nameEntered, this)) {}
 
-void MessagePrinter::init(bl::engine::Engine& engine) {
+void MessagePrinter::init() {
     menu.create(engine,
                 engine.renderer().getObserver(),
                 bl::menu::ArrowSelector::create(8.f, sf::Color::Black));

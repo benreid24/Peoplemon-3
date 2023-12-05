@@ -28,14 +28,12 @@ public:
     /**
      * @brief Construct a new Message Printer utility
      */
-    MessagePrinter();
+    MessagePrinter(bl::engine::Engine& engine);
 
     /**
-     * @brief Initializes the UI components
-     *
-     * @param engine The game engine instance
+     * @brief Initializes the UI components. Call after the overlay is created
      */
-    void init(bl::engine::Engine& engine);
+    void init();
 
     /**
      * @brief Set the message to be printed
@@ -104,6 +102,7 @@ private:
         WaitingNameEntry
     };
 
+    bl::engine::Engine& engine;
     State state;
     bl::gfx::Text text;
     bl::interface::GhostWriter writer;

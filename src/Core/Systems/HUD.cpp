@@ -24,7 +24,7 @@ HUD::HUD(Systems& owner)
 : owner(owner)
 , state(Hidden)
 , inputListener(*this)
-, screenKeyboard(std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
+, screenKeyboard(owner.engine(), std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
 , textboxTxtr(TextureManager::load(Properties::TextboxFile()))
 , viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
            static_cast<float>(textboxTxtr->getSize().y) * 4.f)
@@ -100,7 +100,7 @@ void HUD::render(sf::RenderTarget& target, float lag) {
         // choiceMenu.render(target);
         break;
     case WaitingKeyboard:
-        target.draw(screenKeyboard);
+        // target.draw(screenKeyboard);
         break;
     case WaitingQty:
         qtyEntry.render(target);
