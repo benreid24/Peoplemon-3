@@ -20,7 +20,8 @@ LoadGame::Ptr LoadGame::create(core::system::Systems& s) { return Ptr(new LoadGa
 LoadGame::LoadGame(core::system::Systems& s)
 : State(s)
 , state(SelectingSave)
-, selectedSave(0) {}
+, selectedSave(0)
+, fadeout(nullptr) {}
 
 const char* LoadGame::name() const { return "LoadGame"; }
 
@@ -38,20 +39,18 @@ void LoadGame::activate(bl::engine::Engine& engine) {
         saveMenu.setPosition({170.f, 200.f});
         saveMenu.setMaximumSize({-1.f, 250.f});
 
-        // TODO - use fade post effect instead
-        cover.create(engine, bgndTxtr->size());
-        cover.setFillColor(sf::Color::Transparent);
-        cover.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
-
         actionMenu.create(
             engine, engine.renderer().getObserver(), ArrowSelector::create(12.f, sf::Color::Black));
         Item::Ptr load =
             TextItem::create("Load", core::Properties::MenuFont(), sf::Color::Black, 26);
         load->getSignal(Item::Activated).willAlwaysCall([this]() {
-            fadeTime = 0.f;
             inputDriver.drive(nullptr);
-            cover.setHidden(false);
-            state = Fading;
+            state   = Fading;
+            fadeout = systems.engine()
+                          .renderer()
+                          .getObserver()
+                          .getRenderGraph()
+                          .putTask<bl::rc::rgi::FadeEffectTask>(FadeTime);
         });
         Item::Ptr del =
             TextItem::create("Delete", core::Properties::MenuFont(), sf::Color::Black, 26);
@@ -78,7 +77,10 @@ void LoadGame::activate(bl::engine::Engine& engine) {
     Item::Ptr item =
         TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
     item->getSignal(Item::Activated).willAlwaysCall([this]() {
-        observe(systems.engine().inputSystem().getActor(), core::input::Control::Back, bl::input::DispatchType::TriggerActivated, true);
+        observe(systems.engine().inputSystem().getActor(),
+                core::input::Control::Back,
+                bl::input::DispatchType::TriggerActivated,
+                true);
     });
     saveMenu.setRootItem(item);
 
@@ -95,8 +97,6 @@ void LoadGame::activate(bl::engine::Engine& engine) {
 
     auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
     background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
-    cover.addToScene(overlay, bl::rc::UpdateSpeed::Static);
-    cover.setHidden(true);
     saveMenu.addToOverlay(background.entity());
     actionMenu.addToOverlay(background.entity());
     actionMenu.setHidden(true);
@@ -126,9 +126,11 @@ void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
         break;
 
     case Fading:
-        fadeTime += dt;
-        cover.setFillColor(sf::Color(0, 0, 0, std::min(255.f, 255.f * (fadeTime / FadeTime))));
-        if (fadeTime >= FadeTime) {
+        if (fadeout->complete()) {
+            engine.renderer()
+                .getObserver()
+                .getRenderGraph()
+                .removeTask<bl::rc::rgi::FadeEffectTask>();
             if (saves[selectedSave].load()) {
                 systems.engine().replaceState(MainGame::create(systems));
             }
@@ -178,18 +180,6 @@ bool LoadGame::observe(const bl::input::Actor&, unsigned int activatedControl,
     }
     return true;
 }
-
-// void LoadGame::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//
-//     engine.window().draw(background);
-//     if (state != SelectingSave) { actionMenu.render(engine.window()); }
-//     saveMenu.render(engine.window());
-//     if (state == Error) { systems.hud().render(engine.window(), lag); }
-//     if (state == Fading) { engine.window().draw(cover); }
-//
-//     engine.window().display();
-// }
 
 void LoadGame::saveSelected(unsigned int i) {
     selectedSave = i;

@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_LOADGAME_HPP
 #define GAME_STATES_LOADGAME_HPP
 
+#include <BLIB/Render.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
@@ -68,8 +69,7 @@ private:
     unsigned int selectedSave;
     bl::rc::res::TextureRef bgndTxtr;
     bl::gfx::Sprite background;
-    bl::gfx::Rectangle cover;
-    float fadeTime;
+    bl::rc::rgi::FadeEffectTask* fadeout;
 
     bl::menu::Menu saveMenu;
     bl::menu::Menu actionMenu;
