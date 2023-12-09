@@ -27,6 +27,7 @@ HUD::HUD(Systems& owner)
 , state(Hidden)
 , inputListener(*this)
 , screenKeyboard(owner.engine(), std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
+, entryCard(owner.engine())
 , currentOverlay(nullptr) {}
 
 void HUD::ensureCreated() {
@@ -46,6 +47,7 @@ void HUD::ensureCreated() {
                            Properties::HudFontSize(),
                            sf::Color::Black);
         displayText.getTransform().setPosition(TextPadding, 8.f);
+        displayText.wordWrap(textboxTxtr->size().x - TextPadding);
         displayText.setParent(textbox);
 
         promptTriangle.create(owner.engine(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
@@ -94,45 +96,13 @@ void HUD::update(float dt) {
     entryCard.update(dt);
 }
 
-void HUD::render(sf::RenderTarget& target, float lag) {
-    if (core::Properties::InEditor()) return;
-
-    entryCard.render(target);
-    if (state == Hidden) return;
-
-    const sf::View oldView = target.getView();
-    /* target.setView(bl::interface::ViewUtil::computeViewAnchoredPreserveAR(
-         viewSize, oldView, 1.f, bl::interface::ViewUtil::Bottom));
-     target.draw(textbox);
-     target.draw(displayText);*/
-
-    switch (state) {
-    case WaitingContinue:
-        // flashingTriangle.render(target, {}, lag);
-        break;
-    case WaitingPrompt:
-        // choiceMenu.render(target);
-        break;
-    case WaitingKeyboard:
-        // target.draw(screenKeyboard);
-        break;
-    case WaitingQty:
-        qtyEntry.render(target);
-        break;
-    default:
-        break;
-    }
-
-    target.setView(oldView);
-}
-
 void HUD::displayMessage(const std::string& msg, const Callback& cb) {
-    queuedOutput.emplace(wordWrap(msg), false, true, cb);
+    queuedOutput.emplace(msg, false, true, cb);
     ensureActive();
 }
 
 void HUD::displayStickyMessage(const std::string& msg, bool ghost, const Callback& cb) {
-    queuedOutput.emplace(wordWrap(msg), true, ghost, cb);
+    queuedOutput.emplace(msg, true, ghost, cb);
     ensureActive();
 }
 
@@ -148,18 +118,18 @@ bool HUD::dismissStickyMessage(bool ignoreGhost) {
 
 void HUD::promptUser(const std::string& prompt, const std::vector<std::string>& choices,
                      const Callback& cb) {
-    queuedOutput.emplace(wordWrap(prompt), choices, cb);
+    queuedOutput.emplace(prompt, choices, cb);
     ensureActive();
 }
 
 void HUD::getInputString(const std::string& prompt, unsigned int mn, unsigned int mx,
                          const Callback& cb) {
-    queuedOutput.emplace(wordWrap(prompt), mn, mx, cb);
+    queuedOutput.emplace(prompt, mn, mx, cb);
     ensureActive();
 }
 
 void HUD::getQty(const std::string& prompt, int minQty, int maxQty, const QtyCallback& cb) {
-    queuedOutput.emplace(wordWrap(prompt), minQty, maxQty, cb);
+    queuedOutput.emplace(prompt, minQty, maxQty, cb);
     ensureActive();
 }
 
@@ -168,6 +138,7 @@ void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 void HUD::hideEntryCard() { entryCard.hide(); }
 
 void HUD::ensureActive() {
+    ensureCreated();
     if (state == Hidden && !queuedOutput.empty()) {
         owner.engine().inputSystem().getActor().addListener(inputListener);
         startPrinting();
@@ -175,24 +146,24 @@ void HUD::ensureActive() {
 }
 
 void HUD::startPrinting() {
-    state = Printing;
+    setState(Printing);
     currentMessage.setContent(queuedOutput.front().getMessage());
     if (!queuedOutput.front().ghostWrite()) { currentMessage.showAll(); }
-    displayText.setString(std::string{currentMessage.getVisible()});
+    displayText.getSection().setString(std::string{currentMessage.getVisible()});
 }
 
 void HUD::printDoneStateTransition() {
     switch (queuedOutput.front().getType()) {
     case Item::Message:
-        if (!queuedOutput.front().isSticky()) { state = WaitingContinue; }
+        if (!queuedOutput.front().isSticky()) { setState(WaitingContinue); }
         else {
-            state = WaitingSticky;
+            setState(WaitingSticky);
             queuedOutput.front().getCallback()(queuedOutput.front().getMessage());
         }
         break;
 
     case Item::Prompt: {
-        state                                   = WaitingPrompt;
+        setState(WaitingPrompt);
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
 
         bl::menu::Item::Ptr mitem =
@@ -214,24 +185,24 @@ void HUD::printDoneStateTransition() {
             prev = mitem.get();
         }
         const sf::FloatRect bounds = choiceMenu.getBounds();
-        const float y              = viewSize.y - bounds.height - 18.f;
+        const float y              = Properties::WindowSize().y - bounds.height - 18.f;
         choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
         choiceDriver.drive(&choiceMenu);
     } break;
 
     case Item::Keyboard:
-        state = WaitingKeyboard;
+        setState(WaitingKeyboard);
         screenKeyboard.start(queuedOutput.front().minInputLength(),
                              queuedOutput.front().maxInputLength());
         break;
 
     case Item::Qty:
-        state = WaitingQty;
+        setState(WaitingQty);
         qtyEntry.configure(queuedOutput.front().getMinQty(), queuedOutput.front().getMaxQty(), 1);
         break;
 
     default:
-        state = Hidden;
+        setState(Hidden);
         next();
         break;
     }
@@ -252,7 +223,7 @@ void HUD::next() {
     queuedOutput.pop();
     if (!queuedOutput.empty()) { startPrinting(); }
     else {
-        state = HUD::Hidden;
+        setState(Hidden);
         owner.engine().inputSystem().getActor().removeListener(inputListener);
     }
 }
@@ -335,6 +306,15 @@ void HUD::setState(State ns) {
     if (state == WaitingQty && ns != WaitingQty) {
         // TODO - hide qty entry
     }
+    if (ns != WaitingContinue) { promptTriangle.stopFlashing(); }
+    if (state == Hidden || !currentOverlay ||
+        owner.engine().renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {
+        currentOverlay = owner.engine().renderer().getObserver().getOrCreateSceneOverlay();
+        textbox.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+        displayText.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+        promptTriangle.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+    }
+    if (state == WaitingPrompt && ns != WaitingPrompt) { choiceMenu.removeFromOverlay(); }
 
     state = ns;
     switch (state) {
@@ -342,23 +322,20 @@ void HUD::setState(State ns) {
         textbox.setHidden(true);
         currentOverlay = nullptr;
         break;
-    case Printing:
-        //
-        break;
     case WaitingContinue:
         promptTriangle.flash(FlashOn, FlashOff);
         break;
-    case WaitingSticky:
-        //
-        break;
     case WaitingPrompt:
-        //
-        break;
-    case WaitingKeyboard:
-        //
+        choiceMenu.addToOverlay();
         break;
     case WaitingQty:
-        //
+        // TODO - add qty to scene
+        break;
+    case Printing:
+    case WaitingSticky:
+    case WaitingKeyboard:
+    default:
+        // noop
         break;
     }
 }
@@ -419,13 +396,28 @@ const HUD::Callback& HUD::Item::getCallback() const { return *std::get_if<Callba
 
 const HUD::QtyCallback& HUD::Item::getQtyCallback() const { return *std::get_if<QtyCallback>(&cb); }
 
-HUD::EntryCard::EntryCard() {
-    txtr = TextureManager::load(
-        bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"));
-    card.setTexture(*txtr, true);
-    // text.setFont(Properties::MenuFont());
-    text.setCharacterSize(20);
-    text.setFillColor(sf::Color(20, 200, 240));
+HUD::EntryCard::EntryCard(bl::engine::Engine& engine)
+: engine(engine)
+, currentOverlay(nullptr) {
+   
+}
+
+void HUD::EntryCard::ensureCreated() {
+    if (!txtr) {
+        txtr = engine.renderer().texturePool().getOrLoadTexture(
+            bl::util::FileUtil::joinPath(Properties::MenuImagePath(), "HUD/namecard.png"));
+        card.create(engine, txtr);
+        text.create(engine, Properties::MenuFont(), "", 20, sf::Color(20, 200, 240));
+        text.setParent(card);
+        text.wordWrapToParent(0.98f);
+    }
+
+    if (!currentOverlay ||
+        engine.renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {
+        currentOverlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
+        card.addToScene(currentOverlay, bl::rc::UpdateSpeed::Dynamic);
+        text.addToScene(currentOverlay, bl::rc::UpdateSpeed::Dynamic);
+    }
 }
 
 void HUD::EntryCard::update(float dt) {
@@ -435,15 +427,18 @@ void HUD::EntryCard::update(float dt) {
     switch (state) {
     case Dropping:
         stateVar -= MoveSpeed * dt;
+        card.getTransform().setPosition(0.f, -stateVar);
         if (stateVar <= 0.f) {
             stateVar = 0.f;
             state    = Holding;
+            card.getTransform().setPosition(0.f, 0.f);
         }
         break;
 
     case Rising:
         stateVar += MoveSpeed * dt;
-        if (stateVar >= card.getGlobalBounds().height) { state = Hidden; }
+        card.getTransform().setPosition(0.f, -stateVar);
+        if (stateVar >= txtr->size().y) { hide(); }
         break;
 
     case Holding:
@@ -463,35 +458,12 @@ void HUD::EntryCard::update(float dt) {
 void HUD::EntryCard::display(const std::string& t) {
     constexpr float Padding = 10.f;
 
-    text.setString(t);
-    // bl::interface::wordWrap(text, card.getGlobalBounds().width - Padding * 2.f);
-    text.setPosition(card.getGlobalBounds().width * 0.5f - text.getGlobalBounds().width * 0.5f,
-                     card.getGlobalBounds().height * 0.5f - text.getGlobalBounds().height * 0.5f);
+    ensureCreated();
+    text.getSection().setString(t);
+    text.getTransform().setPosition(txtr->size() * 0.5f - text.getLocalSize() * 0.5f);
 
     state    = Dropping;
-    stateVar = card.getGlobalBounds().height;
-}
-
-void HUD::EntryCard::render(sf::RenderTarget& target) const {
-    // TODO - BLIB_UPGRADE - update entry card
-    static const sf::Vector2f Size(core::Properties::WindowWidth(),
-                                   core::Properties::WindowHeight());
-    static const sf::Vector2f Center(Size * 0.5f);
-
-    if (state == Hidden) return;
-
-    sf::RenderStates states;
-    if (state == Dropping || state == Rising) { states.transform.translate(0.f, -stateVar); }
-    states.transform.translate(40.f, 0.f);
-
-    const sf::View oldView = target.getView();
-    sf::View view          = oldView;
-    view.setCenter(Center);
-    view.setSize(Size);
-    target.setView(view);
-    target.draw(card, states);
-    target.draw(text, states);
-    target.setView(oldView);
+    stateVar = txtr->size().y;
 }
 
 void HUD::EntryCard::hide() { state = State::Hidden; }

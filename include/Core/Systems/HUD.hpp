@@ -60,14 +60,6 @@ public:
     void update(float dt);
 
     /**
-     * @brief Renders the HUD if any elements are visible
-     *
-     * @param target The target to render to
-     * @param lag Time elapsed not accounted for in update
-     */
-    void render(sf::RenderTarget& target, float lag);
-
-    /**
      * @brief Displays a message in the HUD textbox. Messages are queued in order that they arrive
      *
      * @param message The message to display
@@ -194,16 +186,19 @@ private:
 
     class EntryCard {
     public:
-        EntryCard();
+        EntryCard(bl::engine::Engine& engine);
         void display(const std::string& text);
         void update(float dt);
-        void render(sf::RenderTarget& target) const;
         void hide();
 
     private:
-        bl::resource::Ref<sf::Texture> txtr;
-        sf::Sprite card;
-        sf::Text text;
+        bl::engine::Engine& engine;
+        bl::rc::Overlay* currentOverlay;
+        bl::rc::res::TextureRef txtr;
+        bl::gfx::Sprite card;
+        bl::gfx::Text text;
+
+        void ensureCreated();
 
         enum State { Hidden, Dropping, Holding, Rising } state;
         float stateVar;
