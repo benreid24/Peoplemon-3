@@ -8,45 +8,72 @@ namespace system
 {
 namespace hud
 {
-QtyEntry::QtyEntry()
-: /*upArrow({6.f, 0.f}, {12.f, 8.f}, {0.f, 8.f})
-, downArrow({0.f, 0.f}, {12.f, 0.f}, {6.f, 8.f})*/
-    qty(0)
+namespace
+{
+constexpr float ArrowHeight = 8.f;
+}
+
+QtyEntry::QtyEntry(bl::engine::Engine& engine)
+: engine(engine)
+, currentOverlay(nullptr)
+, qty(0)
 , minQty(0)
-, maxQty(0) {
-    background.setFillColor(sf::Color::White);
-    background.setOutlineColor(sf::Color::Black);
-    background.setOutlineThickness(2.f);
+, maxQty(0) {}
 
-    text.setFillColor(sf::Color::Black);
-    // text.setFont(Properties::MenuFont());
-    text.setCharacterSize(14);
+void QtyEntry::ensureCreated() {
+    if (background.entity() == bl::ecs::InvalidEntity) {
+        background.create(engine, {10.f, 10.f});
+        background.setFillColor(sf::Color::White);
+        background.setOutlineColor(sf::Color::Black);
+        background.setOutlineThickness(2.f);
 
-    /*upArrow.setFillColor(sf::Color::Black);
-    downArrow.setFillColor(sf::Color::Black);*/
+        text.create(engine, Properties::MenuFont(), "0", 14, sf::Color::Black);
+        text.setParent(background);
+
+        upArrow.create(engine, {6.f, 0.f}, {12.f, ArrowHeight}, {0.f, ArrowHeight});
+        upArrow.setFillColor(sf::Color::Black);
+        upArrow.setParent(background);
+
+        downArrow.create(engine, {0.f, 0.f}, {12.f, 0.f}, {6.f, ArrowHeight});
+        downArrow.setFillColor(sf::Color::Black);
+        downArrow.setParent(background);
+    }
+
+    if (!currentOverlay ||
+        engine.renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {
+        currentOverlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
+        background.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+        text.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+        upArrow.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+        downArrow.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
+    }
+}
+
+void QtyEntry::hide() {
+    if (background.entity() != bl::ecs::InvalidEntity) { background.removeFromScene(); }
 }
 
 void QtyEntry::setPosition(const sf::Vector2f& pos) { position = pos; }
 
-sf::Vector2f QtyEntry::getSize() const {
-    return {background.getGlobalBounds().width, background.getGlobalBounds().height};
-}
+sf::Vector2f QtyEntry::getSize() const { return {background.getSize().x, background.getSize().y}; }
 
 void QtyEntry::configure(int mn, int mx, int q) {
+    ensureCreated();
+
     // determine max text width
-    text.setString(std::to_string(mn));
-    float w = text.getGlobalBounds().width;
-    text.setString(std::to_string(mx));
-    w = std::max(w, text.getGlobalBounds().width);
+    text.getSection().setString(std::to_string(mn));
+    float w = text.getLocalBounds().width;
+    text.getSection().setString(std::to_string(mx));
+    w = std::max(w, text.getLocalBounds().width);
 
     // update positions
-    /*background.setSize({w + 12.f,
-                        upArrow.getGlobalBounds().height + downArrow.getGlobalBounds().height +
-                            text.getGlobalBounds().height + 6.f + text.getLocalBounds().top + 6.f});
-    upArrow.setPosition(w * 0.5f + 6.f, 7.f);
-    downArrow.setPosition(w * 0.5f + 6.f,
-                          background.getSize().y - downArrow.getGlobalBounds().height - 1.f);
-    text.setPosition(0.f, upArrow.getGlobalBounds().height + 5.f);*/
+    background.setSize(
+        {w + 12.f,
+         ArrowHeight * 2.f + text.getLocalBounds().height + 6.f + text.getLocalBounds().top + 6.f});
+    upArrow.getTransform().setPosition(w * 0.5f + 6.f, 7.f);
+    downArrow.getTransform().setPosition(w * 0.5f + 6.f,
+                                         background.getSize().y - ArrowHeight - 1.f);
+    text.getTransform().setPosition(0.f, ArrowHeight + 5.f);
 
     // update data
     qty    = q;
@@ -56,9 +83,12 @@ void QtyEntry::configure(int mn, int mx, int q) {
 }
 
 void QtyEntry::updateText() {
-    text.setString(std::to_string(qty));
-    text.setPosition(background.getSize().x * 0.5f - text.getGlobalBounds().width * 0.5f,
-                     text.getPosition().y);
+    text.getSection().setString(std::to_string(qty));
+    text.getTransform().setPosition(background.getSize().x * 0.5f -
+                                        text.getLocalBounds().width * 0.5f,
+                                    text.getTransform().getLocalPosition().y);
+    upArrow.setHidden(qty >= maxQty);
+    downArrow.setHidden(qty <= minQty);
 }
 
 int QtyEntry::curQty() const { return qty; }
@@ -75,16 +105,6 @@ void QtyEntry::down(int q, bool ignore) {
     qty = std::max(minQty, qty - q);
     bl::audio::AudioSystem::playOrRestartSound(Properties::MenuMoveSound());
     updateText();
-}
-
-void QtyEntry::render(sf::RenderTarget& target) const {
-    sf::RenderStates states;
-    states.transform.translate(position);
-
-    target.draw(background, states);
-    target.draw(text, states);
-    /*if (qty > minQty) { target.draw(downArrow, states); }
-    if (qty < maxQty) { target.draw(upArrow, states); }*/
 }
 
 bool QtyEntry::rateLimit(bool ignore) {

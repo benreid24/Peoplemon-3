@@ -28,7 +28,8 @@ HUD::HUD(Systems& owner)
 , inputListener(*this)
 , screenKeyboard(owner.engine(), std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
 , entryCard(owner.engine())
-, currentOverlay(nullptr) {}
+, currentOverlay(nullptr)
+, qtyEntry(owner.engine()) {}
 
 void HUD::ensureCreated() {
     if (!textboxTxtr) {
@@ -303,9 +304,7 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
 void HUD::setState(State ns) {
     textbox.setHidden(false);
     if (state == WaitingKeyboard && ns != WaitingKeyboard) { screenKeyboard.stop(); }
-    if (state == WaitingQty && ns != WaitingQty) {
-        // TODO - hide qty entry
-    }
+    if (state == WaitingQty && ns != WaitingQty) { qtyEntry.hide(); }
     if (ns != WaitingContinue) { promptTriangle.stopFlashing(); }
     if (state == Hidden || !currentOverlay ||
         owner.engine().renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {
@@ -329,8 +328,6 @@ void HUD::setState(State ns) {
         choiceMenu.addToOverlay();
         break;
     case WaitingQty:
-        // TODO - add qty to scene
-        break;
     case Printing:
     case WaitingSticky:
     case WaitingKeyboard:
@@ -398,9 +395,7 @@ const HUD::QtyCallback& HUD::Item::getQtyCallback() const { return *std::get_if<
 
 HUD::EntryCard::EntryCard(bl::engine::Engine& engine)
 : engine(engine)
-, currentOverlay(nullptr) {
-   
-}
+, currentOverlay(nullptr) {}
 
 void HUD::EntryCard::ensureCreated() {
     if (!txtr) {
