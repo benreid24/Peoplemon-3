@@ -61,6 +61,7 @@ bl::engine::State::Ptr SettingsMenu::create(core::system::Systems& s) {
 SettingsMenu::SettingsMenu(core::system::Systems& s)
 : State(s)
 , state(MenuState::TopMenu)
+, volumeEntry(s.engine())
 //, topMenu(ArrowSelector::create(10.f, sf::Color::Black))
 //, videoMenu(ArrowSelector::create(10.f, sf::Color::Black))
 //, audioMenu(ArrowSelector::create(10.f, sf::Color::Black))

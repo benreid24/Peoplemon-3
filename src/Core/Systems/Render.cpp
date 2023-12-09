@@ -29,7 +29,7 @@ void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
                          std::placeholders::_3,
                          std::placeholders::_4));
     ;
-    owner.hud().render(target, lag);
+    //owner.hud().render(target, lag);
     owner.trainers().render(target);
 }
 
