@@ -8,7 +8,6 @@
 #include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Core/Systems/HUD/ScreenKeyboard.hpp>
-#include <SFML/Graphics.hpp>
 #include <functional>
 #include <queue>
 #include <string>
@@ -210,8 +209,6 @@ private:
         float stateVar;
     };
 
-    // TODO - BLIB_UPGRADE - update map rendering
-
     Systems& owner;
     State state;
 
@@ -221,19 +218,19 @@ private:
     hud::ScreenKeyboard screenKeyboard;
     EntryCard entryCard;
 
-    bl::resource::Ref<sf::Texture> textboxTxtr;
-    const sf::Vector2f viewSize;
-    sf::Sprite textbox;
-    sf::Text displayText;
-    // bl::shapes::Triangle promptTriangle;
-    // bl::gfx::Flashing flashingTriangle;
+    bl::rc::Overlay* currentOverlay;
+    bl::rc::res::TextureRef textboxTxtr;
+    bl::gfx::Sprite textbox;
+    bl::gfx::Text displayText;
+    bl::gfx::Triangle promptTriangle;
     hud::QtyEntry qtyEntry;
 
     bl::menu::Menu choiceMenu;
     core::input::MenuDriver choiceDriver;
-    const float choiceBoxX;
+    float choiceBoxX;
 
-    std::string wordWrap(const std::string& str) const;
+    void setState(State newState);
+    void ensureCreated();
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();

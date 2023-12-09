@@ -13,6 +13,8 @@ namespace
 constexpr float ChoiceHeight  = 25.f;
 constexpr float ChoicePadding = 8.f;
 constexpr float TextPadding   = 10.f;
+constexpr float FlashOn       = 0.75f;
+constexpr float FlashOff      = 0.65f;
 
 bool isNextCommand(unsigned int cmd) {
     return cmd == input::Control::Back || cmd == input::Control::Interact;
@@ -25,46 +27,58 @@ HUD::HUD(Systems& owner)
 , state(Hidden)
 , inputListener(*this)
 , screenKeyboard(owner.engine(), std::bind(&HUD::keyboardSubmit, this, std::placeholders::_1))
-, textboxTxtr(TextureManager::load(Properties::TextboxFile()))
-, viewSize(static_cast<float>(textboxTxtr->getSize().x) * 2.f,
-           static_cast<float>(textboxTxtr->getSize().y) * 4.f)
-//, promptTriangle({0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f}, true)
-//, flashingTriangle(promptTriangle, 0.75f, 0.65f)
-//, choiceMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
-, choiceBoxX(viewSize.x * 0.75f + 3.f) {
-    const sf::Vector2f boxSize = sf::Vector2f(textboxTxtr->getSize());
-    textbox.setTexture(*textboxTxtr, true);
-    textbox.setPosition(boxSize.x * 0.5f, boxSize.y * 3.f);
+, currentOverlay(nullptr) {}
 
-    // displayText.setFont(Properties::MenuFont());
-    displayText.setCharacterSize(Properties::HudFontSize());
-    displayText.setFillColor(sf::Color::Black);
-    displayText.setPosition(textbox.getPosition() + sf::Vector2f(TextPadding, 8.f));
-    /* promptTriangle.setFillColor(sf::Color(255, 77, 0));
-    promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
-    promptTriangle.setOutlineThickness(1.5f);
-    promptTriangle.setPosition(textbox.getPosition() + boxSize - sf::Vector2f(13.f, 10.f));*/
+void HUD::ensureCreated() {
+    if (!textboxTxtr) {
+        textboxTxtr =
+            owner.engine().renderer().texturePool().getOrLoadTexture(Properties::TextboxFile());
 
-    choiceMenu.setPadding({0.f, ChoicePadding});
-    choiceMenu.setMinHeight(ChoiceHeight);
-    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
-    screenKeyboard.setPosition({viewSize.x * 0.5f - screenKeyboard.getSize().x * 0.5f,
-                                textbox.getPosition().y - screenKeyboard.getSize().y - 2.f});
-    qtyEntry.setPosition({textbox.getPosition().x + textbox.getGlobalBounds().width - 50.f,
-                          textbox.getPosition().y - 70.f});
+        const glm::vec2& boxSize = textboxTxtr->size();
+        textbox.create(owner.engine(), textboxTxtr);
+        textbox.getTransform().setPosition(Properties::WindowSize().x - boxSize.x * 0.5f,
+                                           Properties::WindowSize().y - boxSize.y);
+        choiceBoxX = boxSize.x * 2.f * 0.75f + 3.f;
+
+        displayText.create(owner.engine(),
+                           Properties::MenuFont(),
+                           "",
+                           Properties::HudFontSize(),
+                           sf::Color::Black);
+        displayText.getTransform().setPosition(TextPadding, 8.f);
+        displayText.setParent(textbox);
+
+        promptTriangle.create(owner.engine(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
+        promptTriangle.setFillColor(sf::Color(255, 77, 0));
+        promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
+        promptTriangle.setOutlineThickness(1.5f);
+        promptTriangle.getTransform().setPosition(boxSize - glm::vec2(13.f, 10.f));
+        promptTriangle.setParent(textbox);
+
+        choiceMenu.create(owner.engine(),
+                          owner.engine().renderer().getObserver(),
+                          bl::menu::ArrowSelector::create(10.f, sf::Color::Black));
+        choiceMenu.setPadding({0.f, ChoicePadding});
+        choiceMenu.setMinHeight(ChoiceHeight);
+        choiceMenu.configureBackground(
+            sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
+
+        screenKeyboard.setPosition(
+            {Properties::WindowSize().x * 0.5f - screenKeyboard.getSize().x * 0.5f,
+             textbox.getTransform().getLocalPosition().y - screenKeyboard.getSize().y - 2.f});
+        qtyEntry.setPosition(
+            {textbox.getTransform().getLocalPosition().x + textboxTxtr->size().x - 50.f,
+             textbox.getTransform().getLocalPosition().y - 70.f});
+    }
 }
 
 void HUD::update(float dt) {
     switch (state) {
     case Printing:
         if (currentMessage.update(dt)) {
-            displayText.setString(std::string(currentMessage.getVisible()));
+            displayText.getSection().setString(std::string(currentMessage.getVisible()));
         }
         if (currentMessage.finished()) printDoneStateTransition();
-        break;
-
-    case WaitingContinue:
-        // flashingTriangle.update(dt);
         break;
 
     case WaitingKeyboard:
@@ -249,13 +263,6 @@ void HUD::keyboardSubmit(const std::string& i) {
     next();
 }
 
-std::string HUD::wordWrap(const std::string& str) const {
-    sf::Text text = displayText;
-    text.setString(str);
-    // bl::interface::wordWrap(text, textboxTxtr->getSize().x - TextPadding);
-    return text.getString().toAnsiString();
-}
-
 HUD::HudListener::HudListener(HUD& o)
 : owner(o) {}
 
@@ -265,7 +272,7 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
     case Printing:
         if (isNextCommand(ctrl) && eventTriggered) {
             owner.currentMessage.showAll();
-            owner.displayText.setString(owner.currentMessage.getContent());
+            owner.displayText.getSection().setString(owner.currentMessage.getContent());
             owner.printDoneStateTransition();
         }
         break;
@@ -320,6 +327,40 @@ bool HUD::HudListener::observe(const bl::input::Actor&, unsigned int ctrl, bl::i
     }
 
     return true;
+}
+
+void HUD::setState(State ns) {
+    textbox.setHidden(false);
+    if (state == WaitingKeyboard && ns != WaitingKeyboard) { screenKeyboard.stop(); }
+    if (state == WaitingQty && ns != WaitingQty) {
+        // TODO - hide qty entry
+    }
+
+    state = ns;
+    switch (state) {
+    case Hidden:
+        textbox.setHidden(true);
+        currentOverlay = nullptr;
+        break;
+    case Printing:
+        //
+        break;
+    case WaitingContinue:
+        promptTriangle.flash(FlashOn, FlashOff);
+        break;
+    case WaitingSticky:
+        //
+        break;
+    case WaitingPrompt:
+        //
+        break;
+    case WaitingKeyboard:
+        //
+        break;
+    case WaitingQty:
+        //
+        break;
+    }
 }
 
 HUD::Item::Item(const std::string& msg, bool sticky, bool ghost, const HUD::Callback& cb)
@@ -432,6 +473,7 @@ void HUD::EntryCard::display(const std::string& t) {
 }
 
 void HUD::EntryCard::render(sf::RenderTarget& target) const {
+    // TODO - BLIB_UPGRADE - update entry card
     static const sf::Vector2f Size(core::Properties::WindowWidth(),
                                    core::Properties::WindowHeight());
     static const sf::Vector2f Center(Size * 0.5f);
