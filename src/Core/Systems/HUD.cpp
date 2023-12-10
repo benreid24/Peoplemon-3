@@ -38,8 +38,9 @@ void HUD::ensureCreated() {
 
         const glm::vec2& boxSize = textboxTxtr->size();
         textbox.create(owner.engine(), textboxTxtr);
-        textbox.getTransform().setPosition(Properties::WindowSize().x - boxSize.x * 0.5f,
+        textbox.getTransform().setPosition(Properties::WindowSize().x * 0.5f - boxSize.x * 0.5f,
                                            Properties::WindowSize().y - boxSize.y);
+        textbox.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
         choiceBoxX = boxSize.x * 2.f * 0.75f + 3.f;
 
         displayText.create(owner.engine(),
@@ -55,7 +56,7 @@ void HUD::ensureCreated() {
         promptTriangle.setFillColor(sf::Color(255, 77, 0));
         promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
         promptTriangle.setOutlineThickness(1.5f);
-        promptTriangle.getTransform().setPosition(boxSize - glm::vec2(13.f, 10.f));
+        promptTriangle.getTransform().setPosition(boxSize - glm::vec2(18.f, 14.f));
         promptTriangle.setParent(textbox);
 
         choiceMenu.create(owner.engine(),
