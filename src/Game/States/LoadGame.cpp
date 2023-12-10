@@ -131,7 +131,7 @@ void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
                 .getObserver()
                 .getRenderGraph()
                 .removeTask<bl::rc::rgi::FadeEffectTask>();
-            if (!saves[selectedSave].load()) {
+            if (false && saves[selectedSave].load()) {
                 systems.engine().replaceState(MainGame::create(systems));
             }
             else {
