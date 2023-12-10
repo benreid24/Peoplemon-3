@@ -78,6 +78,7 @@ private:
     LoadGame(core::system::Systems& systems);
     void saveSelected(unsigned int save);
     void errorDone();
+    void reset();
 
     virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
                          bl::input::DispatchType, bool eventTriggered) override;

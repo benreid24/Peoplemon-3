@@ -71,40 +71,8 @@ void LoadGame::activate(bl::engine::Engine& engine) {
             sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
     }
 
-    saves.clear();
-    core::file::GameSave::listSaves(saves);
-
-    Item::Ptr item =
-        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
-    item->getSignal(Item::Activated).willAlwaysCall([this]() {
-        observe(systems.engine().inputSystem().getActor(),
-                core::input::Control::Back,
-                bl::input::DispatchType::TriggerActivated,
-                true);
-    });
-    saveMenu.setRootItem(item);
-
-    for (unsigned int i = 0; i < saves.size(); ++i) {
-        const auto& save = saves[i];
-
-        Item::Ptr it =
-            TextItem::create(save.saveName, core::Properties::MenuFont(), sf::Color::Black, 26);
-        it->getSignal(Item::Activated).willAlwaysCall([this, i]() { saveSelected(i); });
-        saveMenu.addItem(it, item.get(), Item::Top);
-        item = it;
-    }
-    saveMenu.setSelectedItem(item.get());
-
-    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
-    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
-    saveMenu.addToOverlay(background.entity());
-    actionMenu.addToOverlay(background.entity());
-    actionMenu.setHidden(true);
-
-    state = SelectingSave;
-    inputDriver.drive(&saveMenu);
-    systems.engine().inputSystem().getActor().addListener(*this);
-    systems.engine().inputSystem().getActor().addListener(inputDriver);
+    engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    reset();
 }
 
 void LoadGame::deactivate(bl::engine::Engine& engine) {
@@ -116,7 +84,7 @@ void LoadGame::deactivate(bl::engine::Engine& engine) {
 void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
     switch (state) {
     case SaveDeleted:
-        if (saves[selectedSave].remove()) { activate(engine); }
+        if (saves[selectedSave].remove()) { reset(); }
         else {
             systems.hud().displayMessage("Failed to delete game save",
                                          std::bind(&LoadGame::errorDone, this));
@@ -131,7 +99,7 @@ void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
                 .getObserver()
                 .getRenderGraph()
                 .removeTask<bl::rc::rgi::FadeEffectTask>();
-            if (false && saves[selectedSave].load()) {
+            if (saves[selectedSave].load()) {
                 systems.engine().replaceState(MainGame::create(systems));
             }
             else {
@@ -191,9 +159,43 @@ void LoadGame::saveSelected(unsigned int i) {
     actionMenu.setHidden(false);
 }
 
-void LoadGame::errorDone() {
-    // TODO - refactor out reset logic?
-    activate(systems.engine());
+void LoadGame::errorDone() { reset(); }
+
+void LoadGame::reset() {
+    saves.clear();
+    core::file::GameSave::listSaves(saves);
+
+    Item::Ptr item =
+        TextItem::create("Back", core::Properties::MenuFont(), sf::Color(140, 0, 0), 26);
+    item->getSignal(Item::Activated).willAlwaysCall([this]() {
+        observe(systems.engine().inputSystem().getActor(),
+                core::input::Control::Back,
+                bl::input::DispatchType::TriggerActivated,
+                true);
+    });
+    saveMenu.setRootItem(item);
+
+    for (unsigned int i = 0; i < saves.size(); ++i) {
+        const auto& save = saves[i];
+
+        Item::Ptr it =
+            TextItem::create(save.saveName, core::Properties::MenuFont(), sf::Color::Black, 26);
+        it->getSignal(Item::Activated).willAlwaysCall([this, i]() { saveSelected(i); });
+        saveMenu.addItem(it, item.get(), Item::Top);
+        item = it;
+    }
+    saveMenu.setSelectedItem(item.get());
+
+    bl::rc::Overlay* overlay = systems.engine().renderer().getObserver().getCurrentOverlay();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    saveMenu.addToOverlay(background.entity());
+    actionMenu.addToOverlay(background.entity());
+    actionMenu.setHidden(true);
+
+    state = SelectingSave;
+    inputDriver.drive(&saveMenu);
+    systems.engine().inputSystem().getActor().addListener(*this);
+    systems.engine().inputSystem().getActor().addListener(inputDriver);
 }
 
 } // namespace state
