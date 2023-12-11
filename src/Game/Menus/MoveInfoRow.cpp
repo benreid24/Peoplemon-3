@@ -20,7 +20,7 @@ MoveInfoRow::MoveInfoRow(core::pplmn::MoveId move)
 
 glm::vec2 MoveInfoRow::getSize() const { return bgndTxtr->size(); }
 
-bl::com::Transform2D& MoveInfoRow::doCreate(bl::engine::Engine& engine, bl::ecs::Entity parent) {
+void MoveInfoRow::doCreate(bl::engine::Engine& engine) {
     const auto& joinPath      = bl::util::FileUtil::joinPath;
     const std::string ImgPath = joinPath(core::Properties::MenuImagePath(), "PplInfo");
 
@@ -28,7 +28,6 @@ bl::com::Transform2D& MoveInfoRow::doCreate(bl::engine::Engine& engine, bl::ecs:
     activeBgndTxtr =
         engine.renderer().texturePool().getOrLoadTexture(joinPath(ImgPath, "moveActive.png"));
     background.create(engine, bgndTxtr);
-    background.setParent(parent);
 
     name.create(engine,
                 core::Properties::MenuFont(),
@@ -39,8 +38,6 @@ bl::com::Transform2D& MoveInfoRow::doCreate(bl::engine::Engine& engine, bl::ecs:
     name.getTransform().setOrigin(name.getLocalBounds().width * 0.5f,
                                   name.getLocalBounds().height * 0.5f);
     name.setParent(background);
-
-    return background.getTransform();
 }
 
 void MoveInfoRow::doSceneAdd(bl::rc::Overlay* overlay) {

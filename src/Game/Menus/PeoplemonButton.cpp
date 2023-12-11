@@ -53,14 +53,12 @@ bool PeoplemonButton::synced() const {
     return std::abs(hpBar.getGlobalSize().x - hpBarTarget) < 0.5f;
 }
 
-bl::com::Transform2D& PeoplemonButton::doCreate(bl::engine::Engine& engine,
-                                                bl::ecs::Entity parent) {
+void PeoplemonButton::doCreate(bl::engine::Engine& engine) {
     enginePtr = &engine;
 
     txtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/button.png"));
     image.create(engine, txtr);
-    image.setParent(parent);
 
     name.create(engine,
                 core::Properties::MenuFont(),
@@ -137,8 +135,6 @@ bl::com::Transform2D& PeoplemonButton::doCreate(bl::engine::Engine& engine,
     face.getTransform().setOrigin(faceTxtr->size() * scale * 0.5f);
     face.getTransform().setScale(scale, scale);
     face.getTransform().setPosition(71.f, 76.f);
-
-    return image.getTransform();
 }
 
 void PeoplemonButton::doSceneAdd(bl::rc::Overlay* o) {

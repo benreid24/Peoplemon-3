@@ -50,11 +50,10 @@ void BagItemButton::update(const core::player::Bag::Item& i) {
 
 const core::player::Bag::Item& BagItemButton::getItem() const { return item; }
 
-bl::com::Transform2D& BagItemButton::doCreate(bl::engine::Engine& engine, bl::ecs::Entity parent) {
+void BagItemButton::doCreate(bl::engine::Engine& engine) {
     txtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/button.png"));
     background.create(engine, txtr);
-    background.setParent(parent);
 
     label.create(engine, core::Properties::MenuFont(), "", 22, bl::sfcol(sf::Color::Black));
     label.setParent(background);
@@ -63,7 +62,6 @@ bl::com::Transform2D& BagItemButton::doCreate(bl::engine::Engine& engine, bl::ec
     qty.setParent(background);
 
     update(item);
-    return background.getTransform();
 }
 
 void BagItemButton::doSceneAdd(bl::rc::Overlay* overlay) {

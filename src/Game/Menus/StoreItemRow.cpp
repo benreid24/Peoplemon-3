@@ -36,9 +36,8 @@ glm::vec2 StoreItemRow::getSize() const { return {Width, Height}; }
 
 core::item::Id StoreItemRow::getItem() const { return item; }
 
-bl::com::Transform2D& StoreItemRow::doCreate(bl::engine::Engine& engine, bl::ecs::Entity parent) {
+void StoreItemRow::doCreate(bl::engine::Engine& engine) {
     dummy.create(engine);
-    dummy.setParent(parent);
     dummy.setSize({Width, Height});
 
     qtyText.create(engine, core::Properties::MenuFont(), "", FontSize, sf::Color(30, 75, 240));
@@ -63,8 +62,6 @@ bl::com::Transform2D& StoreItemRow::doCreate(bl::engine::Engine& engine, bl::ecs
     priceText.getTransform().setPosition(
         {Width - Margin - priceText.getLocalBounds().width, TopMargin});
     priceText.setParent(dummy);
-
-    return dummy.getTransform();
 }
 
 void StoreItemRow::doSceneAdd(bl::rc::Overlay* overlay) {
