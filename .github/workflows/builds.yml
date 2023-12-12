@@ -19,7 +19,7 @@ jobs:
         run: cmake -DBUILD_TESTS=Off -DCMAKE_BUILD_TYPE=Release -S . -B ./build
 
       - name: Build Peoplemon
-        run: cd build && cmake --build . --config Release
+        run: cd build && cmake --build . --config Release -j 2
 
       - name: Bundle Resources
         run: |

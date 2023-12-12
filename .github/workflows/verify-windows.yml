@@ -20,7 +20,7 @@ jobs:
 
     - name: make
       run: |
-        cd build && cmake --build .
+        cd build && cmake --build . -j 2
         cp ../lib/BLIB/lib/SFML/extlibs/bin/x64/openal32.dll ./tests
 
     - name: test
