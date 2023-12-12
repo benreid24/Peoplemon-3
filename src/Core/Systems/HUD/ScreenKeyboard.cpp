@@ -36,7 +36,7 @@ void ScreenKeyboard::lazyCreate() {
     });
 
     Item::Ptr del = TextItem::create("(del)", Properties::MenuFont(), sf::Color::Red, 24);
-    space->getSignal(Item::EventType::Activated).willAlwaysCall([this]() {
+    del->getSignal(Item::EventType::Activated).willAlwaysCall([this]() {
         input.pop_back();
         renderedInput.getSection().setString(input);
     });
@@ -100,18 +100,21 @@ void ScreenKeyboard::lazyCreate() {
         }
     }
     keyboardMenu.setSelectedItem(keys[0][0].get());
+    keyboardMenu.setDepth(0.f);
 
     background.create(engine,
                       {keyboardMenu.getBounds().width + 28.f,
                        keyboardMenu.getBounds().height + InputAreaHeight + 20.f});
     background.setFillColor(sf::Color::White);
     background.setOutlineColor(sf::Color::Black);
-    background.setOutlineThickness(2.5f);
+    background.setOutlineThickness(2.f);
     background.getTransform().setPosition(position.x, position.y);
+    background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
     engine.ecs().setEntityParentDestructionBehavior(
         background.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);
 
     renderedInput.create(engine, core::Properties::MenuFont(), "", 28, sf::Color::Black);
+    renderedInput.getTransform().setPosition(15.f, 5.f);
     renderedInput.setParent(background);
 }
 
@@ -142,10 +145,10 @@ void ScreenKeyboard::process(unsigned int ctrl, bool ignore) {
 }
 
 void ScreenKeyboard::setPosition(const sf::Vector2f& pos) {
+    position = pos;
     if (background.entity() != bl::ecs::InvalidEntity) {
         background.getTransform().setPosition(pos.x, pos.y);
     }
-    else { position = pos; }
 }
 
 const std::string& ScreenKeyboard::value() const { return input; }

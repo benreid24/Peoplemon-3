@@ -84,7 +84,6 @@ void NewGame::fadeOut() {
 
 void NewGame::deactivate(bl::engine::Engine& engine) {
     engine.renderer().getObserver().popScene();
-    engine.renderer().getObserver().getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
     fadeout = nullptr;
 
     if (!systems.world().switchMaps("Hometown/HometownYourHouseYourRoom.map", 5)) {

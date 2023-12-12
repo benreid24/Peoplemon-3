@@ -49,7 +49,7 @@ void HUD::ensureCreated() {
                            Properties::HudFontSize(),
                            sf::Color::Black);
         displayText.getTransform().setPosition(TextPadding, 8.f);
-        displayText.wordWrap(textboxTxtr->size().x - TextPadding);
+        displayText.wordWrap(textboxTxtr->size().x - TextPadding * 2.f);
         displayText.setParent(textbox);
 
         promptTriangle.create(owner.engine(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
@@ -67,9 +67,6 @@ void HUD::ensureCreated() {
         choiceMenu.configureBackground(
             sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
 
-        screenKeyboard.setPosition(
-            {Properties::WindowSize().x * 0.5f - screenKeyboard.getSize().x * 0.5f,
-             textbox.getTransform().getLocalPosition().y - screenKeyboard.getSize().y - 2.f});
         qtyEntry.setPosition(
             {textbox.getTransform().getLocalPosition().x + textboxTxtr->size().x - 50.f,
              textbox.getTransform().getLocalPosition().y - 70.f});
@@ -196,6 +193,9 @@ void HUD::printDoneStateTransition() {
         setState(WaitingKeyboard);
         screenKeyboard.start(queuedOutput.front().minInputLength(),
                              queuedOutput.front().maxInputLength());
+        screenKeyboard.setPosition(
+            {Properties::WindowSize().x * 0.5f - screenKeyboard.getSize().x * 0.5f,
+             textbox.getTransform().getLocalPosition().y - screenKeyboard.getSize().y - 2.f});
         break;
 
     case Item::Qty:
