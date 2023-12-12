@@ -26,8 +26,9 @@ void QtyEntry::ensureCreated() {
         background.setFillColor(sf::Color::White);
         background.setOutlineColor(sf::Color::Black);
         background.setOutlineThickness(2.f);
+        background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
 
-        text.create(engine, Properties::MenuFont(), "0", 14, sf::Color::Black);
+        text.create(engine, Properties::MenuFont(), "0", 20, sf::Color::Black);
         text.setParent(background);
 
         upArrow.create(engine, {6.f, 0.f}, {12.f, ArrowHeight}, {0.f, ArrowHeight});
@@ -50,10 +51,18 @@ void QtyEntry::ensureCreated() {
 }
 
 void QtyEntry::hide() {
-    if (background.entity() != bl::ecs::InvalidEntity) { background.removeFromScene(); }
+    if (background.entity() != bl::ecs::InvalidEntity) {
+        background.removeFromScene();
+        currentOverlay = nullptr;
+    }
 }
 
-void QtyEntry::setPosition(const sf::Vector2f& pos) { position = pos; }
+void QtyEntry::setPosition(const sf::Vector2f& pos) {
+    position = pos;
+    if (background.entity() != bl::ecs::InvalidEntity) {
+        background.getTransform().setPosition(position.x, position.y);
+    }
+}
 
 sf::Vector2f QtyEntry::getSize() const { return {background.getSize().x, background.getSize().y}; }
 
@@ -67,12 +76,12 @@ void QtyEntry::configure(int mn, int mx, int q) {
     w = std::max(w, text.getLocalBounds().width);
 
     // update positions
+    background.getTransform().setPosition(position.x, position.y);
     background.setSize(
         {w + 12.f,
          ArrowHeight * 2.f + text.getLocalBounds().height + 6.f + text.getLocalBounds().top + 6.f});
-    upArrow.getTransform().setPosition(w * 0.5f + 6.f, 7.f);
-    downArrow.getTransform().setPosition(w * 0.5f + 6.f,
-                                         background.getSize().y - ArrowHeight - 1.f);
+    upArrow.getTransform().setPosition(w * 0.5f, 4.f);
+    downArrow.getTransform().setPosition(w * 0.5f, background.getSize().y - ArrowHeight - 2.f);
     text.getTransform().setPosition(0.f, ArrowHeight + 5.f);
 
     // update data

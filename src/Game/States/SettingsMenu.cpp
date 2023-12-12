@@ -380,9 +380,9 @@ void SettingsMenu::enterState(MenuState s) {
     case MenuState::AudioSelectVolume:
         audioMenu.setHidden(false);
         volumeEntry.configure(0, 100, static_cast<int>(bl::audio::AudioSystem::getVolume()));
-        volumeEntry.setPosition({volumeItem->getPosition().x + volumeItem->getSize().x -
-                                     volumeEntry.getSize().x + audioMenu.getBounds().left + 20.f,
-                                 volumeItem->getPosition().y + audioMenu.getBounds().top + 20.f});
+        volumeEntry.setPosition({volumeItem->getPosition().x + volumeItem->getSize().x +
+                                     audioMenu.getBounds().left + 20.f,
+                                 volumeItem->getPosition().y + audioMenu.getBounds().top});
         break;
     case MenuState::ControlsTopMenu:
         inputDriver.drive(&controlsTopMenu);
