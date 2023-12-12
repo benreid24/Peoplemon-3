@@ -21,27 +21,31 @@ NewGame::Ptr NewGame::create(core::system::Systems& systems) { return Ptr(new Ne
 
 NewGame::NewGame(core::system::Systems& systems)
 : State(systems)
-, fadeTime(-1.f) {
-    cover.setFillColor(sf::Color::Transparent);
-    bgndTxtr = TextureManager::load(
-        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "NewGame/newGameBgnd.png"));
-    profTxtr = TextureManager::load(
-        bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "NewGame/professor.png"));
-
-    background.setTexture(*bgndTxtr, true);
-    background.setOrigin(sf::Vector2f(bgndTxtr->getSize()) * 0.5f);
-    background.setPosition(static_cast<float>(core::Properties::WindowWidth()) * 0.5f,
-                           static_cast<float>(core::Properties::WindowHeight()) * 0.5f);
-
-    prof.setTexture(*profTxtr, true);
-    prof.setPosition(background.getPosition() - sf::Vector2f(profTxtr->getSize()) * 0.5f);
-}
+, fadeout(nullptr) {}
 
 const char* NewGame::name() const { return "NewGame"; }
 
 void NewGame::activate(bl::engine::Engine& engine) {
-    /*engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    if (!bgndTxtr) {
+        bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(
+            core::Properties::MenuImagePath(), "NewGame/newGameBgnd.png"));
+        profTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(
+            core::Properties::MenuImagePath(), "NewGame/professor.png"));
+
+        background.create(engine, bgndTxtr);
+        background.getTransform().setOrigin(bgndTxtr->size() * 0.5f);
+        background.getTransform().setPosition(core::Properties::WindowSize().x * 0.5f,
+                                              core::Properties::WindowSize().y * 0.5f);
+
+        prof.create(engine, profTxtr);
+        prof.getTransform().setPosition(background.getTransform().getLocalPosition() -
+                                        profTxtr->size() * 0.5f);
+        prof.getTransform().setDepth(-1.f); // ensure rendered after background w/o parenting
+    }
+
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
+    prof.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
 
     systems.hud().displayMessage("Hello there!");
     systems.hud().displayMessage("I'm the professor in HomeTown. My name is Professor, but you can "
@@ -71,18 +75,22 @@ void NewGame::genderSet(const std::string& g) {
 }
 
 void NewGame::fadeOut() {
-    fadeTime = 0.f;
-    /*cover.setPosition(systems.engine().window().getView().getCenter());
-    cover.setOrigin(systems.engine().window().getView().getSize() * 0.5f);
-    cover.setSize(systems.engine().window().getView().getSize());*/
+    fadeout = systems.engine()
+                  .renderer()
+                  .getObserver()
+                  .getRenderGraph()
+                  .putTask<bl::rc::rgi::FadeEffectTask>(FadeTime);
 }
 
 void NewGame::deactivate(bl::engine::Engine& engine) {
+    engine.renderer().getObserver().popScene();
+    engine.renderer().getObserver().getRenderGraph().removeTask<bl::rc::rgi::FadeEffectTask>();
+    fadeout = nullptr;
+
     if (!systems.world().switchMaps("Hometown/HometownYourHouseYourRoom.map", 5)) {
         BL_LOG_ERROR << "Failed to load starting map";
         systems.engine().flags().set(bl::engine::Flags::Terminate);
     }
-    // engine.renderSystem().cameras().popCamera();
     systems.clock().set({12, 0});
     systems.player().newGame(playerName,
                              isBoy ? core::player::Gender::Boy : core::player::Gender::Girl);
@@ -90,25 +98,16 @@ void NewGame::deactivate(bl::engine::Engine& engine) {
 
 void NewGame::update(bl::engine::Engine&, float dt, float) {
     systems.hud().update(dt);
-    background.rotate(RotateSpeed * dt);
-    if (fadeTime >= 0.f) {
-        fadeTime += dt;
-        cover.setFillColor(sf::Color(0, 0, 0, std::min(255.f, 255.f * fadeTime / FadeTime)));
-        if (fadeTime >= FadeTime) { systems.engine().replaceState(MainGame::create(systems)); }
+    background.getTransform().rotate(RotateSpeed * dt);
+    if (fadeout) {
+        if (fadeout->complete()) { systems.engine().replaceState(MainGame::create(systems)); }
 
-        if (prof.getRotation() > -90.f) { prof.rotate(dt * ProfRotateSpeed); }
-        prof.move(dt * ProfMoveSpeedX, dt * ProfMoveSpeedY);
+        if (prof.getTransform().getRotation() > -90.f) {
+            prof.getTransform().rotate(dt * ProfRotateSpeed);
+        }
+        prof.getTransform().move({dt * ProfMoveSpeedX, dt * ProfMoveSpeedY});
     }
 }
-
-// void NewGame::render(bl::engine::Engine&, float lag) {
-//     systems.engine().window().clear();
-//     systems.engine().window().draw(background);
-//     systems.engine().window().draw(prof);
-//     systems.hud().render(systems.engine().window(), lag);
-//     if (fadeTime >= 0.f) { systems.engine().window().draw(cover); }
-//     systems.engine().window().display();
-// }
 
 } // namespace state
 } // namespace game
