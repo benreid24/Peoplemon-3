@@ -60,18 +60,15 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update new game rendering
-
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    bl::resource::Ref<sf::Texture> profTxtr;
-    sf::Sprite background;
-    sf::Sprite prof;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::rc::res::TextureRef profTxtr;
+    bl::gfx::Sprite background;
+    bl::gfx::Sprite prof;
 
     std::string playerName;
     bool isBoy;
 
-    sf::RectangleShape cover;
-    float fadeTime;
+    bl::rc::rgi::FadeEffectTask* fadeout;
 
     NewGame(core::system::Systems& systems);
     void nameSet(const std::string& name);

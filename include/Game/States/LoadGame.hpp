@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_LOADGAME_HPP
 #define GAME_STATES_LOADGAME_HPP
 
+#include <BLIB/Render.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Maps/Map.hpp>
 #include <Game/States/State.hpp>
@@ -62,16 +63,13 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update load game rendering
-
     enum LoadState { SelectingSave, ChooseAction, SaveDeleted, Fading, Error } state;
 
     std::vector<core::file::GameSave> saves;
     unsigned int selectedSave;
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
-    sf::RectangleShape cover;
-    float fadeTime;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
+    bl::rc::rgi::FadeEffectTask* fadeout;
 
     bl::menu::Menu saveMenu;
     bl::menu::Menu actionMenu;
@@ -80,6 +78,7 @@ private:
     LoadGame(core::system::Systems& systems);
     void saveSelected(unsigned int save);
     void errorDone();
+    void reset();
 
     virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
                          bl::input::DispatchType, bool eventTriggered) override;

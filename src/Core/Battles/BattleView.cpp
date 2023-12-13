@@ -8,9 +8,10 @@ namespace core
 {
 namespace battle
 {
-BattleView::BattleView(BattleState& s, bool canRun)
+BattleView::BattleView(bl::engine::Engine& engine, BattleState& s, bool canRun)
 : battleState(s)
 , playerMenu(canRun)
+, printer(engine)
 , localPeoplemon(view::PeoplemonAnimation::Player)
 , opponentPeoplemon(view::PeoplemonAnimation::Opponent)
 , inited(false) {

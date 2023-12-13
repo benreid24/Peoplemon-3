@@ -30,7 +30,7 @@ PeopledexRow::PeopledexRow(core::pplmn::Id ppl, const core::player::Peopledex& d
 
 glm::vec2 PeopledexRow::getSize() const { return bgndTxtr->size(); }
 
-bl::com::Transform2D& PeopledexRow::doCreate(bl::engine::Engine& engine, bl::ecs::Entity parent) {
+void PeopledexRow::doCreate(bl::engine::Engine& engine) {
     const auto intel  = dex.getIntelLevel(ppl);
     const bool caught = dex.getCaught(ppl) > 0;
 
@@ -41,7 +41,6 @@ bl::com::Transform2D& PeopledexRow::doCreate(bl::engine::Engine& engine, bl::ecs
     activeBgndTxtr =
         engine.renderer().texturePool().getOrLoadTexture(jp(ImgPath, "Peopledex/itemActive.png"));
     background.create(engine, bgndTxtr);
-    background.setParent(parent);
     const float mid = static_cast<float>(bgndTxtr->size().y) * 0.5f;
 
     ballTxtr = engine.renderer().texturePool().getOrLoadTexture(
@@ -71,8 +70,6 @@ bl::com::Transform2D& PeopledexRow::doCreate(bl::engine::Engine& engine, bl::ecs
         0.f, name.getLocalBounds().height * 0.5f + name.getLocalBounds().top * 0.5f);
     name.getTransform().setPosition(id.getTransform().getLocalPosition().x + 65.f, mid);
     name.setParent(background);
-
-    return background.getTransform();
 }
 
 void PeopledexRow::doSceneAdd(bl::rc::Overlay* overlay) {

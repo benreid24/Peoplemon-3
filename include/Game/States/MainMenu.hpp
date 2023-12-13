@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_MAINMENU_HPP
 #define GAME_STATES_MAINMENU_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Input/MenuDriver.hpp>
@@ -54,10 +55,8 @@ public:
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update main menu rendering
-
-    bl::resource::Ref<sf::Texture> backgroundTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef backgroundTxtr;
+    bl::gfx::Sprite background;
 
     bl::menu::Menu menu;
     core::input::MenuDriver inputDriver;
@@ -66,9 +65,9 @@ private:
     bl::menu::TextItem::Ptr settings;
     bl::menu::TextItem::Ptr quit;
 
-    sf::Clock hintTimer;
-    sf::RectangleShape hintBox;
-    sf::Text hint;
+    float hintTimer;
+    bl::gfx::Rectangle hintBox;
+    bl::gfx::Text hint;
 
     MainMenu(core::system::Systems& systems);
 

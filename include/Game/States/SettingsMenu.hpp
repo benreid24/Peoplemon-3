@@ -56,8 +56,6 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update settings rendering
-
     enum struct MenuState {
         TopMenu,
 
@@ -74,9 +72,9 @@ private:
     };
 
     MenuState state;
-    bl::resource::Ref<sf::Texture> bgndTexture;
-    sf::Sprite background;
-    sf::Text hint;
+    bl::rc::res::TextureRef bgndTexture;
+    bl::gfx::Sprite background;
+    bl::gfx::Text hint;
 
     core::input::MenuDriver inputDriver;
     bl::menu::Menu topMenu;

@@ -16,28 +16,29 @@ constexpr float InputAreaHeight = 35.f;
 
 using namespace bl::menu;
 
-// TODO - BLIB_UPGRADE - update screen keyboard rendering
-ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
-: onSubmit(os)
+ScreenKeyboard::ScreenKeyboard(bl::engine::Engine& engine, const OnSubmit& os)
+: engine(engine)
+, onSubmit(os)
 , minLen(0)
 , maxLen(16)
-//, keyboardMenu(ArrowSelector::create(8.f, sf::Color::Black))
-{
-    // renderedInput.setFont(Properties::MenuFont());
-    renderedInput.setPosition({15.f, 5.f});
-    renderedInput.setFillColor(sf::Color::Black);
-    renderedInput.setCharacterSize(28);
+, position() {}
+
+void ScreenKeyboard::lazyCreate() {
+    if (background.entity() != bl::ecs::InvalidEntity) { return; }
+
+    keyboardMenu.create(
+        engine, engine.renderer().getObserver(), ArrowSelector::create(8.f, sf::Color::Black));
 
     Item::Ptr space = TextItem::create("(space)", Properties::MenuFont(), sf::Color::Black, 24);
     space->getSignal(Item::EventType::Activated).willAlwaysCall([this]() {
         input.push_back(' ');
-        renderedInput.setString(input);
+        renderedInput.getSection().setString(input);
     });
 
     Item::Ptr del = TextItem::create("(del)", Properties::MenuFont(), sf::Color::Red, 24);
-    space->getSignal(Item::EventType::Activated).willAlwaysCall([this]() {
+    del->getSignal(Item::EventType::Activated).willAlwaysCall([this]() {
         input.pop_back();
-        renderedInput.setString(input);
+        renderedInput.getSection().setString(input);
     });
 
     Item::Ptr submit = TextItem::create("Submit", Properties::MenuFont(), sf::Color::Green, 24);
@@ -99,50 +100,70 @@ ScreenKeyboard::ScreenKeyboard(const OnSubmit& os)
         }
     }
     keyboardMenu.setSelectedItem(keys[0][0].get());
+    keyboardMenu.setDepth(0.f);
 
-    background.setSize({keyboardMenu.getBounds().width + 28.f,
-                        keyboardMenu.getBounds().height + InputAreaHeight + 20.f});
+    background.create(engine,
+                      {keyboardMenu.getBounds().width + 28.f,
+                       keyboardMenu.getBounds().height + InputAreaHeight + 20.f});
     background.setFillColor(sf::Color::White);
     background.setOutlineColor(sf::Color::Black);
-    background.setOutlineThickness(2.5f);
+    background.setOutlineThickness(2.f);
+    background.getTransform().setPosition(position.x, position.y);
+    background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
+    engine.ecs().setEntityParentDestructionBehavior(
+        background.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);
+
+    renderedInput.create(engine, core::Properties::MenuFont(), "", 28, sf::Color::Black);
+    renderedInput.getTransform().setPosition(15.f, 5.f);
+    renderedInput.setParent(background);
 }
 
 ScreenKeyboard::~ScreenKeyboard() { stop(); }
 
 void ScreenKeyboard::start(unsigned int mn, unsigned int mx) {
+    lazyCreate();
+
     minLen = mn;
     maxLen = mx;
     input.clear();
-    renderedInput.setString(input);
+    renderedInput.getSection().setString(input);
     inputDriver.drive(&keyboardMenu);
+
+    const auto overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    renderedInput.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    keyboardMenu.addToOverlay(background.entity());
 }
 
-void ScreenKeyboard::stop() { inputDriver.drive(nullptr); }
+void ScreenKeyboard::stop() {
+    inputDriver.drive(nullptr);
+    if (background.entity() != bl::ecs::InvalidEntity) { background.removeFromScene(); }
+}
 
 void ScreenKeyboard::process(unsigned int ctrl, bool ignore) {
     inputDriver.sendControl(ctrl, ignore);
 }
 
-void ScreenKeyboard::setPosition(const sf::Vector2f& pos) { position = pos; }
+void ScreenKeyboard::setPosition(const sf::Vector2f& pos) {
+    position = pos;
+    if (background.entity() != bl::ecs::InvalidEntity) {
+        background.getTransform().setPosition(pos.x, pos.y);
+    }
+}
 
 const std::string& ScreenKeyboard::value() const { return input; }
 
-const sf::Vector2f& ScreenKeyboard::getSize() const { return background.getSize(); }
+sf::Vector2f ScreenKeyboard::getSize() const {
+    return {background.getSize().x, background.getSize().y};
+}
 
 void ScreenKeyboard::onKeyPress(char c) {
     input.push_back(c);
-    renderedInput.setString(input);
+    renderedInput.getSection().setString(input);
 }
 
 void ScreenKeyboard::onEnter() {
     if (input.size() >= minLen && input.size() <= maxLen) { onSubmit(input); }
-}
-
-void ScreenKeyboard::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    states.transform.translate(position);
-    target.draw(background, states);
-    target.draw(renderedInput, states);
-    // keyboardMenu.render(target, states);
 }
 
 } // namespace hud

@@ -8,7 +8,6 @@
 #include <Core/Input/MenuDriver.hpp>
 #include <Core/Systems/HUD/QtyEntry.hpp>
 #include <Core/Systems/HUD/ScreenKeyboard.hpp>
-#include <SFML/Graphics.hpp>
 #include <functional>
 #include <queue>
 #include <string>
@@ -59,14 +58,6 @@ public:
      * @param dt Time elapsed, in seconds
      */
     void update(float dt);
-
-    /**
-     * @brief Renders the HUD if any elements are visible
-     *
-     * @param target The target to render to
-     * @param lag Time elapsed not accounted for in update
-     */
-    void render(sf::RenderTarget& target, float lag);
 
     /**
      * @brief Displays a message in the HUD textbox. Messages are queued in order that they arrive
@@ -195,22 +186,23 @@ private:
 
     class EntryCard {
     public:
-        EntryCard();
+        EntryCard(bl::engine::Engine& engine);
         void display(const std::string& text);
         void update(float dt);
-        void render(sf::RenderTarget& target) const;
         void hide();
 
     private:
-        bl::resource::Ref<sf::Texture> txtr;
-        sf::Sprite card;
-        sf::Text text;
+        bl::engine::Engine& engine;
+        bl::rc::Overlay* currentOverlay;
+        bl::rc::res::TextureRef txtr;
+        bl::gfx::Sprite card;
+        bl::gfx::Text text;
+
+        void ensureCreated();
 
         enum State { Hidden, Dropping, Holding, Rising } state;
         float stateVar;
     };
-
-    // TODO - BLIB_UPGRADE - update map rendering
 
     Systems& owner;
     State state;
@@ -221,19 +213,19 @@ private:
     hud::ScreenKeyboard screenKeyboard;
     EntryCard entryCard;
 
-    bl::resource::Ref<sf::Texture> textboxTxtr;
-    const sf::Vector2f viewSize;
-    sf::Sprite textbox;
-    sf::Text displayText;
-    // bl::shapes::Triangle promptTriangle;
-    // bl::gfx::Flashing flashingTriangle;
+    bl::rc::Overlay* currentOverlay;
+    bl::rc::res::TextureRef textboxTxtr;
+    bl::gfx::Sprite textbox;
+    bl::gfx::Text displayText;
+    bl::gfx::Triangle promptTriangle;
     hud::QtyEntry qtyEntry;
 
     bl::menu::Menu choiceMenu;
     core::input::MenuDriver choiceDriver;
-    const float choiceBoxX;
+    float choiceBoxX;
 
-    std::string wordWrap(const std::string& str) const;
+    void setState(State newState);
+    void ensureCreated();
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();

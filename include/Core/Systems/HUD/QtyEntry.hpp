@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_HUD_QTYENTRY_HPP
 #define CORE_SYSTEMS_HUD_QTYENTRY_HPP
 
-#include <BLIB/Graphics/Triangle.hpp>
+#include <BLIB/Graphics.hpp>
 
 namespace core
 {
@@ -20,8 +20,9 @@ public:
     /**
      * @brief Construct a new quantity entry helper
      *
+     * @param engine The game engine instance
      */
-    QtyEntry();
+    QtyEntry(bl::engine::Engine& engine);
 
     /**
      * @brief Sets the position of the selector
@@ -37,7 +38,7 @@ public:
     sf::Vector2f getSize() const;
 
     /**
-     * @brief Configures the entry with the given parameters
+     * @brief Configures the entry with the given parameters and adds to the overlay
      *
      * @param minQty The minimum number to allow entering
      * @param maxQty The maximum number to allow entering
@@ -70,26 +71,25 @@ public:
     void down(int q, bool ignoreDebounce);
 
     /**
-     * @brief Renders the selector
-     *
-     * @param target The target to render to
+     * @brief Removes the quantity entry from the overlay
      */
-    void render(sf::RenderTarget& target) const;
+    void hide();
 
 private:
-    // TODO - BLIB_UPGRADE - update qty entry rendering
-
+    bl::engine::Engine& engine;
+    bl::rc::Overlay* currentOverlay;
     sf::Vector2f position;
-    sf::RectangleShape background;
-    sf::Text text;
-    /*bl::shapes::Triangle upArrow;
-    bl::shapes::Triangle downArrow;*/
+    bl::gfx::Rectangle background;
+    bl::gfx::Text text;
+    bl::gfx::Triangle upArrow;
+    bl::gfx::Triangle downArrow;
     sf::Clock debounce;
 
     int qty;
     int minQty;
     int maxQty;
 
+    void ensureCreated();
     void updateText();
     bool rateLimit(bool ignore);
 };

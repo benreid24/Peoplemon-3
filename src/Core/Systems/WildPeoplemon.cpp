@@ -27,6 +27,7 @@ void WildPeoplemon::observe(const event::EntityMoveFinished& m) {
             currentWild = region->selectWild().generate();
 
             std::unique_ptr<battle::Battle> battle = battle::Battle::create(
+                owner.engine(),
                 owner.world().activeMap().getLocationName(owner.player().position()),
                 owner.player(),
                 battle::Battle::Type::WildPeoplemon);
