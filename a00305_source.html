@@ -79,7 +79,7 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02945.html">Core/Components/Position.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02941.html">Core/Components/Position.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00188.html">Core/Maps/Event.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
@@ -91,19 +91,19 @@ $(function() {
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>script</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01907.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01907.html">MapEventContext</a> : <span class="keyword">public</span> bl::script::Context {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01908.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01908.html">MapEventContext</a> : <span class="keyword">public</span> bl::script::Context {</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01907.html#ab8cf440bd803b30f1a1c9af4b28ac3f3">MapEventContext</a>(<a class="code" href="a02007.html">system::Systems</a>&amp; systems, bl::ecs::Entity entity, <span class="keyword">const</span> <a class="code" href="a01679.html">map::Event</a>&amp; event,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    <span class="keyword">const</span> <a class="code" href="a01331.html">component::Position</a>&amp; tile);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01908.html#ab8cf440bd803b30f1a1c9af4b28ac3f3">MapEventContext</a>(<a class="code" href="a02008.html">system::Systems</a>&amp; systems, bl::ecs::Entity entity, <span class="keyword">const</span> <a class="code" href="a01680.html">map::Event</a>&amp; event,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    <span class="keyword">const</span> <a class="code" href="a01332.html">component::Position</a>&amp; tile);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01907.html#ac4af70357380241154cc05e934b8fcf4">addCustomSymbols</a>(bl::script::SymbolTable&amp; table) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01908.html#ac4af70357380241154cc05e934b8fcf4">addCustomSymbols</a>(bl::script::SymbolTable&amp; table) <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02007.html">system::Systems</a>&amp; systems;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02008.html">system::Systems</a>&amp; systems;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> bl::ecs::Entity entity;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01679.html">map::Event</a> event;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01331.html">component::Position</a> tile;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01680.html">map::Event</a> event;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01332.html">component::Position</a> tile;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace script</span></div>
@@ -111,19 +111,19 @@ $(function() {
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00188_html"><div class="ttname"><a href="a00188.html">Event.hpp</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01331_html"><div class="ttname"><a href="a01331.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02945_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01679_html"><div class="ttname"><a href="a01679.html">core::map::Event</a></div><div class="ttdoc">Represents an event in a Map. A script that is run on a trigger within a given region.</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00019">Event.hpp:19</a></div></div>
-<div class="ttc" id="aa01907_html"><div class="ttname"><a href="a01907.html">core::script::MapEventContext</a></div><div class="ttdoc">Special script context for map events. Adds default built-ins and the map event built-ins.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00024">MapEventContext.hpp:24</a></div></div>
-<div class="ttc" id="aa01907_html_ab8cf440bd803b30f1a1c9af4b28ac3f3"><div class="ttname"><a href="a01907.html#ab8cf440bd803b30f1a1c9af4b28ac3f3">core::script::MapEventContext::MapEventContext</a></div><div class="ttdeci">MapEventContext(system::Systems &amp;systems, bl::ecs::Entity entity, const map::Event &amp;event, const component::Position &amp;tile)</div><div class="ttdoc">Construct a new MapEventContext.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00040">MapEventContext.cpp:40</a></div></div>
-<div class="ttc" id="aa01907_html_ac4af70357380241154cc05e934b8fcf4"><div class="ttname"><a href="a01907.html#ac4af70357380241154cc05e934b8fcf4">core::script::MapEventContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00047">MapEventContext.cpp:47</a></div></div>
-<div class="ttc" id="aa02007_html"><div class="ttname"><a href="a02007.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02945_html"><div class="ttname"><a href="a02945.html">Position.hpp</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
+<div class="ttc" id="aa01680_html"><div class="ttname"><a href="a01680.html">core::map::Event</a></div><div class="ttdoc">Represents an event in a Map. A script that is run on a trigger within a given region.</div><div class="ttdef"><b>Definition:</b> <a href="a00188_source.html#l00019">Event.hpp:19</a></div></div>
+<div class="ttc" id="aa01908_html"><div class="ttname"><a href="a01908.html">core::script::MapEventContext</a></div><div class="ttdoc">Special script context for map events. Adds default built-ins and the map event built-ins.</div><div class="ttdef"><b>Definition:</b> <a href="a00305_source.html#l00024">MapEventContext.hpp:24</a></div></div>
+<div class="ttc" id="aa01908_html_ab8cf440bd803b30f1a1c9af4b28ac3f3"><div class="ttname"><a href="a01908.html#ab8cf440bd803b30f1a1c9af4b28ac3f3">core::script::MapEventContext::MapEventContext</a></div><div class="ttdeci">MapEventContext(system::Systems &amp;systems, bl::ecs::Entity entity, const map::Event &amp;event, const component::Position &amp;tile)</div><div class="ttdoc">Construct a new MapEventContext.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00040">MapEventContext.cpp:40</a></div></div>
+<div class="ttc" id="aa01908_html_ac4af70357380241154cc05e934b8fcf4"><div class="ttname"><a href="a01908.html#ac4af70357380241154cc05e934b8fcf4">core::script::MapEventContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00047">MapEventContext.cpp:47</a></div></div>
+<div class="ttc" id="aa02008_html"><div class="ttname"><a href="a02008.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
+<div class="ttc" id="aa02941_html"><div class="ttname"><a href="a02941.html">Position.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

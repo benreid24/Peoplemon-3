@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::LightPreview Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,28 +66,140 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02107.html">LightSlider</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02104.html">LightPreview</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a02101.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::LightSlider Member List</div>  </div>
+<div class="title">editor::component::LightPreview Class Reference<div class="ingroups"><a class="el" href="a01049.html">Core</a> &raquo; <a class="el" href="a01053.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02107.html">editor::component::LightSlider</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02107.html#a4504480311bd564a5b73d78b047ad1b7">ChangeCb</a> typedef</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02107.html#a37db648d0ae102e25f509e1c653fa385">create</a>(const std::string &amp;prompt, const ChangeCb &amp;onChange)</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02107.html#aaa6a27733828f9f73576b26335ab9203">getLightLevel</a>() const</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02107.html#a10d757e0a141f924922bba4f1fde4273">Ptr</a> typedef</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02107.html#a00e567201ae20cdd14daeb720392657e">setLightLevel</a>(std::uint8_t level)</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02107.html#a71de0606366a33a1b720c24ed609afd6">setPrompt</a>(const std::string &amp;prompt)</td><td class="entry"><a class="el" href="a02107.html">editor::component::LightSlider</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Helper component that displays an image with a light level overlaid on it.  
+ <a href="a02104.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00392_source.html">LightPreview.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::LightPreview:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02104.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a5d870620ba189d41eb0ba3ef48197e97"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02104.html">LightPreview</a> &gt;</td></tr>
+<tr class="separator:a5d870620ba189d41eb0ba3ef48197e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9e1ea9a56078e04e767ec87161f879dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02104.html#a9e1ea9a56078e04e767ec87161f879dd">setLightLevel</a> (std::uint8_t level)</td></tr>
+<tr class="memdesc:a9e1ea9a56078e04e767ec87161f879dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the light level to display.  <a href="a02104.html#a9e1ea9a56078e04e767ec87161f879dd">More...</a><br /></td></tr>
+<tr class="separator:a9e1ea9a56078e04e767ec87161f879dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02104.html#ac98c9f916c79db3d55c18499e9eb1aa2">create</a> (const sf::Vector2f &amp;size)</td></tr>
+<tr class="memdesc:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a02104.html" title="Helper component that displays an image with a light level overlaid on it.">LightPreview</a> component.  <a href="a02104.html#ac98c9f916c79db3d55c18499e9eb1aa2">More...</a><br /></td></tr>
+<tr class="separator:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Helper component that displays an image with a light level overlaid on it. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00016">16</a> of file <a class="el" href="a00392_source.html">LightPreview.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5d870620ba189d41eb0ba3ef48197e97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d870620ba189d41eb0ba3ef48197e97">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02104.html">LightPreview</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00392_source.html#l00018">18</a> of file <a class="el" href="a00392_source.html">LightPreview.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac98c9f916c79db3d55c18499e9eb1aa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac98c9f916c79db3d55c18499e9eb1aa2">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">LightPreview::Ptr</a> editor::component::LightPreview::create </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Create a new <a class="el" href="a02104.html" title="Helper component that displays an image with a light level overlaid on it.">LightPreview</a> component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">size</td><td>The preview size </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The new component </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00887_source.html#l00014">14</a> of file <a class="el" href="a00887_source.html">LightPreview.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9e1ea9a56078e04e767ec87161f879dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e1ea9a56078e04e767ec87161f879dd">&#9670;&nbsp;</a></span>setLightLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::LightPreview::setLightLevel </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the light level to display. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00887_source.html#l00030">30</a> of file <a class="el" href="a00887_source.html">LightPreview.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00392_source.html">LightPreview.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00887_source.html">LightPreview.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

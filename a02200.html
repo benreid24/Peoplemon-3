@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::page::Catchables Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,207 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01094.html">page</a></li><li class="navelem"><a class="el" href="a02203.html">Collisions</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01094.html">page</a></li><li class="navelem"><a class="el" href="a02200.html">Catchables</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a02197.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::Collisions Member List</div>  </div>
+<div class="title">editor::page::Catchables Class Reference<div class="ingroups"><a class="el" href="a01050.html">Editor</a> &raquo; <a class="el" href="a01065.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02203.html">editor::page::Collisions</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02203.html#a7348efcbfe77c549be2af7770e4bc75e">Collisions</a>()</td><td class="entry"><a class="el" href="a02203.html">editor::page::Collisions</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02203.html#a723d25e808066d2e62845b15c600f8aa">getContent</a>()</td><td class="entry"><a class="el" href="a02203.html">editor::page::Collisions</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02203.html#aa7e55f6051f6363f2e99dc32f53ed624">selected</a>() const</td><td class="entry"><a class="el" href="a02203.html">editor::page::Collisions</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Editor subpage for selecting catch tiles to place.  
+ <a href="a02200.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00452_source.html">Catchables.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a9ca6b9b7698d99cf5023806ee9def3e8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#a9ca6b9b7698d99cf5023806ee9def3e8">Catchables</a> (<a class="el" href="a02072.html">component::EditMap</a> &amp;map)</td></tr>
+<tr class="memdesc:a9ca6b9b7698d99cf5023806ee9def3e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02200.html" title="Editor subpage for selecting catch tiles to place.">Catchables</a> GUI.  <a href="a02200.html#a9ca6b9b7698d99cf5023806ee9def3e8">More...</a><br /></td></tr>
+<tr class="separator:a9ca6b9b7698d99cf5023806ee9def3e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a424f7eb4774528543cad57124bbf864c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#a424f7eb4774528543cad57124bbf864c">setGUI</a> (bl::gui::GUI *gui)</td></tr>
+<tr class="memdesc:a424f7eb4774528543cad57124bbf864c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent GUI object.  <a href="a02200.html#a424f7eb4774528543cad57124bbf864c">More...</a><br /></td></tr>
+<tr class="separator:a424f7eb4774528543cad57124bbf864c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5dab12c4497e202ed1731b507dba609"><td class="memItemLeft" align="right" valign="top">bl::gui::Element::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#ab5dab12c4497e202ed1731b507dba609">getContent</a> ()</td></tr>
+<tr class="memdesc:ab5dab12c4497e202ed1731b507dba609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the GUI element to pack.  <a href="a02200.html#ab5dab12c4497e202ed1731b507dba609">More...</a><br /></td></tr>
+<tr class="separator:ab5dab12c4497e202ed1731b507dba609"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aafa7b7631a32f0cc35c017f22bf31c40"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#aafa7b7631a32f0cc35c017f22bf31c40">selected</a> () const</td></tr>
+<tr class="memdesc:aafa7b7631a32f0cc35c017f22bf31c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected catch type.  <a href="a02200.html#aafa7b7631a32f0cc35c017f22bf31c40">More...</a><br /></td></tr>
+<tr class="separator:aafa7b7631a32f0cc35c017f22bf31c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b12a41016004cb9071c5420d1cf72de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#a4b12a41016004cb9071c5420d1cf72de">refresh</a> ()</td></tr>
+<tr class="memdesc:a4b12a41016004cb9071c5420d1cf72de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes GUI elements.  <a href="a02200.html#a4b12a41016004cb9071c5420d1cf72de">More...</a><br /></td></tr>
+<tr class="separator:a4b12a41016004cb9071c5420d1cf72de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aabc0de735a70c50ac2efab02f7c959cd"><td class="memItemLeft" align="right" valign="top">static sf::Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">getColor</a> (std::uint8_t index)</td></tr>
+<tr class="memdesc:aabc0de735a70c50ac2efab02f7c959cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color to use for the given catch region.  <a href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">More...</a><br /></td></tr>
+<tr class="separator:aabc0de735a70c50ac2efab02f7c959cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Editor subpage for selecting catch tiles to place. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00452_source.html#l00023">23</a> of file <a class="el" href="a00452_source.html">Catchables.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a9ca6b9b7698d99cf5023806ee9def3e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ca6b9b7698d99cf5023806ee9def3e8">&#9670;&nbsp;</a></span>Catchables()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::page::Catchables::Catchables </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02072.html">component::EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a02200.html" title="Editor subpage for selecting catch tiles to place.">Catchables</a> GUI. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">gui</td><td>The main gui object </td></tr>
+    <tr><td class="paramname">map</td><td>The map being edited </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00027">27</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aabc0de735a70c50ac2efab02f7c959cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aabc0de735a70c50ac2efab02f7c959cd">&#9670;&nbsp;</a></span>getColor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Color editor::page::Catchables::getColor </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t&#160;</td>
+          <td class="paramname"><em>index</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the color to use for the given catch region. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00059">59</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab5dab12c4497e202ed1731b507dba609"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5dab12c4497e202ed1731b507dba609">&#9670;&nbsp;</a></span>getContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Element::Ptr editor::page::Catchables::getContent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the GUI element to pack. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00055">55</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4b12a41016004cb9071c5420d1cf72de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b12a41016004cb9071c5420d1cf72de">&#9670;&nbsp;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::Catchables::refresh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Refreshes GUI elements. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00063">63</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aafa7b7631a32f0cc35c017f22bf31c40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aafa7b7631a32f0cc35c017f22bf31c40">&#9670;&nbsp;</a></span>selected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t editor::page::Catchables::selected </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the currently selected catch type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00057">57</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a424f7eb4774528543cad57124bbf864c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a424f7eb4774528543cad57124bbf864c">&#9670;&nbsp;</a></span>setGUI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::Catchables::setGUI </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>gui</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the parent GUI object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00953_source.html#l00053">53</a> of file <a class="el" href="a00953_source.html">Catchables.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Pages/Subpages/<a class="el" href="a00452_source.html">Catchables.hpp</a></li>
+<li>src/Editor/Pages/Subpages/<a class="el" href="a00953_source.html">Catchables.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

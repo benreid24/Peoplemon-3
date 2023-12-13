@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::battle::view::PlayerMenu Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,29 +66,421 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01072.html">battle</a></li><li class="navelem"><a class="el" href="a01073.html">view</a></li><li class="navelem"><a class="el" href="a01295.html">StatBoxes</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01072.html">battle</a></li><li class="navelem"><a class="el" href="a01073.html">view</a></li><li class="navelem"><a class="el" href="a01292.html">PlayerMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01289.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::view::StatBoxes Member List</div>  </div>
+<div class="title">core::battle::view::PlayerMenu Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01295.html">core::battle::view::StatBoxes</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01295.html#ad843a85299e05832342f725e033c9c74">render</a>(sf::RenderTarget &amp;target) const</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01295.html#ad577fc6267354cc9f56ce2bade20a858">setOpponent</a>(pplmn::BattlePeoplemon *ppl)</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01295.html#adc3159457f970df1347b56ac69d57a70">setPlayer</a>(pplmn::BattlePeoplemon *ppl)</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01295.html#a83ee4f6a849e7d0e521199014dc7cd5c">StatBoxes</a>()</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01295.html#a66f41a688e188d7feabcf0f663acf6f4">sync</a>(bool fromSwitch=false)</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01295.html#adfc8ca365a300fe6ec6540afb8e178b1">synced</a>() const</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01295.html#abe38618978d23a3f2da52f30e7f0ac89">update</a>(float dt)</td><td class="entry"><a class="el" href="a01295.html">core::battle::view::StatBoxes</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>The player menu for battles.  
+ <a href="a01292.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00065_source.html">PlayerMenu.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a194cce29c8b3597d5dafa5d930b747ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a194cce29c8b3597d5dafa5d930b747ae">PlayerMenu</a> (bool canRun)</td></tr>
+<tr class="memdesc:a194cce29c8b3597d5dafa5d930b747ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Player Menu.  <a href="a01292.html#a194cce29c8b3597d5dafa5d930b747ae">More...</a><br /></td></tr>
+<tr class="separator:a194cce29c8b3597d5dafa5d930b747ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecaf2b27ea1956d0ac0665f4df9e7963"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#aecaf2b27ea1956d0ac0665f4df9e7963">refresh</a> ()</td></tr>
+<tr class="memdesc:aecaf2b27ea1956d0ac0665f4df9e7963"><td class="mdescLeft">&#160;</td><td class="mdescRight">Polls state from opened peoplemon or bag menu.  <a href="a01292.html#aecaf2b27ea1956d0ac0665f4df9e7963">More...</a><br /></td></tr>
+<tr class="separator:aecaf2b27ea1956d0ac0665f4df9e7963"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83a05ec247cee2d82cbfed633bab5940"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a83a05ec247cee2d82cbfed633bab5940">setPeoplemon</a> (int i, const <a class="el" href="a01780.html">pplmn::BattlePeoplemon</a> &amp;ppl)</td></tr>
+<tr class="memdesc:a83a05ec247cee2d82cbfed633bab5940"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the menu for the given peoplemon.  <a href="a01292.html#a83a05ec247cee2d82cbfed633bab5940">More...</a><br /></td></tr>
+<tr class="separator:a83a05ec247cee2d82cbfed633bab5940"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3314a334dd6dfb023ef4786f60dbeae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#ad3314a334dd6dfb023ef4786f60dbeae">beginTurn</a> ()</td></tr>
+<tr class="memdesc:ad3314a334dd6dfb023ef4786f60dbeae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets the menu to the turn start state.  <a href="a01292.html#ad3314a334dd6dfb023ef4786f60dbeae">More...</a><br /></td></tr>
+<tr class="separator:ad3314a334dd6dfb023ef4786f60dbeae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab82abfa86821a417cec2c281896a2003"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#ab82abfa86821a417cec2c281896a2003">choosePeoplemonMidTurn</a> (bool fromFaint, bool fromRevive)</td></tr>
+<tr class="memdesc:ab82abfa86821a417cec2c281896a2003"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the menu to select a peoplemon to send out.  <a href="a01292.html#ab82abfa86821a417cec2c281896a2003">More...</a><br /></td></tr>
+<tr class="separator:ab82abfa86821a417cec2c281896a2003"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a22f530a635e74c33bb444aaf4c039ae7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a22f530a635e74c33bb444aaf4c039ae7">chooseMoveToForget</a> ()</td></tr>
+<tr class="memdesc:a22f530a635e74c33bb444aaf4c039ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the process of choosing the move to forget.  <a href="a01292.html#a22f530a635e74c33bb444aaf4c039ae7">More...</a><br /></td></tr>
+<tr class="separator:a22f530a635e74c33bb444aaf4c039ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afca91b7d7b5318cb74670b16a87da5e9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#afca91b7d7b5318cb74670b16a87da5e9">ready</a> () const</td></tr>
+<tr class="memdesc:afca91b7d7b5318cb74670b16a87da5e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when the player's choice has been made.  <a href="a01292.html#afca91b7d7b5318cb74670b16a87da5e9">More...</a><br /></td></tr>
+<tr class="separator:afca91b7d7b5318cb74670b16a87da5e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18c1310dcd92642c128b9b08f54b9680"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01072.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a18c1310dcd92642c128b9b08f54b9680">selectedAction</a> () const</td></tr>
+<tr class="memdesc:a18c1310dcd92642c128b9b08f54b9680"><td class="mdescLeft">&#160;</td><td class="mdescRight">The selected turn action.  <a href="a01292.html#a18c1310dcd92642c128b9b08f54b9680">More...</a><br /></td></tr>
+<tr class="separator:a18c1310dcd92642c128b9b08f54b9680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae10abcbb9913b568c1a423011e22b8e9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#ae10abcbb9913b568c1a423011e22b8e9">selectedMove</a> () const</td></tr>
+<tr class="memdesc:ae10abcbb9913b568c1a423011e22b8e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the selected move index.  <a href="a01292.html#ae10abcbb9913b568c1a423011e22b8e9">More...</a><br /></td></tr>
+<tr class="separator:ae10abcbb9913b568c1a423011e22b8e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab5fdeda2a6d661f891a3560dd87d9f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01057.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#acab5fdeda2a6d661f891a3560dd87d9f">selectedItem</a> () const</td></tr>
+<tr class="memdesc:acab5fdeda2a6d661f891a3560dd87d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the selected item.  <a href="a01292.html#acab5fdeda2a6d661f891a3560dd87d9f">More...</a><br /></td></tr>
+<tr class="separator:acab5fdeda2a6d661f891a3560dd87d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a431286ef573fbcef38f5ae0308a9aad1"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a431286ef573fbcef38f5ae0308a9aad1">selectedPeoplemon</a> () const</td></tr>
+<tr class="memdesc:a431286ef573fbcef38f5ae0308a9aad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the selected peoplemon index.  <a href="a01292.html#a431286ef573fbcef38f5ae0308a9aad1">More...</a><br /></td></tr>
+<tr class="separator:a431286ef573fbcef38f5ae0308a9aad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0245bc02bfdeb704c710ee7a5a2fc247"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#a0245bc02bfdeb704c710ee7a5a2fc247">handleInput</a> (<a class="el" href="a01082.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a> input, bool ignoreDebounce)</td></tr>
+<tr class="memdesc:a0245bc02bfdeb704c710ee7a5a2fc247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes player input to update the menu state.  <a href="a01292.html#a0245bc02bfdeb704c710ee7a5a2fc247">More...</a><br /></td></tr>
+<tr class="separator:a0245bc02bfdeb704c710ee7a5a2fc247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab47e77d43baf0d91c3f5adbb6f9c1f3a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01292.html#ab47e77d43baf0d91c3f5adbb6f9c1f3a">render</a> (sf::RenderTarget &amp;target) const</td></tr>
+<tr class="memdesc:ab47e77d43baf0d91c3f5adbb6f9c1f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the menu to the given target.  <a href="a01292.html#ab47e77d43baf0d91c3f5adbb6f9c1f3a">More...</a><br /></td></tr>
+<tr class="separator:ab47e77d43baf0d91c3f5adbb6f9c1f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>The player menu for battles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00028">28</a> of file <a class="el" href="a00065_source.html">PlayerMenu.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a194cce29c8b3597d5dafa5d930b747ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a194cce29c8b3597d5dafa5d930b747ae">&#9670;&nbsp;</a></span>PlayerMenu()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::battle::view::PlayerMenu::PlayerMenu </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>canRun</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Player Menu. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">canRun</td><td>Whether or not to allow running </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00021">21</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ad3314a334dd6dfb023ef4786f60dbeae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3314a334dd6dfb023ef4786f60dbeae">&#9670;&nbsp;</a></span>beginTurn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::beginTurn </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets the menu to the turn start state. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00139">139</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a22f530a635e74c33bb444aaf4c039ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22f530a635e74c33bb444aaf4c039ae7">&#9670;&nbsp;</a></span>chooseMoveToForget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::chooseMoveToForget </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initiates the process of choosing the move to forget. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00168">168</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab82abfa86821a417cec2c281896a2003"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab82abfa86821a417cec2c281896a2003">&#9670;&nbsp;</a></span>choosePeoplemonMidTurn()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::choosePeoplemonMidTurn </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fromFaint</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>fromRevive</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Opens the menu to select a peoplemon to send out. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">fromFaint</td><td>True if the current peoplemon has fainted </td></tr>
+    <tr><td class="paramname">fromRevive</td><td>True if the eligible peoplemon must be fainted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00144">144</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0245bc02bfdeb704c710ee7a5a2fc247"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0245bc02bfdeb704c710ee7a5a2fc247">&#9670;&nbsp;</a></span>handleInput()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::handleInput </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01082.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a>&#160;</td>
+          <td class="paramname"><em>input</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ignoreDebounce</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Processes player input to update the menu state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">input</td><td>The control to handle </td></tr>
+    <tr><td class="paramname">ignoreDebounce</td><td>True to process always, false to rate limit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00183">183</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afca91b7d7b5318cb74670b16a87da5e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afca91b7d7b5318cb74670b16a87da5e9">&#9670;&nbsp;</a></span>ready()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::battle::view::PlayerMenu::ready </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns true when the player's choice has been made. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00173">173</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aecaf2b27ea1956d0ac0665f4df9e7963"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecaf2b27ea1956d0ac0665f4df9e7963">&#9670;&nbsp;</a></span>refresh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::refresh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Polls state from opened peoplemon or bag menu. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00117">117</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab47e77d43baf0d91c3f5adbb6f9c1f3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab47e77d43baf0d91c3f5adbb6f9c1f3a">&#9670;&nbsp;</a></span>render()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::render </td>
+          <td>(</td>
+          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Renders the menu to the given target. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The target to render to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00198">198</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a18c1310dcd92642c128b9b08f54b9680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c1310dcd92642c128b9b08f54b9680">&#9670;&nbsp;</a></span>selectedAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01072.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a> core::battle::view::PlayerMenu::selectedAction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The selected turn action. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00175">175</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acab5fdeda2a6d661f891a3560dd87d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acab5fdeda2a6d661f891a3560dd87d9f">&#9670;&nbsp;</a></span>selectedItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01057.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> core::battle::view::PlayerMenu::selectedItem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the selected item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00179">179</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae10abcbb9913b568c1a423011e22b8e9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae10abcbb9913b568c1a423011e22b8e9">&#9670;&nbsp;</a></span>selectedMove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::battle::view::PlayerMenu::selectedMove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the selected move index. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00177">177</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a431286ef573fbcef38f5ae0308a9aad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a431286ef573fbcef38f5ae0308a9aad1">&#9670;&nbsp;</a></span>selectedPeoplemon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int core::battle::view::PlayerMenu::selectedPeoplemon </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the selected peoplemon index. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00181">181</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a83a05ec247cee2d82cbfed633bab5940"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a05ec247cee2d82cbfed633bab5940">&#9670;&nbsp;</a></span>setPeoplemon()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::PlayerMenu::setPeoplemon </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01780.html">pplmn::BattlePeoplemon</a> &amp;&#160;</td>
+          <td class="paramname"><em>ppl</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the menu for the given peoplemon. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The index of the peoplemon in the team </td></tr>
+    <tr><td class="paramname">ppl</td><td>The peoplemon itself </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00599_source.html#l00078">78</a> of file <a class="el" href="a00599_source.html">PlayerMenu.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Battles/View/<a class="el" href="a00065_source.html">PlayerMenu.hpp</a></li>
+<li>src/Core/Battles/View/<a class="el" href="a00599_source.html">PlayerMenu.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

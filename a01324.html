@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::component::PathFinder Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,27 +66,137 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01075.html">component</a></li><li class="navelem"><a class="el" href="a01327.html">PlayerControlled</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01075.html">component</a></li><li class="navelem"><a class="el" href="a01324.html">PathFinder</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="a01321.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::PlayerControlled Member List</div>  </div>
+<div class="title">core::component::PathFinder Struct Reference<div class="ingroups"><a class="el" href="a01049.html">Core</a> &raquo; <a class="el" href="a01053.html">Components</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01327.html">core::component::PlayerControlled</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01327.html#ab1b91abc97ced56a36ac0dd099f68256">observe</a>(const bl::input::Actor &amp;, unsigned int ctrl, bl::input::DispatchType, bool) override</td><td class="entry"><a class="el" href="a01327.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01327.html#a3d4dc978d582996f23d703e490ad0d31">PlayerControlled</a>(system::Systems &amp;systems, Controllable &amp;controllable)</td><td class="entry"><a class="el" href="a01327.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01327.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>()</td><td class="entry"><a class="el" href="a01327.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01327.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>()</td><td class="entry"><a class="el" href="a01327.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01327.html#a3aa77115bf14ca40a94fab4bc848dc37">~PlayerControlled</a>()=default</td><td class="entry"><a class="el" href="a01327.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Component that dynamically navigates an entity to a specific tile. The entities <a class="el" href="a01304.html" title="Adding this component to an entity allows it to be controlled.">Controllable</a> component is locked so that only path finding controls it.  
+ <a href="a01324.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00092_source.html">PathFinder.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a19fdce70a4375d5672b1dba7262bbe62"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01324.html#a19fdce70a4375d5672b1dba7262bbe62">PathFinder</a> (const <a class="el" href="a01332.html">Position</a> &amp;dest)</td></tr>
+<tr class="memdesc:a19fdce70a4375d5672b1dba7262bbe62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Path Finder object.  <a href="a01324.html#a19fdce70a4375d5672b1dba7262bbe62">More...</a><br /></td></tr>
+<tr class="separator:a19fdce70a4375d5672b1dba7262bbe62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:ae8e8fef81b76eab7e41acb500f1e4d0a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01332.html">Position</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01324.html#ae8e8fef81b76eab7e41acb500f1e4d0a">destination</a></td></tr>
+<tr class="separator:ae8e8fef81b76eab7e41acb500f1e4d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e725d9c7eef9604acd7f06803b27a5d"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01332.html">Position</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01324.html#a6e725d9c7eef9604acd7f06803b27a5d">path</a></td></tr>
+<tr class="separator:a6e725d9c7eef9604acd7f06803b27a5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76a9a9f10c71f69347b056d14b7d3d8c"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01324.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a></td></tr>
+<tr class="separator:a76a9a9f10c71f69347b056d14b7d3d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Component that dynamically navigates an entity to a specific tile. The entities <a class="el" href="a01304.html" title="Adding this component to an entity allows it to be controlled.">Controllable</a> component is locked so that only path finding controls it. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00018">18</a> of file <a class="el" href="a00092_source.html">PathFinder.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a19fdce70a4375d5672b1dba7262bbe62"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19fdce70a4375d5672b1dba7262bbe62">&#9670;&nbsp;</a></span>PathFinder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::component::PathFinder::PathFinder </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01332.html">Position</a> &amp;&#160;</td>
+          <td class="paramname"><em>dest</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new Path Finder object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dest</td><td>The destination to navigate to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00024">24</a> of file <a class="el" href="a00092_source.html">PathFinder.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae8e8fef81b76eab7e41acb500f1e4d0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8e8fef81b76eab7e41acb500f1e4d0a">&#9670;&nbsp;</a></span>destination</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01332.html">Position</a> core::component::PathFinder::destination</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00028">28</a> of file <a class="el" href="a00092_source.html">PathFinder.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e725d9c7eef9604acd7f06803b27a5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e725d9c7eef9604acd7f06803b27a5d">&#9670;&nbsp;</a></span>path</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt;<a class="el" href="a01332.html">Position</a>&gt; core::component::PathFinder::path</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00029">29</a> of file <a class="el" href="a00092_source.html">PathFinder.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a76a9a9f10c71f69347b056d14b7d3d8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76a9a9f10c71f69347b056d14b7d3d8c">&#9670;&nbsp;</a></span>step</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int core::component::PathFinder::step</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00092_source.html#l00030">30</a> of file <a class="el" href="a00092_source.html">PathFinder.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Components/<a class="el" href="a00092_source.html">PathFinder.hpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

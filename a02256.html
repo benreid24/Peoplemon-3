@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: game::menu::BagItemButton Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,29 +66,376 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01096.html">game</a></li><li class="navelem"><a class="el" href="a01097.html">menu</a></li><li class="navelem"><a class="el" href="a02259.html">MoveInfoRow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01096.html">game</a></li><li class="navelem"><a class="el" href="a01097.html">menu</a></li><li class="navelem"><a class="el" href="a02256.html">BagItemButton</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="a02253.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::menu::MoveInfoRow Member List</div>  </div>
+<div class="title">game::menu::BagItemButton Class Reference<div class="ingroups"><a class="el" href="a01051.html">Game</a> &raquo; <a class="el" href="a01067.html">Menus</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02259.html">game::menu::MoveInfoRow</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02259.html#a469493702ad12c5896a79632c62a34dc">create</a>(core::pplmn::MoveId move)</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02259.html#a6a2704d25b5eabfabd89401aa0050703">doCreate</a>(bl::engine::Engine &amp;engine, bl::ecs::Entity parent) override</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02259.html#aa4735848f470c2d0cc5d9800ac3e8d43">doSceneAdd</a>(bl::rc::Overlay *overlay) override</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02259.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a>() override</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02259.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a>() const override</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02259.html#a3deb75bced1a5211a4803d556188672a">getSize</a>() const override</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02259.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a>()=default</td><td class="entry"><a class="el" href="a02259.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p>Represents a button for a quantity of items in the bag.  
+ <a href="a02256.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00482_source.html">BagItemButton.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::menu::BagItemButton:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02256.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a647ce4c55ccdb5aaf3779e5fa2870698"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a647ce4c55ccdb5aaf3779e5fa2870698">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02256.html">BagItemButton</a> &gt;</td></tr>
+<tr class="memdesc:a647ce4c55ccdb5aaf3779e5fa2870698"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the menu item.  <a href="a02256.html#a647ce4c55ccdb5aaf3779e5fa2870698">More...</a><br /></td></tr>
+<tr class="separator:a647ce4c55ccdb5aaf3779e5fa2870698"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ac5f9e331c0c5fce45cade33cc71490f6"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#ac5f9e331c0c5fce45cade33cc71490f6">~BagItemButton</a> ()=default</td></tr>
+<tr class="memdesc:ac5f9e331c0c5fce45cade33cc71490f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Bag Item Button object.  <a href="a02256.html#ac5f9e331c0c5fce45cade33cc71490f6">More...</a><br /></td></tr>
+<tr class="separator:ac5f9e331c0c5fce45cade33cc71490f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02ee0110be48a1e0f77368575fbbbcd6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a02ee0110be48a1e0f77368575fbbbcd6">update</a> (const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp;item)</td></tr>
+<tr class="memdesc:a02ee0110be48a1e0f77368575fbbbcd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the text labels from the given item.  <a href="a02256.html#a02ee0110be48a1e0f77368575fbbbcd6">More...</a><br /></td></tr>
+<tr class="separator:a02ee0110be48a1e0f77368575fbbbcd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75e4c310ca7995ff0f3b7e1462dfb196"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a75e4c310ca7995ff0f3b7e1462dfb196">getSize</a> () const override</td></tr>
+<tr class="memdesc:a75e4c310ca7995ff0f3b7e1462dfb196"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size the button takes up.  <a href="a02256.html#a75e4c310ca7995ff0f3b7e1462dfb196">More...</a><br /></td></tr>
+<tr class="separator:a75e4c310ca7995ff0f3b7e1462dfb196"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1f0452a79b23fd0298fd2b66b34bb9de"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a1f0452a79b23fd0298fd2b66b34bb9de">getItem</a> () const</td></tr>
+<tr class="memdesc:a1f0452a79b23fd0298fd2b66b34bb9de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the item this button is representing.  <a href="a02256.html#a1f0452a79b23fd0298fd2b66b34bb9de">More...</a><br /></td></tr>
+<tr class="separator:a1f0452a79b23fd0298fd2b66b34bb9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6bec2ab3f1796bb353f6e3095741c85d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02256.html#a647ce4c55ccdb5aaf3779e5fa2870698">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a6bec2ab3f1796bb353f6e3095741c85d">create</a> (const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp;item)</td></tr>
+<tr class="memdesc:a6bec2ab3f1796bb353f6e3095741c85d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new item button.  <a href="a02256.html#a6bec2ab3f1796bb353f6e3095741c85d">More...</a><br /></td></tr>
+<tr class="separator:a6bec2ab3f1796bb353f6e3095741c85d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a3587f5261f5a60fcbe91694e6a846508"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a3587f5261f5a60fcbe91694e6a846508">doCreate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a3587f5261f5a60fcbe91694e6a846508"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <a href="a02256.html#a3587f5261f5a60fcbe91694e6a846508">More...</a><br /></td></tr>
+<tr class="separator:a3587f5261f5a60fcbe91694e6a846508"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a54d312be9aa0e4e9995e4066acafa51f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#a54d312be9aa0e4e9995e4066acafa51f">doSceneAdd</a> (bl::rc::Overlay *overlay) override</td></tr>
+<tr class="memdesc:a54d312be9aa0e4e9995e4066acafa51f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the overlay.  <a href="a02256.html#a54d312be9aa0e4e9995e4066acafa51f">More...</a><br /></td></tr>
+<tr class="separator:a54d312be9aa0e4e9995e4066acafa51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac42952c60dcc52ea4d0894176cf622d8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#ac42952c60dcc52ea4d0894176cf622d8">doSceneRemove</a> () override</td></tr>
+<tr class="memdesc:ac42952c60dcc52ea4d0894176cf622d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the overlay.  <a href="a02256.html#ac42952c60dcc52ea4d0894176cf622d8">More...</a><br /></td></tr>
+<tr class="separator:ac42952c60dcc52ea4d0894176cf622d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc85d355ca6a8a06a6eaea4e39f11c2b"><td class="memItemLeft" align="right" valign="top">virtual bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02256.html#acc85d355ca6a8a06a6eaea4e39f11c2b">getEntity</a> () const override</td></tr>
+<tr class="memdesc:acc85d355ca6a8a06a6eaea4e39f11c2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <a href="a02256.html#acc85d355ca6a8a06a6eaea4e39f11c2b">More...</a><br /></td></tr>
+<tr class="separator:acc85d355ca6a8a06a6eaea4e39f11c2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a button for a quantity of items in the bag. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00023">23</a> of file <a class="el" href="a00482_source.html">BagItemButton.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a647ce4c55ccdb5aaf3779e5fa2870698"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647ce4c55ccdb5aaf3779e5fa2870698">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02256.html#a647ce4c55ccdb5aaf3779e5fa2870698">game::menu::BagItemButton::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02256.html">BagItemButton</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the menu item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00026">26</a> of file <a class="el" href="a00482_source.html">BagItemButton.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ac5f9e331c0c5fce45cade33cc71490f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5f9e331c0c5fce45cade33cc71490f6">&#9670;&nbsp;</a></span>~BagItemButton()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual game::menu::BagItemButton::~BagItemButton </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Destroy the Bag Item Button object. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6bec2ab3f1796bb353f6e3095741c85d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bec2ab3f1796bb353f6e3095741c85d">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02256.html#a647ce4c55ccdb5aaf3779e5fa2870698">BagItemButton::Ptr</a> game::menu::BagItemButton::create </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new item button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">item</td><td>The item to populate with </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The created item </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00011">11</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3587f5261f5a60fcbe91694e6a846508"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3587f5261f5a60fcbe91694e6a846508">&#9670;&nbsp;</a></span>doCreate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::BagItemButton::doCreate </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00053">53</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a54d312be9aa0e4e9995e4066acafa51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a54d312be9aa0e4e9995e4066acafa51f">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::BagItemButton::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::Overlay *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be added to the overlay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The overlay to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00067">67</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac42952c60dcc52ea4d0894176cf622d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac42952c60dcc52ea4d0894176cf622d8">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::BagItemButton::doSceneRemove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be removed from the overlay. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00073">73</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acc85d355ca6a8a06a6eaea4e39f11c2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc85d355ca6a8a06a6eaea4e39f11c2b">&#9670;&nbsp;</a></span>getEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::Entity game::menu::BagItemButton::getEntity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the entity (or top level entity) of the item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00075">75</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1f0452a79b23fd0298fd2b66b34bb9de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f0452a79b23fd0298fd2b66b34bb9de">&#9670;&nbsp;</a></span>getItem()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp; game::menu::BagItemButton::getItem </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the item this button is representing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00051">51</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a75e4c310ca7995ff0f3b7e1462dfb196"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75e4c310ca7995ff0f3b7e1462dfb196">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 game::menu::BagItemButton::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the size the button takes up. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00077">77</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a02ee0110be48a1e0f77368575fbbbcd6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02ee0110be48a1e0f77368575fbbbcd6">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::BagItemButton::update </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01852.html">core::player::Bag::Item</a> &amp;&#160;</td>
+          <td class="paramname"><em>item</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the text labels from the given item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00983_source.html#l00020">20</a> of file <a class="el" href="a00983_source.html">BagItemButton.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Game/Menus/<a class="el" href="a00482_source.html">BagItemButton.hpp</a></li>
+<li>src/Game/Menus/<a class="el" href="a00983_source.html">BagItemButton.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

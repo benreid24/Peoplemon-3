@@ -83,11 +83,11 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>script</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01895.html#abed200a4b5f28bb2668773f522d94c9f">   10</a></span>&#160;<a class="code" href="a01895.html#abed200a4b5f28bb2668773f522d94c9f">DebugScriptContext::DebugScriptContext</a>(<a class="code" href="a02007.html">system::Systems</a>&amp; s)</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01896.html#abed200a4b5f28bb2668773f522d94c9f">   10</a></span>&#160;<a class="code" href="a01896.html#abed200a4b5f28bb2668773f522d94c9f">DebugScriptContext::DebugScriptContext</a>(<a class="code" href="a02008.html">system::Systems</a>&amp; s)</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: systems(s) {}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01895.html#ad39ea9fa1d463137f018c559edc5b57c">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01895.html#ad39ea9fa1d463137f018c559edc5b57c">DebugScriptContext::addCustomSymbols</a>(bl::script::SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a01887.html#ab82e28a7c9987d205a5c929e04bcdfee">BaseFunctions::addDefaults</a>(table, systems);</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01896.html#ad39ea9fa1d463137f018c559edc5b57c">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01896.html#ad39ea9fa1d463137f018c559edc5b57c">DebugScriptContext::addCustomSymbols</a>(bl::script::SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a01888.html#ab82e28a7c9987d205a5c929e04bcdfee">BaseFunctions::addDefaults</a>(table, systems);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace script</span></div>
@@ -95,16 +95,16 @@ $(function() {
 <div class="ttc" id="aa00290_html"><div class="ttname"><a href="a00290.html">BaseFunctions.hpp</a></div></div>
 <div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">DebugScriptContext.hpp</a></div></div>
 <div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01887_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01887.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
-<div class="ttc" id="aa01895_html_abed200a4b5f28bb2668773f522d94c9f"><div class="ttname"><a href="a01895.html#abed200a4b5f28bb2668773f522d94c9f">core::script::DebugScriptContext::DebugScriptContext</a></div><div class="ttdeci">DebugScriptContext(system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Debug Script Context.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00010">DebugScriptContext.cpp:10</a></div></div>
-<div class="ttc" id="aa01895_html_ad39ea9fa1d463137f018c559edc5b57c"><div class="ttname"><a href="a01895.html#ad39ea9fa1d463137f018c559edc5b57c">core::script::DebugScriptContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00013">DebugScriptContext.cpp:13</a></div></div>
-<div class="ttc" id="aa02007_html"><div class="ttname"><a href="a02007.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01888_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01888.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
+<div class="ttc" id="aa01896_html_abed200a4b5f28bb2668773f522d94c9f"><div class="ttname"><a href="a01896.html#abed200a4b5f28bb2668773f522d94c9f">core::script::DebugScriptContext::DebugScriptContext</a></div><div class="ttdeci">DebugScriptContext(system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Debug Script Context.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00010">DebugScriptContext.cpp:10</a></div></div>
+<div class="ttc" id="aa01896_html_ad39ea9fa1d463137f018c559edc5b57c"><div class="ttname"><a href="a01896.html#ad39ea9fa1d463137f018c559edc5b57c">core::script::DebugScriptContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00013">DebugScriptContext.cpp:13</a></div></div>
+<div class="ttc" id="aa02008_html"><div class="ttname"><a href="a02008.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

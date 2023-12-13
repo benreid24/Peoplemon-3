@@ -77,17 +77,17 @@ $(function() {
 <a href="a00107.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_STANDINGBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_STANDINGBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02921.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02917.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01371.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01371.html">StandingBehavior</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01372.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01372.html">StandingBehavior</a> {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a01371.html#af61e892602a954bdb55121e64111a3d0">StandingBehavior</a>(<a class="code" href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> faceDir);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a01372.html#af61e892602a954bdb55121e64111a3d0">StandingBehavior</a>(<a class="code" href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> faceDir);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01371.html#a89f199e60f44f1e782b1db45eac54947">update</a>(<a class="code" href="a01331.html">Position</a>&amp; position, <a class="code" href="a01303.html">Controllable</a>&amp; controller);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01372.html#a89f199e60f44f1e782b1db45eac54947">update</a>(<a class="code" href="a01332.html">Position</a>&amp; position, <a class="code" href="a01304.html">Controllable</a>&amp; controller);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir;</div>
@@ -98,18 +98,18 @@ $(function() {
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa01053_html_ga0192bf5ba1eccc191c8ef1187ce66d69"><div class="ttname"><a href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00026">Direction.hpp:26</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01303_html"><div class="ttname"><a href="a01303.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02921_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01331_html"><div class="ttname"><a href="a01331.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02945_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01371_html"><div class="ttname"><a href="a01371.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
-<div class="ttc" id="aa01371_html_a89f199e60f44f1e782b1db45eac54947"><div class="ttname"><a href="a01371.html#a89f199e60f44f1e782b1db45eac54947">core::component::StandingBehavior::update</a></div><div class="ttdeci">void update(Position &amp;position, Controllable &amp;controller)</div><div class="ttdoc">Ensures the managed entity is facing the required position.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00010">StandingBehavior.cpp:10</a></div></div>
-<div class="ttc" id="aa01371_html_af61e892602a954bdb55121e64111a3d0"><div class="ttname"><a href="a01371.html#af61e892602a954bdb55121e64111a3d0">core::component::StandingBehavior::StandingBehavior</a></div><div class="ttdeci">StandingBehavior(Direction faceDir)</div><div class="ttdoc">Construct a new Standing Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00007">StandingBehavior.cpp:7</a></div></div>
-<div class="ttc" id="aa02921_html"><div class="ttname"><a href="a02921.html">Controllable.hpp</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01304_html"><div class="ttname"><a href="a01304.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02917_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
+<div class="ttc" id="aa01372_html"><div class="ttname"><a href="a01372.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
+<div class="ttc" id="aa01372_html_a89f199e60f44f1e782b1db45eac54947"><div class="ttname"><a href="a01372.html#a89f199e60f44f1e782b1db45eac54947">core::component::StandingBehavior::update</a></div><div class="ttdeci">void update(Position &amp;position, Controllable &amp;controller)</div><div class="ttdoc">Ensures the managed entity is facing the required position.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00010">StandingBehavior.cpp:10</a></div></div>
+<div class="ttc" id="aa01372_html_af61e892602a954bdb55121e64111a3d0"><div class="ttname"><a href="a01372.html#af61e892602a954bdb55121e64111a3d0">core::component::StandingBehavior::StandingBehavior</a></div><div class="ttdeci">StandingBehavior(Direction faceDir)</div><div class="ttdoc">Construct a new Standing Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00007">StandingBehavior.cpp:7</a></div></div>
+<div class="ttc" id="aa02917_html"><div class="ttname"><a href="a02917.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

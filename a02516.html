@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::EditMap::AddSpawnAction Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,29 +66,242 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02071.html">EditMap</a></li><li class="navelem"><a class="el" href="a02519.html">RotateSpawnAction</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02072.html">EditMap</a></li><li class="navelem"><a class="el" href="a02516.html">AddSpawnAction</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="a02513.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::EditMap::RotateSpawnAction Member List</div>  </div>
+<div class="title">editor::component::EditMap::AddSpawnAction Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02519.html#ad60a695b3941f469793b5e078e6bdaab">apply</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02519.html#a23d224c818ec82e7006d063988cd47d3">create</a>(unsigned int id)</td><td class="entry"><a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02519.html#af3363a6ae27d3f084e34eb2381549054">description</a>() const override</td><td class="entry"><a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>Ptr</b> typedef (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02075.html">editor::component::EditMap::Action</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02519.html#a7bc166afb420c28477bb099e29f447aa">undo</a>(EditMap &amp;map) override</td><td class="entry"><a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>~Action</b>()=default (defined in <b>editor::component::EditMap::Action</b>)</td><td class="entry"><a class="el" href="a02075.html">editor::component::EditMap::Action</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02519.html#a69da737a9ade3b4462e6e1c69c82485d">~RotateSpawnAction</a>()=default</td><td class="entry"><a class="el" href="a02519.html">editor::component::EditMap::RotateSpawnAction</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00896_source.html">MapActions.hpp</a>&gt;</code></p>
+
+<p>Inherits editor::component::EditMap::Action.</p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a76cacf740775240b7342ece7cb663a59"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><b>Ptr</b> = std::shared_ptr&lt; Action &gt;</td></tr>
+<tr class="separator:a76cacf740775240b7342ece7cb663a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a4740c0cff9b7df68d0eb6a97f638ec23"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02516.html#a4740c0cff9b7df68d0eb6a97f638ec23">~AddSpawnAction</a> ()=default</td></tr>
+<tr class="separator:a4740c0cff9b7df68d0eb6a97f638ec23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af556b8b7f9d1e9dc2625f86b4db27b29"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02516.html#af556b8b7f9d1e9dc2625f86b4db27b29">apply</a> (<a class="el" href="a02072.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:af556b8b7f9d1e9dc2625f86b4db27b29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a884f46fe005aa34f6a0ed33224dc19a6"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02516.html#a884f46fe005aa34f6a0ed33224dc19a6">undo</a> (<a class="el" href="a02072.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:a884f46fe005aa34f6a0ed33224dc19a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acae6ba7c40b5d2cc29aaf28fe75f5b94"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02516.html#acae6ba7c40b5d2cc29aaf28fe75f5b94">description</a> () const override</td></tr>
+<tr class="separator:acae6ba7c40b5d2cc29aaf28fe75f5b94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a0e960d7a8a91d1e532edec8b14cfb06e"><td class="memItemLeft" align="right" valign="top">static Action::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02516.html#a0e960d7a8a91d1e532edec8b14cfb06e">create</a> (unsigned int lvl, const sf::Vector2i &amp;pos, unsigned int id, <a class="el" href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a> dir)</td></tr>
+<tr class="separator:a0e960d7a8a91d1e532edec8b14cfb06e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00896_source.html#l00410">410</a> of file <a class="el" href="a00896_source.html">MapActions.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a76cacf740775240b7342ece7cb663a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76cacf740775240b7342ece7cb663a59">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">using editor::component::EditMap::Action::Ptr =  std::shared_ptr&lt;Action&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00374_source.html#l00649">649</a> of file <a class="el" href="a00374_source.html">EditMap.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a4740c0cff9b7df68d0eb6a97f638ec23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4740c0cff9b7df68d0eb6a97f638ec23">&#9670;&nbsp;</a></span>~AddSpawnAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual editor::component::EditMap::AddSpawnAction::~AddSpawnAction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="af556b8b7f9d1e9dc2625f86b4db27b29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af556b8b7f9d1e9dc2625f86b4db27b29">&#9670;&nbsp;</a></span>apply()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool editor::component::EditMap::AddSpawnAction::apply </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02072.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00989">989</a> of file <a class="el" href="a00893_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0e960d7a8a91d1e532edec8b14cfb06e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e960d7a8a91d1e532edec8b14cfb06e">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">EditMap::Action::Ptr editor::component::EditMap::AddSpawnAction::create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>lvl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a>&#160;</td>
+          <td class="paramname"><em>dir</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00976">976</a> of file <a class="el" href="a00893_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acae6ba7c40b5d2cc29aaf28fe75f5b94"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acae6ba7c40b5d2cc29aaf28fe75f5b94">&#9670;&nbsp;</a></span>description()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * editor::component::EditMap::AddSpawnAction::description </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00999">999</a> of file <a class="el" href="a00893_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a884f46fe005aa34f6a0ed33224dc19a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a884f46fe005aa34f6a0ed33224dc19a6">&#9670;&nbsp;</a></span>undo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool editor::component::EditMap::AddSpawnAction::undo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02072.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00893_source.html#l00994">994</a> of file <a class="el" href="a00893_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/Editor/Components/<a class="el" href="a00896_source.html">MapActions.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00893_source.html">MapActions.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -85,8 +85,8 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01090.html">    9</a></span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01879.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01879.html">PeoplemonBundleHandler</a> : <span class="keyword">public</span> bl::resource::bundle::FileHandler {</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01879.html#aecd68887e0e4f7ce9a453976d9cf9b45">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01879.html#aecd68887e0e4f7ce9a453976d9cf9b45">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01880.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01880.html">PeoplemonBundleHandler</a> : <span class="keyword">public</span> bl::resource::bundle::FileHandler {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01880.html#aecd68887e0e4f7ce9a453976d9cf9b45">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01880.html#aecd68887e0e4f7ce9a453976d9cf9b45">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                             bl::resource::bundle::FileHandlerContext&amp; context)<span class="keyword"> override </span>{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        T obj;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (!bl::resource::ResourceManager&lt;T&gt;::initializeExisting(path, obj)) {</div>
@@ -107,14 +107,14 @@ $(function() {
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01879_html"><div class="ttname"><a href="a01879.html">core::res::PeoplemonBundleHandler</a></div><div class="ttdoc">Generic handler for peoplemon files when being bundled. Performs format conversion and registers depe...</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00019">BundleHandlers.hpp:19</a></div></div>
-<div class="ttc" id="aa01879_html_aecd68887e0e4f7ce9a453976d9cf9b45"><div class="ttname"><a href="a01879.html#aecd68887e0e4f7ce9a453976d9cf9b45">core::res::PeoplemonBundleHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, bl::resource::bundle::FileHandlerContext &amp;context) override</div><div class="ttdoc">Processes the given resource file to bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00028">BundleHandlers.hpp:28</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01880_html"><div class="ttname"><a href="a01880.html">core::res::PeoplemonBundleHandler</a></div><div class="ttdoc">Generic handler for peoplemon files when being bundled. Performs format conversion and registers depe...</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00019">BundleHandlers.hpp:19</a></div></div>
+<div class="ttc" id="aa01880_html_aecd68887e0e4f7ce9a453976d9cf9b45"><div class="ttname"><a href="a01880.html#aecd68887e0e4f7ce9a453976d9cf9b45">core::res::PeoplemonBundleHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, bl::resource::bundle::FileHandlerContext &amp;context) override</div><div class="ttdoc">Processes the given resource file to bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00028">BundleHandlers.hpp:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

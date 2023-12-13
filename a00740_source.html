@@ -80,12 +80,12 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>pplmn</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01783.html#ae6b86e88dd72f23fbef3bc83a6052423">    7</a></span>&#160;<a class="code" href="a01783.html#ae6b86e88dd72f23fbef3bc83a6052423">BattleStats::BattleStats</a>(<span class="keywordtype">bool</span> z)</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01784.html#ae6b86e88dd72f23fbef3bc83a6052423">    7</a></span>&#160;<a class="code" href="a01784.html#ae6b86e88dd72f23fbef3bc83a6052423">BattleStats::BattleStats</a>(<span class="keywordtype">bool</span> z)</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: acc(z ? 0 : 100)</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, evade(z ? 0 : 100)</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, crit(z ? 0 : 6) {}</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01783.html#a7294c090a4e9e6803c2d0cef6b63b693">   12</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01783.html#a7294c090a4e9e6803c2d0cef6b63b693">BattleStats::getAccuracyMultiplier</a>(<span class="keywordtype">int</span> stage) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01784.html#a7294c090a4e9e6803c2d0cef6b63b693">   12</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01784.html#a7294c090a4e9e6803c2d0cef6b63b693">BattleStats::getAccuracyMultiplier</a>(<span class="keywordtype">int</span> stage) {</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">switch</span> (stage) {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">case</span> -6:</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> 0.33f;</div>
@@ -120,14 +120,14 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace pplmn</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aa00227_html"><div class="ttname"><a href="a00227.html">BattleStats.hpp</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01783_html_a7294c090a4e9e6803c2d0cef6b63b693"><div class="ttname"><a href="a01783.html#a7294c090a4e9e6803c2d0cef6b63b693">core::pplmn::BattleStats::getAccuracyMultiplier</a></div><div class="ttdeci">static float getAccuracyMultiplier(int adjustedStage)</div><div class="ttdoc">Returns the accuracy multiplier for a move hitting.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00012">BattleStats.cpp:12</a></div></div>
-<div class="ttc" id="aa01783_html_ae6b86e88dd72f23fbef3bc83a6052423"><div class="ttname"><a href="a01783.html#ae6b86e88dd72f23fbef3bc83a6052423">core::pplmn::BattleStats::BattleStats</a></div><div class="ttdeci">BattleStats(bool zero)</div><div class="ttdoc">Initializes all stats to 0 or to their defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00007">BattleStats.cpp:7</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01784_html_a7294c090a4e9e6803c2d0cef6b63b693"><div class="ttname"><a href="a01784.html#a7294c090a4e9e6803c2d0cef6b63b693">core::pplmn::BattleStats::getAccuracyMultiplier</a></div><div class="ttdeci">static float getAccuracyMultiplier(int adjustedStage)</div><div class="ttdoc">Returns the accuracy multiplier for a move hitting.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00012">BattleStats.cpp:12</a></div></div>
+<div class="ttc" id="aa01784_html_ae6b86e88dd72f23fbef3bc83a6052423"><div class="ttname"><a href="a01784.html#ae6b86e88dd72f23fbef3bc83a6052423">core::pplmn::BattleStats::BattleStats</a></div><div class="ttdeci">BattleStats(bool zero)</div><div class="ttdoc">Initializes all stats to 0 or to their defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00007">BattleStats.cpp:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

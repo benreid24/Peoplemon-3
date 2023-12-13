@@ -85,56 +85,55 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02259.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02259.html">MoveInfoRow</a> : <span class="keyword">public</span> bl::menu::Item {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02260.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02260.html">MoveInfoRow</a> : <span class="keyword">public</span> bl::menu::Item {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> bl::menu::Item::Ptr <a class="code" href="a02259.html#a469493702ad12c5896a79632c62a34dc">create</a>(<a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> bl::menu::Item::Ptr <a class="code" href="a02260.html#a469493702ad12c5896a79632c62a34dc">create</a>(<a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02259.html#a8c7958db980a291501c008ccff096839">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02259.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02260.html#a8c7958db980a291501c008ccff096839">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02260.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02259.html#a3deb75bced1a5211a4803d556188672a">getSize</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02260.html#a3deb75bced1a5211a4803d556188672a">getSize</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> bl::com::Transform2D&amp; <a class="code" href="a02259.html#a6a2704d25b5eabfabd89401aa0050703">doCreate</a>(bl::engine::Engine&amp; engine,</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                                           bl::ecs::Entity parent) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02259.html#aa4735848f470c2d0cc5d9800ac3e8d43">doSceneAdd</a>(bl::rc::Overlay* overlay) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02259.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02259.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    bl::rc::res::TextureRef activeBgndTxtr;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    bl::gfx::Sprite background;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    bl::gfx::Text name;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a02259.html">MoveInfoRow</a>(<a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> makeActive();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> makeInactive();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#ad4a7c4788cc6adb6c0483451fc22e47b">doCreate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#aa4735848f470c2d0cc5d9800ac3e8d43">doSceneAdd</a>(bl::rc::Overlay* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02260.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    bl::rc::res::TextureRef activeBgndTxtr;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    bl::gfx::Text name;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a02260.html">MoveInfoRow</a>(<a class="code" href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> makeActive();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> makeInactive();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace game</span></div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">MoveId.hpp</a></div></div>
 <div class="ttc" id="aa01059_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01059.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">MoveId.hpp:16</a></div></div>
 <div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02259_html"><div class="ttname"><a href="a02259.html">game::menu::MoveInfoRow</a></div><div class="ttdoc">Menu row item for moves on the peoplemon info screen.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00017">MoveInfoRow.hpp:17</a></div></div>
-<div class="ttc" id="aa02259_html_a27ee44767463846cb3dcd2aebded2701"><div class="ttname"><a href="a02259.html#a27ee44767463846cb3dcd2aebded2701">game::menu::MoveInfoRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00051">MoveInfoRow.cpp:51</a></div></div>
-<div class="ttc" id="aa02259_html_a3deb75bced1a5211a4803d556188672a"><div class="ttname"><a href="a02259.html#a3deb75bced1a5211a4803d556188672a">game::menu::MoveInfoRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size of the menu item.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00021">MoveInfoRow.cpp:21</a></div></div>
-<div class="ttc" id="aa02259_html_a469493702ad12c5896a79632c62a34dc"><div class="ttname"><a href="a02259.html#a469493702ad12c5896a79632c62a34dc">game::menu::MoveInfoRow::create</a></div><div class="ttdeci">static bl::menu::Item::Ptr create(core::pplmn::MoveId move)</div><div class="ttdoc">Create a new move row.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00011">MoveInfoRow.cpp:11</a></div></div>
-<div class="ttc" id="aa02259_html_a6a2704d25b5eabfabd89401aa0050703"><div class="ttname"><a href="a02259.html#a6a2704d25b5eabfabd89401aa0050703">game::menu::MoveInfoRow::doCreate</a></div><div class="ttdeci">virtual bl::com::Transform2D &amp; doCreate(bl::engine::Engine &amp;engine, bl::ecs::Entity parent) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00023">MoveInfoRow.cpp:23</a></div></div>
-<div class="ttc" id="aa02259_html_a8c7958db980a291501c008ccff096839"><div class="ttname"><a href="a02259.html#a8c7958db980a291501c008ccff096839">game::menu::MoveInfoRow::~MoveInfoRow</a></div><div class="ttdeci">virtual ~MoveInfoRow()=default</div><div class="ttdoc">Destroy the Move Info Row object.</div></div>
-<div class="ttc" id="aa02259_html_a8fe3c39ecae3b00a6277c6b62e6646fb"><div class="ttname"><a href="a02259.html#a8fe3c39ecae3b00a6277c6b62e6646fb">game::menu::MoveInfoRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00053">MoveInfoRow.cpp:53</a></div></div>
-<div class="ttc" id="aa02259_html_aa4735848f470c2d0cc5d9800ac3e8d43"><div class="ttname"><a href="a02259.html#aa4735848f470c2d0cc5d9800ac3e8d43">game::menu::MoveInfoRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Overlay *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00046">MoveInfoRow.cpp:46</a></div></div>
+<div class="ttc" id="aa02260_html"><div class="ttname"><a href="a02260.html">game::menu::MoveInfoRow</a></div><div class="ttdoc">Menu row item for moves on the peoplemon info screen.</div><div class="ttdef"><b>Definition:</b> <a href="a00485_source.html#l00017">MoveInfoRow.hpp:17</a></div></div>
+<div class="ttc" id="aa02260_html_a27ee44767463846cb3dcd2aebded2701"><div class="ttname"><a href="a02260.html#a27ee44767463846cb3dcd2aebded2701">game::menu::MoveInfoRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00048">MoveInfoRow.cpp:48</a></div></div>
+<div class="ttc" id="aa02260_html_a3deb75bced1a5211a4803d556188672a"><div class="ttname"><a href="a02260.html#a3deb75bced1a5211a4803d556188672a">game::menu::MoveInfoRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size of the menu item.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00021">MoveInfoRow.cpp:21</a></div></div>
+<div class="ttc" id="aa02260_html_a469493702ad12c5896a79632c62a34dc"><div class="ttname"><a href="a02260.html#a469493702ad12c5896a79632c62a34dc">game::menu::MoveInfoRow::create</a></div><div class="ttdeci">static bl::menu::Item::Ptr create(core::pplmn::MoveId move)</div><div class="ttdoc">Create a new move row.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00011">MoveInfoRow.cpp:11</a></div></div>
+<div class="ttc" id="aa02260_html_a8c7958db980a291501c008ccff096839"><div class="ttname"><a href="a02260.html#a8c7958db980a291501c008ccff096839">game::menu::MoveInfoRow::~MoveInfoRow</a></div><div class="ttdeci">virtual ~MoveInfoRow()=default</div><div class="ttdoc">Destroy the Move Info Row object.</div></div>
+<div class="ttc" id="aa02260_html_a8fe3c39ecae3b00a6277c6b62e6646fb"><div class="ttname"><a href="a02260.html#a8fe3c39ecae3b00a6277c6b62e6646fb">game::menu::MoveInfoRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00050">MoveInfoRow.cpp:50</a></div></div>
+<div class="ttc" id="aa02260_html_aa4735848f470c2d0cc5d9800ac3e8d43"><div class="ttname"><a href="a02260.html#aa4735848f470c2d0cc5d9800ac3e8d43">game::menu::MoveInfoRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Overlay *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00043">MoveInfoRow.cpp:43</a></div></div>
+<div class="ttc" id="aa02260_html_ad4a7c4788cc6adb6c0483451fc22e47b"><div class="ttname"><a href="a02260.html#ad4a7c4788cc6adb6c0483451fc22e47b">game::menu::MoveInfoRow::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00023">MoveInfoRow.cpp:23</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

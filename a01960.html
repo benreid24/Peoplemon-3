@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: core::system::hud::ScreenKeyboard Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,35 +66,311 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01070.html">system</a></li><li class="navelem"><a class="el" href="a01963.html">HUD</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01070.html">system</a></li><li class="navelem"><a class="el" href="a01092.html">hud</a></li><li class="navelem"><a class="el" href="a01960.html">ScreenKeyboard</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a01957.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::system::HUD Member List</div>  </div>
+<div class="title">core::system::hud::ScreenKeyboard Class Reference<div class="ingroups"><a class="el" href="a01049.html">Core</a> &raquo; <a class="el" href="a01063.html">HUD</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01963.html">core::system::HUD</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a> typedef</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#af51de855fd4b7c575f4bb817d402e888">dismissStickyMessage</a>(bool ignoreGhostWrite=true)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a000fc6be7abcfe3e038a150e62ce9612">displayEntryCard</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(const std::string &amp;message, const Callback &amp;cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a8dcef55abad4de6f091926fb3b7b60ee">displayStickyMessage</a>(const std::string &amp;message, bool ghostWrite, const Callback &amp;cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#a915330b9d11ff6dabd5d65e473c0255b">getInputString</a>(const std::string &amp;prompt, unsigned int minLen, unsigned int maxLen, const Callback &amp;cb)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a3d17fd885fe2fd65a0b076ccc7146802">getQty</a>(const std::string &amp;prompt, int minQty, int maxQty, const QtyCallback &amp;cb)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#a0227b0661b12504a4a3969c0c904fe26">hideEntryCard</a>()</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#aa1052b3650984bc4bb29975e87ffcea9">HUD</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#a4861aaeecc1a3b97b0397b25437301f3">promptUser</a>(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, const Callback &amp;cb)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a6469956f3d145c35c221c90ef008a57d">QtyCallback</a> typedef</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01963.html#a2d056532e298b8f50839ef15cfa1abe4">render</a>(sf::RenderTarget &amp;target, float lag)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01963.html#a4f1d21a8201eacf4ae9325fa8db4330e">update</a>(float dt)</td><td class="entry"><a class="el" href="a01963.html">core::system::HUD</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>A screen keyboard for getting arbitrary user input.  
+ <a href="a01960.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00323_source.html">ScreenKeyboard.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a000a2c5ffd2c8dde2599d2e9e34da872"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#a000a2c5ffd2c8dde2599d2e9e34da872">OnSubmit</a> = std::function&lt; void(const std::string &amp;)&gt;</td></tr>
+<tr class="separator:a000a2c5ffd2c8dde2599d2e9e34da872"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:ace27bbb977260d4a4c328b1dafa35f6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#ace27bbb977260d4a4c328b1dafa35f6d">ScreenKeyboard</a> (bl::engine::Engine &amp;engine, const <a class="el" href="a01960.html#a000a2c5ffd2c8dde2599d2e9e34da872">OnSubmit</a> &amp;onSubmit)</td></tr>
+<tr class="memdesc:ace27bbb977260d4a4c328b1dafa35f6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Screen Keyboard.  <a href="a01960.html#ace27bbb977260d4a4c328b1dafa35f6d">More...</a><br /></td></tr>
+<tr class="separator:ace27bbb977260d4a4c328b1dafa35f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">~ScreenKeyboard</a> ()</td></tr>
+<tr class="memdesc:afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the keyboard if still subscribed.  <a href="a01960.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">More...</a><br /></td></tr>
+<tr class="separator:afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ca52d3385438b2c8bb5513d2a774cdc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#a1ca52d3385438b2c8bb5513d2a774cdc">start</a> (unsigned int minLen=0, unsigned int maxLen=16)</td></tr>
+<tr class="memdesc:a1ca52d3385438b2c8bb5513d2a774cdc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the keyboard to the event bus.  <a href="a01960.html#a1ca52d3385438b2c8bb5513d2a774cdc">More...</a><br /></td></tr>
+<tr class="separator:a1ca52d3385438b2c8bb5513d2a774cdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa59b54eba02acafd30bc6bd77bfa7ad1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#aa59b54eba02acafd30bc6bd77bfa7ad1">stop</a> ()</td></tr>
+<tr class="memdesc:aa59b54eba02acafd30bc6bd77bfa7ad1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the keyboard from the event bus.  <a href="a01960.html#aa59b54eba02acafd30bc6bd77bfa7ad1">More...</a><br /></td></tr>
+<tr class="separator:aa59b54eba02acafd30bc6bd77bfa7ad1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57cd989e29d2d8e5aad4a7bee8635e89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#a57cd989e29d2d8e5aad4a7bee8635e89">setPosition</a> (const sf::Vector2f &amp;position)</td></tr>
+<tr class="memdesc:a57cd989e29d2d8e5aad4a7bee8635e89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the position of the keyboard. The default is (??)  <a href="a01960.html#a57cd989e29d2d8e5aad4a7bee8635e89">More...</a><br /></td></tr>
+<tr class="separator:a57cd989e29d2d8e5aad4a7bee8635e89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc78ba18cf213cb9159c214d4973fe03"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#afc78ba18cf213cb9159c214d4973fe03">value</a> () const</td></tr>
+<tr class="memdesc:afc78ba18cf213cb9159c214d4973fe03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current input value.  <a href="a01960.html#afc78ba18cf213cb9159c214d4973fe03">More...</a><br /></td></tr>
+<tr class="separator:afc78ba18cf213cb9159c214d4973fe03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15fbb1e57df6c799d37a637e153eeb2a"><td class="memItemLeft" align="right" valign="top">sf::Vector2f&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#a15fbb1e57df6c799d37a637e153eeb2a">getSize</a> () const</td></tr>
+<tr class="memdesc:a15fbb1e57df6c799d37a637e153eeb2a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the screen keyboard.  <a href="a01960.html#a15fbb1e57df6c799d37a637e153eeb2a">More...</a><br /></td></tr>
+<tr class="separator:a15fbb1e57df6c799d37a637e153eeb2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53fd26fa824e285bc6d5776150b70ca2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01960.html#a53fd26fa824e285bc6d5776150b70ca2">process</a> (unsigned int ctrl, bool ignoreDebounce)</td></tr>
+<tr class="memdesc:a53fd26fa824e285bc6d5776150b70ca2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handles player input.  <a href="a01960.html#a53fd26fa824e285bc6d5776150b70ca2">More...</a><br /></td></tr>
+<tr class="separator:a53fd26fa824e285bc6d5776150b70ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A screen keyboard for getting arbitrary user input. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00027">27</a> of file <a class="el" href="a00323_source.html">ScreenKeyboard.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a000a2c5ffd2c8dde2599d2e9e34da872"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a000a2c5ffd2c8dde2599d2e9e34da872">&#9670;&nbsp;</a></span>OnSubmit</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01960.html#a000a2c5ffd2c8dde2599d2e9e34da872">core::system::hud::ScreenKeyboard::OnSubmit</a> =  std::function&lt;void(const std::string&amp;)&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00323_source.html#l00029">29</a> of file <a class="el" href="a00323_source.html">ScreenKeyboard.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ace27bbb977260d4a4c328b1dafa35f6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace27bbb977260d4a4c328b1dafa35f6d">&#9670;&nbsp;</a></span>ScreenKeyboard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::system::hud::ScreenKeyboard::ScreenKeyboard </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01960.html#a000a2c5ffd2c8dde2599d2e9e34da872">OnSubmit</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSubmit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Screen Keyboard. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+    <tr><td class="paramname">onSubmit</td><td>Callback to call when the input is submitted </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00019">19</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">&#9670;&nbsp;</a></span>~ScreenKeyboard()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::system::hud::ScreenKeyboard::~ScreenKeyboard </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unsubscribes the keyboard if still subscribed. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00121">121</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a15fbb1e57df6c799d37a637e153eeb2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15fbb1e57df6c799d37a637e153eeb2a">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sf::Vector2f core::system::hud::ScreenKeyboard::getSize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the size of the screen keyboard. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00156">156</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a53fd26fa824e285bc6d5776150b70ca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a53fd26fa824e285bc6d5776150b70ca2">&#9670;&nbsp;</a></span>process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::hud::ScreenKeyboard::process </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>ctrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ignoreDebounce</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Handles player input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctrl</td><td>The control to process, in raw form </td></tr>
+    <tr><td class="paramname">ignoreDebounce</td><td>True to ignore debounce and process always, false to rate limit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00143">143</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a57cd989e29d2d8e5aad4a7bee8635e89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57cd989e29d2d8e5aad4a7bee8635e89">&#9670;&nbsp;</a></span>setPosition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::hud::ScreenKeyboard::setPosition </td>
+          <td>(</td>
+          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the position of the keyboard. The default is (??) </p>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00147">147</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ca52d3385438b2c8bb5513d2a774cdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ca52d3385438b2c8bb5513d2a774cdc">&#9670;&nbsp;</a></span>start()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::hud::ScreenKeyboard::start </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>minLen</em> = <code>0</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>maxLen</em> = <code>16</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Subscribes the keyboard to the event bus. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">minLen</td><td>Minimum input length to accept </td></tr>
+    <tr><td class="paramname">maxLen</td><td>Maximum input length to accept </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00123">123</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa59b54eba02acafd30bc6bd77bfa7ad1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa59b54eba02acafd30bc6bd77bfa7ad1">&#9670;&nbsp;</a></span>stop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::system::hud::ScreenKeyboard::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unsubscribes the keyboard from the event bus. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00138">138</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afc78ba18cf213cb9159c214d4973fe03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc78ba18cf213cb9159c214d4973fe03">&#9670;&nbsp;</a></span>value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::system::hud::ScreenKeyboard::value </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current input value. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00154">154</a> of file <a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Systems/HUD/<a class="el" href="a00323_source.html">ScreenKeyboard.hpp</a></li>
+<li>src/Core/Systems/HUD/<a class="el" href="a00812_source.html">ScreenKeyboard.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

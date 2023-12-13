@@ -77,7 +77,7 @@ $(function() {
 <a href="a00113.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_WANDERBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_WANDERBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02921.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02917.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">Core/Components/SpinBehavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00107.html">Core/Components/StandingBehavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
@@ -85,11 +85,11 @@ $(function() {
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01379.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01379.html">WanderBehavior</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01380.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01380.html">WanderBehavior</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01379.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius, <span class="keyword">const</span> sf::Vector2i&amp; origin);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01380.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius, <span class="keyword">const</span> sf::Vector2i&amp; origin);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01379.html#af6df8568525c0a27c9843e82032f7f56">update</a>(<a class="code" href="a01331.html">Position</a>&amp; position, <a class="code" href="a01303.html">Controllable</a>&amp; controller, <span class="keywordtype">float</span> dt);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01380.html#af6df8568525c0a27c9843e82032f7f56">update</a>(<a class="code" href="a01332.html">Position</a>&amp; position, <a class="code" href="a01304.html">Controllable</a>&amp; controller, <span class="keywordtype">float</span> dt);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">struct </span>WalkData {</div>
@@ -102,8 +102,8 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">union </span>Data {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        WalkData walking;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a01371.html">StandingBehavior</a> standing;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a01367.html">SpinBehavior</a> spinning;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a01372.html">StandingBehavior</a> standing;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a01368.html">SpinBehavior</a> spinning;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        Data();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    } data;</div>
@@ -132,20 +132,20 @@ $(function() {
 <div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">SpinBehavior.hpp</a></div></div>
 <div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">StandingBehavior.hpp</a></div></div>
 <div class="ttc" id="aa01053_html_ga0192bf5ba1eccc191c8ef1187ce66d69"><div class="ttname"><a href="a01053.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00026">Direction.hpp:26</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01303_html"><div class="ttname"><a href="a01303.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02921_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01331_html"><div class="ttname"><a href="a01331.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02945_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01367_html"><div class="ttname"><a href="a01367.html">core::component::SpinBehavior</a></div><div class="ttdoc">Add this to an entity to make it spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00017">SpinBehavior.hpp:17</a></div></div>
-<div class="ttc" id="aa01371_html"><div class="ttname"><a href="a01371.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
-<div class="ttc" id="aa01379_html"><div class="ttname"><a href="a01379.html">core::component::WanderBehavior</a></div><div class="ttdoc">Add this component to an entity to make it wander around.</div><div class="ttdef"><b>Definition:</b> <a href="a00113_source.html#l00018">WanderBehavior.hpp:18</a></div></div>
-<div class="ttc" id="aa01379_html_ab82ba28e5298eeba0356925ed31b7a71"><div class="ttname"><a href="a01379.html#ab82ba28e5298eeba0356925ed31b7a71">core::component::WanderBehavior::WanderBehavior</a></div><div class="ttdeci">WanderBehavior(unsigned int radius, const sf::Vector2i &amp;origin)</div><div class="ttdoc">Construct a new Wander Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00009">WanderBehavior.cpp:9</a></div></div>
-<div class="ttc" id="aa01379_html_af6df8568525c0a27c9843e82032f7f56"><div class="ttname"><a href="a01379.html#af6df8568525c0a27c9843e82032f7f56">core::component::WanderBehavior::update</a></div><div class="ttdeci">void update(Position &amp;position, Controllable &amp;controller, float dt)</div><div class="ttdoc">Updates the entity and wanders around.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00018">WanderBehavior.cpp:18</a></div></div>
-<div class="ttc" id="aa02921_html"><div class="ttname"><a href="a02921.html">Controllable.hpp</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01304_html"><div class="ttname"><a href="a01304.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02917_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
+<div class="ttc" id="aa01368_html"><div class="ttname"><a href="a01368.html">core::component::SpinBehavior</a></div><div class="ttdoc">Add this to an entity to make it spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00017">SpinBehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa01372_html"><div class="ttname"><a href="a01372.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00107_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
+<div class="ttc" id="aa01380_html"><div class="ttname"><a href="a01380.html">core::component::WanderBehavior</a></div><div class="ttdoc">Add this component to an entity to make it wander around.</div><div class="ttdef"><b>Definition:</b> <a href="a00113_source.html#l00018">WanderBehavior.hpp:18</a></div></div>
+<div class="ttc" id="aa01380_html_ab82ba28e5298eeba0356925ed31b7a71"><div class="ttname"><a href="a01380.html#ab82ba28e5298eeba0356925ed31b7a71">core::component::WanderBehavior::WanderBehavior</a></div><div class="ttdeci">WanderBehavior(unsigned int radius, const sf::Vector2i &amp;origin)</div><div class="ttdoc">Construct a new Wander Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00009">WanderBehavior.cpp:9</a></div></div>
+<div class="ttc" id="aa01380_html_af6df8568525c0a27c9843e82032f7f56"><div class="ttname"><a href="a01380.html#af6df8568525c0a27c9843e82032f7f56">core::component::WanderBehavior::update</a></div><div class="ttdeci">void update(Position &amp;position, Controllable &amp;controller, float dt)</div><div class="ttdoc">Updates the entity and wanders around.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00018">WanderBehavior.cpp:18</a></div></div>
+<div class="ttc" id="aa02917_html"><div class="ttname"><a href="a02917.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

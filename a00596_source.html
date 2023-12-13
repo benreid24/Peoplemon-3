@@ -78,7 +78,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Math.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03014.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03010.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">Core/Resources.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
@@ -146,11 +146,11 @@ $(function() {
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">using</span> Animation = cmd::Animation;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a01279.html#a90206dbda723719a2d063a77af388b60">   73</a></span>&#160;<a class="code" href="a01279.html#a90206dbda723719a2d063a77af388b60">PeoplemonAnimation::PeoplemonAnimation</a>(<a class="code" href="a01279.html#a33e41a98243cee98869fa6591289fd98">Position</a> pos)</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a01280.html#a90206dbda723719a2d063a77af388b60">   73</a></span>&#160;<a class="code" href="a01280.html#a90206dbda723719a2d063a77af388b60">PeoplemonAnimation::PeoplemonAnimation</a>(<a class="code" href="a01280.html#a33e41a98243cee98869fa6591289fd98">Position</a> pos)</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;: position(pos)</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;, ballFlash(100.f)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;, sparks(std::bind(&amp;<a class="code" href="a01279.html">PeoplemonAnimation</a>::spawnSpark, this, std::placeholders::_1), 0, 0.f)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;, implosion(std::bind(&amp;<a class="code" href="a01279.html">PeoplemonAnimation</a>::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;, sparks(std::bind(&amp;<a class="code" href="a01280.html">PeoplemonAnimation</a>::spawnSpark, this, std::placeholders::_1), 0, 0.f)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;, implosion(std::bind(&amp;<a class="code" href="a01280.html">PeoplemonAnimation</a>::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;, spark(4.f)</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;, renderBall(false) {</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> join = bl::util::FileUtil::joinPath;</div>
@@ -201,7 +201,7 @@ $(function() {
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">    setThrowBallTxtr(*throwBallTxtr);*/</span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;}</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a01279.html#aa4e212bd24d2ab6b50f249917b5243e9">  128</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#aa4e212bd24d2ab6b50f249917b5243e9">PeoplemonAnimation::configureView</a>(<span class="keyword">const</span> sf::View&amp; pv) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a01280.html#aa4e212bd24d2ab6b50f249917b5243e9">  128</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#aa4e212bd24d2ab6b50f249917b5243e9">PeoplemonAnimation::configureView</a>(<span class="keyword">const</span> sf::View&amp; pv) {</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="comment">/* const sf::Vector2f&amp; pos = position == Position::Player ? PlayerPos : OpponentPos;</span></div>
@@ -214,9 +214,9 @@ $(function() {
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">    */</span></div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a01279.html#ae6cc569e0fe1dfa5c33528e5219dee7d">  141</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#ae6cc569e0fe1dfa5c33528e5219dee7d">PeoplemonAnimation::setPeoplemon</a>(<a class="code" href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> ppl) {</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> path = position == Position::Player ? <a class="code" href="a01811.html#a1cc229ff285904e101920daef39fe9e1">pplmn::Peoplemon::playerImage</a> :</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                                     <a class="code" href="a01811.html#a47f8358d6597050553cb62dc82aa93e7">pplmn::Peoplemon::opponentImage</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a01280.html#ae6cc569e0fe1dfa5c33528e5219dee7d">  141</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#ae6cc569e0fe1dfa5c33528e5219dee7d">PeoplemonAnimation::setPeoplemon</a>(<a class="code" href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> ppl) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> path = position == Position::Player ? <a class="code" href="a01812.html#a1cc229ff285904e101920daef39fe9e1">pplmn::Peoplemon::playerImage</a> :</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;                                                     <a class="code" href="a01812.html#a47f8358d6597050553cb62dc82aa93e7">pplmn::Peoplemon::opponentImage</a>;</div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    txtr            = TextureManager::load(path(ppl));</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keyword">const</span> sf::Vector2f ts(txtr-&gt;getSize());</div>
@@ -229,13 +229,13 @@ $(function() {
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    state = State::Hidden;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#ac568d599f58fc7d2a6027bbaf8a6280a">PeoplemonAnimation::triggerAnimation</a>(<a class="code" href="a01057.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Animation::Type</a> anim) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#ac568d599f58fc7d2a6027bbaf8a6280a">PeoplemonAnimation::triggerAnimation</a>(<a class="code" href="a01057.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Animation::Type</a> anim) {</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    state = State::Playing;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    type  = anim;</div>
 <div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">switch</span> (anim) {</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">case</span> Animation::Type::ComeBack:</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        implosion.setTargetCount(50);</div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        implosion.setCreateRate(200.f);</div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;        setBallTexture(*ballOpenTxtr);</div>
@@ -244,7 +244,7 @@ $(function() {
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">case</span> Animation::Type::SendOut:</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        peoplemon.setColor(sf::Color(255, 255, 255, 0));</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;        ball.setColor(sf::Color::White);</div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        setBallTexture(*ballTxtr);</div>
@@ -253,17 +253,17 @@ $(function() {
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keywordflow">case</span> Animation::Type::ShakeAndFlash:</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> = 0.f;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> = 0.f;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="comment">// flasher.reset();</span></div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
 <div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordflow">case</span> Animation::Type::SlideDown:</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> = 0.f;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> = 0.f;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">case</span> Animation::Type::SlideOut:</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> = 0.f;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> = 0.f;</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">case</span> Animation::Type::MultipleStateDecrease:</div>
@@ -271,7 +271,7 @@ $(function() {
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        [[fallthrough]];</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">case</span> Animation::Type::StatDecrease:</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <a class="code" href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> = 0.f;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <a class="code" href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> = 0.f;</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        statArrow.setScale(1.f, 1.f);</div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
@@ -280,7 +280,7 @@ $(function() {
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        [[fallthrough]];</div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
 <div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordflow">case</span> Animation::Type::StatIncrease:</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <a class="code" href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> = 0.f;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <a class="code" href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> = 0.f;</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        statArrow.setScale(1.f, -1.f);</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
@@ -296,7 +296,7 @@ $(function() {
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">case</span> Animation::Type::ThrowCloneBall:</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keywordflow">case</span> Animation::Type::ThrowPeopleball:</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <a class="code" href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a>     = ThrowStartX;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <a class="code" href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a>     = ThrowStartX;</div>
 <div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        throwState = BallThrowState::Arcing;</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        setThrowBallTxtr(*throwBallTxtr);</div>
 <div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        throwBall.setPosition(ThrowStartX, ThrowStartY);</div>
@@ -311,11 +311,11 @@ $(function() {
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">case</span> Animation::Type::PeopleballShake:</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> = 0.f;</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> = 0.f;</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">case</span> Animation::Type::PeopleballCaught:</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 0.f;</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 0.f;</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">default</span>:</div>
@@ -325,7 +325,7 @@ $(function() {
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    }</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#ac568d599f58fc7d2a6027bbaf8a6280a">PeoplemonAnimation::triggerAnimation</a>(<span class="keyword">const</span> Animation&amp; anim) {</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#ac568d599f58fc7d2a6027bbaf8a6280a">PeoplemonAnimation::triggerAnimation</a>(<span class="keyword">const</span> Animation&amp; anim) {</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <span class="keywordflow">switch</span> (anim.getType()) {</div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">case</span> Animation::Type::StatDecrease:</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordflow">case</span> Animation::Type::StatIncrease:</div>
@@ -366,12 +366,12 @@ $(function() {
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="a01279.html#ac568d599f58fc7d2a6027bbaf8a6280a">triggerAnimation</a>(anim.getType());</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <a class="code" href="a01280.html#ac568d599f58fc7d2a6027bbaf8a6280a">triggerAnimation</a>(anim.getType());</div>
 <div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
-<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="a01279.html#aca2e0913719417114a9c253633b9c557">  296</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01279.html#aca2e0913719417114a9c253633b9c557">PeoplemonAnimation::completed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> state != State::Playing; }</div>
+<div class="line"><a name="l00296"></a><span class="lineno"><a class="line" href="a01280.html#aca2e0913719417114a9c253633b9c557">  296</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01280.html#aca2e0913719417114a9c253633b9c557">PeoplemonAnimation::completed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> state != State::Playing; }</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="a01279.html#ae4c48077bb523fd0a227d740d181b18c">  298</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#ae4c48077bb523fd0a227d740d181b18c">PeoplemonAnimation::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="a01280.html#ae4c48077bb523fd0a227d740d181b18c">  298</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#ae4c48077bb523fd0a227d740d181b18c">PeoplemonAnimation::update</a>(<span class="keywordtype">float</span> dt) {</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keywordflow">if</span> (state == State::Playing) {</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> updateSpark = [dt](Spark&amp; sp) {</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;            sp.time += dt;</div>
@@ -383,20 +383,20 @@ $(function() {
 <div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        <span class="keywordflow">case</span> Animation::Type::ComeBack: {</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;            <span class="comment">// open ball state</span></div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;            <span class="keywordflow">if</span> (ball.getTexture() == ballOpenTxtr.get()) {</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> -= ContractRate * dt;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;                <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> -= ContractRate * dt;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;                implosion.update(updateSpark, dt);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                    <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;                    <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;                    setBallTexture(*ballTxtr);</div>
 <div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;                }</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 140.f) {</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;                <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 140.f) {</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;                    implosion.setTargetCount(0);</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;                    implosion.setCreateRate(0.f);</div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;                }</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;                <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> ps       = std::sqrt(p);</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                peoplemon.setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;                peoplemon.setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;                peoplemon.setScale(ps * scale.x, ps * scale.y);</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;                <span class="keywordflow">if</span> (a &lt;= ScreenFlashAlpha) {</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;                    screenFlash.setFillColor(sf::Color(255, 255, 255, a));</div>
@@ -408,21 +408,21 @@ $(function() {
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;            }</div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            <span class="comment">// closed ball state</span></div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.75f) { state = State::Static; }</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;                <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.75f) { state = State::Static; }</div>
 <div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;            }</div>
 <div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;        } <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160; </div>
 <div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        <span class="keywordflow">case</span> Animation::Type::SendOut:</div>
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            <span class="comment">// closed ball state</span></div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            <span class="keywordflow">if</span> (ball.getTexture() == ballTxtr.get()) {</div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.75f) {</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;                <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.75f) {</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;                    setBallTexture(*ballOpenTxtr);</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;                    ballFlash.setRadius(1.f);</div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;                    <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;                    <span class="comment">// ballFlash.setCenterColor(makeColor(255.f));</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                    <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 0.f;</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;                    <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 0.f;</div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                    sparks.setTargetCount(50);</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;                    sparks.setCreateRate(200.f);</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;                }</div>
@@ -430,19 +430,19 @@ $(function() {
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;            <span class="comment">// ball open and expanding ppl state</span></div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;            <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;                sparks.update(updateSpark, dt);</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> += ExpandRate * dt;</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt; 180.f) {</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;                <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> += ExpandRate * dt;</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt; 180.f) {</div>
 <div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;                    sparks.setTargetCount(0);</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;                    sparks.setCreateRate(0.f);</div>
 <div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;                }</div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt;= 255.f) {</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                    <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt;= 255.f) {</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;                    <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;                    <span class="keywordflow">if</span> (sparks.particleCount() == 0) { state = State::Static; }</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;                }</div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> ps       = std::sqrt(p);</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> pss      = std::sqrt(ps);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;                <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
 <div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;                <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;                <span class="comment">// ballFlash.setCenterColor(makeColor(255.f - 255.f * p));</span></div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;                ballFlash.setRadius(BallFlashRadius * pss);</div>
@@ -463,23 +463,23 @@ $(function() {
 <div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;        <span class="keywordflow">case</span> Animation::Type::ShakeAndFlash:</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;            <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> += dt;</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;            <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> += dt;</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;            <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;            <span class="comment">// flasher.update(dt);</span></div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &gt;= ShakeTime) { state = State::Static; }</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &gt;= ShakeTime) { state = State::Static; }</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;        <span class="keywordflow">case</span> Animation::Type::SlideOut:</div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            <a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> += SlideRate * dt;</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> &gt;= peoplemon.getGlobalBounds().width) {</div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;            <a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> += SlideRate * dt;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> &gt;= peoplemon.getGlobalBounds().width) {</div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;                state = State::Static;</div>
 <div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;                peoplemon.setColor(sf::Color(255, 255, 255, 0)); <span class="comment">// prevent showing</span></div>
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;            }</div>
 <div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <span class="keywordflow">case</span> Animation::Type::SlideDown:</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            <a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> += SlideRate * dt;</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> &gt;= peoplemon.getGlobalBounds().height) {</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;            <a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> += SlideRate * dt;</div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">slideAmount</a> &gt;= peoplemon.getGlobalBounds().height) {</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;                state = State::Static;</div>
 <div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;                peoplemon.setColor(sf::Color(255, 255, 255, 0)); <span class="comment">// prevent showing</span></div>
 <div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;            }</div>
@@ -489,10 +489,10 @@ $(function() {
 <div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        <span class="keywordflow">case</span> Animation::Type::MultipleStateIncrease:</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;        <span class="keywordflow">case</span> Animation::Type::StatDecrease:</div>
 <div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;        <span class="keywordflow">case</span> Animation::Type::StatIncrease:</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <a class="code" href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> += dt;</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;            <a class="code" href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> += dt;</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;            arrowOffset = ArrowShakeAmount *</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                          bl::math::sin(<a class="code" href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> / ArrowShowTime * 360.f * ArrowOscillations);</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> &gt;= ArrowShowTime) {</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;                          bl::math::sin(<a class="code" href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> / ArrowShowTime * 360.f * ArrowOscillations);</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">arrowTime</a> &gt;= ArrowShowTime) {</div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;                arrowOffset = 0.f;</div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;                state       = State::Static;</div>
 <div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;            }</div>
@@ -509,12 +509,12 @@ $(function() {
 <div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordflow">case</span> Animation::Type::ThrowPeopleball: {</div>
 <div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;            <span class="keywordflow">switch</span> (throwState) {</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;            <span class="keywordflow">case</span> BallThrowState::Arcing: {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                <a class="code" href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> += ThrowXVel * dt;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> xp = <a class="code" href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> - ThrowMiddle;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                throwBall.setPosition(<a class="code" href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a>, ThrowA * xp * xp + ThrowTop);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;                <a class="code" href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> += ThrowXVel * dt;</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;                <span class="keyword">const</span> <span class="keywordtype">float</span> xp = <a class="code" href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> - ThrowMiddle;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;                throwBall.setPosition(<a class="code" href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a>, ThrowA * xp * xp + ThrowTop);</div>
 <div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;                throwBall.rotate(ThrowSpinRate * dt);</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> &gt;= ThrowEndX) {</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                    <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">throwX</a> &gt;= ThrowEndX) {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;                    <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = 255.f;</div>
 <div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;                    throwBall.setPosition(ThrowEndX, ThrowEndY);</div>
 <div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;                    setThrowBallTxtr(*ballOpenTxtr);</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;                    throwState = BallThrowState::Eating;</div>
@@ -532,24 +532,24 @@ $(function() {
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;            <span class="keywordflow">case</span> BallThrowState::Eating:</div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;                <span class="keywordflow">if</span> (throwBall.getTexture() == ballOpenTxtr.get()) {</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                    <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> -= ContractRate * dt;</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;                    <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> -= ContractRate * dt;</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;                    implosion.update(updateSpark, dt);</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                    <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;                        <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;                    <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;                        <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> = 0.f;</div>
 <div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;                        setThrowBallTxtr(*ballTxtr);</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;                    }</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 140.f) {</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;                    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 140.f) {</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;                        implosion.setTargetCount(0);</div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;                        implosion.setCreateRate(0.f);</div>
 <div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;                    }</div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                    <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;                    <span class="keyword">const</span> std::uint8_t a = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>);</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">float</span> p        = <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> / 255.f;</div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;                    <span class="keyword">const</span> <span class="keywordtype">float</span> ps       = std::sqrt(p);</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                    toEat-&gt;setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;                    toEat-&gt;setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
 <div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;                    toEat-&gt;setScale(ps * scale.x, p * scale.y);</div>
 <div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;                    toEat-&gt;setPosition(OpponentPosX + SquareSize * 0.5f,</div>
 <div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;                                       OpponentPosY -</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                                           (BallBounceHeight + 35.f) * (255.f - <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>) / 255.f +</div>
+<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;                                           (BallBounceHeight + 35.f) * (255.f - <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>) / 255.f +</div>
 <div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;                                           SquareSize);</div>
 <div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;                    <span class="keywordflow">if</span> (a &lt;= ScreenFlashAlpha) {</div>
 <div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;                        screenFlash.setFillColor(sf::Color(255, 255, 255, a));</div>
@@ -560,39 +560,39 @@ $(function() {
 <div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;                    <span class="keywordflow">else</span> { screenFlash.setFillColor(sf::Color(255, 255, 255, ScreenFlashAlpha)); }</div>
 <div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;                }</div>
 <div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;                    <a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;                    <span class="keywordflow">if</span> (<a class="code" href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.5f) {</div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;                    <a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> += dt;</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;                    <span class="keywordflow">if</span> (<a class="code" href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">ballTime</a> &gt;= 0.5f) {</div>
 <div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;                        peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);</div>
 <div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;                        <span class="keywordflow">if</span> (type == Animation::Type::ThrowCloneBall) {</div>
 <div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;                            throwState = BallThrowState::CloneFading;</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;                            <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>      = 255.f;</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;                            <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>      = 255.f;</div>
 <div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;                            peoplemon.setColor(sf::Color::White);</div>
 <div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160;                        }</div>
 <div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;                        <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;                            throwState = BallThrowState::Bouncing;</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;                            <a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> = 0.f;</div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;                            <a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> = 0.f;</div>
 <div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;                        }</div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;                    }</div>
 <div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;                }</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160; </div>
 <div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;            <span class="keywordflow">case</span> BallThrowState::Bouncing:</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;                <a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> = std::min(BallBounceTime, <a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> + dt);</div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;                <a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> = std::min(BallBounceTime, <a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> + dt);</div>
 <div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;                throwBall.setPosition(throwBall.getPosition().x,</div>
 <div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;                                      OpponentPosY + BallBounceHeight -</div>
 <div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;                                          std::abs(bl::math::cos(bl::math::radiansToDegrees(</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;                                              3.5f * bl::math::Pi / BallBounceTime * <a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a>))) /</div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;                                              std::max(4.f * <a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a>, 1.f) * BallBounceHeight);</div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> &gt;= BallBounceTime) {</div>
+<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;                                              3.5f * bl::math::Pi / BallBounceTime * <a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a>))) /</div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;                                              std::max(4.f * <a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a>, 1.f) * BallBounceHeight);</div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#ae849c4b41f110d4af03cf554362e2289">bounceTime</a> &gt;= BallBounceTime) {</div>
 <div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;                    throwBall.setPosition(BallFinalPos);</div>
 <div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;                    state = State::Static;</div>
 <div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;                }</div>
 <div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;                <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160; </div>
 <div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;            <span class="keywordflow">case</span> BallThrowState::CloneFading:</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;                <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = std::max(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> - dt * GreenRate, 0.f);</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;                throwBall.setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;                <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = std::max(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> - dt * GreenRate, 0.f);</div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;                throwBall.setColor(sf::Color(255, 255, 255, <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>)));</div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &lt;= 0.f) {</div>
 <div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;                    renderBall = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;                    state      = State::Static;</div>
 <div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;                }</div>
@@ -601,24 +601,24 @@ $(function() {
 <div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;        } <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160; </div>
 <div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;        <span class="keywordflow">case</span> Animation::Type::PeopleballShake:</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;            <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> += dt;</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &lt;= BallShakeTime) {</div>
+<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;            <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> += dt;</div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &lt;= BallShakeTime) {</div>
 <div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;                throwBall.setPosition(</div>
 <div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;                    BallFinalPos +</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;                    sf::Vector2f(ShakeXAmount * bl::math::cos(ShakeSpeed * <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> * 2.f),</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                                 ShakeYAmount * bl::math::cos(ShakeSpeed * <a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a>)));</div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;                    sf::Vector2f(ShakeXAmount * bl::math::cos(ShakeSpeed * <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> * 2.f),</div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;                                 ShakeYAmount * bl::math::cos(ShakeSpeed * <a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a>)));</div>
 <div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;            }</div>
 <div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;            <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;                throwBall.setPosition(BallFinalPos);</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &gt;= BallShakeTime + ShakeRestTime) { state = State::Static; }</div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">shakeTime</a> &gt;= BallShakeTime + ShakeRestTime) { state = State::Static; }</div>
 <div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;            }</div>
 <div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160; </div>
 <div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;        <span class="keywordflow">case</span> Animation::Type::PeopleballCaught:</div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            <a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = std::min(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> + dt * GreenRate, 255.f);</div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;            <a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> = std::min(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> + dt * GreenRate, 255.f);</div>
 <div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;            throwBall.setColor(</div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;                sf::Color(255 - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>), <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>), 0));</div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01279.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt;= 255.f) { state = State::Static; }</div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;                sf::Color(255 - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>), <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a>), 0));</div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="a01280.html#a35c025536dd507eb8936db25bc8c820d">alpha</a> &gt;= 255.f) { state = State::Static; }</div>
 <div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
 <div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;        <span class="keywordflow">case</span> Animation::Type::PlayerFirstSendout:</div>
@@ -632,7 +632,7 @@ $(function() {
 <div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;    }</div>
 <div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;}</div>
 <div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160; </div>
-<div class="line"><a name="l00559"></a><span class="lineno"><a class="line" href="a01279.html#a26b37f627c12216b3916005edb7be2f3">  559</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01279.html#a26b37f627c12216b3916005edb7be2f3">PeoplemonAnimation::render</a>(sf::RenderTarget&amp; target, <span class="keywordtype">float</span> lag)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00559"></a><span class="lineno"><a class="line" href="a01280.html#a26b37f627c12216b3916005edb7be2f3">  559</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01280.html#a26b37f627c12216b3916005edb7be2f3">PeoplemonAnimation::render</a>(sf::RenderTarget&amp; target, <span class="keywordtype">float</span> lag)<span class="keyword"> const </span>{</div>
 <div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
 <div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160; </div>
 <div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;    <span class="comment">/*</span></div>
@@ -864,10 +864,10 @@ $(function() {
 <div class="ttc" id="aa00062_html"><div class="ttname"><a href="a00062.html">PeoplemonAnimation.hpp</a></div></div>
 <div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
 <div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01057_html_ga0e0fc5f0899c8ab17fd8d7d307e878dd"><div class="ttname"><a href="a01057.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type classification of an item. This is used to determine when an item may be used and how to use...</div><div class="ttdef"><b>Definition:</b> <a href="a02996_source.html#l00017">Type.hpp:17</a></div></div>
+<div class="ttc" id="aa01057_html_ga0e0fc5f0899c8ab17fd8d7d307e878dd"><div class="ttname"><a href="a01057.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type classification of an item. This is used to determine when an item may be used and how to use...</div><div class="ttdef"><b>Definition:</b> <a href="a02992_source.html#l00017">Type.hpp:17</a></div></div>
 <div class="ttc" id="aa01059_html_ga1e8c161a804d51a4a4eec572dc0e4a46"><div class="ttname"><a href="a01059.html#ga1e8c161a804d51a4a4eec572dc0e4a46">core::pplmn::PassiveAilment</a></div><div class="ttdeci">PassiveAilment</div><div class="ttdoc">Represents a passive ailment a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00016">PassiveAilment.hpp:16</a></div></div>
 <div class="ttc" id="aa01059_html_ga87b817cbcbbfc0b9a1328d55e1624fa3"><div class="ttname"><a href="a01059.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">core::pplmn::Ailment</a></div><div class="ttdeci">Ailment</div><div class="ttdoc">Represents an ailment that a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00221_source.html#l00016">Ailment.hpp:16</a></div></div>
-<div class="ttc" id="aa01059_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a02993_source.html#l00016">Id.hpp:16</a></div></div>
+<div class="ttc" id="aa01059_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a02989_source.html#l00016">Id.hpp:16</a></div></div>
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317a278d01e5af56273bae1bb99a98b370cd"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317a278d01e5af56273bae1bb99a98b370cd">core::pplmn::Stat::Critical</a></div><div class="ttdeci">@ Critical</div></div>
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317a44877c6aa8e93fa5a91c9361211464fb"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317a44877c6aa8e93fa5a91c9361211464fb">core::pplmn::Stat::Speed</a></div><div class="ttdeci">@ Speed</div></div>
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317a4b088aaa68446b6ec08cdc385d03516d"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317a4b088aaa68446b6ec08cdc385d03516d">core::pplmn::Stat::Defense</a></div><div class="ttdeci">@ Defense</div></div>
@@ -876,31 +876,31 @@ $(function() {
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317ad78f1fb7e69f7cddcf3e168f2663db20"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317ad78f1fb7e69f7cddcf3e168f2663db20">core::pplmn::Stat::Accuracy</a></div><div class="ttdeci">@ Accuracy</div></div>
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">core::pplmn::Stat::Attack</a></div><div class="ttdeci">@ Attack</div></div>
 <div class="ttc" id="aa01059_html_gga618b96b522bdec7042a5ff5b04672317afd4670e3a935e4d8399524b237284af8"><div class="ttname"><a href="a01059.html#gga618b96b522bdec7042a5ff5b04672317afd4670e3a935e4d8399524b237284af8">core::pplmn::Stat::Evasion</a></div><div class="ttdeci">@ Evasion</div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02897_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01279_html"><div class="ttname"><a href="a01279.html">core::battle::view::PeoplemonAnimation</a></div><div class="ttdoc">Helper for rendering peoplemon in battle and animating them.</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00024">PeoplemonAnimation.hpp:24</a></div></div>
-<div class="ttc" id="aa01279_html_a26b37f627c12216b3916005edb7be2f3"><div class="ttname"><a href="a01279.html#a26b37f627c12216b3916005edb7be2f3">core::battle::view::PeoplemonAnimation::render</a></div><div class="ttdeci">void render(sf::RenderTarget &amp;target, float lag) const</div><div class="ttdoc">Renders the peoplemon animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00559">PeoplemonAnimation.cpp:559</a></div></div>
-<div class="ttc" id="aa01279_html_a33e41a98243cee98869fa6591289fd98"><div class="ttname"><a href="a01279.html#a33e41a98243cee98869fa6591289fd98">core::battle::view::PeoplemonAnimation::Position</a></div><div class="ttdeci">Position</div><div class="ttdoc">Which position the peoplemon is in.</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00030">PeoplemonAnimation.hpp:30</a></div></div>
-<div class="ttc" id="aa01279_html_a35c025536dd507eb8936db25bc8c820d"><div class="ttname"><a href="a01279.html#a35c025536dd507eb8936db25bc8c820d">core::battle::view::PeoplemonAnimation::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00108">PeoplemonAnimation.hpp:108</a></div></div>
-<div class="ttc" id="aa01279_html_a3dca236f469acafdb1112d37e7647dc1"><div class="ttname"><a href="a01279.html#a3dca236f469acafdb1112d37e7647dc1">core::battle::view::PeoplemonAnimation::throwX</a></div><div class="ttdeci">float throwX</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00112">PeoplemonAnimation.hpp:112</a></div></div>
-<div class="ttc" id="aa01279_html_a62d50392b0d186b9b7a44ae3082db137"><div class="ttname"><a href="a01279.html#a62d50392b0d186b9b7a44ae3082db137">core::battle::view::PeoplemonAnimation::arrowTime</a></div><div class="ttdeci">float arrowTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00111">PeoplemonAnimation.hpp:111</a></div></div>
-<div class="ttc" id="aa01279_html_a90206dbda723719a2d063a77af388b60"><div class="ttname"><a href="a01279.html#a90206dbda723719a2d063a77af388b60">core::battle::view::PeoplemonAnimation::PeoplemonAnimation</a></div><div class="ttdeci">PeoplemonAnimation(Position position)</div><div class="ttdoc">Construct a new Peoplemon Animation utility.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00073">PeoplemonAnimation.cpp:73</a></div></div>
-<div class="ttc" id="aa01279_html_a9718f6cf295468c6ee3a4af555aa5d93"><div class="ttname"><a href="a01279.html#a9718f6cf295468c6ee3a4af555aa5d93">core::battle::view::PeoplemonAnimation::slideAmount</a></div><div class="ttdeci">float slideAmount</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00107">PeoplemonAnimation.hpp:107</a></div></div>
-<div class="ttc" id="aa01279_html_aa4e212bd24d2ab6b50f249917b5243e9"><div class="ttname"><a href="a01279.html#aa4e212bd24d2ab6b50f249917b5243e9">core::battle::view::PeoplemonAnimation::configureView</a></div><div class="ttdeci">void configureView(const sf::View &amp;parentView)</div><div class="ttdoc">Sets up the subviews from the view used during battle.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00128">PeoplemonAnimation.cpp:128</a></div></div>
-<div class="ttc" id="aa01279_html_aaa7b8a54cb4a0e05d8d402519f1f5cf0"><div class="ttname"><a href="a01279.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">core::battle::view::PeoplemonAnimation::ballTime</a></div><div class="ttdeci">float ballTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00110">PeoplemonAnimation.hpp:110</a></div></div>
-<div class="ttc" id="aa01279_html_ac568d599f58fc7d2a6027bbaf8a6280a"><div class="ttname"><a href="a01279.html#ac568d599f58fc7d2a6027bbaf8a6280a">core::battle::view::PeoplemonAnimation::triggerAnimation</a></div><div class="ttdeci">void triggerAnimation(const cmd::Animation &amp;anim)</div><div class="ttdoc">Begins playing the given animation.</div></div>
-<div class="ttc" id="aa01279_html_aca2e0913719417114a9c253633b9c557"><div class="ttname"><a href="a01279.html#aca2e0913719417114a9c253633b9c557">core::battle::view::PeoplemonAnimation::completed</a></div><div class="ttdeci">bool completed() const</div><div class="ttdoc">Returns true if the animation has completed, false if in progress.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00296">PeoplemonAnimation.cpp:296</a></div></div>
-<div class="ttc" id="aa01279_html_ae3440f0bd1a4f682fba7ddbe491d6e1e"><div class="ttname"><a href="a01279.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">core::battle::view::PeoplemonAnimation::shakeTime</a></div><div class="ttdeci">float shakeTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00109">PeoplemonAnimation.hpp:109</a></div></div>
-<div class="ttc" id="aa01279_html_ae4c48077bb523fd0a227d740d181b18c"><div class="ttname"><a href="a01279.html#ae4c48077bb523fd0a227d740d181b18c">core::battle::view::PeoplemonAnimation::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the playing animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00298">PeoplemonAnimation.cpp:298</a></div></div>
-<div class="ttc" id="aa01279_html_ae6cc569e0fe1dfa5c33528e5219dee7d"><div class="ttname"><a href="a01279.html#ae6cc569e0fe1dfa5c33528e5219dee7d">core::battle::view::PeoplemonAnimation::setPeoplemon</a></div><div class="ttdeci">void setPeoplemon(pplmn::Id ppl)</div><div class="ttdoc">Sets the specific peoplemon graphic and resets to hidden state.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00141">PeoplemonAnimation.cpp:141</a></div></div>
-<div class="ttc" id="aa01279_html_ae849c4b41f110d4af03cf554362e2289"><div class="ttname"><a href="a01279.html#ae849c4b41f110d4af03cf554362e2289">core::battle::view::PeoplemonAnimation::bounceTime</a></div><div class="ttdeci">float bounceTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00113">PeoplemonAnimation.hpp:113</a></div></div>
-<div class="ttc" id="aa01811_html_a1cc229ff285904e101920daef39fe9e1"><div class="ttname"><a href="a01811.html#a1cc229ff285904e101920daef39fe9e1">core::pplmn::Peoplemon::playerImage</a></div><div class="ttdeci">static std::string playerImage(Id id)</div><div class="ttdoc">Returns the full path to the image to use in battle for the player peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03110_source.html#l00219">Peoplemon.cpp:219</a></div></div>
-<div class="ttc" id="aa01811_html_a47f8358d6597050553cb62dc82aa93e7"><div class="ttname"><a href="a01811.html#a47f8358d6597050553cb62dc82aa93e7">core::pplmn::Peoplemon::opponentImage</a></div><div class="ttdeci">static std::string opponentImage(Id id)</div><div class="ttdoc">Returns the full path to the image to use in battle for the opponent peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03110_source.html#l00228">Peoplemon.cpp:228</a></div></div>
-<div class="ttc" id="aa03014_html"><div class="ttname"><a href="a03014.html">Peoplemon.hpp</a></div></div>
+<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01280_html"><div class="ttname"><a href="a01280.html">core::battle::view::PeoplemonAnimation</a></div><div class="ttdoc">Helper for rendering peoplemon in battle and animating them.</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00024">PeoplemonAnimation.hpp:24</a></div></div>
+<div class="ttc" id="aa01280_html_a26b37f627c12216b3916005edb7be2f3"><div class="ttname"><a href="a01280.html#a26b37f627c12216b3916005edb7be2f3">core::battle::view::PeoplemonAnimation::render</a></div><div class="ttdeci">void render(sf::RenderTarget &amp;target, float lag) const</div><div class="ttdoc">Renders the peoplemon animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00559">PeoplemonAnimation.cpp:559</a></div></div>
+<div class="ttc" id="aa01280_html_a33e41a98243cee98869fa6591289fd98"><div class="ttname"><a href="a01280.html#a33e41a98243cee98869fa6591289fd98">core::battle::view::PeoplemonAnimation::Position</a></div><div class="ttdeci">Position</div><div class="ttdoc">Which position the peoplemon is in.</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00030">PeoplemonAnimation.hpp:30</a></div></div>
+<div class="ttc" id="aa01280_html_a35c025536dd507eb8936db25bc8c820d"><div class="ttname"><a href="a01280.html#a35c025536dd507eb8936db25bc8c820d">core::battle::view::PeoplemonAnimation::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00108">PeoplemonAnimation.hpp:108</a></div></div>
+<div class="ttc" id="aa01280_html_a3dca236f469acafdb1112d37e7647dc1"><div class="ttname"><a href="a01280.html#a3dca236f469acafdb1112d37e7647dc1">core::battle::view::PeoplemonAnimation::throwX</a></div><div class="ttdeci">float throwX</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00112">PeoplemonAnimation.hpp:112</a></div></div>
+<div class="ttc" id="aa01280_html_a62d50392b0d186b9b7a44ae3082db137"><div class="ttname"><a href="a01280.html#a62d50392b0d186b9b7a44ae3082db137">core::battle::view::PeoplemonAnimation::arrowTime</a></div><div class="ttdeci">float arrowTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00111">PeoplemonAnimation.hpp:111</a></div></div>
+<div class="ttc" id="aa01280_html_a90206dbda723719a2d063a77af388b60"><div class="ttname"><a href="a01280.html#a90206dbda723719a2d063a77af388b60">core::battle::view::PeoplemonAnimation::PeoplemonAnimation</a></div><div class="ttdeci">PeoplemonAnimation(Position position)</div><div class="ttdoc">Construct a new Peoplemon Animation utility.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00073">PeoplemonAnimation.cpp:73</a></div></div>
+<div class="ttc" id="aa01280_html_a9718f6cf295468c6ee3a4af555aa5d93"><div class="ttname"><a href="a01280.html#a9718f6cf295468c6ee3a4af555aa5d93">core::battle::view::PeoplemonAnimation::slideAmount</a></div><div class="ttdeci">float slideAmount</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00107">PeoplemonAnimation.hpp:107</a></div></div>
+<div class="ttc" id="aa01280_html_aa4e212bd24d2ab6b50f249917b5243e9"><div class="ttname"><a href="a01280.html#aa4e212bd24d2ab6b50f249917b5243e9">core::battle::view::PeoplemonAnimation::configureView</a></div><div class="ttdeci">void configureView(const sf::View &amp;parentView)</div><div class="ttdoc">Sets up the subviews from the view used during battle.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00128">PeoplemonAnimation.cpp:128</a></div></div>
+<div class="ttc" id="aa01280_html_aaa7b8a54cb4a0e05d8d402519f1f5cf0"><div class="ttname"><a href="a01280.html#aaa7b8a54cb4a0e05d8d402519f1f5cf0">core::battle::view::PeoplemonAnimation::ballTime</a></div><div class="ttdeci">float ballTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00110">PeoplemonAnimation.hpp:110</a></div></div>
+<div class="ttc" id="aa01280_html_ac568d599f58fc7d2a6027bbaf8a6280a"><div class="ttname"><a href="a01280.html#ac568d599f58fc7d2a6027bbaf8a6280a">core::battle::view::PeoplemonAnimation::triggerAnimation</a></div><div class="ttdeci">void triggerAnimation(const cmd::Animation &amp;anim)</div><div class="ttdoc">Begins playing the given animation.</div></div>
+<div class="ttc" id="aa01280_html_aca2e0913719417114a9c253633b9c557"><div class="ttname"><a href="a01280.html#aca2e0913719417114a9c253633b9c557">core::battle::view::PeoplemonAnimation::completed</a></div><div class="ttdeci">bool completed() const</div><div class="ttdoc">Returns true if the animation has completed, false if in progress.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00296">PeoplemonAnimation.cpp:296</a></div></div>
+<div class="ttc" id="aa01280_html_ae3440f0bd1a4f682fba7ddbe491d6e1e"><div class="ttname"><a href="a01280.html#ae3440f0bd1a4f682fba7ddbe491d6e1e">core::battle::view::PeoplemonAnimation::shakeTime</a></div><div class="ttdeci">float shakeTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00109">PeoplemonAnimation.hpp:109</a></div></div>
+<div class="ttc" id="aa01280_html_ae4c48077bb523fd0a227d740d181b18c"><div class="ttname"><a href="a01280.html#ae4c48077bb523fd0a227d740d181b18c">core::battle::view::PeoplemonAnimation::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the playing animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00298">PeoplemonAnimation.cpp:298</a></div></div>
+<div class="ttc" id="aa01280_html_ae6cc569e0fe1dfa5c33528e5219dee7d"><div class="ttname"><a href="a01280.html#ae6cc569e0fe1dfa5c33528e5219dee7d">core::battle::view::PeoplemonAnimation::setPeoplemon</a></div><div class="ttdeci">void setPeoplemon(pplmn::Id ppl)</div><div class="ttdoc">Sets the specific peoplemon graphic and resets to hidden state.</div><div class="ttdef"><b>Definition:</b> <a href="a00596_source.html#l00141">PeoplemonAnimation.cpp:141</a></div></div>
+<div class="ttc" id="aa01280_html_ae849c4b41f110d4af03cf554362e2289"><div class="ttname"><a href="a01280.html#ae849c4b41f110d4af03cf554362e2289">core::battle::view::PeoplemonAnimation::bounceTime</a></div><div class="ttdeci">float bounceTime</div><div class="ttdef"><b>Definition:</b> <a href="a00062_source.html#l00113">PeoplemonAnimation.hpp:113</a></div></div>
+<div class="ttc" id="aa01812_html_a1cc229ff285904e101920daef39fe9e1"><div class="ttname"><a href="a01812.html#a1cc229ff285904e101920daef39fe9e1">core::pplmn::Peoplemon::playerImage</a></div><div class="ttdeci">static std::string playerImage(Id id)</div><div class="ttdoc">Returns the full path to the image to use in battle for the player peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03106_source.html#l00219">Peoplemon.cpp:219</a></div></div>
+<div class="ttc" id="aa01812_html_a47f8358d6597050553cb62dc82aa93e7"><div class="ttname"><a href="a01812.html#a47f8358d6597050553cb62dc82aa93e7">core::pplmn::Peoplemon::opponentImage</a></div><div class="ttdeci">static std::string opponentImage(Id id)</div><div class="ttdoc">Returns the full path to the image to use in battle for the opponent peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03106_source.html#l00228">Peoplemon.cpp:228</a></div></div>
+<div class="ttc" id="aa03010_html"><div class="ttname"><a href="a03010.html">Peoplemon.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

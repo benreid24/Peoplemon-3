@@ -80,11 +80,11 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;BLIB/Graphics.hpp&gt;</code><br />
 <code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02900_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02942_source.html">Core/Files/NPC.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02954_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03002_source.html">Core/Maps/Map.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03008_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02896_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02938_source.html">Core/Files/NPC.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02950_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02998_source.html">Core/Maps/Map.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03004_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00284_source.html">Core/Resources/Loaders.hpp</a>&gt;</code><br />
 <code>#include &lt;SFML/Audio.hpp&gt;</code><br />
 <code>#include &lt;SFML/Graphics.hpp&gt;</code><br />
@@ -112,21 +112,21 @@ Typedefs</h2></td></tr>
 <tr class="separator:a0fa4edee4adcb3fdc713366e2d8c3eca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a236858f51445769c7b4f77ba440a4069"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a236858f51445769c7b4f77ba440a4069">FontManager</a> = bl::resource::ResourceManager&lt; sf::VulkanFont &gt;</td></tr>
 <tr class="separator:a236858f51445769c7b4f77ba440a4069"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a96124cf6f27006f283f10db9e2cf9e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01731.html">core::map::Map</a> &gt;</td></tr>
+<tr class="memitem:a4a96124cf6f27006f283f10db9e2cf9e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01732.html">core::map::Map</a> &gt;</td></tr>
 <tr class="separator:a4a96124cf6f27006f283f10db9e2cf9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a603974730f80225651f2403ff49dee21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01759.html">core::map::Tileset</a> &gt;</td></tr>
+<tr class="memitem:a603974730f80225651f2403ff49dee21"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01760.html">core::map::Tileset</a> &gt;</td></tr>
 <tr class="separator:a603974730f80225651f2403ff49dee21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8efe32e2715173cb2e09755e2bf619d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01535.html">core::file::Conversation</a> &gt;</td></tr>
+<tr class="memitem:a8efe32e2715173cb2e09755e2bf619d6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01536.html">core::file::Conversation</a> &gt;</td></tr>
 <tr class="separator:a8efe32e2715173cb2e09755e2bf619d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af84070f982b22277576e8fcef31c89fa"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01651.html">core::file::Trainer</a> &gt;</td></tr>
+<tr class="memitem:af84070f982b22277576e8fcef31c89fa"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01652.html">core::file::Trainer</a> &gt;</td></tr>
 <tr class="separator:af84070f982b22277576e8fcef31c89fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77ab6ac012e021b2c118e500245f6a0c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01635.html">core::file::NPC</a> &gt;</td></tr>
+<tr class="memitem:a77ab6ac012e021b2c118e500245f6a0c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01636.html">core::file::NPC</a> &gt;</td></tr>
 <tr class="separator:a77ab6ac012e021b2c118e500245f6a0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12db164bac2097b7497e2782b86f6c60"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01619.html">core::file::ItemDB</a> &gt;</td></tr>
+<tr class="memitem:a12db164bac2097b7497e2782b86f6c60"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01620.html">core::file::ItemDB</a> &gt;</td></tr>
 <tr class="separator:a12db164bac2097b7497e2782b86f6c60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa05f7534763334dad5d36f34273558d7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01627.html">core::file::MoveDB</a> &gt;</td></tr>
+<tr class="memitem:aa05f7534763334dad5d36f34273558d7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01628.html">core::file::MoveDB</a> &gt;</td></tr>
 <tr class="separator:aa05f7534763334dad5d36f34273558d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a761fff30202a0d526d06f693bc9793e9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01643.html">core::file::PeoplemonDB</a> &gt;</td></tr>
+<tr class="memitem:a761fff30202a0d526d06f693bc9793e9"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a> = bl::resource::ResourceManager&lt; <a class="el" href="a01644.html">core::file::PeoplemonDB</a> &gt;</td></tr>
 <tr class="separator:a761fff30202a0d526d06f693bc9793e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
@@ -165,7 +165,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01535.html">core::file::Conversation</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01536.html">core::file::Conversation</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -213,7 +213,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01619.html">core::file::ItemDB</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01620.html">core::file::ItemDB</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -229,7 +229,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01731.html">core::map::Map</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01732.html">core::map::Map</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -245,7 +245,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01627.html">core::file::MoveDB</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01628.html">core::file::MoveDB</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -261,7 +261,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01635.html">core::file::NPC</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01636.html">core::file::NPC</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -277,7 +277,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01643.html">core::file::PeoplemonDB</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01644.html">core::file::PeoplemonDB</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -325,7 +325,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01759.html">core::map::Tileset</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01760.html">core::map::Tileset</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -341,7 +341,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01651.html">core::file::Trainer</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a> =  bl::resource::ResourceManager&lt;<a class="el" href="a01652.html">core::file::Trainer</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -354,7 +354,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -92,13 +92,13 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">bool</span> validFile(<span class="keyword">const</span> std::string&amp; f) { <span class="keywordflow">return</span> !f.empty() &amp;&amp; bl::util::FileUtil::exists(f); }</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02023.html#a385df6da32bcc207f6687274bdd33bc3">   19</a></span>&#160;<a class="code" href="a02023.html#a385df6da32bcc207f6687274bdd33bc3">AnimationWindow::AnimationWindow</a>(<span class="keywordtype">bool</span> cm, <span class="keyword">const</span> <a class="code" href="a02023.html#a357275a6effe3683370932f86ef5c1ed">ChooseCb</a>&amp; cb, <span class="keyword">const</span> <a class="code" href="a02023.html#a1a233a0c93f0c37c4c76d0df1c36ad14">CloseCb</a>&amp; ccb)</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02024.html#a385df6da32bcc207f6687274bdd33bc3">   19</a></span>&#160;<a class="code" href="a02024.html#a385df6da32bcc207f6687274bdd33bc3">AnimationWindow::AnimationWindow</a>(<span class="keywordtype">bool</span> cm, <span class="keyword">const</span> <a class="code" href="a02024.html#a357275a6effe3683370932f86ef5c1ed">ChooseCb</a>&amp; cb, <span class="keyword">const</span> <a class="code" href="a02024.html#a1a233a0c93f0c37c4c76d0df1c36ad14">CloseCb</a>&amp; ccb)</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: characterMode(cm)</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, chooseCb(cb)</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, closeCb(ccb)</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, parent(nullptr) {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    window = Window::create(LinePacker::create(LinePacker::Vertical, 4), <span class="stringliteral">&quot;Animation Picker&quot;</span>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    window-&gt;getSignal(Event::Closed).willAlwaysCall([<span class="keyword">this</span>](<span class="keyword">const</span> Event&amp;, Element*) { <a class="code" href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>(); });</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    window-&gt;getSignal(Event::Closed).willAlwaysCall([<span class="keyword">this</span>](<span class="keyword">const</span> Event&amp;, Element*) { <a class="code" href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>(); });</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Box::Ptr row        = Box::create(LinePacker::create(LinePacker::Horizontal, 4));</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Button::Ptr pickBut = Button::create(<span class="stringliteral">&quot;Choose Animation&quot;</span>);</div>
@@ -143,12 +143,12 @@ $(function() {
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        }</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        chooseCb(fileLabel-&gt;getText());</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <a class="code" href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>();</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    });</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    chooseBut-&gt;setColor(sf::Color::Green, sf::Color::Black);</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    Button::Ptr cancelBut = Button::create(<span class="stringliteral">&quot;Cancel&quot;</span>);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    cancelBut-&gt;getSignal(Event::LeftClicked).willAlwaysCall([<span class="keyword">this</span>](<span class="keyword">const</span> Event&amp;, Element*) {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>();</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>();</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    });</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    cancelBut-&gt;setColor(sf::Color::Red, sf::Color::Black);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    row-&gt;pack(chooseBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
@@ -156,7 +156,7 @@ $(function() {
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    window-&gt;pack(row);</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02023.html#a4c95ab8dd04d042cd90cb82e991734a4">   83</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02023.html#a4c95ab8dd04d042cd90cb82e991734a4">AnimationWindow::open</a>(GUI* p, <span class="keyword">const</span> std::string&amp; pt, <span class="keyword">const</span> std::string&amp; file) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02024.html#a4c95ab8dd04d042cd90cb82e991734a4">   83</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02024.html#a4c95ab8dd04d042cd90cb82e991734a4">AnimationWindow::open</a>(GUI* p, <span class="keyword">const</span> std::string&amp; pt, <span class="keyword">const</span> std::string&amp; file) {</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    path   = pt;</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    parent = p;</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    p-&gt;pack(window);</div>
@@ -191,7 +191,7 @@ $(function() {
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">  118</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">AnimationWindow::hide</a>() {</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">  118</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">AnimationWindow::hide</a>() {</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    window-&gt;remove();</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    window-&gt;setForceFocus(<span class="keyword">false</span>);</div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    closeCb();</div>
@@ -208,16 +208,16 @@ $(function() {
 <div class="ttc" id="aa00875_html"><div class="ttname"><a href="a00875.html">OpenAnimationEditor.hpp</a></div></div>
 <div class="ttc" id="aa01087_html"><div class="ttname"><a href="a01087.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
 <div class="ttc" id="aa01088_html_ab6f94080c1e646bd7dc2dd3bdfaed52d"><div class="ttname"><a href="a01088.html#ab6f94080c1e646bd7dc2dd3bdfaed52d">editor::component::openAnimationEditor</a></div><div class="ttdeci">void openAnimationEditor()</div><div class="ttdef"><b>Definition:</b> <a href="a00872_source.html#l00020">OpenAnimationEditor.cpp:20</a></div></div>
-<div class="ttc" id="aa02023_html_a1a233a0c93f0c37c4c76d0df1c36ad14"><div class="ttname"><a href="a02023.html#a1a233a0c93f0c37c4c76d0df1c36ad14">editor::component::AnimationWindow::CloseCb</a></div><div class="ttdeci">std::function&lt; void()&gt; CloseCb</div><div class="ttdoc">Called when the window is closed.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00025">AnimationWindow.hpp:25</a></div></div>
-<div class="ttc" id="aa02023_html_a357275a6effe3683370932f86ef5c1ed"><div class="ttname"><a href="a02023.html#a357275a6effe3683370932f86ef5c1ed">editor::component::AnimationWindow::ChooseCb</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; ChooseCb</div><div class="ttdoc">Called when an animation is chosen.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00022">AnimationWindow.hpp:22</a></div></div>
-<div class="ttc" id="aa02023_html_a385df6da32bcc207f6687274bdd33bc3"><div class="ttname"><a href="a02023.html#a385df6da32bcc207f6687274bdd33bc3">editor::component::AnimationWindow::AnimationWindow</a></div><div class="ttdeci">AnimationWindow(bool characterMode, const ChooseCb &amp;chooseCb, const CloseCb &amp;closeCb)</div><div class="ttdoc">Construct a new Animation Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00019">AnimationWindow.cpp:19</a></div></div>
-<div class="ttc" id="aa02023_html_a4c95ab8dd04d042cd90cb82e991734a4"><div class="ttname"><a href="a02023.html#a4c95ab8dd04d042cd90cb82e991734a4">editor::component::AnimationWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, const std::string &amp;path, const std::string &amp;file)</div><div class="ttdoc">Opens the animation picker window.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00083">AnimationWindow.cpp:83</a></div></div>
-<div class="ttc" id="aa02023_html_a625ae5bfb047add644294ed27b7ffa40"><div class="ttname"><a href="a02023.html#a625ae5bfb047add644294ed27b7ffa40">editor::component::AnimationWindow::hide</a></div><div class="ttdeci">void hide()</div><div class="ttdoc">Removes the window from view.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00118">AnimationWindow.cpp:118</a></div></div>
+<div class="ttc" id="aa02024_html_a1a233a0c93f0c37c4c76d0df1c36ad14"><div class="ttname"><a href="a02024.html#a1a233a0c93f0c37c4c76d0df1c36ad14">editor::component::AnimationWindow::CloseCb</a></div><div class="ttdeci">std::function&lt; void()&gt; CloseCb</div><div class="ttdoc">Called when the window is closed.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00025">AnimationWindow.hpp:25</a></div></div>
+<div class="ttc" id="aa02024_html_a357275a6effe3683370932f86ef5c1ed"><div class="ttname"><a href="a02024.html#a357275a6effe3683370932f86ef5c1ed">editor::component::AnimationWindow::ChooseCb</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; ChooseCb</div><div class="ttdoc">Called when an animation is chosen.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00022">AnimationWindow.hpp:22</a></div></div>
+<div class="ttc" id="aa02024_html_a385df6da32bcc207f6687274bdd33bc3"><div class="ttname"><a href="a02024.html#a385df6da32bcc207f6687274bdd33bc3">editor::component::AnimationWindow::AnimationWindow</a></div><div class="ttdeci">AnimationWindow(bool characterMode, const ChooseCb &amp;chooseCb, const CloseCb &amp;closeCb)</div><div class="ttdoc">Construct a new Animation Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00019">AnimationWindow.cpp:19</a></div></div>
+<div class="ttc" id="aa02024_html_a4c95ab8dd04d042cd90cb82e991734a4"><div class="ttname"><a href="a02024.html#a4c95ab8dd04d042cd90cb82e991734a4">editor::component::AnimationWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, const std::string &amp;path, const std::string &amp;file)</div><div class="ttdoc">Opens the animation picker window.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00083">AnimationWindow.cpp:83</a></div></div>
+<div class="ttc" id="aa02024_html_a625ae5bfb047add644294ed27b7ffa40"><div class="ttname"><a href="a02024.html#a625ae5bfb047add644294ed27b7ffa40">editor::component::AnimationWindow::hide</a></div><div class="ttdeci">void hide()</div><div class="ttdoc">Removes the window from view.</div><div class="ttdef"><b>Definition:</b> <a href="a00842_source.html#l00118">AnimationWindow.cpp:118</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:17 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

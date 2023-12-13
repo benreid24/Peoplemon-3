@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::StatBox Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,27 +66,255 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02155.html">TrainerEditorWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02152.html">StatBox</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02149.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::TrainerEditorWindow Member List</div>  </div>
+<div class="title">editor::component::StatBox Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02155.html#aed5ec5e7c7f910a99f82be63912ccb4f">CloseCb</a> typedef</td><td class="entry"><a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02155.html#ab17cd84a91ac3e54b318c205bba6cba3">hide</a>()</td><td class="entry"><a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02155.html#aa9e7e28360ea248af1ece7cc83c6f784">SelectCb</a> typedef</td><td class="entry"><a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02155.html#a0a27ef04995022dbaaa43a8f09185fd1">show</a>(bl::gui::GUI *parent, const std::string &amp;file)</td><td class="entry"><a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02155.html#a0b06789cb7a4f63f2cc7c8d33fb10a70">TrainerEditorWindow</a>(const SelectCb &amp;cb, const CloseCb &amp;closeCb)</td><td class="entry"><a class="el" href="a02155.html">editor::component::TrainerEditorWindow</a></td><td class="entry"></td></tr>
-</table></div><!-- contents -->
+<p>Provides an inline GUI entry for stats in either EV mode or IV mode.  
+ <a href="a02152.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00428_source.html">StatBox.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7116e95b3653cad1c3ece68ef19298fc"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fc">Mode</a> { <a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fca9ee120e145433c17b92395496a136b2c">EV</a>
+, <a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fcaafc5a887eed4514ae4a96d04462eceb8">IV</a>
+ }</td></tr>
+<tr class="memdesc:a7116e95b3653cad1c3ece68ef19298fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mode the entry is in.  <a href="a02152.html#a7116e95b3653cad1c3ece68ef19298fc">More...</a><br /></td></tr>
+<tr class="separator:a7116e95b3653cad1c3ece68ef19298fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:abda77e6402de87200eadcaa8a39ebc37"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#abda77e6402de87200eadcaa8a39ebc37">StatBox</a> (<a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fc">Mode</a> mode, bool showRandomBut=true)</td></tr>
+<tr class="memdesc:abda77e6402de87200eadcaa8a39ebc37"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Stat Box component.  <a href="a02152.html#abda77e6402de87200eadcaa8a39ebc37">More...</a><br /></td></tr>
+<tr class="separator:abda77e6402de87200eadcaa8a39ebc37"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d4475253ab2c37415e773ea4f972ae7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01816.html">core::pplmn::Stats</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#a6d4475253ab2c37415e773ea4f972ae7">currentValue</a> () const</td></tr>
+<tr class="memdesc:a6d4475253ab2c37415e773ea4f972ae7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current Stats value entered.  <a href="a02152.html#a6d4475253ab2c37415e773ea4f972ae7">More...</a><br /></td></tr>
+<tr class="separator:a6d4475253ab2c37415e773ea4f972ae7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af97392c9bb25b8d180a18b363f31da2e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#af97392c9bb25b8d180a18b363f31da2e">update</a> (const <a class="el" href="a01816.html">core::pplmn::Stats</a> &amp;value)</td></tr>
+<tr class="memdesc:af97392c9bb25b8d180a18b363f31da2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the GUI elements with the given value.  <a href="a02152.html#af97392c9bb25b8d180a18b363f31da2e">More...</a><br /></td></tr>
+<tr class="separator:af97392c9bb25b8d180a18b363f31da2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af01d771b0d4fe4ea6f95ca6be9aa22c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#af01d771b0d4fe4ea6f95ca6be9aa22c3">notifyLevel</a> (unsigned int level)</td></tr>
+<tr class="memdesc:af01d771b0d4fe4ea6f95ca6be9aa22c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Make the statbox aware of the level of the peoplemon it is editing. Used for random EV generation.  <a href="a02152.html#af01d771b0d4fe4ea6f95ca6be9aa22c3">More...</a><br /></td></tr>
+<tr class="separator:af01d771b0d4fe4ea6f95ca6be9aa22c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4036cd064ae0ec3c974c462cbd8e0489"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#a4036cd064ae0ec3c974c462cbd8e0489">reset</a> ()</td></tr>
+<tr class="memdesc:a4036cd064ae0ec3c974c462cbd8e0489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets all stats to 0.  <a href="a02152.html#a4036cd064ae0ec3c974c462cbd8e0489">More...</a><br /></td></tr>
+<tr class="separator:a4036cd064ae0ec3c974c462cbd8e0489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a016f35d296f9f449396853b00559458b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02152.html#a016f35d296f9f449396853b00559458b">pack</a> (bl::gui::Box &amp;container)</td></tr>
+<tr class="memdesc:a016f35d296f9f449396853b00559458b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Packs the GUI elements into the given container.  <a href="a02152.html#a016f35d296f9f449396853b00559458b">More...</a><br /></td></tr>
+<tr class="separator:a016f35d296f9f449396853b00559458b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Provides an inline GUI entry for stats in either EV mode or IV mode. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00428_source.html#l00017">17</a> of file <a class="el" href="a00428_source.html">StatBox.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a7116e95b3653cad1c3ece68ef19298fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7116e95b3653cad1c3ece68ef19298fc">&#9670;&nbsp;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fc">editor::component::StatBox::Mode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Mode the entry is in. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7116e95b3653cad1c3ece68ef19298fca9ee120e145433c17b92395496a136b2c"></a>EV&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7116e95b3653cad1c3ece68ef19298fcaafc5a887eed4514ae4a96d04462eceb8"></a>IV&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00428_source.html#l00020">20</a> of file <a class="el" href="a00428_source.html">StatBox.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="abda77e6402de87200eadcaa8a39ebc37"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda77e6402de87200eadcaa8a39ebc37">&#9670;&nbsp;</a></span>StatBox()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::StatBox::StatBox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02152.html#a7116e95b3653cad1c3ece68ef19298fc">Mode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>showRandomBut</em> = <code>true</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Stat Box component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mode</td><td>EV or IV mode </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00035">35</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6d4475253ab2c37415e773ea4f972ae7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d4475253ab2c37415e773ea4f972ae7">&#9670;&nbsp;</a></span>currentValue()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01816.html">core::pplmn::Stats</a> editor::component::StatBox::currentValue </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the current Stats value entered. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00083">83</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af01d771b0d4fe4ea6f95ca6be9aa22c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af01d771b0d4fe4ea6f95ca6be9aa22c3">&#9670;&nbsp;</a></span>notifyLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::StatBox::notifyLevel </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>level</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Make the statbox aware of the level of the peoplemon it is editing. Used for random EV generation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">level</td><td>The current level of the peoplemon being edited </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00109">109</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a016f35d296f9f449396853b00559458b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a016f35d296f9f449396853b00559458b">&#9670;&nbsp;</a></span>pack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::StatBox::pack </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::Box &amp;&#160;</td>
+          <td class="paramname"><em>container</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Packs the GUI elements into the given container. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">container</td><td>The container to pack into </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00111">111</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4036cd064ae0ec3c974c462cbd8e0489"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4036cd064ae0ec3c974c462cbd8e0489">&#9670;&nbsp;</a></span>reset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::StatBox::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets all stats to 0. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00074">74</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af97392c9bb25b8d180a18b363f31da2e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af97392c9bb25b8d180a18b363f31da2e">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::StatBox::update </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01816.html">core::pplmn::Stats</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the GUI elements with the given value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The value to set </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00929_source.html#l00094">94</a> of file <a class="el" href="a00929_source.html">StatBox.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00428_source.html">StatBox.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00929_source.html">StatBox.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

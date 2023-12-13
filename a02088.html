@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: Member List</title>
+<title>Peoplemon: editor::component::GameTestingWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,114 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02091.html">HighlightRadioButton</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01088.html">component</a></li><li class="navelem"><a class="el" href="a02088.html">GameTestingWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="a02085.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::HighlightRadioButton Member List</div>  </div>
+<div class="title">editor::component::GameTestingWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02091.html">editor::component::HighlightRadioButton</a>, including all inherited members.</p>
-<table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02091.html#a35bafb19f836081e138745476836221b">create</a>(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group *group=nullptr)</td><td class="entry"><a class="el" href="a02091.html">editor::component::HighlightRadioButton</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02091.html#ae94199920bb76763de3727781370a416">Ptr</a> typedef</td><td class="entry"><a class="el" href="a02091.html">editor::component::HighlightRadioButton</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02091.html#a74721198827da76c2229c84f0d20371a">~HighlightRadioButton</a>()=default</td><td class="entry"><a class="el" href="a02091.html">editor::component::HighlightRadioButton</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-</table></div><!-- contents -->
+<p><code>#include &lt;<a class="el" href="a00380_source.html">GameTestingWindow.hpp</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a66f91fd6a9da2c408bad276989452e1f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02088.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:a66f91fd6a9da2c408bad276989452e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a2563afebfbd02e56066d8d81344d731e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02088.html#a2563afebfbd02e56066d8d81344d731e">GameTestingWindow</a> (const <a class="el" href="a02088.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> &amp;onSave)</td></tr>
+<tr class="separator:a2563afebfbd02e56066d8d81344d731e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa19a494e40fb0817e2593f73bc7dcd31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02088.html#aa19a494e40fb0817e2593f73bc7dcd31">open</a> (bl::gui::GUI *gui, <a class="el" href="a01560.html">core::file::GameSave</a> &amp;save)</td></tr>
+<tr class="separator:aa19a494e40fb0817e2593f73bc7dcd31"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00013">13</a> of file <a class="el" href="a00380_source.html">GameTestingWindow.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a66f91fd6a9da2c408bad276989452e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f91fd6a9da2c408bad276989452e1f">&#9670;&nbsp;</a></span>ActionCb</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02088.html#a66f91fd6a9da2c408bad276989452e1f">editor::component::GameTestingWindow::ActionCb</a> =  std::function&lt;void()&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00015">15</a> of file <a class="el" href="a00380_source.html">GameTestingWindow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a2563afebfbd02e56066d8d81344d731e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2563afebfbd02e56066d8d81344d731e">&#9670;&nbsp;</a></span>GameTestingWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::GameTestingWindow::GameTestingWindow </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02088.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSave</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00051">51</a> of file <a class="el" href="a00869_source.html">GameTestingWindow.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa19a494e40fb0817e2593f73bc7dcd31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa19a494e40fb0817e2593f73bc7dcd31">&#9670;&nbsp;</a></span>open()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::GameTestingWindow::open </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>gui</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01560.html">core::file::GameSave</a> &amp;&#160;</td>
+          <td class="paramname"><em>save</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00869_source.html#l00189">189</a> of file <a class="el" href="a00869_source.html">GameTestingWindow.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Editor/Components/<a class="el" href="a00380_source.html">GameTestingWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00869_source.html">GameTestingWindow.cpp</a></li>
+</ul>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 6 2023 03:32:18 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
