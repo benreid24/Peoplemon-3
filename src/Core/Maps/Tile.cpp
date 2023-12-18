@@ -46,23 +46,8 @@ void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
 }
 
 void Tile::step() {
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    // if (anim && !anim->playing()) { anim->play(); }
-}
-
-void Tile::render(sf::RenderTarget& target, float lag) const {
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    /*
-    if (tid != Blank) {
-        if (isAnim) {
-            anim->setPosition(sprite.getPosition()); // in case of shared anim
-            anim->render(target, lag);
-        }
-        else {
-            target.draw(sprite);
-        }
-    }
-    */
+    bl::gfx::BatchSlideshow* anim = std::get_if<bl::gfx::BatchSlideshow>(&renderObject);
+    if (anim) { anim->getPlayer().play(); }
 }
 
 } // namespace map

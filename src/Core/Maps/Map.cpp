@@ -20,9 +20,7 @@ Map::Map()
 : weatherField(Weather::None)
 , systems(nullptr)
 , eventRegions({}, 1.f, 1.f) // no allocations
-, activated(false) {
-    cover.setFillColor(sf::Color::Black);
-}
+, activated(false) {}
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap,
                 const component::Position& prevPlayerPos) {
@@ -61,7 +59,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         // Load tileset and init tiles
         tileset = TilesetManager::load(Tileset::getFullPath(tilesetField));
         if (!tileset) return false;
-        tileset->activate();
+        tileset->activate(game.engine());
         for (LayerSet& level : levels) { level.activate(*tileset); }
 
         // Initialize weather, lighting, and wild peoplemon
@@ -169,55 +167,54 @@ Weather& Map::weatherSystem() { return weather; }
 LightingSystem& Map::lightingSystem() { return lighting; }
 
 void Map::update(float dt) {
-    tileset->update(dt);
     weather.update(dt);
     lighting.update(dt);
 }
 
 void Map::render(sf::RenderTarget& target, float residual,
                  const EntityRenderCallback& entityCb) const {
-    const sf::View& view = target.getView();
-    cover.setPosition(view.getCenter());
-    cover.setSize(view.getSize());
-    cover.setOrigin(view.getSize() * 0.5f);
-    target.draw(cover, {sf::BlendNone});
+    /* const sf::View& view = target.getView();
+     cover.setPosition(view.getCenter());
+     cover.setSize(view.getSize());
+     cover.setOrigin(view.getSize() * 0.5f);
+     target.draw(cover, {sf::BlendNone});
 
-    refreshRenderRange(target.getView());
+     refreshRenderRange(target.getView());
 
-    const auto renderRow = [&target, residual, this](const TileLayer& layer, int row) {
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            layer.get(x, row).render(target, residual);
-        }
-    };
+     const auto renderRow = [&target, residual, this](const TileLayer& layer, int row) {
+         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+             layer.get(x, row).render(target, residual);
+         }
+     };
 
-    const auto renderSorted = [&target, residual, this](const SortedLayer& layer, int row) {
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            Tile* t = layer(x, row);
-            if (t) t->render(target, residual);
-        }
-    };
+     const auto renderSorted = [&target, residual, this](const SortedLayer& layer, int row) {
+         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+             Tile* t = layer(x, row);
+             if (t) t->render(target, residual);
+         }
+     };
 
-    for (unsigned int i = 0; i < levels.size(); ++i) {
-        const LayerSet& level = levels[i];
+     for (unsigned int i = 0; i < levels.size(); ++i) {
+         const LayerSet& level = levels[i];
 
-        for (const TileLayer& layer : level.bottomLayers()) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                renderRow(layer, y);
-            }
-        }
-        for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-            for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
-            entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
-        }
-        for (const TileLayer& layer : level.topLayers()) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                renderRow(layer, y);
-            }
-        }
-    }
+         for (const TileLayer& layer : level.bottomLayers()) {
+             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                 renderRow(layer, y);
+             }
+         }
+         for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+             for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
+             entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
+         }
+         for (const TileLayer& layer : level.topLayers()) {
+             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+                 renderRow(layer, y);
+             }
+         }
+     }
 
-    weather.render(target, residual);
-    const_cast<Map*>(this)->lighting.render(target);
+     weather.render(target, residual);
+     const_cast<Map*>(this)->lighting.render(target);*/
 }
 
 std::string Map::getMapFile(const std::string& file) {
@@ -245,7 +242,7 @@ bool Map::loadProd(bl::serial::binary::InputStream& input) {
 }
 
 void Map::finishLoad() {
-    renderRange          = sf::IntRect(0, 0, 1, 1);
+    // renderRange          = sf::IntRect(0, 0, 1, 1);
     defaultTown.name     = nameField;
     defaultTown.playlist = playlistField;
     defaultTown.weather  = weatherField;
@@ -564,7 +561,7 @@ void Map::clear() {
     eventRegions.clear();
     weatherField = Weather::None;
     weather.set(Weather::None, true);
-    renderRange = sf::IntRect(0, 0, 1, 1);
+    // renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
 void Map::refreshRenderRange(const sf::View& view) const {
@@ -581,7 +578,7 @@ void Map::refreshRenderRange(const sf::View& view) const {
         static_cast<sf::Vector2i>(view.getSize()) / Properties::PixelsPerTile() + ExtraRender * 2;
     if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
     if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
-    renderRange = {corner, wsize};
+    // renderRange = {corner, wsize};
 }
 
 Town* Map::getTown(const sf::Vector2i& pos) {

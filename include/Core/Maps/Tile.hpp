@@ -5,6 +5,7 @@
 #include <BLIB/Serialization.hpp>
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <variant>
 
 namespace core
 {
@@ -100,19 +101,11 @@ public:
      */
     void step();
 
-    /**
-     * @brief Renders the tile to the given target
-     *
-     * @param target The target to render to
-     * @param lag Residual time between calls to update
-     */
-    void render(sf::RenderTarget& target, float residual) const;
-
 private:
     bool isAnim;
     IdType tid;
 
-    // TODO - BLIB_UPGRADE - tilemap rendering
+    std::variant<std::monostate, bl::gfx::BatchSprite, bl::gfx::BatchSlideshow> renderObject;
 
     friend class Tileset;
     friend struct bl::serial::SerializableObject<Tile>;

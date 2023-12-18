@@ -320,10 +320,7 @@ protected:
     bl::ctr::Grid<const Event*> eventRegions;
     bool isWorldMap;
     bl::audio::AudioSystem::Handle playlistHandle;
-
     bool activated; // for weather continuity
-    mutable sf::IntRect renderRange;
-    mutable sf::RectangleShape cover;
 
     void clear();
     void finishLoad();

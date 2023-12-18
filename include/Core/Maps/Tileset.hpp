@@ -1,13 +1,13 @@
 #ifndef CORE_MAPS_TILESET_HPP
 #define CORE_MAPS_TILESET_HPP
 
-#include <Core/Maps/Tile.hpp>
-
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Resources.hpp>
 #include <BLIB/Serialization.hpp>
+#include <BLIB/Util/ImageStitcher.hpp>
+#include <Core/Maps/Tile.hpp>
 #include <SFML/Graphics.hpp>
-
+#include <optional>
 #include <string>
 #include <unordered_map>
 
@@ -22,7 +22,7 @@ namespace map
  */
 class Tileset {
 public:
-    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Ref<sf::Texture>>;
+    using TileStore = std::unordered_map<Tile::IdType, bl::resource::Ref<sf::Image>>;
     using AnimStore =
         std::unordered_map<Tile::IdType, bl::resource::Ref<bl::gfx::a2d::AnimationData>>;
 
@@ -97,7 +97,7 @@ public:
     bool save(const std::string& file) const;
 
     /**
-     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     * @brief Saves the data from this object to the given bundle and registers dependency files
      *
      * @param output Stream to output to
      * @param ctx Context to register dependencies with
@@ -107,18 +107,11 @@ public:
                     bl::resource::bundle::FileHandlerContext& ctx) const;
 
     /**
-     * @brief Starts playing all shared animations
+     * @brief Prepares renderer resources and starts playing all shared animations
      *
+     * @param engine The game engine instance
      */
-    void activate();
-
-    /**
-     * @brief Updates the animations in the tileset. Does not update unique animations, only shared.
-     *        Unique animations are updated by the Tile that renders them
-     *
-     * @param dt Time elapsed since last called to update() in seconds
-     */
-    void update(float dt);
+    void activate(bl::engine::Engine& engine);
 
     /**
      * @brief Returns a tile from the set. Returns nullptr if not found
@@ -126,11 +119,10 @@ public:
      * @param id The id of the tile to get
      * @return bl::resource::Ref<sf::Texture> A reference to the tile
      */
-    bl::resource::Ref<sf::Texture> getTile(Tile::IdType id) const;
+    bl::resource::Ref<sf::Image> getTile(Tile::IdType id) const;
 
     /**
      * @brief Returns all contained tiles
-     *
      */
     std::vector<TileStore::const_iterator> getTiles() const;
 
@@ -144,7 +136,6 @@ public:
 
     /**
      * @brief Returns all contained animations
-     *
      */
     std::vector<AnimStore::const_iterator> getAnims() const;
 
@@ -164,8 +155,11 @@ private:
 
     TileStore textures;
     AnimStore anims;
-    // TODO - BLIB_UPGRADE - update tilemap rendering
-    // std::unordered_map<Tile::IdType, bl::gfx::Animation> sharedAnimations;
+    bl::engine::Engine* enginePtr;
+    std::optional<bl::util::ImageStitcher> textureStitcher;
+    std::unordered_map<Tile::IdType, glm::u32vec2> textureAtlas;
+    bl::rc::res::TextureRef combinedTextures;
+    std::unordered_map<Tile::IdType, bl::gfx::DiscreteAnimation2DPlayer> sharedAnimations;
 
     void initializeTile(Tile& tile);
     void clear();
