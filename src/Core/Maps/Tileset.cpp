@@ -53,42 +53,6 @@ void Tileset::removeAnimation(Tile::IdType id) {
     sharedAnimations.erase(id);
 }
 
-void Tileset::initializeTile(Tile& tile) {
-    // TODO - BLIB_UPGRADE - update map rendering
-    /*
-    if (tile.id() == Tile::Blank) return;
-
-    if (tile.isAnimation()) {
-        auto it = anims.find(tile.id());
-        if (it != anims.end()) {
-            if (it->second->isLooping()) {
-                auto jit = sharedAnimations.find(tile.id());
-                if (jit != sharedAnimations.end()) { tile.anim = &jit->second; }
-                else {
-                    BL_LOG_ERROR << "Shared animation not present for looping anim: " << tile.id();
-                }
-            }
-            else {
-                tile.uniqueAnim.setData(*it->second);
-                tile.anim = &tile.uniqueAnim;
-            }
-        }
-        else {
-            BL_LOG_WARN << "Tile with invalid animation id: " << tile.id() << ". Clearing";
-            tile.set(*this, Tile::Blank, false);
-        }
-    }
-    else {
-        auto it = textures.find(tile.id());
-        if (it != textures.end()) { tile.sprite.setTexture(*it->second, true); }
-        else {
-            BL_LOG_WARN << "Tile with invalid texture id: " << tile.id() << ". Clearing";
-            tile.set(*this, Tile::Blank, false);
-        }
-    }
-    */
-}
-
 void Tileset::activate(bl::engine::Engine& engine) {
     if (enginePtr != nullptr) { return; }
     enginePtr = &engine;
@@ -218,6 +182,26 @@ std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {
 
 std::string Tileset::getFullPath(const std::string& path) {
     return bl::util::FileUtil::joinPath(Properties::TilesetPath(), path);
+}
+
+sf::FloatRect Tileset::getTileTextureBounds(Tile::IdType tid) const {
+    const auto tit = textures.find(tid);
+    if (tit == textures.end()) {
+        BL_LOG_ERROR << "Unable to find texture with id: " << tid;
+        return {-1.f, -1.f, -1.f, -1.f};
+    }
+
+    const auto ait = textureAtlas.find(tid);
+    if (ait == textureAtlas.end()) {
+        BL_LOG_ERROR << "Texture with id " << tid << " is missing from atlas";
+        return {-1.f, -1.f, -1.f, -1.f};
+    }
+
+    const glm::vec2 pos(ait->second);
+    const glm::vec2 size(tit->second->getSize().x, tit->second->getSize().y);
+    const glm::vec2 posn = combinedTextures->normalizeAndConvertCoord(pos);
+    const glm::vec2 br   = combinedTextures->normalizeAndConvertCoord(pos + size);
+    return {posn.x, posn.y, br.x - posn.x, br.y - posn.y};
 }
 
 } // namespace map

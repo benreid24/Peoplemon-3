@@ -18,18 +18,6 @@ void Render::update(float dt) {
 }
 
 void Render::render(sf::RenderTarget& target, const map::Map& map, float lag) {
-    map.render(target,
-               lag,
-               std::bind(&Render::renderEntities,
-                         this,
-                         std::ref<sf::RenderTarget>(target),
-                         lag,
-                         std::placeholders::_1,
-                         std::placeholders::_2,
-                         std::placeholders::_3,
-                         std::placeholders::_4));
-    ;
-    //owner.hud().render(target, lag);
     owner.trainers().render(target);
 }
 

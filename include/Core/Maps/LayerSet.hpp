@@ -34,14 +34,6 @@ using CatchLayer = Layer<std::uint8_t>;
 using TileLayer = Layer<Tile>;
 
 /**
- * @brief Special type of tile layer for y-sorted tiles. Used for rendering only
- *
- * @ingroup Maps
- *
- */
-using SortedLayer = bl::ctr::Vector2D<Tile*>;
-
-/**
  * @brief Specialization of Layer for height transitions
  *
  * @ingroup Maps
@@ -76,13 +68,6 @@ public:
      */
     void init(unsigned int width, unsigned int height, unsigned int bottomLayerCount,
               unsigned int ysortLayerCount, unsigned int topLayercount);
-
-    /**
-     * @brief Initializes all the tiles for rendering. This must be called before rendering is done
-     *
-     * @param tileset The tileset to use
-     */
-    void activate(Tileset& tileset);
 
     /**
      * @brief Returns a reference to the collision layer for this set
@@ -127,18 +112,6 @@ public:
     std::vector<TileLayer>& ysortLayers();
 
     /**
-     * @brief Returns an immutable reference to the y-sorted layers
-     *
-     */
-    const std::vector<SortedLayer>& renderSortedLayers() const;
-
-    /**
-     * @brief Returns a mutable reference to the y-sorted layers. Use with caution
-     *
-     */
-    std::vector<SortedLayer>& renderSortedLayers();
-
-    /**
      * @brief Returns a reference to the top tiles in this set
      *
      * @return std::vector<TileLayer>& The
@@ -173,14 +146,13 @@ public:
     unsigned int layerCount() const;
 
     /**
-     * @brief Returns a pointer to the pointer to sorted tile
+     * @brief Returns a reference to the given tile layer. Helper to use absolute indices to access
+     *        all layer zones
      *
-     * @param tileset The tileset to use for determining size
-     * @param layer Which sorted layer the tile is in
-     * @param x The x position of the tile
-     * @param y The y position of the tile
+     * @param layer The layer index to fetch
+     * @return A reference to the layer at the given index
      */
-    Tile** getSortedTile(Tileset& tileset, unsigned int layer, unsigned int x, unsigned int y);
+    TileLayer& getLayer(unsigned int layer);
 
 private:
     CollisionLayer collisions;
@@ -188,8 +160,6 @@ private:
     std::vector<TileLayer> bottom;
     std::vector<TileLayer> ysort;
     std::vector<TileLayer> top;
-
-    std::vector<SortedLayer> ysortedLayers;
 
     friend struct bl::serial::SerializableObject<LayerSet>;
 };

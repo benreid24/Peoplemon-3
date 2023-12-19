@@ -1,6 +1,7 @@
 #include <Core/Maps/Map.hpp>
 
 #include <BLIB/Audio.hpp>
+#include <BLIB/Cameras.hpp>
 #include <Core/Events/Maps.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
@@ -29,28 +30,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     systems = &game;
     bl::event::Dispatcher::dispatch<event::MapSwitch>({*this});
 
-    // Spawn player
-    auto spawnIt                 = spawns.find(spawnId);
-    component::Position spawnPos = prevPlayerPos;
-    if (spawnId != 0 && spawnIt != spawns.end()) { spawnPos = spawnIt->second.position; }
-    else if (spawnId == 0 && spawnIt != spawns.end()) {
-        BL_LOG_WARN << "Spawn id 0 is reserved, falling back on default behavior";
-    }
-    else if (spawnId != 0) {
-        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
-        return false;
-    }
-    if (!game.player().spawnPlayer(spawnPos)) {
-        BL_LOG_ERROR << "Failed to spawn player";
-        return false;
-    }
-    setupCamera(game);
-    currentTown = getTown(spawnPos.positionTiles());
-    enterTown(currentTown);
-
-    // Activate camera and weather
-    // weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
-
     // One time activation if not yet activated
     if (!activated) {
         activated = true;
@@ -60,7 +39,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         tileset = TilesetManager::load(Tileset::getFullPath(tilesetField));
         if (!tileset) return false;
         tileset->activate(game.engine());
-        for (LayerSet& level : levels) { level.activate(*tileset); }
 
         // Initialize weather, lighting, and wild peoplemon
         weather.set(weatherField);
@@ -85,6 +63,32 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
         BL_LOG_INFO << nameField << " activated";
     }
+
+    // Prepare rendering
+    if (!scene) { prepareRender(); }
+    else { game.engine().renderer().getObserver().pushScene(scene); }
+
+    // Spawn player
+    auto spawnIt                 = spawns.find(spawnId);
+    component::Position spawnPos = prevPlayerPos;
+    if (spawnId != 0 && spawnIt != spawns.end()) { spawnPos = spawnIt->second.position; }
+    else if (spawnId == 0 && spawnIt != spawns.end()) {
+        BL_LOG_WARN << "Spawn id 0 is reserved, falling back on default behavior";
+    }
+    else if (spawnId != 0) {
+        BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
+        return false;
+    }
+    if (!game.player().spawnPlayer(spawnPos)) {
+        BL_LOG_ERROR << "Failed to spawn player";
+        return false;
+    }
+    setupCamera(game);
+    currentTown = getTown(spawnPos.positionTiles());
+    enterTown(currentTown);
+
+    // Activate camera and weather
+    // TODO - weather.activate(game.engine().renderSystem().cameras().getCurrentViewport());
 
     // Ensure lighting is updated for time
     lighting.subscribe();
@@ -137,18 +141,23 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
         onExitScript->run(&game.engine().scriptManager());
     }
 
+    // remove our scene
+    game.engine().renderer().getObserver().popScene();
+
     // TODO - pause weather
 
     BL_LOG_INFO << "Exited map: " << nameField;
 }
 
 void Map::setupCamera(system::Systems& systems) {
-    /*systems.engine().renderSystem().cameras().setViewportConstraint(
-        {sf::Vector2f{0.f, 0.f}, sizePixels()});
-    systems.engine().renderSystem().cameras().clearAndReplace(
-        bl::render::camera::FollowCamera::create(
-            camera::getPositionPointer(systems, systems.player().player()),
-            Properties::WindowSize()));*/
+    bl::cam::Camera2D* cam = systems.engine().renderer().getObserver().setCamera<bl::cam::Camera2D>(
+        glm::vec2{sizePixels().x, sizePixels().y},
+        glm::vec2{Properties::WindowSize().x, Properties::WindowSize().y});
+    cam->setController<bl::cam::c2d::ConstrainedFollower>(
+        systems.engine().ecs(),
+        systems.player().player(),
+        sf::FloatRect(0.f, 0.f, sizePixels().x, sizePixels().y));
+    cam->setNearAndFarPlanes(getMinDepth(), 0.f);
 }
 
 const std::string& Map::name() const { return nameField; }
@@ -169,52 +178,7 @@ LightingSystem& Map::lightingSystem() { return lighting; }
 void Map::update(float dt) {
     weather.update(dt);
     lighting.update(dt);
-}
-
-void Map::render(sf::RenderTarget& target, float residual,
-                 const EntityRenderCallback& entityCb) const {
-    /* const sf::View& view = target.getView();
-     cover.setPosition(view.getCenter());
-     cover.setSize(view.getSize());
-     cover.setOrigin(view.getSize() * 0.5f);
-     target.draw(cover, {sf::BlendNone});
-
-     refreshRenderRange(target.getView());
-
-     const auto renderRow = [&target, residual, this](const TileLayer& layer, int row) {
-         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-             layer.get(x, row).render(target, residual);
-         }
-     };
-
-     const auto renderSorted = [&target, residual, this](const SortedLayer& layer, int row) {
-         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-             Tile* t = layer(x, row);
-             if (t) t->render(target, residual);
-         }
-     };
-
-     for (unsigned int i = 0; i < levels.size(); ++i) {
-         const LayerSet& level = levels[i];
-
-         for (const TileLayer& layer : level.bottomLayers()) {
-             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                 renderRow(layer, y);
-             }
-         }
-         for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-             for (const SortedLayer& layer : level.renderSortedLayers()) { renderSorted(layer, y); }
-             entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
-         }
-         for (const TileLayer& layer : level.topLayers()) {
-             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                 renderRow(layer, y);
-             }
-         }
-     }
-
-     weather.render(target, residual);
-     const_cast<Map*>(this)->lighting.render(target);*/
+    // TODO - refresh render range
 }
 
 std::string Map::getMapFile(const std::string& file) {
@@ -561,6 +525,7 @@ void Map::clear() {
     eventRegions.clear();
     weatherField = Weather::None;
     weather.set(Weather::None, true);
+    // TODO - BLIB_UPGRADE - reset render data
     // renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
@@ -578,6 +543,7 @@ void Map::refreshRenderRange(const sf::View& view) const {
         static_cast<sf::Vector2i>(view.getSize()) / Properties::PixelsPerTile() + ExtraRender * 2;
     if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
     if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
+    // TODO - BLIB_UPGRADE - reset render data
     // renderRange = {corner, wsize};
 }
 
@@ -651,6 +617,117 @@ const component::Position* Map::getSpawnPosition(unsigned int spid) const {
 
 const std::string& Map::getLocationName(const component::Position& pos) const {
     return const_cast<Map*>(this)->getTown(pos.positionTiles())->name;
+}
+
+void Map::prepareRender() {
+    scene = systems->engine().renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+
+    tileset->activate(systems->engine());
+    for (unsigned int i = 0; i < levels.size(); ++i) {
+        auto& rl = renderLevels.emplace_back();
+        rl.create(systems->engine(),
+                  tileset->combinedTextures,
+                  levels[i].layerCount(),
+                  sf::Vector2u(size),
+                  scene);
+
+        for (unsigned int j = 0; j < levels[i].layerCount(); ++j) {
+            for (unsigned int x = 0; x < size.x; ++x) {
+                for (unsigned int y = 0; y < size.y; ++y) { setupTile(i, j, {x, y}); }
+            }
+        }
+    }
+}
+
+void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
+    Tile& tile = levels[level].getLayer(layer).getRef(pos.x, pos.y);
+    if (tile.id() == Tile::Blank) { return; }
+
+    auto it = renderLevels.begin();
+    std::advance(it, level);
+    auto& zone = it->getZone(levels[level], layer);
+
+    bl::com::Transform2D* transform = nullptr;
+    if (tile.isAnimation()) {
+        const auto ait               = tileset->sharedAnimations.find(tile.id());
+        bl::ecs::Entity playerEntity = bl::ecs::InvalidEntity;
+        bl::gfx::DiscreteAnimation2DPlayer player;
+        if (ait != tileset->sharedAnimations.end()) { playerEntity = ait->second.entity(); }
+        else {
+            auto anim = tileset->getAnim(tile.id());
+            if (!anim) {
+                BL_LOG_ERROR << "Failed to find animation for tile id: " << tile.id();
+                tile.set(Tile::Blank, false);
+                return;
+            }
+            player.create(systems->engine(), anim, bl::gfx::DiscreteAnimation2DPlayer::Slideshow);
+            playerEntity = player.entity(); // will be cleaned up when dependency is removed in ECS
+        }
+        bl::gfx::BatchSlideshow& anim = tile.renderObject.emplace<bl::gfx::BatchSlideshow>(
+            systems->engine(), zone.tileAnims, playerEntity);
+        transform = &anim.getLocalTransform();
+    }
+    else {
+        const sf::FloatRect src = tileset->getTileTextureBounds(tile.id());
+        if (src.width < 0.f) {
+            BL_LOG_ERROR << "Failed to find texture for tile id: " << tile.id();
+            return;
+        }
+        bl::gfx::BatchSprite& sprite = tile.renderObject.emplace<bl::gfx::BatchSprite>(
+            systems->engine(), zone.tileSprites, src);
+        transform = &sprite.getLocalTransform();
+    }
+
+    transform->setPosition(static_cast<float>(pos.x * Properties::PixelsPerTile()),
+                           static_cast<float>(pos.y * Properties::PixelsPerTile()));
+    if (&zone == &it->zones[RenderLevel::Ysort]) {
+        const unsigned int th = tileset->tileHeight(tile.id(), false);
+        unsigned int size     = th / Properties::PixelsPerTile();
+        if (th % Properties::PixelsPerTile() != 0) { ++size; }
+        const float topDepth    = getDepthForPosition(level, pos.y, layer);
+        const float bottomDepth = getDepthForPosition(level, pos.y + size, layer);
+        transform->setDepth((topDepth + bottomDepth) * 0.5f);
+    }
+    else { transform->setDepth(getDepthForPosition(level, pos.y, layer)); }
+}
+
+float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) const {
+    if (level >= levels.size()) {
+        BL_LOG_ERROR << "Got invalid level: " << level;
+        return 0.f;
+    }
+
+    constexpr float layerZoneSize   = 1.f / 3.f;
+    constexpr float bottomLayerBias = layerZoneSize * 0.f;
+    constexpr float ysortLayerBias  = layerZoneSize * 1.f;
+    constexpr float topLayerBias    = layerZoneSize * 2.f;
+
+    const LayerSet& lvl       = levels[level];
+    const float depthPerLevel = static_cast<float>(size.y);
+    float layerBias           = 0.5f;
+    if (layer != -1) {
+        const unsigned int topStart = lvl.bottomLayers().size() + lvl.ysortLayers().size();
+        if (layer >= topStart) {
+            layerBias = topLayerBias + layerZoneSize * (static_cast<float>(layer - topStart) /
+                                                        static_cast<float>(topStart));
+        }
+        else if (layer >= lvl.bottomLayers().size()) {
+            layerBias = ysortLayerBias +
+                        layerZoneSize * (static_cast<float>(layer - lvl.ysortLayers().size()) /
+                                         static_cast<float>(lvl.ysortLayers().size()));
+        }
+        else {
+            layerBias =
+                ysortLayerBias + layerZoneSize * (static_cast<float>(layer) /
+                                                  static_cast<float>(lvl.bottomLayers().size()));
+        }
+    }
+
+    return -(static_cast<float>(level) * depthPerLevel + layerBias);
+}
+
+float Map::getMinDepth() const {
+    return getDepthForPosition(levels.size() - 1, size.y - 1, levels.back().layerCount() - 1);
 }
 
 } // namespace map

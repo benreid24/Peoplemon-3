@@ -140,6 +140,14 @@ public:
     std::vector<AnimStore::const_iterator> getAnims() const;
 
     /**
+     * @brief Returns the normalized texture coordinates for the given tile id
+     *
+     * @param tid The tile id to get the texture coordinates for
+     * @return The normalized texture coordinates
+     */
+    sf::FloatRect getTileTextureBounds(Tile::IdType tid) const;
+
+    /**
      * @brief Generates the full path to the given tileset file
      *
      * @param path The relative tileset path
@@ -161,11 +169,10 @@ private:
     bl::rc::res::TextureRef combinedTextures;
     std::unordered_map<Tile::IdType, bl::gfx::DiscreteAnimation2DPlayer> sharedAnimations;
 
-    void initializeTile(Tile& tile);
     void clear();
     void finishLoad();
 
-    friend class Tile;
+    friend class Map;
     friend struct bl::serial::SerializableObject<Tileset>;
 };
 

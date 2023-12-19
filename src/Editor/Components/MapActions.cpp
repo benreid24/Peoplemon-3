@@ -26,28 +26,28 @@ const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, u
 void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset& tileset,
                    unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                    core::map::Tile::IdType value, bool isAnim) {
+    // TODO - BLIB_UPGRADE - reset render data
     core::map::LayerSet& l = levels[level];
     core::map::Tile* tile;
     if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
         const unsigned int i = layer - l.ysortLayers().size() - l.bottomLayers().size();
         tile                 = &l.topLayers()[i].getRef(pos.x, pos.y);
-        tile->set(tileset, value, isAnim);
+        tile->set(value, isAnim);
     }
     else if (layer >= l.bottomLayers().size()) {
-        const unsigned int i                       = layer - l.bottomLayers().size();
-        tile                                       = &l.ysortLayers()[i].getRef(pos.x, pos.y);
-        *l.getSortedTile(tileset, i, pos.x, pos.y) = nullptr;
-        tile->set(tileset, value, isAnim);
-        *l.getSortedTile(tileset, i, pos.x, pos.y) = tile;
+        const unsigned int i = layer - l.bottomLayers().size();
+        tile                 = &l.ysortLayers()[i].getRef(pos.x, pos.y);
+        tile->set(value, isAnim);
     }
     else {
         tile = &l.bottomLayers()[layer].getRef(pos.x, pos.y);
-        tile->set(tileset, value, isAnim);
+        tile->set(value, isAnim);
     }
 }
 
 void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
                   std::vector<bool>& filter) {
+    // TODO - BLIB_UPGRADE - reset render data
     if (layer < level.bottomLayers().size()) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer - 1]);
         std::vector<bool>::swap(filter[layer], filter[layer - 1]);
@@ -58,14 +58,10 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
             core::map::TileLayer temp(std::move(level.ysortLayers()[layer]));
             level.ysortLayers().erase(level.ysortLayers().begin() + layer);
             level.bottomLayers().emplace_back(std::move(temp));
-            level.renderSortedLayers().clear();
-            level.activate(tileset);
         }
         else if (layer < level.ysortLayers().size()) {
             std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer - 1]);
             std::vector<bool>::swap(filter[layer], filter[layer - 1]);
-            level.renderSortedLayers().clear();
-            level.activate(tileset);
         }
         else {
             layer -= level.ysortLayers().size();
@@ -73,8 +69,6 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
                 core::map::TileLayer temp(std::move(level.topLayers()[layer]));
                 level.topLayers().erase(level.topLayers().begin() + layer);
                 level.ysortLayers().emplace_back(std::move(temp));
-                level.renderSortedLayers().clear();
-                level.activate(tileset);
             }
             else {
                 std::swap(level.topLayers()[layer], level.topLayers()[layer - 1]);
@@ -86,6 +80,8 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
 
 void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
                     std::vector<bool>& filter) {
+    // TODO - BLIB_UPGRADE - reset render data
+
     if (layer < level.bottomLayers().size() - 1) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer + 1]);
         std::vector<bool>::swap(filter[layer], filter[layer + 1]);
@@ -94,23 +90,17 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
         core::map::TileLayer temp(std::move(level.bottomLayers()[layer]));
         level.bottomLayers().erase(level.bottomLayers().begin() + layer);
         level.ysortLayers().emplace(level.ysortLayers().begin(), std::move(temp));
-        level.renderSortedLayers().clear();
-        level.activate(tileset);
     }
     else {
         layer -= level.bottomLayers().size();
         if (layer < level.ysortLayers().size() - 1) {
             std::swap(level.ysortLayers()[layer], level.ysortLayers()[layer + 1]);
             std::vector<bool>::swap(filter[layer], filter[layer + 1]);
-            level.renderSortedLayers().clear();
-            level.activate(tileset);
         }
         else if (layer == level.ysortLayers().size() - 1) {
             core::map::TileLayer temp(std::move(level.ysortLayers()[layer]));
             level.ysortLayers().erase(level.ysortLayers().begin() + layer);
             level.topLayers().emplace(level.topLayers().begin(), std::move(temp));
-            level.renderSortedLayers().clear();
-            level.activate(tileset);
         }
         else {
             layer -= level.ysortLayers().size();
@@ -122,16 +112,14 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
 
 void shiftLevelDown(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                     unsigned int i) {
+    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i + 1]);
-    levels[i].activate(ts);
-    levels[i + 1].activate(ts);
 }
 
 void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                   unsigned int i) {
+    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i - 1]);
-    levels[i].activate(ts);
-    levels[i - 1].activate(ts);
 }
 
 void setNeighbors(const sf::Vector2i& pos, sf::Vector2i* neighbors) {
@@ -243,11 +231,12 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
                                      std::max(1.f, std::floor(size.y / ts) - 1.f)));
 }
 
-EditMap::SetTileAreaAction::SetTileAreaAction(
-    unsigned int level, unsigned int layer, const sf::IntRect& area,
-    bl::ctr::Vector2D<core::map::Tile::IdType>&& prev,
-    bl::ctr::Vector2D<std::uint8_t>&& wasAnim, core::map::Tile::IdType value, bool isAnim,
-    int w, int h)
+EditMap::SetTileAreaAction::SetTileAreaAction(unsigned int level, unsigned int layer,
+                                              const sf::IntRect& area,
+                                              bl::ctr::Vector2D<core::map::Tile::IdType>&& prev,
+                                              bl::ctr::Vector2D<std::uint8_t>&& wasAnim,
+                                              core::map::Tile::IdType value, bool isAnim, int w,
+                                              int h)
 : level(level)
 , layer(layer)
 , area(area)
@@ -695,7 +684,7 @@ bool EditMap::AppendLayerAction::apply(EditMap& map) {
 
     ls->emplace_back();
     ls->back().create(map.sizeTiles().x, map.sizeTiles().y, core::map::Tile::Blank);
-    lv.activate(*map.tileset);
+    // TODO - BLIB_UPGRADE - reset render data
     map.layerFilter[level].insert(map.layerFilter[level].begin() + i, true);
     return true;
 }
@@ -760,8 +749,7 @@ bool EditMap::RemoveLayerAction::apply(EditMap& map) {
     }
     set->erase(set->begin() + ay);
     map.layerFilter[level].erase(map.layerFilter[level].begin() + layer);
-    lv.renderSortedLayers().clear();
-    lv.activate(*map.tileset);
+    // TODO - BLIB_UPGRADE - reset render data
     return true;
 }
 
@@ -780,8 +768,7 @@ bool EditMap::RemoveLayerAction::undo(EditMap& map) {
     }
     set->insert(set->begin() + ay, removedLayer);
     map.layerFilter[level].insert(map.layerFilter[level].begin() + layer, true);
-    lv.renderSortedLayers().clear();
-    map.levels[level].activate(*map.tileset);
+    // TODO - BLIB_UPGRADE - reset render data
     return true;
 }
 
@@ -869,7 +856,7 @@ bool EditMap::AppendLevelAction::apply(EditMap& map) {
     map.levels.emplace_back();
     map.levels.back().init(map.sizeTiles().x, map.sizeTiles().y, 2, 1, 1);
     map.systems->position().editorPushLevel();
-    for (auto& level : map.levels) { level.activate(*map.tileset); }
+    // TODO - BLIB_UPGRADE - reset render data
     return true;
 }
 

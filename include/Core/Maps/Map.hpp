@@ -9,6 +9,7 @@
 #include <Core/Maps/LayerSet.hpp>
 #include <Core/Maps/LevelTransition.hpp>
 #include <Core/Maps/LightingSystem.hpp>
+#include <Core/Maps/RenderLevel.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Town.hpp>
@@ -193,16 +194,6 @@ public:
     void update(float dt);
 
     /**
-     * @brief Renders the map to the given target using its built-in View
-     *
-     * @param target The target to render to
-     * @param residual Residual time between calls to update, in seconds
-     * @param entityCb Function to call to render entities at the correct times
-     */
-    virtual void render(sf::RenderTarget& target, float residual,
-                        const EntityRenderCallback& entityCb) const;
-
-    /**
      * @brief Returns whether or not the map contains the given position
      *
      * @param position The position to check for
@@ -291,6 +282,23 @@ public:
      */
     const std::string& getLocationName(const component::Position& pos) const;
 
+    /**
+     * @brief Computes the depth to use at the given y position, taking into account the map size,
+     *        layer count, and layer types
+     *
+     * @param level The level of the position to compute the depth for
+     * @param y The y coordinate of the position to compute the depth for
+     * @param layer The index of the layer to compute the depth for. -1 is for entities
+     * @return The depth to use for the given position, both for tiles and entities
+     */
+    float getDepthForPosition(unsigned int level, unsigned int y, int layer = -1) const;
+
+    /**
+     * @brief Returns the maximum depth possible for this map. Maximum is always 0.f. Minimum is
+     *        negative, so 'higher' positions will have lower depths than deeper positions
+     */
+    float getMinDepth() const;
+
 protected:
     std::string nameField;
     std::string loadScriptField;
@@ -322,12 +330,18 @@ protected:
     bl::audio::AudioSystem::Handle playlistHandle;
     bool activated; // for weather continuity
 
+    bl::rc::SceneRef scene;
+    std::list<RenderLevel> renderLevels;
+
     void clear();
     void finishLoad();
     void triggerAnimation(const component::Position& position);
     void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);
     void enterTown(Town* town);
+
+    void prepareRender();
+    void setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos);
 
     static std::vector<Town> flymapTowns;
     static void loadFlymapTowns();

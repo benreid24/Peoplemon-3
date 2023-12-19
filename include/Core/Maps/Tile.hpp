@@ -77,23 +77,7 @@ public:
      * @param id The id of the image or animation in the Tileset
      * @param anim True if an animation, false if an image
      */
-    void set(Tileset& tileset, IdType id, bool anim);
-
-    /**
-     * @brief Sets the information of the tile without updating it's graphics
-     *
-     * @param id The id of the image or animation in the Tileset
-     * @param anim True if an animation, false if an image
-     */
-    void setDataOnly(IdType id, bool anim);
-
-    /**
-     * @brief Initializes the tile's graphic components and position
-     *
-     * @param tileset The tileset to get media from
-     * @param position The position to render at globally
-     */
-    void initialize(Tileset& tileset, const sf::Vector2f& position);
+    void set(IdType id, bool anim);
 
     /**
      * @brief Triggers the animation when the tile is stepped on
@@ -107,7 +91,7 @@ private:
 
     std::variant<std::monostate, bl::gfx::BatchSprite, bl::gfx::BatchSlideshow> renderObject;
 
-    friend class Tileset;
+    friend class Map;
     friend struct bl::serial::SerializableObject<Tile>;
 };
 
@@ -132,7 +116,7 @@ struct Serializer<core::map::Tile, false> {
         bool isAnim;
         if (!Serializer<core::map::Tile::IdType>::deserialize(input, id)) return false;
         if (!Serializer<bool>::deserialize(input, isAnim)) return false;
-        result.setDataOnly(id, isAnim);
+        result.set(id, isAnim);
         return true;
     }
 
