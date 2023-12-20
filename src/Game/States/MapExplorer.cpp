@@ -1,6 +1,8 @@
 #include <Game/States/MapExplorer.hpp>
 
+#include <BLIB/Cameras.hpp>
 #include <BLIB/Logging.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Game/States/PauseMenu.hpp>
 
@@ -10,42 +12,36 @@ namespace state
 {
 namespace
 {
-// class ExplorerCamera : public bl::render::camera::Camera {
-// public:
-//     static Ptr create(const sf::Vector2f& position) { return Ptr(new ExplorerCamera(position)); }
-//
-//     virtual ~ExplorerCamera() = default;
-//
-//     virtual bool valid() const override { return true; }
-//
-//     virtual void update(float dt) override {
-//         const float PixelsPerSecond =
-//             0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
-//         static const float ZoomPerSecond = 0.5f;
-//
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
-//             zoom -= ZoomPerSecond * dt;
-//             if (zoom < 0.1f) zoom = 0.1f;
-//         }
-//         if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }
-//
-//         setCenter(position);
-//         setZoomLevel(zoom, core::Properties::WindowSize());
-//     }
-//
-// private:
-//     sf::Vector2f position;
-//     float zoom;
-//
-//     ExplorerCamera(const sf::Vector2f& pos)
-//     : Camera(sf::FloatRect{pos, core::Properties::WindowSize() * 1.5f}, 0.f)
-//     , position(pos)
-//     , zoom(1.5f) {}
-// };
+class ExplorerCameraController : public bl::cam::CameraController2D {
+public:
+    ExplorerCameraController(const core::map::Map& map)
+    : position(map.sizePixels().x * 0.5f, map.sizePixels().y * 0.5f)
+    , zoom(1.5f) {}
+
+private:
+    glm::vec2 position;
+    float zoom;
+
+    virtual void update(float dt) override {
+        const float PixelsPerSecond =
+            0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
+        constexpr float ZoomPerSecond = 0.5f;
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {
+            zoom -= ZoomPerSecond * dt;
+            if (zoom < 0.1f) zoom = 0.1f;
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }
+
+        const sf::Vector2f size = zoom * core::Properties::WindowSize();
+        camera().setCenter(position);
+        camera().setSize({size.x, size.y});
+    }
+};
 
 } // namespace
 
@@ -59,7 +55,6 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
     core::component::Position* pos =
         systems.engine().ecs().getComponent<core::component::Position>(systems.player().player());
     if (pos) { camPos = pos->positionPixels(); }
-    // mapExplorer = ExplorerCamera::create(camPos);
 
     // hintText.setFont(core::Properties::MenuFont());
     hintText.setFillColor(sf::Color(220, 220, 220));
@@ -80,13 +75,14 @@ const char* MapExplorer::name() const { return "MapExplorer"; }
 void MapExplorer::activate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
-    // engine.renderSystem().cameras().pushCamera(mapExplorer);
+    static_cast<bl::cam::Camera2D*>(engine.renderer().getObserver().getCurrentCamera())
+        ->setController<ExplorerCameraController>(systems.world().activeMap());
 }
 
 void MapExplorer::deactivate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::unsubscribe(this);
     systems.player().makePlayerControlled(systems.player().player());
-    // engine.renderSystem().cameras().popCamera();
+    systems.world().activeMap().setupCamera(systems);
 }
 
 void MapExplorer::update(bl::engine::Engine&, float dt, float) {

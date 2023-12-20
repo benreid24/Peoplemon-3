@@ -13,6 +13,9 @@ void RenderLevel::create(bl::engine::Engine& engine, bl::rc::res::TextureRef til
         const unsigned int initialCapacity = mapSize.x * mapSize.y * layerCount / 2;
         zone.tileSprites.create(engine, tileset, initialCapacity);
         zone.tileAnims.create(engine, initialCapacity);
+
+        zone.tileSprites.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        zone.tileAnims.addToScene(scene, bl::rc::UpdateSpeed::Static);
     }
 }
 

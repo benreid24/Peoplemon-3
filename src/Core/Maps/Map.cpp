@@ -23,6 +23,11 @@ Map::Map()
 , eventRegions({}, 1.f, 1.f) // no allocations
 , activated(false) {}
 
+Map::~Map() {
+    // Clear batch buffers first for speedier cleanup than if tiles are destroyed first
+    renderLevels.clear();
+}
+
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap,
                 const component::Position& prevPlayerPos) {
     BL_LOG_INFO << "Entering map " << nameField << " at spawn " << spawnId;
@@ -66,7 +71,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Prepare rendering
     if (!scene) { prepareRender(); }
-    else { game.engine().renderer().getObserver().pushScene(scene); }
 
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
@@ -158,6 +162,7 @@ void Map::setupCamera(system::Systems& systems) {
         systems.player().player(),
         sf::FloatRect(0.f, 0.f, sizePixels().x, sizePixels().y));
     cam->setNearAndFarPlanes(getMinDepth(), 0.f);
+    cam->setNearAndFarPlanes(-10000.f, 1000.f); // TODO - fix depth issues
 }
 
 const std::string& Map::name() const { return nameField; }
@@ -620,7 +625,8 @@ const std::string& Map::getLocationName(const component::Position& pos) const {
 }
 
 void Map::prepareRender() {
-    scene = systems->engine().renderer().getObserver().pushScene<bl::rc::scene::Scene2D>();
+    BL_LOG_INFO << "Generating map geometry...";
+    scene = systems->engine().renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
 
     tileset->activate(systems->engine());
     for (unsigned int i = 0; i < levels.size(); ++i) {
@@ -637,6 +643,8 @@ void Map::prepareRender() {
             }
         }
     }
+
+    BL_LOG_INFO << "Map geometry generated";
 }
 
 void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
@@ -718,12 +726,12 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
         }
         else {
             layerBias =
-                ysortLayerBias + layerZoneSize * (static_cast<float>(layer) /
-                                                  static_cast<float>(lvl.bottomLayers().size()));
+                bottomLayerBias + layerZoneSize * (static_cast<float>(layer) /
+                                                   static_cast<float>(lvl.bottomLayers().size()));
         }
     }
 
-    return -(static_cast<float>(level) * depthPerLevel + layerBias);
+    return -(static_cast<float>(level) * depthPerLevel + layerBias + static_cast<float>(y));
 }
 
 float Map::getMinDepth() const {

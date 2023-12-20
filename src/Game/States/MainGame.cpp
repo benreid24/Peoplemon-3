@@ -50,12 +50,11 @@ const char* MainGame::name() const { return "MainGame"; }
 
 void MainGame::activate(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
+    systems.engine().renderer().getObserver().pushScene(systems.world().activeMap().getScene());
     systems.world().activeMap().setupCamera(systems);
 }
 
-void MainGame::deactivate(bl::engine::Engine&) {
-    // systems.engine().renderSystem().cameras().clearViewportConstraint();
-}
+void MainGame::deactivate(bl::engine::Engine&) {}
 
 void MainGame::update(bl::engine::Engine&, float dt, float) {
     systems.update(dt, true);
@@ -70,7 +69,7 @@ void MainGame::update(bl::engine::Engine&, float dt, float) {
                 systems.engine().flags().set(bl::engine::Flags::Terminate);
                 return;
             }
-            // systems.world().activeMap().setupCamera(systems);
+            systems.world().activeMap().setupCamera(systems);
             fadeTime = 0.f;
             state    = MapFadein;
         }

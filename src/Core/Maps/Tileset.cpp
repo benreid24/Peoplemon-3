@@ -55,8 +55,11 @@ void Tileset::removeAnimation(Tile::IdType id) {
 
 void Tileset::activate(bl::engine::Engine& engine) {
     if (enginePtr != nullptr) { return; }
+
+    BL_LOG_INFO << "Activating tileset...";
     enginePtr = &engine;
 
+    BL_LOG_INFO << "Creating shared animation players...";
     for (const auto& apair : anims) {
         if (apair.second->isLooping()) {
             sharedAnimations.try_emplace(apair.first)
@@ -65,12 +68,15 @@ void Tileset::activate(bl::engine::Engine& engine) {
         }
     }
 
+    BL_LOG_INFO << "Stitching tiles into atlas...";
     textureStitcher.emplace(engine.renderer());
     for (const auto& tpair : textures) {
         textureAtlas.try_emplace(tpair.first, textureStitcher.value().addImage(*tpair.second));
     }
     combinedTextures =
         engine.renderer().texturePool().createTexture(textureStitcher.value().getStitchedImage());
+
+    BL_LOG_INFO << "Tileset activated";
 }
 
 unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
@@ -197,11 +203,14 @@ sf::FloatRect Tileset::getTileTextureBounds(Tile::IdType tid) const {
         return {-1.f, -1.f, -1.f, -1.f};
     }
 
-    const glm::vec2 pos(ait->second);
+    /*const glm::vec2 pos(ait->second);
     const glm::vec2 size(tit->second->getSize().x, tit->second->getSize().y);
     const glm::vec2 posn = combinedTextures->normalizeAndConvertCoord(pos);
-    const glm::vec2 br   = combinedTextures->normalizeAndConvertCoord(pos + size);
-    return {posn.x, posn.y, br.x - posn.x, br.y - posn.y};
+    const glm::vec2 br   = combinedTextures->normalizeAndConvertCoord(pos + size);*/
+    return {static_cast<float>(ait->second.x),
+            static_cast<float>(ait->second.y),
+            static_cast<float>(tit->second->getSize().x),
+            static_cast<float>(tit->second->getSize().y)};
 }
 
 } // namespace map

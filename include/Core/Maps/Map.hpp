@@ -72,7 +72,7 @@ public:
      * @brief Destroy the Map
      *
      */
-    virtual ~Map() = default;
+    virtual ~Map();
 
     /**
      * @brief Returns the full path to the map file from the given partial file. Accounts for
@@ -113,7 +113,7 @@ public:
     bool save(const std::string& file);
 
     /**
-     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     * @brief Saves the data from this object to the given bundle and registers dependency files
      *
      * @param output Stream to output to
      * @param ctx Context to register dependencies with
@@ -298,6 +298,11 @@ public:
      *        negative, so 'higher' positions will have lower depths than deeper positions
      */
     float getMinDepth() const;
+
+    /**
+     * @brief Returns the scene for this map
+     */
+    bl::rc::SceneRef getScene() { return scene; }
 
 protected:
     std::string nameField;
