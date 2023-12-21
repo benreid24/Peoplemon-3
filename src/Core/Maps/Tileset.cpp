@@ -73,8 +73,9 @@ void Tileset::activate(bl::engine::Engine& engine) {
     for (const auto& tpair : textures) {
         textureAtlas.try_emplace(tpair.first, textureStitcher.value().addImage(*tpair.second));
     }
-    combinedTextures =
-        engine.renderer().texturePool().createTexture(textureStitcher.value().getStitchedImage());
+    combinedTextures = engine.renderer().texturePool().createTexture(
+        textureStitcher.value().getStitchedImage(),
+        engine.renderer().vulkanState().samplerCache.noFilterEdgeClamped());
 
     BL_LOG_INFO << "Tileset activated";
 }
@@ -203,10 +204,6 @@ sf::FloatRect Tileset::getTileTextureBounds(Tile::IdType tid) const {
         return {-1.f, -1.f, -1.f, -1.f};
     }
 
-    /*const glm::vec2 pos(ait->second);
-    const glm::vec2 size(tit->second->getSize().x, tit->second->getSize().y);
-    const glm::vec2 posn = combinedTextures->normalizeAndConvertCoord(pos);
-    const glm::vec2 br   = combinedTextures->normalizeAndConvertCoord(pos + size);*/
     return {static_cast<float>(ait->second.x),
             static_cast<float>(ait->second.y),
             static_cast<float>(tit->second->getSize().x),
