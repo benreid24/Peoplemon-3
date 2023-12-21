@@ -62,11 +62,11 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update map explorer rendering
+    enum HintState { Hidden, Showing, Fading };
 
-    // bl::render::camera::Camera::Ptr mapExplorer;
-    sf::RectangleShape hintBox;
-    sf::Text hintText;
+    bl::gfx::Rectangle hintBox;
+    bl::gfx::Text hintText;
+    HintState hintState;
     float hintTime;
 
     MapExplorer(core::system::Systems& systems);

@@ -161,8 +161,7 @@ void Map::setupCamera(system::Systems& systems) {
         systems.engine().ecs(),
         systems.player().player(),
         sf::FloatRect(0.f, 0.f, sizePixels().x, sizePixels().y));
-    cam->setNearAndFarPlanes(getMinDepth(), 0.f);
-    cam->setNearAndFarPlanes(-10000.f, 1000.f); // TODO - fix depth issues
+    cam->setNearAndFarPlanes(-getMinDepth(), 0.f);
 }
 
 const std::string& Map::name() const { return nameField; }
@@ -730,6 +729,8 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
                                                    static_cast<float>(lvl.bottomLayers().size()));
         }
     }
+
+    layerBias = static_cast<float>(layer) * depthPerLevel;
 
     return -(static_cast<float>(level) * depthPerLevel + layerBias + static_cast<float>(y));
 }

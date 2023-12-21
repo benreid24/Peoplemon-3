@@ -12,6 +12,12 @@ namespace state
 {
 namespace
 {
+constexpr float Padding  = 12.f;
+constexpr float FadeTime = 0.5f;
+const sf::Color BoxColor(30, 30, 30, 180);
+const sf::Color BoxOutlineColor(20, 200, 20, 180);
+const sf::Color TextColor(220, 220, 220);
+
 class ExplorerCameraController : public bl::cam::CameraController2D {
 public:
     ExplorerCameraController(const core::map::Map& map)
@@ -25,7 +31,7 @@ private:
     virtual void update(float dt) override {
         const float PixelsPerSecond =
             0.5f * zoom * static_cast<float>(core::Properties::WindowWidth());
-        constexpr float ZoomPerSecond = 0.5f;
+        const float ZoomPerSecond = std::max(0.5f, zoom * 0.5f);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }
@@ -56,18 +62,20 @@ MapExplorer::MapExplorer(core::system::Systems& systems)
         systems.engine().ecs().getComponent<core::component::Position>(systems.player().player());
     if (pos) { camPos = pos->positionPixels(); }
 
-    // hintText.setFont(core::Properties::MenuFont());
-    hintText.setFillColor(sf::Color(220, 220, 220));
-    hintText.setCharacterSize(48);
-    hintText.setString("Move around: WASD\nZoom out: V\nZoom in: C");
-    hintText.setPosition(15.f, 15.f);
-
-    hintBox.setPosition(5.f, 5.f);
-    hintBox.setSize({hintText.getGlobalBounds().left + hintText.getGlobalBounds().width,
-                     hintText.getGlobalBounds().top + hintText.getGlobalBounds().height});
-    hintBox.setFillColor(sf::Color(30, 30, 30, 180));
-    hintBox.setOutlineColor(sf::Color(20, 200, 20, 180));
+    hintBox.create(systems.engine(), {100.f, 100.f});
+    hintBox.setFillColor(BoxColor);
+    hintBox.setOutlineColor(BoxOutlineColor);
     hintBox.setOutlineThickness(4.f);
+    hintBox.getTransform().setPosition(5.f, 5.f);
+
+    hintText.create(systems.engine(),
+                    core::Properties::MenuFont(),
+                    "Move around: WASD\nZoom out: V\nZoom in: C\nExit: Esc",
+                    28,
+                    TextColor);
+    hintText.getTransform().setPosition(Padding, Padding);
+    hintText.setParent(hintBox);
+    hintBox.setSize(hintText.getLocalSize() + glm::vec2(Padding * 2.f));
 }
 
 const char* MapExplorer::name() const { return "MapExplorer"; }
@@ -77,42 +85,60 @@ void MapExplorer::activate(bl::engine::Engine& engine) {
     systems.player().removePlayerControlled(systems.player().player());
     static_cast<bl::cam::Camera2D*>(engine.renderer().getObserver().getCurrentCamera())
         ->setController<ExplorerCameraController>(systems.world().activeMap());
+
+    bl::rc::Overlay* overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
+    hintBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    hintText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    hintState = Hidden;
+    hintBox.setHidden(true);
+    hintTime = 0.f;
 }
 
 void MapExplorer::deactivate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::unsubscribe(this);
     systems.player().makePlayerControlled(systems.player().player());
     systems.world().activeMap().setupCamera(systems);
+    hintBox.removeFromScene();
 }
 
 void MapExplorer::update(bl::engine::Engine&, float dt, float) {
     systems.update(dt, false);
 
-    hintTime += dt;
-    if (hintTime < 4.f && hintTime >= 2.f) {
-        const float ab = (4.f - hintTime) / 2.f * 180.f;
-        const float a  = (4.f - hintTime) / 2.f * 255.f;
-        hintBox.setFillColor(sf::Color(30, 30, 30, ab));
-        hintBox.setOutlineColor(sf::Color(20, 200, 20, ab));
-        hintText.setFillColor(sf::Color(220, 220, 220, a));
-    }
-    else if (hintTime >= 4.f) {
-        hintBox.setFillColor(sf::Color::Transparent);
-        hintBox.setOutlineColor(sf::Color::Transparent);
-        hintText.setFillColor(sf::Color::Transparent);
+    switch (hintState) {
+    case Hidden:
+        hintTime += dt;
+        if (hintTime >= 4.f) {
+            hintState = Showing;
+            hintTime  = 0.f;
+            hintBox.setHidden(false);
+            hintBox.setFillColor(BoxColor);
+            hintBox.setOutlineColor(BoxOutlineColor);
+            hintText.getSection().setFillColor(TextColor);
+        }
+        break;
+    case Fading:
+        hintTime += dt;
+        if (hintTime <= FadeTime) {
+            const float p  = (1.f - hintTime / FadeTime);
+            const float ab = p * static_cast<float>(BoxColor.a);
+            const float a  = p * 255.f;
+            hintBox.setFillColor(sf::Color(BoxColor.r, BoxColor.g, BoxColor.b, ab));
+            hintBox.setOutlineColor(
+                sf::Color(BoxOutlineColor.r, BoxOutlineColor.g, BoxOutlineColor.b, ab));
+            hintText.getSection().setFillColor(sf::Color(TextColor.r, TextColor.g, TextColor.b, a));
+        }
+        else {
+            hintBox.setHidden(true);
+            hintState = Hidden;
+        }
+        break;
     }
 }
 
-// void MapExplorer::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     systems.render().render(engine.window(), systems.world().activeMap(), lag);
-//     engine.window().draw(hintBox);
-//     engine.window().draw(hintText);
-//     engine.window().display();
-// }
-
 void MapExplorer::observe(const sf::Event& event) {
     if (event.type == sf::Event::KeyPressed) {
+        if (hintState == Showing) { hintState = Fading; }
+        else if (hintState == Hidden) { hintTime = 0.f; }
         if (event.key.code == sf::Keyboard::Escape) { systems.engine().popState(); }
     }
 }
