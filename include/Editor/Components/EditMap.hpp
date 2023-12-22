@@ -701,8 +701,6 @@ private:
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
     virtual bool handleScroll(const bl::gui::Event& scroll) override;
     virtual void update(float dt) override;
-    virtual void render(sf::RenderTarget& target, float residual,
-                        const core::map::Map::EntityRenderCallback& entityCb) const override;
 
     friend class page::Map;
     friend class page::Towns;

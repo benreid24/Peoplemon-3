@@ -17,7 +17,7 @@ namespace component
  */
 class RenderMapWindow {
 public:
-    /// @brief Callback for when the render should triger
+    /// @brief Callback for when the render should trigger
     using StartRender = std::function<void()>;
 
     /**

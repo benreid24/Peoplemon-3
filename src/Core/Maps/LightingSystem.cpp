@@ -21,7 +21,7 @@ LightingSystem::LightingSystem()
 : minLevel(175)
 , maxLevel(255)
 , sunlight(1)
-, activeLights(Storage::GrowthPolicy::ExpandBuffer, 0) // no alocation
+, activeLights(Storage::GrowthPolicy::ExpandBuffer, 0) // no allocation
 , lightGrid({}, 1.f, 1.f)                              // no allocation
 , nextHandle(1)
 , sunlightFactor(1.f)
