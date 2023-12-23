@@ -1230,17 +1230,17 @@ EditMap::SetLightAction::SetLightAction(const sf::Vector2i& pos, unsigned int ra
 bool EditMap::SetLightAction::apply(EditMap& map) {
     const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(value.position);
     if (h == core::map::LightingSystem::None) {
-        map.lighting.addLight(value, true);
+        map.lighting.addLight(value);
         spawned = true;
     }
-    else { map.lighting.updateLight(h, value, true); }
+    else { map.lighting.updateLight(h, value); }
     return false;
 }
 
 bool EditMap::SetLightAction::undo(EditMap& map) {
     const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(value.position);
-    if (spawned) { map.lighting.removeLight(h, true); }
-    else { map.lighting.updateLight(h, orig, true); }
+    if (spawned) { map.lighting.removeLight(h); }
+    else { map.lighting.updateLight(h, orig); }
     return false;
 }
 
@@ -1257,12 +1257,12 @@ EditMap::RemoveLightAction::RemoveLightAction(const core::map::Light& orig)
 
 bool EditMap::RemoveLightAction::apply(EditMap& map) {
     const core::map::LightingSystem::Handle h = map.lighting.getClosestLight(orig.position);
-    map.lighting.removeLight(h, true);
+    map.lighting.removeLight(h);
     return false;
 }
 
 bool EditMap::RemoveLightAction::undo(EditMap& map) {
-    map.lighting.addLight(orig, true);
+    map.lighting.addLight(orig);
     return false;
 }
 

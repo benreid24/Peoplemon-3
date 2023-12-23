@@ -122,7 +122,7 @@ private:
     component::Position* _position;
     component::Movable* movable;
 
-    map::LightingSystem::Handle lantern;
+    bl::rc::lgt::Light2D lantern;
     float lanternVariance;
     float lanternTargetVariance;
     union {
@@ -138,7 +138,6 @@ private:
     void updateLantern(float dt);
     void startLanternVarianceHold();
     void startLanternVarianceChange();
-    map::Light makeLight() const;
 
     friend struct bl::serial::SerializableObject<Player>;
 };

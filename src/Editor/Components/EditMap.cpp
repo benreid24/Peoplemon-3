@@ -163,7 +163,7 @@ bool EditMap::editorActivate() {
     for (core::map::LayerSet& level : levels) { level.activate(*tileset); }*/
 
     weather.set(weatherField);
-    lighting.activate(size);
+    lighting.activate(getSceneLighting());
 
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);

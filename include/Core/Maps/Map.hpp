@@ -304,6 +304,13 @@ public:
      */
     bl::rc::SceneRef getScene() { return scene; }
 
+    /**
+     * @brief Returns the scene lighting for this map. Only valid after enter() is called
+     */
+    bl::rc::lgt::Scene2DLighting& getSceneLighting() {
+        return static_cast<bl::rc::scene::Scene2D*>(scene.get())->getLighting();
+    }
+
 protected:
     std::string nameField;
     std::string loadScriptField;

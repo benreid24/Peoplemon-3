@@ -45,9 +45,12 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         if (!tileset) return false;
         tileset->activate(game.engine());
 
+        // Prepare rendering
+        if (!scene) { prepareRender(); }
+
         // Initialize weather, lighting, and wild peoplemon
         weather.set(weatherField);
-        lighting.activate(size);
+        lighting.activate(getSceneLighting());
 
         // Load and parse scripts
         script::LegacyWarn::warn(loadScriptField);
@@ -68,9 +71,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
         BL_LOG_INFO << nameField << " activated";
     }
-
-    // Prepare rendering
-    if (!scene) { prepareRender(); }
 
     // Spawn player
     auto spawnIt                 = spawns.find(spawnId);
