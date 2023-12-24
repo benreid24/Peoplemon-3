@@ -8,13 +8,22 @@ namespace map
 {
 Tileset::Tileset()
 : nextTextureId(1)
-, nextAnimationId(1) {}
+, nextAnimationId(1)
+, enginePtr(nullptr) {}
 
 Tile::IdType Tileset::addTexture(const std::string& uri) {
     textureFiles.emplace(nextTextureId, uri);
-    textures.emplace(
-        nextTextureId,
-        TextureManager::load(bl::util::FileUtil::joinPath(Properties::MapTilePath(), uri)));
+    const auto it = textures
+                        .emplace(nextTextureId,
+                                 ImageManager::load(
+                                     bl::util::FileUtil::joinPath(Properties::MapTilePath(), uri)))
+                        .first;
+    if (enginePtr) {
+        textureAtlas.try_emplace(nextTextureId, textureStitcher.value().addImage(*it->second));
+        combinedTextures->ensureSize({textureStitcher.value().getStitchedImage().getSize().x,
+                                      textureStitcher.value().getStitchedImage().getSize().y});
+        combinedTextures->update(textureStitcher.value().getStitchedImage());
+    }
     return nextTextureId++;
 }
 
@@ -30,9 +39,10 @@ Tile::IdType Tileset::addAnimation(const std::string& uri) {
                            AnimationManager::load(
                                bl::util::FileUtil::joinPath(Properties::MapAnimationPath(), uri)))
                   .first;
-    if (it->second->isLooping()) {
-        // auto jit = sharedAnimations.try_emplace(nextAnimationId, *it->second).first;
-        // jit->second.play();
+    if (it->second->isLooping() && enginePtr) {
+        sharedAnimations.try_emplace(nextAnimationId)
+            .first->second.create(
+                *enginePtr, it->second, bl::gfx::DiscreteAnimation2DPlayer::Auto, true, true);
     }
     return nextAnimationId++;
 }
@@ -40,47 +50,34 @@ Tile::IdType Tileset::addAnimation(const std::string& uri) {
 void Tileset::removeAnimation(Tile::IdType id) {
     animFiles.erase(id);
     anims.erase(id);
-    // sharedAnimations.erase(id);
+    sharedAnimations.erase(id);
 }
 
-void Tileset::initializeTile(Tile& tile) {
-    // TODO - BLIB_UPGRADE - update map rendering
-    /*
-    if (tile.id() == Tile::Blank) return;
+void Tileset::activate(bl::engine::Engine& engine) {
+    if (enginePtr != nullptr) { return; }
 
-    if (tile.isAnimation()) {
-        auto it = anims.find(tile.id());
-        if (it != anims.end()) {
-            if (it->second->isLooping()) {
-                auto jit = sharedAnimations.find(tile.id());
-                if (jit != sharedAnimations.end()) { tile.anim = &jit->second; }
-                else {
-                    BL_LOG_ERROR << "Shared animation not present for looping anim: " << tile.id();
-                }
-            }
-            else {
-                tile.uniqueAnim.setData(*it->second);
-                tile.anim = &tile.uniqueAnim;
-            }
-        }
-        else {
-            BL_LOG_WARN << "Tile with invalid animation id: " << tile.id() << ". Clearing";
-            tile.set(*this, Tile::Blank, false);
+    BL_LOG_INFO << "Activating tileset...";
+    enginePtr = &engine;
+
+    BL_LOG_INFO << "Creating shared animation players...";
+    for (const auto& apair : anims) {
+        if (apair.second->isLooping()) {
+            sharedAnimations.try_emplace(apair.first)
+                .first->second.create(
+                    engine, apair.second, bl::gfx::DiscreteAnimation2DPlayer::Auto, true, true);
         }
     }
-    else {
-        auto it = textures.find(tile.id());
-        if (it != textures.end()) { tile.sprite.setTexture(*it->second, true); }
-        else {
-            BL_LOG_WARN << "Tile with invalid texture id: " << tile.id() << ". Clearing";
-            tile.set(*this, Tile::Blank, false);
-        }
-    }
-    */
-}
 
-void Tileset::activate() {
-    // for (auto& ap : sharedAnimations) { ap.second.play(); }
+    BL_LOG_INFO << "Stitching tiles into atlas...";
+    textureStitcher.emplace(engine.renderer());
+    for (const auto& tpair : textures) {
+        textureAtlas.try_emplace(tpair.first, textureStitcher.value().addImage(*tpair.second));
+    }
+    combinedTextures = engine.renderer().texturePool().createTexture(
+        textureStitcher.value().getStitchedImage(),
+        engine.renderer().vulkanState().samplerCache.noFilterEdgeClamped());
+
+    BL_LOG_INFO << "Tileset activated";
 }
 
 unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
@@ -97,10 +94,6 @@ unsigned int Tileset::tileHeight(Tile::IdType id, bool isAnim) const {
     return 0;
 }
 
-void Tileset::update(float dt) {
-    // for (auto& ap : sharedAnimations) { ap.second.update(dt); }
-}
-
 bool Tileset::loadDev(std::istream& input) {
     clear();
     if (!bl::serial::json::Serializer<Tileset>::deserializeStream(input, *this)) return false;
@@ -114,7 +107,7 @@ void Tileset::clear() {
     nextTextureId = nextAnimationId = 1;
     textures.clear();
     anims.clear();
-    // sharedAnimations.clear();
+    sharedAnimations.clear();
 }
 
 bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
@@ -127,8 +120,8 @@ bool Tileset::loadProd(bl::serial::binary::InputStream& input) {
 void Tileset::finishLoad() {
     for (const auto& tpair : textureFiles) {
         textures.emplace(tpair.first,
-                         TextureManager::load(bl::util::FileUtil::joinPath(
-                             Properties::MapTilePath(), tpair.second)));
+                         ImageManager::load(bl::util::FileUtil::joinPath(Properties::MapTilePath(),
+                                                                         tpair.second)));
         if (tpair.first >= nextTextureId) nextTextureId = tpair.first + 1;
     }
 
@@ -138,7 +131,6 @@ void Tileset::finishLoad() {
                                AnimationManager::load(bl::util::FileUtil::joinPath(
                                    Properties::MapAnimationPath(), apair.second)))
                       .first;
-        // if (it->second->isLooping()) { sharedAnimations.emplace(apair.first, *it->second); }
         if (apair.first >= nextAnimationId) nextAnimationId = apair.first + 1;
     }
 }
@@ -165,9 +157,9 @@ bool Tileset::saveBundle(bl::serial::binary::OutputStream& output,
     return true;
 }
 
-bl::resource::Ref<sf::Texture> Tileset::getTile(Tile::IdType id) const {
+bl::resource::Ref<sf::Image> Tileset::getTile(Tile::IdType id) const {
     auto it = textures.find(id);
-    return it != textures.end() ? it->second : bl::resource::Ref<sf::Texture>{};
+    return it != textures.end() ? it->second : bl::resource::Ref<sf::Image>{};
 }
 
 std::vector<Tileset::TileStore::const_iterator> Tileset::getTiles() const {
@@ -197,6 +189,25 @@ std::vector<Tileset::AnimStore::const_iterator> Tileset::getAnims() const {
 
 std::string Tileset::getFullPath(const std::string& path) {
     return bl::util::FileUtil::joinPath(Properties::TilesetPath(), path);
+}
+
+sf::FloatRect Tileset::getTileTextureBounds(Tile::IdType tid) const {
+    const auto tit = textures.find(tid);
+    if (tit == textures.end()) {
+        BL_LOG_ERROR << "Unable to find texture with id: " << tid;
+        return {-1.f, -1.f, -1.f, -1.f};
+    }
+
+    const auto ait = textureAtlas.find(tid);
+    if (ait == textureAtlas.end()) {
+        BL_LOG_ERROR << "Texture with id " << tid << " is missing from atlas";
+        return {-1.f, -1.f, -1.f, -1.f};
+    }
+
+    return {static_cast<float>(ait->second.x),
+            static_cast<float>(ait->second.y),
+            static_cast<float>(tit->second->getSize().x),
+            static_cast<float>(tit->second->getSize().y)};
 }
 
 } // namespace map

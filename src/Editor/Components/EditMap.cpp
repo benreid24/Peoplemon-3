@@ -159,11 +159,11 @@ bool EditMap::editorActivate() {
 
     tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField));
     if (!tileset) return false;
-    tileset->activate();
-    for (core::map::LayerSet& level : levels) { level.activate(*tileset); }
+    /*tileset->activate();
+    for (core::map::LayerSet& level : levels) { level.activate(*tileset); }*/
 
     weather.set(weatherField);
-    lighting.activate(size);
+    lighting.activate(getSceneLighting());
 
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);
@@ -249,7 +249,7 @@ void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
                 auto& tile = layer.getRef(x, y);
                 if (tile.id() == id && tile.isAnimation() == anim) {
                     mod = true;
-                    tile.set(*tileset, core::map::Tile::Blank, false);
+                    /*tile.set(*tileset, core::map::Tile::Blank, false);*/
                 }
             }
         }
@@ -265,7 +265,7 @@ void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
         }
         for (auto& layer : level.topLayers()) { cleanLayer(layer); }
 
-        if (needClean) { level.activate(*tileset); }
+        /*if (needClean) { level.activate(*tileset); }*/
     }
 }
 
@@ -547,198 +547,201 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
     }
 }
 
-void EditMap::render(sf::RenderTarget& target, float residual,
-                     const EntityRenderCallback& entityCb) const {
-    const sf::View& view = target.getView();
-    renderView           = view;
-    cover.setPosition(view.getCenter());
-    cover.setSize(view.getSize());
-    cover.setOrigin(view.getSize() * 0.5f);
-    target.draw(cover, {sf::BlendNone});
-
-    refreshRenderRange(target.getView());
-
-    const auto renderRow = [&target, residual, this](const core::map::TileLayer& layer, int row) {
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            layer.get(x, row).render(target, residual);
-        }
-    };
-
-    const auto renderSorted = [&target, residual, this](const core::map::SortedLayer& layer,
-                                                        int row) {
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            core::map::Tile* t = layer(x, row);
-            if (t) t->render(target, residual);
-        }
-    };
-
-    for (unsigned int i = 0; i < levels.size(); ++i) {
-        if (!levelFilter[i]) continue;
-        const core::map::LayerSet& level = levels[i];
-
-        unsigned int li = 0;
-        for (const core::map::TileLayer& layer : level.bottomLayers()) {
-            if (!layerFilter[i][li++]) continue;
-
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                renderRow(layer, y);
-            }
-        }
-        for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-            li = level.bottomLayers().size();
-            for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
-                if (!layerFilter[i][li++]) continue;
-                renderSorted(layer, y);
-            }
-            entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
-        }
-        li = level.bottomLayers().size() + level.ysortLayers().size();
-        for (const core::map::TileLayer& layer : level.topLayers()) {
-            if (!layerFilter[i][li++]) continue;
-
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                renderRow(layer, y);
-            }
-        }
-    }
-
-    weather.render(target, residual);
-    const_cast<EditMap*>(this)->lighting.render(target);
-
-    switch (renderOverlay) {
-    case RenderOverlay::Collisions:
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                overlaySprite.setTexture(*colGfx[static_cast<unsigned int>(
-                                             levels[overlayLevel].collisionLayer().get(x, y))],
-                                         true);
-                overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
-                                          y * core::Properties::PixelsPerTile());
-                target.draw(overlaySprite);
-            }
-        }
-        break;
-
-    case RenderOverlay::CatchTiles: {
-        const float p = core::Properties::PixelsPerTile();
-        sf::RectangleShape ct(sf::Vector2f(p, p));
-        ct.setOutlineThickness(-0.5f);
-        ct.setOutlineColor(sf::Color::Black);
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                ct.setFillColor(
-                    page::Catchables::getColor(levels[overlayLevel].catchLayer().get(x, y)));
-                ct.setPosition(x * core::Properties::PixelsPerTile(),
-                               y * core::Properties::PixelsPerTile());
-                target.draw(ct);
-            }
-        }
-    } break;
-
-    case RenderOverlay::Towns: {
-        const float p = core::Properties::PixelsPerTile();
-        sf::RectangleShape ct(sf::Vector2f(p, p));
-        ct.setOutlineThickness(-0.5f);
-        ct.setOutlineColor(sf::Color::Black);
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                ct.setFillColor(page::Towns::getColor(townTiles(x, y)));
-                ct.setPosition(x * core::Properties::PixelsPerTile(),
-                               y * core::Properties::PixelsPerTile());
-                target.draw(ct);
-            }
-        }
-    } break;
-
-    case RenderOverlay::Events: {
-        static sf::Clock timer;
-        sf::RectangleShape area;
-        const std::uint8_t a =
-            static_cast<int>(timer.getElapsedTime().asSeconds()) % 2 == 0 ? 165 : 100;
-        area.setFillColor(sf::Color(0, 0, 0, a));
-        for (const auto& event : eventsField) {
-            const auto& pos  = event.position;
-            const auto& size = event.areaSize;
-            area.setPosition(static_cast<float>(pos.x) * core::Properties::PixelsPerTile(),
-                             static_cast<float>(pos.y) * core::Properties::PixelsPerTile());
-            area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
-                          static_cast<float>(size.y) * core::Properties::PixelsPerTile()});
-            target.draw(area);
-        }
-    } break;
-
-    case RenderOverlay::Spawns: {
-        sf::Text id;
-        // id.setFont(core::Properties::MenuFont());
-        id.setCharacterSize(24);
-        id.setFillColor(sf::Color::Red);
-        id.setOutlineColor(sf::Color::Black);
-        id.setOutlineThickness(1.f);
-        const sf::Vector2f ht(core::Properties::PixelsPerTile() / 2,
-                              core::Properties::PixelsPerTile() / 2);
-
-        sf::Sprite spr(*arrowGfx);
-        const sf::Vector2f so(sf::Vector2f(arrowGfx->getSize()) * 0.5f);
-        spr.setOrigin(so);
-
-        for (const auto& spawn : spawns) {
-            if (spawn.second.position.level == overlayLevel) {
-                const sf::Vector2f p(spawn.second.position.positionTiles());
-                const sf::Vector2f pos = p * static_cast<float>(core::Properties::PixelsPerTile());
-                spr.setPosition(pos + so);
-                spr.setRotation(static_cast<int>(spawn.second.position.direction) * 90);
-                target.draw(spr);
-
-                id.setString(std::to_string(spawn.first));
-                const sf::Vector2f ts(id.getGlobalBounds().width + id.getLocalBounds().left,
-                                      id.getGlobalBounds().height + id.getLocalBounds().top);
-                const sf::Vector2f to(ht - ts * 0.5f);
-                id.setPosition(pos + to);
-                target.draw(id);
-            }
-        }
-    } break;
-
-    case RenderOverlay::LevelTransitions:
-        for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-            for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                if (transitionField(x, y) != core::map::LevelTransition::None) {
-                    overlaySprite.setTexture(
-                        *ltGfx[static_cast<unsigned int>(transitionField(x, y)) - 1], true);
-                    overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
-                                              y * core::Properties::PixelsPerTile());
-                    target.draw(overlaySprite);
-                }
-            }
-        }
-        break;
-
-    case RenderOverlay::None:
-    default:
-        break;
-    }
-
-    selectRect.setPosition(static_cast<float>(selection.left * core::Properties::PixelsPerTile()),
-                           static_cast<float>(selection.top * core::Properties::PixelsPerTile()));
-    if (selection.width > 0) {
-        selectRect.setFillColor(sf::Color(180, 160, 20, 165));
-        selectRect.setSize(
-            {static_cast<float>(selection.width * core::Properties::PixelsPerTile()),
-             static_cast<float>(selection.height * core::Properties::PixelsPerTile())});
-        target.draw(selectRect);
-    }
-    else if (selection.width < 0) {
-        selectRect.setFillColor(sf::Color(20, 70, 220, 165));
-        selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
-                            static_cast<float>(core::Properties::PixelsPerTile())});
-        target.draw(selectRect);
-    }
-
-    // if (renderGrid) { target.draw(grid); }
-}
+// void EditMap::render(sf::RenderTarget& target, float residual,
+//                      const EntityRenderCallback& entityCb) const {
+//     const sf::View& view = target.getView();
+//     renderView           = view;
+//     cover.setPosition(view.getCenter());
+//     cover.setSize(view.getSize());
+//     cover.setOrigin(view.getSize() * 0.5f);
+//     target.draw(cover, {sf::BlendNone});
+//
+//     refreshRenderRange(target.getView());
+//
+//     const auto renderRow = [&target, residual, this](const core::map::TileLayer& layer, int row)
+//     {
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             layer.get(x, row).render(target, residual);
+//         }
+//     };
+//
+//     const auto renderSorted = [&target, residual, this](const core::map::SortedLayer& layer,
+//                                                         int row) {
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             core::map::Tile* t = layer(x, row);
+//             if (t) t->render(target, residual);
+//         }
+//     };
+//
+//     for (unsigned int i = 0; i < levels.size(); ++i) {
+//         if (!levelFilter[i]) continue;
+//         const core::map::LayerSet& level = levels[i];
+//
+//         unsigned int li = 0;
+//         for (const core::map::TileLayer& layer : level.bottomLayers()) {
+//             if (!layerFilter[i][li++]) continue;
+//
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 renderRow(layer, y);
+//             }
+//         }
+//         for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//             li = level.bottomLayers().size();
+//             for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
+//                 if (!layerFilter[i][li++]) continue;
+//                 renderSorted(layer, y);
+//             }
+//             entityCb(i, y, renderRange.left, renderRange.left + renderRange.width);
+//         }
+//         li = level.bottomLayers().size() + level.ysortLayers().size();
+//         for (const core::map::TileLayer& layer : level.topLayers()) {
+//             if (!layerFilter[i][li++]) continue;
+//
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 renderRow(layer, y);
+//             }
+//         }
+//     }
+//
+//     weather.render(target, residual);
+//     const_cast<EditMap*>(this)->lighting.render(target);
+//
+//     switch (renderOverlay) {
+//     case RenderOverlay::Collisions:
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 overlaySprite.setTexture(*colGfx[static_cast<unsigned int>(
+//                                              levels[overlayLevel].collisionLayer().get(x, y))],
+//                                          true);
+//                 overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
+//                                           y * core::Properties::PixelsPerTile());
+//                 target.draw(overlaySprite);
+//             }
+//         }
+//         break;
+//
+//     case RenderOverlay::CatchTiles: {
+//         const float p = core::Properties::PixelsPerTile();
+//         sf::RectangleShape ct(sf::Vector2f(p, p));
+//         ct.setOutlineThickness(-0.5f);
+//         ct.setOutlineColor(sf::Color::Black);
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 ct.setFillColor(
+//                     page::Catchables::getColor(levels[overlayLevel].catchLayer().get(x, y)));
+//                 ct.setPosition(x * core::Properties::PixelsPerTile(),
+//                                y * core::Properties::PixelsPerTile());
+//                 target.draw(ct);
+//             }
+//         }
+//     } break;
+//
+//     case RenderOverlay::Towns: {
+//         const float p = core::Properties::PixelsPerTile();
+//         sf::RectangleShape ct(sf::Vector2f(p, p));
+//         ct.setOutlineThickness(-0.5f);
+//         ct.setOutlineColor(sf::Color::Black);
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 ct.setFillColor(page::Towns::getColor(townTiles(x, y)));
+//                 ct.setPosition(x * core::Properties::PixelsPerTile(),
+//                                y * core::Properties::PixelsPerTile());
+//                 target.draw(ct);
+//             }
+//         }
+//     } break;
+//
+//     case RenderOverlay::Events: {
+//         static sf::Clock timer;
+//         sf::RectangleShape area;
+//         const std::uint8_t a =
+//             static_cast<int>(timer.getElapsedTime().asSeconds()) % 2 == 0 ? 165 : 100;
+//         area.setFillColor(sf::Color(0, 0, 0, a));
+//         for (const auto& event : eventsField) {
+//             const auto& pos  = event.position;
+//             const auto& size = event.areaSize;
+//             area.setPosition(static_cast<float>(pos.x) * core::Properties::PixelsPerTile(),
+//                              static_cast<float>(pos.y) * core::Properties::PixelsPerTile());
+//             area.setSize({static_cast<float>(size.x) * core::Properties::PixelsPerTile(),
+//                           static_cast<float>(size.y) * core::Properties::PixelsPerTile()});
+//             target.draw(area);
+//         }
+//     } break;
+//
+//     case RenderOverlay::Spawns: {
+//         sf::Text id;
+//         // id.setFont(core::Properties::MenuFont());
+//         id.setCharacterSize(24);
+//         id.setFillColor(sf::Color::Red);
+//         id.setOutlineColor(sf::Color::Black);
+//         id.setOutlineThickness(1.f);
+//         const sf::Vector2f ht(core::Properties::PixelsPerTile() / 2,
+//                               core::Properties::PixelsPerTile() / 2);
+//
+//         sf::Sprite spr(*arrowGfx);
+//         const sf::Vector2f so(sf::Vector2f(arrowGfx->getSize()) * 0.5f);
+//         spr.setOrigin(so);
+//
+//         for (const auto& spawn : spawns) {
+//             if (spawn.second.position.level == overlayLevel) {
+//                 const sf::Vector2f p(spawn.second.position.positionTiles());
+//                 const sf::Vector2f pos = p *
+//                 static_cast<float>(core::Properties::PixelsPerTile()); spr.setPosition(pos + so);
+//                 spr.setRotation(static_cast<int>(spawn.second.position.direction) * 90);
+//                 target.draw(spr);
+//
+//                 id.setString(std::to_string(spawn.first));
+//                 const sf::Vector2f ts(id.getGlobalBounds().width + id.getLocalBounds().left,
+//                                       id.getGlobalBounds().height + id.getLocalBounds().top);
+//                 const sf::Vector2f to(ht - ts * 0.5f);
+//                 id.setPosition(pos + to);
+//                 target.draw(id);
+//             }
+//         }
+//     } break;
+//
+//     case RenderOverlay::LevelTransitions:
+//         for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
+//             for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
+//                 if (transitionField(x, y) != core::map::LevelTransition::None) {
+//                     overlaySprite.setTexture(
+//                         *ltGfx[static_cast<unsigned int>(transitionField(x, y)) - 1], true);
+//                     overlaySprite.setPosition(x * core::Properties::PixelsPerTile(),
+//                                               y * core::Properties::PixelsPerTile());
+//                     target.draw(overlaySprite);
+//                 }
+//             }
+//         }
+//         break;
+//
+//     case RenderOverlay::None:
+//     default:
+//         break;
+//     }
+//
+//     selectRect.setPosition(static_cast<float>(selection.left *
+//     core::Properties::PixelsPerTile()),
+//                            static_cast<float>(selection.top *
+//                            core::Properties::PixelsPerTile()));
+//     if (selection.width > 0) {
+//         selectRect.setFillColor(sf::Color(180, 160, 20, 165));
+//         selectRect.setSize(
+//             {static_cast<float>(selection.width * core::Properties::PixelsPerTile()),
+//              static_cast<float>(selection.height * core::Properties::PixelsPerTile())});
+//         target.draw(selectRect);
+//     }
+//     else if (selection.width < 0) {
+//         selectRect.setFillColor(sf::Color(20, 70, 220, 165));
+//         selectRect.setSize({static_cast<float>(core::Properties::PixelsPerTile()),
+//                             static_cast<float>(core::Properties::PixelsPerTile())});
+//         target.draw(selectRect);
+//     }
+//
+//     // if (renderGrid) { target.draw(grid); }
+// }
 
 void EditMap::staticRender(const RenderMapWindow& params) {
-    constexpr int PatchSize = 100;
+    /*constexpr int PatchSize = 100;
     BL_LOG_INFO << "Rendering map to " << params.outputPath();
 
     BL_LOG_DEBUG << "Creating RAM and VRAM buffers";
@@ -847,7 +850,7 @@ void EditMap::staticRender(const RenderMapWindow& params) {
                                   std::string("Rendered map saved to: " + out).c_str(),
                                   "ok",
                                   "info",
-                                  1);
+                                  1);*/
 }
 
 void EditMap::createEvent(const core::map::Event& event) {

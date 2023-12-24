@@ -6,6 +6,7 @@ target_sources(Core PRIVATE
     Light.cpp
     LightingSystem.cpp
     Map.cpp
+    RenderLevel.cpp
     Spawn.cpp
     Tile.cpp
     Tileset.cpp

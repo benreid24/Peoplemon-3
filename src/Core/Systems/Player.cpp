@@ -20,13 +20,13 @@ constexpr float MaxVariance             = 19.f;
 constexpr float MaxVarianceHoldtime     = 0.22f;
 constexpr float VarianceMinConvergeRate = MaxVariance / 0.25f;
 constexpr float VarianceMaxConvergeRate = MaxVariance / 0.15f;
+constexpr glm::vec3 LanternColor(0.94f, 0.94f, 0.05f);
 } // namespace
 
 using Serializer = bl::serial::json::Serializer<Player>;
 
 Player::Player(Systems& owner)
-: owner(owner)
-, lantern(map::LightingSystem::None) {}
+: owner(owner) {}
 
 bool Player::spawnPlayer(const component::Position& pos) {
     playerId = owner.engine().ecs().createEntity();
@@ -47,7 +47,7 @@ bool Player::spawnPlayer(const component::Position& pos) {
             playerId,
             component::Renderable::fromFastMoveAnims(
                 *_position, *movable, Properties::PlayerAnimations(data.sex)))) {
-        BL_LOG_ERROR << "Failed to add renderble component to player";
+        BL_LOG_ERROR << "Failed to add renderable component to player";
         return false;
     }
 
@@ -102,14 +102,17 @@ void Player::whiteout() {
 }
 
 void Player::update(float dt) {
-    if (lantern != map::LightingSystem::None) { updateLantern(dt); }
+    if (lantern.isValid()) { updateLantern(dt); }
 }
 
 void Player::showLantern() {
-    if (lantern == map::LightingSystem::None) {
+    if (!lantern.isValid()) {
         lanternVariance       = 0.f;
         lanternTargetVariance = 0.f;
-        lantern               = owner.world().activeMap().lightingSystem().addLight(makeLight());
+        lantern               = owner.world().activeMap().getSceneLighting().addLight(
+            {_position->positionPixels().x, _position->positionPixels().y},
+            LanternRadius,
+            LanternColor);
         startLanternVarianceHold();
     }
 }
@@ -133,12 +136,14 @@ void Player::updateLantern(float dt) {
             if (varianceSwitchTime <= 0.f) { startLanternVarianceChange(); }
         }
 
-        lighting.updateLight(lantern, makeLight());
+        sf::Vector2i pos(position().positionPixels());
+        pos.x += Properties::PixelsPerTile() / 2;
+        lantern.setPosition(
+            {position().positionPixels().x + static_cast<float>(Properties::PixelsPerTile()) * 0.5f,
+             position().positionPixels().y});
+        lantern.setRadius(LanternRadius + lanternVariance);
     }
-    else {
-        lighting.removeLight(lantern);
-        lantern = map::LightingSystem::None;
-    }
+    else { lantern.removeFromScene(); }
 }
 
 void Player::startLanternVarianceHold() {
@@ -150,12 +155,6 @@ void Player::startLanternVarianceChange() {
     lanternTargetVariance = bl::util::Random::get<float>(-MaxVariance, MaxVariance);
     varianceConvergeRate =
         bl::util::Random::get<float>(VarianceMinConvergeRate, VarianceMaxConvergeRate);
-}
-
-map::Light Player::makeLight() const {
-    sf::Vector2i pos(position().positionPixels());
-    pos.x += Properties::PixelsPerTile() / 2;
-    return map::Light(static_cast<std::uint16_t>(LanternRadius + lanternVariance), pos);
 }
 
 player::State& Player::state() { return data; }

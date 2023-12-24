@@ -16,6 +16,9 @@ namespace map
 struct Light {
     std::uint16_t radius;
     sf::Vector2i position;
+    sf::Vector3i color;
+
+    static const sf::Vector3i DefaultColor;
 
     /**
      * @brief Creates an empty light
@@ -28,8 +31,10 @@ struct Light {
      *
      * @param radius The radius of the light, in pixels
      * @param position The position of the light, in pixels
+     * @param color The color of the light
      */
-    Light(std::uint16_t radius, const sf::Vector2i& position);
+    Light(std::uint16_t radius, const sf::Vector2i& position,
+          const sf::Vector3i& color = DefaultColor);
 };
 
 } // namespace map
@@ -43,11 +48,15 @@ template<>
 struct SerializableObject<core::map::Light> : public SerializableObjectBase {
     SerializableField<1, core::map::Light, std::uint16_t> radius;
     SerializableField<2, core::map::Light, sf::Vector2i> position;
+    SerializableField<3, core::map::Light, sf::Vector3i> color;
 
     SerializableObject()
     : SerializableObjectBase("Light")
     , radius("radius", *this, &core::map::Light::radius, SerializableFieldBase::Required{})
-    , position("position", *this, &core::map::Light::position, SerializableFieldBase::Required{}) {}
+    , position("position", *this, &core::map::Light::position, SerializableFieldBase::Required{})
+    , color("color", *this, &core::map::Light::color, SerializableFieldBase::Optional{}) {
+        color.setDefault(const_cast<sf::Vector3i&&>(core::map::Light::DefaultColor));
+    }
 };
 
 } // namespace serial

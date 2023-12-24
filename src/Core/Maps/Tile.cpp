@@ -21,48 +21,20 @@ bool Tile::isAnimation() const { return isAnim; }
 
 Tile::IdType Tile::id() const { return tid; }
 
-void Tile::setDataOnly(IdType id, bool a) {
-    tid    = id;
-    isAnim = a;
-}
-
-void Tile::set(Tileset& tileset, IdType id, bool anim) {
+void Tile::set(IdType id, bool anim) {
     tid    = id;
     isAnim = anim;
-
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    // initialize(tileset, sprite.getPosition());
-}
-
-void Tile::initialize(Tileset& tileset, const sf::Vector2f& pos) {
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    tileset.initializeTile(*this);
-
-    /* sprite.setPosition(pos);
-    uniqueAnim.setPosition(pos);
-
-    if (tid == Blank || !isAnim) { anim = nullptr; }
-    */
 }
 
 void Tile::step() {
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    // if (anim && !anim->playing()) { anim->play(); }
-}
-
-void Tile::render(sf::RenderTarget& target, float lag) const {
-    // TODO - BLIB_UPGRADE - tilemap rendering
-    /*
-    if (tid != Blank) {
-        if (isAnim) {
-            anim->setPosition(sprite.getPosition()); // in case of shared anim
-            anim->render(target, lag);
-        }
-        else {
-            target.draw(sprite);
-        }
+    switch (renderObject.index()) {
+    case 2:
+        std::get_if<bl::gfx::BatchSlideshow>(&renderObject)->getPlayer().play();
+        break;
+    case 3:
+        (*std::get_if<std::shared_ptr<bl::gfx::Animation2D>>(&renderObject))->getPlayer().play();
+        break;
     }
-    */
 }
 
 } // namespace map

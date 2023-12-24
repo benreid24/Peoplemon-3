@@ -103,6 +103,10 @@ int main(int argc, char** argv) {
         BL_LOG_INFO << "Created engine";
 
         BL_LOG_INFO << "Initializing game systems";
+#ifdef PEOPLEMON_DEBUG
+        engine.systems().registerSystem<core::debug::DebugBanner>(bl::engine::FrameStage::Update0,
+                                                                  bl::engine::StateMask::All);
+#endif
         core::system::Systems systems(engine);
         BL_LOG_INFO << "Core game systems initialized";
 

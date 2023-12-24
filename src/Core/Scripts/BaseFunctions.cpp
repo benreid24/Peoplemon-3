@@ -1027,13 +1027,13 @@ void setAmbientLight(system::Systems& systems, SymbolTable&, const std::vector<V
 
 void createLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
                  Value& result) {
-    Value::validateArgs<PrimitiveValue::TInteger,
-                        PrimitiveValue::TInteger,
-                        PrimitiveValue::TInteger>("createLight", args);
+    Value::validateArgs<PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric>("createLight", args);
 
-    const float x = args[0].value().getAsInt();
-    const float y = args[1].value().getAsInt();
-    const float r = args[2].value().getAsInt();
+    const float x = args[0].value().getNumAsFloat();
+    const float y = args[1].value().getNumAsFloat();
+    const float r = args[2].value().getNumAsFloat();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -1043,25 +1043,22 @@ void createLight(system::Systems& systems, SymbolTable&, const std::vector<Value
     }
     if (r < 0.f) { throw Error("Light radius must be positive"); }
 
-    const map::Light light(static_cast<std::uint16_t>(r),
-                           {static_cast<int>(x), static_cast<int>(y)});
-    const map::LightingSystem::Handle handle =
-        systems.world().activeMap().lightingSystem().addLight(light);
+    const bl::rc::lgt::Light2D handle =
+        systems.world().activeMap().getSceneLighting().addLight({x, y}, r);
 
-    result = handle;
+    result = handle.getId();
 }
 
 void updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TInteger,
-                        PrimitiveValue::TInteger,
-                        PrimitiveValue::TInteger,
-                        PrimitiveValue::TInteger>("updateLight", args);
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric,
+                        PrimitiveValue::TNumeric>("updateLight", args);
 
-    const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
-    const float x = args[1].value().getAsInt();
-    const float y = args[2].value().getAsInt();
-    const float r = args[3].value().getAsInt();
+    const std::uint32_t id = static_cast<std::uint32_t>(args[0].value().getAsInt());
+    const float x          = args[1].value().getNumAsFloat();
+    const float y          = args[2].value().getNumAsFloat();
+    const float r          = args[3].value().getNumAsFloat();
 
     if (x < 0.f || x >= systems.world().activeMap().sizePixels().x) {
         throw Error("Light x coordinate is out of range: " + std::to_string(x));
@@ -1071,16 +1068,24 @@ void updateLight(system::Systems& systems, SymbolTable&, const std::vector<Value
     }
     if (r < 0.f) { throw Error("Light radius must be positive"); }
 
-    const map::Light light(static_cast<std::uint16_t>(r),
-                           {static_cast<int>(x), static_cast<int>(y)});
-    systems.world().activeMap().lightingSystem().updateLight(handle, light);
+    bl::rc::lgt::Light2D light = systems.world().activeMap().getSceneLighting().getLight(id);
+    if (!light.isValid()) {
+        BL_LOG_ERROR << "Cannot update invalid light: " << id;
+        return;
+    }
+    light.setPosition({x, y});
+    light.setRadius(r);
 }
 
 void removeLight(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TInteger>("removeLight", args);
-    const map::LightingSystem::Handle handle =
-        static_cast<map::LightingSystem::Handle>(args[0].value().getAsInt());
-    systems.world().activeMap().lightingSystem().removeLight(handle);
+    const std::uint32_t id     = static_cast<std::uint32_t>(args[0].value().getAsInt());
+    bl::rc::lgt::Light2D light = systems.world().activeMap().getSceneLighting().getLight(id);
+    if (!light.isValid()) {
+        BL_LOG_ERROR << "Cannot remove invalid light: " << id;
+        return;
+    }
+    light.removeFromScene();
 }
 
 void visitTown(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {

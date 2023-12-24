@@ -22,40 +22,6 @@ void LayerSet::init(unsigned int width, unsigned int height, unsigned int bottom
     for (TileLayer& layer : topLayers()) { layer.create(width, height, {Tile::Blank}); }
 }
 
-void LayerSet::activate(Tileset& tileset) {
-    const auto activateLayer = [&tileset](TileLayer& layer) {
-        for (unsigned int x = 0; x < layer.width(); ++x) {
-            for (unsigned int y = 0; y < layer.height(); ++y) {
-                layer.getRef(x, y).initialize(
-                    tileset,
-                    {static_cast<float>(x * Properties::PixelsPerTile()),
-                     static_cast<float>(y * Properties::PixelsPerTile())});
-            }
-        }
-    };
-
-    const auto sortLayer = [this, &tileset](TileLayer& layer, unsigned int l) {
-        for (unsigned int x = 0; x < layer.width(); ++x) {
-            for (unsigned int y = 0; y < layer.height(); ++y) {
-                if (layer.get(x, y).id() != Tile::Blank) {
-                    *getSortedTile(tileset, l, x, y) = &layer.getRef(x, y);
-                }
-            }
-        }
-    };
-
-    ysortedLayers.clear();
-    ysortedLayers.reserve(ysort.size());
-    for (TileLayer& layer : bottomLayers()) { activateLayer(layer); }
-    for (unsigned int i = 0; i < ysortLayers().size(); ++i) {
-        TileLayer& layer = ysortLayers()[i];
-        activateLayer(layer);
-        ysortedLayers.emplace_back(layer.width(), layer.height(), nullptr);
-        sortLayer(layer, i);
-    }
-    for (TileLayer& layer : topLayers()) { activateLayer(layer); }
-}
-
 CollisionLayer& LayerSet::collisionLayer() { return collisions; }
 
 const CollisionLayer& LayerSet::collisionLayer() const { return collisions; }
@@ -72,25 +38,22 @@ std::vector<TileLayer>& LayerSet::topLayers() { return top; }
 
 unsigned int LayerSet::layerCount() const { return bottom.size() + ysort.size() + top.size(); }
 
-const std::vector<SortedLayer>& LayerSet::renderSortedLayers() const { return ysortedLayers; }
-
-std::vector<SortedLayer>& LayerSet::renderSortedLayers() { return ysortedLayers; }
-
 const std::vector<TileLayer>& LayerSet::bottomLayers() const { return bottom; }
 
 const std::vector<TileLayer>& LayerSet::ysortLayers() const { return ysort; }
 
 const std::vector<TileLayer>& LayerSet::topLayers() const { return top; }
 
-Tile** LayerSet::getSortedTile(Tileset& tileset, unsigned int l, unsigned int x, unsigned int y) {
-    TileLayer& layer    = ysortLayers()[l];
-    SortedLayer& sorted = ysortedLayers[l];
-    const unsigned int pixelHeight =
-        tileset.tileHeight(layer.get(x, y).id(), layer.get(x, y).isAnimation());
-    const unsigned int tileHeight = pixelHeight / Properties::PixelsPerTile();
-    const unsigned int offset     = tileHeight / 2 + 1;
-    const unsigned int ny         = std::min(y + offset, layer.height() - 1);
-    return &sorted(x, ny);
+TileLayer& LayerSet::getLayer(unsigned int layer) {
+    if (layer >= layerCount()) {
+        BL_LOG_ERROR << "Accessing out of bounds layer: " << layer;
+        return bottom.front();
+    }
+
+    if (layer < bottom.size()) { return bottom[layer]; }
+    layer -= bottom.size();
+    if (layer < ysort.size()) { return ysort[layer]; }
+    return top[layer - ysort.size()];
 }
 
 } // namespace map

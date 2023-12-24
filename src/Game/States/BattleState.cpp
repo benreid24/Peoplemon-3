@@ -84,14 +84,6 @@ void BattleState::update(bl::engine::Engine& engine, float dt, float) {
     }
 }
 
-// void BattleState::render(bl::engine::Engine& engine, float lag) {
-//     battle->view.render(engine.window(), lag);
-// #ifdef PEOPLEMON_DEBUG
-//     core::debug::DebugBanner::render(engine.window());
-// #endif
-//     engine.window().display();
-// }
-
 void BattleState::observe(const core::event::OpenPeoplemonMenu& event) {
     systems.engine().pushState(
         PeoplemonMenu::create(systems, event.context, event.outNow, event.chosen));

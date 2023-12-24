@@ -7,6 +7,7 @@ target_sources(Core PUBLIC
     LayerSet.hpp
     Light.hpp
     Map.hpp
+    RenderLevel.hpp
     Spawn.hpp
     Tile.hpp
     Tileset.hpp

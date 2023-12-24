@@ -9,6 +9,7 @@
 #include <Core/Maps/LayerSet.hpp>
 #include <Core/Maps/LevelTransition.hpp>
 #include <Core/Maps/LightingSystem.hpp>
+#include <Core/Maps/RenderLevel.hpp>
 #include <Core/Maps/Spawn.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Maps/Town.hpp>
@@ -71,7 +72,7 @@ public:
      * @brief Destroy the Map
      *
      */
-    virtual ~Map() = default;
+    virtual ~Map();
 
     /**
      * @brief Returns the full path to the map file from the given partial file. Accounts for
@@ -112,7 +113,7 @@ public:
     bool save(const std::string& file);
 
     /**
-     * @brief Saves the data from this object to the given bundle and registers depency files if any
+     * @brief Saves the data from this object to the given bundle and registers dependency files
      *
      * @param output Stream to output to
      * @param ctx Context to register dependencies with
@@ -191,16 +192,6 @@ public:
      * @param dt Elapsed time in seconds since last update
      */
     void update(float dt);
-
-    /**
-     * @brief Renders the map to the given target using its built-in View
-     *
-     * @param target The target to render to
-     * @param residual Residual time between calls to update, in seconds
-     * @param entityCb Function to call to render entities at the correct times
-     */
-    virtual void render(sf::RenderTarget& target, float residual,
-                        const EntityRenderCallback& entityCb) const;
 
     /**
      * @brief Returns whether or not the map contains the given position
@@ -291,6 +282,35 @@ public:
      */
     const std::string& getLocationName(const component::Position& pos) const;
 
+    /**
+     * @brief Computes the depth to use at the given y position, taking into account the map size,
+     *        layer count, and layer types
+     *
+     * @param level The level of the position to compute the depth for
+     * @param y The y coordinate of the position to compute the depth for
+     * @param layer The index of the layer to compute the depth for. -1 is for entities
+     * @return The depth to use for the given position, both for tiles and entities
+     */
+    float getDepthForPosition(unsigned int level, unsigned int y, int layer = -1) const;
+
+    /**
+     * @brief Returns the maximum depth possible for this map. Maximum is always 0.f. Minimum is
+     *        negative, so 'higher' positions will have lower depths than deeper positions
+     */
+    float getMinDepth() const;
+
+    /**
+     * @brief Returns the scene for this map
+     */
+    bl::rc::SceneRef getScene() { return scene; }
+
+    /**
+     * @brief Returns the scene lighting for this map. Only valid after enter() is called
+     */
+    bl::rc::lgt::Scene2DLighting& getSceneLighting() {
+        return static_cast<bl::rc::scene::Scene2D*>(scene.get())->getLighting();
+    }
+
 protected:
     std::string nameField;
     std::string loadScriptField;
@@ -320,17 +340,20 @@ protected:
     bl::ctr::Grid<const Event*> eventRegions;
     bool isWorldMap;
     bl::audio::AudioSystem::Handle playlistHandle;
-
     bool activated; // for weather continuity
-    mutable sf::IntRect renderRange;
-    mutable sf::RectangleShape cover;
+
+    bl::rc::SceneRef scene;
+    std::list<RenderLevel> renderLevels;
 
     void clear();
     void finishLoad();
     void triggerAnimation(const component::Position& position);
-    void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);
     void enterTown(Town* town);
+
+    void prepareRender();
+    void cleanupRender();
+    void setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos);
 
     static std::vector<Town> flymapTowns;
     static void loadFlymapTowns();
