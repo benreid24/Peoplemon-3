@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::state Namespace Reference</title>
+<title>Peoplemon: core::player Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01087.html">editor</a></li><li class="navelem"><a class="el" href="a01095.html">state</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01075.html">core</a></li><li class="navelem"><a class="el" href="a01095.html">player</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">editor::state Namespace Reference</div>  </div>
+<div class="title">core::player Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of engine states for the editor.  
+<p>Collection of classes for managing player state and functionality.  
 <a href="a01095.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02252.html">MainEditor</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary state of the editor. Owns the GUI and all tabs.  <a href="a02252.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01858.html">Bag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic inventory class for managing player items.  <a href="a01858.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01874.html">Peopledex</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintains the information required to populate the peopledex.  <a href="a01874.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01878.html">State</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores all player state.  <a href="a01878.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01882.html">StorageSystem</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peoplemon storage system for extra peoplemon the player has.  <a href="a01882.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga11b9fe689813091d7db2b7cf30c51200"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01066.html#ga11b9fe689813091d7db2b7cf30c51200">Gender</a> : std::uint8_t { <a class="el" href="a01066.html#gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7">Boy</a> = 1
+, <a class="el" href="a01066.html#gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d">Girl</a> = 2
+ }</td></tr>
+<tr class="memdesc:ga11b9fe689813091d7db2b7cf30c51200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible genders for the player.  <a href="a01066.html#ga11b9fe689813091d7db2b7cf30c51200">More...</a><br /></td></tr>
+<tr class="separator:ga11b9fe689813091d7db2b7cf30c51200"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of engine states for the editor. </p>
+<div class="textblock"><p>Collection of classes for managing player state and functionality. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

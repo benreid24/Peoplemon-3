@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c_5662',['operator&lt;&lt;',['../a01920.html#a73b813712c239aa2edc3c4575fafcb40',1,'core::system::Clock::Time']]]
+  ['map_5697',['Map',['../a01758.html#ad2f32e921244459f7cc6d50355429cc6',1,'core::map::Tile::Map()'],['../a01770.html#ad2f32e921244459f7cc6d50355429cc6',1,'core::map::Tileset::Map()']]]
 ];

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Scripts/BaseFunctions.hpp Source File</title>
+<title>Peoplemon: include/Core/Resources/Loaders.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,118 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_cdcd8c60c7240d84e0c0149062c9e6fd.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_4655ea07147374004a9b8157f739b905.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BaseFunctions.hpp</div>  </div>
+<div class="title">Loaders.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00290.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SCRIPTS_BASEFUNCTIONS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SCRIPTS_BASEFUNCTIONS_HPP</span></div>
+<a href="a00290.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_RESOURCES_LOADERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_RESOURCES_LOADERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts/SymbolTable.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02941.html">Core/Components/Position.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02910.html">Core/Files/Conversation.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/ItemDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00161.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02952.html">Core/Files/NPC.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Files/PeoplemonDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02964.html">Core/Files/Trainer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03012.html">Core/Maps/Map.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03024.html">Core/Maps/Tileset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01091.html">   22</a></span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01888.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01888.html">BaseFunctions</a> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a01888.html#ab82e28a7c9987d205a5c929e04bcdfee">addDefaults</a>(bl::script::SymbolTable&amp; table, <a class="code" href="a02008.html">system::Systems</a>&amp; systems);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">static</span> bl::script::Value <a class="code" href="a01888.html#a116257b1cf22c3336a2bb60ec93fae5c">makePosition</a>(<span class="keyword">const</span> <a class="code" href="a01332.html">component::Position</a>&amp; pos);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01888_html"><div class="ttname"><a href="a01888.html">core::script::BaseFunctions</a></div><div class="ttdoc">Adds the built-in default functions to all Peoplemon scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00030">BaseFunctions.hpp:30</a></div></div>
-<div class="ttc" id="aa01888_html_a116257b1cf22c3336a2bb60ec93fae5c"><div class="ttname"><a href="a01888.html#a116257b1cf22c3336a2bb60ec93fae5c">core::script::BaseFunctions::makePosition</a></div><div class="ttdeci">static bl::script::Value makePosition(const component::Position &amp;pos)</div><div class="ttdoc">Helper function for other script functions to make script position values from the position component...</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00240">BaseFunctions.cpp:240</a></div></div>
-<div class="ttc" id="aa01888_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01888.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
-<div class="ttc" id="aa02008_html"><div class="ttname"><a href="a02008.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02941_html"><div class="ttname"><a href="a02941.html">Position.hpp</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01096.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">   18</a></span>&#160;<span class="keyword">enum</span> <a class="code" href="a01096.html#a3864a733b8c0ec891913f728b80f1779">Mode</a> { <a class="code" href="a01096.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>, <a class="code" href="a01096.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> };</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, Mode mode&gt;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01894.html">   29</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01894.html">PeoplemonLoader</a> : <span class="keyword">public</span> bl::resource::LoaderBase&lt;T&gt; {</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01894.html#a0afcefc60e998701ba7e8fc5a734a280">   30</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01894.html#a0afcefc60e998701ba7e8fc5a734a280">Ref</a> = <span class="keyword">typename</span> bl::resource::Ref&lt;T&gt;;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01894.html#a406622b5f2e1cdb94526922fdcbe1f5c">   32</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01894.html#a406622b5f2e1cdb94526922fdcbe1f5c">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>* buffer, std::size_t len, std::istream&amp;,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                      T&amp; result)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> constexpr (mode == <a class="code" href="a01096.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="comment">// worldmap exceeds git size limit in json so load in binary in dev mode</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keywordflow">if</span> (path == <span class="stringliteral">&quot;Resources/Maps/Maps/WorldMap.map&quot;</span>) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                bl::serial::MemoryInputBuffer wrapper(buffer, len);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                bl::serial::binary::InputStream is(wrapper);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                <span class="keywordflow">if</span> (!result.loadProd(is)) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                    BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load resource: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                bl::util::BufferIstreamBuf buf(<span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffer), len);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;                std::istream is(&amp;buf);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="keywordflow">if</span> (!result.loadDev(is)) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                    BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load resource: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            bl::serial::MemoryInputBuffer wrapper(buffer, len);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            bl::serial::binary::InputStream is(wrapper);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            <span class="keywordflow">if</span> (!result.loadProd(is)) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load resource: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a01096.html#a263b778f421c5c1eed85b9333d5cd917">   65</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">TilesetDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;map::Tileset, Dev&gt;</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a01096.html#aa279e9645b48b34febe407baa410605e">   66</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">TilesetProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;map::Tileset, Prod&gt;</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a01096.html#ac516016d998b236c68a0eb5d67e539d4">   68</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">MapDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;map::Map, Dev&gt;</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01096.html#a1ff7de38dfbeaa8c831441eb56164b04">   69</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">MapProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;map::Map, Prod&gt;</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a01096.html#a428d9b10e8db4126c16ae04ce6517160">   71</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">ConversationDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::Conversation, Dev&gt;</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a01096.html#a6e693ec2d0ea69f551a8a10ba8346cae">   72</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">ConversationProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::Conversation, Prod&gt;</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a01096.html#a0ea8397e7a0ca91b368c5a24da21d64b">   74</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">NpcDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::NPC, Dev&gt;</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01096.html#a1a7dfa1c3ac0c3d6924ef067e93450e2">   75</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">NpcProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::NPC, Prod&gt;</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a01096.html#ad55b9b6123094c81cf0b3bbb9d744315">   77</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">TrainerDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::Trainer, Dev&gt;</a>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a01096.html#a8216074458a41e5c629e1c276f084337">   78</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">TrainerProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::Trainer, Prod&gt;</a>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a01096.html#ac43a8141e895beeadb340326c2d21d11">   80</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">ItemDBDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::ItemDB, Dev&gt;</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a01096.html#a99c253e1fe10e831e4bcec5742dfcd85">   81</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">ItemDBProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::ItemDB, Prod&gt;</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a01096.html#a16f716a0aa6e12368a93833511e914a6">   83</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">PeoplemonDBDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::PeoplemonDB, Dev&gt;</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a01096.html#a7faadf65cddba819652e2ab3f11f4f2f">   84</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">PeoplemonDBProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::PeoplemonDB, Prod&gt;</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a01096.html#ab63ea48857f465433b15ce7e02b7c242">   86</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">MoveDBDevLoader</a>  = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::MoveDB, Dev&gt;</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a01096.html#a7311179b2418221681414397a3c78eb4">   87</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01894.html">MoveDBProdLoader</a> = <a class="code" href="a01894.html">PeoplemonLoader&lt;file::MoveDB, Prod&gt;</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">ItemDB.hpp</a></div></div>
+<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">MoveDB.hpp</a></div></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">PeoplemonDB.hpp</a></div></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01096_html_a3864a733b8c0ec891913f728b80f1779"><div class="ttname"><a href="a01096.html#a3864a733b8c0ec891913f728b80f1779">core::res::Mode</a></div><div class="ttdeci">Mode</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00018">Loaders.hpp:18</a></div></div>
+<div class="ttc" id="aa01096_html_a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39"><div class="ttname"><a href="a01096.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">core::res::Dev</a></div><div class="ttdeci">@ Dev</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00018">Loaders.hpp:18</a></div></div>
+<div class="ttc" id="aa01096_html_a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a"><div class="ttname"><a href="a01096.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">core::res::Prod</a></div><div class="ttdeci">@ Prod</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00018">Loaders.hpp:18</a></div></div>
+<div class="ttc" id="aa01894_html"><div class="ttname"><a href="a01894.html">core::res::PeoplemonLoader</a></div><div class="ttdoc">Generic resource loader for conforming Peoplemon resource types. Resource types must be default const...</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00029">Loaders.hpp:29</a></div></div>
+<div class="ttc" id="aa01894_html_a0afcefc60e998701ba7e8fc5a734a280"><div class="ttname"><a href="a01894.html#a0afcefc60e998701ba7e8fc5a734a280">core::res::PeoplemonLoader::Ref</a></div><div class="ttdeci">typename bl::resource::Ref&lt; T &gt; Ref</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00030">Loaders.hpp:30</a></div></div>
+<div class="ttc" id="aa01894_html_a406622b5f2e1cdb94526922fdcbe1f5c"><div class="ttname"><a href="a01894.html#a406622b5f2e1cdb94526922fdcbe1f5c">core::res::PeoplemonLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *buffer, std::size_t len, std::istream &amp;, T &amp;result) override</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00032">Loaders.hpp:32</a></div></div>
+<div class="ttc" id="aa02910_html"><div class="ttname"><a href="a02910.html">Conversation.hpp</a></div></div>
+<div class="ttc" id="aa02952_html"><div class="ttname"><a href="a02952.html">NPC.hpp</a></div></div>
+<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">Trainer.hpp</a></div></div>
+<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">Map.hpp</a></div></div>
+<div class="ttc" id="aa03024_html"><div class="ttname"><a href="a03024.html">Tileset.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

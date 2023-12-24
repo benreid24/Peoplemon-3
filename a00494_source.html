@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/Menus/StorageCursor.hpp Source File</title>
+<title>Peoplemon: include/Game/Menus/PeopledexRow.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,87 +71,80 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StorageCursor.hpp</div>  </div>
+<div class="title">PeopledexRow.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00494.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_MENUS_STORAGECURSOR_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_MENUS_STORAGECURSOR_HPP</span></div>
+<a href="a00494.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_MENUS_PEOPLEDEXROW_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_MENUS_PEOPLEDEXROW_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">Core/Input/Control.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02989.html">Core/Peoplemon/Id.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01096.html">game</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03042.html">Core/Player/Peopledex.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01102.html">game</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02272.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02272.html">StorageCursor</a> {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a02272.html#aeb8eda313abef762803ada8403319351">StorageCursor</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#a1c9b6ef5c377b0c3b6229fccff6ccde7">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02272.html#a6eb287533d5974170a0e1be0f561f7a2">process</a>(<a class="code" href="a01082.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a> cmd, <span class="keywordtype">bool</span> skipAnim);</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02274.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02274.html">PeopledexRow</a> : <span class="keyword">public</span> bl::menu::Item {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02274.html#a9cc62017bf50878eb68b4934c453f3b8">   21</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02274.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a> = std::shared_ptr&lt;PeopledexRow&gt;;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02274.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a> <a class="code" href="a02274.html#a8eaaf17144df9e3488557c6b2f6173b8">create</a>(<a class="code" href="a01065.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01874.html">core::player::Peopledex</a>&amp; dex);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02274.html#ab942471c339e9d8ac7f36aea0290c0fe">   36</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02274.html#ab942471c339e9d8ac7f36aea0290c0fe">~PeopledexRow</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02274.html#a51a273191035498752f7109766591ded">getSize</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#a6fbea49e3b0673d1d53e83abeaa3c79a">setHolding</a>(<a class="code" href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> peoplemon);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02272.html#aa050ff2da0961668024b33326c7b86c1">moving</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> sf::Vector2i&amp; <a class="code" href="a02272.html#a83b6ddc1059af3f634d80d473d1dea23">getPosition</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#ac65a0cab8baa60a60d6a05e5445f4055">setX</a>(<span class="keywordtype">int</span> x);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02274.html#a45fcd7ec3571460c32cf7d2464b28e5b">doCreate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02274.html#abc0c63976d5f62c5c5c60846fb97b95c">doSceneAdd</a>(bl::rc::Overlay* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02274.html#a06e46989a112de09f80bec6b78d35d86">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02274.html#a6848c01f11679c6ecd5b615b129a3f68">getEntity</a>() <span class="keyword">const override</span>;</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#aff0460afa73959537e4dd8ba53ebe6f1">pageLeft</a>();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#a6adf7fbfaf13719e1e8532f6ab3ed828">pageRight</a>();</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02272.html#aade1c2d098cf7a98f33529183d78e18a">render</a>(sf::RenderTarget&amp; target) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01065.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01874.html">core::player::Peopledex</a>&amp; dex;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    bl::rc::res::TextureRef activeBgndTxtr;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    bl::rc::res::TextureRef ballTxtr;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    bl::gfx::Sprite ball;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    bl::gfx::Text id;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    bl::gfx::Text name;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="a02274.html">PeopledexRow</a>(<a class="code" href="a01065.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01874.html">core::player::Peopledex</a>&amp; dex);</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordtype">void</span> makeActive();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">void</span> makeInactive();</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code" href="a02272.html#a8730040872076baeafa9431908e0c93a">TileSize</a>();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    sf::Vector2i position;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    bl::rc::res::TextureRef cursorTxtr;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    bl::gfx::Sprite cursor;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    bl::rc::res::TextureRef pplTxtr;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    bl::gfx::Sprite peoplemon;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a01082.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a> moveDir;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">float</span> offset;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">float</span> moveVel;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">float</span> size;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> syncPos();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;};</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">Control.hpp</a></div></div>
-<div class="ttc" id="aa01059_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01059.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a02989_source.html#l00016">Id.hpp:16</a></div></div>
-<div class="ttc" id="aa01082_html_a362a94172d86c7b7662228aeab1b7516"><div class="ttname"><a href="a01082.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a></div><div class="ttdeci">std::underlying_type_t&lt; Control::EntityControl &gt; EntityControl</div><div class="ttdoc">Helper typedef to avoid too much casting boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00043">Control.hpp:43</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00482_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02272_html"><div class="ttname"><a href="a02272.html">game::menu::StorageCursor</a></div><div class="ttdoc">Cursor that is used to navigate the storage system boxes.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00020">StorageCursor.hpp:20</a></div></div>
-<div class="ttc" id="aa02272_html_a1c9b6ef5c377b0c3b6229fccff6ccde7"><div class="ttname"><a href="a02272.html#a1c9b6ef5c377b0c3b6229fccff6ccde7">game::menu::StorageCursor::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the cursor motion.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00050">StorageCursor.cpp:50</a></div></div>
-<div class="ttc" id="aa02272_html_a6adf7fbfaf13719e1e8532f6ab3ed828"><div class="ttname"><a href="a02272.html#a6adf7fbfaf13719e1e8532f6ab3ed828">game::menu::StorageCursor::pageRight</a></div><div class="ttdeci">void pageRight()</div><div class="ttdoc">Updates the cursor position if the box to the right is switched to.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00144">StorageCursor.cpp:144</a></div></div>
-<div class="ttc" id="aa02272_html_a6eb287533d5974170a0e1be0f561f7a2"><div class="ttname"><a href="a02272.html#a6eb287533d5974170a0e1be0f561f7a2">game::menu::StorageCursor::process</a></div><div class="ttdeci">bool process(core::input::EntityControl cmd, bool skipAnim)</div><div class="ttdoc">Processes user input to move the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00069">StorageCursor.cpp:69</a></div></div>
-<div class="ttc" id="aa02272_html_a6fbea49e3b0673d1d53e83abeaa3c79a"><div class="ttname"><a href="a02272.html#a6fbea49e3b0673d1d53e83abeaa3c79a">game::menu::StorageCursor::setHolding</a></div><div class="ttdeci">void setHolding(core::pplmn::Id peoplemon)</div><div class="ttdoc">Sets a Peoplemon to render with the cursor. Pass Unknown to clear.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00114">StorageCursor.cpp:114</a></div></div>
-<div class="ttc" id="aa02272_html_a83b6ddc1059af3f634d80d473d1dea23"><div class="ttname"><a href="a02272.html#a83b6ddc1059af3f634d80d473d1dea23">game::menu::StorageCursor::getPosition</a></div><div class="ttdeci">const sf::Vector2i &amp; getPosition() const</div><div class="ttdoc">Returns the position of the cursor in the box.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00132">StorageCursor.cpp:132</a></div></div>
-<div class="ttc" id="aa02272_html_a8730040872076baeafa9431908e0c93a"><div class="ttname"><a href="a02272.html#a8730040872076baeafa9431908e0c93a">game::menu::StorageCursor::TileSize</a></div><div class="ttdeci">static float TileSize()</div><div class="ttdoc">Returns the size of a square on the grid.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00165">StorageCursor.cpp:165</a></div></div>
-<div class="ttc" id="aa02272_html_aa050ff2da0961668024b33326c7b86c1"><div class="ttname"><a href="a02272.html#aa050ff2da0961668024b33326c7b86c1">game::menu::StorageCursor::moving</a></div><div class="ttdeci">bool moving() const</div><div class="ttdoc">Returns whether or not the cursor position is being interpolated.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00130">StorageCursor.cpp:130</a></div></div>
-<div class="ttc" id="aa02272_html_aade1c2d098cf7a98f33529183d78e18a"><div class="ttname"><a href="a02272.html#aade1c2d098cf7a98f33529183d78e18a">game::menu::StorageCursor::render</a></div><div class="ttdeci">void render(sf::RenderTarget &amp;target) const</div><div class="ttdoc">Renders the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00149">StorageCursor.cpp:149</a></div></div>
-<div class="ttc" id="aa02272_html_ac65a0cab8baa60a60d6a05e5445f4055"><div class="ttname"><a href="a02272.html#ac65a0cab8baa60a60d6a05e5445f4055">game::menu::StorageCursor::setX</a></div><div class="ttdeci">void setX(int x)</div><div class="ttdoc">Sets the x position of the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00134">StorageCursor.cpp:134</a></div></div>
-<div class="ttc" id="aa02272_html_aeb8eda313abef762803ada8403319351"><div class="ttname"><a href="a02272.html#aeb8eda313abef762803ada8403319351">game::menu::StorageCursor::StorageCursor</a></div><div class="ttdeci">StorageCursor()</div><div class="ttdoc">Construct a new Storage Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00036">StorageCursor.cpp:36</a></div></div>
-<div class="ttc" id="aa02272_html_aff0460afa73959537e4dd8ba53ebe6f1"><div class="ttname"><a href="a02272.html#aff0460afa73959537e4dd8ba53ebe6f1">game::menu::StorageCursor::pageLeft</a></div><div class="ttdeci">void pageLeft()</div><div class="ttdoc">Updates the cursor position if the box to the left is switched to.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00139">StorageCursor.cpp:139</a></div></div>
-<div class="ttc" id="aa02989_html"><div class="ttname"><a href="a02989.html">Id.hpp</a></div></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01065_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01065.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03003_source.html#l00016">Id.hpp:16</a></div></div>
+<div class="ttc" id="aa01102_html"><div class="ttname"><a href="a01102.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00488_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01874_html"><div class="ttname"><a href="a01874.html">core::player::Peopledex</a></div><div class="ttdoc">Maintains the information required to populate the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a03042_source.html#l00024">Peopledex.hpp:24</a></div></div>
+<div class="ttc" id="aa02274_html"><div class="ttname"><a href="a02274.html">game::menu::PeopledexRow</a></div><div class="ttdoc">Item row for peoplemon in the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00018">PeopledexRow.hpp:18</a></div></div>
+<div class="ttc" id="aa02274_html_a06e46989a112de09f80bec6b78d35d86"><div class="ttname"><a href="a02274.html#a06e46989a112de09f80bec6b78d35d86">game::menu::PeopledexRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00084">PeopledexRow.cpp:84</a></div></div>
+<div class="ttc" id="aa02274_html_a45fcd7ec3571460c32cf7d2464b28e5b"><div class="ttname"><a href="a02274.html#a45fcd7ec3571460c32cf7d2464b28e5b">game::menu::PeopledexRow::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00033">PeopledexRow.cpp:33</a></div></div>
+<div class="ttc" id="aa02274_html_a51a273191035498752f7109766591ded"><div class="ttname"><a href="a02274.html#a51a273191035498752f7109766591ded">game::menu::PeopledexRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size that the row takes up.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00031">PeopledexRow.cpp:31</a></div></div>
+<div class="ttc" id="aa02274_html_a6848c01f11679c6ecd5b615b129a3f68"><div class="ttname"><a href="a02274.html#a6848c01f11679c6ecd5b615b129a3f68">game::menu::PeopledexRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00086">PeopledexRow.cpp:86</a></div></div>
+<div class="ttc" id="aa02274_html_a8eaaf17144df9e3488557c6b2f6173b8"><div class="ttname"><a href="a02274.html#a8eaaf17144df9e3488557c6b2f6173b8">game::menu::PeopledexRow::create</a></div><div class="ttdeci">static Ptr create(core::pplmn::Id ppl, const core::player::Peopledex &amp;dex)</div><div class="ttdoc">Create a new peopledex row.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00020">PeopledexRow.cpp:20</a></div></div>
+<div class="ttc" id="aa02274_html_a9cc62017bf50878eb68b4934c453f3b8"><div class="ttname"><a href="a02274.html#a9cc62017bf50878eb68b4934c453f3b8">game::menu::PeopledexRow::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; PeopledexRow &gt; Ptr</div><div class="ttdoc">Pointer to the row item.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00021">PeopledexRow.hpp:21</a></div></div>
+<div class="ttc" id="aa02274_html_ab942471c339e9d8ac7f36aea0290c0fe"><div class="ttname"><a href="a02274.html#ab942471c339e9d8ac7f36aea0290c0fe">game::menu::PeopledexRow::~PeopledexRow</a></div><div class="ttdeci">virtual ~PeopledexRow()=default</div><div class="ttdoc">Destroy the Peopledex Row object.</div></div>
+<div class="ttc" id="aa02274_html_abc0c63976d5f62c5c5c60846fb97b95c"><div class="ttname"><a href="a02274.html#abc0c63976d5f62c5c5c60846fb97b95c">game::menu::PeopledexRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Overlay *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00075">PeopledexRow.cpp:75</a></div></div>
+<div class="ttc" id="aa03042_html"><div class="ttname"><a href="a03042.html">Peopledex.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

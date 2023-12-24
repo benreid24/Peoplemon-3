@@ -77,40 +77,40 @@ $(function() {
 <a href="a00092.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_PATHFINDER_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_PATHFINDER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02941.html">Core/Components/Position.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02955.html">Core/Components/Position.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01324.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01324.html">PathFinder</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01324.html#a19fdce70a4375d5672b1dba7262bbe62">   24</a></span>&#160;    <a class="code" href="a01324.html#a19fdce70a4375d5672b1dba7262bbe62">PathFinder</a>(<span class="keyword">const</span> <a class="code" href="a01332.html">Position</a>&amp; dest)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    : <a class="code" href="a01324.html#ae8e8fef81b76eab7e41acb500f1e4d0a">destination</a>(dest)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    , <a class="code" href="a01324.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>(0) {}</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01330.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01330.html">PathFinder</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01330.html#a19fdce70a4375d5672b1dba7262bbe62">   24</a></span>&#160;    <a class="code" href="a01330.html#a19fdce70a4375d5672b1dba7262bbe62">PathFinder</a>(<span class="keyword">const</span> <a class="code" href="a01338.html">Position</a>&amp; dest)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    : <a class="code" href="a01330.html#ae8e8fef81b76eab7e41acb500f1e4d0a">destination</a>(dest)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    , <a class="code" href="a01330.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>(0) {}</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01324.html#ae8e8fef81b76eab7e41acb500f1e4d0a">   28</a></span>&#160;    <a class="code" href="a01332.html">Position</a> <a class="code" href="a01324.html#ae8e8fef81b76eab7e41acb500f1e4d0a">destination</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01324.html#a6e725d9c7eef9604acd7f06803b27a5d">   29</a></span>&#160;    std::vector&lt;Position&gt; <a class="code" href="a01324.html#a6e725d9c7eef9604acd7f06803b27a5d">path</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01324.html#a76a9a9f10c71f69347b056d14b7d3d8c">   30</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01324.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01330.html#ae8e8fef81b76eab7e41acb500f1e4d0a">   28</a></span>&#160;    <a class="code" href="a01338.html">Position</a> <a class="code" href="a01330.html#ae8e8fef81b76eab7e41acb500f1e4d0a">destination</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01330.html#a6e725d9c7eef9604acd7f06803b27a5d">   29</a></span>&#160;    std::vector&lt;Position&gt; <a class="code" href="a01330.html#a6e725d9c7eef9604acd7f06803b27a5d">path</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01330.html#a76a9a9f10c71f69347b056d14b7d3d8c">   30</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01330.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace component</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01324_html"><div class="ttname"><a href="a01324.html">core::component::PathFinder</a></div><div class="ttdoc">Component that dynamically navigates an entity to a specific tile. The entities Controllable componen...</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00018">PathFinder.hpp:18</a></div></div>
-<div class="ttc" id="aa01324_html_a19fdce70a4375d5672b1dba7262bbe62"><div class="ttname"><a href="a01324.html#a19fdce70a4375d5672b1dba7262bbe62">core::component::PathFinder::PathFinder</a></div><div class="ttdeci">PathFinder(const Position &amp;dest)</div><div class="ttdoc">Construct a new Path Finder object.</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00024">PathFinder.hpp:24</a></div></div>
-<div class="ttc" id="aa01324_html_a6e725d9c7eef9604acd7f06803b27a5d"><div class="ttname"><a href="a01324.html#a6e725d9c7eef9604acd7f06803b27a5d">core::component::PathFinder::path</a></div><div class="ttdeci">std::vector&lt; Position &gt; path</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00029">PathFinder.hpp:29</a></div></div>
-<div class="ttc" id="aa01324_html_a76a9a9f10c71f69347b056d14b7d3d8c"><div class="ttname"><a href="a01324.html#a76a9a9f10c71f69347b056d14b7d3d8c">core::component::PathFinder::step</a></div><div class="ttdeci">unsigned int step</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00030">PathFinder.hpp:30</a></div></div>
-<div class="ttc" id="aa01324_html_ae8e8fef81b76eab7e41acb500f1e4d0a"><div class="ttname"><a href="a01324.html#ae8e8fef81b76eab7e41acb500f1e4d0a">core::component::PathFinder::destination</a></div><div class="ttdeci">Position destination</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00028">PathFinder.hpp:28</a></div></div>
-<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa02941_html"><div class="ttname"><a href="a02941.html">Position.hpp</a></div></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01330_html"><div class="ttname"><a href="a01330.html">core::component::PathFinder</a></div><div class="ttdoc">Component that dynamically navigates an entity to a specific tile. The entities Controllable componen...</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00018">PathFinder.hpp:18</a></div></div>
+<div class="ttc" id="aa01330_html_a19fdce70a4375d5672b1dba7262bbe62"><div class="ttname"><a href="a01330.html#a19fdce70a4375d5672b1dba7262bbe62">core::component::PathFinder::PathFinder</a></div><div class="ttdeci">PathFinder(const Position &amp;dest)</div><div class="ttdoc">Construct a new Path Finder object.</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00024">PathFinder.hpp:24</a></div></div>
+<div class="ttc" id="aa01330_html_a6e725d9c7eef9604acd7f06803b27a5d"><div class="ttname"><a href="a01330.html#a6e725d9c7eef9604acd7f06803b27a5d">core::component::PathFinder::path</a></div><div class="ttdeci">std::vector&lt; Position &gt; path</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00029">PathFinder.hpp:29</a></div></div>
+<div class="ttc" id="aa01330_html_a76a9a9f10c71f69347b056d14b7d3d8c"><div class="ttname"><a href="a01330.html#a76a9a9f10c71f69347b056d14b7d3d8c">core::component::PathFinder::step</a></div><div class="ttdeci">unsigned int step</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00030">PathFinder.hpp:30</a></div></div>
+<div class="ttc" id="aa01330_html_ae8e8fef81b76eab7e41acb500f1e4d0a"><div class="ttname"><a href="a01330.html#ae8e8fef81b76eab7e41acb500f1e4d0a">core::component::PathFinder::destination</a></div><div class="ttdeci">Position destination</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00028">PathFinder.hpp:28</a></div></div>
+<div class="ttc" id="aa01338_html"><div class="ttname"><a href="a01338.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02955_source.html#l00017">Position.hpp:17</a></div></div>
+<div class="ttc" id="aa02955_html"><div class="ttname"><a href="a02955.html">Position.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

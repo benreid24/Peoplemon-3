@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Scripts/BaseFunctions.cpp File Reference</title>
+<title>Peoplemon: src/Core/Properties.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,37 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_6edc84a9acc94cea070447f5eeb2cf24.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle">
-<div class="title">BaseFunctions.cpp File Reference</div>  </div>
+<div class="title">Properties.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00290_source.html">Core/Scripts/BaseFunctions.hpp</a>&gt;</code><br />
-<code>#include &lt;BLIB/Events/EventWaiter.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Scripts.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Util/Waiter.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02935_source.html">Core/Components/NPC.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02947_source.html">Core/Components/Trainer.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00131_source.html">Core/Events/Maps.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00134_source.html">Core/Events/PathFind.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02971_source.html">Core/Events/StorageSystem.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00146_source.html">Core/Events/Store.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02929_source.html">Core/Items/Item.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a03010_source.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00278_source.html">Core/Properties.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00344_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00284_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Engine/Configuration.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
+<code>#include &lt;BLIB/Util/FileUtil.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00293_source.html">Core/Resources.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00782_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01069"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01069.html">core</a></td></tr>
-<tr class="memdesc:a01069"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01075"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">core</a></td></tr>
+<tr class="memdesc:a01075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01091"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html">core::script</a></td></tr>
-<tr class="memdesc:a01091"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helpers and contexts for in-game scripts. <br /></td></tr>
+<tr class="memitem:a01132"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01132.html">core::defaults</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:a582a222c805c1fa0fd38f45ff29536dd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00782.html#a582a222c805c1fa0fd38f45ff29536dd">BUILTIN</a>(function)&#160;&#160;&#160;table.set(#function, bind(systems, &amp;function))</td></tr>
-<tr class="separator:a582a222c805c1fa0fd38f45ff29536dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a582a222c805c1fa0fd38f45ff29536dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a582a222c805c1fa0fd38f45ff29536dd">&#9670;&nbsp;</a></span>BUILTIN</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define BUILTIN</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">function</td><td>)</td>
-          <td>&#160;&#160;&#160;table.set(#function, bind(systems, &amp;function))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

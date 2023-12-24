@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player Namespace Reference</title>
+<title>Peoplemon: core::input::Control Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,47 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01069.html">core</a></li><li class="navelem"><a class="el" href="a01089.html">player</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01075.html">core</a></li><li class="navelem"><a class="el" href="a01088.html">input</a></li><li class="navelem"><a class="el" href="a01089.html">Control</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">core::player Namespace Reference</div>  </div>
+<div class="title">core::input::Control Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of classes for managing player state and functionality.  
+<p>Wrapper around the enum for player input ids.  
 <a href="a01089.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01848.html">Bag</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic inventory class for managing player items.  <a href="a01848.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01864.html">Peopledex</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maintains the information required to populate the peopledex.  <a href="a01864.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01868.html">State</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores all player state.  <a href="a01868.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01872.html">StorageSystem</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Peoplemon storage system for extra peoplemon the player has.  <a href="a01872.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga11b9fe689813091d7db2b7cf30c51200"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01060.html#ga11b9fe689813091d7db2b7cf30c51200">Gender</a> : std::uint8_t { <a class="el" href="a01060.html#gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7">Boy</a> = 1
-, <a class="el" href="a01060.html#gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d">Girl</a> = 2
+<tr class="memitem:gaf9a43071401d217a03ca35e89affedf2"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01062.html#gaf9a43071401d217a03ca35e89affedf2">EntityControl</a> : unsigned int { <br />
+&#160;&#160;<a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">MoveUp</a> = 0
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">MoveRight</a> = 1
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">MoveDown</a> = 2
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">MoveLeft</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Sprint</a> = 4
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Interact</a> = 5
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Pause</a> = 6
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Back</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">Count</a>
+, <a class="el" href="a01062.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">None</a> = Count
+<br />
  }</td></tr>
-<tr class="memdesc:ga11b9fe689813091d7db2b7cf30c51200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Possible genders for the player.  <a href="a01060.html#ga11b9fe689813091d7db2b7cf30c51200">More...</a><br /></td></tr>
-<tr class="separator:ga11b9fe689813091d7db2b7cf30c51200"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:gaf9a43071401d217a03ca35e89affedf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Contains the various inputs a player or AI can use to control the game or an NPC.  <a href="a01062.html#gaf9a43071401d217a03ca35e89affedf2">More...</a><br /></td></tr>
+<tr class="separator:gaf9a43071401d217a03ca35e89affedf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of classes for managing player state and functionality. </p>
+<div class="textblock"><p>Wrapper around the enum for player input ids. </p>
 </div></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

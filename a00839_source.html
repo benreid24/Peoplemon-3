@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/World.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/Systems.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,158 +71,140 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">World.cpp</div>  </div>
+<div class="title">Systems.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00839.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">Core/Systems/World.hpp</a>&gt;</span></div>
+<a href="a00839.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00131.html">Core/Events/Maps.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02962.html">Core/Files/GameSave.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00344.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">using</span> <a class="code" href="a01070.html#a0e99a2ef4958f6c171c842d7a903523e">Serializer</a> = bl::serial::json::Serializer&lt;World&gt;;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02020.html#a2d59d17c578592c34a3001f3232f8e02">   16</a></span>&#160;<a class="code" href="a02020.html#a2d59d17c578592c34a3001f3232f8e02">World::World</a>(<a class="code" href="a02008.html">Systems</a>&amp; o)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: owner(o) {}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02020.html#a1c6e58b7535290f0b93002ba50339ee4">   19</a></span>&#160;<a class="code" href="a02020.html#a1c6e58b7535290f0b93002ba50339ee4">World::~World</a>() {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (currentMap) currentMap-&gt;exit(owner, <span class="stringliteral">&quot;GameClosing&quot;</span>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02020.html#a238c366df3667e681fa08f6ae107379c">   23</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#a238c366df3667e681fa08f6ae107379c">World::init</a>() { bl::event::Dispatcher::subscribe(<span class="keyword">this</span>); }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02020.html#a8d85231f1c949e41a64b8967f599c2c4">   25</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02020.html#a8d85231f1c949e41a64b8967f599c2c4">World::switchMaps</a>(<span class="keyword">const</span> std::string&amp; file, <span class="keywordtype">int</span> spawn) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (file == <span class="stringliteral">&quot;LastMap&quot;</span>) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">if</span> (!previousMap) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">if</span> (prevMapFile.empty()) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;No previous map to return to&quot;</span>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            previousMap = MapManager::load(<a class="code" href="a01732.html#acf7e4e5a6fcd457c8516a30c7c7c793a">map::Map::getMapFile</a>(prevMapFile));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">if</span> (!previousMap) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">const</span> <a class="code" href="a01332.html">component::Position</a> ppos = prevPlayerPos;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        prevPlayerPos                  = owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a052e40ff204ff28a7b8aad1510d28fa9">position</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        currentMap-&gt;exit(owner, previousMap-&gt;name());</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        owner.<a class="code" href="a02008.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().destroyAllEntities();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (!previousMap-&gt;enter(owner, 0, currentMap-&gt;name(), ppos)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        std::swap(currentMap, previousMap);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        std::swap(prevMapFile, currentMapFile);</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Systems::Systems(bl::engine::Engine&amp; engine)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: _engine(engine)</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, _clock(*this)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, _ai(*this)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, _controllable(*this)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, _entity(*this)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, _player(*this)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, _world(*this)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, _position(*this)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, _movement(*this)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, _render(*this)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, _interaction(*this)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, _hud(*this)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, _scripts(*this)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, _trainers(*this)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, _wildPeoplemon(*this)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, _flight(*this) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    _world.init();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    _position.init();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    _player.init();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    _ai.init();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    _interaction.init();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    _scripts.init();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    _clock.init();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    _trainers.init();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    _wildPeoplemon.init();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02018.html#a46efba2091dd2588b4a472ed9e94b341">   35</a></span>&#160;<span class="keywordtype">void</span> Systems::update(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> ent) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    _clock.update(dt);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (ent) {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        _ai.update(dt);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        _player.update(dt);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        _movement.update(dt);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        _trainers.update(dt);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        _flight.update(dt);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="comment">// ensure we always have a whiteout location</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        <span class="keywordflow">if</span> (owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01868.html#a8e5931070e6593bcf388861abdc288e1">whiteoutMap</a>.empty()) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01868.html#a8e5931070e6593bcf388861abdc288e1">whiteoutMap</a>   = file;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01868.html#a2dc44807131c9c810a1cf79e30e584e1">whiteoutSpawn</a> = spawn;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    _position.update();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    _hud.update(dt);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    _world.update(dt);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    _render.update(dt);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        previousMap = MapManager::load(<a class="code" href="a01732.html#acf7e4e5a6fcd457c8516a30c7c7c793a">map::Map::getMapFile</a>(file));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> (!previousMap) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        prevMapFile    = currentMapFile;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        currentMapFile = file;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">if</span> (currentMap) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            currentMap-&gt;exit(owner, previousMap-&gt;name());</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;            prevPlayerPos = owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a052e40ff204ff28a7b8aad1510d28fa9">position</a>();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            owner.<a class="code" href="a02008.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().destroyAllEntities();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        std::swap(currentMap, previousMap);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">if</span> (!currentMap-&gt;enter(</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                owner, spawn, previousMap ? previousMap-&gt;name() : <span class="stringliteral">&quot;NoPrevious&quot;</span>, prevPlayerPos))</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02018.html#a0b3fe0efa3165c0fb5344e927a89a7c2">   52</a></span>&#160;<span class="keyword">const</span> bl::engine::Engine&amp; Systems::engine()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _engine; }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02018.html#a5fef522da37e44874d58301c6e7ac1fa">   54</a></span>&#160;bl::engine::Engine&amp; Systems::engine() { <span class="keywordflow">return</span> _engine; }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02018.html#aba03d5263fd6298e1264cd37dd2f7fef">   56</a></span>&#160;<a class="code" href="a01926.html">Clock</a>&amp; Systems::clock() { <span class="keywordflow">return</span> _clock; }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02018.html#ad2476a6558650a3704bdd28176d39261">   58</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01926.html">Clock</a>&amp; Systems::clock()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _clock; }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02018.html#ad71abe5cc74772044d51b1108df6ade4">   60</a></span>&#160;<a class="code" href="a02030.html">World</a>&amp; Systems::world() { <span class="keywordflow">return</span> _world; }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02018.html#a801da70e9b0d4cfe7f02747bdc92c3bb">   62</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02030.html">World</a>&amp; Systems::world()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _world; }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02018.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">   64</a></span>&#160;<a class="code" href="a02006.html">Position</a>&amp; Systems::position() { <span class="keywordflow">return</span> _position; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02018.html#af941c418fc88063e474820736c365365">   66</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02006.html">Position</a>&amp; Systems::position()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _position; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02018.html#a41e33ceb29b9098d1d611b395bc8c544">   68</a></span>&#160;<a class="code" href="a01994.html">Movement</a>&amp; Systems::movement() { <span class="keywordflow">return</span> _movement; }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02020.html#a50ca82a4f35846749671738b6daedf56">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#a50ca82a4f35846749671738b6daedf56">World::whiteout</a>(<span class="keyword">const</span> std::string&amp; map, <span class="keywordtype">int</span> spawn) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Whiting out to &quot;</span> &lt;&lt; map &lt;&lt; <span class="stringliteral">&quot; (&quot;</span> &lt;&lt; spawn &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    previousMap.release();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    prevMapFile.clear();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::SwitchMapTriggered&gt;({map, spawn});</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02020.html#a37237bf8464a738e91d2c56569dbc021">   77</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#a37237bf8464a738e91d2c56569dbc021">World::setWhiteoutMap</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> spawn) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01868.html#a8e5931070e6593bcf388861abdc288e1">whiteoutMap</a>   = currentMapFile;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01868.html#a2dc44807131c9c810a1cf79e30e584e1">whiteoutSpawn</a> = spawn;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02018.html#ae87f518208a53ed0d7c11d4b3152f55d">   70</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01994.html">Movement</a>&amp; Systems::movement()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _movement; }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02018.html#a4c2bad636d9864557ec726e1b9d534ba">   72</a></span>&#160;<a class="code" href="a02010.html">Render</a>&amp; Systems::render() { <span class="keywordflow">return</span> _render; }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02018.html#a15dfb2cb479a515e966384940ae27da4">   74</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02010.html">Render</a>&amp; Systems::render()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _render; }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02018.html#a2be150f802f8a9c9685823c58443c761">   76</a></span>&#160;<a class="code" href="a01942.html">Entity</a>&amp; Systems::entity() { <span class="keywordflow">return</span> _entity; }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a02018.html#a461e565958d5843b9231de6b5f109e58">   78</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01942.html">Entity</a>&amp; Systems::entity()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _entity; }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02018.html#a614eb9bb163de0567a30da6c215835af">   80</a></span>&#160;<a class="code" href="a01998.html">Player</a>&amp; Systems::player() { <span class="keywordflow">return</span> _player; }</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02020.html#a9e7738a624376c5030f9634f4afeb759">   82</a></span>&#160;<a class="code" href="a01732.html">map::Map</a>&amp; <a class="code" href="a02020.html#a9e7738a624376c5030f9634f4afeb759">World::activeMap</a>() { <span class="keywordflow">return</span> *currentMap; }</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02018.html#aed3e07a228612f715af1b29c87f62b1b">   82</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01998.html">Player</a>&amp; Systems::player()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _player; }</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02020.html#a37312fecc4ea11c1b9fe90a4842267bd">   84</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01732.html">map::Map</a>&amp; <a class="code" href="a02020.html#a9e7738a624376c5030f9634f4afeb759">World::activeMap</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *currentMap; }</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02018.html#a93591789b40dcfcfb17d73c33004f83f">   84</a></span>&#160;<a class="code" href="a01938.html">Controllable</a>&amp; Systems::controllable() { <span class="keywordflow">return</span> _controllable; }</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02020.html#a715aaca253fce94661b867f4468bdf1b">   86</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#a715aaca253fce94661b867f4468bdf1b">World::update</a>(<span class="keywordtype">float</span> dt) { currentMap-&gt;update(dt); }</div>
+<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02018.html#a1ce8e251fe7c2df6d7bd8e9a3a4a501b">   86</a></span>&#160;<a class="code" href="a01922.html">AI</a>&amp; Systems::ai() { <span class="keywordflow">return</span> _ai; }</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02020.html#ab14a57ac77561c5d5cf3a232d77d2af9">   88</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#ab14a57ac77561c5d5cf3a232d77d2af9">World::observe</a>(<span class="keyword">const</span> <a class="code" href="a01416.html">event::GameSaveInitializing</a>&amp; save) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (save.<a class="code" href="a01416.html#a8f568dfb017538878fc182a74de877ae">saving</a>) { playerPos = owner.<a class="code" href="a02008.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a01988.html#a052e40ff204ff28a7b8aad1510d28fa9">position</a>(); }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    save.<a class="code" href="a01416.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01560.html#a38c47bf4ccf47a5713c4d77171d02367">world</a>.<a class="code" href="a01572.html#a68045e44e20b42cdaf14657c87cf3bb3">currentMap</a>    = &amp;currentMapFile;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    save.<a class="code" href="a01416.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01560.html#a38c47bf4ccf47a5713c4d77171d02367">world</a>.<a class="code" href="a01572.html#a53444b96ac8030a1b55296dbf0510472">prevMap</a>       = &amp;prevMapFile;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    save.<a class="code" href="a01416.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01560.html#a38c47bf4ccf47a5713c4d77171d02367">world</a>.<a class="code" href="a01572.html#a1240bec3c77edbe42c54b5ec824aeec6">playerPos</a>     = &amp;playerPos;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    save.<a class="code" href="a01416.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01560.html#a38c47bf4ccf47a5713c4d77171d02367">world</a>.<a class="code" href="a01572.html#afaa2b52ad204dea358340bc89a86d5cf">prevPlayerPos</a> = &amp;prevPlayerPos;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02018.html#adbf956366f458de91791b525731c36de">   88</a></span>&#160;<a class="code" href="a01990.html">Interaction</a>&amp; Systems::interaction() { <span class="keywordflow">return</span> _interaction; }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a02018.html#abb5e1cbaf09a2d66b686562d3006cf34">   90</a></span>&#160;<a class="code" href="a01974.html">HUD</a>&amp; Systems::hud() { <span class="keywordflow">return</span> _hud; }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02018.html#a81b756ab37ac6cc8a18f2a6fd1a76739">   92</a></span>&#160;<a class="code" href="a02014.html">Scripts</a>&amp; Systems::scripts() { <span class="keywordflow">return</span> _scripts; }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02018.html#ac91bd250e5ce31b0a5754946f477e7d4">   94</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02014.html">Scripts</a>&amp; Systems::scripts()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _scripts; }</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02020.html#a46e9433cfc2332c7ea4e2d587c1a94b9">   96</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02020.html#ab14a57ac77561c5d5cf3a232d77d2af9">World::observe</a>(<span class="keyword">const</span> <a class="code" href="a01420.html">event::GameSaveLoaded</a>&amp; load) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    currentMap = MapManager::load(<a class="code" href="a01732.html#acf7e4e5a6fcd457c8516a30c7c7c793a">map::Map::getMapFile</a>(currentMapFile));</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (!currentMap) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        load.<a class="code" href="a01420.html#a52b3f58736c5393a403f34a000fb1c32">failMessage</a> = <span class="stringliteral">&quot;Failed to load map: &quot;</span> + currentMapFile;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (!currentMap-&gt;enter(owner, 0, prevMapFile, playerPos)) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        load.<a class="code" href="a01420.html#a52b3f58736c5393a403f34a000fb1c32">failMessage</a> = <span class="stringliteral">&quot;Failed to enter map: &quot;</span> + currentMapFile;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00131_html"><div class="ttname"><a href="a00131.html">Maps.hpp</a></div></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00344_html"><div class="ttname"><a href="a00344.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">World.hpp</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01070_html_a0e99a2ef4958f6c171c842d7a903523e"><div class="ttname"><a href="a01070.html#a0e99a2ef4958f6c171c842d7a903523e">core::system::Serializer</a></div><div class="ttdeci">bl::serial::json::Serializer&lt; Player &gt; Serializer</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00025">Player.cpp:25</a></div></div>
-<div class="ttc" id="aa01332_html"><div class="ttname"><a href="a01332.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01416_html"><div class="ttname"><a href="a01416.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a02959_source.html#l00022">GameSave.hpp:22</a></div></div>
-<div class="ttc" id="aa01416_html_a8f568dfb017538878fc182a74de877ae"><div class="ttname"><a href="a01416.html#a8f568dfb017538878fc182a74de877ae">core::event::GameSaveInitializing::saving</a></div><div class="ttdeci">bool saving</div><div class="ttdoc">True when saving, false when loading.</div><div class="ttdef"><b>Definition:</b> <a href="a02959_source.html#l00027">GameSave.hpp:27</a></div></div>
-<div class="ttc" id="aa01416_html_ac6fbd08a5bcbfc66c3df65f5f33965a8"><div class="ttname"><a href="a01416.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">core::event::GameSaveInitializing::gameSave</a></div><div class="ttdeci">file::GameSave &amp; gameSave</div><div class="ttdoc">Game save being initialized.</div><div class="ttdef"><b>Definition:</b> <a href="a02959_source.html#l00024">GameSave.hpp:24</a></div></div>
-<div class="ttc" id="aa01420_html"><div class="ttname"><a href="a01420.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a02959_source.html#l00046">GameSave.hpp:46</a></div></div>
-<div class="ttc" id="aa01420_html_a52b3f58736c5393a403f34a000fb1c32"><div class="ttname"><a href="a01420.html#a52b3f58736c5393a403f34a000fb1c32">core::event::GameSaveLoaded::failMessage</a></div><div class="ttdeci">std::string failMessage</div><div class="ttdoc">Modules can set this if they encounter a failure that should fail the entire load.</div><div class="ttdef"><b>Definition:</b> <a href="a02959_source.html#l00048">GameSave.hpp:48</a></div></div>
-<div class="ttc" id="aa01560_html_a38c47bf4ccf47a5713c4d77171d02367"><div class="ttname"><a href="a01560.html#a38c47bf4ccf47a5713c4d77171d02367">core::file::GameSave::world</a></div><div class="ttdeci">struct core::file::GameSave::WorldDataPointers world</div></div>
-<div class="ttc" id="aa01572_html_a1240bec3c77edbe42c54b5ec824aeec6"><div class="ttname"><a href="a01572.html#a1240bec3c77edbe42c54b5ec824aeec6">core::file::GameSave::WorldDataPointers::playerPos</a></div><div class="ttdeci">component::Position * playerPos</div><div class="ttdef"><b>Definition:</b> <a href="a02962_source.html#l00057">GameSave.hpp:57</a></div></div>
-<div class="ttc" id="aa01572_html_a53444b96ac8030a1b55296dbf0510472"><div class="ttname"><a href="a01572.html#a53444b96ac8030a1b55296dbf0510472">core::file::GameSave::WorldDataPointers::prevMap</a></div><div class="ttdeci">std::string * prevMap</div><div class="ttdef"><b>Definition:</b> <a href="a02962_source.html#l00056">GameSave.hpp:56</a></div></div>
-<div class="ttc" id="aa01572_html_a68045e44e20b42cdaf14657c87cf3bb3"><div class="ttname"><a href="a01572.html#a68045e44e20b42cdaf14657c87cf3bb3">core::file::GameSave::WorldDataPointers::currentMap</a></div><div class="ttdeci">std::string * currentMap</div><div class="ttdef"><b>Definition:</b> <a href="a02962_source.html#l00055">GameSave.hpp:55</a></div></div>
-<div class="ttc" id="aa01572_html_afaa2b52ad204dea358340bc89a86d5cf"><div class="ttname"><a href="a01572.html#afaa2b52ad204dea358340bc89a86d5cf">core::file::GameSave::WorldDataPointers::prevPlayerPos</a></div><div class="ttdeci">component::Position * prevPlayerPos</div><div class="ttdef"><b>Definition:</b> <a href="a02962_source.html#l00058">GameSave.hpp:58</a></div></div>
-<div class="ttc" id="aa01732_html"><div class="ttname"><a href="a01732.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a02998_source.html#l00050">Map.hpp:50</a></div></div>
-<div class="ttc" id="aa01732_html_acf7e4e5a6fcd457c8516a30c7c7c793a"><div class="ttname"><a href="a01732.html#acf7e4e5a6fcd457c8516a30c7c7c793a">core::map::Map::getMapFile</a></div><div class="ttdeci">static std::string getMapFile(const std::string &amp;partialFile)</div><div class="ttdoc">Returns the full path to the map file from the given partial file. Accounts for missing extension.</div><div class="ttdef"><b>Definition:</b> <a href="a03094_source.html#l00223">Map.cpp:223</a></div></div>
-<div class="ttc" id="aa01868_html_a2dc44807131c9c810a1cf79e30e584e1"><div class="ttname"><a href="a01868.html#a2dc44807131c9c810a1cf79e30e584e1">core::player::State::whiteoutSpawn</a></div><div class="ttdeci">unsigned int whiteoutSpawn</div><div class="ttdef"><b>Definition:</b> <a href="a03028_source.html#l00052">State.hpp:52</a></div></div>
-<div class="ttc" id="aa01868_html_a8e5931070e6593bcf388861abdc288e1"><div class="ttname"><a href="a01868.html#a8e5931070e6593bcf388861abdc288e1">core::player::State::whiteoutMap</a></div><div class="ttdeci">std::string whiteoutMap</div><div class="ttdef"><b>Definition:</b> <a href="a03028_source.html#l00051">State.hpp:51</a></div></div>
-<div class="ttc" id="aa01988_html_a052e40ff204ff28a7b8aad1510d28fa9"><div class="ttname"><a href="a01988.html#a052e40ff204ff28a7b8aad1510d28fa9">core::system::Player::position</a></div><div class="ttdeci">const component::Position &amp; position() const</div><div class="ttdoc">Returns the current position of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00059">Player.cpp:59</a></div></div>
-<div class="ttc" id="aa01988_html_a1ae5c4b4208e1adf18f0755baed9ae31"><div class="ttname"><a href="a01988.html#a1ae5c4b4208e1adf18f0755baed9ae31">core::system::Player::state</a></div><div class="ttdeci">player::State &amp; state()</div><div class="ttdoc">Returns the state of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00161">Player.cpp:161</a></div></div>
-<div class="ttc" id="aa02008_html"><div class="ttname"><a href="a02008.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02008_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02008.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00052">Systems.cpp:52</a></div></div>
-<div class="ttc" id="aa02008_html_a614eb9bb163de0567a30da6c215835af"><div class="ttname"><a href="a02008.html#a614eb9bb163de0567a30da6c215835af">core::system::Systems::player</a></div><div class="ttdeci">Player &amp; player()</div><div class="ttdoc">Returns the player system.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00080">Systems.cpp:80</a></div></div>
-<div class="ttc" id="aa02020_html_a1c6e58b7535290f0b93002ba50339ee4"><div class="ttname"><a href="a02020.html#a1c6e58b7535290f0b93002ba50339ee4">core::system::World::~World</a></div><div class="ttdeci">~World()</div><div class="ttdoc">Custom cleanup code to prevent dangling pointers in event subscribers.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00019">World.cpp:19</a></div></div>
-<div class="ttc" id="aa02020_html_a238c366df3667e681fa08f6ae107379c"><div class="ttname"><a href="a02020.html#a238c366df3667e681fa08f6ae107379c">core::system::World::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Subscribes the system to the engine event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00023">World.cpp:23</a></div></div>
-<div class="ttc" id="aa02020_html_a2d59d17c578592c34a3001f3232f8e02"><div class="ttname"><a href="a02020.html#a2d59d17c578592c34a3001f3232f8e02">core::system::World::World</a></div><div class="ttdeci">World(Systems &amp;systems)</div><div class="ttdoc">Creates the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00016">World.cpp:16</a></div></div>
-<div class="ttc" id="aa02020_html_a37237bf8464a738e91d2c56569dbc021"><div class="ttname"><a href="a02020.html#a37237bf8464a738e91d2c56569dbc021">core::system::World::setWhiteoutMap</a></div><div class="ttdeci">void setWhiteoutMap(unsigned int spawn)</div><div class="ttdoc">Sets the respawn point to the given spawn in the current map.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00077">World.cpp:77</a></div></div>
-<div class="ttc" id="aa02020_html_a50ca82a4f35846749671738b6daedf56"><div class="ttname"><a href="a02020.html#a50ca82a4f35846749671738b6daedf56">core::system::World::whiteout</a></div><div class="ttdeci">void whiteout(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches to the new map and resets the last map to empty.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00070">World.cpp:70</a></div></div>
-<div class="ttc" id="aa02020_html_a715aaca253fce94661b867f4468bdf1b"><div class="ttname"><a href="a02020.html#a715aaca253fce94661b867f4468bdf1b">core::system::World::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the current map.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00086">World.cpp:86</a></div></div>
-<div class="ttc" id="aa02020_html_a8d85231f1c949e41a64b8967f599c2c4"><div class="ttname"><a href="a02020.html#a8d85231f1c949e41a64b8967f599c2c4">core::system::World::switchMaps</a></div><div class="ttdeci">bool switchMaps(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches the current map to the map in the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00025">World.cpp:25</a></div></div>
-<div class="ttc" id="aa02020_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02020.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00082">World.cpp:82</a></div></div>
-<div class="ttc" id="aa02020_html_ab14a57ac77561c5d5cf3a232d77d2af9"><div class="ttname"><a href="a02020.html#ab14a57ac77561c5d5cf3a232d77d2af9">core::system::World::observe</a></div><div class="ttdeci">virtual void observe(const event::GameSaveInitializing &amp;save) override</div><div class="ttdoc">Adds saved world data to the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00088">World.cpp:88</a></div></div>
-<div class="ttc" id="aa02962_html"><div class="ttname"><a href="a02962.html">GameSave.hpp</a></div></div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02018.html#a83bb012e96b410774024149c3c5a1e90">   96</a></span>&#160;<a class="code" href="a02022.html">Trainers</a>&amp; Systems::trainers() { <span class="keywordflow">return</span> _trainers; }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02018.html#a65ca8a1d629e8bfb6f508f3968340831">   98</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02022.html">Trainers</a>&amp; Systems::trainers()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _trainers; }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a02018.html#ad301fde37048e71528633d857caa8721">  100</a></span>&#160;<a class="code" href="a02026.html">WildPeoplemon</a>&amp; Systems::wildPeoplemon() { <span class="keywordflow">return</span> _wildPeoplemon; }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02018.html#a5cf61abc4b9ebb6664633c9f53a2f8ea">  102</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02026.html">WildPeoplemon</a>&amp; Systems::wildPeoplemon()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _wildPeoplemon; }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02018.html#a625832b092ffb62d44ae2d29b7a7dd47">  104</a></span>&#160;<a class="code" href="a01946.html">Flight</a>&amp; Systems::flight() { <span class="keywordflow">return</span> _flight; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02018.html#a69a8d8f5803913200d3dda7e86be150a">  106</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01946.html">Flight</a>&amp; Systems::flight()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _flight; }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01922_html"><div class="ttname"><a href="a01922.html">core::system::AI</a></div><div class="ttdoc">Manages NPC's and trainers and their behaviors.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00024">AI.hpp:24</a></div></div>
+<div class="ttc" id="aa01926_html"><div class="ttname"><a href="a01926.html">core::system::Clock</a></div><div class="ttdoc">Simple time keeping systems. Tracks in game time and date based on real elapsed play time.</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00022">Clock.hpp:24</a></div></div>
+<div class="ttc" id="aa01938_html"><div class="ttname"><a href="a01938.html">core::system::Controllable</a></div><div class="ttdoc">Simple systems for performing batch locks and unlocks on all controllable entities.</div><div class="ttdef"><b>Definition:</b> <a href="a02934_source.html#l00019">Controllable.hpp:19</a></div></div>
+<div class="ttc" id="aa01942_html"><div class="ttname"><a href="a01942.html">core::system::Entity</a></div><div class="ttdoc">Basic helper system for creating entities and their required components. Also manages player data and...</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00021">Entity.hpp:21</a></div></div>
+<div class="ttc" id="aa01946_html"><div class="ttname"><a href="a01946.html">core::system::Flight</a></div><div class="ttdoc">Special system to manage player flight between their current location and a town.</div><div class="ttdef"><b>Definition:</b> <a href="a00323_source.html#l00020">Flight.hpp:20</a></div></div>
+<div class="ttc" id="aa01974_html"><div class="ttname"><a href="a01974.html">core::system::HUD</a></div><div class="ttdoc">The primary HUD system for the player. Manages displaying messages and asking questions....</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00030">HUD.hpp:30</a></div></div>
+<div class="ttc" id="aa01990_html"><div class="ttname"><a href="a01990.html">core::system::Interaction</a></div><div class="ttdoc">The main interaction system. Manages interaction between entities. Handles item logic and NPC convers...</div><div class="ttdef"><b>Definition:</b> <a href="a00335_source.html#l00026">Interaction.hpp:27</a></div></div>
+<div class="ttc" id="aa01994_html"><div class="ttname"><a href="a01994.html">core::system::Movement</a></div><div class="ttdoc">Primary System for managing entity movement and interpolation.</div><div class="ttdef"><b>Definition:</b> <a href="a00338_source.html#l00020">Movement.hpp:20</a></div></div>
+<div class="ttc" id="aa01998_html"><div class="ttname"><a href="a01998.html">core::system::Player</a></div><div class="ttdoc">Primary system for managing the player and their data.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00028">Player.hpp:28</a></div></div>
+<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">core::system::Position</a></div><div class="ttdoc">The primary entity positioning system. Handles determining which entities get updated as well as trac...</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00026">Position.hpp:29</a></div></div>
+<div class="ttc" id="aa02010_html"><div class="ttname"><a href="a02010.html">core::system::Render</a></div><div class="ttdoc">Primary rendering system. Handles fade ins and outs, visual effects, and rendering everything,...</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00023">Render.hpp:23</a></div></div>
+<div class="ttc" id="aa02014_html"><div class="ttname"><a href="a02014.html">core::system::Scripts</a></div><div class="ttdoc">System that stores and handles saving/loading of save entries for scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a03054_source.html#l00022">Scripts.hpp:22</a></div></div>
+<div class="ttc" id="aa02022_html"><div class="ttname"><a href="a02022.html">core::system::Trainers</a></div><div class="ttdoc">This system manages trainers. It handles their vision and makes them walk up to the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00028">Trainers.hpp:31</a></div></div>
+<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::WildPeoplemon</a></div><div class="ttdoc">Manages the appearances of wild peoplemon when walking through catch tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a03039_source.html#l00020">WildPeoplemon.hpp:20</a></div></div>
+<div class="ttc" id="aa02030_html"><div class="ttname"><a href="a02030.html">core::system::World</a></div><div class="ttdoc">System for managing the current map and previous maps.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00021">World.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

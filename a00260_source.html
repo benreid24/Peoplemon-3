@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Peoplemon/StoredPeoplemon.hpp Source File</title>
+<title>Peoplemon: include/Core/Peoplemon/Stat.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,81 +71,50 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StoredPeoplemon.hpp</div>  </div>
+<div class="title">Stat.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00260.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_PEOPLEMON_STOREDPEOPLEMON_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_PEOPLEMON_STOREDPEOPLEMON_HPP</span></div>
+<a href="a00260.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_PEOPLEMON_STAT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_PEOPLEMON_STAT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00242.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector2.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>pplmn</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>pplmn</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01828.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01828.html">StoredPeoplemon</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a01828.html#a482cbc6f5acf9a7126f43f7259f4ba40">   20</a></span>&#160;    <a class="code" href="a01804.html">OwnedPeoplemon</a> <a class="code" href="a01828.html#a482cbc6f5acf9a7126f43f7259f4ba40">peoplemon</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a01828.html#a75f9e8be81f927d753d5569015294931">   23</a></span>&#160;    std::uint16_t <a class="code" href="a01828.html#a75f9e8be81f927d753d5569015294931">boxNumber</a>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01828.html#a82dec03ba3a2969b4d05efdc34de21f9">   26</a></span>&#160;    sf::Vector2i <a class="code" href="a01828.html#a82dec03ba3a2969b4d05efdc34de21f9">position</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01065.html#ga618b96b522bdec7042a5ff5b04672317">   16</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a01065.html#ga618b96b522bdec7042a5ff5b04672317">Stat</a> : std::uint8_t {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ae6fc8ce107f2bdf0955f021a391514ce">HP</a>             = 0,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">Attack</a>         = 1,</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a4b088aaa68446b6ec08cdc385d03516d">Defense</a>        = 2,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a85a55f865e1098002505c719c141a8a0">SpecialAttack</a>  = 3,</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ad42713c984b3c1a5008735ba57c71bff">SpecialDefense</a> = 4,</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a44877c6aa8e93fa5a91c9361211464fb">Speed</a>          = 5,</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317afd4670e3a935e4d8399524b237284af8">Evasion</a>,</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ad78f1fb7e69f7cddcf3e168f2663db20">Accuracy</a>,</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a278d01e5af56273bae1bb99a98b370cd">Critical</a></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01828.html#ae73c775770bd11a9a0054e8da05afce4">   32</a></span>&#160;    <a class="code" href="a01828.html#ae73c775770bd11a9a0054e8da05afce4">StoredPeoplemon</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a01828.html#a0cad506e9315429f17285a0062a11034">   41</a></span>&#160;    <a class="code" href="a01828.html#a0cad506e9315429f17285a0062a11034">StoredPeoplemon</a>(<span class="keyword">const</span> <a class="code" href="a01804.html">OwnedPeoplemon</a>&amp; ppl, std::uint16_t box, <span class="keyword">const</span> sf::Vector2i&amp; pos)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    : <a class="code" href="a01828.html#a482cbc6f5acf9a7126f43f7259f4ba40">peoplemon</a>(ppl)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , <a class="code" href="a01828.html#a75f9e8be81f927d753d5569015294931">boxNumber</a>(box)</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    , <a class="code" href="a01828.html#a82dec03ba3a2969b4d05efdc34de21f9">position</a>(pos) {}</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace pplmn</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01076.html">bl</a></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a01832.html">   55</a></span>&#160;<span class="keyword">struct </span>SerializableObject&lt;<a class="code" href="a01069.html">core</a>::pplmn::StoredPeoplemon&gt; : <span class="keyword">public</span> SerializableObjectBase {</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a01832.html#a17b75956483830394546899fffa9ff0e">   56</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01828.html">SP</a> = <a class="code" href="a01828.html">core::pplmn::StoredPeoplemon</a>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a01832.html#a103212c4b2526ae2f18225280f2529e0">   57</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01804.html">OP</a> = <a class="code" href="a01804.html">core::pplmn::OwnedPeoplemon</a>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a01832.html#a893097a120499e0971bf94a3fe092357">   59</a></span>&#160;    SerializableField&lt;1, SP, OP&gt; <a class="code" href="a01832.html#a893097a120499e0971bf94a3fe092357">peoplemon</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a01832.html#ae63c96ad5739ef3df359c0cd444eecbf">   60</a></span>&#160;    SerializableField&lt;2, SP, std::uint16_t&gt; <a class="code" href="a01832.html#ae63c96ad5739ef3df359c0cd444eecbf">boxNumber</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a01832.html#a6c90982ef8443eab846504e0ee61a7c9">   61</a></span>&#160;    SerializableField&lt;3, SP, sf::Vector2i&gt; <a class="code" href="a01832.html#a6c90982ef8443eab846504e0ee61a7c9">position</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01832.html#ad0d8b0852e601d39487af9ac51dce0b7">   63</a></span>&#160;    <a class="code" href="a01832.html#ad0d8b0852e601d39487af9ac51dce0b7">SerializableObject</a>()</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    : SerializableObjectBase(<span class="stringliteral">&quot;StoredPeoplemon&quot;</span>)</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    , peoplemon(<span class="stringliteral">&quot;peoplemon&quot;</span>, *this, &amp;<a class="code" href="a01828.html">SP</a>::peoplemon, SerializableFieldBase::Required{})</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    , boxNumber(<span class="stringliteral">&quot;boxNumber&quot;</span>, *this, &amp;<a class="code" href="a01828.html">SP</a>::boxNumber, SerializableFieldBase::Required{})</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    , position(<span class="stringliteral">&quot;position&quot;</span>, *this, &amp;<a class="code" href="a01828.html">SP</a>::position, SerializableFieldBase::Required{}) {}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;};</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00242_html"><div class="ttname"><a href="a00242.html">OwnedPeoplemon.hpp</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01076_html"><div class="ttname"><a href="a01076.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a02941_source.html#l00139">Position.hpp:140</a></div></div>
-<div class="ttc" id="aa01804_html"><div class="ttname"><a href="a01804.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
-<div class="ttc" id="aa01828_html"><div class="ttname"><a href="a01828.html">core::pplmn::StoredPeoplemon</a></div><div class="ttdoc">Represents a Peoplemon in storage.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00018">StoredPeoplemon.hpp:18</a></div></div>
-<div class="ttc" id="aa01828_html_a0cad506e9315429f17285a0062a11034"><div class="ttname"><a href="a01828.html#a0cad506e9315429f17285a0062a11034">core::pplmn::StoredPeoplemon::StoredPeoplemon</a></div><div class="ttdeci">StoredPeoplemon(const OwnedPeoplemon &amp;ppl, std::uint16_t box, const sf::Vector2i &amp;pos)</div><div class="ttdoc">Construct a new Stored Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00041">StoredPeoplemon.hpp:41</a></div></div>
-<div class="ttc" id="aa01828_html_a482cbc6f5acf9a7126f43f7259f4ba40"><div class="ttname"><a href="a01828.html#a482cbc6f5acf9a7126f43f7259f4ba40">core::pplmn::StoredPeoplemon::peoplemon</a></div><div class="ttdeci">OwnedPeoplemon peoplemon</div><div class="ttdoc">The peoplemon itself.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00020">StoredPeoplemon.hpp:20</a></div></div>
-<div class="ttc" id="aa01828_html_a75f9e8be81f927d753d5569015294931"><div class="ttname"><a href="a01828.html#a75f9e8be81f927d753d5569015294931">core::pplmn::StoredPeoplemon::boxNumber</a></div><div class="ttdeci">std::uint16_t boxNumber</div><div class="ttdoc">Which box the peoplemon is in.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00023">StoredPeoplemon.hpp:23</a></div></div>
-<div class="ttc" id="aa01828_html_a82dec03ba3a2969b4d05efdc34de21f9"><div class="ttname"><a href="a01828.html#a82dec03ba3a2969b4d05efdc34de21f9">core::pplmn::StoredPeoplemon::position</a></div><div class="ttdeci">sf::Vector2i position</div><div class="ttdoc">The position of the peoplemon in the box.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00026">StoredPeoplemon.hpp:26</a></div></div>
-<div class="ttc" id="aa01828_html_ae73c775770bd11a9a0054e8da05afce4"><div class="ttname"><a href="a01828.html#ae73c775770bd11a9a0054e8da05afce4">core::pplmn::StoredPeoplemon::StoredPeoplemon</a></div><div class="ttdeci">StoredPeoplemon()=default</div><div class="ttdoc">Construct a new Stored Peoplemon.</div></div>
-<div class="ttc" id="aa01832_html_a6c90982ef8443eab846504e0ee61a7c9"><div class="ttname"><a href="a01832.html#a6c90982ef8443eab846504e0ee61a7c9">bl::serial::SerializableObject&lt; core::pplmn::StoredPeoplemon &gt;::position</a></div><div class="ttdeci">SerializableField&lt; 3, SP, sf::Vector2i &gt; position</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00061">StoredPeoplemon.hpp:61</a></div></div>
-<div class="ttc" id="aa01832_html_a893097a120499e0971bf94a3fe092357"><div class="ttname"><a href="a01832.html#a893097a120499e0971bf94a3fe092357">bl::serial::SerializableObject&lt; core::pplmn::StoredPeoplemon &gt;::peoplemon</a></div><div class="ttdeci">SerializableField&lt; 1, SP, OP &gt; peoplemon</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00059">StoredPeoplemon.hpp:59</a></div></div>
-<div class="ttc" id="aa01832_html_ad0d8b0852e601d39487af9ac51dce0b7"><div class="ttname"><a href="a01832.html#ad0d8b0852e601d39487af9ac51dce0b7">bl::serial::SerializableObject&lt; core::pplmn::StoredPeoplemon &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00063">StoredPeoplemon.hpp:63</a></div></div>
-<div class="ttc" id="aa01832_html_ae63c96ad5739ef3df359c0cd444eecbf"><div class="ttname"><a href="a01832.html#ae63c96ad5739ef3df359c0cd444eecbf">bl::serial::SerializableObject&lt; core::pplmn::StoredPeoplemon &gt;::boxNumber</a></div><div class="ttdeci">SerializableField&lt; 2, SP, std::uint16_t &gt; boxNumber</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00060">StoredPeoplemon.hpp:60</a></div></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;} <span class="comment">// namespace pplmn</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01065_html_ga618b96b522bdec7042a5ff5b04672317"><div class="ttname"><a href="a01065.html#ga618b96b522bdec7042a5ff5b04672317">core::pplmn::Stat</a></div><div class="ttdeci">Stat</div><div class="ttdoc">Represents a single stat. Used as an offset to access Stats as an array.</div><div class="ttdef"><b>Definition:</b> <a href="a00260_source.html#l00016">Stat.hpp:16</a></div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317a278d01e5af56273bae1bb99a98b370cd"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a278d01e5af56273bae1bb99a98b370cd">core::pplmn::Stat::Critical</a></div><div class="ttdeci">@ Critical</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317a44877c6aa8e93fa5a91c9361211464fb"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a44877c6aa8e93fa5a91c9361211464fb">core::pplmn::Stat::Speed</a></div><div class="ttdeci">@ Speed</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317a4b088aaa68446b6ec08cdc385d03516d"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a4b088aaa68446b6ec08cdc385d03516d">core::pplmn::Stat::Defense</a></div><div class="ttdeci">@ Defense</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317a85a55f865e1098002505c719c141a8a0"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317a85a55f865e1098002505c719c141a8a0">core::pplmn::Stat::SpecialAttack</a></div><div class="ttdeci">@ SpecialAttack</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317ad42713c984b3c1a5008735ba57c71bff"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ad42713c984b3c1a5008735ba57c71bff">core::pplmn::Stat::SpecialDefense</a></div><div class="ttdeci">@ SpecialDefense</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317ad78f1fb7e69f7cddcf3e168f2663db20"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ad78f1fb7e69f7cddcf3e168f2663db20">core::pplmn::Stat::Accuracy</a></div><div class="ttdeci">@ Accuracy</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">core::pplmn::Stat::Attack</a></div><div class="ttdeci">@ Attack</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317ae6fc8ce107f2bdf0955f021a391514ce"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317ae6fc8ce107f2bdf0955f021a391514ce">core::pplmn::Stat::HP</a></div><div class="ttdeci">@ HP</div></div>
+<div class="ttc" id="aa01065_html_gga618b96b522bdec7042a5ff5b04672317afd4670e3a935e4d8399524b237284af8"><div class="ttname"><a href="a01065.html#gga618b96b522bdec7042a5ff5b04672317afd4670e3a935e4d8399524b237284af8">core::pplmn::Stat::Evasion</a></div><div class="ttdeci">@ Evasion</div></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

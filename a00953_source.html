@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Pages/Subpages/Catchables.cpp Source File</title>
+<title>Peoplemon: src/Editor/Pages/Moves.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,185 +66,177 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_cb88133ef9b61a004a5ddb3e6b99b47e.html">Pages</a></li><li class="navelem"><a class="el" href="dir_4f6d59bc35823594d40b8f208c64723b.html">Subpages</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_cb88133ef9b61a004a5ddb3e6b99b47e.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Catchables.cpp</div>  </div>
+<div class="title">Moves.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00953.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00452.html">Editor/Pages/Subpages/Catchables.hpp</a>&gt;</span></div>
+<a href="a00953.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00452.html">Editor/Pages/Moves.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00374.html">Editor/Components/EditMap.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00383.html">Editor/Components/HighlightRadioButton.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01087.html">editor</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00236.html">Core/Peoplemon/Move.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01093.html">editor</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>page</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>page</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">const</span> std::array&lt;sf::Color, 10&gt; colors = {sf::Color(89, 147, 240, 150),</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                                          sf::Color(89, 237, 240, 150),</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                                          sf::Color(89, 240, 164, 150),</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                          sf::Color(139, 240, 89, 150),</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                                          sf::Color(227, 240, 89, 150),</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                          sf::Color(240, 200, 89, 150),</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                          sf::Color(240, 144, 89, 150),</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                                          sf::Color(240, 89, 119, 150),</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                          sf::Color(240, 89, 237, 150),</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;                                          sf::Color(170, 89, 240, 150)};</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">using namespace </span>bl::gui;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;std::vector&lt;core::pplmn::MoveId&gt; getSorted(<span class="keyword">const</span> <a class="code" href="a01634.html">core::file::MoveDB</a>&amp; db) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    std::vector&lt;core::pplmn::MoveId&gt; ids;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    ids.reserve(db.<a class="code" href="a01634.html#acdd870edc6357a355f2decf4e79d00e8">names</a>.size());</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; p : db.<a class="code" href="a01634.html#acdd870edc6357a355f2decf4e79d00e8">names</a>) { ids.emplace_back(p.first); }</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::sort(ids.begin(), ids.end());</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> ids;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">using namespace </span>bl::gui;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02190.html#abf738c5bf02987f524f7710960a2d70d">   22</a></span>&#160;<a class="code" href="a02190.html#abf738c5bf02987f524f7710960a2d70d">Moves::Moves</a>(<a class="code" href="a02018.html">core::system::Systems</a>&amp; s)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;: <a class="code" href="a02194.html">Page</a>(s)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, moveWindow(moveDb, std::bind(&amp;<a class="code" href="a02190.html">Moves</a>::onChange, this)) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02194.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a> = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02200.html#a9ca6b9b7698d99cf5023806ee9def3e8">   27</a></span>&#160;<a class="code" href="a02200.html#a9ca6b9b7698d99cf5023806ee9def3e8">Catchables::Catchables</a>(<a class="code" href="a02072.html">component::EditMap</a>&amp; m)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;: map(m)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, editWindow(std::bind(&amp;<a class="code" href="a02200.html">Catchables</a>::onEdit, this)) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    content      = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    scrollRegion = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8.f));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    scrollRegion-&gt;setColor(sf::Color::Transparent, sf::Color::Black);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    scrollRegion-&gt;setOutlineThickness(1.5f);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 0.f));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    noCatchBut   = RadioButton::create(<span class="stringliteral">&quot;No wild peoplemon&quot;</span>, <span class="stringliteral">&quot;none&quot;</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    noCatchBut-&gt;getSignal(Event::LeftClicked).willAlwaysCall([<span class="keyword">this</span>](<span class="keyword">const</span> Event&amp;, Element*) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        active = 0;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    });</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    Button::Ptr addbut = Button::create(<span class="stringliteral">&quot;Add Wild Region&quot;</span>);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    addbut-&gt;setHorizontalAlignment(RenderSettings::Right);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    addbut-&gt;getSignal(Event::LeftClicked).willAlwaysCall([<span class="keyword">this</span>](<span class="keyword">const</span> Event&amp;, Element*) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        map.<a class="code" href="a02072.html#a99ac3321a9eb76e32bce920614d7baf2">addCatchRegion</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    });</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    row-&gt;pack(noCatchBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    row-&gt;pack(addbut, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Box::Ptr row    = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    Button::Ptr but = Button::create(<span class="stringliteral">&quot;New Move&quot;</span>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    but-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;Moves::newMove, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    row-&gt;pack(but, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    saveBut = Button::create(<span class="stringliteral">&quot;Save&quot;</span>);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    saveBut-&gt;setColor(sf::Color::Green, sf::Color::Black);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    saveBut-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;Moves::save, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    row-&gt;pack(saveBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    but = Button::create(<span class="stringliteral">&quot;Reset&quot;</span>);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    but-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;Moves::reset, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    but-&gt;setColor(sf::Color::Red, sf::Color::Black);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    row-&gt;pack(but, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02194.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a>-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    rowArea = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 4.f));</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02194.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a>-&gt;pack(rowArea, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!moveDb.<a class="code" href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">load</a>()) BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load move database&quot;</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a01798.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a>(moveDb);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    sync();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    content-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    content-&gt;pack(scrollRegion, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keywordtype">void</span> Moves::sync() {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    rowArea-&gt;clearChildren(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">const</span> std::vector&lt;core::pplmn::MoveId&gt; allIds = getSorted(moveDb);</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02200.html#a424f7eb4774528543cad57124bbf864c">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02200.html#a424f7eb4774528543cad57124bbf864c">Catchables::setGUI</a>(GUI* g) { gui = g; }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02200.html#ab5dab12c4497e202ed1731b507dba609">   55</a></span>&#160;Element::Ptr <a class="code" href="a02200.html#ab5dab12c4497e202ed1731b507dba609">Catchables::getContent</a>() { <span class="keywordflow">return</span> content; }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02200.html#aafa7b7631a32f0cc35c017f22bf31c40">   57</a></span>&#160;std::uint8_t <a class="code" href="a02200.html#aafa7b7631a32f0cc35c017f22bf31c40">Catchables::selected</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> active; }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">   59</a></span>&#160;sf::Color <a class="code" href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">Catchables::getColor</a>(std::uint8_t i) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> i &gt; 0 ? colors[(i - 1) % colors.size()] : sf::Color::Transparent;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02200.html#a4b12a41016004cb9071c5420d1cf72de">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02200.html#a4b12a41016004cb9071c5420d1cf72de">Catchables::refresh</a>() {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    scrollRegion-&gt;clearChildren(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    noCatchBut-&gt;setValue(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    active = 0;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    rows.clear();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    rows.reserve(map.<a class="code" href="a02072.html#a6c1e3ba7538b5ba85d9e595cf3655572">catchRegions</a>().size());</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; region : map.<a class="code" href="a02072.html#a6c1e3ba7538b5ba85d9e595cf3655572">catchRegions</a>()) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        rows.emplace_back(createRow(</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            region,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            std::bind(&amp;Catchables::rowClicked, <span class="keyword">this</span>, std::placeholders::_1, std::placeholders::_2),</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            noCatchBut-&gt;getRadioGroup()));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        scrollRegion-&gt;pack(rows.back(), <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">int</span> i                   = 0;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    LinePacker::Ptr rowPack = LinePacker::create(LinePacker::Horizontal, 4.f, LinePacker::Uniform);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> <span class="keywordtype">id</span> : allIds) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        Box::Ptr row = Box::create(rowPack);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        row-&gt;setColor(i % 2 == 0 ? sf::Color(185, 185, 185) : sf::Color(70, 70, 70),</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                      sf::Color(20, 85, 230));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        Label::Ptr lbl = Label::create(<span class="stringliteral">&quot;Id: &quot;</span> + std::to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keywordtype">id</span>)));</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        lbl-&gt;setColor(sf::Color(30, 85, 255), sf::Color::Transparent);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        row-&gt;pack(lbl, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        lbl = Label::create(<a class="code" href="a01798.html#a7701cde84b1c020b3b503d0de382b5ac">core::pplmn::Move::name</a>(<span class="keywordtype">id</span>));</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        lbl-&gt;setColor(sf::Color(255, 60, 90), sf::Color::Transparent);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        row-&gt;pack(lbl, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        Button::Ptr but = Button::create(<span class="stringliteral">&quot;Edit&quot;</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        but-&gt;setColor(sf::Color(230, 230, 30), sf::Color::Black);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        but-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;Moves::editMove, <span class="keyword">this</span>, <span class="keywordtype">id</span>));</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        row-&gt;pack(but, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        but = Button::create(<span class="stringliteral">&quot;Delete&quot;</span>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        but-&gt;setColor(sf::Color(230, 30, 30), sf::Color::Black);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        but-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;Moves::deleteMove, <span class="keyword">this</span>, <span class="keywordtype">id</span>));</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        row-&gt;pack(but, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        rowArea-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        ++i;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    refreshColors();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keywordtype">void</span> Catchables::refreshColors() {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; rows.size(); ++i) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        rows[i]-&gt;setColor(<a class="code" href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">getColor</a>(i + 1), sf::Color::Black);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keywordtype">void</span> Moves::makeDirty() { saveBut-&gt;setColor(sf::Color::Yellow, sf::Color::Black); }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keywordtype">void</span> Moves::save() {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (!moveDb.<a class="code" href="a01634.html#ac3ac1f59fc19473e982b5f7e486fc398">save</a>()) { BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to save move database&quot;</span>; }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        saveBut-&gt;setColor(sf::Color::Green, sf::Color::Black);</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;Box::Ptr Catchables::createRow(<span class="keyword">const</span> <a class="code" href="a01664.html">core::map::CatchRegion</a>&amp; region, <span class="keyword">const</span> RowSelect&amp; oscb,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                               bl::gui::RadioButton::Group* group) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    Box::Ptr row            = Box::create(LinePacker::create(</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        LinePacker::Horizontal, 4.f, LinePacker::Compact, LinePacker::RightAlign));</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    RadioButton::Ptr select = RadioButton::create(region.<a class="code" href="a01664.html#aa685b24f69d96f95d4c9d07b06c1f689">name</a>, region.<a class="code" href="a01664.html#aa685b24f69d96f95d4c9d07b06c1f689">name</a>, group);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    Button::Ptr editBut     = Button::create(<span class="stringliteral">&quot;Edit&quot;</span>);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    Button::Ptr delBut      = Button::create(<span class="stringliteral">&quot;Delete&quot;</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    select-&gt;getSignal(Event::LeftClicked)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        .willAlwaysCall(std::bind(oscb, row.get(), RowAction::Select));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    editBut-&gt;getSignal(Event::LeftClicked)</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        .willAlwaysCall(std::bind(oscb, row.get(), RowAction::Edit));</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    delBut-&gt;getSignal(Event::LeftClicked)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        .willAlwaysCall(std::bind(oscb, row.get(), RowAction::Remove));</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">void</span> Moves::newMove() { moveWindow.<a class="code" href="a02122.html#a83b854593fee2e4bb0ad752ddd037f7b">open</a>(<a class="code" href="a02194.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, <a class="code" href="a01065.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::MoveId::Unknown</a>); }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> Moves::editMove(<a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move) { moveWindow.<a class="code" href="a02122.html#a83b854593fee2e4bb0ad752ddd037f7b">open</a>(<a class="code" href="a02194.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, move); }</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keywordtype">void</span> Moves::reset() {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">if</span> (!moveDb.<a class="code" href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">load</a>()) { BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load move database&quot;</span>; }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        sync();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        saveBut-&gt;setColor(sf::Color::Green, sf::Color::Black);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keywordtype">void</span> Moves::deleteMove(<a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    makeDirty();</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    delBut-&gt;setColor(sf::Color::Red, sf::Color::Black);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    select-&gt;setHorizontalAlignment(RenderSettings::Left);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    row-&gt;pack(delBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    row-&gt;pack(editBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    row-&gt;pack(select, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> row;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keywordtype">void</span> Catchables::rowClicked(<span class="keyword">const</span> bl::gui::Box* row, RowAction action) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">int</span> i = -1;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; rows.size(); ++j) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keywordflow">if</span> (rows[j].get() == row) {</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            i = j;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (i &lt; 0) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Invalid row clicked&quot;</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordflow">switch</span> (action) {</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordflow">case</span> Remove:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        map.<a class="code" href="a02072.html#ad1acc5fb89ea53bdbfda86f9dbefa457">removeCatchRegion</a>(i);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">case</span> Edit:</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        editing = i;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        editWindow.<a class="code" href="a02036.html#ac9843951ac995dfdb8282d7c3dd1589a">open</a>(gui, map.<a class="code" href="a02072.html#a6c1e3ba7538b5ba85d9e595cf3655572">catchRegions</a>()[i]);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">case</span> Select:</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        active = i + 1;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="keywordtype">void</span> Catchables::onEdit() { map.<a class="code" href="a02072.html#a3f4623d5b55d6f72af85bf4537a223bb">editCatchRegion</a>(editing, editWindow.<a class="code" href="a02036.html#ac743666b84070d7892100735b2b735d0">getValue</a>()); }</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;} <span class="comment">// namespace page</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00374_html"><div class="ttname"><a href="a00374.html">EditMap.hpp</a></div></div>
-<div class="ttc" id="aa00383_html"><div class="ttname"><a href="a00383.html">HighlightRadioButton.hpp</a></div></div>
-<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">Catchables.hpp</a></div></div>
-<div class="ttc" id="aa01087_html"><div class="ttname"><a href="a01087.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01664_html"><div class="ttname"><a href="a01664.html">core::map::CatchRegion</a></div><div class="ttdoc">Represents a class of catchable peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00182_source.html#l00018">CatchRegion.hpp:18</a></div></div>
-<div class="ttc" id="aa01664_html_aa685b24f69d96f95d4c9d07b06c1f689"><div class="ttname"><a href="a01664.html#aa685b24f69d96f95d4c9d07b06c1f689">core::map::CatchRegion::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="a00182_source.html#l00019">CatchRegion.hpp:19</a></div></div>
-<div class="ttc" id="aa02036_html_ac743666b84070d7892100735b2b735d0"><div class="ttname"><a href="a02036.html#ac743666b84070d7892100735b2b735d0">editor::component::CatchRegionWindow::getValue</a></div><div class="ttdeci">const core::map::CatchRegion &amp; getValue()</div><div class="ttdoc">Returns the current region value as inputed by the user.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00085">CatchRegionWindow.cpp:85</a></div></div>
-<div class="ttc" id="aa02036_html_ac9843951ac995dfdb8282d7c3dd1589a"><div class="ttname"><a href="a02036.html#ac9843951ac995dfdb8282d7c3dd1589a">editor::component::CatchRegionWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *gui, const core::map::CatchRegion &amp;region)</div><div class="ttdoc">Opens the window with the given region value.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00063">CatchRegionWindow.cpp:63</a></div></div>
-<div class="ttc" id="aa02072_html"><div class="ttname"><a href="a02072.html">editor::component::EditMap</a></div><div class="ttdoc">Wrapper over the core::Map class that is directly usable in a bl::gui::GUI.</div><div class="ttdef"><b>Definition:</b> <a href="a00374_source.html#l00025">EditMap.hpp:27</a></div></div>
-<div class="ttc" id="aa02072_html_a3f4623d5b55d6f72af85bf4537a223bb"><div class="ttname"><a href="a02072.html#a3f4623d5b55d6f72af85bf4537a223bb">editor::component::EditMap::editCatchRegion</a></div><div class="ttdeci">void editCatchRegion(std::uint8_t index, const core::map::CatchRegion &amp;zone)</div><div class="ttdoc">Modifies the catch region at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00934">EditMap.cpp:934</a></div></div>
-<div class="ttc" id="aa02072_html_a6c1e3ba7538b5ba85d9e595cf3655572"><div class="ttname"><a href="a02072.html#a6c1e3ba7538b5ba85d9e595cf3655572">editor::component::EditMap::catchRegions</a></div><div class="ttdeci">const std::vector&lt; core::map::CatchRegion &gt; &amp; catchRegions() const</div><div class="ttdoc">Returns a reference to all catch regions.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00930">EditMap.cpp:930</a></div></div>
-<div class="ttc" id="aa02072_html_a99ac3321a9eb76e32bce920614d7baf2"><div class="ttname"><a href="a02072.html#a99ac3321a9eb76e32bce920614d7baf2">editor::component::EditMap::addCatchRegion</a></div><div class="ttdeci">void addCatchRegion()</div><div class="ttdoc">Adds a new catch region to the map.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00928">EditMap.cpp:928</a></div></div>
-<div class="ttc" id="aa02072_html_ad1acc5fb89ea53bdbfda86f9dbefa457"><div class="ttname"><a href="a02072.html#ad1acc5fb89ea53bdbfda86f9dbefa457">editor::component::EditMap::removeCatchRegion</a></div><div class="ttdeci">void removeCatchRegion(std::uint8_t index)</div><div class="ttdoc">Removes the catch region at the given index.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00938">EditMap.cpp:938</a></div></div>
-<div class="ttc" id="aa02200_html"><div class="ttname"><a href="a02200.html">editor::page::Catchables</a></div><div class="ttdoc">Editor subpage for selecting catch tiles to place.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00023">Catchables.hpp:23</a></div></div>
-<div class="ttc" id="aa02200_html_a424f7eb4774528543cad57124bbf864c"><div class="ttname"><a href="a02200.html#a424f7eb4774528543cad57124bbf864c">editor::page::Catchables::setGUI</a></div><div class="ttdeci">void setGUI(bl::gui::GUI *gui)</div><div class="ttdoc">Sets the parent GUI object.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00053">Catchables.cpp:53</a></div></div>
-<div class="ttc" id="aa02200_html_a4b12a41016004cb9071c5420d1cf72de"><div class="ttname"><a href="a02200.html#a4b12a41016004cb9071c5420d1cf72de">editor::page::Catchables::refresh</a></div><div class="ttdeci">void refresh()</div><div class="ttdoc">Refreshes GUI elements.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00063">Catchables.cpp:63</a></div></div>
-<div class="ttc" id="aa02200_html_a9ca6b9b7698d99cf5023806ee9def3e8"><div class="ttname"><a href="a02200.html#a9ca6b9b7698d99cf5023806ee9def3e8">editor::page::Catchables::Catchables</a></div><div class="ttdeci">Catchables(component::EditMap &amp;map)</div><div class="ttdoc">Construct a new Catchables GUI.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00027">Catchables.cpp:27</a></div></div>
-<div class="ttc" id="aa02200_html_aabc0de735a70c50ac2efab02f7c959cd"><div class="ttname"><a href="a02200.html#aabc0de735a70c50ac2efab02f7c959cd">editor::page::Catchables::getColor</a></div><div class="ttdeci">static sf::Color getColor(std::uint8_t index)</div><div class="ttdoc">Returns the color to use for the given catch region.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00059">Catchables.cpp:59</a></div></div>
-<div class="ttc" id="aa02200_html_aafa7b7631a32f0cc35c017f22bf31c40"><div class="ttname"><a href="a02200.html#aafa7b7631a32f0cc35c017f22bf31c40">editor::page::Catchables::selected</a></div><div class="ttdeci">std::uint8_t selected() const</div><div class="ttdoc">Returns the currently selected catch type.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00057">Catchables.cpp:57</a></div></div>
-<div class="ttc" id="aa02200_html_ab5dab12c4497e202ed1731b507dba609"><div class="ttname"><a href="a02200.html#ab5dab12c4497e202ed1731b507dba609">editor::page::Catchables::getContent</a></div><div class="ttdeci">bl::gui::Element::Ptr getContent()</div><div class="ttdoc">Returns the GUI element to pack.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00055">Catchables.cpp:55</a></div></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    moveDb.<a class="code" href="a01634.html#acdd870edc6357a355f2decf4e79d00e8">names</a>.erase(move);</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    moveDb.<a class="code" href="a01634.html#a59ffe8af796fb05fe2e18ee5f546bb1c">descriptions</a>.erase(move);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    moveDb.<a class="code" href="a01634.html#ad83cbef92ac4a34a614d60cd2373a96e">types</a>.erase(move);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    moveDb.<a class="code" href="a01634.html#a1c3d1a9a021777e1b78c490cf4a9eb89">damages</a>.erase(move);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    moveDb.<a class="code" href="a01634.html#a4f97ef3887025a8aaf7dd7f813fea0e1">accuracies</a>.erase(move);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    moveDb.<a class="code" href="a01634.html#a74a5f3c3767f3a6b81e83529d8d41cca">priorities</a>.erase(move);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    moveDb.<a class="code" href="a01634.html#a48fe3caf896e68312ba661a7e98665bb">pps</a>.erase(move);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    moveDb.<a class="code" href="a01634.html#a0794077932e3b8338e444e60a9992b14">contactors</a>.erase(move);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    moveDb.<a class="code" href="a01634.html#a071743eebffefa73c6e3abbd39eb39ca">specials</a>.erase(move);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    moveDb.<a class="code" href="a01634.html#aac182713029f7cd02602770c5747b550">effects</a>.erase(move);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    moveDb.<a class="code" href="a01634.html#a6b99a79f890e3d0339c359d224b0abd5">effectChances</a>.erase(move);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    moveDb.<a class="code" href="a01634.html#ac0385c89769515996448e2b2e76a5389">effectIntensities</a>.erase(move);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    moveDb.<a class="code" href="a01634.html#af5909a80c9a2e07d97bc4d7af8e8a042">effectSelves</a>.erase(move);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    sync();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">void</span> Moves::onChange() {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    sync();</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    makeDirty();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a02190.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02190.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">Moves::update</a>(<span class="keywordtype">float</span>) {}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;} <span class="comment">// namespace page</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">Move.hpp</a></div></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">Moves.hpp</a></div></div>
+<div class="ttc" id="aa01065_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01065_html_ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01065.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::MoveId::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
+<div class="ttc" id="aa01093_html"><div class="ttname"><a href="a01093.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00248_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
+<div class="ttc" id="aa01634_html"><div class="ttname"><a href="a01634.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00022">MoveDB.hpp:22</a></div></div>
+<div class="ttc" id="aa01634_html_a071743eebffefa73c6e3abbd39eb39ca"><div class="ttname"><a href="a01634.html#a071743eebffefa73c6e3abbd39eb39ca">core::file::MoveDB::specials</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, bool &gt; specials</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00071">MoveDB.hpp:71</a></div></div>
+<div class="ttc" id="aa01634_html_a0794077932e3b8338e444e60a9992b14"><div class="ttname"><a href="a01634.html#a0794077932e3b8338e444e60a9992b14">core::file::MoveDB::contactors</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, bool &gt; contactors</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00070">MoveDB.hpp:70</a></div></div>
+<div class="ttc" id="aa01634_html_a1c3d1a9a021777e1b78c490cf4a9eb89"><div class="ttname"><a href="a01634.html#a1c3d1a9a021777e1b78c490cf4a9eb89">core::file::MoveDB::damages</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::int32_t &gt; damages</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00066">MoveDB.hpp:66</a></div></div>
+<div class="ttc" id="aa01634_html_a48fe3caf896e68312ba661a7e98665bb"><div class="ttname"><a href="a01634.html#a48fe3caf896e68312ba661a7e98665bb">core::file::MoveDB::pps</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::uint32_t &gt; pps</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00069">MoveDB.hpp:69</a></div></div>
+<div class="ttc" id="aa01634_html_a4f97ef3887025a8aaf7dd7f813fea0e1"><div class="ttname"><a href="a01634.html#a4f97ef3887025a8aaf7dd7f813fea0e1">core::file::MoveDB::accuracies</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::int32_t &gt; accuracies</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00067">MoveDB.hpp:67</a></div></div>
+<div class="ttc" id="aa01634_html_a59ffe8af796fb05fe2e18ee5f546bb1c"><div class="ttname"><a href="a01634.html#a59ffe8af796fb05fe2e18ee5f546bb1c">core::file::MoveDB::descriptions</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::string &gt; descriptions</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00064">MoveDB.hpp:64</a></div></div>
+<div class="ttc" id="aa01634_html_a6b99a79f890e3d0339c359d224b0abd5"><div class="ttname"><a href="a01634.html#a6b99a79f890e3d0339c359d224b0abd5">core::file::MoveDB::effectChances</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::int32_t &gt; effectChances</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00073">MoveDB.hpp:73</a></div></div>
+<div class="ttc" id="aa01634_html_a74a5f3c3767f3a6b81e83529d8d41cca"><div class="ttname"><a href="a01634.html#a74a5f3c3767f3a6b81e83529d8d41cca">core::file::MoveDB::priorities</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::int32_t &gt; priorities</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00068">MoveDB.hpp:68</a></div></div>
+<div class="ttc" id="aa01634_html_aac182713029f7cd02602770c5747b550"><div class="ttname"><a href="a01634.html#aac182713029f7cd02602770c5747b550">core::file::MoveDB::effects</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, pplmn::MoveEffect &gt; effects</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00072">MoveDB.hpp:72</a></div></div>
+<div class="ttc" id="aa01634_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00012">MoveDB.cpp:12</a></div></div>
+<div class="ttc" id="aa01634_html_ac0385c89769515996448e2b2e76a5389"><div class="ttname"><a href="a01634.html#ac0385c89769515996448e2b2e76a5389">core::file::MoveDB::effectIntensities</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::int32_t &gt; effectIntensities</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00074">MoveDB.hpp:74</a></div></div>
+<div class="ttc" id="aa01634_html_ac3ac1f59fc19473e982b5f7e486fc398"><div class="ttname"><a href="a01634.html#ac3ac1f59fc19473e982b5f7e486fc398">core::file::MoveDB::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the moves to the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00022">MoveDB.cpp:22</a></div></div>
+<div class="ttc" id="aa01634_html_acdd870edc6357a355f2decf4e79d00e8"><div class="ttname"><a href="a01634.html#acdd870edc6357a355f2decf4e79d00e8">core::file::MoveDB::names</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, std::string &gt; names</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00063">MoveDB.hpp:63</a></div></div>
+<div class="ttc" id="aa01634_html_ad83cbef92ac4a34a614d60cd2373a96e"><div class="ttname"><a href="a01634.html#ad83cbef92ac4a34a614d60cd2373a96e">core::file::MoveDB::types</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, pplmn::Type &gt; types</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00065">MoveDB.hpp:65</a></div></div>
+<div class="ttc" id="aa01634_html_af5909a80c9a2e07d97bc4d7af8e8a042"><div class="ttname"><a href="a01634.html#af5909a80c9a2e07d97bc4d7af8e8a042">core::file::MoveDB::effectSelves</a></div><div class="ttdeci">std::unordered_map&lt; pplmn::MoveId, bool &gt; effectSelves</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00075">MoveDB.hpp:75</a></div></div>
+<div class="ttc" id="aa01798_html_a517b2e77d5de789d2b0c22b457bb4107"><div class="ttname"><a href="a01798.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::MoveDB &amp;source)</div><div class="ttdoc">Set the data source for each method.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00046">Move.cpp:46</a></div></div>
+<div class="ttc" id="aa01798_html_a7701cde84b1c020b3b503d0de382b5ac"><div class="ttname"><a href="a01798.html#a7701cde84b1c020b3b503d0de382b5ac">core::pplmn::Move::name</a></div><div class="ttdeci">static const std::string &amp; name(MoveId move)</div><div class="ttdoc">Returns the name of the given move.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00071">Move.cpp:71</a></div></div>
+<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
+<div class="ttc" id="aa02122_html_a83b854593fee2e4bb0ad752ddd037f7b"><div class="ttname"><a href="a02122.html#a83b854593fee2e4bb0ad752ddd037f7b">editor::component::MoveEditorWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, core::pplmn::MoveId move)</div><div class="ttdoc">Opens the window and populates for the given move. Pass MoveId::Unknown for a new move.</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00213">MoveEditorWindow.cpp:213</a></div></div>
+<div class="ttc" id="aa02190_html"><div class="ttname"><a href="a02190.html">editor::page::Moves</a></div><div class="ttdoc">Page for editing move metadata.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00020">Moves.hpp:20</a></div></div>
+<div class="ttc" id="aa02190_html_ab0d136d0393e72bd6c0a18a3ec9fcd21"><div class="ttname"><a href="a02190.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">editor::page::Moves::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00124">Moves.cpp:124</a></div></div>
+<div class="ttc" id="aa02190_html_abf738c5bf02987f524f7710960a2d70d"><div class="ttname"><a href="a02190.html#abf738c5bf02987f524f7710960a2d70d">editor::page::Moves::Moves</a></div><div class="ttdeci">Moves(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Moves page.</div><div class="ttdef"><b>Definition:</b> <a href="a00953_source.html#l00022">Moves.cpp:22</a></div></div>
+<div class="ttc" id="aa02194_html"><div class="ttname"><a href="a02194.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00455_source.html#l00032">Page.hpp:32</a></div></div>
+<div class="ttc" id="aa02194_html_a70ad60a18f3e0b6f066be1fd5b25213b"><div class="ttname"><a href="a02194.html#a70ad60a18f3e0b6f066be1fd5b25213b">editor::page::Page::content</a></div><div class="ttdeci">bl::gui::Box::Ptr content</div><div class="ttdef"><b>Definition:</b> <a href="a00455_source.html#l00069">Page.hpp:69</a></div></div>
+<div class="ttc" id="aa02194_html_a7ece0b91553c68d952d61903d417d51b"><div class="ttname"><a href="a02194.html#a7ece0b91553c68d952d61903d417d51b">editor::page::Page::parent</a></div><div class="ttdeci">bl::gui::GUI * parent</div><div class="ttdef"><b>Definition:</b> <a href="a00455_source.html#l00070">Page.hpp:70</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::serial::binary Namespace Reference</title>
+<title>Peoplemon: core::battle Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,33 +66,123 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01076.html">bl</a></li><li class="navelem"><a class="el" href="a01077.html">serial</a></li><li class="navelem"><a class="el" href="a01078.html">binary</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01075.html">core</a></li><li class="navelem"><a class="el" href="a01078.html">battle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::binary Namespace Reference</div>  </div>
+<div class="title">core::battle Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Collection of classes used for peoplemon battling.  
+<a href="a01078.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01080"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">cmd</a></td></tr>
+<tr class="memdesc:a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of data classes for battle commands. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01079"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01079.html">view</a></td></tr>
+<tr class="memdesc:a01079"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes that compose the <a class="el" href="a01246.html" title="This is the top level class for rendering battles. It takes commands and state from a BattleControlle...">BattleView</a>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01336.html">Serializer&lt; core::component::Position, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01202.html">Battle</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convenience struct that owns all the components required for a battle and resolves some boilerplate setup. This is the top level object.  <a href="a01202.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01752.html">Serializer&lt; core::map::Tile, false &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01206.html">BattleController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Interface for battle controllers. <a class="el" href="a01202.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles.  <a href="a01206.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01796.html">Serializer&lt; OwnedMove &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01210.html">LocalBattleController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="a01202.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controller for local battles against peoplemon or trainers.  <a href="a01210.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01820.html">Serializer&lt; Stats &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01214.html">Battler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for battlers in the game. This provides storage for peoplemon and turn choices.  <a href="a01214.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01218.html">AIController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller allows an AI to battle.  <a href="a01218.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01222.html">BattlerController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base class for battlers in the game. This provides storage for peoplemon and turn choices.  <a href="a01222.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01230.html">PlayerController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller allows the player to control a battler.  <a href="a01230.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01234.html">RemoteController</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This controller receives player commands from over the network.  <a href="a01234.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01238.html">BattlerSubstate</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Struct containing state specific to each battler. These states facilitate logic that takes place over multiple turns, such as the volleyball moves.  <a href="a01238.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01242.html">BattleState</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores and represents the current state of a battle. This is the base class for local and remote battle states and provides the data storage as well as the local command queue resolution.  <a href="a01242.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01246.html">BattleView</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is the top level class for rendering battles. It takes commands and state from a <a class="el" href="a01206.html" title="Interface for battle controllers. Battle controllers manage the flow of state and interaction for bat...">BattleController</a> and updates itself independently of battle logic.  <a href="a01246.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01258.html">Command</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitted by the BattleFSM. All UI is handled via a queue of commands. Commands are resolved in the order they are received. Commands are sent over the network and each player individually resolves them.  <a href="a01258.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01274.html">Result</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents the result of a battle.  <a href="a01274.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a9f4dbdd126a3cad461c287d3626e196a"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a> : std::uint8_t { <a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784">Fight</a> = 0
+, <a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b">Switch</a> = 1
+, <a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">Item</a> = 2
+, <a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d">Run</a> = 3
+ }</td></tr>
+<tr class="memdesc:a9f4dbdd126a3cad461c287d3626e196a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents an action that a battler may take on their turn.  <a href="a01078.html#a9f4dbdd126a3cad461c287d3626e196a">More...</a><br /></td></tr>
+<tr class="separator:a9f4dbdd126a3cad461c287d3626e196a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Collection of classes used for peoplemon battling. </p>
+</div><h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a9f4dbdd126a3cad461c287d3626e196a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f4dbdd126a3cad461c287d3626e196a">&#9670;&nbsp;</a></span>TurnAction</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01078.html#a9f4dbdd126a3cad461c287d3626e196a">core::battle::TurnAction</a> : std::uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Represents an action that a battler may take on their turn. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784"></a>Fight&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b"></a>Switch&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679"></a>Item&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d"></a>Run&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00053_source.html#l00016">16</a> of file <a class="el" href="a00053_source.html">TurnAction.hpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

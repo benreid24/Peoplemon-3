@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Components/LightPreview.hpp Source File</title>
+<title>Peoplemon: include/Editor/Components/ItemEditorWindow.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,47 +71,68 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">LightPreview.hpp</div>  </div>
+<div class="title">ItemEditorWindow.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00392.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_LIGHTPREVIEW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_LIGHTPREVIEW_HPP</span></div>
+<a href="a00392.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_ITEMEDITORWINDOW_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_ITEMEDITORWINDOW_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01087.html">editor</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02104.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02104.html">LightPreview</a> : <span class="keyword">public</span> bl::gui::Image {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">   18</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> = std::shared_ptr&lt;LightPreview&gt;;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> <a class="code" href="a02104.html#ac98c9f916c79db3d55c18499e9eb1aa2">create</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02104.html#a9e1ea9a56078e04e767ec87161f879dd">setLightLevel</a>(std::uint8_t level);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    sf::RectangleShape cover;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02104.html">LightPreview</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer&amp; renderer) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01087_html"><div class="ttname"><a href="a01087.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02104_html"><div class="ttname"><a href="a02104.html">editor::component::LightPreview</a></div><div class="ttdoc">Helper component that displays an image with a light level overlaid on it.</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00016">LightPreview.hpp:16</a></div></div>
-<div class="ttc" id="aa02104_html_a5d870620ba189d41eb0ba3ef48197e97"><div class="ttname"><a href="a02104.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; LightPreview &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00018">LightPreview.hpp:18</a></div></div>
-<div class="ttc" id="aa02104_html_a9e1ea9a56078e04e767ec87161f879dd"><div class="ttname"><a href="a02104.html#a9e1ea9a56078e04e767ec87161f879dd">editor::component::LightPreview::setLightLevel</a></div><div class="ttdeci">void setLightLevel(std::uint8_t level)</div><div class="ttdoc">Sets the light level to display.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00030">LightPreview.cpp:30</a></div></div>
-<div class="ttc" id="aa02104_html_ac98c9f916c79db3d55c18499e9eb1aa2"><div class="ttname"><a href="a02104.html#ac98c9f916c79db3d55c18499e9eb1aa2">editor::component::LightPreview::create</a></div><div class="ttdeci">static Ptr create(const sf::Vector2f &amp;size)</div><div class="ttdoc">Create a new LightPreview component.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00014">LightPreview.cpp:14</a></div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/ItemDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02943.html">Core/Items/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01093.html">editor</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02106.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02106.html">ItemEditorWindow</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02106.html#ab4011317978aa3bae46f0dcb75be14fe">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02106.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02106.html#ad94cce9159201a4f83c6e2d4371fa3bb">ItemEditorWindow</a>(<a class="code" href="a01626.html">core::file::ItemDB</a>&amp; db, <span class="keyword">const</span> <a class="code" href="a02106.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a>&amp; onChange);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02106.html#a8f3f207cd848eb3ec1a39f534033a3a8">open</a>(bl::gui::GUI* parent, <a class="code" href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a01626.html">core::file::ItemDB</a>&amp; itemDb;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02106.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> onChange;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> doingNewItem;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    bl::gui::Window::Ptr window;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    bl::gui::TextEntry::Ptr idEntry;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    bl::gui::TextEntry::Ptr nameEntry;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    bl::gui::TextEntry::Ptr descEntry;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    bl::gui::TextEntry::Ptr valueEntry;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> openId;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    bl::gui::Button::Ptr applyBut;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> makeDirty();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> onCancel();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> onSave();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> close();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">ItemDB.hpp</a></div></div>
+<div class="ttc" id="aa01063_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03000_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01093_html"><div class="ttname"><a href="a01093.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00248_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
+<div class="ttc" id="aa01626_html"><div class="ttname"><a href="a01626.html">core::file::ItemDB</a></div><div class="ttdoc">Loads and stores metadata surrounding items in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00024">ItemDB.hpp:24</a></div></div>
+<div class="ttc" id="aa02106_html"><div class="ttname"><a href="a02106.html">editor::component::ItemEditorWindow</a></div><div class="ttdoc">Window for editing an individual item in the item database.</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00019">ItemEditorWindow.hpp:19</a></div></div>
+<div class="ttc" id="aa02106_html_a8f3f207cd848eb3ec1a39f534033a3a8"><div class="ttname"><a href="a02106.html#a8f3f207cd848eb3ec1a39f534033a3a8">editor::component::ItemEditorWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, core::item::Id item)</div><div class="ttdoc">Open the editor window.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00070">ItemEditorWindow.cpp:70</a></div></div>
+<div class="ttc" id="aa02106_html_ab4011317978aa3bae46f0dcb75be14fe"><div class="ttname"><a href="a02106.html#ab4011317978aa3bae46f0dcb75be14fe">editor::component::ItemEditorWindow::OnChange</a></div><div class="ttdeci">std::function&lt; void()&gt; OnChange</div><div class="ttdoc">Callback signature for when an item is modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00022">ItemEditorWindow.hpp:22</a></div></div>
+<div class="ttc" id="aa02106_html_ad94cce9159201a4f83c6e2d4371fa3bb"><div class="ttname"><a href="a02106.html#ad94cce9159201a4f83c6e2d4371fa3bb">editor::component::ItemEditorWindow::ItemEditorWindow</a></div><div class="ttdeci">ItemEditorWindow(core::file::ItemDB &amp;db, const OnChange &amp;onChange)</div><div class="ttdoc">Construct a new Item Editor Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00887_source.html#l00017">ItemEditorWindow.cpp:17</a></div></div>
+<div class="ttc" id="aa02943_html"><div class="ttname"><a href="a02943.html">Item.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

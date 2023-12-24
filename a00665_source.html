@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Input/Control.cpp Source File</title>
+<title>Peoplemon: src/Core/Files/MoveDB.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_c63dcb5b4cedcea86ba79ffba16467b4.html">Input</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_994c653631f7b2778c11e1a06b2fb1e1.html">Files</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Control.cpp</div>  </div>
+<div class="title">MoveDB.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00665.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">Core/Input/Control.hpp</a>&gt;</span></div>
+<a href="a00665.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00161.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>input</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01082.html#a293f677406b187f5aab5509859935f33">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01082.html#a293f677406b187f5aab5509859935f33">configureInputSystem</a>(bl::input::InputSystem&amp; system) {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="comment">// register controls</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    system.setControlCount(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">Control::Count</a>);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Control::Sprint</a>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Control::Pause</a>);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    system.configureTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Control::Back</a>);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// creator the actor. Peoplemon is only 1 player locally</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bl::input::Actor&amp; user = system.addActor();</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>file</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using namespace </span>pplmn;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">   12</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">MoveDB::load</a>() { <span class="keywordflow">return</span> MoveDbManager::initializeExisting(<a class="code" href="a01886.html#a038a6813af0970f528b3d49aeecee57f">Properties::MoveDBFile</a>(), *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01634.html#ac18f45b9af2d1f2e2a094fc3d8e35326">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01634.html#ac18f45b9af2d1f2e2a094fc3d8e35326">MoveDB::loadDev</a>(std::istream&amp; input) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;MoveDB&gt;::deserializeStream(input, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01634.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01634.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">MoveDB::loadProd</a>(bl::serial::binary::InputStream&amp; input) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> bl::serial::binary::Serializer&lt;MoveDB&gt;::deserialize(input, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// set keyboard and mouse defaults. no defaults for controller</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>).triggerOnKey(sf::Keyboard::W);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>).triggerOnKey(sf::Keyboard::D);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>).triggerOnKey(sf::Keyboard::S);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>).triggerOnKey(sf::Keyboard::A);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Control::Sprint</a>).triggerOnKey(sf::Keyboard::LShift);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>).triggerOnKey(sf::Keyboard::Space);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Control::Pause</a>).triggerOnKey(sf::Keyboard::Enter);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Control::Back</a>).triggerOnKey(sf::Keyboard::LControl);</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01634.html#ac3ac1f59fc19473e982b5f7e486fc398">   22</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01634.html#ac3ac1f59fc19473e982b5f7e486fc398">MoveDB::save</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::ofstream output(<a class="code" href="a01886.html#a038a6813af0970f528b3d49aeecee57f">Properties::MoveDBFile</a>().c_str());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;MoveDB&gt;::serializeStream(output, *<span class="keyword">this</span>, 4, 0);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01634.html#ac9e0193820c27ebe84cada30666d8011">   27</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01634.html#ac9e0193820c27ebe84cada30666d8011">MoveDB::saveBundle</a>(bl::serial::binary::OutputStream&amp; output,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                        bl::resource::bundle::FileHandlerContext&amp;)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> bl::serial::binary::Serializer&lt;MoveDB&gt;::serialize(output, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// load user preferences from config</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    system.loadFromConfig();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace input</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">Control.hpp</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a></div><div class="ttdeci">@ MoveDown</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00030">Control.hpp:30</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a></div><div class="ttdeci">@ Back</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00035">Control.hpp:35</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">core::input::Control::Pause</a></div><div class="ttdeci">@ Pause</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00034">Control.hpp:34</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a></div><div class="ttdeci">@ Interact</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00033">Control.hpp:33</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">core::input::Control::Sprint</a></div><div class="ttdeci">@ Sprint</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00032">Control.hpp:32</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a></div><div class="ttdeci">@ MoveLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00031">Control.hpp:31</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a></div><div class="ttdeci">@ MoveRight</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00029">Control.hpp:29</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">core::input::Control::Count</a></div><div class="ttdeci">@ Count</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00036">Control.hpp:36</a></div></div>
-<div class="ttc" id="aa01056_html_ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"><div class="ttname"><a href="a01056.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a></div><div class="ttdeci">@ MoveUp</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00028">Control.hpp:28</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01082_html_a293f677406b187f5aab5509859935f33"><div class="ttname"><a href="a01082.html#a293f677406b187f5aab5509859935f33">core::input::configureInputSystem</a></div><div class="ttdeci">void configureInputSystem(bl::input::InputSystem &amp;system)</div><div class="ttdoc">Configures the input system for the set of peoplemon inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00007">Control.cpp:7</a></div></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace file</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">MoveDB.hpp</a></div></div>
+<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01634_html_a0ffbd1d3b95bfc74f5f64a904efc5a6f"><div class="ttname"><a href="a01634.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">core::file::MoveDB::loadProd</a></div><div class="ttdeci">bool loadProd(bl::serial::binary::InputStream &amp;input)</div><div class="ttdoc">Loads the database from its json format.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00018">MoveDB.cpp:18</a></div></div>
+<div class="ttc" id="aa01634_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00012">MoveDB.cpp:12</a></div></div>
+<div class="ttc" id="aa01634_html_ac18f45b9af2d1f2e2a094fc3d8e35326"><div class="ttname"><a href="a01634.html#ac18f45b9af2d1f2e2a094fc3d8e35326">core::file::MoveDB::loadDev</a></div><div class="ttdeci">bool loadDev(std::istream &amp;input)</div><div class="ttdoc">Loads the database from its json format.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00014">MoveDB.cpp:14</a></div></div>
+<div class="ttc" id="aa01634_html_ac3ac1f59fc19473e982b5f7e486fc398"><div class="ttname"><a href="a01634.html#ac3ac1f59fc19473e982b5f7e486fc398">core::file::MoveDB::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the moves to the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00022">MoveDB.cpp:22</a></div></div>
+<div class="ttc" id="aa01634_html_ac9e0193820c27ebe84cada30666d8011"><div class="ttname"><a href="a01634.html#ac9e0193820c27ebe84cada30666d8011">core::file::MoveDB::saveBundle</a></div><div class="ttdeci">bool saveBundle(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</div><div class="ttdoc">Saves the data from this object to the given bundle and registers depency files if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00027">MoveDB.cpp:27</a></div></div>
+<div class="ttc" id="aa01886_html_a038a6813af0970f528b3d49aeecee57f"><div class="ttname"><a href="a01886.html#a038a6813af0970f528b3d49aeecee57f">core::Properties::MoveDBFile</a></div><div class="ttdeci">static const std::string &amp; MoveDBFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00636">Properties.cpp:636</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

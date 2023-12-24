@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Resources.hpp Source File</title>
+<title>Peoplemon: include/Core/Resources/BundleHandlers.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,84 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_4655ea07147374004a9b8157f739b905.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Resources.hpp</div>  </div>
+<div class="title">BundleHandlers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_RESOURCES_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_RESOURCES_HPP</span></div>
+<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_RESOURCES_BUNDLEHANDLERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_RESOURCES_BUNDLEHANDLERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Logging.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02896.html">Core/Files/Conversation.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02938.html">Core/Files/NPC.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02950.html">Core/Files/Trainer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02998.html">Core/Maps/Map.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03004.html">Core/Maps/Tileset.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">Core/Resources/Loaders.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;SFML/Audio.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a00287.html#a66f1aeb3f825290f20c41f995163dea4">   15</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a66f1aeb3f825290f20c41f995163dea4">TextureManager</a>      = bl::resource::ResourceManager&lt;sf::Texture&gt;;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a00287.html#ad2f555c791c3fe1dcc97bac8ae8227ee">   16</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#ad2f555c791c3fe1dcc97bac8ae8227ee">ImageManager</a>        = bl::resource::ResourceManager&lt;sf::Image&gt;;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a00287.html#afcf901edbba1cc583966e74cfd5e3ba8">   17</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#afcf901edbba1cc583966e74cfd5e3ba8">SoundManager</a>        = bl::resource::ResourceManager&lt;sf::SoundBuffer&gt;;</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a00287.html#a0fa4edee4adcb3fdc713366e2d8c3eca">   18</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a>    = bl::resource::ResourceManager&lt;bl::gfx::a2d::AnimationData&gt;;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a00287.html#a236858f51445769c7b4f77ba440a4069">   19</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a236858f51445769c7b4f77ba440a4069">FontManager</a>         = bl::resource::ResourceManager&lt;sf::VulkanFont&gt;;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">   20</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a>          = bl::resource::ResourceManager&lt;core::map::Map&gt;;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a00287.html#a603974730f80225651f2403ff49dee21">   21</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a>      = bl::resource::ResourceManager&lt;core::map::Tileset&gt;;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">   22</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a> = bl::resource::ResourceManager&lt;core::file::Conversation&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a00287.html#af84070f982b22277576e8fcef31c89fa">   23</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a>      = bl::resource::ResourceManager&lt;core::file::Trainer&gt;;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">   24</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a>          = bl::resource::ResourceManager&lt;core::file::NPC&gt;;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">   25</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a>       = bl::resource::ResourceManager&lt;core::file::ItemDB&gt;;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a00287.html#aa05f7534763334dad5d36f34273558d7">   26</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a>       = bl::resource::ResourceManager&lt;core::file::MoveDB&gt;;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">   27</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a>  = bl::resource::ResourceManager&lt;core::file::PeoplemonDB&gt;;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01069.html">core</a></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;{</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01061.html#gad33d85e09660ea3585e1353113905170">installDevLoaders</a>();</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01096.html">    9</a></span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01890.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01890.html">PeoplemonBundleHandler</a> : <span class="keyword">public</span> bl::resource::bundle::FileHandler {</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                             bl::resource::bundle::FileHandlerContext&amp; context)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        T obj;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (!bl::resource::ResourceManager&lt;T&gt;::initializeExisting(path, obj)) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to process: &quot;</span> &lt;&lt; path;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        bl::serial::StreamOutputBuffer wrapper(output);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        bl::serial::binary::OutputStream os(wrapper);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (!obj.saveBundle(os, context)) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to serialize &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; into bundle&quot;</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01061.html#ga49e5132b191e1d2d64eef9960598ca70">installProdLoaders</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01061.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">createBundles</a>();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">Loaders.hpp</a></div></div>
-<div class="ttc" id="aa00287_html_a0fa4edee4adcb3fdc713366e2d8c3eca"><div class="ttname"><a href="a00287.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; bl::gfx::a2d::AnimationData &gt; AnimationManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00018">Resources.hpp:18</a></div></div>
-<div class="ttc" id="aa00287_html_a12db164bac2097b7497e2782b86f6c60"><div class="ttname"><a href="a00287.html#a12db164bac2097b7497e2782b86f6c60">ItemDbManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::ItemDB &gt; ItemDbManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00025">Resources.hpp:25</a></div></div>
-<div class="ttc" id="aa00287_html_a236858f51445769c7b4f77ba440a4069"><div class="ttname"><a href="a00287.html#a236858f51445769c7b4f77ba440a4069">FontManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::VulkanFont &gt; FontManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00019">Resources.hpp:19</a></div></div>
-<div class="ttc" id="aa00287_html_a4a96124cf6f27006f283f10db9e2cf9e"><div class="ttname"><a href="a00287.html#a4a96124cf6f27006f283f10db9e2cf9e">MapManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::map::Map &gt; MapManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00020">Resources.hpp:20</a></div></div>
-<div class="ttc" id="aa00287_html_a603974730f80225651f2403ff49dee21"><div class="ttname"><a href="a00287.html#a603974730f80225651f2403ff49dee21">TilesetManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::map::Tileset &gt; TilesetManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00021">Resources.hpp:21</a></div></div>
-<div class="ttc" id="aa00287_html_a66f1aeb3f825290f20c41f995163dea4"><div class="ttname"><a href="a00287.html#a66f1aeb3f825290f20c41f995163dea4">TextureManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::Texture &gt; TextureManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00015">Resources.hpp:15</a></div></div>
-<div class="ttc" id="aa00287_html_a761fff30202a0d526d06f693bc9793e9"><div class="ttname"><a href="a00287.html#a761fff30202a0d526d06f693bc9793e9">PeoplemonDbManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::PeoplemonDB &gt; PeoplemonDbManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00027">Resources.hpp:27</a></div></div>
-<div class="ttc" id="aa00287_html_a77ab6ac012e021b2c118e500245f6a0c"><div class="ttname"><a href="a00287.html#a77ab6ac012e021b2c118e500245f6a0c">NpcManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::NPC &gt; NpcManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00024">Resources.hpp:24</a></div></div>
-<div class="ttc" id="aa00287_html_a8efe32e2715173cb2e09755e2bf619d6"><div class="ttname"><a href="a00287.html#a8efe32e2715173cb2e09755e2bf619d6">ConversationManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::Conversation &gt; ConversationManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00022">Resources.hpp:22</a></div></div>
-<div class="ttc" id="aa00287_html_aa05f7534763334dad5d36f34273558d7"><div class="ttname"><a href="a00287.html#aa05f7534763334dad5d36f34273558d7">MoveDbManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::MoveDB &gt; MoveDbManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00026">Resources.hpp:26</a></div></div>
-<div class="ttc" id="aa00287_html_ad2f555c791c3fe1dcc97bac8ae8227ee"><div class="ttname"><a href="a00287.html#ad2f555c791c3fe1dcc97bac8ae8227ee">ImageManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::Image &gt; ImageManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00016">Resources.hpp:16</a></div></div>
-<div class="ttc" id="aa00287_html_af84070f982b22277576e8fcef31c89fa"><div class="ttname"><a href="a00287.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::Trainer &gt; TrainerManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00023">Resources.hpp:23</a></div></div>
-<div class="ttc" id="aa00287_html_afcf901edbba1cc583966e74cfd5e3ba8"><div class="ttname"><a href="a00287.html#afcf901edbba1cc583966e74cfd5e3ba8">SoundManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::SoundBuffer &gt; SoundManager</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00017">Resources.hpp:17</a></div></div>
-<div class="ttc" id="aa01061_html_ga06a2b1d1c4ad02dd161574d9dc3ec524"><div class="ttname"><a href="a01061.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00043">Resources.cpp:43</a></div></div>
-<div class="ttc" id="aa01061_html_ga49e5132b191e1d2d64eef9960598ca70"><div class="ttname"><a href="a01061.html#ga49e5132b191e1d2d64eef9960598ca70">core::res::installProdLoaders</a></div><div class="ttdeci">void installProdLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00027">Resources.cpp:27</a></div></div>
-<div class="ttc" id="aa01061_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01061.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00016">Resources.cpp:16</a></div></div>
-<div class="ttc" id="aa01069_html"><div class="ttname"><a href="a01069.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02893_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa02896_html"><div class="ttname"><a href="a02896.html">Conversation.hpp</a></div></div>
-<div class="ttc" id="aa02938_html"><div class="ttname"><a href="a02938.html">NPC.hpp</a></div></div>
-<div class="ttc" id="aa02950_html"><div class="ttname"><a href="a02950.html">Trainer.hpp</a></div></div>
-<div class="ttc" id="aa02998_html"><div class="ttname"><a href="a02998.html">Map.hpp</a></div></div>
-<div class="ttc" id="aa03004_html"><div class="ttname"><a href="a03004.html">Tileset.hpp</a></div></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01890_html"><div class="ttname"><a href="a01890.html">core::res::PeoplemonBundleHandler</a></div><div class="ttdoc">Generic handler for peoplemon files when being bundled. Performs format conversion and registers depe...</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00019">BundleHandlers.hpp:19</a></div></div>
+<div class="ttc" id="aa01890_html_aecd68887e0e4f7ce9a453976d9cf9b45"><div class="ttname"><a href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">core::res::PeoplemonBundleHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, bl::resource::bundle::FileHandlerContext &amp;context) override</div><div class="ttdoc">Processes the given resource file to bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00028">BundleHandlers.hpp:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Dec 13 2023 02:20:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
