@@ -348,11 +348,11 @@ protected:
     void clear();
     void finishLoad();
     void triggerAnimation(const component::Position& position);
-    void refreshRenderRange(const sf::View& view) const;
     Town* getTown(const sf::Vector2i& pos);
     void enterTown(Town* town);
 
     void prepareRender();
+    void cleanupRender();
     void setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos);
 
     static std::vector<Town> flymapTowns;

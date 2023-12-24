@@ -529,26 +529,8 @@ void Map::clear() {
     eventRegions.clear();
     weatherField = Weather::None;
     weather.set(Weather::None, true);
-    // TODO - BLIB_UPGRADE - reset render data
+    cleanupRender();
     // renderRange = sf::IntRect(0, 0, 1, 1);
-}
-
-void Map::refreshRenderRange(const sf::View& view) const {
-    static const sf::Vector2i ExtraRender =
-        sf::Vector2i(Properties::ExtraRenderTiles(), Properties::ExtraRenderTiles());
-
-    const sf::Vector2f cornerPixels = view.getCenter() - view.getSize() * 0.5f;
-    sf::Vector2i corner =
-        static_cast<sf::Vector2i>(cornerPixels) / Properties::PixelsPerTile() - ExtraRender;
-    if (corner.x < 0) corner.x = 0;
-    if (corner.y < 0) corner.y = 0;
-
-    sf::Vector2i wsize =
-        static_cast<sf::Vector2i>(view.getSize()) / Properties::PixelsPerTile() + ExtraRender * 2;
-    if (corner.x + wsize.x > size.x) wsize.x = size.x - corner.x;
-    if (corner.y + wsize.y > size.y) wsize.y = size.y - corner.y;
-    // TODO - BLIB_UPGRADE - reset render data
-    // renderRange = {corner, wsize};
 }
 
 Town* Map::getTown(const sf::Vector2i& pos) {
@@ -750,6 +732,19 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
 
 float Map::getMinDepth() const {
     return getDepthForPosition(levels.size() - 1, size.y - 1, levels.back().layerCount() - 1);
+}
+
+void Map::cleanupRender() {
+    renderLevels.clear();
+    for (auto& level : levels) {
+        for (unsigned int j = 0; j < level.layerCount(); ++j) {
+            for (unsigned int x = 0; x < size.x; ++x) {
+                for (unsigned int y = 0; y < size.y; ++y) {
+                    level.getLayer(j).getRef(x, y).renderObject.emplace<std::monostate>();
+                }
+            }
+        }
+    }
 }
 
 } // namespace map
