@@ -8,43 +8,48 @@ namespace core
 {
 namespace debug
 {
-namespace
-{
-const sf::Vector2f ViewSize(Properties::WindowWidth(), Properties::WindowHeight());
-}
-DebugBanner::DebugBanner()
-: view(ViewSize * 0.5f, ViewSize)
-, timeout(2.f) {
-    // text.setFont(core::Properties::MenuFont());
-    text.setFillColor(sf::Color::Cyan);
-    text.setOutlineColor(sf::Color::Black);
-    text.setCharacterSize(20);
-    text.setOutlineThickness(2.f);
-}
+DebugBanner* DebugBanner::banner = nullptr;
 
-void DebugBanner::render(sf::RenderTarget& target) {
-    if (!get().text.getString().isEmpty() &&
-        get().timer.getElapsedTime().asSeconds() <= get().timeout) {
-        const sf::View oldView = target.getView();
-        target.setView(get().view);
-        target.draw(get().text);
-        target.setView(oldView);
-    }
+DebugBanner::DebugBanner()
+: engine(nullptr)
+, showing(false)
+, displayTime(0.f)
+, timeout(2.f) {
+    banner = this;
 }
 
 void DebugBanner::display(const std::string& m, float time) {
-    sf::Text& t = get().text;
-    t.setString(m);
-    t.setPosition(sf::Vector2f(
-        static_cast<float>(Properties::WindowWidth() - t.getGlobalBounds().width - 10.f), 10.f));
-    get().timeout = time;
-    get().timer.restart();
+    auto& t = banner->text;
+
+    if (t.entity() == bl::ecs::InvalidEntity) {
+        t.create(*banner->engine, Properties::MenuFont(), m, 20, sf::Color::Cyan);
+        t.getSection().setOutlineColor(sf::Color::Black);
+        t.getSection().setOutlineThickness(2.f);
+    }
+    else { t.getSection().setString(m); }
+
+    t.getTransform().setPosition(
+        static_cast<float>(Properties::WindowWidth() - t.getLocalBounds().width - 10.f), 10.f);
+    t.addToScene(banner->engine->renderer().getObserver().getOrCreateSceneOverlay(),
+                 bl::rc::UpdateSpeed::Static);
+    banner->timeout     = time;
+    banner->displayTime = 0.f;
+    banner->showing     = true;
 }
 
-DebugBanner& DebugBanner::get() {
-    static DebugBanner banner;
-    return banner;
+void DebugBanner::init(bl::engine::Engine& e) { engine = &e; }
+
+void DebugBanner::update(std::mutex&, float dt, float, float, float) {
+    if (showing) {
+        displayTime += dt;
+        if (displayTime >= timeout) {
+            showing = false;
+            text.removeFromScene();
+        }
+    }
 }
+
+void DebugBanner::cleanup() { text.destroy(); }
 
 } // namespace debug
 } // namespace core
