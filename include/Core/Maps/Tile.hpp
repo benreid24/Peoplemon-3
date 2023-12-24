@@ -89,7 +89,9 @@ private:
     bool isAnim;
     IdType tid;
 
-    std::variant<std::monostate, bl::gfx::BatchSprite, bl::gfx::BatchSlideshow> renderObject;
+    std::variant<std::monostate, bl::gfx::BatchSprite, bl::gfx::BatchSlideshow,
+                 std::shared_ptr<bl::gfx::Animation2D>>
+        renderObject;
 
     friend class Map;
     friend struct bl::serial::SerializableObject<Tile>;

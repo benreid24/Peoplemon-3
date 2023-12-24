@@ -27,8 +27,14 @@ void Tile::set(IdType id, bool anim) {
 }
 
 void Tile::step() {
-    bl::gfx::BatchSlideshow* anim = std::get_if<bl::gfx::BatchSlideshow>(&renderObject);
-    if (anim) { anim->getPlayer().play(); }
+    switch (renderObject.index()) {
+    case 2:
+        std::get_if<bl::gfx::BatchSlideshow>(&renderObject)->getPlayer().play();
+        break;
+    case 3:
+        (*std::get_if<std::shared_ptr<bl::gfx::Animation2D>>(&renderObject))->getPlayer().play();
+        break;
+    }
 }
 
 } // namespace map

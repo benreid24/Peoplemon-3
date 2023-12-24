@@ -667,12 +667,25 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
                 tile.set(Tile::Blank, false);
                 return;
             }
-            player.create(systems->engine(), anim, bl::gfx::DiscreteAnimation2DPlayer::Slideshow);
-            playerEntity = player.entity(); // will be cleaned up when dependency is removed in ECS
+            if (anim->isSlideshow()) {
+                player.create(
+                    systems->engine(), anim, bl::gfx::DiscreteAnimation2DPlayer::Slideshow);
+                // will be cleaned up when dependency is removed in ECS
+                playerEntity = player.entity();
+            }
+            else {
+                bl::gfx::Animation2D& vanim =
+                    *tile.renderObject.emplace<std::shared_ptr<bl::gfx::Animation2D>>(
+                        std::make_shared<bl::gfx::Animation2D>(systems->engine(), anim));
+                vanim.addToScene(scene, bl::rc::UpdateSpeed::Static);
+                transform = &vanim.getTransform();
+            }
         }
-        bl::gfx::BatchSlideshow& anim = tile.renderObject.emplace<bl::gfx::BatchSlideshow>(
-            systems->engine(), zone.tileAnims, playerEntity);
-        transform = &anim.getLocalTransform();
+        if (!transform) {
+            bl::gfx::BatchSlideshow& anim = tile.renderObject.emplace<bl::gfx::BatchSlideshow>(
+                systems->engine(), zone.tileAnims, playerEntity);
+            transform = &anim.getLocalTransform();
+        }
     }
     else {
         const sf::FloatRect src = tileset->getTileTextureBounds(tile.id());

@@ -141,6 +141,14 @@ void MapExplorer::observe(const sf::Event& event) {
         else if (hintState == Hidden) { hintTime = 0.f; }
         if (event.key.code == sf::Keyboard::Escape) { systems.engine().popState(); }
     }
+    else if (event.type == sf::Event::MouseMoved) {
+        glm::vec2 wpos = systems.engine().renderer().getObserver().transformToWorldSpace(
+            {event.mouseMove.x, event.mouseMove.y});
+        const glm::i32vec2 tiles = wpos / static_cast<float>(core::Properties::PixelsPerTile());
+        const core::component::Position pos(0, {tiles.x, tiles.y}, core::component::Direction::Up);
+        core::event::EntityMoved move(bl::ecs::InvalidEntity, pos, pos);
+        systems.world().activeMap().observe(move);
+    }
 }
 
 } // namespace state
