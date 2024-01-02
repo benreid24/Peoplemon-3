@@ -35,7 +35,7 @@ public:
      * @brief Tests whether this position is equal to another. Does not consider interpolation or
      *        direction, only tiles and level
      *
-     * @param other The position to test againt
+     * @param other The position to test against
      * @return True if the positions are on the same level and tile, false otherwise
      */
     bool operator==(const Position& other) const;
@@ -44,7 +44,7 @@ public:
      * @brief Tests whether this position is not equal to another. Does not consider interpolation
      *        or direction, only tiles and level
      *
-     * @param other The position to test againt
+     * @param other The position to test against
      * @return True if the positions are not on the same level or tile, false otherwise
      */
     bool operator!=(const Position& other) const;

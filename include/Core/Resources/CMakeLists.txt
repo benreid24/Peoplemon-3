@@ -1,4 +1,6 @@
 target_sources(Core PUBLIC
+    BundleHandlers.hpp    
     Loaders.hpp
-    BundleHandlers.hpp
+    RunWalkAnimations.hpp
+    WalkAnimations.hpp
 )
