@@ -38,9 +38,10 @@ public:
      * @brief Spawns the player into the world
      *
      * @param position The position to spawn at
+     * @param scene The scene to spawn the player in
      * @return True if the player was spawned, false on error
      */
-    bool spawnPlayer(const component::Position& position);
+    bool spawnPlayer(const component::Position& position, bl::rc::Scene* scene);
 
     /**
      * @brief Makes the given entity controlled by the player. Only one entity may be player

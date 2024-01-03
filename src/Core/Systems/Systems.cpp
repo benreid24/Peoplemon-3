@@ -14,7 +14,6 @@ Systems::Systems(bl::engine::Engine& engine)
 , _world(*this)
 , _position(*this)
 , _movement(*this)
-, _render(*this)
 , _interaction(*this)
 , _hud(*this)
 , _scripts(*this)
@@ -46,7 +45,6 @@ void Systems::update(float dt, bool ent) {
     _hud.update(dt);
 
     _world.update(dt);
-    _render.update(dt);
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }
@@ -68,10 +66,6 @@ const Position& Systems::position() const { return _position; }
 Movement& Systems::movement() { return _movement; }
 
 const Movement& Systems::movement() const { return _movement; }
-
-Render& Systems::render() { return _render; }
-
-const Render& Systems::render() const { return _render; }
 
 Entity& Systems::entity() { return _entity; }
 

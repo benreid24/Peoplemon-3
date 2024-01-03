@@ -28,7 +28,7 @@ using Serializer = bl::serial::json::Serializer<Player>;
 Player::Player(Systems& owner)
 : owner(owner) {}
 
-bool Player::spawnPlayer(const component::Position& pos) {
+bool Player::spawnPlayer(const component::Position& pos, bl::rc::Scene* scene) {
     playerId = owner.engine().ecs().createEntity();
     BL_LOG_INFO << "New player id: " << playerId;
 
@@ -43,13 +43,9 @@ bool Player::spawnPlayer(const component::Position& pos) {
 
     if (!makePlayerControlled(playerId)) { return false; }
 
-    if (!owner.engine().ecs().addComponent<component::Renderable>(
-            playerId,
-            component::Renderable::fromFastMoveAnims(
-                *_position, *movable, Properties::PlayerAnimations(data.sex)))) {
-        BL_LOG_ERROR << "Failed to add renderable component to player";
-        return false;
-    }
+    component::Renderable::fromFastMoveAnims(
+        owner.engine(), playerId, scene, Properties::PlayerAnimations(data.sex));
+    // TODO - use and link new position component
 
     return true;
 }

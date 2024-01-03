@@ -666,7 +666,7 @@ void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
                              static_cast<int>(args[3].value().getAsInt())},
                             component::directionFromString(args[4].value().getAsString())),
         args[0].value().getAsString());
-    result = systems.entity().spawnCharacter(spawn);
+    result = systems.entity().spawnCharacter(spawn, systems.world().activeMap().getScene());
 }
 
 void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -860,7 +860,8 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
     pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
                   static_cast<int>(args[2].value().getAsInt())});
     pos.setPixels({args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()});
-    result = systems.entity().spawnAnimation(pos, args[5].value().getAsString());
+    result = systems.entity().spawnAnimation(
+        pos, args[5].value().getAsString(), systems.world().activeMap().getScene());
 }
 
 void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -875,8 +876,10 @@ void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vecto
     pos.level = args[0].value().getAsInt();
     pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
                   static_cast<int>(args[2].value().getAsInt())});
-    result = systems.entity().spawnGeneric(
-        pos, args[4].value().getAsBool(), args[3].value().getAsString());
+    result = systems.entity().spawnGeneric(pos,
+                                           args[4].value().getAsBool(),
+                                           args[3].value().getAsString(),
+                                           systems.world().activeMap().getScene());
 }
 
 void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

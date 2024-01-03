@@ -23,50 +23,57 @@ namespace component
 class Renderable {
 public:
     /**
+     * @brief Does nothing
+     */
+    Renderable();
+
+    /**
      * @brief Creates a renderable component for a static sprite
      *
      * @param engine The game engine instance
      * @param entity The entity to construct the component on
+     * @param scene The scene to add to
      * @param path The path to the sprite
      * @return Renderable A usable component
      */
     static Renderable& fromSprite(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                  const std::string& path);
+                                  bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations
      *
      * @param engine The game engine instance
      * @param entity The entity to construct the component on
-     * @param movable The movable component of the owner
+     * @param scene The scene to add to
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
     static Renderable& fromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                     component::Movable& movable, const std::string& path);
+                                     bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations with running
      *
      * @param engine The game engine instance
      * @param entity The entity to construct the component on
-     * @param movable The movable component of the owner
+     * @param scene The scene to add to
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
     static Renderable& fromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                         component::Movable& move, const std::string& path);
+                                         bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component from a single animation
      *
      * @param engine The game engine instance
+     @param scene The scene to add to
      * @param entity The entity to construct the component on
      * @param path The path of the animation
      * @return Renderable The created component
      */
     static Renderable& fromAnimation(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                     const std::string& path);
+                                     bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Returns the length of the contained animation, or 0.f if no animation
@@ -120,8 +127,6 @@ private:
     bl::com::Animation2DPlayer* player;
     bl::ecs::Entity shadow;
     float shadowHeight;
-
-    Renderable();
 };
 
 } // namespace component

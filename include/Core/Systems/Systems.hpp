@@ -11,7 +11,6 @@
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
-#include <Core/Systems/Render.hpp>
 #include <Core/Systems/Scripts.hpp>
 #include <Core/Systems/Trainers.hpp>
 #include <Core/Systems/WildPeoplemon.hpp>
@@ -114,18 +113,6 @@ public:
      *
      */
     const Movement& movement() const;
-
-    /**
-     * @brief Returns a reference to the rendering system
-     *
-     */
-    Render& render();
-
-    /**
-     * @brief Returns a const reference to the rendering system
-     *
-     */
-    const Render& render() const;
 
     /**
      * @brief Returns the entity system
@@ -233,7 +220,6 @@ private:
     World _world;
     Position _position;
     Movement _movement;
-    Render _render;
     Interaction _interaction;
     HUD _hud;
     Scripts _scripts;

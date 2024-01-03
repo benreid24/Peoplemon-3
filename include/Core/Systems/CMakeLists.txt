@@ -9,7 +9,6 @@ target_sources(Core PUBLIC
     Movement.hpp
     Player.hpp
     Position.hpp
-    Render.hpp
     Scripts.hpp
     Systems.hpp
     Trainers.hpp

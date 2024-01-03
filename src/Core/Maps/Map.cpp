@@ -83,7 +83,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
         return false;
     }
-    if (!game.player().spawnPlayer(spawnPos)) {
+    if (!game.player().spawnPlayer(spawnPos, scene)) {
         BL_LOG_ERROR << "Failed to spawn player";
         return false;
     }
@@ -99,13 +99,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
-        if (game.entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
+        if (game.entity().spawnCharacter(spawn, scene) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
     // Spawn items
-    for (const Item& item : itemsField) { game.entity().spawnItem(item); }
+    for (const Item& item : itemsField) { game.entity().spawnItem(item, scene); }
 
     setupCamera(game);
 
