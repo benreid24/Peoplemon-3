@@ -4,7 +4,7 @@
 #include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/ECS.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 
 namespace core
 {
@@ -44,7 +44,7 @@ public:
      * @param fast True to move at the fast speed, false for slow
      * @return True if the movement is possible, false if no movement will occur
      */
-    bool moveEntity(bl::ecs::Entity entity, core::component::Direction direction, bool fast);
+    bool moveEntity(bl::ecs::Entity entity, bl::tmap::Direction direction, bool fast);
 
     /**
      * @brief Updates all moving entities

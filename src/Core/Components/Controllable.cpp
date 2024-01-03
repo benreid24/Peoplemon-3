@@ -18,13 +18,13 @@ bool Controllable::processControl(input::EntityControl ctrl, bool sprint, bool i
 
     switch (ctrl) {
     case input::Control::MoveUp:
-        return systems.movement().moveEntity(owner, Direction::Up, sprint);
+        return systems.movement().moveEntity(owner, bl::tmap::Direction::Up, sprint);
     case input::Control::MoveRight:
-        return systems.movement().moveEntity(owner, Direction::Right, sprint);
+        return systems.movement().moveEntity(owner, bl::tmap::Direction::Right, sprint);
     case input::Control::MoveDown:
-        return systems.movement().moveEntity(owner, Direction::Down, sprint);
+        return systems.movement().moveEntity(owner, bl::tmap::Direction::Down, sprint);
     case input::Control::MoveLeft:
-        return systems.movement().moveEntity(owner, Direction::Left, sprint);
+        return systems.movement().moveEntity(owner, bl::tmap::Direction::Left, sprint);
 
     case input::Control::Pause: // handled in PlayerControlled
     case input::Control::Back:

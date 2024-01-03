@@ -33,7 +33,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
             if (!previousMap) return false;
         }
 
-        const component::Position ppos = prevPlayerPos;
+        const bl::tmap::Position ppos = prevPlayerPos;
         prevPlayerPos                  = owner.player().position();
 
         currentMap->exit(owner, previousMap->name());

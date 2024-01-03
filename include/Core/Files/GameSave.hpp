@@ -3,7 +3,7 @@
 
 #include <BLIB/Events.hpp>
 #include <BLIB/Serialization/JSON.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
 #include <Core/Player/Gender.hpp>
@@ -54,8 +54,8 @@ struct GameSave {
     struct WorldDataPointers {
         std::string* currentMap;
         std::string* prevMap;
-        component::Position* playerPos;
-        component::Position* prevPlayerPos;
+        bl::tmap::Position* playerPos;
+        bl::tmap::Position* prevPlayerPos;
     } world;
 
     /// Stores pointers to the actual data to save/load from
@@ -165,8 +165,8 @@ private:
         std::unordered_set<std::string> visitedTowns;
         std::string currentMap;
         std::string prevMap;
-        component::Position playerPos;
-        component::Position prevPlayerPos;
+        bl::tmap::Position playerPos;
+        bl::tmap::Position prevPlayerPos;
         std::unordered_map<std::string, bl::script::Value> entries;
         system::Clock::Time clockTime;
         std::unordered_set<std::string> defeatedTrainers;
@@ -204,7 +204,7 @@ struct SerializableObject<core::file::GameSave::InteractDataPointers>
 template<>
 struct SerializableObject<core::file::GameSave::WorldDataPointers> : SerializableObjectBase {
     using World = core::file::GameSave::WorldDataPointers;
-    using Pos   = core::component::Position;
+    using Pos   = bl::tmap::Position;
 
     SerializableField<1, World, std::string*> currentMap;
     SerializableField<2, World, std::string*> prevMap;

@@ -50,7 +50,7 @@ public:
      * @param spawnDir The direction to put in the standing behavior on load
      * @return True on load, false on error
      */
-    bool load(const std::string& file, component::Direction spawnDir = component::Direction::Down);
+    bool load(const std::string& file, bl::tmap::Direction spawnDir = bl::tmap::Direction::Down);
 
     /**
      * @brief Loads the trainer from the json stream

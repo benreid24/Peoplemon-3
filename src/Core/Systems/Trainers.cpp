@@ -65,7 +65,7 @@ void Trainers::update(float dt) {
 
     case State::Walking:
         if (!trainerMove->moving()) {
-            if (component::Position::adjacent(*trainerPos, owner.player().position())) {
+            if (bl::tmap::Position::adjacent(*trainerPos, owner.player().position())) {
                 if (!owner.interaction().interact(walkingTrainer)) {
                     BL_LOG_ERROR << "Trainer " << walkingTrainer
                                  << " was unable to interact with player, aborting";
@@ -152,7 +152,7 @@ void Trainers::checkTrainer(bl::ecs::Entity ent) {
     if (!trainer || trainer->defeated()) return;
     if (owner.flight().flying()) return;
     // TODO - respect player/trainer locks?
-    const component::Position* pos = owner.engine().ecs().getComponent<component::Position>(ent);
+    const bl::tmap::Position* pos = owner.engine().ecs().getComponent<bl::tmap::Position>(ent);
     if (!pos) {
         BL_LOG_ERROR << "Encountered trainer " << ent << " with no position";
         return;
@@ -181,9 +181,10 @@ void Trainers::checkTrainer(bl::ecs::Entity ent) {
         exclaim.setTextureRect({0, s.y, s.x, 0});
         static const float xoff =
             static_cast<float>(Properties::PixelsPerTile()) * 0.5f - static_cast<float>(s.x) * 0.5f;
-        exclaim.setPosition(trainerPos->positionPixels().x + xoff,
+        /*exclaim.setPosition(trainerPos->positionPixels().x + xoff,
                             trainerPos->positionPixels().y -
-                                static_cast<float>(Properties::PixelsPerTile()));
+                                static_cast<float>(Properties::PixelsPerTile()));*/
+        // TODO - BLIB_UPGRADE - update trainer exclaim rendering
     }
 }
 

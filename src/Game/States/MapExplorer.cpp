@@ -57,11 +57,6 @@ bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems) {
 
 MapExplorer::MapExplorer(core::system::Systems& systems)
 : State(systems) {
-    sf::Vector2f camPos(500.f, 500.f);
-    core::component::Position* pos =
-        systems.engine().ecs().getComponent<core::component::Position>(systems.player().player());
-    if (pos) { camPos = pos->positionPixels(); }
-
     hintBox.create(systems.engine(), {100.f, 100.f});
     hintBox.setFillColor(BoxColor);
     hintBox.setOutlineColor(BoxOutlineColor);
@@ -145,7 +140,7 @@ void MapExplorer::observe(const sf::Event& event) {
         glm::vec2 wpos = systems.engine().renderer().getObserver().transformToWorldSpace(
             {event.mouseMove.x, event.mouseMove.y});
         const glm::i32vec2 tiles = wpos / static_cast<float>(core::Properties::PixelsPerTile());
-        const core::component::Position pos(0, {tiles.x, tiles.y}, core::component::Direction::Up);
+        const bl::tmap::Position pos(0, {tiles.x, tiles.y}, bl::tmap::Direction::Up);
         core::event::EntityMoved move(bl::ecs::InvalidEntity, pos, pos);
         systems.world().activeMap().observe(move);
     }

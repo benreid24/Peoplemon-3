@@ -3,8 +3,8 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
 #include <Core/Maps/LightingSystem.hpp>
@@ -41,7 +41,7 @@ public:
      * @param scene The scene to spawn the player in
      * @return True if the player was spawned, false on error
      */
-    bool spawnPlayer(const component::Position& position, bl::rc::Scene* scene);
+    bool spawnPlayer(const bl::tmap::Position& position, bl::rc::Scene* scene);
 
     /**
      * @brief Makes the given entity controlled by the player. Only one entity may be player
@@ -69,7 +69,7 @@ public:
      * @brief Returns the current position of the player
      *
      */
-    const component::Position& position() const;
+    const bl::tmap::Position& position() const;
 
     /**
      * @brief Initializes all player data structures for a new game
@@ -120,7 +120,7 @@ public:
 private:
     Systems& owner;
     bl::ecs::Entity playerId;
-    component::Position* _position;
+    bl::tmap::Position* _position;
     component::Movable* movable;
 
     bl::rc::lgt::Light2D lantern;

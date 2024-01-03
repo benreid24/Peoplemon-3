@@ -1,7 +1,7 @@
 #ifndef CORE_COMPONENTS_PATHFINDER_HPP
 #define CORE_COMPONENTS_PATHFINDER_HPP
 
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <vector>
 
 namespace core
@@ -21,12 +21,12 @@ struct PathFinder {
      *
      * @param dest The destination to navigate to
      */
-    PathFinder(const Position& dest)
+    PathFinder(const bl::tmap::Position& dest)
     : destination(dest)
     , step(0) {}
 
-    Position destination;
-    std::vector<Position> path;
+    bl::tmap::Position destination;
+    std::vector<bl::tmap::Position> path;
     unsigned int step;
 };
 

@@ -33,5 +33,19 @@ void configureInputSystem(bl::input::InputSystem& system) {
     system.loadFromConfig();
 }
 
+EntityControl fromDirection(bl::tmap::Direction dir) {
+    switch (dir) {
+    case bl::tmap::Direction::Up:
+        return Control::MoveUp;
+    case bl::tmap::Direction::Right:
+        return Control::MoveRight;
+    case bl::tmap::Direction::Down:
+        return Control::MoveDown;
+    case bl::tmap::Direction::Left:
+    default:
+        return Control::MoveLeft;
+    }
+}
+
 } // namespace input
 } // namespace core

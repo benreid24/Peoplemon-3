@@ -6,8 +6,8 @@
 #include <BLIB/Graphics/Slideshow.hpp>
 #include <BLIB/Graphics/Sprite.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
 #include <Core/Resources/RunWalkAnimations.hpp>
 #include <Core/Resources/WalkAnimations.hpp>
 
@@ -115,6 +115,11 @@ public:
      * @brief Removes the shadow from this renderable if present
      */
     void removeShadow();
+
+    /**
+     * @brief Returns the render transform
+     */
+    bl::com::Transform2D& getTransform() { return *transform; }
 
 private:
     enum SourceType { Walk, Run, SingleAnim, Sprite } srcType;

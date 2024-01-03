@@ -16,19 +16,19 @@ Movement::Movement(Systems& owner)
 
 bool Movement::makeMovable(bl::ecs::Entity e, float sp, float fsp) {
     if (owner.engine().ecs().hasComponent<component::Movable>(e)) return false;
-    component::Position* pos = owner.engine().ecs().getComponent<component::Position>(e);
+    bl::tmap::Position* pos = owner.engine().ecs().getComponent<bl::tmap::Position>(e);
     if (!pos) return false;
     owner.engine().ecs().addComponent<component::Movable>(e, {*pos, sp, fsp});
     return true;
 }
 
-bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast) {
+bool Movement::moveEntity(bl::ecs::Entity e, bl::tmap::Direction dir, bool fast) {
     component::Movable* mv = owner.engine().ecs().getComponent<component::Movable>(e);
     if (mv != nullptr) {
-        component::Position& pos = mv->position;
+        bl::tmap::Position& pos = mv->position;
         if (!mv->moving()) {
-            component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
-            if (npos.positionTiles() == pos.positionTiles()) {
+            bl::tmap::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
+            if (npos.position == pos.position) {
                 const event::EntityRotated event(e, npos.direction, pos.direction);
                 pos.direction = npos.direction;
                 bl::event::Dispatcher::dispatch<event::EntityRotated>(event);
@@ -41,7 +41,8 @@ bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast
             const bool isHop = owner.world().activeMap().isLedgeHop(pos, dir);
             if (isHop) {
                 bl::audio::AudioSystem::playOrRestartSound(jumpSound);
-                npos.setTiles(npos.positionTiles() + sf::Vector2i(0, 1));
+                npos.position.y += 1;
+                npos.syncTransform(Properties::PixelsPerTile());
             }
 
             std::swap(pos, npos);

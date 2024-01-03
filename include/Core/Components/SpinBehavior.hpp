@@ -30,7 +30,7 @@ public:
      * @param controller The controllable component of the entity
      * @param dt Time elapsed in seconds
      */
-    void update(Position& position, Controllable& controller, float dt);
+    void update(bl::tmap::Position& position, Controllable& controller, float dt);
 
 private:
     const file::Behavior::Spinning::Direction dir;

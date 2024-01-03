@@ -6,7 +6,7 @@
 #include <BLIB/Events.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Battle.hpp>
 #include <Core/Events/EntityMoved.hpp>
@@ -99,7 +99,7 @@ private:
     State state;
     bl::ecs::Entity walkingTrainer;
     component::Trainer* trainerComponent;
-    const component::Position* trainerPos;
+    const bl::tmap::Position* trainerPos;
     component::Movable* trainerMove;
 
     std::unordered_set<std::string> defeated;

@@ -1,7 +1,7 @@
 #ifndef CORE_SYSTEMS_POSITION_HPP
 #define CORE_SYSTEMS_POSITION_HPP
 
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/Maps.hpp>
 
@@ -25,8 +25,8 @@ class Systems;
  */
 class Position
 : public bl::event::Listener<
-      event::EntityMoved, bl::ecs::event::ComponentAdded<component::Position>,
-      bl::ecs::event::ComponentRemoved<component::Position>, event::MapSwitch> {
+      event::EntityMoved, bl::ecs::event::ComponentAdded<bl::tmap::Position>,
+      bl::ecs::event::ComponentRemoved<bl::tmap::Position>, event::MapSwitch> {
 public:
     /**
      * @brief Construct the Position system
@@ -60,7 +60,7 @@ public:
      * @param pos The position to check
      * @return bl::ecs::Entity The entity at the given position or bl::ecs::InvalidEntity
      */
-    bl::ecs::Entity getEntity(const component::Position& pos) const;
+    bl::ecs::Entity getEntity(const bl::tmap::Position& pos) const;
 
     /**
      * @brief Returns whether or not a tile is currently occupied
@@ -68,7 +68,7 @@ public:
      * @param position The tile position to check
      * @return True if no entity is on the tile, false if an entity is currently there
      */
-    bool spaceFree(const component::Position& position) const;
+    bool spaceFree(const bl::tmap::Position& position) const;
 
     /**
      * @brief Searches for an entity from the starting position in the given direction for the given
@@ -79,7 +79,7 @@ public:
      * @param range Number of spaces to search. Must be greater than 1
      * @return bl::ecs::Entity The entity that was found, or bl::ecs::InvalidEntity if none
      */
-    bl::ecs::Entity search(const component::Position& start, component::Direction dir,
+    bl::ecs::Entity search(const bl::tmap::Position& start, bl::tmap::Direction dir,
                            unsigned int range);
 
     /**
@@ -107,12 +107,12 @@ private:
     std::vector<bl::ecs::Entity> toUpdate;
 
     virtual void observe(const event::EntityMoved& event) override;
-    virtual void observe(const bl::ecs::event::ComponentAdded<component::Position>& event) override;
+    virtual void observe(const bl::ecs::event::ComponentAdded<bl::tmap::Position>& event) override;
     virtual void observe(
-        const bl::ecs::event::ComponentRemoved<component::Position>& event) override;
+        const bl::ecs::event::ComponentRemoved<bl::tmap::Position>& event) override;
     virtual void observe(const event::MapSwitch& event) override;
 
-    bl::ecs::Entity& get(const component::Position& pos);
+    bl::ecs::Entity& get(const bl::tmap::Position& pos);
 };
 
 } // namespace system

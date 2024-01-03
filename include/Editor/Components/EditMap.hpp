@@ -423,7 +423,7 @@ public:
      * @param dir The direction of the spawn
      */
     void addSpawn(unsigned int level, const sf::Vector2i& tile, unsigned int id,
-                  core::component::Direction dir);
+                  bl::tmap::Direction dir);
 
     /**
      * @brief Rotates a player spawn

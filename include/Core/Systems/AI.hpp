@@ -59,7 +59,7 @@ public:
      * @param dir The direction to face
      * @return True if the behvaior was able to be added, false otherwise
      */
-    bool makeStanding(bl::ecs::Entity entity, component::Direction dir);
+    bool makeStanding(bl::ecs::Entity entity, bl::tmap::Direction dir);
 
     /**
      * @brief Makes the given entity spin in place. Replaces any existing behavior
@@ -98,7 +98,7 @@ public:
      * @param dest The position to navigate to
      * @return True if the controller was able to be added and the path is valid, false otherwise
      */
-    bool moveToPosition(bl::ecs::Entity entity, const component::Position& dest);
+    bool moveToPosition(bl::ecs::Entity entity, const bl::tmap::Position& dest);
 
     /**
      * @brief Removes any ai behavior from the given entity. Does not affect path finding
@@ -110,13 +110,13 @@ public:
 private:
     // type helpers
     using StandingTypes =
-        bl::ecs::Require<component::StandingBehavior, component::Position, component::Controllable>;
+        bl::ecs::Require<component::StandingBehavior, bl::tmap::Position, component::Controllable>;
     using SpinTypes =
-        bl::ecs::Require<component::SpinBehavior, component::Position, component::Controllable>;
-    using FixedPathTypes = bl::ecs::Require<component::FixedPathBehavior, component::Position,
+        bl::ecs::Require<component::SpinBehavior, bl::tmap::Position, component::Controllable>;
+    using FixedPathTypes = bl::ecs::Require<component::FixedPathBehavior, bl::tmap::Position,
                                             component::Controllable>;
     using WanderTypes =
-        bl::ecs::Require<component::WanderBehavior, component::Position, component::Controllable>;
+        bl::ecs::Require<component::WanderBehavior, bl::tmap::Position, component::Controllable>;
 
     using StandingView  = bl::ecs::View<StandingTypes>*;
     using StandingRow   = bl::ecs::ComponentSet<StandingTypes>;

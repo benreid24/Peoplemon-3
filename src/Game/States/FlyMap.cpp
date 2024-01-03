@@ -32,7 +32,8 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     cursor.setOrigin(sf::Vector2f(cursorTxtr->getSize()) * 0.5f);
     if (systems.world().activeMap().canFlyFromHere()) {
         const sf::Vector2f ws = systems.world().activeMap().sizePixels();
-        const sf::Vector2f pp = systems.player().position().positionPixels();
+        const glm::vec2 pp =
+            systems.player().position().getWorldPosition(core::Properties::PixelsPerTile());
         const sf::Vector2f ms(mapTxtr->getSize());
         const std::string path =
             std::string("FlyMap/") + (systems.player().state().sex == core::player::Gender::Boy ?

@@ -21,7 +21,7 @@ GameTesting::GameTesting()
                 bl::dialog::tinyfd_messageBox("Error", "Error loading save", "ok", "error", 0);
                 return;
             }
-            updatePosLabel(save.world.playerPos->level, save.world.playerPos->positionTiles());
+            updatePosLabel(save.world.playerPos->level, save.world.playerPos->position);
         }
     });
     row->pack(saveSelector, true, true);
@@ -39,8 +39,7 @@ GameTesting::GameTesting()
         newSave.useLocalData();
         newSave.saveName             = "New Save";
         *newSave.world.prevMap       = "Worldmap";
-        *newSave.world.prevPlayerPos = {
-            0, sf::Vector2i(300, 300), core::component::Direction::Down};
+        *newSave.world.prevPlayerPos = {0, glm::i32vec2(300, 300), bl::tmap::Direction::Down};
         newSave.player.inventory->clear();
         *newSave.player.monei = 1000000;
         newSave.player.peoplemon->clear();
@@ -91,13 +90,13 @@ void GameTesting::notifyClick(const std::string& mapName, unsigned int level,
         save.load();
         *save.world.currentMap = mapName;
         *save.world.playerPos =
-            core::component::Position(level, pos, core::component::Direction::Down);
+            bl::tmap::Position(level, glm::i32vec2(pos.x, pos.y), bl::tmap::Direction::Down);
         save.editorSave();
-        updatePosLabel(level, pos);
+        updatePosLabel(level, glm::i32vec2(pos.x, pos.y));
     }
 }
 
-void GameTesting::updatePosLabel(unsigned int level, const sf::Vector2i& pos) {
+void GameTesting::updatePosLabel(unsigned int level, const glm::i32vec2& pos) {
     std::stringstream ss;
     ss << "Lvl: " << level << ". Tile: (" << pos.x << ", " << pos.y << ")";
     posLabel->setText(ss.str());

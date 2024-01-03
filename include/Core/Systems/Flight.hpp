@@ -2,7 +2,7 @@
 #define CORE_SYSTEMS_FLIGHT_HPP
 
 #include <BLIB/Cameras/2D/Affectors/CameraShake.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Renderable.hpp>
 
 namespace core
@@ -80,12 +80,12 @@ private:
     Systems& owner;
     State state;
     bl::cam::c2d::CameraShake* cameraShake;
-    component::Position startPos;
-    component::Position* playerPos;
+    bl::tmap::Position startPos;
+    bl::tmap::Position* playerPos;
     component::Renderable* playerAnim;
-    component::Position destination;
-    sf::Vector2f flightDest;
-    sf::Vector2f unitVelocity;
+    bl::tmap::Position destination;
+    glm::vec2 flightDest;
+    glm::vec2 unitVelocity;
     union {
         RiseState riseState;
         RotateState rotateState;

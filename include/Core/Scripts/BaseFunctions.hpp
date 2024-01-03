@@ -2,7 +2,7 @@
 #define CORE_SCRIPTS_BASEFUNCTIONS_HPP
 
 #include <BLIB/Scripts/SymbolTable.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 
 /**
  * @addtogroup Scripts
@@ -43,7 +43,7 @@ struct BaseFunctions {
      * @param pos The position to convert
      * @return Value A value containing the properties of the position
      */
-    static bl::script::Value makePosition(const component::Position& pos);
+    static bl::script::Value makePosition(const bl::tmap::Position& pos);
 };
 
 } // namespace script

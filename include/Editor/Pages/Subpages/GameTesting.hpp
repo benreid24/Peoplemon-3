@@ -56,7 +56,7 @@ private:
     component::GameTestingWindow window;
 
     void sync();
-    void updatePosLabel(unsigned int level, const sf::Vector2i& pos);
+    void updatePosLabel(unsigned int level, const glm::i32vec2& pos);
     void launchGame();
 };
 

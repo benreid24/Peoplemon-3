@@ -101,8 +101,8 @@ private:
 
     std::string currentMapFile;
     std::string prevMapFile;
-    component::Position playerPos;
-    component::Position prevPlayerPos;
+    bl::tmap::Position playerPos;
+    bl::tmap::Position prevPlayerPos;
 };
 
 } // namespace system

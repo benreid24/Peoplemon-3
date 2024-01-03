@@ -49,26 +49,28 @@ public:
     /**
      * @brief Spawns a generic entity with some basic components
      *
-     * @param position The position to spawn at
+     * @param level The map level to spawn on
+     * @param tiles The position to spawn at
      * @param collidable True to add a collidable component, false to not
      * @param gfx Path to image or animation for graphic component
      * @param scene The scene to spawn in
      * @return The created entity id or InvalidEntity
      */
-    bl::ecs::Entity spawnGeneric(const component::Position& position, bool collidable,
+    bl::ecs::Entity spawnGeneric(std::uint8_t level, const glm::i32vec2& tiles, bool collidable,
                                  const std::string& gfx, bl::rc::Scene* scene);
 
     /**
      * @brief Spawns an animation-only entity at the given position. The animation is not played
      *        until manually triggered
      *
+     * @param level The map level to spawn on
      * @param position The position to spawn the entity at
      * @param gfx The path to the animation to render
      * @param scene The scene to spawn in
      * @return The created entity id or InvalidEntity
      */
-    bl::ecs::Entity spawnAnimation(const component::Position& position, const std::string& gfx,
-                                   bl::rc::Scene* scene);
+    bl::ecs::Entity spawnAnimation(std::uint8_t level, const glm::vec2& position,
+                                   const std::string& gfx, bl::rc::Scene* scene);
 
 private:
     Systems& owner;

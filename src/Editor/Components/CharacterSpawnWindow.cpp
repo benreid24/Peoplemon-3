@@ -125,14 +125,14 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
             return;
         }
         closeAll();
-        onEdit(orig,
-               core::map::CharacterSpawn(
-                   core::component::Position(
-                       std::atoi(levelInput->getInput().c_str()),
-                       sf::Vector2i(std::atoi(xInput->getInput().c_str()),
-                                    std::atoi(yInput->getInput().c_str())),
-                       static_cast<core::component::Direction>(dirEntry->getSelectedOption())),
-                   fileLabel->getText()));
+        onEdit(
+            orig,
+            core::map::CharacterSpawn(
+                bl::tmap::Position(std::atoi(levelInput->getInput().c_str()),
+                                   glm::i32vec2(std::atoi(xInput->getInput().c_str()),
+                                                std::atoi(yInput->getInput().c_str())),
+                                   static_cast<bl::tmap::Direction>(dirEntry->getSelectedOption())),
+                fileLabel->getText()));
     });
     row->pack(editBut, false, true);
     Button::Ptr cancelBut = Button::create("Cancel");
@@ -143,8 +143,8 @@ CharacterSpawnWindow::CharacterSpawnWindow(const OnEdit& cb)
     window->pack(row, true, false);
 }
 
-void CharacterSpawnWindow::open(bl::gui::GUI* p, unsigned int level,
-                                const sf::Vector2i& pos, const core::map::CharacterSpawn* orig) {
+void CharacterSpawnWindow::open(bl::gui::GUI* p, unsigned int level, const sf::Vector2i& pos,
+                                const core::map::CharacterSpawn* orig) {
     parent     = p;
     this->orig = orig;
     parent->pack(window);
@@ -152,8 +152,8 @@ void CharacterSpawnWindow::open(bl::gui::GUI* p, unsigned int level,
 
     if (orig) {
         fileLabel->setText(orig->file);
-        xInput->setInput(std::to_string(orig->position.positionTiles().x));
-        yInput->setInput(std::to_string(orig->position.positionTiles().y));
+        xInput->setInput(std::to_string(orig->position.position.x));
+        yInput->setInput(std::to_string(orig->position.position.y));
         levelInput->setInput(std::to_string(orig->position.level));
         dirEntry->setSelectedOption(static_cast<int>(orig->position.direction));
     }

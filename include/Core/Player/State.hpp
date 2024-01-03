@@ -1,7 +1,7 @@
 #ifndef CORE_PLAYER_STATE_HPP
 #define CORE_PLAYER_STATE_HPP
 
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Peoplemon/OwnedPeoplemon.hpp>
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
 #include <Core/Player/Bag.hpp>
@@ -47,7 +47,7 @@ struct State {
     std::unordered_set<std::string> visitedTowns;
     Peopledex peopledex;
 
-    component::Position savePos;
+    bl::tmap::Position savePos;
     std::string whiteoutMap;
     unsigned int whiteoutSpawn;
     unsigned int repelSteps;

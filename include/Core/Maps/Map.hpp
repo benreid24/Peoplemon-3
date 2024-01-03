@@ -133,7 +133,7 @@ public:
      * @return True on success, false on error
      */
     bool enter(system::Systems& systems, std::uint16_t spawnId, const std::string& prevMap,
-               const component::Position& prevPlayerPos);
+               const bl::tmap::Position& prevPlayerPos);
 
     /**
      * @brief Removes spawned entities and runs the on-unload script
@@ -199,7 +199,7 @@ public:
      * @param position The position to check for
      * @return True if the position is within the map, false if not
      */
-    bool contains(const component::Position& position) const;
+    bool contains(const bl::tmap::Position& position) const;
 
     /**
      * @brief Returns the adjacent position to the given position when moving in the given
@@ -207,10 +207,9 @@ public:
      *
      * @param pos The position that is being moved from
      * @param dir The direction that the movement is going
-     * @return component::Position The adjacent tile with level transition if any
+     * @return bl::tmap::Position The adjacent tile with level transition if any
      */
-    component::Position adjacentTile(const component::Position& pos,
-                                     component::Direction dir) const;
+    bl::tmap::Position adjacentTile(const bl::tmap::Position& pos, bl::tmap::Direction dir) const;
 
     /**
      * @brief Returns whether or not a particular movement is possible. Does not take into account
@@ -220,7 +219,7 @@ public:
      * @param dir The direction to move in
      * @return True if the move is allowed, false if it is not
      */
-    bool movePossible(const component::Position& position, component::Direction dir) const;
+    bool movePossible(const bl::tmap::Position& position, bl::tmap::Direction dir) const;
 
     /**
      * @brief Test whether the given movement will be a ledge hop or not
@@ -229,7 +228,7 @@ public:
      * @param dir The direction being moved in
      * @return True if the move is a ledge hop, false otherwise
      */
-    bool isLedgeHop(const component::Position& position, component::Direction dir) const;
+    bool isLedgeHop(const bl::tmap::Position& position, bl::tmap::Direction dir) const;
 
     /**
      * @brief Event listener for moving entities. Used to trigger map events
@@ -244,7 +243,7 @@ public:
      * @param interactor The entity doing the interact
      * @param interactPos The position being interacted with
      */
-    bool interact(bl::ecs::Entity interactor, const component::Position& interactPos);
+    bool interact(bl::ecs::Entity interactor, const bl::tmap::Position& interactPos);
 
     /**
      * @brief Returns the catch region at the given position if the position is on a catch tile
@@ -252,7 +251,7 @@ public:
      * @param position The position to search
      * @return CatchRegion* The catch region if on a catch tile and a region is there, or nullptr
      */
-    const CatchRegion* getCatchRegion(const component::Position& position) const;
+    const CatchRegion* getCatchRegion(const bl::tmap::Position& position) const;
 
     /**
      * @brief Returns the set of towns that can be flown to
@@ -270,9 +269,9 @@ public:
      * @brief Returns the position of the given player spawn, or nullptr if not found
      *
      * @param spawnId Id of the spawn to get the position for
-     * @return const component::Position* Pointer to the position to spawn at. May be nullptr
+     * @return const bl::tmap::Position* Pointer to the position to spawn at. May be nullptr
      */
-    const component::Position* getSpawnPosition(unsigned int spawnId) const;
+    const bl::tmap::Position* getSpawnPosition(unsigned int spawnId) const;
 
     /**
      * @brief Returns the name of the town or route at the given position
@@ -280,7 +279,7 @@ public:
      * @param pos The position to check for
      * @return const std::string& The name of the town, route, or map of the position
      */
-    const std::string& getLocationName(const component::Position& pos) const;
+    const std::string& getLocationName(const bl::tmap::Position& pos) const;
 
     /**
      * @brief Computes the depth to use at the given y position, taking into account the map size,
@@ -347,8 +346,8 @@ protected:
 
     void clear();
     void finishLoad();
-    void triggerAnimation(const component::Position& position);
-    Town* getTown(const sf::Vector2i& pos);
+    void triggerAnimation(const bl::tmap::Position& position);
+    Town* getTown(const glm::i32vec2& pos);
     void enterTown(Town* town);
 
     void prepareRender();
