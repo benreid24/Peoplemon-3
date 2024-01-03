@@ -13,22 +13,26 @@ bool WalkAnimations::loadFromDirectory(const std::string& path) {
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "up.anim"), *this)) {
         return false;
     }
+    maxLen = getLength();
 
     prepareForStates(4);
     bl::gfx::a2d::AnimationData temp;
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "right.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(1, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "down.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(2, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "left.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(3, temp);
 
     return true;

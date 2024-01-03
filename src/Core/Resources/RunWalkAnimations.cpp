@@ -13,42 +13,50 @@ bool RunWalkAnimations::loadFromDirectory(const std::string& path) {
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Walk/up.anim"), *this)) {
         return false;
     }
+    maxLen = getLength();
 
     prepareForStates(8);
     bl::gfx::a2d::AnimationData temp;
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Walk/right.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(1, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Walk/down.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(2, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Walk/left.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(3, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Run/up.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(4, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Run/right.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(5, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Run/down.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(6, temp);
 
     if (!AnimationManager::initializeExisting(FileUtil::joinPath(path, "Run/left.anim"), temp)) {
         return false;
     }
+    maxLen = std::max(maxLen, temp.getLength());
     addState(7, temp);
 
     return true;

@@ -1,6 +1,7 @@
 #include <Core/Components/Renderable.hpp>
 
 #include <BLIB/Util/FileUtil.hpp>
+#include <BLIB/Util/Visitor.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 
@@ -68,27 +69,27 @@ Renderable Renderable::fromAnimation(const Position& pos, const std::string& pat
     return rc;
 }
 
-Renderable::Renderable(const Position& pos)
-: position(pos)
-, shadowHeight(-1.f) {
-    shadow.setFillColor(sf::Color(0, 0, 0, 145));
-}
+Renderable::Renderable()
+: srcType(Sprite)
+, walkSrc(nullptr)
+, transform(nullptr)
+, player(nullptr)
+, shadow(bl::ecs::InvalidEntity)
+, shadowHeight(0.f) {}
 
-void Renderable::update(float dt) { cur()->update(dt, position); }
-
-void Renderable::render(sf::RenderTarget& target, float lag) const {
-    // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
-    static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
-                                     static_cast<float>(Properties::PixelsPerTile()));
-    const sf::Vector2f pos(position.positionPixels() + offset);
-    if (shadowHeight >= 0.f) {
-        sf::RenderStates states;
-        states.transform.translate(pos);
-        states.transform.translate(-offset.x * 0.5f, shadowHeight);
-        target.draw(shadow, states);
-    }
-    cur()->render(target, lag, pos);
-}
+// void Renderable::render(sf::RenderTarget& target, float lag) const {
+//     // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
+//     static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
+//                                      static_cast<float>(Properties::PixelsPerTile()));
+//     const sf::Vector2f pos(position.positionPixels() + offset);
+//     if (shadowHeight >= 0.f) {
+//         sf::RenderStates states;
+//         states.transform.translate(pos);
+//         states.transform.translate(-offset.x * 0.5f, shadowHeight);
+//         target.draw(shadow, states);
+//     }
+//     cur()->render(target, lag, pos);
+// }
 
 void Renderable::setAngle(float a) { cur()->setAngle(a); }
 
@@ -100,27 +101,38 @@ void Renderable::updateShadow(float height, float rad) {
 
 void Renderable::removeShadow() { shadowHeight = -1.f; }
 
-Renderable::Base* Renderable::cur() {
-    switch (data.index()) {
-    case 0:
-        return std::get_if<StaticSprite>(&data);
-    case 1:
-        return std::get_if<MoveAnims>(&data);
-    case 2:
-        return std::get_if<FastMoveAnims>(&data);
-    case 3:
-        return std::get_if<OneAnimation>(&data);
+float Renderable::animLength() const {
+    switch (srcType) {
+    case Walk:
+        return walkSrc->getMaxStateLength();
+    case Run:
+        return runSrc->getMaxStateLength();
+    case SingleAnim:
+        return animSrc->getLength();
     default:
-        BL_LOG_CRITICAL << "Invalid Renderable index: " << data.index();
-        return nullptr;
+        return 0.f;
     }
 }
 
-Renderable::Base* Renderable::cur() const { return const_cast<Renderable*>(this)->cur(); }
+void Renderable::triggerAnim(bool loop) {
+    if (player) {
+        if (loop) { player->playLooping(); }
+        else { player->play(); }
+    }
+}
 
-float Renderable::animLength() const { return cur()->length(); }
-
-void Renderable::triggerAnim(bool loop) { cur()->trigger(loop); }
+void Renderable::notifyMoveState(bl::tmap::Direction dir, bool moving, bool running) {
+    if (player) {
+        if (srcType == Walk) {
+            player->setState(res::WalkAnimations::getStateFromDirection(dir), false);
+        }
+        else if (srcType == Run) {
+            player->setState(res::RunWalkAnimations::getStateFromDirection(dir, running));
+        }
+        if (moving) { player->playLooping(); }
+        else { player->stop(); }
+    }
+}
 
 void Renderable::StaticSprite::render(sf::RenderTarget& target, float, const sf::Vector2f& pos) {
     sprite.setPosition(pos);

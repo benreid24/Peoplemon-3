@@ -34,6 +34,13 @@ public:
     static std::size_t getStateFromDirection(bl::tmap::Direction dir, bool running) {
         return static_cast<std::size_t>(dir) + (running ? 4 : 0);
     }
+    /**
+     * @brief Returns the maximum length of any substate animation in seconds
+     */
+    float getMaxStateLength() const { return maxLen; }
+
+private:
+    float maxLen;
 };
 
 /**
