@@ -6,6 +6,7 @@
 #include <Core/Components/PlayerControlled.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -28,7 +29,7 @@ using Serializer = bl::serial::json::Serializer<Player>;
 Player::Player(Systems& owner)
 : owner(owner) {}
 
-bool Player::spawnPlayer(const bl::tmap::Position& pos, bl::rc::Scene* scene) {
+bool Player::spawnPlayer(const bl::tmap::Position& pos, map::Map& map) {
     playerId = owner.engine().ecs().createEntity();
     BL_LOG_INFO << "New player id: " << playerId;
 
@@ -43,10 +44,9 @@ bool Player::spawnPlayer(const bl::tmap::Position& pos, bl::rc::Scene* scene) {
 
     if (!makePlayerControlled(playerId)) { return false; }
 
-    auto& rc = component::Renderable::fromFastMoveAnims(
-        owner.engine(), playerId, scene, Properties::PlayerAnimations(data.sex));
-    _position->transform = &rc.getTransform();
-    _position->syncTransform(Properties::PixelsPerTile());
+    component::Renderable::createFromFastMoveAnims(
+        owner.engine(), playerId, map.getScene(), Properties::PlayerAnimations(data.sex));
+    map.setupEntityPosition(playerId);
 
     return true;
 }

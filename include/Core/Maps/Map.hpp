@@ -310,6 +310,14 @@ public:
         return static_cast<bl::rc::scene::Scene2D*>(scene.get())->getLighting();
     }
 
+    /**
+     * @brief Performs the final setup of the position components for the given entity. Must already
+     *        have a bl::tmap::Position and bl::com::Transform2D component
+     *
+     * @param entity The entity to initialize
+     */
+    void setupEntityPosition(bl::ecs::Entity entity);
+
 protected:
     std::string nameField;
     std::string loadScriptField;

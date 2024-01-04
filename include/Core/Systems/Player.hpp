@@ -15,6 +15,10 @@
 
 namespace core
 {
+namespace map
+{
+class Map;
+}
 namespace system
 {
 class Systems;
@@ -38,10 +42,10 @@ public:
      * @brief Spawns the player into the world
      *
      * @param position The position to spawn at
-     * @param scene The scene to spawn the player in
+     * @param map The map to spawn in
      * @return True if the player was spawned, false on error
      */
-    bool spawnPlayer(const bl::tmap::Position& position, bl::rc::Scene* scene);
+    bool spawnPlayer(const bl::tmap::Position& position, map::Map& map);
 
     /**
      * @brief Makes the given entity controlled by the player. Only one entity may be player

@@ -24,9 +24,9 @@ class Systems;
  *
  */
 class Position
-: public bl::event::Listener<
-      event::EntityMoved, bl::ecs::event::ComponentAdded<bl::tmap::Position>,
-      bl::ecs::event::ComponentRemoved<bl::tmap::Position>, event::MapSwitch> {
+: public bl::event::Listener<event::EntityMoved, bl::ecs::event::ComponentAdded<bl::tmap::Position>,
+                             bl::ecs::event::ComponentRemoved<bl::tmap::Position>,
+                             event::MapSwitch> {
 public:
     /**
      * @brief Construct the Position system

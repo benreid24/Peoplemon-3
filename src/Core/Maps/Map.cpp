@@ -10,6 +10,7 @@
 #include <Core/Scripts/MapEventContext.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
+#include <numeric>
 
 namespace core
 {
@@ -83,7 +84,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
         return false;
     }
-    if (!game.player().spawnPlayer(spawnPos, scene)) {
+    if (!game.player().spawnPlayer(spawnPos, *this)) {
         BL_LOG_ERROR << "Failed to spawn player";
         return false;
     }
@@ -99,13 +100,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
-        if (game.entity().spawnCharacter(spawn, scene) == bl::ecs::InvalidEntity) {
+        if (game.entity().spawnCharacter(spawn, *this) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
     // Spawn items
-    for (const Item& item : itemsField) { game.entity().spawnItem(item, scene); }
+    for (const Item& item : itemsField) { game.entity().spawnItem(item, *this); }
 
     setupCamera(game);
 
@@ -699,33 +700,16 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
         return 0.f;
     }
 
-    constexpr float layerZoneSize   = 1.f / 3.f;
-    constexpr float bottomLayerBias = layerZoneSize * 0.f;
-    constexpr float ysortLayerBias  = layerZoneSize * 1.f;
-    constexpr float topLayerBias    = layerZoneSize * 2.f;
-
+    const unsigned int maxLevels = std::accumulate(
+        levels.begin(),
+        levels.end(),
+        levels.front().layerCount(),
+        [](unsigned int val, const LayerSet& level) { return std::max(val, level.layerCount()); });
     const LayerSet& lvl       = levels[level];
-    const float depthPerLevel = static_cast<float>(size.y);
-    float layerBias           = 0.5f;
-    if (layer != -1) {
-        const unsigned int topStart = lvl.bottomLayers().size() + lvl.ysortLayers().size();
-        if (layer >= topStart) {
-            layerBias = topLayerBias + layerZoneSize * (static_cast<float>(layer - topStart) /
-                                                        static_cast<float>(topStart));
-        }
-        else if (layer >= lvl.bottomLayers().size()) {
-            layerBias = ysortLayerBias +
-                        layerZoneSize * (static_cast<float>(layer - lvl.ysortLayers().size()) /
-                                         static_cast<float>(lvl.ysortLayers().size()));
-        }
-        else {
-            layerBias =
-                bottomLayerBias + layerZoneSize * (static_cast<float>(layer) /
-                                                   static_cast<float>(lvl.bottomLayers().size()));
-        }
-    }
-
-    layerBias = static_cast<float>(layer) * depthPerLevel;
+    const float depthPerLevel = static_cast<float>(size.y * maxLevels);
+    const float depthPerLayer = static_cast<float>(size.y);
+    layer                     = layer < 0 ? lvl.bottomLayers().size() : layer;
+    float layerBias           = static_cast<float>(layer) * depthPerLayer;
 
     return -(static_cast<float>(level) * depthPerLevel + layerBias + static_cast<float>(y));
 }
@@ -745,6 +729,26 @@ void Map::cleanupRender() {
             }
         }
     }
+}
+
+void Map::setupEntityPosition(bl::ecs::Entity ent) {
+    auto set = systems->engine()
+                   .ecs()
+                   .getComponentSet<bl::ecs::Require<bl::tmap::Position, bl::com::Transform2D>,
+                                    bl::ecs::Optional<component::Renderable>>(ent);
+    if (!set.isValid()) {
+        BL_LOG_ERROR << "Cannot setup position for entity " << ent << ", missing components";
+        return;
+    }
+
+    bl::com::Transform2D* transform = set.get<bl::com::Transform2D>();
+    bl::tmap::Position* pos         = set.get<bl::tmap::Position>();
+    pos->transform                  = transform;
+    transform->setDepth(getDepthForPosition(pos->level, pos->position.y));
+    pos->syncTransform(Properties::PixelsPerTile());
+
+    component::Renderable* rc = set.get<component::Renderable>();
+    if (rc) { rc->notifyMoveState(pos->direction, false, false); }
 }
 
 } // namespace map

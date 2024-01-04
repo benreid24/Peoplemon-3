@@ -666,7 +666,7 @@ void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
                             static_cast<int>(args[3].value().getAsInt())},
                            bl::tmap::directionFromString(args[4].value().getAsString())),
         args[0].value().getAsString());
-    result = systems.entity().spawnCharacter(spawn, systems.world().activeMap().getScene());
+    result = systems.entity().spawnCharacter(spawn, systems.world().activeMap());
 }
 
 void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -862,7 +862,7 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
                                              pos * static_cast<float>(Properties::PixelsPerTile()) +
                                                  offset,
                                              args[3].value().getAsString(),
-                                             systems.world().activeMap().getScene());
+                                             systems.world().activeMap());
 }
 
 void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -880,7 +880,7 @@ void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vecto
                                            pos,
                                            args[4].value().getAsBool(),
                                            args[3].value().getAsString(),
-                                           systems.world().activeMap().getScene());
+                                           systems.world().activeMap());
 }
 
 void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

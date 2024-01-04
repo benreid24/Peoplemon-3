@@ -9,8 +9,8 @@ namespace core
 {
 namespace component
 {
-Renderable& Renderable::fromSprite(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                   bl::rc::Scene* scene, const std::string& path) {
+Renderable& Renderable::createFromSprite(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                         bl::rc::Scene* scene, const std::string& path) {
     Renderable& rc = *engine.ecs().emplaceComponent<Renderable>(entity);
     rc.srcType     = Sprite;
 
@@ -24,8 +24,8 @@ Renderable& Renderable::fromSprite(bl::engine::Engine& engine, bl::ecs::Entity e
     return rc;
 }
 
-Renderable& Renderable::fromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                      bl::rc::Scene* scene, const std::string& path) {
+Renderable& Renderable::createFromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                            bl::rc::Scene* scene, const std::string& path) {
     Renderable& rc = *engine.ecs().emplaceComponent<Renderable>(entity);
     rc.srcType     = Walk;
 
@@ -34,6 +34,9 @@ Renderable& Renderable::fromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entit
     slideshow.createWithUniquePlayer(engine, entity, data);
     slideshow.deleteEntityOnDestroy(false);
     slideshow.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+    slideshow.getTransform().setOrigin(
+        slideshow.getLocalSize().x - static_cast<float>(Properties::PixelsPerTile()),
+        slideshow.getLocalSize().y - static_cast<float>(Properties::PixelsPerTile()));
     rc.transform = &slideshow.getTransform();
     rc.player    = &slideshow.getPlayer();
     rc.walkSrc   = data.get();
@@ -41,8 +44,8 @@ Renderable& Renderable::fromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entit
     return rc;
 }
 
-Renderable& Renderable::fromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                          bl::rc::Scene* scene, const std::string& path) {
+Renderable& Renderable::createFromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                                bl::rc::Scene* scene, const std::string& path) {
     Renderable& rc = *engine.ecs().emplaceComponent<Renderable>(entity);
     rc.srcType     = Run;
 
@@ -52,6 +55,9 @@ Renderable& Renderable::fromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::E
     slideshow.createWithUniquePlayer(engine, entity, data);
     slideshow.deleteEntityOnDestroy(false);
     slideshow.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+    slideshow.getTransform().setOrigin(
+        slideshow.getLocalSize().x - static_cast<float>(Properties::PixelsPerTile()),
+        slideshow.getLocalSize().y - static_cast<float>(Properties::PixelsPerTile()));
     rc.transform = &slideshow.getTransform();
     rc.player    = &slideshow.getPlayer();
     rc.runSrc    = data.get();
@@ -59,8 +65,8 @@ Renderable& Renderable::fromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::E
     return rc;
 }
 
-Renderable& Renderable::fromAnimation(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                      bl::rc::Scene* scene, const std::string& path) {
+Renderable& Renderable::createFromAnimation(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                            bl::rc::Scene* scene, const std::string& path) {
     Renderable& rc = *engine.ecs().emplaceComponent<Renderable>(entity);
     rc.srcType     = SingleAnim;
 
@@ -93,20 +99,6 @@ Renderable::Renderable()
 , player(nullptr)
 , shadow(bl::ecs::InvalidEntity)
 , shadowHeight(0.f) {}
-
-// void Renderable::render(sf::RenderTarget& target, float lag) const {
-//     // Add one tile bc all origins are bottom right corner (handles odd size sprites/anims great)
-//     static const sf::Vector2f offset(static_cast<float>(Properties::PixelsPerTile()),
-//                                      static_cast<float>(Properties::PixelsPerTile()));
-//     const sf::Vector2f pos(position.positionPixels() + offset);
-//     if (shadowHeight >= 0.f) {
-//         sf::RenderStates states;
-//         states.transform.translate(pos);
-//         states.transform.translate(-offset.x * 0.5f, shadowHeight);
-//         target.draw(shadow, states);
-//     }
-//     cur()->render(target, lag, pos);
-// }
 
 void Renderable::setAngle(float a) { transform->setRotation(a); }
 
@@ -150,15 +142,6 @@ void Renderable::notifyMoveState(bl::tmap::Direction dir, bool moving, bool runn
         else { player->stop(); }
     }
 }
-
-// void Renderable::FastMoveAnims::render(sf::RenderTarget& target, float lag,
-//                                        const sf::Vector2f& pos) {
-//     const sf::Vector2f offset =
-//         anim.getData().frameCount() > 0 ? anim.getData().getFrameSize(0) : sf::Vector2f(0.f,
-//         0.f);
-//     anim.setPosition(pos - offset);
-//     anim.render(target, lag);
-// }
 
 } // namespace component
 } // namespace core

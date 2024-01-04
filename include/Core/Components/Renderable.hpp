@@ -36,8 +36,8 @@ public:
      * @param path The path to the sprite
      * @return Renderable A usable component
      */
-    static Renderable& fromSprite(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                  bl::rc::Scene* scene, const std::string& path);
+    static Renderable& createFromSprite(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                        bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations
@@ -48,8 +48,8 @@ public:
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
-    static Renderable& fromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                     bl::rc::Scene* scene, const std::string& path);
+    static Renderable& createFromMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                           bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component for movement animations with running
@@ -60,8 +60,8 @@ public:
      * @param path The path to the movement animations
      * @return Renderable A usable component
      */
-    static Renderable& fromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                         bl::rc::Scene* scene, const std::string& path);
+    static Renderable& createFromFastMoveAnims(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                               bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Creates a renderable component from a single animation
@@ -72,8 +72,8 @@ public:
      * @param path The path of the animation
      * @return Renderable The created component
      */
-    static Renderable& fromAnimation(bl::engine::Engine& engine, bl::ecs::Entity entity,
-                                     bl::rc::Scene* scene, const std::string& path);
+    static Renderable& createFromAnimation(bl::engine::Engine& engine, bl::ecs::Entity entity,
+                                           bl::rc::Scene* scene, const std::string& path);
 
     /**
      * @brief Returns the length of the contained animation, or 0.f if no animation

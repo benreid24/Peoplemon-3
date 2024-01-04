@@ -11,6 +11,7 @@
 #include <Core/Files/Trainer.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -21,7 +22,7 @@ namespace system
 Entity::Entity(Systems& owner)
 : owner(owner) {}
 
-bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, bl::rc::Scene* scene) {
+bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, map::Map& map) {
     bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     std::string animation;
     BL_LOG_DEBUG << "Created character entity " << entity;
@@ -83,19 +84,18 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, bl::rc:
     }
 
     /// More common components
-    auto& rc = component::Renderable::fromMoveAnims(
+    component::Renderable::createFromMoveAnims(
         owner.engine(),
         entity,
-        scene,
+        map.getScene(),
         bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animation));
-    pos->transform = &rc.getTransform();
-    pos->syncTransform(Properties::PixelsPerTile());
+    map.setupEntityPosition(entity);
 
     cleaner.disarm();
     return entity;
 }
 
-bool Entity::spawnItem(const map::Item& item, bl::rc::Scene* scene) {
+bool Entity::spawnItem(const map::Item& item, map::Map& map) {
     const item::Id id = item::Item::cast(item.id);
     BL_LOG_INFO << "Spawning item " << item.id << " (" << item::Item::getName(id) << ") at ("
                 << item.position.x << " , " << item.position.y << ")";
@@ -115,17 +115,16 @@ bool Entity::spawnItem(const map::Item& item, bl::rc::Scene* scene) {
 
     if (item.visible || Properties::InEditor()) {
         owner.engine().ecs().addComponent<component::Collision>(entity, {});
-        auto& rc = component::Renderable::fromSprite(
-            owner.engine(), entity, scene, Properties::ItemSprite());
-        pos->transform = &rc.getTransform();
-        pos->syncTransform(Properties::PixelsPerTile());
+        component::Renderable::createFromSprite(
+            owner.engine(), entity, map.getScene(), Properties::ItemSprite());
+        map.setupEntityPosition(entity);
     }
 
     return true;
 }
 
 bl::ecs::Entity Entity::spawnGeneric(std::uint8_t level, const glm::i32vec2& tiles, bool collidable,
-                                     const std::string& gfx, bl::rc::Scene* scene) {
+                                     const std::string& gfx, map::Map& map) {
     bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     bl::ecs::Cleaner cleaner(owner.engine().ecs(), entity);
     BL_LOG_DEBUG << "Created generic entity " << entity;
@@ -134,19 +133,17 @@ bl::ecs::Entity Entity::spawnGeneric(std::uint8_t level, const glm::i32vec2& til
         entity, level, tiles, bl::tmap::Direction::Up);
     const bool isAnim = bl::util::FileUtil::getExtension(gfx) == "anim";
     if (isAnim) {
-        auto& rc       = component::Renderable::fromAnimation(owner.engine(), entity, scene, gfx);
-        pos->transform = &rc.getTransform();
-        pos->syncTransform(Properties::PixelsPerTile());
+        component::Renderable::createFromAnimation(owner.engine(), entity, map.getScene(), gfx);
     }
     else {
-        auto& rc = component::Renderable::fromSprite(
+        component::Renderable::createFromSprite(
             owner.engine(),
             entity,
-            scene,
+            map.getScene(),
             bl::util::FileUtil::joinPath(Properties::ImagePath(), gfx));
-        pos->transform = &rc.getTransform();
-        pos->syncTransform(Properties::PixelsPerTile());
     }
+
+    map.setupEntityPosition(entity);
 
     if (collidable) { owner.engine().ecs().addComponent<component::Collision>(entity, {}); }
 
@@ -155,13 +152,13 @@ bl::ecs::Entity Entity::spawnGeneric(std::uint8_t level, const glm::i32vec2& til
 }
 
 bl::ecs::Entity Entity::spawnAnimation(std::uint8_t level, const glm::vec2& worldPos,
-                                       const std::string& gfx, bl::rc::Scene* scene) {
+                                       const std::string& gfx, map::Map& map) {
     bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     bl::ecs::Cleaner cleaner(owner.engine().ecs(), entity);
     BL_LOG_DEBUG << "Created animation entity " << entity;
 
-    auto& rc = component::Renderable::fromAnimation(owner.engine(), entity, scene, gfx);
-    rc.getTransform().setPosition(worldPos);
+    component::Renderable::createFromAnimation(owner.engine(), entity, map.getScene(), gfx);
+    // TODO - BLIB_UPGRADE - set depth based on pos
 
     cleaner.disarm();
     return entity;
