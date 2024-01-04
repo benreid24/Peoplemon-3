@@ -29,7 +29,7 @@ void Tile::set(IdType id, bool anim) {
 void Tile::step() {
     switch (renderObject.index()) {
     case 2:
-        std::get_if<bl::gfx::BatchSlideshow>(&renderObject)->getPlayer().play();
+        std::get_if<bl::gfx::BatchSlideshowSimple>(&renderObject)->getPlayer().play();
         break;
     case 3:
         (*std::get_if<std::shared_ptr<bl::gfx::Animation2D>>(&renderObject))->getPlayer().play();

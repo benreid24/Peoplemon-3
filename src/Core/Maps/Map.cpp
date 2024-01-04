@@ -635,13 +635,21 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
 
     auto it = renderLevels.begin();
     std::advance(it, level);
-    auto& zone = it->getZone(levels[level], layer);
+    auto& zone         = it->getZone(levels[level], layer);
+    const bool isYsort = &zone == &it->zones[RenderLevel::Ysort];
 
-    bl::com::Transform2D* transform = nullptr;
+    const auto getBottomDepth = [this, &pos, layer, level, &tile]() {
+        const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());
+        unsigned int size     = th / Properties::PixelsPerTile();
+        if (th % Properties::PixelsPerTile() != 0) { ++size; }
+        return getDepthForPosition(level, pos.y + size, layer);
+    };
+
     if (tile.isAnimation()) {
         const auto ait               = tileset->sharedAnimations.find(tile.id());
         bl::ecs::Entity playerEntity = bl::ecs::InvalidEntity;
         bl::gfx::DiscreteAnimation2DPlayer player;
+        bool isBatchSlideshow = true;
         if (ait != tileset->sharedAnimations.end()) { playerEntity = ait->second.entity(); }
         else {
             auto anim = tileset->getAnim(tile.id());
@@ -657,17 +665,41 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
                 playerEntity = player.entity();
             }
             else {
+                isBatchSlideshow = false;
                 bl::gfx::Animation2D& vanim =
                     *tile.renderObject.emplace<std::shared_ptr<bl::gfx::Animation2D>>(
                         std::make_shared<bl::gfx::Animation2D>(systems->engine(), anim));
                 vanim.addToScene(scene, bl::rc::UpdateSpeed::Static);
-                transform = &vanim.getTransform();
+                vanim.getTransform().setPosition(
+                    static_cast<float>(pos.x * Properties::PixelsPerTile()),
+                    static_cast<float>(pos.y * Properties::PixelsPerTile()));
+                if (isYsort) {
+                    const float topDepth    = getDepthForPosition(level, pos.y, layer);
+                    const float bottomDepth = getBottomDepth();
+                    vanim.getTransform().setDepth((topDepth + bottomDepth) * 0.5f);
+                }
+                else { vanim.getTransform().setDepth(getDepthForPosition(level, pos.y, layer)); }
             }
         }
-        if (!transform) {
-            bl::gfx::BatchSlideshow& anim = tile.renderObject.emplace<bl::gfx::BatchSlideshow>(
-                systems->engine(), zone.tileAnims, playerEntity);
-            transform = &anim.getLocalTransform();
+        if (isBatchSlideshow) {
+            bl::gfx::BatchSlideshowSimple& anim =
+                tile.renderObject.emplace<bl::gfx::BatchSlideshowSimple>(
+                    systems->engine(), zone.tileAnims, playerEntity);
+
+            for (auto& v : anim.getVertices()) {
+                v.pos.x += pos.x * Properties::PixelsPerTile();
+                v.pos.y += pos.y * Properties::PixelsPerTile();
+                if (!isYsort) { v.pos.z = getDepthForPosition(level, pos.y, layer); }
+            }
+            if (isYsort) {
+                const float topDepth        = getDepthForPosition(level, pos.y, layer);
+                const float bottomDepth     = getBottomDepth();
+                anim.getVertices()[0].pos.z = topDepth;
+                anim.getVertices()[1].pos.z = topDepth;
+                anim.getVertices()[2].pos.z = bottomDepth;
+                anim.getVertices()[3].pos.z = bottomDepth;
+            }
+            anim.commit();
         }
     }
     else {
@@ -676,22 +708,23 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
             BL_LOG_ERROR << "Failed to find texture for tile id: " << tile.id();
             return;
         }
-        bl::gfx::BatchSprite& sprite = tile.renderObject.emplace<bl::gfx::BatchSprite>(
-            systems->engine(), zone.tileSprites, src);
-        transform = &sprite.getLocalTransform();
+        bl::gfx::BatchSpriteSimple& sprite =
+            tile.renderObject.emplace<bl::gfx::BatchSpriteSimple>(zone.tileSprites, src);
+        for (auto& v : sprite.getVertices()) {
+            v.pos.x += pos.x * Properties::PixelsPerTile();
+            v.pos.y += pos.y * Properties::PixelsPerTile();
+            if (!isYsort) { v.pos.z = getDepthForPosition(level, pos.y, layer); }
+        }
+        if (isYsort) {
+            const float topDepth          = getDepthForPosition(level, pos.y, layer);
+            const float bottomDepth       = getBottomDepth();
+            sprite.getVertices()[0].pos.z = topDepth;
+            sprite.getVertices()[1].pos.z = topDepth;
+            sprite.getVertices()[2].pos.z = bottomDepth;
+            sprite.getVertices()[3].pos.z = bottomDepth;
+        }
+        sprite.commit();
     }
-
-    transform->setPosition(static_cast<float>(pos.x * Properties::PixelsPerTile()),
-                           static_cast<float>(pos.y * Properties::PixelsPerTile()));
-    if (&zone == &it->zones[RenderLevel::Ysort]) {
-        const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());
-        unsigned int size     = th / Properties::PixelsPerTile();
-        if (th % Properties::PixelsPerTile() != 0) { ++size; }
-        const float topDepth    = getDepthForPosition(level, pos.y, layer);
-        const float bottomDepth = getDepthForPosition(level, pos.y + size, layer);
-        transform->setDepth((topDepth + bottomDepth) * 0.5f);
-    }
-    else { transform->setDepth(getDepthForPosition(level, pos.y, layer)); }
 }
 
 float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) const {

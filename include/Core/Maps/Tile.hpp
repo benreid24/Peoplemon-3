@@ -89,7 +89,7 @@ private:
     bool isAnim;
     IdType tid;
 
-    std::variant<std::monostate, bl::gfx::BatchSprite, bl::gfx::BatchSlideshow,
+    std::variant<std::monostate, bl::gfx::BatchSpriteSimple, bl::gfx::BatchSlideshowSimple,
                  std::shared_ptr<bl::gfx::Animation2D>>
         renderObject;
 
