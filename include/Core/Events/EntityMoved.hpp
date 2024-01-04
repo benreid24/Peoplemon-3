@@ -25,6 +25,9 @@ struct EntityMoved {
     /// The current position of the entity
     const bl::tmap::Position& position;
 
+    /// Whether or not the entity is running
+    const bool running;
+
     /**
      * @brief Construct a new EntityMoved event
      *
@@ -33,10 +36,11 @@ struct EntityMoved {
      * @param pos The current position
      */
     EntityMoved(bl::ecs::Entity entity, const bl::tmap::Position& oldPos,
-                const bl::tmap::Position& pos)
+                const bl::tmap::Position& pos, bool running = false)
     : entity(entity)
     , previousPosition(oldPos)
-    , position(pos) {}
+    , position(pos)
+    , running(running) {}
 };
 
 /**

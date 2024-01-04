@@ -18,7 +18,7 @@ constexpr float HopDownHeightMult = 1.f / (1.f - MaxHeightPoint);
 constexpr float ShadowSize        = 16.f;
 constexpr float ShadowShrinkage   = 3.f;
 
-sf::Vector2f getPixels(bl::tmap::Direction dir, float x, float y, float interp) {
+glm::vec2 getPixels(bl::tmap::Direction dir, float x, float y, float interp) {
     switch (dir) {
     case bl::tmap::Direction::Up:
         return {x, y + interp};
@@ -58,13 +58,12 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
             interpRemaining          = std::max(interpRemaining - displacement, 0.f);
 
             // set render pos
-            // TODO - BLIB_UPGRADE - interpolation system
-            /*const float xTile = position.positionTiles().x * Properties::PixelsPerTile();
-            const float yTile = position.positionTiles().y * Properties::PixelsPerTile();*/
-            // position.setPixels(getPixels(moveDir, xTile, yTile, interpRemaining));
+            const float xTile = position.position.x * Properties::PixelsPerTile();
+            const float yTile = position.position.y * Properties::PixelsPerTile();
+            position.transform->setPosition(getPixels(moveDir, xTile, yTile, interpRemaining));
 
             if (interpRemaining <= 0.f) {
-                // position.setTiles(position.positionTiles());
+                position.syncTransform(Properties::PixelsPerTile());
                 state = MoveState::Still;
                 bl::event::Dispatcher::dispatch<event::EntityMoveFinished>({owner, position});
             }
@@ -82,14 +81,13 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
             if (anim) { anim->updateShadow(height, ShadowSize - ShadowShrinkage * hp); }
 
             // set render pos
-            // TODO - BLIB_UPGRADE - interpolation system
-            /* const float xTile = position.positionTiles().x * Properties::PixelsPerTile();
-             const float yTile = position.positionTiles().y * Properties::PixelsPerTile();
-             position.setPixels({xTile, yTile - interpRemaining - height});*/
+            const float xTile = position.position.x * Properties::PixelsPerTile();
+            const float yTile = position.position.y * Properties::PixelsPerTile();
+            position.transform->setPosition(xTile, yTile - interpRemaining - height);
 
             // check finished
             if (interpRemaining <= 0.f) {
-                // position.setTiles(position.positionTiles());
+                position.syncTransform(Properties::PixelsPerTile());
                 state = MoveState::Still;
                 bl::event::Dispatcher::dispatch<event::EntityMoveFinished>({owner, position});
                 if (anim) { anim->removeShadow(); }

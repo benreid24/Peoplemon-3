@@ -98,7 +98,8 @@ Renderable::Renderable()
 , transform(nullptr)
 , player(nullptr)
 , shadow(bl::ecs::InvalidEntity)
-, shadowHeight(0.f) {}
+, shadowHeight(0.f)
+, isMoving(false) {}
 
 void Renderable::setAngle(float a) { transform->setRotation(a); }
 
@@ -136,10 +137,11 @@ void Renderable::notifyMoveState(bl::tmap::Direction dir, bool moving, bool runn
             player->setState(res::WalkAnimations::getStateFromDirection(dir), false);
         }
         else if (srcType == Run) {
-            player->setState(res::RunWalkAnimations::getStateFromDirection(dir, running));
+            player->setState(res::RunWalkAnimations::getStateFromDirection(dir, running), false);
         }
-        if (moving) { player->playLooping(); }
-        else { player->stop(); }
+        if (moving && !isMoving) { player->playLooping(); }
+        else if (!moving) { player->stop(); }
+        isMoving = moving;
     }
 }
 

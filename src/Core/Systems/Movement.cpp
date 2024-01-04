@@ -42,12 +42,11 @@ bool Movement::moveEntity(bl::ecs::Entity e, bl::tmap::Direction dir, bool fast)
             if (isHop) {
                 bl::audio::AudioSystem::playOrRestartSound(jumpSound);
                 npos.position.y += 1;
-                npos.syncTransform(Properties::PixelsPerTile());
             }
 
             std::swap(pos, npos);
             mv->move(dir, fast, isHop);
-            bl::event::Dispatcher::dispatch<event::EntityMoved>({e, npos, pos});
+            bl::event::Dispatcher::dispatch<event::EntityMoved>({e, npos, pos, fast});
             return true;
         }
     }

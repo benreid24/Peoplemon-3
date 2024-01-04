@@ -1073,7 +1073,7 @@ EditMap::AddNpcSpawnAction::AddNpcSpawnAction(const core::map::CharacterSpawn& s
 
 bool EditMap::AddNpcSpawnAction::apply(EditMap& map) {
     map.characterField.push_back(spawn);
-    map.systems->entity().spawnCharacter(spawn, map.getScene());
+    map.systems->entity().spawnCharacter(spawn, map);
     return false;
 }
 
@@ -1102,7 +1102,7 @@ EditMap::EditNpcSpawnAction::EditNpcSpawnAction(unsigned int i,
 bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
     bl::ecs::Entity e = map.systems->position().getEntity(orig.position);
     map.systems->engine().ecs().destroyEntity(e);
-    map.systems->entity().spawnCharacter(value, map.getScene());
+    map.systems->entity().spawnCharacter(value, map);
     map.characterField[i] = value;
     return false;
 }
@@ -1110,7 +1110,7 @@ bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
 bool EditMap::EditNpcSpawnAction::undo(EditMap& map) {
     bl::ecs::Entity e = map.systems->position().getEntity(value.position);
     map.systems->engine().ecs().destroyEntity(e);
-    map.systems->entity().spawnCharacter(orig, map.getScene());
+    map.systems->entity().spawnCharacter(orig, map);
     map.characterField[i] = orig;
     return false;
 }
@@ -1136,7 +1136,7 @@ bool EditMap::RemoveNpcSpawnAction::apply(EditMap& map) {
 
 bool EditMap::RemoveNpcSpawnAction::undo(EditMap& map) {
     map.characterField.insert(map.characterField.begin() + i, orig);
-    map.systems->entity().spawnCharacter(orig, map.getScene());
+    map.systems->entity().spawnCharacter(orig, map);
     return false;
 }
 
@@ -1166,8 +1166,7 @@ bool EditMap::AddOrEditItemAction::apply(EditMap& map) {
             static_cast<std::uint16_t>(item), map.nextItemId, position, level, visible);
         ++map.nextItemId;
         map.systems->entity().spawnItem(
-            core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible),
-            map.getScene());
+            core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible), map);
     }
     else {
         map.itemsField[i].id      = static_cast<std::uint16_t>(item);
@@ -1219,7 +1218,7 @@ bool EditMap::RemoveItemAction::apply(EditMap& map) {
 
 bool EditMap::RemoveItemAction::undo(EditMap& map) {
     map.itemsField.insert(map.itemsField.begin() + i, orig);
-    map.systems->entity().spawnItem(orig, map.getScene());
+    map.systems->entity().spawnItem(orig, map);
     return false;
 }
 

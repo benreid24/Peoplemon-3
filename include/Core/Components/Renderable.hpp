@@ -132,6 +132,7 @@ private:
     bl::com::Animation2DPlayer* player;
     bl::ecs::Entity shadow;
     float shadowHeight;
+    bool isMoving;
 };
 
 } // namespace component

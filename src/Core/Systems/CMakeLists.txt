@@ -9,6 +9,7 @@ target_sources(Core PRIVATE
     Movement.cpp
     Player.cpp
     Position.cpp
+    Render.cpp
     Scripts.cpp
     Systems.cpp
     Trainers.cpp

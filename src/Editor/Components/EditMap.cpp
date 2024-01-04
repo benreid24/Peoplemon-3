@@ -174,12 +174,12 @@ bool EditMap::editorActivate() {
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField) {
-        if (systems->entity().spawnCharacter(spawn, scene) == bl::ecs::InvalidEntity) {
+        if (systems->entity().spawnCharacter(spawn, *this) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
-    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item, scene); }
+    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item, *this); }
 
     bl::event::Dispatcher::dispatch<core::event::MapEntered>({*this});
 

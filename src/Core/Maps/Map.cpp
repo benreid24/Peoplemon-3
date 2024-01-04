@@ -684,7 +684,7 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
     transform->setPosition(static_cast<float>(pos.x * Properties::PixelsPerTile()),
                            static_cast<float>(pos.y * Properties::PixelsPerTile()));
     if (&zone == &it->zones[RenderLevel::Ysort]) {
-        const unsigned int th = tileset->tileHeight(tile.id(), false);
+        const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());
         unsigned int size     = th / Properties::PixelsPerTile();
         if (th % Properties::PixelsPerTile() != 0) { ++size; }
         const float topDepth    = getDepthForPosition(level, pos.y, layer);
@@ -700,18 +700,19 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
         return 0.f;
     }
 
-    const unsigned int maxLevels = std::accumulate(
+    const unsigned int maxLayers = std::accumulate(
         levels.begin(),
         levels.end(),
         levels.front().layerCount(),
         [](unsigned int val, const LayerSet& level) { return std::max(val, level.layerCount()); });
-    const LayerSet& lvl       = levels[level];
-    const float depthPerLevel = static_cast<float>(size.y * maxLevels);
-    const float depthPerLayer = static_cast<float>(size.y);
-    layer                     = layer < 0 ? lvl.bottomLayers().size() : layer;
-    float layerBias           = static_cast<float>(layer) * depthPerLayer;
+    const float depthPerLevel = static_cast<float>(size.y * maxLayers);
+    const float levelBias     = static_cast<float>(level) * depthPerLevel;
 
-    return -(static_cast<float>(level) * depthPerLevel + layerBias + static_cast<float>(y));
+    const LayerSet& lvl   = levels[level];
+    layer                 = layer < 0 ? lvl.bottomLayers().size() : layer;
+    const float layerBias = static_cast<float>(layer);
+
+    return -(levelBias + layerBias + static_cast<float>(y));
 }
 
 float Map::getMinDepth() const {

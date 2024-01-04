@@ -11,6 +11,7 @@
 #include <Core/Systems/Movement.hpp>
 #include <Core/Systems/Player.hpp>
 #include <Core/Systems/Position.hpp>
+#include <Core/Systems/Render.hpp>
 #include <Core/Systems/Scripts.hpp>
 #include <Core/Systems/Trainers.hpp>
 #include <Core/Systems/WildPeoplemon.hpp>
@@ -226,6 +227,7 @@ private:
     Trainers _trainers;
     WildPeoplemon _wildPeoplemon;
     Flight _flight;
+    Render& _render;
 
     /**
      * @brief Creates the core game object and associates it with the engine

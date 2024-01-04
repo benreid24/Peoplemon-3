@@ -19,7 +19,9 @@ Systems::Systems(bl::engine::Engine& engine)
 , _scripts(*this)
 , _trainers(*this)
 , _wildPeoplemon(*this)
-, _flight(*this) {
+, _flight(*this)
+, _render(engine.systems().registerSystem<Render>(bl::engine::FrameStage::Update2,
+                                                  bl::engine::StateMask::All, *this)) {
     _world.init();
     _position.init();
     _player.init();
