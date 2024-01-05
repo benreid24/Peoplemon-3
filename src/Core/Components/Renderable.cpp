@@ -98,18 +98,9 @@ Renderable::Renderable()
 , transform(nullptr)
 , player(nullptr)
 , shadow(bl::ecs::InvalidEntity)
-, shadowHeight(0.f)
 , isMoving(false) {}
 
 void Renderable::setAngle(float a) { transform->setRotation(a); }
-
-void Renderable::updateShadow(float height, float rad) {
-    /* shadow.setRadius(rad);
-     shadow.setOrigin({rad, rad});*/
-    shadowHeight = height;
-}
-
-void Renderable::removeShadow() { shadowHeight = -1.f; }
 
 float Renderable::animLength() const {
     switch (srcType) {

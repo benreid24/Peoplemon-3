@@ -211,6 +211,11 @@ public:
      */
     const Flight& flight() const;
 
+    /**
+     * @brief Returns the render system
+     */
+    Render& render();
+
 private:
     bl::engine::Engine& _engine;
     Clock _clock;

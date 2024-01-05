@@ -3,6 +3,7 @@
 #include <Core/Components/Renderable.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Properties.hpp>
+#include <Core/Systems/Systems.hpp>
 
 namespace core
 {
@@ -49,7 +50,7 @@ void Movable::move(bl::tmap::Direction dir, bool fast, bool isHop) {
     interpRemaining = static_cast<float>(Properties::PixelsPerTile()) * (isHop ? 2.f : 1.f);
 }
 
-void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt) {
+void Movable::update(bl::ecs::Entity owner, system::Systems& systems, float dt) {
     if (state != MoveState::Still) {
         if (!position.transform) {
             BL_LOG_WARN << "Entity with movable component missing transform: " << owner;
@@ -82,8 +83,8 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
             const float height  = HopHeight * hp;
 
             // update shadow
-            Renderable* anim = engine.ecs().getComponent<Renderable>(owner);
-            if (anim) { anim->updateShadow(height, ShadowSize - ShadowShrinkage * hp); }
+            systems.render().updateShadow(
+                systems.player().player(), height, ShadowSize - ShadowShrinkage * hp);
 
             // set render pos
             const float xTile = position.position.x * Properties::PixelsPerTile();
@@ -95,7 +96,7 @@ void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt
                 position.syncTransform(Properties::PixelsPerTile());
                 state = MoveState::Still;
                 bl::event::Dispatcher::dispatch<event::EntityMoveFinished>({owner, position});
-                if (anim) { anim->removeShadow(); }
+                systems.render().removeShadow(owner);
             }
         }
     }

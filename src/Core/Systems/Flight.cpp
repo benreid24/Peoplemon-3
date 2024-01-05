@@ -103,8 +103,9 @@ void Flight::update(float dt) {
         riseState.height = std::min(riseState.height + RiseRate * dt, RiseHeight);
         playerPos->transform->setPosition(playerPos->transform->getGlobalPosition().x,
                                           riseState.startY - riseState.height);
-        playerAnim->updateShadow(riseState.height,
-                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
+        owner.render().updateShadow(owner.player().player(),
+                                    riseState.height,
+                                    ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height >= RiseHeight) {
             state      = State::Rotating;
             flightDest = destination.getWorldPosition(Properties::PixelsPerTile());
@@ -196,10 +197,11 @@ void Flight::update(float dt) {
         playerPos->transform->setPosition(
             playerPos->transform->getGlobalPosition().x,
             destination.getWorldPosition(Properties::PixelsPerTile()).y - riseState.height);
-        playerAnim->updateShadow(riseState.height,
-                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
+        owner.render().updateShadow(owner.player().player(),
+                                    riseState.height,
+                                    ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height == 0.f) {
-            playerAnim->removeShadow();
+            owner.render().removeShadow(owner.player().player());
             const bl::tmap::Position prev = *playerPos;
             *playerPos                    = destination;
             playerPos->direction          = bl::tmap::Direction::Down;

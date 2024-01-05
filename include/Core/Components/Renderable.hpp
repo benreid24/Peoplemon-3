@@ -13,6 +13,11 @@
 
 namespace core
 {
+namespace system
+{
+class Render;
+}
+
 namespace component
 {
 /**
@@ -104,19 +109,6 @@ public:
     void setAngle(float angle);
 
     /**
-     * @brief Adds or updates the shadow of this renderable
-     *
-     * @param distance How far below the renderable to render the shadow
-     * @param radius The radius of the shadow in pixels
-     */
-    void updateShadow(float distance, float radius);
-
-    /**
-     * @brief Removes the shadow from this renderable if present
-     */
-    void removeShadow();
-
-    /**
      * @brief Returns the render transform
      */
     bl::com::Transform2D& getTransform() { return *transform; }
@@ -131,8 +123,9 @@ private:
     bl::com::Transform2D* transform;
     bl::com::Animation2DPlayer* player;
     bl::ecs::Entity shadow;
-    float shadowHeight;
     bool isMoving;
+
+    friend class system::Render;
 };
 
 } // namespace component

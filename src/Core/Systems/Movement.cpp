@@ -57,7 +57,7 @@ void Movement::update(float dt) {
     bl::engine::Engine& engine = owner.engine();
 
     engine.ecs().getAllComponents<component::Movable>().forEach(
-        [dt, &engine](bl::ecs::Entity ent, component::Movable& mv) { mv.update(ent, engine, dt); });
+        [dt, this](bl::ecs::Entity ent, component::Movable& mv) { mv.update(ent, owner, dt); });
 }
 
 } // namespace system

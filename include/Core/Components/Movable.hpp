@@ -11,7 +11,8 @@ namespace core
 namespace system
 {
 class Movement;
-}
+class Systems;
+} // namespace system
 namespace component
 {
 class Renderable;
@@ -60,10 +61,10 @@ public:
      * @brief Updates the interpolation of the entity if moving
      *
      * @param owner The owning entity of this component
-     * @param engine The game engine
+     * @param systems The game systems
      * @param dt Time elapsed in seconds since last call to update
      */
-    void update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt);
+    void update(bl::ecs::Entity owner, system::Systems& systems, float dt);
 
 private:
     enum struct MoveState : std::uint8_t { Still, Moving, MovingFast, LedgeHopping };

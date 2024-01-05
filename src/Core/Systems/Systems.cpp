@@ -101,5 +101,7 @@ Flight& Systems::flight() { return _flight; }
 
 const Flight& Systems::flight() const { return _flight; }
 
+Render& Systems::render() { return _render; }
+
 } // namespace system
 } // namespace core
