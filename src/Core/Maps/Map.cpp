@@ -709,40 +709,16 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
             return;
         }
         bl::gfx::BatchSpriteSimple& sprite =
-            tile.renderObject.emplace<bl::gfx::BatchSpriteSimple>();
-        if (!isYsort) {
-            sprite.create(zone.tileSprites, src);
-            const float depth =
-                isYsort ? getBottomDepth() : getDepthForPosition(level, pos.y, layer);
-            for (auto& v : sprite.getVertices()) {
-                v.pos.x += offset.x;
-                v.pos.y += offset.y;
-                v.pos.z = depth;
-            }
-        }
-        else {
-            // TODO - not correct
-            const float halfHeight = src.height * 0.5f;
-            const std::array<sf::FloatRect, 2> srcs(
-                {sf::FloatRect(src.left, src.top, src.width, halfHeight),
-                 sf::FloatRect(src.left, src.top + halfHeight, src.width, halfHeight)});
-            sprite.create(zone.tileSprites, src);
-            const float topDepth    = getDepthForPosition(level, pos.y, layer);
+            tile.renderObject.emplace<bl::gfx::BatchSpriteSimple>(zone.tileSprites, src);
+        float depth = getDepthForPosition(level, pos.y, layer);
+        if (isYsort) {
             const float bottomDepth = getBottomDepth();
-            const float midDepth    = (topDepth + bottomDepth) * 0.5f;
-            unsigned int i          = 0;
-            for (auto& v : sprite.getVertices()) {
-                if (i < 4) {
-                    v.pos.x += offset.x;
-                    v.pos.y += offset.y;
-                    v.pos.z = bottomDepth;
-                }
-                else {
-                    v.pos.x += offset.x;
-                    v.pos.y += offset.y + halfHeight;
-                    v.pos.z = bottomDepth;
-                }
-            }
+            depth                   = (depth + bottomDepth) * 0.5f;
+        }
+        for (auto& v : sprite.getVertices()) {
+            v.pos.x += offset.x;
+            v.pos.y += offset.y;
+            v.pos.z = depth;
         }
         sprite.commit();
     }
@@ -754,24 +730,32 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
         return 0.f;
     }
 
+    const LayerSet& lvl          = levels[level];
     const unsigned int maxLayers = std::accumulate(
         levels.begin(),
         levels.end(),
         levels.front().layerCount(),
         [](unsigned int val, const LayerSet& level) { return std::max(val, level.layerCount()); });
-    const float depthPerLevel = static_cast<float>(size.y * maxLayers);
+
+    // render entities as top ysort layer
+    if (layer < 0) { layer = lvl.bottomLayers().size() + lvl.ysortLayers().size() - 1; }
+
+    const float zoneBias      = y * maxLayers + layer * size.y;
+    const float maxZoneBias   = size.y * maxLayers + (maxLayers - 1) * size.y;
+    const float depthPerLevel = maxZoneBias * 3.f;
     const float levelBias     = static_cast<float>(level) * depthPerLevel;
 
-    const LayerSet& lvl = levels[level];
-    if (layer < 0) {
-        // TODO - not correct
-        layer = lvl.bottomLayers().size() + lvl.ysortLayers().size() - 1;
-        // y -= 1;
-    }
-    const float layerBias = static_cast<float>(layer * maxLayers);
-    // idea: small bias for bottom, many bias (say size.y) for ysort, extreme bias for top
+    // bottom tiles
+    if (layer < lvl.bottomLayers().size()) { return -(zoneBias + levelBias); }
 
-    return -(levelBias + layerBias + static_cast<float>(y));
+    // ysort tiles + entities
+    if (layer < lvl.bottomLayers().size() + lvl.ysortLayers().size()) {
+        const float ysortZoneBias = y * maxLayers + layer;
+        return -(ysortZoneBias + maxZoneBias + levelBias);
+    }
+
+    // top tiles
+    return -(zoneBias + maxZoneBias * 2.f + levelBias);
 }
 
 float Map::getMinDepth() const {
