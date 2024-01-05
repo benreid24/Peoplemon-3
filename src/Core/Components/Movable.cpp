@@ -51,6 +51,11 @@ void Movable::move(bl::tmap::Direction dir, bool fast, bool isHop) {
 
 void Movable::update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt) {
     if (state != MoveState::Still) {
+        if (!position.transform) {
+            BL_LOG_WARN << "Entity with movable component missing transform: " << owner;
+            return;
+        }
+
         if (state != MoveState::LedgeHopping) {
             // interpolate
             const float speed = state == MoveState::MovingFast ? fastMovementSpeed : movementSpeed;

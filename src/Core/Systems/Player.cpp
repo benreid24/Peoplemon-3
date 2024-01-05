@@ -30,7 +30,7 @@ Player::Player(Systems& owner)
 : owner(owner) {}
 
 bool Player::spawnPlayer(const bl::tmap::Position& pos, map::Map& map) {
-    playerId = owner.engine().ecs().createEntity();
+    playerId = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     BL_LOG_INFO << "New player id: " << playerId;
 
     _position = owner.engine().ecs().addComponent<bl::tmap::Position>(playerId, pos);
@@ -46,6 +46,7 @@ bool Player::spawnPlayer(const bl::tmap::Position& pos, map::Map& map) {
 
     component::Renderable::createFromFastMoveAnims(
         owner.engine(), playerId, map.getScene(), Properties::PlayerAnimations(data.sex));
+
     map.setupEntityPosition(playerId);
 
     return true;
