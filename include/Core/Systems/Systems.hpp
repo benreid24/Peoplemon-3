@@ -229,7 +229,7 @@ private:
     Interaction _interaction;
     HUD _hud;
     Scripts _scripts;
-    Trainers _trainers;
+    Trainers& _trainers;
     WildPeoplemon _wildPeoplemon;
     Flight _flight;
     Render& _render;

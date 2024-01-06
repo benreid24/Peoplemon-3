@@ -9,6 +9,7 @@
 #include <Core/Events/Item.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
+#include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -231,7 +232,9 @@ void Interaction::faceEntity(bl::ecs::Entity rot, bl::ecs::Entity face) {
     const bl::tmap::Position* fpos = owner.engine().ecs().getComponent<bl::tmap::Position>(face);
     if (mpos && fpos) {
         const bl::tmap::Direction dir = bl::tmap::Position::facePosition(*mpos, *fpos);
-        mpos->direction                = dir;
+        const event::EntityRotated event(rot, dir, mpos->direction);
+        mpos->direction = dir;
+        bl::event::Dispatcher::dispatch<event::EntityRotated>(event);
     }
 }
 

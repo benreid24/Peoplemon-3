@@ -3,10 +3,11 @@
 
 #include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Resources.hpp>
-#include <Core/Components/Movable.hpp>
 #include <BLIB/Tilemap/Position.hpp>
+#include <Core/Components/Movable.hpp>
 #include <Core/Components/Trainer.hpp>
 #include <Core/Events/Battle.hpp>
 #include <Core/Events/EntityMoved.hpp>
@@ -23,10 +24,10 @@ class Systems;
  * @brief This system manages trainers. It handles their vision and makes them walk up to the player
  *
  * @ingroup Systems
- *
  */
 class Trainers
-: bl::event::Listener<event::GameSaveInitializing,
+: public bl::engine::System
+, bl::event::Listener<event::GameSaveInitializing,
                       bl::ecs::event::ComponentAdded<component::Trainer>, event::BattleCompleted,
                       event::EntityMoveFinished, event::EntityRotated> {
 public:
@@ -38,26 +39,9 @@ public:
     Trainers(Systems& owner);
 
     /**
-     * @brief Constructs the ECS view of trainers
-     *
+     * @brief Destroys the system
      */
-    void init();
-
-    /**
-     * @brief Performs per-frame trainer logic
-     *
-     * @param dt Time elapsed in seconds
-     *
-     */
-    void update(float dt);
-
-    /**
-     * @brief Renders the trainer exclaim if necessary
-     *
-     * @param target The target to render to
-     *
-     */
-    void render(sf::RenderTarget& target);
+    virtual ~Trainers() = default;
 
     /**
      * @brief Returns the trainer currently approaching the player
@@ -68,7 +52,6 @@ public:
 
     /**
      * @brief Resets the list of defeated trainers
-     *
      */
     void resetDefeated();
 
@@ -91,8 +74,8 @@ private:
     enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
 
     Systems& owner;
-    bl::resource::Ref<sf::Texture> txtr;
-    sf::Sprite exclaim;
+    bl::rc::res::TextureRef exclaimTxtr;
+    bl::gfx::Sprite exclaim;
     bl::audio::AudioSystem::Handle exclaimSound;
     float height;
 
@@ -103,6 +86,10 @@ private:
     component::Movable* trainerMove;
 
     std::unordered_set<std::string> defeated;
+
+    virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
+                        float realResidual) override;
+    virtual void init(bl::engine::Engine&) override;
 
     virtual void observe(const event::GameSaveInitializing& save) override;
     virtual void observe(const bl::ecs::event::ComponentAdded<component::Trainer>& tc) override;

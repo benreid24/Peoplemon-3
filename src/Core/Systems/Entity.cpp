@@ -47,7 +47,7 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, map::Ma
         }
         BL_LOG_INFO << "Spawning NPC " << data.name() << " at ("
                     << static_cast<int>(spawn.position.level) << ", " << spawn.position.position.x
-                    << ", " << spawn.position.position.y << ")";
+                    << ", " << spawn.position.position.y << ") id=" << entity;
 
         if (!owner.ai().addBehavior(entity, data.behavior())) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
@@ -68,7 +68,7 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, map::Ma
         }
         BL_LOG_INFO << "Spawning trainer " << data.name << " at ("
                     << static_cast<int>(spawn.position.level) << ", " << spawn.position.position.x
-                    << ", " << spawn.position.position.y << ")";
+                    << ", " << spawn.position.position.y << ") id=" << entity;
 
         if (!owner.ai().addBehavior(entity, data.behavior)) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;

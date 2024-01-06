@@ -17,7 +17,8 @@ Systems::Systems(bl::engine::Engine& engine)
 , _interaction(*this)
 , _hud(*this)
 , _scripts(*this)
-, _trainers(*this)
+, _trainers(engine.systems().registerSystem<Trainers>(bl::engine::FrameStage::Update0,
+                                                      bl::engine::StateMask::Running, *this))
 , _wildPeoplemon(*this)
 , _flight(*this)
 , _render(engine.systems().registerSystem<Render>(bl::engine::FrameStage::Update2,
@@ -29,7 +30,6 @@ Systems::Systems(bl::engine::Engine& engine)
     _interaction.init();
     _scripts.init();
     _clock.init();
-    _trainers.init();
     _wildPeoplemon.init();
 }
 
@@ -40,7 +40,6 @@ void Systems::update(float dt, bool ent) {
         _ai.update(dt);
         _player.update(dt);
         _movement.update(dt);
-        _trainers.update(dt);
         _flight.update(dt);
     }
     _position.update();
