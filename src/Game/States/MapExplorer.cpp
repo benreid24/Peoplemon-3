@@ -20,8 +20,8 @@ const sf::Color TextColor(220, 220, 220);
 
 class ExplorerCameraController : public bl::cam::CameraController2D {
 public:
-    ExplorerCameraController(const core::map::Map& map)
-    : position(map.sizePixels().x * 0.5f, map.sizePixels().y * 0.5f)
+    ExplorerCameraController(core::system::Systems& systems)
+    : position(systems.player().position().transform->getLocalPosition())
     , zoom(1.5f) {}
 
 private:
@@ -79,7 +79,7 @@ void MapExplorer::activate(bl::engine::Engine& engine) {
     bl::event::Dispatcher::subscribe(this);
     systems.player().removePlayerControlled(systems.player().player());
     static_cast<bl::cam::Camera2D*>(engine.renderer().getObserver().getCurrentCamera())
-        ->setController<ExplorerCameraController>(systems.world().activeMap());
+        ->setController<ExplorerCameraController>(systems);
 
     bl::rc::Overlay* overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
     hintBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -143,6 +143,22 @@ void MapExplorer::observe(const sf::Event& event) {
         const bl::tmap::Position pos(0, {tiles.x, tiles.y}, bl::tmap::Direction::Up);
         core::event::EntityMoved move(bl::ecs::InvalidEntity, pos, pos);
         systems.world().activeMap().observe(move);
+    }
+    else if (event.type == sf::Event::MouseButtonPressed &&
+             event.mouseButton.button == sf::Mouse::Left) {
+        const glm::i32vec2 wpos = systems.engine().renderer().getObserver().transformToWorldSpace(
+            {event.mouseButton.x, event.mouseButton.y});
+        bl::tmap::Position npos = systems.player().position();
+        npos.position           = wpos / core::Properties::PixelsPerTile();
+        if (systems.world().activeMap().contains(npos)) {
+            const bl::tmap::Position ogPos = systems.player().position();
+            bl::tmap::Position& playerPos =
+                *systems.engine().ecs().getComponent<bl::tmap::Position>(systems.player().player());
+            playerPos = npos;
+            playerPos.syncTransform(core::Properties::PixelsPerTile());
+            bl::event::Dispatcher::dispatch<core::event::EntityMoved>(
+                {systems.player().player(), ogPos, playerPos});
+        }
     }
 }
 
