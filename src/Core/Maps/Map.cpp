@@ -73,6 +73,9 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_INFO << nameField << " activated";
     }
 
+    // Add our scene
+    game.engine().renderer().getObserver().pushScene(scene);
+
     // Spawn player
     auto spawnIt                = spawns.find(spawnId);
     bl::tmap::Position spawnPos = prevPlayerPos;
@@ -108,8 +111,6 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // Spawn items
     for (const Item& item : itemsField) { game.entity().spawnItem(item, *this); }
 
-    setupCamera(game);
-
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));
     onEnterScript->run(&game.engine().scriptManager());
@@ -134,6 +135,9 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField;
     bl::event::Dispatcher::dispatch<event::MapExited>({*this});
 
+    // remove our scene
+    game.engine().renderer().getObserver().removeScene(scene);
+
     // unsubscribe from entity events
     bl::event::Dispatcher::unsubscribe(this);
 
@@ -145,9 +149,6 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
         onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
         onExitScript->run(&game.engine().scriptManager());
     }
-
-    // remove our scene
-    game.engine().renderer().getObserver().popScene();
 
     // TODO - pause weather
 

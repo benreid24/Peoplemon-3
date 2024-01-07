@@ -69,14 +69,11 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update game rendering
-
     enum GameState { SwitchMapFadeout, MapFadein, Running };
 
     GameState state;
-    float fadeTime;
+    bl::rc::rgi::FadeEffectTask* fadeout;
 
-    sf::RectangleShape cover;
     std::string replacementMap;
     int spawnId;
 

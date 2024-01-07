@@ -74,6 +74,7 @@ private:
     bl::menu::Menu saveMenu;
     bl::menu::Menu actionMenu;
     core::input::MenuDriver inputDriver;
+    bl::rc::Scene* scene;
 
     LoadGame(core::system::Systems& systems);
     void saveSelected(unsigned int save);

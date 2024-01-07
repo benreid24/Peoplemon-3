@@ -71,12 +71,12 @@ void LoadGame::activate(bl::engine::Engine& engine) {
             sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
     }
 
-    engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    scene = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
     reset();
 }
 
 void LoadGame::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().getObserver().popScene();
+    engine.renderer().getObserver().removeScene(scene);
     systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
 }

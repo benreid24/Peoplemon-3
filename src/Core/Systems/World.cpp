@@ -34,7 +34,7 @@ bool World::switchMaps(const std::string& file, int spawn) {
         }
 
         const bl::tmap::Position ppos = prevPlayerPos;
-        prevPlayerPos                  = owner.player().position();
+        prevPlayerPos                 = owner.player().position();
 
         currentMap->exit(owner, previousMap->name());
         owner.engine().ecs().destroyAllWorldEntities();
@@ -64,9 +64,6 @@ bool World::switchMaps(const std::string& file, int spawn) {
                 owner, spawn, previousMap ? previousMap->name() : "NoPrevious", prevPlayerPos))
             return false;
     }
-
-    owner.engine().renderer().getObserver().popScene();
-    owner.engine().renderer().getObserver().pushScene(currentMap->getScene());
 
     return true;
 }
