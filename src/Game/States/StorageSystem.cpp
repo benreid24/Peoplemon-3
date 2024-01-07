@@ -32,7 +32,7 @@ bl::engine::State::Ptr StorageSystem::create(core::system::Systems& s) {
 }
 
 StorageSystem::StorageSystem(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , state(MenuState::ChooseAction)
 , currentBox(0)
 , hovered(nullptr)

@@ -7,14 +7,12 @@
 /**
  * @defgroup Game
  * @brief All of the functionality of the game itself
- *
  */
 
 /**
  * @addtogroup States
  * @brief Collection of each possible game state
  * @ingroup Game
- *
  */
 
 /// Parent namespace for all functionality unique to the game
@@ -27,19 +25,16 @@ namespace state
  * @brief Parent to all game states. Provides some commonly required data like core game systems
  *
  * @ingroup States
- *
  */
 class State : public bl::engine::State {
 public:
     /**
      * @brief Destroy the State object
-     *
      */
     virtual ~State() = default;
 
     /**
      * @brief Return the name of the state
-     *
      */
     virtual const char* name() const override = 0;
 
@@ -74,8 +69,9 @@ protected:
      * @brief Initialize the state
      *
      * @param systems A reference to the core game systems
+     * @param mask The state mask
      */
-    State(core::system::Systems& systems); // TODO - BLIB_UPGRADE - take state flag to pass down
+    State(core::system::Systems& systems, bl::engine::StateMask::V mask);
 };
 
 } // namespace state

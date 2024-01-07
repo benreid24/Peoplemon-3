@@ -18,7 +18,7 @@ using namespace bl::menu;
 LoadGame::Ptr LoadGame::create(core::system::Systems& s) { return Ptr(new LoadGame(s)); }
 
 LoadGame::LoadGame(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , state(SelectingSave)
 , selectedSave(0)
 , fadeout(nullptr) {}

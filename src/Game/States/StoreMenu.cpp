@@ -30,7 +30,7 @@ bl::engine::State::Ptr StoreMenu::create(core::system::Systems& systems,
 }
 
 StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpened& data)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , menuState(MenuState::GetAction)
 , qtyEntry(systems.engine())
 //, actionMenu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))

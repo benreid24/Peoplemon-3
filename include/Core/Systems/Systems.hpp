@@ -47,14 +47,6 @@ namespace system
 class Systems : private bl::util::NonCopyable {
 public:
     /**
-     * @brief Helper function to update all game systems
-     *
-     * @param dt Elapsed time in seconds since last call to update()
-     * @param entities True to update player and ai, false to skip
-     */
-    void update(float dt, bool entities);
-
-    /**
      * @brief Const accessor for the Engine
      */
     const bl::engine::Engine& engine() const;

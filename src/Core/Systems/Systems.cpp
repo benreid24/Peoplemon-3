@@ -6,6 +6,8 @@ namespace system
 {
 using namespace bl::engine;
 
+constexpr StateMask::V WorldVisible = StateMask::Running | StateMask::Paused;
+
 Systems::Systems(Engine& engine)
 : _engine(engine)
 , _clock(engine.systems().registerSystem<Clock>(FrameStage::Update0, StateMask::Running, *this))
@@ -13,8 +15,8 @@ Systems::Systems(Engine& engine)
 , _controllable(*this)
 , _entity(*this)
 , _player(engine.systems().registerSystem<Player>(FrameStage::Update0, StateMask::All, *this))
-, _world(engine.systems().registerSystem<World>(FrameStage::Update0, StateMask::All, *this))
-, _position(engine.systems().registerSystem<Position>(FrameStage::Update0, StateMask::All, *this))
+, _world(engine.systems().registerSystem<World>(FrameStage::Update0, WorldVisible, *this))
+, _position(engine.systems().registerSystem<Position>(FrameStage::Update0, WorldVisible, *this))
 , _movement(
       engine.systems().registerSystem<Movement>(FrameStage::Update0, StateMask::Running, *this))
 , _interaction(*this)
@@ -24,13 +26,11 @@ Systems::Systems(Engine& engine)
       engine.systems().registerSystem<Trainers>(FrameStage::Update0, StateMask::Running, *this))
 , _wildPeoplemon(*this)
 , _flight(engine.systems().registerSystem<Flight>(FrameStage::Update0, StateMask::Running, *this))
-, _render(engine.systems().registerSystem<Render>(FrameStage::Update2, StateMask::All, *this)) {
+, _render(engine.systems().registerSystem<Render>(FrameStage::Update2, WorldVisible, *this)) {
     _interaction.init();
     _scripts.init();
     _wildPeoplemon.init();
 }
-
-void Systems::update(float dt, bool ent) {}
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }
 

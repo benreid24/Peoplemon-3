@@ -59,7 +59,7 @@ bl::engine::State::Ptr SettingsMenu::create(core::system::Systems& s) {
 }
 
 SettingsMenu::SettingsMenu(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , state(MenuState::TopMenu)
 , volumeEntry(s.engine()) {}
 

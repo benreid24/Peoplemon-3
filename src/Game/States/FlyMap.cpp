@@ -13,7 +13,7 @@ bl::engine::State::Ptr FlyMap::create(core::system::Systems& s, bool& up) {
 }
 
 FlyMap::FlyMap(core::system::Systems& s, bool& up)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , hudActive(false)
 , unpause(up)
 //, cursorFlasher(cursor, 0.3f, 0.4f)

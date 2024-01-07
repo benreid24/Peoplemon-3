@@ -13,7 +13,7 @@ bl::engine::State::Ptr SaveGame::create(core::system::Systems& s) {
 }
 
 SaveGame::SaveGame(core::system::Systems& s)
-: State(s) {
+: State(s, bl::engine::StateMask::Menu) {
     bgndTxtr = TextureManager::load(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "savegame.png"));
     background.setTexture(*bgndTxtr, true);

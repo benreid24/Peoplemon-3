@@ -73,7 +73,7 @@ bl::engine::State::Ptr BagMenu::create(core::system::Systems& s, Context c, core
 
 BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int outNow, int* chosenPpl,
                  bool* up)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , context(c)
 , outNow(outNow)
 , result(i)

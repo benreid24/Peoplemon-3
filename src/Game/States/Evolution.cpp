@@ -45,7 +45,7 @@ bl::engine::State::Ptr Evolution::create(core::system::Systems& systems,
 }
 
 Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon& ppl)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , ppl(ppl)
 , state(AnimState::IntroMsg)
 , sparks(std::bind(&Evolution::spawnSpark, this, std::placeholders::_1), 0, 0.f)

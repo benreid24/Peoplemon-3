@@ -73,7 +73,7 @@ bl::engine::State::Ptr BattleWrapperState::create(core::system::Systems& systems
 BattleWrapperState::BattleWrapperState(core::system::Systems& systems,
                                        std::unique_ptr<core::battle::Battle>&& battle,
                                        std::unique_ptr<intros::SequenceBase>&& sequence)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , state(Substate::BattleIntro)
 , battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle))
 , sequence(std::forward<std::unique_ptr<intros::SequenceBase>>(sequence))
@@ -116,7 +116,6 @@ void BattleWrapperState::deactivate(bl::engine::Engine& engine) {
 }
 
 void BattleWrapperState::update(bl::engine::Engine& engine, float dt, float) {
-    systems.update(dt, false);
     sequence->update(dt);
     if (sequence->finished()) {
         state = Substate::Battling;

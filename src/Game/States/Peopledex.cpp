@@ -29,7 +29,7 @@ const sf::Color ShowingColor(255, 255, 255, 255);
 bl::engine::State::Ptr Peopledex::create(core::system::Systems& s) { return Ptr(new Peopledex(s)); }
 
 Peopledex::Peopledex(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 //, menu(bl::menu::NoSelector::create()) {
 {
     const std::string& ImgPath = core::Properties::MenuImagePath();

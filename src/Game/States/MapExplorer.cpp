@@ -56,7 +56,7 @@ bl::engine::State::Ptr MapExplorer::create(core::system::Systems& systems) {
 }
 
 MapExplorer::MapExplorer(core::system::Systems& systems)
-: State(systems) {
+: State(systems, bl::engine::StateMask::Menu) {
     hintBox.create(systems.engine(), {100.f, 100.f});
     hintBox.setFillColor(BoxColor);
     hintBox.setOutlineColor(BoxOutlineColor);
@@ -97,8 +97,6 @@ void MapExplorer::deactivate(bl::engine::Engine& engine) {
 }
 
 void MapExplorer::update(bl::engine::Engine&, float dt, float) {
-    systems.update(dt, false);
-
     switch (hintState) {
     case Hidden:
         hintTime += dt;

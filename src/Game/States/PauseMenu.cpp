@@ -17,7 +17,7 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 }
 
 PauseMenu::PauseMenu(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Paused)
 //, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
 , openedOnce(false)
 , unpause(false) {

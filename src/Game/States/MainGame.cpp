@@ -37,7 +37,7 @@ MainGame::Ptr MainGame::create(core::system::Systems& systems) {
 }
 
 MainGame::MainGame(core::system::Systems& systems)
-: State(systems)
+: State(systems, bl::engine::StateMask::Running)
 , state(MapFadein)
 , fadeout(nullptr)
 , spawnId(0) {}
@@ -61,8 +61,6 @@ void MainGame::activate(bl::engine::Engine&) {
 void MainGame::deactivate(bl::engine::Engine&) {}
 
 void MainGame::update(bl::engine::Engine&, float dt, float) {
-    systems.update(dt, true);
-
     switch (state) {
     case SwitchMapFadeout:
         if (fadeout->complete()) {
