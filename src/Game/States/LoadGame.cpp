@@ -112,7 +112,6 @@ void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
         break;
 
     case Error:
-        systems.hud().update(dt);
         break;
 
     case SelectingSave:

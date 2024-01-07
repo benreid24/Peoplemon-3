@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_CLOCK_HPP
 #define CORE_SYSTEMS_CLOCK_HPP
 
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Serialization.hpp>
 #include <BLIB/Util/NonCopyable.hpp>
 #include <Core/Events/GameSave.hpp>
@@ -17,17 +18,16 @@ class Systems;
  * @brief Simple time keeping systems. Tracks in game time and date based on real elapsed play time
  *
  * @ingroup Systems
- *
  */
 class Clock
 : private bl::util::NonCopyable
+, public bl::engine::System
 , public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
 public:
     /**
-     * @brief Simple struct repsenting a point in time
+     * @brief Simple struct representing a point in time
      *
      * @ingroup Systems
-     *
      */
     struct Time {
         /// Number of days elapsed in game since beginning. Starts at 1
@@ -102,24 +102,23 @@ public:
     };
 
     /**
+     * @brief Initializes the clock system
+     *
+     * @param owner The owner of this system
+     */
+    Clock(Systems& owner);
+
+    /**
+     * @brief Destroys the system
+     */
+    virtual ~Clock() = default;
+
+    /**
      * @brief Returns the current in game time
      *
      * @return const Time& The current in game time
      */
     const Time& now() const;
-
-    /**
-     * @brief Performs one time setup of the clock system
-     *
-     */
-    void init();
-
-    /**
-     * @brief Tracks elapsed time and progresses the in game time
-     *
-     * @param dt Real elapsed time to scale in game time by
-     */
-    void update(float dt);
 
     /**
      * @brief Sets the current time
@@ -130,13 +129,11 @@ public:
 
     /**
      * @brief Adds saved clock data to the save file
-     *
      */
     virtual void observe(const event::GameSaveInitializing& save) override;
 
     /**
      * @brief Initializes clock state from the loading game save
-     *
      */
     virtual void observe(const event::GameSaveLoaded& load) override;
 
@@ -145,15 +142,8 @@ private:
     Time currentTime;
     float residual;
 
-    /**
-     * @brief Initializes the clock system
-     *
-     * @param owner The owner of this system
-     *
-     */
-    Clock(Systems& owner);
-
-    friend class Systems;
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

@@ -115,9 +115,6 @@ void PauseMenu::update(bl::engine::Engine& engine, float dt, float) {
         engine.popState();
         return;
     }
-
-    systems.player().update(dt);
-    systems.world().update(dt);
 }
 
 bool PauseMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,

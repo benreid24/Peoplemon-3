@@ -26,14 +26,14 @@ using PathFinder = bl::ai::PathFinder<bl::tmap::Position, PositionHash>;
 AI::AI(Systems& o)
 : owner(o) {}
 
-void AI::init() {
+void AI::init(bl::engine::Engine&) {
     standing  = owner.engine().ecs().getOrCreateView<StandingTypes>();
     spinning  = owner.engine().ecs().getOrCreateView<SpinTypes>();
     paths     = owner.engine().ecs().getOrCreateView<FixedPathTypes>();
     wandering = owner.engine().ecs().getOrCreateView<WanderTypes>();
 }
 
-void AI::update(float dt) {
+void AI::update(std::mutex&, float dt, float, float, float) {
     standing->forEach([](StandingRow& cs) {
         cs.get<component::StandingBehavior>()->update(*cs.get<bl::tmap::Position>(),
                                                       *cs.get<component::Controllable>());

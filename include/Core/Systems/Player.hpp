@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_PLAYER_HPP
 
 #include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Movable.hpp>
@@ -29,7 +30,9 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player : public bl::event::Listener<event::GameSaveInitializing, event::EntityMoveFinished> {
+class Player
+: public bl::engine::System
+, public bl::event::Listener<event::GameSaveInitializing, event::EntityMoveFinished> {
 public:
     /**
      * @brief Construct a new Player system
@@ -37,6 +40,11 @@ public:
      * @param owner The primary systems object
      */
     Player(Systems& owner);
+
+    /**
+     * @brief Destroys the system
+     */
+    virtual ~Player() = default;
 
     /**
      * @brief Spawns the player into the world
@@ -84,20 +92,6 @@ public:
     void newGame(const std::string& name, player::Gender gender);
 
     /**
-     * @brief Subscribes the input system to the event bus
-     *
-     */
-    void init();
-
-    /**
-     * @brief Updates the player system
-     *
-     * @param dt Time elapsed in seconds
-     *
-     */
-    void update(float dt);
-
-    /**
      * @brief Heals all Peoplemon and respawns at the last PC center
      *
      */
@@ -143,6 +137,9 @@ private:
     void updateLantern(float dt);
     void startLanternVarianceHold();
     void startLanternVarianceChange();
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 
     friend struct bl::serial::SerializableObject<Player>;
 };

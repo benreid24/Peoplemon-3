@@ -42,6 +42,8 @@ Flight::Flight(Systems& s)
 , playerPos(nullptr)
 , playerAnim(nullptr) {}
 
+void Flight::init(bl::engine::Engine&) {}
+
 bool Flight::flying() const { return state != State::Idle; }
 
 bool Flight::startFlight(unsigned int spawn) {
@@ -97,7 +99,7 @@ bool Flight::startFlight(unsigned int spawn) {
     return true;
 }
 
-void Flight::update(float dt) {
+void Flight::update(std::mutex&, float dt, float, float, float) {
     switch (state) {
     case State::Rising:
         riseState.height = std::min(riseState.height + RiseRate * dt, RiseHeight);

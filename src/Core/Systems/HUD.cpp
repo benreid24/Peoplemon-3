@@ -31,49 +31,43 @@ HUD::HUD(Systems& owner)
 , currentOverlay(nullptr)
 , qtyEntry(owner.engine()) {}
 
-void HUD::ensureCreated() {
-    if (!textboxTxtr) {
-        textboxTxtr =
-            owner.engine().renderer().texturePool().getOrLoadTexture(Properties::TextboxFile());
+void HUD::init(bl::engine::Engine&) {
+    textboxTxtr =
+        owner.engine().renderer().texturePool().getOrLoadTexture(Properties::TextboxFile());
 
-        const glm::vec2& boxSize = textboxTxtr->size();
-        textbox.create(owner.engine(), textboxTxtr);
-        textbox.getTransform().setPosition(Properties::WindowSize().x * 0.5f - boxSize.x * 0.5f,
-                                           Properties::WindowSize().y - boxSize.y);
-        textbox.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
-        choiceBoxX = boxSize.x * 2.f * 0.75f + 3.f;
+    const glm::vec2& boxSize = textboxTxtr->size();
+    textbox.create(owner.engine(), textboxTxtr);
+    textbox.getTransform().setPosition(Properties::WindowSize().x * 0.5f - boxSize.x * 0.5f,
+                                       Properties::WindowSize().y - boxSize.y);
+    textbox.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);
+    choiceBoxX = boxSize.x * 2.f * 0.75f + 3.f;
 
-        displayText.create(owner.engine(),
-                           Properties::MenuFont(),
-                           "",
-                           Properties::HudFontSize(),
-                           sf::Color::Black);
-        displayText.getTransform().setPosition(TextPadding, 8.f);
-        displayText.wordWrap(textboxTxtr->size().x - TextPadding * 2.f);
-        displayText.setParent(textbox);
+    displayText.create(
+        owner.engine(), Properties::MenuFont(), "", Properties::HudFontSize(), sf::Color::Black);
+    displayText.getTransform().setPosition(TextPadding, 8.f);
+    displayText.wordWrap(textboxTxtr->size().x - TextPadding * 2.f);
+    displayText.setParent(textbox);
 
-        promptTriangle.create(owner.engine(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
-        promptTriangle.setFillColor(sf::Color(255, 77, 0));
-        promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
-        promptTriangle.setOutlineThickness(1.5f);
-        promptTriangle.getTransform().setPosition(boxSize - glm::vec2(18.f, 14.f));
-        promptTriangle.setParent(textbox);
+    promptTriangle.create(owner.engine(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
+    promptTriangle.setFillColor(sf::Color(255, 77, 0));
+    promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));
+    promptTriangle.setOutlineThickness(1.5f);
+    promptTriangle.getTransform().setPosition(boxSize - glm::vec2(18.f, 14.f));
+    promptTriangle.setParent(textbox);
 
-        choiceMenu.create(owner.engine(),
-                          owner.engine().renderer().getObserver(),
-                          bl::menu::ArrowSelector::create(10.f, sf::Color::Black));
-        choiceMenu.setPadding({0.f, ChoicePadding});
-        choiceMenu.setMinHeight(ChoiceHeight);
-        choiceMenu.configureBackground(
-            sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
+    choiceMenu.create(owner.engine(),
+                      owner.engine().renderer().getObserver(),
+                      bl::menu::ArrowSelector::create(10.f, sf::Color::Black));
+    choiceMenu.setPadding({0.f, ChoicePadding});
+    choiceMenu.setMinHeight(ChoiceHeight);
+    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
 
-        qtyEntry.setPosition(
-            {textbox.getTransform().getLocalPosition().x + textboxTxtr->size().x - 50.f,
-             textbox.getTransform().getLocalPosition().y - 70.f});
-    }
+    qtyEntry.setPosition(
+        {textbox.getTransform().getLocalPosition().x + textboxTxtr->size().x - 50.f,
+         textbox.getTransform().getLocalPosition().y - 70.f});
 }
 
-void HUD::update(float dt) {
+void HUD::update(std::mutex&, float dt, float, float, float) {
     switch (state) {
     case Printing:
         if (currentMessage.update(dt)) {
@@ -137,7 +131,6 @@ void HUD::displayEntryCard(const std::string& name) { entryCard.display(name); }
 void HUD::hideEntryCard() { entryCard.hide(); }
 
 void HUD::ensureActive() {
-    ensureCreated();
     if (state == Hidden && !queuedOutput.empty()) {
         owner.engine().inputSystem().getActor().addListener(inputListener);
         startPrinting();

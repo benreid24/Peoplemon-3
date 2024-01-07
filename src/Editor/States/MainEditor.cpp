@@ -77,7 +77,6 @@ void MainEditor::deactivate(bl::engine::Engine&) {
 void MainEditor::update(bl::engine::Engine&, float dt, float) {
     gui->update(dt);
     currentPage->update(dt);
-    systems.clock().update(dt);
 }
 
 // void MainEditor::render(bl::engine::Engine& engine, float) {

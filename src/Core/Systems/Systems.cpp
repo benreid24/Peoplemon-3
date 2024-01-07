@@ -4,49 +4,33 @@ namespace core
 {
 namespace system
 {
-Systems::Systems(bl::engine::Engine& engine)
+using namespace bl::engine;
+
+Systems::Systems(Engine& engine)
 : _engine(engine)
-, _clock(*this)
-, _ai(*this)
+, _clock(engine.systems().registerSystem<Clock>(FrameStage::Update0, StateMask::Running, *this))
+, _ai(engine.systems().registerSystem<AI>(FrameStage::Update1, StateMask::Running, *this))
 , _controllable(*this)
 , _entity(*this)
-, _player(*this)
-, _world(*this)
-, _position(*this)
-, _movement(*this)
+, _player(engine.systems().registerSystem<Player>(FrameStage::Update0, StateMask::All, *this))
+, _world(engine.systems().registerSystem<World>(FrameStage::Update0, StateMask::All, *this))
+, _position(engine.systems().registerSystem<Position>(FrameStage::Update0, StateMask::All, *this))
+, _movement(
+      engine.systems().registerSystem<Movement>(FrameStage::Update0, StateMask::Running, *this))
 , _interaction(*this)
-, _hud(*this)
+, _hud(engine.systems().registerSystem<HUD>(FrameStage::Update0, StateMask::All, *this))
 , _scripts(*this)
-, _trainers(engine.systems().registerSystem<Trainers>(bl::engine::FrameStage::Update0,
-                                                      bl::engine::StateMask::Running, *this))
+, _trainers(
+      engine.systems().registerSystem<Trainers>(FrameStage::Update0, StateMask::Running, *this))
 , _wildPeoplemon(*this)
-, _flight(*this)
-, _render(engine.systems().registerSystem<Render>(bl::engine::FrameStage::Update2,
-                                                  bl::engine::StateMask::All, *this)) {
-    _world.init();
-    _position.init();
-    _player.init();
-    _ai.init();
+, _flight(engine.systems().registerSystem<Flight>(FrameStage::Update0, StateMask::Running, *this))
+, _render(engine.systems().registerSystem<Render>(FrameStage::Update2, StateMask::All, *this)) {
     _interaction.init();
     _scripts.init();
-    _clock.init();
     _wildPeoplemon.init();
 }
 
-void Systems::update(float dt, bool ent) {
-    _clock.update(dt);
-
-    if (ent) {
-        _ai.update(dt);
-        _player.update(dt);
-        _movement.update(dt);
-        _flight.update(dt);
-    }
-    _position.update();
-    _hud.update(dt);
-
-    _world.update(dt);
-}
+void Systems::update(float dt, bool ent) {}
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }
 

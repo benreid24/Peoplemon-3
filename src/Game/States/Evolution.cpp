@@ -144,14 +144,11 @@ void Evolution::update(bl::engine::Engine&, float dt, float) {
         break;
     case AnimState::EvolvedMsg:
         sparks.update(updateSpark, dt);
-        [[fallthrough]];
+        break;
 
     case AnimState::IntroMsg:
     case AnimState::CancelMsg:
     case AnimState::CancelConfirm:
-        systems.hud().update(dt);
-        break;
-
     default:
         break;
     }

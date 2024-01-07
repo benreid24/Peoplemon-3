@@ -20,7 +20,7 @@ World::~World() {
     if (currentMap) currentMap->exit(owner, "GameClosing");
 }
 
-void World::init() { bl::event::Dispatcher::subscribe(this); }
+void World::init(bl::engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
@@ -84,7 +84,7 @@ map::Map& World::activeMap() { return *currentMap; }
 
 const map::Map& World::activeMap() const { return *currentMap; }
 
-void World::update(float dt) { currentMap->update(dt); }
+void World::update(std::mutex&, float dt, float, float, float) { currentMap->update(dt); }
 
 void World::observe(const event::GameSaveInitializing& save) {
     if (save.saving) { playerPos = owner.player().position(); }

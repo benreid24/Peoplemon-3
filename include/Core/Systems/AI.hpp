@@ -2,6 +2,7 @@
 #define CORE_SYSTEMS_AI_HPP
 
 #include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <Core/Components/FixedPathBehavior.hpp>
 #include <Core/Components/PathFinder.hpp>
 #include <Core/Components/SpinBehavior.hpp>
@@ -21,7 +22,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class AI {
+class AI : public bl::engine::System {
 public:
     /**
      * @brief Construct a new AI system
@@ -31,17 +32,9 @@ public:
     AI(Systems& owner);
 
     /**
-     * @brief Creates the entity views
-     *
+     * @brief Destroys the system
      */
-    void init();
-
-    /**
-     * @brief Updates all AI
-     *
-     * @param dt Time elapsed in seconds
-     */
-    void update(float dt);
+    virtual ~AI() = default;
 
     /**
      * @brief Helper function for adding the given behavior to the given entity
@@ -57,7 +50,7 @@ public:
      *
      * @param entity The entity to stand in place
      * @param dir The direction to face
-     * @return True if the behvaior was able to be added, false otherwise
+     * @return True if the behavior was able to be added, false otherwise
      */
     bool makeStanding(bl::ecs::Entity entity, bl::tmap::Direction dir);
 
@@ -71,7 +64,7 @@ public:
     bool makeSpinning(bl::ecs::Entity entity, file::Behavior::Spinning::Direction dir);
 
     /**
-     * @brief Make the entity follow a fixed path. Replacces existing behavior
+     * @brief Make the entity follow a fixed path. Replaces existing behavior
      *
      * @param entity The entity to go on the path
      * @param path The path to follow
@@ -113,8 +106,8 @@ private:
         bl::ecs::Require<component::StandingBehavior, bl::tmap::Position, component::Controllable>;
     using SpinTypes =
         bl::ecs::Require<component::SpinBehavior, bl::tmap::Position, component::Controllable>;
-    using FixedPathTypes = bl::ecs::Require<component::FixedPathBehavior, bl::tmap::Position,
-                                            component::Controllable>;
+    using FixedPathTypes =
+        bl::ecs::Require<component::FixedPathBehavior, bl::tmap::Position, component::Controllable>;
     using WanderTypes =
         bl::ecs::Require<component::WanderBehavior, bl::tmap::Position, component::Controllable>;
 
@@ -134,6 +127,9 @@ private:
     WanderView wandering;
 
     bool findPath(bl::ecs::Entity ent, component::PathFinder& path);
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

@@ -101,9 +101,7 @@ void FlyMap::deactivate(bl::engine::Engine& engine) {
     // engine.renderSystem().cameras().popCamera();
 }
 
-void FlyMap::update(bl::engine::Engine&, float dt, float) {
-    if (hudActive) { systems.hud().update(dt); }
-}
+void FlyMap::update(bl::engine::Engine&, float, float) {}
 
 bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
                      bl::input::DispatchType, bool fromEvent) {

@@ -96,7 +96,6 @@ void NewGame::deactivate(bl::engine::Engine& engine) {
 }
 
 void NewGame::update(bl::engine::Engine&, float dt, float) {
-    systems.hud().update(dt);
     background.getTransform().rotate(RotateSpeed * dt);
     if (fadeout) {
         if (fadeout->complete()) { systems.engine().replaceState(MainGame::create(systems)); }

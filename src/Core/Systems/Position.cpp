@@ -13,7 +13,7 @@ namespace system
 Position::Position(Systems& owner)
 : owner(owner) {}
 
-void Position::init() {
+void Position::init(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
     owner.engine().ecs().getAllComponents<bl::tmap::Position>().forEach(
         [this](bl::ecs::Entity ent, bl::tmap::Position& pos) {
@@ -21,7 +21,7 @@ void Position::init() {
         });
 }
 
-void Position::update() {
+void Position::update(std::mutex&, float, float, float, float) {
     bl::cam::Camera2D* cam =
         owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
     if (!cam) {

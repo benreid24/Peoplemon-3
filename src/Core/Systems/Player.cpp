@@ -92,14 +92,14 @@ void Player::removePlayerControlled(bl::ecs::Entity e) {
     owner.engine().ecs().removeComponent<component::PlayerControlled>(e);
 }
 
-void Player::init() { bl::event::Dispatcher::subscribe(this); }
+void Player::init(bl::engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
 void Player::whiteout() {
     data.healPeoplemon();
     owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn);
 }
 
-void Player::update(float dt) {
+void Player::update(std::mutex&, float dt, float, float, float) {
     if (lantern.isValid()) { updateLantern(dt); }
 }
 

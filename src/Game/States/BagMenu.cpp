@@ -235,14 +235,11 @@ void BagMenu::update(bl::engine::Engine& engine, float dt, float) {
         }
         break;
 
-    case MenuState::ShowingMessage:
-        systems.hud().update(dt);
-        break;
-
     case MenuState::ImmediatelyPop:
         engine.popState();
         break;
 
+    case MenuState::ShowingMessage:
     case MenuState::Browsing:
     default:
         break;

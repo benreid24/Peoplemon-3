@@ -1,13 +1,13 @@
 #ifndef CORE_SYSTEMS_POSITION_HPP
 #define CORE_SYSTEMS_POSITION_HPP
 
+#include <BLIB/Containers/Grid.hpp>
+#include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Tilemap/Position.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/Maps.hpp>
-
-#include <BLIB/Containers/Grid.hpp>
-#include <BLIB/ECS.hpp>
-#include <BLIB/Events.hpp>
 #include <unordered_map>
 
 namespace core
@@ -24,7 +24,8 @@ class Systems;
  *
  */
 class Position
-: public bl::event::Listener<event::EntityMoved, bl::ecs::event::ComponentAdded<bl::tmap::Position>,
+: public bl::engine::System
+, public bl::event::Listener<event::EntityMoved, bl::ecs::event::ComponentAdded<bl::tmap::Position>,
                              bl::ecs::event::ComponentRemoved<bl::tmap::Position>,
                              event::MapSwitch> {
 public:
@@ -40,19 +41,6 @@ public:
      *
      */
     virtual ~Position() = default;
-
-    /**
-     * @brief Creates the view on the entity registry
-     *
-     */
-    void init();
-
-    /**
-     * @brief Update the group of entities that updates should be performed on based on the current
-     *        camera position. This should be called before any other systems
-     *
-     */
-    void update();
 
     /**
      * @brief Returns the entity at the given position or InvalidEntity if not found
@@ -111,6 +99,9 @@ private:
     virtual void observe(
         const bl::ecs::event::ComponentRemoved<bl::tmap::Position>& event) override;
     virtual void observe(const event::MapSwitch& event) override;
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float, float, float, float) override;
 
     bl::ecs::Entity& get(const bl::tmap::Position& pos);
 };

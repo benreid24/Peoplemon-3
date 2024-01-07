@@ -276,7 +276,6 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt, float) {
 
     case MenuState::UsingItem:
         updateItems();
-        systems.hud().update(dt);
         if (buttonsSynced()) { state = MenuState::UsingItemWaitMessage; }
         break;
 
@@ -289,9 +288,6 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt, float) {
     case MenuState::WaitingForgetChoice:
     case MenuState::UsingItemWaitMessage:
     case MenuState::ShowingMessage:
-        systems.hud().update(dt);
-        break;
-
     default:
         break;
     }

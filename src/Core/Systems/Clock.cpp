@@ -16,7 +16,7 @@ Clock::Clock(Systems& owner)
 
 const Clock::Time& Clock::now() const { return currentTime; }
 
-void Clock::update(float dt) {
+void Clock::update(std::mutex&, float dt, float, float, float) {
     residual += dt;
     const float minutes = std::floor(residual);
     if (minutes > 0) {
@@ -89,7 +89,7 @@ void Clock::observe(const event::GameSaveLoaded&) {
     bl::event::Dispatcher::dispatch<event::TimeChange>({currentTime});
 }
 
-void Clock::init() {
+void Clock::init(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
     currentTime = {};
 }

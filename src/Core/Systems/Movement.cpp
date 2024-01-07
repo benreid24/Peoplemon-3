@@ -9,7 +9,9 @@ namespace core
 namespace system
 {
 Movement::Movement(Systems& owner)
-: owner(owner) {
+: owner(owner) {}
+
+void Movement::init(bl::engine::Engine&) {
     jumpSound = bl::audio::AudioSystem::getOrLoadSound(
         bl::util::FileUtil::joinPath(Properties::SoundPath(), "World/jump.wav"));
 }
@@ -53,7 +55,7 @@ bool Movement::moveEntity(bl::ecs::Entity e, bl::tmap::Direction dir, bool fast)
     return false;
 }
 
-void Movement::update(float dt) {
+void Movement::update(std::mutex&, float dt, float, float, float) {
     bl::engine::Engine& engine = owner.engine();
 
     engine.ecs().getAllComponents<component::Movable>().forEach(

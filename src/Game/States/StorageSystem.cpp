@@ -180,7 +180,6 @@ void StorageSystem::update(bl::engine::Engine&, float dt, float) {
 
     case MenuState::WaitingContextMessage:
     case MenuState::WaitingReleaseConfirm:
-        systems.hud().update(dt);
         break;
 
     case MenuState::CursorMoving:
