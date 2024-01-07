@@ -7,7 +7,7 @@ namespace map
 Spawn::Spawn()
 : id(0) {}
 
-Spawn::Spawn(std::uint16_t _id, const component::Position& pos)
+Spawn::Spawn(std::uint16_t _id, const bl::tmap::Position& pos)
 : id(_id)
 , position(pos) {}
 

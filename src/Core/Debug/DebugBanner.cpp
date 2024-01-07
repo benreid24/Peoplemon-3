@@ -49,8 +49,6 @@ void DebugBanner::update(std::mutex&, float dt, float, float, float) {
     }
 }
 
-void DebugBanner::cleanup() { text.destroy(); }
-
 } // namespace debug
 } // namespace core
 

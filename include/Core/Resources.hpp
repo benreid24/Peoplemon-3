@@ -9,22 +9,26 @@
 #include <Core/Maps/Map.hpp>
 #include <Core/Maps/Tileset.hpp>
 #include <Core/Resources/Loaders.hpp>
+#include <Core/Resources/RunWalkAnimations.hpp>
+#include <Core/Resources/WalkAnimations.hpp>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
-using TextureManager      = bl::resource::ResourceManager<sf::Texture>;
-using ImageManager        = bl::resource::ResourceManager<sf::Image>;
-using SoundManager        = bl::resource::ResourceManager<sf::SoundBuffer>;
-using AnimationManager    = bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>;
-using FontManager         = bl::resource::ResourceManager<sf::VulkanFont>;
-using MapManager          = bl::resource::ResourceManager<core::map::Map>;
-using TilesetManager      = bl::resource::ResourceManager<core::map::Tileset>;
-using ConversationManager = bl::resource::ResourceManager<core::file::Conversation>;
-using TrainerManager      = bl::resource::ResourceManager<core::file::Trainer>;
-using NpcManager          = bl::resource::ResourceManager<core::file::NPC>;
-using ItemDbManager       = bl::resource::ResourceManager<core::file::ItemDB>;
-using MoveDbManager       = bl::resource::ResourceManager<core::file::MoveDB>;
-using PeoplemonDbManager  = bl::resource::ResourceManager<core::file::PeoplemonDB>;
+using TextureManager          = bl::resource::ResourceManager<sf::Texture>;
+using ImageManager            = bl::resource::ResourceManager<sf::Image>;
+using SoundManager            = bl::resource::ResourceManager<sf::SoundBuffer>;
+using AnimationManager        = bl::resource::ResourceManager<bl::gfx::a2d::AnimationData>;
+using FontManager             = bl::resource::ResourceManager<sf::VulkanFont>;
+using MapManager              = bl::resource::ResourceManager<core::map::Map>;
+using TilesetManager          = bl::resource::ResourceManager<core::map::Tileset>;
+using ConversationManager     = bl::resource::ResourceManager<core::file::Conversation>;
+using TrainerManager          = bl::resource::ResourceManager<core::file::Trainer>;
+using NpcManager              = bl::resource::ResourceManager<core::file::NPC>;
+using ItemDbManager           = bl::resource::ResourceManager<core::file::ItemDB>;
+using MoveDbManager           = bl::resource::ResourceManager<core::file::MoveDB>;
+using PeoplemonDbManager      = bl::resource::ResourceManager<core::file::PeoplemonDB>;
+using WalkAnimationManager    = bl::resource::ResourceManager<core::res::WalkAnimations>;
+using RunWalkAnimationManager = bl::resource::ResourceManager<core::res::RunWalkAnimations>;
 
 /**
  * @addtogroup CoreResources

@@ -87,7 +87,7 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 
         for (unsigned int level = 0; level < levels.size(); ++level) {
             triggerAnimation(
-                core::component::Position(level, tiles, core::component::Direction::Up));
+                bl::tmap::Position(level, glm::i32vec2(tiles.x, tiles.y), bl::tmap::Direction::Up));
         }
     };
 
@@ -174,12 +174,12 @@ bool EditMap::editorActivate() {
     }
 
     for (const core::map::CharacterSpawn& spawn : characterField) {
-        if (systems->entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
+        if (systems->entity().spawnCharacter(spawn, *this) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
-    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item); }
+    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item, *this); }
 
     bl::event::Dispatcher::dispatch<core::event::MapEntered>({*this});
 
@@ -484,14 +484,15 @@ const std::string& EditMap::getOnExitScript() const { return unloadScriptField; 
 bool EditMap::spawnIdUnused(unsigned int i) const { return spawns.find(i) == spawns.end(); }
 
 void EditMap::addSpawn(unsigned int l, const sf::Vector2i& pos, unsigned int id,
-                       core::component::Direction dir) {
+                       bl::tmap::Direction dir) {
     addAction(AddSpawnAction::create(l, pos, id, dir));
 }
 
 void EditMap::rotateSpawn(unsigned int l, const sf::Vector2i& pos) {
+    const glm::i32vec2 gpos(pos.x, pos.y);
     for (const auto& pair : spawns) {
         if (pair.second.position.level == l) {
-            if (pair.second.position.positionTiles() == pos) {
+            if (pair.second.position.position == gpos) {
                 addAction(RotateSpawnAction::create(pair.first));
             }
         }
@@ -499,9 +500,10 @@ void EditMap::rotateSpawn(unsigned int l, const sf::Vector2i& pos) {
 }
 
 void EditMap::removeSpawn(unsigned int l, const sf::Vector2i& pos) {
+    const glm::i32vec2 gpos(pos.x, pos.y);
     for (const auto& pair : spawns) {
         if (pair.second.position.level == l) {
-            if (pair.second.position.positionTiles() == pos) {
+            if (pair.second.position.position == gpos) {
                 addAction(RemoveSpawnAction::create(pair.first, pair.second));
             }
         }
@@ -514,9 +516,10 @@ void EditMap::addNpcSpawn(const core::map::CharacterSpawn& s) {
 
 const core::map::CharacterSpawn* EditMap::getNpcSpawn(unsigned int level,
                                                       const sf::Vector2i& pos) const {
+    const glm::i32vec2 gpos(pos.x, pos.y);
     for (const auto& spawn : characterField) {
         if (spawn.position.level == level) {
-            if (spawn.position.positionTiles() == pos) { return &spawn; }
+            if (spawn.position.position == gpos) { return &spawn; }
         }
     }
     return nullptr;
@@ -529,7 +532,7 @@ void EditMap::editNpcSpawn(const core::map::CharacterSpawn* orig,
         addAction(EditNpcSpawnAction::create(orig - characterField.data(), *orig, val));
     }
     else {
-        const auto& pos = orig->position.positionTiles();
+        const auto& pos = orig->position.position;
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
     }
 }
@@ -542,7 +545,7 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
     const bl::ecs::Entity e = systems->position().getEntity(s->position);
     if (e != bl::ecs::InvalidEntity) { addAction(RemoveNpcSpawnAction::create(*s, i)); }
     else {
-        const auto& pos = s->position.positionTiles();
+        const auto& pos = s->position.position;
         BL_LOG_WARN << "Failed to get entity id at location: (" << pos.x << ", " << pos.y << ")";
     }
 }
@@ -684,7 +687,7 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
 //
 //         for (const auto& spawn : spawns) {
 //             if (spawn.second.position.level == overlayLevel) {
-//                 const sf::Vector2f p(spawn.second.position.positionTiles());
+//                 const sf::Vector2f p(spawn.second.position.position);
 //                 const sf::Vector2f pos = p *
 //                 static_cast<float>(core::Properties::PixelsPerTile()); spr.setPosition(pos + so);
 //                 spr.setRotation(static_cast<int>(spawn.second.position.direction) * 90);

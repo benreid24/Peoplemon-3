@@ -11,6 +11,7 @@
 #include <Core/Files/Trainer.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Maps/CharacterSpawn.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -21,16 +22,16 @@ namespace system
 Entity::Entity(Systems& owner)
 : owner(owner) {}
 
-bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
-    bl::ecs::Entity entity = owner.engine().ecs().createEntity();
+bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn, map::Map& map) {
+    bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     std::string animation;
     BL_LOG_DEBUG << "Created character entity " << entity;
 
     bl::ecs::Cleaner cleaner(owner.engine().ecs(), entity);
 
     // Common components
-    component::Position* pos =
-        owner.engine().ecs().addComponent<component::Position>(entity, spawn.position);
+    bl::tmap::Position* pos =
+        owner.engine().ecs().addComponent<bl::tmap::Position>(entity, spawn.position);
     owner.engine().ecs().addComponent<component::Collision>(entity, {});
     component::Movable* mover = owner.engine().ecs().addComponent<component::Movable>(
         entity, {*pos, Properties::CharacterMoveSpeed(), 0.f});
@@ -45,9 +46,8 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return bl::ecs::InvalidEntity;
         }
         BL_LOG_INFO << "Spawning NPC " << data.name() << " at ("
-                    << static_cast<int>(spawn.position.level) << ", "
-                    << spawn.position.positionTiles().x << ", " << spawn.position.positionTiles().y
-                    << ")";
+                    << static_cast<int>(spawn.position.level) << ", " << spawn.position.position.x
+                    << ", " << spawn.position.position.y << ") id=" << entity;
 
         if (!owner.ai().addBehavior(entity, data.behavior())) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
@@ -67,9 +67,8 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
             return bl::ecs::InvalidEntity;
         }
         BL_LOG_INFO << "Spawning trainer " << data.name << " at ("
-                    << static_cast<int>(spawn.position.level) << ", "
-                    << spawn.position.positionTiles().x << ", " << spawn.position.positionTiles().y
-                    << ")";
+                    << static_cast<int>(spawn.position.level) << ", " << spawn.position.position.x
+                    << ", " << spawn.position.position.y << ") id=" << entity;
 
         if (!owner.ai().addBehavior(entity, data.behavior)) {
             BL_LOG_ERROR << "Failed to add behavior to spawned npc: " << entity;
@@ -85,18 +84,18 @@ bl::ecs::Entity Entity::spawnCharacter(const map::CharacterSpawn& spawn) {
     }
 
     /// More common components
-    owner.engine().ecs().addComponent<component::Renderable>(
+    component::Renderable::createFromMoveAnims(
+        owner.engine(),
         entity,
-        component::Renderable::fromMoveAnims(
-            *pos,
-            *mover,
-            bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animation)));
+        map.getScene(),
+        bl::util::FileUtil::joinPath(Properties::CharacterAnimationPath(), animation));
+    map.setupEntityPosition(entity);
 
     cleaner.disarm();
     return entity;
 }
 
-bool Entity::spawnItem(const map::Item& item) {
+bool Entity::spawnItem(const map::Item& item, map::Map& map) {
     const item::Id id = item::Item::cast(item.id);
     BL_LOG_INFO << "Spawning item " << item.id << " (" << item::Item::getName(id) << ") at ("
                 << item.position.x << " , " << item.position.y << ")";
@@ -105,35 +104,46 @@ bool Entity::spawnItem(const map::Item& item) {
         return false;
     }
 
-    const bl::ecs::Entity entity = owner.engine().ecs().createEntity();
+    const bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
 
-    component::Position* pos = owner.engine().ecs().addComponent<component::Position>(
-        entity, {item.level, item.position, component::Direction::Up});
+    bl::tmap::Position* pos = owner.engine().ecs().emplaceComponent<bl::tmap::Position>(
+        entity,
+        item.level,
+        glm::i32vec2(item.position.x, item.position.y),
+        bl::tmap::Direction::Up);
     owner.engine().ecs().addComponent<component::Item>(entity, {id});
 
     if (item.visible || Properties::InEditor()) {
         owner.engine().ecs().addComponent<component::Collision>(entity, {});
-        owner.engine().ecs().addComponent<component::Renderable>(
-            entity, component::Renderable::fromSprite(*pos, Properties::ItemSprite()));
+        component::Renderable::createFromSprite(
+            owner.engine(), entity, map.getScene(), Properties::ItemSprite());
+        map.setupEntityPosition(entity);
     }
 
     return true;
 }
 
-bl::ecs::Entity Entity::spawnGeneric(const component::Position& position, bool collidable,
-                                     const std::string& gfx) {
-    bl::ecs::Entity entity = owner.engine().ecs().createEntity();
+bl::ecs::Entity Entity::spawnGeneric(std::uint8_t level, const glm::i32vec2& tiles, bool collidable,
+                                     const std::string& gfx, map::Map& map) {
+    bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     bl::ecs::Cleaner cleaner(owner.engine().ecs(), entity);
     BL_LOG_DEBUG << "Created generic entity " << entity;
 
-    component::Position* pos =
-        owner.engine().ecs().addComponent<component::Position>(entity, position);
+    bl::tmap::Position* pos = owner.engine().ecs().emplaceComponent<bl::tmap::Position>(
+        entity, level, tiles, bl::tmap::Direction::Up);
     const bool isAnim = bl::util::FileUtil::getExtension(gfx) == "anim";
-    owner.engine().ecs().addComponent<component::Renderable>(
-        entity,
-        isAnim ? component::Renderable::fromAnimation(*pos, gfx) :
-                 component::Renderable::fromSprite(
-                     *pos, bl::util::FileUtil::joinPath(Properties::ImagePath(), gfx)));
+    if (isAnim) {
+        component::Renderable::createFromAnimation(owner.engine(), entity, map.getScene(), gfx);
+    }
+    else {
+        component::Renderable::createFromSprite(
+            owner.engine(),
+            entity,
+            map.getScene(),
+            bl::util::FileUtil::joinPath(Properties::ImagePath(), gfx));
+    }
+
+    map.setupEntityPosition(entity);
 
     if (collidable) { owner.engine().ecs().addComponent<component::Collision>(entity, {}); }
 
@@ -141,20 +151,14 @@ bl::ecs::Entity Entity::spawnGeneric(const component::Position& position, bool c
     return entity;
 }
 
-bl::ecs::Entity Entity::spawnAnimation(const component::Position& position,
-                                       const std::string& gfx) {
-    bl::ecs::Entity entity = owner.engine().ecs().createEntity();
+bl::ecs::Entity Entity::spawnAnimation(std::uint8_t level, const glm::vec2& worldPos,
+                                       const std::string& gfx, map::Map& map) {
+    bl::ecs::Entity entity = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     bl::ecs::Cleaner cleaner(owner.engine().ecs(), entity);
     BL_LOG_DEBUG << "Created animation entity " << entity;
 
-    component::Position* pos =
-        owner.engine().ecs().addComponent<component::Position>(entity, position);
-
-    const sf::Vector2f tx(pos->positionTiles());
-    pos->setPixels(tx * 32.f + pos->positionPixels());
-
-    owner.engine().ecs().addComponent<component::Renderable>(
-        entity, component::Renderable::fromAnimation(*pos, gfx));
+    component::Renderable::createFromAnimation(owner.engine(), entity, map.getScene(), gfx);
+    // TODO - BLIB_UPGRADE - set depth based on pos
 
     cleaner.disarm();
     return entity;

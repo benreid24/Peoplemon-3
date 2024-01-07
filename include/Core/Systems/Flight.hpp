@@ -2,7 +2,8 @@
 #define CORE_SYSTEMS_FLIGHT_HPP
 
 #include <BLIB/Cameras/2D/Affectors/CameraShake.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Engine/System.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Renderable.hpp>
 
 namespace core
@@ -17,7 +18,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Flight {
+class Flight : public bl::engine::System {
 public:
     /**
      * @brief Construct a new Flight system
@@ -25,6 +26,11 @@ public:
      * @param systems The main game systems
      */
     Flight(Systems& systems);
+
+    /**
+     * @brief Destroys the system
+     */
+    virtual ~Flight() = default;
 
     /**
      * @brief Returns whether or not the player is currently flying
@@ -39,13 +45,6 @@ public:
      * @return True if flight could start, false on error
      */
     bool startFlight(unsigned int destSpawn);
-
-    /**
-     * @brief Updates the player flight if in flight
-     *
-     * @param dt Time elapsed in seconds
-     */
-    void update(float dt);
 
 private:
     enum struct State {
@@ -80,12 +79,12 @@ private:
     Systems& owner;
     State state;
     bl::cam::c2d::CameraShake* cameraShake;
-    component::Position startPos;
-    component::Position* playerPos;
+    bl::tmap::Position startPos;
+    bl::tmap::Position* playerPos;
     component::Renderable* playerAnim;
-    component::Position destination;
-    sf::Vector2f flightDest;
-    sf::Vector2f unitVelocity;
+    bl::tmap::Position destination;
+    glm::vec2 flightDest;
+    glm::vec2 unitVelocity;
     union {
         RiseState riseState;
         RotateState rotateState;
@@ -94,6 +93,9 @@ private:
 
     void movePlayer(float dt);
     void syncTiles();
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

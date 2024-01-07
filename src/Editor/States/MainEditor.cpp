@@ -9,7 +9,7 @@ namespace state
 MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new MainEditor(s)); }
 
 MainEditor::MainEditor(core::system::Systems& s)
-: State(bl::engine::StateMask::All)
+: State(bl::engine::StateMask::Paused)
 , systems(s)
 , mapPage(s)
 , variousEditorsPage(s)
@@ -77,7 +77,6 @@ void MainEditor::deactivate(bl::engine::Engine&) {
 void MainEditor::update(bl::engine::Engine&, float dt, float) {
     gui->update(dt);
     currentPage->update(dt);
-    systems.clock().update(dt);
 }
 
 // void MainEditor::render(bl::engine::Engine& engine, float) {

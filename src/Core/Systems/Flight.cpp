@@ -23,14 +23,14 @@ constexpr float ShakeMagnitude  = 10.f;
 constexpr float ShadowSize      = 17.f;
 constexpr float ShadowShrinkage = ShadowSize * 0.3f;
 
-float distSqrd(const sf::Vector2f& p1, const sf::Vector2f& p2) {
+float distSqrd(const glm::vec2& p1, const glm::vec2& p2) {
     const float dx = p1.x - p2.x;
     const float dy = p1.y - p2.y;
     return dx * dx + dy * dy;
 }
 
-float distSqrd(const component::Position& p1, const sf::Vector2f& p2) {
-    return distSqrd(p1.positionPixels(), p2);
+float distSqrd(const bl::tmap::Position& p1, const glm::vec2& p2) {
+    return distSqrd(p1.getWorldPosition(Properties::PixelsPerTile()), p2);
 }
 
 } // namespace
@@ -42,6 +42,8 @@ Flight::Flight(Systems& s)
 , playerPos(nullptr)
 , playerAnim(nullptr) {}
 
+void Flight::init(bl::engine::Engine&) {}
+
 bool Flight::flying() const { return state != State::Idle; }
 
 bool Flight::startFlight(unsigned int spawn) {
@@ -50,14 +52,14 @@ bool Flight::startFlight(unsigned int spawn) {
         return false;
     }
 
-    const component::Position* spos = owner.world().activeMap().getSpawnPosition(spawn);
+    const bl::tmap::Position* spos = owner.world().activeMap().getSpawnPosition(spawn);
     if (!spos) {
         BL_LOG_ERROR << "Tried to fly to bad spawn: " << spawn;
         return false;
     }
     destination = *spos;
 
-    playerPos  = owner.engine().ecs().getComponent<component::Position>(owner.player().player());
+    playerPos  = owner.engine().ecs().getComponent<bl::tmap::Position>(owner.player().player());
     playerAnim = owner.engine().ecs().getComponent<component::Renderable>(owner.player().player());
     if (!playerPos) {
         BL_LOG_CRITICAL << "Player position could not be found";
@@ -70,7 +72,7 @@ bool Flight::startFlight(unsigned int spawn) {
         return false;
     }
 
-    if (playerPos->positionTiles() == destination.positionTiles()) {
+    if (playerPos->position == destination.position) {
         return false;
         // TODO - options:
         // 1. cancel with message
@@ -81,7 +83,7 @@ bool Flight::startFlight(unsigned int spawn) {
     // remove player control and face down
     owner.player().removePlayerControlled(owner.player().player());
     startPos             = *playerPos;
-    playerPos->direction = component::Direction::Down;
+    playerPos->direction = bl::tmap::Direction::Down;
     playerPos->level     = std::max(playerPos->level, destination.level);
 
     // setup camera
@@ -92,32 +94,35 @@ bool Flight::startFlight(unsigned int spawn) {
     // start flight
     state            = State::Rising;
     riseState.height = 0.f;
-    riseState.startY = playerPos->positionPixels().y;
+    riseState.startY = playerPos->transform->getGlobalPosition().y;
 
     return true;
 }
 
-void Flight::update(float dt) {
+void Flight::update(std::mutex&, float dt, float, float, float) {
     switch (state) {
     case State::Rising:
         riseState.height = std::min(riseState.height + RiseRate * dt, RiseHeight);
-        playerPos->setPixels({playerPos->positionPixels().x, riseState.startY - riseState.height});
-        playerAnim->updateShadow(riseState.height,
-                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
+        playerPos->transform->setPosition(playerPos->transform->getGlobalPosition().x,
+                                          riseState.startY - riseState.height);
+        owner.render().updateShadow(owner.player().player(),
+                                    riseState.height,
+                                    ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height >= RiseHeight) {
             state      = State::Rotating;
-            flightDest = destination.positionPixels();
+            flightDest = destination.getWorldPosition(Properties::PixelsPerTile());
             flightDest.y -= RiseHeight;
-            unitVelocity = flightDest - playerPos->positionPixels();
+            unitVelocity = flightDest - playerPos->transform->getGlobalPosition();
             const float m =
                 std::sqrt(unitVelocity.x * unitVelocity.x + unitVelocity.y * unitVelocity.y);
             unitVelocity.x /= m;
             unitVelocity.y /= m;
-            rotateState.angle       = 0.f;
-            rotateState.targetAngle = bl::math::radiansToDegrees(std::atan2(
-                                          flightDest.y - playerPos->positionPixels().y,
-                                          flightDest.x - playerPos->positionPixels().x)) +
-                                      90.f;
+            rotateState.angle = 0.f;
+            rotateState.targetAngle =
+                bl::math::radiansToDegrees(
+                    std::atan2(flightDest.y - playerPos->transform->getGlobalPosition().y,
+                               flightDest.x - playerPos->transform->getGlobalPosition().x)) +
+                90.f;
             rotateState.rotateRate = (rotateState.targetAngle - rotateState.angle) / RotateTime;
         }
         break;
@@ -139,11 +144,9 @@ void Flight::update(float dt) {
                 flyState.maxSpeed = std::min(std::sqrt(flyState.ogDistSqrd) / MinFlyTime, MaxSpeed);
             }
             else {
-                state                     = State::Descending;
-                riseState.height          = RiseHeight;
-                const sf::Vector2f pixels = playerPos->positionPixels();
-                playerPos->setTiles(destination.positionTiles());
-                playerPos->setPixels(pixels);
+                state               = State::Descending;
+                riseState.height    = RiseHeight;
+                playerPos->position = destination.position;
             }
         }
         break;
@@ -178,7 +181,7 @@ void Flight::update(float dt) {
         flyState.velocity   = std::max((1.f - percent) * 50.f * flyState.maxSpeed, 32.f * 6.f);
         if (cDist <= 3.4f || flyState.velocity == 0.f) {
             if (cameraShake) { cameraShake->setMagnitude(0.f); }
-            playerPos->setPixels(flightDest);
+            playerPos->transform->setPosition(flightDest);
             const float pa          = flyState.angle;
             state                   = State::UnRotating;
             rotateState.angle       = pa;
@@ -193,16 +196,18 @@ void Flight::update(float dt) {
 
     case State::Descending:
         riseState.height = std::max(riseState.height - RiseRate * dt, 0.f);
-        playerPos->setPixels(
-            {playerPos->positionPixels().x, destination.positionPixels().y - riseState.height});
-        playerAnim->updateShadow(riseState.height,
-                                 ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
+        playerPos->transform->setPosition(
+            playerPos->transform->getGlobalPosition().x,
+            destination.getWorldPosition(Properties::PixelsPerTile()).y - riseState.height);
+        owner.render().updateShadow(owner.player().player(),
+                                    riseState.height,
+                                    ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height == 0.f) {
-            playerAnim->removeShadow();
-            const component::Position prev = *playerPos;
-            *playerPos                     = destination;
-            playerPos->direction           = component::Direction::Down;
-            state                          = State::Idle;
+            owner.render().removeShadow(owner.player().player());
+            const bl::tmap::Position prev = *playerPos;
+            *playerPos                    = destination;
+            playerPos->direction          = bl::tmap::Direction::Down;
+            state                         = State::Idle;
             auto* cam =
                 owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
             if (cam) { cam->removeAffector(cameraShake); }
@@ -219,19 +224,20 @@ void Flight::update(float dt) {
 }
 
 void Flight::movePlayer(float dt) {
-    playerPos->setPixels(playerPos->positionPixels() + unitVelocity * flyState.velocity * dt);
+    playerPos->transform->setPosition(playerPos->transform->getGlobalPosition() +
+                                      unitVelocity * flyState.velocity * dt);
     syncTiles();
 }
 
 void Flight::syncTiles() {
-    const sf::Vector2f pixels = playerPos->positionPixels();
-    sf::Vector2i tiles(pixels);
+    const glm::vec2 pixels = playerPos->transform->getGlobalPosition();
+    glm::i32vec2 tiles(pixels);
     tiles.y += static_cast<int>(RiseHeight);
     tiles /= Properties::PixelsPerTile();
-    if (tiles != playerPos->positionTiles()) {
-        const auto old = *playerPos;
-        playerPos->setTiles(tiles);
-        playerPos->setPixels(pixels);
+    if (tiles != playerPos->position) {
+        const auto old      = *playerPos;
+        playerPos->position = tiles;
+        playerPos->syncTransform(Properties::PixelsPerTile());
         bl::event::Dispatcher::dispatch<event::EntityMoved>(
             {owner.player().player(), old, *playerPos});
     }

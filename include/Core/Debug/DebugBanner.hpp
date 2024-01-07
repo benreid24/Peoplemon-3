@@ -40,7 +40,6 @@ private:
     virtual void init(bl::engine::Engine& engine) override;
     virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
                         float realResidual) override;
-    virtual void cleanup() override;
 
     static DebugBanner* banner;
 };

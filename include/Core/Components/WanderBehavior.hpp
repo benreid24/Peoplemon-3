@@ -32,11 +32,11 @@ public:
      * @param controller The controllable of the entity
      * @param dt Time elapsed, in seconds
      */
-    void update(Position& position, Controllable& controller, float dt);
+    void update(bl::tmap::Position& position, Controllable& controller, float dt);
 
 private:
     struct WalkData {
-        Direction dir;
+        bl::tmap::Direction dir;
         unsigned short int total;
         unsigned short int steps;
 

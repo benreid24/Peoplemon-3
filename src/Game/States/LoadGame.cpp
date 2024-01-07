@@ -18,7 +18,7 @@ using namespace bl::menu;
 LoadGame::Ptr LoadGame::create(core::system::Systems& s) { return Ptr(new LoadGame(s)); }
 
 LoadGame::LoadGame(core::system::Systems& s)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , state(SelectingSave)
 , selectedSave(0)
 , fadeout(nullptr) {}
@@ -71,12 +71,12 @@ void LoadGame::activate(bl::engine::Engine& engine) {
             sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
     }
 
-    engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    scene = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
     reset();
 }
 
 void LoadGame::deactivate(bl::engine::Engine& engine) {
-    engine.renderer().getObserver().popScene();
+    engine.renderer().getObserver().removeScene(scene);
     systems.engine().inputSystem().getActor().removeListener(inputDriver);
     systems.engine().inputSystem().getActor().removeListener(*this);
 }
@@ -112,7 +112,6 @@ void LoadGame::update(bl::engine::Engine& engine, float dt, float) {
         break;
 
     case Error:
-        systems.hud().update(dt);
         break;
 
     case SelectingSave:

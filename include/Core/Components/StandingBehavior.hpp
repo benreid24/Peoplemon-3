@@ -20,7 +20,7 @@ public:
      *
      * @param faceDir The direction to face
      */
-    StandingBehavior(Direction faceDir);
+    StandingBehavior(bl::tmap::Direction faceDir);
 
     /**
      * @brief Ensures the managed entity is facing the required position
@@ -29,10 +29,10 @@ public:
      * @param controller The entities controllable component
      *
      */
-    void update(Position& position, Controllable& controller);
+    void update(bl::tmap::Position& position, Controllable& controller);
 
 private:
-    const Direction dir;
+    const bl::tmap::Direction dir;
 };
 
 } // namespace component

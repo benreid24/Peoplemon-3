@@ -40,7 +40,7 @@ bool Trainer::saveBundle(bl::serial::binary::OutputStream& output,
     return true;
 }
 
-bool Trainer::load(const std::string& file, component::Direction spawnDir) {
+bool Trainer::load(const std::string& file, bl::tmap::Direction spawnDir) {
     sourceFile = file;
     if (!TrainerManager::initializeExisting(file, *this)) return false;
     if (behavior.type() == Behavior::StandStill) { behavior.standing().facedir = spawnDir; }

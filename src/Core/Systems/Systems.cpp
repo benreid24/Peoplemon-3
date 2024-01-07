@@ -4,49 +4,32 @@ namespace core
 {
 namespace system
 {
-Systems::Systems(bl::engine::Engine& engine)
+using namespace bl::engine;
+
+constexpr StateMask::V WorldVisible = StateMask::Running | StateMask::Paused;
+
+Systems::Systems(Engine& engine)
 : _engine(engine)
-, _clock(*this)
-, _ai(*this)
+, _clock(engine.systems().registerSystem<Clock>(FrameStage::Update0, StateMask::Running, *this))
+, _ai(engine.systems().registerSystem<AI>(FrameStage::Update1, StateMask::Running, *this))
 , _controllable(*this)
 , _entity(*this)
-, _player(*this)
-, _world(*this)
-, _position(*this)
-, _movement(*this)
-, _render(*this)
+, _player(engine.systems().registerSystem<Player>(FrameStage::Update0, StateMask::All, *this))
+, _world(engine.systems().registerSystem<World>(FrameStage::Update0, WorldVisible, *this))
+, _position(engine.systems().registerSystem<Position>(FrameStage::Update0, WorldVisible, *this))
+, _movement(
+      engine.systems().registerSystem<Movement>(FrameStage::Update0, StateMask::Running, *this))
 , _interaction(*this)
-, _hud(*this)
+, _hud(engine.systems().registerSystem<HUD>(FrameStage::Update0, StateMask::All, *this))
 , _scripts(*this)
-, _trainers(*this)
+, _trainers(
+      engine.systems().registerSystem<Trainers>(FrameStage::Update0, StateMask::Running, *this))
 , _wildPeoplemon(*this)
-, _flight(*this) {
-    _world.init();
-    _position.init();
-    _player.init();
-    _ai.init();
+, _flight(engine.systems().registerSystem<Flight>(FrameStage::Update0, StateMask::Running, *this))
+, _render(engine.systems().registerSystem<Render>(FrameStage::Update2, WorldVisible, *this)) {
     _interaction.init();
     _scripts.init();
-    _clock.init();
-    _trainers.init();
     _wildPeoplemon.init();
-}
-
-void Systems::update(float dt, bool ent) {
-    _clock.update(dt);
-
-    if (ent) {
-        _ai.update(dt);
-        _player.update(dt);
-        _movement.update(dt);
-        _trainers.update(dt);
-        _flight.update(dt);
-    }
-    _position.update();
-    _hud.update(dt);
-
-    _world.update(dt);
-    _render.update(dt);
 }
 
 const bl::engine::Engine& Systems::engine() const { return _engine; }
@@ -68,10 +51,6 @@ const Position& Systems::position() const { return _position; }
 Movement& Systems::movement() { return _movement; }
 
 const Movement& Systems::movement() const { return _movement; }
-
-Render& Systems::render() { return _render; }
-
-const Render& Systems::render() const { return _render; }
 
 Entity& Systems::entity() { return _entity; }
 
@@ -104,6 +83,8 @@ const WildPeoplemon& Systems::wildPeoplemon() const { return _wildPeoplemon; }
 Flight& Systems::flight() { return _flight; }
 
 const Flight& Systems::flight() const { return _flight; }
+
+Render& Systems::render() { return _render; }
 
 } // namespace system
 } // namespace core

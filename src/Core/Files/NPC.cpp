@@ -33,7 +33,7 @@ bool NPC::saveBundle(bl::serial::binary::OutputStream& output,
     return true;
 }
 
-bool NPC::load(const std::string& file, component::Direction spawnDir) {
+bool NPC::load(const std::string& file, bl::tmap::Direction spawnDir) {
     if (!NpcManager::initializeExisting(file, *this)) return false;
     if (behavior().type() == Behavior::StandStill) { behavior().standing().facedir = spawnDir; }
     return true;

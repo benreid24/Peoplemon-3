@@ -43,203 +43,161 @@ namespace system
  * @brief Owns all primary systems and a reference to the engine
  *
  * @ingroup Systems
- *
  */
 class Systems : private bl::util::NonCopyable {
 public:
     /**
-     * @brief Helper function to update all game systems
-     *
-     * @param dt Elapsed time in seconds since last call to update()
-     * @param entities True to update player and ai, false to skip
-     */
-    void update(float dt, bool entities);
-
-    /**
      * @brief Const accessor for the Engine
-     *
      */
     const bl::engine::Engine& engine() const;
 
     /**
      * @brief Modifiable accessor for the engine
-     *
      */
     bl::engine::Engine& engine();
 
     /**
      * @brief Accessor for the in game clock
-     *
      */
     Clock& clock();
 
     /**
      * @brief Const accessor for the in game clock
-     *
      */
     const Clock& clock() const;
 
     /**
      * @brief Modifiable accessor for the world system
-     *
      */
     World& world();
 
     /**
      * @brief Const accessor for the world system
-     *
      */
     const World& world() const;
 
     /**
      * @brief Returns a reference to the position system
-     *
      */
     Position& position();
 
     /**
      * @brief Returns a const reference to the position system
-     *
      */
     const Position& position() const;
 
     /**
      * @brief Returns a reference to the movement system
-     *
      */
     Movement& movement();
 
     /**
      * @brief Returns a const reference to the movement system
-     *
      */
     const Movement& movement() const;
 
     /**
-     * @brief Returns a reference to the rendering system
-     *
-     */
-    Render& render();
-
-    /**
-     * @brief Returns a const reference to the rendering system
-     *
-     */
-    const Render& render() const;
-
-    /**
      * @brief Returns the entity system
-     *
      */
     Entity& entity();
 
     /**
      * @brief Returns a const reference to the entity system
-     *
      */
     const Entity& entity() const;
 
     /**
      * @brief Returns the player system
-     *
      */
     Player& player();
 
     /**
      * @brief Returns the player system
-     *
      */
     const Player& player() const;
 
     /**
      * @brief Returns the controllable entity system
-     *
      */
     Controllable& controllable();
 
     /**
      * @brief Returns the AI system
-     *
      */
     AI& ai();
 
     /**
      * @brief Returns the interaction system
-     *
      */
     Interaction& interaction();
 
     /**
      * @brief Returns the HUD
-     *
      */
     HUD& hud();
 
     /**
      * @brief Returns the scripting system
-     *
      */
     Scripts& scripts();
 
     /**
      * @brief Returns the scripting system
-     *
      */
     const Scripts& scripts() const;
 
     /**
      * @brief Returns the trainer system
-     *
      */
     Trainers& trainers();
 
     /**
      * @brief Returns the trainer system
-     *
      */
     const Trainers& trainers() const;
 
     /**
      * @brief Returns the wild peoplemon system
-     *
      */
     WildPeoplemon& wildPeoplemon();
 
     /**
      * @brief Returns the wild peoplemon system
-     *
      */
     const WildPeoplemon& wildPeoplemon() const;
 
     /**
      * @brief Returns the flight system
-     *
      */
     Flight& flight();
 
     /**
      * @brief Returns the flight system
-     *
      */
     const Flight& flight() const;
 
+    /**
+     * @brief Returns the render system
+     */
+    Render& render();
+
 private:
     bl::engine::Engine& _engine;
-    Clock _clock;
-    AI _ai;
+    Clock& _clock;
+    AI& _ai;
     Controllable _controllable;
     Entity _entity;
-    Player _player;
-    World _world;
-    Position _position;
-    Movement _movement;
-    Render _render;
+    Player& _player;
+    World& _world;
+    Position& _position;
+    Movement& _movement;
     Interaction _interaction;
-    HUD _hud;
+    HUD& _hud;
     Scripts _scripts;
-    Trainers _trainers;
+    Trainers& _trainers;
     WildPeoplemon _wildPeoplemon;
-    Flight _flight;
+    Flight& _flight;
+    Render& _render;
 
     /**
      * @brief Creates the core game object and associates it with the engine

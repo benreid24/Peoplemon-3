@@ -8,7 +8,7 @@ namespace file
 {
 Behavior::Behavior()
 : _type(Type::StandStill)
-, data(Standing(component::Direction::Down)) {}
+, data(Standing(bl::tmap::Direction::Down)) {}
 
 bool Behavior::legacyLoad(bl::serial::binary::InputStream& input) {
     std::uint8_t behaviorType;
@@ -55,7 +55,7 @@ bool Behavior::legacyLoad(bl::serial::binary::InputStream& input) {
             std::uint8_t steps;
             if (!input.read<std::uint8_t>(dir)) return false;
             if (!input.read<std::uint8_t>(steps)) return false;
-            path().paces.emplace_back(static_cast<component::Direction>(dir), steps);
+            path().paces.emplace_back(static_cast<bl::tmap::Direction>(dir), steps);
         }
     }
         return true;
@@ -78,7 +78,7 @@ void Behavior::setType(Type t) {
     _type = t;
     switch (t) {
     case StandStill:
-        data.emplace<Standing>(component::Direction::Down);
+        data.emplace<Standing>(bl::tmap::Direction::Down);
         break;
 
     case SpinInPlace:
@@ -116,9 +116,9 @@ Behavior::Wander& Behavior::wander() { return std::get<Wander>(data); }
 const Behavior::Wander& Behavior::wander() const { return std::get<Wander>(data); }
 
 Behavior::Standing::Standing()
-: facedir(component::Direction::Down) {}
+: facedir(bl::tmap::Direction::Down) {}
 
-Behavior::Standing::Standing(component::Direction d)
+Behavior::Standing::Standing(bl::tmap::Direction d)
 : facedir(d) {}
 
 Behavior::Spinning::Spinning()
@@ -136,12 +136,12 @@ Behavior::Wander::Wander()
 Behavior::Wander::Wander(unsigned int r)
 : radius(r) {}
 
-Behavior::Path::Pace::Pace(component::Direction dir, std::uint16_t s)
+Behavior::Path::Pace::Pace(bl::tmap::Direction dir, std::uint16_t s)
 : direction(dir)
 , steps(s) {}
 
 Behavior::Path::Pace::Pace()
-: direction(component::Direction::Up)
+: direction(bl::tmap::Direction::Up)
 , steps(1) {}
 
 } // namespace file

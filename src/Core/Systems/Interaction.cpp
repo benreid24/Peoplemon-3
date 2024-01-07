@@ -9,6 +9,7 @@
 #include <Core/Events/Item.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
+#include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
 namespace core
@@ -32,8 +33,8 @@ Interaction::Interaction(Systems& owner)
 void Interaction::init() { bl::event::Dispatcher::subscribe(this); }
 
 bool Interaction::interact(bl::ecs::Entity interactor) {
-    const component::Position* pos =
-        owner.engine().ecs().getComponent<component::Position>(interactor);
+    const bl::tmap::Position* pos =
+        owner.engine().ecs().getComponent<bl::tmap::Position>(interactor);
     if (!pos) return false;
 
     const bl::ecs::Entity interacted = owner.position().search(*pos, pos->direction, 1);
@@ -227,11 +228,13 @@ void Interaction::giveMoneyDecided(const std::string& c) {
 }
 
 void Interaction::faceEntity(bl::ecs::Entity rot, bl::ecs::Entity face) {
-    component::Position* mpos       = owner.engine().ecs().getComponent<component::Position>(rot);
-    const component::Position* fpos = owner.engine().ecs().getComponent<component::Position>(face);
+    bl::tmap::Position* mpos       = owner.engine().ecs().getComponent<bl::tmap::Position>(rot);
+    const bl::tmap::Position* fpos = owner.engine().ecs().getComponent<bl::tmap::Position>(face);
     if (mpos && fpos) {
-        const component::Direction dir = component::Position::facePosition(*mpos, *fpos);
-        mpos->direction                = dir;
+        const bl::tmap::Direction dir = bl::tmap::Position::facePosition(*mpos, *fpos);
+        const event::EntityRotated event(rot, dir, mpos->direction);
+        mpos->direction = dir;
+        bl::event::Dispatcher::dispatch<event::EntityRotated>(event);
     }
 }
 

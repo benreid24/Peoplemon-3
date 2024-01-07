@@ -20,7 +20,7 @@ bl::engine::State::Ptr MainMenu::create(core::system::Systems& systems) {
 }
 
 MainMenu::MainMenu(core::system::Systems& systems)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , hintTimer(0.f) {}
 
 const char* MainMenu::name() const { return "MainMenu"; }

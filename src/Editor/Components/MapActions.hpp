@@ -410,7 +410,7 @@ private:
 class EditMap::AddSpawnAction : public EditMap::Action {
 public:
     static Action::Ptr create(unsigned int lvl, const sf::Vector2i& pos, unsigned int id,
-                              core::component::Direction dir);
+                              bl::tmap::Direction dir);
 
     virtual ~AddSpawnAction() = default;
     virtual bool apply(EditMap& map) override;
@@ -421,10 +421,10 @@ private:
     const unsigned int level;
     const sf::Vector2i pos;
     const unsigned int id;
-    const core::component::Direction dir;
+    const bl::tmap::Direction dir;
 
     AddSpawnAction(unsigned int lvl, const sf::Vector2i& pos, unsigned int id,
-                   core::component::Direction dir);
+                   bl::tmap::Direction dir);
 };
 
 class EditMap::RotateSpawnAction : public EditMap::Action {

@@ -22,6 +22,8 @@ void installDevLoaders() {
     ItemDbManager::installLoader<ItemDBDevLoader>();
     MoveDbManager::installLoader<MoveDBDevLoader>();
     PeoplemonDbManager::installLoader<PeoplemonDBDevLoader>();
+    WalkAnimationManager::installLoader<WalkAnimationLoader>();
+    RunWalkAnimationManager::installLoader<RunWalkAnimationLoader>();
 }
 
 void installProdLoaders() {
@@ -38,6 +40,8 @@ void installProdLoaders() {
     ItemDbManager::installLoader<ItemDBProdLoader>();
     MoveDbManager::installLoader<MoveDBProdLoader>();
     PeoplemonDbManager::installLoader<PeoplemonDBProdLoader>();
+    WalkAnimationManager::installLoader<WalkAnimationLoader>();
+    RunWalkAnimationManager::installLoader<RunWalkAnimationLoader>();
 }
 
 bool createBundles() {

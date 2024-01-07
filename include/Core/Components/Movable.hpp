@@ -3,7 +3,7 @@
 
 #include <BLIB/Engine/Engine.hpp>
 #include <BLIB/Events.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <SFML/System/Vector2.hpp>
 
 namespace core
@@ -11,7 +11,8 @@ namespace core
 namespace system
 {
 class Movement;
-}
+class Systems;
+} // namespace system
 namespace component
 {
 class Renderable;
@@ -31,7 +32,7 @@ public:
      * @param speed The speed to move at
      * @param fastSpeed The speed to move at when moving fast
      */
-    Movable(Position& pos, float speed, float fastSpeed);
+    Movable(bl::tmap::Position& pos, float speed, float fastSpeed);
 
     /**
      * @brief Returns whether or not the entity is moving
@@ -54,25 +55,25 @@ public:
      * @param fast True to move fast, false to move slow
      * @param isLedgeHop Indicates whether we are hopping or moving regularly
      */
-    void move(Direction dir, bool fast, bool isLedgeHop);
+    void move(bl::tmap::Direction dir, bool fast, bool isLedgeHop);
 
     /**
      * @brief Updates the interpolation of the entity if moving
      *
      * @param owner The owning entity of this component
-     * @param engine The game engine
+     * @param systems The game systems
      * @param dt Time elapsed in seconds since last call to update
      */
-    void update(bl::ecs::Entity owner, bl::engine::Engine& engine, float dt);
+    void update(bl::ecs::Entity owner, system::Systems& systems, float dt);
 
 private:
     enum struct MoveState : std::uint8_t { Still, Moving, MovingFast, LedgeHopping };
 
-    Position& position;
+    bl::tmap::Position& position;
     float movementSpeed;
     float fastMovementSpeed;
     float interpRemaining;
-    Direction moveDir;
+    bl::tmap::Direction moveDir;
     MoveState state;
 
     friend class system::Movement;

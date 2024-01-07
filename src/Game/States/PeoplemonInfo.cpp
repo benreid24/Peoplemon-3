@@ -26,7 +26,7 @@ bl::engine::State::Ptr PeoplemonInfo::create(core::system::Systems& s,
 }
 
 PeoplemonInfo::PeoplemonInfo(core::system::Systems& s, const core::pplmn::OwnedPeoplemon& ppl)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 //, leftFlasher(leftArrow, FlashTime, FlashTime)
 //, rightFlasher(rightArrow, FlashTime, FlashTime)
 //, moveMenu(bl::menu::NoSelector::create())

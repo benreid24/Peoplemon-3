@@ -3,8 +3,9 @@
 
 #include <BLIB/Audio/AudioSystem.hpp>
 #include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
 
 namespace core
 {
@@ -17,7 +18,7 @@ class Systems;
  *
  * @ingroup Systems
  */
-class Movement {
+class Movement : public bl::engine::System {
 public:
     /**
      * @brief Create the movement system
@@ -25,6 +26,11 @@ public:
      * @param owner The primary systems object
      */
     Movement(Systems& owner);
+
+    /**
+     * @brief Destroys the system
+     */
+    virtual ~Movement() = default;
 
     /**
      * @brief Adds a Movable component to the given entity if it does not already exist
@@ -44,18 +50,14 @@ public:
      * @param fast True to move at the fast speed, false for slow
      * @return True if the movement is possible, false if no movement will occur
      */
-    bool moveEntity(bl::ecs::Entity entity, core::component::Direction direction, bool fast);
-
-    /**
-     * @brief Updates all moving entities
-     *
-     * @param dt Time elapsed in seconds since the last call to update
-     */
-    void update(float dt);
+    bool moveEntity(bl::ecs::Entity entity, bl::tmap::Direction direction, bool fast);
 
 private:
     Systems& owner;
     bl::audio::AudioSystem::Handle jumpSound;
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

@@ -6,6 +6,7 @@
 #include <Core/Components/PlayerControlled.hpp>
 #include <Core/Files/GameSave.hpp>
 #include <Core/Items/Item.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
 
@@ -28,11 +29,11 @@ using Serializer = bl::serial::json::Serializer<Player>;
 Player::Player(Systems& owner)
 : owner(owner) {}
 
-bool Player::spawnPlayer(const component::Position& pos) {
-    playerId = owner.engine().ecs().createEntity();
+bool Player::spawnPlayer(const bl::tmap::Position& pos, map::Map& map) {
+    playerId = owner.engine().ecs().createEntity(bl::ecs::Flags::WorldObject);
     BL_LOG_INFO << "New player id: " << playerId;
 
-    _position = owner.engine().ecs().addComponent<component::Position>(playerId, pos);
+    _position = owner.engine().ecs().addComponent<bl::tmap::Position>(playerId, pos);
     owner.engine().ecs().addComponent<component::Collision>(playerId, {});
 
     movable = owner.engine().ecs().addComponent<component::Movable>(
@@ -43,20 +44,17 @@ bool Player::spawnPlayer(const component::Position& pos) {
 
     if (!makePlayerControlled(playerId)) { return false; }
 
-    if (!owner.engine().ecs().addComponent<component::Renderable>(
-            playerId,
-            component::Renderable::fromFastMoveAnims(
-                *_position, *movable, Properties::PlayerAnimations(data.sex)))) {
-        BL_LOG_ERROR << "Failed to add renderable component to player";
-        return false;
-    }
+    component::Renderable::createFromFastMoveAnims(
+        owner.engine(), playerId, map.getScene(), Properties::PlayerAnimations(data.sex));
+
+    map.setupEntityPosition(playerId);
 
     return true;
 }
 
 bl::ecs::Entity Player::player() const { return playerId; }
 
-const component::Position& Player::position() const { return *_position; }
+const bl::tmap::Position& Player::position() const { return *_position; }
 
 void Player::newGame(const std::string& n, player::Gender g) {
     data.name = n;
@@ -94,14 +92,14 @@ void Player::removePlayerControlled(bl::ecs::Entity e) {
     owner.engine().ecs().removeComponent<component::PlayerControlled>(e);
 }
 
-void Player::init() { bl::event::Dispatcher::subscribe(this); }
+void Player::init(bl::engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
 void Player::whiteout() {
     data.healPeoplemon();
     owner.world().whiteout(data.whiteoutMap, data.whiteoutSpawn);
 }
 
-void Player::update(float dt) {
+void Player::update(std::mutex&, float dt, float, float, float) {
     if (lantern.isValid()) { updateLantern(dt); }
 }
 
@@ -110,9 +108,7 @@ void Player::showLantern() {
         lanternVariance       = 0.f;
         lanternTargetVariance = 0.f;
         lantern               = owner.world().activeMap().getSceneLighting().addLight(
-            {_position->positionPixels().x, _position->positionPixels().y},
-            LanternRadius,
-            LanternColor);
+            _position->getWorldPosition(Properties::PixelsPerTile()), LanternRadius, LanternColor);
         startLanternVarianceHold();
     }
 }
@@ -136,11 +132,9 @@ void Player::updateLantern(float dt) {
             if (varianceSwitchTime <= 0.f) { startLanternVarianceChange(); }
         }
 
-        sf::Vector2i pos(position().positionPixels());
-        pos.x += Properties::PixelsPerTile() / 2;
-        lantern.setPosition(
-            {position().positionPixels().x + static_cast<float>(Properties::PixelsPerTile()) * 0.5f,
-             position().positionPixels().y});
+        glm::vec2 lpos = _position->getWorldPosition(Properties::PixelsPerTile());
+        lpos.x += Properties::PixelsPerTile();
+        lantern.setPosition(lpos);
         lantern.setRadius(LanternRadius + lanternVariance);
     }
     else { lantern.removeFromScene(); }

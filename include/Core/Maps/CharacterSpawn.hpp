@@ -2,7 +2,7 @@
 #define CORE_MAPS_CHARACTERSPAWN_HPP
 
 #include <BLIB/Serialization.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
 
@@ -17,7 +17,7 @@ namespace map
  *
  */
 struct CharacterSpawn {
-    component::Position position;
+    bl::tmap::Position position;
     std::string file;
 
     /**
@@ -32,7 +32,7 @@ struct CharacterSpawn {
      * @param pos The position to spawn at
      * @param file The file to load from
      */
-    CharacterSpawn(const component::Position& pos, const std::string& file)
+    CharacterSpawn(const bl::tmap::Position& pos, const std::string& file)
     : position(pos)
     , file(file) {}
 };
@@ -46,7 +46,7 @@ namespace serial
 {
 template<>
 struct SerializableObject<core::map::CharacterSpawn> : public SerializableObjectBase {
-    SerializableField<1, core::map::CharacterSpawn, core::component::Position> position;
+    SerializableField<1, core::map::CharacterSpawn, bl::tmap::Position> position;
     SerializableField<2, core::map::CharacterSpawn, std::string> file;
 
     SerializableObject()

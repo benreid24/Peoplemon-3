@@ -56,7 +56,7 @@ public:
      * @param spawnDir The direction to put into the standing behavior on load
      * @return True on success, false on error
      */
-    bool load(const std::string& file, component::Direction spawnDir = component::Direction::Up);
+    bool load(const std::string& file, bl::tmap::Direction spawnDir = bl::tmap::Direction::Up);
 
     /**
      * @brief Loads the NPC from the json stream

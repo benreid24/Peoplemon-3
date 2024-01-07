@@ -73,7 +73,7 @@ bl::engine::State::Ptr BagMenu::create(core::system::Systems& s, Context c, core
 
 BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int outNow, int* chosenPpl,
                  bool* up)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , context(c)
 , outNow(outNow)
 , result(i)
@@ -235,14 +235,11 @@ void BagMenu::update(bl::engine::Engine& engine, float dt, float) {
         }
         break;
 
-    case MenuState::ShowingMessage:
-        systems.hud().update(dt);
-        break;
-
     case MenuState::ImmediatelyPop:
         engine.popState();
         break;
 
+    case MenuState::ShowingMessage:
     case MenuState::Browsing:
     default:
         break;

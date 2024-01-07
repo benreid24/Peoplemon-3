@@ -20,7 +20,7 @@ constexpr float ProfRotateSpeed = -75.f;
 NewGame::Ptr NewGame::create(core::system::Systems& systems) { return Ptr(new NewGame(systems)); }
 
 NewGame::NewGame(core::system::Systems& systems)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , fadeout(nullptr) {}
 
 const char* NewGame::name() const { return "NewGame"; }
@@ -96,7 +96,6 @@ void NewGame::deactivate(bl::engine::Engine& engine) {
 }
 
 void NewGame::update(bl::engine::Engine&, float dt, float) {
-    systems.hud().update(dt);
     background.getTransform().rotate(RotateSpeed * dt);
     if (fadeout) {
         if (fadeout->complete()) { systems.engine().replaceState(MainGame::create(systems)); }

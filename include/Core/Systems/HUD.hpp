@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_HUD_HPP
 #define CORE_SYSTEMS_HUD_HPP
 
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Interfaces/Utilities.hpp>
@@ -27,7 +28,7 @@ class Systems;
  * @ingroup Systems
  *
  */
-class HUD {
+class HUD : public bl::engine::System {
 public:
     /**
      * @brief Signature for HUD callbacks. Used for both messages completing and choices made
@@ -53,11 +54,9 @@ public:
     HUD(Systems& owner);
 
     /**
-     * @brief Updates any displayed elements
-     *
-     * @param dt Time elapsed, in seconds
+     * @brief Destroys the system
      */
-    void update(float dt);
+    virtual ~HUD() = default;
 
     /**
      * @brief Displays a message in the HUD textbox. Messages are queued in order that they arrive
@@ -81,7 +80,7 @@ public:
         const Callback& cb = [](const std::string&) {});
 
     /**
-     * @brief Dismisses the currrently active sticky message
+     * @brief Dismisses the currently active sticky message
      *
      * @param ignoreGhostWrite True to dismiss even if message is not done printing, false to wait
      * @return True if a message was dismissed, false otherwise
@@ -128,7 +127,6 @@ public:
 
     /**
      * @brief Hides the entry card
-     *
      */
     void hideEntryCard();
 
@@ -225,7 +223,6 @@ private:
     float choiceBoxX;
 
     void setState(State newState);
-    void ensureCreated();
     void ensureActive();
     void startPrinting();
     void printDoneStateTransition();
@@ -233,6 +230,9 @@ private:
     void keyboardSubmit(const std::string& input);
     void qtySelected(int qty);
     void next();
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

@@ -3,7 +3,7 @@
 
 #include <BLIB/ECS.hpp>
 #include <BLIB/Scripts.hpp>
-#include <Core/Components/Position.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Maps/Event.hpp>
 
 namespace core
@@ -32,7 +32,7 @@ public:
      * @param tile The position of the entity when the event fired
      */
     MapEventContext(system::Systems& systems, bl::ecs::Entity entity, const map::Event& event,
-                    const component::Position& tile);
+                    const bl::tmap::Position& tile);
 
 protected:
     virtual void addCustomSymbols(bl::script::SymbolTable& table) const override;
@@ -41,7 +41,7 @@ private:
     system::Systems& systems;
     const bl::ecs::Entity entity;
     const map::Event event;
-    const component::Position tile;
+    const bl::tmap::Position tile;
 };
 
 } // namespace script

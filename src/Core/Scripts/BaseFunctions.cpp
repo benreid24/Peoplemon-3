@@ -237,24 +237,24 @@ void BaseFunctions::addDefaults(SymbolTable& table, system::Systems& systems) {
 #undef BUILTIN
 }
 
-Value BaseFunctions::makePosition(const component::Position& pos) {
+Value BaseFunctions::makePosition(const bl::tmap::Position& pos) {
     Value value;
     Value coord;
-    coord.setProperty("x", {pos.positionTiles().x});
-    coord.setProperty("y", {pos.positionTiles().y});
+    coord.setProperty("x", {pos.position.x});
+    coord.setProperty("y", {pos.position.y});
     value.setProperty("tiles", coord);
-    coord.setProperty("x", {pos.positionPixels().x});
-    coord.setProperty("y", {pos.positionPixels().y});
+    coord.setProperty("x", {pos.getWorldPosition(Properties::PixelsPerTile()).x});
+    coord.setProperty("y", {pos.getWorldPosition(Properties::PixelsPerTile()).y});
     value.setProperty("pixels", coord);
     value.setProperty("level", {pos.level});
-    value.setProperty("direction", {component::directionToString(pos.direction)});
+    value.setProperty("direction", {bl::tmap::directionToString(pos.direction)});
     return value;
 }
 
 namespace
 {
 Value makePosition(system::Systems& systems, bl::ecs::Entity e) {
-    const component::Position* pos = systems.engine().ecs().getComponent<component::Position>(e);
+    const bl::tmap::Position* pos = systems.engine().ecs().getComponent<bl::tmap::Position>(e);
     if (pos) { return BaseFunctions::makePosition(*pos); }
     BL_LOG_WARN << "Entity " << e << " has no position";
     return {};
@@ -600,7 +600,7 @@ void getNpc(system::Systems& systems, SymbolTable&, const std::vector<Value>& ar
     const auto visitor     = [&name, &npc, &systems, &found](bl::ecs::Entity ent,
                                                          component::NPC& component) {
         if (found) return;
-        component::Position* pos = systems.engine().ecs().getComponent<component::Position>(ent);
+        bl::tmap::Position* pos = systems.engine().ecs().getComponent<bl::tmap::Position>(ent);
         if (!pos) return;
 
         if (component.name() == name) {
@@ -623,8 +623,8 @@ void loadCharacter(system::Systems& systems, SymbolTable&, const std::vector<Val
 
     const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     if (systems.engine().ecs().entityExists(entity)) {
-        const component::Position* pos =
-            systems.engine().ecs().getComponent<component::Position>(entity);
+        const bl::tmap::Position* pos =
+            systems.engine().ecs().getComponent<bl::tmap::Position>(entity);
         if (pos) {
             character = entity;
             character.setProperty("position", BaseFunctions::makePosition(*pos));
@@ -661,12 +661,12 @@ void spawnCharacter(system::Systems& systems, SymbolTable&, const std::vector<Va
                         PrimitiveValue::TString>("spawnCharacter", args);
 
     const map::CharacterSpawn spawn(
-        component::Position(args[1].value().getAsInt(),
-                            {static_cast<int>(args[2].value().getAsInt()),
-                             static_cast<int>(args[3].value().getAsInt())},
-                            component::directionFromString(args[4].value().getAsString())),
+        bl::tmap::Position(args[1].value().getAsInt(),
+                           {static_cast<int>(args[2].value().getAsInt()),
+                            static_cast<int>(args[3].value().getAsInt())},
+                           bl::tmap::directionFromString(args[4].value().getAsString())),
         args[0].value().getAsString());
-    result = systems.entity().spawnCharacter(spawn);
+    result = systems.entity().spawnCharacter(spawn, systems.world().activeMap());
 }
 
 void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -679,7 +679,7 @@ void getTrainer(system::Systems& systems, SymbolTable&, const std::vector<Value>
     const auto visitor = [&systems, &found, &name, &trainer](bl::ecs::Entity ent,
                                                              component::Trainer& tc) {
         if (found) return;
-        component::Position* pos = systems.engine().ecs().getComponent<component::Position>(ent);
+        bl::tmap::Position* pos = systems.engine().ecs().getComponent<bl::tmap::Position>(ent);
         if (!pos) return;
         if (tc.name() == name) {
             trainer = ent;
@@ -700,10 +700,10 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString, PrimitiveValue::TBool>(
         "moveEntity", args);
 
-    const bl::ecs::Entity entity   = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
-    const component::Direction dir = component::directionFromString(args[1].value().getAsString());
-    const bool block               = args[2].value().getAsBool();
-    const bool result              = systems.movement().moveEntity(entity, dir, false);
+    const bl::ecs::Entity entity  = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const bl::tmap::Direction dir = bl::tmap::directionFromString(args[1].value().getAsString());
+    const bool block              = args[2].value().getAsBool();
+    const bool result             = systems.movement().moveEntity(entity, dir, false);
 
     if (block && result) {
         const component::Movable* move =
@@ -730,9 +730,9 @@ void moveEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
 void rotateEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args, Value&) {
     Value::validateArgs<PrimitiveValue::TInteger, PrimitiveValue::TString>("rotateEntity", args);
 
-    const bl::ecs::Entity entity   = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
-    const component::Direction dir = component::directionFromString(args[1].value().getAsString());
-    component::Position* pos = systems.engine().ecs().getComponent<component::Position>(entity);
+    const bl::ecs::Entity entity  = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
+    const bl::tmap::Direction dir = bl::tmap::directionFromString(args[1].value().getAsString());
+    bl::tmap::Position* pos       = systems.engine().ecs().getComponent<bl::tmap::Position>(entity);
     if (pos && pos->direction != dir) pos->direction = dir;
 }
 
@@ -741,11 +741,11 @@ void faceEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>
 
     const bl::ecs::Entity toSpin = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     const bl::ecs::Entity toFace = static_cast<bl::ecs::Entity>(args[1].value().getAsInt());
-    component::Position* sp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
-    component::Position* fp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+    bl::tmap::Position* sp       = systems.engine().ecs().getComponent<bl::tmap::Position>(toSpin);
+    bl::tmap::Position* fp       = systems.engine().ecs().getComponent<bl::tmap::Position>(toSpin);
 
     if (sp && fp) {
-        const component::Direction d = component::Position::facePosition(*sp, *fp);
+        const bl::tmap::Direction d = bl::tmap::Position::facePosition(*sp, *fp);
         if (sp->direction != d) { systems.movement().moveEntity(toSpin, d, false); }
     }
     else { BL_LOG_ERROR << "Invalid entities. Tried to make " << toSpin << " face " << toFace; }
@@ -757,12 +757,12 @@ void faceDirection(system::Systems& systems, SymbolTable&, const std::vector<Val
 
     const bl::ecs::Entity toSpin = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     const bl::ecs::Entity toFace = static_cast<bl::ecs::Entity>(args[1].value().getAsInt());
-    component::Position* sp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
-    component::Position* fp      = systems.engine().ecs().getComponent<component::Position>(toSpin);
+    bl::tmap::Position* sp       = systems.engine().ecs().getComponent<bl::tmap::Position>(toSpin);
+    bl::tmap::Position* fp       = systems.engine().ecs().getComponent<bl::tmap::Position>(toSpin);
 
     if (sp && fp) {
-        const component::Direction d = component::Position::facePosition(*sp, *fp);
-        result                       = component::directionToString(d);
+        const bl::tmap::Direction d = bl::tmap::Position::facePosition(*sp, *fp);
+        result                      = bl::tmap::directionToString(d);
     }
     else {
         BL_LOG_ERROR << "Invalid entities. Tried to get direction from " << toSpin << " to "
@@ -795,10 +795,10 @@ void entityToPosition(system::Systems& systems, SymbolTable&, const std::vector<
 
     const bl::ecs::Entity entity = static_cast<bl::ecs::Entity>(args[0].value().getAsInt());
     const std::uint8_t level     = args[1].value().getAsInt();
-    const sf::Vector2i destTiles(args[2].value().getAsInt(), args[3].value().getAsInt());
-    const component::Direction dir = component::directionFromString(args[4].value().getAsString());
-    const bool block               = args[5].value().getAsBool();
-    const component::Position dest(level, destTiles, dir);
+    const glm::i32vec2 destTiles(args[2].value().getAsInt(), args[3].value().getAsInt());
+    const bl::tmap::Direction dir = bl::tmap::directionFromString(args[4].value().getAsString());
+    const bool block              = args[5].value().getAsBool();
+    const bl::tmap::Position dest(level, destTiles, dir);
     BL_LOG_INFO << "Moving entity " << entity << " to " << dest;
 
     if (!systems.ai().moveToPosition(entity, dest)) {
@@ -855,12 +855,14 @@ void spawnAnimation(system::Systems& systems, SymbolTable&, const std::vector<Va
                         PrimitiveValue::TNumeric,
                         PrimitiveValue::TString>("spawnAnimation", args);
 
-    component::Position pos;
-    pos.level = args[0].value().getAsInt();
-    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
-                  static_cast<int>(args[2].value().getAsInt())});
-    pos.setPixels({args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()});
-    result = systems.entity().spawnAnimation(pos, args[5].value().getAsString());
+    const std::uint8_t level = args[0].value().getAsInt();
+    glm::vec2 pos{args[1].value().getNumAsFloat(), args[2].value().getNumAsFloat()};
+    glm::vec2 offset{args[3].value().getNumAsFloat(), args[4].value().getNumAsFloat()};
+    result = systems.entity().spawnAnimation(level,
+                                             pos * static_cast<float>(Properties::PixelsPerTile()) +
+                                                 offset,
+                                             args[3].value().getAsString(),
+                                             systems.world().activeMap());
 }
 
 void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,
@@ -871,12 +873,14 @@ void spawnGenericEntity(system::Systems& systems, SymbolTable&, const std::vecto
                         PrimitiveValue::TString,
                         PrimitiveValue::TBool>("spawnGenericEntity", args);
 
-    component::Position pos;
-    pos.level = args[0].value().getAsInt();
-    pos.setTiles({static_cast<int>(args[1].value().getAsInt()),
-                  static_cast<int>(args[2].value().getAsInt())});
-    result = systems.entity().spawnGeneric(
-        pos, args[4].value().getAsBool(), args[3].value().getAsString());
+    const std::uint8_t level = args[0].value().getAsInt();
+    const glm::i32vec2 pos{static_cast<int>(args[1].value().getAsInt()),
+                           static_cast<int>(args[2].value().getAsInt())};
+    result = systems.entity().spawnGeneric(level,
+                                           pos,
+                                           args[4].value().getAsBool(),
+                                           args[3].value().getAsString(),
+                                           systems.world().activeMap());
 }
 
 void triggerEntityAnimation(system::Systems& systems, SymbolTable&, const std::vector<Value>& args,

@@ -21,25 +21,34 @@ std::string trainerKey(const component::Trainer& t) { return t.file() + ":" + t.
 Trainers::Trainers(Systems& o)
 : owner(o)
 , state(State::Searching)
-, walkingTrainer(bl::ecs::InvalidEntity) {
-    txtr = TextureManager::load(Properties::TrainerExclaimImage());
-    exclaim.setTexture(*txtr, true);
+, walkingTrainer(bl::ecs::InvalidEntity) {}
+
+void Trainers::init(bl::engine::Engine& engine) {
+    exclaimTxtr = engine.renderer().texturePool().getOrLoadTexture(
+        Properties::TrainerExclaimImage(),
+        engine.renderer().vulkanState().samplerCache.noFilterBorderClamped());
+    exclaim.create(engine, exclaimTxtr);
+    exclaim.getTransform().setDepth(-0.5f); // just above parent
+    engine.ecs().setEntityParentDestructionBehavior(
+        exclaim.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);
+
     exclaimSound = bl::audio::AudioSystem::getOrLoadSound(Properties::TrainerExclaimSound());
+
+    bl::event::Dispatcher::subscribe(this);
 }
 
-void Trainers::init() { bl::event::Dispatcher::subscribe(this); }
-
-void Trainers::update(float dt) {
-    static const sf::Vector2i es(txtr->getSize());
-    static const auto updateRect = [this](int h) {
-        exclaim.setTextureRect({0, es.y - h, es.x, h});
+void Trainers::update(std::mutex&, float dt, float, float, float) {
+    const auto updateRect = [this](float h) {
+        exclaim.setTextureSource({0, 0.f, exclaimTxtr->size().x, h});
+        exclaim.scaleToSize({exclaimTxtr->size().x, h});
+        exclaim.getTransform().setPosition(exclaim.getTransform().getLocalPosition().x, -h - 12.f);
     };
 
     switch (state) {
     case State::PoppingUp:
         height += dt * RevealRate;
-        if (height >= txtr->getSize().y) {
-            updateRect(txtr->getSize().y);
+        if (height >= exclaimTxtr->size().y) {
+            updateRect(exclaimTxtr->size().y);
             state  = State::Holding;
             height = 0.f;
         }
@@ -49,7 +58,7 @@ void Trainers::update(float dt) {
     case State::Holding:
         height += dt;
         if (height >= HoldTime) {
-            height = txtr->getSize().y;
+            height = exclaimTxtr->size().y;
             state  = State::Rising;
         }
         break;
@@ -60,12 +69,13 @@ void Trainers::update(float dt) {
         else {
             updateRect(0);
             state = State::Walking;
+            exclaim.removeFromScene();
         }
         break;
 
     case State::Walking:
         if (!trainerMove->moving()) {
-            if (component::Position::adjacent(*trainerPos, owner.player().position())) {
+            if (bl::tmap::Position::adjacent(*trainerPos, owner.player().position())) {
                 if (!owner.interaction().interact(walkingTrainer)) {
                     BL_LOG_ERROR << "Trainer " << walkingTrainer
                                  << " was unable to interact with player, aborting";
@@ -86,18 +96,6 @@ void Trainers::update(float dt) {
 
     case State::Searching:
     case State::Battling:
-    default:
-        break;
-    }
-}
-
-void Trainers::render(sf::RenderTarget& target) {
-    switch (state) {
-    case State::PoppingUp:
-    case State::Holding:
-    case State::Rising:
-        target.draw(exclaim);
-        break;
     default:
         break;
     }
@@ -152,7 +150,7 @@ void Trainers::checkTrainer(bl::ecs::Entity ent) {
     if (!trainer || trainer->defeated()) return;
     if (owner.flight().flying()) return;
     // TODO - respect player/trainer locks?
-    const component::Position* pos = owner.engine().ecs().getComponent<component::Position>(ent);
+    const bl::tmap::Position* pos = owner.engine().ecs().getComponent<bl::tmap::Position>(ent);
     if (!pos) {
         BL_LOG_ERROR << "Encountered trainer " << ent << " with no position";
         return;
@@ -177,13 +175,12 @@ void Trainers::checkTrainer(bl::ecs::Entity ent) {
         bl::audio::AudioSystem::playSound(exclaimSound);
         state  = State::PoppingUp;
         height = 0.f;
-        const sf::Vector2i s(txtr->getSize());
-        exclaim.setTextureRect({0, s.y, s.x, 0});
+        exclaim.setTextureSource({0.f, 0.f, 0.f, 0.f});
         static const float xoff =
-            static_cast<float>(Properties::PixelsPerTile()) * 0.5f - static_cast<float>(s.x) * 0.5f;
-        exclaim.setPosition(trainerPos->positionPixels().x + xoff,
-                            trainerPos->positionPixels().y -
-                                static_cast<float>(Properties::PixelsPerTile()));
+            static_cast<float>(Properties::PixelsPerTile()) * 0.5f - exclaimTxtr->size().x * 0.5f;
+        exclaim.setParent(ent);
+        exclaim.getTransform().setPosition(xoff, -static_cast<float>(Properties::PixelsPerTile()));
+        exclaim.addToScene(owner.world().activeMap().getScene(), bl::rc::UpdateSpeed::Dynamic);
     }
 }
 

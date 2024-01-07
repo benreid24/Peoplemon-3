@@ -2,6 +2,7 @@
 #define CORE_INPUT_CONTROL_HPP
 
 #include <BLIB/Input.hpp>
+#include <BLIB/Tilemap/Direction.hpp>
 
 /**
  * @addtogroup PlayerInput
@@ -48,6 +49,14 @@ using EntityControl = std::underlying_type_t<Control::EntityControl>;
  * @param system The input system to configure
  */
 void configureInputSystem(bl::input::InputSystem& system);
+
+/**
+ * @brief Helper method to convert a move direction to a control
+ *
+ * @param direction The direction to convert to a control
+ * @return The control to move in the given direction
+ */
+EntityControl fromDirection(bl::tmap::Direction direction);
 
 } // namespace input
 } // namespace core

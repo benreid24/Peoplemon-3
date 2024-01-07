@@ -16,11 +16,7 @@ using Serializer = bl::serial::json::Serializer<World>;
 World::World(Systems& o)
 : owner(o) {}
 
-World::~World() {
-    if (currentMap) currentMap->exit(owner, "GameClosing");
-}
-
-void World::init() { bl::event::Dispatcher::subscribe(this); }
+void World::init(bl::engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
@@ -33,11 +29,11 @@ bool World::switchMaps(const std::string& file, int spawn) {
             if (!previousMap) return false;
         }
 
-        const component::Position ppos = prevPlayerPos;
-        prevPlayerPos                  = owner.player().position();
+        const bl::tmap::Position ppos = prevPlayerPos;
+        prevPlayerPos                 = owner.player().position();
 
         currentMap->exit(owner, previousMap->name());
-        owner.engine().ecs().destroyAllEntities();
+        owner.engine().ecs().destroyAllWorldEntities();
         if (!previousMap->enter(owner, 0, currentMap->name(), ppos)) return false;
         std::swap(currentMap, previousMap);
         std::swap(prevMapFile, currentMapFile);
@@ -57,16 +53,13 @@ bool World::switchMaps(const std::string& file, int spawn) {
         if (currentMap) {
             currentMap->exit(owner, previousMap->name());
             prevPlayerPos = owner.player().position();
-            owner.engine().ecs().destroyAllEntities();
+            owner.engine().ecs().destroyAllWorldEntities();
         }
         std::swap(currentMap, previousMap);
         if (!currentMap->enter(
                 owner, spawn, previousMap ? previousMap->name() : "NoPrevious", prevPlayerPos))
             return false;
     }
-
-    owner.engine().renderer().getObserver().popScene();
-    owner.engine().renderer().getObserver().pushScene(currentMap->getScene());
 
     return true;
 }
@@ -87,7 +80,9 @@ map::Map& World::activeMap() { return *currentMap; }
 
 const map::Map& World::activeMap() const { return *currentMap; }
 
-void World::update(float dt) { currentMap->update(dt); }
+void World::update(std::mutex&, float dt, float, float, float) {
+    if (currentMap) { currentMap->update(dt); }
+}
 
 void World::observe(const event::GameSaveInitializing& save) {
     if (save.saving) { playerPos = owner.player().position(); }

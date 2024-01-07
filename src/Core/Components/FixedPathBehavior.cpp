@@ -10,17 +10,16 @@ FixedPathBehavior::FixedPathBehavior(const file::Behavior::Path& path)
 , currentPace(0)
 , currentStep(0) {}
 
-void FixedPathBehavior::update(Position& position, Controllable& controller) {
+void FixedPathBehavior::update(bl::tmap::Position& position, Controllable& controller) {
     if (path.paces.empty()) return;
 
-    const Direction moveDir = backwards ? oppositeDirection(path.paces[currentPace].direction) :
-                                          path.paces[currentPace].direction;
+    const bl::tmap::Direction moveDir = backwards ?
+                                            oppositeDirection(path.paces[currentPace].direction) :
+                                            path.paces[currentPace].direction;
 
-    if (position.direction != moveDir) {
-        controller.processControl(moveControlFromDirection(moveDir));
-    }
+    if (position.direction != moveDir) { controller.processControl(input::fromDirection(moveDir)); }
     else {
-        if (controller.processControl(moveControlFromDirection(moveDir))) {
+        if (controller.processControl(input::fromDirection(moveDir))) {
             if (backwards) {
                 if (currentStep == 0) {
                     if (currentPace == 0) { backwards = false; }
@@ -29,9 +28,7 @@ void FixedPathBehavior::update(Position& position, Controllable& controller) {
                         currentStep = path.paces[currentPace].steps - 1;
                     }
                 }
-                else {
-                    --currentStep;
-                }
+                else { --currentStep; }
             }
             else {
                 ++currentStep;
@@ -44,9 +41,7 @@ void FixedPathBehavior::update(Position& position, Controllable& controller) {
                             currentPace = path.paces.size() - 1;
                             currentStep = path.paces.back().steps - 1;
                         }
-                        else {
-                            currentPace = 0;
-                        }
+                        else { currentPace = 0; }
                     }
                 }
             }

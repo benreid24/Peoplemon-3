@@ -764,7 +764,7 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                         mapArea.editMap().addSpawn(levelSelect->getSelectedOption(),
                                                    tiles,
                                                    n,
-                                                   static_cast<core::component::Direction>(
+                                                   static_cast<bl::tmap::Direction>(
                                                        spawnDirEntry->getSelectedOption()));
                     }
                 }

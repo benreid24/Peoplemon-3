@@ -102,7 +102,7 @@ BehaviorEditor::BehaviorEditor(const OnSetCb& cb, const NotifyWindowCb& op,
         case 0:
             value.setType(T::StandStill);
             value.standing().facedir =
-                static_cast<core::component::Direction>(dirBox->getSelectedOption());
+                static_cast<bl::tmap::Direction>(dirBox->getSelectedOption());
             break;
 
         case 1:
@@ -216,7 +216,7 @@ void BehaviorEditor::PathEditor::pack(Box::Ptr parent) {
 
     Button::Ptr appendBut = Button::create("Add Pace");
     appendBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element* e) {
-        value.paces.emplace_back(core::component::Direction::Down, 1);
+        value.paces.emplace_back(bl::tmap::Direction::Down, 1);
         e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
     });
     parent->pack(appendBut);
@@ -243,7 +243,7 @@ void BehaviorEditor::PathEditor::sync() {
         dirBox->getSignal(Event::ValueChanged)
             .willAlwaysCall([&pace, dirBox](const Event&, Element*) {
                 pace.direction =
-                    static_cast<core::component::Direction>(dirBox->getSelectedOption());
+                    static_cast<bl::tmap::Direction>(dirBox->getSelectedOption());
             });
         dirBox->setSelectedOption(static_cast<int>(pace.direction));
         row->pack(dirBox, false, true);
@@ -266,14 +266,14 @@ void BehaviorEditor::PathEditor::sync() {
         Button::Ptr beforeBut = Button::create("Add Before");
         beforeBut->getSignal(Event::LeftClicked)
             .willAlwaysCall([this, i](const Event&, Element* e) {
-                value.paces.insert(value.paces.begin() + i, {core::component::Direction::Down, 1});
+                value.paces.insert(value.paces.begin() + i, {bl::tmap::Direction::Down, 1});
                 e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
             });
         row->pack(beforeBut, false, true);
 
         Button::Ptr afterBut = Button::create("Add After");
         afterBut->getSignal(Event::LeftClicked).willAlwaysCall([this, i](const Event&, Element* e) {
-            value.paces.insert(value.paces.begin() + i + 1, {core::component::Direction::Down, 1});
+            value.paces.insert(value.paces.begin() + i + 1, {bl::tmap::Direction::Down, 1});
             e->queueUpdateAction(std::bind(&BehaviorEditor::PathEditor::sync, this));
         });
         row->pack(afterBut, false, true);

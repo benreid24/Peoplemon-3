@@ -13,7 +13,7 @@ bl::engine::State::Ptr FlyMap::create(core::system::Systems& s, bool& up) {
 }
 
 FlyMap::FlyMap(core::system::Systems& s, bool& up)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , hudActive(false)
 , unpause(up)
 //, cursorFlasher(cursor, 0.3f, 0.4f)
@@ -32,7 +32,8 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     cursor.setOrigin(sf::Vector2f(cursorTxtr->getSize()) * 0.5f);
     if (systems.world().activeMap().canFlyFromHere()) {
         const sf::Vector2f ws = systems.world().activeMap().sizePixels();
-        const sf::Vector2f pp = systems.player().position().positionPixels();
+        const glm::vec2 pp =
+            systems.player().position().getWorldPosition(core::Properties::PixelsPerTile());
         const sf::Vector2f ms(mapTxtr->getSize());
         const std::string path =
             std::string("FlyMap/") + (systems.player().state().sex == core::player::Gender::Boy ?
@@ -100,9 +101,7 @@ void FlyMap::deactivate(bl::engine::Engine& engine) {
     // engine.renderSystem().cameras().popCamera();
 }
 
-void FlyMap::update(bl::engine::Engine&, float dt, float) {
-    if (hudActive) { systems.hud().update(dt); }
-}
+void FlyMap::update(bl::engine::Engine&, float, float) {}
 
 bool FlyMap::observe(const bl::input::Actor&, unsigned int activatedControl,
                      bl::input::DispatchType, bool fromEvent) {

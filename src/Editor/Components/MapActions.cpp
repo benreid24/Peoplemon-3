@@ -23,6 +23,11 @@ const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, u
     else { return l.bottomLayers()[layer].get(pos.x, pos.y); }
 }
 
+const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, unsigned int level,
+                               unsigned int layer, const glm::u32vec2& pos) {
+    return getTile(levels, level, layer, sf::Vector2i(pos.x, pos.y));
+}
+
 void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset& tileset,
                    unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                    core::map::Tile::IdType value, bool isAnim) {
@@ -122,7 +127,7 @@ void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& 
     std::swap(levels[i], levels[i - 1]);
 }
 
-void setNeighbors(const sf::Vector2i& pos, sf::Vector2i* neighbors) {
+void setNeighbors(const glm::i32vec2& pos, glm::i32vec2* neighbors) {
     neighbors[0] = {pos.x - 1, pos.y};
     neighbors[1] = {pos.x, pos.y - 1};
     neighbors[2] = {pos.x + 1, pos.y};
@@ -214,7 +219,7 @@ EditMap::Action::Ptr EditMap::SetTileAreaAction::create(unsigned int level, unsi
 
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
-            const auto& tile                     = getTile(map.levels, level, layer, {x, y});
+            const auto& tile = getTile(map.levels, level, layer, sf::Vector2i{x, y});
             prev(x - area.left, y - area.top)    = tile.id();
             wasAnim(x - area.left, y - area.top) = tile.isAnimation() ? 1 : 0;
         }
@@ -284,23 +289,23 @@ EditMap::Action::Ptr EditMap::FillTileAction::create(unsigned int level, unsigne
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
-    std::vector<sf::Vector2i> toVisit;
+    std::vector<glm::i32vec2> toVisit;
     toVisit.reserve(estSize);
-    toVisit.emplace_back(pos);
+    toVisit.emplace_back(glm::i32vec2(pos.x, pos.y));
 
     std::vector<FillTile> set;
     set.reserve(estSize);
 
     while (!toVisit.empty()) {
-        const sf::Vector2i p = toVisit.back();
+        const glm::i32vec2 p = toVisit.back();
         toVisit.pop_back();
-        set.emplace_back(p, getTile(map.levels, level, layer, p));
+        set.emplace_back(sf::Vector2i(p.x, p.y), getTile(map.levels, level, layer, p));
 
-        sf::Vector2i nps[4];
+        glm::i32vec2 nps[4];
         setNeighbors(p, nps);
         for (unsigned int i = 0; i < 4; ++i) {
             const auto& np = nps[i];
-            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+            if (!map.contains({0, np, bl::tmap::Direction::Up})) continue;
 
             if (visited(np.x, np.y) == 0) {
                 visited(np.x, np.y) = 1;
@@ -420,9 +425,9 @@ EditMap::Action::Ptr EditMap::FillCollisionAction::create(unsigned int level,
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
-    std::vector<sf::Vector2i> toVisit;
+    std::vector<glm::i32vec2> toVisit;
     toVisit.reserve(estSize);
-    toVisit.emplace_back(pos);
+    toVisit.emplace_back(glm::i32vec2(pos.x, pos.y));
 
     std::vector<std::pair<sf::Vector2i, core::map::Collision>> set;
     set.reserve(estSize);
@@ -430,13 +435,13 @@ EditMap::Action::Ptr EditMap::FillCollisionAction::create(unsigned int level,
     while (!toVisit.empty()) {
         const auto p = toVisit.back();
         toVisit.pop_back();
-        set.emplace_back(p, map.levels[level].collisionLayer().get(p.x, p.y));
+        set.emplace_back(sf::Vector2i(p.x, p.y), map.levels[level].collisionLayer().get(p.x, p.y));
 
-        sf::Vector2i nps[4];
+        glm::i32vec2 nps[4];
         setNeighbors(p, nps);
         for (unsigned int i = 0; i < 4; ++i) {
             const auto& np = nps[i];
-            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+            if (!map.contains({0, np, bl::tmap::Direction::Up})) continue;
 
             if (map.levels[level].collisionLayer().get(np.x, np.y) == oc &&
                 visited(np.x, np.y) == 0) {
@@ -545,23 +550,23 @@ EditMap::Action::Ptr EditMap::FillCatchAction::create(unsigned int level, const 
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
-    std::vector<sf::Vector2i> toVisit;
+    std::vector<glm::i32vec2> toVisit;
     toVisit.reserve(estSize);
-    toVisit.emplace_back(pos);
+    toVisit.emplace_back(glm::i32vec2(pos.x, pos.y));
 
     std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
     set.reserve(estSize);
 
     while (!toVisit.empty()) {
-        const sf::Vector2i p = toVisit.back();
+        const glm::i32vec2 p = toVisit.back();
         toVisit.pop_back();
-        set.emplace_back(p, map.levels[level].catchLayer().get(p.x, p.y));
+        set.emplace_back(sf::Vector2i(p.x, p.y), map.levels[level].catchLayer().get(p.x, p.y));
 
-        sf::Vector2i nps[4];
+        glm::i32vec2 nps[4];
         setNeighbors(p, nps);
         for (unsigned int i = 0; i < 4; ++i) {
             const auto& np = nps[i];
-            if (!map.contains({0, np, core::component::Direction::Up})) continue;
+            if (!map.contains({0, np, bl::tmap::Direction::Up})) continue;
 
             if (visited(np.x, np.y) == 0 && map.levels[level].catchLayer().get(np.x, np.y) == og) {
                 visited(np.x, np.y) = 1;
@@ -961,20 +966,20 @@ bool EditMap::RemoveEventAction::undo(EditMap& map) {
 const char* EditMap::RemoveEventAction::description() const { return "remove event"; }
 
 EditMap::Action::Ptr EditMap::AddSpawnAction::create(unsigned int l, const sf::Vector2i& pos,
-                                                     unsigned int id,
-                                                     core::component::Direction dir) {
+                                                     unsigned int id, bl::tmap::Direction dir) {
     return Ptr(new AddSpawnAction(l, pos, id, dir));
 }
 
 EditMap::AddSpawnAction::AddSpawnAction(unsigned int l, const sf::Vector2i& p, unsigned int id,
-                                        core::component::Direction dir)
+                                        bl::tmap::Direction dir)
 : level(l)
 , pos(p)
 , id(id)
 , dir(dir) {}
 
 bool EditMap::AddSpawnAction::apply(EditMap& map) {
-    map.spawns[id] = core::map::Spawn(id, core::component::Position(level, pos, dir));
+    map.spawns[id] =
+        core::map::Spawn(id, bl::tmap::Position(level, glm::i32vec2(pos.x, pos.y), dir));
     return false;
 }
 
@@ -983,7 +988,7 @@ bool EditMap::AddSpawnAction::undo(EditMap& map) {
     return false;
 }
 
-const char* EditMap::AddSpawnAction::description() const { return "add spwwn"; }
+const char* EditMap::AddSpawnAction::description() const { return "add spawn"; }
 
 EditMap::Action::Ptr EditMap::RotateSpawnAction::create(unsigned int id) {
     return Ptr(new RotateSpawnAction(id));
@@ -997,18 +1002,18 @@ bool EditMap::RotateSpawnAction::apply(EditMap& map) {
 
     auto& d = map.spawns[id].position.direction;
     switch (d) {
-    case Direction::Up:
-        d = Direction::Right;
+    case bl::tmap::Direction::Up:
+        d = bl::tmap::Direction::Right;
         break;
-    case Direction::Right:
-        d = Direction::Down;
+    case bl::tmap::Direction::Right:
+        d = bl::tmap::Direction::Down;
         break;
-    case Direction::Down:
-        d = Direction::Left;
+    case bl::tmap::Direction::Down:
+        d = bl::tmap::Direction::Left;
         break;
-    case Direction::Left:
+    case bl::tmap::Direction::Left:
     default:
-        d = Direction::Up;
+        d = bl::tmap::Direction::Up;
     }
     return false;
 }
@@ -1018,18 +1023,18 @@ bool EditMap::RotateSpawnAction::undo(EditMap& map) {
 
     auto& d = map.spawns[id].position.direction;
     switch (d) {
-    case Direction::Up:
-        d = Direction::Left;
+    case bl::tmap::Direction::Up:
+        d = bl::tmap::Direction::Left;
         break;
-    case Direction::Right:
-        d = Direction::Up;
+    case bl::tmap::Direction::Right:
+        d = bl::tmap::Direction::Up;
         break;
-    case Direction::Down:
-        d = Direction::Right;
+    case bl::tmap::Direction::Down:
+        d = bl::tmap::Direction::Right;
         break;
-    case Direction::Left:
+    case bl::tmap::Direction::Left:
     default:
-        d = Direction::Down;
+        d = bl::tmap::Direction::Down;
     }
     return false;
 }
@@ -1068,7 +1073,7 @@ EditMap::AddNpcSpawnAction::AddNpcSpawnAction(const core::map::CharacterSpawn& s
 
 bool EditMap::AddNpcSpawnAction::apply(EditMap& map) {
     map.characterField.push_back(spawn);
-    map.systems->entity().spawnCharacter(spawn);
+    map.systems->entity().spawnCharacter(spawn, map);
     return false;
 }
 
@@ -1097,7 +1102,7 @@ EditMap::EditNpcSpawnAction::EditNpcSpawnAction(unsigned int i,
 bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
     bl::ecs::Entity e = map.systems->position().getEntity(orig.position);
     map.systems->engine().ecs().destroyEntity(e);
-    map.systems->entity().spawnCharacter(value);
+    map.systems->entity().spawnCharacter(value, map);
     map.characterField[i] = value;
     return false;
 }
@@ -1105,7 +1110,7 @@ bool EditMap::EditNpcSpawnAction::apply(EditMap& map) {
 bool EditMap::EditNpcSpawnAction::undo(EditMap& map) {
     bl::ecs::Entity e = map.systems->position().getEntity(value.position);
     map.systems->engine().ecs().destroyEntity(e);
-    map.systems->entity().spawnCharacter(orig);
+    map.systems->entity().spawnCharacter(orig, map);
     map.characterField[i] = orig;
     return false;
 }
@@ -1131,7 +1136,7 @@ bool EditMap::RemoveNpcSpawnAction::apply(EditMap& map) {
 
 bool EditMap::RemoveNpcSpawnAction::undo(EditMap& map) {
     map.characterField.insert(map.characterField.begin() + i, orig);
-    map.systems->entity().spawnCharacter(orig);
+    map.systems->entity().spawnCharacter(orig, map);
     return false;
 }
 
@@ -1161,7 +1166,7 @@ bool EditMap::AddOrEditItemAction::apply(EditMap& map) {
             static_cast<std::uint16_t>(item), map.nextItemId, position, level, visible);
         ++map.nextItemId;
         map.systems->entity().spawnItem(
-            core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible));
+            core::map::Item(static_cast<std::uint16_t>(item), 0, position, level, visible), map);
     }
     else {
         map.itemsField[i].id      = static_cast<std::uint16_t>(item);
@@ -1173,8 +1178,9 @@ bool EditMap::AddOrEditItemAction::apply(EditMap& map) {
 bool EditMap::AddOrEditItemAction::undo(EditMap& map) {
     if (add) {
         map.itemsField.pop_back();
-        const auto ent = map.systems->position().getEntity(
-            {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
+        const auto ent = map.systems->position().getEntity({static_cast<std::uint8_t>(level),
+                                                            glm::i32vec2(position.x, position.y),
+                                                            bl::tmap::Direction::Up});
         if (ent != bl::ecs::InvalidEntity) { map.systems->engine().ecs().destroyEntity(ent); }
     }
     else {
@@ -1203,15 +1209,16 @@ EditMap::RemoveItemAction::RemoveItemAction(unsigned int i, unsigned int level,
 
 bool EditMap::RemoveItemAction::apply(EditMap& map) {
     map.itemsField.erase(map.itemsField.begin() + i);
-    const auto ent = map.systems->position().getEntity(
-        {static_cast<std::uint8_t>(level), position, core::component::Direction::Up});
+    const auto ent = map.systems->position().getEntity({static_cast<std::uint8_t>(level),
+                                                        glm::i32vec2(position.x, position.y),
+                                                        bl::tmap::Direction::Up});
     if (ent != bl::ecs::InvalidEntity) { map.systems->engine().ecs().destroyEntity(ent); }
     return false;
 }
 
 bool EditMap::RemoveItemAction::undo(EditMap& map) {
     map.itemsField.insert(map.itemsField.begin() + i, orig);
-    map.systems->entity().spawnItem(orig);
+    map.systems->entity().spawnItem(orig, map);
     return false;
 }
 
@@ -1554,22 +1561,22 @@ EditMap::Action::Ptr EditMap::FillTownTileAction::create(const sf::Vector2i& pos
     visited.setSize(map.sizeTiles().x, map.sizeTiles().y, 0);
     visited(pos.x, pos.y) = 1;
 
-    std::vector<sf::Vector2i> toVisit;
+    std::vector<glm::i32vec2> toVisit;
     toVisit.reserve(estSize);
-    toVisit.emplace_back(pos);
+    toVisit.emplace_back(glm::i32vec2(pos.x, pos.y));
 
     std::vector<std::pair<sf::Vector2i, std::uint8_t>> set;
     set.reserve(estSize);
 
     while (!toVisit.empty()) {
-        const sf::Vector2i p = toVisit.back();
+        const glm::i32vec2 p = toVisit.back();
         toVisit.pop_back();
-        set.emplace_back(p, map.townTiles(p.x, p.y));
+        set.emplace_back(sf::Vector2i(p.x, p.y), map.townTiles(p.x, p.y));
 
-        sf::Vector2i nps[4];
+        glm::i32vec2 nps[4];
         setNeighbors(p, nps);
         for (unsigned int i = 0; i < 4; ++i) {
-            if (!map.contains({0, nps[i], core::component::Direction::Up})) continue;
+            if (!map.contains({0, nps[i], bl::tmap::Direction::Up})) continue;
 
             if (map.townTiles(nps[i].x, nps[i].y) == val && visited(nps[i].x, nps[i].y) == 0) {
                 toVisit.emplace_back(nps[i]);

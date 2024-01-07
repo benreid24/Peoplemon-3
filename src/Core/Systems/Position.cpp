@@ -1,5 +1,6 @@
 #include <Core/Systems/Position.hpp>
 
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <Core/Components/Collision.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
@@ -12,17 +13,22 @@ namespace system
 Position::Position(Systems& owner)
 : owner(owner) {}
 
-void Position::init() {
+void Position::init(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
-    owner.engine().ecs().getAllComponents<component::Position>().forEach(
-        [this](bl::ecs::Entity ent, component::Position& pos) {
-            observe(bl::ecs::event::ComponentAdded<component::Position>(ent, pos));
+    owner.engine().ecs().getAllComponents<bl::tmap::Position>().forEach(
+        [this](bl::ecs::Entity ent, bl::tmap::Position& pos) {
+            observe(bl::ecs::event::ComponentAdded<bl::tmap::Position>(ent, pos));
         });
 }
 
-void Position::update() {
-    // TODO - BLIB_UPGRADE - refactor position component + system
-    /*sf::FloatRect area = owner.engine().renderSystem().cameras().getCurrentViewport();
+void Position::update(std::mutex&, float, float, float, float) {
+    bl::cam::Camera2D* cam =
+        owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
+    if (!cam) {
+        BL_LOG_WARN << "Cannot update position system without camera";
+        return;
+    }
+    sf::FloatRect area = cam->getVisibleArea();
     area.left -= area.width * 1.5f;
     area.top -= area.height * 1.5f;
     area.width *= 3.f;
@@ -45,26 +51,26 @@ void Position::update() {
                 if (e != bl::ecs::InvalidEntity) toUpdate.emplace_back(e);
             }
         }
-    }*/
+    }
 }
 
 const std::vector<bl::ecs::Entity>& Position::updateRangeEntities() const { return toUpdate; }
 
-bool Position::spaceFree(const component::Position& position) const {
+bool Position::spaceFree(const bl::tmap::Position& position) const {
     if (position.level >= entityMap.size()) return false;
     const auto& level = entityMap[position.level];
-    if (static_cast<unsigned>(position.positionTiles().x) >= level.getWidth()) return false;
-    if (static_cast<unsigned>(position.positionTiles().y) >= level.getHeight()) return false;
+    if (static_cast<unsigned>(position.position.x) >= level.getWidth()) return false;
+    if (static_cast<unsigned>(position.position.y) >= level.getHeight()) return false;
 
-    const bl::ecs::Entity e = level(position.positionTiles().x, position.positionTiles().y);
+    const bl::ecs::Entity e = level(position.position.x, position.position.y);
     return e == bl::ecs::InvalidEntity ||
            !owner.engine().ecs().hasComponent<component::Collision>(e);
 }
 
-bl::ecs::Entity Position::search(const component::Position& start, component::Direction dir,
+bl::ecs::Entity Position::search(const bl::tmap::Position& start, bl::tmap::Direction dir,
                                  unsigned int range) {
-    component::Position spos = start;
-    spos.direction           = dir;
+    bl::tmap::Position spos = start;
+    spos.direction          = dir;
     for (unsigned int i = 0; i < range; ++i) {
         const auto oldPos       = spos;
         spos                    = owner.world().activeMap().adjacentTile(spos, dir);
@@ -83,11 +89,11 @@ void Position::observe(const event::EntityMoved& event) {
     get(event.position)         = event.entity;
 }
 
-void Position::observe(const bl::ecs::event::ComponentAdded<component::Position>& event) {
+void Position::observe(const bl::ecs::event::ComponentAdded<bl::tmap::Position>& event) {
     get(event.component) = event.entity;
 }
 
-void Position::observe(const bl::ecs::event::ComponentRemoved<component::Position>& event) {
+void Position::observe(const bl::ecs::event::ComponentRemoved<bl::tmap::Position>& event) {
     get(event.component) = bl::ecs::InvalidEntity;
 }
 
@@ -100,38 +106,36 @@ void Position::observe(const event::MapSwitch& event) {
     }
 }
 
-bl::ecs::Entity& Position::get(const component::Position& p) {
+bl::ecs::Entity& Position::get(const bl::tmap::Position& p) {
     static bl::ecs::Entity null = bl::ecs::InvalidEntity;
 
     if (p.level < entityMap.size()) {
-        if (p.positionTiles().x >= 0 &&
-            p.positionTiles().x < static_cast<int>(entityMap[p.level].getWidth())) {
-            if (p.positionTiles().y >= 0 &&
-                p.positionTiles().y < static_cast<int>(entityMap[p.level].getHeight())) {
-                return entityMap[p.level](p.positionTiles().x, p.positionTiles().y);
+        if (p.position.x >= 0 && p.position.x < static_cast<int>(entityMap[p.level].getWidth())) {
+            if (p.position.y >= 0 &&
+                p.position.y < static_cast<int>(entityMap[p.level].getHeight())) {
+                return entityMap[p.level](p.position.x, p.position.y);
             }
         }
     }
 
     BL_LOG_WARN << "Out of bounds entity check at (" << static_cast<int>(p.level) << ", "
-                << p.positionTiles().x << ", " << p.positionTiles().y << ")";
+                << p.position.x << ", " << p.position.y << ")";
     null = bl::ecs::InvalidEntity;
     return null;
 }
 
-bl::ecs::Entity Position::getEntity(const component::Position& p) const {
+bl::ecs::Entity Position::getEntity(const bl::tmap::Position& p) const {
     if (p.level < entityMap.size()) {
-        if (p.positionTiles().x >= 0 &&
-            p.positionTiles().x < static_cast<int>(entityMap[p.level].getWidth())) {
-            if (p.positionTiles().y >= 0 &&
-                p.positionTiles().y < static_cast<int>(entityMap[p.level].getHeight())) {
-                return entityMap.at(p.level)(p.positionTiles().x, p.positionTiles().y);
+        if (p.position.x >= 0 && p.position.x < static_cast<int>(entityMap[p.level].getWidth())) {
+            if (p.position.y >= 0 &&
+                p.position.y < static_cast<int>(entityMap[p.level].getHeight())) {
+                return entityMap.at(p.level)(p.position.x, p.position.y);
             }
         }
     }
 
     BL_LOG_WARN << "Out of bounds entity check at (" << static_cast<int>(p.level) << ", "
-                << p.positionTiles().x << ", " << p.positionTiles().y << ")";
+                << p.position.x << ", " << p.position.y << ")";
     return bl::ecs::InvalidEntity;
 }
 

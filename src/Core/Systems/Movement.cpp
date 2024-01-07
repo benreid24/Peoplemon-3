@@ -9,26 +9,28 @@ namespace core
 namespace system
 {
 Movement::Movement(Systems& owner)
-: owner(owner) {
+: owner(owner) {}
+
+void Movement::init(bl::engine::Engine&) {
     jumpSound = bl::audio::AudioSystem::getOrLoadSound(
         bl::util::FileUtil::joinPath(Properties::SoundPath(), "World/jump.wav"));
 }
 
 bool Movement::makeMovable(bl::ecs::Entity e, float sp, float fsp) {
     if (owner.engine().ecs().hasComponent<component::Movable>(e)) return false;
-    component::Position* pos = owner.engine().ecs().getComponent<component::Position>(e);
+    bl::tmap::Position* pos = owner.engine().ecs().getComponent<bl::tmap::Position>(e);
     if (!pos) return false;
     owner.engine().ecs().addComponent<component::Movable>(e, {*pos, sp, fsp});
     return true;
 }
 
-bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast) {
+bool Movement::moveEntity(bl::ecs::Entity e, bl::tmap::Direction dir, bool fast) {
     component::Movable* mv = owner.engine().ecs().getComponent<component::Movable>(e);
     if (mv != nullptr) {
-        component::Position& pos = mv->position;
+        bl::tmap::Position& pos = mv->position;
         if (!mv->moving()) {
-            component::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
-            if (npos.positionTiles() == pos.positionTiles()) {
+            bl::tmap::Position npos = owner.world().activeMap().adjacentTile(pos, dir);
+            if (npos.position == pos.position) {
                 const event::EntityRotated event(e, npos.direction, pos.direction);
                 pos.direction = npos.direction;
                 bl::event::Dispatcher::dispatch<event::EntityRotated>(event);
@@ -41,23 +43,23 @@ bool Movement::moveEntity(bl::ecs::Entity e, component::Direction dir, bool fast
             const bool isHop = owner.world().activeMap().isLedgeHop(pos, dir);
             if (isHop) {
                 bl::audio::AudioSystem::playOrRestartSound(jumpSound);
-                npos.setTiles(npos.positionTiles() + sf::Vector2i(0, 1));
+                npos.position.y += 1;
             }
 
             std::swap(pos, npos);
             mv->move(dir, fast, isHop);
-            bl::event::Dispatcher::dispatch<event::EntityMoved>({e, npos, pos});
+            bl::event::Dispatcher::dispatch<event::EntityMoved>({e, npos, pos, fast});
             return true;
         }
     }
     return false;
 }
 
-void Movement::update(float dt) {
+void Movement::update(std::mutex&, float dt, float, float, float) {
     bl::engine::Engine& engine = owner.engine();
 
     engine.ecs().getAllComponents<component::Movable>().forEach(
-        [dt, &engine](bl::ecs::Entity ent, component::Movable& mv) { mv.update(ent, engine, dt); });
+        [dt, this](bl::ecs::Entity ent, component::Movable& mv) { mv.update(ent, owner, dt); });
 }
 
 } // namespace system

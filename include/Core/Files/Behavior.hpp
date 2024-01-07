@@ -2,7 +2,7 @@
 #define CORE_FILES_BEHAVIOR_HPP
 
 #include <BLIB/Serialization.hpp>
-#include <Core/Components/Direction.hpp>
+#include <BLIB/Tilemap/Direction.hpp>
 #include <cstdint>
 #include <variant>
 
@@ -36,10 +36,10 @@ public:
     /// Contains data if the behavior type is StandStill
     struct Standing {
         /// The direction to face
-        component::Direction facedir;
+        bl::tmap::Direction facedir;
 
         /// Creates the data
-        Standing(component::Direction d);
+        Standing(bl::tmap::Direction d);
 
         /// Stand facing down
         Standing();
@@ -71,7 +71,7 @@ public:
         /// Represents a straight section of path
         struct Pace {
             /// The direction to walk in
-            component::Direction direction;
+            bl::tmap::Direction direction;
 
             /// The number of steps to take. No need to account for direction change
             std::uint16_t steps;
@@ -82,7 +82,7 @@ public:
              * @param dir The direction to walk in
              * @param steps The number of steps to take
              */
-            Pace(component::Direction dir, std::uint16_t steps);
+            Pace(bl::tmap::Direction dir, std::uint16_t steps);
 
             /**
              * @brief Makes a single step up
@@ -208,7 +208,7 @@ template<>
 struct SerializableObject<core::file::Behavior::Path::Pace> : public SerializableObjectBase {
     using P = core::file::Behavior::Path::Pace;
 
-    SerializableField<1, P, core::component::Direction> direction;
+    SerializableField<1, P, bl::tmap::Direction> direction;
     SerializableField<2, P, std::uint16_t> steps;
 
     SerializableObject()
@@ -234,7 +234,7 @@ template<>
 struct SerializableObject<core::file::Behavior::Standing> : public SerializableObjectBase {
     using S = core::file::Behavior::Standing;
 
-    SerializableField<1, S, core::component::Direction> direction;
+    SerializableField<1, S, bl::tmap::Direction> direction;
 
     SerializableObject()
     : SerializableObjectBase("BehaviorStanding")

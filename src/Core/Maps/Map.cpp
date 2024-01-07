@@ -10,6 +10,7 @@
 #include <Core/Scripts/MapEventContext.hpp>
 #include <Core/Systems/Systems.hpp>
 #include <cmath>
+#include <numeric>
 
 namespace core
 {
@@ -29,7 +30,7 @@ Map::~Map() {
 }
 
 bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string& prevMap,
-                const component::Position& prevPlayerPos) {
+                const bl::tmap::Position& prevPlayerPos) {
     BL_LOG_INFO << "Entering map " << nameField << " at spawn " << spawnId;
 
     systems = &game;
@@ -72,9 +73,12 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_INFO << nameField << " activated";
     }
 
+    // Add our scene
+    game.engine().renderer().getObserver().pushScene(scene);
+
     // Spawn player
-    auto spawnIt                 = spawns.find(spawnId);
-    component::Position spawnPos = prevPlayerPos;
+    auto spawnIt                = spawns.find(spawnId);
+    bl::tmap::Position spawnPos = prevPlayerPos;
     if (spawnId != 0 && spawnIt != spawns.end()) { spawnPos = spawnIt->second.position; }
     else if (spawnId == 0 && spawnIt != spawns.end()) {
         BL_LOG_WARN << "Spawn id 0 is reserved, falling back on default behavior";
@@ -83,12 +87,12 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
         BL_LOG_ERROR << "Invalid spawn id: " << spawnId;
         return false;
     }
-    if (!game.player().spawnPlayer(spawnPos)) {
+    if (!game.player().spawnPlayer(spawnPos, *this)) {
         BL_LOG_ERROR << "Failed to spawn player";
         return false;
     }
     setupCamera(game);
-    currentTown = getTown(spawnPos.positionTiles());
+    currentTown = getTown(spawnPos.position);
     enterTown(currentTown);
 
     // Activate camera and weather
@@ -99,15 +103,13 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
 
     // Spawn npcs and trainers
     for (const CharacterSpawn& spawn : characterField) {
-        if (game.entity().spawnCharacter(spawn) == bl::ecs::InvalidEntity) {
+        if (game.entity().spawnCharacter(spawn, *this) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
     // Spawn items
-    for (const Item& item : itemsField) { game.entity().spawnItem(item); }
-
-    setupCamera(game);
+    for (const Item& item : itemsField) { game.entity().spawnItem(item, *this); }
 
     // Run on load script
     onEnterScript->resetContext(script::MapChangeContext(game, prevMap, nameField, spawnId));
@@ -133,6 +135,9 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
     BL_LOG_INFO << "Exiting map " << nameField;
     bl::event::Dispatcher::dispatch<event::MapExited>({*this});
 
+    // remove our scene
+    game.engine().renderer().getObserver().removeScene(scene);
+
     // unsubscribe from entity events
     bl::event::Dispatcher::unsubscribe(this);
 
@@ -144,9 +149,6 @@ void Map::exit(system::Systems& game, const std::string& newMap) {
         onExitScript->resetContext(script::MapChangeContext(game, nameField, newMap, 0));
         onExitScript->run(&game.engine().scriptManager());
     }
-
-    // remove our scene
-    game.engine().renderer().getObserver().popScene();
 
     // TODO - pause weather
 
@@ -265,31 +267,29 @@ bool Map::saveBundle(bl::serial::binary::OutputStream& output,
     return true;
 }
 
-bool Map::contains(const component::Position& pos) const {
-    return pos.positionTiles().x >= 0 && pos.positionTiles().y >= 0 &&
-           pos.positionTiles().x < size.x && pos.positionTiles().y < size.y &&
-           pos.level < levels.size();
+bool Map::contains(const bl::tmap::Position& pos) const {
+    return pos.position.x >= 0 && pos.position.y >= 0 && pos.position.x < size.x &&
+           pos.position.y < size.y && pos.level < levels.size();
 }
 
-component::Position Map::adjacentTile(const component::Position& pos,
-                                      component::Direction dir) const {
-    component::Position npos = pos.move(dir);
-    if (npos.positionTiles() == pos.positionTiles()) return npos;
+bl::tmap::Position Map::adjacentTile(const bl::tmap::Position& pos, bl::tmap::Direction dir) const {
+    bl::tmap::Position npos = pos.move(dir);
+    if (npos.position == pos.position) return npos;
 
     // Handle up transitions (move out of tile)
     if (contains(pos)) {
-        switch (transitionField(pos.positionTiles().x, pos.positionTiles().y)) {
+        switch (transitionField(pos.position.x, pos.position.y)) {
         case LevelTransition::HorizontalRightDown:
-            if (dir == component::Direction::Left) npos.level += 1;
+            if (dir == bl::tmap::Direction::Left) npos.level += 1;
             break;
         case LevelTransition::HorizontalRightUp:
-            if (dir == component::Direction::Right) npos.level += 1;
+            if (dir == bl::tmap::Direction::Right) npos.level += 1;
             break;
         case LevelTransition::VerticalTopDown:
-            if (dir == component::Direction::Down) npos.level += 1;
+            if (dir == bl::tmap::Direction::Down) npos.level += 1;
             break;
         case LevelTransition::VerticalTopUp:
-            if (dir == component::Direction::Up) npos.level += 1;
+            if (dir == bl::tmap::Direction::Up) npos.level += 1;
             break;
         default:
             break;
@@ -297,18 +297,18 @@ component::Position Map::adjacentTile(const component::Position& pos,
     }
 
     if (contains(npos)) {
-        switch (transitionField(npos.positionTiles().x, npos.positionTiles().y)) {
+        switch (transitionField(npos.position.x, npos.position.y)) {
         case LevelTransition::HorizontalRightDown:
-            if (dir == component::Direction::Right) npos.level -= 1;
+            if (dir == bl::tmap::Direction::Right) npos.level -= 1;
             break;
         case LevelTransition::HorizontalRightUp:
-            if (dir == component::Direction::Left) npos.level -= 1;
+            if (dir == bl::tmap::Direction::Left) npos.level -= 1;
             break;
         case LevelTransition::VerticalTopDown:
-            if (dir == component::Direction::Up) npos.level -= 1;
+            if (dir == bl::tmap::Direction::Up) npos.level -= 1;
             break;
         case LevelTransition::VerticalTopUp:
-            if (dir == component::Direction::Down) npos.level -= 1;
+            if (dir == bl::tmap::Direction::Down) npos.level -= 1;
             break;
         default:
             break;
@@ -316,8 +316,8 @@ component::Position Map::adjacentTile(const component::Position& pos,
     }
 
     if (npos.level >= levels.size()) {
-        BL_LOG_WARN << "Bad level transition at (" << npos.positionTiles().x << ", "
-                    << npos.positionTiles().y << ") to out of range level " << npos.level
+        BL_LOG_WARN << "Bad level transition at (" << npos.position.x << ", " << npos.position.y
+                    << ") to out of range level " << npos.level
                     << ". Number of levels: " << levels.size();
         npos.level = levels.size() - 1;
     }
@@ -325,63 +325,60 @@ component::Position Map::adjacentTile(const component::Position& pos,
     return npos;
 }
 
-bool Map::movePossible(const component::Position& pos, component::Direction dir) const {
-    component::Position npos = pos.move(dir);
-    if (npos.positionTiles() == pos.positionTiles()) return true;
+bool Map::movePossible(const bl::tmap::Position& pos, bl::tmap::Direction dir) const {
+    bl::tmap::Position npos = pos.move(dir);
+    if (npos.position == pos.position) return true;
     if (!contains(npos)) return false;
 
-    switch (levels.at(npos.level)
-                .collisionLayer()
-                .get(npos.positionTiles().x, npos.positionTiles().y)) {
+    switch (levels.at(npos.level).collisionLayer().get(npos.position.x, npos.position.y)) {
     case Collision::Blocked:
         return false;
     case Collision::Open:
         return true;
     case Collision::TopOpen:
-        return dir == component::Direction::Down;
+        return dir == bl::tmap::Direction::Down;
     case Collision::RightOpen:
-        return dir == component::Direction::Left;
+        return dir == bl::tmap::Direction::Left;
     case Collision::BottomOpen:
-        return dir == component::Direction::Up;
+        return dir == bl::tmap::Direction::Up;
     case Collision::LeftOpen:
-        return dir == component::Direction::Right;
+        return dir == bl::tmap::Direction::Right;
     case Collision::TopRightOpen:
-        return dir == component::Direction::Down || dir == component::Direction::Left;
+        return dir == bl::tmap::Direction::Down || dir == bl::tmap::Direction::Left;
     case Collision::BottomRightOpen:
-        return dir == component::Direction::Up || dir == component::Direction::Left;
+        return dir == bl::tmap::Direction::Up || dir == bl::tmap::Direction::Left;
     case Collision::BottomLeftOpen:
-        return dir == component::Direction::Up || dir == component::Direction::Right;
+        return dir == bl::tmap::Direction::Up || dir == bl::tmap::Direction::Right;
     case Collision::TopLeftOpen:
-        return dir == component::Direction::Down || dir == component::Direction::Right;
+        return dir == bl::tmap::Direction::Down || dir == bl::tmap::Direction::Right;
     case Collision::TopBottomOpen:
-        return dir == component::Direction::Up || dir == component::Direction::Down;
+        return dir == bl::tmap::Direction::Up || dir == bl::tmap::Direction::Down;
     case Collision::LeftRightOpen:
-        return dir == component::Direction::Right || dir == component::Direction::Left;
+        return dir == bl::tmap::Direction::Right || dir == bl::tmap::Direction::Left;
     case Collision::TopClosed:
-        return dir != component::Direction::Down;
+        return dir != bl::tmap::Direction::Down;
     case Collision::RightClosed:
-        return dir != component::Direction::Left;
+        return dir != bl::tmap::Direction::Left;
     case Collision::BottomClosed:
     case Collision::LedgeHop:
-        return dir != component::Direction::Up;
+        return dir != bl::tmap::Direction::Up;
     case Collision::LeftClosed:
-        return dir != component::Direction::Right;
+        return dir != bl::tmap::Direction::Right;
     case Collision::SurfRequired:
         return systems->player().state().bag.hasItem(item::Id::JesusShoes);
     case Collision::WaterfallRequired:
         return systems->player().state().bag.hasItem(item::Id::JesusShoesUpgrade);
     default:
-        BL_LOG_WARN << "Bad collision at (" << npos.positionTiles().x << ", "
-                    << npos.positionTiles().y << ")";
+        BL_LOG_WARN << "Bad collision at (" << npos.position.x << ", " << npos.position.y << ")";
         return false;
     }
 }
 
-bool Map::isLedgeHop(const component::Position& pos, component::Direction dir) const {
-    if (dir != component::Direction::Down) return false;
+bool Map::isLedgeHop(const bl::tmap::Position& pos, bl::tmap::Direction dir) const {
+    if (dir != bl::tmap::Direction::Down) return false;
     if (!contains(pos)) return false;
-    return levels.at(pos.level).collisionLayer().get(pos.positionTiles().x,
-                                                     pos.positionTiles().y) == Collision::LedgeHop;
+    return levels.at(pos.level).collisionLayer().get(pos.position.x, pos.position.y) ==
+           Collision::LedgeHop;
 }
 
 void Map::observe(const event::EntityMoved& movedEvent) {
@@ -402,8 +399,10 @@ void Map::observe(const event::EntityMoved& movedEvent) {
     const auto visitor = [&movedEvent, &trigger](const Event* ep) {
         const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
-        const bool wasIn = area.contains(movedEvent.previousPosition.positionTiles());
-        const bool isIn  = area.contains(movedEvent.position.positionTiles());
+        const bool wasIn = area.contains(
+            {movedEvent.previousPosition.position.x, movedEvent.previousPosition.position.y});
+        const bool isIn =
+            area.contains({movedEvent.position.position.x, movedEvent.position.position.y});
 
         switch (e.trigger) {
         case Event::Trigger::OnEnter:
@@ -426,35 +425,36 @@ void Map::observe(const event::EntityMoved& movedEvent) {
             break;
         }
     };
-    eventRegions.forAllInCellAndNeighbors(movedEvent.position.positionPixels(), visitor);
+    eventRegions.forAllInCellAndNeighbors(
+        movedEvent.position.getWorldPosition(Properties::PixelsPerTile()), visitor);
 
-    Town* newTown = getTown(movedEvent.position.positionTiles());
+    Town* newTown = getTown(movedEvent.position.position);
     if (newTown != currentTown) {
         currentTown = newTown;
         enterTown(currentTown);
     }
 }
 
-void Map::triggerAnimation(const component::Position& pos) {
+void Map::triggerAnimation(const bl::tmap::Position& pos) {
     if (contains(pos)) {
         auto& level = levels[pos.level];
         for (auto& layer : level.bottomLayers()) {
-            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            layer.getRef(pos.position.x, pos.position.y).step();
         }
         for (auto& layer : level.ysortLayers()) {
-            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            layer.getRef(pos.position.x, pos.position.y).step();
         }
         for (auto& layer : level.topLayers()) {
-            layer.getRef(pos.positionTiles().x, pos.positionTiles().y).step();
+            layer.getRef(pos.position.x, pos.position.y).step();
         }
     }
 }
 
-bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
+bool Map::interact(bl::ecs::Entity interactor, const bl::tmap::Position& pos) {
     const auto trigger = [this, interactor, &pos](const Event& event) {
         script::LegacyWarn::warn(event.script);
-        BL_LOG_INFO << interactor << " triggered event at (" << pos.positionTiles().x << ", "
-                    << pos.positionTiles().y << ")";
+        BL_LOG_INFO << interactor << " triggered event at (" << pos.position.x << ", "
+                    << pos.position.y << ")";
         bl::script::Script s(event.script,
                              script::MapEventContext(*systems, interactor, event, pos));
         s.run(&systems->engine().scriptManager());
@@ -464,19 +464,21 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
     const auto visitor = [&trigger, &pos, &found](const Event* ep) -> bool {
         const Event& e = *ep;
         const sf::IntRect area(e.position, e.areaSize);
-        if (area.contains(pos.positionTiles()) && e.trigger == Event::Trigger::OnInteract) {
+        if (area.contains({pos.position.x, pos.position.y}) &&
+            e.trigger == Event::Trigger::OnInteract) {
             trigger(e);
             found = true;
             return true; // ends iteration
         }
         return false;
     };
-    eventRegions.forAllInCellAndNeighbors(pos.positionPixels(), visitor);
+    eventRegions.forAllInCellAndNeighbors(pos.getWorldPosition(Properties::PixelsPerTile()),
+                                          visitor);
     if (found) return true;
 
     if (interactor == systems->player().player()) {
         const Collision col =
-            levels[pos.level].collisionLayer().get(pos.positionTiles().x, pos.positionTiles().y);
+            levels[pos.level].collisionLayer().get(pos.position.x, pos.position.y);
         switch (col) {
         case Collision::LedgeHop:
             systems->hud().displayMessage(
@@ -504,10 +506,10 @@ bool Map::interact(bl::ecs::Entity interactor, const component::Position& pos) {
         }
 
         // check ledge hop down
-        const component::Position prev = pos.move(component::oppositeDirection(pos.direction));
+        const bl::tmap::Position prev = pos.move(bl::tmap::oppositeDirection(pos.direction));
         const Collision oncol =
-            levels[pos.level].collisionLayer().get(prev.positionTiles().x, prev.positionTiles().y);
-        if (oncol == Collision::LedgeHop && pos.direction == component::Direction::Down) {
+            levels[pos.level].collisionLayer().get(prev.position.x, prev.position.y);
+        if (oncol == Collision::LedgeHop && pos.direction == bl::tmap::Direction::Down) {
             systems->hud().displayMessage("I think I can jump down without getting hurt, but I "
                                           "won't be able to get back up.");
             return true;
@@ -533,7 +535,7 @@ void Map::clear() {
     // renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
-Town* Map::getTown(const sf::Vector2i& pos) {
+Town* Map::getTown(const glm::i32vec2& pos) {
     if (pos.x < 0 || pos.y < 0 || pos.x >= size.x || pos.y >= size.y) { return &defaultTown; }
     const std::uint8_t i = townTiles(pos.x, pos.y);
     if (i == 0) return &defaultTown;
@@ -559,8 +561,8 @@ void Map::enterTown(Town* town) {
     if (isWorldMap) { systems->player().state().visitedTowns.emplace(town->name); }
 }
 
-const CatchRegion* Map::getCatchRegion(const component::Position& pos) const {
-    const auto& tiles = pos.positionTiles();
+const CatchRegion* Map::getCatchRegion(const bl::tmap::Position& pos) const {
+    const auto& tiles = pos.position;
     if (pos.level >= levels.size() || tiles.x < 0 ||
         static_cast<unsigned int>(tiles.x) >= levels.front().catchLayer().width() || tiles.y < 0 ||
         static_cast<unsigned int>(tiles.y) >= levels.front().catchLayer().height()) {
@@ -596,13 +598,13 @@ void Map::loadFlymapTowns() {
 
 bool Map::canFlyFromHere() const { return isWorldMap; }
 
-const component::Position* Map::getSpawnPosition(unsigned int spid) const {
+const bl::tmap::Position* Map::getSpawnPosition(unsigned int spid) const {
     const auto sit = spawns.find(spid);
     return sit != spawns.end() ? &sit->second.position : nullptr;
 }
 
-const std::string& Map::getLocationName(const component::Position& pos) const {
-    return const_cast<Map*>(this)->getTown(pos.positionTiles())->name;
+const std::string& Map::getLocationName(const bl::tmap::Position& pos) const {
+    return const_cast<Map*>(this)->getTown(pos.position)->name;
 }
 
 void Map::prepareRender() {
@@ -631,16 +633,26 @@ void Map::prepareRender() {
 void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
     Tile& tile = levels[level].getLayer(layer).getRef(pos.x, pos.y);
     if (tile.id() == Tile::Blank) { return; }
+    const glm::vec2 offset(pos.x * Properties::PixelsPerTile(),
+                           pos.y * Properties::PixelsPerTile());
 
     auto it = renderLevels.begin();
     std::advance(it, level);
-    auto& zone = it->getZone(levels[level], layer);
+    auto& zone         = it->getZone(levels[level], layer);
+    const bool isYsort = &zone == &it->zones[RenderLevel::Ysort];
 
-    bl::com::Transform2D* transform = nullptr;
+    const auto getBottomDepth = [this, &pos, layer, level, &tile]() {
+        const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());
+        unsigned int size     = th / Properties::PixelsPerTile();
+        if (th % Properties::PixelsPerTile() != 0) { ++size; }
+        return getDepthForPosition(level, pos.y + size, layer);
+    };
+
     if (tile.isAnimation()) {
         const auto ait               = tileset->sharedAnimations.find(tile.id());
         bl::ecs::Entity playerEntity = bl::ecs::InvalidEntity;
         bl::gfx::DiscreteAnimation2DPlayer player;
+        bool isBatchSlideshow = true;
         if (ait != tileset->sharedAnimations.end()) { playerEntity = ait->second.entity(); }
         else {
             auto anim = tileset->getAnim(tile.id());
@@ -656,17 +668,39 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
                 playerEntity = player.entity();
             }
             else {
+                isBatchSlideshow = false;
                 bl::gfx::Animation2D& vanim =
                     *tile.renderObject.emplace<std::shared_ptr<bl::gfx::Animation2D>>(
                         std::make_shared<bl::gfx::Animation2D>(systems->engine(), anim));
                 vanim.addToScene(scene, bl::rc::UpdateSpeed::Static);
-                transform = &vanim.getTransform();
+                vanim.getTransform().setPosition(offset);
+                if (isYsort) {
+                    const float topDepth    = getDepthForPosition(level, pos.y, layer);
+                    const float bottomDepth = getBottomDepth();
+                    vanim.getTransform().setDepth((topDepth + bottomDepth) * 0.5f);
+                }
+                else { vanim.getTransform().setDepth(getDepthForPosition(level, pos.y, layer)); }
             }
         }
-        if (!transform) {
-            bl::gfx::BatchSlideshow& anim = tile.renderObject.emplace<bl::gfx::BatchSlideshow>(
-                systems->engine(), zone.tileAnims, playerEntity);
-            transform = &anim.getLocalTransform();
+        if (isBatchSlideshow) {
+            bl::gfx::BatchSlideshowSimple& anim =
+                tile.renderObject.emplace<bl::gfx::BatchSlideshowSimple>(
+                    systems->engine(), zone.tileAnims, playerEntity);
+
+            for (auto& v : anim.getVertices()) {
+                v.pos.x += offset.x;
+                v.pos.y += offset.y;
+                if (!isYsort) { v.pos.z = getDepthForPosition(level, pos.y, layer); }
+            }
+            if (isYsort) {
+                const float topDepth        = getDepthForPosition(level, pos.y, layer);
+                const float bottomDepth     = getBottomDepth();
+                anim.getVertices()[0].pos.z = topDepth;
+                anim.getVertices()[1].pos.z = topDepth;
+                anim.getVertices()[2].pos.z = bottomDepth;
+                anim.getVertices()[3].pos.z = bottomDepth;
+            }
+            anim.commit();
         }
     }
     else {
@@ -675,22 +709,20 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
             BL_LOG_ERROR << "Failed to find texture for tile id: " << tile.id();
             return;
         }
-        bl::gfx::BatchSprite& sprite = tile.renderObject.emplace<bl::gfx::BatchSprite>(
-            systems->engine(), zone.tileSprites, src);
-        transform = &sprite.getLocalTransform();
+        bl::gfx::BatchSpriteSimple& sprite =
+            tile.renderObject.emplace<bl::gfx::BatchSpriteSimple>(zone.tileSprites, src);
+        float depth = getDepthForPosition(level, pos.y, layer);
+        if (isYsort) {
+            const float bottomDepth = getBottomDepth();
+            depth                   = (depth + bottomDepth) * 0.5f;
+        }
+        for (auto& v : sprite.getVertices()) {
+            v.pos.x += offset.x;
+            v.pos.y += offset.y;
+            v.pos.z = depth;
+        }
+        sprite.commit();
     }
-
-    transform->setPosition(static_cast<float>(pos.x * Properties::PixelsPerTile()),
-                           static_cast<float>(pos.y * Properties::PixelsPerTile()));
-    if (&zone == &it->zones[RenderLevel::Ysort]) {
-        const unsigned int th = tileset->tileHeight(tile.id(), false);
-        unsigned int size     = th / Properties::PixelsPerTile();
-        if (th % Properties::PixelsPerTile() != 0) { ++size; }
-        const float topDepth    = getDepthForPosition(level, pos.y, layer);
-        const float bottomDepth = getDepthForPosition(level, pos.y + size, layer);
-        transform->setDepth((topDepth + bottomDepth) * 0.5f);
-    }
-    else { transform->setDepth(getDepthForPosition(level, pos.y, layer)); }
 }
 
 float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) const {
@@ -699,35 +731,32 @@ float Map::getDepthForPosition(unsigned int level, unsigned int y, int layer) co
         return 0.f;
     }
 
-    constexpr float layerZoneSize   = 1.f / 3.f;
-    constexpr float bottomLayerBias = layerZoneSize * 0.f;
-    constexpr float ysortLayerBias  = layerZoneSize * 1.f;
-    constexpr float topLayerBias    = layerZoneSize * 2.f;
+    const LayerSet& lvl          = levels[level];
+    const unsigned int maxLayers = std::accumulate(
+        levels.begin(),
+        levels.end(),
+        levels.front().layerCount(),
+        [](unsigned int val, const LayerSet& level) { return std::max(val, level.layerCount()); });
 
-    const LayerSet& lvl       = levels[level];
-    const float depthPerLevel = static_cast<float>(size.y);
-    float layerBias           = 0.5f;
-    if (layer != -1) {
-        const unsigned int topStart = lvl.bottomLayers().size() + lvl.ysortLayers().size();
-        if (layer >= topStart) {
-            layerBias = topLayerBias + layerZoneSize * (static_cast<float>(layer - topStart) /
-                                                        static_cast<float>(topStart));
-        }
-        else if (layer >= lvl.bottomLayers().size()) {
-            layerBias = ysortLayerBias +
-                        layerZoneSize * (static_cast<float>(layer - lvl.ysortLayers().size()) /
-                                         static_cast<float>(lvl.ysortLayers().size()));
-        }
-        else {
-            layerBias =
-                bottomLayerBias + layerZoneSize * (static_cast<float>(layer) /
-                                                   static_cast<float>(lvl.bottomLayers().size()));
-        }
+    // render entities as top ysort layer
+    if (layer < 0) { layer = lvl.bottomLayers().size() + lvl.ysortLayers().size() - 1; }
+
+    const float zoneBias      = y * maxLayers + layer * size.y;
+    const float maxZoneBias   = size.y * maxLayers + (maxLayers - 1) * size.y;
+    const float depthPerLevel = maxZoneBias * 3.f;
+    const float levelBias     = static_cast<float>(level) * depthPerLevel;
+
+    // bottom tiles
+    if (layer < lvl.bottomLayers().size()) { return -(zoneBias + levelBias); }
+
+    // ysort tiles + entities
+    if (layer < lvl.bottomLayers().size() + lvl.ysortLayers().size()) {
+        const float ysortZoneBias = y * maxLayers + layer;
+        return -(ysortZoneBias + maxZoneBias + levelBias);
     }
 
-    layerBias = static_cast<float>(layer) * depthPerLevel;
-
-    return -(static_cast<float>(level) * depthPerLevel + layerBias + static_cast<float>(y));
+    // top tiles
+    return -(zoneBias + maxZoneBias * 2.f + levelBias);
 }
 
 float Map::getMinDepth() const {
@@ -745,6 +774,26 @@ void Map::cleanupRender() {
             }
         }
     }
+}
+
+void Map::setupEntityPosition(bl::ecs::Entity ent) {
+    auto set = systems->engine()
+                   .ecs()
+                   .getComponentSet<bl::ecs::Require<bl::tmap::Position, bl::com::Transform2D>,
+                                    bl::ecs::Optional<component::Renderable>>(ent);
+    if (!set.isValid()) {
+        BL_LOG_ERROR << "Cannot setup position for entity " << ent << ", missing components";
+        return;
+    }
+
+    bl::com::Transform2D* transform = set.get<bl::com::Transform2D>();
+    bl::tmap::Position* pos         = set.get<bl::tmap::Position>();
+    pos->transform                  = transform;
+    transform->setDepth(getDepthForPosition(pos->level, pos->position.y));
+    pos->syncTransform(Properties::PixelsPerTile());
+
+    component::Renderable* rc = set.get<component::Renderable>();
+    if (rc) { rc->notifyMoveState(pos->direction, false, false); }
 }
 
 } // namespace map

@@ -11,27 +11,28 @@ SpinBehavior::SpinBehavior(file::Behavior::Spinning::Direction dir)
 : dir(dir)
 , standTime(0.f) {}
 
-void SpinBehavior::update(Position& position, Controllable& controller, float dt) {
+void SpinBehavior::update(bl::tmap::Position& position, Controllable& controller, float dt) {
     standTime += dt;
     if (standTime >= Properties::CharacterSpinPeriod()) {
         standTime -= Properties::CharacterSpinPeriod();
         switch (dir) {
         case file::Behavior::Spinning::Clockwise: {
             controller.processControl(
-                moveControlFromDirection(nextClockwiseDirection(position.direction)));
+                input::fromDirection(nextClockwiseDirection(position.direction)));
         } break;
 
         case file::Behavior::Spinning::Counterclockwise: {
             controller.processControl(
-                moveControlFromDirection(nextCounterClockwiseDirection(position.direction)));
+                input::fromDirection(nextCounterClockwiseDirection(position.direction)));
         } break;
 
         case file::Behavior::Spinning::Random: {
-            Direction ndir = static_cast<Direction>(bl::util::Random::get<int>(0, 3));
+            bl::tmap::Direction ndir =
+                static_cast<bl::tmap::Direction>(bl::util::Random::get<int>(0, 3));
             while (ndir == position.direction) {
-                ndir = static_cast<Direction>(bl::util::Random::get<int>(0, 3));
+                ndir = static_cast<bl::tmap::Direction>(bl::util::Random::get<int>(0, 3));
             }
-            controller.processControl(moveControlFromDirection(ndir));
+            controller.processControl(input::fromDirection(ndir));
         } break;
 
         default:

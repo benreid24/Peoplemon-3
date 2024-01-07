@@ -1,11 +1,10 @@
 #ifndef CORE_SYSTEMS_RENDER_HPP
 #define CORE_SYSTEMS_RENDER_HPP
 
+#include <BLIB/Engine/System.hpp>
+#include <BLIB/Events.hpp>
 #include <Core/Components/Renderable.hpp>
-#include <Core/Maps/Map.hpp>
-
-#include <BLIB/ECS.hpp>
-#include <SFML/Graphics.hpp>
+#include <Core/Events/EntityMoved.hpp>
 
 namespace core
 {
@@ -14,52 +13,57 @@ namespace system
 class Systems;
 
 /**
- * @brief Primary rendering system. Handles fade ins and outs, visual effects, and rendering
- *        everything, including the world and the entities within
+ * @brief Basic system that synchronizes animation states based on movement state events
  *
  * @ingroup Systems
- *
  */
-class Render {
+class Render
+: public bl::engine::System
+, public bl::event::Listener<event::EntityMoved, event::EntityMoveFinished, event::EntityRotated> {
 public:
     /**
-     * @brief Construct a new Render system
+     * @brief Creates the render system
      *
-     * @param owner The primary systems object
+     * @param owner The game systems
      */
     Render(Systems& owner);
 
     /**
-     * @brief Updates all entity animations
-     *
-     * @param dt Time elapsed in seconds
+     * @brief Destroys the render system
      */
-    void update(float dt);
+    virtual ~Render() = default;
 
     /**
-     * @brief Renders the world and all the entities
+     * @brief Adds or updates the shadow of the given entity
      *
-     * @param target The target to render to
-     * @param map The map to render
-     * @param lag Residual time not accounted for in update yet
+     * @param entity The entity to add the shadow to
+     * @param distance How far below the renderable to render the shadow
+     * @param radius The radius of the shadow in pixels
      */
-    void render(sf::RenderTarget& target, const map::Map& map, float lag);
+    void updateShadow(bl::ecs::Entity entity, float distance, float radius);
 
     /**
-     * @brief Helper function to render a section of entities to the given target
+     * @brief Removes the shadow from the given entity
      *
-     * @param target The target to render to
-     * @param lag Time not accounted for in update
-     * @param level The level to render entities on
-     * @param row The row to render entities in
-     * @param minX The leftmost x coord to render entities from
-     * @param maxX The max x coord to render entities from
+     * @param entity The entity to remove the shadow from
      */
-    void renderEntities(sf::RenderTarget& target, float lag, std::uint8_t level, unsigned int row,
-                        unsigned int minX, unsigned int maxX);
+    void removeShadow(bl::ecs::Entity entity);
 
 private:
     Systems& owner;
+    bl::ecs::ComponentPool<component::Renderable>& pool;
+    bl::ecs::ComponentPool<bl::com::Transform2D>& transformPool;
+    std::vector<std::pair<bl::ecs::Entity, bl::tmap::Direction>> stopRm;
+    std::vector<std::pair<bl::ecs::Entity, bl::tmap::Direction>> stopAdd;
+    std::vector<bl::ecs::Entity> shadowsToRemove;
+
+    virtual void update(std::mutex& stageMutex, float dt, float realDt, float residual,
+                        float realResidual) override;
+    virtual void init(bl::engine::Engine& engine) override;
+    virtual void notifyFrameStart() override;
+    virtual void observe(const event::EntityMoved& event) override;
+    virtual void observe(const event::EntityMoveFinished& event) override;
+    virtual void observe(const event::EntityRotated& event) override;
 };
 
 } // namespace system

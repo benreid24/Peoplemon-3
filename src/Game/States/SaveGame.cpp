@@ -13,7 +13,7 @@ bl::engine::State::Ptr SaveGame::create(core::system::Systems& s) {
 }
 
 SaveGame::SaveGame(core::system::Systems& s)
-: State(s) {
+: State(s, bl::engine::StateMask::Menu) {
     bgndTxtr = TextureManager::load(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "savegame.png"));
     background.setTexture(*bgndTxtr, true);
@@ -36,7 +36,7 @@ void SaveGame::deactivate(bl::engine::Engine& engine) {
     // engine.renderSystem().cameras().popCamera();
 }
 
-void SaveGame::update(bl::engine::Engine&, float dt, float) { systems.hud().update(dt); }
+void SaveGame::update(bl::engine::Engine&, float, float) {}
 
 // void SaveGame::render(bl::engine::Engine& engine, float lag) {
 //     engine.window().clear();

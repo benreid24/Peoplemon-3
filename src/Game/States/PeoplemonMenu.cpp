@@ -43,7 +43,7 @@ bl::engine::State::Ptr PeoplemonMenu::create(core::system::Systems& s, Context c
 
 PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* sp,
                              core::item::Id item)
-: State(s)
+: State(s, bl::engine::StateMask::Menu)
 , context(c)
 , outNow(on)
 , chosenPeoplemon(sp)
@@ -276,7 +276,6 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt, float) {
 
     case MenuState::UsingItem:
         updateItems();
-        systems.hud().update(dt);
         if (buttonsSynced()) { state = MenuState::UsingItemWaitMessage; }
         break;
 
@@ -289,9 +288,6 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt, float) {
     case MenuState::WaitingForgetChoice:
     case MenuState::UsingItemWaitMessage:
     case MenuState::ShowingMessage:
-        systems.hud().update(dt);
-        break;
-
     default:
         break;
     }

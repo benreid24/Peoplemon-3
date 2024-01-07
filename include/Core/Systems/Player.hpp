@@ -2,9 +2,10 @@
 #define CORE_SYSTEMS_PLAYER_HPP
 
 #include <BLIB/ECS.hpp>
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
+#include <BLIB/Tilemap/Position.hpp>
 #include <Core/Components/Movable.hpp>
-#include <Core/Components/Position.hpp>
 #include <Core/Events/EntityMoved.hpp>
 #include <Core/Events/GameSave.hpp>
 #include <Core/Maps/LightingSystem.hpp>
@@ -15,6 +16,10 @@
 
 namespace core
 {
+namespace map
+{
+class Map;
+}
 namespace system
 {
 class Systems;
@@ -25,7 +30,9 @@ class Systems;
  * @ingroup Systems
  *
  */
-class Player : public bl::event::Listener<event::GameSaveInitializing, event::EntityMoveFinished> {
+class Player
+: public bl::engine::System
+, public bl::event::Listener<event::GameSaveInitializing, event::EntityMoveFinished> {
 public:
     /**
      * @brief Construct a new Player system
@@ -35,12 +42,18 @@ public:
     Player(Systems& owner);
 
     /**
+     * @brief Destroys the system
+     */
+    virtual ~Player() = default;
+
+    /**
      * @brief Spawns the player into the world
      *
      * @param position The position to spawn at
+     * @param map The map to spawn in
      * @return True if the player was spawned, false on error
      */
-    bool spawnPlayer(const component::Position& position);
+    bool spawnPlayer(const bl::tmap::Position& position, map::Map& map);
 
     /**
      * @brief Makes the given entity controlled by the player. Only one entity may be player
@@ -68,7 +81,7 @@ public:
      * @brief Returns the current position of the player
      *
      */
-    const component::Position& position() const;
+    const bl::tmap::Position& position() const;
 
     /**
      * @brief Initializes all player data structures for a new game
@@ -77,20 +90,6 @@ public:
      * @param gender The gender of the player
      */
     void newGame(const std::string& name, player::Gender gender);
-
-    /**
-     * @brief Subscribes the input system to the event bus
-     *
-     */
-    void init();
-
-    /**
-     * @brief Updates the player system
-     *
-     * @param dt Time elapsed in seconds
-     *
-     */
-    void update(float dt);
 
     /**
      * @brief Heals all Peoplemon and respawns at the last PC center
@@ -119,7 +118,7 @@ public:
 private:
     Systems& owner;
     bl::ecs::Entity playerId;
-    component::Position* _position;
+    bl::tmap::Position* _position;
     component::Movable* movable;
 
     bl::rc::lgt::Light2D lantern;
@@ -138,6 +137,9 @@ private:
     void updateLantern(float dt);
     void startLanternVarianceHold();
     void startLanternVarianceChange();
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 
     friend struct bl::serial::SerializableObject<Player>;
 };

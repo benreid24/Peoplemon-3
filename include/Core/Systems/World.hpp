@@ -1,6 +1,7 @@
 #ifndef CORE_SYSTEMS_WORLD_HPP
 #define CORE_SYSTEMS_WORLD_HPP
 
+#include <BLIB/Engine/System.hpp>
 #include <BLIB/Events.hpp>
 #include <BLIB/Serialization/JSON.hpp>
 #include <Core/Events/GameSave.hpp>
@@ -16,9 +17,10 @@ class Systems;
  * @brief System for managing the current map and previous maps
  *
  * @ingroup Systems
- *
  */
-class World : public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
+class World
+: public bl::engine::System
+, public bl::event::Listener<event::GameSaveInitializing, event::GameSaveLoaded> {
 public:
     /**
      * @brief Creates the world system
@@ -28,16 +30,9 @@ public:
     World(Systems& systems);
 
     /**
-     * @brief Custom cleanup code to prevent dangling pointers in event subscribers
-     *
+     * @brief Destroys the system
      */
-    ~World();
-
-    /**
-     * @brief Subscribes the system to the engine event bus
-     *
-     */
-    void init();
+    virtual ~World() = default;
 
     /**
      * @brief Switches the current map to the map in the given file
@@ -58,32 +53,21 @@ public:
 
     /**
      * @brief Returns a reference to the active map
-     *
      */
     map::Map& activeMap();
 
     /**
      * @brief Returns a const reference to the active map
-     *
      */
     const map::Map& activeMap() const;
 
     /**
-     * @brief Updates the current map
-     *
-     * @param dt Time elapsed in seconds since last call to update
-     */
-    void update(float dt);
-
-    /**
      * @brief Adds saved world data to the save file
-     *
      */
     virtual void observe(const event::GameSaveInitializing& save) override;
 
     /**
      * @brief Initializes world state from the loading game save
-     *
      */
     virtual void observe(const event::GameSaveLoaded& load) override;
 
@@ -101,8 +85,11 @@ private:
 
     std::string currentMapFile;
     std::string prevMapFile;
-    component::Position playerPos;
-    component::Position prevPlayerPos;
+    bl::tmap::Position playerPos;
+    bl::tmap::Position prevPlayerPos;
+
+    virtual void init(bl::engine::Engine&) override;
+    virtual void update(std::mutex&, float dt, float, float, float) override;
 };
 
 } // namespace system

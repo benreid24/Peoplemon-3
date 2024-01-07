@@ -1,6 +1,7 @@
 #include <Core/Components/WanderBehavior.hpp>
 
 #include <BLIB/Util/Random.hpp>
+#include <Core/Properties.hpp>
 
 namespace core
 {
@@ -15,7 +16,7 @@ WanderBehavior::WanderBehavior(unsigned int radius, const sf::Vector2i& origin)
     switchState();
 }
 
-void WanderBehavior::update(Position& position, Controllable& controller, float dt) {
+void WanderBehavior::update(bl::tmap::Position& position, Controllable& controller, float dt) {
     stateTime += dt;
     if (stateTime >= transitionTime && state != Paused) { switchState(); }
 
@@ -23,26 +24,22 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
     case Walking: {
         const auto changeDirection = [this, &position]() {
             if (bl::util::Random::chance(1, 2)) {
-                const int dx   = position.positionTiles().x - origin.x;
+                const int dx = position.getWorldPosition(Properties::PixelsPerTile()).x - origin.x;
                 const float xf = dx + radius;
                 const float p  = 1.f - xf / static_cast<float>(2 * radius);
                 if (bl::util::Random::get<float>(0.f, 1.f) < p) {
-                    data.walking.dir = Direction::Right;
+                    data.walking.dir = bl::tmap::Direction::Right;
                 }
-                else {
-                    data.walking.dir = Direction::Left;
-                }
+                else { data.walking.dir = bl::tmap::Direction::Left; }
             }
             else {
-                const int dy   = position.positionTiles().y - origin.y;
+                const int dy = position.getWorldPosition(Properties::PixelsPerTile()).y - origin.y;
                 const float yf = dy + radius;
                 const float p  = 1.f - yf / static_cast<float>(2 * radius);
                 if (bl::util::Random::get<float>(0.f, 1.f) < p) {
-                    data.walking.dir = Direction::Down;
+                    data.walking.dir = bl::tmap::Direction::Down;
                 }
-                else {
-                    data.walking.dir = Direction::Up;
-                }
+                else { data.walking.dir = bl::tmap::Direction::Up; }
             }
 
             state = Paused;
@@ -50,13 +47,11 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
             stateTime = 0.f;
         };
 
-        if (controller.processControl(moveControlFromDirection(data.walking.dir))) {
+        if (controller.processControl(input::fromDirection(data.walking.dir))) {
             data.walking.steps += 1;
             if (data.walking.steps >= data.walking.total) changeDirection();
         }
-        else if (!position.moving()) {
-            changeDirection();
-        }
+        else if (!position.moving(Properties::PixelsPerTile())) { changeDirection(); }
     } break;
     case Standing:
         data.standing.update(position, controller);
@@ -68,7 +63,7 @@ void WanderBehavior::update(Position& position, Controllable& controller, float 
         if (stateTime >= bl::util::Random::get<float>(1.f, 5.f)) {
             data.walking.total = bl::util::Random::get<unsigned short int>(1, 3);
             if (position.direction != data.walking.dir)
-                controller.processControl(moveControlFromDirection(data.walking.dir));
+                controller.processControl(input::fromDirection(data.walking.dir));
             state = Walking;
         }
 
@@ -98,12 +93,13 @@ void WanderBehavior::switchState() {
     switch (state) {
     case Walking:
         new (&data.walking) WalkData();
-        data.walking.dir = static_cast<Direction>(bl::util::Random::get<unsigned int>(0, 3));
-        transitionTime   = bl::util::Random::get<float>(5.f, 13.f);
+        data.walking.dir =
+            static_cast<bl::tmap::Direction>(bl::util::Random::get<unsigned int>(0, 3));
+        transitionTime = bl::util::Random::get<float>(5.f, 13.f);
         break;
     case Standing:
-        new (&data.standing)
-            StandingBehavior(static_cast<Direction>(bl::util::Random::get<unsigned int>(0, 3)));
+        new (&data.standing) StandingBehavior(
+            static_cast<bl::tmap::Direction>(bl::util::Random::get<unsigned int>(0, 3)));
         transitionTime = bl::util::Random::get<float>(1.f, 3.f);
         break;
     case Spinning:
@@ -117,7 +113,7 @@ void WanderBehavior::switchState() {
 }
 
 WanderBehavior::WalkData::WalkData()
-: dir(Direction::Down)
+: dir(bl::tmap::Direction::Down)
 , total(3)
 , steps(0) {}
 

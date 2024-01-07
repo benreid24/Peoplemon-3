@@ -39,7 +39,7 @@ bl::engine::State::Ptr BattleState::create(core::system::Systems& systems,
 
 BattleState::BattleState(core::system::Systems& systems,
                          std::unique_ptr<core::battle::Battle>&& battle)
-: State(systems)
+: State(systems, bl::engine::StateMask::Menu)
 , battle(std::forward<std::unique_ptr<core::battle::Battle>>(battle)) {
     if (!this->battle->controller) {
         BL_LOG_WARN << "Invalid battle controller, using dummy";

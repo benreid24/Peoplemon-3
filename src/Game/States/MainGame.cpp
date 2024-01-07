@@ -37,12 +37,10 @@ MainGame::Ptr MainGame::create(core::system::Systems& systems) {
 }
 
 MainGame::MainGame(core::system::Systems& systems)
-: State(systems)
+: State(systems, bl::engine::StateMask::Running)
 , state(MapFadein)
-, fadeTime(0.f)
-, spawnId(0) {
-    cover.setFillColor(sf::Color::Black);
-}
+, fadeout(nullptr)
+, spawnId(0) {}
 
 MainGame::~MainGame() { bl::event::Dispatcher::unsubscribe(this); }
 
@@ -50,44 +48,48 @@ const char* MainGame::name() const { return "MainGame"; }
 
 void MainGame::activate(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
-    systems.engine().renderer().getObserver().pushScene(systems.world().activeMap().getScene());
-    systems.world().activeMap().setupCamera(systems);
+    if (state == MapFadein) {
+        fadeout = systems.engine()
+                      .renderer()
+                      .getObserver()
+                      .getRenderGraph()
+                      .putTask<bl::rc::rgi::FadeEffectTask>(
+                          core::Properties::ScreenFadePeriod(), 0.f, 1.f);
+    }
 }
 
 void MainGame::deactivate(bl::engine::Engine&) {}
 
 void MainGame::update(bl::engine::Engine&, float dt, float) {
-    systems.update(dt, true);
-
     switch (state) {
     case SwitchMapFadeout:
-        fadeTime += dt;
-        if (fadeTime >= core::Properties::ScreenFadePeriod()) {
+        if (fadeout->complete()) {
             BL_LOG_INFO << "Switching to map: " << replacementMap << " spawn " << spawnId;
             if (!systems.world().switchMaps(replacementMap, spawnId)) {
                 BL_LOG_ERROR << "Failed to switch maps";
                 systems.engine().flags().set(bl::engine::Flags::Terminate);
                 return;
             }
-            systems.world().activeMap().setupCamera(systems);
-            fadeTime = 0.f;
-            state    = MapFadein;
-        }
-        else {
-            const float a = fadeTime / core::Properties::ScreenFadePeriod() * 255.f;
-            cover.setFillColor(sf::Color(0, 0, 0, a));
+
+            state   = MapFadein;
+            fadeout = systems.engine()
+                          .renderer()
+                          .getObserver()
+                          .getRenderGraph()
+                          .putTask<bl::rc::rgi::FadeEffectTask>(
+                              core::Properties::ScreenFadePeriod(), 0.f, 1.f);
         }
         break;
 
     case MapFadein:
-        fadeTime += dt;
-        if (fadeTime >= core::Properties::ScreenFadePeriod()) {
-            state    = Running;
-            fadeTime = 0.f;
-        }
-        else {
-            const float a = (1.f - fadeTime / core::Properties::ScreenFadePeriod()) * 255.f;
-            cover.setFillColor(sf::Color(0, 0, 0, a));
+        if (fadeout->complete()) {
+            state   = Running;
+            fadeout = nullptr;
+            systems.engine()
+                .renderer()
+                .getObserver()
+                .getRenderGraph()
+                .removeTask<bl::rc::rgi::FadeEffectTask>();
         }
         break;
 
@@ -95,30 +97,6 @@ void MainGame::update(bl::engine::Engine&, float dt, float) {
         break;
     }
 }
-
-// TODO - BLIB_UPGRADE - map switch fadeout
-// void MainGame::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     systems.render().render(engine.window(), systems.world().activeMap(), lag);
-//
-//     switch (state) {
-//     case MapFadein:
-//     case SwitchMapFadeout:
-//         cover.setSize(engine.window().getView().getSize());
-//         cover.setPosition(engine.window().getView().getCenter());
-//         cover.setOrigin(engine.window().getView().getSize() * 0.5f);
-//         engine.window().draw(cover);
-//         break;
-//     default:
-//         break;
-//     }
-//
-// #ifdef PEOPLEMON_DEBUG
-//     core::debug::DebugBanner::render(engine.window());
-// #endif
-//
-//     engine.window().display();
-// }
 
 void MainGame::observe(const core::event::StateChange& event) {
     switch (event.type) {
@@ -172,6 +150,11 @@ void MainGame::observe(const core::event::SwitchMapTriggered& event) {
     replacementMap = event.newMap;
     spawnId        = event.spawn;
     state          = SwitchMapFadeout;
+    fadeout        = systems.engine()
+                  .renderer()
+                  .getObserver()
+                  .getRenderGraph()
+                  .putTask<bl::rc::rgi::FadeEffectTask>(core::Properties::ScreenFadePeriod());
     systems.controllable().setAllLocks(true, false);
 }
 
