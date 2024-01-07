@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/States/SaveGame.hpp Source File</title>
+<title>Peoplemon: include/Game/States/PeoplemonInfo.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,63 +71,118 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">SaveGame.hpp</div>  </div>
+<div class="title">PeoplemonInfo.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00539.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_SAVEGAME_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_SAVEGAME_HPP</span></div>
+<a href="a00539.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_PEOPLEMONINFO_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_PEOPLEMONINFO_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03051.html">Game/States/State.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01102.html">game</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03051.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01107.html">game</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a02362.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02362.html">SaveGame</a> : <span class="keyword">public</span> <a class="code" href="a02370.html">State</a> {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02362.html#ae4b2f27695ec049e4af9574767343ad9">create</a>(<a class="code" href="a02018.html">core::system::Systems</a>&amp; <a class="code" href="a02370.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02362.html#a5fa013556108d047a964a0aa64d883da">   24</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02362.html#a5fa013556108d047a964a0aa64d883da">~SaveGame</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02362.html#a841f007cbe748753871c131b490c2917">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02348.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02348.html">PeoplemonInfo</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02364.html">State</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, <span class="keyword">public</span> bl::input::Listener {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02348.html#ab9b4971b6cc964d394e789923bdbbfa9">create</a>(<a class="code" href="a02012.html">core::system::Systems</a>&amp; <a class="code" href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>,</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                                         <span class="keyword">const</span> <a class="code" href="a01792.html">core::pplmn::OwnedPeoplemon</a>&amp; ppl);</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02362.html#a6cea776f0ed2c0e19511a449d688d320">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02362.html#af40f2394e40db0d0063351e889e8ba86">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02362.html#adb68fae47a1866e022be07fc23a13521">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update save game rendering</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; bgndTxtr;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    sf::Sprite background;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="a02362.html">SaveGame</a>(<a class="code" href="a02018.html">core::system::Systems</a>&amp; <a class="code" href="a02370.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> onFinish();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01102_html"><div class="ttname"><a href="a01102.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00488_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02362_html"><div class="ttname"><a href="a02362.html">game::state::SaveGame</a></div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00010">SaveGame.hpp:10</a></div></div>
-<div class="ttc" id="aa02362_html_a5fa013556108d047a964a0aa64d883da"><div class="ttname"><a href="a02362.html#a5fa013556108d047a964a0aa64d883da">game::state::SaveGame::~SaveGame</a></div><div class="ttdeci">virtual ~SaveGame()=default</div><div class="ttdoc">Destroy the Save Game state.</div></div>
-<div class="ttc" id="aa02362_html_a6cea776f0ed2c0e19511a449d688d320"><div class="ttname"><a href="a02362.html#a6cea776f0ed2c0e19511a449d688d320">game::state::SaveGame::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00024">SaveGame.cpp:24</a></div></div>
-<div class="ttc" id="aa02362_html_a841f007cbe748753871c131b490c2917"><div class="ttname"><a href="a02362.html#a841f007cbe748753871c131b490c2917">game::state::SaveGame::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;SaveGame&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00022">SaveGame.cpp:22</a></div></div>
-<div class="ttc" id="aa02362_html_adb68fae47a1866e022be07fc23a13521"><div class="ttname"><a href="a02362.html#adb68fae47a1866e022be07fc23a13521">game::state::SaveGame::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the state and menus and whatnot.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00039">SaveGame.cpp:39</a></div></div>
-<div class="ttc" id="aa02362_html_ae4b2f27695ec049e4af9574767343ad9"><div class="ttname"><a href="a02362.html#ae4b2f27695ec049e4af9574767343ad9">game::state::SaveGame::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates the save game state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00011">SaveGame.cpp:11</a></div></div>
-<div class="ttc" id="aa02362_html_af40f2394e40db0d0063351e889e8ba86"><div class="ttname"><a href="a02362.html#af40f2394e40db0d0063351e889e8ba86">game::state::SaveGame::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Deactivates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00035">SaveGame.cpp:35</a></div></div>
-<div class="ttc" id="aa02370_html"><div class="ttname"><a href="a02370.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00032">State.hpp:32</a></div></div>
-<div class="ttc" id="aa02370_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02370.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00071">State.hpp:71</a></div></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02348.html#a93670186742fb50d9f6257a8a69fec57">   36</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02348.html#a93670186742fb50d9f6257a8a69fec57">~PeoplemonInfo</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02348.html#a89fb98fed2d97d5b710279d543b882a1">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02348.html#a6fc316ce4bf767e0f706a96ae72ecc9b">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02348.html#afbb096a0aa660e60de6050ce5ea72210">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02348.html#ab704035bd18ca3e727a611958853d87e">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update peoplemon info rendering</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">enum</span> ActivePage { Basics, Moves };</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    ActivePage activePage;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    sf::Clock inputTimer;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; bgndTxtr;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    sf::Sprite background;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; leftTxtr;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    sf::Sprite leftArrow;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="comment">// bl::gfx::Flashing leftFlasher;</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; rightTxtr;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    sf::Sprite rightArrow;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="comment">// bl::gfx::Flashing rightFlasher;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    sf::Text pageLabel;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; thumbTxtr;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    sf::Sprite thumbnail;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    sf::Text nameLabel;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    sf::Text idLabel;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    sf::Text levelLabel;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    sf::Text itemLabel;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    sf::Text curXpLabel;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    sf::Text nextXpLabel;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    sf::Text ailLabel;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; basicsTxtr;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    sf::Sprite basicsBox;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    sf::Text speciesLabel;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    sf::Text typeLabel;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    sf::Text hpLabel;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    sf::Text atkLabel;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    sf::Text defLabel;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    sf::Text spdLabel;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    sf::Text spAtkLabel;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    sf::Text spDefLabel;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    sf::Text descLabel;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    sf::Text abilityLabel;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    sf::Text abilityDescLabel;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    bl::menu::Menu moveMenu;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; moveTxtr;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    sf::Sprite moveBox;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    sf::Text movePwrLabel;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    sf::Text moveAccLabel;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    sf::Text moveTypeLabel;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    sf::Text moveDescLabel;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="a02348.html">PeoplemonInfo</a>(<a class="code" href="a02012.html">core::system::Systems</a>&amp; <a class="code" href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <span class="keyword">const</span> <a class="code" href="a01792.html">core::pplmn::OwnedPeoplemon</a>&amp; ppl);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                         bl::input::DispatchType, <span class="keywordtype">bool</span> eventTriggered) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordtype">void</span> highlightMove(<a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">void</span> setPage(ActivePage page);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01070_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01792_html"><div class="ttname"><a href="a01792.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02348_html"><div class="ttname"><a href="a02348.html">game::state::PeoplemonInfo</a></div><div class="ttdoc">Menu for displaying information about a specific peoplemon the player owns.</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00018">PeoplemonInfo.hpp:20</a></div></div>
+<div class="ttc" id="aa02348_html_a6fc316ce4bf767e0f706a96ae72ecc9b"><div class="ttname"><a href="a02348.html#a6fc316ce4bf767e0f706a96ae72ecc9b">game::state::PeoplemonInfo::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00223">PeoplemonInfo.cpp:223</a></div></div>
+<div class="ttc" id="aa02348_html_a89fb98fed2d97d5b710279d543b882a1"><div class="ttname"><a href="a02348.html#a89fb98fed2d97d5b710279d543b882a1">game::state::PeoplemonInfo::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;Peopledex&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00221">PeoplemonInfo.cpp:221</a></div></div>
+<div class="ttc" id="aa02348_html_a93670186742fb50d9f6257a8a69fec57"><div class="ttname"><a href="a02348.html#a93670186742fb50d9f6257a8a69fec57">game::state::PeoplemonInfo::~PeoplemonInfo</a></div><div class="ttdeci">virtual ~PeoplemonInfo()=default</div><div class="ttdoc">Destroy the Peoplemon Info object.</div></div>
+<div class="ttc" id="aa02348_html_ab704035bd18ca3e727a611958853d87e"><div class="ttname"><a href="a02348.html#ab704035bd18ca3e727a611958853d87e">game::state::PeoplemonInfo::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the state and menus and whatnot.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00235">PeoplemonInfo.cpp:235</a></div></div>
+<div class="ttc" id="aa02348_html_ab9b4971b6cc964d394e789923bdbbfa9"><div class="ttname"><a href="a02348.html#ab9b4971b6cc964d394e789923bdbbfa9">game::state::PeoplemonInfo::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, const core::pplmn::OwnedPeoplemon &amp;ppl)</div><div class="ttdoc">Create a new PeoplemonInfo engine state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00023">PeoplemonInfo.cpp:23</a></div></div>
+<div class="ttc" id="aa02348_html_afbb096a0aa660e60de6050ce5ea72210"><div class="ttname"><a href="a02348.html#afbb096a0aa660e60de6050ce5ea72210">game::state::PeoplemonInfo::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Deactivates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01046_source.html#l00230">PeoplemonInfo.cpp:230</a></div></div>
+<div class="ttc" id="aa02364_html"><div class="ttname"><a href="a02364.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02364_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00066">State.hpp:66</a></div></div>
 <div class="ttc" id="aa03051_html"><div class="ttname"><a href="a03051.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

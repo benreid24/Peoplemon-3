@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Battles/Commands/Command.cpp Source File</title>
+<title>Peoplemon: src/Core/Battles/Commands/Animation.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,69 +71,110 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Command.cpp</div>  </div>
+<div class="title">Animation.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00590.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00044.html">Core/Battles/Commands/Command.hpp</a>&gt;</span></div>
+<a href="a00590.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00041.html">Core/Battles/Commands/Animation.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>battle</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">    7</a></span>&#160;<a class="code" href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">Command::Command</a>(<a class="code" href="a01258.html#a3c71671823951926934dc2759f0b7638">Type</a> t)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: type(t)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, data(Empty()) {}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01258.html#a26671ee293da5b42b313f5c71e594f9d">   11</a></span>&#160;<a class="code" href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">Command::Command</a>(<a class="code" href="a01258.html#a3c71671823951926934dc2759f0b7638">Type</a> t, <span class="keywordtype">bool</span> b)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: type(t)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, data(b) {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a01258.html#a7b4d7ed14733b82ecf336b1d93d91535">   15</a></span>&#160;<a class="code" href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">Command::Command</a>(<a class="code" href="a01266.html">cmd::Message</a>&amp;&amp; s)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;: type(<a class="code" href="a01258.html#a3c71671823951926934dc2759f0b7638">Type</a>::DisplayMessage)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, data(std::forward&lt;cmd::Message&gt;(s)) {}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>cmd</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">    9</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: forHost(true)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, data(Empty()) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01256.html#a577ea44c380da180224e7bf41934b1d1">   14</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, data(Empty()) {}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01258.html#aef1762ba5140d02526f245acad43c547">   19</a></span>&#160;<a class="code" href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">Command::Command</a>(<a class="code" href="a01250.html">cmd::Animation</a>&amp;&amp; a)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: type(<a class="code" href="a01258.html#a3c71671823951926934dc2759f0b7638">Type</a>::PlayAnimation)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, data(std::forward&lt;cmd::Animation&gt;(a)) {}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a01258.html#a3ffa20447feb2854a453bd82f2c90d85">   23</a></span>&#160;<a class="code" href="a01258.html#a3c71671823951926934dc2759f0b7638">Command::Type</a> <a class="code" href="a01258.html#a3ffa20447feb2854a453bd82f2c90d85">Command::getType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01258.html#a0f2795d69eadc93def1c6153fed1dfd7">   25</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01266.html">cmd::Message</a>&amp; <a class="code" href="a01258.html#a0f2795d69eadc93def1c6153fed1dfd7">Command::getMessage</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="a01266.html">cmd::Message</a> empty(<a class="code" href="a01266.html#a106f02dc7e97fe58faa106402de4e9c8a059744e09a6756c2bcd4757f25d007d6">cmd::Message::Type::_ERROR</a>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01266.html">cmd::Message</a>* m = std::get_if&lt;cmd::Message&gt;(&amp;data);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">return</span> m ? *m : empty;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a01258.html#adb41ec01ac0c6d8166c723b6404382bd">   31</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01250.html">cmd::Animation</a>&amp; <a class="code" href="a01258.html#adb41ec01ac0c6d8166c723b6404382bd">Command::getAnimation</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="a01250.html">cmd::Animation</a> empty(<a class="code" href="a01250.html#a49ccd22efcd433e8c59876b456c9e238a059744e09a6756c2bcd4757f25d007d6">cmd::Animation::Type::_ERROR</a>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01250.html">cmd::Animation</a>* a = std::get_if&lt;cmd::Animation&gt;(&amp;data);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> a ? *a : empty;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01258.html#a08a883700f65f713467bf25f662e45e4">   37</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01258.html#a08a883700f65f713467bf25f662e45e4">Command::forHost</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span>* b = std::get_if&lt;bool&gt;(&amp;data);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> b ? *b : <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace battle</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00044_html"><div class="ttname"><a href="a00044.html">Command.hpp</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01250_html"><div class="ttname"><a href="a01250.html">core::battle::cmd::Animation</a></div><div class="ttdoc">Represents a type of animation that can be played in battle.</div><div class="ttdef"><b>Definition:</b> <a href="a00041_source.html#l00025">Animation.hpp:25</a></div></div>
-<div class="ttc" id="aa01250_html_a49ccd22efcd433e8c59876b456c9e238a059744e09a6756c2bcd4757f25d007d6"><div class="ttname"><a href="a01250.html#a49ccd22efcd433e8c59876b456c9e238a059744e09a6756c2bcd4757f25d007d6">core::battle::cmd::Animation::Type::_ERROR</a></div><div class="ttdeci">@ _ERROR</div></div>
-<div class="ttc" id="aa01258_html_a08a883700f65f713467bf25f662e45e4"><div class="ttname"><a href="a01258.html#a08a883700f65f713467bf25f662e45e4">core::battle::Command::forHost</a></div><div class="ttdeci">bool forHost() const</div><div class="ttdoc">Returns whether or not this command is for the active battler.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00037">Command.cpp:37</a></div></div>
-<div class="ttc" id="aa01258_html_a0f2795d69eadc93def1c6153fed1dfd7"><div class="ttname"><a href="a01258.html#a0f2795d69eadc93def1c6153fed1dfd7">core::battle::Command::getMessage</a></div><div class="ttdeci">const cmd::Message &amp; getMessage() const</div><div class="ttdoc">Returns the message if this command is a message.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00025">Command.cpp:25</a></div></div>
-<div class="ttc" id="aa01258_html_a3c71671823951926934dc2759f0b7638"><div class="ttname"><a href="a01258.html#a3c71671823951926934dc2759f0b7638">core::battle::Command::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type the command is.</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00028">Command.hpp:28</a></div></div>
-<div class="ttc" id="aa01258_html_a3ffa20447feb2854a453bd82f2c90d85"><div class="ttname"><a href="a01258.html#a3ffa20447feb2854a453bd82f2c90d85">core::battle::Command::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns the type of this command.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00023">Command.cpp:23</a></div></div>
-<div class="ttc" id="aa01258_html_a9f4d16d2ce4319287002d5d37c727e8d"><div class="ttname"><a href="a01258.html#a9f4d16d2ce4319287002d5d37c727e8d">core::battle::Command::Command</a></div><div class="ttdeci">Command(Type type)</div><div class="ttdoc">Creates a new command of the given type with no data.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00007">Command.cpp:7</a></div></div>
-<div class="ttc" id="aa01258_html_adb41ec01ac0c6d8166c723b6404382bd"><div class="ttname"><a href="a01258.html#adb41ec01ac0c6d8166c723b6404382bd">core::battle::Command::getAnimation</a></div><div class="ttdeci">const cmd::Animation &amp; getAnimation() const</div><div class="ttdoc">Returns the animation if this command is an animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00031">Command.cpp:31</a></div></div>
-<div class="ttc" id="aa01266_html"><div class="ttname"><a href="a01266.html">core::battle::cmd::Message</a></div><div class="ttdoc">Represents a message to be displayed. The actual message text is generated by the battle controller.</div><div class="ttdef"><b>Definition:</b> <a href="a00047_source.html#l00026">Message.hpp:26</a></div></div>
-<div class="ttc" id="aa01266_html_a106f02dc7e97fe58faa106402de4e9c8a059744e09a6756c2bcd4757f25d007d6"><div class="ttname"><a href="a01266.html#a106f02dc7e97fe58faa106402de4e9c8a059744e09a6756c2bcd4757f25d007d6">core::battle::cmd::Message::Type::_ERROR</a></div><div class="ttdeci">@ _ERROR</div></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01256.html#a23ff73aa95d96bce3f7a366bbb9e4cb8">   19</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> m)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, type(<a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::UseMove)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, data(m) {}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01256.html#a86b1ab6d0d4742f571eda7101d00f789">   24</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp, <a class="code" href="a01070.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> stat)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, data(stat) {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01256.html#a509d6911b54efb19bd156e4194cd2159">   29</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01070.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> ail)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, type(<a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::<a class="code" href="a01070.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">Ailment</a>)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, data(ail) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01256.html#accfc6d5ff0d6d7c487a9087722c41985">   34</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01070.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> ail)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;, type(<a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::<a class="code" href="a01070.html#ga1e8c161a804d51a4a4eec572dc0e4a46">PassiveAilment</a>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;, data(ail) {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a01256.html#aca97c0835fe5297683e6f5fbdff6727c">   39</a></span>&#160;<a class="code" href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp, <a class="code" href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> pb)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;, data(pb) {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01256.html#a8a7be19cfb5b95a3d9039dd4232927cf">   44</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01256.html#a8a7be19cfb5b95a3d9039dd4232927cf">Animation::forHostBattler</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> forHost; }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a01256.html#a9d1b6097fa7e18af47b5f7bdac028798">   46</a></span>&#160;<a class="code" href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">Animation::Type</a> <a class="code" href="a01256.html#a9d1b6097fa7e18af47b5f7bdac028798">Animation::getType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01256.html#a1301fc3b184ad1918eb3440da71bc363">   48</a></span>&#160;<a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> <a class="code" href="a01256.html#a1301fc3b184ad1918eb3440da71bc363">Animation::getMove</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a>* m = std::get_if&lt;pplmn::MoveId&gt;(&amp;data);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> m ? *m : <a class="code" href="a01070.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">pplmn::MoveId::Unknown</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01256.html#ac980eb577fa93cc581ae827f1d84225c">   53</a></span>&#160;<a class="code" href="a01070.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> <a class="code" href="a01256.html#ac980eb577fa93cc581ae827f1d84225c">Animation::getStat</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01070.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a>* s = std::get_if&lt;pplmn::Stat&gt;(&amp;data);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> s ? *s : <a class="code" href="a01070.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">pplmn::Stat::Attack</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a01256.html#aa76f05c198a892636268ec0a8dfed634">   58</a></span>&#160;<a class="code" href="a01070.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> <a class="code" href="a01256.html#aa76f05c198a892636268ec0a8dfed634">Animation::getAilment</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01070.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a>* a = std::get_if&lt;pplmn::Ailment&gt;(&amp;data);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> a ? *a : <a class="code" href="a01070.html#gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c">pplmn::Ailment::Annoyed</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01256.html#a9468e5ae8445b923a838adf51db9c8ec">   63</a></span>&#160;<a class="code" href="a01070.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> <a class="code" href="a01256.html#a9468e5ae8445b923a838adf51db9c8ec">Animation::getPassiveAilment</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01070.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a>* a = std::get_if&lt;pplmn::PassiveAilment&gt;(&amp;data);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> a ? *a : <a class="code" href="a01070.html#gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae">pplmn::PassiveAilment::Confused</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a01256.html#ad7145eb01a97628028538c78bfdaab26">   68</a></span>&#160;<a class="code" href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="code" href="a01256.html#ad7145eb01a97628028538c78bfdaab26">Animation::getPeopleball</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>* i = std::get_if&lt;item::Id&gt;(&amp;data);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> i ? *i : <a class="code" href="a01068.html#ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4">item::Id::Peopleball</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace cmd</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace battle</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00041_html"><div class="ttname"><a href="a00041.html">Animation.hpp</a></div></div>
+<div class="ttc" id="aa01068_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03000_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01068_html_ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4"><div class="ttname"><a href="a01068.html#ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4">core::item::Id::Peopleball</a></div><div class="ttdeci">@ Peopleball</div></div>
+<div class="ttc" id="aa01070_html_ga1e8c161a804d51a4a4eec572dc0e4a46"><div class="ttname"><a href="a01070.html#ga1e8c161a804d51a4a4eec572dc0e4a46">core::pplmn::PassiveAilment</a></div><div class="ttdeci">PassiveAilment</div><div class="ttdoc">Represents a passive ailment a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00016">PassiveAilment.hpp:16</a></div></div>
+<div class="ttc" id="aa01070_html_ga618b96b522bdec7042a5ff5b04672317"><div class="ttname"><a href="a01070.html#ga618b96b522bdec7042a5ff5b04672317">core::pplmn::Stat</a></div><div class="ttdeci">Stat</div><div class="ttdoc">Represents a single stat. Used as an offset to access Stats as an array.</div><div class="ttdef"><b>Definition:</b> <a href="a00254_source.html#l00016">Stat.hpp:16</a></div></div>
+<div class="ttc" id="aa01070_html_ga87b817cbcbbfc0b9a1328d55e1624fa3"><div class="ttname"><a href="a01070.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">core::pplmn::Ailment</a></div><div class="ttdeci">Ailment</div><div class="ttdoc">Represents an ailment that a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00221_source.html#l00016">Ailment.hpp:16</a></div></div>
+<div class="ttc" id="aa01070_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01070_html_gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae"><div class="ttname"><a href="a01070.html#gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae">core::pplmn::PassiveAilment::Confused</a></div><div class="ttdeci">@ Confused</div></div>
+<div class="ttc" id="aa01070_html_gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a"><div class="ttname"><a href="a01070.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">core::pplmn::Stat::Attack</a></div><div class="ttdeci">@ Attack</div></div>
+<div class="ttc" id="aa01070_html_gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c"><div class="ttname"><a href="a01070.html#gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c">core::pplmn::Ailment::Annoyed</a></div><div class="ttdeci">@ Annoyed</div></div>
+<div class="ttc" id="aa01070_html_ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01070.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::MoveId::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01256_html_a1301fc3b184ad1918eb3440da71bc363"><div class="ttname"><a href="a01256.html#a1301fc3b184ad1918eb3440da71bc363">core::battle::cmd::Animation::getMove</a></div><div class="ttdeci">pplmn::MoveId getMove() const</div><div class="ttdoc">Returns the move for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00048">Animation.cpp:48</a></div></div>
+<div class="ttc" id="aa01256_html_a49ccd22efcd433e8c59876b456c9e238"><div class="ttname"><a href="a01256.html#a49ccd22efcd433e8c59876b456c9e238">core::battle::cmd::Animation::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of animation to play.</div><div class="ttdef"><b>Definition:</b> <a href="a00041_source.html#l00030">Animation.hpp:30</a></div></div>
+<div class="ttc" id="aa01256_html_a8a7be19cfb5b95a3d9039dd4232927cf"><div class="ttname"><a href="a01256.html#a8a7be19cfb5b95a3d9039dd4232927cf">core::battle::cmd::Animation::forHostBattler</a></div><div class="ttdeci">bool forHostBattler() const</div><div class="ttdoc">Returns whether or not this animation is for the host or not.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00044">Animation.cpp:44</a></div></div>
+<div class="ttc" id="aa01256_html_a9468e5ae8445b923a838adf51db9c8ec"><div class="ttname"><a href="a01256.html#a9468e5ae8445b923a838adf51db9c8ec">core::battle::cmd::Animation::getPassiveAilment</a></div><div class="ttdeci">pplmn::PassiveAilment getPassiveAilment() const</div><div class="ttdoc">Get the ailment for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00063">Animation.cpp:63</a></div></div>
+<div class="ttc" id="aa01256_html_a9d1b6097fa7e18af47b5f7bdac028798"><div class="ttname"><a href="a01256.html#a9d1b6097fa7e18af47b5f7bdac028798">core::battle::cmd::Animation::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns the type of animation to play.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00046">Animation.cpp:46</a></div></div>
+<div class="ttc" id="aa01256_html_aa76f05c198a892636268ec0a8dfed634"><div class="ttname"><a href="a01256.html#aa76f05c198a892636268ec0a8dfed634">core::battle::cmd::Animation::getAilment</a></div><div class="ttdeci">pplmn::Ailment getAilment() const</div><div class="ttdoc">Get the ailment for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00058">Animation.cpp:58</a></div></div>
+<div class="ttc" id="aa01256_html_ac980eb577fa93cc581ae827f1d84225c"><div class="ttname"><a href="a01256.html#ac980eb577fa93cc581ae827f1d84225c">core::battle::cmd::Animation::getStat</a></div><div class="ttdeci">pplmn::Stat getStat() const</div><div class="ttdoc">Returns the stat for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00053">Animation.cpp:53</a></div></div>
+<div class="ttc" id="aa01256_html_ad7145eb01a97628028538c78bfdaab26"><div class="ttname"><a href="a01256.html#ad7145eb01a97628028538c78bfdaab26">core::battle::cmd::Animation::getPeopleball</a></div><div class="ttdeci">item::Id getPeopleball() const</div><div class="ttdoc">Get the Peopleball for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00068">Animation.cpp:68</a></div></div>
+<div class="ttc" id="aa01256_html_ae2588bbb77b2bff9773cd621a62443d1"><div class="ttname"><a href="a01256.html#ae2588bbb77b2bff9773cd621a62443d1">core::battle::cmd::Animation::Animation</a></div><div class="ttdeci">Animation(Type type)</div><div class="ttdoc">For animations that are not specific to either battler.</div><div class="ttdef"><b>Definition:</b> <a href="a00590_source.html#l00009">Animation.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

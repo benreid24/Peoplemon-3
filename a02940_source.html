@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Events/Item.hpp Source File</title>
+<title>Peoplemon: include/Core/Systems/Controllable.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Item.hpp</div>  </div>
+<div class="title">Controllable.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02940.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_ITEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_ITEM_HPP</span></div>
+<a href="a02940.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_CONTROLLABLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_CONTROLLABLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03000.html">Core/Items/Id.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01430.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01430.html">ItemPickedUp</a> {</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01430.html#abbcca9187defa6d853137d023430f604">   18</a></span>&#160;    <a class="code" href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="code" href="a01430.html#abbcca9187defa6d853137d023430f604">item</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01430.html#a02a242e508999f81f07890b9cd2b2f47">   25</a></span>&#160;    <a class="code" href="a01430.html#a02a242e508999f81f07890b9cd2b2f47">ItemPickedUp</a>(<a class="code" href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="code" href="a01430.html#abbcca9187defa6d853137d023430f604">item</a>)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    : <a class="code" href="a01430.html#abbcca9187defa6d853137d023430f604">item</a>(<a class="code" href="a01430.html#abbcca9187defa6d853137d023430f604">item</a>) {}</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01063_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01063.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03000_source.html#l00024">Id.hpp:24</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01430_html"><div class="ttname"><a href="a01430.html">core::event::ItemPickedUp</a></div><div class="ttdoc">Fired when an item is picked up.</div><div class="ttdef"><b>Definition:</b> <a href="a02940_source.html#l00016">Item.hpp:16</a></div></div>
-<div class="ttc" id="aa01430_html_a02a242e508999f81f07890b9cd2b2f47"><div class="ttname"><a href="a01430.html#a02a242e508999f81f07890b9cd2b2f47">core::event::ItemPickedUp::ItemPickedUp</a></div><div class="ttdeci">ItemPickedUp(item::Id item)</div><div class="ttdoc">Construct a new ItemPickedUp event.</div><div class="ttdef"><b>Definition:</b> <a href="a02940_source.html#l00025">Item.hpp:25</a></div></div>
-<div class="ttc" id="aa01430_html_abbcca9187defa6d853137d023430f604"><div class="ttname"><a href="a01430.html#abbcca9187defa6d853137d023430f604">core::event::ItemPickedUp::item</a></div><div class="ttdeci">item::Id item</div><div class="ttdoc">The id of the item that was picked up.</div><div class="ttdef"><b>Definition:</b> <a href="a02940_source.html#l00018">Item.hpp:18</a></div></div>
-<div class="ttc" id="aa03000_html"><div class="ttname"><a href="a03000.html">Id.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02937.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01932.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01932.html">Controllable</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01932.html#a0d70903f159a1c758face3dfce466cf4">Controllable</a>(<a class="code" href="a02012.html">Systems</a>&amp; owner);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01932.html#a0bdc1bfd930d148706d112ebc1bf388d">setEntityLocked</a>(bl::ecs::Entity entity, <span class="keywordtype">bool</span> locked, <span class="keywordtype">bool</span> preserve = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01932.html#a1f32ff96157e3fae74e0d0517cc74229">resetEntityLock</a>(bl::ecs::Entity entity);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01932.html#aa5aa1a03632d9257f856f2f39d8511ed">setAllLocks</a>(<span class="keywordtype">bool</span> locked, <span class="keywordtype">bool</span> preserve = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01932.html#aa0e1c3ec09c32aa3b9b5d19d926f3349">resetAllLocks</a>();</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    bl::ecs::Registry&amp; ecs;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;};</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01932_html"><div class="ttname"><a href="a01932.html">core::system::Controllable</a></div><div class="ttdoc">Simple systems for performing batch locks and unlocks on all controllable entities.</div><div class="ttdef"><b>Definition:</b> <a href="a02940_source.html#l00019">Controllable.hpp:19</a></div></div>
+<div class="ttc" id="aa01932_html_a0bdc1bfd930d148706d112ebc1bf388d"><div class="ttname"><a href="a01932.html#a0bdc1bfd930d148706d112ebc1bf388d">core::system::Controllable::setEntityLocked</a></div><div class="ttdeci">bool setEntityLocked(bl::ecs::Entity entity, bool locked, bool preserve=true)</div><div class="ttdoc">Set the give entity to be locked or unlocked.</div><div class="ttdef"><b>Definition:</b> <a href="a03084_source.html#l00013">Controllable.cpp:13</a></div></div>
+<div class="ttc" id="aa01932_html_a0d70903f159a1c758face3dfce466cf4"><div class="ttname"><a href="a01932.html#a0d70903f159a1c758face3dfce466cf4">core::system::Controllable::Controllable</a></div><div class="ttdeci">Controllable(Systems &amp;owner)</div><div class="ttdoc">Construct a new Controllable systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03084_source.html#l00010">Controllable.cpp:10</a></div></div>
+<div class="ttc" id="aa01932_html_a1f32ff96157e3fae74e0d0517cc74229"><div class="ttname"><a href="a01932.html#a1f32ff96157e3fae74e0d0517cc74229">core::system::Controllable::resetEntityLock</a></div><div class="ttdeci">bool resetEntityLock(bl::ecs::Entity entity)</div><div class="ttdoc">Resets the given entity's lock state to the last remembered value.</div><div class="ttdef"><b>Definition:</b> <a href="a03084_source.html#l00026">Controllable.cpp:26</a></div></div>
+<div class="ttc" id="aa01932_html_aa0e1c3ec09c32aa3b9b5d19d926f3349"><div class="ttname"><a href="a01932.html#aa0e1c3ec09c32aa3b9b5d19d926f3349">core::system::Controllable::resetAllLocks</a></div><div class="ttdeci">void resetAllLocks()</div><div class="ttdoc">Resets all controllable entity locks to the last stored state.</div><div class="ttdef"><b>Definition:</b> <a href="a03084_source.html#l00040">Controllable.cpp:40</a></div></div>
+<div class="ttc" id="aa01932_html_aa5aa1a03632d9257f856f2f39d8511ed"><div class="ttname"><a href="a01932.html#aa5aa1a03632d9257f856f2f39d8511ed">core::system::Controllable::setAllLocks</a></div><div class="ttdeci">void setAllLocks(bool locked, bool preserve=true)</div><div class="ttdoc">Sets the lock state for all controllable entities.</div><div class="ttdef"><b>Definition:</b> <a href="a03084_source.html#l00035">Controllable.cpp:35</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02937_html"><div class="ttname"><a href="a02937.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

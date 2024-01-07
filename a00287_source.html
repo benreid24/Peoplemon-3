@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Resources/BundleHandlers.hpp Source File</title>
+<title>Peoplemon: include/Core/Resources/RunWalkAnimations.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,50 +71,54 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BundleHandlers.hpp</div>  </div>
+<div class="title">RunWalkAnimations.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_RESOURCES_BUNDLEHANDLERS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_RESOURCES_BUNDLEHANDLERS_HPP</span></div>
+<a href="a00287.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_RESOURCES_RUNWALKANIMATIONS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_RESOURCES_RUNWALKANIMATIONS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Logging.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics/Animation2D/AnimationData.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01096.html">    9</a></span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01890.html">   19</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01890.html">PeoplemonBundleHandler</a> : <span class="keyword">public</span> bl::resource::bundle::FileHandler {</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">   28</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">processFile</a>(<span class="keyword">const</span> std::string&amp; path, std::ostream&amp; output,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                             bl::resource::bundle::FileHandlerContext&amp; context)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        T obj;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">if</span> (!bl::resource::ResourceManager&lt;T&gt;::initializeExisting(path, obj)) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to process: &quot;</span> &lt;&lt; path;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        bl::serial::StreamOutputBuffer wrapper(output);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        bl::serial::binary::OutputStream os(wrapper);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (!obj.saveBundle(os, context)) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to serialize &#39;&quot;</span> &lt;&lt; path &lt;&lt; <span class="stringliteral">&quot;&#39; into bundle&quot;</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;};</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01890_html"><div class="ttname"><a href="a01890.html">core::res::PeoplemonBundleHandler</a></div><div class="ttdoc">Generic handler for peoplemon files when being bundled. Performs format conversion and registers depe...</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00019">BundleHandlers.hpp:19</a></div></div>
-<div class="ttc" id="aa01890_html_aecd68887e0e4f7ce9a453976d9cf9b45"><div class="ttname"><a href="a01890.html#aecd68887e0e4f7ce9a453976d9cf9b45">core::res::PeoplemonBundleHandler::processFile</a></div><div class="ttdeci">virtual bool processFile(const std::string &amp;path, std::ostream &amp;output, bl::resource::bundle::FileHandlerContext &amp;context) override</div><div class="ttdoc">Processes the given resource file to bundle.</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00028">BundleHandlers.hpp:28</a></div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Direction.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01876.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01876.html">RunWalkAnimations</a> : <span class="keyword">public</span> bl::gfx::a2d::AnimationData {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01876.html#a387f6a16896b0b61074f3bf396528bc6">loadFromDirectory</a>(<span class="keyword">const</span> std::string&amp; path);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01876.html#a372ae57ab53e93452c0ded9600251df3">   34</a></span>&#160;    <span class="keyword">static</span> std::size_t <a class="code" href="a01876.html#a372ae57ab53e93452c0ded9600251df3">getStateFromDirection</a>(bl::tmap::Direction dir, <span class="keywordtype">bool</span> running) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(dir) + (running ? 4 : 0);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a01876.html#ac4ee3646057ebff58ef52620e4984904">   40</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01876.html#ac4ee3646057ebff58ef52620e4984904">getMaxStateLength</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> maxLen; }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">float</span> maxLen;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a01880.html">   51</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01880.html">RunWalkAnimationLoader</a> : <span class="keyword">public</span> bl::resource::LoaderBase&lt;RunWalkAnimations&gt; {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01880.html#ac08f3160d6302e7e8d34a720fa11f7f3">load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;,</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                      <a class="code" href="a01876.html">RunWalkAnimations</a>&amp; result) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;};</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01876_html"><div class="ttname"><a href="a01876.html">core::res::RunWalkAnimations</a></div><div class="ttdoc">Extension of animation data that loads and combines the animations for each movement direction into a...</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00018">RunWalkAnimations.hpp:18</a></div></div>
+<div class="ttc" id="aa01876_html_a372ae57ab53e93452c0ded9600251df3"><div class="ttname"><a href="a01876.html#a372ae57ab53e93452c0ded9600251df3">core::res::RunWalkAnimations::getStateFromDirection</a></div><div class="ttdeci">static std::size_t getStateFromDirection(bl::tmap::Direction dir, bool running)</div><div class="ttdoc">Maps the movement direction to the state index.</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00034">RunWalkAnimations.hpp:34</a></div></div>
+<div class="ttc" id="aa01876_html_a387f6a16896b0b61074f3bf396528bc6"><div class="ttname"><a href="a01876.html#a387f6a16896b0b61074f3bf396528bc6">core::res::RunWalkAnimations::loadFromDirectory</a></div><div class="ttdeci">bool loadFromDirectory(const std::string &amp;path)</div><div class="ttdoc">Loads the walking animations from the given directory.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00009">RunWalkAnimations.cpp:9</a></div></div>
+<div class="ttc" id="aa01876_html_ac4ee3646057ebff58ef52620e4984904"><div class="ttname"><a href="a01876.html#ac4ee3646057ebff58ef52620e4984904">core::res::RunWalkAnimations::getMaxStateLength</a></div><div class="ttdeci">float getMaxStateLength() const</div><div class="ttdoc">Returns the maximum length of any substate animation in seconds.</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00040">RunWalkAnimations.hpp:40</a></div></div>
+<div class="ttc" id="aa01880_html"><div class="ttname"><a href="a01880.html">core::res::RunWalkAnimationLoader</a></div><div class="ttdoc">Specialized loader for walking animations.</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00051">RunWalkAnimations.hpp:51</a></div></div>
+<div class="ttc" id="aa01880_html_ac08f3160d6302e7e8d34a720fa11f7f3"><div class="ttname"><a href="a01880.html#ac08f3160d6302e7e8d34a720fa11f7f3">core::res::RunWalkAnimationLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *, std::size_t, std::istream &amp;, RunWalkAnimations &amp;result) override</div><div class="ttdoc">Loads the walking animations from the given path.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00065">RunWalkAnimations.cpp:65</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

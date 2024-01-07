@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Snow.cpp Source File</title>
+<title>Peoplemon: src/Core/Maps/Weather/Snow.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,150 +71,92 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Snow.cpp</div>  </div>
+<div class="title">Snow.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00725.html">Snow.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">Core/Properties.hpp</a>&gt;</span></div>
+<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_SNOW_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_SNOW_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00698.html">Base.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> FastFallSpeed   = -340.f;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> SlowFallSpeed   = -100.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> GroundTime      = -2.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr <span class="keywordtype">float</span> HorizontalAccel = 128.f;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr <span class="keywordtype">float</span> HorizontalVel   = 64.f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr <span class="keywordtype">float</span> StopTime        = 4.f;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr <span class="keywordtype">float</span> StopSpeed       = 1.f / StopTime;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02414.html#a2011b83b06558c0a154e6ddd475bc8f4">   23</a></span>&#160;<a class="code" href="a02414.html#a2011b83b06558c0a154e6ddd475bc8f4">Snow::Snow</a>(<span class="keywordtype">bool</span> hard, <span class="keywordtype">bool</span> thunder)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;: _type(hard ? (thunder ? <a class="code" href="a01786.html">Weather</a>::HardSnowThunder : <a class="code" href="a01786.html">Weather</a>::HardSnow) :</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;               (thunder ? <a class="code" href="a01786.html">Weather</a>::LightSnowThunder : <a class="code" href="a01786.html">Weather</a>::LightSnow))</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, targetParticleCount(hard ? <a class="code" href="a01886.html">Properties</a>::HardSnowParticleCount() :</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                             <a class="code" href="a01886.html">Properties</a>::LightSnowParticleCount())</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, stopFactor(-1.f)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, snow(std::bind(&amp;<a class="code" href="a02414.html">Snow</a>::createFlake, this, std::placeholders::_1), targetParticleCount, 450.f)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, thunder(thunder, hard) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    snowTxtr = TextureManager::load(<a class="code" href="a01886.html#ada66185adb31a4dd76c192d84ed7898d">Properties::SnowFlakeFile</a>());</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    snowFlake.setTexture(*snowTxtr, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    snowFlake.setOrigin(snowTxtr-&gt;getSize().x / 2, snowTxtr-&gt;getSize().y / 2);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    snow.setReplaceDestroyed(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02414.html#a01d72106d7be3681a9405a04e8b18e20">   38</a></span>&#160;<a class="code" href="a01786.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02414.html#a01d72106d7be3681a9405a04e8b18e20">Snow::type</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _type; }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02414.html#ae1be65bf2a27d23758cb7b973cb0bd5a">   40</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02414.html#ae1be65bf2a27d23758cb7b973cb0bd5a">Snow::start</a>(<span class="keyword">const</span> sf::FloatRect&amp; a) { area = a; }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02414.html#a002ac5c20717ad3e786eba3d14d22b01">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02414.html#a002ac5c20717ad3e786eba3d14d22b01">Snow::stop</a>() {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    stopFactor = 0.f;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    thunder.<a class="code" href="a02426.html#a30c483f0f170d26d0d87314b3ae8c92c">stop</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02414.html#a1e2d19add6534381d1edd4ce30e965e4">   47</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02414.html#a1e2d19add6534381d1edd4ce30e965e4">Snow::stopped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> snow.particleCount() == 0; }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02414.html#a792edfd9888f819b8dc6b1cc9dd84c40">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02414.html#a792edfd9888f819b8dc6b1cc9dd84c40">Snow::update</a>(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> updateFlake = [<span class="keyword">this</span>, dt](Flake&amp; flake) -&gt; <span class="keywordtype">bool</span> {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (flake.position.z &gt; 0.f) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            flake.position += flake.velocity * dt;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">if</span> (flake.velocity.y &gt; 0.f) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                flake.velocity.x -= HorizontalAccel * dt;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;                <span class="keywordflow">if</span> (flake.velocity.x &lt; -HorizontalVel) { flake.velocity.y = -1.f; }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                flake.velocity.x += HorizontalAccel * dt;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                <span class="keywordflow">if</span> (flake.velocity.x &gt; HorizontalVel) { flake.velocity.y = 1.f; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">if</span> (flake.position.z &lt; 0.f) flake.position.z = -0.001f;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">else</span> { flake.position.z -= dt; }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> flake.position.z &gt;= GroundTime;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    };</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    snow.update(updateFlake, dt);</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00734.html">Thunder.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BLIB/Particles.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02408.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02408.html">Snow</a> : <span class="keyword">public</span> <a class="code" href="a02384.html">Base</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02408.html#a2011b83b06558c0a154e6ddd475bc8f4">Snow</a>(<span class="keywordtype">bool</span> hard, <span class="keywordtype">bool</span> thunder);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02408.html#a85acdae4403afe591719e14437484061">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02408.html#a85acdae4403afe591719e14437484061">~Snow</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01764.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02408.html#a01d72106d7be3681a9405a04e8b18e20">type</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02408.html#ae1be65bf2a27d23758cb7b973cb0bd5a">start</a>(<span class="keyword">const</span> sf::FloatRect&amp; area) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02408.html#a002ac5c20717ad3e786eba3d14d22b01">stop</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02408.html#a1e2d19add6534381d1edd4ce30e965e4">stopped</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02408.html#a792edfd9888f819b8dc6b1cc9dd84c40">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">if</span> (stopFactor &gt;= 0.f) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        snow.setTargetCount(</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            targetParticleCount -</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(targetParticleCount) * stopFactor));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (stopFactor &gt;= 0.8f) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            stopFactor = -1.f;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            snow.setTargetCount(0);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02414.html#a5fc8125136e4e8d1e571ca37f60e3839">   83</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02414.html#a5fc8125136e4e8d1e571ca37f60e3839">Snow::render</a>(sf::RenderTarget&amp; target, <span class="keywordtype">float</span> lag)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> renderFlake = [<span class="keyword">this</span>, &amp;target, lag](<span class="keyword">const</span> Flake&amp; flake) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">if</span> (flake.position.z &gt;= 0.f) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keyword">const</span> sf::Vector3f interp(flake.position + flake.velocity * lag);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            this-&gt;snowFlake.setPosition(interp.x + interp.z / 4.f, interp.y - interp.z / 2.f);</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            this-&gt;snowFlake.setColor(sf::Color(255, 255, 255, 255));</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> s = flake.position.z / GroundTime;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            this-&gt;snowFlake.setPosition(flake.position.x, flake.position.y);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            this-&gt;snowFlake.setColor(sf::Color(255, 255, 255, 255 - 255.f * s));</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        target.draw(this-&gt;snowFlake);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    };</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    snow.render(renderFlake);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            target.getView().getSize()};</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keywordtype">void</span> Snow::createFlake(Flake* flake) {</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    flake = <span class="keyword">new</span> (flake)</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        Flake(bl::util::Random::get&lt;float&gt;(area.left - 300.f, area.left + area.width + 300.f),</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;              bl::util::Random::get&lt;float&gt;(area.top - 300.f, area.top + area.height + 300.f),</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;              bl::util::Random::get&lt;float&gt;(140.f, 200.f),</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;              fallSpeed);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;Snow::Flake::Flake(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span> zf)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;: position(x, y, z)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;, velocity(<a class="code" href="a01082.html">bl</a>::util::Random::get&lt;float&gt;(-HorizontalVel, HorizontalVel),</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;           <a class="code" href="a01082.html">bl</a>::util::Random::get&lt;float&gt;(-1.f, 1.f), zf) {}</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">Snow.hpp</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01082_html"><div class="ttname"><a href="a01082.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a02955_source.html#l00139">Position.hpp:140</a></div></div>
-<div class="ttc" id="aa01786_html"><div class="ttname"><a href="a01786.html">core::map::Weather</a></div><div class="ttdoc">Parent weather system for maps. Manages active weather.</div><div class="ttdef"><b>Definition:</b> <a href="a02997_source.html#l00029">Weather.hpp:29</a></div></div>
-<div class="ttc" id="aa01786_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01786.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a02997_source.html#l00035">Weather.hpp:35</a></div></div>
-<div class="ttc" id="aa01886_html"><div class="ttname"><a href="a01886.html">core::Properties</a></div><div class="ttdoc">Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be...</div><div class="ttdef"><b>Definition:</b> <a href="a00284_source.html#l00028">Properties.hpp:28</a></div></div>
-<div class="ttc" id="aa01886_html_ada66185adb31a4dd76c192d84ed7898d"><div class="ttname"><a href="a01886.html#ada66185adb31a4dd76c192d84ed7898d">core::Properties::SnowFlakeFile</a></div><div class="ttdeci">static const std::string &amp; SnowFlakeFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00401">Properties.cpp:401</a></div></div>
-<div class="ttc" id="aa02414_html"><div class="ttname"><a href="a02414.html">core::map::weather::Snow</a></div><div class="ttdoc">Snow weather system.</div><div class="ttdef"><b>Definition:</b> <a href="a00725_source.html#l00023">Snow.hpp:23</a></div></div>
-<div class="ttc" id="aa02414_html_a002ac5c20717ad3e786eba3d14d22b01"><div class="ttname"><a href="a02414.html#a002ac5c20717ad3e786eba3d14d22b01">core::map::weather::Snow::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00042">Snow.cpp:42</a></div></div>
-<div class="ttc" id="aa02414_html_a01d72106d7be3681a9405a04e8b18e20"><div class="ttname"><a href="a02414.html#a01d72106d7be3681a9405a04e8b18e20">core::map::weather::Snow::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">One of LightSnow, LightSnowThunder, HardSnow, HardSnowThunder.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00038">Snow.cpp:38</a></div></div>
-<div class="ttc" id="aa02414_html_a1e2d19add6534381d1edd4ce30e965e4"><div class="ttname"><a href="a02414.html#a1e2d19add6534381d1edd4ce30e965e4">core::map::weather::Snow::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when no snow is left after a call to stop()</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00047">Snow.cpp:47</a></div></div>
-<div class="ttc" id="aa02414_html_a2011b83b06558c0a154e6ddd475bc8f4"><div class="ttname"><a href="a02414.html#a2011b83b06558c0a154e6ddd475bc8f4">core::map::weather::Snow::Snow</a></div><div class="ttdeci">Snow(bool hard, bool thunder)</div><div class="ttdoc">Create snowy weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00023">Snow.cpp:23</a></div></div>
-<div class="ttc" id="aa02414_html_a5fc8125136e4e8d1e571ca37f60e3839"><div class="ttname"><a href="a02414.html#a5fc8125136e4e8d1e571ca37f60e3839">core::map::weather::Snow::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, float residual) const override</div><div class="ttdoc">Renders the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00083">Snow.cpp:83</a></div></div>
-<div class="ttc" id="aa02414_html_a792edfd9888f819b8dc6b1cc9dd84c40"><div class="ttname"><a href="a02414.html#a792edfd9888f819b8dc6b1cc9dd84c40">core::map::weather::Snow::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates all the flakes and spawns more.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00049">Snow.cpp:49</a></div></div>
-<div class="ttc" id="aa02414_html_ae1be65bf2a27d23758cb7b973cb0bd5a"><div class="ttname"><a href="a02414.html#ae1be65bf2a27d23758cb7b973cb0bd5a">core::map::weather::Snow::start</a></div><div class="ttdeci">virtual void start(const sf::FloatRect &amp;area) override</div><div class="ttdoc">Start the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00040">Snow.cpp:40</a></div></div>
-<div class="ttc" id="aa02426_html_a30c483f0f170d26d0d87314b3ae8c92c"><div class="ttname"><a href="a02426.html#a30c483f0f170d26d0d87314b3ae8c92c">core::map::weather::Thunder::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Prevents further thunder and fades out current strike if present.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00041">Thunder.cpp:41</a></div></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02408.html#a5fc8125136e4e8d1e571ca37f60e3839">render</a>(sf::RenderTarget&amp; target, <span class="keywordtype">float</span> residual) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">struct </span>Flake {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        sf::Vector3f position;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        sf::Vector3f velocity;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        Flake() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        Flake(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y, <span class="keywordtype">float</span> z, <span class="keywordtype">float</span> fallSpeed);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    };</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01764.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> _type;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> targetParticleCount;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> fallSpeed;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    bl::resource::Ref&lt;sf::Texture&gt; snowTxtr;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">mutable</span> sf::Sprite snowFlake;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">mutable</span> sf::FloatRect area;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">float</span> stopFactor;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    bl::particle::System&lt;Flake&gt; snow;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="a02420.html">Thunder</a> thunder;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordtype">void</span> createFlake(Flake* flake);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;};</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa00698_html"><div class="ttname"><a href="a00698.html">Base.hpp</a></div></div>
+<div class="ttc" id="aa00734_html"><div class="ttname"><a href="a00734.html">Thunder.hpp</a></div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01764_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01764.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a02997_source.html#l00035">Weather.hpp:35</a></div></div>
+<div class="ttc" id="aa02384_html"><div class="ttname"><a href="a02384.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00698_source.html#l00027">Base.hpp:27</a></div></div>
+<div class="ttc" id="aa02408_html"><div class="ttname"><a href="a02408.html">core::map::weather::Snow</a></div><div class="ttdoc">Snow weather system.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00023">Snow.hpp:23</a></div></div>
+<div class="ttc" id="aa02408_html_a002ac5c20717ad3e786eba3d14d22b01"><div class="ttname"><a href="a02408.html#a002ac5c20717ad3e786eba3d14d22b01">core::map::weather::Snow::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00042">Snow.cpp:42</a></div></div>
+<div class="ttc" id="aa02408_html_a01d72106d7be3681a9405a04e8b18e20"><div class="ttname"><a href="a02408.html#a01d72106d7be3681a9405a04e8b18e20">core::map::weather::Snow::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">One of LightSnow, LightSnowThunder, HardSnow, HardSnowThunder.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00038">Snow.cpp:38</a></div></div>
+<div class="ttc" id="aa02408_html_a1e2d19add6534381d1edd4ce30e965e4"><div class="ttname"><a href="a02408.html#a1e2d19add6534381d1edd4ce30e965e4">core::map::weather::Snow::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when no snow is left after a call to stop()</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00047">Snow.cpp:47</a></div></div>
+<div class="ttc" id="aa02408_html_a2011b83b06558c0a154e6ddd475bc8f4"><div class="ttname"><a href="a02408.html#a2011b83b06558c0a154e6ddd475bc8f4">core::map::weather::Snow::Snow</a></div><div class="ttdeci">Snow(bool hard, bool thunder)</div><div class="ttdoc">Create snowy weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00023">Snow.cpp:23</a></div></div>
+<div class="ttc" id="aa02408_html_a5fc8125136e4e8d1e571ca37f60e3839"><div class="ttname"><a href="a02408.html#a5fc8125136e4e8d1e571ca37f60e3839">core::map::weather::Snow::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, float residual) const override</div><div class="ttdoc">Renders the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00083">Snow.cpp:83</a></div></div>
+<div class="ttc" id="aa02408_html_a792edfd9888f819b8dc6b1cc9dd84c40"><div class="ttname"><a href="a02408.html#a792edfd9888f819b8dc6b1cc9dd84c40">core::map::weather::Snow::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates all the flakes and spawns more.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00049">Snow.cpp:49</a></div></div>
+<div class="ttc" id="aa02408_html_a85acdae4403afe591719e14437484061"><div class="ttname"><a href="a02408.html#a85acdae4403afe591719e14437484061">core::map::weather::Snow::~Snow</a></div><div class="ttdeci">virtual ~Snow()=default</div><div class="ttdoc">Destroy the Snow object.</div></div>
+<div class="ttc" id="aa02408_html_ae1be65bf2a27d23758cb7b973cb0bd5a"><div class="ttname"><a href="a02408.html#ae1be65bf2a27d23758cb7b973cb0bd5a">core::map::weather::Snow::start</a></div><div class="ttdeci">virtual void start(const sf::FloatRect &amp;area) override</div><div class="ttdoc">Start the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00040">Snow.cpp:40</a></div></div>
+<div class="ttc" id="aa02420_html"><div class="ttname"><a href="a02420.html">core::map::weather::Thunder</a></div><div class="ttdoc">Simple helper class for creating thunder in different weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00020">Thunder.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

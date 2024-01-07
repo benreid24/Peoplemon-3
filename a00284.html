@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Properties.hpp File Reference</title>
+<title>Peoplemon: include/Core/Resources/Loaders.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,93 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_4655ea07147374004a9b8157f739b905.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a>  </div>
   <div class="headertitle">
-<div class="title">Properties.hpp File Reference</div>  </div>
+<div class="title">Loaders.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;BLIB/Audio/AudioSystem.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
-<code>#include &lt;BLIB/Util/NonCopyable.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00227_source.html">Core/Peoplemon/Ailment.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00275_source.html">Core/Player/Gender.hpp</a>&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Font.hpp&gt;</code><br />
-<code>#include &lt;SFML/Graphics/Texture.hpp&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &lt;BLIB/Resources.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02916_source.html">Core/Files/Conversation.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00152_source.html">Core/Files/ItemDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00155_source.html">Core/Files/MoveDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02958_source.html">Core/Files/NPC.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00158_source.html">Core/Files/PeoplemonDB.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a02964_source.html">Core/Files/Trainer.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03012_source.html">Core/Maps/Map.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a03024_source.html">Core/Maps/Tileset.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00284_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01886.html">core::Properties</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be accessed without performing look ups, and hides the string config names.  <a href="a01886.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01872.html">core::res::PeoplemonLoader&lt; T, mode &gt;</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic resource loader for conforming Peoplemon resource types. Resource types must be default constructable and have loadDev and loadProd methods.  <a href="a01872.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01075"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">core</a></td></tr>
-<tr class="memdesc:a01075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01080"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">core</a></td></tr>
+<tr class="memdesc:a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01101"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html">core::res</a></td></tr>
+<tr class="memdesc:a01101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of utilities for resource bundling and management. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a263b778f421c5c1eed85b9333d5cd917"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a263b778f421c5c1eed85b9333d5cd917">core::res::TilesetDevLoader</a> = PeoplemonLoader&lt; map::Tileset, Dev &gt;</td></tr>
+<tr class="separator:a263b778f421c5c1eed85b9333d5cd917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa279e9645b48b34febe407baa410605e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#aa279e9645b48b34febe407baa410605e">core::res::TilesetProdLoader</a> = PeoplemonLoader&lt; map::Tileset, Prod &gt;</td></tr>
+<tr class="separator:aa279e9645b48b34febe407baa410605e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac516016d998b236c68a0eb5d67e539d4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#ac516016d998b236c68a0eb5d67e539d4">core::res::MapDevLoader</a> = PeoplemonLoader&lt; map::Map, Dev &gt;</td></tr>
+<tr class="separator:ac516016d998b236c68a0eb5d67e539d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff7de38dfbeaa8c831441eb56164b04"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a1ff7de38dfbeaa8c831441eb56164b04">core::res::MapProdLoader</a> = PeoplemonLoader&lt; map::Map, Prod &gt;</td></tr>
+<tr class="separator:a1ff7de38dfbeaa8c831441eb56164b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428d9b10e8db4126c16ae04ce6517160"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a428d9b10e8db4126c16ae04ce6517160">core::res::ConversationDevLoader</a> = PeoplemonLoader&lt; file::Conversation, Dev &gt;</td></tr>
+<tr class="separator:a428d9b10e8db4126c16ae04ce6517160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e693ec2d0ea69f551a8a10ba8346cae"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a6e693ec2d0ea69f551a8a10ba8346cae">core::res::ConversationProdLoader</a> = PeoplemonLoader&lt; file::Conversation, Prod &gt;</td></tr>
+<tr class="separator:a6e693ec2d0ea69f551a8a10ba8346cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea8397e7a0ca91b368c5a24da21d64b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a0ea8397e7a0ca91b368c5a24da21d64b">core::res::NpcDevLoader</a> = PeoplemonLoader&lt; file::NPC, Dev &gt;</td></tr>
+<tr class="separator:a0ea8397e7a0ca91b368c5a24da21d64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a7dfa1c3ac0c3d6924ef067e93450e2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a1a7dfa1c3ac0c3d6924ef067e93450e2">core::res::NpcProdLoader</a> = PeoplemonLoader&lt; file::NPC, Prod &gt;</td></tr>
+<tr class="separator:a1a7dfa1c3ac0c3d6924ef067e93450e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad55b9b6123094c81cf0b3bbb9d744315"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#ad55b9b6123094c81cf0b3bbb9d744315">core::res::TrainerDevLoader</a> = PeoplemonLoader&lt; file::Trainer, Dev &gt;</td></tr>
+<tr class="separator:ad55b9b6123094c81cf0b3bbb9d744315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8216074458a41e5c629e1c276f084337"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a8216074458a41e5c629e1c276f084337">core::res::TrainerProdLoader</a> = PeoplemonLoader&lt; file::Trainer, Prod &gt;</td></tr>
+<tr class="separator:a8216074458a41e5c629e1c276f084337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43a8141e895beeadb340326c2d21d11"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#ac43a8141e895beeadb340326c2d21d11">core::res::ItemDBDevLoader</a> = PeoplemonLoader&lt; file::ItemDB, Dev &gt;</td></tr>
+<tr class="separator:ac43a8141e895beeadb340326c2d21d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c253e1fe10e831e4bcec5742dfcd85"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a99c253e1fe10e831e4bcec5742dfcd85">core::res::ItemDBProdLoader</a> = PeoplemonLoader&lt; file::ItemDB, Prod &gt;</td></tr>
+<tr class="separator:a99c253e1fe10e831e4bcec5742dfcd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f716a0aa6e12368a93833511e914a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a16f716a0aa6e12368a93833511e914a6">core::res::PeoplemonDBDevLoader</a> = PeoplemonLoader&lt; file::PeoplemonDB, Dev &gt;</td></tr>
+<tr class="separator:a16f716a0aa6e12368a93833511e914a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faadf65cddba819652e2ab3f11f4f2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a7faadf65cddba819652e2ab3f11f4f2f">core::res::PeoplemonDBProdLoader</a> = PeoplemonLoader&lt; file::PeoplemonDB, Prod &gt;</td></tr>
+<tr class="separator:a7faadf65cddba819652e2ab3f11f4f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63ea48857f465433b15ce7e02b7c242"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#ab63ea48857f465433b15ce7e02b7c242">core::res::MoveDBDevLoader</a> = PeoplemonLoader&lt; file::MoveDB, Dev &gt;</td></tr>
+<tr class="separator:ab63ea48857f465433b15ce7e02b7c242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7311179b2418221681414397a3c78eb4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a7311179b2418221681414397a3c78eb4">core::res::MoveDBProdLoader</a> = PeoplemonLoader&lt; file::MoveDB, Prod &gt;</td></tr>
+<tr class="separator:a7311179b2418221681414397a3c78eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a3864a733b8c0ec891913f728b80f1779"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html#a3864a733b8c0ec891913f728b80f1779">core::res::Mode</a> { <a class="el" href="a01101.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">core::res::Dev</a>
+, <a class="el" href="a01101.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">core::res::Prod</a>
+ }</td></tr>
+<tr class="separator:a3864a733b8c0ec891913f728b80f1779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

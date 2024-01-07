@@ -78,39 +78,37 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SCRIPTS_BASEFUNCTIONS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts/SymbolTable.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02955.html">Core/Components/Position.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Position.hpp&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>system</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Systems;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01097.html">   22</a></span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01102.html">   22</a></span>&#160;<span class="keyword">namespace </span>script</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01898.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01898.html">BaseFunctions</a> {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a01898.html#ab82e28a7c9987d205a5c929e04bcdfee">addDefaults</a>(bl::script::SymbolTable&amp; table, <a class="code" href="a02018.html">system::Systems</a>&amp; systems);</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01892.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01892.html">BaseFunctions</a> {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a01892.html#ab82e28a7c9987d205a5c929e04bcdfee">addDefaults</a>(bl::script::SymbolTable&amp; table, <a class="code" href="a02012.html">system::Systems</a>&amp; systems);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">static</span> bl::script::Value <a class="code" href="a01898.html#a116257b1cf22c3336a2bb60ec93fae5c">makePosition</a>(<span class="keyword">const</span> <a class="code" href="a01338.html">component::Position</a>&amp; pos);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">static</span> bl::script::Value <a class="code" href="a01892.html#a4ce2a8e7583af041bb56d822302412cc">makePosition</a>(<span class="keyword">const</span> bl::tmap::Position&amp; pos);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;};</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace script</span></div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01338_html"><div class="ttname"><a href="a01338.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02955_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01898_html"><div class="ttname"><a href="a01898.html">core::script::BaseFunctions</a></div><div class="ttdoc">Adds the built-in default functions to all Peoplemon scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00030">BaseFunctions.hpp:30</a></div></div>
-<div class="ttc" id="aa01898_html_a116257b1cf22c3336a2bb60ec93fae5c"><div class="ttname"><a href="a01898.html#a116257b1cf22c3336a2bb60ec93fae5c">core::script::BaseFunctions::makePosition</a></div><div class="ttdeci">static bl::script::Value makePosition(const component::Position &amp;pos)</div><div class="ttdoc">Helper function for other script functions to make script position values from the position component...</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00240">BaseFunctions.cpp:240</a></div></div>
-<div class="ttc" id="aa01898_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01898.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
-<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02955_html"><div class="ttname"><a href="a02955.html">Position.hpp</a></div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01892_html"><div class="ttname"><a href="a01892.html">core::script::BaseFunctions</a></div><div class="ttdoc">Adds the built-in default functions to all Peoplemon scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00030">BaseFunctions.hpp:30</a></div></div>
+<div class="ttc" id="aa01892_html_a4ce2a8e7583af041bb56d822302412cc"><div class="ttname"><a href="a01892.html#a4ce2a8e7583af041bb56d822302412cc">core::script::BaseFunctions::makePosition</a></div><div class="ttdeci">static bl::script::Value makePosition(const bl::tmap::Position &amp;pos)</div><div class="ttdoc">Helper function for other script functions to make script position values from the position component...</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00240">BaseFunctions.cpp:240</a></div></div>
+<div class="ttc" id="aa01892_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01892.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

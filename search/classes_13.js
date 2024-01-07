@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['wander_3067',['Wander',['../a01514.html',1,'core::file::Behavior']]],
-  ['wanderbehavior_3068',['WanderBehavior',['../a01386.html',1,'core::component']]],
-  ['weather_3069',['Weather',['../a01786.html',1,'core::map']]],
-  ['weatherselect_3070',['WeatherSelect',['../a02174.html',1,'editor::component']]],
-  ['weatherstarted_3071',['WeatherStarted',['../a01486.html',1,'core::event']]],
-  ['weatherstopped_3072',['WeatherStopped',['../a01490.html',1,'core::event']]],
-  ['wildpeoplemon_3073',['WildPeoplemon',['../a01850.html',1,'core::pplmn::WildPeoplemon'],['../a02026.html',1,'core::system::WildPeoplemon']]],
-  ['wildsequence_3074',['WildSequence',['../a02630.html',1,'game::state::intros']]],
-  ['windowsizepersister_3075',['WindowSizePersister',['../a02614.html',1,'']]],
-  ['world_3076',['World',['../a02030.html',1,'core::system']]],
-  ['worlddatapointers_3077',['WorldDataPointers',['../a01578.html',1,'core::file::GameSave']]]
+  ['walkanimationloader_3069',['WalkAnimationLoader',['../a01888.html',1,'core::res']]],
+  ['walkanimations_3070',['WalkAnimations',['../a01884.html',1,'core::res']]],
+  ['wander_3071',['Wander',['../a01492.html',1,'core::file::Behavior']]],
+  ['wanderbehavior_3072',['WanderBehavior',['../a01364.html',1,'core::component']]],
+  ['weather_3073',['Weather',['../a01764.html',1,'core::map']]],
+  ['weatherselect_3074',['WeatherSelect',['../a02168.html',1,'editor::component']]],
+  ['weatherstarted_3075',['WeatherStarted',['../a01464.html',1,'core::event']]],
+  ['weatherstopped_3076',['WeatherStopped',['../a01468.html',1,'core::event']]],
+  ['wildpeoplemon_3077',['WildPeoplemon',['../a01828.html',1,'core::pplmn::WildPeoplemon'],['../a02020.html',1,'core::system::WildPeoplemon']]],
+  ['wildsequence_3078',['WildSequence',['../a02624.html',1,'game::state::intros']]],
+  ['windowsizepersister_3079',['WindowSizePersister',['../a02608.html',1,'']]],
+  ['world_3080',['World',['../a02024.html',1,'core::system']]],
+  ['worlddatapointers_3081',['WorldDataPointers',['../a01556.html',1,'core::file::GameSave']]]
 ];

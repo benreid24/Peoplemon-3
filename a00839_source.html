@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/Systems.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/Render.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,140 +71,135 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Systems.cpp</div>  </div>
+<div class="title">Render.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00839.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<a href="a00839.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00347.html">Core/Systems/Render.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;Systems::Systems(bl::engine::Engine&amp; engine)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: _engine(engine)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, _clock(*this)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, _ai(*this)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, _controllable(*this)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, _entity(*this)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, _player(*this)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, _world(*this)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, _position(*this)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, _movement(*this)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, _render(*this)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, _interaction(*this)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, _hud(*this)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, _scripts(*this)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, _trainers(*this)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, _wildPeoplemon(*this)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, _flight(*this) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    _world.init();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    _position.init();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    _player.init();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    _ai.init();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    _interaction.init();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    _scripts.init();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    _clock.init();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    _trainers.init();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    _wildPeoplemon.init();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02018.html#a46efba2091dd2588b4a472ed9e94b341">   35</a></span>&#160;<span class="keywordtype">void</span> Systems::update(<span class="keywordtype">float</span> dt, <span class="keywordtype">bool</span> ent) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    _clock.update(dt);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">if</span> (ent) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        _ai.update(dt);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        _player.update(dt);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        _movement.update(dt);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        _trainers.update(dt);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        _flight.update(dt);</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00353.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a02004.html#a5b9e572a572fd49f01cf4bf8fbc091fd">   10</a></span>&#160;<a class="code" href="a02004.html#a5b9e572a572fd49f01cf4bf8fbc091fd">Render::Render</a>(<a class="code" href="a02012.html">Systems</a>&amp; o)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: owner(o)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, pool(owner.engine().ecs().getAllComponents&lt;component::Renderable&gt;())</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, transformPool(owner.engine().ecs().getAllComponents&lt;<a class="code" href="a01090.html">bl</a>::com::Transform2D&gt;()) {}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">void</span> Render::update(std::mutex&amp;, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; epair : stopRm) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <a class="code" href="a01344.html">component::Renderable</a>* rc = pool.get(epair.first);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">if</span> (rc) { rc-&gt;<a class="code" href="a01344.html#aedf0899c8c9bea8388888c5b18ad0d16">notifyMoveState</a>(epair.second, <span class="keyword">false</span>, <span class="keyword">false</span>); }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    stopRm.clear();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> bl::ecs::Entity shadow : shadowsToRemove) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().destroyEntity(shadow);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    shadowsToRemove.clear();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keywordtype">void</span> Render::init(bl::engine::Engine&amp;) { bl::event::Dispatcher::subscribe(<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keywordtype">void</span> Render::notifyFrameStart() { std::swap(stopAdd, stopRm); }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> Render::observe(<span class="keyword">const</span> event::EntityMoved&amp; event) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    component::Renderable* rc = pool.get(event.entity);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (rc) {</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        rc-&gt;notifyMoveState(event.position.direction, <span class="keyword">true</span>, event.running);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        std::erase_if(stopRm, [&amp;event](<span class="keyword">auto</span>&amp; pair) { <span class="keywordflow">return</span> pair.first == <span class="keyword">event</span>.entity; });</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::erase_if(stopAdd, [&amp;event](<span class="keyword">auto</span>&amp; pair) { <span class="keywordflow">return</span> pair.first == <span class="keyword">event</span>.entity; });</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    bl::com::Transform2D* transform = transformPool.get(event.entity);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (transform) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        transform-&gt;setDepth(owner.<a class="code" href="a02012.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02024.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01712.html#a506999f8fb3f649eadc748410feb36a2">getDepthForPosition</a>(</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            event.position.level, event.position.position.y));</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    _position.update();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    _hud.update(dt);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    _world.update(dt);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    _render.update(dt);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02018.html#a0b3fe0efa3165c0fb5344e927a89a7c2">   52</a></span>&#160;<span class="keyword">const</span> bl::engine::Engine&amp; Systems::engine()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _engine; }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02018.html#a5fef522da37e44874d58301c6e7ac1fa">   54</a></span>&#160;bl::engine::Engine&amp; Systems::engine() { <span class="keywordflow">return</span> _engine; }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> Render::observe(<span class="keyword">const</span> event::EntityMoveFinished&amp; event) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    stopAdd.emplace_back(event.entity, event.position.direction);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keywordtype">void</span> Render::observe(<span class="keyword">const</span> event::EntityRotated&amp; event) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    component::Renderable* rc = pool.get(event.entity);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (rc) { rc-&gt;notifyMoveState(event.faceDir, <span class="keyword">false</span>, <span class="keyword">false</span>); }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02018.html#aba03d5263fd6298e1264cd37dd2f7fef">   56</a></span>&#160;<a class="code" href="a01926.html">Clock</a>&amp; Systems::clock() { <span class="keywordflow">return</span> _clock; }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02018.html#ad2476a6558650a3704bdd28176d39261">   58</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01926.html">Clock</a>&amp; Systems::clock()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _clock; }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02018.html#ad71abe5cc74772044d51b1108df6ade4">   60</a></span>&#160;<a class="code" href="a02030.html">World</a>&amp; Systems::world() { <span class="keywordflow">return</span> _world; }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02018.html#a801da70e9b0d4cfe7f02747bdc92c3bb">   62</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02030.html">World</a>&amp; Systems::world()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _world; }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02018.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">   64</a></span>&#160;<a class="code" href="a02006.html">Position</a>&amp; Systems::position() { <span class="keywordflow">return</span> _position; }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02018.html#af941c418fc88063e474820736c365365">   66</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02006.html">Position</a>&amp; Systems::position()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _position; }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02018.html#a41e33ceb29b9098d1d611b395bc8c544">   68</a></span>&#160;<a class="code" href="a01994.html">Movement</a>&amp; Systems::movement() { <span class="keywordflow">return</span> _movement; }</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02018.html#ae87f518208a53ed0d7c11d4b3152f55d">   70</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01994.html">Movement</a>&amp; Systems::movement()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _movement; }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02018.html#a4c2bad636d9864557ec726e1b9d534ba">   72</a></span>&#160;<a class="code" href="a02010.html">Render</a>&amp; Systems::render() { <span class="keywordflow">return</span> _render; }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02018.html#a15dfb2cb479a515e966384940ae27da4">   74</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02010.html">Render</a>&amp; Systems::render()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _render; }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02018.html#a2be150f802f8a9c9685823c58443c761">   76</a></span>&#160;<a class="code" href="a01942.html">Entity</a>&amp; Systems::entity() { <span class="keywordflow">return</span> _entity; }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a02018.html#a461e565958d5843b9231de6b5f109e58">   78</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01942.html">Entity</a>&amp; Systems::entity()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _entity; }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02018.html#a614eb9bb163de0567a30da6c215835af">   80</a></span>&#160;<a class="code" href="a01998.html">Player</a>&amp; Systems::player() { <span class="keywordflow">return</span> _player; }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02018.html#aed3e07a228612f715af1b29c87f62b1b">   82</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01998.html">Player</a>&amp; Systems::player()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _player; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02018.html#a93591789b40dcfcfb17d73c33004f83f">   84</a></span>&#160;<a class="code" href="a01938.html">Controllable</a>&amp; Systems::controllable() { <span class="keywordflow">return</span> _controllable; }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02018.html#a1ce8e251fe7c2df6d7bd8e9a3a4a501b">   86</a></span>&#160;<a class="code" href="a01922.html">AI</a>&amp; Systems::ai() { <span class="keywordflow">return</span> _ai; }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02018.html#adbf956366f458de91791b525731c36de">   88</a></span>&#160;<a class="code" href="a01990.html">Interaction</a>&amp; Systems::interaction() { <span class="keywordflow">return</span> _interaction; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02004.html#af00956a08c58e19670102613f6074fe3">   56</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02004.html#af00956a08c58e19670102613f6074fe3">Render::updateShadow</a>(bl::ecs::Entity entity, <span class="keywordtype">float</span> distance, <span class="keywordtype">float</span> radius) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a01344.html">component::Renderable</a>* rc = pool.get(entity);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (!rc) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Cannot update shadow of entity, missing Renderable component: &quot;</span> &lt;&lt; entity;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    constexpr <span class="keywordtype">float</span> Radius = 100.f;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    bl::gfx::Circle* shadow = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (rc-&gt;shadow != bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        shadow = owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::gfx::Circle&gt;(rc-&gt;shadow);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">if</span> (!shadow) {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Entity is missing shadow but one was expected, re-creating&quot;</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().destroyEntity(rc-&gt;shadow);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">if</span> (!shadow) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        rc-&gt;shadow = owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().createEntity(bl::ecs::Flags::WorldObject);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().setEntityParent(rc-&gt;shadow, entity);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        shadow = owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().emplaceComponent&lt;bl::gfx::Circle&gt;(rc-&gt;shadow);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        shadow-&gt;create(owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), rc-&gt;shadow, Radius);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        shadow-&gt;deleteEntityOnDestroy(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        shadow-&gt;getTransform().setOrigin(Radius, Radius);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        shadow-&gt;getTransform().setDepth(0.5f); <span class="comment">// just below parent</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        shadow-&gt;setFillColor(sf::Color(0, 0, 0, 145));</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        shadow-&gt;addToScene(owner.<a class="code" href="a02012.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02024.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01712.html#acaaf032c17899a335f649ae156d49b5b">getScene</a>(), bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::com::Transform2D* parentTransform =</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        owner.<a class="code" href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::com::Transform2D&gt;(entity);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> glm::vec2 parentOrigin =</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        parentTransform ? parentTransform-&gt;getOrigin() : glm::vec2{16.f, 32.f};</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="a02018.html#abb5e1cbaf09a2d66b686562d3006cf34">   90</a></span>&#160;<a class="code" href="a01974.html">HUD</a>&amp; Systems::hud() { <span class="keywordflow">return</span> _hud; }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02018.html#a81b756ab37ac6cc8a18f2a6fd1a76739">   92</a></span>&#160;<a class="code" href="a02014.html">Scripts</a>&amp; Systems::scripts() { <span class="keywordflow">return</span> _scripts; }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02018.html#ac91bd250e5ce31b0a5754946f477e7d4">   94</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02014.html">Scripts</a>&amp; Systems::scripts()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _scripts; }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02018.html#a83bb012e96b410774024149c3c5a1e90">   96</a></span>&#160;<a class="code" href="a02022.html">Trainers</a>&amp; Systems::trainers() { <span class="keywordflow">return</span> _trainers; }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02018.html#a65ca8a1d629e8bfb6f508f3968340831">   98</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02022.html">Trainers</a>&amp; Systems::trainers()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _trainers; }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a02018.html#ad301fde37048e71528633d857caa8721">  100</a></span>&#160;<a class="code" href="a02026.html">WildPeoplemon</a>&amp; Systems::wildPeoplemon() { <span class="keywordflow">return</span> _wildPeoplemon; }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02018.html#a5cf61abc4b9ebb6664633c9f53a2f8ea">  102</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02026.html">WildPeoplemon</a>&amp; Systems::wildPeoplemon()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _wildPeoplemon; }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02018.html#a625832b092ffb62d44ae2d29b7a7dd47">  104</a></span>&#160;<a class="code" href="a01946.html">Flight</a>&amp; Systems::flight() { <span class="keywordflow">return</span> _flight; }</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02018.html#a69a8d8f5803913200d3dda7e86be150a">  106</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01946.html">Flight</a>&amp; Systems::flight()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _flight; }</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01922_html"><div class="ttname"><a href="a01922.html">core::system::AI</a></div><div class="ttdoc">Manages NPC's and trainers and their behaviors.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00024">AI.hpp:24</a></div></div>
-<div class="ttc" id="aa01926_html"><div class="ttname"><a href="a01926.html">core::system::Clock</a></div><div class="ttdoc">Simple time keeping systems. Tracks in game time and date based on real elapsed play time.</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00022">Clock.hpp:24</a></div></div>
-<div class="ttc" id="aa01938_html"><div class="ttname"><a href="a01938.html">core::system::Controllable</a></div><div class="ttdoc">Simple systems for performing batch locks and unlocks on all controllable entities.</div><div class="ttdef"><b>Definition:</b> <a href="a02934_source.html#l00019">Controllable.hpp:19</a></div></div>
-<div class="ttc" id="aa01942_html"><div class="ttname"><a href="a01942.html">core::system::Entity</a></div><div class="ttdoc">Basic helper system for creating entities and their required components. Also manages player data and...</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00021">Entity.hpp:21</a></div></div>
-<div class="ttc" id="aa01946_html"><div class="ttname"><a href="a01946.html">core::system::Flight</a></div><div class="ttdoc">Special system to manage player flight between their current location and a town.</div><div class="ttdef"><b>Definition:</b> <a href="a00323_source.html#l00020">Flight.hpp:20</a></div></div>
-<div class="ttc" id="aa01974_html"><div class="ttname"><a href="a01974.html">core::system::HUD</a></div><div class="ttdoc">The primary HUD system for the player. Manages displaying messages and asking questions....</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00030">HUD.hpp:30</a></div></div>
-<div class="ttc" id="aa01990_html"><div class="ttname"><a href="a01990.html">core::system::Interaction</a></div><div class="ttdoc">The main interaction system. Manages interaction between entities. Handles item logic and NPC convers...</div><div class="ttdef"><b>Definition:</b> <a href="a00335_source.html#l00026">Interaction.hpp:27</a></div></div>
-<div class="ttc" id="aa01994_html"><div class="ttname"><a href="a01994.html">core::system::Movement</a></div><div class="ttdoc">Primary System for managing entity movement and interpolation.</div><div class="ttdef"><b>Definition:</b> <a href="a00338_source.html#l00020">Movement.hpp:20</a></div></div>
-<div class="ttc" id="aa01998_html"><div class="ttname"><a href="a01998.html">core::system::Player</a></div><div class="ttdoc">Primary system for managing the player and their data.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00028">Player.hpp:28</a></div></div>
-<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">core::system::Position</a></div><div class="ttdoc">The primary entity positioning system. Handles determining which entities get updated as well as trac...</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00026">Position.hpp:29</a></div></div>
-<div class="ttc" id="aa02010_html"><div class="ttname"><a href="a02010.html">core::system::Render</a></div><div class="ttdoc">Primary rendering system. Handles fade ins and outs, visual effects, and rendering everything,...</div><div class="ttdef"><b>Definition:</b> <a href="a00344_source.html#l00023">Render.hpp:23</a></div></div>
-<div class="ttc" id="aa02014_html"><div class="ttname"><a href="a02014.html">core::system::Scripts</a></div><div class="ttdoc">System that stores and handles saving/loading of save entries for scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a03054_source.html#l00022">Scripts.hpp:22</a></div></div>
-<div class="ttc" id="aa02022_html"><div class="ttname"><a href="a02022.html">core::system::Trainers</a></div><div class="ttdoc">This system manages trainers. It handles their vision and makes them walk up to the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00028">Trainers.hpp:31</a></div></div>
-<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::WildPeoplemon</a></div><div class="ttdoc">Manages the appearances of wild peoplemon when walking through catch tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a03039_source.html#l00020">WildPeoplemon.hpp:20</a></div></div>
-<div class="ttc" id="aa02030_html"><div class="ttname"><a href="a02030.html">core::system::World</a></div><div class="ttdoc">System for managing the current map and previous maps.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00021">World.hpp:21</a></div></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    shadow-&gt;scaleToSize({radius * 2.f, radius * 2.f});</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    shadow-&gt;getTransform().setPosition(parentOrigin.x + <a class="code" href="a01864.html#a3dbd0e08a9910f9755d0e5218ba45f5a">Properties::PixelsPerTile</a>() / 2,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                       parentOrigin.y + distance + <a class="code" href="a01864.html#a3dbd0e08a9910f9755d0e5218ba45f5a">Properties::PixelsPerTile</a>() / 2);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a02004.html#a83e50843690e5055454239d210a5456e">   95</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02004.html#a83e50843690e5055454239d210a5456e">Render::removeShadow</a>(bl::ecs::Entity entity) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a01344.html">component::Renderable</a>* rc = pool.get(entity);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordflow">if</span> (rc &amp;&amp; rc-&gt;shadow != bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        shadowsToRemove.emplace_back(rc-&gt;shadow);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        rc-&gt;shadow = bl::ecs::InvalidEntity;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00347_html"><div class="ttname"><a href="a00347.html">Render.hpp</a></div></div>
+<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01090_html"><div class="ttname"><a href="a01090.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
+<div class="ttc" id="aa01344_html"><div class="ttname"><a href="a01344.html">core::component::Renderable</a></div><div class="ttdoc">Adding this component to an entity will allow it to be rendered.</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00028">Renderable.hpp:28</a></div></div>
+<div class="ttc" id="aa01344_html_aedf0899c8c9bea8388888c5b18ad0d16"><div class="ttname"><a href="a01344.html#aedf0899c8c9bea8388888c5b18ad0d16">core::component::Renderable::notifyMoveState</a></div><div class="ttdeci">void notifyMoveState(bl::tmap::Direction dir, bool moving, bool running)</div><div class="ttdoc">Call when the entity starts or stops moving or changes direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00125">Renderable.cpp:125</a></div></div>
+<div class="ttc" id="aa01712_html_a506999f8fb3f649eadc748410feb36a2"><div class="ttname"><a href="a01712.html#a506999f8fb3f649eadc748410feb36a2">core::map::Map::getDepthForPosition</a></div><div class="ttdeci">float getDepthForPosition(unsigned int level, unsigned int y, int layer=-1) const</div><div class="ttdoc">Computes the depth to use at the given y position, taking into account the map size,...</div><div class="ttdef"><b>Definition:</b> <a href="a03108_source.html#l00728">Map.cpp:728</a></div></div>
+<div class="ttc" id="aa01712_html_acaaf032c17899a335f649ae156d49b5b"><div class="ttname"><a href="a01712.html#acaaf032c17899a335f649ae156d49b5b">core::map::Map::getScene</a></div><div class="ttdeci">bl::rc::SceneRef getScene()</div><div class="ttdoc">Returns the scene for this map.</div><div class="ttdef"><b>Definition:</b> <a href="a03012_source.html#l00304">Map.hpp:304</a></div></div>
+<div class="ttc" id="aa01864_html_a3dbd0e08a9910f9755d0e5218ba45f5a"><div class="ttname"><a href="a01864.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a></div><div class="ttdeci">static int PixelsPerTile()</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00279">Properties.cpp:279</a></div></div>
+<div class="ttc" id="aa02004_html_a5b9e572a572fd49f01cf4bf8fbc091fd"><div class="ttname"><a href="a02004.html#a5b9e572a572fd49f01cf4bf8fbc091fd">core::system::Render::Render</a></div><div class="ttdeci">Render(Systems &amp;owner)</div><div class="ttdoc">Creates the render system.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00010">Render.cpp:10</a></div></div>
+<div class="ttc" id="aa02004_html_a83e50843690e5055454239d210a5456e"><div class="ttname"><a href="a02004.html#a83e50843690e5055454239d210a5456e">core::system::Render::removeShadow</a></div><div class="ttdeci">void removeShadow(bl::ecs::Entity entity)</div><div class="ttdoc">Removes the shadow from the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00095">Render.cpp:95</a></div></div>
+<div class="ttc" id="aa02004_html_af00956a08c58e19670102613f6074fe3"><div class="ttname"><a href="a02004.html#af00956a08c58e19670102613f6074fe3">core::system::Render::updateShadow</a></div><div class="ttdeci">void updateShadow(bl::ecs::Entity entity, float distance, float radius)</div><div class="ttdoc">Adds or updates the shadow of the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00056">Render.cpp:56</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02012_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02012.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00845_source.html#l00035">Systems.cpp:35</a></div></div>
+<div class="ttc" id="aa02012_html_ad71abe5cc74772044d51b1108df6ade4"><div class="ttname"><a href="a02012.html#ad71abe5cc74772044d51b1108df6ade4">core::system::Systems::world</a></div><div class="ttdeci">World &amp; world()</div><div class="ttdoc">Modifiable accessor for the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00845_source.html#l00043">Systems.cpp:43</a></div></div>
+<div class="ttc" id="aa02024_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02024.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00079">World.cpp:79</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

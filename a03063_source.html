@@ -79,56 +79,56 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Waiter.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/ItemDB.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00161.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Files/PeoplemonDB.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02943.html">Core/Items/Item.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00236.html">Core/Peoplemon/Move.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00152.html">Core/Files/ItemDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00155.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/PeoplemonDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02949.html">Core/Items/Item.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00230.html">Core/Peoplemon/Move.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03030.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00350.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00485.html">Editor/States/MainEditor.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00353.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00488.html">Editor/States/MainEditor.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a00350.html#a2c3f6775325c30275d11c6abee2db6a0">   20</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a03060.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>(<span class="keywordtype">int</span>, <span class="keywordtype">char</span>**) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a00353.html#a2c3f6775325c30275d11c6abee2db6a0">   20</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a03060.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>(<span class="keywordtype">int</span>, <span class="keywordtype">char</span>**) {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    bl::logging::Config::rollLogs(<span class="stringliteral">&quot;logs&quot;</span>, <span class="stringliteral">&quot;editor&quot;</span>, 3);</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    bl::logging::Config::addFileOutput(<span class="stringliteral">&quot;logs/editor.log&quot;</span>, bl::logging::Config::Debug);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading application properties&quot;</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01886.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a>(<span class="keyword">true</span>)) {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01864.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a>(<span class="keyword">true</span>)) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load application properties&quot;</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Initializing resource systems&quot;</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a01067.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a01072.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a>();</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading game metadata&quot;</span>;</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading items&quot;</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01626.html">core::file::ItemDB</a> itemdb;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (!itemdb.<a class="code" href="a01626.html#afd5022b071039b10d417ac2f79aa6d0a">load</a>()) {</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01604.html">core::file::ItemDB</a> itemdb;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (!itemdb.<a class="code" href="a01604.html#afd5022b071039b10d417ac2f79aa6d0a">load</a>()) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load item database&quot;</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a01666.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a>(itemdb);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a01644.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a>(itemdb);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading moves&quot;</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a01634.html">core::file::MoveDB</a> movedb;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!movedb.<a class="code" href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">load</a>()) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a01612.html">core::file::MoveDB</a> movedb;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!movedb.<a class="code" href="a01612.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">load</a>()) {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load move database&quot;</span>;</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a01798.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a>(movedb);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="a01776.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a>(movedb);</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading Peoplemon&quot;</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a01650.html">core::file::PeoplemonDB</a> ppldb;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (!ppldb.<a class="code" href="a01650.html#a0c67bdc04c8cf17fe23e9f87c76857cf">load</a>()) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a01628.html">core::file::PeoplemonDB</a> ppldb;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (!ppldb.<a class="code" href="a01628.html#a0c67bdc04c8cf17fe23e9f87c76857cf">load</a>()) {</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load peoplemon database&quot;</span>;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a01822.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a>(ppldb);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <a class="code" href="a01800.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a>(ppldb);</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Game metadata loaded&quot;</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
@@ -137,8 +137,8 @@ $(function() {
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            bl::engine::Settings()</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                .withWindowParameters(</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                    bl::engine::Settings::WindowParameters()</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                        .withVideoMode(sf::VideoMode(<a class="code" href="a01886.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a>() + 350,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                     <a class="code" href="a01886.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a>() + 200,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                        .withVideoMode(sf::VideoMode(<a class="code" href="a01864.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a>() + 350,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                                                     <a class="code" href="a01864.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a>() + 200,</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                     32))</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                        .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                        .withTitle(<span class="stringliteral">&quot;Peoplemon Editor&quot;</span>)</div>
@@ -149,11 +149,11 @@ $(function() {
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Created engine&quot;</span>;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Initializing game systems&quot;</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="a02018.html">core::system::Systems</a> systems(engine);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="a02012.html">core::system::Systems</a> systems(engine);</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Core game systems initialized&quot;</span>;</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Running engine main loop&quot;</span>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (!engine.run(<a class="code" href="a02262.html#ae5c3888e51aae992b41fc4172f8efbfb">editor::state::MainEditor::create</a>(systems))) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">if</span> (!engine.run(<a class="code" href="a02256.html#ae5c3888e51aae992b41fc4172f8efbfb">editor::state::MainEditor::create</a>(systems))) {</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Engine exited with error&quot;</span>;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            bl::util::Waiter::unblockAll();</div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">return</span> 1;</div>
@@ -169,37 +169,37 @@ $(function() {
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Exiting normally&quot;</span>;</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">return</span> 0;</div>
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
-<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">ItemDB.hpp</a></div></div>
-<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">MoveDB.hpp</a></div></div>
-<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">PeoplemonDB.hpp</a></div></div>
-<div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">Move.hpp</a></div></div>
-<div class="ttc" id="aa00284_html"><div class="ttname"><a href="a00284.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00152_html"><div class="ttname"><a href="a00152.html">ItemDB.hpp</a></div></div>
+<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">MoveDB.hpp</a></div></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">PeoplemonDB.hpp</a></div></div>
+<div class="ttc" id="aa00230_html"><div class="ttname"><a href="a00230.html">Move.hpp</a></div></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
 <div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00350_html"><div class="ttname"><a href="a00350.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa00485_html"><div class="ttname"><a href="a00485.html">MainEditor.hpp</a></div></div>
-<div class="ttc" id="aa01067_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01067.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00016">Resources.cpp:16</a></div></div>
-<div class="ttc" id="aa01626_html"><div class="ttname"><a href="a01626.html">core::file::ItemDB</a></div><div class="ttdoc">Loads and stores metadata surrounding items in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00024">ItemDB.hpp:24</a></div></div>
-<div class="ttc" id="aa01626_html_afd5022b071039b10d417ac2f79aa6d0a"><div class="ttname"><a href="a01626.html#afd5022b071039b10d417ac2f79aa6d0a">core::file::ItemDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the item metadata from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00011">ItemDB.cpp:11</a></div></div>
-<div class="ttc" id="aa01634_html"><div class="ttname"><a href="a01634.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00022">MoveDB.hpp:22</a></div></div>
-<div class="ttc" id="aa01634_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01634.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00012">MoveDB.cpp:12</a></div></div>
-<div class="ttc" id="aa01650_html"><div class="ttname"><a href="a01650.html">core::file::PeoplemonDB</a></div><div class="ttdoc">Data structure that holds the underlaying data for all the peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00026">PeoplemonDB.hpp:26</a></div></div>
-<div class="ttc" id="aa01650_html_a0c67bdc04c8cf17fe23e9f87c76857cf"><div class="ttname"><a href="a01650.html#a0c67bdc04c8cf17fe23e9f87c76857cf">core::file::PeoplemonDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the database data from the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00012">PeoplemonDB.cpp:12</a></div></div>
-<div class="ttc" id="aa01666_html_a1c25894c0c71ec92f9e15686c3cb3e46"><div class="ttname"><a href="a01666.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::ItemDB &amp;source)</div><div class="ttdoc">Set the data source for the item methods.</div><div class="ttdef"><b>Definition:</b> <a href="a03090_source.html#l00041">Item.cpp:41</a></div></div>
-<div class="ttc" id="aa01798_html_a517b2e77d5de789d2b0c22b457bb4107"><div class="ttname"><a href="a01798.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::MoveDB &amp;source)</div><div class="ttdoc">Set the data source for each method.</div><div class="ttdef"><b>Definition:</b> <a href="a00749_source.html#l00046">Move.cpp:46</a></div></div>
-<div class="ttc" id="aa01822_html_a307220e0167b57e958be788d185f5012"><div class="ttname"><a href="a01822.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::PeoplemonDB &amp;data)</div><div class="ttdoc">Sets the data source for all peoplemon. Must remain in scope.</div><div class="ttdef"><b>Definition:</b> <a href="a03126_source.html#l00094">Peoplemon.cpp:94</a></div></div>
-<div class="ttc" id="aa01886_html_a1c0e01b7aac945e979717ba95c79ddf8"><div class="ttname"><a href="a01886.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a></div><div class="ttdeci">static int WindowWidth()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00250">Properties.cpp:250</a></div></div>
-<div class="ttc" id="aa01886_html_aaf3c4e564ae07fc9ed130083580fcb6f"><div class="ttname"><a href="a01886.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a></div><div class="ttdeci">static int WindowHeight()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00256">Properties.cpp:256</a></div></div>
-<div class="ttc" id="aa01886_html_adc250e10205e7f79fc2589cee281bb0f"><div class="ttname"><a href="a01886.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a></div><div class="ttdeci">static bool load(bool inEditor)</div><div class="ttdoc">Loads from the config file and sets defaults. Must be called before using any properties.</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00119">Properties.cpp:119</a></div></div>
-<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02262_html_ae5c3888e51aae992b41fc4172f8efbfb"><div class="ttname"><a href="a02262.html#ae5c3888e51aae992b41fc4172f8efbfb">editor::state::MainEditor::create</a></div><div class="ttdeci">static Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Main Editor state.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00009">MainEditor.cpp:9</a></div></div>
-<div class="ttc" id="aa02943_html"><div class="ttname"><a href="a02943.html">Item.hpp</a></div></div>
+<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">MainEditor.hpp</a></div></div>
+<div class="ttc" id="aa01072_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01072.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00016">Resources.cpp:16</a></div></div>
+<div class="ttc" id="aa01604_html"><div class="ttname"><a href="a01604.html">core::file::ItemDB</a></div><div class="ttdoc">Loads and stores metadata surrounding items in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00024">ItemDB.hpp:24</a></div></div>
+<div class="ttc" id="aa01604_html_afd5022b071039b10d417ac2f79aa6d0a"><div class="ttname"><a href="a01604.html#afd5022b071039b10d417ac2f79aa6d0a">core::file::ItemDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the item metadata from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00011">ItemDB.cpp:11</a></div></div>
+<div class="ttc" id="aa01612_html"><div class="ttname"><a href="a01612.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00022">MoveDB.hpp:22</a></div></div>
+<div class="ttc" id="aa01612_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01612.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00012">MoveDB.cpp:12</a></div></div>
+<div class="ttc" id="aa01628_html"><div class="ttname"><a href="a01628.html">core::file::PeoplemonDB</a></div><div class="ttdoc">Data structure that holds the underlaying data for all the peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00026">PeoplemonDB.hpp:26</a></div></div>
+<div class="ttc" id="aa01628_html_a0c67bdc04c8cf17fe23e9f87c76857cf"><div class="ttname"><a href="a01628.html#a0c67bdc04c8cf17fe23e9f87c76857cf">core::file::PeoplemonDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the database data from the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00012">PeoplemonDB.cpp:12</a></div></div>
+<div class="ttc" id="aa01644_html_a1c25894c0c71ec92f9e15686c3cb3e46"><div class="ttname"><a href="a01644.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::ItemDB &amp;source)</div><div class="ttdoc">Set the data source for the item methods.</div><div class="ttdef"><b>Definition:</b> <a href="a03090_source.html#l00041">Item.cpp:41</a></div></div>
+<div class="ttc" id="aa01776_html_a517b2e77d5de789d2b0c22b457bb4107"><div class="ttname"><a href="a01776.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::MoveDB &amp;source)</div><div class="ttdoc">Set the data source for each method.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00046">Move.cpp:46</a></div></div>
+<div class="ttc" id="aa01800_html_a307220e0167b57e958be788d185f5012"><div class="ttname"><a href="a01800.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::PeoplemonDB &amp;data)</div><div class="ttdoc">Sets the data source for all peoplemon. Must remain in scope.</div><div class="ttdef"><b>Definition:</b> <a href="a03120_source.html#l00094">Peoplemon.cpp:94</a></div></div>
+<div class="ttc" id="aa01864_html_a1c0e01b7aac945e979717ba95c79ddf8"><div class="ttname"><a href="a01864.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a></div><div class="ttdeci">static int WindowWidth()</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00250">Properties.cpp:250</a></div></div>
+<div class="ttc" id="aa01864_html_aaf3c4e564ae07fc9ed130083580fcb6f"><div class="ttname"><a href="a01864.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a></div><div class="ttdeci">static int WindowHeight()</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00256">Properties.cpp:256</a></div></div>
+<div class="ttc" id="aa01864_html_adc250e10205e7f79fc2589cee281bb0f"><div class="ttname"><a href="a01864.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a></div><div class="ttdeci">static bool load(bool inEditor)</div><div class="ttdoc">Loads from the config file and sets defaults. Must be called before using any properties.</div><div class="ttdef"><b>Definition:</b> <a href="a00779_source.html#l00119">Properties.cpp:119</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02256_html_ae5c3888e51aae992b41fc4172f8efbfb"><div class="ttname"><a href="a02256.html#ae5c3888e51aae992b41fc4172f8efbfb">editor::state::MainEditor::create</a></div><div class="ttdeci">static Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Main Editor state.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00009">MainEditor.cpp:9</a></div></div>
+<div class="ttc" id="aa02949_html"><div class="ttname"><a href="a02949.html">Item.hpp</a></div></div>
 <div class="ttc" id="aa03030_html"><div class="ttname"><a href="a03030.html">Peoplemon.hpp</a></div></div>
 <div class="ttc" id="aa03060_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="a03060.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="a03060_source.html#l00008">main.cpp:8</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -78,46 +78,46 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_WILDPEOPLEMON_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00125.html">Core/Events/EntityMoved.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00248.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00119.html">Core/Events/EntityMoved.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00242.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>system</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Systems;</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02026.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02026.html">WildPeoplemon</a> : bl::event::Listener&lt;event::EntityMoveFinished&gt; {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02020.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02020.html">WildPeoplemon</a> : bl::event::Listener&lt;event::EntityMoveFinished&gt; {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02026.html#ac5207fed60fce0b91d6d1ea77110cce5">WildPeoplemon</a>(<a class="code" href="a02018.html">Systems</a>&amp; owner);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02020.html#ac5207fed60fce0b91d6d1ea77110cce5">WildPeoplemon</a>(<a class="code" href="a02012.html">Systems</a>&amp; owner);</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02026.html#a112eb874a4adf321d30477586f21fca9">init</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02020.html#a112eb874a4adf321d30477586f21fca9">init</a>();</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02018.html">Systems</a>&amp; owner;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a01814.html">pplmn::OwnedPeoplemon</a> currentWild;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02012.html">Systems</a>&amp; owner;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a01792.html">pplmn::OwnedPeoplemon</a> currentWild;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01414.html">event::EntityMoveFinished</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01392.html">event::EntityMoveFinished</a>&amp; event) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;};</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace system</span></div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">EntityMoved.hpp</a></div></div>
-<div class="ttc" id="aa00248_html"><div class="ttname"><a href="a00248.html">OwnedPeoplemon.hpp</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01414_html"><div class="ttname"><a href="a01414.html">core::event::EntityMoveFinished</a></div><div class="ttdoc">Fired when an entity completes a move from one tile to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00048">EntityMoved.hpp:48</a></div></div>
-<div class="ttc" id="aa01814_html"><div class="ttname"><a href="a01814.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00248_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
-<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::WildPeoplemon</a></div><div class="ttdoc">Manages the appearances of wild peoplemon when walking through catch tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a03039_source.html#l00020">WildPeoplemon.hpp:20</a></div></div>
-<div class="ttc" id="aa02026_html_a112eb874a4adf321d30477586f21fca9"><div class="ttname"><a href="a02026.html#a112eb874a4adf321d30477586f21fca9">core::system::WildPeoplemon::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Subscribes to the game event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a03135_source.html#l00019">WildPeoplemon.cpp:19</a></div></div>
-<div class="ttc" id="aa02026_html_ac5207fed60fce0b91d6d1ea77110cce5"><div class="ttname"><a href="a02026.html#ac5207fed60fce0b91d6d1ea77110cce5">core::system::WildPeoplemon::WildPeoplemon</a></div><div class="ttdeci">WildPeoplemon(Systems &amp;owner)</div><div class="ttdoc">Construct a new Wild Peoplemon system.</div><div class="ttdef"><b>Definition:</b> <a href="a03135_source.html#l00016">WildPeoplemon.cpp:16</a></div></div>
+<div class="ttc" id="aa00119_html"><div class="ttname"><a href="a00119.html">EntityMoved.hpp</a></div></div>
+<div class="ttc" id="aa00242_html"><div class="ttname"><a href="a00242.html">OwnedPeoplemon.hpp</a></div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01392_html"><div class="ttname"><a href="a01392.html">core::event::EntityMoveFinished</a></div><div class="ttdoc">Fired when an entity completes a move from one tile to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00052">EntityMoved.hpp:52</a></div></div>
+<div class="ttc" id="aa01792_html"><div class="ttname"><a href="a01792.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02020_html"><div class="ttname"><a href="a02020.html">core::system::WildPeoplemon</a></div><div class="ttdoc">Manages the appearances of wild peoplemon when walking through catch tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a03039_source.html#l00020">WildPeoplemon.hpp:20</a></div></div>
+<div class="ttc" id="aa02020_html_a112eb874a4adf321d30477586f21fca9"><div class="ttname"><a href="a02020.html#a112eb874a4adf321d30477586f21fca9">core::system::WildPeoplemon::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Subscribes to the game event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00019">WildPeoplemon.cpp:19</a></div></div>
+<div class="ttc" id="aa02020_html_ac5207fed60fce0b91d6d1ea77110cce5"><div class="ttname"><a href="a02020.html#ac5207fed60fce0b91d6d1ea77110cce5">core::system::WildPeoplemon::WildPeoplemon</a></div><div class="ttdeci">WildPeoplemon(Systems &amp;owner)</div><div class="ttdoc">Construct a new Wild Peoplemon system.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00016">WildPeoplemon.cpp:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

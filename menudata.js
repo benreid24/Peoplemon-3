@@ -44,7 +44,8 @@ var menudata={children:[
 {text:"o",url:"namespacemembers.html#index_o"},
 {text:"p",url:"namespacemembers.html#index_p"},
 {text:"s",url:"namespacemembers.html#index_s"},
-{text:"t",url:"namespacemembers.html#index_t"}]},
+{text:"t",url:"namespacemembers.html#index_t"},
+{text:"w",url:"namespacemembers.html#index_w"}]},
 {text:"Functions",url:"namespacemembers_func.html"},
 {text:"Variables",url:"namespacemembers_vars.html"},
 {text:"Typedefs",url:"namespacemembers_type.html"},
@@ -179,15 +180,7 @@ var menudata={children:[
 {text:"t",url:"functions_eval.html#index_t"},
 {text:"w",url:"functions_eval.html#index_w"},
 {text:"y",url:"functions_eval.html#index_y"}]},
-{text:"Related Functions",url:"functions_rela.html",children:[
-{text:":",url:"functions_rela.html#index_:"},
-{text:"b",url:"functions_rela.html#index_b"},
-{text:"e",url:"functions_rela.html#index_e"},
-{text:"m",url:"functions_rela.html#index_m"},
-{text:"o",url:"functions_rela.html#index_o"},
-{text:"p",url:"functions_rela.html#index_p"},
-{text:"s",url:"functions_rela.html#index_s"},
-{text:"w",url:"functions_rela.html#index_w"}]}]}]},
+{text:"Related Functions",url:"functions_rela.html"}]}]},
 {text:"Files",url:"files.html",children:[
 {text:"File List",url:"files.html"},
 {text:"File Members",url:"globals.html",children:[

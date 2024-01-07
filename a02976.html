@@ -79,72 +79,72 @@ $(function() {
 <div class="contents">
 <div class="textblock"><code>#include &lt;BLIB/Events.hpp&gt;</code><br />
 <code>#include &lt;BLIB/Serialization/JSON.hpp&gt;</code><br />
-<code>#include &lt;<a class="el" href="a02955_source.html">Core/Components/Position.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00248_source.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00272_source.html">Core/Player/Bag.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00275_source.html">Core/Player/Gender.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Tilemap/Position.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00242_source.html">Core/Peoplemon/OwnedPeoplemon.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00266_source.html">Core/Player/Bag.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00269_source.html">Core/Player/Gender.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a02988_source.html">Core/Player/StorageSystem.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00317_source.html">Core/Systems/Clock.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00353_source.html">Core/Systems/Trainers.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00356_source.html">Core/Systems/Trainers.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a02976_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01566.html">core::file::GameSave</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a game save and provides functionality to load and save.  <a href="a01566.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01544.html">core::file::GameSave</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a game save and provides functionality to load and save.  <a href="a01544.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01570.html">core::file::GameSave::InteractDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01570.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01548.html">core::file::GameSave::InteractDataPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01548.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01574.html">core::file::GameSave::PlayerDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01574.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01552.html">core::file::GameSave::PlayerDataPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01552.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01578.html">core::file::GameSave::WorldDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01578.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01556.html">core::file::GameSave::WorldDataPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01556.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01582.html">core::file::GameSave::ScriptDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01582.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01560.html">core::file::GameSave::ScriptDataPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01560.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01586.html">core::file::GameSave::ClockPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the date in game.  <a href="a01586.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01564.html">core::file::GameSave::ClockPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the date in game.  <a href="a01564.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01590.html">core::file::GameSave::TrainerPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores defeated trainer information.  <a href="a01590.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01568.html">core::file::GameSave::TrainerPointers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores defeated trainer information.  <a href="a01568.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01598.html">bl::serial::SerializableObject&lt; core::file::GameSave::InteractDataPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01576.html">bl::serial::SerializableObject&lt; core::file::GameSave::InteractDataPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01602.html">bl::serial::SerializableObject&lt; core::file::GameSave::WorldDataPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01580.html">bl::serial::SerializableObject&lt; core::file::GameSave::WorldDataPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01606.html">bl::serial::SerializableObject&lt; core::file::GameSave::PlayerDataPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01584.html">bl::serial::SerializableObject&lt; core::file::GameSave::PlayerDataPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01610.html">bl::serial::SerializableObject&lt; core::file::GameSave::ScriptDataPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01588.html">bl::serial::SerializableObject&lt; core::file::GameSave::ScriptDataPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01614.html">bl::serial::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01592.html">bl::serial::SerializableObject&lt; core::file::GameSave::ClockPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01618.html">bl::serial::SerializableObject&lt; core::file::GameSave::TrainerPointers &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01596.html">bl::serial::SerializableObject&lt; core::file::GameSave::TrainerPointers &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01622.html">bl::serial::SerializableObject&lt; core::file::GameSave &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01600.html">bl::serial::SerializableObject&lt; core::file::GameSave &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01075"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01075.html">core</a></td></tr>
-<tr class="memdesc:a01075"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01080"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01080.html">core</a></td></tr>
+<tr class="memdesc:a01080"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01086"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01086.html">core::file</a></td></tr>
-<tr class="memdesc:a01086"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of data classes that provide saving and loading of different game file formats. <br /></td></tr>
+<tr class="memitem:a01088"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01088.html">core::file</a></td></tr>
+<tr class="memdesc:a01088"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of data classes that provide saving and loading of different game file formats. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01082"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01082.html">bl</a></td></tr>
+<tr class="memitem:a01090"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01090.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01083"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01083.html">bl::serial</a></td></tr>
+<tr class="memitem:a01091"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01091.html">bl::serial</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

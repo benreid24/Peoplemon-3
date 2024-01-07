@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/Position.hpp Source File</title>
+<title>Peoplemon: include/Core/Files/NPC.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,101 +66,118 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_cfd779cf990fe0c084ed17a82d494eba.html">Files</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Position.hpp</div>  </div>
+<div class="title">NPC.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02958.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_POSITION_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_POSITION_HPP</span></div>
+<a href="a02958.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_FILES_NPC_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_FILES_NPC_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02955.html">Core/Components/Position.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00125.html">Core/Events/EntityMoved.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00131.html">Core/Events/Maps.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00149.html">Core/Files/Behavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;BLIB/Containers/Grid.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01075.html">core</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02006.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02006.html">Position</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: <span class="keyword">public</span> bl::event::Listener&lt;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;      event::EntityMoved, bl::ecs::event::ComponentAdded&lt;component::Position&gt;,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;      bl::ecs::event::ComponentRemoved&lt;component::Position&gt;, event::MapSwitch&gt; {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a02006.html#a2430735d1e951fe4b5b8321026896b70">Position</a>(<a class="code" href="a02018.html">Systems</a>&amp; owner);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02006.html#a2bf147b773980900c1a4ee73bb7cb768">   42</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02006.html#a2bf147b773980900c1a4ee73bb7cb768">~Position</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02006.html#ad16dba924297b3bc9365a010270c9193">init</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02006.html#a88922da0cca6643e2fde8eae97e31a52">update</a>();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    bl::ecs::Entity <a class="code" href="a02006.html#ad19b59a00f7564524d40e7437686c79b">getEntity</a>(<span class="keyword">const</span> <a class="code" href="a01338.html">component::Position</a>&amp; pos) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02006.html#a4262241444b45ec46aa50ae9e8a04178">spaceFree</a>(<span class="keyword">const</span> <a class="code" href="a01338.html">component::Position</a>&amp; position) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    bl::ecs::Entity <a class="code" href="a02006.html#aa70e91122ed766263bae3687457f2517">search</a>(<span class="keyword">const</span> <a class="code" href="a01338.html">component::Position</a>&amp; start, <a class="code" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">component::Direction</a> dir,</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                           <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> range);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> std::vector&lt;bl::ecs::Entity&gt;&amp; <a class="code" href="a02006.html#a2f2dce59dfd0c2b14e005ece83c4524c">updateRangeEntities</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02006.html#a4ee48477b3cb2ed9fa4c0d02976e2276">editorPushLevel</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02006.html#abdd770fb2982f2dae0223c99b24bfa4a">editorPopLevel</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <a class="code" href="a02018.html">Systems</a>&amp; owner;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    std::vector&lt;bl::ctr::Vector2D&lt;bl::ecs::Entity&gt;&gt; entityMap;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    std::vector&lt;bl::ecs::Entity&gt; toUpdate;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01410.html">event::EntityMoved</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> bl::ecs::event::ComponentAdded&lt;component::Position&gt;&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">const</span> bl::ecs::event::ComponentRemoved&lt;component::Position&gt;&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01434.html">event::MapSwitch</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    bl::ecs::Entity&amp; get(<span class="keyword">const</span> <a class="code" href="a01338.html">component::Position</a>&amp; pos);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;};</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00125_html"><div class="ttname"><a href="a00125.html">EntityMoved.hpp</a></div></div>
-<div class="ttc" id="aa00131_html"><div class="ttname"><a href="a00131.html">Maps.hpp</a></div></div>
-<div class="ttc" id="aa01059_html_ga0192bf5ba1eccc191c8ef1187ce66d69"><div class="ttname"><a href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">core::component::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">Which direction an entity is facing.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00026">Direction.hpp:26</a></div></div>
-<div class="ttc" id="aa01075_html"><div class="ttname"><a href="a01075.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02907_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01338_html"><div class="ttname"><a href="a01338.html">core::component::Position</a></div><div class="ttdoc">Basic structure representing the position of an entity.</div><div class="ttdef"><b>Definition:</b> <a href="a02955_source.html#l00017">Position.hpp:17</a></div></div>
-<div class="ttc" id="aa01410_html"><div class="ttname"><a href="a01410.html">core::event::EntityMoved</a></div><div class="ttdoc">Fired after an entity begins moving from one position to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00125_source.html#l00018">EntityMoved.hpp:18</a></div></div>
-<div class="ttc" id="aa01434_html"><div class="ttname"><a href="a01434.html">core::event::MapSwitch</a></div><div class="ttdoc">Fired right before a map is entered. Use this event for initializing data structures that depend on m...</div><div class="ttdef"><b>Definition:</b> <a href="a00131_source.html#l00022">Maps.hpp:22</a></div></div>
-<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">core::system::Position</a></div><div class="ttdoc">The primary entity positioning system. Handles determining which entities get updated as well as trac...</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00026">Position.hpp:29</a></div></div>
-<div class="ttc" id="aa02006_html_a2430735d1e951fe4b5b8321026896b70"><div class="ttname"><a href="a02006.html#a2430735d1e951fe4b5b8321026896b70">core::system::Position::Position</a></div><div class="ttdeci">Position(Systems &amp;owner)</div><div class="ttdoc">Construct the Position system.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00012">Position.cpp:12</a></div></div>
-<div class="ttc" id="aa02006_html_a2bf147b773980900c1a4ee73bb7cb768"><div class="ttname"><a href="a02006.html#a2bf147b773980900c1a4ee73bb7cb768">core::system::Position::~Position</a></div><div class="ttdeci">virtual ~Position()=default</div><div class="ttdoc">Destroy the Position system.</div></div>
-<div class="ttc" id="aa02006_html_a2f2dce59dfd0c2b14e005ece83c4524c"><div class="ttname"><a href="a02006.html#a2f2dce59dfd0c2b14e005ece83c4524c">core::system::Position::updateRangeEntities</a></div><div class="ttdeci">const std::vector&lt; bl::ecs::Entity &gt; &amp; updateRangeEntities() const</div><div class="ttdoc">Returns an iterable set containing all the entities that should be updated.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00051">Position.cpp:51</a></div></div>
-<div class="ttc" id="aa02006_html_a4262241444b45ec46aa50ae9e8a04178"><div class="ttname"><a href="a02006.html#a4262241444b45ec46aa50ae9e8a04178">core::system::Position::spaceFree</a></div><div class="ttdeci">bool spaceFree(const component::Position &amp;position) const</div><div class="ttdoc">Returns whether or not a tile is currently occupied.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00053">Position.cpp:53</a></div></div>
-<div class="ttc" id="aa02006_html_a4ee48477b3cb2ed9fa4c0d02976e2276"><div class="ttname"><a href="a02006.html#a4ee48477b3cb2ed9fa4c0d02976e2276">core::system::Position::editorPushLevel</a></div><div class="ttdeci">void editorPushLevel()</div><div class="ttdoc">Called by the editor when a level is added.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00138">Position.cpp:138</a></div></div>
-<div class="ttc" id="aa02006_html_a88922da0cca6643e2fde8eae97e31a52"><div class="ttname"><a href="a02006.html#a88922da0cca6643e2fde8eae97e31a52">core::system::Position::update</a></div><div class="ttdeci">void update()</div><div class="ttdoc">Update the group of entities that updates should be performed on based on the current camera position...</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00023">Position.cpp:23</a></div></div>
-<div class="ttc" id="aa02006_html_aa70e91122ed766263bae3687457f2517"><div class="ttname"><a href="a02006.html#aa70e91122ed766263bae3687457f2517">core::system::Position::search</a></div><div class="ttdeci">bl::ecs::Entity search(const component::Position &amp;start, component::Direction dir, unsigned int range)</div><div class="ttdoc">Searches for an entity from the starting position in the given direction for the given number of spac...</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00064">Position.cpp:64</a></div></div>
-<div class="ttc" id="aa02006_html_abdd770fb2982f2dae0223c99b24bfa4a"><div class="ttname"><a href="a02006.html#abdd770fb2982f2dae0223c99b24bfa4a">core::system::Position::editorPopLevel</a></div><div class="ttdeci">void editorPopLevel()</div><div class="ttdoc">Called by the editor when a level is removed.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00143">Position.cpp:143</a></div></div>
-<div class="ttc" id="aa02006_html_ad16dba924297b3bc9365a010270c9193"><div class="ttname"><a href="a02006.html#ad16dba924297b3bc9365a010270c9193">core::system::Position::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Creates the view on the entity registry.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00015">Position.cpp:15</a></div></div>
-<div class="ttc" id="aa02006_html_ad19b59a00f7564524d40e7437686c79b"><div class="ttname"><a href="a02006.html#ad19b59a00f7564524d40e7437686c79b">core::system::Position::getEntity</a></div><div class="ttdeci">bl::ecs::Entity getEntity(const component::Position &amp;pos) const</div><div class="ttdoc">Returns the entity at the given position or InvalidEntity if not found.</div><div class="ttdef"><b>Definition:</b> <a href="a03105_source.html#l00122">Position.cpp:122</a></div></div>
-<div class="ttc" id="aa02018_html"><div class="ttname"><a href="a02018.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00350_source.html#l00048">Systems.hpp:48</a></div></div>
-<div class="ttc" id="aa02955_html"><div class="ttname"><a href="a02955.html">Position.hpp</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>file</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01620.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01620.html">NPC</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01620.html#aaa398f36a9f8a6f37f415a431ef8d957">   32</a></span>&#160;    <a class="code" href="a01620.html#aaa398f36a9f8a6f37f415a431ef8d957">NPC</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01620.html#a15d94ffb3fc2c01bd6bb034f180d40f1">save</a>(<span class="keyword">const</span> std::string&amp; file) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01620.html#abb03d9de7cfebf850500d12ba7272c22">saveBundle</a>(bl::serial::binary::OutputStream&amp; output,</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;                    bl::resource::bundle::FileHandlerContext&amp; ctx) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01620.html#a66999c7ee67e7227c4d7c454d3641762">load</a>(<span class="keyword">const</span> std::string&amp; file, bl::tmap::Direction spawnDir = bl::tmap::Direction::Up);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01620.html#a09889cce70d9ed3fc04fe642569e9e1e">loadDev</a>(std::istream&amp; input);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01620.html#a824c995a6c2fa8e172feb5560cc66bfe">loadProd</a>(bl::serial::binary::InputStream&amp; input);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    std::string&amp; <a class="code" href="a01620.html#a443b9f43cb7d9ef1bb3ad0f668906f7c">name</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a01620.html#a443b9f43cb7d9ef1bb3ad0f668906f7c">name</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    std::string&amp; <a class="code" href="a01620.html#ab2ffc1378807081a0fca8e083f621ca4">animation</a>();</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a01620.html#ab2ffc1378807081a0fca8e083f621ca4">animation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    std::string&amp; <a class="code" href="a01620.html#a22ad55be54d5042ae4c745e0c8d35150">conversation</a>();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a01620.html#a22ad55be54d5042ae4c745e0c8d35150">conversation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <a class="code" href="a01472.html">Behavior</a>&amp; <a class="code" href="a01620.html#a3a89d5e869158cfa55a60d355f692a41">behavior</a>();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="a01472.html">Behavior</a> <a class="code" href="a01620.html#a3a89d5e869158cfa55a60d355f692a41">behavior</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    std::string nameField;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    std::string animField;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    std::string conversationField;</div>
+<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a01620.html#aa5d010b9a241ee6cabbc07a0e154ed7c">  129</a></span>&#160;    <a class="code" href="a01472.html">Behavior</a> behaviorField;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span>bl::serial::SerializableObject&lt;<a class="code" href="a01620.html">NPC</a>&gt;;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;} <span class="comment">// namespace file</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01090.html">bl</a></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;{</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;{</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="a01624.html">  142</a></span>&#160;<span class="keyword">struct </span>SerializableObject&lt;<a class="code" href="a01080.html">core</a>::file::NPC&gt; : <span class="keyword">public</span> SerializableObjectBase {</div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a01624.html#abd15448b0343a265595bdf42e138a3ae">  143</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01620.html">N</a> = <a class="code" href="a01620.html">core::file::NPC</a>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno"><a class="line" href="a01624.html#a4d56caec1ab5c84b92ee53ca31b38088">  145</a></span>&#160;    SerializableField&lt;1, N, std::string&gt; <a class="code" href="a01624.html#a4d56caec1ab5c84b92ee53ca31b38088">nameField</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="a01624.html#a44d0acf46d336d9b95fed43bebb70d0e">  146</a></span>&#160;    SerializableField&lt;2, N, std::string&gt; <a class="code" href="a01624.html#a44d0acf46d336d9b95fed43bebb70d0e">animField</a>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a01624.html#a42b105b4ff5e7aed9f7b87ea0faed9d2">  147</a></span>&#160;    SerializableField&lt;3, N, std::string&gt; <a class="code" href="a01624.html#a42b105b4ff5e7aed9f7b87ea0faed9d2">conversationField</a>;</div>
+<div class="line"><a name="l00148"></a><span class="lineno"><a class="line" href="a01624.html#ac0f0d8a66d5904533a3c55cac815fe44">  148</a></span>&#160;    SerializableField&lt;4, N, core::file::Behavior&gt; <a class="code" href="a01624.html#ac0f0d8a66d5904533a3c55cac815fe44">behaviorField</a>;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a01624.html#a9feaf2f9d4f39f40ec60965df86a0ac4">  150</a></span>&#160;    <a class="code" href="a01624.html#a9feaf2f9d4f39f40ec60965df86a0ac4">SerializableObject</a>()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    : SerializableObjectBase(<span class="stringliteral">&quot;NPC&quot;</span>)</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    , nameField(<span class="stringliteral">&quot;name&quot;</span>, *this, &amp;<a class="code" href="a01620.html">N</a>::nameField, SerializableFieldBase::Required{})</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    , animField(<span class="stringliteral">&quot;anim&quot;</span>, *this, &amp;<a class="code" href="a01620.html">N</a>::animField, SerializableFieldBase::Required{})</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    , conversationField(<span class="stringliteral">&quot;conv&quot;</span>, *this, &amp;<a class="code" href="a01620.html">N</a>::conversationField, SerializableFieldBase::Required{})</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    , behaviorField(<span class="stringliteral">&quot;behavior&quot;</span>, *this, &amp;<a class="code" href="a01620.html">N</a>::behaviorField, SerializableFieldBase::Required{}) {}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;};</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">Behavior.hpp</a></div></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01090_html"><div class="ttname"><a href="a01090.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
+<div class="ttc" id="aa01472_html"><div class="ttname"><a href="a01472.html">core::file::Behavior</a></div><div class="ttdoc">Set of behaviors for NPCs and trainers.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00019">Behavior.hpp:19</a></div></div>
+<div class="ttc" id="aa01620_html"><div class="ttname"><a href="a01620.html">core::file::NPC</a></div><div class="ttdoc">File data for NPCs.</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00026">NPC.hpp:26</a></div></div>
+<div class="ttc" id="aa01620_html_a09889cce70d9ed3fc04fe642569e9e1e"><div class="ttname"><a href="a01620.html#a09889cce70d9ed3fc04fe642569e9e1e">core::file::NPC::loadDev</a></div><div class="ttdeci">bool loadDev(std::istream &amp;input)</div><div class="ttdoc">Loads the NPC from the json stream.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00042">NPC.cpp:42</a></div></div>
+<div class="ttc" id="aa01620_html_a15d94ffb3fc2c01bd6bb034f180d40f1"><div class="ttname"><a href="a01620.html#a15d94ffb3fc2c01bd6bb034f180d40f1">core::file::NPC::save</a></div><div class="ttdeci">bool save(const std::string &amp;file) const</div><div class="ttdoc">Saves the NPC data to the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00010">NPC.cpp:10</a></div></div>
+<div class="ttc" id="aa01620_html_a22ad55be54d5042ae4c745e0c8d35150"><div class="ttname"><a href="a01620.html#a22ad55be54d5042ae4c745e0c8d35150">core::file::NPC::conversation</a></div><div class="ttdeci">std::string &amp; conversation()</div><div class="ttdoc">The conversation file of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00058">NPC.cpp:58</a></div></div>
+<div class="ttc" id="aa01620_html_a3a89d5e869158cfa55a60d355f692a41"><div class="ttname"><a href="a01620.html#a3a89d5e869158cfa55a60d355f692a41">core::file::NPC::behavior</a></div><div class="ttdeci">Behavior &amp; behavior()</div><div class="ttdoc">The behavior of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00062">NPC.cpp:62</a></div></div>
+<div class="ttc" id="aa01620_html_a443b9f43cb7d9ef1bb3ad0f668906f7c"><div class="ttname"><a href="a01620.html#a443b9f43cb7d9ef1bb3ad0f668906f7c">core::file::NPC::name</a></div><div class="ttdeci">std::string &amp; name()</div><div class="ttdoc">The name of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00050">NPC.cpp:50</a></div></div>
+<div class="ttc" id="aa01620_html_a66999c7ee67e7227c4d7c454d3641762"><div class="ttname"><a href="a01620.html#a66999c7ee67e7227c4d7c454d3641762">core::file::NPC::load</a></div><div class="ttdeci">bool load(const std::string &amp;file, bl::tmap::Direction spawnDir=bl::tmap::Direction::Up)</div><div class="ttdoc">Loads the NPC data from the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00036">NPC.cpp:36</a></div></div>
+<div class="ttc" id="aa01620_html_a824c995a6c2fa8e172feb5560cc66bfe"><div class="ttname"><a href="a01620.html#a824c995a6c2fa8e172feb5560cc66bfe">core::file::NPC::loadProd</a></div><div class="ttdeci">bool loadProd(bl::serial::binary::InputStream &amp;input)</div><div class="ttdoc">Loads the NPC from it's binary format.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00046">NPC.cpp:46</a></div></div>
+<div class="ttc" id="aa01620_html_aaa398f36a9f8a6f37f415a431ef8d957"><div class="ttname"><a href="a01620.html#aaa398f36a9f8a6f37f415a431ef8d957">core::file::NPC::NPC</a></div><div class="ttdeci">NPC()=default</div><div class="ttdoc">Construct a new NPC file.</div></div>
+<div class="ttc" id="aa01620_html_ab2ffc1378807081a0fca8e083f621ca4"><div class="ttname"><a href="a01620.html#ab2ffc1378807081a0fca8e083f621ca4">core::file::NPC::animation</a></div><div class="ttdeci">std::string &amp; animation()</div><div class="ttdoc">The directory of the movement animations.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00054">NPC.cpp:54</a></div></div>
+<div class="ttc" id="aa01620_html_abb03d9de7cfebf850500d12ba7272c22"><div class="ttname"><a href="a01620.html#abb03d9de7cfebf850500d12ba7272c22">core::file::NPC::saveBundle</a></div><div class="ttdeci">bool saveBundle(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</div><div class="ttdoc">Saves the data from this object to the given bundle and registers depency files if any.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00015">NPC.cpp:15</a></div></div>
+<div class="ttc" id="aa01624_html_a42b105b4ff5e7aed9f7b87ea0faed9d2"><div class="ttname"><a href="a01624.html#a42b105b4ff5e7aed9f7b87ea0faed9d2">bl::serial::SerializableObject&lt; core::file::NPC &gt;::conversationField</a></div><div class="ttdeci">SerializableField&lt; 3, N, std::string &gt; conversationField</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00147">NPC.hpp:147</a></div></div>
+<div class="ttc" id="aa01624_html_a44d0acf46d336d9b95fed43bebb70d0e"><div class="ttname"><a href="a01624.html#a44d0acf46d336d9b95fed43bebb70d0e">bl::serial::SerializableObject&lt; core::file::NPC &gt;::animField</a></div><div class="ttdeci">SerializableField&lt; 2, N, std::string &gt; animField</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00146">NPC.hpp:146</a></div></div>
+<div class="ttc" id="aa01624_html_a4d56caec1ab5c84b92ee53ca31b38088"><div class="ttname"><a href="a01624.html#a4d56caec1ab5c84b92ee53ca31b38088">bl::serial::SerializableObject&lt; core::file::NPC &gt;::nameField</a></div><div class="ttdeci">SerializableField&lt; 1, N, std::string &gt; nameField</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00145">NPC.hpp:145</a></div></div>
+<div class="ttc" id="aa01624_html_a9feaf2f9d4f39f40ec60965df86a0ac4"><div class="ttname"><a href="a01624.html#a9feaf2f9d4f39f40ec60965df86a0ac4">bl::serial::SerializableObject&lt; core::file::NPC &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00150">NPC.hpp:150</a></div></div>
+<div class="ttc" id="aa01624_html_ac0f0d8a66d5904533a3c55cac815fe44"><div class="ttname"><a href="a01624.html#ac0f0d8a66d5904533a3c55cac815fe44">bl::serial::SerializableObject&lt; core::file::NPC &gt;::behaviorField</a></div><div class="ttdeci">SerializableField&lt; 4, N, core::file::Behavior &gt; behaviorField</div><div class="ttdef"><b>Definition:</b> <a href="a02958_source.html#l00148">NPC.hpp:148</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:06 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

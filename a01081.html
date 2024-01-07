@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component Namespace Reference</title>
+<title>Peoplemon: core::system Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,134 +66,112 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01075.html">core</a></li><li class="navelem"><a class="el" href="a01081.html">component</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01080.html">core</a></li><li class="navelem"><a class="el" href="a01081.html">system</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">core::component Namespace Reference</div>  </div>
+<div class="title">core::system Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Collection of components for in game entities.  
+<p>Namespace containing core game systems shared between the game and the editor.  
 <a href="a01081.html#details">More...</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:a01103"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01103.html">hud</a></td></tr>
+<tr class="memdesc:a01103"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper classes and utilities for the <a class="el" href="a01968.html" title="The primary HUD system for the player. Manages displaying messages and asking questions....">HUD</a>. <br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01306.html">Collision</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Empty component to indicate that an entity cannot be moved through.  <a href="a01306.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01916.html">AI</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages NPC's and trainers and their behaviors.  <a href="a01916.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01310.html">Controllable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity allows it to be controlled.  <a href="a01310.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01920.html">Clock</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple time keeping systems. Tracks in game time and date based on real elapsed play time.  <a href="a01920.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01314.html">FixedPathBehavior</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it follow a fixed path.  <a href="a01314.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01932.html">Controllable</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple systems for performing batch locks and unlocks on all controllable entities.  <a href="a01932.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01318.html">Item</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it give an item when interacted with. On interact the owning entity is removed.  <a href="a01318.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01936.html">Entity</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic helper system for creating entities and their required components. Also manages player data and entity id.  <a href="a01936.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01322.html">Movable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity will allow it to move.  <a href="a01322.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01940.html">Flight</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special system to manage player flight between their current location and a town.  <a href="a01940.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01326.html">NPC</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will allow it to be interacted with and talked to.  <a href="a01326.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01968.html">HUD</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary <a class="el" href="a01968.html" title="The primary HUD system for the player. Manages displaying messages and asking questions....">HUD</a> system for the player. Manages displaying messages and asking questions. A callback is issued when messages are complete or when choices are made.  <a href="a01968.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01330.html">PathFinder</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Component that dynamically navigates an entity to a specific tile. The entities <a class="el" href="a01310.html" title="Adding this component to an entity allows it to be controlled.">Controllable</a> component is locked so that only path finding controls it.  <a href="a01330.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01984.html">Interaction</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The main interaction system. Manages interaction between entities. Handles item logic and NPC conversations followed by trainer battles if applicable.  <a href="a01984.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01334.html">PlayerControlled</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it controlled by player input.  <a href="a01334.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01988.html">Movement</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary System for managing entity movement and interpolation.  <a href="a01988.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01338.html">Position</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic structure representing the position of an entity.  <a href="a01338.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01992.html">Player</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Primary system for managing the player and their data.  <a href="a01992.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01350.html">Renderable</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this component to an entity will allow it to be rendered.  <a href="a01350.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02000.html">Position</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The primary entity positioning system. Handles determining which entities get updated as well as tracking where entities are for collisions.  <a href="a02000.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01374.html">SpinBehavior</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this to an entity to make it spin in place.  <a href="a01374.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02004.html">Render</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Basic system that synchronizes animation states based on movement state events.  <a href="a02004.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01378.html">StandingBehavior</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">AI behavior for standing in place facing a fixed direction.  <a href="a01378.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02008.html">Scripts</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System that stores and handles saving/loading of save entries for scripts.  <a href="a02008.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01382.html">Trainer</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adding this to an entity will make it a trainer that can battle.  <a href="a01382.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02012.html">Systems</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Owns all primary systems and a reference to the engine.  <a href="a02012.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01386.html">WanderBehavior</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add this component to an entity to make it wander around.  <a href="a01386.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02016.html">Trainers</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">This system manages trainers. It handles their vision and makes them walk up to the player.  <a href="a02016.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02020.html">WildPeoplemon</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Manages the appearances of wild peoplemon when walking through catch tiles.  <a href="a02020.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02024.html">World</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">System for managing the current map and previous maps.  <a href="a02024.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memItemLeft" align="right" valign="top">enum class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> : std::uint8_t { <a class="el" href="a01059.html#gga0192bf5ba1eccc191c8ef1187ce66d69a258f49887ef8d14ac268c92b02503aaa">Up</a> = 0
-, <a class="el" href="a01059.html#gga0192bf5ba1eccc191c8ef1187ce66d69a92b09c7c48c520c3c55e497875da437c">Right</a> = 1
-, <a class="el" href="a01059.html#gga0192bf5ba1eccc191c8ef1187ce66d69a08a38277b0309070706f6652eeae9a53">Down</a> = 2
-, <a class="el" href="a01059.html#gga0192bf5ba1eccc191c8ef1187ce66d69a945d5e233cf7d6240f6b783b36a374ff">Left</a> = 3
- }</td></tr>
-<tr class="memdesc:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Which direction an entity is facing.  <a href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">More...</a><br /></td></tr>
-<tr class="separator:ga0192bf5ba1eccc191c8ef1187ce66d69"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a0e99a2ef4958f6c171c842d7a903523e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a0e99a2ef4958f6c171c842d7a903523e">Serializer</a> = bl::serial::json::Serializer&lt; <a class="el" href="a01992.html">Player</a> &gt;</td></tr>
+<tr class="separator:a0e99a2ef4958f6c171c842d7a903523e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">oppositeDirection</a> (<a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
-<tr class="memdesc:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Direction that is opposite of the given direction.  <a href="a01059.html#ga620aa4abb89c6ed0e13f0f9795d47a4c">More...</a><br /></td></tr>
-<tr class="separator:ga620aa4abb89c6ed0e13f0f9795d47a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#gae7dd07040e91c8b3e983b231c87be2b5">nextClockwiseDirection</a> (<a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
-<tr class="memdesc:gae7dd07040e91c8b3e983b231c87be2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next clockwise direction from the given current direction.  <a href="a01059.html#gae7dd07040e91c8b3e983b231c87be2b5">More...</a><br /></td></tr>
-<tr class="separator:gae7dd07040e91c8b3e983b231c87be2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#ga842aa40eaf7b83009f90dc2f80cc2486">nextCounterClockwiseDirection</a> (<a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
-<tr class="memdesc:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the next counterclockwise direction from the given current direction.  <a href="a01059.html#ga842aa40eaf7b83009f90dc2f80cc2486">More...</a><br /></td></tr>
-<tr class="separator:ga842aa40eaf7b83009f90dc2f80cc2486"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#gab533b7d6c089ccc767c2400dac3a3fd0">directionFromString</a> (const std::string &amp;dir)</td></tr>
-<tr class="memdesc:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given string into a direction.  <a href="a01059.html#gab533b7d6c089ccc767c2400dac3a3fd0">More...</a><br /></td></tr>
-<tr class="separator:gab533b7d6c089ccc767c2400dac3a3fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01059.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">directionToString</a> (<a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
-<tr class="memdesc:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to a string.  <a href="a01059.html#gac261dc2f96631fbfdacc1bc3e7cd8bdd">More...</a><br /></td></tr>
-<tr class="separator:gac261dc2f96631fbfdacc1bc3e7cd8bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64c708f3f30cb626abf3ffc4519d4e1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01088.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#a64c708f3f30cb626abf3ffc4519d4e1f">moveControlFromDirection</a> (<a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a> dir)</td></tr>
-<tr class="memdesc:a64c708f3f30cb626abf3ffc4519d4e1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts the given direction to the corresponding move control.  <a href="a01081.html#a64c708f3f30cb626abf3ffc4519d4e1f">More...</a><br /></td></tr>
-<tr class="separator:a64c708f3f30cb626abf3ffc4519d4e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acc5df8529fd380e0a4e254d0b9123f8d"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#acc5df8529fd380e0a4e254d0b9123f8d">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="a01338.html">core::component::Position</a> &amp;pos)</td></tr>
-<tr class="separator:acc5df8529fd380e0a4e254d0b9123f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aea8156c2f1ab973bb275dc40e5d1185b"><td class="memItemLeft" align="right" valign="top">constexpr StateMask::V&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01081.html#aea8156c2f1ab973bb275dc40e5d1185b">WorldVisible</a> = StateMask::Running | StateMask::Paused</td></tr>
+<tr class="separator:aea8156c2f1ab973bb275dc40e5d1185b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Collection of components for in game entities. </p>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a64c708f3f30cb626abf3ffc4519d4e1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64c708f3f30cb626abf3ffc4519d4e1f">&#9670;&nbsp;</a></span>moveControlFromDirection()</h2>
+<div class="textblock"><p>Namespace containing core game systems shared between the game and the editor. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a0e99a2ef4958f6c171c842d7a903523e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e99a2ef4958f6c171c842d7a903523e">&#9670;&nbsp;</a></span>Serializer</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01088.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a> core::component::moveControlFromDirection </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01059.html#ga0192bf5ba1eccc191c8ef1187ce66d69">Direction</a>&#160;</td>
-          <td class="paramname"><em>dir</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a01081.html#a0e99a2ef4958f6c171c842d7a903523e">core::system::Serializer</a> = typedef bl::serial::json::Serializer&lt;<a class="el" href="a01992.html">Player</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Converts the given direction to the corresponding move control. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>The direction to move in </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01088.html#a362a94172d86c7b7662228aeab1b7516" title="Helper typedef to avoid too much casting boilerplate.">input::EntityControl</a> The control to issue to move in that direction </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00614_source.html#l00058">58</a> of file <a class="el" href="a00614_source.html">Direction.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00833_source.html#l00027">27</a> of file <a class="el" href="a00833_source.html">Player.cpp</a>.</p>
 
 </div>
 </div>
-<a id="acc5df8529fd380e0a4e254d0b9123f8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acc5df8529fd380e0a4e254d0b9123f8d">&#9670;&nbsp;</a></span>operator&lt;&lt;()</h2>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="aea8156c2f1ab973bb275dc40e5d1185b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea8156c2f1ab973bb275dc40e5d1185b">&#9670;&nbsp;</a></span>WorldVisible</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,31 +180,17 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::ostream&amp; core::component::operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="a01338.html">core::component::Position</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
+          <td class="memname">constexpr StateMask::V core::system::WorldVisible = StateMask::Running | StateMask::Paused</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a02955_source.html#l00130">130</a> of file <a class="el" href="a02955_source.html">Position.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00845_source.html#l00009">9</a> of file <a class="el" href="a00845_source.html">Systems.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,7 +198,7 @@ Functions</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:08 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:39:00 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

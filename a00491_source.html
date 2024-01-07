@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/Menus/MoveInfoRow.hpp Source File</title>
+<title>Peoplemon: include/Game/Menus/BagItemButton.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,69 +71,77 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MoveInfoRow.hpp</div>  </div>
+<div class="title">BagItemButton.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00491.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_MENUS_MOVEINFOROW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_MENUS_MOVEINFOROW_HPP</span></div>
+<a href="a00491.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_MENUS_BAGITEMBUTTON_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_MENUS_BAGITEMBUTTON_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00242.html">Core/Peoplemon/MoveId.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01102.html">game</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02270.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02270.html">MoveInfoRow</a> : <span class="keyword">public</span> bl::menu::Item {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">static</span> bl::menu::Item::Ptr <a class="code" href="a02270.html#a469493702ad12c5896a79632c62a34dc">create</a>(<a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02270.html#a8c7958db980a291501c008ccff096839">   30</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02270.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02270.html#a3deb75bced1a5211a4803d556188672a">getSize</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02270.html#ad4a7c4788cc6adb6c0483451fc22e47b">doCreate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00266.html">Core/Player/Bag.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01107.html">   14</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="a01107.html">game</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01108.html">   16</a></span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02260.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02260.html">BagItemButton</a> : <span class="keyword">public</span> bl::menu::Item {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02260.html#a647ce4c55ccdb5aaf3779e5fa2870698">   26</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02260.html#a647ce4c55ccdb5aaf3779e5fa2870698">Ptr</a> = std::shared_ptr&lt;BagItemButton&gt;;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02260.html#a647ce4c55ccdb5aaf3779e5fa2870698">Ptr</a> <a class="code" href="a02260.html#a6bec2ab3f1796bb353f6e3095741c85d">create</a>(<span class="keyword">const</span> <a class="code" href="a01840.html">core::player::Bag::Item</a>&amp; item);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02260.html#ac5f9e331c0c5fce45cade33cc71490f6">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02260.html#ac5f9e331c0c5fce45cade33cc71490f6">~BagItemButton</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02260.html#a02ee0110be48a1e0f77368575fbbbcd6">update</a>(<span class="keyword">const</span> <a class="code" href="a01840.html">core::player::Bag::Item</a>&amp; item);</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02270.html#aa4735848f470c2d0cc5d9800ac3e8d43">doSceneAdd</a>(bl::rc::Overlay* overlay) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02270.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02270.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    bl::rc::res::TextureRef activeBgndTxtr;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    bl::gfx::Sprite background;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    bl::gfx::Text name;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a02270.html">MoveInfoRow</a>(<a class="code" href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> makeActive();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> makeInactive();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;};</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00242_html"><div class="ttname"><a href="a00242.html">MoveId.hpp</a></div></div>
-<div class="ttc" id="aa01065_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01065.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00016">MoveId.hpp:16</a></div></div>
-<div class="ttc" id="aa01102_html"><div class="ttname"><a href="a01102.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00488_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02270_html"><div class="ttname"><a href="a02270.html">game::menu::MoveInfoRow</a></div><div class="ttdoc">Menu row item for moves on the peoplemon info screen.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00017">MoveInfoRow.hpp:17</a></div></div>
-<div class="ttc" id="aa02270_html_a27ee44767463846cb3dcd2aebded2701"><div class="ttname"><a href="a02270.html#a27ee44767463846cb3dcd2aebded2701">game::menu::MoveInfoRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00048">MoveInfoRow.cpp:48</a></div></div>
-<div class="ttc" id="aa02270_html_a3deb75bced1a5211a4803d556188672a"><div class="ttname"><a href="a02270.html#a3deb75bced1a5211a4803d556188672a">game::menu::MoveInfoRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size of the menu item.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00021">MoveInfoRow.cpp:21</a></div></div>
-<div class="ttc" id="aa02270_html_a469493702ad12c5896a79632c62a34dc"><div class="ttname"><a href="a02270.html#a469493702ad12c5896a79632c62a34dc">game::menu::MoveInfoRow::create</a></div><div class="ttdeci">static bl::menu::Item::Ptr create(core::pplmn::MoveId move)</div><div class="ttdoc">Create a new move row.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00011">MoveInfoRow.cpp:11</a></div></div>
-<div class="ttc" id="aa02270_html_a8c7958db980a291501c008ccff096839"><div class="ttname"><a href="a02270.html#a8c7958db980a291501c008ccff096839">game::menu::MoveInfoRow::~MoveInfoRow</a></div><div class="ttdeci">virtual ~MoveInfoRow()=default</div><div class="ttdoc">Destroy the Move Info Row object.</div></div>
-<div class="ttc" id="aa02270_html_a8fe3c39ecae3b00a6277c6b62e6646fb"><div class="ttname"><a href="a02270.html#a8fe3c39ecae3b00a6277c6b62e6646fb">game::menu::MoveInfoRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00050">MoveInfoRow.cpp:50</a></div></div>
-<div class="ttc" id="aa02270_html_aa4735848f470c2d0cc5d9800ac3e8d43"><div class="ttname"><a href="a02270.html#aa4735848f470c2d0cc5d9800ac3e8d43">game::menu::MoveInfoRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Overlay *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00043">MoveInfoRow.cpp:43</a></div></div>
-<div class="ttc" id="aa02270_html_ad4a7c4788cc6adb6c0483451fc22e47b"><div class="ttname"><a href="a02270.html#ad4a7c4788cc6adb6c0483451fc22e47b">game::menu::MoveInfoRow::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a00992_source.html#l00023">MoveInfoRow.cpp:23</a></div></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02260.html#a75e4c310ca7995ff0f3b7e1462dfb196">getSize</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01840.html">core::player::Bag::Item</a>&amp; <a class="code" href="a02260.html#a1f0452a79b23fd0298fd2b66b34bb9de">getItem</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#a3587f5261f5a60fcbe91694e6a846508">doCreate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#a54d312be9aa0e4e9995e4066acafa51f">doSceneAdd</a>(bl::rc::Overlay* overlay) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02260.html#ac42952c60dcc52ea4d0894176cf622d8">doSceneRemove</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02260.html#acc85d355ca6a8a06a6eaea4e39f11c2b">getEntity</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="a01840.html">core::player::Bag::Item</a> item;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::rc::res::TextureRef txtr;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    bl::gfx::Text label;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    bl::gfx::Text qty;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <a class="code" href="a02260.html">BagItemButton</a>(<span class="keyword">const</span> <a class="code" href="a01840.html">core::player::Bag::Item</a>&amp; item);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">void</span> onSelect();</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordtype">void</span> onDeselect();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;};</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00266_html"><div class="ttname"><a href="a00266.html">Bag.hpp</a></div></div>
+<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01840_html"><div class="ttname"><a href="a01840.html">core::player::Bag::Item</a></div><div class="ttdoc">Simple struct representing a set of items in the bag.</div><div class="ttdef"><b>Definition:</b> <a href="a00266_source.html#l00024">Bag.hpp:24</a></div></div>
+<div class="ttc" id="aa02260_html"><div class="ttname"><a href="a02260.html">game::menu::BagItemButton</a></div><div class="ttdoc">Represents a button for a quantity of items in the bag.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00023">BagItemButton.hpp:23</a></div></div>
+<div class="ttc" id="aa02260_html_a02ee0110be48a1e0f77368575fbbbcd6"><div class="ttname"><a href="a02260.html#a02ee0110be48a1e0f77368575fbbbcd6">game::menu::BagItemButton::update</a></div><div class="ttdeci">void update(const core::player::Bag::Item &amp;item)</div><div class="ttdoc">Updates the text labels from the given item.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00020">BagItemButton.cpp:20</a></div></div>
+<div class="ttc" id="aa02260_html_a1f0452a79b23fd0298fd2b66b34bb9de"><div class="ttname"><a href="a02260.html#a1f0452a79b23fd0298fd2b66b34bb9de">game::menu::BagItemButton::getItem</a></div><div class="ttdeci">const core::player::Bag::Item &amp; getItem() const</div><div class="ttdoc">Returns the item this button is representing.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00051">BagItemButton.cpp:51</a></div></div>
+<div class="ttc" id="aa02260_html_a3587f5261f5a60fcbe91694e6a846508"><div class="ttname"><a href="a02260.html#a3587f5261f5a60fcbe91694e6a846508">game::menu::BagItemButton::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00053">BagItemButton.cpp:53</a></div></div>
+<div class="ttc" id="aa02260_html_a54d312be9aa0e4e9995e4066acafa51f"><div class="ttname"><a href="a02260.html#a54d312be9aa0e4e9995e4066acafa51f">game::menu::BagItemButton::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Overlay *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00067">BagItemButton.cpp:67</a></div></div>
+<div class="ttc" id="aa02260_html_a647ce4c55ccdb5aaf3779e5fa2870698"><div class="ttname"><a href="a02260.html#a647ce4c55ccdb5aaf3779e5fa2870698">game::menu::BagItemButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; BagItemButton &gt; Ptr</div><div class="ttdoc">Pointer to the menu item.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00026">BagItemButton.hpp:26</a></div></div>
+<div class="ttc" id="aa02260_html_a6bec2ab3f1796bb353f6e3095741c85d"><div class="ttname"><a href="a02260.html#a6bec2ab3f1796bb353f6e3095741c85d">game::menu::BagItemButton::create</a></div><div class="ttdeci">static Ptr create(const core::player::Bag::Item &amp;item)</div><div class="ttdoc">Creates a new item button.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00011">BagItemButton.cpp:11</a></div></div>
+<div class="ttc" id="aa02260_html_a75e4c310ca7995ff0f3b7e1462dfb196"><div class="ttname"><a href="a02260.html#a75e4c310ca7995ff0f3b7e1462dfb196">game::menu::BagItemButton::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size the button takes up.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00077">BagItemButton.cpp:77</a></div></div>
+<div class="ttc" id="aa02260_html_ac42952c60dcc52ea4d0894176cf622d8"><div class="ttname"><a href="a02260.html#ac42952c60dcc52ea4d0894176cf622d8">game::menu::BagItemButton::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00073">BagItemButton.cpp:73</a></div></div>
+<div class="ttc" id="aa02260_html_ac5f9e331c0c5fce45cade33cc71490f6"><div class="ttname"><a href="a02260.html#ac5f9e331c0c5fce45cade33cc71490f6">game::menu::BagItemButton::~BagItemButton</a></div><div class="ttdeci">virtual ~BagItemButton()=default</div><div class="ttdoc">Destroy the Bag Item Button object.</div></div>
+<div class="ttc" id="aa02260_html_acc85d355ca6a8a06a6eaea4e39f11c2b"><div class="ttname"><a href="a02260.html#acc85d355ca6a8a06a6eaea4e39f11c2b">game::menu::BagItemButton::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00075">BagItemButton.cpp:75</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

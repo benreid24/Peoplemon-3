@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Components/AnimationWindow.hpp Source File</title>
+<title>Peoplemon: include/Core/Systems/World.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,70 +66,89 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_5d94c7c3fd818de9de968d0381349bb7.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AnimationWindow.hpp</div>  </div>
+<div class="title">World.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00359.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_ANIMATIONWINDOW_HPP</span></div>
+<a href="a00359.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_WORLD_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_WORLD_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01093.html">editor</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02034.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02034.html">AnimationWindow</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02034.html#a357275a6effe3683370932f86ef5c1ed">   22</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02034.html#a357275a6effe3683370932f86ef5c1ed">ChooseCb</a> = std::function&lt;void(<span class="keyword">const</span> std::string&amp;)&gt;;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02034.html#a1a233a0c93f0c37c4c76d0df1c36ad14">   25</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02034.html#a1a233a0c93f0c37c4c76d0df1c36ad14">CloseCb</a> = std::function&lt;void()&gt;;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a02034.html#a385df6da32bcc207f6687274bdd33bc3">AnimationWindow</a>(<span class="keywordtype">bool</span> characterMode, <span class="keyword">const</span> <a class="code" href="a02034.html#a357275a6effe3683370932f86ef5c1ed">ChooseCb</a>&amp; chooseCb, <span class="keyword">const</span> <a class="code" href="a02034.html#a1a233a0c93f0c37c4c76d0df1c36ad14">CloseCb</a>&amp; closeCb);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02034.html#a4c95ab8dd04d042cd90cb82e991734a4">open</a>(bl::gui::GUI* parent, <span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> std::string&amp; file);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02034.html#a625ae5bfb047add644294ed27b7ffa40">hide</a>();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update animation window</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> characterMode;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02034.html#a357275a6effe3683370932f86ef5c1ed">ChooseCb</a> chooseCb;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02034.html#a1a233a0c93f0c37c4c76d0df1c36ad14">CloseCb</a> closeCb;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    std::string path;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    bl::gui::Window::Ptr window;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    bl::gui::GUI* parent;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    bl::gui::Label::Ptr fileLabel;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    bl::gui::Animation::Ptr animation;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    bl::resource::Ref&lt;bl::gfx::a2d::AnimationData&gt; animSrc;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    std::optional&lt;bl::gui::FilePicker&gt; filePicker;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/System.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02973.html">Core/Events/GameSave.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03012.html">Core/Maps/Map.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02024.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02024.html">World</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: <span class="keyword">public</span> bl::engine::System</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, <span class="keyword">public</span> bl::event::Listener&lt;event::GameSaveInitializing, event::GameSaveLoaded&gt; {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02024.html#a2d59d17c578592c34a3001f3232f8e02">World</a>(<a class="code" href="a02012.html">Systems</a>&amp; systems);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02024.html#a055194bb19ccbbfd68dbe9e7617deeb3">   35</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02024.html#a055194bb19ccbbfd68dbe9e7617deeb3">~World</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02024.html#a8d85231f1c949e41a64b8967f599c2c4">switchMaps</a>(<span class="keyword">const</span> std::string&amp; newMap, <span class="keywordtype">int</span> spawnId);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02024.html#a50ca82a4f35846749671738b6daedf56">whiteout</a>(<span class="keyword">const</span> std::string&amp; newMap, <span class="keywordtype">int</span> spawnId);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a01712.html">map::Map</a>&amp; <a class="code" href="a02024.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01712.html">map::Map</a>&amp; <a class="code" href="a02024.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> packAnim(<span class="keyword">const</span> std::string&amp; f);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;};</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01093_html"><div class="ttname"><a href="a01093.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00248_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">editor::component::AnimationWindow</a></div><div class="ttdoc">A basic window to choose and view animations.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00019">AnimationWindow.hpp:19</a></div></div>
-<div class="ttc" id="aa02034_html_a1a233a0c93f0c37c4c76d0df1c36ad14"><div class="ttname"><a href="a02034.html#a1a233a0c93f0c37c4c76d0df1c36ad14">editor::component::AnimationWindow::CloseCb</a></div><div class="ttdeci">std::function&lt; void()&gt; CloseCb</div><div class="ttdoc">Called when the window is closed.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00025">AnimationWindow.hpp:25</a></div></div>
-<div class="ttc" id="aa02034_html_a357275a6effe3683370932f86ef5c1ed"><div class="ttname"><a href="a02034.html#a357275a6effe3683370932f86ef5c1ed">editor::component::AnimationWindow::ChooseCb</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; ChooseCb</div><div class="ttdoc">Called when an animation is chosen.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00022">AnimationWindow.hpp:22</a></div></div>
-<div class="ttc" id="aa02034_html_a385df6da32bcc207f6687274bdd33bc3"><div class="ttname"><a href="a02034.html#a385df6da32bcc207f6687274bdd33bc3">editor::component::AnimationWindow::AnimationWindow</a></div><div class="ttdeci">AnimationWindow(bool characterMode, const ChooseCb &amp;chooseCb, const CloseCb &amp;closeCb)</div><div class="ttdoc">Construct a new Animation Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00019">AnimationWindow.cpp:19</a></div></div>
-<div class="ttc" id="aa02034_html_a4c95ab8dd04d042cd90cb82e991734a4"><div class="ttname"><a href="a02034.html#a4c95ab8dd04d042cd90cb82e991734a4">editor::component::AnimationWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, const std::string &amp;path, const std::string &amp;file)</div><div class="ttdoc">Opens the animation picker window.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00083">AnimationWindow.cpp:83</a></div></div>
-<div class="ttc" id="aa02034_html_a625ae5bfb047add644294ed27b7ffa40"><div class="ttname"><a href="a02034.html#a625ae5bfb047add644294ed27b7ffa40">editor::component::AnimationWindow::hide</a></div><div class="ttdeci">void hide()</div><div class="ttdoc">Removes the window from view.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00118">AnimationWindow.cpp:118</a></div></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02024.html#ab14a57ac77561c5d5cf3a232d77d2af9">observe</a>(<span class="keyword">const</span> <a class="code" href="a01400.html">event::GameSaveInitializing</a>&amp; save) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02024.html#ab14a57ac77561c5d5cf3a232d77d2af9">observe</a>(<span class="keyword">const</span> <a class="code" href="a01404.html">event::GameSaveLoaded</a>&amp; load) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02024.html#a37237bf8464a738e91d2c56569dbc021">setWhiteoutMap</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> spawn);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02012.html">Systems</a>&amp; owner;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    bl::resource::Ref&lt;map::Map&gt; currentMap;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::resource::Ref&lt;map::Map&gt; previousMap;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::string currentMapFile;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::string prevMapFile;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    bl::tmap::Position playerPos;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    bl::tmap::Position prevPlayerPos;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;};</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01400_html"><div class="ttname"><a href="a01400.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa01404_html"><div class="ttname"><a href="a01404.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00046">GameSave.hpp:46</a></div></div>
+<div class="ttc" id="aa01712_html"><div class="ttname"><a href="a01712.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03012_source.html#l00051">Map.hpp:51</a></div></div>
+<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02024_html"><div class="ttname"><a href="a02024.html">core::system::World</a></div><div class="ttdoc">System for managing the current map and previous maps.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00021">World.hpp:23</a></div></div>
+<div class="ttc" id="aa02024_html_a055194bb19ccbbfd68dbe9e7617deeb3"><div class="ttname"><a href="a02024.html#a055194bb19ccbbfd68dbe9e7617deeb3">core::system::World::~World</a></div><div class="ttdeci">virtual ~World()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa02024_html_a2d59d17c578592c34a3001f3232f8e02"><div class="ttname"><a href="a02024.html#a2d59d17c578592c34a3001f3232f8e02">core::system::World::World</a></div><div class="ttdeci">World(Systems &amp;systems)</div><div class="ttdoc">Creates the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00016">World.cpp:16</a></div></div>
+<div class="ttc" id="aa02024_html_a37237bf8464a738e91d2c56569dbc021"><div class="ttname"><a href="a02024.html#a37237bf8464a738e91d2c56569dbc021">core::system::World::setWhiteoutMap</a></div><div class="ttdeci">void setWhiteoutMap(unsigned int spawn)</div><div class="ttdoc">Sets the respawn point to the given spawn in the current map.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00074">World.cpp:74</a></div></div>
+<div class="ttc" id="aa02024_html_a50ca82a4f35846749671738b6daedf56"><div class="ttname"><a href="a02024.html#a50ca82a4f35846749671738b6daedf56">core::system::World::whiteout</a></div><div class="ttdeci">void whiteout(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches to the new map and resets the last map to empty.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00067">World.cpp:67</a></div></div>
+<div class="ttc" id="aa02024_html_a8d85231f1c949e41a64b8967f599c2c4"><div class="ttname"><a href="a02024.html#a8d85231f1c949e41a64b8967f599c2c4">core::system::World::switchMaps</a></div><div class="ttdeci">bool switchMaps(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches the current map to the map in the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00021">World.cpp:21</a></div></div>
+<div class="ttc" id="aa02024_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02024.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00079">World.cpp:79</a></div></div>
+<div class="ttc" id="aa02024_html_ab14a57ac77561c5d5cf3a232d77d2af9"><div class="ttname"><a href="a02024.html#ab14a57ac77561c5d5cf3a232d77d2af9">core::system::World::observe</a></div><div class="ttdeci">virtual void observe(const event::GameSaveInitializing &amp;save) override</div><div class="ttdoc">Adds saved world data to the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00087">World.cpp:87</a></div></div>
+<div class="ttc" id="aa02973_html"><div class="ttname"><a href="a02973.html">GameSave.hpp</a></div></div>
+<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">Map.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Dec 24 2023 17:05:07 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
