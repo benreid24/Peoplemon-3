@@ -14,16 +14,17 @@ bl::engine::State::Ptr SaveGame::create(core::system::Systems& s) {
 
 SaveGame::SaveGame(core::system::Systems& s)
 : State(s, bl::engine::StateMask::Menu) {
-    bgndTxtr = TextureManager::load(
+    bgndTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "savegame.png"));
-    background.setTexture(*bgndTxtr, true);
+    background.create(s.engine(), bgndTxtr);
+    background.getTransform().setDepth(bl::cam::OverlayCamera::MaxDepth); // ensure behind HUD
 }
 
 const char* SaveGame::name() const { return "SaveGame"; }
 
 void SaveGame::activate(bl::engine::Engine& engine) {
-    /*engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    background.addToScene(engine.renderer().getObserver().pushScene<bl::rc::Overlay>(),
+                          bl::rc::UpdateSpeed::Static);
 
     const auto cb = std::bind(&SaveGame::onFinish, this);
     if (core::file::GameSave::saveGame(systems.player().state().name)) {
@@ -33,17 +34,10 @@ void SaveGame::activate(bl::engine::Engine& engine) {
 }
 
 void SaveGame::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
 }
 
 void SaveGame::update(bl::engine::Engine&, float, float) {}
-
-// void SaveGame::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     engine.window().draw(background);
-//     systems.hud().render(engine.window(), lag);
-//     engine.window().display();
-// }
 
 void SaveGame::onFinish() { systems.engine().popState(); }
 
