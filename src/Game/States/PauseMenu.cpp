@@ -18,11 +18,14 @@ bl::engine::State::Ptr PauseMenu::create(core::system::Systems& systems) {
 
 PauseMenu::PauseMenu(core::system::Systems& s)
 : State(s, bl::engine::StateMask::Paused)
-//, menu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
 , openedOnce(false)
 , unpause(false) {
     using bl::menu::Item;
     using bl::menu::TextItem;
+
+    menu.create(s.engine(),
+                s.engine().renderer().getObserver(),
+                bl::menu::ArrowSelector::create(14.f, sf::Color::Black));
 
     resume = TextItem::create("Resume", core::Properties::MenuFont());
     resume->getSignal(Item::Activated).willCall([this]() { this->systems.engine().popState(); });
@@ -94,9 +97,7 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
     inputDriver.drive(&menu);
     inputDriver.resetDebounce();
-    systems.world().activeMap().setupCamera(systems);
-    /*menuRenderStates.transform.translate(engine.window().getView().getCenter() -
-                                         engine.window().getView().getSize() * 0.5f);*/
+    menu.addToOverlay();
     systems.hud().hideEntryCard();
     if (!openedOnce) {
         bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveSound());
@@ -105,6 +106,7 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
+    menu.removeFromOverlay();
     systems.engine().inputSystem().getActor().removeListener(*this);
     inputDriver.drive(nullptr);
     unpause = false;

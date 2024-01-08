@@ -14,7 +14,6 @@ namespace state
  * @brief Game state for the pause menu
  *
  * @ingroup States
- *
  */
 class PauseMenu
 : public State
@@ -30,25 +29,21 @@ public:
 
     /**
      * @brief Destroy the Pause Menu object
-     *
      */
     virtual ~PauseMenu() = default;
 
     /**
      * @brief Returns "PauseMenu"
-     *
      */
     virtual const char* name() const override;
 
     /**
      * @brief Subscribes to event buses
-     *
      */
     virtual void activate(bl::engine::Engine&) override;
 
     /**
      * @brief Unsubscribes from event buses
-     *
      */
     virtual void deactivate(bl::engine::Engine&) override;
 
@@ -60,11 +55,8 @@ public:
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update pause menu rendering
-
     bl::menu::Menu menu;
     core::input::MenuDriver inputDriver;
-    sf::RenderStates menuRenderStates;
     bool openedOnce;
     bool unpause;
 

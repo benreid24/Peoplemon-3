@@ -79,6 +79,8 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     // Spawn player
     auto spawnIt                = spawns.find(spawnId);
     bl::tmap::Position spawnPos = prevPlayerPos;
+    spawnPos.direction          = bl::tmap::oppositeDirection(spawnPos.direction);
+    spawnPos                    = spawnPos.move(spawnPos.direction);
     if (spawnId != 0 && spawnIt != spawns.end()) { spawnPos = spawnIt->second.position; }
     else if (spawnId == 0 && spawnIt != spawns.end()) {
         BL_LOG_WARN << "Spawn id 0 is reserved, falling back on default behavior";

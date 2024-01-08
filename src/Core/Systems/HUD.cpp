@@ -455,7 +455,12 @@ void HUD::EntryCard::display(const std::string& t) {
     stateVar = txtr->size().y;
 }
 
-void HUD::EntryCard::hide() { state = State::Hidden; }
+void HUD::EntryCard::hide() {
+    if (state != State::Hidden) {
+        state = State::Hidden;
+        card.removeFromScene();
+    }
+}
 
 } // namespace system
 } // namespace core
