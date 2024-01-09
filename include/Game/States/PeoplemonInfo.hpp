@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_PEOPLEMONINFO_HPP
 #define GAME_STATES_PEOPLEMONINFO_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Game/States/State.hpp>
@@ -13,7 +14,6 @@ namespace state
  * @brief Menu for displaying information about a specific peoplemon the player owns
  *
  * @ingroup States
- *
  */
 class PeoplemonInfo
 : public State
@@ -31,13 +31,11 @@ public:
 
     /**
      * @brief Destroy the Peoplemon Info object
-     *
      */
     virtual ~PeoplemonInfo() = default;
 
     /**
      * @brief Returns "Peopledex"
-     *
      */
     virtual const char* name() const override;
 
@@ -64,55 +62,52 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update peoplemon info rendering
-
     enum ActivePage { Basics, Moves };
 
     ActivePage activePage;
-    sf::Clock inputTimer;
+    float inputDebounce;
+    float flashDelay;
 
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
 
-    bl::resource::Ref<sf::Texture> leftTxtr;
-    sf::Sprite leftArrow;
-    // bl::gfx::Flashing leftFlasher;
-    bl::resource::Ref<sf::Texture> rightTxtr;
-    sf::Sprite rightArrow;
-    // bl::gfx::Flashing rightFlasher;
-    sf::Text pageLabel;
+    bl::rc::res::TextureRef leftTxtr;
+    bl::gfx::Sprite leftArrow;
+    bl::rc::res::TextureRef rightTxtr;
+    bl::gfx::Sprite rightArrow;
+    bl::gfx::Text pageLabel;
 
-    bl::resource::Ref<sf::Texture> thumbTxtr;
-    sf::Sprite thumbnail;
-    sf::Text nameLabel;
-    sf::Text idLabel;
-    sf::Text levelLabel;
-    sf::Text itemLabel;
-    sf::Text curXpLabel;
-    sf::Text nextXpLabel;
-    sf::Text ailLabel;
+    bl::rc::res::TextureRef thumbTxtr;
+    bl::gfx::Sprite thumbnail;
+    bl::gfx::Text nameLabel;
+    bl::gfx::Text idLabel;
+    bl::gfx::Text levelLabel;
+    bl::gfx::Text itemLabel;
+    bl::gfx::Text curXpLabel;
+    bl::gfx::Text nextXpLabel;
+    bl::gfx::Text ailLabel;
 
-    bl::resource::Ref<sf::Texture> basicsTxtr;
-    sf::Sprite basicsBox;
-    sf::Text speciesLabel;
-    sf::Text typeLabel;
-    sf::Text hpLabel;
-    sf::Text atkLabel;
-    sf::Text defLabel;
-    sf::Text spdLabel;
-    sf::Text spAtkLabel;
-    sf::Text spDefLabel;
-    sf::Text descLabel;
-    sf::Text abilityLabel;
-    sf::Text abilityDescLabel;
+    bl::rc::res::TextureRef basicsTxtr;
+    bl::gfx::Sprite basicsBox;
+    bl::gfx::Text speciesLabel;
+    bl::gfx::Text typeLabel;
+    bl::gfx::Text hpLabel;
+    bl::gfx::Text atkLabel;
+    bl::gfx::Text defLabel;
+    bl::gfx::Text spdLabel;
+    bl::gfx::Text spAtkLabel;
+    bl::gfx::Text spDefLabel;
+    bl::gfx::Text descLabel;
+    bl::gfx::Text abilityLabel;
+    bl::gfx::Text abilityDescLabel;
 
     bl::menu::Menu moveMenu;
-    bl::resource::Ref<sf::Texture> moveTxtr;
-    sf::Sprite moveBox;
-    sf::Text movePwrLabel;
-    sf::Text moveAccLabel;
-    sf::Text moveTypeLabel;
-    sf::Text moveDescLabel;
+    bl::rc::res::TextureRef moveTxtr;
+    bl::gfx::Sprite moveBox;
+    bl::gfx::Text movePwrLabel;
+    bl::gfx::Text moveAccLabel;
+    bl::gfx::Text moveTypeLabel;
+    bl::gfx::Text moveDescLabel;
 
     PeoplemonInfo(core::system::Systems& systems, const core::pplmn::OwnedPeoplemon& ppl);
     virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
