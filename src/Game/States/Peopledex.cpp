@@ -146,17 +146,7 @@ void Peopledex::deactivate(bl::engine::Engine& engine) {
     engine.renderer().getObserver().popScene();
 }
 
-void Peopledex::update(bl::engine::Engine&, float, float) {
-    /*static bool printed = false;
-    if (!printed) {
-        systems.engine().ecs().getAllComponents<bl::com::Texture>().forEach(
-            [](bl::ecs::Entity ent, bl::com::Texture& txtr) {
-                TextureHelper& t = static_cast<TextureHelper&>(txtr);
-                BL_LOG_INFO << "Entity " << ent << " has texture " << txtr.getTexture().id() << "
-    with payload " << t.pa
-            });
-    }*/
-}
+void Peopledex::update(bl::engine::Engine&, float, float) {}
 
 bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,
                         bool fromEvent) {

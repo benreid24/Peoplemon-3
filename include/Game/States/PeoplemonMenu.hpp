@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_PEOPLEMONMENU_HPP
 #define GAME_STATES_PEOPLEMONMENU_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Events/PeoplemonMenu.hpp>
@@ -16,7 +17,6 @@ namespace state
  * @brief Provides the menu for viewing and selecting Peoplemon
  *
  * @ingroup States
- *
  */
 class PeoplemonMenu
 : public State
@@ -32,7 +32,6 @@ public:
      * @param outNow Optional index of the peoplemon that is currently out
      * @param chosen Value to populate with the selected peoplemon's index
      * @param item The item to use (or being used in battle)
-     *
      */
     static bl::engine::State::Ptr create(core::system::Systems& systems, Context ctx,
                                          int outNow = -1, int* chosen = nullptr,
@@ -42,32 +41,26 @@ public:
     virtual ~PeoplemonMenu() = default;
 
     /**
-     * @brief Returns "PeoplemonMenu";
-     *
+     * @brief Returns "PeoplemonMenu"
      */
     virtual const char* name() const override;
 
     /**
      * @brief Subscribes the menu to the engine event bus
-     *
      */
     virtual void activate(bl::engine::Engine& engine) override;
 
     /**
      * @brief Unsubscribes the menu to the engine event bus
-     *
      */
     virtual void deactivate(bl::engine::Engine& engine) override;
 
     /**
      * @brief Does nothing
-     *
      */
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update peoplemon menu rendering
-
     enum MenuState {
         Browsing,
         SelectingMove,
@@ -88,12 +81,12 @@ private:
     MenuState state;
     unsigned int mover1;
     unsigned int mover2;
-    sf::Vector2f moveVel;
-    sf::Vector2f mover1Dest;
-    sf::Vector2f mover2Dest;
+    glm::vec2 moveVel;
+    glm::vec2 mover1Dest;
+    glm::vec2 mover2Dest;
 
-    bl::resource::Ref<sf::Texture> backgroundTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef backgroundTxtr;
+    bl::gfx::Sprite background;
 
     bl::menu::Menu menu;
     core::input::MenuDriver inputDriver;
@@ -120,6 +113,7 @@ private:
     void takeItem();
     void resetAction();
     void messageDone();
+    void closeActionMenu();
     void confirmMoveDelete(const std::string& choice);
     void delMove(const std::string& choice);
 
