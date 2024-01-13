@@ -20,6 +20,7 @@ std::string trainerKey(const component::Trainer& t) { return t.file() + ":" + t.
 
 Trainers::Trainers(Systems& o)
 : owner(o)
+, trainerPool(o.engine().ecs().getAllComponents<component::Trainer>())
 , state(State::Searching)
 , walkingTrainer(bl::ecs::InvalidEntity) {}
 
@@ -131,23 +132,28 @@ void Trainers::observe(const event::BattleCompleted& b) {
 }
 
 void Trainers::observe(const event::EntityRotated& rot) {
-    if (walkingTrainer == bl::ecs::InvalidEntity) checkTrainer(rot.entity);
+    if (walkingTrainer == bl::ecs::InvalidEntity) {
+        component::Trainer* trainer = trainerPool.get(rot.entity);
+        if (trainer) { checkTrainer(rot.entity, *trainer); }
+    }
 }
 
 void Trainers::observe(const event::EntityMoveFinished& moved) {
     if (walkingTrainer != bl::ecs::InvalidEntity) return;
 
     if (moved.entity == owner.player().player()) {
-        for (const bl::ecs::Entity ent : owner.position().updateRangeEntities()) {
-            checkTrainer(ent);
-        }
+        trainerPool.forEach([this](bl::ecs::Entity ent, component::Trainer& trainer) {
+            checkTrainer(ent, trainer);
+        });
     }
-    else { checkTrainer(moved.entity); }
+    else {
+        component::Trainer* trainer = trainerPool.get(moved.entity);
+        if (trainer) { checkTrainer(moved.entity, *trainer); }
+    }
 }
 
-void Trainers::checkTrainer(bl::ecs::Entity ent) {
-    component::Trainer* trainer = owner.engine().ecs().getComponent<component::Trainer>(ent);
-    if (!trainer || trainer->defeated()) return;
+void Trainers::checkTrainer(bl::ecs::Entity ent, component::Trainer& trainer) {
+    if (trainer.defeated()) return;
     if (owner.flight().flying()) return;
     // TODO - respect player/trainer locks?
     const bl::tmap::Position* pos = owner.engine().ecs().getComponent<bl::tmap::Position>(ent);
@@ -161,13 +167,13 @@ void Trainers::checkTrainer(bl::ecs::Entity ent) {
         return;
     }
 
-    const bl::ecs::Entity see = owner.position().search(*pos, pos->direction, trainer->range());
+    const bl::ecs::Entity see = owner.position().search(*pos, pos->direction, trainer.range());
     if (see == owner.player().player()) {
-        BL_LOG_INFO << "Trainer " << ent << "(" << trainer->name() << " | " << trainer->file()
+        BL_LOG_INFO << "Trainer " << ent << "(" << trainer.name() << " | " << trainer.file()
                     << ") sees player";
         owner.ai().removeAi(ent);
         walkingTrainer   = ent;
-        trainerComponent = trainer;
+        trainerComponent = &trainer;
         trainerPos       = pos;
         trainerMove      = move;
         owner.controllable().setEntityLocked(owner.player().player(), true);

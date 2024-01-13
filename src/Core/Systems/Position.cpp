@@ -22,39 +22,8 @@ void Position::init(bl::engine::Engine&) {
 }
 
 void Position::update(std::mutex&, float, float, float, float) {
-    bl::cam::Camera2D* cam =
-        owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
-    if (!cam) {
-        BL_LOG_WARN << "Cannot update position system without camera";
-        return;
-    }
-    sf::FloatRect area = cam->getVisibleArea();
-    area.left -= area.width * 1.5f;
-    area.top -= area.height * 1.5f;
-    area.width *= 3.f;
-    area.height *= 3.f;
-    const sf::Vector2u corner(
-        static_cast<unsigned int>(std::max(area.left / Properties::PixelsPerTile(), 0.f)),
-        static_cast<unsigned int>(std::max(area.top / Properties::PixelsPerTile(), 0.f)));
-    const sf::Vector2u size(
-        std::min(static_cast<unsigned int>(std::ceil(area.width / Properties::PixelsPerTile())),
-                 entityMap.front().getWidth() - corner.x),
-        std::min(static_cast<unsigned int>(std::ceil(area.height / Properties::PixelsPerTile())),
-                 entityMap.front().getHeight() - corner.y));
-
-    toUpdate.clear();
-    toUpdate.reserve(entityMap.size() * size.x * size.y / 4);
-    for (const auto& vec2d : entityMap) {
-        for (unsigned int x = corner.x; x < corner.x + size.x; ++x) {
-            for (unsigned int y = corner.y; y < corner.y + size.y; ++y) {
-                const bl::ecs::Entity e = vec2d(x, y);
-                if (e != bl::ecs::InvalidEntity) toUpdate.emplace_back(e);
-            }
-        }
-    }
+    // noop
 }
-
-const std::vector<bl::ecs::Entity>& Position::updateRangeEntities() const { return toUpdate; }
 
 bool Position::spaceFree(const bl::tmap::Position& position) const {
     if (position.level >= entityMap.size()) return false;
