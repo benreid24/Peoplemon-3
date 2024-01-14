@@ -87,7 +87,7 @@ void MainGame::update(bl::engine::Engine&, float dt, float) {
 
     case MapFadein:
         if (fadeout->complete()) {
-            state   = Running;
+            state = Running;
             systems.controllable().resetAllLocks();
             fadeout = nullptr;
             systems.engine()
@@ -144,6 +144,12 @@ void MainGame::observe(const sf::Event& event) {
                     }
                 }
             }
+        }
+        else if (event.key.code == sf::Keyboard::F6) {
+            auto& visited     = systems.player().state().visitedTowns;
+            const auto& towns = core::map::Map::FlyMapTowns();
+            for (const auto& town : towns) { visited.emplace(town.name); }
+            core::debug::DebugBanner::display("All towns visited");
         }
     }
 #else

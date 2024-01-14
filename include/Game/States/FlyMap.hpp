@@ -12,6 +12,11 @@ namespace game
 {
 namespace state
 {
+/**
+ * @brief Engine state for the fly map
+ *
+ * @ingroup States
+ */
 class FlyMap
 : public State
 , public bl::input::Listener {
@@ -26,14 +31,12 @@ public:
     static bl::engine::State::Ptr create(core::system::Systems& systems, bool& unpause);
 
     /**
-     * @brief Destroy the New Game state
-     *
+     * @brief Destroy the FlyMap state
      */
     virtual ~FlyMap() = default;
 
     /**
      * @brief Returns "FlyMap"
-     *
      */
     virtual const char* name() const override;
 
@@ -60,29 +63,25 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update fly map rendering
-
-    std::vector<sf::Vector2f> townPositions;
-    bool hudActive;
     bool& unpause;
 
-    bl::resource::Ref<sf::Texture> mapTxtr;
-    bl::resource::Ref<sf::Texture> townTxtr;
-    bl::resource::Ref<sf::Texture> cursorTxtr;
-    bl::resource::Ref<sf::Texture> playerTxtr;
-    sf::Sprite map;
-    sf::Sprite town;
-    sf::Sprite player;
-    sf::Sprite cursor;
-    // bl::gfx::Flashing cursorFlasher;
+    bl::rc::res::TextureRef mapTxtr;
+    bl::rc::res::TextureRef townTxtr;
+    bl::rc::res::TextureRef cursorTxtr;
+    bl::rc::res::TextureRef playerTxtr;
+    bl::gfx::Sprite map;
+    bl::gfx::BatchedSprites towns;
+    bl::gfx::Sprite player;
+    bl::gfx::Sprite cursor;
 
-    bl::resource::Ref<sf::Texture> panelTxtr;
-    sf::Sprite panel;
-    sf::Text townName;
-    sf::Text townDesc;
+    bl::rc::res::TextureRef panelTxtr;
+    bl::gfx::Sprite panel;
+    bl::gfx::Text townName;
+    bl::gfx::Text townDesc;
 
     bl::menu::Menu townMenu;
     core::input::MenuDriver inputDriver;
+    unsigned int selected;
 
     FlyMap(core::system::Systems& systems, bool& unpause);
     void clearHover();
@@ -91,7 +90,6 @@ private:
     void onFlyChoice(const std::string& choice, const core::map::Town& town);
     void messageDone();
     void close();
-    void wrap();
 
     virtual bool observe(const bl::input::Actor&, unsigned int activatedControl,
                          bl::input::DispatchType, bool eventTriggered) override;

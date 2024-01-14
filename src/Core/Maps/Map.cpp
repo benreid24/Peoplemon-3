@@ -589,7 +589,8 @@ const std::vector<Town>& Map::FlyMapTowns() {
 }
 
 void Map::loadFlymapTowns() {
-    bl::resource::Ref<Map> world = MapManager::load("WorldMap.map");
+    bl::resource::Ref<Map> world =
+        MapManager::load(bl::util::FileUtil::joinPath(core::Properties::MapPath(), "WorldMap.map"));
     if (!world) {
         BL_LOG_CRITICAL << "Failed to load world map";
         return;
