@@ -82,6 +82,7 @@ FlyMap::FlyMap(core::system::Systems& s, bool& up)
     bl::menu::Item* prev = back.get();
     bl::gfx::BatchSprite townSprite;
     townSprite.disableAutoCommit(true);
+    townSprite.getLocalTransform().setOrigin(townTxtr->size() * 0.5f);
     const sf::FloatRect src(0.f, 0.f, townTxtr->size().x, townTxtr->size().y);
     for (unsigned int i = 0; i < core::map::Map::FlyMapTowns().size(); ++i) {
         const auto& t = core::map::Map::FlyMapTowns()[i];

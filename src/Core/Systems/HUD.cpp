@@ -155,9 +155,7 @@ void HUD::printDoneStateTransition() {
         break;
 
     case Item::Prompt: {
-        setState(WaitingPrompt);
         const std::vector<std::string>& choices = queuedOutput.front().getChoices();
-
         bl::menu::Item::Ptr mitem =
             bl::menu::TextItem::create(choices.empty() ? "INVALID" : choices.front(),
                                        Properties::MenuFont(),
@@ -180,6 +178,7 @@ void HUD::printDoneStateTransition() {
         const float y              = Properties::WindowSize().y - bounds.height - 18.f;
         choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});
         choiceDriver.drive(&choiceMenu);
+        setState(WaitingPrompt); // TODO - why does this need to be after setting root item?
     } break;
 
     case Item::Keyboard:
@@ -313,6 +312,10 @@ void HUD::setState(State ns) {
     switch (state) {
     case Hidden:
         textbox.setHidden(true);
+        textbox.removeFromScene();
+        displayText.removeFromScene();
+        promptTriangle.removeFromScene();
+        choiceMenu.removeFromOverlay();
         currentOverlay = nullptr;
         break;
     case WaitingContinue:
