@@ -18,10 +18,11 @@ constexpr float RiseRate        = RiseHeight / 2.f;
 constexpr float RotateTime      = 0.65f;
 constexpr float MaxSpeed        = 32.f * 38.f;
 constexpr float MinFlyTime      = 2.5f;
-constexpr float ShakesPerSec    = 8.f;
-constexpr float ShakeMagnitude  = 10.f;
+constexpr float ShakesPerSec    = 18.f;
+constexpr float ShakeMagnitude  = 7.f;
 constexpr float ShadowSize      = 17.f;
 constexpr float ShadowShrinkage = ShadowSize * 0.3f;
+constexpr float HoldTime        = 1.5f;
 
 float distSqrd(const glm::vec2& p1, const glm::vec2& p2) {
     const float dx = p1.x - p2.x;
@@ -30,7 +31,7 @@ float distSqrd(const glm::vec2& p1, const glm::vec2& p2) {
 }
 
 float distSqrd(const bl::tmap::Position& p1, const glm::vec2& p2) {
-    return distSqrd(p1.getWorldPosition(Properties::PixelsPerTile()), p2);
+    return distSqrd(p1.transform->getGlobalPosition(), p2);
 }
 
 } // namespace
@@ -72,24 +73,13 @@ bool Flight::startFlight(unsigned int spawn) {
         return false;
     }
 
-    if (playerPos->position == destination.position) {
-        return false;
-        // TODO - options:
-        // 1. cancel with message
-        // 2. go up and down
-        // 3. go up and down with message
-    }
-
     // remove player control and face down
     owner.player().removePlayerControlled(owner.player().player());
     startPos             = *playerPos;
     playerPos->direction = bl::tmap::Direction::Down;
     playerPos->level     = std::max(playerPos->level, destination.level);
-
-    // setup camera
-    auto* cam = owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
-    if (cam) { cameraShake = cam->addAffector<bl::cam::c2d::CameraShake>(0.f, 10.f); }
-    else { cameraShake = nullptr; }
+    playerPos->transform->setDepth(owner.world().activeMap().getMinDepth());
+    rotatePlayer(bl::tmap::Direction::Down);
 
     // start flight
     state            = State::Rising;
@@ -109,21 +99,27 @@ void Flight::update(std::mutex&, float dt, float, float, float) {
                                     riseState.height,
                                     ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height >= RiseHeight) {
-            state      = State::Rotating;
-            flightDest = destination.getWorldPosition(Properties::PixelsPerTile());
-            flightDest.y -= RiseHeight;
-            unitVelocity = flightDest - playerPos->transform->getGlobalPosition();
-            const float m =
-                std::sqrt(unitVelocity.x * unitVelocity.x + unitVelocity.y * unitVelocity.y);
-            unitVelocity.x /= m;
-            unitVelocity.y /= m;
-            rotateState.angle = 0.f;
-            rotateState.targetAngle =
-                bl::math::radiansToDegrees(
-                    std::atan2(flightDest.y - playerPos->transform->getGlobalPosition().y,
-                               flightDest.x - playerPos->transform->getGlobalPosition().x)) +
-                90.f;
-            rotateState.rotateRate = (rotateState.targetAngle - rotateState.angle) / RotateTime;
+            if (startPos.position != destination.position) {
+                state      = State::Rotating;
+                flightDest = destination.getWorldPosition(Properties::PixelsPerTile());
+                flightDest.y -= RiseHeight;
+                unitVelocity = flightDest - playerPos->transform->getGlobalPosition();
+                const float m =
+                    std::sqrt(unitVelocity.x * unitVelocity.x + unitVelocity.y * unitVelocity.y);
+                unitVelocity.x /= m;
+                unitVelocity.y /= m;
+                rotateState.angle = 0.f;
+                rotateState.targetAngle =
+                    bl::math::radiansToDegrees(
+                        std::atan2(flightDest.y - playerPos->transform->getGlobalPosition().y,
+                                   flightDest.x - playerPos->transform->getGlobalPosition().x)) +
+                    90.f;
+                rotateState.rotateRate = (rotateState.targetAngle - rotateState.angle) / RotateTime;
+            }
+            else {
+                state              = State::Holding;
+                holdState.lookTime = 0.f;
+            }
         }
         break;
 
@@ -142,11 +138,16 @@ void Flight::update(std::mutex&, float dt, float, float, float) {
                 flyState.velocity   = 0.f;
                 flyState.ogDistSqrd = distSqrd(*playerPos, flightDest);
                 flyState.maxSpeed = std::min(std::sqrt(flyState.ogDistSqrd) / MinFlyTime, MaxSpeed);
+
+                cameraShake = owner.engine()
+                                  .renderer()
+                                  .getObserver()
+                                  .getCurrentCamera<bl::cam::Camera2D>()
+                                  ->addAffector<bl::cam::c2d::CameraShake>(0.f, 0.f);
             }
             else {
-                state               = State::Descending;
-                riseState.height    = RiseHeight;
-                playerPos->position = destination.position;
+                state            = State::Descending;
+                riseState.height = RiseHeight;
             }
         }
         break;
@@ -187,6 +188,13 @@ void Flight::update(std::mutex&, float dt, float, float, float) {
             rotateState.angle       = pa;
             rotateState.targetAngle = 0.f;
             rotateState.rotateRate  = (rotateState.targetAngle - rotateState.angle) / RotateTime;
+
+            owner.engine()
+                .renderer()
+                .getObserver()
+                .getCurrentCamera<bl::cam::Camera2D>()
+                ->removeAffector(cameraShake);
+            cameraShake = nullptr;
         }
         else if (cameraShake) {
             cameraShake->setMagnitude(flyState.velocity / flyState.maxSpeed * ShakeMagnitude);
@@ -204,16 +212,42 @@ void Flight::update(std::mutex&, float dt, float, float, float) {
                                     ShadowSize - (riseState.height / RiseHeight) * ShadowShrinkage);
         if (riseState.height == 0.f) {
             owner.render().removeShadow(owner.player().player());
-            const bl::tmap::Position prev = *playerPos;
-            *playerPos                    = destination;
-            playerPos->direction          = bl::tmap::Direction::Down;
-            state                         = State::Idle;
-            auto* cam =
-                owner.engine().renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>();
-            if (cam) { cam->removeAffector(cameraShake); }
-            bl::event::Dispatcher::dispatch<event::EntityMoved>(
-                {owner.player().player(), prev, *playerPos});
+            playerPos->position = destination.position;
+            state               = State::Idle;
             owner.player().makePlayerControlled(owner.player().player());
+            if (startPos.position != destination.position) {
+                playerPos->syncTransform(Properties::PixelsPerTile());
+                bl::event::Dispatcher::dispatch<event::EntityMoved>(
+                    {owner.player().player(), startPos, *playerPos});
+                bl::event::Dispatcher::dispatch<event::EntityMoveFinished>(
+                    {owner.player().player(), *playerPos});
+            }
+            else {
+                owner.hud().displayMessage("...");
+                owner.hud().displayMessage("We're here");
+            }
+        }
+        break;
+
+    case State::Holding:
+        holdState.lookTime += dt;
+        if (holdState.lookTime >= HoldTime) {
+            switch (playerPos->direction) {
+            case bl::tmap::Direction::Down:
+                rotatePlayer(bl::tmap::Direction::Right);
+                holdState.lookTime = 0.f;
+                break;
+            case bl::tmap::Direction::Right:
+                rotatePlayer(bl::tmap::Direction::Left);
+                holdState.lookTime = 0.f;
+                break;
+            case bl::tmap::Direction::Left:
+            default:
+                rotatePlayer(bl::tmap::Direction::Down);
+                state            = State::Descending;
+                riseState.height = RiseHeight;
+                break;
+            }
         }
         break;
 
@@ -224,23 +258,13 @@ void Flight::update(std::mutex&, float dt, float, float, float) {
 }
 
 void Flight::movePlayer(float dt) {
-    playerPos->transform->setPosition(playerPos->transform->getGlobalPosition() +
-                                      unitVelocity * flyState.velocity * dt);
-    syncTiles();
+    playerPos->transform->move(unitVelocity * flyState.velocity * dt);
 }
 
-void Flight::syncTiles() {
-    const glm::vec2 pixels = playerPos->transform->getGlobalPosition();
-    glm::i32vec2 tiles(pixels);
-    tiles.y += static_cast<int>(RiseHeight);
-    tiles /= Properties::PixelsPerTile();
-    if (tiles != playerPos->position) {
-        const auto old      = *playerPos;
-        playerPos->position = tiles;
-        playerPos->syncTransform(Properties::PixelsPerTile());
-        bl::event::Dispatcher::dispatch<event::EntityMoved>(
-            {owner.player().player(), old, *playerPos});
-    }
+void Flight::rotatePlayer(bl::tmap::Direction dir) {
+    bl::event::Dispatcher::dispatch<event::EntityRotated>(
+        {owner.player().player(), dir, playerPos->direction});
+    playerPos->direction = dir;
 }
 
 } // namespace system
