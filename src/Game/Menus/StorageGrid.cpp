@@ -8,24 +8,40 @@ namespace game
 {
 namespace menu
 {
-void StorageGrid::update(const std::vector<core::pplmn::StoredPeoplemon>& box) {
+StorageGrid::StorageGrid(bl::engine::Engine& engine)
+: engine(engine) {
+    background.create(engine);
+    background.getOverlayScaler().setFixedScissor(
+        sf::IntRect(BoxPosition.x, BoxPosition.y, BoxSize.x, BoxSize.y));
+    background.getTransform().setPosition(BoxPosition);
+}
+
+void StorageGrid::activate(bl::ecs::Entity parent) { background.setParent(parent); }
+
+void StorageGrid::deactivate() {
+    for (auto& ppl : peoplemon) { ppl.removeFromScene(); }
     peoplemon.clear();
-    peoplemon.reserve(box.size());
+}
+
+void StorageGrid::notifyOffset(float offset) {
+    background.getTransform().setPosition(BoxPosition.x + offset, BoxPosition.y);
+}
+
+void StorageGrid::update(const std::vector<core::pplmn::StoredPeoplemon>& box) {
+    deactivate();
 
     for (const auto& ppl : box) {
         auto& rp = peoplemon.emplace_back();
-        /* rp.texture =
-            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id()));
-        rp.sprite.setTexture(*rp.texture, true);
-        rp.sprite.setScale(StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().x),
-                           StorageCursor::TileSize() / static_cast<float>(rp.texture->getSize().y));
-        rp.sprite.setPosition(sf::Vector2f(ppl.position) * StorageCursor::TileSize());
-        */
+        rp.create(engine,
+                  engine.renderer().texturePool().getOrLoadTexture(
+                      core::pplmn::Peoplemon::thumbnailImage(ppl.peoplemon.id())));
+        rp.scaleToSize({StorageCursor::TileSize(), StorageCursor::TileSize()});
+        rp.getTransform().setPosition(glm::vec2(ppl.position.x, ppl.position.y) *
+                                      StorageCursor::TileSize());
+        rp.setParent(background);
+        rp.addToScene(engine.renderer().getObserver().getCurrentOverlay(),
+                      bl::rc::UpdateSpeed::Static);
     }
-}
-
-void StorageGrid::render(sf::RenderTarget& target, sf::RenderStates states) const {
-    // for (const auto& ppl : peoplemon) { target.draw(ppl.sprite, states); }
 }
 
 } // namespace menu

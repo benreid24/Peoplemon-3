@@ -39,10 +39,11 @@ void StorageSystem::remove(unsigned int b, const sf::Vector2i& pos) {
 
 pplmn::StoredPeoplemon* StorageSystem::move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
                                             const sf::Vector2i& newPos) {
-    boxes[newBox].emplace_back(ppl.peoplemon, newBox, newPos);
-    for (auto it = boxes[ppl.boxNumber].begin(); it != boxes[ppl.boxNumber].end(); ++it) {
-        if (&(*it) == &ppl) {
-            boxes[ppl.boxNumber].erase(it);
+    const pplmn::StoredPeoplemon copy = ppl;
+    boxes[newBox].emplace_back(copy.peoplemon, newBox, newPos);
+    for (auto it = boxes[copy.boxNumber].begin(); it != boxes[copy.boxNumber].end(); ++it) {
+        if (it->position == copy.position) {
+            boxes[copy.boxNumber].erase(it);
             break;
         }
     }
