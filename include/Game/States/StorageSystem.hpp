@@ -155,6 +155,7 @@ private:
     void showPeoplemonInfo(bool show);
     void updateThumbnail(const std::string& src);
     void showContextMessage(const std::string& msg, bool closeMenu = true);
+    void positionContextMenu();
 };
 
 } // namespace state

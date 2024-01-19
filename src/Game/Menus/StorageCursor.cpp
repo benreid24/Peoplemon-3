@@ -17,7 +17,7 @@ namespace
 {
 constexpr float MoveTime    = 0.3f;
 constexpr float RotateRate  = 360.f;
-constexpr float FlashPeriod = 0.3f;
+constexpr float FlashPeriod = 0.4f;
 
 glm::vec2 moveVector(core::input::EntityControl dir) {
     switch (dir) {
@@ -58,9 +58,11 @@ void StorageCursor::activate(bl::ecs::Entity parent) {
         peoplemon.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
         pplInScene = true;
     }
-    else { pplInScene = false; }
+    else {
+        pplInScene = false;
+        cursor.flash(FlashPeriod, FlashPeriod);
+    }
     syncPos();
-    cursor.flash(FlashPeriod, FlashPeriod);
 }
 
 void StorageCursor::deactivate() {
@@ -74,12 +76,14 @@ void StorageCursor::setHidden(bool hide) {
         cursor.stopFlashing();
         cursor.setHidden(true);
     }
-    else if (!engine.ecs().hasComponent<bl::com::Toggler>(cursor.entity())) {
+    else if (!pplInScene && !engine.ecs().hasComponent<bl::com::Toggler>(cursor.entity())) {
         cursor.flash(FlashPeriod, FlashPeriod);
     }
 }
 
 void StorageCursor::update(float dt) {
+    if (pplInScene) { peoplemon.getTransform().rotate(RotateRate * dt); }
+
     switch (moveDir) {
     case core::input::Control::MoveRight:
     case core::input::Control::MoveDown:
@@ -153,9 +157,6 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
             peoplemon.getTransform().setOrigin(pplTxtr->size() * 0.5f);
             peoplemon.getTransform().setPosition(size * 0.5f, size * 0.5f);
             peoplemon.setParent(cursor);
-
-            auto* vel = engine.ecs().emplaceComponent<bl::com::Velocity2D>(peoplemon.entity());
-            vel->angularVelocity = RotateRate;
         }
         else { peoplemon.setTexture(pplTxtr); }
 
@@ -167,8 +168,13 @@ void StorageCursor::setHolding(core::pplmn::Id ppl) {
 
         peoplemon.getTransform().setRotation(0.f);
         peoplemon.scaleToSize({size, size});
+        cursor.stopFlashing();
     }
-    else if (peoplemon.entity() != bl::ecs::InvalidEntity) { peoplemon.setHidden(true); }
+    else if (peoplemon.entity() != bl::ecs::InvalidEntity) {
+        peoplemon.removeFromScene();
+        pplInScene = false;
+        cursor.flash(FlashPeriod, FlashPeriod);
+    }
 }
 
 bool StorageCursor::moving() const { return moveDir != core::input::Control::EntityControl::None; }

@@ -1,5 +1,7 @@
 #include <Core/Player/StorageSystem.hpp>
 
+#include <algorithm>
+
 namespace core
 {
 namespace player
@@ -39,15 +41,25 @@ void StorageSystem::remove(unsigned int b, const sf::Vector2i& pos) {
 
 pplmn::StoredPeoplemon* StorageSystem::move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
                                             const sf::Vector2i& newPos) {
-    const pplmn::StoredPeoplemon copy = ppl;
-    boxes[newBox].emplace_back(copy.peoplemon, newBox, newPos);
-    for (auto it = boxes[copy.boxNumber].begin(); it != boxes[copy.boxNumber].end(); ++it) {
-        if (it->position == copy.position) {
-            boxes[copy.boxNumber].erase(it);
-            break;
-        }
+    const auto it = std::find_if(
+        boxes[ppl.boxNumber].begin(),
+        boxes[ppl.boxNumber].end(),
+        [&ppl](const pplmn::StoredPeoplemon& cmp) { return ppl.position == cmp.position; });
+    if (it == boxes[ppl.boxNumber].end()) {
+        BL_LOG_CRITICAL << "Could not find Peoplemon to move at position: " << ppl.position;
+        return nullptr;
     }
-    return &boxes[newBox].back();
+    ppl.position = newPos;
+
+    if (newBox != ppl.boxNumber) {
+        const unsigned int ogBox = ppl.boxNumber;
+        ppl.boxNumber            = newBox;
+        boxes[newBox].emplace_back(ppl);
+        boxes[ogBox].erase(it);
+        return &boxes[newBox].back();
+    }
+
+    return &*it;
 }
 
 bool StorageSystem::spaceFree(int box, int x, int y) const {

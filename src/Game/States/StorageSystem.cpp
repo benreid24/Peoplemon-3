@@ -19,7 +19,7 @@ constexpr glm::vec2 ThumbnailSize(218.f - ThumbnailPosition.x, 434.f - Thumbnail
 constexpr glm::vec2 NamePosition(ThumbnailPosition.x + ThumbnailSize.x * 0.5f,
                                  ThumbnailPosition.y + ThumbnailSize.y + 4.f);
 constexpr glm::vec2 LevelPosition(ThumbnailPosition.x + 4.f, 475.f);
-constexpr glm::vec2 ItemLabelPosition(LevelPosition.x, LevelPosition.y + 32.f);
+constexpr glm::vec2 ItemLabelPosition(LevelPosition.x, LevelPosition.y + 36.f);
 constexpr glm::vec2 ItemPosition(ItemLabelPosition.x, ItemLabelPosition.y + 25.f);
 constexpr float SlideTime = 0.5f;
 constexpr float SlideVel  = menu::StorageGrid::BoxSize.x / SlideTime;
@@ -87,7 +87,7 @@ StorageSystem::StorageSystem(core::system::Systems& s)
     level.setParent(background);
 
     itemLabel.create(
-        s.engine(), core::Properties::MenuFont(), "Hold item:", 14, sf::Color(200, 255, 255));
+        s.engine(), core::Properties::MenuFont(), "Hold item:", 16, sf::Color(200, 255, 255));
     itemLabel.addSection("", 16, sf::Color(165, 255, 255));
     itemLabel.getTransform().setPosition(ItemLabelPosition);
     itemLabel.setParent(background);
@@ -156,6 +156,8 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
     actionMenu.addToOverlay(background.entity());
     contextMenu.addToOverlay(background.entity());
     cursor.activate(background.entity());
+    activeGrid->activate(background.entity());
+    slidingOutGrid->activate(background.entity());
 
     hovered = systems.player().state().storage.get(currentBox, cursor.getPosition());
     if (state == MenuState::WaitingDeposit) {
@@ -180,6 +182,8 @@ void StorageSystem::activate(bl::engine::Engine& engine) {
 
     finishBoxChange();
     if (hovered != nullptr) { updatePeoplemonInfo(hovered->peoplemon); }
+
+    contextMenu.setHidden(true);
 }
 
 void StorageSystem::deactivate(bl::engine::Engine& engine) {
@@ -197,11 +201,12 @@ void StorageSystem::update(bl::engine::Engine&, float dt, float) {
     switch (state) {
     case MenuState::BoxSliding:
         slideOffset += slideVel * dt;
-        activeGrid->notifyOffset(slideOffset +
-                                 menu::StorageGrid::BoxSize.x * slideVel / std::abs(slideVel));
+        activeGrid->notifyOffset(slideOffset + menu::StorageGrid::BoxSize.x * slideVel /
+                                                   std::abs(slideVel) * -1.f);
         slidingOutGrid->notifyOffset(slideOffset);
         if (std::abs(slideOffset) >= menu::StorageGrid::BoxSize.x) {
             slidingOutGrid->deactivate();
+            activeGrid->notifyOffset(0.f);
             enterState(prevState);
         }
         break;
@@ -284,7 +289,8 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
         break;
     case MenuState::MovingPeoplemon:
         if (hovered) {
-            hovered = systems.player().state().storage.move(*hovered, currentBox, pos);
+            hovered->position = ogMovePos; // to properly move
+            hovered           = systems.player().state().storage.move(*hovered, currentBox, pos);
             activeGrid->update(systems.player().state().storage.getBox(currentBox));
         }
         cursor.setHolding(core::pplmn::Id::Unknown);
@@ -320,6 +326,7 @@ void StorageSystem::finishBoxChange() {
     slideOffset = 0.f;
     leftArrow.setHidden(currentBox == 0);
     rightArrow.setHidden(currentBox == 13);
+
     std::swap(activeGrid, slidingOutGrid);
     activeGrid->update(systems.player().state().storage.getBox(currentBox));
 }
@@ -471,10 +478,7 @@ void StorageSystem::enterState(MenuState ns) {
 
     switch (ns) {
     case MenuState::BrowseMenuOpen:
-        contextMenu.setPosition(menu::StorageGrid::BoxPosition +
-                                glm::vec2(cursor.getPosition().x + 1, cursor.getPosition().y + 1) *
-                                    menu::StorageCursor::TileSize() +
-                                glm::vec2(5.f, 5.f));
+        positionContextMenu();
         [[fallthrough]];
 
     case MenuState::WaitingContextMessage:
@@ -512,6 +516,22 @@ void StorageSystem::showPeoplemonInfo(bool s) {
         updateThumbnail(bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(),
                                                      "StorageSystem/question.png"));
     }
+}
+
+void StorageSystem::positionContextMenu() {
+    constexpr float Padding = 5.f;
+
+    glm::vec2 pos(cursor.getPosition().x + 1, cursor.getPosition().y + 1);
+    pos *= menu::StorageCursor::TileSize();
+    pos += menu::StorageGrid::BoxPosition + glm::vec2{Padding, Padding};
+    if (pos.x + contextMenu.getBounds().width > core::Properties::WindowSize().x) {
+        pos.x -= contextMenu.getBounds().width + menu::StorageCursor::TileSize() + Padding * 2.f;
+    }
+    if (pos.y + contextMenu.getBounds().height > core::Properties::WindowSize().y) {
+        pos.y -= contextMenu.getBounds().height + menu::StorageCursor::TileSize() + Padding * 4.f;
+    }
+
+    contextMenu.setPosition(pos);
 }
 
 } // namespace state
