@@ -275,14 +275,17 @@ void StorageSystem::onSelect(const sf::Vector2i& pos) {
 
     switch (state) {
     case MenuState::PlacingPeoplemon:
-        systems.player().state().storage.add(
-            currentBox, pos, systems.player().state().peoplemon[depositedPeoplemon]);
-        systems.player().state().peoplemon.erase(systems.player().state().peoplemon.begin() +
-                                                 depositedPeoplemon);
-        activeGrid->update(systems.player().state().storage.getBox(currentBox));
-        cursor.setHolding(core::pplmn::Id::Unknown);
-        enterState(MenuState::BrowsingBox);
-        onCursor(cursor.getPosition());
+        if (!systems.player().state().storage.get(currentBox, pos)) {
+            systems.player().state().storage.add(
+                currentBox, pos, systems.player().state().peoplemon[depositedPeoplemon]);
+            systems.player().state().peoplemon.erase(systems.player().state().peoplemon.begin() +
+                                                     depositedPeoplemon);
+            activeGrid->update(systems.player().state().storage.getBox(currentBox));
+            cursor.setHolding(core::pplmn::Id::Unknown);
+            enterState(MenuState::BrowsingBox);
+            onCursor(cursor.getPosition());
+        }
+        else { bl::audio::AudioSystem::playOrRestartSound(core::Properties::MenuMoveFailSound()); }
         break;
     case MenuState::BrowsingBox:
         if (hovered != nullptr) { enterState(MenuState::BrowseMenuOpen); }
@@ -329,6 +332,7 @@ void StorageSystem::finishBoxChange() {
 
     std::swap(activeGrid, slidingOutGrid);
     activeGrid->update(systems.player().state().storage.getBox(currentBox));
+    activeGrid->notifyOffset(0.f);
 }
 
 void StorageSystem::showContextMessage(const std::string& msg, bool cm) {
