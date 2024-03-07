@@ -1,10 +1,12 @@
 #include <Game/Menus/StorageCursor.hpp>
 
+#include <BLIB/Components/Velocity2D.hpp>
 #include <BLIB/Util/FileUtil.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
 #include <Core/Player/StorageSystem.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Game/Menus/StorageGrid.hpp>
 
 namespace game
 {
@@ -15,9 +17,9 @@ namespace
 {
 constexpr float MoveTime    = 0.3f;
 constexpr float RotateRate  = 360.f;
-constexpr float FlashPeriod = 0.3f;
+constexpr float FlashPeriod = 0.4f;
 
-sf::Vector2f moveVector(core::input::EntityControl dir) {
+glm::vec2 moveVector(core::input::EntityControl dir) {
     switch (dir) {
     case core::input::Control::MoveRight:
         return {1.f, 0.f};
@@ -33,23 +35,54 @@ sf::Vector2f moveVector(core::input::EntityControl dir) {
 }
 } // namespace
 
-StorageCursor::StorageCursor()
-: position(0, 0)
-, moveDir(core::input::Control::EntityControl::None) {
-    // TODO - BLIB_UPGRADE - update this class and usage
-    /*
-    cursorTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
+StorageCursor::StorageCursor(bl::engine::Engine& engine)
+: engine(engine)
+, position(0, 0)
+, moveDir(core::input::Control::EntityControl::None)
+, pplInScene(false) {
+    cursorTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(
         core::Properties::MenuImagePath(), "StorageSystem/storageCursor.png"));
-    cursor.setTexture(*cursorTxtr, true);
+    cursor.create(engine, cursorTxtr);
+    cursor.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth + 1.f);
 
-    size    = static_cast<float>(cursorTxtr->getSize().x);*/
+    size    = cursorTxtr->size().x;
     moveVel = size / MoveTime;
     offset  = 0.f;
 }
 
+void StorageCursor::activate(bl::ecs::Entity parent) {
+    cursor.setParent(parent);
+    bl::rc::Scene* overlay = engine.renderer().getObserver().getCurrentOverlay();
+    cursor.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
+    if (peoplemon.entity() != bl::ecs::InvalidEntity) {
+        peoplemon.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
+        pplInScene = true;
+    }
+    else {
+        pplInScene = false;
+        cursor.flash(FlashPeriod, FlashPeriod);
+    }
+    syncPos();
+}
+
+void StorageCursor::deactivate() {
+    cursor.removeFromScene();
+    if (peoplemon.entity() != bl::ecs::InvalidEntity) { peoplemon.removeFromScene(); }
+    pplInScene = false;
+}
+
+void StorageCursor::setHidden(bool hide) {
+    if (hide) {
+        cursor.stopFlashing();
+        cursor.setHidden(true);
+    }
+    else if (!pplInScene && !engine.ecs().hasComponent<bl::com::Toggler>(cursor.entity())) {
+        cursor.flash(FlashPeriod, FlashPeriod);
+    }
+}
+
 void StorageCursor::update(float dt) {
-    // TODO - BLIB_UPGRADE - uncomment when created
-    // peoplemon.getTransform().rotate(RotateRate * dt);
+    if (pplInScene) { peoplemon.getTransform().rotate(RotateRate * dt); }
 
     switch (moveDir) {
     case core::input::Control::MoveRight:
@@ -57,10 +90,13 @@ void StorageCursor::update(float dt) {
     case core::input::Control::MoveLeft:
     case core::input::Control::MoveUp:
         offset += moveVel * dt;
+        cursor.getTransform().move(moveVector(moveDir) * moveVel * dt);
         if (offset >= size) {
             moveDir = core::input::Control::EntityControl::None;
             syncPos();
         }
+        break;
+
     default:
         break;
     }
@@ -113,18 +149,32 @@ bool StorageCursor::process(core::input::EntityControl cmd, bool skip) {
 
 void StorageCursor::setHolding(core::pplmn::Id ppl) {
     if (ppl != core::pplmn::Id::Unknown) {
-        // TODO - BLIB_UPGRADE - update this class and usage
-        /*
-        pplTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
-        peoplemon.setTexture(*pplTxtr, true);
-        const sf::Vector2f pplSize(pplTxtr->getSize());
-        peoplemon.setOrigin(pplSize * 0.5f);
-        peoplemon.setPosition(size * 0.5f, size * 0.5f);
-        peoplemon.setRotation(0.f);
-        peoplemon.setScale(size / pplSize.x, size / pplSize.y);
-        */
+        pplTxtr = engine.renderer().texturePool().getOrLoadTexture(
+            core::pplmn::Peoplemon::thumbnailImage(ppl));
+
+        if (peoplemon.entity() == bl::ecs::InvalidEntity) {
+            peoplemon.create(engine, pplTxtr);
+            peoplemon.getTransform().setOrigin(pplTxtr->size() * 0.5f);
+            peoplemon.getTransform().setPosition(size * 0.5f, size * 0.5f);
+            peoplemon.setParent(cursor);
+        }
+        else { peoplemon.setTexture(pplTxtr); }
+
+        if (!pplInScene) {
+            pplInScene = true;
+            peoplemon.addToScene(engine.renderer().getObserver().getCurrentOverlay(),
+                                 bl::rc::UpdateSpeed::Dynamic);
+        }
+
+        peoplemon.getTransform().setRotation(0.f);
+        peoplemon.scaleToSize({size, size});
+        cursor.stopFlashing();
     }
-    else { pplTxtr.release(); }
+    else if (peoplemon.entity() != bl::ecs::InvalidEntity) {
+        peoplemon.removeFromScene();
+        pplInScene = false;
+        cursor.flash(FlashPeriod, FlashPeriod);
+    }
 }
 
 bool StorageCursor::moving() const { return moveDir != core::input::Control::EntityControl::None; }
@@ -146,20 +196,10 @@ void StorageCursor::pageRight() {
     syncPos();
 }
 
-void StorageCursor::render(sf::RenderTarget& target) const {
-    // TODO - BLIB_UPGRADE - update this class and usage
-    /* sf::RenderStates states;
-    states.transform.translate(moveVector(moveDir) * offset);
-    flasher.render(target, states, 0.f);
-    if (pplTxtr) {
-        states.transform.translate(cursor.getPosition());
-        target.draw(peoplemon, states);
-    }*/
-}
+void StorageCursor::syncPos() { cursor.getTransform().setPosition(makePos()); }
 
-void StorageCursor::syncPos() {
-    // TODO - BLIB_UPGRADE - update this class and usage
-    // cursor.setPosition(sf::Vector2f(position) * size);
+glm::vec2 StorageCursor::makePos() const {
+    return glm::vec2(position.x, position.y) * size + menu::StorageGrid::BoxPosition;
 }
 
 float StorageCursor::TileSize() { return size; }

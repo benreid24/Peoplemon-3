@@ -71,13 +71,6 @@ public:
                            unsigned int range);
 
     /**
-     * @brief Returns an iterable set containing all the entities that should be updated
-     *
-     * @return const std::vector<bl::ecs::Entity>& Entities that should be updated
-     */
-    const std::vector<bl::ecs::Entity>& updateRangeEntities() const;
-
-    /**
      * @brief Called by the editor when a level is added
      *
      */
@@ -92,7 +85,6 @@ public:
 private:
     Systems& owner;
     std::vector<bl::ctr::Vector2D<bl::ecs::Entity>> entityMap;
-    std::vector<bl::ecs::Entity> toUpdate;
 
     virtual void observe(const event::EntityMoved& event) override;
     virtual void observe(const bl::ecs::event::ComponentAdded<bl::tmap::Position>& event) override;

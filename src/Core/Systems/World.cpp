@@ -18,6 +18,11 @@ World::World(Systems& o)
 
 void World::init(bl::engine::Engine&) { bl::event::Dispatcher::subscribe(this); }
 
+void World::earlyCleanup() {
+    currentMap.release();
+    previousMap.release();
+}
+
 bool World::switchMaps(const std::string& file, int spawn) {
     if (file == "LastMap") {
         if (!previousMap) {

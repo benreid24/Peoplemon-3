@@ -5,6 +5,7 @@
 #include <BLIB/Resources.hpp>
 #include <Core/Peoplemon/StoredPeoplemon.hpp>
 #include <functional>
+#include <list>
 #include <vector>
 
 namespace game
@@ -18,7 +19,27 @@ namespace menu
  */
 class StorageGrid {
 public:
-    // TODO - BLIB_UPGRADE - storage box rendering
+    static constexpr glm::vec2 BoxPosition = {293.f, 158.f};
+    static constexpr glm::vec2 BoxSize     = {784.f - BoxPosition.x, 581.f - BoxPosition.y};
+
+    /**
+     * @brief Initializes the grid to be empty
+     *
+     * @param engine The game engine instance
+     */
+    StorageGrid(bl::engine::Engine& engine);
+
+    /**
+     * @brief Sets the parent of the grid rectangle to the background
+     *
+     * @param background The background entity
+     */
+    void activate(bl::ecs::Entity background);
+
+    /**
+     * @brief Removes the content from the scene and releases entities
+     */
+    void deactivate();
 
     /**
      * @brief Updates the set of peoplemon to render
@@ -28,19 +49,16 @@ public:
     void update(const std::vector<core::pplmn::StoredPeoplemon>& box);
 
     /**
-     * @brief Renders the box of peoplemon
+     * @brief Applies the given offset to the grid position. Used for sliding in and out
      *
-     * @param target The target to render to
-     * @param states Render states to use
+     * @param offset The offset in overlay units to apply to the x coordinate
      */
-    void render(sf::RenderTarget& target, sf::RenderStates states) const;
+    void notifyOffset(float offset);
 
 private:
-    struct Stored {
-        bl::rc::res::TextureRef texture;
-        bl::gfx::Sprite sprite;
-    };
-    std::vector<Stored> peoplemon;
+    bl::engine::Engine& engine;
+    bl::gfx::Dummy2D background;
+    std::list<bl::gfx::Sprite> peoplemon;
 };
 
 } // namespace menu

@@ -49,12 +49,16 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
 , chosenPeoplemon(sp)
 , useItem(item)
 , state(Browsing)
-//, menu(bl::menu::NoSelector::create())
-//, actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
 , actionOpen(false) {
-    backgroundTxtr = TextureManager::load(bl::util::FileUtil::joinPath(
-        core::Properties::MenuImagePath(), "Peoplemon/background.png"));
-    background.setTexture(*backgroundTxtr, true);
+    menu.create(s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
+    actionMenu.create(s.engine(),
+                      s.engine().renderer().getObserver(),
+                      bl::menu::ArrowSelector::create(10.f, sf::Color::Black));
+
+    backgroundTxtr =
+        s.engine().renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(
+            core::Properties::MenuImagePath(), "Peoplemon/background.png"));
+    background.create(s.engine(), backgroundTxtr);
 
     const glm::vec2 MenuPosition(41.f, 5.f);
     menu::PeoplemonButton::Ptr ppl =
@@ -64,11 +68,11 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
     menu.configureBackground(
         sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
 
-    /*backBut = bl::menu::ImageItem::create(TextureManager::load(
+    backBut = bl::menu::ImageItem::create(s.engine().renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/cancel.png")));
     backBut->overridePosition(
-        sf::Vector2f(core::Properties::WindowWidth(), core::Properties::WindowHeight()) -
-        backBut->getSize() - MenuPosition - sf::Vector2f(10.f, 5.f));
+        glm::vec2(core::Properties::WindowWidth(), core::Properties::WindowHeight()) -
+        backBut->getSize() - MenuPosition - glm::vec2(10.f, 5.f));
     backBut->getSignal(bl::menu::Item::Selected).willAlwaysCall([this]() {
         backBut->getSprite().setColor(sf::Color(180, 100, 80));
     });
@@ -77,7 +81,7 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
     });
     backBut->getSignal(bl::menu::Item::Activated).willAlwaysCall([this]() {
         systems.engine().popState();
-    });*/
+    });
 
     if (context == Context::PauseMenu) {
         bl::menu::TextItem::Ptr info = bl::menu::TextItem::create(
@@ -100,9 +104,9 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
 
         actionMenu.setRootItem(info);
         actionMenu.addItem(item, info.get(), bl::menu::Item::Bottom);
-        actionMenu.addItem(move, info.get(), bl::menu::Item::Right);
-        actionMenu.addItem(back, move.get(), bl::menu::Item::Bottom);
-        actionMenu.attachExisting(back.get(), item.get(), bl::menu::Item::Right);
+        actionMenu.addItem(back, item.get(), bl::menu::Item::Right);
+        actionMenu.addItem(move, back.get(), bl::menu::Item::Top);
+        actionMenu.attachExisting(move.get(), info.get(), bl::menu::Item::Right);
         actionRoot = info.get();
     }
     else {
@@ -121,16 +125,14 @@ PeoplemonMenu::PeoplemonMenu(core::system::Systems& s, Context c, int on, int* s
         actionRoot = back.get();
     }
     actionMenu.setMinHeight(36.f);
-    actionMenu.setPadding({18.f, 12.f});
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 0.f, 0.f});
+    actionMenu.setPadding({24.f, 12.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {18.f, 4.f, 4.f, 4.f});
+    actionMenu.setDepth(bl::cam::OverlayCamera::MinDepth + 1.f);
 }
 
 const char* PeoplemonMenu::name() const { return "PeoplemonMenu"; }
 
 void PeoplemonMenu::activate(bl::engine::Engine& engine) {
-    /*engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
-
     for (unsigned int i = 0; i < 6; ++i) { buttons[i].reset(); }
 
     const auto& team         = systems.player().state().peoplemon;
@@ -192,12 +194,18 @@ void PeoplemonMenu::activate(bl::engine::Engine& engine) {
     inputDriver.drive(&menu);
     systems.engine().inputSystem().getActor().addListener(*this);
     if (chosenPeoplemon) *chosenPeoplemon = -1;
+
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    menu.addToOverlay(background.entity());
+    actionMenu.addToOverlay(background.entity());
+    actionMenu.setHidden(true);
 }
 
 void PeoplemonMenu::deactivate(bl::engine::Engine& engine) {
     inputDriver.drive(nullptr);
     systems.engine().inputSystem().getActor().removeListener(*this);
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
 }
 
 bool PeoplemonMenu::canCancel() const {
@@ -263,11 +271,11 @@ void PeoplemonMenu::update(bl::engine::Engine&, float dt, float) {
 
     switch (state) {
     case MenuState::Moving: {
-        const sf::Vector2f d = moveVel * dt;
-        const float mx       = std::abs(std::max(d.x, 5.f));
-        const float my       = std::abs(std::max(d.y, 5.f));
-        /*buttons[mover1]->overridePosition(buttons[mover1]->getPosition() + d);
-        buttons[mover2]->overridePosition(buttons[mover2]->getPosition() - d);*/
+        const glm::vec2 d = moveVel * dt;
+        const float mx    = std::abs(std::max(d.x, 5.f));
+        const float my    = std::abs(std::max(d.y, 5.f));
+        buttons[mover1]->overridePosition(buttons[mover1]->getPosition() + d);
+        buttons[mover2]->overridePosition(buttons[mover2]->getPosition() - d);
         if (std::abs(buttons[mover1]->getPosition().x - mover1Dest.x) <= mx &&
             std::abs(buttons[mover1]->getPosition().y - mover1Dest.y) < my) {
             cleanupMove(true);
@@ -307,26 +315,6 @@ bool PeoplemonMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::inpu
     return true;
 }
 
-// void PeoplemonMenu::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     engine.window().draw(background);
-//     menu.render(engine.window());
-//     if (actionOpen) { actionMenu.render(engine.window()); }
-//     switch (state) {
-//     case MenuState::ShowingMessage:
-//     case MenuState::UsingItem:
-//     case MenuState::UsingItemWaitMessage:
-//     case MenuState::UsingItemWaitView:
-//     case MenuState::WaitingForgetConfirm:
-//     case MenuState::WaitingForgetChoice:
-//         systems.hud().render(engine.window(), lag);
-//         break;
-//     default:
-//         break;
-//     }
-//     engine.window().display();
-// }
-
 void PeoplemonMenu::selected(menu::PeoplemonButton* b) {
     unsigned int i = 0;
     for (; i < 6; ++i) {
@@ -340,23 +328,24 @@ void PeoplemonMenu::selected(menu::PeoplemonButton* b) {
     switch (state) {
     case Browsing:
         actionOpen = true;
-        /*actionMenu.setPosition(
+        actionMenu.setPosition(
             buttons[i]->getPosition() + buttons[i]->getSize() +
-            sf::Vector2f(menu.getBounds().left, menu.getBounds().top) -
-            sf::Vector2f(actionMenu.getBounds().width, actionMenu.getBounds().height));*/
+            glm::vec2(menu.getBounds().left, menu.getBounds().top) -
+            glm::vec2(actionMenu.getBounds().width, actionMenu.getBounds().height));
         actionMenu.setSelectedItem(actionRoot);
+        actionMenu.setHidden(false);
         inputDriver.drive(&actionMenu);
         mover1 = i;
         break;
 
     case SelectingMove:
-        mover2 = i;
-        // mover1Dest = buttons[mover2]->getPosition();
-        // mover2Dest = buttons[mover1]->getPosition();
-        moveVel = (mover1Dest - mover2Dest) / MoveTime;
-        state   = MenuState::Moving;
+        mover2     = i;
+        mover1Dest = buttons[mover2]->getPosition();
+        mover2Dest = buttons[mover1]->getPosition();
+        moveVel    = (mover1Dest - mover2Dest) / MoveTime;
+        state      = MenuState::Moving;
         inputDriver.drive(nullptr);
-        actionOpen = false;
+        closeActionMenu();
         break;
 
     case Moving:
@@ -388,16 +377,16 @@ void PeoplemonMenu::cleanupMove(bool c) {
     buttons[mover1]->setHighlightColor(systems.player().state().peoplemon[mover1].currentHp() > 0 ?
                                            sf::Color::White :
                                            sf::Color(200, 10, 10));
-    state      = MenuState::Browsing;
-    actionOpen = false;
+    state = MenuState::Browsing;
+    closeActionMenu();
 
     if (!c) {
         inputDriver.drive(&actionMenu);
         menu.setSelectedItem(buttons[mover1].get());
     }
     else {
-        /*buttons[mover1]->overridePosition(mover1Dest);
-        buttons[mover2]->overridePosition(mover2Dest);*/
+        buttons[mover1]->overridePosition(mover1Dest);
+        buttons[mover2]->overridePosition(mover2Dest);
         std::swap(buttons[mover1], buttons[mover2]);
         std::swap(systems.player().state().peoplemon[mover1],
                   systems.player().state().peoplemon[mover2]);
@@ -423,13 +412,18 @@ void PeoplemonMenu::takeItem() {
     }
     state = MenuState::ShowingMessage;
     inputDriver.drive(nullptr);
-    actionOpen = false;
+    closeActionMenu();
 }
 
 void PeoplemonMenu::resetAction() {
     state = MenuState::Browsing;
     inputDriver.drive(&menu);
+    closeActionMenu();
+}
+
+void PeoplemonMenu::closeActionMenu() {
     actionOpen = false;
+    actionMenu.setHidden(true);
 }
 
 void PeoplemonMenu::connectButtons() {
@@ -502,8 +496,8 @@ void PeoplemonMenu::chosen() {
         break;
 
     case Context::UseItem:
-        closeMenu  = false;
-        actionOpen = false;
+        closeMenu = false;
+        closeActionMenu();
 
         if (core::item::Item::hasEffectOnPeoplemon(useItem,
                                                    systems.player().state().peoplemon[mover1])) {

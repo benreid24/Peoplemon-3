@@ -55,7 +55,8 @@ private:
         Flying,
         Deccelerating,
         UnRotating,
-        Descending
+        Descending,
+        Holding
     };
 
     struct RiseState {
@@ -76,6 +77,10 @@ private:
         float maxSpeed;
     };
 
+    struct HoldState {
+        float lookTime;
+    };
+
     Systems& owner;
     State state;
     bl::cam::c2d::CameraShake* cameraShake;
@@ -89,10 +94,11 @@ private:
         RiseState riseState;
         RotateState rotateState;
         FlyState flyState;
+        HoldState holdState;
     };
 
     void movePlayer(float dt);
-    void syncTiles();
+    void rotatePlayer(bl::tmap::Direction dir);
 
     virtual void init(bl::engine::Engine&) override;
     virtual void update(std::mutex&, float dt, float, float, float) override;

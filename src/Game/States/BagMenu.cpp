@@ -23,6 +23,10 @@ const core::item::Category tabCategories[4] = {core::item::Category::Regular,
                                                core::item::Category::TM,
                                                core::item::Category::Key};
 const char* tabTitles[4]                    = {"Regular Items", "Peopleballs", "TM's", "Key Items"};
+constexpr float MenuX                       = 365.f;
+constexpr float MenuY                       = 30.f;
+constexpr float MenuWidth                   = 319.f;
+constexpr float MenuHeight                  = 385.f;
 
 void populateMenu(bl::menu::Menu& menu, const std::vector<core::player::Bag::Item>& items,
                   const ExitCb& ecb, const ItemCb& icb, const ItemCb& dcb, int ti) {
@@ -81,15 +85,21 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
 , unpause(up)
 , state(MenuState::Browsing)
 , activeMenu(&regularMenu)
-//, actionMenu(bl::menu::ArrowSelector::create(10.f, sf::Color::Black))
-//, regularMenu(bl::menu::NoSelector::create())
-//, ballMenu(bl::menu::NoSelector::create())
-//, keyMenu(bl::menu::NoSelector::create())
-//, tmMenu(bl::menu::NoSelector::create())
 , actionOpen(false) {
-    bgndTxtr = TextureManager::load(
+    actionMenu.create(s.engine(),
+                      s.engine().renderer().getObserver(),
+                      bl::menu::ArrowSelector::create(10.f, sf::Color::Black));
+    actionMenu.setDepth(bl::cam::OverlayCamera::MinDepth);
+    regularMenu.create(
+        s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
+    ballMenu.create(
+        s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
+    keyMenu.create(s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
+    tmMenu.create(s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
+
+    bgndTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Bag/background.png"));
-    background.setTexture(*bgndTxtr, true);
+    background.create(s.engine(), bgndTxtr);
 
     if (context == Context::PauseMenu) {
         bl::menu::Item::Ptr use =
@@ -134,15 +144,14 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 3.f, {14.f, 2.f, 2.f, 2.f});
     actionMenu.setPosition({252.f, 82.f});
 
-    // pocketLabel.setFont(core::Properties::MenuFont());
-    pocketLabel.setCharacterSize(27);
-    pocketLabel.setFillColor(sf::Color(0, 20, 75));
-    pocketLabel.setPosition({72.f, 342.f});
+    pocketLabel.create(s.engine(), core::Properties::MenuFont(), "", 27, sf::Color(0, 20, 75));
+    pocketLabel.getTransform().setPosition(72.f, 342.f);
+    pocketLabel.setParent(background);
 
-    // description.setFont(core::Properties::MenuFont());
-    description.setCharacterSize(20);
-    description.setFillColor(sf::Color::Black);
-    description.setPosition({98.f, 473.f});
+    description.create(s.engine(), core::Properties::MenuFont(), "", 20, sf::Color::Black);
+    description.getTransform().setPosition(98.f, 473.f);
+    description.wordWrap(607.f);
+    description.setParent(background);
 
     menuTabs[0] = &regularMenu;
     menuTabs[1] = &ballMenu;
@@ -152,8 +161,9 @@ BagMenu::BagMenu(core::system::Systems& s, Context c, core::item::Id* i, int out
     for (int i = 0; i < 4; ++i) {
         menuTabs[i]->configureBackground(
             sf::Color::Transparent, sf::Color::Transparent, 0.f, {0.f, 0.f, 0.f, 0.f});
-        menuTabs[i]->setPosition({365.f, 30.f});
-        menuTabs[i]->setMaximumSize({-1.f, 385.f});
+        menuTabs[i]->setPosition({MenuX, MenuY});
+        menuTabs[i]->setMaximumSize({-1.f, MenuHeight});
+        menuTabs[i]->setScissor(sf::IntRect(MenuX, MenuY, MenuWidth, MenuHeight));
     }
 }
 
@@ -210,30 +220,48 @@ void BagMenu::activate(bl::engine::Engine& engine) {
         actionOpen = false;
         activeMenu = lastTab >= 0 ? menuTabs[lastTab] : &regularMenu;
         toDrive    = activeMenu;
-        pocketLabel.setString(tabTitles[lastTab >= 0 ? lastTab : 0]);
+        pocketLabel.getSection().setString(tabTitles[lastTab >= 0 ? lastTab : 0]);
         if (lastTab < 0) lastTab = 0;
     }
 
-    /* engine.renderSystem().cameras().pushCamera(
-         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    pocketLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    description.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    actionMenu.addToOverlay(background.entity());
+    actionMenu.setHidden(true);
+    for (unsigned int i = 0; i < std::size(menuTabs); ++i) {
+        menuTabs[i]->addToOverlay(background.entity());
+        menuTabs[i]->setHidden(menuTabs[i] != activeMenu);
+    }
+
     engine.inputSystem().getActor().addListener(*this);
     inputDriver.drive(toDrive);
 }
 
 void BagMenu::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
     engine.inputSystem().getActor().removeListener(*this);
 }
 
 void BagMenu::update(bl::engine::Engine& engine, float dt, float) {
     switch (state) {
-    case MenuState::Sliding:
+    case MenuState::Sliding: {
         slideOff += slideVel * dt;
+
+        const float m  = slideVel > 0.f ? -1.f : 1.f;
+        const float x  = MenuX + slideOff;
+        const float wf = MenuWidth * m + x;
+        activeMenu->setPosition({wf, MenuY});
+        slideOut->setPosition({x, MenuY});
+
         if (std::abs(slideOff) >= activeMenu->getBounds().width) {
             state = MenuState::Browsing;
+            activeMenu->setPosition({MenuX, MenuY});
             inputDriver.drive(activeMenu);
+            slideOut->setHidden(true);
         }
-        break;
+    } break;
 
     case MenuState::ImmediatelyPop:
         engine.popState();
@@ -267,7 +295,8 @@ bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::Dis
                 beginSlide(true);
                 lastTab    = lastTab > 0 ? lastTab - 1 : 3;
                 activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
+                activeMenu->setHidden(false);
+                pocketLabel.getSection().setString(tabTitles[lastTab]);
                 itemHighlighted(
                     dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
                 break;
@@ -276,7 +305,8 @@ bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::Dis
                 beginSlide(false);
                 lastTab    = lastTab < 3 ? lastTab + 1 : 0;
                 activeMenu = menuTabs[lastTab];
-                pocketLabel.setString(tabTitles[lastTab]);
+                activeMenu->setHidden(false);
+                pocketLabel.getSection().setString(tabTitles[lastTab]);
                 itemHighlighted(
                     dynamic_cast<const menu::BagItemButton*>(activeMenu->getSelectedItem()));
                 break;
@@ -290,32 +320,10 @@ bool BagMenu::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::Dis
     return true;
 }
 
-// void BagMenu::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     if (state == MenuState::ImmediatelyPop) return;
-//
-//     engine.window().draw(background);
-//     if (state == MenuState::Sliding) {
-//         const sf::View oldView = engine.window().getView();
-//         sf::RenderStates states;
-//         states.transform.translate({slideOff, 0.f});
-//         slideOut->render(engine.window(), states);
-//         const float m = slideVel > 0.f ? -1.f : 1.f;
-//         states.transform.translate({m * regularMenu.getBounds().width, 0});
-//         activeMenu->render(engine.window(), states);
-//         engine.window().setView(oldView);
-//     }
-//     else { activeMenu->render(engine.window()); }
-//     if (actionOpen) { actionMenu.render(engine.window()); }
-//     engine.window().draw(pocketLabel);
-//     engine.window().draw(description);
-//     if (state == MenuState::ShowingMessage) { systems.hud().render(engine.window(), lag); }
-//     engine.window().display();
-// }
-
 void BagMenu::itemSelected(const menu::BagItemButton* but) {
     selectedItem = const_cast<menu::BagItemButton*>(but);
     actionOpen   = true;
+    actionMenu.setHidden(false);
     inputDriver.drive(&actionMenu);
 }
 
@@ -414,15 +422,15 @@ void BagMenu::useItem() {
                 state = MenuState::ShowingMessage;
                 break;
             case core::item::Type::Useless:
-                systems.hud().displayMessage(
-                    "The Professor's voice echos in your head: \"That thing is completely useless! "
-                    "What are you expecting to happen bro?\"",
-                    std::bind(&BagMenu::messageDone, this));
+                systems.hud().displayMessage("The Professor's voice echoes in your head: \"That "
+                                             "thing is completely useless! "
+                                             "What are you expecting to happen bro?\"",
+                                             std::bind(&BagMenu::messageDone, this));
                 state = MenuState::ShowingMessage;
                 break;
             default:
                 systems.hud().displayMessage(
-                    "The Professor's voice echos in your head: \"You can't use that here bro\"",
+                    "The Professor's voice echoes in your head: \"You can't use that here bro\"",
                     std::bind(&BagMenu::messageDone, this));
                 state = MenuState::ShowingMessage;
                 break;
@@ -454,16 +462,16 @@ void BagMenu::doDrop(int qty) {
 void BagMenu::resetAction() {
     actionOpen = false;
     inputDriver.drive(activeMenu);
+    actionMenu.setHidden(true);
 }
 
 void BagMenu::itemHighlighted(const menu::BagItemButton* but) {
     const auto i = but->getItem().id;
     if (i != core::item::Id::None) {
         const std::string& d = core::item::Item::getDescription(i);
-        description.setString(d);
-        // bl::interface::wordWrap(description, 607.f);
+        description.getSection().setString(d);
     }
-    else { description.setString("Close the bag"); }
+    else { description.getSection().setString("Close the bag"); }
 }
 
 void BagMenu::beginSlide(bool l) {

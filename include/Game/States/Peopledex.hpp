@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_PEOPLEDEX_HPP
 #define GAME_STATES_PEOPLEDEX_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <Core/Player/Peopledex.hpp>
 #include <Game/States/State.hpp>
@@ -13,7 +14,6 @@ namespace state
  * @brief The peopledex menu state
  *
  * @ingroup States
- *
  */
 class Peopledex
 : public State
@@ -29,13 +29,11 @@ public:
 
     /**
      * @brief Destroy the Peopledex object
-     *
      */
     virtual ~Peopledex() = default;
 
     /**
      * @brief Returns "Peopledex"
-     *
      */
     virtual const char* name() const override;
 
@@ -62,34 +60,32 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update peopledex rendering
-
     bl::menu::Menu menu;
     core::input::MenuDriver menuDriver;
 
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
 
     core::pplmn::Id firstId;
     core::pplmn::Id lastId;
-    bl::resource::Ref<sf::Texture> upTxtr;
-    sf::Sprite upArrow;
-    bl::resource::Ref<sf::Texture> downTxtr;
-    sf::Sprite downArrow;
+    bl::rc::res::TextureRef upTxtr;
+    bl::gfx::Sprite upArrow;
+    bl::rc::res::TextureRef downTxtr;
+    bl::gfx::Sprite downArrow;
 
-    bl::resource::Ref<sf::Texture> seenTxtr;
-    sf::Sprite seenBox;
-    sf::Text seenLabel;
+    bl::rc::res::TextureRef seenTxtr;
+    bl::gfx::Sprite seenBox;
+    bl::gfx::Text seenLabel;
 
-    bl::resource::Ref<sf::Texture> ownedTxtr;
-    sf::Sprite ownedBox;
-    sf::Text ownedLabel;
+    bl::rc::res::TextureRef ownedTxtr;
+    bl::gfx::Sprite ownedBox;
+    bl::gfx::Text ownedLabel;
 
-    bl::resource::Ref<sf::Texture> thumbTxtr;
-    sf::Sprite thumbnail;
-    sf::Text nameLabel;
-    sf::Text descLabel;
-    sf::Text locationLabel;
+    bl::rc::res::TextureRef thumbTxtr;
+    bl::gfx::Sprite thumbnail;
+    bl::gfx::Text nameLabel;
+    bl::gfx::Text descLabel;
+    bl::gfx::Text locationLabel;
 
     Peopledex(core::system::Systems& systems);
     void onHighlight(core::pplmn::Id ppl);

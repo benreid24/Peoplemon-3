@@ -90,6 +90,7 @@ private:
 
     virtual void init(bl::engine::Engine&) override;
     virtual void update(std::mutex&, float dt, float, float, float) override;
+    virtual void earlyCleanup() override;
 };
 
 } // namespace system
