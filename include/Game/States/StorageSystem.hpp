@@ -65,6 +65,7 @@ private:
         // entry states
         ChooseAction,
         PlacingPeoplemon,
+        WaitingHudMessage,
 
         // browse states
         BrowsingBox,

@@ -225,9 +225,16 @@ void StorageSystem::update(bl::engine::Engine&, float dt, float) {
 }
 
 void StorageSystem::startDeposit() {
-    systems.engine().pushState(PeoplemonMenu::create(
-        systems, PeoplemonMenu::Context::StorageSelect, -1, &depositedPeoplemon));
-    enterState(MenuState::WaitingDeposit);
+    if (systems.player().state().peoplemon.size() > 1) {
+        systems.engine().pushState(PeoplemonMenu::create(
+            systems, PeoplemonMenu::Context::StorageSelect, -1, &depositedPeoplemon));
+        enterState(MenuState::WaitingDeposit);
+    }
+    else {
+        systems.hud().displayMessage("You cannot deposit your last Peoplemon!",
+                                     std::bind(&StorageSystem::onMessageDone, this));
+        enterState(MenuState::WaitingHudMessage);
+    }
 }
 
 void StorageSystem::startBrowse() { enterState(MenuState::BrowsingBox); }
@@ -477,7 +484,8 @@ void StorageSystem::enterState(MenuState ns) {
     prevState = state;
     state     = ns;
 
-    cursor.setHidden(ns == MenuState::ChooseAction || ns == MenuState::BoxSliding);
+    cursor.setHidden(ns == MenuState::ChooseAction || ns == MenuState::BoxSliding ||
+                     ns == MenuState::WaitingHudMessage);
     contextMenu.setHidden(true);
 
     switch (ns) {
@@ -507,8 +515,15 @@ void StorageSystem::onReleaseConfirm(const std::string& c) {
 }
 
 void StorageSystem::onMessageDone() {
-    enterState(closeMenuAfterMessage ? MenuState::BrowsingBox : MenuState::BrowseMenuOpen);
-    onCursor(cursor.getPosition());
+    switch (state) {
+    case MenuState::WaitingContextMessage:
+        enterState(closeMenuAfterMessage ? MenuState::BrowsingBox : MenuState::BrowseMenuOpen);
+        onCursor(cursor.getPosition());
+        break;
+    case MenuState::WaitingHudMessage:
+        enterState(MenuState::ChooseAction);
+        break;
+    }
 }
 
 void StorageSystem::showPeoplemonInfo(bool s) {
