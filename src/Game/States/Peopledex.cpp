@@ -4,10 +4,6 @@
 #include <Core/Resources.hpp>
 #include <Game/Menus/PeopledexRow.hpp>
 
-class TextureHelper : public bl::com::Texture {
-    friend class game::state::Peopledex;
-};
-
 namespace game
 {
 namespace state

@@ -19,7 +19,6 @@ namespace state
  * @brief State that renders and implements a store menu to buy and sell items
  *
  * @ingroup States
- *
  */
 class StoreMenu
 : public State
@@ -37,7 +36,6 @@ public:
 
     /**
      * @brief Destroy the Store State object
-     *
      */
     virtual ~StoreMenu() = default;
 
@@ -70,8 +68,6 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update store menu rendering
-
     struct Item {
         const core::item::Id item;
         const int price;
@@ -100,20 +96,20 @@ private:
     float dingTime;
     unsigned int curCat;
 
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
 
     bl::menu::Menu* renderMenu;
     bl::menu::Menu actionMenu;
     bl::menu::Menu buyMenu;
     bl::menu::Menu sellMenus[3];
     core::system::hud::QtyEntry qtyEntry;
-    sf::Text actionText;
-    sf::Text boxText;
-    sf::Text moneyText;
-    sf::Text catText;
-    /*bl::shapes::Triangle leftArrow;
-    bl::shapes::Triangle rightArrow;*/
+    bl::gfx::Text actionText;
+    bl::gfx::Text boxText;
+    bl::gfx::Text moneyText;
+    bl::gfx::Text catText;
+    bl::gfx::Triangle leftArrow;
+    bl::gfx::Triangle rightArrow;
 
     StoreMenu(core::system::Systems& systems, const core::event::StoreOpened& data);
 
