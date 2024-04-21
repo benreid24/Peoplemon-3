@@ -230,30 +230,6 @@ void StoreMenu::update(bl::engine::Engine&, float dt, float) {
     }
 }
 
-// void StoreMenu::render(bl::engine::Engine& engine, float) {
-//     engine.window().clear();
-//
-//     engine.window().draw(background);
-//     engine.window().draw(moneyText);
-//     engine.window().draw(boxText);
-//     engine.window().draw(actionText);
-//
-//     actionMenu.render(engine.window());
-//     renderMenu->render(engine.window());
-//
-//     if (menuState == MenuState::BuyQty || menuState == MenuState::SellQty) {
-//         qtyEntry.render(engine.window());
-//     }
-//     if (menuState == MenuState::SellMenu || menuState == MenuState::SellDing ||
-//         menuState == MenuState::SellQty) {
-//         engine.window().draw(catText);
-//         engine.window().draw(rightArrow);
-//         engine.window().draw(leftArrow);
-//     }
-//
-//     engine.window().display();
-// }
-
 void StoreMenu::enterState(MenuState newState) {
     menuState = newState;
 

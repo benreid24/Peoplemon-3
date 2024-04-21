@@ -39,7 +39,10 @@ add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
 
-include("lib/BLIB/cmake/configure_blib_target.cmake")
+include("lib/BLIB/cmake/set_module_path.cmake")
+set_module_path()
+
+include(configure_blib_target)
 configure_blib_target(Peoplemon)
 configure_blib_target(PeoplemonEditor)
 configure_blib_target(Core)
